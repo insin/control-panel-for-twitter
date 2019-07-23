@@ -210,9 +210,11 @@ function hideSidebarContents(page, attempts = 1) {
 function observeHtmlFontSize() {
   let $html = document.querySelector('html')
   let $style = addStyle('')
+  let lastFontSize = ''
 
   function setCss(fontSize) {
     log(`setting nav font size to ${fontSize}`)
+    lastFontSize = fontSize
     $style.textContent = [
       `nav[aria-label="Primary"] div[dir="auto"] span { font-size: ${fontSize}; font-weight: normal; }`,
       'nav[aria-label="Primary"] div[dir="auto"] { margin-top: -4px; }'
@@ -220,10 +222,11 @@ function observeHtmlFontSize() {
   }
 
   log('observing <html> style attribute')
-  let lastFontSize = ''
+  if ($html.style.fontSize) {
+    setCss($html.style.fontSize)
+  }
   new MutationObserver(() => {
     if ($html.style.fontSize != lastFontSize) {
-      lastFontSize = $html.style.fontSize
       setCss($html.style.fontSize)
     }
   }).observe($html, {
