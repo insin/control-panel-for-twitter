@@ -4,9 +4,9 @@
 
 **Hide retweets, and other UI tweaks for New Twitter**
 
-* [Install Chrome Extension]()
-* [Install Firefox Add-on]()
-* [Install as a user script](https://github.com/insin/manage-new-twitter/raw/master/manage-new-twitter.user.js) (requires a [user script manager](https://greasyfork.org/en#home-step-1))
+* [Install Chrome Extension](https://chrome.google.com/webstore/detail/kpmjjdhbcfebfjgdnpjagcndoelnidfj)
+* [Install Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/)
+* [Install as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) (requires a [user script manager](https://greasyfork.org/en#home-step-1))
 
 ## Features
 
