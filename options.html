@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      form {
+        font-size: 1.25em;
+        color: #444;
+      }
+      hr {
+        border-style: solid;
+        border-width: 1px 0 0 0;
+        border-color: #d7d7d7;
+      }
+      label.checkbox input {
+        margin-left:  0;
+        vertical-align: middle;
+      }
+      label.checkbox span {
+        vertical-align: middle;
+      }
+      section {
+        padding: .25em .5em;
+      }
+    </style>
+  </head>
+  <body>
+    <form>
+      <section>
+        <label class="checkbox">
+          <input type="checkbox" name="showRetweets">
+          <span>Show retweets in Latest Tweets / Home</span>
+        </label>
+      </section>
+      <hr>
+      <section>
+        <label class="checkbox">
+          <input type="checkbox" name="showSidebarContent">
+          <span>Show sidebar content</span>
+        </label>
+      </section>
+      <hr>
+      <section>
+        <label class="checkbox">
+          <input type="checkbox" name="enableDebugLogging">
+          <span>Enable debug logging</span>
+        </label>
+      </section>
+    </form>
+    <script src="options.js"></script>
+  </body>
+</html>

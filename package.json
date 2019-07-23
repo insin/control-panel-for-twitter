@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "build": "web-ext build",
+    "lint": "web-ext lint",
+    "start": "web-ext run"
+  }
+}
