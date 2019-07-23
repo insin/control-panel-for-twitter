@@ -168,14 +168,33 @@ function observeTimeline(page) {
 function hideSidebarContents(page, attempts = 1) {
   let $trending = document.querySelector('div[data-testid="sidebarColumn"] section')
   if ($trending) {
-    $trending.parentNode.parentNode.parentNode.style.display = 'none'
-  }
-  let $whoToFollow = document.querySelector('div[data-testid="sidebarColumn"] aside')
-  if ($whoToFollow) {
-     $whoToFollow.parentNode.parentNode.style.display = 'none'
+    let $trendingModule = $trending.parentNode.parentNode.parentNode
+    $trendingModule.style.display = 'none'
+    // Hide surrounding elements which draw separators between modules
+    if ($trendingModule.previousElementSibling &&
+        $trendingModule.previousElementSibling.childElementCount == 0) {
+      $trendingModule.previousElementSibling.style.display = 'none'
+    }
+    if ($trendingModule.nextElementSibling &&
+        $trendingModule.nextElementSibling.childElementCount == 0) {
+      $trendingModule.nextElementSibling.style.display = 'none'
+    }
   }
 
-  if ($trending == null || $whoToFollow == null) {
+  let $people = document.querySelector('div[data-testid="sidebarColumn"] aside')
+  if ($people) {
+     let $peopleModule
+     if ($people.getAttribute('aria-label') == 'Relevant people') {
+       // "Relevant people" section when viewing a Tweet/thread
+       $peopleModule = $people.parentNode
+     } else {
+       // "Who to follow" section
+       $peopleModule = $people.parentNode.parentNode
+     }
+     $peopleModule.style.display = 'none'
+  }
+
+  if ($trending == null || $people == null) {
     if (currentPage != page) {
       return log(`stopped waiting for ${page} sidebar`)
     }
