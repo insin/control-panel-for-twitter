@@ -5,12 +5,10 @@
     <style>
       form {
         font-size: 1.25em;
-        color: #444;
       }
       hr {
         border-style: solid;
         border-width: 1px 0 0 0;
-        border-color: #d7d7d7;
       }
       label.checkbox input {
         margin-left:  0;
@@ -20,30 +18,69 @@
         vertical-align: middle;
       }
       section {
-        padding: .25em .5em;
+        padding: .725em 0;
+      }
+      ul {
+        padding-left: 0;
+        margin-top: .5em;
+        margin-bottom: 0;
+      }
+      li {
+        list-style-type: none;
       }
     </style>
   </head>
-  <body>
+
     <form>
       <section>
         <label class="checkbox">
-          <input type="checkbox" name="showRetweets">
-          <span>Show retweets in Latest Tweets / Home</span>
+          <input type="checkbox" name="hideRetweets">
+          <span>Hide retweets in Latest Tweets / Home timeline</span>
         </label>
       </section>
       <hr>
       <section>
         <label class="checkbox">
-          <input type="checkbox" name="showSidebarContent">
-          <span>Show sidebar content</span>
+          <input type="checkbox" name="hideSidebarContent">
+          <span>Hide sidebar content</span>
         </label>
+      </section>
+      <hr>
+      <section>
+        <label class="checkbox">
+          <input type="checkbox" name="navBaseFontSize">
+          <span>Use base font size for the navigation bar</span>
+        </label>
+      </section>
+      <hr>
+      <section>
+        Hide navigation bar items:
+        <ul>
+          <li>
+            <label class="checkbox">
+              <input type="checkbox" name="hideExploreNav">
+              <span>Explore</span>
+            </label>
+          </li>
+          <li>
+            <label class="checkbox">
+              <input type="checkbox" name="hideBookmarksNav">
+              <span>Bookmarks</span>
+            </label>
+          </li>
+          <li>
+            <label class="checkbox">
+              <input type="checkbox" name="hideListsNav">
+              <span>Lists</span>
+            </label>
+          </li>
+        </ul>
       </section>
       <hr>
       <section>
         <label class="checkbox">
           <input type="checkbox" name="enableDebugLogging">
-          <span>Enable debug logging</span>
+          <span>(Developer) Enable debug logging</span>
         </label>
       </section>
     </form>

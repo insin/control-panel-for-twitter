@@ -10,15 +10,16 @@
 
 ## Features
 
-### Hide retweets in your Latest Tweets / Home timeline
-
-### Hide sidebar content (Trends, Who to follow, sidefooter)
+- Hide retweets in your Latest Tweets / Home timeline
+- Hide sidebar content (Trends, Who to follow, sidefooter)
+- Hide some less-used nav links (Explore, Bookmarks, Links)
+- Apply the base font size to the primary nav to make it less distracting
 
 ## Screenshots
 
 Timeline view with all tweaks enabled (default):
 
-![Screenshot of New Twitter timeline without retweets or sidebar content](screenshots/timeline.png)
+![Screenshot of a New Twitter timeline without retweets, sidebar content, nav links which can be hidden and a less distracting nav style](screenshots/timeline.png)
 
 Chrome extension options dialog:
 

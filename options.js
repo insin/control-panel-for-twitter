@@ -1,8 +1,21 @@
-chrome.storage.local.get((config) => {
+chrome.storage.local.get((storedConfig) => {
   let form = document.querySelector('form')
 
-  for (let configItem in config) {
-    form.elements[configItem].checked = config[configItem] || false
+  let config = {
+    hideRetweets: true,
+    hideSidebarContent: true,
+    navBaseFontSize: true,
+    hideExploreNav: true,
+    hideBookmarksNav: true,
+    hideListsNav: true,
+    enableDebugLogging: false,
+    ...storedConfig
+  }
+
+  for (let prop in config) {
+    if (prop in form.elements) {
+      form.elements[prop].checked = config[prop]
+    }
   }
 
   form.addEventListener('change', (e) => {

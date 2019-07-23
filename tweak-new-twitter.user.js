@@ -3,22 +3,45 @@
 // @description Hide retweets, and other UI tweaks for New Twitter
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
-// @version     1
+// @version     2
 // ==/UserScript==
 
 const HOME = 'Home'
 const LATEST_TWEETS = 'Latest Tweets'
 
-let config = {}
-
-let currentPage = 'Initialising'
+/** Title of the current page, without the ' / Twitter' suffix */
+let currentPage = ''
 
 /** MutationObservers active on the current page */
 let pageObservers = []
 
-function log(message) {
+/**
+  * Default config enables all features.
+  *
+  * You'll need to edit the config object manually for now if you're using this
+  * as a user script.
+  */
+let config = {
+  hideRetweets: true,
+  hideSidebarContent: true,
+  navBaseFontSize: true,
+  hideExploreNav: true,
+  hideBookmarksNav: true,
+  hideListsNav: true,
+  enableDebugLogging: false,
+}
+
+function addStyle(css) {
+  let $style = document.createElement('style')
+  $style.dataset.insertedBy = 'tweak-new-twitter'
+  $style.textContent = css
+  document.head.appendChild($style)
+  return $style
+}
+
+function log(...args) {
   if (config.enableDebugLogging) {
-    console.log(`[${currentPage}] ${message}`)
+    console.log(`TWT${currentPage ? `(${currentPage})` : ''}`, ...args)
   }
 }
 
@@ -26,18 +49,35 @@ function s(n) {
   return n == 1 ? '' : 's'
 }
 
-let $style = document.createElement('style')
-$style.dataset.insertedBy = 'tweak-new-twitter'
-$style.innerText = `
-/* Trends */
-div[data-testid="sidebarColumn"] section ,
-/* Who to follow */
-div[data-testid="sidebarColumn"] aside,
-/* Footery stuff in the side bar because infinite scroll */
-div[data-testid="sidebarColumn"] nav {
-  display: none !important;
-}`
-document.head.appendChild($style)
+function applyCss() {
+  var cssRules = []
+  var hideCssSelectors = []
+  if (config.hideSidebarContent) {
+    hideCssSelectors.push(
+      // Trends
+      'div[data-testid="sidebarColumn"] section',
+      // Who to follow
+      'div[data-testid="sidebarColumn"] aside',
+      // Footery stuff in the side bar because infinite scroll
+      'div[data-testid="sidebarColumn"] nav'
+    )
+  }
+  if (config.hideExploreNav) {
+    hideCssSelectors.push('nav a[href="/explore"]')
+  }
+  if (config.hideExploreNav) {
+    hideCssSelectors.push('nav a[href="/i/bookmarks"]')
+  }
+  if (config.hideListsNav) {
+    hideCssSelectors.push('nav a[href*="/lists"]')
+  }
+  if (hideCssSelectors.length > 0) {
+    cssRules.push(`${hideCssSelectors.join(', ')} { display: none !important; }`)
+  }
+  if (cssRules.length > 0) {
+    addStyle(cssRules.join('\n'))
+  }
+}
 
 function observeTitle() {
   let $title = document.querySelector('title')
@@ -48,12 +88,12 @@ function observeTitle() {
   }
 
   function processPage(title) {
-    // Ignore Flash of Uninitialised Title
+    // Ignore Flash of Uninitialised Title navigating to a screen for the first time
     if (title == 'Twitter') {
       return
     }
 
-    // Assumption: all non-FOUT page title changes are navigation
+    // Assumption: all non-FOUT page title changes are navigation / redraws
 
     if (pageObservers.length > 0) {
       log(`disconnecting ${pageObservers.length} page observer${s(pageObservers.length)}`)
@@ -66,18 +106,19 @@ function observeTitle() {
     log('navigation occurred')
 
     if (currentPage == HOME || currentPage == LATEST_TWEETS) {
-      if (!config.showRetweets) {
+      if (config.hideRetweets) {
         observeTimeline(currentPage)
       }
     }
-    if (!config.showSidebarContent) {
+    if (config.hideSidebarContent) {
        hideSidebarContents(currentPage)
     }
   }
 
-  // Watch for page navigation
   processPage($title.textContent)
-  log('observing <title>')
+
+  // Watch for page navigation
+  log('observing <title> text')
   new MutationObserver((mutations) => {
     processPage($title.textContent)
   }).observe($title, {
@@ -107,13 +148,13 @@ function observeTimeline(page) {
       let isRetweet = $tweet.previousElementSibling &&
                       $tweet.previousElementSibling.textContent.includes('Retweeted')
       if (isRetweet) {
-        $tweet.parentNode.parentNode.parentNode.style.display = 'none';
+        $tweet.parentNode.parentNode.parentNode.style.display = 'none'
       }
     }
   }
 
   // Watch for new tweets being rendered
-  log('observing timeline')
+  log('observing timeline childList')
   processTweets()
   let $tweetContainer = $timeline.firstElementChild.firstElementChild
   let observer = new MutationObserver(processTweets)
@@ -123,7 +164,7 @@ function observeTimeline(page) {
   pageObservers.push(observer)
 }
 
-// TODO Wait for responsive breakpoint first if necessary
+// TODO Re-trigger removal when the horizontal breakpoint is hit while resizing
 function hideSidebarContents(page, attempts = 1) {
   let $trending = document.querySelector('div[data-testid="sidebarColumn"] section')
   if ($trending) {
@@ -139,7 +180,7 @@ function hideSidebarContents(page, attempts = 1) {
       return log(`stopped waiting for ${page} sidebar`)
     }
     if (attempts == 10) {
-      return log(`stopped waiting for sidebar content to hide after ${attempts} attempts`)
+      return log(`stopped waiting for sidebar content after ${attempts} attempts`)
     }
     return setTimeout(hideSidebarContents, 333, page, attempts + 1)
   }
@@ -147,10 +188,43 @@ function hideSidebarContents(page, attempts = 1) {
   log('hid all sidebar content')
 }
 
-chrome.storage.local.get((storedConfig) => {
-  config = storedConfig
-  if (config.showRetweets && config.showSidebarContent) {
-    return log('nothing to do!')
+function observeHtmlFontSize() {
+  let $html = document.querySelector('html')
+  let $style = addStyle('')
+
+  function setCss(fontSize) {
+    log(`setting nav font size to ${fontSize}`)
+    $style.textContent = [
+      `nav[aria-label="Primary"] div[dir="auto"] span { font-size: ${fontSize}; font-weight: normal; }`,
+      'nav[aria-label="Primary"] div[dir="auto"] { margin-top: -4px; }'
+    ].join('\n')
   }
-  observeTitle()
+
+  log('observing <html> style attribute')
+  let lastFontSize = ''
+  new MutationObserver(() => {
+    if ($html.style.fontSize != lastFontSize) {
+      lastFontSize = $html.style.fontSize
+      setCss($html.style.fontSize)
+    }
+  }).observe($html, {
+    attributes: true,
+    attributeFilter: ['style']
+  })
+}
+
+function main() {
+  log('config', config)
+  applyCss()
+  if (config.navBaseFontSize) {
+    observeHtmlFontSize()
+  }
+  if (config.hideRetweets || config.hideSidebarContents) {
+    observeTitle()
+  }
+}
+
+chrome.storage.local.get((storedConfig) => {
+  config = {...config, ...storedConfig}
+  main()
 })
