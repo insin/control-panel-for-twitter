@@ -3,7 +3,7 @@
 // @description Hide retweets, and other UI tweaks for New Twitter
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
-// @version     2
+// @version     3
 // ==/UserScript==
 
 const HOME = 'Home'
