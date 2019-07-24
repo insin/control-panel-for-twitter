@@ -9,6 +9,20 @@
 const HOME = 'Home'
 const LATEST_TWEETS = 'Latest Tweets'
 
+let Selectors = {
+  PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
+  PRIMARY_NAV: 'nav[aria-label="Primary"]',
+  SIDEBAR_COLUMN: 'div[data-testid="sidebarColumn"]',
+  TIMELINE: 'div[aria-label^="Timeline"]',
+  TWEET: 'div[data-testid="tweet"]',
+}
+
+Object.assign(Selectors, {
+  SIDEBAR_FOOTER: `${Selectors.SIDEBAR_COLUMN} nav`,
+  SIDEBAR_PEOPLE: `${Selectors.SIDEBAR_COLUMN} aside`,
+  SIDEBAR_TRENDS: `${Selectors.SIDEBAR_COLUMN} section`,
+})
+
 /** Title of the current page, without the ' / Twitter' suffix */
 let currentPage = ''
 
@@ -22,13 +36,13 @@ let pageObservers = []
   * as a user script.
   */
 let config = {
+  enableDebugLogging: false,
+  hideBookmarksNav: true,
+  hideExploreNav: true,
+  hideListsNav: true,
   hideRetweets: true,
   hideSidebarContent: true,
   navBaseFontSize: true,
-  hideExploreNav: true,
-  hideBookmarksNav: true,
-  hideListsNav: true,
-  enableDebugLogging: false,
 }
 
 function addStyle(css) {
@@ -54,22 +68,19 @@ function applyCss() {
   var hideCssSelectors = []
   if (config.hideSidebarContent) {
     hideCssSelectors.push(
-      // Trends
-      'div[data-testid="sidebarColumn"] section',
-      // Who to follow
-      'div[data-testid="sidebarColumn"] aside',
-      // Footery stuff in the side bar because infinite scroll
-      'div[data-testid="sidebarColumn"] nav'
+      Selectors.SIDEBAR_TRENDS,
+      Selectors.SIDEBAR_PEOPLE,
+      Selectors.SIDEBAR_FOOTER
     )
   }
   if (config.hideExploreNav) {
-    hideCssSelectors.push('nav a[href="/explore"]')
+    hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href="/explore"]`)
   }
   if (config.hideExploreNav) {
-    hideCssSelectors.push('nav a[href="/i/bookmarks"]')
+    hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href="/i/bookmarks"]`)
   }
   if (config.hideListsNav) {
-    hideCssSelectors.push('nav a[href*="/lists"]')
+    hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href*="/lists"]`)
   }
   if (hideCssSelectors.length > 0) {
     cssRules.push(`${hideCssSelectors.join(', ')} { display: none !important; }`)
@@ -112,6 +123,7 @@ function observeTitle() {
     }
     if (config.hideSidebarContent) {
        hideSidebarContents(currentPage)
+       observeSidebar(currentPage)
     }
   }
 
@@ -128,21 +140,21 @@ function observeTitle() {
 }
 
 function observeTimeline(page) {
-  var $timeline = document.querySelector('div[aria-label^="Timeline"]')
-  var $firstTweet = document.querySelector('div[data-testid="tweet"]')
+  var $timeline = document.querySelector(Selectors.TIMELINE)
+  var $firstTweet = document.querySelector(Selectors.TWEET)
 
   if ($timeline == null ||
       $timeline.firstElementChild == null ||
       $timeline.firstElementChild.firstElementChild == null ||
       $firstTweet == null) {
     if (currentPage != page) {
-      return log('stopped waiting for ${page} timeline')
+      return log(`stopped waiting for ${page} timeline`)
     }
     return setTimeout(observeTimeline, 1000 / 60 * 5, page)
   }
 
   function processTweets() {
-    let tweets = document.querySelectorAll('div[data-testid="tweet"]')
+    let tweets = document.querySelectorAll(Selectors.TWEET)
     log(`processing ${tweets.length} tweet${s(tweets.length)}`)
     for (let $tweet of tweets) {
       let isRetweet = $tweet.previousElementSibling &&
@@ -164,24 +176,51 @@ function observeTimeline(page) {
   pageObservers.push(observer)
 }
 
-// TODO Re-trigger removal when the horizontal breakpoint is hit while resizing
-function hideSidebarContents(page, attempts = 1) {
-  let $trending = document.querySelector('div[data-testid="sidebarColumn"] section')
-  if ($trending) {
-    let $trendingModule = $trending.parentNode.parentNode.parentNode
-    $trendingModule.style.display = 'none'
-    // Hide surrounding elements which draw separators between modules
-    if ($trendingModule.previousElementSibling &&
-        $trendingModule.previousElementSibling.childElementCount == 0) {
-      $trendingModule.previousElementSibling.style.display = 'none'
+function observeSidebar(page) {
+  let $primaryColumn = document.querySelector(Selectors.PRIMARY_COLUMN)
+
+  if ($primaryColumn == null) {
+    if (currentPage != page) {
+      return log(`stopped waiting for ${page} primary column`)
     }
-    if ($trendingModule.nextElementSibling &&
-        $trendingModule.nextElementSibling.childElementCount == 0) {
-      $trendingModule.nextElementSibling.style.display = 'none'
+    return setTimeout(observeSidebar, 1000 / 60 * 3, page)
+  }
+
+  // Watch for sidebar appearing when the responsive breakpoint is hit
+  log('observing sidebar')
+  let observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((el) => {
+        if (el.dataset.testid == 'sidebarColumn') {
+          log('sidebar appeared')
+          hideSidebarContents(page)
+        }
+      })
+    })
+  })
+  observer.observe($primaryColumn.parentNode, {
+    childList: true
+  })
+  pageObservers.push(observer)
+}
+
+function hideSidebarContents(page, attempts = 1) {
+  let $trends = document.querySelector(Selectors.SIDEBAR_TRENDS)
+  if ($trends) {
+    let $trendsModule = $trends.parentNode.parentNode.parentNode
+    $trendsModule.style.display = 'none'
+    // Hide surrounding elements which draw separators between modules
+    if ($trendsModule.previousElementSibling &&
+        $trendsModule.previousElementSibling.childElementCount == 0) {
+      $trendsModule.previousElementSibling.style.display = 'none'
+    }
+    if ($trendsModule.nextElementSibling &&
+        $trendsModule.nextElementSibling.childElementCount == 0) {
+      $trendsModule.nextElementSibling.style.display = 'none'
     }
   }
 
-  let $people = document.querySelector('div[data-testid="sidebarColumn"] aside')
+  let $people = document.querySelector(Selectors.SIDEBAR_PEOPLE)
   if ($people) {
      let $peopleModule
      if ($people.getAttribute('aria-label') == 'Relevant people') {
@@ -194,7 +233,7 @@ function hideSidebarContents(page, attempts = 1) {
      $peopleModule.style.display = 'none'
   }
 
-  if ($trending == null || $people == null) {
+  if ($trends == null || $people == null) {
     if (currentPage != page) {
       return log(`stopped waiting for ${page} sidebar`)
     }
@@ -216,8 +255,8 @@ function observeHtmlFontSize() {
     log(`setting nav font size to ${fontSize}`)
     lastFontSize = fontSize
     $style.textContent = [
-      `nav[aria-label="Primary"] div[dir="auto"] span { font-size: ${fontSize}; font-weight: normal; }`,
-      'nav[aria-label="Primary"] div[dir="auto"] { margin-top: -4px; }'
+      `${Selectors.PRIMARY_NAV} div[dir="auto"] span { font-size: ${fontSize}; font-weight: normal; }`,
+      `${Selectors.PRIMARY_NAV} div[dir="auto"] { margin-top: -4px; }`
     ].join('\n')
   }
 

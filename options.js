@@ -2,13 +2,13 @@ chrome.storage.local.get((storedConfig) => {
   let form = document.querySelector('form')
 
   let config = {
+    enableDebugLogging: false,
+    hideBookmarksNav: true,
+    hideExploreNav: true,
+    hideListsNav: true,
     hideRetweets: true,
     hideSidebarContent: true,
     navBaseFontSize: true,
-    hideExploreNav: true,
-    hideBookmarksNav: true,
-    hideListsNav: true,
-    enableDebugLogging: false,
     ...storedConfig
   }
 
