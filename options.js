@@ -2,6 +2,7 @@ chrome.storage.local.get((storedConfig) => {
   let form = document.querySelector('form')
 
   let config = {
+    alwaysUseLatestTweets: true,
     enableDebugLogging: false,
     hideBookmarksNav: true,
     hideExploreNav: true,

@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name        Tweak New Twitter
-// @description Hide retweets, and other UI tweaks for New Twitter
+// @description Always use Latest Tweets, hide retweets, and other UI tweaks for New Twitter
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
-// @version     3
+// @version     4
 // ==/UserScript==
 
 const HOME = 'Home'
@@ -36,7 +36,7 @@ let pageObservers = []
   * as a user script.
   */
 let config = {
-  enableDebugLogging: false,
+  alwaysUseLatestTweets: true,
   hideBookmarksNav: true,
   hideExploreNav: true,
   hideListsNav: true,
@@ -44,6 +44,8 @@ let config = {
   hideSidebarContent: true,
   navBaseFontSize: true,
 }
+
+config.enableDebugLogging = false
 
 function addStyle(css) {
   let $style = document.createElement('style')
@@ -116,6 +118,9 @@ function observeTitle() {
 
     log('navigation occurred')
 
+    if (currentPage == HOME && config.alwaysUseLatestTweets) {
+      switchToLatestTweets(currentPage)
+    }
     if (currentPage == HOME || currentPage == LATEST_TWEETS) {
       if (config.hideRetweets) {
         observeTimeline(currentPage)
@@ -137,6 +142,43 @@ function observeTitle() {
     characterData: true,
     childList: true,
   })
+}
+
+function switchToLatestTweets(page, attempts = 1) {
+  let $switchButton = document.querySelector('div[aria-label="Top Tweets on"]')
+
+  if ($switchButton == null) {
+    if (currentPage != page) {
+      return log(`stopped waiting for ${page} switch button`)
+    }
+    if (attempts == 10) {
+      return log(`stopped waiting for switch button after ${attempts} attempts`)
+    }
+    return setTimeout(switchToLatestTweets, 1000 / 60 * 20, page, attempts + 1)
+  }
+
+  setTimeout(() => {
+    log('opening "See latest Tweets instead" menu')
+    $switchButton.click()
+    clickLatestTweetsMenuItem(page)
+  }, 100)
+}
+
+function clickLatestTweetsMenuItem(page, attempts = 1) {
+  let $seeLatestTweetsInstead = document.querySelector('div[role="menuitem"]')
+
+  if ($seeLatestTweetsInstead == null) {
+    if (currentPage != page) {
+      return log(`stopped waiting for ${page} "See latest Tweets instead" menu item`)
+    }
+    if (attempts == 20) {
+      return log(`stopped waiting for "See latest Tweets instead" menu item after ${attempts} attempts`)
+    }
+    return setTimeout(clickLatestTweetsMenuItem, 1000 / 60 * 5, page, attempts + 1)
+  }
+
+  log('switching to Latest Tweets')
+  $seeLatestTweetsInstead.closest('div[tabindex="0"]').click()
 }
 
 function observeTimeline(page) {
