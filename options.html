@@ -2,92 +2,145 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <title>Tweak New Twitter Options</title>
     <style>
+      body, html {
+        padding: 0;
+        margin: 0;
+      }
       form {
         font-size: 1.25em;
       }
-      hr {
-        border-style: solid;
-        border-width: 1px 0 0 0;
+
+      section:not(:first-child) {
+        border-top: 1px solid #b6b6b6;
       }
-      label.checkbox input {
-        margin-left:  0;
-        vertical-align: middle;
+      section.checkbox > label,
+      section.checkboxlist > label,
+      section.select {
+        display: flex;
+        justify-content: space-between;
+        padding: .825em;
       }
-      label.checkbox span {
-        vertical-align: middle;
+      section.checkbox > label,
+      section.checkboxlist > label {
+        cursor: pointer;
       }
-      section {
-        padding: .725em 0;
+      section.checkboxlist {
+        padding-left: .825em;
+        padding-bottom: .5em;
       }
-      ul {
-        padding-left: 0;
-        margin-top: .5em;
-        margin-bottom: 0;
+      section.checkboxlist > label {
+        padding-top: .5em;
+        padding-bottom: .5em;
       }
-      li {
-        list-style-type: none;
+      section.checkboxlist p {
+        margin-bottom: .5em;
+      }
+
+      .switch {
+        position: relative;
+        width: 38px;
+        user-select:none;
+      }
+      .switch > input {
+          display: none;
+      }
+      .switch > label {
+          display: block; overflow: hidden; cursor: pointer;
+          height: 16px; padding: 0; line-height: 16px;
+          border: 0px solid #FFFFFF; border-radius: 20px;
+          background-color: #9AA0A6;
+      }
+      .switch > label:before {
+          content: "";
+          display: block; width: 20px; height: 20px; margin: -2px;
+          background: #DADCE0;
+          position: absolute;
+          top: 0;
+          right: 20px;
+          border-radius: 20px;
+      }
+      .switch > input:checked + label {
+          background-color: #5A6F93;
+      }
+      .switch > input:checked + label {
+          margin-left: 0;
+      }
+      .switch > input:checked + label:before {
+          right: 0px;
+          background-color: #8AB4F8;
       }
     </style>
   </head>
 
     <form>
-      <section>
-        <label class="checkbox">
-          <input type="checkbox" name="alwaysUseLatestTweets">
-          <span>Always use the Latest Tweets timeline</span>
+      <section class="checkbox">
+        <label>
+          <span>Always use Latest Tweets timeline</span>
+          <div class="switch">
+            <input type="checkbox" name="alwaysUseLatestTweets" id="alwaysUseLatestTweets">
+            <label for="alwaysUseLatestTweets"></label>
+          </div>
         </label>
       </section>
-      <hr>
-      <section>
-        <label class="checkbox">
-          <input type="checkbox" name="hideRetweets">
-          <span>Hide retweets in Latest Tweets / Home timeline</span>
-        </label>
+      <section class="select">
+        Retweets
+        <select name="retweets">
+          <option value="ignore">Ignore</option>
+          <option value="hide">Hide</option>
+          <option value="separate">Show in separate "Retweets" timeline</option>
+        </select>
       </section>
-      <hr>
-      <section>
-        <label class="checkbox">
-          <input type="checkbox" name="hideSidebarContent">
+      <section class="checkbox">
+        <label>
           <span>Hide sidebar content</span>
+          <div class="switch">
+            <input type="checkbox" name="hideSidebarContent" id="hideSidebarContent">
+            <label for="hideSidebarContent"></label>
+          </div>
         </label>
       </section>
-      <hr>
-      <section>
-        <label class="checkbox">
-          <input type="checkbox" name="navBaseFontSize">
-          <span>Use base font size for the navigation bar</span>
+      <section class="checkbox">
+        <label>
+          <span>Use base font size for navigation bar</span>
+          <div class="switch">
+            <input type="checkbox" name="navBaseFontSize" id="navBaseFontSize">
+            <label for="navBaseFontSize"></label>
+          </div>
         </label>
       </section>
-      <hr>
-      <section>
-        Hide navigation bar items:
-        <ul>
-          <li>
-            <label class="checkbox">
-              <input type="checkbox" name="hideExploreNav">
-              <span>Explore</span>
-            </label>
-          </li>
-          <li>
-            <label class="checkbox">
-              <input type="checkbox" name="hideBookmarksNav">
-              <span>Bookmarks</span>
-            </label>
-          </li>
-          <li>
-            <label class="checkbox">
-              <input type="checkbox" name="hideListsNav">
-              <span>Lists</span>
-            </label>
-          </li>
-        </ul>
+      <section class="checkboxlist">
+        <p>Hide navigation bar items:</p>
+        <label>
+          <span>Explore</span>
+          <div class="switch">
+            <input type="checkbox" name="hideExploreNav" id="hideExploreNav">
+            <label for="hideExploreNav"></label>
+          </div>
+        </label>
+        <label>
+          <span>Bookmarks</span>
+          <div class="switch">
+            <input type="checkbox" name="hideBookmarksNav" id="hideBookmarksNav">
+            <label for="hideBookmarksNav"></label>
+          </div>
+        </label>
+        <label>
+          <span>Lists</span>
+          <div class="switch">
+            <input type="checkbox" name="hideListsNav" id="hideListsNav">
+            <label for="hideListsNav"></label>
+          </div>
+        </label>
       </section>
-      <hr>
-      <section>
-        <label class="checkbox">
-          <input type="checkbox" name="enableDebugLogging">
-          <span>(Developer) Enable debug logging</span>
+      <section class="checkbox">
+        <label>
+          <span>Enable debug logging (developer option)</span>
+          <div class="switch">
+            <input type="checkbox" name="enableDebugLogging" id="enableDebugLogging">
+            <label for="enableDebugLogging"></label>
+          </div>
         </label>
       </section>
     </form>

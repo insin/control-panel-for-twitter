@@ -2,7 +2,7 @@
 
 ![](icons/icon128.png)
 
-**Always use Latest Tweets, hide retweets, and other UI tweaks for New Twitter**
+**Always use Latest Tweets, manage retweets, and other UI tweaks for New Twitter**
 
 * [Install Chrome Extension](https://chrome.google.com/webstore/detail/kpmjjdhbcfebfjgdnpjagcndoelnidfj)
 * [Install Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/)
@@ -11,9 +11,9 @@
 ## Features
 
 - Always use the Latest Tweets (chronological) timeline - automatically switches you back when Twitter decides they'd rather you were on the "Home" (algorithmic) timeline because "engagement"
-- Remove retweets from your timeline
+- Move retweets to a separate Retweets timeline, or hide them entirely
 - Remove sidebar content (Trends, Who to follow, sidefooter)
-- Allows some less-used links to be removed from the primary nav (Explore, Bookmarks, Links)
+- Remove some less-used links from the primary nav (Explore, Bookmarks, Links)
 - Use the site's base font size and normal font weight in the primary nav to make it less distracting (using your selected font size from the Display / Customize your view dialog)
 
 ## Screenshots

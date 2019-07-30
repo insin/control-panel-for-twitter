@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Tweak New Twitter
-// @description Always use Latest Tweets, hide retweets, and other UI tweaks for New Twitter
+// @description Always use Latest Tweets, manage retweets, and other UI tweaks for New Twitter
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @version     4
@@ -8,6 +8,7 @@
 
 const HOME = 'Home'
 const LATEST_TWEETS = 'Latest Tweets'
+const RETWEETS = 'Retweets'
 
 let Selectors = {
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
@@ -40,9 +41,9 @@ let config = {
   hideBookmarksNav: true,
   hideExploreNav: true,
   hideListsNav: true,
-  hideRetweets: true,
   hideSidebarContent: true,
   navBaseFontSize: true,
+  retweets: 'separate',
 }
 
 config.enableDebugLogging = false
@@ -106,7 +107,7 @@ function observeTitle() {
       return
     }
 
-    // Assumption: all non-FOUT page title changes are navigation / redraws
+    // Assumption: all non-FOUT title changes are navigation / redraws
 
     if (pageObservers.length > 0) {
       log(`disconnecting ${pageObservers.length} page observer${s(pageObservers.length)}`)
@@ -121,8 +122,8 @@ function observeTitle() {
     if (currentPage == HOME && config.alwaysUseLatestTweets) {
       switchToLatestTweets(currentPage)
     }
-    if (currentPage == HOME || currentPage == LATEST_TWEETS) {
-      if (config.hideRetweets) {
+    if (currentPage == HOME || currentPage == LATEST_TWEETS || currentPage == RETWEETS) {
+      if (config.retweets != 'ignore') {
         observeTimeline(currentPage)
       }
     }
@@ -181,9 +182,44 @@ function clickLatestTweetsMenuItem(page, attempts = 1) {
   $seeLatestTweetsInstead.closest('div[tabindex="0"]').click()
 }
 
+/**
+ * This script assumes navigation has occurred when the document title changes,
+ * so we effectively create a fake navigation to a "Retweets" page by changing
+ * the title to "Retweets".
+ */
+function addRetweetsHeader(page) {
+  let $timelineTitle = document.querySelector('main h2')
+  if ($timelineTitle != null &&
+      document.querySelector('#twt_retweets') == null) {
+    log('inserting Retweets header')
+    let div = document.createElement('div')
+    div.innerHTML = $timelineTitle.parentNode.outerHTML
+    $retweets = div.firstElementChild
+    $retweets.id = 'twt_retweets'
+    $retweets.querySelector('span').textContent = RETWEETS
+    $retweets.addEventListener('click', () => {
+      if (!document.title.startsWith(RETWEETS)) {
+        document.title = `${RETWEETS} / Twitter`
+      }
+      window.scrollTo({top: 0})
+    })
+    $timelineTitle.parentNode.parentNode.insertAdjacentElement('afterend', $retweets)
+    $timelineTitle.parentNode.addEventListener('click', () => {
+      if (!document.title.startsWith(page)) {
+        document.title = `${page} / Twitter`
+      }
+    })
+  }
+}
+
 function observeTimeline(page) {
   var $timeline = document.querySelector(Selectors.TIMELINE)
   var $firstTweet = document.querySelector(Selectors.TWEET)
+
+  // Add the new "Retweets" header ASAP
+  if (config.retweets == 'separate') {
+    addRetweetsHeader(page)
+  }
 
   if ($timeline == null ||
       $timeline.firstElementChild == null ||
@@ -195,24 +231,42 @@ function observeTimeline(page) {
     return setTimeout(observeTimeline, 1000 / 60 * 5, page)
   }
 
-  function processTweets() {
-    let tweets = document.querySelectorAll(Selectors.TWEET)
-    log(`processing ${tweets.length} tweet${s(tweets.length)}`)
-    for (let $tweet of tweets) {
-      let isRetweet = $tweet.previousElementSibling &&
-                      $tweet.previousElementSibling.textContent.includes('Retweeted')
-      if (isRetweet) {
-        $tweet.parentNode.parentNode.parentNode.style.display = 'none'
+  function processTimeline($timelineContainer) {
+    log(`processing ${$timelineContainer.children.length} timeline node${s($timelineContainer.children.length)}`)
+    let previousNodeType = null
+    for (let $node of $timelineContainer.children) {
+      let hideNode = null
+      let $tweet = $node.querySelector(Selectors.TWEET)
+      if ($tweet) {
+        let isRetweet = $tweet.previousElementSibling != null &&
+                        $tweet.previousElementSibling.textContent.includes('Retweeted')
+        hideNode = page == RETWEETS ? !isRetweet : isRetweet
+        previousNodeType = isRetweet ? 'RETWEET' : 'TWEET'
+      }
+      else {
+        // "Show this thread" links sometimes appear in the subsequent timeline node as an <a>
+        // Sometimes the subsequent node is just an empty <div>
+        if (previousNodeType != null) {
+          hideNode = page == RETWEETS ? previousNodeType != 'RETWEET' : previousNodeType != 'TWEET'
+        }
+        else {
+          log('unhandled timeline node', $node)
+        }
+        previousNodeType = null
+      }
+
+      if (hideNode != null) {
+        $node.firstElementChild.style.display = hideNode ? 'none' : ''
       }
     }
   }
 
   // Watch for new tweets being rendered
   log('observing timeline childList')
-  processTweets()
-  let $tweetContainer = $timeline.firstElementChild.firstElementChild
-  let observer = new MutationObserver(processTweets)
-  observer.observe($tweetContainer, {
+  let $timelineContainer = $timeline.firstElementChild.firstElementChild
+  processTimeline($timelineContainer)
+  let observer = new MutationObserver(() => processTimeline($timelineContainer))
+  observer.observe($timelineContainer, {
     childList: true
   })
   pageObservers.push(observer)
@@ -322,12 +376,12 @@ function main() {
   if (config.navBaseFontSize) {
     observeHtmlFontSize()
   }
-  if (config.hideRetweets || config.hideSidebarContents) {
+  if (config.retweets != 'ignore' || config.hideSidebarContents) {
     observeTitle()
   }
 }
 
 chrome.storage.local.get((storedConfig) => {
-  config = {...config, ...storedConfig}
+  Object.assign(config, storedConfig)
   main()
 })
