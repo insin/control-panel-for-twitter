@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "web-ext build --ignore-files package.json README.md screenshots/",
+    "build": "web-ext build --ignore-files package.json README.md screenshots/ icons/chrome-web-store-icon.png",
     "lint": "web-ext lint",
     "start": "web-ext run"
   }

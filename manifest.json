@@ -3,7 +3,7 @@
   "name": "Tweak New Twitter",
   "description": "Always use Latest Tweets, manage retweets, and other UI tweaks for New Twitter",
   "homepage_url": "https://github.com/insin/tweak-new-twitter/",
-  "version": "1.3",
+  "version": "1.4",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
