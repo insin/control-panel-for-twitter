@@ -33,7 +33,6 @@ let Selectors = {
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV: 'nav[aria-label="Primary"]',
   SIDEBAR_COLUMN: 'div[data-testid="sidebarColumn"]',
-  TIMELINE: 'div[aria-label^="Timeline"]',
   TWEET: 'div[data-testid="tweet"]',
 }
 
@@ -41,6 +40,7 @@ Object.assign(Selectors, {
   SIDEBAR_FOOTER: `${Selectors.SIDEBAR_COLUMN} nav`,
   SIDEBAR_PEOPLE: `${Selectors.SIDEBAR_COLUMN} aside`,
   SIDEBAR_TRENDS: `${Selectors.SIDEBAR_COLUMN} section`,
+  TIMELINE: `${Selectors.PRIMARY_COLUMN} section > h1 + div[aria-label] > div > div`,
 })
 
 /** Title of the current page, without the ' / Twitter' suffix */
@@ -187,7 +187,6 @@ async function observeTitle() {
   let $title = await getElement('title', {name: '<title>'})
   log('observing <title>')
   return observeElement($title, () => onTitleChange($title.textContent), {
-    characterData: true,
     childList: true,
   })
 }
@@ -215,12 +214,14 @@ async function observeSidebarAppearance(page) {
 }
 
 async function observeTimeline(page) {
-  await getElement(Selectors.TWEET, {
-    name: 'first tweet',
+  let $timeline = await getElement(Selectors.TIMELINE, {
+    name: 'timeline',
     stopIf: pageIsNot(page),
   })
+  if ($timeline == null) {
+    return
+  }
   log('observing timeline')
-  let $timeline = document.querySelector(Selectors.TIMELINE).firstElementChild.firstElementChild
   pageObservers.push(
     observeElement($timeline, () => onTimelineChange($timeline, page))
   )
@@ -336,12 +337,23 @@ async function hideSidebarContents(page) {
 }
 
 function onTitleChange(title) {
-  // Ignore Flash of Uninitialised Title navigating to a screen for the first time
+  // Ignore Flash of Uninitialised Title when navigating to a screen for the
+  // first time.
   if (title == 'Twitter') {
+    log('ignoring Flash of Uninitialised Title')
     return
   }
 
-  // Assumption: all non-FOUT title changes are navigation / re-renders which need the screen to be re-processed
+  // Only allow the same page to re-process if the "Customize your view" dialog
+  // is currently open.
+  let newPage = title.split(' / ')[0]
+  if (newPage == currentPage && location.pathname != '/i/display') {
+    log('ignoring duplicate title change')
+    return
+  }
+
+  // Assumption: all non-FOUT, non-duplicate title changes are navigation, which
+  // needs the screen to be re-processed.
 
   if (pageObservers.length > 0) {
     log(`disconnecting ${pageObservers.length} page observer${s(pageObservers.length)}`)
@@ -349,12 +361,12 @@ function onTitleChange(title) {
     pageObservers = []
   }
 
-  currentPage = title.split(' / ')[0]
+  currentPage = newPage
 
-  log('new page')
+  log('processing new page')
 
   if (config.alwaysUseLatestTweets && currentPage == HOME) {
-    switchToLatestTweets(currentPage)
+    return switchToLatestTweets(currentPage)
   }
 
   if (config.retweets == 'separate') {
@@ -367,9 +379,11 @@ function onTitleChange(title) {
   if (config.retweets == 'separate' && (currentPage == LATEST_TWEETS || currentPage == HOME)) {
     addRetweetsHeader(currentPage)
   }
+
   if (config.retweets != 'ignore' && (currentPage == LATEST_TWEETS || currentPage == RETWEETS || currentPage == HOME)) {
     observeTimeline(currentPage)
   }
+
   if (config.hideSidebarContent && currentPage != MESSAGES) {
     hideSidebarContents(currentPage)
     observeSidebarAppearance(currentPage)
@@ -425,31 +439,25 @@ async function switchToLatestTweets(page) {
   let $switchButton = await getElement('div[aria-label="Top Tweets on"]', {
     name: 'timeline switch button',
     stopIf: pageIsNot(page),
-    timeout: 2000,
   })
 
   if ($switchButton == null) {
-    return
+    return false
   }
 
-  // Switch button seems to need a little time before it works on initial page load
-  setTimeout(async () => {
-    log('opening "See latest Tweets instead" menu')
-    $switchButton.click()
+  $switchButton.click()
 
-    let $seeLatestTweetsInstead = await getElement('div[role="menuitem"]', {
-      name: '"See latest Tweets instead" menu item',
-      stopIf: pageIsNot(page),
-      timeout: 500,
-    })
+  let $seeLatestTweetsInstead = await getElement('div[role="menuitem"]', {
+    name: '"See latest Tweets instead" menu item',
+    stopIf: pageIsNot(page),
+  })
 
-    if ($seeLatestTweetsInstead == null) {
-      return
-    }
+  if ($seeLatestTweetsInstead == null) {
+    return false
+  }
 
-    log('switching to Latest Tweets')
-    $seeLatestTweetsInstead.closest('div[tabindex="0"]').click()
-  }, 100)
+  $seeLatestTweetsInstead.closest('div[tabindex="0"]').click()
+  return true
 }
 
 /// Main
