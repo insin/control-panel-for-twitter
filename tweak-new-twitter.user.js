@@ -154,6 +154,35 @@ function observeHtmlFontSize() {
   }
 }
 
+let updateThemeColor = (function() {
+  let $style = addStyle('')
+  let lastThemeColor = null
+
+  return async function updateThemeColor() {
+    // Only try to update if the "Customize your view" dialog os open or we
+    // haven't set an inital color yet.
+    if (location.pathname !== '/i/display' && lastThemeColor != null) {
+      return
+    }
+
+    let $tweetButton = await getElement('a[data-testid="SideNav_NewTweet_Button"]', {
+      name: 'Tweet button'
+    })
+
+    let themeColor = getComputedStyle($tweetButton).backgroundColor
+    if (themeColor === lastThemeColor) {
+      return
+    }
+    log(`setting theme color to ${themeColor}`)
+    lastThemeColor = themeColor
+    $style.textContent = [
+      'body.Home main h2:not(#twt_retweets)',
+      'body.LatestTweets main h2:not(#twt_retweets)',
+      'body.Retweets #twt_retweets',
+    ].join(', ') + ` { color: ${lastThemeColor}; }`
+  }
+})()
+
 async function observeTitle() {
   let $title = await getElement('title', {name: '<title>'})
   log('observing <title>')
@@ -210,7 +239,7 @@ async function addRetweetsHeader(page) {
     let div = document.createElement('div')
     div.innerHTML = $timelineTitle.parentNode.outerHTML
     $retweets = div.firstElementChild
-    $retweets.id = 'twt_retweets'
+    $retweets.querySelector('h2').id = 'twt_retweets'
     $retweets.querySelector('span').textContent = RETWEETS
     // This script assumes navigation has occurred when the document title changes,
     // so by changing the title to "Retweets" we effectively fakenavigation to a
@@ -327,6 +356,14 @@ function onTitleChange(title) {
   if (config.alwaysUseLatestTweets && currentPage == HOME) {
     switchToLatestTweets(currentPage)
   }
+
+  if (config.retweets == 'separate') {
+    document.body.classList.toggle(HOME, currentPage == HOME)
+    document.body.classList.toggle('LatestTweets', currentPage == LATEST_TWEETS)
+    document.body.classList.toggle(RETWEETS, currentPage == RETWEETS)
+    updateThemeColor()
+  }
+
   if (config.retweets == 'separate' && (currentPage == LATEST_TWEETS || currentPage == HOME)) {
     addRetweetsHeader(currentPage)
   }
