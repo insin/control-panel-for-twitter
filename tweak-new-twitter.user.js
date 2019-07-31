@@ -3,7 +3,7 @@
 // @description Always use Latest Tweets, manage retweets, and other UI tweaks for New Twitter
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
-// @version     5
+// @version     6
 // ==/UserScript==
 
 /**
