@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Tweak New Twitter
-// @description Always use Latest Tweets, manage retweets, and other UI tweaks for New Twitter
+// @description Reduce "engagement" and tone down some of New Twitter's UI
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @version     6

@@ -2,7 +2,7 @@
 
 ![](icons/icon128.png)
 
-**Always use Latest Tweets, manage retweets, and other UI tweaks for New Twitter**
+**Reduce "engagement" and tone down some of New Twitter's UI**
 
 * [Install Chrome Extension](https://chrome.google.com/webstore/detail/kpmjjdhbcfebfjgdnpjagcndoelnidfj)
 * [Install Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/)
@@ -21,6 +21,10 @@
 Timeline view with all tweaks enabled (default):
 
 ![Screenshot of a New Twitter timeline without retweets, sidebar content, nav links which can be hidden and a less distracting nav style](screenshots/timeline.png)
+
+The new Retweets timeline, containing retweets only:
+
+![Screenshot of the Retweets timeline Tweak New Twitter adds to New Twitter, containing nothing but retweets](screenshots/retweets.png)
 
 Chrome extension options dialog:
 

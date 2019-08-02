@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Tweak New Twitter",
-  "description": "Always use Latest Tweets, manage retweets, and other UI tweaks for New Twitter",
+  "description": "Reduce \"engagement\" and tone down some of New Twitter's UI",
   "homepage_url": "https://github.com/insin/tweak-new-twitter/",
   "version": "1.5",
   "icons": {
