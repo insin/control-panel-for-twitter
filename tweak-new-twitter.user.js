@@ -447,7 +447,7 @@ async function switchToLatestTweets(page) {
 
   $switchButton.click()
 
-  let $seeLatestTweetsInstead = await getElement('div[role="menuitem"]', {
+  let $seeLatestTweetsInstead = await getElement('div[role="menu"] div[role="button"]', {
     name: '"See latest Tweets instead" menu item',
     stopIf: pageIsNot(page),
   })
