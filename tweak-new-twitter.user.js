@@ -59,6 +59,9 @@ function addStyle(css) {
   return $style
 }
 
+/**
+ * @returns {Promise<HTMLElement>}
+ */
 function getElement(selector, {
   name = null,
   stopIf = null,
@@ -131,7 +134,7 @@ function observeHtmlFontSize() {
   let $style = addStyle('')
   let lastFontSize = ''
 
-  log('observing <html> style attribute for font-size changes')
+  log('observing html style attribute for font-size changes')
   let observer = observeElement($html, () => {
     if ($html.style.fontSize != lastFontSize) {
       lastFontSize = $html.style.fontSize
@@ -176,10 +179,10 @@ let updateThemeColor = (function() {
     log(`setting theme color to ${themeColor}`)
     lastThemeColor = themeColor
     $style.textContent = [
-      'body.Home main h2:not(#twt_retweets)',
-      'body.LatestTweets main h2:not(#twt_retweets)',
-      'body.Retweets #twt_retweets',
-    ].join(', ') + ` { color: ${lastThemeColor}; }`
+                           'body.Home main h2:not(#twt_retweets)',
+                           'body.LatestTweets main h2:not(#twt_retweets)',
+                           'body.Retweets #twt_retweets',
+                         ].join(', ') + ` { color: ${lastThemeColor}; }`
   }
 })()
 
@@ -238,8 +241,8 @@ async function addRetweetsHeader(page) {
       document.querySelector('#twt_retweets') == null) {
     log('inserting Retweets header')
     let div = document.createElement('div')
-    div.innerHTML = $timelineTitle.parentNode.outerHTML
-    $retweets = div.firstElementChild
+    div.innerHTML = $timelineTitle.parentElement.outerHTML
+    let $retweets = div.firstElementChild
     $retweets.querySelector('h2').id = 'twt_retweets'
     $retweets.querySelector('span').textContent = RETWEETS
     // This script assumes navigation has occurred when the document title changes,
@@ -251,8 +254,8 @@ async function addRetweetsHeader(page) {
       }
       window.scrollTo({top: 0})
     })
-    $timelineTitle.parentNode.parentNode.insertAdjacentElement('afterend', $retweets)
-    $timelineTitle.parentNode.addEventListener('click', () => {
+    $timelineTitle.parentElement.parentElement.insertAdjacentElement('afterend', $retweets)
+    $timelineTitle.parentElement.addEventListener('click', () => {
       if (!document.title.startsWith(page)) {
         document.title = `${page} / Twitter`
       }
@@ -296,16 +299,16 @@ async function hideSidebarContents(page) {
     if ($trends == null) {
       return false
     }
-    let $trendsModule = $trends.parentNode.parentNode.parentNode
+    let $trendsModule = $trends.parentElement.parentElement.parentElement
     $trendsModule.style.display = 'none'
     // Hide surrounding elements which draw separators between modules
     if ($trendsModule.previousElementSibling &&
         $trendsModule.previousElementSibling.childElementCount == 0) {
-      $trendsModule.previousElementSibling.style.display = 'none'
+      (/** @type {HTMLElement} */  $trendsModule.previousElementSibling).style.display = 'none'
     }
     if ($trendsModule.nextElementSibling &&
         $trendsModule.nextElementSibling.childElementCount == 0) {
-      $trendsModule.nextElementSibling.style.display = 'none'
+      (/** @type {HTMLElement} */  $trendsModule.nextElementSibling).style.display = 'none'
     }
     return true
   })
@@ -321,10 +324,11 @@ async function hideSidebarContents(page) {
     let $peopleModule
     if ($people.getAttribute('aria-label') == 'Relevant people') {
       // "Relevant people" section when viewing a Tweet/thread
-      $peopleModule = $people.parentNode
-    } else {
+      $peopleModule = $people.parentElement
+    }
+    else {
       // "Who to follow" section
-      $peopleModule = $people.parentNode.parentNode
+      $peopleModule = $people.parentElement.parentElement
     }
     $peopleModule.style.display = 'none'
     return true
@@ -332,8 +336,8 @@ async function hideSidebarContents(page) {
 
   let [hidTrends, hidPeople] = await Promise.all([trends, people])
   log(hidTrends == true && hidPeople == true
-      ? 'hid all sidebar content'
-      : 'stopped waiting for sidebar content')
+    ? 'hid all sidebar content'
+    : 'stopped waiting for sidebar content')
 }
 
 function onTitleChange(title) {
@@ -430,7 +434,7 @@ function onTimelineChange($timeline, page) {
     }
 
     if (hideItem != null) {
-      $item.firstElementChild.style.display = hideItem ? 'none' : ''
+      (/** @type {HTMLElement} */ $item.firstElementChild).style.display = hideItem ? 'none' : ''
     }
   }
 }
