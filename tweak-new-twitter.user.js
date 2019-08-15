@@ -273,7 +273,7 @@ function addStaticCss() {
   if (config.hideExploreNav) {
     hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href="/explore"]`)
   }
-  if (config.hideExploreNav) {
+  if (config.hideBookmarksNav) {
     hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href="/i/bookmarks"]`)
   }
   if (config.hideListsNav) {
