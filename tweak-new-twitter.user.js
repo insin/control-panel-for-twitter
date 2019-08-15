@@ -474,7 +474,7 @@ async function main() {
     htmlFontSizeObserver = observeHtmlFontSize()
   }
 
-  if (config.retweets != 'ignore' || config.hideSidebarContents) {
+  if (config.retweets != 'ignore' || config.hideSidebarContent) {
     titleObserver = await observeTitle()
   }
 }
