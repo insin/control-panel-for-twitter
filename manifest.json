@@ -3,7 +3,7 @@
   "name": "Tweak New Twitter",
   "description": "Reduce \"engagement\" and tone down some of New Twitter's UI",
   "homepage_url": "https://github.com/insin/tweak-new-twitter/",
-  "version": "1.6",
+  "version": "1.7",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -16,11 +16,15 @@
       "matches": [
         "https://twitter.com/*"
       ],
-      "js": ["./tweak-new-twitter.user.js"]
+      "js": [
+        "./tweak-new-twitter.user.js"
+      ]
     }
   ],
   "options_ui": {
     "page": "options.html"
   },
-  "permissions": ["storage"]
+  "permissions": [
+    "storage"
+  ]
 }
