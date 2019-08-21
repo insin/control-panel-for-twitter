@@ -6,6 +6,7 @@
 // @version     8
 // ==/UserScript==
 
+//#region Config & variables
 /**
  * Default config enables all features.
  *
@@ -19,6 +20,7 @@ let config = {
   hideListsNav: true,
   hideSidebarContent: true,
   navBaseFontSize: true,
+  /** @type {'separate'|'hide'|'ignore'} */
   retweets: 'separate',
 }
 
@@ -48,9 +50,9 @@ let currentPage = ''
 
 /** MutationObservers active on the current page */
 let pageObservers = []
+//#endregion
 
-/// Utility functions
-
+//#region Utility functions
 function addStyle(css) {
   let $style = document.createElement('style')
   $style.dataset.insertedBy = 'tweak-new-twitter'
@@ -127,7 +129,9 @@ function s(n) {
   return n == 1 ? '' : 's'
 }
 
-/// Global observers
+//#endregion
+
+//#region Global observers
 
 function observeHtmlFontSize() {
   let $html = document.querySelector('html')
@@ -193,9 +197,9 @@ async function observeTitle() {
     childList: true,
   })
 }
+//#endregion
 
-/// Page observers
-
+//#region Page observers
 async function observeSidebarAppearance(page) {
   let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {
     name: 'primary column',
@@ -229,9 +233,9 @@ async function observeTimeline(page) {
     observeElement($timeline, () => onTimelineChange($timeline, page))
   )
 }
+//#endregion
 
-/// Tweak functions
-
+//#region Tweak functions
 async function addRetweetsHeader(page) {
   let $timelineTitle = await getElement('main h2', {
     name: 'timeline title',
@@ -304,11 +308,11 @@ async function hideSidebarContents(page) {
     // Hide surrounding elements which draw separators between modules
     if ($trendsModule.previousElementSibling &&
         $trendsModule.previousElementSibling.childElementCount == 0) {
-      (/** @type {HTMLElement} */  $trendsModule.previousElementSibling).style.display = 'none'
+      (/** @type {HTMLElement} */ $trendsModule.previousElementSibling).style.display = 'none'
     }
     if ($trendsModule.nextElementSibling &&
         $trendsModule.nextElementSibling.childElementCount == 0) {
-      (/** @type {HTMLElement} */  $trendsModule.nextElementSibling).style.display = 'none'
+      (/** @type {HTMLElement} */ $trendsModule.nextElementSibling).style.display = 'none'
     }
     return true
   })
@@ -464,8 +468,7 @@ async function switchToLatestTweets(page) {
   return true
 }
 
-/// Main
-
+//#region Main
 async function main() {
   log('config', config)
 
@@ -487,3 +490,4 @@ chrome.storage.local.get((storedConfig) => {
   Object.assign(config, storedConfig)
   main()
 })
+//#endregion
