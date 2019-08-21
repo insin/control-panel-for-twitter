@@ -328,7 +328,7 @@ async function hideSidebarContents(page) {
     }
     else {
       // "Who to follow" section
-      $peopleModule = $people.parentElement.parentElement
+      $peopleModule = $people.parentElement
     }
     $peopleModule.style.display = 'none'
     return true
