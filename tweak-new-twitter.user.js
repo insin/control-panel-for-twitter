@@ -3,7 +3,7 @@
 // @description Reduce "engagement" and tone down some of New Twitter's UI
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
-// @version     9
+// @version     10
 // ==/UserScript==
 
 //#region Config & variables
@@ -42,7 +42,7 @@ Object.assign(Selectors, {
   SIDEBAR_FOOTER: `${Selectors.SIDEBAR_COLUMN} nav`,
   SIDEBAR_PEOPLE: `${Selectors.SIDEBAR_COLUMN} aside`,
   SIDEBAR_TRENDS: `${Selectors.SIDEBAR_COLUMN} section`,
-  TIMELINE: `${Selectors.PRIMARY_COLUMN} section > h1 + div[aria-label] > div > div`,
+  TIMELINE: `${Selectors.PRIMARY_COLUMN} section > h1 + div[aria-label] > div`,
 })
 
 /** Title of the current page, without the ' / Twitter' suffix */
@@ -228,10 +228,28 @@ async function observeTimeline(page) {
   if ($timeline == null) {
     return
   }
-  log('observing timeline')
-  pageObservers.push(
-    observeElement($timeline, () => onTimelineChange($timeline, page))
-  )
+  // The inital timeline element is a placeholder which doesn't have a style attribute
+  if ($timeline.hasAttribute('style')) {
+    log('observing timeline', {$timeline})
+    pageObservers.push(
+      observeElement($timeline, () => onTimelineChange($timeline, page))
+    )
+  }
+  else {
+    log('waiting for real timeline')
+    pageObservers.push(
+      observeElement($timeline.parentNode, (mutations) => {
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach(($timeline) => {
+            log('observing timeline', {$timeline})
+            pageObservers.push(
+              observeElement($timeline, () => onTimelineChange($timeline, page))
+            )
+          })
+        })
+      })
+    )
+  }
 }
 //#endregion
 
