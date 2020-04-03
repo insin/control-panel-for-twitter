@@ -2,7 +2,8 @@
   "scripts": {
     "build": "web-ext build",
     "lint": "web-ext lint",
-    "start": "web-ext run"
+    "start": "web-ext run --start-url https://twitter.com",
+    "chrome": "web-ext run --target chromium"
   },
   "webExt": {
     "ignoreFiles": [
@@ -11,5 +12,8 @@
       "README.md",
       "screenshots/"
     ]
+  },
+  "devDependencies": {
+    "web-ext": "4.1.0"
   }
 }
