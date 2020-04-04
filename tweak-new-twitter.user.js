@@ -387,6 +387,9 @@ async function hideSidebarContents(page) {
 }
 
 function onTitleChange(title) {
+  // Ignore any leading notification counts in titles, e.g. '(1) Latest Tweets / Twitter'
+  title = title.replace(/^\(\d+\+?\) /, '')
+
   // Ignore Flash of Uninitialised Title when navigating to a screen for the
   // first time.
   if (title == 'Twitter') {
