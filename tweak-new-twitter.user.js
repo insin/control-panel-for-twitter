@@ -228,20 +228,44 @@ async function observeTimeline(page) {
   if ($timeline == null) {
     return
   }
-  // The inital timeline element is a placeholder which doesn't have a style attribute
+
+  // On 2020-04-03 Twitter switched to a new way of rendering the timeline which replaces an initial
+  // container with the real element which holds timeline tweets and reduces the number of elements
+  // wrapping the timeline.
+  //
+  // v1.9 was released to handle this.
+  //
+  // On 2020-04-05 they switched back to the old method.
+  //
+  // This attempts to support both approaches in case they keeping switching between the two.
+
+  // The "new" inital timeline element is a placeholder which doesn't have a style attribute
+  // The "old" timeline has 2 wrapper divs which apply padding via the DOM .style object
   if ($timeline.hasAttribute('style')) {
-    log('observing timeline', {$timeline})
+    // The "old" timeline is nested one level deeper and the initial container has padding-bottom
+    // <div aria-label="Timeline: Your Home Timeline">
+    //   <div style="padding-bottom: 0px"> <!-- current $timeline -->
+    //     <div style="padding-top: ...px; padding-bottom: ...px"> <!-- we want to observe this -->
+    //       <div> <!-- tweet elements are at this level -->
+    //       ...
+    if ($timeline.style.paddingBottom) {
+      $timeline = $timeline.firstElementChild;
+      log('observing "old" timeline', {$timeline})
+    }
+    else {
+      log('observing "new" timeline', {$timeline})
+    }
     pageObservers.push(
       observeElement($timeline, () => onTimelineChange($timeline, page))
     )
   }
   else {
-    log('waiting for real timeline')
+    log('waiting for real "new" timeline')
     pageObservers.push(
       observeElement($timeline.parentNode, (mutations) => {
         mutations.forEach((mutation) => {
           mutation.addedNodes.forEach(($timeline) => {
-            log('observing timeline', {$timeline})
+            log('observing "new" timeline', {$timeline})
             pageObservers.push(
               observeElement($timeline, () => onTimelineChange($timeline, page))
             )
