@@ -36,6 +36,9 @@ let Selectors = {
   PRIMARY_NAV: 'nav[aria-label="Primary"]',
   SIDEBAR_COLUMN: 'div[data-testid="sidebarColumn"]',
   TWEET: 'div[data-testid="tweet"]',
+  PROMOTED_TWEET: '[data-testid="placementTracking"]',
+  TIMELINE_HEADING: 'h2[role="heading"]',
+  TIMELINE_USER: 'div[data-testid="UserCell"]',
 }
 
 Object.assign(Selectors, {
@@ -444,9 +447,8 @@ function onTitleChange(title) {
 }
 
 function getTweetType($tweet) {
-  if ($tweet.lastElementChild.children.length > 2 &&
-      $tweet.lastElementChild.children[2].textContent.includes('Promoted')) {
-    return 'PROMOTED'
+  if ($tweet.closest(Selectors.PROMOTED_TWEET)) {
+    return 'PROMOTED_TWEET'
   }
   if ($tweet.previousElementSibling != null &&
       $tweet.previousElementSibling.textContent.includes('Retweeted')) {
@@ -456,7 +458,7 @@ function getTweetType($tweet) {
 }
 
 function shouldHideTimelineItem(itemType, page) {
-  return itemType == 'PROMOTED' || page == RETWEETS ? itemType != 'RETWEET' : itemType != 'TWEET'
+  return page == RETWEETS ? itemType != 'RETWEET' : itemType != 'TWEET'
 }
 
 function onTimelineChange($timeline, page) {
@@ -465,18 +467,30 @@ function onTimelineChange($timeline, page) {
   for (let $item of $timeline.children) {
     let hideItem = null
     let $tweet = $item.querySelector(Selectors.TWEET)
+
     if ($tweet != null) {
       previousItemType = getTweetType($tweet)
       hideItem = shouldHideTimelineItem(previousItemType, page)
     }
+    // "Who To Follow" etc. headings, nobody wants these in their timeline
+    else if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
+      previousItemType = 'HEADING'
+      hideItem = true
+    }
+    // Users under the "Who To Follow" heading
+    else if ($item.querySelector(Selectors.TIMELINE_USER)) {
+      previousItemType = 'USER'
+      hideItem = true
+    }
     else {
-      // Assume a non-tweet node following a tweet node is related to the previous tweet
-      // "Show this thread" links sometimes appear in the subsequent timeline node as an <a>
+      // Assume a non-identified node following an identified node is related to it
+      // "Show this thread" / "Show more" links appear in subsequent nodes
       if (previousItemType != null) {
         hideItem = shouldHideTimelineItem(previousItemType, page)
       }
       // The first item in the timeline is sometimes an empty placeholder <div>
       else if ($item !== $timeline.firstElementChild) {
+        // We're probably also missing some spacer / divider nodes
         log('unhandled timeline item', $item)
       }
       previousItemType = null
@@ -484,6 +498,10 @@ function onTimelineChange($timeline, page) {
 
     if (hideItem != null) {
       (/** @type {HTMLElement} */ $item.firstElementChild).style.display = hideItem ? 'none' : ''
+      // Log these out as they can't be reliably triggered for testing
+      if (previousItemType != null && !previousItemType.endsWith('TWEET')) {
+        log(`hid a ${previousItemType} item`, $item)
+      }
     }
   }
 }
