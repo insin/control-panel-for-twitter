@@ -3,6 +3,7 @@
 // @description Reduce "engagement" and tone down some of New Twitter's UI
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
+// @match       https://mobile.twitter.com/*
 // @version     12
 // ==/UserScript==
 

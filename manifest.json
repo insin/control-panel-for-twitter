@@ -14,7 +14,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://twitter.com/*"
+        "https://twitter.com/*",
+        "https://mobile.twitter.com/*"
       ],
       "js": [
         "./tweak-new-twitter.user.js"
