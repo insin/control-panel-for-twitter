@@ -31,6 +31,9 @@ const LATEST_TWEETS = 'Latest Tweets'
 const MESSAGES = 'Messages'
 const RETWEETS = 'Retweets'
 
+const TITLE_NOTIFICATION_RE = /^(\(\d+\+?\)) /
+const URL_PHOTO_RE = /photo\/\d$/
+
 let Selectors = {
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV: 'nav[aria-label="Primary"]',
@@ -50,6 +53,9 @@ Object.assign(Selectors, {
 
 /** Title of the current page, without the ' / Twitter' suffix */
 let currentPage = ''
+
+/** Current URL path */
+let currentPath = ''
 
 /** MutationObservers active on the current page */
 let pageObservers = []
@@ -391,7 +397,7 @@ async function hideSidebarContents(page) {
 
 function onTitleChange(title) {
   // Ignore any leading notification counts in titles, e.g. '(1) Latest Tweets / Twitter'
-  title = title.replace(/^\(\d+\+?\) /, '')
+  title = title.replace(TITLE_NOTIFICATION_RE, '')
 
   // Ignore Flash of Uninitialised Title when navigating to a screen for the
   // first time.
@@ -408,6 +414,26 @@ function onTitleChange(title) {
     return
   }
 
+  // Stay on the Retweets timeline when…
+  if (currentPage == RETWEETS &&
+      // …the title has changed back to the main timeline due to…
+      (newPage == LATEST_TWEETS || newPage == HOME) &&
+      (
+        // …viewing a photo.
+        URL_PHOTO_RE.test(location.pathname) ||
+        // …returning from viewing a photo.
+        URL_PHOTO_RE.test(currentPath) ||
+        // …the "Customize your view" dialog being opened or configured.
+        location.pathname == '/i/display' ||
+        // …the "Customize your view" dialog being closed.
+        currentPath == '/i/display'
+      )) {
+    log('ignoring title change on Retweets timeline')
+    currentPath = location.pathname
+    document.title = `${RETWEETS} / Twitter`
+    return
+  }
+
   // Assumption: all non-FOUT, non-duplicate title changes are navigation, which
   // needs the screen to be re-processed.
 
@@ -418,6 +444,7 @@ function onTitleChange(title) {
   }
 
   currentPage = newPage
+  currentPath = location.pathname
 
   log('processing new page')
 
@@ -432,7 +459,7 @@ function onTitleChange(title) {
     updateThemeColor()
   }
 
-  if (config.retweets == 'separate' && (currentPage == LATEST_TWEETS || currentPage == HOME)) {
+  if (config.retweets == 'separate' && (currentPage == LATEST_TWEETS || currentPage == RETWEETS || currentPage == HOME)) {
     addRetweetsHeader(currentPage)
   }
 
