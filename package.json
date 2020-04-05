@@ -8,6 +8,7 @@
   "webExt": {
     "ignoreFiles": [
       "icons/chrome-web-store-icon.png",
+      "icons/icon-600.png",
       "package.json",
       "README.md",
       "screenshots/"
