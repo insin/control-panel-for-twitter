@@ -323,6 +323,13 @@ async function addRetweetsHeader(page) {
         setTitle(page)
       }
     })
+    // Go back to the main timeline from Retweets when the Home nav link is clicked
+    document.querySelector(Selectors.NAV_HOME_LINK).addEventListener('click', () => {
+      homeLinkClicked = true
+      if (location.pathname == '/home' && !document.title.startsWith(page)) {
+        setTitle(page)
+      }
+    })
   }
 }
 
