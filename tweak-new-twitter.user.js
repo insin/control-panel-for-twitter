@@ -32,12 +32,13 @@ const LATEST_TWEETS = 'Latest Tweets'
 const MESSAGES = 'Messages'
 const RETWEETS = 'Retweets'
 
-const TITLE_NOTIFICATION_RE = /^(\(\d+\+?\)) /
+const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_PHOTO_RE = /photo\/\d$/
 
 let Selectors = {
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV: 'nav[aria-label="Primary"]',
+  NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   SIDEBAR_COLUMN: 'div[data-testid="sidebarColumn"]',
   TWEET: 'div[data-testid="tweet"]',
   PROMOTED_TWEET: '[data-testid="placementTracking"]',
@@ -55,8 +56,14 @@ Object.assign(Selectors, {
 /** Title of the current page, without the ' / Twitter' suffix */
 let currentPage = ''
 
+/** Notification count in the title (including trailing space), e.g. '(1) ' */
+let currentNotificationCount = ''
+
 /** Current URL path */
 let currentPath = ''
+
+/** Flag for a Home / Latest Tweets link having been clicked */
+let homeLinkClicked = false
 
 /** MutationObservers active on the current page */
 let pageObservers = []
@@ -138,11 +145,9 @@ function pageIsNot(page) {
 function s(n) {
   return n == 1 ? '' : 's'
 }
-
 //#endregion
 
 //#region Global observers
-
 function observeHtmlFontSize() {
   let $html = document.querySelector('html')
   let $style = addStyle('')
@@ -176,7 +181,7 @@ let updateThemeColor = (function() {
   let lastThemeColor = null
 
   return async function updateThemeColor() {
-    // Only try to update if the "Customize your view" dialog os open or we
+    // Only try to update if the "Customize your view" dialog is open or we
     // haven't set an inital color yet.
     if (location.pathname !== '/i/display' && lastThemeColor != null) {
       return
@@ -259,7 +264,7 @@ async function observeTimeline(page) {
     //       <div> <!-- tweet elements are at this level -->
     //       ...
     if ($timeline.style.paddingBottom) {
-      $timeline = $timeline.firstElementChild;
+      $timeline = $timeline.firstElementChild
       log('observing "old" timeline', {$timeline})
     }
     else {
@@ -302,18 +307,20 @@ async function addRetweetsHeader(page) {
     $retweets.querySelector('h2').id = 'twt_retweets'
     $retweets.querySelector('span').textContent = RETWEETS
     // This script assumes navigation has occurred when the document title changes,
-    // so by changing the title to "Retweets" we effectively fakenavigation to a
+    // so by changing the title to "Retweets" we effectively fake navigation to a
     // non-existent Retweets page.
     $retweets.addEventListener('click', () => {
       if (!document.title.startsWith(RETWEETS)) {
-        document.title = `${RETWEETS} / Twitter`
+        setTitle(RETWEETS)
       }
       window.scrollTo({top: 0})
     })
     $timelineTitle.parentElement.parentElement.insertAdjacentElement('afterend', $retweets)
+    // Go back to the main timeline from Retweets when the Latest Tweets / Home heading is clicked
     $timelineTitle.parentElement.addEventListener('click', () => {
       if (!document.title.startsWith(page)) {
-        document.title = `${page} / Twitter`
+        homeLinkClicked = true
+        setTitle(page)
       }
     })
   }
@@ -398,7 +405,14 @@ async function hideSidebarContents(page) {
 
 function onTitleChange(title) {
   // Ignore any leading notification counts in titles, e.g. '(1) Latest Tweets / Twitter'
-  title = title.replace(TITLE_NOTIFICATION_RE, '')
+  let notificationCount = ''
+  if (TITLE_NOTIFICATION_RE.test(title)) {
+    notificationCount = TITLE_NOTIFICATION_RE.exec(title)[0]
+    title = title.replace(TITLE_NOTIFICATION_RE, '')
+  }
+
+  let homeLinkWasClicked = homeLinkClicked
+  homeLinkClicked = false
 
   // Ignore Flash of Uninitialised Title when navigating to a screen for the
   // first time.
@@ -412,31 +426,37 @@ function onTitleChange(title) {
   let newPage = title.split(' / ')[0]
   if (newPage == currentPage && location.pathname != '/i/display') {
     log('ignoring duplicate title change')
+    currentNotificationCount = notificationCount
     return
   }
 
   // Stay on the Retweets timeline when…
   if (currentPage == RETWEETS &&
-      // …the title has changed back to the main timeline due to…
+      // …the title has changed back to the main timeline…
       (newPage == LATEST_TWEETS || newPage == HOME) &&
+      // …the Home nav or Latest Tweets / Home header _wasn't_ clicked and…
+      !homeLinkWasClicked &&
       (
-        // …viewing a photo.
+        // …the user viewed a photo.
         URL_PHOTO_RE.test(location.pathname) ||
-        // …returning from viewing a photo.
+        // the user stopped viewing a photo.
         URL_PHOTO_RE.test(currentPath) ||
-        // …the "Customize your view" dialog being opened or configured.
+        // …the user opened or used the "Customize your view" dialog.
         location.pathname == '/i/display' ||
-        // …the "Customize your view" dialog being closed.
-        currentPath == '/i/display'
+        // …the user closed the "Customize your view" dialog.
+        currentPath == '/i/display' ||
+        // …the notification count in the title changed.
+        notificationCount != currentNotificationCount
       )) {
     log('ignoring title change on Retweets timeline')
+    currentNotificationCount = notificationCount
     currentPath = location.pathname
-    document.title = `${RETWEETS} / Twitter`
+    setTitle(RETWEETS)
     return
   }
 
   // Assumption: all non-FOUT, non-duplicate title changes are navigation, which
-  // needs the screen to be re-processed.
+  // need the screen to be re-processed.
 
   if (pageObservers.length > 0) {
     log(`disconnecting ${pageObservers.length} page observer${s(pageObservers.length)}`)
@@ -445,6 +465,7 @@ function onTitleChange(title) {
   }
 
   currentPage = newPage
+  currentNotificationCount = notificationCount
   currentPath = location.pathname
 
   log('processing new page')
@@ -483,6 +504,13 @@ function getTweetType($tweet) {
     return 'RETWEET'
   }
   return 'TWEET'
+}
+
+/**
+ * Sets the page name in <title>, retaining any current notification count.
+ */
+function setTitle(page) {
+  document.title = `${currentNotificationCount}${page} / Twitter`
 }
 
 function shouldHideTimelineItem(itemType, page) {
@@ -558,6 +586,7 @@ async function switchToLatestTweets(page) {
   $seeLatestTweetsInstead.closest('div[tabindex="0"]').click()
   return true
 }
+//#endregion
 
 //#region Main
 async function main() {
