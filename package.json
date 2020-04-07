@@ -3,7 +3,7 @@
     "build": "web-ext build",
     "lint": "web-ext lint",
     "start": "web-ext run --start-url https://twitter.com",
-    "chrome": "web-ext run --target chromium"
+    "chrome": "web-ext run --target chromium --start-url https://twitter.com"
   },
   "webExt": {
     "ignoreFiles": [

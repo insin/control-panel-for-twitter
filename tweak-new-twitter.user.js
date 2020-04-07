@@ -20,6 +20,7 @@ let config = {
   hideExploreNav: true,
   hideListsNav: true,
   hideSidebarContent: true,
+  hideWhoToFollow: true,
   navBaseFontSize: true,
   /** @type {'separate'|'hide'|'ignore'} */
   retweets: 'separate',
@@ -392,48 +393,54 @@ async function hideSidebarContents(page) {
     : 'stopped waiting for sidebar content')
 }
 
+/** @typedef {'TWEET'|'RETWEET'|'PROMOTED_TWEET'|'HEADING'|'USER'} TimelineItemType */
+
 function onTimelineChange($timeline, page) {
   log(`processing ${$timeline.children.length} timeline item${s($timeline.children.length)}`)
-  let previousItemType = null
+  /** @type {?TimelineItemType} */
+  let previousTimelineItemType = null
   for (let $item of $timeline.children) {
+    /** @type {?TimelineItemType} */
+    let timelineItemType = null
     let hideItem = null
     let $tweet = $item.querySelector(Selectors.TWEET)
 
     if ($tweet != null) {
-      previousItemType = getTweetType($tweet)
-      hideItem = shouldHideTimelineItem(previousItemType, page)
+      timelineItemType = getTweetType($tweet)
+      hideItem = shouldHideTweet(timelineItemType, page)
     }
-    // "Who To Follow" etc. headings, nobody wants these in their timeline
-    else if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
-      previousItemType = 'HEADING'
-      hideItem = true
+
+    if (timelineItemType == null && config.hideWhoToFollow) {
+      // "Who To Follow" heading
+      if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
+        timelineItemType = 'HEADING'
+        hideItem = true
+      }
+      // Users under the "Who To Follow" heading
+      else if ($item.querySelector(Selectors.TIMELINE_USER)) {
+        timelineItemType = 'USER'
+        hideItem = true
+      }
     }
-    // Users under the "Who To Follow" heading
-    else if ($item.querySelector(Selectors.TIMELINE_USER)) {
-      previousItemType = 'USER'
-      hideItem = true
-    }
-    else {
+
+    if (timelineItemType == null) {
       // Assume a non-identified node following an identified node is related to it
       // "Show this thread" / "Show more" links appear in subsequent nodes
-      if (previousItemType != null) {
-        hideItem = shouldHideTimelineItem(previousItemType, page)
+      if (previousTimelineItemType != null) {
+        hideItem = !previousTimelineItemType.endsWith('TWEET') || shouldHideTweet(previousTimelineItemType, page)
       }
       // The first item in the timeline is sometimes an empty placeholder <div>
       else if ($item !== $timeline.firstElementChild) {
         // We're probably also missing some spacer / divider nodes
         log('unhandled timeline item', $item)
       }
-      previousItemType = null
     }
 
     if (hideItem != null) {
       (/** @type {HTMLElement} */ $item.firstElementChild).style.display = hideItem ? 'none' : ''
-      // Log these out as they can't be reliably triggered for testing
-      if (previousItemType != null && !previousItemType.endsWith('TWEET')) {
-        log(`hid a ${previousItemType} item`, $item)
-      }
     }
+
+    previousTimelineItemType = timelineItemType
   }
 }
 
@@ -531,13 +538,14 @@ function onTitleChange(title) {
 
 /**
  * Sets the page name in <title>, retaining any current notification count.
+ * @param {string} page
  */
 function setTitle(page) {
   document.title = `${currentNotificationCount}${page} / Twitter`
 }
 
-function shouldHideTimelineItem(itemType, page) {
-  return page == RETWEETS ? itemType != 'RETWEET' : itemType != 'TWEET'
+function shouldHideTweet(tweetType, page) {
+  return tweetType != (page == RETWEETS ? 'RETWEET' : 'TWEET')
 }
 
 async function switchToLatestTweets(page) {
@@ -596,20 +604,17 @@ let updateThemeColor = (function() {
 //#endregion
 
 //#region Main
-async function main() {
+function main() {
   log('config', config)
-
-  let htmlFontSizeObserver
-  let titleObserver
 
   addStaticCss()
 
   if (config.navBaseFontSize) {
-    htmlFontSizeObserver = observeHtmlFontSize()
+    observeHtmlFontSize()
   }
 
   if (config.retweets != 'ignore' || config.hideSidebarContent) {
-    titleObserver = await observeTitle()
+    observeTitle()
   }
 }
 
