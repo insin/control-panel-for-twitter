@@ -2,7 +2,7 @@
 
 ![](icons/icon128.png)
 
-**Reduce "engagement" and tone down some of New Twitter's UI**
+**Stay on the Latest Tweets timeline, reduce "engagement" and tone down some of Twitter's UI**
 
 * [Install Chrome Extension](https://chrome.google.com/webstore/detail/kpmjjdhbcfebfjgdnpjagcndoelnidfj)
 * [Install Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/)

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Tweak New Twitter
-// @description Reduce "engagement" and tone down some of New Twitter's UI
+// @description Stay on the Latest Tweets timeline, reduce "engagement" and tone down some of Twitter's UI
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
