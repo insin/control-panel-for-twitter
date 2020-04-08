@@ -392,7 +392,7 @@ async function hideSidebarContents(page) {
     : 'stopped waiting for sidebar content')
 }
 
-/** @typedef {'TWEET'|'RETWEET'|'PROMOTED_TWEET'|'HEADING'|'USER'} TimelineItemType */
+/** @typedef {'TWEET'|'RETWEET'|'PROMOTED_TWEET'|'HEADING'} TimelineItemType */
 
 function onTimelineChange($timeline, page) {
   log(`processing ${$timeline.children.length} timeline item${s($timeline.children.length)}`)
