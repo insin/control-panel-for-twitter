@@ -20,7 +20,7 @@ let config = {
   hideExploreNav: true,
   hideListsNav: true,
   hideSidebarContent: true,
-  hideWhoToFollow: true,
+  hideWhoToFollowEtc: true,
   navBaseFontSize: true,
   /** @type {'separate'|'hide'|'ignore'} */
   retweets: 'separate',
@@ -44,7 +44,6 @@ let Selectors = {
   TWEET: 'div[data-testid="tweet"]',
   PROMOTED_TWEET: '[data-testid="placementTracking"]',
   TIMELINE_HEADING: 'h2[role="heading"]',
-  TIMELINE_USER: 'div[data-testid="UserCell"]',
 }
 
 Object.assign(Selectors, {
@@ -410,24 +409,20 @@ function onTimelineChange($timeline, page) {
       hideItem = shouldHideTweet(timelineItemType, page)
     }
 
-    if (timelineItemType == null && config.hideWhoToFollow) {
-      // "Who To Follow" heading
+    if (timelineItemType == null && config.hideWhoToFollowEtc) {
+      // "Who to follow", "Follow some Topics" etc. headings
       if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
         timelineItemType = 'HEADING'
-        hideItem = true
-      }
-      // Users under the "Who To Follow" heading
-      else if ($item.querySelector(Selectors.TIMELINE_USER)) {
-        timelineItemType = 'USER'
         hideItem = true
       }
     }
 
     if (timelineItemType == null) {
-      // Assume a non-identified node following an identified node is related to it
-      // "Show this thread" / "Show more" links appear in subsequent nodes
+      // Assume a non-identified item following an identified item is related to it
+      // "Who to follow" users and "Follow some Topics" topics appear in subsequent items
+      // "Show this thread" and "Show more" links appear in subsequent items
       if (previousTimelineItemType != null) {
-        hideItem = !previousTimelineItemType.endsWith('TWEET') || shouldHideTweet(previousTimelineItemType, page)
+        hideItem = previousTimelineItemType == 'HEADING' || shouldHideTweet(previousTimelineItemType, page)
       }
       // The first item in the timeline is sometimes an empty placeholder <div>
       else if ($item !== $timeline.firstElementChild) {
@@ -438,9 +433,16 @@ function onTimelineChange($timeline, page) {
 
     if (hideItem != null) {
       (/** @type {HTMLElement} */ $item.firstElementChild).style.display = hideItem ? 'none' : ''
+      // Log these out as they can't be reliably triggered for testing
+      if (timelineItemType == 'HEADING' || previousTimelineItemType == 'HEADING') {
+        log(`hid a ${previousTimelineItemType == 'HEADING' ? 'post-' : ''}heading item`, $item)
+      }
     }
 
-    previousTimelineItemType = timelineItemType
+    // If we hid a heading, keep hiding everything after it until we hit a tweet
+    if (!(previousTimelineItemType == 'HEADING' && timelineItemType == null)) {
+      previousTimelineItemType = timelineItemType
+    }
   }
 }
 
