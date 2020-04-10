@@ -392,10 +392,12 @@ async function hideSidebarContents(page) {
     : 'stopped waiting for sidebar content')
 }
 
-/** @typedef {'TWEET'|'RETWEET'|'PROMOTED_TWEET'|'HEADING'} TimelineItemType */
+/** @typedef {'TWEET'|'RETWEET'|'PROMOTED_TWEET'|'HEADING'|'USER'} TimelineItemType */
 
 function onTimelineChange($timeline, page) {
   log(`processing ${$timeline.children.length} timeline item${s($timeline.children.length)}`)
+  /** @type {HTMLElement} */
+  let $previousItem = null
   /** @type {?TimelineItemType} */
   let previousTimelineItemType = null
   for (let $item of $timeline.children) {
@@ -414,6 +416,10 @@ function onTimelineChange($timeline, page) {
       if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
         timelineItemType = 'HEADING'
         hideItem = true
+        // Also hide the divider above the heading
+        if ($previousItem && $previousItem.innerText == '') {
+          $previousItem.firstElementChild.display = 'none'
+        }
       }
     }
 
@@ -439,6 +445,7 @@ function onTimelineChange($timeline, page) {
       }
     }
 
+    $previousItem = $item
     // If we hid a heading, keep hiding everything after it until we hit a tweet
     if (!(previousTimelineItemType == 'HEADING' && timelineItemType == null)) {
       previousTimelineItemType = timelineItemType
