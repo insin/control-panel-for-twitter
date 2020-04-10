@@ -65,7 +65,10 @@ let currentPath = ''
 /** Flag for a Home / Latest Tweets link having been clicked */
 let homeLinkClicked = false
 
-/** MutationObservers active on the current page */
+/**
+ * MutationObservers active on the current page
+ * @type MutationObserver[]
+ */
 let pageObservers = []
 //#endregion
 
@@ -489,7 +492,7 @@ function onTitleChange(title) {
       (
         // …the user viewed a photo.
         URL_PHOTO_RE.test(location.pathname) ||
-        // the user stopped viewing a photo.
+        // …the user stopped viewing a photo.
         URL_PHOTO_RE.test(currentPath) ||
         // …the user opened or used the "Customize your view" dialog.
         location.pathname == '/i/display' ||
