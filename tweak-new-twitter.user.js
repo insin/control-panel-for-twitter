@@ -22,6 +22,7 @@ let config = {
   hideExploreNav: true,
   hideListsNav: true,
   hideMessagesDrawer: true,
+  hideMoreTweets: true,
   hideSidebarContent: true,
   hideWhoToFollowEtc: true,
   navBaseFontSize: true,
@@ -40,6 +41,7 @@ const TIMELINE_RETWEETS = 'Timeline Retweets'
 
 const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/i
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
+const URL_TWEET_ID_RE = /\/status\/(\d+)$/
 const URL_PHOTO_RE = /photo\/\d$/
 
 let Selectors = {
@@ -162,6 +164,10 @@ function observeElement($element, callback, options = {childList: true}) {
 
 function pageIsNot(page) {
   return () => page != currentPage
+}
+
+function pathIsNot(path) {
+  return () => path != currentPath
 }
 
 function s(n) {
@@ -610,7 +616,7 @@ function onTitleChange(title) {
     addRetweetsHeader(currentPage)
   }
 
-  if ((config.retweets != 'ignore' || config.hideWhoToFollowEtc) && (currentPage == LATEST_TWEETS || currentPage == TIMELINE_RETWEETS || currentPage == HOME) ||
+  if ((config.retweets != 'ignore' || config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc) && (currentPage == LATEST_TWEETS || currentPage == TIMELINE_RETWEETS || currentPage == HOME) ||
       config.hideWhoToFollowEtc && PROFILE_TITLE_RE.test(currentPage)) {
     observeTimeline(currentPage)
   }
@@ -618,6 +624,26 @@ function onTitleChange(title) {
   if (config.hideSidebarContent && currentPage != MESSAGES) {
     hideSidebarContents(currentPage)
     observeSidebarAppearance(currentPage)
+  }
+
+  if (config.hideMoreTweets && URL_TWEET_ID_RE.test(currentPath) && location.search.startsWith('?ref_src')) {
+    hideMoreTweetsSection(currentPath)
+  }
+}
+
+/**
+ * Automatically click the "View more replies" link to get rid of the "More Tweets" section if the
+ * user is viewing a tweet from an external link with a ?ref_src= URL.
+ */
+async function hideMoreTweetsSection(path) {
+  let id = URL_TWEET_ID_RE.exec(path)[1]
+  let $link = await getElement(`a[href="/i/status/${id}"]`, {
+    name: '"View more replies" link',
+    stopIf: pathIsNot(path),
+  })
+  if ($link != null) {
+    log('clicking "View more replies" link')
+    $link.click()
   }
 }
 
@@ -705,7 +731,11 @@ function main() {
     observeHtmlFontSize()
   }
 
-  if (config.retweets != 'ignore' || config.hideSidebarContent) {
+  if (config.hideMoreTweets ||
+      config.hideSidebarContent ||
+      config.hideWhoToFollowEtc ||
+      config.retweets != 'ignore' ||
+      config.verifiedAccounts != 'ignore') {
     observeTitle()
   }
 }
