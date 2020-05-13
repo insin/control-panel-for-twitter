@@ -15,6 +15,7 @@
     ]
   },
   "devDependencies": {
+    "@types/chrome": "0.0.108",
     "web-ext": "4.1.0"
   }
 }

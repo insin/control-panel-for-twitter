@@ -359,11 +359,11 @@ async function hideSidebarContents(page) {
     // Hide surrounding elements which draw separators between modules
     if ($trendsModule.previousElementSibling &&
         $trendsModule.previousElementSibling.childElementCount == 0) {
-      (/** @type {HTMLElement} */ $trendsModule.previousElementSibling).style.display = 'none'
+      (/** @type {HTMLElement} */ ($trendsModule.previousElementSibling)).style.display = 'none'
     }
     if ($trendsModule.nextElementSibling &&
         $trendsModule.nextElementSibling.childElementCount == 0) {
-      (/** @type {HTMLElement} */ $trendsModule.nextElementSibling).style.display = 'none'
+      (/** @type {HTMLElement} */ ($trendsModule.nextElementSibling)).style.display = 'none'
     }
     return true
   })
@@ -441,7 +441,7 @@ function onTimelineChange($timeline, page) {
     }
 
     if (hideItem != null) {
-      (/** @type {HTMLElement} */ $item.firstElementChild).style.display = hideItem ? 'none' : ''
+      (/** @type {HTMLElement} */ ($item.firstElementChild)).style.display = hideItem ? 'none' : ''
       // Log these out as they can't be reliably triggered for testing
       if (timelineItemType == 'HEADING' || previousTimelineItemType == 'HEADING') {
         log(`hid a ${previousTimelineItemType == 'HEADING' ? 'post-' : ''}heading item`, $item)

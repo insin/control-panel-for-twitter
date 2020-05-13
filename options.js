@@ -27,12 +27,12 @@ chrome.storage.local.get((storedConfig) => {
   }
 
   form.addEventListener('change', (e) => {
-    let type = e.target.type
-    if (type == 'checkbox') {
-      config[e.target.name] = e.target.checked
+    let el = (/** @type {HTMLInputElement} */ (e.target))
+    if (el.type == 'checkbox') {
+      config[el.name] = el.checked
     }
     else {
-      config[e.target.name] = e.target.value
+      config[el.name] = el.value
     }
     chrome.storage.local.set(config)
   })
