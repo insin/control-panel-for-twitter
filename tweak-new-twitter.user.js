@@ -395,7 +395,7 @@ async function hideSidebarContents(page) {
     : 'stopped waiting for sidebar content')
 }
 
-/** @typedef {'TWEET'|'RETWEET'|'PROMOTED_TWEET'|'HEADING'|'USER'} TimelineItemType */
+/** @typedef {'TWEET'|'RETWEET'|'PROMOTED_TWEET'|'HEADING'} TimelineItemType */
 
 function onTimelineChange($timeline, page) {
   log(`processing ${$timeline.children.length} timeline item${s($timeline.children.length)}`)
@@ -498,6 +498,14 @@ function onTitleChange(title) {
         location.pathname == '/i/display' ||
         // …the user closed the "Customize your view" dialog.
         currentPath == '/i/display' ||
+        // …the user opened the "Send via Direct Message" dialog.
+        location.pathname == '/messages/compose' ||
+        // …the user closed the "Send via Direct Message" dialog.
+        currentPath == '/messages/compose' ||
+        // …the user opened the compose Tweet dialog.
+        location.pathname == '/compose/tweet' ||
+        // …the user closed the compose Tweet dialog.
+        currentPath == '/compose/tweet' ||
         // …the notification count in the title changed.
         notificationCount != currentNotificationCount
       )) {
