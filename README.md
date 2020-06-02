@@ -13,6 +13,7 @@
 - Always use the Latest Tweets (chronological) timeline - automatically switches you back when Twitter decides they'd rather you were on the "Home" (algorithmic) timeline because "engagement"
 - Move retweets to a separate Retweets timeline, or hide them entirely
 - Hide "Who to follow" / "Follow some Topics" etc. sections in the timeline
+- Fast blocking - skips the confirmation dialog when you try to block someone
 - Remove sidebar content (Trends, Who to follow, sidefooter)
 - Remove some less-used links from the primary nav (Explore, Bookmarks, Links)
 - Use the site's base font size and normal font weight in the primary nav to make it less distracting (using your selected font size from the Display / Customize your view dialog)
