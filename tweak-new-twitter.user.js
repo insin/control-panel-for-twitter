@@ -25,6 +25,7 @@ let config = {
   navBaseFontSize: true,
   /** @type {'separate'|'hide'|'ignore'} */
   retweets: 'separate',
+  userNotes: true,
 }
 
 config.enableDebugLogging = false
@@ -81,6 +82,16 @@ function addStyle(css) {
   $style.textContent = css
   document.head.appendChild($style)
   return $style
+}
+
+function debounce(fn, timeout) {
+  let timeoutId = null
+  return function() {
+    clearTimeout(timeoutId)
+    let args = arguments
+    let context = this
+    timeoutId = setTimeout(() => fn.apply(context, args), timeout)
+  }
 }
 
 /**
@@ -323,8 +334,17 @@ async function addRetweetsHeader(page) {
 }
 
 function addStaticCss() {
-  var cssRules = []
-  var hideCssSelectors = []
+  let cssRules = [
+   `textarea#twt-notes {
+      border: none;
+      resize: none;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+      opacity: 0;
+      transition: opacity 0.4s ease-out;
+    }`
+  ]
+
+  let hideCssSelectors = []
   if (config.hideSidebarContent) {
     hideCssSelectors.push(
       Selectors.SIDEBAR_TRENDS,
@@ -419,6 +439,35 @@ function onPopup($topLevelElement) {
       $confirmButton.click()
     }
     return
+  }
+
+  // User popup
+  let $followersLink = $topLevelElement.querySelector('a[href$="/followers"]')
+  if ($followersLink && config.userNotes) {
+    let user = $followersLink.pathname.replace(/(^\/|\/followers$)/g, '')
+    log(`User popup for ${user} opened`)
+    let $content = $topLevelElement.firstElementChild.firstElementChild.firstElementChild.firstElementChild.firstElementChild.firstElementChild
+    $content.insertAdjacentHTML('beforeend',
+   `<div class="${$content.lastElementChild.className}">
+      <textarea id="twt-notes" rows="1" placeholder="User notes…"></textarea>
+    </div>`)
+    let $textarea = $content.querySelector('#twt-notes')
+    let notes = JSON.parse(localStorage.twtNotes || '{}')
+    $textarea.value = notes[user] || ''
+    $textarea.style.height = `${$textarea.scrollHeight}px`
+    $textarea.style.overflowY = 'hidden'
+    let saveNote = debounce(() => {
+      let notes = JSON.parse(localStorage.twtNotes || '{}')
+      notes[user] = $textarea.value
+      localStorage.twtNotes = JSON.stringify(notes)
+      log(`Saved note for ${user}: ${$textarea.value}`)
+    }, 500)
+    $textarea.addEventListener('input', () => {
+      $textarea.style.height = 'auto'
+      $textarea.style.height = `${$textarea.scrollHeight}px`
+      saveNote()
+    })
+    requestAnimationFrame(() => $textarea.style.opacity = '1')
   }
 }
 
