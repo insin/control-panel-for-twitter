@@ -34,6 +34,7 @@ const LATEST_TWEETS = 'Latest Tweets'
 const MESSAGES = 'Messages'
 const RETWEETS = 'Retweets'
 
+const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_PHOTO_RE = /photo\/\d$/
 
@@ -437,7 +438,9 @@ function onTimelineChange($timeline, page) {
 
     if ($tweet != null) {
       timelineItemType = getTweetType($tweet)
-      hideItem = shouldHideTweet(timelineItemType, page)
+      if (page == LATEST_TWEETS || page == RETWEETS || page == HOME) {
+        hideItem = shouldHideTweet(timelineItemType, page)
+      }
     }
 
     if (timelineItemType == null && config.hideWhoToFollowEtc) {
@@ -572,7 +575,8 @@ function onTitleChange(title) {
     addRetweetsHeader(currentPage)
   }
 
-  if (config.retweets != 'ignore' && (currentPage == LATEST_TWEETS || currentPage == RETWEETS || currentPage == HOME)) {
+  if ((config.retweets != 'ignore' || config.hideWhoToFollowEtc) && (currentPage == LATEST_TWEETS || currentPage == RETWEETS || currentPage == HOME) ||
+      config.hideWhoToFollowEtc && PROFILE_TITLE_RE.test(currentPage)) {
     observeTimeline(currentPage)
   }
 
