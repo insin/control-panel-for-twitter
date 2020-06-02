@@ -34,7 +34,7 @@ const LATEST_TWEETS = 'Latest Tweets'
 const MESSAGES = 'Messages'
 const RETWEETS = 'Retweets'
 
-const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/
+const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/i
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_PHOTO_RE = /photo\/\d$/
 
