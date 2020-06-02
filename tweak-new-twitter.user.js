@@ -16,6 +16,7 @@
  */
 let config = {
   alwaysUseLatestTweets: true,
+  fastBlock: true,
   hideBookmarksNav: true,
   hideExploreNav: true,
   hideListsNav: true,
@@ -184,6 +185,19 @@ async function observeTitle() {
   log('observing <title>')
   return observeElement($title, () => onTitleChange($title.textContent), {
     childList: true,
+  })
+}
+
+async function observePopups() {
+  let $keyboardWrapper = await getElement('[data-at-shortcutkeys]', {
+    name: 'keyboard wrapper',
+  })
+  log('observing popups')
+  observeElement($keyboardWrapper.previousElementSibling, (mutations) => {
+    mutations.forEach((mutation) => {
+      // The first popup takes another tick to render content
+      mutation.addedNodes.forEach($el => requestAnimationFrame(() => onPopup($el)))
+    })
   })
 }
 //#endregion
@@ -393,6 +407,18 @@ async function hideSidebarContents(page) {
   log(hidTrends == true && hidPeople == true
     ? 'hid all sidebar content'
     : 'stopped waiting for sidebar content')
+}
+
+function onPopup($topLevelElement) {
+  // Block button
+  let $confirmButton = $topLevelElement.querySelector('div[data-testid="confirmationSheetConfirm"]')
+  if ($confirmButton && $confirmButton.innerText == 'Block') {
+    if (config.fastBlock) {
+      log('Fast blocking')
+      $confirmButton.click()
+    }
+    return
+  }
 }
 
 /** @typedef {'TWEET'|'RETWEET'|'PROMOTED_TWEET'|'HEADING'} TimelineItemType */
@@ -628,6 +654,10 @@ function main() {
   log('config', config)
 
   addStaticCss()
+
+  if (config.fastBlock) {
+    observePopups()
+  }
 
   if (config.navBaseFontSize) {
     observeHtmlFontSize()
