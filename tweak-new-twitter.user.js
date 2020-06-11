@@ -24,7 +24,7 @@ let config = {
   hideWhoToFollowEtc: true,
   navBaseFontSize: true,
   /** @type {'separate'|'hide'|'ignore'} */
-  retweets: 'separate',
+  retweets: ('separate'),
 }
 
 config.enableDebugLogging = false
@@ -136,9 +136,19 @@ function log(...args) {
   }
 }
 
-function observeElement($element, listener, options = {childList: true}) {
-  listener([])
-  let observer = new MutationObserver(listener)
+/**
+ * Convenience wrapper for the MutationObserver API.
+ *
+ * The listener is called immediately to support using an observer and its
+ * options as a trigger for any change, without looking at MutationRecords.
+ *
+ * @param {Node} $element
+ * @param {MutationCallback} callback
+ * @param {MutationObserverInit} options
+ */
+function observeElement($element, callback, options = {childList: true}) {
+  let observer = new MutationObserver(callback)
+  callback([], observer)
   observer.observe($element, options)
   return observer
 }
@@ -214,7 +224,7 @@ async function observeSidebarAppearance(page) {
     observeElement($primaryColumn.parentNode, (mutations) => {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((el) => {
-          if (el.dataset.testid == 'sidebarColumn') {
+          if (/** @type {HTMLElement} */ (el).dataset.testid == 'sidebarColumn') {
             log('sidebar appeared')
             hideSidebarContents(page)
           }
@@ -253,7 +263,7 @@ async function observeTimeline(page) {
     //       <div> <!-- tweet elements are at this level -->
     //       ...
     if ($timeline.style.paddingBottom) {
-      $timeline = $timeline.firstElementChild
+      $timeline = /** @type {HTMLElement} */ ($timeline.firstElementChild)
       log('observing "old" timeline', {$timeline})
     }
     else {
@@ -374,11 +384,11 @@ async function hideSidebarContents(page) {
     // Hide surrounding elements which draw separators between modules
     if ($trendsModule.previousElementSibling &&
         $trendsModule.previousElementSibling.childElementCount == 0) {
-      (/** @type {HTMLElement} */ ($trendsModule.previousElementSibling)).style.display = 'none'
+      /** @type {HTMLElement} */ ($trendsModule.previousElementSibling).style.display = 'none'
     }
     if ($trendsModule.nextElementSibling &&
         $trendsModule.nextElementSibling.childElementCount == 0) {
-      (/** @type {HTMLElement} */ ($trendsModule.nextElementSibling)).style.display = 'none'
+      /** @type {HTMLElement} */ ($trendsModule.nextElementSibling).style.display = 'none'
     }
     return true
   })
@@ -450,7 +460,7 @@ function onTimelineChange($timeline, page) {
         hideItem = true
         // Also hide the divider above the heading
         if ($previousItem && $previousItem.innerText == '') {
-          $previousItem.firstElementChild.display = 'none'
+          /** @type {HTMLElement} */ ($previousItem.firstElementChild).style.display = 'none'
         }
       }
     }
@@ -470,7 +480,7 @@ function onTimelineChange($timeline, page) {
     }
 
     if (hideItem != null) {
-      (/** @type {HTMLElement} */ ($item.firstElementChild)).style.display = hideItem ? 'none' : ''
+      /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
       // Log these out as they can't be reliably triggered for testing
       if (timelineItemType == 'HEADING' || previousTimelineItemType == 'HEADING') {
         log(`hid a ${previousTimelineItemType == 'HEADING' ? 'post-' : ''}heading item`, $item)
@@ -619,7 +629,7 @@ async function switchToLatestTweets(page) {
     return false
   }
 
-  $seeLatestTweetsInstead.closest('div[tabindex="0"]').click()
+  /** @type {HTMLElement} */ ($seeLatestTweetsInstead.closest('div[tabindex="0"]')).click()
   return true
 }
 

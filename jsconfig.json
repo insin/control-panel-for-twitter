@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "checkJs": true
+    "checkJs": true,
+    "target": "es2016"
   },
   "exclude": [
     "node_modules"
