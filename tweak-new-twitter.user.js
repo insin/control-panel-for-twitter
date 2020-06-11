@@ -605,6 +605,9 @@ function setTitle(page) {
 }
 
 function shouldHideTweet(tweetType, page) {
+  if (tweetType == 'RETWEET' && config.retweets == 'ignore') {
+    return false
+  }
   return tweetType != (page == RETWEETS ? 'RETWEET' : 'TWEET')
 }
 
