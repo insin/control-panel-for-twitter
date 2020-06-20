@@ -8,6 +8,7 @@ chrome.storage.local.get((storedConfig) => {
     hideBookmarksNav: true,
     hideExploreNav: true,
     hideListsNav: true,
+    hideMessagesDrawer: true,
     hideSidebarContent: true,
     hideWhoToFollowEtc: true,
     navBaseFontSize: true,

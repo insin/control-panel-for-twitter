@@ -20,6 +20,7 @@ let config = {
   hideBookmarksNav: true,
   hideExploreNav: true,
   hideListsNav: true,
+  hideMessagesDrawer: true,
   hideSidebarContent: true,
   hideWhoToFollowEtc: true,
   navBaseFontSize: true,
@@ -46,6 +47,7 @@ let Selectors = {
   TWEET: 'div[data-testid="tweet"]',
   PROMOTED_TWEET: '[data-testid="placementTracking"]',
   TIMELINE_HEADING: 'h2[role="heading"]',
+  MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
 }
 
 Object.assign(Selectors, {
@@ -350,6 +352,9 @@ function addStaticCss() {
   }
   if (config.hideListsNav) {
     hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href*="/lists"]`)
+  }
+  if (config.hideMessagesDrawer) {
+    hideCssSelectors.push(Selectors.MESSAGES_DRAWER)
   }
   if (hideCssSelectors.length > 0) {
     cssRules.push(`${hideCssSelectors.join(', ')} { display: none !important; }`)
