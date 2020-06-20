@@ -690,8 +690,13 @@ function main() {
   }
 }
 
-chrome.storage.local.get((storedConfig) => {
-  Object.assign(config, storedConfig)
+if (typeof chrome != 'undefined' && typeof chrome.storage != 'undefined') {
+  chrome.storage.local.get((storedConfig) => {
+    Object.assign(config, storedConfig)
+    main()
+  })
+}
+else {
   main()
-})
+}
 //#endregion
