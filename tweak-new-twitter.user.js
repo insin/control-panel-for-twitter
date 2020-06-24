@@ -17,6 +17,7 @@
 let config = {
   alwaysUseLatestTweets: true,
   fastBlock: true,
+  hideAccountSwitcher: true,
   hideBookmarksNav: true,
   hideExploreNav: true,
   hideListsNav: true,
@@ -40,14 +41,15 @@ const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_PHOTO_RE = /photo\/\d$/
 
 let Selectors = {
+  ACCOUNT_SWITCHER: 'div[data-testid="SideNav_AccountSwitcher_Button"]',
+  MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
+  NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV: 'nav[aria-label="Primary"]',
-  NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
-  SIDEBAR_COLUMN: 'div[data-testid="sidebarColumn"]',
-  TWEET: 'div[data-testid="tweet"]',
   PROMOTED_TWEET: '[data-testid="placementTracking"]',
+  SIDEBAR_COLUMN: 'div[data-testid="sidebarColumn"]',
   TIMELINE_HEADING: 'h2[role="heading"]',
-  MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
+  TWEET: 'div[data-testid="tweet"]',
 }
 
 Object.assign(Selectors, {
@@ -352,6 +354,9 @@ function addStaticCss() {
   }
   if (config.hideListsNav) {
     hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href*="/lists"]`)
+  }
+  if (config.hideAccountSwitcher) {
+    hideCssSelectors.push(Selectors.ACCOUNT_SWITCHER)
   }
   if (config.hideMessagesDrawer) {
     hideCssSelectors.push(Selectors.MESSAGES_DRAWER)

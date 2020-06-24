@@ -5,6 +5,7 @@ chrome.storage.local.get((storedConfig) => {
     alwaysUseLatestTweets: true,
     enableDebugLogging: false,
     fastBlock: true,
+    hideAccountSwitcher: true,
     hideBookmarksNav: true,
     hideExploreNav: true,
     hideListsNav: true,
