@@ -27,6 +27,8 @@ let config = {
   navBaseFontSize: true,
   /** @type {'separate'|'hide'|'ignore'} */
   retweets: ('separate'),
+  /** @type {'separate'|'hide'|'ignore'} */
+  likes: ('separate'),
 }
 
 config.enableDebugLogging = false
@@ -35,6 +37,7 @@ const HOME = 'Home'
 const LATEST_TWEETS = 'Latest Tweets'
 const MESSAGES = 'Messages'
 const RETWEETS = 'Retweets'
+const LIKES = 'Likes'
 
 const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/i
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
@@ -70,6 +73,8 @@ let currentPath = ''
 
 /** Flag for a Home / Latest Tweets link having been clicked */
 let homeLinkClicked = false
+let homeRetweetsClicked = false
+let homeLikesClicked = false
 
 /**
  * MutationObservers active on the current page
@@ -335,6 +340,46 @@ async function addRetweetsHeader(page) {
     })
   }
 }
+//#region Tweak functions
+async function addLikesHeader(page) {
+  let $timelineTitle = await getElement('main h2', {
+    name: 'timeline title',
+    stopIf: pageIsNot(page),
+  })
+  if ($timelineTitle != null &&
+      document.querySelector('#twt_likes') == null) {
+    log('inserting Likes header')
+    let div = document.createElement('div')
+    div.innerHTML = $timelineTitle.parentElement.outerHTML
+    let $likes = div.firstElementChild
+    $likes.querySelector('h2').id = 'twt_likes'
+    $likes.querySelector('span').textContent = LIKES
+    // This script assumes navigation has occurred when the document title changes,
+    // so by changing the title to "Likes" we effectively fake navigation to a
+    // non-existent Likes page.
+    $likes.addEventListener('click', () => {
+      if (!document.title.startsWith(LIKES)) {
+        setTitle(LIKES)
+      }
+      window.scrollTo({top: 0})
+    })
+    $timelineTitle.parentElement.parentElement.insertAdjacentElement('afterend', $likes)
+    // Go back to the main timeline from Likes when the Latest Tweets / Home heading is clicked
+    $timelineTitle.parentElement.addEventListener('click', () => {
+      if (!document.title.startsWith(page)) {
+        homeLinkClicked = true
+        setTitle(page)
+      }
+    })
+    // Go back to the main timeline from Likes when the Home nav link is clicked
+    document.querySelector(Selectors.NAV_HOME_LINK).addEventListener('click', () => {
+      homeLinkClicked = true
+      if (location.pathname == '/home' && !document.title.startsWith(page)) {
+        setTitle(page)
+      }
+    })
+  }
+}
 
 function addStaticCss() {
   var cssRules = []
@@ -376,6 +421,10 @@ function getTweetType($tweet) {
   if ($tweet.previousElementSibling != null &&
       $tweet.previousElementSibling.textContent.includes('Retweeted')) {
     return 'RETWEET'
+  }
+  if ($tweet.previousElementSibling != null &&
+      $tweet.previousElementSibling.textContent.includes('liked')) {
+    return 'LIKE'
   }
   return 'TWEET'
 }
@@ -442,7 +491,7 @@ function onPopup($topLevelElement) {
   }
 }
 
-/** @typedef {'TWEET'|'RETWEET'|'PROMOTED_TWEET'|'HEADING'} TimelineItemType */
+/** @typedef {'TWEET'|'RETWEET'|'LIKE'|'PROMOTED_TWEET'|'HEADING'} TimelineItemType */
 
 function onTimelineChange($timeline, page) {
   log(`processing ${$timeline.children.length} timeline item${s($timeline.children.length)}`)
@@ -458,7 +507,7 @@ function onTimelineChange($timeline, page) {
 
     if ($tweet != null) {
       timelineItemType = getTweetType($tweet)
-      if (page == LATEST_TWEETS || page == RETWEETS || page == HOME) {
+      if (page == LATEST_TWEETS || page == RETWEETS || page == LIKES || page == HOME) {
         hideItem = shouldHideTweet(timelineItemType, page)
       }
     }
@@ -532,8 +581,8 @@ function onTitleChange(title) {
     return
   }
 
-  // Stay on the Retweets timeline when…
-  if (currentPage == RETWEETS &&
+  // Stay on the Retweets or Likes timeline when…
+  if ((currentPage == RETWEETS || currentPage == LIKES) &&
       // …the title has changed back to the main timeline…
       (newPage == LATEST_TWEETS || newPage == HOME) &&
       // …the Home nav or Latest Tweets / Home header _wasn't_ clicked and…
@@ -558,10 +607,12 @@ function onTitleChange(title) {
         // …the notification count in the title changed.
         notificationCount != currentNotificationCount
       )) {
-    log('ignoring title change on Retweets timeline')
+    log('ignoring title change on Retweets or Likes timeline')
     currentNotificationCount = notificationCount
     currentPath = location.pathname
-    setTitle(RETWEETS)
+    if (currentPage == RETWEETS) setTitle(RETWEETS)
+    else if (currentPage == LIKES) setTitle(LIKES)
+
     return
   }
 
@@ -584,18 +635,25 @@ function onTitleChange(title) {
     return switchToLatestTweets(currentPage)
   }
 
-  if (config.retweets == 'separate') {
+  if (config.retweets == 'separate' || config.likes == 'separate') {
+    // TODO
+    /*
     document.body.classList.toggle(HOME, currentPage == HOME)
     document.body.classList.toggle('LatestTweets', currentPage == LATEST_TWEETS)
     document.body.classList.toggle(RETWEETS, currentPage == RETWEETS)
+    document.body.classList.toggle(LIKES, currentPage == LIKES)
+    */
     updateThemeColor()
   }
 
   if (config.retweets == 'separate' && (currentPage == LATEST_TWEETS || currentPage == RETWEETS || currentPage == HOME)) {
     addRetweetsHeader(currentPage)
   }
+  if (config.likes == 'separate' && (currentPage == LATEST_TWEETS || currentPage == LIKES || currentPage == HOME)) {
+    addLikesHeader(currentPage)
+  }
 
-  if ((config.retweets != 'ignore' || config.hideWhoToFollowEtc) && (currentPage == LATEST_TWEETS || currentPage == RETWEETS || currentPage == HOME) ||
+  if ((config.retweets != 'ignore' || config.likes != 'ignore' || config.hideWhoToFollowEtc) && (currentPage == LATEST_TWEETS || currentPage == RETWEETS || currentPage == LIKES || currentPage == HOME) ||
       config.hideWhoToFollowEtc && PROFILE_TITLE_RE.test(currentPage)) {
     observeTimeline(currentPage)
   }
@@ -618,7 +676,10 @@ function shouldHideTweet(tweetType, page) {
   if (tweetType == 'RETWEET' && config.retweets == 'ignore') {
     return false
   }
-  return tweetType != (page == RETWEETS ? 'RETWEET' : 'TWEET')
+  if (tweetType == 'LIKE' && config.likes == 'ignore') {
+    return false
+  }
+  return tweetType != (page == RETWEETS ? 'RETWEET' : (page == LIKES ? 'LIKE' : 'TWEET'))
 }
 
 async function switchToLatestTweets(page) {
@@ -672,6 +733,12 @@ let updateThemeColor = (function() {
                            'body.LatestTweets main h2:not(#twt_retweets)',
                            'body.Retweets #twt_retweets',
                          ].join(', ') + ` { color: ${lastThemeColor}; }`
+    
+    $style.textContent = [
+                           'body.Home main h2:not(#twt_likes)',
+                           'body.LatestTweets main h2:not(#twt_likes)',
+                           'body.Likes #twt_likes',
+                         ].join(', ') + ` { color: ${lastThemeColor}; }`
   }
 })()
 //#endregion
@@ -690,7 +757,7 @@ function main() {
     observeHtmlFontSize()
   }
 
-  if (config.retweets != 'ignore' || config.hideSidebarContent) {
+  if (config.retweets != 'ignore' || config.likes != 'ignore' || config.hideSidebarContent) {
     observeTitle()
   }
 }
