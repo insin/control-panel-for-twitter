@@ -34,7 +34,7 @@ config.enableDebugLogging = false
 const HOME = 'Home'
 const LATEST_TWEETS = 'Latest Tweets'
 const MESSAGES = 'Messages'
-const RETWEETS = 'Retweets'
+const TIMELINE_RETWEETS = 'Timeline Retweets'
 
 const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/i
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
@@ -308,13 +308,13 @@ async function addRetweetsHeader(page) {
     div.innerHTML = $timelineTitle.parentElement.outerHTML
     let $retweets = div.firstElementChild
     $retweets.querySelector('h2').id = 'twt_retweets'
-    $retweets.querySelector('span').textContent = RETWEETS
+    $retweets.querySelector('span').textContent = 'Retweets'
     // This script assumes navigation has occurred when the document title changes,
     // so by changing the title to "Retweets" we effectively fake navigation to a
     // non-existent Retweets page.
     $retweets.addEventListener('click', () => {
-      if (!document.title.startsWith(RETWEETS)) {
-        setTitle(RETWEETS)
+      if (!document.title.startsWith(TIMELINE_RETWEETS)) {
+        setTitle(TIMELINE_RETWEETS)
       }
       window.scrollTo({top: 0})
     })
@@ -458,7 +458,7 @@ function onTimelineChange($timeline, page) {
 
     if ($tweet != null) {
       timelineItemType = getTweetType($tweet)
-      if (page == LATEST_TWEETS || page == RETWEETS || page == HOME) {
+      if (page == LATEST_TWEETS || page == TIMELINE_RETWEETS || page == HOME) {
         hideItem = shouldHideTweet(timelineItemType, page)
       }
     }
@@ -533,7 +533,7 @@ function onTitleChange(title) {
   }
 
   // Stay on the Retweets timeline when…
-  if (currentPage == RETWEETS &&
+  if (currentPage == TIMELINE_RETWEETS &&
       // …the title has changed back to the main timeline…
       (newPage == LATEST_TWEETS || newPage == HOME) &&
       // …the Home nav or Latest Tweets / Home header _wasn't_ clicked and…
@@ -561,7 +561,7 @@ function onTitleChange(title) {
     log('ignoring title change on Retweets timeline')
     currentNotificationCount = notificationCount
     currentPath = location.pathname
-    setTitle(RETWEETS)
+    setTitle(TIMELINE_RETWEETS)
     return
   }
 
@@ -585,17 +585,17 @@ function onTitleChange(title) {
   }
 
   if (config.retweets == 'separate') {
-    document.body.classList.toggle(HOME, currentPage == HOME)
+    document.body.classList.toggle('Home', currentPage == HOME)
     document.body.classList.toggle('LatestTweets', currentPage == LATEST_TWEETS)
-    document.body.classList.toggle(RETWEETS, currentPage == RETWEETS)
+    document.body.classList.toggle('TimelineRetweets', currentPage == TIMELINE_RETWEETS)
     updateThemeColor()
   }
 
-  if (config.retweets == 'separate' && (currentPage == LATEST_TWEETS || currentPage == RETWEETS || currentPage == HOME)) {
+  if (config.retweets == 'separate' && (currentPage == LATEST_TWEETS || currentPage == TIMELINE_RETWEETS || currentPage == HOME)) {
     addRetweetsHeader(currentPage)
   }
 
-  if ((config.retweets != 'ignore' || config.hideWhoToFollowEtc) && (currentPage == LATEST_TWEETS || currentPage == RETWEETS || currentPage == HOME) ||
+  if ((config.retweets != 'ignore' || config.hideWhoToFollowEtc) && (currentPage == LATEST_TWEETS || currentPage == TIMELINE_RETWEETS || currentPage == HOME) ||
       config.hideWhoToFollowEtc && PROFILE_TITLE_RE.test(currentPage)) {
     observeTimeline(currentPage)
   }
@@ -618,7 +618,7 @@ function shouldHideTweet(tweetType, page) {
   if (tweetType == 'RETWEET' && config.retweets == 'ignore') {
     return false
   }
-  return tweetType != (page == RETWEETS ? 'RETWEET' : 'TWEET')
+  return tweetType != (page == TIMELINE_RETWEETS ? 'RETWEET' : 'TWEET')
 }
 
 async function switchToLatestTweets(page) {
@@ -670,7 +670,7 @@ let updateThemeColor = (function() {
     $style.textContent = [
                            'body.Home main h2:not(#twt_retweets)',
                            'body.LatestTweets main h2:not(#twt_retweets)',
-                           'body.Retweets #twt_retweets',
+                           'body.TimelineRetweets #twt_retweets',
                          ].join(', ') + ` { color: ${lastThemeColor}; }`
   }
 })()
