@@ -14,6 +14,7 @@ chrome.storage.local.get((storedConfig) => {
     hideWhoToFollowEtc: true,
     navBaseFontSize: true,
     retweets: 'separate',
+    verifiedAccounts: 'ignore',
     ...storedConfig
   }
 

@@ -27,6 +27,8 @@ let config = {
   navBaseFontSize: true,
   /** @type {'separate'|'hide'|'ignore'} */
   retweets: ('separate'),
+  /** @type {'highlight'|'hide'|'ignore'} */
+  verifiedAccounts: ('ignore'),
 }
 
 config.enableDebugLogging = false
@@ -50,6 +52,7 @@ let Selectors = {
   SIDEBAR_COLUMN: 'div[data-testid="sidebarColumn"]',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: 'div[data-testid="tweet"]',
+  VERIFIED_TICK: 'svg[aria-label="Verified account"]',
 }
 
 Object.assign(Selectors, {
@@ -489,12 +492,24 @@ function onTimelineChange($timeline, page) {
       }
     }
 
+    if (hideItem === false &&
+        config.verifiedAccounts === 'hide' &&
+        $item.querySelector(Selectors.VERIFIED_TICK)) {
+      hideItem = true
+    }
+
     if (hideItem != null) {
       /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
       // Log these out as they can't be reliably triggered for testing
       if (timelineItemType == 'HEADING' || previousTimelineItemType == 'HEADING') {
         log(`hid a ${previousTimelineItemType == 'HEADING' ? 'post-' : ''}heading item`, $item)
       }
+    }
+
+    if (hideItem !== true &&
+        config.verifiedAccounts === 'highlight' &&
+        $item.querySelector(Selectors.VERIFIED_TICK)) {
+      $item.style.backgroundColor = 'rgba(29, 161, 242, 0.25)'
     }
 
     $previousItem = $item
