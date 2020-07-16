@@ -25,7 +25,7 @@ _Enabled by default_
 
 _Disabled by default_
 
-- Hide tweets by or quoting verified acounts (simulating the aftermath of the Twitter hacks in July 2020), or highlight them if you want to check how much of your timeline content is driven by verified accounts.
+- Hide tweets by or quoting verified accounts (simulating the aftermath of the Twitter hacks in July 2020), or highlight them if you want to check how much of your timeline content is driven by verified accounts.
 
 ## Screenshots
 
