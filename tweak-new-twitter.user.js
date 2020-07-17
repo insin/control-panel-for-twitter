@@ -498,7 +498,7 @@ function onTimelineChange($timeline, page) {
       }
     }
 
-    if (hideItem === false &&
+    if (hideItem !== true &&
         config.verifiedAccounts === 'hide' &&
         $item.querySelector(Selectors.VERIFIED_TICK)) {
       hideItem = true
@@ -617,7 +617,7 @@ function onTitleChange(title) {
   }
 
   if ((config.retweets != 'ignore' || config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc) && (currentPage == LATEST_TWEETS || currentPage == TIMELINE_RETWEETS || currentPage == HOME) ||
-      config.hideWhoToFollowEtc && PROFILE_TITLE_RE.test(currentPage)) {
+      (config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc) && PROFILE_TITLE_RE.test(currentPage)) {
     observeTimeline(currentPage)
   }
 
