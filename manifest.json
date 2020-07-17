@@ -3,7 +3,7 @@
   "name": "Tweak New Twitter",
   "description": "Stay on the Latest Tweets timeline, reduce \"engagement\" and tone down some of Twitter's UI",
   "homepage_url": "https://github.com/insin/tweak-new-twitter/",
-  "version": "1.24",
+  "version": "1.25",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
