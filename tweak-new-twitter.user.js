@@ -632,17 +632,17 @@ function onTitleChange(title) {
 }
 
 /**
- * Automatically click the "View more replies" link to get rid of the "More Tweets" section if the
+ * Automatically click the "Show this thread" link to get rid of the "More Tweets" section if the
  * user is viewing a tweet from an external link with a ?ref_src= URL.
  */
 async function hideMoreTweetsSection(path) {
   let id = URL_TWEET_ID_RE.exec(path)[1]
-  let $link = await getElement(`a[href="/i/status/${id}"]`, {
-    name: '"View more replies" link',
+  let $link = await getElement(`a[href$="/status/${id}"]`, {
+    name: '"Show this thread" link',
     stopIf: pathIsNot(path),
   })
   if ($link != null) {
-    log('clicking "View more replies" link')
+    log('clicking "Show this thread" link')
     $link.click()
   }
 }
