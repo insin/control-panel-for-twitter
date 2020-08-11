@@ -4,7 +4,7 @@
 
 **Stay on the Latest Tweets timeline, reduce "engagement" and tone down some of Twitter's UI**
 
-* [Install Chrome Extension](https://chrome.google.com/webstore/detail/kpmjjdhbcfebfjgdnpjagcndoelnidfj)
+* [Install Chrome Extension](https://chrome.google.com/webstore/detail/tweak-new-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj)
 * [Install Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/)
 * [Install as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) (requires a [user script manager](https://greasyfork.org/en#home-step-1))
 
@@ -31,7 +31,7 @@ _Disabled by default_
 
 ## Screenshots
 
-Timeline view with all tweaks enabled (default):
+Timeline view with all default tweaks:
 
 ![Screenshot of a New Twitter timeline without retweets, sidebar content, nav links which can be hidden and a less distracting nav style](screenshots/timeline.png)
 
