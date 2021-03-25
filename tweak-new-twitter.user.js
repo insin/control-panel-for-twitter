@@ -4,7 +4,7 @@
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
-// @version     26
+// @version     27
 // ==/UserScript==
 
 //#region Config & variables
@@ -58,9 +58,6 @@ let Selectors = {
 }
 
 Object.assign(Selectors, {
-  SIDEBAR_FOOTER: `${Selectors.SIDEBAR_COLUMN} nav`,
-  SIDEBAR_PEOPLE: `${Selectors.SIDEBAR_COLUMN} aside`,
-  SIDEBAR_TRENDS: `${Selectors.SIDEBAR_COLUMN} section`,
   TIMELINE: `${Selectors.PRIMARY_COLUMN} section > h1 + div[aria-label] > div`,
 })
 
@@ -102,12 +99,16 @@ function getElement(selector, {
   timeout = Infinity,
 } = {}) {
   return new Promise((resolve) => {
+    let startTime = Date.now()
     let rafId
     let timeoutId
 
     function stop($element, reason) {
       if ($element == null) {
         log(`stopped waiting for ${name || selector} after ${reason}`)
+      }
+      else if (Date.now() > startTime) {
+        log(`${name || selector} appeared after ${Date.now() - startTime}ms`)
       }
       if (rafId) {
         cancelAnimationFrame(rafId)
@@ -227,19 +228,47 @@ async function observePopups() {
 //#endregion
 
 //#region Page observers
-async function observeSidebarAppearance(page) {
+async function observeSidebar(page) {
   let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {
     name: 'primary column',
     stopIf: pageIsNot(page),
   })
-  log('observing responsive sidebar')
+
+  /**
+   * Hides <aside> or <section> elements as they appear in the sidebar.
+   * @param {MutationRecord[]} mutations
+   */
+  function sidebarMutationCallback(mutations)  {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach(($el) => {
+        if ($el.nodeType == Node.ELEMENT_NODE &&
+            ($el.nodeName == 'ASIDE' || $el.nodeName == 'SECTION')) {
+          hideSidebarElement(/** @type {HTMLElement} */ ($el))
+        }
+      })
+    })
+  }
+
+  let $sidebarColumn = document.querySelector(Selectors.SIDEBAR_COLUMN)
+  if ($sidebarColumn) {
+    log('observing sidebar')
+    hideSidebarContents()
+    pageObservers.push(
+      observeElement($sidebarColumn, sidebarMutationCallback, {childList: true, subtree: true})
+    )
+  }
+  else {
+    log('waiting for sidebar to appear')
+  }
+
   pageObservers.push(
     observeElement($primaryColumn.parentNode, (mutations) => {
       mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((el) => {
-          if (/** @type {HTMLElement} */ (el).dataset.testid == 'sidebarColumn') {
+        mutation.addedNodes.forEach(($el) => {
+          if (/** @type {HTMLElement} */ ($el).dataset.testid == 'sidebarColumn') {
             log('sidebar appeared')
-            hideSidebarContents(page)
+            hideSidebarContents()
+            observeElement($el, sidebarMutationCallback, {childList: true, subtree: true})
           }
         })
       })
@@ -288,10 +317,14 @@ async function observeTimeline(page) {
   }
   else {
     log('waiting for real "new" timeline')
+    let startTime = Date.now()
     pageObservers.push(
       observeElement($timeline.parentNode, (mutations) => {
         mutations.forEach((mutation) => {
           mutation.addedNodes.forEach(($timeline) => {
+            if (Date.now() > startTime) {
+              log(`"new" timeline appeared after ${Date.now() - startTime}ms`)
+            }
             log('observing "new" timeline', {$timeline})
             pageObservers.push(
               observeElement($timeline, () => onTimelineChange($timeline, page))
@@ -350,9 +383,12 @@ function addStaticCss() {
   var hideCssSelectors = []
   if (config.hideSidebarContent) {
     hideCssSelectors.push(
-      Selectors.SIDEBAR_TRENDS,
-      Selectors.SIDEBAR_PEOPLE,
-      Selectors.SIDEBAR_FOOTER
+      // Sidefooter
+      `${Selectors.SIDEBAR_COLUMN} nav`,
+      // Who to Follow
+      `${Selectors.SIDEBAR_COLUMN} aside`,
+      // What's Happening, Topics to Follow etc.
+      `${Selectors.SIDEBAR_COLUMN} section`
     )
   }
   if (config.hideExploreNav) {
@@ -389,54 +425,26 @@ function getTweetType($tweet) {
   return 'TWEET'
 }
 
-async function hideSidebarContents(page) {
-  let trends = getElement(Selectors.SIDEBAR_TRENDS, {
-    name: 'sidebar trends',
-    stopIf: pageIsNot(page),
-    timeout: 4000,
-  }).then(($trends) => {
-    if ($trends == null) {
-      return false
-    }
-    let $trendsModule = $trends.parentElement.parentElement.parentElement
-    $trendsModule.style.display = 'none'
-    // Hide surrounding elements which draw separators between modules
-    if ($trendsModule.previousElementSibling &&
-        $trendsModule.previousElementSibling.childElementCount == 0) {
-      /** @type {HTMLElement} */ ($trendsModule.previousElementSibling).style.display = 'none'
-    }
-    if ($trendsModule.nextElementSibling &&
-        $trendsModule.nextElementSibling.childElementCount == 0) {
-      /** @type {HTMLElement} */ ($trendsModule.nextElementSibling).style.display = 'none'
-    }
-    return true
-  })
+/**
+ * Hides all <aside> or <section> elements which are already in the sidebar.
+ */
+function hideSidebarContents() {
+  Array.from(
+    document.querySelectorAll(`${Selectors.SIDEBAR_COLUMN} aside, ${Selectors.SIDEBAR_COLUMN} section`),
+    hideSidebarElement
+  )
+}
 
-  let people = getElement(Selectors.SIDEBAR_PEOPLE, {
-    name: 'sidebar people',
-    stopIf: pageIsNot(page),
-    timeout: 4000,
-  }).then(($people) => {
-    if ($people == null) {
-      return false
-    }
-    let $peopleModule
-    if ($people.getAttribute('aria-label') == 'Relevant people') {
-      // "Relevant people" section when viewing a Tweet/thread
-      $peopleModule = $people.parentElement
-    }
-    else {
-      // "Who to follow" section
-      $peopleModule = $people.parentElement
-    }
-    $peopleModule.style.display = 'none'
-    return true
-  })
-
-  let [hidTrends, hidPeople] = await Promise.all([trends, people])
-  log(hidTrends == true && hidPeople == true
-    ? 'hid all sidebar content'
-    : 'stopped waiting for sidebar content')
+/**
+ * Finds the topmost container for a sidebar content element and hides it.
+ * @param {HTMLElement} $element
+ */
+function hideSidebarElement($element) {
+  let $sidebarContainer = $element.parentElement
+  while (!$sidebarContainer.previousElementSibling) {
+     $sidebarContainer = $sidebarContainer.parentElement
+  }
+  $sidebarContainer.style.display = 'none'
 }
 
 function onPopup($topLevelElement) {
@@ -462,7 +470,9 @@ function onTimelineChange($timeline, page) {
   for (let $item of $timeline.children) {
     /** @type {?TimelineItemType} */
     let timelineItemType = null
+    /** @type {?boolean} */
     let hideItem = null
+    /** @type {?HTMLElement} */
     let $tweet = $item.querySelector(Selectors.TWEET)
 
     if ($tweet != null) {
@@ -505,16 +515,19 @@ function onTimelineChange($timeline, page) {
     }
 
     if (hideItem != null) {
-      /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
-      // Log these out as they can't be reliably triggered for testing
-      if (timelineItemType == 'HEADING' || previousTimelineItemType == 'HEADING') {
-        log(`hid a ${previousTimelineItemType == 'HEADING' ? 'post-' : ''}heading item`, $item)
+      if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display !== (hideItem ? 'none' : '')) {
+        /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
+        // Log these out as they can't be reliably triggered for testing
+        if (timelineItemType == 'HEADING' || previousTimelineItemType == 'HEADING') {
+          log(`hid a ${previousTimelineItemType == 'HEADING' ? 'post-' : ''}heading item`, $item)
+        }
       }
     }
 
     if (hideItem !== true &&
         config.verifiedAccounts === 'highlight' &&
-        $item.querySelector(Selectors.VERIFIED_TICK)) {
+        $item.querySelector(Selectors.VERIFIED_TICK) &&
+        $item.style.backgroundColor !== 'rgba(29, 161, 242, 0.25)') {
       $item.style.backgroundColor = 'rgba(29, 161, 242, 0.25)'
     }
 
@@ -622,8 +635,7 @@ function onTitleChange(title) {
   }
 
   if (config.hideSidebarContent && currentPage != MESSAGES) {
-    hideSidebarContents(currentPage)
-    observeSidebarAppearance(currentPage)
+    observeSidebar(currentPage)
   }
 
   if (config.hideMoreTweets && URL_TWEET_ID_RE.test(currentPath) && location.search.startsWith('?ref_src')) {
