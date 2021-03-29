@@ -16,6 +16,7 @@
  */
 let config = {
   alwaysUseLatestTweets: true,
+  disableTimeline: false,
   fastBlock: true,
   hideAccountSwitcher: true,
   hideBookmarksNav: true,
@@ -391,6 +392,9 @@ function addStaticCss() {
       `${Selectors.SIDEBAR_COLUMN} section`
     )
   }
+  if (config.disableTimeline) {
+    hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href="/home"]`)
+  }
   if (config.hideExploreNav) {
     hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href="/explore"]`)
   }
@@ -554,6 +558,11 @@ function onTitleChange(title) {
   // first time.
   if (title == 'Twitter') {
     log('ignoring Flash of Uninitialised Title')
+    return
+  }
+
+  if (config.disableTimeline && location.pathname == '/home') {
+    document.querySelector(`${Selectors.PRIMARY_NAV} a[href="/notifications"]`).click()
     return
   }
 
