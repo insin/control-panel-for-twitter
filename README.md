@@ -20,6 +20,7 @@ _Enabled by default_
 - Fast blocking - skips the confirmation dialog when you try to block someone
 - Remove sidebar content (Trends, Who to follow, sidefooter)
 - Hide the Messages drawer
+- Hide analytics buttons
 - Remove some less-used links from the primary nav (Explore, Bookmarks, Links)
 - Hide the account switcher in the primary nav footer
 - Use the site's base font size and normal font weight in the primary nav to make it less distracting (using your selected font size from the Display / Customize your view dialog)
