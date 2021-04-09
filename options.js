@@ -13,6 +13,7 @@ chrome.storage.local.get((storedConfig) => {
     hideMoreTweets: true,
     hideSidebarContent: true,
     hideWhoToFollowEtc: true,
+    hideAnalyticsButtons: true,
     navBaseFontSize: true,
     retweets: 'separate',
     verifiedAccounts: 'ignore',

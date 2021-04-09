@@ -25,6 +25,7 @@ let config = {
   hideMoreTweets: true,
   hideSidebarContent: true,
   hideWhoToFollowEtc: true,
+  hideAnalyticsButtons: true,
   navBaseFontSize: true,
   /** @type {'separate'|'hide'|'ignore'} */
   retweets: ('separate'),
@@ -55,6 +56,8 @@ let Selectors = {
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: 'div[data-testid="tweet"]',
   VERIFIED_TICK: 'svg[aria-label="Verified account"]',
+  SMALL_ANALYTICS_BUTTON: 'a[aria-label="View Tweet activity"]',
+  LARGE_ANALYTICS_BUTTON: 'a[data-testid="analyticsButton"]'
 }
 
 Object.assign(Selectors, {
@@ -276,7 +279,7 @@ async function observeSidebar(page) {
   )
 }
 
-async function observeTimeline(page) {
+async function observeTimeline(/** @type {string} currentPage*/ page) {
   let $timeline = await getElement(Selectors.TIMELINE, {
     name: 'timeline',
     stopIf: pageIsNot(page),
@@ -406,6 +409,10 @@ function addStaticCss() {
   if (config.hideMessagesDrawer) {
     hideCssSelectors.push(Selectors.MESSAGES_DRAWER)
   }
+  if (config.hideAnalyticsButtons) {
+    hideCssSelectors.push(Selectors.SMALL_ANALYTICS_BUTTON)
+    hideCssSelectors.push(Selectors.LARGE_ANALYTICS_BUTTON)
+  }
   if (hideCssSelectors.length > 0) {
     cssRules.push(`${hideCssSelectors.join(', ')} { display: none !important; }`)
   }
@@ -492,6 +499,20 @@ function onTimelineChange($timeline, page) {
           /** @type {HTMLElement} */ ($previousItem.firstElementChild).style.display = 'none'
         }
       }
+    }
+
+    if (config.hideAnalyticsButtons) {
+      // Hide a 37px x 0 div that exists
+      document.querySelectorAll('div[aria-label="Share Tweet"]').forEach(e => {
+        // The highlighted element is the one we're trying to "remove"
+        // https://i.imgur.com/1NTN3HZ.png
+        if (e.firstChild.childNodes[1]) {
+          e.firstChild.childNodes[1].style = "display: none!important"
+        }
+      }) 
+      document.querySelectorAll('a[aria-label="View Tweet activity"]').forEach(element => {
+        element.parentElement.style = "display: none!important"
+      })
     }
 
     if (timelineItemType == null) {

@@ -1,6 +1,7 @@
 {
   "scripts": {
     "build": "web-ext build",
+    "builddev": "nodemon --exec 'web-ext build --overwrite-dest'",
     "lint": "web-ext lint",
     "start": "web-ext run --start-url https://twitter.com",
     "chrome": "web-ext run --target chromium --start-url https://twitter.com"
@@ -17,6 +18,7 @@
   },
   "devDependencies": {
     "@types/chrome": "0.0.114",
-    "web-ext": "4.1.0"
+    "nodemon": "^2.0.7",
+    "web-ext": "^4.3.0"
   }
 }
