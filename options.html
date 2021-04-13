@@ -18,7 +18,7 @@
     }
 
     section.checkbox > label,
-    section.checkboxlist > label,
+    section.optiongroup > label,
     section.select {
       display: flex;
       justify-content: space-between;
@@ -26,21 +26,21 @@
     }
 
     section.checkbox > label,
-    section.checkboxlist > label {
+    section.optiongroup > label {
       cursor: pointer;
     }
 
-    section.checkboxlist {
+    section.optiongroup {
       padding-left: .825em;
       padding-bottom: .5em;
     }
 
-    section.checkboxlist > label {
+    section.optiongroup > label {
       padding-top: .5em;
       padding-bottom: .5em;
     }
 
-    section.checkboxlist p {
+    section.optiongroup p {
       margin-bottom: .5em;
     }
 
@@ -84,6 +84,10 @@
       background-color: #8AB4F8;
     }
 
+    .switch > input:disabled + label {
+      opacity: .5;
+    }
+
     @media (prefers-color-scheme: dark) {
       body {
         background-color: #202023;
@@ -98,22 +102,30 @@
 </head>
 <body>
   <form>
-    <section class="checkbox">
-      <label>
+    <section class="optiongroup">
+      <p>Timeline settings:</p>
+      <label class="select">
+        Retweets
+        <select name="retweets" id="retweets">
+          <option value="ignore">Do nothing</option>
+          <option value="hide">Hide</option>
+          <option value="separate">Show in separate "Retweets" timeline</option>
+        </select>
+      </label>
+      <label class="checkbox">
         <span>Always use Latest Tweets timeline</span>
         <div class="switch">
           <input type="checkbox" name="alwaysUseLatestTweets" id="alwaysUseLatestTweets">
           <label for="alwaysUseLatestTweets"></label>
         </div>
       </label>
-    </section>
-    <section class="select">
-      Retweets
-      <select name="retweets">
-        <option value="ignore">Do nothing</option>
-        <option value="hide">Hide</option>
-        <option value="separate">Show in separate "Retweets" timeline</option>
-      </select>
+      <label class="checkbox">
+        <span>Disable timeline</span>
+        <div class="switch">
+          <input type="checkbox" name="disableTimeline" id="disableTimeline">
+          <label for="disableTimeline"></label>
+        </div>
+      </label>
     </section>
     <section class="checkbox">
       <label>
@@ -169,7 +181,7 @@
         </div>
       </label>
     </section>
-    <section class="checkboxlist">
+    <section class="optiongroup">
       <p>Hide navigation bar items:</p>
       <label>
         <span>Explore</span>

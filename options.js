@@ -3,6 +3,7 @@ chrome.storage.local.get((storedConfig) => {
 
   let config = {
     alwaysUseLatestTweets: true,
+    disableTimeline: false,
     enableDebugLogging: false,
     fastBlock: true,
     hideAccountSwitcher: true,
@@ -40,4 +41,17 @@ chrome.storage.local.get((storedConfig) => {
     }
     chrome.storage.local.set(config)
   })
+
+  window.disableTimeline.addEventListener('change', manageTimelineOptions)
+  manageTimelineOptions()
 })
+
+function manageTimelineOptions () {
+  if (window.disableTimeline.checked) {
+    window.alwaysUseLatestTweets.setAttribute('disabled', true)
+    window.retweets.setAttribute('disabled', true)
+  } else {
+    window.alwaysUseLatestTweets.removeAttribute('disabled')
+    window.retweets.removeAttribute('disabled')
+  }
+}
