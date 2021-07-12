@@ -23,6 +23,7 @@ let config = {
   hideListsNav: true,
   hideMessagesDrawer: true,
   hideMoreTweets: true,
+  hideOriginalTweetWhenViewingQuoteTweets: true,
   hideSidebarContent: true,
   hideWhoToFollowEtc: true,
   navBaseFontSize: true,
@@ -38,6 +39,7 @@ const HOME = 'Home'
 const LATEST_TWEETS = 'Latest Tweets'
 const MESSAGES = 'Messages'
 const TIMELINE_RETWEETS = 'Timeline Retweets'
+const QUOTE_TWEETS = 'Quote Tweets'
 
 const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/i
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
@@ -640,6 +642,11 @@ function onTitleChange(title) {
 
   if (config.hideMoreTweets && URL_TWEET_ID_RE.test(currentPath) && location.search.startsWith('?ref_src')) {
     hideMoreTweetsSection(currentPath)
+  }
+
+  if (config.hideOriginalTweetWhenViewingQuoteTweets && currentPage == QUOTE_TWEETS) {
+    let $quoteTweetStyle = addStyle('[data-testid="tweet"] [aria-labelledby] { display: none; }')
+    pageObservers.push({disconnect: () => $quoteTweetStyle.remove()})
   }
 }
 
