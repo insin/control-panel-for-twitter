@@ -656,7 +656,7 @@ function onTitleChange(title) {
   }
 
   if (config.hideOriginalTweetWhenViewingQuoteTweets && currentPage == QUOTE_TWEETS) {
-    let $quoteTweetStyle = addStyle('[data-testid="tweet"] [aria-labelledby] { display: none; }')
+    let $quoteTweetStyle = addStyle('[data-testid="tweet"] [aria-labelledby] > div:last-child { display: none; }')
     pageObservers.push({disconnect: () => $quoteTweetStyle.remove()})
   }
 }
