@@ -47,7 +47,6 @@ const URL_TWEET_ID_RE = /\/status\/(\d+)$/
 const URL_PHOTO_RE = /photo\/\d$/
 
 let Selectors = {
-  ACCOUNT_SWITCHER: 'div[data-testid="SideNav_AccountSwitcher_Button"]',
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
@@ -403,7 +402,16 @@ function addStaticCss() {
     hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href*="/lists"]`)
   }
   if (config.hideAccountSwitcher) {
-    hideCssSelectors.push(Selectors.ACCOUNT_SWITCHER)
+    cssRules.push(`
+header[role="banner"] > div > div > div > div:last-child {
+  flex-shrink: 1 !important;
+  align-items: end !important;
+}
+[data-testid="SideNav_AccountSwitcher_Button"] > div:first-child,
+[data-testid="SideNav_AccountSwitcher_Button"] > div:first-child + div {
+  display: none !important;
+}
+    `)
   }
   if (config.hideMessagesDrawer) {
     hideCssSelectors.push(Selectors.MESSAGES_DRAWER)
