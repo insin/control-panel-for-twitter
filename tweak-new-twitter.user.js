@@ -640,8 +640,11 @@ function onTitleChange(title) {
     observeSidebar(currentPage)
   }
 
-  if (config.hideMoreTweets && URL_TWEET_ID_RE.test(currentPath) && location.search.startsWith('?ref_src')) {
-    hideMoreTweetsSection(currentPath)
+  if (config.hideMoreTweets && URL_TWEET_ID_RE.test(currentPath)) {
+    let searchParams = new URLSearchParams(location.search)
+    if (searchParams.has('ref_src') || searchParams.has('s')) {
+      hideMoreTweetsSection(currentPath)
+    }
   }
 
   if (config.hideOriginalTweetWhenViewingQuoteTweets && currentPage == QUOTE_TWEETS) {
