@@ -15,6 +15,7 @@ chrome.storage.local.get((storedConfig) => {
     hideSidebarContent: true,
     hideWhoToFollowEtc: true,
     navBaseFontSize: true,
+    quoteTweets: 'ignore',
     retweets: 'separate',
     verifiedAccounts: 'ignore',
     ...storedConfig

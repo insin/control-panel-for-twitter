@@ -7,6 +7,14 @@
 // @version     27
 // ==/UserScript==
 
+//#region Custom types
+/** @typedef {'TWEET'|'QUOTE_TWEET'|'RETWEET'|'PROMOTED_TWEET'|'HEADING'} TimelineItemType */
+
+/** @typedef {'separate'|'hide'|'ignore'} SharedTweetsConfig */
+
+/** @typedef {'highlight'|'hide'|'ignore'} VerifiedAccountsConfig */
+//#endregion
+
 //#region Config & variables
 /**
  * Default config enables all features.
@@ -14,7 +22,7 @@
  * You'll need to edit the config object manually for now if you're using this
  * as a user script.
  */
-let config = {
+const config = {
   alwaysUseLatestTweets: true,
   fastBlock: true,
   hideAccountSwitcher: true,
@@ -27,18 +35,20 @@ let config = {
   hideSidebarContent: true,
   hideWhoToFollowEtc: true,
   navBaseFontSize: true,
-  /** @type {'separate'|'hide'|'ignore'} */
-  retweets: ('separate'),
-  /** @type {'highlight'|'hide'|'ignore'} */
-  verifiedAccounts: ('ignore'),
+  /** @type {SharedTweetsConfig} */
+  quoteTweets: 'separate',
+  /** @type {SharedTweetsConfig} */
+  retweets: 'hide',
+  /** @type {VerifiedAccountsConfig} */
+  verifiedAccounts: 'ignore',
 }
 
 config.enableDebugLogging = false
 
+// Document title names used by Twitter
 const HOME = 'Home'
 const LATEST_TWEETS = 'Latest Tweets'
 const MESSAGES = 'Messages'
-const TIMELINE_RETWEETS = 'Timeline Retweets'
 const QUOTE_TWEETS = 'Quote Tweets'
 
 const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/i
@@ -46,7 +56,7 @@ const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_TWEET_ID_RE = /\/status\/(\d+)$/
 const URL_PHOTO_RE = /photo\/\d$/
 
-let Selectors = {
+const Selectors = {
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
@@ -79,9 +89,29 @@ let homeLinkClicked = false
  * @type MutationObserver[]
  */
 let pageObservers = []
+
+// Config for the fake timeline used to display retweets/quote tweets separately
+let separatedTweetsTimelineTitle = ''
+let separatedTweetsTimelineName = ''
+
+function configureSeparatedTweetsTimeline() {
+  if (config.retweets == 'separate' && config.quoteTweets == 'separate') {
+    separatedTweetsTimelineTitle = separatedTweetsTimelineName = 'Shared Tweets'
+  } else if (config.retweets == 'separate') {
+    separatedTweetsTimelineTitle = separatedTweetsTimelineName = 'Retweets'
+  } else if (config.quoteTweets == 'separate') {
+    // Twitter already uses 'Quote Tweets' as a page title
+    // ☠ ¡This string starts with a ZWSP! ☠
+    separatedTweetsTimelineTitle = separatedTweetsTimelineName = '​Quote Tweets'
+  }
+}
 //#endregion
 
 //#region Utility functions
+/**
+ * @param {string} css
+ * @return {HTMLStyleElement}
+ */
 function addStyle(css) {
   let $style = document.createElement('style')
   $style.dataset.insertedBy = 'tweak-new-twitter'
@@ -91,12 +121,19 @@ function addStyle(css) {
 }
 
 /**
+ * @param {string} selector
+ * @param {{
+ *   name?: string
+ *   stopIf?: () => boolean
+ *   context?: Document | HTMLElement
+ *   timeout?: number
+ * }} options
  * @returns {Promise<HTMLElement>}
  */
 function getElement(selector, {
   name = null,
   stopIf = null,
-  target = document,
+  context = document,
   timeout = Infinity,
 } = {}) {
   return new Promise((resolve) => {
@@ -125,11 +162,11 @@ function getElement(selector, {
     }
 
     function queryElement() {
-      let $element = target.querySelector(selector)
+      let $element = context.querySelector(selector)
       if ($element) {
         stop($element)
       }
-      else if (stopIf != null && stopIf() === true) {
+      else if (stopIf?.() === true) {
         stop(null, 'stopIf condition met')
       }
       else {
@@ -143,14 +180,14 @@ function getElement(selector, {
 
 function log(...args) {
   if (config.enableDebugLogging) {
-    console.log(`TWT${currentPage ? `(${currentPage})` : ''}`, ...args)
+    console.log(`TNT${currentPage ? `(${currentPage})` : ''}`, ...args)
   }
 }
 
 /**
  * Convenience wrapper for the MutationObserver API.
  *
- * The listener is called immediately to support using an observer and its
+ * The callback is called immediately to support using an observer and its
  * options as a trigger for any change, without looking at MutationRecords.
  *
  * @param {Node} $element
@@ -164,14 +201,26 @@ function observeElement($element, callback, options = {childList: true}) {
   return observer
 }
 
+/**
+ * @param {string} page
+ * @returns {() => boolean}
+ */
 function pageIsNot(page) {
   return () => page != currentPage
 }
 
+/**
+ * @param {string} path
+ * @returns {() => boolean}
+ */
 function pathIsNot(path) {
   return () => path != currentPath
 }
 
+/**
+ * @param {number} n
+ * @returns {string}
+ */
 function s(n) {
   return n == 1 ? '' : 's'
 }
@@ -228,7 +277,7 @@ async function observePopups() {
 }
 //#endregion
 
-//#region Page observers
+//#region Page observers for the current page
 async function observeSidebar(page) {
   let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {
     name: 'primary column',
@@ -345,19 +394,19 @@ async function addRetweetsHeader(page) {
     stopIf: pageIsNot(page),
   })
   if ($timelineTitle != null &&
-      document.querySelector('#twt_retweets') == null) {
-    log('inserting Retweets header')
+      document.querySelector('#tnt_separated_tweets') == null) {
+    log('inserting separates tweets timeline header')
     let div = document.createElement('div')
     div.innerHTML = $timelineTitle.parentElement.outerHTML
     let $retweets = div.firstElementChild
-    $retweets.querySelector('h2').id = 'twt_retweets'
-    $retweets.querySelector('span').textContent = 'Retweets'
+    $retweets.querySelector('h2').id = 'tnt_separated_tweets'
+    $retweets.querySelector('span').textContent = separatedTweetsTimelineName
     // This script assumes navigation has occurred when the document title changes,
     // so by changing the title to "Retweets" we effectively fake navigation to a
     // non-existent Retweets page.
     $retweets.addEventListener('click', () => {
-      if (!document.title.startsWith(TIMELINE_RETWEETS)) {
-        setTitle(TIMELINE_RETWEETS)
+      if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
+        setTitle(separatedTweetsTimelineTitle)
       }
       window.scrollTo({top: 0})
     })
@@ -424,13 +473,23 @@ header[role="banner"] > div > div > div > div:last-child {
   }
 }
 
+/**
+ * Attempts to determine the type of a timeline Tweet given the element with data-testid="tweet" on
+ * it, falling back to TWEET if it doesn't appear to be one of the particular types we care about.
+ * @param {HTMLElement} $tweet
+ * @returns {TimelineItemType}
+ */
 function getTweetType($tweet) {
   if ($tweet.closest(Selectors.PROMOTED_TWEET)) {
     return 'PROMOTED_TWEET'
   }
-  if ($tweet.previousElementSibling != null &&
-      $tweet.previousElementSibling.textContent.includes('Retweeted')) {
+  if ($tweet.previousElementSibling?.textContent.includes('Retweeted')) {
     return 'RETWEET'
+  }
+  if ($tweet.querySelector('div[id^="id__"] > div[dir="auto"] > span')?.textContent.includes('Quote Tweet') ||
+      // QTs of accounts you blocked are displayed as a nested <article> with "This Tweet is unavailable."
+      $tweet.querySelector('article')) {
+    return 'QUOTE_TWEET'
   }
   return 'TWEET'
 }
@@ -458,8 +517,8 @@ function hideSidebarElement($element) {
 }
 
 function onPopup($topLevelElement) {
-  // Block button
   let $confirmButton = $topLevelElement.querySelector('div[data-testid="confirmationSheetConfirm"]')
+  // Block button
   if ($confirmButton && $confirmButton.innerText == 'Block') {
     if (config.fastBlock) {
       log('Fast blocking')
@@ -469,47 +528,53 @@ function onPopup($topLevelElement) {
   }
 }
 
-/** @typedef {'TWEET'|'RETWEET'|'PROMOTED_TWEET'|'HEADING'} TimelineItemType */
-
 function onTimelineChange($timeline, page) {
   log(`processing ${$timeline.children.length} timeline item${s($timeline.children.length)}`)
   /** @type {HTMLElement} */
   let $previousItem = null
   /** @type {?TimelineItemType} */
-  let previousTimelineItemType = null
+  let previousItemType = null
+  /** @type {?boolean} */
+  let hidPreviousItem = null
   for (let $item of $timeline.children) {
     /** @type {?TimelineItemType} */
-    let timelineItemType = null
+    let itemType = null
     /** @type {?boolean} */
     let hideItem = null
     /** @type {?HTMLElement} */
     let $tweet = $item.querySelector(Selectors.TWEET)
 
     if ($tweet != null) {
-      timelineItemType = getTweetType($tweet)
-      if (page == LATEST_TWEETS || page == TIMELINE_RETWEETS || page == HOME) {
-        hideItem = shouldHideTweet(timelineItemType, page)
+      itemType = getTweetType($tweet)
+      if (page == LATEST_TWEETS || page == separatedTweetsTimelineTitle || page == HOME) {
+        if (previousItemType == 'QUOTE_TWEET' && isReplyToPreviousTweet($tweet)) {
+          hideItem = hidPreviousItem
+          itemType = previousItemType
+        } else {
+          hideItem = shouldHideTimelineItem(itemType, page)
+        }
       }
     }
 
-    if (timelineItemType == null && config.hideWhoToFollowEtc) {
+    if (itemType == null && config.hideWhoToFollowEtc) {
       // "Who to follow", "Follow some Topics" etc. headings
       if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
-        timelineItemType = 'HEADING'
+        itemType = 'HEADING'
         hideItem = true
         // Also hide the divider above the heading
-        if ($previousItem && $previousItem.innerText == '') {
+        if ($previousItem?.innerText == '' && $previousItem.firstElementChild) {
           /** @type {HTMLElement} */ ($previousItem.firstElementChild).style.display = 'none'
         }
       }
     }
 
-    if (timelineItemType == null) {
+    if (itemType == null) {
       // Assume a non-identified item following an identified item is related to it
       // "Who to follow" users and "Follow some Topics" topics appear in subsequent items
       // "Show this thread" and "Show more" links appear in subsequent items
-      if (previousTimelineItemType != null) {
-        hideItem = previousTimelineItemType == 'HEADING' || shouldHideTweet(previousTimelineItemType, page)
+      if (previousItemType != null) {
+        hideItem = hidPreviousItem
+        itemType = previousItemType
       }
       // The first item in the timeline is sometimes an empty placeholder <div>
       else if ($item !== $timeline.firstElementChild) {
@@ -528,8 +593,8 @@ function onTimelineChange($timeline, page) {
       if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display !== (hideItem ? 'none' : '')) {
         /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
         // Log these out as they can't be reliably triggered for testing
-        if (timelineItemType == 'HEADING' || previousTimelineItemType == 'HEADING') {
-          log(`hid a ${previousTimelineItemType == 'HEADING' ? 'post-' : ''}heading item`, $item)
+        if (itemType == 'HEADING' || previousItemType == 'HEADING') {
+          log(`hid a ${previousItemType == 'HEADING' ? 'post-' : ''}heading item`, $item)
         }
       }
     }
@@ -542,9 +607,10 @@ function onTimelineChange($timeline, page) {
     }
 
     $previousItem = $item
+    hidPreviousItem = hideItem
     // If we hid a heading, keep hiding everything after it until we hit a tweet
-    if (!(previousTimelineItemType == 'HEADING' && timelineItemType == null)) {
-      previousTimelineItemType = timelineItemType
+    if (!(previousItemType == 'HEADING' && itemType == null)) {
+      previousItemType = itemType
     }
   }
 }
@@ -577,7 +643,7 @@ function onTitleChange(title) {
   }
 
   // Stay on the Retweets timeline when…
-  if (currentPage == TIMELINE_RETWEETS &&
+  if (currentPage == separatedTweetsTimelineTitle &&
       // …the title has changed back to the main timeline…
       (newPage == LATEST_TWEETS || newPage == HOME) &&
       // …the Home nav or Latest Tweets / Home header _wasn't_ clicked and…
@@ -605,7 +671,7 @@ function onTitleChange(title) {
     log('ignoring title change on Retweets timeline')
     currentNotificationCount = notificationCount
     currentPath = location.pathname
-    setTitle(TIMELINE_RETWEETS)
+    setTitle(separatedTweetsTimelineTitle)
     return
   }
 
@@ -625,22 +691,32 @@ function onTitleChange(title) {
   log('processing new page')
 
   if (config.alwaysUseLatestTweets && currentPage == HOME) {
-    return switchToLatestTweets(currentPage)
+    switchToLatestTweets(currentPage)
+    return
   }
 
-  if (config.retweets == 'separate') {
+  let isOnHomeTimeline = (
+    currentPage == LATEST_TWEETS || currentPage == separatedTweetsTimelineTitle || currentPage == HOME
+  )
+
+  if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
     document.body.classList.toggle('Home', currentPage == HOME)
     document.body.classList.toggle('LatestTweets', currentPage == LATEST_TWEETS)
-    document.body.classList.toggle('TimelineRetweets', currentPage == TIMELINE_RETWEETS)
+    document.body.classList.toggle('SeparatedTweets', currentPage == separatedTweetsTimelineTitle)
     updateThemeColor()
+    if (isOnHomeTimeline) {
+      addRetweetsHeader(currentPage)
+    }
   }
 
-  if (config.retweets == 'separate' && (currentPage == LATEST_TWEETS || currentPage == TIMELINE_RETWEETS || currentPage == HOME)) {
-    addRetweetsHeader(currentPage)
-  }
+  let shouldObserveHomeTimeline = isOnHomeTimeline && (
+    config.retweets != 'ignore' || config.quoteTweets != 'ignore' || config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc
+  )
+  let shouldObserveProfileTimeline = PROFILE_TITLE_RE.test(currentPage) && (
+    config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc
+  )
 
-  if ((config.retweets != 'ignore' || config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc) && (currentPage == LATEST_TWEETS || currentPage == TIMELINE_RETWEETS || currentPage == HOME) ||
-      (config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc) && PROFILE_TITLE_RE.test(currentPage)) {
+  if (shouldObserveHomeTimeline || shouldObserveProfileTimeline) {
     observeTimeline(currentPage)
   }
 
@@ -657,7 +733,7 @@ function onTitleChange(title) {
 
   if (config.hideOriginalTweetWhenViewingQuoteTweets && currentPage == QUOTE_TWEETS) {
     let $quoteTweetStyle = addStyle('[data-testid="tweet"] [aria-labelledby] > div:last-child { display: none; }')
-    pageObservers.push({disconnect: () => $quoteTweetStyle.remove()})
+    pageObservers.push(/** @type {MutationObserver} */ ({disconnect: () => $quoteTweetStyle.remove()}))
   }
 }
 
@@ -678,6 +754,18 @@ async function hideMoreTweetsSection(path) {
 }
 
 /**
+ * Checks if a tweet is preceded by an element creating a vertical reply line.
+ * @param {HTMLElement} $tweet
+ * @returns {boolean}
+ */
+function isReplyToPreviousTweet($tweet) {
+  let $replyLine = $tweet.previousElementSibling?.firstElementChild?.firstElementChild?.firstElementChild
+  if ($replyLine) {
+    return getComputedStyle($replyLine).width == '2px'
+  }
+}
+
+/**
  * Sets the page name in <title>, retaining any current notification count.
  * @param {string} page
  */
@@ -685,11 +773,31 @@ function setTitle(page) {
   document.title = `${currentNotificationCount}${page} / Twitter`
 }
 
-function shouldHideTweet(tweetType, page) {
-  if (tweetType == 'RETWEET' && config.retweets == 'ignore') {
-    return false
+/**
+ * @param {TimelineItemType} type
+ * @param {string} page
+ * @returns {boolean}
+ */
+function shouldHideTimelineItem(type, page) {
+  switch (type) {
+    case 'RETWEET': return shouldHideSharedTweet(config.retweets, page)
+    case 'QUOTE_TWEET': return shouldHideSharedTweet(config.quoteTweets, page)
+    case 'TWEET': return page == separatedTweetsTimelineTitle
+    default: return true
   }
-  return tweetType != (page == TIMELINE_RETWEETS ? 'RETWEET' : 'TWEET')
+}
+
+/**
+ * @param {SharedTweetsConfig} config
+ * @param {string} page
+ * @returns {boolean}
+ */
+function shouldHideSharedTweet(config, page) {
+  switch (config) {
+    case 'hide': return true
+    case 'ignore': return page == separatedTweetsTimelineTitle
+    case 'separate': return page != separatedTweetsTimelineTitle
+  }
 }
 
 async function switchToLatestTweets(page) {
@@ -739,9 +847,9 @@ let updateThemeColor = (function() {
     log(`setting theme color to ${themeColor}`)
     lastThemeColor = themeColor
     $style.textContent = [
-                           'body.Home main h2:not(#twt_retweets)',
-                           'body.LatestTweets main h2:not(#twt_retweets)',
-                           'body.TimelineRetweets #twt_retweets',
+                           'body.Home main h2:not(#tnt_separated_tweets)',
+                           'body.LatestTweets main h2:not(#tnt_separated_tweets)',
+                           'body.SeparatedTweets #tnt_separated_tweets',
                          ].join(', ') + ` { color: ${lastThemeColor}; }`
   }
 })()
@@ -765,7 +873,9 @@ function main() {
       config.hideSidebarContent ||
       config.hideWhoToFollowEtc ||
       config.retweets != 'ignore' ||
+      config.quoteTweets != 'ignore' ||
       config.verifiedAccounts != 'ignore') {
+    configureSeparatedTweetsTimeline()
     observeTitle()
   }
 }
