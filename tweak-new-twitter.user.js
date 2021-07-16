@@ -180,7 +180,7 @@ function getElement(selector, {
 
 function log(...args) {
   if (config.enableDebugLogging) {
-    console.log(`TNT${currentPage ? `(${currentPage})` : ''}`, ...args)
+    console.log(`🧨${currentPage ? `(${currentPage})` : ''}`, ...args)
   }
 }
 
