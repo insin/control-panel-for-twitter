@@ -31,10 +31,10 @@ const config = {
   hideListsNav: true,
   hideMessagesDrawer: true,
   hideMoreTweets: true,
-  hideOriginalTweetWhenViewingQuoteTweets: true,
   hideSidebarContent: true,
   hideWhoToFollowEtc: true,
   navBaseFontSize: true,
+  pinQuotedTweetOnQuoteTweetsPage: true,
   /** @type {SharedTweetsConfig} */
   quoteTweets: 'ignore',
   /** @type {SharedTweetsConfig} */
@@ -731,9 +731,37 @@ function onTitleChange(title) {
     }
   }
 
-  if (config.hideOriginalTweetWhenViewingQuoteTweets && currentPage == QUOTE_TWEETS) {
-    let $quoteTweetStyle = addStyle('[data-testid="tweet"] [aria-labelledby] > div:last-child { display: none; }')
-    pageObservers.push(/** @type {MutationObserver} */ ({disconnect: () => $quoteTweetStyle.remove()}))
+  if (config.pinQuotedTweetOnQuoteTweetsPage && currentPage == QUOTE_TWEETS) {
+    tweakQuoteTweetsPage()
+  }
+}
+
+async function tweakQuoteTweetsPage() {
+  // Hide the quoted tweet, which is repeated in every quote tweet
+  let $quoteTweetStyle = addStyle('[data-testid="tweet"] [aria-labelledby] > div:last-child { display: none; }')
+  pageObservers.push(/** @type {MutationObserver} */ ({disconnect: () => $quoteTweetStyle.remove()}))
+
+  // Show the quoted tweet once in the pinned header instead
+  let [$heading, $quotedTweet] = await Promise.all([
+    getElement(`${Selectors.PRIMARY_COLUMN} ${Selectors.TIMELINE_HEADING}`, {
+      name: 'Quote Tweets heading',
+      stopIf: pageIsNot(QUOTE_TWEETS)
+    }),
+    getElement('[data-testid="tweet"] [aria-labelledby] > div:last-child', {
+      name: 'first quoted tweet',
+      stopIf: pageIsNot(QUOTE_TWEETS)
+    })
+  ])
+
+  if ($heading != null && $quotedTweet != null) {
+    log('displaying quoted tweet in the Quote Tweets header')
+    do {
+      $heading = $heading.parentElement
+    } while (!$heading.nextElementSibling)
+
+    let $clone = /** @type {HTMLElement} */ ($quotedTweet.cloneNode(true))
+    $clone.style.margin = '0 16px 9px 16px'
+    $heading.insertAdjacentElement('afterend', $clone)
   }
 }
 
