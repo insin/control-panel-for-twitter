@@ -36,9 +36,9 @@ const config = {
   hideWhoToFollowEtc: true,
   navBaseFontSize: true,
   /** @type {SharedTweetsConfig} */
-  quoteTweets: 'separate',
+  quoteTweets: 'ignore',
   /** @type {SharedTweetsConfig} */
-  retweets: 'hide',
+  retweets: 'separate',
   /** @type {VerifiedAccountsConfig} */
   verifiedAccounts: 'ignore',
 }
