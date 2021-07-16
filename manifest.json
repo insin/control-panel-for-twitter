@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Tweak New Twitter",
-  "description": "Stay on the Latest Tweets timeline, reduce \"engagement\" and tone down some of Twitter's UI",
+  "description": "Reduce algorithmic content on Twitter, hide toxic trends, control which shared tweets appear on your timeline, and improve the UI",
   "homepage_url": "https://github.com/insin/tweak-new-twitter/",
   "version": "1.27",
   "icons": {
@@ -23,6 +23,8 @@
     }
   ],
   "options_ui": {
+    "browser_style": true,
+    "chrome_style": true,
     "page": "options.html"
   },
   "permissions": [
