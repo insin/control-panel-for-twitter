@@ -547,7 +547,7 @@ function onTimelineChange($timeline, page) {
     if ($tweet != null) {
       itemType = getTweetType($tweet)
       if (page == LATEST_TWEETS || page == separatedTweetsTimelineTitle || page == HOME) {
-        if (previousItemType == 'QUOTE_TWEET' && isReplyToPreviousTweet($tweet)) {
+        if (isReplyToPreviousTweet($tweet)) {
           hideItem = hidPreviousItem
           itemType = previousItemType
         } else {
