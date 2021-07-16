@@ -84,6 +84,9 @@ let currentPath = ''
 /** Flag for a Home / Latest Tweets link having been clicked */
 let homeLinkClicked = false
 
+/** The last title we saw for the home timeline */
+let lastHomeTimelineTitle = ''
+
 /**
  * MutationObservers active on the current page
  * @type MutationObserver[]
@@ -104,6 +107,10 @@ function configureSeparatedTweetsTimeline() {
     // ☠ ¡This string starts with a ZWSP! ☠
     separatedTweetsTimelineTitle = separatedTweetsTimelineName = '​Quote Tweets'
   }
+}
+
+function isOnHomeTimeline() {
+  return currentPage == LATEST_TWEETS || currentPage == separatedTweetsTimelineTitle || currentPage == HOME
 }
 //#endregion
 
@@ -255,14 +262,6 @@ function observeHtmlFontSize() {
   }
 }
 
-async function observeTitle() {
-  let $title = await getElement('title', {name: '<title>'})
-  log('observing <title>')
-  return observeElement($title, () => onTitleChange($title.textContent), {
-    childList: true,
-  })
-}
-
 async function observePopups() {
   let $keyboardWrapper = await getElement('[data-at-shortcutkeys]', {
     name: 'keyboard wrapper',
@@ -274,6 +273,18 @@ async function observePopups() {
       mutation.addedNodes.forEach($el => requestAnimationFrame(() => onPopup($el)))
     })
   })
+}
+
+async function observeThemeChangeRerenders() {
+  let $themeChangeBoundary = await getElement('#react-root > div > div')
+  log('observing theme change re-renders')
+  observeElement($themeChangeBoundary, () => updateThemeColor())
+}
+
+async function observeTitle() {
+  let $title = await getElement('title', {name: '<title>'})
+  log('observing <title>')
+  observeElement($title, () => onTitleChange($title.textContent))
 }
 //#endregion
 
@@ -388,14 +399,14 @@ async function observeTimeline(page) {
 //#endregion
 
 //#region Tweak functions
-async function addRetweetsHeader(page) {
+async function addSeparatedTweetsTimelineHeader(page) {
   let $timelineTitle = await getElement('main h2', {
     name: 'timeline title',
     stopIf: pageIsNot(page),
   })
   if ($timelineTitle != null &&
       document.querySelector('#tnt_separated_tweets') == null) {
-    log('inserting separates tweets timeline header')
+    log('inserting separated tweets timeline header')
     let div = document.createElement('div')
     div.innerHTML = $timelineTitle.parentElement.outerHTML
     let $retweets = div.firstElementChild
@@ -413,16 +424,16 @@ async function addRetweetsHeader(page) {
     $timelineTitle.parentElement.parentElement.insertAdjacentElement('afterend', $retweets)
     // Go back to the main timeline from Retweets when the Latest Tweets / Home heading is clicked
     $timelineTitle.parentElement.addEventListener('click', () => {
-      if (!document.title.startsWith(page)) {
+      if (!document.title.startsWith(lastHomeTimelineTitle)) {
         homeLinkClicked = true
-        setTitle(page)
+        setTitle(lastHomeTimelineTitle)
       }
     })
     // Go back to the main timeline from Retweets when the Home nav link is clicked
     document.querySelector(Selectors.NAV_HOME_LINK).addEventListener('click', () => {
       homeLinkClicked = true
-      if (location.pathname == '/home' && !document.title.startsWith(page)) {
-        setTitle(page)
+      if (location.pathname == '/home' && !document.title.startsWith(lastHomeTimelineTitle)) {
+        setTitle(lastHomeTimelineTitle)
       }
     })
   }
@@ -688,6 +699,10 @@ function onTitleChange(title) {
   currentNotificationCount = notificationCount
   currentPath = location.pathname
 
+  if (currentPage == LATEST_TWEETS || currentPage == HOME) {
+    lastHomeTimelineTitle = currentPage
+  }
+
   log('processing new page')
 
   if (config.alwaysUseLatestTweets && currentPage == HOME) {
@@ -695,21 +710,16 @@ function onTitleChange(title) {
     return
   }
 
-  let isOnHomeTimeline = (
-    currentPage == LATEST_TWEETS || currentPage == separatedTweetsTimelineTitle || currentPage == HOME
-  )
-
   if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
     document.body.classList.toggle('Home', currentPage == HOME)
     document.body.classList.toggle('LatestTweets', currentPage == LATEST_TWEETS)
     document.body.classList.toggle('SeparatedTweets', currentPage == separatedTweetsTimelineTitle)
-    updateThemeColor()
-    if (isOnHomeTimeline) {
-      addRetweetsHeader(currentPage)
+    if (isOnHomeTimeline()) {
+      addSeparatedTweetsTimelineHeader(currentPage)
     }
   }
 
-  let shouldObserveHomeTimeline = isOnHomeTimeline && (
+  let shouldObserveHomeTimeline = isOnHomeTimeline() && (
     config.retweets != 'ignore' || config.quoteTweets != 'ignore' || config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc
   )
   let shouldObserveProfileTimeline = PROFILE_TITLE_RE.test(currentPage) && (
@@ -858,12 +868,6 @@ let updateThemeColor = (function() {
   let lastThemeColor = null
 
   return async function updateThemeColor() {
-    // Only try to update if the "Customize your view" dialog is open or we
-    // haven't set an inital color yet.
-    if (location.pathname !== '/i/display' && lastThemeColor != null) {
-      return
-    }
-
     let $tweetButton = await getElement('a[data-testid="SideNav_NewTweet_Button"]', {
       name: 'Tweet button'
     })
@@ -879,6 +883,10 @@ let updateThemeColor = (function() {
                            'body.LatestTweets main h2:not(#tnt_separated_tweets)',
                            'body.SeparatedTweets #tnt_separated_tweets',
                          ].join(', ') + ` { color: ${lastThemeColor}; }`
+
+    if (isOnHomeTimeline() && currentPage != separatedTweetsTimelineTitle) {
+      addSeparatedTweetsTimelineHeader()
+    }
   }
 })()
 //#endregion
@@ -895,6 +903,10 @@ function main() {
 
   if (config.navBaseFontSize) {
     observeHtmlFontSize()
+  }
+
+  if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
+    observeThemeChangeRerenders()
   }
 
   if (config.hideMoreTweets ||
