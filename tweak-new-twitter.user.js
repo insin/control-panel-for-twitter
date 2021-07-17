@@ -485,7 +485,7 @@ function addStaticCss() {
     cssRules.push(`
 header[role="banner"] > div > div > div > div:last-child {
   flex-shrink: 1 !important;
-  align-items: end !important;
+  align-items: flex-end !important;
 }
 [data-testid="SideNav_AccountSwitcher_Button"] > div:first-child,
 [data-testid="SideNav_AccountSwitcher_Button"] > div:first-child + div {
