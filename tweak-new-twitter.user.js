@@ -432,9 +432,9 @@ async function addSeparatedTweetsTimelineHeader(page) {
     let $retweets = div.firstElementChild
     $retweets.querySelector('h2').id = 'tnt_separated_tweets'
     $retweets.querySelector('span').textContent = separatedTweetsTimelineName
-    // This script assumes navigation has occurred when the document title changes,
-    // so by changing the title to "Retweets" we effectively fake navigation to a
-    // non-existent Retweets page.
+    // This script assumes navigation has occurred when the document title changes, so by changing
+    // the title we effectively fake navigation to a non-existent page representing the sparated
+    // tweets timeline.
     $retweets.addEventListener('click', () => {
       if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
         setTitle(separatedTweetsTimelineTitle)
@@ -442,14 +442,14 @@ async function addSeparatedTweetsTimelineHeader(page) {
       window.scrollTo({top: 0})
     })
     $timelineTitle.parentElement.parentElement.insertAdjacentElement('afterend', $retweets)
-    // Go back to the main timeline from Retweets when the Latest Tweets / Home heading is clicked
+    // Go back to the main timeline when the Latest Tweets / Home heading is clicked
     $timelineTitle.parentElement.addEventListener('click', () => {
       if (!document.title.startsWith(lastHomeTimelineTitle)) {
         homeLinkClicked = true
         setTitle(lastHomeTimelineTitle)
       }
     })
-    // Go back to the main timeline from Retweets when the Home nav link is clicked
+    // Go back to the main timeline when the Home nav link is clicked
     document.querySelector(Selectors.NAV_HOME_LINK).addEventListener('click', () => {
       homeLinkClicked = true
       if (location.pathname == '/home' && !document.title.startsWith(lastHomeTimelineTitle)) {
@@ -657,8 +657,8 @@ function onTitleChange(title) {
   let homeLinkWasClicked = homeLinkClicked
   homeLinkClicked = false
 
-  // Ignore Flash of Uninitialised Title when navigating to a screen for the
-  // first time.
+  // Ignore Flash of Uninitialised Title when navigating to a page for the first
+  // time.
   if (title == 'Twitter') {
     log('ignoring Flash of Uninitialised Title')
     return
@@ -673,7 +673,7 @@ function onTitleChange(title) {
     return
   }
 
-  // Stay on the Retweets timeline when…
+  // Stay on the separated tweets timeline when…
   if (currentPage == separatedTweetsTimelineTitle &&
       // …the title has changed back to the main timeline…
       (newPage == LATEST_TWEETS || newPage == HOME) &&
@@ -699,7 +699,7 @@ function onTitleChange(title) {
         // …the notification count in the title changed.
         notificationCount != currentNotificationCount
       )) {
-    log('ignoring title change on Retweets timeline')
+    log('ignoring title change on separated tweets timeline')
     currentNotificationCount = notificationCount
     currentPath = location.pathname
     setTitle(separatedTweetsTimelineTitle)
