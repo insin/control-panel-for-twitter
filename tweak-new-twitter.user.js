@@ -526,6 +526,22 @@ function getTweetType($tweet) {
 }
 
 /**
+ * Automatically click the "Show this thread" link to get rid of the "More Tweets" section if the
+ * user is viewing a tweet from an external link with a ?ref_src= URL.
+ */
+ async function hideMoreTweetsSection(path) {
+  let id = URL_TWEET_ID_RE.exec(path)[1]
+  let $link = await getElement(`a[href$="/status/${id}"]`, {
+    name: '"Show this thread" link',
+    stopIf: pathIsNot(path),
+  })
+  if ($link != null) {
+    log('clicking "Show this thread" link')
+    $link.click()
+  }
+}
+
+/**
  * Hides all <aside> or <section> elements which are already in the sidebar.
  */
 function hideSidebarContents() {
@@ -545,6 +561,18 @@ function hideSidebarElement($element) {
      $sidebarContainer = $sidebarContainer.parentElement
   }
   $sidebarContainer.style.display = 'none'
+}
+
+/**
+ * Checks if a tweet is preceded by an element creating a vertical reply line.
+ * @param {HTMLElement} $tweet
+ * @returns {boolean}
+ */
+function isReplyToPreviousTweet($tweet) {
+  let $replyLine = $tweet.previousElementSibling?.firstElementChild?.firstElementChild?.firstElementChild
+  if ($replyLine) {
+    return getComputedStyle($replyLine).width == '2px'
+  }
 }
 
 function onPopup($topLevelElement) {
@@ -796,34 +824,6 @@ async function tweakQuoteTweetsPage() {
     let $clone = /** @type {HTMLElement} */ ($quotedTweet.cloneNode(true))
     $clone.style.margin = '0 16px 9px 16px'
     $heading.insertAdjacentElement('afterend', $clone)
-  }
-}
-
-/**
- * Automatically click the "Show this thread" link to get rid of the "More Tweets" section if the
- * user is viewing a tweet from an external link with a ?ref_src= URL.
- */
-async function hideMoreTweetsSection(path) {
-  let id = URL_TWEET_ID_RE.exec(path)[1]
-  let $link = await getElement(`a[href$="/status/${id}"]`, {
-    name: '"Show this thread" link',
-    stopIf: pathIsNot(path),
-  })
-  if ($link != null) {
-    log('clicking "Show this thread" link')
-    $link.click()
-  }
-}
-
-/**
- * Checks if a tweet is preceded by an element creating a vertical reply line.
- * @param {HTMLElement} $tweet
- * @returns {boolean}
- */
-function isReplyToPreviousTweet($tweet) {
-  let $replyLine = $tweet.previousElementSibling?.firstElementChild?.firstElementChild?.firstElementChild
-  if ($replyLine) {
-    return getComputedStyle($replyLine).width == '2px'
   }
 }
 
