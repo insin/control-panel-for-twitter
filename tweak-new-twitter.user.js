@@ -908,9 +908,7 @@ let updateThemeColor = (function() {
                            'body.SeparatedTweets #tnt_separated_tweets',
                          ].join(', ') + ` { color: ${lastThemeColor}; }`
 
-    if (isOnHomeTimeline() && currentPage != separatedTweetsTimelineTitle) {
-      addSeparatedTweetsTimelineHeader()
-    }
+    processCurrentPage()
   }
 })()
 //#endregion
