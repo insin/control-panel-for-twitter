@@ -10,44 +10,48 @@
       margin: 0;
     }
 
-    form {
-      font-size: 1.25em;
+    @-moz-document url-prefix() {
+      body {
+        font-size: 15px;
+      }
     }
 
-    label:hover {
-      color: inherit !important;
+    label {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 12px;
+      margin: 8px 0;
+      cursor: pointer;
+    }
+
+    input[type=checkbox],
+    select {
+      cursor: pointer;
+    }
+
+    section.group > label:not(.checkbox),
+    section.select label {
+      cursor: default;
+    }
+
+    input[type=checkbox] {
+      margin-left: 12px;
     }
 
     section:not(:first-of-type) {
       border-top: 1px solid #b6b6b6;
     }
 
-    section.checkbox label,
-    section.select label {
-      display: flex;
-      justify-content: space-between;
-      padding: .825em;
+    section.group > section {
+      margin-left: 40px;
     }
 
-    section.checkbox label {
-      cursor: pointer;
+    section.group > label {
+      margin-bottom: 12px;
     }
 
-    section.checkbox input[type=checkbox] {
-      margin-left: .825em;
-    }
-
-    section.checkboxlist p {
-      padding-left: .825em;
-      margin-bottom: .5em;
-    }
-
-    section.checkboxlist section {
-      margin-left: 2em;
-      padding-bottom: .5em;
-    }
-
-    section.checkboxlist section label {
+    section.group > section > label {
+      color: rgb(91, 91, 102);
       padding-left: 0;
     }
 
@@ -60,13 +64,20 @@
       section:not(:first-of-type) {
         border-top: 1px solid #4c4c4e;
       }
+
+      section.group > section > label {
+        color: rgb(191, 191, 201);
+      }
     }
   </style>
 </head>
 <body>
   <form>
-    <section class="checkboxlist">
-      <p>Reducing algorithmic content</p>
+    <section class="group">
+      <label class="checkbox">
+        Reduce algorithmic content
+        <input type="checkbox" name="reduceAlgorithmicContent" id="reduceAlgorithmicContent">
+      </label>
       <section class="checkbox">
         <label>
           Always use the Latest Tweets (chronological) timeline
@@ -92,8 +103,10 @@
         </label>
       </section>
     </section>
-    <section class="checkboxlist">
-      <p>Tweets shared by other users</p>
+    <section class="group">
+      <label>
+        Tweets shared by other users
+      </label>
       <section class="select">
         <label>
           Retweets
@@ -115,8 +128,11 @@
         </label>
       </section>
     </section>
-    <section class="checkboxlist">
-      <p>UI improvements</p>
+    <section class="group">
+      <label class="checkbox">
+        UI improvements
+        <input type="checkbox" name="uiImprovements" id="uiImprovements">
+      </label>
       <section class="checkbox">
         <label>
           Use normal text font style in navigation bar
@@ -136,8 +152,11 @@
         </label>
       </section>
     </section>
-    <section class="checkboxlist">
-      <p>Hide navigation items you don't use</p>
+    <section class="group">
+      <label class="checkbox">
+        Hide navigation items you don't use
+        <input type="checkbox" name="hideNavigation" id="hideNavigation">
+      </label>
       <section class="checkbox">
         <label>
           Explore
@@ -177,12 +196,6 @@
           <option value="hide">Hide</option>
           <option value="highlight">Highlight</option>
         </select>
-      </label>
-    </section>
-    <section class="checkbox">
-      <label>
-        Enable debug logging (developer option)
-        <input type="checkbox" name="enableDebugLogging" id="enableDebugLogging">
       </label>
     </section>
   </form>

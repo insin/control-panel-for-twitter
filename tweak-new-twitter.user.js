@@ -43,6 +43,7 @@ const config = {
   verifiedAccounts: 'ignore',
 }
 
+// Only for use when developing, not exposed in the options UI
 config.enableDebugLogging = false
 
 // Document title names used by Twitter
