@@ -235,13 +235,39 @@ function s(n) {
 //#endregion
 
 //#region Global observers
+/**
+ * When the background setting is changed in "Customize your view", <body>'s
+ * backgroundColor is changed and the app is re-rendered, so we need to
+ * re-process the current page.
+ */
+function observeBodyBackgroundColor() {
+  let $body = document.querySelector('body')
+  let lastBackgroundColor = $body.style.backgroundColor
+
+  log('observing body style attribute for backgroundColor changes')
+  observeElement($body, () => {
+    if ($body.style.backgroundColor != lastBackgroundColor) {
+      lastBackgroundColor = $body.style.backgroundColor
+      log(`body backgroundColor changed - re-processing current page`)
+      processCurrentPage()
+    }
+  }, {
+    attributes: true,
+    attributeFilter: ['style']
+  })
+}
+
+/**
+ * When the font size setting is changed in "Customize your view", <html>'s
+ * fontSize is changed, after which we need to update nav font size accordingly.
+ */
 function observeHtmlFontSize() {
   let $html = document.querySelector('html')
   let $style = addStyle('')
   let lastFontSize = ''
 
-  log('observing html style attribute for font-size changes')
-  let observer = observeElement($html, () => {
+  log('observing html style attribute for fontSize changes')
+  observeElement($html, () => {
     if ($html.style.fontSize != lastFontSize) {
       lastFontSize = $html.style.fontSize
       log(`setting nav font size to ${lastFontSize}`)
@@ -254,13 +280,6 @@ function observeHtmlFontSize() {
     attributes: true,
     attributeFilter: ['style']
   })
-
-  return {
-    disconnect() {
-      $style.remove()
-      observer.disconnect()
-    }
-  }
 }
 
 async function observePopups() {
@@ -688,13 +707,7 @@ function onTitleChange(title) {
   }
 
   // Assumption: all non-FOUT, non-duplicate title changes are navigation, which
-  // need the screen to be re-processed.
-
-  if (pageObservers.length > 0) {
-    log(`disconnecting ${pageObservers.length} page observer${s(pageObservers.length)}`)
-    pageObservers.forEach(observer => observer.disconnect())
-    pageObservers = []
-  }
+  // need the page to be re-processed.
 
   currentPage = newPage
   currentNotificationCount = notificationCount
@@ -705,6 +718,16 @@ function onTitleChange(title) {
   }
 
   log('processing new page')
+
+  processCurrentPage()
+}
+
+function processCurrentPage() {
+  if (pageObservers.length > 0) {
+    log(`disconnecting ${pageObservers.length} page observer${s(pageObservers.length)}`)
+    pageObservers.forEach(observer => observer.disconnect())
+    pageObservers = []
+  }
 
   if (config.alwaysUseLatestTweets && currentPage == HOME) {
     switchToLatestTweets(currentPage)
@@ -897,6 +920,8 @@ function main() {
   log('config', config)
 
   addStaticCss()
+
+  observeBodyBackgroundColor()
 
   if (config.fastBlock) {
     observePopups()
