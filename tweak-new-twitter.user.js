@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Tweak New Twitter
-// @description Stay on the Latest Tweets timeline, reduce "engagement" and tone down some of Twitter's UI
+// @description Reduce algorithmic content on Twitter, hide toxic trends, control which shared tweets appear on your timeline, and improve the UI
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
