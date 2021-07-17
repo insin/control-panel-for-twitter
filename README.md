@@ -2,7 +2,9 @@
 
 ![](icons/icon128.png)
 
-**Stay on the Latest Tweets timeline, reduce "engagement" and tone down some of Twitter's UI**
+**Tweak New Twitter is a browser extension which reduces algorithmic content on Twitter, hides toxic trends in the sidebar, lets you control which shared tweets appear on your timeline, and adds other UI improvements**
+
+## Install
 
 * [Install Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/)
 * [Install Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/tweak-new-twitter/foccddlibbeccjiobcnakipdpkjiijjp)
@@ -11,42 +13,44 @@
 
 ## Features
 
-_Enabled by default_
+### Reduce algorithmic content
 
-- Always use the Latest Tweets (chronological) timeline - automatically switches you back when Twitter decides they'd rather you were on the "Home" (algorithmic) timeline because "engagement"
-- Move retweets to a separate Retweets timeline, or hide them entirely
+- Keeps you on the "Latest Tweets" (chronological) timeline, automatically switching you back if time Twitter tries to move you to the "Home" (algorithmic) timeline
 - Hide "Who to follow" / "Follow some Topics" etc. sections in the timeline
-- Hide "More Tweets" when viewing a tweet from an external link
-- Fast blocking - skips the confirmation dialog when you try to block someone
-- Remove sidebar content (Trends, Who to follow, sidefooter)
-- Hide the Messages drawer
-- Remove some less-used links from the primary nav (Explore, Bookmarks, Links)
-- Hide the account switcher in the primary nav footer
-- Use the site's base font size and normal font weight in the primary nav to make it less distracting (using your selected font size from the Display / Customize your view dialog)
+- Hide "What's happening" / "Topics to follow" etc. in the sidebar
+- Hide "More Tweets" when linked to a tweet
 
-## Optional features
+### Control which tweets shared by people you follow appear on your timeline
 
-_Disabled by default_
+- Move Retweets to a separate timeline (default setting), or hide them entirely
+- Move Quote Tweets and replies to them to a separate timeline, or hide them entirely (off by default)
 
-- Hide tweets by - or quoting - verified accounts (simulating the aftermath of the Twitter hacks in July 2020), or highlight them if you want to check how much of your timeline content is driven by verified accounts.
+### UI improvements
+
+- Use the site's normal text font style in the primary navigation menu to make it less distracting
+- Fast blocking - skips the confir dialog when you try to block someone
+- When viewing a tweet's Quote Tweets, pin the quoted tweet instead of duplicating it in every tweet
+- Hide any navigation items you don't use, such as the Explore, Bookmarks and Links navigation items, the account switcher, and the Messages drawer
 
 ## Screenshots
 
-Timeline view with all default tweaks:
+### Home timeline with default settings
 
-![Screenshot of a New Twitter timeline without retweets, sidebar content, nav links which can be hidden and a less distracting nav style](screenshots/timeline.png)
+![Screenshot of a Twitter home timeline without retweets, sidebar content, navigation items the extension can hide, and a less distracting navigation font style](screenshots/timeline.png)
 
-The new Retweets timeline, containing retweets only:
+### Separate timeline for Retweets and/or Quote Tweets
 
-![Screenshot of the Retweets timeline Tweak New Twitter adds to New Twitter, containing nothing but retweets](screenshots/retweets.png)
+![Screenshot of the separate timeline Tweak New Twitter adds to Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/shared_tweets.png)
 
-Chrome extension options dialog:
+### Improved Quote Tweets page
 
-![Screenshot of the options UI in Chrome](screenshots/chrome_options_dark.png)
+![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages, removing repetition of the quoted tweet to make more room for quotes](screenshots/quote_tweets.png)
 
-Firefox extension page options:
+### Configurable via extension options
 
-![Screenshot of the options UI in Firefox](screenshots/firefox_options_dark.png)
+| Options dialog in Chrome | Options page in Firefox |
+| ------------------------ | -------------------- |
+| ![Screenshot of the options UI in Chrome](screenshots/chrome_options_dark.png) | ![Screenshot of the options UI in Firefox](screenshots/firefox_options_dark.png) |
 
 ## Attribution
 
