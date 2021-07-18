@@ -487,7 +487,7 @@ header[role="banner"] > div > div > div > div:last-child {
   flex-shrink: 1 !important;
   align-items: flex-end !important;
 }
-[data-testid="SideNav_AccountSwitcher_Button"] > div:first-child,
+[data-testid="SideNav_AccountSwitcher_Button"] > div:first-child:not(:only-child),
 [data-testid="SideNav_AccountSwitcher_Button"] > div:first-child + div {
   display: none !important;
 }
