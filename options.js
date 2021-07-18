@@ -1,44 +1,67 @@
+const mobile = navigator.platform == 'Android'
+const desktop = !mobile
+document.body.classList.add(mobile ? 'mobile' : 'desktop')
+
 /** @type {Map<string, string[]>} */
 const checkboxGroups = new Map(Object.entries({
   reduceAlgorithmicContent: [
     'alwaysUseLatestTweets',
-    'hideSidebarContent',
-    'hideWhoToFollowEtc',
     'hideMoreTweets',
-  ],
+    'hideWhoToFollowEtc',
+    desktop && 'hideSidebarContent',
+  ].filter(Boolean),
   uiImprovements: [
-    'navBaseFontSize',
     'fastBlock',
     'pinQuotedTweetOnQuoteTweetsPage',
-  ],
+    desktop && 'navBaseFontSize',
+    mobile && 'focusSearchOnExplorePage',
+    mobile && 'hideOpenAppButton',
+  ].filter(Boolean),
   hideNavigation: [
-    'hideExploreNav',
     'hideBookmarksNav',
     'hideListsNav',
-    'hideAccountSwitcher',
-    'hideMessagesDrawer',
-  ]
+    desktop && 'hideAccountSwitcher',
+    desktop && 'hideExploreNav',
+    desktop && 'hideMessagesDrawer',
+    mobile && 'hideAnalyticsNav',
+    mobile && 'hideMessagesNav',
+    mobile && 'hideMomentsNav',
+    mobile && 'hideNewslettersNav',
+    mobile && 'hideTopicsNav',
+    mobile && 'hideTwitterAdsNav',
+  ].filter(Boolean)
 }))
 
 chrome.storage.local.get((storedConfig) => {
   let $form = document.querySelector('form')
 
   let config = {
+    // Shared
     alwaysUseLatestTweets: true,
     fastBlock: true,
-    hideAccountSwitcher: true,
     hideBookmarksNav: true,
-    hideExploreNav: true,
-    hideListsNav: true,
-    hideMessagesDrawer: true,
+    hideListsNav: false,
     hideMoreTweets: true,
-    hideSidebarContent: true,
     hideWhoToFollowEtc: true,
-    navBaseFontSize: true,
     pinQuotedTweetOnQuoteTweetsPage: true,
     quoteTweets: 'ignore',
     retweets: 'separate',
     verifiedAccounts: 'ignore',
+    // Desktop only
+    hideAccountSwitcher: true,
+    hideExploreNav: true,
+    hideMessagesDrawer: true,
+    hideSidebarContent: true,
+    navBaseFontSize: true,
+    // Mobile only
+    focusSearchOnExplorePage: true,
+    hideAnalyticsNav: true,
+    hideTwitterAdsNav: true,
+    hideMessagesNav: false,
+    hideMomentsNav: true,
+    hideNewslettersNav: true,
+    hideOpenAppButton: true,
+    hideTopicsNav: true,
     ...storedConfig
   }
 

@@ -12,6 +12,11 @@
       font-size: 13px;
     }
 
+    body.mobile .desktop,
+    body.desktop .mobile {
+      display: none;
+    }
+
     label {
       display: flex;
       justify-content: space-between;
@@ -106,7 +111,7 @@
           <input type="checkbox" name="alwaysUseLatestTweets" id="alwaysUseLatestTweets">
         </label>
       </section>
-      <section class="checkbox">
+      <section class="checkbox desktop">
         <label>
           Hide "What's happening" / "Topics to follow" etc. in sidebar
           <input type="checkbox" name="hideSidebarContent" id="hideSidebarContent">
@@ -155,7 +160,7 @@
         UI improvements
         <input type="checkbox" name="uiImprovements" id="uiImprovements">
       </label>
-      <section class="checkbox">
+      <section class="checkbox desktop">
         <label>
           Use normal text font style in navigation bar
           <input type="checkbox" name="navBaseFontSize" id="navBaseFontSize">
@@ -167,14 +172,27 @@
           <input type="checkbox" name="fastBlock" id="fastBlock">
         </label>
       </section>
+      <section class="checkbox mobile">
+        <label>
+          Focus search input when bottom search navigation is used
+          <input type="checkbox" name="focusSearchOnExplorePage" id="focusSearchOnExplorePage">
+        </label>
+      </section>
       <section class="checkbox">
         <label>
-          Pin the quoted tweet when viewing Quote Tweets
+          <span class="desktop">Pin the quoted tweet when viewing Quote Tweets</span>
+          <span class="mobile">Hide the quoted tweet when viewing Quote Tweets</span>
           <input type="checkbox" name="pinQuotedTweetOnQuoteTweetsPage" id="pinQuotedTweetOnQuoteTweetsPage">
         </label>
       </section>
+      <section class="checkbox">
+        <label>
+          Hide the "Open app" button when viewing Tweets and Threads
+          <input type="checkbox" name="hideOpenAppButton" id="hideOpenAppButton">
+        </label>
+      </section>
     </section>
-    <section class="group">
+    <section class="group desktop">
       <label class="checkbox">
         Hide navigation items you don't use
         <input type="checkbox" name="hideNavigation" id="hideNavigation">
@@ -207,6 +225,60 @@
         <label>
           Messages drawer
           <input type="checkbox" name="hideMessagesDrawer" id="hideMessagesDrawer">
+        </label>
+      </section>
+    </section>
+    <section class="group mobile">
+      <label class="checkbox">
+        Hide navigation items you don't use
+        <input type="checkbox" name="hideNavigation" id="hideNavigation">
+      </label>
+      <section class="checkbox">
+        <label>
+          Lists
+          <input type="checkbox" name="hideListsNav" id="hideListsNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Topics
+          <input type="checkbox" name="hideTopicsNav" id="hideTopicsNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Bookmarks
+          <input type="checkbox" name="hideBookmarksNav" id="hideBookmarksNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Moments
+          <input type="checkbox" name="hideMomentsNav" id="hideMomentsNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Newsletters
+          <input type="checkbox" name="hideNewslettersNav" id="hideNewslettersNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Twitter Ads
+          <input type="checkbox" name="hideTwitterAdsNav" id="hideTwitterAdsNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Analytics
+          <input type="checkbox" name="hideAnalyticsNav" id="hideAnalyticsNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Messages (bottom navigation item)
+          <input type="checkbox" name="hideMessagesNav" id="hideMessagesNav">
         </label>
       </section>
     </section>
