@@ -103,30 +103,36 @@
     <section class="group">
       <label class="checkbox">
         Reduce algorithmic content
-        <input type="checkbox" name="reduceAlgorithmicContent" id="reduceAlgorithmicContent">
+        <input type="checkbox" name="reduceAlgorithmicContent">
       </label>
       <section class="checkbox">
         <label>
           Always use the Latest Tweets (chronological) timeline
-          <input type="checkbox" name="alwaysUseLatestTweets" id="alwaysUseLatestTweets">
+          <input type="checkbox" name="alwaysUseLatestTweets">
         </label>
       </section>
       <section class="checkbox desktop">
         <label>
-          Hide "What's happening" / "Topics to follow" etc. in sidebar
-          <input type="checkbox" name="hideSidebarContent" id="hideSidebarContent">
+          Hide "What's happening", "Topics to follow" etc. in sidebar
+          <input type="checkbox" name="hideSidebarContent">
         </label>
       </section>
       <section class="checkbox">
         <label>
-          Hide "Who to follow" / "Follow some Topics" etc. in timeline
-          <input type="checkbox" name="hideWhoToFollowEtc" id="hideWhoToFollowEtc">
+          Hide "Who to follow", "Follow some Topics" etc. sections in timeline
+          <input type="checkbox" name="hideWhoToFollowEtc">
         </label>
       </section>
       <section class="checkbox">
         <label>
           Hide "More Tweets" when linked to a tweet
-          <input type="checkbox" name="hideMoreTweets" id="hideMoreTweets">
+          <input type="checkbox" name="hideMoreTweets">
+        </label>
+      </section>
+      <section class="checkbox mobile">
+        <label>
+          Focus search input when bottom search navigation is used
+          <input type="checkbox" name="focusSearchOnExplorePage">
         </label>
       </section>
     </section>
@@ -158,127 +164,158 @@
     <section class="group">
       <label class="checkbox">
         UI improvements
-        <input type="checkbox" name="uiImprovements" id="uiImprovements">
+        <input type="checkbox" name="uiImprovements">
       </label>
       <section class="checkbox desktop">
         <label>
           Use normal text font style in navigation bar
-          <input type="checkbox" name="navBaseFontSize" id="navBaseFontSize">
+          <input type="checkbox" name="navBaseFontSize">
+        </label>
+      </section>
+      <section class="checkbox mobile">
+        <label>
+          Hide "Open app", "Switch to the app" etc. nags
+          <input type="checkbox" name="hideAppNags">
         </label>
       </section>
       <section class="checkbox">
         <label>
           Fast blocking (skips confirm dialog)
-          <input type="checkbox" name="fastBlock" id="fastBlock">
+          <input type="checkbox" name="fastBlock">
         </label>
       </section>
-      <section class="checkbox mobile">
+      <section class="checkbox">
         <label>
-          Focus search input when bottom search navigation is used
-          <input type="checkbox" name="focusSearchOnExplorePage" id="focusSearchOnExplorePage">
+          <span class="desktop">Add "Add muted word" to the "More" menu</span>
+          <span class="mobile">Add "Add muted word" to the slide-out menu</span>
+          <input type="checkbox" name="addAddMutedWordMenuItem">
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span class="desktop">Pin the quoted tweet when viewing Quote Tweets</span>
           <span class="mobile">Hide the quoted tweet when viewing Quote Tweets</span>
-          <input type="checkbox" name="pinQuotedTweetOnQuoteTweetsPage" id="pinQuotedTweetOnQuoteTweetsPage">
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          Hide the "Open app" button when viewing Tweets and Threads
-          <input type="checkbox" name="hideOpenAppButton" id="hideOpenAppButton">
+          <input type="checkbox" name="tweakQuoteTweetsPage">
         </label>
       </section>
     </section>
     <section class="group desktop">
       <label class="checkbox">
         Hide navigation items you don't use
-        <input type="checkbox" name="hideNavigation" id="hideNavigation">
+        <input type="checkbox" name="hideNavigation">
       </label>
       <section class="checkbox">
         <label>
-          Explore
-          <input type="checkbox" name="hideExploreNav" id="hideExploreNav">
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          Bookmarks
-          <input type="checkbox" name="hideBookmarksNav" id="hideBookmarksNav">
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          Lists
-          <input type="checkbox" name="hideListsNav" id="hideListsNav">
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          Account switcher (in footer)
-          <input type="checkbox" name="hideAccountSwitcher" id="hideAccountSwitcher">
+          Account switcher
+          <input type="checkbox" name="hideAccountSwitcher">
         </label>
       </section>
       <section class="checkbox">
         <label>
           Messages drawer
-          <input type="checkbox" name="hideMessagesDrawer" id="hideMessagesDrawer">
+          <input type="checkbox" name="hideMessagesDrawer">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Explore
+          <input type="checkbox" name="hideExploreNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Bookmarks
+          <input type="checkbox" name="hideBookmarksNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Lists
+          <input type="checkbox" name="hideListsNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Topics (in "More" menu)
+          <input type="checkbox" name="hideTopicsNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Moments (in "More" menu)
+          <input type="checkbox" name="hideMomentsNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Newsletters (in "More" menu)
+          <input type="checkbox" name="hideNewslettersNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Twitter Ads (in "More" menu)
+          <input type="checkbox" name="hideTwitterAdsNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Analytics (in "More" menu)
+          <input type="checkbox" name="hideAnalyticsNav">
         </label>
       </section>
     </section>
     <section class="group mobile">
       <label class="checkbox">
         Hide navigation items you don't use
-        <input type="checkbox" name="hideNavigation" id="hideNavigation">
+        <input type="checkbox" name="hideNavigation">
       </label>
       <section class="checkbox">
         <label>
+          Messages (bottom navigation item)
+          <input type="checkbox" name="hideMessagesBottomNavItem">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
           Lists
-          <input type="checkbox" name="hideListsNav" id="hideListsNav">
+          <input type="checkbox" name="hideListsNav">
         </label>
       </section>
       <section class="checkbox">
         <label>
           Topics
-          <input type="checkbox" name="hideTopicsNav" id="hideTopicsNav">
+          <input type="checkbox" name="hideTopicsNav">
         </label>
       </section>
       <section class="checkbox">
         <label>
           Bookmarks
-          <input type="checkbox" name="hideBookmarksNav" id="hideBookmarksNav">
+          <input type="checkbox" name="hideBookmarksNav">
         </label>
       </section>
       <section class="checkbox">
         <label>
           Moments
-          <input type="checkbox" name="hideMomentsNav" id="hideMomentsNav">
+          <input type="checkbox" name="hideMomentsNav">
         </label>
       </section>
       <section class="checkbox">
         <label>
           Newsletters
-          <input type="checkbox" name="hideNewslettersNav" id="hideNewslettersNav">
+          <input type="checkbox" name="hideNewslettersNav">
         </label>
       </section>
       <section class="checkbox">
         <label>
           Twitter Ads
-          <input type="checkbox" name="hideTwitterAdsNav" id="hideTwitterAdsNav">
+          <input type="checkbox" name="hideTwitterAdsNav">
         </label>
       </section>
       <section class="checkbox">
         <label>
           Analytics
-          <input type="checkbox" name="hideAnalyticsNav" id="hideAnalyticsNav">
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          Messages (bottom navigation item)
-          <input type="checkbox" name="hideMessagesNav" id="hideMessagesNav">
+          <input type="checkbox" name="hideAnalyticsNav">
         </label>
       </section>
     </section>

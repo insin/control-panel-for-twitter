@@ -15,9 +15,9 @@
 
 ### Reduce algorithmic content
 
-- Keeps you on the "Latest Tweets" (chronological) timeline, automatically switching you back if time Twitter tries to move you to the "Home" (algorithmic) timeline
-- Hide "Who to follow" / "Follow some Topics" etc. sections in the timeline
-- Hide "What's happening" / "Topics to follow" etc. in the sidebar
+- Keeps you on the "Latest Tweets" (chronological) timeline, automatically switching you back if Twitter tries to move you to the "Home" (algorithmic) timeline
+- Hide "Who to follow", "Follow some Topics" etc. sections in the timeline
+- Hide "What's happening", "Topics to follow" etc. in the sidebar
 - Hide "More Tweets" when linked to a tweet
 
 ### Control which tweets shared by people you follow appear on your timeline
@@ -28,9 +28,10 @@
 ### UI improvements
 
 - Use the site's normal text font style in the primary navigation menu to make it less distracting
-- Fast blocking - skips the confir dialog when you try to block someone
+- Fast blocking - skips the confirm dialog when you try to block an account
 - When viewing a tweet's Quote Tweets, pin the quoted tweet instead of duplicating it in every tweet
-- Hide any navigation items you don't use, such as the Explore, Bookmarks and Links navigation items, the account switcher, and the Messages drawer
+- Add a new item to the "More" menu (desktop) or slide-out menu (mobile) which takes you straight to the "Add muted word" page
+- Hide any navigation items you don't use, such as the Explore, Bookmarks and Links navigation items, and other distracting widgets such as the account switcher and Messages drawer
 
 ## Screenshots
 

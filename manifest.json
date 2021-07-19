@@ -29,5 +29,10 @@
   },
   "permissions": [
     "storage"
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tweak-new-twitter@jbscript.dev"
+    }
+  }
 }
