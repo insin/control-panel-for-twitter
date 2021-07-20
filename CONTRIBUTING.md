@@ -22,7 +22,7 @@ As a result, some of the tweaks in Tweak New Twitter work well in both versions,
 
 - need a different implementation for each version, e.g. the UI we need to add to access the separated tweets timeline when `config.retweets` or `config.quoteTweets` are '`separated'`
 - aren't present in one of the versions, e.g. there's no sidebar next to the timeline in the mobile version for `config.hideSidebarContent`
-- aren't possible in the same way in both versions, e.g. on mobile there's not enough room to pin a quoted tweet for `config.pinQuotedTweetOnQuoteTweetsPage`
+- aren't possible in the same way in both versions, e.g. on mobile there's not enough room to pin a quoted tweet for `config.tweakQuoteTweetsPage`
 
 To handle this, scripts in the extension have `mobile` and `desktop` flags which are used to tailor what they do according to version of Twitter being used.
 
@@ -89,7 +89,7 @@ The extension will reload if any source file changes
 Press R to reload (and Ctrl-C to quit)
 ```
 
-You can now open [about:debugging](about:debugging) in Firefox on your computer and connect it to your device by clicking an "Inspect" button in the Tabs list, which will connect your local Firefox Developer Tools to that tab on your device, allowing you to view console output and inspect the DOM.
+You can now open the `about:debugging` page in Firefox on your computer and click one of the "Inspect" buttons in the Tabs list to connect your local Firefox Developer Tools to that tab on your device, allowing you to view console output and inspect the DOM.
 
 ## Running as a user script
 
@@ -101,6 +101,6 @@ Tweak New Twitter is distributed as a browser extension and as a user script, so
 
 ### Types
 
-Tweak New Twitter is written in regular JavaScript, leveraging TypeScript's support for [type checking JavaScript files](https://www.typescriptlang.org/docs/handbook/type-checking-javascript-files.html) with [type annotations provided via JSDoc](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html), and [VS Code](https://code.visualstudio.com/)'s support for using its build-in TypeScript tooling in regular JavaScript, configured via `jsconfig.json`.
+Tweak New Twitter is written in regular JavaScript, leveraging TypeScript's support for [type checking JavaScript files](https://www.typescriptlang.org/docs/handbook/type-checking-javascript-files.html) with [type annotations provided via JSDoc](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html), and [VS Code](https://code.visualstudio.com/)'s support for using its built-in TypeScript tooling in regular JavaScript, configured via `jsconfig.json`.
 
 > Type checking should work out of the box if you use VS Code - if it doesn't, use the **Preference: Open Settings (JSON)** command in the Command Palette and check your global preferences for any config changes which might affect this.
