@@ -91,8 +91,11 @@ let currentPath = ''
 /** Flag for a Home / Latest Tweets link having been clicked */
 let homeLinkClicked = false
 
-/** The last page title we saw for the home timeline */
+/** The last OG page title we saw for the home timeline */
 let lastHomeTimelineTitle = ''
+
+/** The last page title we used for the home timeline when we need to cache it */
+let lastHomeTitle = null
 
 /**
  * MutationObservers active on the current page, or anything else we want to
@@ -595,7 +598,7 @@ async function addSeparatedTweetsTimelineControl(page) {
     $toggle.style.cursor = 'pointer'
     $toggle.title = `Switch to ${page == lastHomeTimelineTitle ? separatedTweetsTimelineTitle : lastHomeTimelineTitle}`
     $toggle.addEventListener('click', () => {
-      let newTitle = document.title.startsWith(separatedTweetsTimelineTitle) ? lastHomeTimelineTitle : separatedTweetsTimelineTitle
+      let newTitle = page == separatedTweetsTimelineTitle ? lastHomeTimelineTitle : separatedTweetsTimelineTitle
       setTitle(newTitle)
       $toggle.title = `Switch to ${newTitle == lastHomeTimelineTitle ? separatedTweetsTimelineTitle : lastHomeTimelineTitle}`
       window.scrollTo({top: 0})
@@ -609,6 +612,18 @@ async function addSeparatedTweetsTimelineControl(page) {
       $timelineTitle.insertAdjacentElement('afterend', $sharedTweetsTitle)
     }
     $timelineTitle.parentElement.classList.add('tnt_mobile_header')
+
+    // Go back to the main timeline when the Home bottom nav item is clicked on
+    // the shared tweets timeline.
+    let $homeBottomNavItem = /** @type {HTMLElement} */ (document.querySelector(`${Selectors.PRIMARY_NAV} a[href="/home"]`))
+    if (!$homeBottomNavItem.dataset.tweakNewTwitterListener) {
+      $homeBottomNavItem.addEventListener('click', () => {
+        if (location.pathname == '/home' && currentPage == separatedTweetsTimelineTitle) {
+          setTitle(lastHomeTimelineTitle)
+        }
+      })
+      $homeBottomNavItem.dataset.tweakNewTwitterListener = 'true'
+    }
   }
 }
 
@@ -969,6 +984,8 @@ function onTimelineChange($timeline, page) {
 }
 
 function onTitleChange(title) {
+  log('title changed', {title: title.split(' / ')[0], path: location.pathname})
+
   // Ignore any leading notification counts in titles, e.g. '(1) Latest Tweets / Twitter'
   let notificationCount = ''
   if (TITLE_NOTIFICATION_RE.test(title)) {
@@ -979,13 +996,23 @@ function onTitleChange(title) {
   let homeLinkWasClicked = homeLinkClicked
   homeLinkClicked = false
 
-  // Ignore Flash of Uninitialised Title when navigating to a page for the first
-  // time.
   if (title == 'Twitter') {
-    log('ignoring Flash of Uninitialised Title')
-    return
+    // Mobile uses "Twitter" when viewing a photo - we need to let these process
+    // so the next page will be re-processed when the photo is closed.
+    if (mobile && URL_PHOTO_RE.test(location.pathname)) {
+      log('viewing a photo on mobile')
+      if (isOnHomeTimeline()) {
+        log('caching home timeline title')
+        lastHomeTitle = currentPage
+      }
+		}
+    // Ignore Flash of Uninitialised Title when navigating to a page for the
+    // first time.
+    else {
+      log('ignoring Flash of Uninitialised Title')
+      return
+    }
   }
-
 
   let newPage = title.split(' / ')[0]
 
@@ -995,6 +1022,17 @@ function onTitleChange(title) {
     log('ignoring duplicate title change')
     currentNotificationCount = notificationCount
     return
+  }
+
+  // Restore the cached home timeline title when returning from viewing media
+  // on mobile.
+  if (mobile &&
+      URL_PHOTO_RE.test(currentPath) &&
+      location.pathname == '/home' &&
+      lastHomeTitle != null) {
+    log('restoring last home title')
+    newPage = lastHomeTitle
+    lastHomeTitle = null
   }
 
   // Stay on the separated tweets timeline on desktop when…
