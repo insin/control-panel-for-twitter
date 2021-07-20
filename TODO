@@ -1,0 +1,52 @@
+
+Mobile version support (#47):
+  ☐ Viewing media changes the title to "Twitter", so it's ignored - we need to also use the URL @created(Tue 2021-07-20 15:42)
+    This tends to break things as going back is considered a duplicate, e.g. the "Open app" button
+    won't be hidden
+  ☐ Tapping the Home icon in the bottom nav should go from shared tweets timeline to the home timeline @created(Tue 2021-07-20 15:42)
+
+Support for other display languages (#17):
+  ☐ Replace use of `aria-label` attributes and `textContent` with attributes or context which doesn't change across languages @created(Tue 2021-07-20 15:48)
+  ☐ Create locale objects with translations for each supported language where the above isn't possible @created(Tue 2021-07-20 15:49)
+     We should be able to automate some of this, eg. driving a browser with Puppeteer, we should be
+     able to cycle through the languages on https://twitter.com/settings/languages and use selectors
+     to pull out the `aria-label` for that language.
+
+     It doesn't matter if those selectors are brittle, as we'd only need to re-run this when new
+     languages are added or changes are made.
+
+Refactoring/tech debt:
+  ☐ Use the current URL when possible, rather than the page title @created(Tue 2021-07-20 15:44)
+    The title is used everywhere as the first tweak was implementing the separate tweets timeline,
+    which doesn't change the URL.
+
+    Using the URL will also make more features Just Work for non-English languages
+  ☐ Create a Tweet object which encapsulates finding things out about a tweet Element in the timeline @created(Tue 2021-07-20 15:41)
+    <div style="position: absolute; width: 100%; transform: translateY(1234px);">    Timeline container
+      <div><div><article><div><div>                                                  Wrrrraaapppiiinng
+        <div>                                                                        Tweet wrapper
+          <div>                                                                      Above-tweet
+            <div><div><div><div></div>                                                 Wrrrraaapppiiinng
+              <div>                                                                      Retweet SVG icon or short thread marker line if reply to previous tweet
+              <div>                                                                      `${username} Retweeted`
+          <div data-testid="tweet">                                                  Whole tweet content wrapper
+            <div>                                                                      Avatar (contains long thread marker line if next tweet is a reply)
+            <div>                                                                      Tweet content wrapper 1
+              <div>                                                                      Username / date / menu dots
+              <div>                                                                      Tweet content wrapper 2
+                <div class="css-a1b2c3 r-other1 r-other2">                                 "Replying to @user1 and @user2" (if tweet is a reply to others)
+                <div class="css-a1b2c3">                                                   Tweet text content (if it has any)
+                <div class="css-a1b2c3">                                                   Tweet "media" content, e.g.
+                                                                                           link info card if tweet contained a link
+                                                                                           quoted tweet if tweet is a QT
+                                                                                           images/video attached to the tweet
+                <div role="group" aria-label="12 replies, 34 likes">                       Reply / Retweet / Like / Share icons
+        <a>                                                                          "Show this thread" link (if tweet has one)
+
+    Should I hide this tweet?
+      Is the tweet a Retweet?
+        -> Does the text content of the second above-tweet content element contain 'Retweeted'?
+          -> config.retweets != 'ignore'
+      Does the tweet quote a muted/blocked account?
+        -> Is the text content of the media element 'This Tweet is unavailable.'?
+      Is the tweet a reply to a (reply to a (reply to a...)) tweet which was hidden?

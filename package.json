@@ -17,6 +17,7 @@
       "package.json",
       "README.md",
       "screenshots/",
+      "TODO",
       "types.d.ts"
     ]
   },
