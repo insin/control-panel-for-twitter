@@ -50,6 +50,7 @@ const config = {
   hideMessagesBottomNavItem: false,
 }
 
+/** @enum {string} */
 const PageTitles = {
   LATEST_TWEETS: 'Latest Tweets',
   EXPLORE: 'Explore',
@@ -58,12 +59,7 @@ const PageTitles = {
   QUOTE_TWEETS: 'Quote Tweets',
 }
 
-const MOBILE_LOGGED_OUT_URLS = ['/', '/login', '/i/flow/signup']
-const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/i
-const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
-const URL_PHOTO_RE = /photo\/\d$/
-const URL_TWEET_ID_RE = /\/status\/(\d+)$/
-
+/** @enum {string} */
 const Selectors = {
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
@@ -71,20 +67,23 @@ const Selectors = {
   PRIMARY_NAV: 'nav[aria-label="Primary"]',
   PROMOTED_TWEET: '[data-testid="placementTracking"]',
   SIDEBAR_COLUMN: 'div[data-testid="sidebarColumn"]',
+  TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: 'div[data-testid="tweet"]',
   VERIFIED_TICK: 'svg[aria-label="Verified account"]',
 }
 
-Object.assign(Selectors, {
-  TIMELINE: `${Selectors.PRIMARY_COLUMN} section > h1 + div[aria-label] > div`,
-})
-
-/** Title of the current page, without the ' / Twitter' suffix */
-let currentPage = ''
+const MOBILE_LOGGED_OUT_URLS = ['/', '/login', '/i/flow/signup']
+const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/i
+const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
+const URL_PHOTO_RE = /photo\/\d$/
+const URL_TWEET_ID_RE = /\/status\/(\d+)$/
 
 /** Notification count in the title (including trailing space), e.g. '(1) ' */
 let currentNotificationCount = ''
+
+/** Title of the current page, without the ' / Twitter' suffix */
+let currentPage = ''
 
 /** Current URL path */
 let currentPath = ''
@@ -92,11 +91,12 @@ let currentPath = ''
 /** Flag for a Home / Latest Tweets link having been clicked */
 let homeLinkClicked = false
 
-/** The last title we saw for the home timeline */
+/** The last page title we saw for the home timeline */
 let lastHomeTimelineTitle = ''
 
 /**
- * MutationObservers active on the current page
+ * MutationObservers active on the current page, or anything else we want to
+ * clean up when the user moves off the current page.
  * @type {(MutationObserver|{disconnect(): void})[]}
  */
 let pageObservers = []
