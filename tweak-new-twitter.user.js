@@ -53,7 +53,6 @@ const config = {
 /** @enum {string} */
 const PagePaths = {
   BOOKMARKS: '/i/bookmarks',
-  NOTIFICATIONS: '/notifications',
   SEARCH: '/search',
 }
 
@@ -141,6 +140,10 @@ function isOnIndividualTweetPage() {
 
 function isOnListsPage() {
   return currentPath.endsWith('/lists') || currentPath.startsWith('/i/lists')
+}
+
+function isOnNotificationsPage() {
+  return currentPath.startsWith('/notifications')
 }
 
 function isOnProfilePage() {
@@ -1053,7 +1056,7 @@ function processCurrentPage() {
   document.body.classList.toggle('Explore', isOnExplorePage())
   document.body.classList.toggle('HomeTimeline', isOnHomeTimeline())
   document.body.classList.toggle('Lists', isOnListsPage())
-  document.body.classList.toggle('Notifications', currentPath == PagePaths.NOTIFICATIONS)
+  document.body.classList.toggle('Notifications', isOnNotificationsPage())
   document.body.classList.toggle('Profile', isOnProfilePage())
   document.body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
   document.body.classList.toggle('Search', currentPath == PagePaths.SEARCH)
