@@ -51,6 +51,13 @@ const config = {
 }
 
 /** @enum {string} */
+const PagePaths = {
+  BOOKMARKS: '/i/bookmarks',
+  NOTIFICATIONS: '/notifications',
+  SEARCH: '/search',
+}
+
+/** @enum {string} */
 const PageTitles = {
   LATEST_TWEETS: 'Latest Tweets',
   EXPLORE: 'Explore',
@@ -66,7 +73,7 @@ const Selectors = {
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV: 'nav[aria-label="Primary"]',
   PROMOTED_TWEET: '[data-testid="placementTracking"]',
-  SIDEBAR_COLUMN: 'div[data-testid="sidebarColumn"]',
+  SIDEBAR_ONLY_SHOW_FIRST: 'div[data-testid="sidebarColumn"] > div > div > div > div > div > div:not(:first-of-type)',
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: 'div[data-testid="tweet"]',
@@ -120,6 +127,10 @@ function configureSeparatedTweetsTimeline() {
   }
 }
 
+function isOnExplorePage() {
+  return currentPath.startsWith('/explore')
+}
+
 function isOnHomeTimeline() {
   return currentPage == PageTitles.LATEST_TWEETS || currentPage == separatedTweetsTimelineTitle || currentPage == PageTitles.HOME
 }
@@ -128,8 +139,20 @@ function isOnIndividualTweetPage() {
   return URL_TWEET_ID_RE.test(currentPath)
 }
 
+function isOnListsPage() {
+  return currentPath.endsWith('/lists') || currentPath.startsWith('/i/lists')
+}
+
 function isOnProfilePage() {
   return PROFILE_TITLE_RE.test(currentPage)
+}
+
+function isOnQuoteTweetsPage() {
+  return currentPath.endsWith('/retweets/with_comments')
+}
+
+function isOnTopicsPage() {
+  return currentPath.endsWith('/topics')
 }
 //#endregion
 
@@ -393,54 +416,6 @@ async function observeTitle() {
 //#endregion
 
 //#region Page observers
-async function observeSidebar(page) {
-  let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {
-    name: 'primary column',
-    stopIf: pageIsNot(page),
-  })
-
-  /**
-   * Hides <aside> or <section> elements as they appear in the sidebar.
-   * @param {MutationRecord[]} mutations
-   */
-  function sidebarMutationCallback(mutations)  {
-    mutations.forEach((mutation) => {
-      mutation.addedNodes.forEach(($el) => {
-        if ($el.nodeType == Node.ELEMENT_NODE &&
-            ($el.nodeName == 'ASIDE' || $el.nodeName == 'SECTION')) {
-          hideSidebarElement(/** @type {HTMLElement} */ ($el))
-        }
-      })
-    })
-  }
-
-  let $sidebarColumn = document.querySelector(Selectors.SIDEBAR_COLUMN)
-  if ($sidebarColumn) {
-    log('observing sidebar')
-    hideSidebarContents()
-    pageObservers.push(
-      observeElement($sidebarColumn, sidebarMutationCallback, {childList: true, subtree: true})
-    )
-  }
-  else {
-    log('waiting for sidebar to appear')
-  }
-
-  pageObservers.push(
-    observeElement($primaryColumn.parentNode, (mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach(($el) => {
-          if (/** @type {HTMLElement} */ ($el).dataset.testid == 'sidebarColumn') {
-            log('sidebar appeared')
-            hideSidebarContents()
-            observeElement($el, sidebarMutationCallback, {childList: true, subtree: true})
-          }
-        })
-      })
-    })
-  )
-}
-
 async function observeTimeline(page) {
   let $timeline = await getElement(Selectors.TIMELINE, {
     name: 'timeline',
@@ -652,9 +627,14 @@ function addStaticCss() {
   if (config.hideTwitterAdsNav) {
     hideCssSelectors.push('div[role="dialog"] a[href*="ads.twitter.com"]')
   }
+  if (config.tweakQuoteTweetsPage) {
+    // Hide the quoted tweet, which is repeated in every quote tweet
+    hideCssSelectors.push('body.QuoteTweets [data-testid="tweet"] [aria-labelledby] > div:last-child')
+  }
 
   if (desktop) {
     if (config.addAddMutedWordMenuItem) {
+      // Hover colors for custom menu items
       cssRules.push(`
         body.Default .tnt_menu_item a:hover { background-color: rgb(247, 249, 249); }
         body.Dim .tnt_menu_item a:hover { background-color: rgb(25, 39, 52); }
@@ -663,12 +643,16 @@ function addStaticCss() {
     }
     if (config.hideSidebarContent) {
       hideCssSelectors.push(
-        // Sidefooter
-        `${Selectors.SIDEBAR_COLUMN} nav`,
-        // Who to Follow
-        `${Selectors.SIDEBAR_COLUMN} aside`,
-        // What's Happening, Topics to Follow etc.
-        `${Selectors.SIDEBAR_COLUMN} section`
+        `body.Bookmarks ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
+        `body.Explore div[data-testid="sidebarColumn"]`,
+        `body.HomeTimeline ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
+        `body.Lists ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
+        `body.Notifications ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
+        `body.Profile div[data-testid="sidebarColumn"] > div > div > div > div > div > div:not(:nth-of-type(1), :nth-of-type(2), :nth-of-type(3))`,
+        `body.QuoteTweets ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
+        `body.Search ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
+        `body.Topics ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
+        `body.Tweet ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
       )
     }
     if (config.hideExploreNav) {
@@ -686,11 +670,11 @@ function addStaticCss() {
           flex-shrink: 1 !important;
           align-items: flex-end !important;
         }
-        [data-testid="SideNav_AccountSwitcher_Button"] > div:first-child:not(:only-child),
-        [data-testid="SideNav_AccountSwitcher_Button"] > div:first-child + div {
-          display: none !important;
-        }
       `)
+      hideCssSelectors.push(
+        '[data-testid="SideNav_AccountSwitcher_Button"] > div:first-child:not(:only-child)',
+        '[data-testid="SideNav_AccountSwitcher_Button"] > div:first-child + div',
+      )
     }
     if (config.hideMessagesDrawer) {
       hideCssSelectors.push(Selectors.MESSAGES_DRAWER)
@@ -700,12 +684,10 @@ function addStaticCss() {
   if (mobile) {
     if (config.hideExplorePageContents) {
       // Hide explore page contents so we don't get a brief flash of them
-      cssRules.push(`
-        body.Explore header nav,
-        body.Explore main {
-          display: none;
-        }
-      `)
+      hideCssSelectors.push(
+        'body.Explore header nav',
+        'body.Explore main',
+      )
     }
     if (config.hideAppNags) {
       hideCssSelectors.push('.TwitterIsBetterOnTheAppNeverButton #layers > div')
@@ -721,10 +703,8 @@ function addStaticCss() {
            align-items: center;
            justify-content: space-between;
         }
-        body.SeparatedTweets .tnt_home_timeline_title {
-           display: none;
-        }
       `)
+      hideCssSelectors.push('body.SeparatedTweets .tnt_home_timeline_title')
     }
     if (config.hideMessagesBottomNavItem) {
       hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href="/messages"]`)
@@ -794,28 +774,6 @@ async function hideOpenAppButton(page) {
     // for other things - e.g. the sparkles button on the home timeline
     $button.style.visibility = 'hidden'
   }
-}
-
-/**
- * Hides all <aside> or <section> elements which are already in the sidebar.
- */
-function hideSidebarContents() {
-  Array.from(
-    document.querySelectorAll(`${Selectors.SIDEBAR_COLUMN} aside, ${Selectors.SIDEBAR_COLUMN} section`),
-    hideSidebarElement
-  )
-}
-
-/**
- * Finds the topmost container for a sidebar content element and hides it.
- * @param {HTMLElement} $element
- */
-function hideSidebarElement($element) {
-  let $sidebarContainer = $element.parentElement
-  while (!$sidebarContainer.previousElementSibling) {
-     $sidebarContainer = $sidebarContainer.parentElement
-  }
-  $sidebarContainer.style.display = 'none'
 }
 
 /**
@@ -1113,10 +1071,22 @@ function processCurrentPage() {
     config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc
   )
 
+  // "Which page are we on?" hooks for styling
+  document.body.classList.toggle('Bookmarks', currentPath == PagePaths.BOOKMARKS)
+  document.body.classList.toggle('Explore', isOnExplorePage())
+  document.body.classList.toggle('HomeTimeline', isOnHomeTimeline())
+  document.body.classList.toggle('Lists', isOnListsPage())
+  document.body.classList.toggle('Notifications', currentPath == PagePaths.NOTIFICATIONS)
+  document.body.classList.toggle('Profile', isOnProfilePage())
+  document.body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
+  document.body.classList.toggle('Search', currentPath == PagePaths.SEARCH)
+  document.body.classList.toggle('Topics', isOnTopicsPage())
+  document.body.classList.toggle('Tweet', isOnIndividualTweetPage())
+
+  // "Which version of the home timeline are we on?" hooks for styling
   document.body.classList.toggle('Home', currentPage == PageTitles.HOME)
   document.body.classList.toggle('LatestTweets', currentPage == PageTitles.LATEST_TWEETS)
   document.body.classList.toggle('SeparatedTweets', currentPage == separatedTweetsTimelineTitle)
-  document.body.classList.toggle('Explore', currentPage == PageTitles.EXPLORE)
 
   if (isOnHomeTimeline()) {
     if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
@@ -1134,19 +1104,15 @@ function processCurrentPage() {
     observeTimeline(currentPage)
   }
 
-  if (desktop && config.hideSidebarContent && currentPage != PageTitles.MESSAGES) {
-    observeSidebar(currentPage)
-  }
-
   if (isOnIndividualTweetPage()) {
     tweakIndividualTweetPage()
   }
 
-  if (config.tweakQuoteTweetsPage && currentPage == PageTitles.QUOTE_TWEETS) {
+  if (config.tweakQuoteTweetsPage && isOnQuoteTweetsPage()) {
     tweakQuoteTweetsPage()
   }
 
-  if (mobile && config.hideExplorePageContents && currentPage == PageTitles.EXPLORE) {
+  if (mobile && config.hideExplorePageContents && isOnExplorePage()) {
     tweakExplorePage(currentPage)
   }
 }
@@ -1209,10 +1175,6 @@ async function tweakIndividualTweetPage() {
 }
 
 async function tweakQuoteTweetsPage() {
-  // Hide the quoted tweet, which is repeated in every quote tweet
-  let $quoteTweetStyle = addStyle('[data-testid="tweet"] [aria-labelledby] > div:last-child { display: none; }')
-  pageObservers.push({disconnect: () => $quoteTweetStyle.remove()})
-
   if (desktop) {
     // Show the quoted tweet once in the pinned header instead
     let [$heading, $quotedTweet] = await Promise.all([
