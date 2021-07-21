@@ -6,10 +6,34 @@
 
 ## Install
 
-* [Install Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/) - Firefox Android is also supported
+* [Install Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/)
 * [Install Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/tweak-new-twitter/foccddlibbeccjiobcnakipdpkjiijjp)
 * [Install Chrome Extension](https://chrome.google.com/webstore/detail/tweak-new-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj)
 * [Install as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) (requires a [user script manager](https://greasyfork.org/en#home-step-1))
+
+### Install on Firefox Nightly for Android
+
+As of v2.0, Tweak New Twitter supports the mobile version of Twitter and is tested on Firefox for Android, but Mozilla Add-ons currently only lets you install a [small, curated list of extensions on Android](https://addons.mozilla.org/en-US/android/).
+
+For now, to use Tweak New Twitter on your Android device:
+
+- Install [Firefox for Android Nightly](https://play.google.com/store/apps/details?id=org.mozilla.fenix)
+- [Follow these instructions](https://blog.mozilla.org/addons/2020/09/29/expanded-extension-support-in-firefox-for-android-nightly/) to enable Custom Add-on collections
+  - TL;DR: Settings → About Firefox Nightly → Tap on the Firefox logo 5 times
+- In the "Custom Add-on collection" setting which is now available, enter the following details and tap "OK":
+  - 13844640
+  - Android-Collection
+
+    ![Screenshot of what the custom collection to intsall Tweak New Twitter on Firefox for Android Nightly should look like when correctly configured](screenshots/install_custom_collection.png)
+
+<details>
+  <summary>
+  You'll now be able to install Tweak New Twitter via the Add-ons page.
+  </summary>
+  <img src="/insin/tweak-new-twitter/raw/master/screenshots/install_addons.png" alt="Screenshot of the Add-ons page in Firefox Nightly for Android setting up the Custom Add-on collection with the details above" style="max-width:100%;">
+</details>
+
+If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Install" option in Firefox's main menu, you'll have a configurable (via Firefox for Android Nightly's Add-ons settings), user-respectful version of Twitter on your phone.
 
 ## Features
 
