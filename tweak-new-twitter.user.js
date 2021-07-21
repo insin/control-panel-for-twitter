@@ -1275,28 +1275,25 @@ function shouldHideSharedTweet(config, page) {
 }
 
 async function switchToLatestTweets(page) {
+  log('switching to Latest Tweets timeline')
+
   let $switchButton = await getElement('div[aria-label="Top Tweets on"]', {
     name: 'timeline switch button',
     stopIf: pageIsNot(page),
   })
+  if ($switchButton == null) return
 
-  if ($switchButton == null) {
-    return false
-  }
-
+  log('opening sparkle menu')
   $switchButton.click()
 
   let $seeLatestTweetsInstead = await getElement('div[role="menu"] div[role="menuitem"]', {
     name: '"See latest Tweets instead" menu item',
     stopIf: pageIsNot(page),
   })
+  if ($seeLatestTweetsInstead == null) return
 
-  if ($seeLatestTweetsInstead == null) {
-    return false
-  }
-
-  /** @type {HTMLElement} */ ($seeLatestTweetsInstead.closest('div[tabindex="0"]')).click()
-  return true
+  log('clicking "See latest Tweets" instead menu item')
+  $seeLatestTweetsInstead.click()
 }
 //#endregion
 
