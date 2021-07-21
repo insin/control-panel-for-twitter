@@ -4,7 +4,7 @@
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
-// @version     28
+// @version     2.0
 // ==/UserScript==
 
 const enableDebugLogging = false
