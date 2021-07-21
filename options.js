@@ -19,19 +19,23 @@ const checkboxGroups = new Map(Object.entries({
     desktop && 'navBaseFontSize',
     mobile && 'hideAppNags',
   ].filter(Boolean),
-  hideNavigation: [
+  hideNavigationItems: [
+    desktop && 'hideAccountSwitcher',
+    desktop && 'hideBookmarksNav',
+    desktop && 'hideExploreNav',
+    desktop && 'hideListsNav',
+    desktop && 'hideMessagesDrawer',
+    mobile && 'hideMessagesBottomNavItem',
+  ].filter(Boolean),
+  hideMoreSlideOutMenuItems: [
     'hideAnalyticsNav',
-    'hideBookmarksNav',
-    'hideListsNav',
     'hideMomentsNav',
     'hideNewslettersNav',
     'hideTopicsNav',
     'hideTwitterAdsNav',
-    desktop && 'hideAccountSwitcher',
-    desktop && 'hideExploreNav',
-    desktop && 'hideMessagesDrawer',
-    mobile && 'hideMessagesBottomNavItem',
-  ].filter(Boolean)
+    mobile && 'hideBookmarksNav',
+    mobile && 'hideListsNav',
+  ].filter(Boolean),
 }))
 
 chrome.storage.local.get((storedConfig) => {
@@ -47,7 +51,7 @@ chrome.storage.local.get((storedConfig) => {
     fastBlock: true,
     hideAnalyticsNav: true,
     hideBookmarksNav: true,
-    hideListsNav: false,
+    hideListsNav: true,
     hideMomentsNav: true,
     hideMoreTweets: true,
     hideNewslettersNav: true,

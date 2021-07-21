@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Tweak New Twitter",
-  "description": "Reduce algorithmic content on Twitter, hide toxic trends, control which shared tweets appear on your timeline, and improve the UI",
+  "description": "Reduce algorithmic content on Twitter, hide trends, control which shared tweets appear on your timeline, and improve the UI",
   "homepage_url": "https://github.com/insin/tweak-new-twitter/",
   "version": "1.28",
   "icons": {

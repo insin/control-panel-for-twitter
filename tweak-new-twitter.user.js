@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Tweak New Twitter
-// @description Reduce algorithmic content on Twitter, hide toxic trends, control which shared tweets appear on your timeline, and improve the UI
+// @description Reduce algorithmic content on Twitter, hide trends, control which shared tweets appear on your timeline, and improve the UI
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
@@ -27,7 +27,7 @@ const config = {
   fastBlock: true,
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
-  hideListsNav: false,
+  hideListsNav: true,
   hideMomentsNav: true,
   hideMoreTweets: true,
   hideNewslettersNav: true,
