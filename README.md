@@ -43,17 +43,23 @@
 
 | Desktop | Mobile |
 | - | - |
-| ![Screenshot of a Twitter home timeline on desktop without retweets, algorithmic timeline content or sidebar content, with fewer navigation items and a less distracting navigation font style](screenshots/timeline.png) | ![Screenshot of a Twitter home timeline on mobile without retweets](screenshots/firefox_android_timeline.jpg) |
+| ![Screenshot of a desktop Twitter home timeline without retweets, algorithmic timeline content, or sidebar content, with fewer navigation items and a less distracting navigation font style](screenshots/timeline.png) | ![Screenshot of a mobile Twitter home timeline without retweets, algorithmic timeline content](screenshots/firefox_android_timeline.jpg) |
 
-### Separate timeline for Retweets and/or Quote Tweets
+### Separate timeline for Retweets (default setting) and/or Quote Tweets
 
 | Desktop | Mobile |
 | - | - |
-| ![Screenshot of the separate timeline Tweak New Twitter adds to Twitter on desktop, configured to separate Retweets from the rest of the home timeline](screenshots/shared_tweets.png) | ![Screenshot of the separate timeline Tweak New Twitter adds to Twitter on mobile, configured to separate Retweets from the rest of the home timeline](screenshots/firefox_android_shared_tweets.jpg) |
+| ![Screenshot of the separate timeline Tweak New Twitter adds to desktop Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/shared_tweets.png) | ![Screenshot of the separate timeline Tweak New Twitter adds to mobile Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/firefox_android_shared_tweets.jpg) |
+
+### Tidied-up menus, with instant access to "Add muted word"
+
+| Desktop - "More" menu | Mobile - slide-out menu |
+| - | - |
+| ![Screenshot of the "More" menu on desktop Twitter, with most of the menu items removed and a new "Add muted word" menu item](screenshots/more_menu.png) | ![Screenshot of the slide-out menu on mobile Twitter, with most of the menu items removed and a new "Add muted word" menu item](screenshots/firefox_android_menu.jpg) |
 
 ### Improved Quote Tweets page
 
-| Desktop | Mobile |
+| Desktop - quoted tweet pinned to header, duplicates under each tweet are hidden | Mobile - duplicate quoted tweet hidden, leaving more room for quotes  |
 | - | - |
 | ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on desktop, pinning the quoted tweet in the header instead of repeating it in every tweet](screenshots/quote_tweets.png) | ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on mobile, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/firefox_android_quote_tweets.jpg) |
 
@@ -62,6 +68,12 @@
 | Chrome | Firefox | Firefox Android |
 | - | - | - |
 | ![Screenshot of the extension options dialog in Chrome](screenshots/chrome_options_dark.png) | ![Screenshot of the add-on options page in Firefox](screenshots/firefox_options_dark.png) | ![Screenshot of the add-on settings page in Firefox Android](screenshots/firefox_android_settings.jpg) |
+
+### Other mobile features
+
+| No trends on Explore screen, just search | No "Open app" nag in tweet header / Hide messages nav item |No "Switch to the app" nag when logged out… | …or when logging in
+| - | - | - | - |
+| ![Screenshot of the Explore screen in mobile Twitter, with only the search part of the screen visible](screenshots/firefox_android_explore.jpg) | ![Screenshot an individual tweet in mobile Twitter, without the usual "Open app" buttoin in the header, and without the usual Messages navigation item in the bottom navigation bar](screenshots/firefox_android_tweet.jpg) | ![Screenshot of the login screen in mobile Twitter, without the usual "Twitter is better on the app" overlay](screenshots/firefox_android_no_nag_home.jpg) | ![Screenshot of the logged out home screen in mobile Twitter, without the usual "Twitter is better on the app" overlay](screenshots/firefox_android_no_nag_login.jpg) |
 
 ## Attribution
 
