@@ -18,7 +18,7 @@ As of v2.0, Tweak New Twitter supports the mobile version of Twitter and is test
 For now, to use Tweak New Twitter on your Android device:
 
 - Install [Firefox for Android Nightly](https://play.google.com/store/apps/details?id=org.mozilla.fenix)
-- [Follow these instructions](https://blog.mozilla.org/addons/2020/09/29/expanded-extension-support-in-firefox-for-android-nightly/) to enable Custom Add-on collections
+- [Follow these instructions](https://blog.mozilla.org/addons/2020/09/29/expanded-extension-support-in-firefox-for-android-nightly/) to enable Custom Add-on collections:
   - TL;DR: Settings → About Firefox Nightly → Tap on the Firefox logo 5 times
 - In the "Custom Add-on collection" setting which is now available, enter the following details and tap "OK":
   - 13844640
@@ -33,7 +33,7 @@ For now, to use Tweak New Twitter on your Android device:
   <img src="https://raw.githubusercontent.com/insin/tweak-new-twitter/master/screenshots/install_addons.png" alt="Screenshot of the Add-ons page in Firefox Nightly for Android setting up the Custom Add-on collection with the details above" style="max-width:100%;">
 </details>
 
-If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Install" option in Firefox's main menu, you'll have a configurable (via Firefox for Android Nightly's Add-ons settings), user-respectful version of Twitter on your phone.
+If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Install" option in Firefox Nightly's main menu, you'll have a configurable (via Firefox Nightly's Add-ons settings), user-respectful version of Twitter on your phone.
 
 ## Features
 
