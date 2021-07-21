@@ -27,7 +27,7 @@ export type Config = {
   hideSidebarContent: boolean
   navBaseFontSize: boolean
   // Mobile only
-  focusSearchOnExplorePage: boolean
   hideAppNags: boolean
+  hideExplorePageContents: boolean
   hideMessagesBottomNavItem: boolean
 }

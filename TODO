@@ -1,7 +1,3 @@
-
-Mobile version support (#47):
-  ☐ Make navigating back from the search input take you back to where you came from, not to the Explore page @created(Tue 2021-07-20 18:39)
-
 Support for other display languages (#17):
   ☐ Replace use of `aria-label` attributes and `textContent` with attributes or context which doesn't change across languages @created(Tue 2021-07-20 15:48)
   ☐ Create locale objects with translations for each supported language where the above isn't possible @created(Tue 2021-07-20 15:49)

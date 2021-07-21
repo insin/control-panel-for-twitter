@@ -45,8 +45,8 @@ const config = {
   hideSidebarContent: true,
   navBaseFontSize: true,
   // Mobile only
-  focusSearchOnExplorePage: true,
   hideAppNags: true,
+  hideExplorePageContents: true,
   hideMessagesBottomNavItem: false,
 }
 
@@ -698,6 +698,15 @@ function addStaticCss() {
   }
 
   if (mobile) {
+    if (config.hideExplorePageContents) {
+      // Hide explore page contents so we don't get a brief flash of them
+      cssRules.push(`
+        body.Explore header nav,
+        body.Explore main {
+          display: none;
+        }
+      `)
+    }
     if (config.hideAppNags) {
       hideCssSelectors.push('.TwitterIsBetterOnTheAppNeverButton #layers > div')
     }
@@ -705,14 +714,14 @@ function addStaticCss() {
       // Use CSS to only tweak layout of mobile header elements on pages where
       // it's needed, as changes made directly to them can persist across pages.
       cssRules.push(`
-        .Home .tnt_mobile_header,
-        .LatestTweets .tnt_mobile_header,
-        .SeparatedTweets .tnt_mobile_header {
+        body.Home .tnt_mobile_header,
+        body.LatestTweets .tnt_mobile_header,
+        body.SeparatedTweets .tnt_mobile_header {
            flex-direction: row;
            align-items: center;
            justify-content: space-between;
         }
-        .SeparatedTweets .tnt_home_timeline_title {
+        body.SeparatedTweets .tnt_home_timeline_title {
            display: none;
         }
       `)
@@ -1107,6 +1116,7 @@ function processCurrentPage() {
   document.body.classList.toggle('Home', currentPage == PageTitles.HOME)
   document.body.classList.toggle('LatestTweets', currentPage == PageTitles.LATEST_TWEETS)
   document.body.classList.toggle('SeparatedTweets', currentPage == separatedTweetsTimelineTitle)
+  document.body.classList.toggle('Explore', currentPage == PageTitles.EXPLORE)
 
   if (isOnHomeTimeline()) {
     if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
@@ -1136,8 +1146,8 @@ function processCurrentPage() {
     tweakQuoteTweetsPage()
   }
 
-  if (mobile && config.focusSearchOnExplorePage && currentPage == PageTitles.EXPLORE) {
-    tweakExplorePage()
+  if (mobile && config.hideExplorePageContents && currentPage == PageTitles.EXPLORE) {
+    tweakExplorePage(currentPage)
   }
 }
 
@@ -1151,14 +1161,38 @@ function removeMobileHeaderElements() {
   document.querySelector('#tnt_switch_timeline')?.remove()
 }
 
-async function tweakExplorePage() {
+async function tweakExplorePage(page) {
   let $searchInput = await getElement('input[data-testid="SearchBox_Search_Input"]', {
-    name: 'search input'
+    name: 'search input',
+    stopIf: pageIsNot(page),
   })
-  if ($searchInput) {
-    log('focusing search input')
-    $searchInput.focus()
-  }
+  if (!$searchInput) return
+
+  log('focusing search input')
+  $searchInput.focus()
+
+  let $backButton = await getElement('[role="button"]:not([data-testid="DashButton_ProfileIcon_Link"])', {
+    context: $searchInput.closest('header'),
+    name: 'back button',
+    stopIf: pageIsNot(page),
+  })
+  if (!$backButton) return
+
+  // The back button appears after the search input is focused. When you tap it
+  // or go back manually, it's replaced with the slide-out menu button and the
+  // Explore page contents are shown - we want to skip that.
+  pageObservers.push(
+    observeElement($backButton.parentElement, (mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((/** @type {HTMLElement} */ $el) => {
+          if ($el.querySelector('[data-testid="DashButton_ProfileIcon_Link"]')) {
+            log('slide-out menu button appeared, going back to skip Explore page')
+            history.go(-2)
+          }
+        })
+      })
+    })
+  )
 }
 
 async function tweakIndividualTweetPage() {

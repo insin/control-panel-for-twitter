@@ -10,7 +10,7 @@ const checkboxGroups = new Map(Object.entries({
     'hideMoreTweets',
     'hideWhoToFollowEtc',
     desktop && 'hideSidebarContent',
-    mobile && 'focusSearchOnExplorePage',
+    mobile && 'hideExplorePageContents',
   ].filter(Boolean),
   uiImprovements: [
     'addAddMutedWordMenuItem',
@@ -65,8 +65,8 @@ chrome.storage.local.get((storedConfig) => {
     hideSidebarContent: true,
     navBaseFontSize: true,
     // Mobile only
-    focusSearchOnExplorePage: true,
     hideAppNags: true,
+    hideExplorePageContents: true,
     hideMessagesBottomNavItem: false,
     ...storedConfig
   }
