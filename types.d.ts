@@ -40,7 +40,6 @@ export type LocaleKey =
   | 'QUOTE_TWEETS'
   | 'RETWEETS'
   | 'SHARED_TWEETS'
-  | 'TITLE_SPLIT'
   | 'TWITTER'
 
 export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'

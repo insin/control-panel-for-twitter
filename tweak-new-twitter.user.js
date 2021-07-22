@@ -57,19 +57,99 @@ const config = {
  * @type {{[key: string]: import("./types").Locale}}
  */
 const locales = {
-  /*
-  // The codes are the corresponding ones from the {languageCode}.{hash}.js files Twitter downloads
-  // when you switch display language.
-  template: {
-    ADD_MUTED_WORD: 'd768049b', // Needed to add a new menu item for it
-    HOME: 'ha8209bb',           // Home timeline title - used to detect which timeline we're on, needed to change <title>
-    LATEST_TWEETS: 'd126cb7c',  // Latest Tweets timeline title - used to detect which timeline we're on, needed to change <title>
-    QUOTE_TWEET: 'c9d7235d',    // Easy identifier for a visible quote tweet - potentially replaceable?
-    QUOTE_TWEETS: 'bd7c039f',   // Separated tweets timeline title when config.quoteTweets = 'separate' on its own
-    RETWEETS: 'd497b854',       // Separated tweets timeline title when config.retweets = 'separate' on its own
-    SHARED_TWEETS: '',          // This is our own thing
+  'ar-x-fm': {
+    ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
+    HOME: 'الرئيسيّة',
+    LATEST_TWEETS: 'أحدث التغريدات',
+    QUOTE_TWEET: 'اقتباس التغريدة',
+    QUOTE_TWEETS: 'تغريدات اقتباس',
+    RETWEETS: 'إعادات التغريد',
+    SHARED_TWEETS: '',
+    TWITTER: 'تويتر',
   },
-  */
+  ar: {
+    ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
+    HOME: 'الرئيسيّة',
+    LATEST_TWEETS: 'أحدث التغريدات',
+    QUOTE_TWEET: 'اقتباس التغريدة',
+    QUOTE_TWEETS: 'تغريدات اقتباس',
+    RETWEETS: 'إعادات التغريد',
+    SHARED_TWEETS: '',
+    TWITTER: 'تويتر',
+  },
+  bg: {
+    ADD_MUTED_WORD: 'Добавяне на заглушена дума',
+    HOME: 'Начало',
+    LATEST_TWEETS: 'Най-новите туитове',
+    QUOTE_TWEET: 'Цитиране на туита',
+    QUOTE_TWEETS: 'Туитове с цитат',
+    RETWEETS: 'Ретуитове',
+    SHARED_TWEETS: '',
+  },
+  bn: {
+    ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
+    HOME: 'হোম',
+    LATEST_TWEETS: 'সাম্প্রতিক টুইটগুলি',
+    QUOTE_TWEET: 'টুইট উদ্ধৃত করুন',
+    QUOTE_TWEETS: 'টুইট উদ্ধৃতিগুলো',
+    RETWEETS: 'পুনঃটুইটগুলো',
+    SHARED_TWEETS: '',
+    TWITTER: 'টুইটার',
+  },
+  ca: {
+    ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
+    HOME: 'Inici',
+    LATEST_TWEETS: 'Tuits més recents',
+    QUOTE_TWEET: 'Cita el tuit',
+    QUOTE_TWEETS: 'Tuits amb cita',
+    RETWEETS: 'Retuits',
+    SHARED_TWEETS: '',
+  },
+  cs: {
+    ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
+    HOME: 'Hlavní stránka',
+    LATEST_TWEETS: 'Nejnovější tweety',
+    QUOTE_TWEET: 'Citovat Tweet',
+    QUOTE_TWEETS: 'Tweety s citací',
+    RETWEETS: 'Retweety',
+    SHARED_TWEETS: '',
+  },
+  da: {
+    ADD_MUTED_WORD: 'Tilføj skjult ord',
+    HOME: 'Forside',
+    LATEST_TWEETS: 'Seneste Tweets',
+    QUOTE_TWEET: 'Citér Tweet',
+    QUOTE_TWEETS: 'Citat-Tweets',
+    RETWEETS: 'Retweets',
+    SHARED_TWEETS: '',
+  },
+  de: {
+    ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
+    HOME: 'Startseite',
+    LATEST_TWEETS: 'Neueste Tweets',
+    QUOTE_TWEET: 'Tweet zitieren',
+    QUOTE_TWEETS: 'Zitierte Tweets',
+    RETWEETS: 'Retweets',
+    SHARED_TWEETS: '',
+  },
+  el: {
+    ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
+    HOME: 'Αρχική σελίδα',
+    LATEST_TWEETS: 'Τα πιο πρόσφατα Tweet',
+    QUOTE_TWEET: 'Παράθεση Tweet',
+    QUOTE_TWEETS: 'Tweet Î¼Îµ ÏÎ±ÏÎ¬Î¸ÎµÏÎ·',
+    RETWEETS: 'Retweet',
+    SHARED_TWEETS: '',
+  },
+  'en-GB': {
+    ADD_MUTED_WORD: 'Add muted word',
+    HOME: 'Home',
+    LATEST_TWEETS: 'Latest Tweets',
+    QUOTE_TWEET: 'Quote Tweet',
+    QUOTE_TWEETS: 'Quote Tweets',
+    RETWEETS: 'Retweets',
+    SHARED_TWEETS: '',
+  },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
     HOME: 'Home',
@@ -78,8 +158,25 @@ const locales = {
     QUOTE_TWEETS: 'Quote Tweets',
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Shared Tweets',
-    TITLE_SPLIT: ' / ',
     TWITTER: 'Twitter',
+  },
+  es: {
+    ADD_MUTED_WORD: 'Añadir palabra silenciada',
+    HOME: 'Inicio',
+    LATEST_TWEETS: 'Tweets más recientes',
+    QUOTE_TWEET: 'Citar Tweet',
+    QUOTE_TWEETS: 'Tweets citados',
+    RETWEETS: 'Retweets',
+    SHARED_TWEETS: '',
+  },
+  eu: {
+    ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
+    HOME: 'Hasiera',
+    LATEST_TWEETS: 'Azken txioak',
+    QUOTE_TWEET: 'Txioa apaitu',
+    QUOTE_TWEETS: 'Aipatu txioak',
+    RETWEETS: 'Bertxioak',
+    SHARED_TWEETS: '',
   },
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
@@ -89,8 +186,34 @@ const locales = {
     QUOTE_TWEETS: 'نقل‌توییت',
     RETWEETS: 'بازتوییت‌ها',
     SHARED_TWEETS: 'توییتهای مشترک',
-    TITLE_SPLIT: ' \\ ',
     TWITTER: 'توییتر',
+  },
+  fi: {
+    ADD_MUTED_WORD: 'Lisää hiljennetty sana',
+    HOME: 'Etusivu',
+    LATEST_TWEETS: 'Uusimmat twiitit',
+    QUOTE_TWEET: 'Twiitin lainaus',
+    QUOTE_TWEETS: 'Twiitin lainaukset',
+    RETWEETS: 'Uudelleentwiittaukset',
+    SHARED_TWEETS: '',
+  },
+  fil: {
+    ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
+    HOME: 'Home',
+    LATEST_TWEETS: 'Mga Pinakabagong Tweet',
+    QUOTE_TWEET: 'Quote na Tweet',
+    QUOTE_TWEETS: 'Mga Quote na Tweet',
+    RETWEETS: 'Mga Retweet',
+    SHARED_TWEETS: '',
+  },
+  fr: {
+    ADD_MUTED_WORD: 'Ajouter un mot masqué',
+    HOME: 'Accueil',
+    LATEST_TWEETS: 'Tout derniers Tweets',
+    QUOTE_TWEET: 'Citer le Tweet',
+    QUOTE_TWEETS: 'Tweets cités',
+    RETWEETS: 'Retweets',
+    SHARED_TWEETS: '',
   },
   ga: {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
@@ -101,6 +224,79 @@ const locales = {
     RETWEETS: 'Atweetanna',
     SHARED_TWEETS: 'Tweetanna Roinnte',
   },
+  gl: {
+    ADD_MUTED_WORD: 'Engadir palabra silenciada',
+    HOME: 'Inicio',
+    LATEST_TWEETS: 'Últimos chíos',
+    QUOTE_TWEET: 'Citar chío',
+    QUOTE_TWEETS: 'Chíos citados',
+    RETWEETS: 'Rechouchíos',
+    SHARED_TWEETS: '',
+  },
+  gu: {
+    ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
+    HOME: 'હોમ',
+    LATEST_TWEETS: 'તાજેતરની ટ્વીટ્સ',
+    QUOTE_TWEET: 'અવતરણની સાથે ટ્વીટ કરો',
+    QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ',
+    RETWEETS: 'પુનટ્વીટ્સ',
+    SHARED_TWEETS: '',
+  },
+  he: {
+    ADD_MUTED_WORD: 'הוסף מילה מושתקת',
+    HOME: 'דף הבית',
+    LATEST_TWEETS: 'הציוצים האחרונים',
+    QUOTE_TWEET: 'ציטוט ציוץ',
+    QUOTE_TWEETS: 'ציוצי ציטוט',
+    RETWEETS: 'ציוצים מחדש',
+    SHARED_TWEETS: '',
+    TWITTER: 'טוויטר',
+  },
+  hi: {
+    ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
+    HOME: 'होम',
+    LATEST_TWEETS: 'नवीनतम ट्वीट्स',
+    QUOTE_TWEET: 'कोट ट्वीट',
+    QUOTE_TWEETS: 'कोट ट्वीट्स',
+    RETWEETS: 'रीट्वीट्स',
+    SHARED_TWEETS: '',
+  },
+  hr: {
+    ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
+    HOME: 'Naslovnica',
+    LATEST_TWEETS: 'Najnoviji tweetovi',
+    QUOTE_TWEET: 'Citiraj Tweet',
+    QUOTE_TWEETS: 'Citirani tweetovi',
+    RETWEETS: 'Proslijeđeni tweetovi',
+    SHARED_TWEETS: '',
+  },
+  hu: {
+    ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
+    HOME: 'Kezdőlap',
+    LATEST_TWEETS: 'A legfrissebb Tweetek',
+    QUOTE_TWEET: 'Tweet idézése',
+    QUOTE_TWEETS: 'Tweet-idézések',
+    RETWEETS: 'Retweetek',
+    SHARED_TWEETS: '',
+  },
+  id: {
+    ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
+    HOME: 'Beranda',
+    LATEST_TWEETS: 'Tweet Terbaru',
+    QUOTE_TWEET: 'Kutip Tweet',
+    QUOTE_TWEETS: 'Kutip Tweet',
+    RETWEETS: 'Retweet',
+    SHARED_TWEETS: '',
+  },
+  it: {
+    ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
+    HOME: 'Home',
+    LATEST_TWEETS: 'Tweet più recenti',
+    QUOTE_TWEET: 'Cita il Tweet',
+    QUOTE_TWEETS: 'Tweet di citazione',
+    RETWEETS: 'Retweet',
+    SHARED_TWEETS: '',
+  },
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
     HOME: 'ホーム',
@@ -109,6 +305,201 @@ const locales = {
     QUOTE_TWEETS: '引用ツイート',
     RETWEETS: 'リツイート',
     SHARED_TWEETS: '共有ツイート',
+  },
+  kn: {
+    ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
+    HOME: 'ಹೋಮ್',
+    LATEST_TWEETS: 'ಇತ್ತೀಚಿನ ಟ್ವೀಟ್‌ಗಳು',
+    QUOTE_TWEET: 'ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ',
+    QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು',
+    RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳು',
+    SHARED_TWEETS: '',
+  },
+  ko: {
+    ADD_MUTED_WORD: '뮤트할 단어 추가하기',
+    HOME: '홈',
+    LATEST_TWEETS: '최신 트윗',
+    QUOTE_TWEET: '트윗 인용하기',
+    QUOTE_TWEETS: '트윗 인용하기',
+    RETWEETS: '리트윗',
+    SHARED_TWEETS: '',
+    TWITTER: '트위터',
+  },
+  mr: {
+    ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
+    HOME: 'होम',
+    LATEST_TWEETS: 'अगदी अलीकडच्या ट्विट्स',
+    QUOTE_TWEET: 'ट्विट वर भाष्य करा',
+    QUOTE_TWEETS: 'भाष्य ट्विट्स',
+    RETWEETS: 'पुनर्ट्विट्स',
+    SHARED_TWEETS: '',
+  },
+  ms: {
+    ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
+    HOME: 'Laman Utama',
+    LATEST_TWEETS: 'Tweet terkini',
+    QUOTE_TWEET: 'Petik Tweet',
+    QUOTE_TWEETS: 'Tweet Petikan',
+    RETWEETS: 'Tweet semula',
+    SHARED_TWEETS: '',
+  },
+  nb: {
+    ADD_MUTED_WORD: 'Skjul nytt ord',
+    HOME: 'Hjem',
+    LATEST_TWEETS: 'De nyeste tweetene',
+    QUOTE_TWEET: 'Sitat-Tweet',
+    QUOTE_TWEETS: 'Sitat-Tweets',
+    RETWEETS: 'Retweets',
+    SHARED_TWEETS: '',
+  },
+  nl: {
+    ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
+    HOME: 'Startpagina',
+    LATEST_TWEETS: 'Nieuwste Tweets',
+    QUOTE_TWEET: 'Citeer Tweet',
+    QUOTE_TWEETS: 'Geciteerde Tweets',
+    RETWEETS: 'Retweets',
+    SHARED_TWEETS: '',
+  },
+  pl: {
+    ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
+    HOME: 'Główna',
+    LATEST_TWEETS: 'Najnowsze Tweety',
+    QUOTE_TWEET: 'Cytuj Tweeta',
+    QUOTE_TWEETS: 'Cytatów z Tweeta',
+    RETWEETS: 'Tweety podane dalej',
+    SHARED_TWEETS: '',
+  },
+  pt: {
+    ADD_MUTED_WORD: 'Adicionar palavra silenciada',
+    HOME: 'Página Inicial',
+    LATEST_TWEETS: 'Tweets Mais Recentes',
+    QUOTE_TWEET: 'Comentar o Tweet',
+    QUOTE_TWEETS: 'Tweets com comentário',
+    RETWEETS: 'Retweets',
+    SHARED_TWEETS: '',
+  },
+  ro: {
+    ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
+    HOME: 'Pagina principală',
+    LATEST_TWEETS: 'Cele mai recente Tweeturi',
+    QUOTE_TWEET: 'Tweet cu citat',
+    QUOTE_TWEETS: 'Tweeturi cu citat',
+    RETWEETS: 'Retweeturi',
+    SHARED_TWEETS: '',
+  },
+  ru: {
+    ADD_MUTED_WORD: 'Добавить игнорируемое слово',
+    HOME: 'Главная',
+    LATEST_TWEETS: 'Последние твиты',
+    QUOTE_TWEET: 'Цитировать твит',
+    QUOTE_TWEETS: 'Твиты с цитатами',
+    RETWEETS: 'Ретвиты',
+    SHARED_TWEETS: '',
+    TWITTER: 'Твиттер',
+  },
+  sk: {
+    ADD_MUTED_WORD: 'Pridať stíšené slovo',
+    HOME: 'Domov',
+    LATEST_TWEETS: 'Najnovšie Tweety',
+    QUOTE_TWEET: 'Tweet s citátom',
+    QUOTE_TWEETS: 'Tweety s citátom',
+    RETWEETS: 'Retweety',
+    SHARED_TWEETS: '',
+  },
+  sr: {
+    ADD_MUTED_WORD: 'Додај игнорисану реч',
+    HOME: 'Почетна',
+    LATEST_TWEETS: 'Најновији твитови',
+    QUOTE_TWEET: 'твит са цитатом',
+    QUOTE_TWEETS: 'твит(ов)а са цитатом',
+    RETWEETS: 'Ретвитови',
+    SHARED_TWEETS: '',
+    TWITTER: 'Твитер',
+  },
+  sv: {
+    ADD_MUTED_WORD: 'Lägg till ignorerat ord',
+    HOME: 'Hem',
+    LATEST_TWEETS: 'Senaste tweetsen',
+    QUOTE_TWEET: 'Citera Tweet',
+    QUOTE_TWEETS: 'Citattweets',
+    RETWEETS: 'Retweets',
+    SHARED_TWEETS: '',
+  },
+  ta: {
+    ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
+    HOME: 'முகப்பு',
+    LATEST_TWEETS: 'சமீபத்திய கீச்சுகள்',
+    QUOTE_TWEET: 'ட்விட்டை மேற்கோள் காட்டு',
+    QUOTE_TWEETS: 'மேற்கோள் கீச்சுகள்',
+    RETWEETS: 'மறுகீச்சுகள்',
+    SHARED_TWEETS: '',
+  },
+  th: {
+    ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
+    HOME: 'หน้าแรก',
+    LATEST_TWEETS: 'ทวีตล่าสุด',
+    QUOTE_TWEET: 'อ้างอิงทวีต',
+    QUOTE_TWEETS: 'ทวีตและคำพูด',
+    RETWEETS: 'รีทวีต',
+    SHARED_TWEETS: '',
+    TWITTER: 'ทวิตเตอร์',
+  },
+  tr: {
+    ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
+    HOME: 'Anasayfa',
+    LATEST_TWEETS: 'En Son Tweetler',
+    QUOTE_TWEET: 'Alıntı Tweet',
+    QUOTE_TWEETS: 'Alıntı Tweetler',
+    RETWEETS: 'Retweetler',
+    SHARED_TWEETS: '',
+  },
+  uk: {
+    ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
+    HOME: 'Головна',
+    LATEST_TWEETS: 'Найновіші твіти',
+    QUOTE_TWEET: 'Цитувати твіт',
+    QUOTE_TWEETS: 'Твіти з цитатою',
+    RETWEETS: 'Ретвіти',
+    SHARED_TWEETS: '',
+    TWITTER: 'Твіттер',
+  },
+  ur: {
+    ADD_MUTED_WORD: 'خاموش کردہ لفظ شامل کریں',
+    HOME: 'سرورق',
+    LATEST_TWEETS: 'جدید ترین ٹویٹ',
+    QUOTE_TWEET: 'ٹویٹ اقتباس کریں',
+    QUOTE_TWEETS: 'ٹویٹ کو نقل کرو',
+    RETWEETS: 'ریٹویٹس',
+    SHARED_TWEETS: '',
+    TWITTER: 'ٹوئٹر',
+  },
+  vi: {
+    ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
+    HOME: 'Trang chủ',
+    LATEST_TWEETS: 'Tweet mới nhất',
+    QUOTE_TWEET: 'Trích dẫn Tweet',
+    QUOTE_TWEETS: 'Tweet trích dẫn',
+    RETWEETS: 'Các Tweet lại',
+    SHARED_TWEETS: '',
+  },
+  'zh-Hant': {
+    ADD_MUTED_WORD: '加入靜音文字',
+    HOME: '首頁',
+    LATEST_TWEETS: '最新推文',
+    QUOTE_TWEET: '引用推文',
+    QUOTE_TWEETS: '引用的推文',
+    RETWEETS: '轉推',
+    SHARED_TWEETS: '',
+  },
+  zh: {
+    ADD_MUTED_WORD: '添加要隐藏的字词',
+    HOME: '主页',
+    LATEST_TWEETS: '最新推文',
+    QUOTE_TWEET: '引用推文',
+    QUOTE_TWEETS: '引用推文',
+    RETWEETS: '转推',
+    SHARED_TWEETS: '',
   },
 }
 
@@ -1023,7 +1414,7 @@ function onTimelineChange($timeline, page) {
 }
 
 function onTitleChange(title) {
-  log('title changed', {title: title.split(getString('TITLE_SPLIT'))[ltr ? 0 : 1], path: location.pathname})
+  log('title changed', {title: title.split(ltr ? ' / ' : ' \\ ')[ltr ? 0 : 1], path: location.pathname})
 
   // Ignore any leading notification counts in titles, e.g. '(1) Latest Tweets / Twitter'
   let notificationCount = ''
@@ -1053,7 +1444,7 @@ function onTitleChange(title) {
     }
   }
 
-  let newPage = title.split(getString('TITLE_SPLIT'))[ltr ? 0 : 1]
+  let newPage = title.split(ltr ? ' / ' : ' \\ ')[ltr ? 0 : 1]
 
   // Only allow the same page to re-process after a title change on desktop if
   // the "Customize your view" dialog is currently open.
@@ -1200,9 +1591,9 @@ function removeMobileHeaderElements() {
  */
 function setTitle(page) {
   document.title = ltr ? (
-    `${currentNotificationCount}${page}${getString('TITLE_SPLIT')}${getString('TWITTER')}`
+    `${currentNotificationCount}${page} / ${getString('TWITTER')}`
   ) : (
-    `${currentNotificationCount}${getString('TWITTER')}${getString('TITLE_SPLIT')}${page}`
+    `${currentNotificationCount}${getString('TWITTER')} \\ ${page}`
   )
 }
 

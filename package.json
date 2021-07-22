@@ -11,13 +11,14 @@
   "webExt": {
     "ignoreFiles": [
       "CONTRIBUTING.md",
+      "README.md",
+      "TODO",
       "icons/chrome-web-store-icon.png",
       "icons/icon-600.png",
       "jsconfig.json",
+      "locales/",
       "package.json",
-      "README.md",
       "screenshots/",
-      "TODO",
       "types.d.ts"
     ]
   },
