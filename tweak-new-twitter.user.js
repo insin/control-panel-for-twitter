@@ -12,11 +12,12 @@ const enableDebugLogging = false
 const mobile = navigator.userAgent.includes('Android')
 const desktop = !mobile
 
-//#region Type definitions
-/** @typedef {'TWEET' | 'QUOTE_TWEET' | 'RETWEET' | 'PROMOTED_TWEET' | 'HEADING'} TimelineItemType */
-//#endregion
+const $html = document.querySelector('html')
+const lang = $html.lang
+const dir = $html.dir
+const ltr = dir == 'ltr'
 
-//#region Config & variables
+//#region Default config
 /**
  * @type {import("./types").Config}
  */
@@ -49,20 +50,84 @@ const config = {
   hideExplorePageContents: true,
   hideMessagesBottomNavItem: false,
 }
+//#endregion
 
-/** @enum {string} */
-const PagePaths = {
-  BOOKMARKS: '/i/bookmarks',
-  SEARCH: '/search',
+//#region Locales
+/**
+ * @type {{[key: string]: import("./types").Locale}}
+ */
+const locales = {
+  /*
+  // The codes are the corresponding ones from the {languageCode}.{hash}.js files Twitter downloads
+  // when you switch display language.
+  template: {
+    ADD_MUTED_WORD: 'd768049b', // Needed to add a new menu item for it
+    HOME: 'ha8209bb',           // Home timeline title - used to detect which timeline we're on, needed to change <title>
+    LATEST_TWEETS: 'd126cb7c',  // Latest Tweets timeline title - used to detect which timeline we're on, needed to change <title>
+    QUOTE_TWEET: 'c9d7235d',    // Easy identifier for a visible quote tweet - potentially replaceable?
+    QUOTE_TWEETS: 'bd7c039f',   // Separated tweets timeline title when config.quoteTweets = 'separate' on its own
+    RETWEETS: 'd497b854',       // Separated tweets timeline title when config.retweets = 'separate' on its own
+    SHARED_TWEETS: '',          // This is our own thing
+  },
+  */
+  en: {
+    ADD_MUTED_WORD: 'Add muted word',
+    HOME: 'Home',
+    LATEST_TWEETS: 'Latest Tweets',
+    QUOTE_TWEET: 'Quote Tweet',
+    QUOTE_TWEETS: 'Quote Tweets',
+    RETWEETS: 'Retweets',
+    SHARED_TWEETS: 'Shared Tweets',
+    TITLE_SPLIT: ' / ',
+    TWITTER: 'Twitter',
+  },
+  fa: {
+    ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
+    HOME: 'خانه',
+    LATEST_TWEETS: 'جدیدترین توییت‌ها',
+    QUOTE_TWEET: 'نقل‌توییت',
+    QUOTE_TWEETS: 'نقل‌توییت',
+    RETWEETS: 'بازتوییت‌ها',
+    SHARED_TWEETS: 'توییتهای مشترک',
+    TITLE_SPLIT: ' \\ ',
+    TWITTER: 'توییتر',
+  },
+  ga: {
+    ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
+    HOME: 'Baile',
+    LATEST_TWEETS: 'Tweetanna is déanaí',
+    QUOTE_TWEET: 'Cuir Ráiteas Leis',
+    QUOTE_TWEETS: 'Luaigh Tvuíteanna',
+    RETWEETS: 'Atweetanna',
+    SHARED_TWEETS: 'Tweetanna Roinnte',
+  },
+  ja: {
+    ADD_MUTED_WORD: 'ミュートするキーワードを追加',
+    HOME: 'ホーム',
+    LATEST_TWEETS: '最新ツイート',
+    QUOTE_TWEET: '引用ツイート',
+    QUOTE_TWEETS: '引用ツイート',
+    RETWEETS: 'リツイート',
+    SHARED_TWEETS: '共有ツイート',
+  },
 }
 
+/**
+ * @param {import("./types").LocaleKey} code
+ * @returns {string}
+ */
+function getString(code) {
+  return (locales[lang] || locales['en'])[code] || locales['en'][code];
+}
+//#endregion
+
+//#region Config & variables
 /** @enum {string} */
-const PageTitles = {
-  LATEST_TWEETS: 'Latest Tweets',
-  EXPLORE: 'Explore',
-  HOME: 'Home',
-  MESSAGES: 'Messages',
-  QUOTE_TWEETS: 'Quote Tweets',
+const PagePaths = {
+  ADD_MUTED_WORD: '/settings/add_muted_keyword',
+  BOOKMARKS: '/i/bookmarks',
+  NOTIFICATION_TIMELINE: '/i/timeline',
+  SEARCH: '/search',
 }
 
 /** @enum {string} */
@@ -70,13 +135,22 @@ const Selectors = {
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
-  PRIMARY_NAV: 'nav[aria-label="Primary"]',
+  PRIMARY_NAV_DESKTOP: 'header nav',
+  PRIMARY_NAV_MOBILE: '#layers nav',
   PROMOTED_TWEET: '[data-testid="placementTracking"]',
+  SIDEBAR: 'div[data-testid="sidebarColumn"]',
   SIDEBAR_ONLY_SHOW_FIRST: 'div[data-testid="sidebarColumn"] > div > div > div > div > div > div:not(:first-of-type)',
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: 'div[data-testid="tweet"]',
-  VERIFIED_TICK: 'svg[aria-label="Verified account"]',
+  VERIFIED_TICK: `div[data-testid="tweet"] > div:nth-of-type(2) > div:first-child a svg`,
+}
+
+/** @enum {string} */
+const Svgs = {
+  MUTE: `<g>
+    <path d="M1.75 22.354c-.192 0-.384-.073-.53-.22-.293-.293-.293-.768 0-1.06L20.395 1.898c.293-.294.768-.294 1.06 0s.294.767 0 1.06L2.28 22.135c-.146.146-.338.22-.53.22zm1.716-5.577c-.134 0-.27-.036-.392-.11-.67-.413-1.07-1.13-1.07-1.917v-5.5c0-1.24 1.01-2.25 2.25-2.25H6.74l7.047-5.588c.225-.18.533-.215.792-.087.258.125.423.387.423.675v3.28c0 .415-.336.75-.75.75s-.75-.335-.75-.75V3.553L7.47 8.338c-.134.104-.298.162-.467.162h-2.75c-.413 0-.75.337-.75.75v5.5c0 .263.134.5.356.64.353.216.462.678.245 1.03-.14.23-.387.357-.64.357zm10.787 5.973c-.166 0-.33-.055-.466-.162l-4.795-3.803c-.325-.258-.38-.73-.122-1.054.258-.322.73-.38 1.054-.12l3.58 2.838v-7.013c0-.414.335-.75.75-.75s.75.336.75.75V22c0 .288-.166.55-.425.675-.104.05-.216.075-.327.075z"></path>
+  </g>`
 }
 
 const MOBILE_LOGGED_OUT_URLS = ['/', '/login', '/i/flow/signup']
@@ -84,6 +158,10 @@ const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/i
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_PHOTO_RE = /photo\/\d$/
 const URL_TWEET_ID_RE = /\/status\/(\d+)$/
+const ZWSP = '​'
+
+/** Flag for a Block ${user} menu item having been seen in the last popup */
+let blockMenuItemSeen = false
 
 /** Notification count in the title (including trailing space), e.g. '(1) ' */
 let currentNotificationCount = ''
@@ -116,13 +194,11 @@ let separatedTweetsTimelineName = ''
 
 function configureSeparatedTweetsTimeline() {
   if (config.retweets == 'separate' && config.quoteTweets == 'separate') {
-    separatedTweetsTimelineTitle = separatedTweetsTimelineName = 'Shared Tweets'
+    separatedTweetsTimelineTitle = separatedTweetsTimelineName = getString('SHARED_TWEETS')
   } else if (config.retweets == 'separate') {
-    separatedTweetsTimelineTitle = separatedTweetsTimelineName = 'Retweets'
+    separatedTweetsTimelineTitle = separatedTweetsTimelineName = ZWSP + getString('RETWEETS')
   } else if (config.quoteTweets == 'separate') {
-    // Twitter already uses 'Quote Tweets' as a page title
-    // ☠ ¡This string starts with a ZWSP! ☠
-    separatedTweetsTimelineTitle = separatedTweetsTimelineName = '​Quote Tweets'
+    separatedTweetsTimelineTitle = separatedTweetsTimelineName = ZWSP + getString('QUOTE_TWEETS')
   }
 }
 
@@ -131,7 +207,7 @@ function isOnExplorePage() {
 }
 
 function isOnHomeTimeline() {
-  return currentPage == PageTitles.LATEST_TWEETS || currentPage == separatedTweetsTimelineTitle || currentPage == PageTitles.HOME
+  return currentPage == getString('LATEST_TWEETS') || currentPage == separatedTweetsTimelineTitle || currentPage == getString('HOME')
 }
 
 function isOnIndividualTweetPage() {
@@ -156,6 +232,24 @@ function isOnQuoteTweetsPage() {
 
 function isOnTopicsPage() {
   return currentPath.endsWith('/topics')
+}
+
+function shouldShowFirstSidebarItem() {
+  return (
+    currentPath == PagePaths.BOOKMARKS ||
+    currentPath == PagePaths.NOTIFICATION_TIMELINE ||
+    currentPath == PagePaths.SEARCH ||
+    isOnHomeTimeline() ||
+    isOnIndividualTweetPage() ||
+    isOnListsPage() ||
+    isOnNotificationsPage() ||
+    isOnQuoteTweetsPage() ||
+    isOnTopicsPage()
+  )
+}
+
+function shouldHideSidebar() {
+  return isOnExplorePage()
 }
 //#endregion
 
@@ -262,6 +356,14 @@ function pageIsNot(page) {
 }
 
 /**
+ * @param {() => boolean} condition
+ * @returns {() => boolean}
+ */
+ function not(condition) {
+  return () => !condition()
+}
+
+/**
  * @param {string} path
  * @returns {() => boolean}
  */
@@ -298,7 +400,7 @@ function observeBackgroundColor() {
     $body.classList.toggle('LightsOut', backgroundColor == 'rgb(0, 0, 0)')
 
     if (lastBackgroundColor != null) {
-      log(`Background setting changed - re-processing current page`)
+      log('Background setting changed - re-processing current page')
       observePopups()
       processCurrentPage()
     }
@@ -338,7 +440,8 @@ function observeBackgroundColor() {
     }
 
     if (lastColor != null) {
-      log(`Color setting changed - re-processing current page`)
+      log('Color setting changed - re-processing current page')
+      observePopups()
       processCurrentPage()
     }
     lastColor = color
@@ -354,7 +457,6 @@ function observeBackgroundColor() {
 function observeFontSize() {
   if (!(desktop && config.navBaseFontSize)) return
 
-  let $html = document.querySelector('html')
   let $style = addStyle('')
   let lastFontSize = ''
 
@@ -364,8 +466,8 @@ function observeFontSize() {
       lastFontSize = $html.style.fontSize
       log(`setting nav font size to ${lastFontSize}`)
       $style.textContent = `
-        ${Selectors.PRIMARY_NAV} div[dir="auto"] span { font-size: ${lastFontSize}; font-weight: normal; }
-        ${Selectors.PRIMARY_NAV} div[dir="auto"] { margin-top: -4px; }
+        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] span { font-size: ${lastFontSize}; font-weight: normal; }
+        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] { margin-top: -4px; }
       `
     }
   }, {
@@ -382,6 +484,7 @@ let observePopups = (function() {
 
   return async function observePopups() {
     if (popupObserver) {
+      log('disconnecting previous popup observer')
       popupObserver.disconnect()
     }
 
@@ -458,6 +561,26 @@ async function observeTimeline(page) {
 //#endregion
 
 //#region Tweak functions
+/**
+ * Add an "Add muted word" menu item after "Settings and privacy" which takes
+ * you straight to entering a new muted word (by clicking its way through all
+ * the individual screens!)
+ * @param {HTMLElement} $settingsLink
+ */
+ async function addAddMutedWordMenuItem($settingsLink) {
+  log('adding "Add muted word" menu item')
+  let $addMutedWord = /** @type {HTMLElement} */ ($settingsLink.parentElement.cloneNode(true))
+  $addMutedWord.classList.add('tnt_menu_item')
+  $addMutedWord.querySelector('a').href = PagePaths.ADD_MUTED_WORD
+  $addMutedWord.querySelector('span').textContent = getString('ADD_MUTED_WORD')
+  $addMutedWord.querySelector('svg').innerHTML = Svgs.MUTE
+  $addMutedWord.addEventListener('click', (e) => {
+    e.preventDefault()
+    addMutedWord()
+  })
+  $settingsLink.parentElement.insertAdjacentElement('afterend', $addMutedWord)
+}
+
 async function addMutedWord() {
   for (let path of [
     '/settings',
@@ -540,7 +663,7 @@ async function addSeparatedTweetsTimelineControl(page) {
 
     let $toggle = document.createElement('div')
     $toggle.id = 'tnt_switch_timeline'
-    let toggleColor = getComputedStyle(document.querySelector(`${Selectors.PRIMARY_NAV} a[href="/explore"] svg`)).color
+    let toggleColor = getComputedStyle(document.querySelector(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/explore"] svg`)).color
     $toggle.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" style="color: ${toggleColor}; width: 22px; vertical-align: text-bottom; position: relative; max-width: 100%; height: 22px; fill: currentcolor; display: inline-block;">
       <g>
         ${page == separatedTweetsTimelineTitle ? (
@@ -570,7 +693,7 @@ async function addSeparatedTweetsTimelineControl(page) {
 
     // Go back to the main timeline when the Home bottom nav item is clicked on
     // the shared tweets timeline.
-    let $homeBottomNavItem = /** @type {HTMLElement} */ (document.querySelector(`${Selectors.PRIMARY_NAV} a[href="/home"]`))
+    let $homeBottomNavItem = /** @type {HTMLElement} */ (document.querySelector(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`))
     if (!$homeBottomNavItem.dataset.tweakNewTwitterListener) {
       $homeBottomNavItem.addEventListener('click', () => {
         if (location.pathname == '/home' && currentPage == separatedTweetsTimelineTitle) {
@@ -623,26 +746,19 @@ function addStaticCss() {
     }
     if (config.hideSidebarContent) {
       hideCssSelectors.push(
-        `body.Bookmarks ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
-        `body.Explore div[data-testid="sidebarColumn"]`,
-        `body.HomeTimeline ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
-        `body.Lists ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
-        `body.Notifications ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
-        `body.Profile div[data-testid="sidebarColumn"] > div > div > div > div > div > div:not(:nth-of-type(1), :nth-of-type(2), :nth-of-type(3))`,
-        `body.QuoteTweets ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
-        `body.Search ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
-        `body.Topics ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
-        `body.Tweet ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
+        `body.ShowFirstSidebarItem ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
+        `body.HideSidebar ${Selectors.SIDEBAR}`,
+        `body.Profile ${Selectors.SIDEBAR} > div > div > div > div > div > div:not(:nth-of-type(1), :nth-of-type(2), :nth-of-type(3))`,
       )
     }
     if (config.hideExploreNav) {
-      hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href="/explore"]`)
+      hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
     }
     if (config.hideBookmarksNav) {
-      hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href="/i/bookmarks"]`)
+      hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`)
     }
     if (config.hideListsNav) {
-      hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href*="/lists"]`)
+      hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href*="/lists"]`)
     }
     if (config.hideAccountSwitcher) {
       cssRules.push(`
@@ -687,7 +803,7 @@ function addStaticCss() {
       hideCssSelectors.push('body.SeparatedTweets .tnt_home_timeline_title')
     }
     if (config.hideMessagesBottomNavItem) {
-      hideCssSelectors.push(`${Selectors.PRIMARY_NAV} a[href="/messages"]`)
+      hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
     }
     if (config.hideAnalyticsNav && config.hideTwitterAdsNav) {
       // XXX Quick but brittle way to hide the divider above these items
@@ -707,21 +823,53 @@ function addStaticCss() {
  * Attempts to determine the type of a timeline Tweet given the element with data-testid="tweet" on
  * it, falling back to TWEET if it doesn't appear to be one of the particular types we care about.
  * @param {HTMLElement} $tweet
- * @returns {TimelineItemType}
+ * @returns {import("./types").TimelineItemType}
  */
 function getTweetType($tweet) {
   if ($tweet.closest(Selectors.PROMOTED_TWEET)) {
     return 'PROMOTED_TWEET'
   }
-  if ($tweet.previousElementSibling?.textContent.includes('Retweeted')) {
+  if ($tweet.previousElementSibling?.querySelector('[data-testid="socialContext"]')) {
     return 'RETWEET'
   }
-  if ($tweet.querySelector('div[id^="id__"] > div[dir="auto"] > span')?.textContent.includes('Quote Tweet') ||
+  if ($tweet.querySelector('div[id^="id__"] > div[dir="auto"] > span')?.textContent.includes(getString('QUOTE_TWEET')) ||
       // QTs of accounts you blocked are displayed as a nested <article> with "This Tweet is unavailable."
       $tweet.querySelector('article')) {
     return 'QUOTE_TWEET'
   }
   return 'TWEET'
+}
+
+/**
+ * @param {HTMLElement} $popup
+ * @returns {boolean} false if there was nothing actionable in the popup
+ */
+ function handlePopup($popup) {
+  if (config.fastBlock) {
+    if (blockMenuItemSeen && $popup.querySelector('[data-testid="confirmationSheetConfirm"]')) {
+      log('fast blocking')
+      ;/** @type {HTMLElement} */ ($popup.querySelector('[data-testid="confirmationSheetConfirm"]')).click()
+      return true
+    }
+    else if ($popup.querySelector('[data-testid="block"]')) {
+      log('preparing for fast blocking')
+      blockMenuItemSeen = true
+      // Create a nested observer for mobile, as it reuses the existing popup element
+      return !mobile
+    } else {
+      blockMenuItemSeen = false
+    }
+  }
+
+  if (config.addAddMutedWordMenuItem) {
+    let $settingsLink = /** @type {HTMLElement} */ ($popup.querySelector('a[href="/settings"]'))
+    if ($settingsLink) {
+      addAddMutedWordMenuItem($settingsLink)
+      return true
+    }
+  }
+
+  return false
 }
 
 /**
@@ -743,7 +891,7 @@ function getTweetType($tweet) {
  * @param {string} page
  */
 async function hideOpenAppButton(page) {
-  let $button = await getElement('[aria-label="Open app"]', {
+  let $button = await getElement('header div:nth-of-type(3) > [role="button"]', {
     stopIf: pageIsNot(page),
     // The header doesn't re-render if you move to another tweet
     timeout: 2000,
@@ -769,90 +917,34 @@ function isReplyToPreviousTweet($tweet) {
 }
 
 /**
- * Add an "Add muted word" menu item after "Settings and privacy" which takes
- * you straight to entering a new muted word (by clicking its way through all
- * the individual screens!)
- * @param {HTMLElement} $popup
- */
-async function addAddMutedWordMenuItem($popup) {
-  if (!config.addAddMutedWordMenuItem) return
-
-  let $settingsLink = await getElement('a[href="/settings"]', {
-    context: $popup,
-    name: '"Settings and privacy" menu item',
-    timeout: 250
-  })
-  if (!$settingsLink) return
-
-  log('adding "Add muted word" menu item')
-  let $addMutedWord = /** @type {HTMLElement} */ ($settingsLink.parentElement.cloneNode(true))
-  $addMutedWord.classList.add('tnt_menu_item')
-  $addMutedWord.querySelector('a').href = '/settings/add_muted_keyword'
-  $addMutedWord.querySelector('span').textContent = 'Add muted word'
-  $addMutedWord.querySelector('svg').innerHTML = `<g>
-    <path d="M1.75 22.354c-.192 0-.384-.073-.53-.22-.293-.293-.293-.768 0-1.06L20.395 1.898c.293-.294.768-.294 1.06 0s.294.767 0 1.06L2.28 22.135c-.146.146-.338.22-.53.22zm1.716-5.577c-.134 0-.27-.036-.392-.11-.67-.413-1.07-1.13-1.07-1.917v-5.5c0-1.24 1.01-2.25 2.25-2.25H6.74l7.047-5.588c.225-.18.533-.215.792-.087.258.125.423.387.423.675v3.28c0 .415-.336.75-.75.75s-.75-.335-.75-.75V3.553L7.47 8.338c-.134.104-.298.162-.467.162h-2.75c-.413 0-.75.337-.75.75v5.5c0 .263.134.5.356.64.353.216.462.678.245 1.03-.14.23-.387.357-.64.357zm10.787 5.973c-.166 0-.33-.055-.466-.162l-4.795-3.803c-.325-.258-.38-.73-.122-1.054.258-.322.73-.38 1.054-.12l3.58 2.838v-7.013c0-.414.335-.75.75-.75s.75.336.75.75V22c0 .288-.166.55-.425.675-.104.05-.216.075-.327.075z"></path>
-  </g>`
-  $addMutedWord.addEventListener('click', (e) => {
-    e.preventDefault()
-    addMutedWord()
-  })
-  $settingsLink.parentElement.insertAdjacentElement('afterend', $addMutedWord)
-}
-
-/**
- * @param {HTMLElement} $popup
- */
-async function fastBlock($popup) {
-  if (!config.fastBlock) return
-
-  let $confirmButton = await getElement('div[data-testid="confirmationSheetConfirm"]', {
-    name: 'confirmation button',
-    context: $popup,
-    timeout: 250,
-  })
-  if ($confirmButton?.innerText == 'Block') {
-    log('Fast blocking')
-    $confirmButton.click()
-  }
-}
-
-/**
  * @returns {MutationObserver | undefined}
  */
 function onPopup($popup) {
   log('popup appeared', $popup)
 
-  addAddMutedWordMenuItem($popup)
+  if (handlePopup($popup)) return
 
-  if (desktop) {
-    fastBlock($popup)
-  }
-
-  if (mobile) {
-    if (config.fastBlock && $popup.querySelector('[data-testid="block"]')) {
-      log('observing nested popup in case block prompt appears')
-      return observeElement($popup, (mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((/** @type {HTMLElement} */ $nestedPopup) => {
-            log('nested popup appeared', $nestedPopup)
-            fastBlock($nestedPopup)
-          })
-        })
+  log('observing nested popups')
+  return observeElement($popup, (mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((/** @type {HTMLElement} */ $nestedPopup) => {
+        log('nested popup appeared', $nestedPopup)
+        handlePopup($nestedPopup)
       })
-    }
-  }
+    })
+  })
 }
 
 function onTimelineChange($timeline, page) {
   log(`processing ${$timeline.children.length} timeline item${s($timeline.children.length)}`)
   /** @type {HTMLElement} */
   let $previousItem = null
-  /** @type {?TimelineItemType} */
+  /** @type {?import("./types").TimelineItemType} */
   let previousItemType = null
   /** @type {?boolean} */
   let hidPreviousItem = null
   for (let $item of $timeline.children) {
-    /** @type {?TimelineItemType} */
+    /** @type {?import("./types").TimelineItemType} */
     let itemType = null
     /** @type {?boolean} */
     let hideItem = null
@@ -861,7 +953,7 @@ function onTimelineChange($timeline, page) {
 
     if ($tweet != null) {
       itemType = getTweetType($tweet)
-      if (page == PageTitles.LATEST_TWEETS || page == separatedTweetsTimelineTitle || page == PageTitles.HOME) {
+      if (page == getString('LATEST_TWEETS') || page == separatedTweetsTimelineTitle || page == getString('HOME')) {
         if (isReplyToPreviousTweet($tweet) && hidPreviousItem != null) {
           hideItem = hidPreviousItem
           itemType = previousItemType
@@ -931,7 +1023,7 @@ function onTimelineChange($timeline, page) {
 }
 
 function onTitleChange(title) {
-  log('title changed', {title: title.split(' / ')[0], path: location.pathname})
+  log('title changed', {title: title.split(getString('TITLE_SPLIT'))[ltr ? 0 : 1], path: location.pathname})
 
   // Ignore any leading notification counts in titles, e.g. '(1) Latest Tweets / Twitter'
   let notificationCount = ''
@@ -943,7 +1035,7 @@ function onTitleChange(title) {
   let homeLinkWasClicked = homeLinkClicked
   homeLinkClicked = false
 
-  if (title == 'Twitter') {
+  if (title == getString('TWITTER')) {
     // Mobile uses "Twitter" when viewing a photo - we need to let these process
     // so the next page will be re-processed when the photo is closed.
     if (mobile && URL_PHOTO_RE.test(location.pathname)) {
@@ -961,7 +1053,7 @@ function onTitleChange(title) {
     }
   }
 
-  let newPage = title.split(' / ')[0]
+  let newPage = title.split(getString('TITLE_SPLIT'))[ltr ? 0 : 1]
 
   // Only allow the same page to re-process after a title change on desktop if
   // the "Customize your view" dialog is currently open.
@@ -985,7 +1077,7 @@ function onTitleChange(title) {
   // Stay on the separated tweets timeline on desktop when…
   if (desktop && currentPage == separatedTweetsTimelineTitle &&
       // …the title has changed back to the main timeline…
-      (newPage == PageTitles.LATEST_TWEETS || newPage == PageTitles.HOME) &&
+      (newPage == getString('LATEST_TWEETS') || newPage == getString('HOME')) &&
       // …the Home nav or Latest Tweets / Home header _wasn't_ clicked and…
       !homeLinkWasClicked &&
       (
@@ -1022,7 +1114,7 @@ function onTitleChange(title) {
   currentNotificationCount = notificationCount
   currentPath = location.pathname
 
-  if (currentPage == PageTitles.LATEST_TWEETS || currentPage == PageTitles.HOME) {
+  if (currentPage == getString('LATEST_TWEETS') || currentPage == getString('HOME')) {
     lastHomeTimelineTitle = currentPage
   }
 
@@ -1042,7 +1134,7 @@ function processCurrentPage() {
     document.body.classList.toggle('TwitterIsBetterOnTheAppNeverButton', MOBILE_LOGGED_OUT_URLS.includes(currentPath))
   }
 
-  if (config.alwaysUseLatestTweets && currentPage == PageTitles.HOME) {
+  if (config.alwaysUseLatestTweets && currentPage == getString('HOME')) {
     switchToLatestTweets(currentPage)
     return
   }
@@ -1051,21 +1143,16 @@ function processCurrentPage() {
     config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc
   )
 
-  // "Which page are we on?" hooks for styling
-  document.body.classList.toggle('Bookmarks', currentPath == PagePaths.BOOKMARKS)
+  // Hooks for styling
   document.body.classList.toggle('Explore', isOnExplorePage())
-  document.body.classList.toggle('HomeTimeline', isOnHomeTimeline())
-  document.body.classList.toggle('Lists', isOnListsPage())
-  document.body.classList.toggle('Notifications', isOnNotificationsPage())
+  document.body.classList.toggle('HideSidebar', shouldHideSidebar())
   document.body.classList.toggle('Profile', isOnProfilePage())
   document.body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
-  document.body.classList.toggle('Search', currentPath == PagePaths.SEARCH)
-  document.body.classList.toggle('Topics', isOnTopicsPage())
-  document.body.classList.toggle('Tweet', isOnIndividualTweetPage())
+  document.body.classList.toggle('ShowFirstSidebarItem', shouldShowFirstSidebarItem())
 
   // "Which version of the home timeline are we on?" hooks for styling
-  document.body.classList.toggle('Home', currentPage == PageTitles.HOME)
-  document.body.classList.toggle('LatestTweets', currentPage == PageTitles.LATEST_TWEETS)
+  document.body.classList.toggle('Home', currentPage == getString('HOME'))
+  document.body.classList.toggle('LatestTweets', currentPage == getString('LATEST_TWEETS'))
   document.body.classList.toggle('SeparatedTweets', currentPage == separatedTweetsTimelineTitle)
 
   if (isOnHomeTimeline()) {
@@ -1105,6 +1192,67 @@ function processCurrentPage() {
 function removeMobileHeaderElements() {
   document.querySelector('#tnt_shared_tweets_timeline_title')?.remove()
   document.querySelector('#tnt_switch_timeline')?.remove()
+}
+
+/**
+ * Sets the page name in <title>, retaining any current notification count.
+ * @param {string} page
+ */
+function setTitle(page) {
+  document.title = ltr ? (
+    `${currentNotificationCount}${page}${getString('TITLE_SPLIT')}${getString('TWITTER')}`
+  ) : (
+    `${currentNotificationCount}${getString('TWITTER')}${getString('TITLE_SPLIT')}${page}`
+  )
+}
+
+/**
+ * @param {import("./types").SharedTweetsConfig} config
+ * @param {string} page
+ * @returns {boolean}
+ */
+ function shouldHideSharedTweet(config, page) {
+  switch (config) {
+    case 'hide': return true
+    case 'ignore': return page == separatedTweetsTimelineTitle
+    case 'separate': return page != separatedTweetsTimelineTitle
+  }
+}
+
+/**
+ * @param {import("./types").TimelineItemType} type
+ * @param {string} page
+ * @returns {boolean}
+ */
+function shouldHideTimelineItem(type, page) {
+  switch (type) {
+    case 'RETWEET': return shouldHideSharedTweet(config.retweets, page)
+    case 'QUOTE_TWEET': return shouldHideSharedTweet(config.quoteTweets, page)
+    case 'TWEET': return page == separatedTweetsTimelineTitle
+    default: return true
+  }
+}
+
+async function switchToLatestTweets(page) {
+  log('switching to Latest Tweets timeline')
+
+  let $switchButton = await getElement(`${Selectors.PRIMARY_COLUMN} [role="button"]`, {
+    name: 'sparkle button',
+    stopIf: pageIsNot(page),
+  })
+  if ($switchButton == null) return
+
+  log('clicking sparkle button')
+  $switchButton.click()
+
+  let $seeLatestTweetsInstead = await getElement('div[role="menu"] div[role="menuitem"]', {
+    name: '"See latest Tweets instead" menu item',
+    stopIf: pageIsNot(page),
+  })
+  if ($seeLatestTweetsInstead == null) return
+
+  log('clicking "See latest Tweets" instead menu item')
+  $seeLatestTweetsInstead.click()
 }
 
 async function tweakExplorePage(page) {
@@ -1160,11 +1308,11 @@ async function tweakQuoteTweetsPage() {
     let [$heading, $quotedTweet] = await Promise.all([
       getElement(`${Selectors.PRIMARY_COLUMN} ${Selectors.TIMELINE_HEADING}`, {
         name: 'Quote Tweets heading',
-        stopIf: pageIsNot(PageTitles.QUOTE_TWEETS)
+        stopIf: not(isOnQuoteTweetsPage)
       }),
       getElement('[data-testid="tweet"] [aria-labelledby] > div:last-child', {
         name: 'first quoted tweet',
-        stopIf: pageIsNot(PageTitles.QUOTE_TWEETS)
+        stopIf: not(isOnQuoteTweetsPage)
       })
     ])
 
@@ -1180,68 +1328,11 @@ async function tweakQuoteTweetsPage() {
     }
   }
 }
-
-/**
- * Sets the page name in <title>, retaining any current notification count.
- * @param {string} page
- */
-function setTitle(page) {
-  document.title = `${currentNotificationCount}${page} / Twitter`
-}
-
-/**
- * @param {TimelineItemType} type
- * @param {string} page
- * @returns {boolean}
- */
-function shouldHideTimelineItem(type, page) {
-  switch (type) {
-    case 'RETWEET': return shouldHideSharedTweet(config.retweets, page)
-    case 'QUOTE_TWEET': return shouldHideSharedTweet(config.quoteTweets, page)
-    case 'TWEET': return page == separatedTweetsTimelineTitle
-    default: return true
-  }
-}
-
-/**
- * @param {import("./types").SharedTweetsConfig} config
- * @param {string} page
- * @returns {boolean}
- */
-function shouldHideSharedTweet(config, page) {
-  switch (config) {
-    case 'hide': return true
-    case 'ignore': return page == separatedTweetsTimelineTitle
-    case 'separate': return page != separatedTweetsTimelineTitle
-  }
-}
-
-async function switchToLatestTweets(page) {
-  log('switching to Latest Tweets timeline')
-
-  let $switchButton = await getElement('div[aria-label="Top Tweets on"]', {
-    name: 'timeline switch button',
-    stopIf: pageIsNot(page),
-  })
-  if ($switchButton == null) return
-
-  log('opening sparkle menu')
-  $switchButton.click()
-
-  let $seeLatestTweetsInstead = await getElement('div[role="menu"] div[role="menuitem"]', {
-    name: '"See latest Tweets instead" menu item',
-    stopIf: pageIsNot(page),
-  })
-  if ($seeLatestTweetsInstead == null) return
-
-  log('clicking "See latest Tweets" instead menu item')
-  $seeLatestTweetsInstead.click()
-}
 //#endregion
 
 //#region Main
 function main() {
-  log('config', config)
+  log({lang, platform: mobile ? 'mobile' : 'desktop', config})
   configureSeparatedTweetsTimeline()
   addStaticCss()
   observeFontSize()

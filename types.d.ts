@@ -1,7 +1,3 @@
-export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
-
-export type VerifiedAccountsConfig = 'highlight' | 'hide' | 'ignore'
-
 export type Config = {
   // Shared
   addAddMutedWordMenuItem: boolean
@@ -31,3 +27,29 @@ export type Config = {
   hideExplorePageContents: boolean
   hideMessagesBottomNavItem: boolean
 }
+
+export type Locale = {
+  [key in LocaleKey]?:string
+}
+
+export type LocaleKey =
+  | 'ADD_MUTED_WORD'
+  | 'HOME'
+  | 'LATEST_TWEETS'
+  | 'QUOTE_TWEET'
+  | 'QUOTE_TWEETS'
+  | 'RETWEETS'
+  | 'SHARED_TWEETS'
+  | 'TITLE_SPLIT'
+  | 'TWITTER'
+
+export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
+
+export type TimelineItemType =
+  | 'HEADING'
+  | 'PROMOTED_TWEET'
+  | 'QUOTE_TWEET'
+  | 'RETWEET'
+  | 'TWEET'
+
+export type VerifiedAccountsConfig = 'highlight' | 'hide' | 'ignore'

@@ -1,14 +1,33 @@
+Yak stack:
+  ☐ Fast blocking accidentally works for fast unblocking when you do it via the menu @created(Thu 2021-07-22 13:02)
+    This is ok, I guess?
+  ☐ If you view a blocked person's profile page, you'll see "You might like" suggestions @created(Thu 2021-07-22 12:58)
+    Add a Blocked class and use it to hide everything but search in the sidebar
+  ☐ The page sometimes isn't processed after fast unblocking someone on their profile page, or with the Unblock button + confirm popup @created(Thu 2021-07-22 13:00)
+
 Support for other display languages (#17):
-  ☐ Replace use of `aria-label` attributes and `textContent` with attributes or context which doesn't change across languages @created(Tue 2021-07-20 15:48)
+  ✔ Replace use of `aria-label` attributes and `textContent` with attributes or context which doesn't change across languages @created(Tue 2021-07-20 15:48) @done(Thu 2021-07-22 13:57)
   ☐ Create locale objects with translations for each supported language where the above isn't possible @created(Tue 2021-07-20 15:49)
-     We should be able to automate some of this, eg. driving a browser with Puppeteer, we should be
-     able to cycle through the languages on https://twitter.com/settings/languages and use selectors
-     to pull out the `aria-label` for that language.
+    After you change language, Twitter requests a bundle from https://abs.twimg.com/responsive-web/client-web/i18n/${languageCode}.${hash}.js which contains translations for it.
+
+    We have a list of the codes we need translations for in the locale template in `tweak-new-twitter.user.js`
 
 New features:
-  ☐ Hide useless options in the Report Tweet flow @created(Tue 2021-07-20 18:48)
+  ☐ Remove quote tweet privileges @created(Thu 2021-07-22 18:20)
+    Some people who post otherwise-interesting stuff also spend some of their time "dunking" on known idiots vai quote tweets
+
+    Add a menu item to tweets and the profile menu which lets you mute/unmute someone's quote tweets if you don't want to be invited to their engagement party
+  ☐ Hide cards which use your muted words in their text content @created(Thu 2021-07-22 17:56)
+    Twitter doesn't do this
+
+    Simple, stupid way would be to synchronise muted words with extension storage when you visit `/settings/muted_keywords`, which already happens any time you add a new muted word
+
+    The other way would be to call the API ourselves to get the words at the start of each new session, BUT to do that we'd have to intercept the necessary credentials, which would mean adding webRequest permissions, which I'm keen to avoid
+  ☐ Hide do-nothing options in the Report Tweet flow @created(Tue 2021-07-20 18:48)
     "I'm not interested in this tweet"
-    "It's disrespectful or offensive" (Under "It's abusive or harmful)
+    "It's disrespectful or offensive" (Under "It's abusive or harmful")
+  ☐ RegExp or simple pattern-based mute @created(Thu 2021-07-22 18:49)
+    For when the next snowclone outstays its welcome
 
 Refactoring/tech debt:
   ☐ Use the current URL when possible, rather than the page title @created(Tue 2021-07-20 15:44)
