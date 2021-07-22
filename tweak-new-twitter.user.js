@@ -141,15 +141,6 @@ const locales = {
     RETWEETS: 'Retweet',
     SHARED_TWEETS: '',
   },
-  'en-GB': {
-    ADD_MUTED_WORD: 'Add muted word',
-    HOME: 'Home',
-    LATEST_TWEETS: 'Latest Tweets',
-    QUOTE_TWEET: 'Quote Tweet',
-    QUOTE_TWEETS: 'Quote Tweets',
-    RETWEETS: 'Retweets',
-    SHARED_TWEETS: '',
-  },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
     HOME: 'Home',
