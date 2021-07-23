@@ -137,7 +137,7 @@ const locales = {
     HOME: 'Αρχική σελίδα',
     LATEST_TWEETS: 'Τα πιο πρόσφατα Tweet',
     QUOTE_TWEET: 'Παράθεση Tweet',
-    QUOTE_TWEETS: 'Tweet Î¼Îµ ÏÎ±ÏÎ¬Î¸ÎµÏÎ·',
+    QUOTE_TWEETS: 'Tweet με παράθεση',
     RETWEETS: 'Retweet',
     SHARED_TWEETS: '',
   },
