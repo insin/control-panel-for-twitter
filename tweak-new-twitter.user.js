@@ -1048,7 +1048,7 @@ async function addSeparatedTweetsTimelineControl(page) {
 
     let $toggle = document.createElement('div')
     $toggle.id = 'tnt_switch_timeline'
-    let toggleColor = getComputedStyle(document.querySelector(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/explore"] svg`)).color
+    let toggleColor = getComputedStyle(document.querySelector(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"] svg`)).color
     $toggle.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" style="color: ${toggleColor}; width: 22px; vertical-align: text-bottom; position: relative; max-width: 100%; height: 22px; fill: currentcolor; display: inline-block;">
       ${page == separatedTweetsTimelineTitle ? Svgs.HOME : Svgs.RETWEET}
     </svg>`
