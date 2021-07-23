@@ -508,6 +508,7 @@ function getString(code) {
 const PagePaths = {
   ADD_MUTED_WORD: '/settings/add_muted_keyword',
   BOOKMARKS: '/i/bookmarks',
+  HOME: '/home',
   NOTIFICATION_TIMELINE: '/i/timeline',
   SEARCH: '/search',
 }
@@ -540,7 +541,6 @@ const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/i
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_PHOTO_RE = /photo\/\d$/
 const URL_TWEET_ID_RE = /\/status\/(\d+)$/
-const ZWSP = '​'
 
 /** Flag for a Block ${user} menu item having been seen in the last popup */
 let blockMenuItemSeen = false
@@ -578,9 +578,9 @@ function configureSeparatedTweetsTimeline() {
   if (config.retweets == 'separate' && config.quoteTweets == 'separate') {
     separatedTweetsTimelineTitle = separatedTweetsTimelineName = getString('SHARED_TWEETS')
   } else if (config.retweets == 'separate') {
-    separatedTweetsTimelineTitle = separatedTweetsTimelineName = ZWSP + getString('RETWEETS')
+    separatedTweetsTimelineTitle = separatedTweetsTimelineName = getString('RETWEETS')
   } else if (config.quoteTweets == 'separate') {
-    separatedTweetsTimelineTitle = separatedTweetsTimelineName = ZWSP + getString('QUOTE_TWEETS')
+    separatedTweetsTimelineTitle = separatedTweetsTimelineName = getString('QUOTE_TWEETS')
   }
 }
 
@@ -589,7 +589,7 @@ function isOnExplorePage() {
 }
 
 function isOnHomeTimeline() {
-  return currentPage == getString('LATEST_TWEETS') || currentPage == separatedTweetsTimelineTitle || currentPage == getString('HOME')
+  return currentPath == PagePaths.HOME
 }
 
 function isOnIndividualTweetPage() {
@@ -1039,7 +1039,7 @@ async function addSeparatedTweetsTimelineControl(page) {
     // We hide the existing timeline title via CSS when it's not wanted instead
     // of changing its text, as those changes persist when you view a tweet.
     $timelineTitle.classList.add('tnt_home_timeline_title')
-    removeMobileHeaderElements()
+    removeMobileTimelineHeaderElements()
 
     log('inserting separated tweets timeline switcher')
 
@@ -1546,7 +1546,7 @@ function processCurrentPage() {
       config.retweets != 'ignore' || config.quoteTweets != 'ignore' || config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc
     )
   } else if (mobile) {
-    removeMobileHeaderElements()
+    removeMobileTimelineHeaderElements()
   }
 
   if (shouldObserveTimeline) {
@@ -1571,7 +1571,7 @@ function processCurrentPage() {
  * always remove any elements which could be there from the previous page
  * and re-add them later when needed.
  */
-function removeMobileHeaderElements() {
+function removeMobileTimelineHeaderElements() {
   document.querySelector('#tnt_shared_tweets_timeline_title')?.remove()
   document.querySelector('#tnt_switch_timeline')?.remove()
 }

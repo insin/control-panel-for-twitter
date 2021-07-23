@@ -5,14 +5,9 @@ Yak stack:
     Add a Blocked class and use it to hide everything but search in the sidebar
   ☐ The page sometimes isn't processed after fast unblocking someone on their profile page, or with the Unblock button + confirm popup @created(Thu 2021-07-22 13:00)
 
-Support for other display languages (#17):
-  ✔ Replace use of `aria-label` attributes and `textContent` with attributes or context which doesn't change across languages @created(Tue 2021-07-20 15:48) @done(Thu 2021-07-22 13:57)
-  ☐ Create locale objects with translations for each supported language where the above isn't possible @created(Tue 2021-07-20 15:49)
-    After you change language, Twitter requests a bundle from https://abs.twimg.com/responsive-web/client-web/i18n/${languageCode}.${hash}.js which contains translations for it.
-
-    We have a list of the codes we need translations for in the locale template in `tweak-new-twitter.user.js`
-
 New features:
+  ☐ Hide metrics @created(Fri 2021-07-23 12:56)
+    Prune all the numbers, everywhere, for all time
   ☐ Remove quote tweet privileges @created(Thu 2021-07-22 18:20)
     Some people who post otherwise-interesting stuff also spend some of their time "dunking" on known idiots vai quote tweets
 
