@@ -99,6 +99,15 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 | - | - | - | - |
 | ![Screenshot of the Explore screen in mobile Twitter, with only the search part of the screen visible](screenshots/firefox_android_explore.jpg) | ![Screenshot an individual tweet in mobile Twitter, without the usual "Open app" buttoin in the header, and without the usual Messages navigation item in the bottom navigation bar](screenshots/firefox_android_tweet.jpg) | ![Screenshot of the login screen in mobile Twitter, without the usual "Twitter is better on the app" overlay](screenshots/firefox_android_no_nag_home.jpg) | ![Screenshot of the logged out home screen in mobile Twitter, without the usual "Twitter is better on the app" overlay](screenshots/firefox_android_no_nag_login.jpg) |
 
+### Language support
+
+As of v2.2, all 48 of the display languages available on Twitter are supported, some examples:
+
+| Gaeilge (Irish) | 日本語 (Japanese) | العربية (Arabic) |
+| - | - | - |
+| ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, as Gaeilge](screenshots/irish.png) | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, in Japanese](screenshots/japanese.png) | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, in Arabic](screenshots/arabic.png) |
+
+
 ## Attribution
 
 Icon adapted from "Twitter free icon" by [Icomoon](https://icomoon.io/) from [www.flaticon.com](https://www.flaticon.com/), [CC 3.0 BY](https://creativecommons.org/licenses/by/3.0/)
