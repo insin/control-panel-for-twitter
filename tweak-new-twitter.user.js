@@ -64,7 +64,7 @@ const locales = {
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RETWEETS: 'إعادات التغريد',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'التغريدات المشتركة',
     TWITTER: 'تويتر',
   },
   ar: {
@@ -74,7 +74,7 @@ const locales = {
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RETWEETS: 'إعادات التغريد',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'التغريدات المشتركة',
     TWITTER: 'تويتر',
   },
   bg: {
@@ -84,7 +84,7 @@ const locales = {
     QUOTE_TWEET: 'Цитиране на туита',
     QUOTE_TWEETS: 'Туитове с цитат',
     RETWEETS: 'Ретуитове',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Споделени туитове',
   },
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
@@ -103,7 +103,7 @@ const locales = {
     QUOTE_TWEET: 'Cita el tuit',
     QUOTE_TWEETS: 'Tuits amb cita',
     RETWEETS: 'Retuits',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Tuits compartits',
   },
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
@@ -112,7 +112,7 @@ const locales = {
     QUOTE_TWEET: 'Citovat Tweet',
     QUOTE_TWEETS: 'Tweety s citací',
     RETWEETS: 'Retweety',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Sdílené tweety',
   },
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
@@ -121,7 +121,7 @@ const locales = {
     QUOTE_TWEET: 'Citér Tweet',
     QUOTE_TWEETS: 'Citat-Tweets',
     RETWEETS: 'Retweets',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Delte tweets',
   },
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
@@ -130,7 +130,7 @@ const locales = {
     QUOTE_TWEET: 'Tweet zitieren',
     QUOTE_TWEETS: 'Zitierte Tweets',
     RETWEETS: 'Retweets',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Geteilte Tweets',
   },
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
@@ -139,7 +139,7 @@ const locales = {
     QUOTE_TWEET: 'Παράθεση Tweet',
     QUOTE_TWEETS: 'Tweet με παράθεση',
     RETWEETS: 'Retweet',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Κοινόχρηστα Tweets',
   },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
@@ -158,7 +158,7 @@ const locales = {
     QUOTE_TWEET: 'Citar Tweet',
     QUOTE_TWEETS: 'Tweets citados',
     RETWEETS: 'Retweets',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Tweets compartidos',
   },
   eu: {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
@@ -167,7 +167,7 @@ const locales = {
     QUOTE_TWEET: 'Txioa apaitu',
     QUOTE_TWEETS: 'Aipatu txioak',
     RETWEETS: 'Bertxioak',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Partekatutako',
   },
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
@@ -186,7 +186,7 @@ const locales = {
     QUOTE_TWEET: 'Twiitin lainaus',
     QUOTE_TWEETS: 'Twiitin lainaukset',
     RETWEETS: 'Uudelleentwiittaukset',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Jaetut twiitit',
   },
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
@@ -195,7 +195,7 @@ const locales = {
     QUOTE_TWEET: 'Quote na Tweet',
     QUOTE_TWEETS: 'Mga Quote na Tweet',
     RETWEETS: 'Mga Retweet',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Mga Ibinahaging Tweet',
   },
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
@@ -204,7 +204,7 @@ const locales = {
     QUOTE_TWEET: 'Citer le Tweet',
     QUOTE_TWEETS: 'Tweets cités',
     RETWEETS: 'Retweets',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Tweets partagés',
   },
   ga: {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
@@ -222,7 +222,7 @@ const locales = {
     QUOTE_TWEET: 'Citar chío',
     QUOTE_TWEETS: 'Chíos citados',
     RETWEETS: 'Rechouchíos',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Chíos compartidos',
   },
   gu: {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
@@ -231,7 +231,7 @@ const locales = {
     QUOTE_TWEET: 'અવતરણની સાથે ટ્વીટ કરો',
     QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ',
     RETWEETS: 'પુનટ્વીટ્સ',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'શેર કરેલી ટ્વીટ્સ',
   },
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
@@ -240,7 +240,7 @@ const locales = {
     QUOTE_TWEET: 'ציטוט ציוץ',
     QUOTE_TWEETS: 'ציוצי ציטוט',
     RETWEETS: 'ציוצים מחדש',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'ציוצים משותפים',
     TWITTER: 'טוויטר',
   },
   hi: {
@@ -250,7 +250,7 @@ const locales = {
     QUOTE_TWEET: 'कोट ट्वीट',
     QUOTE_TWEETS: 'कोट ट्वीट्स',
     RETWEETS: 'रीट्वीट्स',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'साझा किए गए ट्वीट',
   },
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
@@ -259,7 +259,7 @@ const locales = {
     QUOTE_TWEET: 'Citiraj Tweet',
     QUOTE_TWEETS: 'Citirani tweetovi',
     RETWEETS: 'Proslijeđeni tweetovi',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Dijeljeni tweetovi',
   },
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
@@ -268,7 +268,7 @@ const locales = {
     QUOTE_TWEET: 'Tweet idézése',
     QUOTE_TWEETS: 'Tweet-idézések',
     RETWEETS: 'Retweetek',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Megosztott tweetek',
   },
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
@@ -277,7 +277,7 @@ const locales = {
     QUOTE_TWEET: 'Kutip Tweet',
     QUOTE_TWEETS: 'Kutip Tweet',
     RETWEETS: 'Retweet',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Tweet yang Dibagikan',
   },
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
@@ -286,7 +286,7 @@ const locales = {
     QUOTE_TWEET: 'Cita il Tweet',
     QUOTE_TWEETS: 'Tweet di citazione',
     RETWEETS: 'Retweet',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Tweet condivisi',
   },
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
@@ -304,7 +304,7 @@ const locales = {
     QUOTE_TWEET: 'ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ',
     QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು',
     RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳು',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು',
   },
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
@@ -313,7 +313,7 @@ const locales = {
     QUOTE_TWEET: '트윗 인용하기',
     QUOTE_TWEETS: '트윗 인용하기',
     RETWEETS: '리트윗',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: '공유 트윗',
     TWITTER: '트위터',
   },
   mr: {
@@ -323,7 +323,7 @@ const locales = {
     QUOTE_TWEET: 'ट्विट वर भाष्य करा',
     QUOTE_TWEETS: 'भाष्य ट्विट्स',
     RETWEETS: 'पुनर्ट्विट्स',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'सामायिक ट्विट',
   },
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
@@ -332,7 +332,7 @@ const locales = {
     QUOTE_TWEET: 'Petik Tweet',
     QUOTE_TWEETS: 'Tweet Petikan',
     RETWEETS: 'Tweet semula',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Tweet Berkongsi',
   },
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
@@ -341,7 +341,7 @@ const locales = {
     QUOTE_TWEET: 'Sitat-Tweet',
     QUOTE_TWEETS: 'Sitat-Tweets',
     RETWEETS: 'Retweets',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Delte tweets',
   },
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
@@ -350,7 +350,7 @@ const locales = {
     QUOTE_TWEET: 'Citeer Tweet',
     QUOTE_TWEETS: 'Geciteerde Tweets',
     RETWEETS: 'Retweets',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Gedeelde Tweets',
   },
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
@@ -359,7 +359,7 @@ const locales = {
     QUOTE_TWEET: 'Cytuj Tweeta',
     QUOTE_TWEETS: 'Cytatów z Tweeta',
     RETWEETS: 'Tweety podane dalej',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Udostępnione Tweety',
   },
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
@@ -368,7 +368,7 @@ const locales = {
     QUOTE_TWEET: 'Comentar o Tweet',
     QUOTE_TWEETS: 'Tweets com comentário',
     RETWEETS: 'Retweets',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Tweets Compartilhados',
   },
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
@@ -377,7 +377,7 @@ const locales = {
     QUOTE_TWEET: 'Tweet cu citat',
     QUOTE_TWEETS: 'Tweeturi cu citat',
     RETWEETS: 'Retweeturi',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Tweeturi partajate',
   },
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
@@ -386,7 +386,7 @@ const locales = {
     QUOTE_TWEET: 'Цитировать твит',
     QUOTE_TWEETS: 'Твиты с цитатами',
     RETWEETS: 'Ретвиты',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Общие твиты',
     TWITTER: 'Твиттер',
   },
   sk: {
@@ -396,7 +396,7 @@ const locales = {
     QUOTE_TWEET: 'Tweet s citátom',
     QUOTE_TWEETS: 'Tweety s citátom',
     RETWEETS: 'Retweety',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Zdieľané Tweety',
   },
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
@@ -405,7 +405,7 @@ const locales = {
     QUOTE_TWEET: 'твит са цитатом',
     QUOTE_TWEETS: 'твит(ов)а са цитатом',
     RETWEETS: 'Ретвитови',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Дељени твитови',
     TWITTER: 'Твитер',
   },
   sv: {
@@ -415,7 +415,7 @@ const locales = {
     QUOTE_TWEET: 'Citera Tweet',
     QUOTE_TWEETS: 'Citattweets',
     RETWEETS: 'Retweets',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Delade tweetsen',
   },
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
@@ -424,7 +424,7 @@ const locales = {
     QUOTE_TWEET: 'ட்விட்டை மேற்கோள் காட்டு',
     QUOTE_TWEETS: 'மேற்கோள் கீச்சுகள்',
     RETWEETS: 'மறுகீச்சுகள்',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'பகிரப்பட்ட ட்வீட்டுகள்',
   },
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
@@ -433,7 +433,7 @@ const locales = {
     QUOTE_TWEET: 'อ้างอิงทวีต',
     QUOTE_TWEETS: 'ทวีตและคำพูด',
     RETWEETS: 'รีทวีต',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'ทวีตที่แชร์',
     TWITTER: 'ทวิตเตอร์',
   },
   tr: {
@@ -443,7 +443,7 @@ const locales = {
     QUOTE_TWEET: 'Alıntı Tweet',
     QUOTE_TWEETS: 'Alıntı Tweetler',
     RETWEETS: 'Retweetler',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Paylaşılan Tweetler',
   },
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
@@ -452,7 +452,7 @@ const locales = {
     QUOTE_TWEET: 'Цитувати твіт',
     QUOTE_TWEETS: 'Твіти з цитатою',
     RETWEETS: 'Ретвіти',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Спільні твіти',
     TWITTER: 'Твіттер',
   },
   ur: {
@@ -462,7 +462,7 @@ const locales = {
     QUOTE_TWEET: 'ٹویٹ اقتباس کریں',
     QUOTE_TWEETS: 'ٹویٹ کو نقل کرو',
     RETWEETS: 'ریٹویٹس',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'مشترکہ ٹویٹس',
     TWITTER: 'ٹوئٹر',
   },
   vi: {
@@ -472,7 +472,7 @@ const locales = {
     QUOTE_TWEET: 'Trích dẫn Tweet',
     QUOTE_TWEETS: 'Tweet trích dẫn',
     RETWEETS: 'Các Tweet lại',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'Tweet được chia sẻ',
   },
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
@@ -481,7 +481,7 @@ const locales = {
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用的推文',
     RETWEETS: '轉推',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: '分享的推文',
   },
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
@@ -490,7 +490,7 @@ const locales = {
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用推文',
     RETWEETS: '转推',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: '分享的推文',
   },
 }
 
@@ -508,6 +508,7 @@ function getString(code) {
 const PagePaths = {
   ADD_MUTED_WORD: '/settings/add_muted_keyword',
   BOOKMARKS: '/i/bookmarks',
+  CONNECT: '/i/connect',
   HOME: '/home',
   NOTIFICATION_TIMELINE: '/i/timeline',
   SEARCH: '/search',
@@ -613,12 +614,13 @@ function isOnQuoteTweetsPage() {
 }
 
 function isOnTopicsPage() {
-  return currentPath.endsWith('/topics')
+  return currentPath != '/topics' && Boolean(currentPath.match(/\/topics(\/|$)/))
 }
 
 function shouldShowFirstSidebarItem() {
   return (
     currentPath == PagePaths.BOOKMARKS ||
+    currentPath == PagePaths.CONNECT ||
     currentPath == PagePaths.NOTIFICATION_TIMELINE ||
     currentPath == PagePaths.SEARCH ||
     isOnHomeTimeline() ||
