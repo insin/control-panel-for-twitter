@@ -15,6 +15,9 @@ const checkboxGroups = new Map(Object.entries({
   uiImprovements: [
     'addAddMutedWordMenuItem',
     'fastBlock',
+    'hideMetrics',
+    'hideShareTweetButton',
+    'hideTweetAnalyticsLinks',
     'tweakQuoteTweetsPage',
     desktop && 'navBaseFontSize',
     mobile && 'hideAppNags',
@@ -52,12 +55,17 @@ chrome.storage.local.get((storedConfig) => {
     hideAnalyticsNav: true,
     hideBookmarksNav: true,
     hideListsNav: true,
+    hideMetrics: false,
     hideMomentsNav: true,
     hideMoreTweets: true,
     hideNewslettersNav: true,
+    hideShareTweetButton: true,
     hideTopicsNav: true,
+    hideTweetAnalyticsLinks: true,
     hideTwitterAdsNav: true,
     hideWhoToFollowEtc: true,
+    likedTweets: 'hide',
+    repliedToTweets: 'hide',
     quoteTweets: 'ignore',
     retweets: 'separate',
     tweakQuoteTweetsPage: true,
@@ -94,6 +102,8 @@ chrome.storage.local.get((storedConfig) => {
     }
   }
 
+  document.body.classList.toggle('home', !config.alwaysUseLatestTweets)
+
   updateCheckboxGroups()
 
   $form.addEventListener('change', (e) => {
@@ -112,6 +122,7 @@ chrome.storage.local.get((storedConfig) => {
     else {
       config[$el.name] = $el.value
     }
+    document.body.classList.toggle('home', !config.alwaysUseLatestTweets)
     chrome.storage.local.set(config)
   })
 })

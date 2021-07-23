@@ -1,3 +1,5 @@
+export type AlgorithmicTweetsConfig = 'hide' | 'ignore'
+
 export type Config = {
   // Shared
   addAddMutedWordMenuItem: boolean
@@ -6,13 +8,18 @@ export type Config = {
   hideAnalyticsNav: boolean
   hideBookmarksNav: boolean
   hideListsNav: boolean
+  hideMetrics: boolean
   hideMomentsNav: boolean
   hideMoreTweets: boolean
   hideNewslettersNav: boolean
+  hideShareTweetButton: boolean
   hideTopicsNav: boolean
+  hideTweetAnalyticsLinks: boolean
   hideTwitterAdsNav: boolean
   hideWhoToFollowEtc: boolean
+  likedTweets: AlgorithmicTweetsConfig
   quoteTweets: SharedTweetsConfig
+  repliedToTweets: AlgorithmicTweetsConfig
   retweets: SharedTweetsConfig
   tweakQuoteTweetsPage: boolean
   verifiedAccounts: VerifiedAccountsConfig
@@ -46,8 +53,10 @@ export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
 
 export type TimelineItemType =
   | 'HEADING'
+  | 'LIKED'
   | 'PROMOTED_TWEET'
   | 'QUOTE_TWEET'
+  | 'REPLIED'
   | 'RETWEET'
   | 'TWEET'
 

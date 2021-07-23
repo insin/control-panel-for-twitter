@@ -13,7 +13,8 @@
     }
 
     body.mobile .desktop,
-    body.desktop .mobile {
+    body.desktop .mobile,
+    body:not(.home) .home {
       display: none;
     }
 
@@ -30,8 +31,7 @@
       cursor: pointer;
     }
 
-    section.group > label:not(.checkbox),
-    section.select label {
+    section.group > label:not(.checkbox) {
       cursor: default;
     }
 
@@ -161,6 +161,29 @@
         </label>
       </section>
     </section>
+    <section class="group home">
+      <label>
+        Algorithmic tweets in Home timeline
+      </label>
+      <section class="select">
+        <label>
+          Liked tweets
+          <select name="likedTweets">
+            <option value="ignore">Do nothing</option>
+            <option value="hide">Hide</option>
+          </select>
+        </label>
+      </section>
+      <section class="select">
+        <label>
+          Replied-to tweets
+          <select name="repliedToTweets">
+            <option value="ignore">Do nothing</option>
+            <option value="hide">Hide</option>
+          </select>
+        </label>
+      </section>
+    </section>
     <section class="group">
       <label class="checkbox">
         UI improvements
@@ -170,6 +193,24 @@
         <label>
           Use normal text font style in navigation bar
           <input type="checkbox" name="navBaseFontSize">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Hide metrics
+          <input type="checkbox" name="hideMetrics">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Hide share button under tweets
+          <input type="checkbox" name="hideShareTweetButton">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Hide analytics links under your own tweets
+          <input type="checkbox" name="hideTweetAnalyticsLinks">
         </label>
       </section>
       <section class="checkbox mobile">

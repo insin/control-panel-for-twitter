@@ -6,8 +6,6 @@ Yak stack:
   ☐ The page sometimes isn't processed after fast unblocking someone on their profile page, or with the Unblock button + confirm popup @created(Thu 2021-07-22 13:00)
 
 New features:
-  ☐ Hide metrics @created(Fri 2021-07-23 12:56)
-    Prune all the numbers, everywhere, for all time
   ☐ Remove quote tweet privileges @created(Thu 2021-07-22 18:20)
     Some people who post otherwise-interesting stuff also spend some of their time "dunking" on known idiots vai quote tweets
 

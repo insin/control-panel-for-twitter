@@ -13,6 +13,7 @@ const mobile = navigator.userAgent.includes('Android')
 const desktop = !mobile
 
 const $html = document.querySelector('html')
+const $body = document.body
 const lang = $html.lang
 const dir = $html.dir
 const ltr = dir == 'ltr'
@@ -29,13 +30,18 @@ const config = {
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
   hideListsNav: true,
+  hideMetrics: false,
   hideMomentsNav: true,
   hideMoreTweets: true,
   hideNewslettersNav: true,
+  hideShareTweetButton: true,
   hideTopicsNav: true,
+  hideTweetAnalyticsLinks: true,
   hideTwitterAdsNav: true,
   hideWhoToFollowEtc: true,
+  likedTweets: 'hide',
   quoteTweets: 'ignore',
+  repliedToTweets: 'hide',
   retweets: 'separate',
   tweakQuoteTweetsPage: true,
   verifiedAccounts: 'ignore',
@@ -523,7 +529,7 @@ const Selectors = {
   PRIMARY_NAV_MOBILE: '#layers nav',
   PROMOTED_TWEET: '[data-testid="placementTracking"]',
   SIDEBAR: 'div[data-testid="sidebarColumn"]',
-  SIDEBAR_ONLY_SHOW_FIRST: 'div[data-testid="sidebarColumn"] > div > div > div > div > div > div:not(:first-of-type)',
+  SIDEBAR_WRAPPERS: 'div[data-testid="sidebarColumn"] > div > div > div > div > div',
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: 'div[data-testid="tweet"]',
@@ -532,9 +538,9 @@ const Selectors = {
 
 /** @enum {string} */
 const Svgs = {
-  MUTE: `<g>
-    <path d="M1.75 22.354c-.192 0-.384-.073-.53-.22-.293-.293-.293-.768 0-1.06L20.395 1.898c.293-.294.768-.294 1.06 0s.294.767 0 1.06L2.28 22.135c-.146.146-.338.22-.53.22zm1.716-5.577c-.134 0-.27-.036-.392-.11-.67-.413-1.07-1.13-1.07-1.917v-5.5c0-1.24 1.01-2.25 2.25-2.25H6.74l7.047-5.588c.225-.18.533-.215.792-.087.258.125.423.387.423.675v3.28c0 .415-.336.75-.75.75s-.75-.335-.75-.75V3.553L7.47 8.338c-.134.104-.298.162-.467.162h-2.75c-.413 0-.75.337-.75.75v5.5c0 .263.134.5.356.64.353.216.462.678.245 1.03-.14.23-.387.357-.64.357zm10.787 5.973c-.166 0-.33-.055-.466-.162l-4.795-3.803c-.325-.258-.38-.73-.122-1.054.258-.322.73-.38 1.054-.12l3.58 2.838v-7.013c0-.414.335-.75.75-.75s.75.336.75.75V22c0 .288-.166.55-.425.675-.104.05-.216.075-.327.075z"></path>
-  </g>`
+  HOME: '<g><path d="M22.46 7.57L12.357 2.115c-.223-.12-.49-.12-.713 0L1.543 7.57c-.364.197-.5.652-.303 1.017.135.25.394.393.66.393.12 0 .243-.03.356-.09l.815-.44L4.7 19.963c.214 1.215 1.308 2.062 2.658 2.062h9.282c1.352 0 2.445-.848 2.663-2.087l1.626-11.49.818.442c.364.193.82.06 1.017-.304.196-.363.06-.818-.304-1.016zm-4.638 12.133c-.107.606-.703.822-1.18.822H7.36c-.48 0-1.075-.216-1.178-.798L4.48 7.69 12 3.628l7.522 4.06-1.7 12.015z"></path><path d="M8.22 12.184c0 2.084 1.695 3.78 3.78 3.78s3.78-1.696 3.78-3.78-1.695-3.78-3.78-3.78-3.78 1.696-3.78 3.78zm6.06 0c0 1.258-1.022 2.28-2.28 2.28s-2.28-1.022-2.28-2.28 1.022-2.28 2.28-2.28 2.28 1.022 2.28 2.28z"></path></g>',
+  MUTE: '<g><path d="M1.75 22.354c-.192 0-.384-.073-.53-.22-.293-.293-.293-.768 0-1.06L20.395 1.898c.293-.294.768-.294 1.06 0s.294.767 0 1.06L2.28 22.135c-.146.146-.338.22-.53.22zm1.716-5.577c-.134 0-.27-.036-.392-.11-.67-.413-1.07-1.13-1.07-1.917v-5.5c0-1.24 1.01-2.25 2.25-2.25H6.74l7.047-5.588c.225-.18.533-.215.792-.087.258.125.423.387.423.675v3.28c0 .415-.336.75-.75.75s-.75-.335-.75-.75V3.553L7.47 8.338c-.134.104-.298.162-.467.162h-2.75c-.413 0-.75.337-.75.75v5.5c0 .263.134.5.356.64.353.216.462.678.245 1.03-.14.23-.387.357-.64.357zm10.787 5.973c-.166 0-.33-.055-.466-.162l-4.795-3.803c-.325-.258-.38-.73-.122-1.054.258-.322.73-.38 1.054-.12l3.58 2.838v-7.013c0-.414.335-.75.75-.75s.75.336.75.75V22c0 .288-.166.55-.425.675-.104.05-.216.075-.327.075z"></path></g>',
+  RETWEET: '<g><path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"></path></g>',
 }
 
 const MOBILE_LOGGED_OUT_URLS = ['/', '/login', '/i/flow/signup']
@@ -543,26 +549,26 @@ const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_PHOTO_RE = /photo\/\d$/
 const URL_TWEET_ID_RE = /\/status\/(\d+)$/
 
-/** Flag for a Block ${user} menu item having been seen in the last popup */
+/** `true` when a 'Block @${user}' menu item was seen in the last popup */
 let blockMenuItemSeen = false
 
-/** Notification count in the title (including trailing space), e.g. '(1) ' */
+/** `'Home'` or `'Latest Tweets'` page title */
+let currentMainTimelineType = ''
+
+/** Notification count in the title (including trailing space), e.g. `'(1) '` */
 let currentNotificationCount = ''
 
-/** Title of the current page, without the ' / Twitter' suffix */
+/** Title of the current page, without the `' / Twitter'` suffix */
 let currentPage = ''
 
-/** Current URL path */
+/** Current `location.pathname` */
 let currentPath = ''
 
-/** Flag for a Home / Latest Tweets link having been clicked */
+/** `true` when a Home/Latest Tweets heading or Home nav link is clicked */
 let homeLinkClicked = false
 
-/** The last OG page title we saw for the home timeline */
-let lastHomeTimelineTitle = ''
-
-/** The last page title we used for the home timeline when we need to cache it */
-let lastHomeTitle = null
+/** Cache for the last page title which was used for the main timeline */
+let lastMainTimelineTitle = null
 
 /**
  * MutationObservers active on the current page, or anything else we want to
@@ -571,17 +577,16 @@ let lastHomeTitle = null
  */
 let pageObservers = []
 
-// Config for the fake timeline used to display retweets/quote tweets separately
+// Config for the fake timeline used to separate out retweets and quote tweets
 let separatedTweetsTimelineTitle = ''
-let separatedTweetsTimelineName = ''
 
-function configureSeparatedTweetsTimeline() {
+function configureSeparatedTweetsTimelineTitle() {
   if (config.retweets == 'separate' && config.quoteTweets == 'separate') {
-    separatedTweetsTimelineTitle = separatedTweetsTimelineName = getString('SHARED_TWEETS')
+    separatedTweetsTimelineTitle = getString('SHARED_TWEETS')
   } else if (config.retweets == 'separate') {
-    separatedTweetsTimelineTitle = separatedTweetsTimelineName = getString('RETWEETS')
+    separatedTweetsTimelineTitle = getString('RETWEETS')
   } else if (config.quoteTweets == 'separate') {
-    separatedTweetsTimelineTitle = separatedTweetsTimelineName = getString('QUOTE_TWEETS')
+    separatedTweetsTimelineTitle = getString('QUOTE_TWEETS')
   }
 }
 
@@ -590,11 +595,19 @@ function isOnExplorePage() {
 }
 
 function isOnHomeTimeline() {
+  return currentPage == getString('HOME')
+}
+
+function isOnMainTimelinePage() {
   return currentPath == PagePaths.HOME
 }
 
 function isOnIndividualTweetPage() {
   return URL_TWEET_ID_RE.test(currentPath)
+}
+
+function isOnLatestTweetsTimeline() {
+  return currentPage == getString('LATEST_TWEETS')
 }
 
 function isOnListsPage() {
@@ -613,23 +626,12 @@ function isOnQuoteTweetsPage() {
   return currentPath.endsWith('/retweets/with_comments')
 }
 
-function isOnTopicsPage() {
-  return currentPath != '/topics' && Boolean(currentPath.match(/\/topics(\/|$)/))
+function isOnSeparateTweetsTimeline() {
+  return currentPage == separatedTweetsTimelineTitle
 }
 
-function shouldShowFirstSidebarItem() {
-  return (
-    currentPath == PagePaths.BOOKMARKS ||
-    currentPath == PagePaths.CONNECT ||
-    currentPath == PagePaths.NOTIFICATION_TIMELINE ||
-    currentPath == PagePaths.SEARCH ||
-    isOnHomeTimeline() ||
-    isOnIndividualTweetPage() ||
-    isOnListsPage() ||
-    isOnNotificationsPage() ||
-    isOnQuoteTweetsPage() ||
-    isOnTopicsPage()
-  )
+function isOnTopicsPage() {
+  return currentPath != '/topics' && Boolean(currentPath.match(/\/topics(\/|$)/))
 }
 
 function shouldHideSidebar() {
@@ -771,7 +773,6 @@ function s(n) {
  * re-process the current page.
  */
 function observeBackgroundColor() {
-  let $body = document.body
   let lastBackgroundColor = null
 
   log('observing body style attribute for backgroundColor changes')
@@ -877,6 +878,7 @@ let observePopups = (function() {
     let $keyboardWrapper = await getElement('[data-at-shortcutkeys]', {
       name: 'keyboard wrapper',
     })
+
     log(`${popupObserver ? 're-' : ''}observing popups`)
     popupObserver = observeElement($keyboardWrapper.previousElementSibling, (mutations) => {
       mutations.forEach((mutation) => {
@@ -993,37 +995,36 @@ async function addSeparatedTweetsTimelineControl(page) {
     }
 
     if (document.querySelector('#tnt_separated_tweets') != null) {
-      log('separated tweets timeline header already present')
+      log('separated tweets timeline heading already present')
       return
     }
 
-    log('inserting separated tweets timeline header')
-
-    let $retweets = /** @type {HTMLElement} */ ($timelineTitle.parentElement.cloneNode(true))
-    $retweets.querySelector('h2').id = 'tnt_separated_tweets'
-    $retweets.querySelector('span').textContent = separatedTweetsTimelineName
+    log('inserting separated tweets timeline heading')
+    let $heading = /** @type {HTMLElement} */ ($timelineTitle.parentElement.cloneNode(true))
+    $heading.querySelector('h2').id = 'tnt_separated_tweets'
+    $heading.querySelector('span').textContent = separatedTweetsTimelineTitle
     // This script assumes navigation has occurred when the document title changes, so by changing
-    // the title we effectively fake navigation to a non-existent page representing the sparated
+    // the title we effectively fake navigation to a non-existent page representing the separated
     // tweets timeline.
-    $retweets.addEventListener('click', () => {
+    $heading.addEventListener('click', () => {
       if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
         setTitle(separatedTweetsTimelineTitle)
       }
       window.scrollTo({top: 0})
     })
-    $timelineTitle.parentElement.parentElement.insertAdjacentElement('afterend', $retweets)
+    $timelineTitle.parentElement.parentElement.insertAdjacentElement('afterend', $heading)
     // Go back to the main timeline when the Latest Tweets / Home heading is clicked
     $timelineTitle.parentElement.addEventListener('click', () => {
-      if (!document.title.startsWith(lastHomeTimelineTitle)) {
+      if (!document.title.startsWith(currentMainTimelineType)) {
         homeLinkClicked = true
-        setTitle(lastHomeTimelineTitle)
+        setTitle(currentMainTimelineType)
       }
     })
     // Go back to the main timeline when the Home nav link is clicked
     document.querySelector(Selectors.NAV_HOME_LINK).addEventListener('click', () => {
       homeLinkClicked = true
-      if (location.pathname == '/home' && !document.title.startsWith(lastHomeTimelineTitle)) {
-        setTitle(lastHomeTimelineTitle)
+      if (location.pathname == '/home' && !document.title.startsWith(currentMainTimelineType)) {
+        setTitle(currentMainTimelineType)
       }
     })
   }
@@ -1049,39 +1050,33 @@ async function addSeparatedTweetsTimelineControl(page) {
     $toggle.id = 'tnt_switch_timeline'
     let toggleColor = getComputedStyle(document.querySelector(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/explore"] svg`)).color
     $toggle.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true" style="color: ${toggleColor}; width: 22px; vertical-align: text-bottom; position: relative; max-width: 100%; height: 22px; fill: currentcolor; display: inline-block;">
-      <g>
-        ${page == separatedTweetsTimelineTitle ? (
-          '<path d="M22.46 7.57L12.357 2.115c-.223-.12-.49-.12-.713 0L1.543 7.57c-.364.197-.5.652-.303 1.017.135.25.394.393.66.393.12 0 .243-.03.356-.09l.815-.44L4.7 19.963c.214 1.215 1.308 2.062 2.658 2.062h9.282c1.352 0 2.445-.848 2.663-2.087l1.626-11.49.818.442c.364.193.82.06 1.017-.304.196-.363.06-.818-.304-1.016zm-4.638 12.133c-.107.606-.703.822-1.18.822H7.36c-.48 0-1.075-.216-1.178-.798L4.48 7.69 12 3.628l7.522 4.06-1.7 12.015z"></path><path d="M8.22 12.184c0 2.084 1.695 3.78 3.78 3.78s3.78-1.696 3.78-3.78-1.695-3.78-3.78-3.78-3.78 1.696-3.78 3.78zm6.06 0c0 1.258-1.022 2.28-2.28 2.28s-2.28-1.022-2.28-2.28 1.022-2.28 2.28-2.28 2.28 1.022 2.28 2.28z"></path>'
-        ) : (
-          '<path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"></path>'
-        )}
-      </g>
+      ${page == separatedTweetsTimelineTitle ? Svgs.HOME : Svgs.RETWEET}
     </svg>`
     $toggle.style.cursor = 'pointer'
-    $toggle.title = `Switch to ${page == lastHomeTimelineTitle ? separatedTweetsTimelineTitle : lastHomeTimelineTitle}`
+    $toggle.title = `Switch to ${page == currentMainTimelineType ? separatedTweetsTimelineTitle : currentMainTimelineType}`
     $toggle.addEventListener('click', () => {
-      let newTitle = page == separatedTweetsTimelineTitle ? lastHomeTimelineTitle : separatedTweetsTimelineTitle
+      let newTitle = page == separatedTweetsTimelineTitle ? currentMainTimelineType : separatedTweetsTimelineTitle
       setTitle(newTitle)
-      $toggle.title = `Switch to ${newTitle == lastHomeTimelineTitle ? separatedTweetsTimelineTitle : lastHomeTimelineTitle}`
+      $toggle.title = `Switch to ${newTitle == currentMainTimelineType ? separatedTweetsTimelineTitle : currentMainTimelineType}`
       window.scrollTo({top: 0})
     })
     $timelineTitle.insertAdjacentElement('afterend', $toggle)
-    if (page == separatedTweetsTimelineName) {
+    if (page == separatedTweetsTimelineTitle) {
       let $sharedTweetsTitle = /** @type {HTMLElement} */ ($timelineTitle.cloneNode(true))
-      $sharedTweetsTitle.querySelector('span').textContent = separatedTweetsTimelineName
+      $sharedTweetsTitle.querySelector('span').textContent = separatedTweetsTimelineTitle
       $sharedTweetsTitle.id = 'tnt_shared_tweets_timeline_title'
       $sharedTweetsTitle.classList.remove('tnt_home_timeline_title')
       $timelineTitle.insertAdjacentElement('afterend', $sharedTweetsTitle)
     }
     $timelineTitle.parentElement.classList.add('tnt_mobile_header')
 
-    // Go back to the main timeline when the Home bottom nav item is clicked on
+    // Go back to the main timeline when the Home bottom nav link is clicked on
     // the shared tweets timeline.
     let $homeBottomNavItem = /** @type {HTMLElement} */ (document.querySelector(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`))
     if (!$homeBottomNavItem.dataset.tweakNewTwitterListener) {
       $homeBottomNavItem.addEventListener('click', () => {
         if (location.pathname == '/home' && currentPage == separatedTweetsTimelineTitle) {
-          setTitle(lastHomeTimelineTitle)
+          setTitle(currentMainTimelineType)
         }
       })
       $homeBottomNavItem.dataset.tweakNewTwitterListener = 'true'
@@ -1093,14 +1088,45 @@ function addStaticCss() {
   var cssRules = []
   var hideCssSelectors = []
 
+  if (config.alwaysUseLatestTweets) {
+    hideCssSelectors.push(mobile
+      ? 'body.MainTimeline header div:nth-of-type(3)'
+      : `body.MainTimeline ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type div:nth-of-type(3)
+    `)
+  }
   if (config.hideAnalyticsNav) {
     hideCssSelectors.push('div[role="dialog"] a[href*="analytics.twitter.com"]')
   }
   if (config.hideBookmarksNav) {
     hideCssSelectors.push('div[role="dialog"] a[href$="/bookmarks"]')
   }
+  if (config.hideShareTweetButton) {
+    hideCssSelectors.push(
+      // Under timeline-style tweets
+      '[data-testid="tweet"] [role="group"] > div:is(:nth-of-type(4))',
+      // Under individual tweets
+      'body.Tweet [data-testid="tweet"] + div > [role="group"] > div:is(:nth-of-type(4))',
+    )
+  }
   if (config.hideListsNav) {
     hideCssSelectors.push('div[role="dialog"] a[href$="/lists"]')
+  }
+  if (config.hideMetrics) {
+    hideCssSelectors.push(
+      // User profile hover card and page metrics
+      ':is(#layers, body.Profile) a:is([href$="/following"], [href$="/followers"]) > :first-child',
+      // Individual tweet metrics
+      'body.Tweet a:is([href$="/retweets"], [href$="/retweets/with_comments"], [href$="/likes"]) > :first-child',
+    )
+    cssRules.push(
+      // Metrics under timeline-style tweets
+      '[data-testid="tweet"] [role="group"] span:only-child { visibility: hidden; }',
+      // Fix display of whitespace after hidden metrics
+     `body.Tweet a:is([href$="/retweets"], [href$="/retweets/with_comments"], [href$="/likes"]),
+      :is(#layers, body.Profile) a:is([href$="/following"], [href$="/followers"]) {
+        white-space: pre-line;
+      }`,
+    )
   }
   if (config.hideMomentsNav) {
     hideCssSelectors.push('div[role="dialog"] a[href$="/moment_maker"]')
@@ -1110,6 +1136,14 @@ function addStaticCss() {
   }
   if (config.hideTopicsNav) {
     hideCssSelectors.push('div[role="dialog"] a[href$="/topics"]')
+  }
+  if (config.hideTweetAnalyticsLinks) {
+    hideCssSelectors.push(
+      // Under timeline-style tweets
+      '[data-testid="tweet"] [role="group"] > div:is(:nth-of-type(5))',
+      // Under individual tweets
+      '[data-testid="analyticsButton"]',
+    )
   }
   if (config.hideTwitterAdsNav) {
     hideCssSelectors.push('div[role="dialog"] a[href*="ads.twitter.com"]')
@@ -1129,11 +1163,16 @@ function addStaticCss() {
       `)
     }
     if (config.hideSidebarContent) {
-      hideCssSelectors.push(
-        `body.ShowFirstSidebarItem ${Selectors.SIDEBAR_ONLY_SHOW_FIRST}`,
-        `body.HideSidebar ${Selectors.SIDEBAR}`,
-        `body.Profile ${Selectors.SIDEBAR} > div > div > div > div > div > div:not(:nth-of-type(1), :nth-of-type(2), :nth-of-type(3))`,
-      )
+      // Only show the first sidebar item by default
+      cssRules.push(`
+        ${Selectors.SIDEBAR_WRAPPERS} > div:not(:first-of-type) {
+          display: none;
+        }
+        body.Profile ${Selectors.SIDEBAR_WRAPPERS} > div:is(:nth-of-type(2), :nth-of-type(3)) {
+          display: block;
+        }
+      `)
+      hideCssSelectors.push(`body.HideSidebar ${Selectors.SIDEBAR}`)
     }
     if (config.hideExploreNav) {
       hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
@@ -1170,7 +1209,7 @@ function addStaticCss() {
       )
     }
     if (config.hideAppNags) {
-      hideCssSelectors.push('.TwitterIsBetterOnTheAppNeverButton #layers > div')
+      hideCssSelectors.push('.HideAppNags #layers > div')
     }
     if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
       // Use CSS to only tweak layout of mobile header elements on pages where
@@ -1214,6 +1253,12 @@ function getTweetType($tweet) {
     return 'PROMOTED_TWEET'
   }
   if ($tweet.previousElementSibling?.querySelector('[data-testid="socialContext"]')) {
+    if (!config.alwaysUseLatestTweets && currentMainTimelineType == getString('HOME')) {
+      let svgPath = $tweet.previousElementSibling.querySelector('svg path')?.getAttribute('d') ?? ''
+      if (svgPath.startsWith('M12')) return 'LIKED'
+      if (svgPath.startsWith('M14')) return 'REPLIED'
+      // Retweet is M23, but we want it to be the fallback if these SVGs are changed
+    }
     return 'RETWEET'
   }
   if ($tweet.querySelector('div[id^="id__"] > div[dir="auto"] > span')?.textContent.includes(getString('QUOTE_TWEET')) ||
@@ -1265,7 +1310,7 @@ function getTweetType($tweet) {
     name: 'tweet',
     stopIf: pathIsNot(path),
   })
-  if ($link != null) {
+  if ($link) {
     log('clicking "Show this thread" link')
     $link.click()
   }
@@ -1283,7 +1328,7 @@ async function hideOpenAppButton(page) {
   if ($button) {
     log('hiding "Open app" button')
     // Hide the button directly rather than its parent, as the parent is reused
-    // for other things - e.g. the sparkles button on the home timeline
+    // for other things - e.g. the sparkles button on the main timeline
     $button.style.visibility = 'hidden'
   }
 }
@@ -1337,7 +1382,7 @@ function onTimelineChange($timeline, page) {
 
     if ($tweet != null) {
       itemType = getTweetType($tweet)
-      if (page == getString('LATEST_TWEETS') || page == separatedTweetsTimelineTitle || page == getString('HOME')) {
+      if (isOnMainTimelinePage()) {
         if (isReplyToPreviousTweet($tweet) && hidPreviousItem != null) {
           hideItem = hidPreviousItem
           itemType = previousItemType
@@ -1424,9 +1469,9 @@ function onTitleChange(title) {
     // so the next page will be re-processed when the photo is closed.
     if (mobile && URL_PHOTO_RE.test(location.pathname)) {
       log('viewing a photo on mobile')
-      if (isOnHomeTimeline()) {
-        log('caching home timeline title')
-        lastHomeTitle = currentPage
+      if (isOnMainTimelinePage()) {
+        log('caching main timeline title')
+        lastMainTimelineTitle = currentPage
       }
 		}
     // Ignore Flash of Uninitialised Title when navigating to a page for the
@@ -1447,22 +1492,22 @@ function onTitleChange(title) {
     return
   }
 
-  // Restore the cached home timeline title when returning from viewing media
+  // Restore the cached main timeline title when returning from viewing media
   // on mobile.
   if (mobile &&
       URL_PHOTO_RE.test(currentPath) &&
       location.pathname == '/home' &&
-      lastHomeTitle != null) {
-    log('restoring last home title')
-    newPage = lastHomeTitle
-    lastHomeTitle = null
+      lastMainTimelineTitle != null) {
+    log('restoring last main timeline title')
+    newPage = lastMainTimelineTitle
+    lastMainTimelineTitle = null
   }
 
-  // Stay on the separated tweets timeline on desktop when…
+  // On desktop, stay on the separated tweets timeline when…
   if (desktop && currentPage == separatedTweetsTimelineTitle &&
       // …the title has changed back to the main timeline…
       (newPage == getString('LATEST_TWEETS') || newPage == getString('HOME')) &&
-      // …the Home nav or Latest Tweets / Home header _wasn't_ clicked and…
+      // …the Home nav link or Latest Tweets / Home header _wasn't_ clicked and…
       !homeLinkWasClicked &&
       (
         // …the user viewed a photo.
@@ -1499,7 +1544,7 @@ function onTitleChange(title) {
   currentPath = location.pathname
 
   if (currentPage == getString('LATEST_TWEETS') || currentPage == getString('HOME')) {
-    lastHomeTimelineTitle = currentPage
+    currentMainTimelineType = currentPage
   }
 
   log('processing new page')
@@ -1514,39 +1559,46 @@ function processCurrentPage() {
     pageObservers = []
   }
 
-  if (mobile && config.hideAppNags) {
-    document.body.classList.toggle('TwitterIsBetterOnTheAppNeverButton', MOBILE_LOGGED_OUT_URLS.includes(currentPath))
-  }
-
   if (config.alwaysUseLatestTweets && currentPage == getString('HOME')) {
     switchToLatestTweets(currentPage)
     return
   }
 
+  // Hooks for styling pages
+  $body.classList.toggle('Explore', isOnExplorePage())
+  $body.classList.toggle('HideAppNags', (
+    mobile && config.hideAppNags && MOBILE_LOGGED_OUT_URLS.includes(currentPath))
+  )
+  $body.classList.toggle('HideSidebar', shouldHideSidebar())
+  $body.classList.toggle('MainTimeline', isOnMainTimelinePage())
+  $body.classList.toggle('Profile', isOnProfilePage())
+  $body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
+  $body.classList.toggle('Tweet', isOnIndividualTweetPage())
+
+  // "Which version of the main timeline are we on?" hooks for styling
+  $body.classList.toggle('Home', isOnHomeTimeline())
+  $body.classList.toggle('LatestTweets', isOnLatestTweetsTimeline())
+  $body.classList.toggle('SeparatedTweets', isOnSeparateTweetsTimeline())
+
   let shouldObserveTimeline = isOnProfilePage() && (
     config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc
   )
 
-  // Hooks for styling
-  document.body.classList.toggle('Explore', isOnExplorePage())
-  document.body.classList.toggle('HideSidebar', shouldHideSidebar())
-  document.body.classList.toggle('Profile', isOnProfilePage())
-  document.body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
-  document.body.classList.toggle('ShowFirstSidebarItem', shouldShowFirstSidebarItem())
+  if (isOnMainTimelinePage()) {
+    shouldObserveTimeline = (
+      config.retweets != 'ignore' ||
+      config.quoteTweets != 'ignore' ||
+      config.verifiedAccounts != 'ignore' ||
+      config.hideWhoToFollowEtc ||
+      (currentMainTimelineType == getString('HOME') && (
+        config.likedTweets != 'ignore' ||
+        config.repliedToTweets != 'ignore'
+      ))
+    )
 
-  // "Which version of the home timeline are we on?" hooks for styling
-  document.body.classList.toggle('Home', currentPage == getString('HOME'))
-  document.body.classList.toggle('LatestTweets', currentPage == getString('LATEST_TWEETS'))
-  document.body.classList.toggle('SeparatedTweets', currentPage == separatedTweetsTimelineTitle)
-
-  if (isOnHomeTimeline()) {
-    if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
+    if (shouldObserveTimeline && (config.retweets == 'separate' || config.quoteTweets == 'separate')) {
       addSeparatedTweetsTimelineControl(currentPage)
     }
-
-    shouldObserveTimeline = (
-      config.retweets != 'ignore' || config.quoteTweets != 'ignore' || config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc
-    )
   } else if (mobile) {
     removeMobileTimelineHeaderElements()
   }
@@ -1591,6 +1643,18 @@ function setTitle(page) {
 }
 
 /**
+ * @param {import("./types").AlgorithmicTweetsConfig} config
+ * @param {string} page
+ * @returns {boolean}
+ */
+ function shouldHideAlgorithmicTweet(config, page) {
+  switch (config) {
+    case 'hide': return true
+    case 'ignore': return page == separatedTweetsTimelineTitle
+  }
+}
+
+/**
  * @param {import("./types").SharedTweetsConfig} config
  * @param {string} page
  * @returns {boolean}
@@ -1610,8 +1674,10 @@ function setTitle(page) {
  */
 function shouldHideTimelineItem(type, page) {
   switch (type) {
-    case 'RETWEET': return shouldHideSharedTweet(config.retweets, page)
+    case 'LIKED': return shouldHideAlgorithmicTweet(config.likedTweets, page)
     case 'QUOTE_TWEET': return shouldHideSharedTweet(config.quoteTweets, page)
+    case 'REPLIED': return shouldHideAlgorithmicTweet(config.repliedToTweets, page)
+    case 'RETWEET': return shouldHideSharedTweet(config.retweets, page)
     case 'TWEET': return page == separatedTweetsTimelineTitle
     default: return true
   }
@@ -1620,7 +1686,8 @@ function shouldHideTimelineItem(type, page) {
 async function switchToLatestTweets(page) {
   log('switching to Latest Tweets timeline')
 
-  let $switchButton = await getElement(`${Selectors.PRIMARY_COLUMN} [role="button"]`, {
+  let contextSelector = mobile ? 'header div:nth-of-type(3)' : Selectors.PRIMARY_COLUMN
+  let $switchButton = await getElement(`${contextSelector} [role="button"]`, {
     name: 'sparkle button',
     stopIf: pageIsNot(page),
   })
@@ -1716,8 +1783,8 @@ async function tweakQuoteTweetsPage() {
 
 //#region Main
 function main() {
-  log({lang, platform: mobile ? 'mobile' : 'desktop', config})
-  configureSeparatedTweetsTimeline()
+  log({config, lang, platform: mobile ? 'mobile' : 'desktop'})
+  configureSeparatedTweetsTimelineTitle()
   addStaticCss()
   observeFontSize()
   observeBackgroundColor()
@@ -1726,7 +1793,7 @@ function main() {
   observeTitle()
 }
 
-if (typeof chrome != 'undefined' && typeof chrome.storage != 'undefined') {
+if (typeof GM == 'undefined') {
   chrome.storage.local.get((storedConfig) => {
     Object.assign(config, storedConfig)
     main()
