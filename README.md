@@ -2,7 +2,7 @@
 
 ![](icons/icon128.png)
 
-**Tweak New Twitter is a browser extension which reduces algorithmic content on Twitter, hides trends, lets you control which shared tweets appear on your timeline, and adds other UI improvements**
+**Tweak New Twitter is a browser extension which removes algorithmic content from Twitter, hides news and trends, lets you control which shared tweets appear on your timeline, and adds other UI improvements**
 
 ## Install
 

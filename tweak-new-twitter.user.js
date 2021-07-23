@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Tweak New Twitter
-// @description Reduce algorithmic content on Twitter, hide trends, control which shared tweets appear on your timeline, and improve the UI
+// @description Remove algorithmic content from Twitter, hide news & trends, control which shared tweets appear on your timeline, and improve the UI
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
