@@ -1281,8 +1281,8 @@ function getTweetType($tweet) {
   if ($tweet.previousElementSibling?.querySelector('[data-testid="socialContext"]')) {
     if (!config.alwaysUseLatestTweets && currentMainTimelineType == getString('HOME')) {
       let svgPath = $tweet.previousElementSibling.querySelector('svg path')?.getAttribute('d') ?? ''
-      if (svgPath.startsWith('M12')) return 'LIKED'
-      if (svgPath.startsWith('M14')) return 'REPLIED'
+      if (svgPath.startsWith('M12 21.638h-.014C9.403 21.59')) return 'LIKED'
+      if (svgPath.startsWith('MM14.046 2.242l-4.148-.01h-.')) return 'REPLIED'
       // Retweet is M23, but we want it to be the fallback if these SVGs are changed
     }
     return 'RETWEET'
