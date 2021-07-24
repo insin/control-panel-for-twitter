@@ -30,7 +30,6 @@ const config = {
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
   hideListsNav: true,
-  hideMetrics: false,
   hideMomentsNav: true,
   hideMoreTweets: true,
   hideNewslettersNav: true,
@@ -44,6 +43,9 @@ const config = {
   repliedToTweets: 'hide',
   retweets: 'separate',
   tweakQuoteTweetsPage: true,
+  // Experiments
+  hideMetrics: false,
+  reducedInteractionMode: false,
   verifiedAccounts: 'ignore',
   // Desktop only
   hideAccountSwitcher: true,
@@ -533,7 +535,7 @@ const Selectors = {
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: 'div[data-testid="tweet"]',
-  VERIFIED_TICK: `div[data-testid="tweet"] > div:nth-of-type(2) > div:first-child a svg`,
+  VERIFIED_TICK: 'svg path[d^="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47"]',
 }
 
 /** @enum {string} */
@@ -564,8 +566,8 @@ let currentPage = ''
 /** Current `location.pathname` */
 let currentPath = ''
 
-/** `true` when a Home/Latest Tweets heading or Home nav link is clicked */
-let homeLinkClicked = false
+/** Set to `true` when a Home/Latest Tweets heading or Home nav link is used */
+let homeNavigationIsBeingUsed = false
 
 /** Cache for the last page title which was used for the main timeline */
 let lastMainTimelineTitle = null
@@ -650,6 +652,17 @@ function addStyle(css) {
   $style.textContent = css
   document.head.appendChild($style)
   return $style
+}
+
+/**
+ * @param {string} str
+ * @return {string}
+ */
+ function dedent(str) {
+  str = str.replace(/^[ \t]*\r?\n/, '')
+  let indent = /^[ \t]+/m.exec(str)
+  if (indent) str = str.replace(new RegExp('^' + indent[0], 'gm'), '')
+  return str.replace(/(\r?\n)[ \t]+$/, '$1')
 }
 
 /**
@@ -1016,13 +1029,13 @@ async function addSeparatedTweetsTimelineControl(page) {
     // Go back to the main timeline when the Latest Tweets / Home heading is clicked
     $timelineTitle.parentElement.addEventListener('click', () => {
       if (!document.title.startsWith(currentMainTimelineType)) {
-        homeLinkClicked = true
+        homeNavigationIsBeingUsed = true
         setTitle(currentMainTimelineType)
       }
     })
     // Go back to the main timeline when the Home nav link is clicked
     document.querySelector(Selectors.NAV_HOME_LINK).addEventListener('click', () => {
-      homeLinkClicked = true
+      homeNavigationIsBeingUsed = true
       if (location.pathname == '/home' && !document.title.startsWith(currentMainTimelineType)) {
         setTitle(currentMainTimelineType)
       }
@@ -1091,8 +1104,8 @@ function addStaticCss() {
   if (config.alwaysUseLatestTweets) {
     hideCssSelectors.push(mobile
       ? 'body.MainTimeline header div:nth-of-type(3)'
-      : `body.MainTimeline ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type div:nth-of-type(3)
-    `)
+      : `body.MainTimeline ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type div:nth-of-type(3)`
+    )
   }
   if (config.hideAnalyticsNav) {
     hideCssSelectors.push('div[role="dialog"] a[href*="analytics.twitter.com"]')
@@ -1122,10 +1135,12 @@ function addStaticCss() {
       // Metrics under timeline-style tweets
       '[data-testid="tweet"] [role="group"] span:only-child { visibility: hidden; }',
       // Fix display of whitespace after hidden metrics
-     `body.Tweet a:is([href$="/retweets"], [href$="/retweets/with_comments"], [href$="/likes"]),
-      :is(#layers, body.Profile) a:is([href$="/following"], [href$="/followers"]) {
-        white-space: pre-line;
-      }`,
+      `
+        body.Tweet a:is([href$="/retweets"], [href$="/retweets/with_comments"], [href$="/likes"]),
+        :is(#layers, body.Profile) a:is([href$="/following"], [href$="/followers"]) {
+          white-space: pre-line;
+        }
+      `,
     )
   }
   if (config.hideMomentsNav) {
@@ -1147,6 +1162,13 @@ function addStaticCss() {
   }
   if (config.hideTwitterAdsNav) {
     hideCssSelectors.push('div[role="dialog"] a[href*="ads.twitter.com"]')
+  }
+  if (config.reducedInteractionMode) {
+    hideCssSelectors.push(
+      '[data-testid="tweet"] [role="group"]',
+      'body.Tweet a:is([href$="/retweets"], [href$="/likes"])',
+      'body.Tweet [data-testid="tweet"] + div > [role="group"]',
+    )
   }
   if (config.tweakQuoteTweetsPage) {
     // Hide the quoted tweet, which is repeated in every quote tweet
@@ -1235,10 +1257,14 @@ function addStaticCss() {
   }
 
   if (hideCssSelectors.length > 0) {
-    cssRules.push(`${hideCssSelectors.join(', ')} { display: none !important; }`)
+    cssRules.push(`
+      ${hideCssSelectors.join(',\n')} {
+        display: none !important;
+      }
+    `)
   }
   if (cssRules.length > 0) {
-    addStyle(cssRules.join('\n'))
+    addStyle(cssRules.map(dedent).join('\n'))
   }
 }
 
@@ -1461,18 +1487,14 @@ function onTitleChange(title) {
     title = title.replace(TITLE_NOTIFICATION_RE, '')
   }
 
-  let homeLinkWasClicked = homeLinkClicked
-  homeLinkClicked = false
+  let homeNavigationWasUsed = homeNavigationIsBeingUsed
+  homeNavigationIsBeingUsed = false
 
   if (title == getString('TWITTER')) {
     // Mobile uses "Twitter" when viewing a photo - we need to let these process
     // so the next page will be re-processed when the photo is closed.
     if (mobile && URL_PHOTO_RE.test(location.pathname)) {
       log('viewing a photo on mobile')
-      if (isOnMainTimelinePage()) {
-        log('caching main timeline title')
-        lastMainTimelineTitle = currentPage
-      }
 		}
     // Ignore Flash of Uninitialised Title when navigating to a page for the
     // first time.
@@ -1492,23 +1514,12 @@ function onTitleChange(title) {
     return
   }
 
-  // Restore the cached main timeline title when returning from viewing media
-  // on mobile.
-  if (mobile &&
-      URL_PHOTO_RE.test(currentPath) &&
-      location.pathname == '/home' &&
-      lastMainTimelineTitle != null) {
-    log('restoring last main timeline title')
-    newPage = lastMainTimelineTitle
-    lastMainTimelineTitle = null
-  }
-
   // On desktop, stay on the separated tweets timeline when…
   if (desktop && currentPage == separatedTweetsTimelineTitle &&
       // …the title has changed back to the main timeline…
       (newPage == getString('LATEST_TWEETS') || newPage == getString('HOME')) &&
       // …the Home nav link or Latest Tweets / Home header _wasn't_ clicked and…
-      !homeLinkWasClicked &&
+      !homeNavigationWasUsed &&
       (
         // …the user viewed a photo.
         URL_PHOTO_RE.test(location.pathname) ||
@@ -1536,6 +1547,20 @@ function onTitleChange(title) {
     return
   }
 
+  // Restore display of the separated tweets timelne if it's the last one we
+  // saw, and the user navigated back home without using the Home navigation
+  // item.
+  if (location.pathname == PagePaths.HOME &&
+      currentPath != PagePaths.HOME &&
+      !homeNavigationWasUsed &&
+      lastMainTimelineTitle == separatedTweetsTimelineTitle) {
+    log('restoring display of the separated tweets timeline')
+    currentNotificationCount = notificationCount
+    currentPath = location.pathname
+    setTitle(separatedTweetsTimelineTitle)
+    return
+  }
+
   // Assumption: all non-FOUT, non-duplicate title changes are navigation, which
   // need the page to be re-processed.
 
@@ -1543,8 +1568,11 @@ function onTitleChange(title) {
   currentNotificationCount = notificationCount
   currentPath = location.pathname
 
-  if (currentPage == getString('LATEST_TWEETS') || currentPage == getString('HOME')) {
+  if (isOnLatestTweetsTimeline() || isOnHomeTimeline()) {
     currentMainTimelineType = currentPage
+  }
+  if (isOnMainTimelinePage()) {
+    lastMainTimelineTitle = currentPage
   }
 
   log('processing new page')

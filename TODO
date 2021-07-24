@@ -21,6 +21,7 @@ New features:
     "It's disrespectful or offensive" (Under "It's abusive or harmful")
   ☐ RegExp or simple pattern-based mute @created(Thu 2021-07-22 18:49)
     For when the next snowclone outstays its welcome
+  ☐ Allow specific sidebar sections to be shown @created(Fri 2021-07-23 23:40)
 
 Refactoring/tech debt:
   ☐ Use the current URL when possible, rather than the page title @created(Tue 2021-07-20 15:44)

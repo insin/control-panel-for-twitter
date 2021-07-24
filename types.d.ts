@@ -19,6 +19,7 @@ export type Config = {
   hideWhoToFollowEtc: boolean
   likedTweets: AlgorithmicTweetsConfig
   quoteTweets: SharedTweetsConfig
+  reducedInteractionMode: boolean
   repliedToTweets: AlgorithmicTweetsConfig
   retweets: SharedTweetsConfig
   tweakQuoteTweetsPage: boolean

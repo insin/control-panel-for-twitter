@@ -15,14 +15,13 @@ const checkboxGroups = new Map(Object.entries({
   uiImprovements: [
     'addAddMutedWordMenuItem',
     'fastBlock',
-    'hideMetrics',
-    'hideShareTweetButton',
-    'hideTweetAnalyticsLinks',
     'tweakQuoteTweetsPage',
     desktop && 'navBaseFontSize',
     mobile && 'hideAppNags',
   ].filter(Boolean),
-  hideNavigationItems: [
+  hideUnusedUiItems: [
+    'hideShareTweetButton',
+    'hideTweetAnalyticsLinks',
     desktop && 'hideAccountSwitcher',
     desktop && 'hideBookmarksNav',
     desktop && 'hideExploreNav',
@@ -55,7 +54,6 @@ chrome.storage.local.get((storedConfig) => {
     hideAnalyticsNav: true,
     hideBookmarksNav: true,
     hideListsNav: true,
-    hideMetrics: false,
     hideMomentsNav: true,
     hideMoreTweets: true,
     hideNewslettersNav: true,
@@ -69,6 +67,9 @@ chrome.storage.local.get((storedConfig) => {
     quoteTweets: 'ignore',
     retweets: 'separate',
     tweakQuoteTweetsPage: true,
+    // Experiments
+    hideMetrics: false,
+    reducedInteractionMode: false,
     verifiedAccounts: 'ignore',
     // Desktop only
     hideAccountSwitcher: true,

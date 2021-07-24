@@ -39,10 +39,11 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 
 ### Reduce algorithmic content
 
-- Keeps you on the "Latest Tweets" (chronological) timeline, automatically switching you back if Twitter tries to move you to the "Home" (algorithmic) timeline
+- Keeps you on the Latest Tweets (chronological) timeline, automatically switching you back if Twitter tries to move you to the "Home" (algorithmic) timeline
 - Hide "Who to follow", "Follow some Topics" etc. in the timeline
-- Hide "What's happening", "Topics to follow" etc. in the sidebar on desktop
+- Hide "What's happening", "Topics to follow" etc. in the sidebar
 - Hide "More Tweets" when linked to a tweet
+- Hide algorithmic tweets based on likes and replies in the "Home" timeline, if you use it
 - Hide Explore page contents on mobile and use it only for searching
 
 ### Control which tweets shared by people you follow appear on your timeline
@@ -52,14 +53,25 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 
 ### UI improvements
 
+- Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
 - Fast blocking - skips the confirm dialog when you try to block an account
 - Add a new item to the "More" menu (desktop) or slide-out menu (mobile) which takes you straight to the "Add muted word" page
 - When viewing a tweet's Quote Tweets, pin the quoted tweet (desktop) or hide duplication of it in every tweet (mobile)
 - Hide "Open app", "Switch to the app" etc. nags on mobile
-- Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
+
+### Hide UI items you don't use
+
 - Hide navigation items you don't use on desktop, and other distracting screen elements such as the account switcher and Messages drawer
 - Hide the bottom nav item for Messages on mobile if you don't use it
 - Hide items you don't use in the "More" menu (desktop) or slide-out menu (mobile)
+
+### Experiments
+
+Optional features you can try, to see how they change how you perceive and use Twitter:
+
+- Hide metrics: hide like, retweet, quote tweet and follower counts
+- Reduced interaction mode: hide the action bar under tweets – replies are now the only means of interacting
+- Verified accounts: highlight tweets by – or interacting with – verified accounts, or hide them to simulate the aftermath of the [July 2020 Twitter hacks](https://en.wikipedia.org/wiki/2020_Twitter_account_hijacking)
 
 ## Screenshots
 
@@ -67,7 +79,7 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 
 | Desktop | Mobile |
 | - | - |
-| ![Screenshot of a desktop Twitter home timeline without retweets, algorithmic timeline content, or sidebar content, with fewer navigation items and a less distracting navigation font style](screenshots/timeline.png) | ![Screenshot of a mobile Twitter home timeline without retweets, algorithmic timeline content](screenshots/firefox_android_timeline.jpg) |
+| ![Screenshot of a desktop Twitter home timeline without Retweets, algorithmic timeline content, or sidebar content, with fewer navigation items and a less distracting navigation font style](screenshots/timeline.png) | ![Screenshot of a mobile Twitter home timeline without Retweets, algorithmic timeline content](screenshots/firefox_android_timeline.jpg) |
 
 ### Separate timeline for Retweets (default setting) and/or Quote Tweets
 
@@ -106,7 +118,6 @@ As of v2.2, all 48 of the display languages available on Twitter are supported, 
 | Gaeilge (Irish) | 日本語 (Japanese) | العربية (Arabic) |
 | - | - | - |
 | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, as Gaeilge](screenshots/irish.png) | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, in Japanese](screenshots/japanese.png) | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, in Arabic](screenshots/arabic.png) |
-
 
 ## Attribution
 

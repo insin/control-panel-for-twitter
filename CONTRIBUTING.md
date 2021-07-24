@@ -104,3 +104,15 @@ Tweak New Twitter is distributed as a browser extension and as a user script, so
 Tweak New Twitter is written in regular JavaScript, leveraging TypeScript's support for [type checking JavaScript files](https://www.typescriptlang.org/docs/handbook/type-checking-javascript-files.html) with [type annotations provided via JSDoc](https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html), and [VS Code](https://code.visualstudio.com/)'s support for using its built-in TypeScript tooling in regular JavaScript, configured via `jsconfig.json`.
 
 > Type checking should work out of the box if you use VS Code - if it doesn't, use the **Preference: Open Settings (JSON)** command in the Command Palette and check your global preferences for any config changes which might affect this.
+
+## Common development issues
+
+**You're making a change to how timeline elements are handled, you've tripled checked your changes for logic bugs, _and_ you've added logging which says your change is doing what it should do, so why is it not working?**
+
+You're running 2 versions of Tweak New Twitter at the same time - the one you're developing, and an older version you already have installed.
+
+If you're testing a quick change in a user script manager on desktop, check you don't have the extension version enabled.
+
+If you're running a development version on Firefox Nightly and also have the extension installed for personal use, make sure the one installed from Mozilla Add-ons is disabled while developing.
+
+Easy check: open up the "More" menu (desktop) or the slide-out menu (mobile) - if "Add muted word" is on there twice, you're definitely running 2 versions.

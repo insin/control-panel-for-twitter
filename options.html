@@ -51,47 +51,55 @@
       margin-bottom: 12px;
     }
 
-    section.group > section > label {
+    section.group > section > * {
       color: rgb(95, 99, 104);
       padding-left: 0;
     }
 
+    section.group > section > p {
+      margin: 0 60px 12px 0;
+      font-size: 12px;
+    }
+
+    /* Firefox overrides */
     @-moz-document url-prefix() {
       body {
         font-family: inherit;
         font-size: 15px;
       }
       section:not(:first-of-type) {
-        border-top: 1px solid #d7d7db;
+        border-color: #d7d7db;
       }
-      section.group > section > label {
+      section.group > section > * {
         color: rgb(91, 91, 102);
-        padding-left: 0;
+      }
+      section.group > section > p {
+        font-size: 14px;
       }
     }
 
+    /* Dark mode overrides */
     @media (prefers-color-scheme: dark) {
       body {
         background-color: #292a2d;
         color: #e8eaed;
       }
-
       section:not(:first-of-type) {
-        border-top: 1px solid #3f4042;
+        border-color: #3f4042;
       }
-
-      section.group > section > label {
+      section.group > section > * {
         color: rgb(154, 160, 166);
       }
 
+      /* Firefox dark mode overrides */
       @-moz-document url-prefix() {
         body {
           background-color: #23222b;
         }
         section:not(:first-of-type) {
-          border-top: 1px solid #4e4d54;
+          border-color: #4e4d54;
         }
-        section.group > section > label {
+        section.group > section > * {
           color: rgb(191, 191, 201);
         }
       }
@@ -197,30 +205,6 @@
       </section>
       <section class="checkbox">
         <label>
-          Hide metrics
-          <input type="checkbox" name="hideMetrics">
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          Hide share button under tweets
-          <input type="checkbox" name="hideShareTweetButton">
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          Hide analytics links under your own tweets
-          <input type="checkbox" name="hideTweetAnalyticsLinks">
-        </label>
-      </section>
-      <section class="checkbox mobile">
-        <label>
-          Hide "Open app", "Switch to the app" etc. nags
-          <input type="checkbox" name="hideAppNags">
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
           Fast blocking (skips confirm dialog)
           <input type="checkbox" name="fastBlock">
         </label>
@@ -239,11 +223,17 @@
           <input type="checkbox" name="tweakQuoteTweetsPage">
         </label>
       </section>
+      <section class="checkbox mobile">
+        <label>
+          Hide "Open app", "Switch to the app" etc. nags
+          <input type="checkbox" name="hideAppNags">
+        </label>
+      </section>
     </section>
     <section class="group">
       <label class="checkbox">
-        Hide navigation items you don't use
-        <input type="checkbox" name="hideNavigationItems">
+        Hide UI items you don't use
+        <input type="checkbox" name="hideUnusedUiItems">
       </label>
       <section class="checkbox desktop">
         <label>
@@ -259,26 +249,38 @@
       </section>
       <section class="checkbox desktop">
         <label>
-          Explore
+          Explore (navigation item)
           <input type="checkbox" name="hideExploreNav">
         </label>
       </section>
       <section class="checkbox desktop">
         <label>
-          Bookmarks
+          Bookmarks (navigation item)
           <input type="checkbox" name="hideBookmarksNav">
         </label>
       </section>
       <section class="checkbox desktop">
         <label>
-          Lists
+          Lists (navigation item)
           <input type="checkbox" name="hideListsNav">
         </label>
       </section>
       <section class="checkbox mobile">
         <label>
-          Messages (bottom navigation item)
+          Messages (navigation item)
           <input type="checkbox" name="hideMessagesBottomNavItem">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Share button under tweets
+          <input type="checkbox" name="hideShareTweetButton">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Analytics links under your own tweets
+          <input type="checkbox" name="hideTweetAnalyticsLinks">
         </label>
       </section>
     </section>
@@ -331,15 +333,40 @@
         </label>
       </section>
     </section>
-    <section class="select">
-      <label>
-        Verified accounts
-        <select name="verifiedAccounts">
-          <option value="ignore">Do nothing</option>
-          <option value="hide">Hide</option>
-          <option value="highlight">Highlight</option>
-        </select>
-      </label>
+    <section class="group">
+      <label>Experiments</label>
+      <section class="checkbox">
+        <label>
+          Hide metrics
+          <input type="checkbox" name="hideMetrics">
+        </label>
+        <p>
+          Hide like, retweet, quote tweet and follower counts
+        </p>
+      </section>
+      <section class="checkbox">
+        <label>
+          Reduced interaction mode
+          <input type="checkbox" name="reducedInteractionMode">
+        </label>
+        <p>
+          Hide the action bar under tweets &ndash; replies are now the only means of interacting
+        </p>
+      </section>
+      <section class="select">
+        <label>
+          Verified accounts
+          <select name="verifiedAccounts">
+            <option value="ignore">Do nothing</option>
+            <option value="hide">Hide</option>
+            <option value="highlight">Highlight</option>
+          </select>
+        </label>
+        <p>
+          Highlight tweets by &ndash; or interacting with &ndash; verified accounts, or hide them to
+          simulate the aftermath of the July 2020 Twitter hacks
+        </p>
+      </section>
     </section>
   </form>
   <script src="options.js"></script>
