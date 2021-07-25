@@ -8,7 +8,6 @@ export type Config = {
   hideAnalyticsNav: boolean
   hideBookmarksNav: boolean
   hideListsNav: boolean
-  hideMetrics: boolean
   hideMomentsNav: boolean
   hideMoreTweets: boolean
   hideNewslettersNav: boolean
@@ -19,10 +18,12 @@ export type Config = {
   hideWhoToFollowEtc: boolean
   likedTweets: AlgorithmicTweetsConfig
   quoteTweets: SharedTweetsConfig
-  reducedInteractionMode: boolean
   repliedToTweets: AlgorithmicTweetsConfig
   retweets: SharedTweetsConfig
   tweakQuoteTweetsPage: boolean
+  // Experiments
+  hideMetrics: boolean
+  reducedInteractionMode: boolean
   verifiedAccounts: VerifiedAccountsConfig
   // Desktop only
   hideAccountSwitcher: boolean
@@ -37,7 +38,7 @@ export type Config = {
 }
 
 export type Locale = {
-  [key in LocaleKey]?:string
+  [key in LocaleKey]?: string
 }
 
 export type LocaleKey =

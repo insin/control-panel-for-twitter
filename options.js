@@ -63,8 +63,8 @@ chrome.storage.local.get((storedConfig) => {
     hideTwitterAdsNav: true,
     hideWhoToFollowEtc: true,
     likedTweets: 'hide',
-    repliedToTweets: 'hide',
     quoteTweets: 'ignore',
+    repliedToTweets: 'hide',
     retweets: 'separate',
     tweakQuoteTweetsPage: true,
     // Experiments
