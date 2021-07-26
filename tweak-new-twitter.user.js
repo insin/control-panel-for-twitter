@@ -519,6 +519,7 @@ const PagePaths = {
   CONNECT: '/i/connect',
   HOME: '/home',
   NOTIFICATION_TIMELINE: '/i/timeline',
+  PROFILE_SETTINGS: '/settings/profile',
   SEARCH: '/search',
 }
 
@@ -546,7 +547,9 @@ const Svgs = {
 }
 
 const MOBILE_LOGGED_OUT_URLS = ['/', '/login', '/i/flow/signup']
-const PROFILE_TITLE_RE = /\(@[a-z\d_]{1,15}\)$/i
+const PROFILE_TABS_URL_RE = /^\([a-zA-Z\d_]{1,15}\)\/(with_replies|media|likes)\/?$/
+// https://twitter.com/username's title ends with (@username)
+const PROFILE_TITLE_RE = /\(@[a-zA-Z\d_]{1,15}\)$/
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_PHOTO_RE = /photo\/\d$/
 const URL_TWEET_ID_RE = /\/status\/(\d+)$/
@@ -621,7 +624,7 @@ function isOnNotificationsPage() {
 }
 
 function isOnProfilePage() {
-  return PROFILE_TITLE_RE.test(currentPage)
+  return PROFILE_TITLE_RE.test(currentPage) || PROFILE_TABS_URL_RE.test(currentPath)
 }
 
 function isOnQuoteTweetsPage() {
@@ -1163,6 +1166,9 @@ function addStaticCss() {
   if (config.hideTwitterAdsNav) {
     hideCssSelectors.push('div[role="dialog"] a[href*="ads.twitter.com"]')
   }
+  if (config.hideWhoToFollowEtc) {
+    hideCssSelectors.push(`body.Profile ${Selectors.PRIMARY_COLUMN} aside[role="complementary"]`)
+  }
   if (config.reducedInteractionMode) {
     hideCssSelectors.push(
       '[data-testid="tweet"] [role="group"]',
@@ -1186,11 +1192,12 @@ function addStaticCss() {
     }
     if (config.hideSidebarContent) {
       // Only show the first sidebar item by default
+      // Re-show subsesquent non-algorithmic sections on specific pages
       cssRules.push(`
         ${Selectors.SIDEBAR_WRAPPERS} > div:not(:first-of-type) {
           display: none;
         }
-        body.Profile ${Selectors.SIDEBAR_WRAPPERS} > div:is(:nth-of-type(2), :nth-of-type(3)) {
+        body.Profile:not(.Blocked) ${Selectors.SIDEBAR_WRAPPERS} > div:is(:nth-of-type(2), :nth-of-type(3)) {
           display: block;
         }
       `)
@@ -1600,6 +1607,9 @@ function processCurrentPage() {
   $body.classList.toggle('HideSidebar', shouldHideSidebar())
   $body.classList.toggle('MainTimeline', isOnMainTimelinePage())
   $body.classList.toggle('Profile', isOnProfilePage())
+  if (!isOnProfilePage()) {
+    $body.classList.remove('Blocked')
+  }
   $body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
   $body.classList.toggle('Tweet', isOnIndividualTweetPage())
 
@@ -1637,6 +1647,10 @@ function processCurrentPage() {
 
   if (isOnIndividualTweetPage()) {
     tweakIndividualTweetPage()
+  }
+
+  if (config.hideSidebarContent && isOnProfilePage()) {
+    tweakProfilePage(currentPage)
   }
 
   if (config.tweakQuoteTweetsPage && isOnQuoteTweetsPage()) {
@@ -1779,6 +1793,28 @@ async function tweakIndividualTweetPage() {
       hideMoreTweetsSection(currentPath)
     }
   }
+}
+
+async function tweakProfilePage(currentPage) {
+  let $buttonContainer = await getElement(`[data-testid="userActions"] ~ [data-testid="placementTracking"], a[href="${PagePaths.PROFILE_SETTINGS}"]`, {
+    name: 'Follow / Unblock button container or Edit profile button',
+    stopIf: pageIsNot(currentPage),
+  })
+  if ($buttonContainer == null) return
+
+  if ($buttonContainer.hasAttribute('href')) {
+    log('on own profile page')
+    $body.classList.remove('Blocked')
+    return
+  }
+
+  log('observing Follow / Unblock button container for blocked status changes')
+  pageObservers.push(
+    observeElement($buttonContainer, () => {
+      let isBlocked = (/** @type {HTMLElement} */ ($buttonContainer.querySelector('[role="button"]'))?.dataset.testid ?? '').endsWith('unblock')
+      $body.classList.toggle('Blocked', isBlocked)
+    })
+  )
 }
 
 async function tweakQuoteTweetsPage() {

@@ -1,8 +1,4 @@
 Yak stack:
-  ☐ Fast blocking accidentally works for fast unblocking when you do it via the menu @created(Thu 2021-07-22 13:02)
-    This is ok, I guess?
-  ☐ If you view a blocked person's profile page, you'll see "You might like" suggestions @created(Thu 2021-07-22 12:58)
-    Add a Blocked class and use it to hide everything but search in the sidebar
   ☐ The page sometimes isn't processed after fast unblocking someone on their profile page, or with the Unblock button + confirm popup @created(Thu 2021-07-22 13:00)
 
 New features:
@@ -22,13 +18,53 @@ New features:
   ☐ RegExp or simple pattern-based mute @created(Thu 2021-07-22 18:49)
     For when the next snowclone outstays its welcome
   ☐ Allow specific sidebar sections to be shown @created(Fri 2021-07-23 23:40)
+    Home:
+    Notifications:
+    Bookmarks:
+    Lists:
+    what's happening - 3
+    who to follow - 4
+    topics to follow - 5
+
+    Tweet:
+    relevant people - 3
+    what's happening - 4
+
+    Quote Tweets:
+    what's happening - 3
+    topics to follow - 4
+
+    Profile (with media):
+    You might like - 4
+    what's happening - 5
+    topics to follow - 6
+
+    Profile (of someone who's never tweeted any media):
+    You might like - 3
+    what's happening - 4
+    topics to follow - 5
+
+    Connect:
+    what's happening - 3
+    topics to follow - 4
+
+    Explore:
+    who to follow - 1
+    topics to follow - 2
+
+    Topics:
+    what's happening - 3
+    who to follow - 4
+
+    Search:
+    what's happening - 2
+    who to follow - 3
+    topics to follow - 4
+
+    Follows:
+    what's happening - 2
 
 Refactoring/tech debt:
-  ☐ Use the current URL when possible, rather than the page title @created(Tue 2021-07-20 15:44)
-    The title is used everywhere as the first tweak was implementing the separate tweets timeline,
-    which doesn't change the URL.
-
-    Using the URL will also make more features Just Work for non-English languages
   ☐ Create a Tweet object which encapsulates finding things out about a tweet Element in the timeline @created(Tue 2021-07-20 15:41)
     <div style="position: absolute; width: 100%; transform: translateY(1234px);">    Timeline container
       <div><div><article><div><div>                                                  Wrrrraaapppiiinng
