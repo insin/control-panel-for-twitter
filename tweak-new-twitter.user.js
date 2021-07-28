@@ -572,7 +572,10 @@ let currentPath = ''
 /** Set to `true` when a Home/Latest Tweets heading or Home nav link is used */
 let homeNavigationIsBeingUsed = false
 
-/** Cache for the last page title which was used for the main timeline */
+/**
+ * Cache for the last page title which was used for the main timeline.
+ * @type {string}
+ */
 let lastMainTimelineTitle = null
 
 /**
@@ -582,8 +585,11 @@ let lastMainTimelineTitle = null
  */
 let pageObservers = []
 
-// Config for the fake timeline used to separate out retweets and quote tweets
-let separatedTweetsTimelineTitle = ''
+/**
+ * Title for the fake timeline used to separate out retweets and quote tweets.
+ * @type {string}
+ */
+let separatedTweetsTimelineTitle = null
 
 function configureSeparatedTweetsTimelineTitle() {
   if (config.retweets == 'separate' && config.quoteTweets == 'separate') {
@@ -661,7 +667,7 @@ function addStyle(css) {
  * @param {string} str
  * @return {string}
  */
- function dedent(str) {
+function dedent(str) {
   str = str.replace(/^[ \t]*\r?\n/, '')
   let indent = /^[ \t]+/m.exec(str)
   if (indent) str = str.replace(new RegExp('^' + indent[0], 'gm'), '')
