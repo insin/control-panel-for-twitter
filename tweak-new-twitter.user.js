@@ -37,6 +37,7 @@ const config = {
   hideTopicsNav: true,
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
+  hideUnavailableQuoteTweets: true,
   hideWhoToFollowEtc: true,
   likedTweets: 'hide',
   quoteTweets: 'ignore',
@@ -1300,10 +1301,14 @@ function getTweetType($tweet) {
     }
     return 'RETWEET'
   }
-  if ($tweet.querySelector('div[id^="id__"] > div[dir="auto"] > span')?.textContent.includes(getString('QUOTE_TWEET')) ||
-      // QTs of accounts you blocked are displayed as a nested <article> with "This Tweet is unavailable."
-      $tweet.querySelector('article')) {
+  // Quoted tweets are preceded by visually-hidden "Quote Tweet" text
+  if ($tweet.querySelector('div[id^="id__"] > div[dir="auto"] > span')?.textContent.includes(getString('QUOTE_TWEET'))) {
     return 'QUOTE_TWEET'
+  }
+  // Quoted tweets from accounts you blocked or muted are displayed as an <article> with "This Tweet
+  // is unavailable."
+  if ($tweet.querySelector('article')) {
+    return 'UNAVAILABLE_QUOTE_TWEET'
   }
   return 'TWEET'
 }
@@ -1722,12 +1727,20 @@ function setTitle(page) {
  */
 function shouldHideTimelineItem(type, page) {
   switch (type) {
-    case 'LIKED': return shouldHideAlgorithmicTweet(config.likedTweets, page)
-    case 'QUOTE_TWEET': return shouldHideSharedTweet(config.quoteTweets, page)
-    case 'REPLIED': return shouldHideAlgorithmicTweet(config.repliedToTweets, page)
-    case 'RETWEET': return shouldHideSharedTweet(config.retweets, page)
-    case 'TWEET': return page == separatedTweetsTimelineTitle
-    default: return true
+    case 'LIKED':
+      return shouldHideAlgorithmicTweet(config.likedTweets, page)
+    case 'QUOTE_TWEET':
+      return shouldHideSharedTweet(config.quoteTweets, page)
+    case 'REPLIED':
+      return shouldHideAlgorithmicTweet(config.repliedToTweets, page)
+    case 'RETWEET':
+      return shouldHideSharedTweet(config.retweets, page)
+    case 'TWEET':
+      return page == separatedTweetsTimelineTitle
+    case 'UNAVAILABLE_QUOTE_TWEET':
+      return config.hideUnavailableQuoteTweets || shouldHideSharedTweet(config.quoteTweets, page)
+    default:
+      return true
   }
 }
 

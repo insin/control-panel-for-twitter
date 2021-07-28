@@ -15,6 +15,7 @@ export type Config = {
   hideTopicsNav: boolean
   hideTweetAnalyticsLinks: boolean
   hideTwitterAdsNav: boolean
+  hideUnavailableQuoteTweets: boolean
   hideWhoToFollowEtc: boolean
   likedTweets: AlgorithmicTweetsConfig
   quoteTweets: SharedTweetsConfig
@@ -61,5 +62,6 @@ export type TimelineItemType =
   | 'REPLIED'
   | 'RETWEET'
   | 'TWEET'
+  | 'UNAVAILABLE_QUOTE_TWEET'
 
 export type VerifiedAccountsConfig = 'highlight' | 'hide' | 'ignore'
