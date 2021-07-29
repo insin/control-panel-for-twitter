@@ -64,6 +64,7 @@ const defaultConfig = {
   quoteTweets: 'ignore',
   repliedToTweets: 'hide',
   retweets: 'separate',
+  suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
   // Experiments
   hideMetrics: false,

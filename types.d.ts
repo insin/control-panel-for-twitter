@@ -21,6 +21,7 @@ export type Config = {
   quoteTweets: SharedTweetsConfig
   repliedToTweets: AlgorithmicTweetsConfig
   retweets: SharedTweetsConfig
+  suggestedTopicTweets: AlgorithmicTweetsConfig
   tweakQuoteTweetsPage: boolean
   // Experiments
   hideMetrics: boolean
@@ -61,6 +62,7 @@ export type TimelineItemType =
   | 'QUOTE_TWEET'
   | 'REPLIED'
   | 'RETWEET'
+  | 'SUGGESTED_TOPIC_TWEET'
   | 'TWEET'
   | 'UNAVAILABLE_QUOTE_TWEET'
 

@@ -43,6 +43,7 @@ const config = {
   quoteTweets: 'ignore',
   repliedToTweets: 'hide',
   retweets: 'separate',
+  suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
   // Experiments
   hideMetrics: false,
@@ -1295,9 +1296,12 @@ function getTweetType($tweet) {
   if ($tweet.previousElementSibling?.querySelector('[data-testid="socialContext"]')) {
     if (!config.alwaysUseLatestTweets && currentMainTimelineType == getString('HOME')) {
       let svgPath = $tweet.previousElementSibling.querySelector('svg path')?.getAttribute('d') ?? ''
-      if (svgPath.startsWith('M12 21.638h-.014C9.403 21.59')) return 'LIKED'
+      if (svgPath.startsWith('M12 21.638h-.014C9.403 21.5')) return 'LIKED'
       if (svgPath.startsWith('M14.046 2.242l-4.148-.01h-.')) return 'REPLIED'
-      // Retweet is M23, but we want it to be the fallback if these SVGs are changed
+      if (svgPath.startsWith('M18.265 3.314c-3.45-3.45-9.')) return 'SUGGESTED_TOPIC_TWEET'
+      if (!svgPath.startsWith('M23.615 15.477c-.47-.47-1.23')) {
+        log('unhandled socialContext tweet type - falling back to RETWEET', $tweet)
+      }
     }
     return 'RETWEET'
   }
@@ -1641,7 +1645,8 @@ function processCurrentPage() {
       config.hideWhoToFollowEtc ||
       (currentMainTimelineType == getString('HOME') && (
         config.likedTweets != 'ignore' ||
-        config.repliedToTweets != 'ignore'
+        config.repliedToTweets != 'ignore' ||
+        config.suggestedTopicTweets != 'ignore'
       ))
     )
 
@@ -1735,6 +1740,8 @@ function shouldHideTimelineItem(type, page) {
       return shouldHideAlgorithmicTweet(config.repliedToTweets, page)
     case 'RETWEET':
       return shouldHideSharedTweet(config.retweets, page)
+    case 'SUGGESTED_TOPIC_TWEET':
+      return shouldHideAlgorithmicTweet(config.suggestedTopicTweets, page)
     case 'TWEET':
       return page == separatedTweetsTimelineTitle
     case 'UNAVAILABLE_QUOTE_TWEET':
