@@ -43,13 +43,14 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 - Hide "Who to follow", "Follow some Topics" etc. in the timeline
 - Hide "What's happening", "Topics to follow" etc. in the sidebar
 - Hide "More Tweets" when linked to a tweet
-- Hide algorithmic tweets based on likes and replies in the "Home" timeline, if you use it
+- Hide algorithmic tweets based on likes, replies and suggested topics in the "Home" timeline, if you use it
 - Hide Explore page contents on mobile and use it only for searching
 
 ### Control which tweets shared by people you follow appear on your timeline
 
 - Move Retweets to a separate timeline (default setting), or hide them entirely
 - Move Quote Tweets and replies to them to a separate timeline, or hide them entirely (off by default)
+- Hide tweets quoting accounts you've blocked or muted
 
 ### UI improvements
 
