@@ -2,51 +2,129 @@
 
 ![](icons/icon128.png)
 
-**Stay on the Latest Tweets timeline, reduce "engagement" and tone down some of Twitter's UI**
+**Tweak New Twitter is a browser extension which removes algorithmic content from Twitter, hides news and trends, lets you control which shared tweets appear on your timeline, and adds other UI improvements**
+
+## Install
 
 * [Install Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/)
 * [Install Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/tweak-new-twitter/foccddlibbeccjiobcnakipdpkjiijjp)
 * [Install Chrome Extension](https://chrome.google.com/webstore/detail/tweak-new-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj)
 * [Install as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) (requires a [user script manager](https://greasyfork.org/en#home-step-1))
 
+### Install on Firefox Nightly for Android
+
+As of v2.0, Tweak New Twitter supports the mobile version of Twitter and is tested on Firefox for Android, but Mozilla Add-ons currently only lets you install a [small, curated list of extensions on Android](https://addons.mozilla.org/en-US/android/).
+
+For now, to use Tweak New Twitter on your Android device:
+
+- Install [Firefox for Android Nightly](https://play.google.com/store/apps/details?id=org.mozilla.fenix)
+- [Follow these instructions](https://blog.mozilla.org/addons/2020/09/29/expanded-extension-support-in-firefox-for-android-nightly/) to enable Custom Add-on collections:
+  - TL;DR: Settings → About Firefox Nightly → Tap on the Firefox logo 5 times
+- In the "Custom Add-on collection" setting which is now available, enter the following details and tap "OK":
+  - 13844640
+  - Android-Collection
+
+![Screenshot of what the custom collection to intsall Tweak New Twitter on Firefox for Android Nightly should look like when correctly configured](screenshots/install_custom_collection.png)
+
+<details>
+  <summary>
+  You'll now be able to install Tweak New Twitter via the Add-ons page.
+  </summary>
+  <img src="https://raw.githubusercontent.com/insin/tweak-new-twitter/master/screenshots/install_addons.png" alt="Screenshot of the Add-ons page in Firefox Nightly for Android setting up the Custom Add-on collection with the details above" style="max-width:100%;">
+</details>
+
+If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Install" option in Firefox Nightly's main menu, you'll have a configurable (via Firefox Nightly's Add-ons settings), user-respectful version of Twitter on your phone.
+
 ## Features
 
-_Enabled by default_
+### Reduce algorithmic content
 
-- Always use the Latest Tweets (chronological) timeline - automatically switches you back when Twitter decides they'd rather you were on the "Home" (algorithmic) timeline because "engagement"
-- Move retweets to a separate Retweets timeline, or hide them entirely
-- Hide "Who to follow" / "Follow some Topics" etc. sections in the timeline
-- Hide "More Tweets" when viewing a tweet from an external link
-- Fast blocking - skips the confirmation dialog when you try to block someone
-- Remove sidebar content (Trends, Who to follow, sidefooter)
-- Hide the Messages drawer
-- Remove some less-used links from the primary nav (Explore, Bookmarks, Links)
-- Hide the account switcher in the primary nav footer
-- Use the site's base font size and normal font weight in the primary nav to make it less distracting (using your selected font size from the Display / Customize your view dialog)
+- Keeps you on the Latest Tweets (chronological) timeline, automatically switching you back if Twitter tries to move you to the "Home" (algorithmic) timeline
+- Hide "Who to follow", "Follow some Topics" etc. in the timeline
+- Hide "What's happening", "Topics to follow" etc. in the sidebar
+- Hide "More Tweets" when linked to a tweet
+- Hide algorithmic tweets based on likes, replies and suggested topics in the "Home" timeline, if you use it
+- Hide Explore page contents on mobile and use it only for searching
 
-## Optional features
+### Control which tweets shared by people you follow appear on your timeline
 
-_Disabled by default_
+- Move Retweets to a separate timeline (default setting), or hide them entirely
+- Move Quote Tweets and replies to them to a separate timeline, or hide them entirely (off by default)
+- Hide tweets quoting accounts you've blocked or muted
 
-- Hide tweets by - or quoting - verified accounts (simulating the aftermath of the Twitter hacks in July 2020), or highlight them if you want to check how much of your timeline content is driven by verified accounts.
+### UI improvements
+
+- Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
+- Fast blocking - skips the confirm dialog when you try to block an account
+- Add a new item to the "More" menu (desktop) or slide-out menu (mobile) which takes you straight to the "Add muted word" page
+- When viewing a tweet's Quote Tweets, pin the quoted tweet (desktop) or hide duplication of it in every tweet (mobile)
+- Hide "Open app", "Switch to the app" etc. nags on mobile
+
+### Hide UI items you don't use
+
+- Hide navigation items you don't use on desktop, and other distracting screen elements such as the account switcher and Messages drawer
+- Hide the bottom nav item for Messages on mobile if you don't use it
+- Hide items you don't use in the "More" menu (desktop) or slide-out menu (mobile)
+
+### Experiments
+
+Optional features you can try, to see how they change how you perceive and use Twitter:
+
+- Hide metrics: hide like, retweet, quote tweet and follower counts
+- Reduced interaction mode: hide the action bar under tweets – replies are now the only means of interacting
+- Verified accounts: highlight tweets by – or interacting with – verified accounts, or hide them to simulate the aftermath of the [July 2020 Twitter hacks](https://en.wikipedia.org/wiki/2020_Twitter_account_hijacking)
 
 ## Screenshots
 
-Timeline view with all default tweaks:
+### Home timeline with default settings
 
-![Screenshot of a New Twitter timeline without retweets, sidebar content, nav links which can be hidden and a less distracting nav style](screenshots/timeline.png)
+| Desktop | Mobile |
+| - | - |
+| ![Screenshot of a desktop Twitter home timeline without Retweets, algorithmic timeline content, or sidebar content, with fewer navigation items and a less distracting navigation font style](screenshots/timeline.png) | ![Screenshot of a mobile Twitter home timeline without Retweets, algorithmic timeline content](screenshots/firefox_android_timeline.jpg) |
 
-The new Retweets timeline, containing retweets only:
+### Separate timeline for Retweets (default setting) and/or Quote Tweets
 
-![Screenshot of the Retweets timeline Tweak New Twitter adds to New Twitter, containing nothing but retweets](screenshots/retweets.png)
+| Desktop | Mobile |
+| - | - |
+| ![Screenshot of the separate timeline Tweak New Twitter adds to desktop Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/shared_tweets.png) | ![Screenshot of the separate timeline Tweak New Twitter adds to mobile Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/firefox_android_shared_tweets.jpg) |
 
-Chrome extension options dialog:
+### Tidied-up menus, with instant access to "Add muted word"
 
-![Screenshot of the options UI in Chrome](screenshots/chrome_options_dark.png)
+| Desktop - "More" menu | Mobile - slide-out menu |
+| - | - |
+| ![Screenshot of the "More" menu on desktop Twitter, with most of the menu items removed and a new "Add muted word" menu item](screenshots/more_menu.png) | ![Screenshot of the slide-out menu on mobile Twitter, with most of the menu items removed and a new "Add muted word" menu item](screenshots/firefox_android_menu.jpg) |
 
-Firefox extension page options:
+### Improved Quote Tweets page
 
-![Screenshot of the options UI in Firefox](screenshots/firefox_options_dark.png)
+| Desktop - quoted tweet pinned to header, duplicates under each tweet are hidden | Mobile - duplicate quoted tweet hidden, leaving more room for quotes  |
+| - | - |
+| ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on desktop, pinning the quoted tweet in the header instead of repeating it in every tweet](screenshots/quote_tweets.png) | ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on mobile, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/firefox_android_quote_tweets.jpg) |
+
+### Configurable via extension options
+
+| Chrome | Firefox | Firefox Android |
+| - | - | - |
+| ![Screenshot of the extension options dialog in Chrome](screenshots/chrome_options_dark.png) | ![Screenshot of the add-on options page in Firefox](screenshots/firefox_options_dark.png) | ![Screenshot of the add-on settings page in Firefox Android](screenshots/firefox_android_settings.jpg) |
+
+### Other mobile features
+
+| No trends on Explore screen, just search | No "Open app" nag in tweet header | No "Switch to the app" nag when logged out… | …or when logging in
+| - | - | - | - |
+| ![Screenshot of the Explore screen in mobile Twitter, with only the search part of the screen visible](screenshots/firefox_android_explore.jpg) | ![Screenshot an individual tweet in mobile Twitter, without the usual "Open app" buttoin in the header, and without the usual Messages navigation item in the bottom navigation bar](screenshots/firefox_android_tweet.jpg) | ![Screenshot of the login screen in mobile Twitter, without the usual "Twitter is better on the app" overlay](screenshots/firefox_android_no_nag_home.jpg) | ![Screenshot of the logged out home screen in mobile Twitter, without the usual "Twitter is better on the app" overlay](screenshots/firefox_android_no_nag_login.jpg) |
+
+### Experimental features
+
+| Hide metrics | Reduced interaction mode | Highlight (or hide) verified accounts |
+| - | - | - |
+| ![Sceenshot of a Twitter timeline with blank spaces where numbers for metrics should be](screenshots/hide_metrics.png) | ![Sceenshot of a Twitter timeline with the action bar below each tweet completely missing](screenshots/reduced_interaction_mode.png) | ![Sceenshot of a Twitter timeline with a tweet by a user with a verified badge highlighted](screenshots/highlight_verified_accounts.png)  |
+
+### Language support
+
+As of v2.2, all 48 of the display languages available on Twitter are supported, some examples:
+
+| Gaeilge (Irish) | 日本語 (Japanese) | العربية (Arabic) |
+| - | - | - |
+| ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, as Gaeilge](screenshots/irish.png) | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, in Japanese](screenshots/japanese.png) | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, in Arabic](screenshots/arabic.png) |
 
 ## Attribution
 

@@ -1,0 +1,95 @@
+Yak stack:
+  ☐ Handle being on the Home timeline, switching to the separated tweets timeline then enabling "Always use latest tweets" @created(Sat 2021-07-31 04:32)
+    Should use the sparkle menu to move you over to latest tweets then put you on the separated tweets timeline
+  ☐ The page sometimes isn't processed after fast unblocking someone on their profile page, or with the Unblock button + confirm popup @created(Thu 2021-07-22 13:00)
+  ☐ Promoted tweets can appear in search results @created(Sat 2021-07-31 01:06)
+
+New features:
+  ☐ Hide cards which use your muted words in their text content @created(Thu 2021-07-22 17:56)
+    Twitter doesn't do this
+
+    Simple, stupid way would be to synchronise muted words with extension storage when you visit `/settings/muted_keywords`, which already happens any time you add a new muted word
+
+    The other way would be to call the API ourselves to get the words at the start of each new session, BUT to do that we'd have to intercept the necessary credentials, which would mean adding webRequest permissions, which I'm keen to avoid
+  ☐ Hide do-nothing options in the Report Tweet flow @created(Tue 2021-07-20 18:48)
+    "I'm not interested in this tweet"
+    "It's disrespectful or offensive" (Under "It's abusive or harmful")
+  ☐ RegExp or simple pattern-based mute @created(Thu 2021-07-22 18:49)
+    For when the next snowclone outstays its welcome
+  ☐ Allow specific sidebar sections to be shown @created(Fri 2021-07-23 23:40)
+    Home:
+    Notifications:
+    Bookmarks:
+    Lists:
+    what's happening - 3
+    who to follow - 4
+    topics to follow - 5
+
+    Tweet:
+    relevant people - 3
+    what's happening - 4
+
+    Quote Tweets:
+    what's happening - 3
+    topics to follow - 4
+
+    Profile (with media):
+    You might like - 4
+    what's happening - 5
+    topics to follow - 6
+
+    Profile (of someone who's never tweeted any media):
+    You might like - 3
+    what's happening - 4
+    topics to follow - 5
+
+    Connect:
+    what's happening - 3
+    topics to follow - 4
+
+    Explore:
+    who to follow - 1
+    topics to follow - 2
+
+    Topics:
+    what's happening - 3
+    who to follow - 4
+
+    Search:
+    what's happening - 2
+    who to follow - 3
+    topics to follow - 4
+
+    Follows:
+    what's happening - 2
+
+Refactoring/tech debt:
+  ☐ Create a Tweet object which encapsulates finding things out about a tweet Element in the timeline @created(Tue 2021-07-20 15:41)
+    <div style="position: absolute; width: 100%; transform: translateY(1234px);">    Timeline container
+      <div><div><article><div><div>                                                  Wrrrraaapppiiinng
+        <div>                                                                        Tweet wrapper
+          <div>                                                                      Above-tweet
+            <div><div><div><div></div>                                                 Wrrrraaapppiiinng
+              <div>                                                                      Retweet SVG icon or short thread marker line if reply to previous tweet
+              <div>                                                                      `${username} Retweeted`
+          <div data-testid="tweet">                                                  Whole tweet content wrapper
+            <div>                                                                      Avatar (contains long thread marker line if next tweet is a reply)
+            <div>                                                                      Tweet content wrapper 1
+              <div>                                                                      Username / date / menu dots
+              <div>                                                                      Tweet content wrapper 2
+                <div class="css-a1b2c3 r-other1 r-other2">                                 "Replying to @user1 and @user2" (if tweet is a reply to others)
+                <div class="css-a1b2c3">                                                   Tweet text content (if it has any)
+                <div class="css-a1b2c3">                                                   Tweet "media" content, e.g.
+                                                                                           link info card if tweet contained a link
+                                                                                           quoted tweet if tweet is a QT
+                                                                                           images/video attached to the tweet
+                <div role="group" aria-label="12 replies, 34 likes">                       Reply / Retweet / Like / Share icons
+        <a>                                                                          "Show this thread" link (if tweet has one)
+
+    Should I hide this tweet?
+      Is the tweet a Retweet?
+        -> Does the text content of the second above-tweet content element contain 'Retweeted'?
+          -> config.retweets != 'ignore'
+      Does the tweet quote a muted/blocked account?
+        -> Is the text content of the media element 'This Tweet is unavailable.'?
+      Is the tweet a reply to a (reply to a (reply to a...)) tweet which was hidden?

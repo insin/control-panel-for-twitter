@@ -2,21 +2,29 @@
   "scripts": {
     "build": "web-ext build",
     "lint": "web-ext lint",
-    "start": "web-ext run --start-url https://twitter.com",
-    "chrome": "web-ext run --target chromium --start-url https://twitter.com"
+    "start": "npm run firefox",
+    "firefox": "web-ext run --start-url https://twitter.com",
+    "chrome": "web-ext run --target chromium --start-url https://twitter.com",
+    "edge": "web-ext run --target chromium --chromium-binary \"C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe\" --start-url https://twitter.com",
+    "android": "web-ext run -t firefox-android --firefox-apk org.mozilla.fenix"
   },
   "webExt": {
     "ignoreFiles": [
+      "CONTRIBUTING.md",
+      "README.md",
+      "TODO",
       "icons/chrome-web-store-icon.png",
       "icons/icon-600.png",
       "jsconfig.json",
+      "locales/",
       "package.json",
-      "README.md",
-      "screenshots/"
+      "screenshots/",
+      "types.d.ts"
     ]
   },
   "devDependencies": {
-    "@types/chrome": "0.0.114",
-    "web-ext": "4.1.0"
+    "@types/chrome": "0.0.x",
+    "@types/greasemonkey": "4.x",
+    "web-ext": "6.x"
   }
 }
