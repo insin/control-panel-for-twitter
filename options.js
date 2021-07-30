@@ -40,9 +40,7 @@ const checkboxGroups = new Map(Object.entries({
   ].filter(Boolean),
 }))
 
-/**
- * @type {import("./types").Config}
- */
+/** @type {import("./types").Config} */
 const defaultConfig = {
   // Shared
   addAddMutedWordMenuItem: true,
@@ -88,15 +86,8 @@ const defaultConfig = {
  */
 let optionsConfig
 
-/**
- * Configuration changes made by the user.
- * @type {Partial<import("./types").Config>}
- */
-let userConfig
-
 chrome.storage.local.get((storedConfig) => {
-  userConfig = storedConfig
-  optionsConfig = {...defaultConfig, ...userConfig}
+  optionsConfig = {...defaultConfig, ...storedConfig}
 
   let $form = document.querySelector('form')
 
@@ -124,22 +115,26 @@ chrome.storage.local.get((storedConfig) => {
   updateCheckboxGroups()
 
   $form.addEventListener('change', (e) => {
+    /** @type {Partial<import("./types").Config>} */
+    let changedConfig = {}
+
     let $el = /** @type {HTMLInputElement} */ (e.target)
     if ($el.type == 'checkbox') {
       if (checkboxGroups.has($el.name)) {
         checkboxGroups.get($el.name).forEach(checkboxName => {
-          optionsConfig[checkboxName] = userConfig[checkboxName] = $form.elements[checkboxName].checked = $el.checked
+          optionsConfig[checkboxName] = changedConfig[checkboxName] = $form.elements[checkboxName].checked = $el.checked
         })
         $el.indeterminate = false
       } else {
-        optionsConfig[$el.name] = userConfig[$el.name] = $el.checked
+        optionsConfig[$el.name] = changedConfig[$el.name] = $el.checked
         updateCheckboxGroups()
       }
     }
     else {
-      optionsConfig[$el.name] = userConfig[$el.name] = $el.value
+      optionsConfig[$el.name] = changedConfig[$el.name] = $el.value
     }
+
     document.body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
-    chrome.storage.local.set(userConfig)
+    chrome.storage.local.set(changedConfig)
   })
 })
