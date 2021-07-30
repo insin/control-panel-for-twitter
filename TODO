@@ -1,11 +1,10 @@
 Yak stack:
+  ☐ Handle being on the Home timeline, switching to the separated tweets timeline then enabling "Always use latest tweets" @created(Sat 2021-07-31 04:32)
+    Should use the sparkle menu to move you over to latest tweets then put you on the separated tweets timeline
   ☐ The page sometimes isn't processed after fast unblocking someone on their profile page, or with the Unblock button + confirm popup @created(Thu 2021-07-22 13:00)
+  ☐ Promoted tweets can appear in search results @created(Sat 2021-07-31 01:06)
 
 New features:
-  ☐ Remove quote tweet privileges @created(Thu 2021-07-22 18:20)
-    Some people who post otherwise-interesting stuff also spend some of their time "dunking" on known idiots vai quote tweets
-
-    Add a menu item to tweets and the profile menu which lets you mute/unmute someone's quote tweets if you don't want to be invited to their engagement party
   ☐ Hide cards which use your muted words in their text content @created(Thu 2021-07-22 17:56)
     Twitter doesn't do this
 

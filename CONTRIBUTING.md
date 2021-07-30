@@ -28,7 +28,7 @@ To handle this, scripts in the extension have `mobile` and `desktop` flags which
 
 ### Developing mobile features
 
-If you want to develop a feature for the mobile version, the easiest way to get started is to hardcode `mobile = true` at the top of `tweak-new-twitter.user.js` and `options.js`, and use the responsive design / mobile device simulation mode in your browser's developer tools to access the mobile version on the desktop.
+If you want to develop a feature for the mobile version, the easiest way to get started is to hardcode `mobile = true` at the top of `tweak-new-twitter.user.js` and `options.js`, and use the responsive design / mobile device simulation mode in your browser's developer tools to access the mobile version on desktop.
 
 ## Running as a browser extension
 
