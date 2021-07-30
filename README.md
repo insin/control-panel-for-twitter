@@ -115,9 +115,13 @@ Optional features you can try, to see how they change how you perceive and use T
 
 ### Experimental features
 
-| Hide metrics | Reduced interaction mode | Highlight (or hide) verified accounts | Disable the home timeline |
-| - | - | - | - |
-| ![Sceenshot of a Twitter timeline with blank spaces where numbers for metrics should be](screenshots/hide_metrics.png) | ![Sceenshot of a Twitter timeline with the action bar below each tweet completely missing](screenshots/reduced_interaction_mode.png) | ![Sceenshot of a Twitter timeline with a tweet by a user with a verified badge highlighted](screenshots/highlight_verified_accounts.png) | ![Sceenshot of Twitter without the Home navigation item](screenshots/disable_home_timeline.png) |
+| Hide metrics | Reduced interaction mode |
+| - | - |
+| ![Sceenshot of a Twitter timeline with blank spaces where numbers for metrics should be](screenshots/hide_metrics.png) | ![Sceenshot of a Twitter timeline with the action bar below each tweet completely missing](screenshots/reduced_interaction_mode.png) |
+
+| Highlight (or hide) verified accounts | Disable the home timeline |
+| - | - |
+| ![Sceenshot of a Twitter timeline with a tweet by a user with a verified badge highlighted](screenshots/highlight_verified_accounts.png) | ![Sceenshot of Twitter without the Home navigation item](screenshots/disable_home_timeline.png) |
 
 ### Language support
 
