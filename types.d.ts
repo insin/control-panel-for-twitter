@@ -24,8 +24,8 @@ export type Config = {
   suggestedTopicTweets: AlgorithmicTweetsConfig
   tweakQuoteTweetsPage: boolean
   // Experiments
-  disableTimeline: boolean
-  disabledTimelineRedirect: 'notifications' | 'messages'
+  disableHomeTimeline: boolean
+  disabledHomeTimelineRedirect: 'notifications' | 'messages'
   hideMetrics: boolean
   reducedInteractionMode: boolean
   verifiedAccounts: VerifiedAccountsConfig

@@ -65,8 +65,8 @@ const defaultConfig = {
   suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
   // Experiments
-  disableTimeline: false,
-  disabledTimelineRedirect: 'notifications',
+  disableHomeTimeline: false,
+  disabledHomeTimelineRedirect: 'notifications',
   hideMetrics: false,
   reducedInteractionMode: false,
   verifiedAccounts: 'ignore',
@@ -112,7 +112,7 @@ chrome.storage.local.get((storedConfig) => {
     }
   }
 
-  document.body.classList.toggle('disabledTimeline', optionsConfig.disableTimeline)
+  document.body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
   document.body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
 
   updateCheckboxGroups()
@@ -137,7 +137,7 @@ chrome.storage.local.get((storedConfig) => {
       optionsConfig[$el.name] = changedConfig[$el.name] = $el.value
     }
 
-    document.body.classList.toggle('disabledTimeline', optionsConfig.disableTimeline)
+    document.body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
     document.body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
 
     chrome.storage.local.set(changedConfig)

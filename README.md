@@ -73,6 +73,7 @@ Optional features you can try, to see how they change how you perceive and use T
 - Hide metrics: hide like, retweet, quote tweet and follower counts
 - Reduced interaction mode: hide the action bar under tweets – replies are now the only means of interacting
 - Verified accounts: highlight tweets by – or interacting with – verified accounts, or hide them to simulate the aftermath of the [July 2020 Twitter hacks](https://en.wikipedia.org/wiki/2020_Twitter_account_hijacking)
+- Disable the home timeline: find yourself [wasting too much time on Twitter](https://world.hey.com/brecht/free-range-tweet-farming-9399f6e5)? Try preventing use of the home timeline, going to Notifications or Messages by default instead
 
 ## Screenshots
 
@@ -114,9 +115,9 @@ Optional features you can try, to see how they change how you perceive and use T
 
 ### Experimental features
 
-| Hide metrics | Reduced interaction mode | Highlight (or hide) verified accounts |
+| Hide metrics | Reduced interaction mode | Highlight (or hide) verified accounts | Disable the home timeline |
 | - | - | - |
-| ![Sceenshot of a Twitter timeline with blank spaces where numbers for metrics should be](screenshots/hide_metrics.png) | ![Sceenshot of a Twitter timeline with the action bar below each tweet completely missing](screenshots/reduced_interaction_mode.png) | ![Sceenshot of a Twitter timeline with a tweet by a user with a verified badge highlighted](screenshots/highlight_verified_accounts.png)  |
+| ![Sceenshot of a Twitter timeline with blank spaces where numbers for metrics should be](screenshots/hide_metrics.png) | ![Sceenshot of a Twitter timeline with the action bar below each tweet completely missing](screenshots/reduced_interaction_mode.png) | ![Sceenshot of a Twitter timeline with a tweet by a user with a verified badge highlighted](screenshots/highlight_verified_accounts.png) | ![Sceenshot of Twitter without the Home navigation item](screenshots/disable_home_timeline.png) |
 
 ### Language support
 

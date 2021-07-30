@@ -46,8 +46,8 @@ const config = {
   suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
   // Experiments
-  disableTimeline: false,
-  disabledTimelineRedirect: 'notifications',
+  disableHomeTimeline: false,
+  disabledHomeTimelineRedirect: 'notifications',
   hideMetrics: false,
   reducedInteractionMode: false,
   verifiedAccounts: 'ignore',
@@ -1223,7 +1223,7 @@ const configureCss = (function() {
     }
 
     if (desktop) {
-      if (config.disableTimeline) {
+      if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
       }
       if (config.hideAccountSwitcher) {
@@ -1286,7 +1286,7 @@ const configureCss = (function() {
     }
 
     if (mobile) {
-      if (config.disableTimeline) {
+      if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
       }
       if (config.hideAnalyticsNav && config.hideTwitterAdsNav) {
@@ -1594,8 +1594,10 @@ function onTitleChange(title) {
     }
   }
 
-  if (config.disableTimeline && location.pathname == '/home') {
-    document.querySelector(`${desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE} a[href="/${config.disabledTimelineRedirect}"]`).click()
+  if (config.disableHomeTimeline && location.pathname == '/home') {
+    /** @type {HTMLElement} */ (
+      document.querySelector(`${desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE} a[href="/${config.disabledHomeTimelineRedirect}"]`)
+    ).click()
     return
   }
 

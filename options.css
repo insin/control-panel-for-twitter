@@ -8,7 +8,7 @@ body, html {
 body.mobile .desktop,
 body.desktop .mobile,
 body:not(.home) .home,
-body:not(.disabledTimeline) .disabledTimeline {
+body:not(.disabledHomeTimeline) .disabledHomeTimeline {
   display: none;
 }
 
