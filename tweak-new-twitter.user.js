@@ -549,7 +549,8 @@ const Svgs = {
 }
 
 const MOBILE_LOGGED_OUT_URLS = ['/', '/login', '/i/flow/signup']
-const PROFILE_TABS_URL_RE = /^\([a-zA-Z\d_]{1,15}\)\/(with_replies|media|likes)\/?$/
+const PROFILE_FOLLOWS_URL_RE = /\/[a-zA-Z\d_]{1,15}\/(following|followers|followers_you_follow)\/?$/
+const PROFILE_TABS_URL_RE = /\/[a-zA-Z\d_]{1,15}\/(with_replies|media|likes)\/?$/
 // https://twitter.com/username's title ends with (@username)
 const PROFILE_TITLE_RE = /\(@[a-zA-Z\d_]{1,15}\)$/
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
@@ -632,7 +633,7 @@ function isOnNotificationsPage() {
 }
 
 function isOnProfilePage() {
-  return PROFILE_TITLE_RE.test(currentPage) || PROFILE_TABS_URL_RE.test(currentPath)
+  return PROFILE_TITLE_RE.test(currentPage) && !PROFILE_FOLLOWS_URL_RE.test(currentPath)
 }
 
 function isOnQuoteTweetsPage() {
