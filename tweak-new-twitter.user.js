@@ -520,7 +520,10 @@ function getString(code) {
 const PagePaths = {
   ADD_MUTED_WORD: '/settings/add_muted_keyword',
   BOOKMARKS: '/i/bookmarks',
+  COMPOSE_MESSAGE: '/messages/compose',
+  COMPOSE_TWEET: '/compose/tweet',
   CONNECT: '/i/connect',
+  CUSTOMIZE_YOUR_VIEW: '/i/display',
   HOME: '/home',
   NOTIFICATION_TIMELINE: '/i/timeline',
   PROFILE_SETTINGS: '/settings/profile',
@@ -583,6 +586,9 @@ let homeNavigationIsBeingUsed = false
  */
 let lastMainTimelineTitle = null
 
+/** `true` when `<title>` has appeared and we're observing it for changes. */
+let observingTitle = false
+
 /**
  * MutationObservers active on the current page, or anything else we want to
  * clean up when the user moves off the current page.
@@ -623,7 +629,12 @@ function isOnListsPage() {
 }
 
 function isOnMainTimelinePage() {
-  return currentPath == PagePaths.HOME
+  return currentPath == PagePaths.HOME || (
+    currentPath == PagePaths.CUSTOMIZE_YOUR_VIEW &&
+    isOnHomeTimeline() ||
+    isOnLatestTweetsTimeline() ||
+    isOnSeparatedTweetsTimeline()
+  )
 }
 
 function isOnNotificationsPage() {
@@ -872,13 +883,22 @@ const observeFontSize = (function() {
 
     log('observing html style attribute for fontSize changes')
     fontSizeObserver = observeElement($html, () => {
-      if ($html.style.fontSize != lastFontSize) {
-        lastFontSize = $html.style.fontSize
-        log(`setting nav font size to ${lastFontSize}`)
-        $style.textContent = dedent(`
-          ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] span { font-size: ${lastFontSize}; font-weight: normal; }
-          ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] { margin-top: -4px; }
-        `)
+      if ($html.style.fontSize) {
+        if ($html.style.fontSize!= lastFontSize) {
+          lastFontSize = $html.style.fontSize
+          log(`setting nav font size to ${lastFontSize}`)
+          $style.textContent = dedent(`
+            ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] span { font-size: ${lastFontSize}; font-weight: normal; }
+            ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] { margin-top: -4px; }
+          `)
+        }
+
+        // Try to avoid excessive reprocessing on init
+        if (observingTitle) {
+          log('html style attribute changed, re-processing current page')
+          observePopups()
+          processCurrentPage()
+        }
       }
     }, {
       attributes: true,
@@ -895,7 +915,6 @@ const observePopups = (function() {
 
   return async function observePopups() {
     if (popupObserver) {
-      log('disconnecting previous popup observer')
       popupObserver.disconnect()
       popupObserver = null
     }
@@ -905,6 +924,11 @@ const observePopups = (function() {
     let $keyboardWrapper = await getElement('[data-at-shortcutkeys]', {
       name: 'keyboard wrapper',
     })
+
+    // There can be only one
+    if (popupObserver) {
+      popupObserver.disconnect()
+    }
 
     log(`${popupObserver ? 're-' : ''}observing popups`)
     popupObserver = observeElement($keyboardWrapper.previousElementSibling, (mutations) => {
@@ -917,7 +941,6 @@ const observePopups = (function() {
         })
         mutation.removedNodes.forEach((/** @type {HTMLElement} */ $el) => {
           if (nestedObservers.has($el)) {
-            log('disconnecting nested popup observer')
             nestedObservers.get($el).disconnect()
             nestedObservers.delete($el)
           }
@@ -929,6 +952,7 @@ const observePopups = (function() {
 
 async function observeTitle() {
   let $title = await getElement('title', {name: '<title>'})
+  observingTitle = true
   log('observing <title>')
   observeElement($title, () => onTitleChange($title.textContent))
 }
@@ -1649,7 +1673,7 @@ function onTitleChange(title) {
 
   // Only allow the same page to re-process after a title change on desktop if
   // the "Customize your view" dialog is currently open.
-  if (newPage == currentPage && !(desktop && location.pathname == '/i/display')) {
+  if (newPage == currentPage && !(desktop && location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW)) {
     log('ignoring duplicate title change')
     currentNotificationCount = notificationCount
     return
@@ -1667,17 +1691,17 @@ function onTitleChange(title) {
         // …the user stopped viewing a photo.
         URL_PHOTO_RE.test(currentPath) ||
         // …the user opened or used the "Customize your view" dialog.
-        location.pathname == '/i/display' ||
+        location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW ||
         // …the user closed the "Customize your view" dialog.
-        currentPath == '/i/display' ||
+        currentPath == PagePaths.CUSTOMIZE_YOUR_VIEW ||
         // …the user opened the "Send via Direct Message" dialog.
-        location.pathname == '/messages/compose' ||
+        location.pathname == PagePaths.COMPOSE_MESSAGE ||
         // …the user closed the "Send via Direct Message" dialog.
-        currentPath == '/messages/compose' ||
+        currentPath == PagePaths.COMPOSE_MESSAGE ||
         // …the user opened the compose Tweet dialog.
-        location.pathname == '/compose/tweet' ||
+        location.pathname == PagePaths.COMPOSE_TWEET ||
         // …the user closed the compose Tweet dialog.
-        currentPath == '/compose/tweet' ||
+        currentPath == PagePaths.COMPOSE_TWEET ||
         // …the notification count in the title changed.
         notificationCount != currentNotificationCount
       )) {
