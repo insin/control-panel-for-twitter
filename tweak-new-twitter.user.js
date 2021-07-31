@@ -1394,9 +1394,15 @@ function getTweetType($tweet) {
       if (svgPath.startsWith('M12 21.638h-.014C9.403 21.5')) return 'LIKED'
       if (svgPath.startsWith('M14.046 2.242l-4.148-.01h-.')) return 'REPLIED'
       if (svgPath.startsWith('M18.265 3.314c-3.45-3.45-9.')) return 'SUGGESTED_TOPIC_TWEET'
+      // This is the start of the SVG path for the Retweet icon
       if (!svgPath.startsWith('M23.615 15.477c-.47-.47-1.23')) {
         log('unhandled socialContext tweet type - falling back to RETWEET', $tweet)
       }
+    }
+    // Quoted tweets from accounts you blocked or muted are displayed as an
+    // <article> with "This Tweet is unavailable."
+    if ($tweet.querySelector('article')) {
+      return 'UNAVAILABLE_RETWEET'
     }
     return 'RETWEET'
   }
@@ -1835,6 +1841,8 @@ function shouldHideTimelineItem(type, page) {
       return page == separatedTweetsTimelineTitle
     case 'UNAVAILABLE_QUOTE_TWEET':
       return config.hideUnavailableQuoteTweets || shouldHideSharedTweet(config.quoteTweets, page)
+    case 'UNAVAILABLE_RETWEET':
+      return config.hideUnavailableQuoteTweets || shouldHideSharedTweet(config.retweets, page)
     default:
       return true
   }

@@ -67,5 +67,6 @@ export type TimelineItemType =
   | 'SUGGESTED_TOPIC_TWEET'
   | 'TWEET'
   | 'UNAVAILABLE_QUOTE_TWEET'
+  | 'UNAVAILABLE_RETWEET'
 
 export type VerifiedAccountsConfig = 'highlight' | 'hide' | 'ignore'
