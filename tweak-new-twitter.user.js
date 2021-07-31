@@ -940,9 +940,8 @@ async function observeTimeline(page) {
     name: 'timeline',
     stopIf: pageIsNot(page),
   })
-  if ($timeline == null) {
-    return
-  }
+
+  if ($timeline == null) return
 
   // The inital timeline element is a placeholder without a style attribute
   if ($timeline.hasAttribute('style')) {
@@ -1117,7 +1116,7 @@ async function addSeparatedTweetsTimelineControl(page) {
 }
 
 /**
- * Redirects away from the home timeline if we're on it and it's disabled.
+ * Redirects away from the home timeline if we're on it and it's been disabled.
  * @returns {boolean} `true` if redirected as a result of this call
  */
  function checkforDisabledHomeTimeline() {
@@ -1520,12 +1519,14 @@ function onPopup($popup) {
 
 function onTimelineChange($timeline, page) {
   log(`processing ${$timeline.children.length} timeline item${s($timeline.children.length)}`)
+
   /** @type {HTMLElement} */
   let $previousItem = null
   /** @type {?import("./types").TimelineItemType} */
   let previousItemType = null
   /** @type {?boolean} */
   let hidPreviousItem = null
+
   for (let $item of $timeline.children) {
     /** @type {?import("./types").TimelineItemType} */
     let itemType = null
@@ -1538,12 +1539,14 @@ function onTimelineChange($timeline, page) {
 
     if ($tweet != null) {
       itemType = getTweetType($tweet)
+      // Only deal with retweets, quote tweets and algorithmic tweets on the
+      // main timeline.
       if (isOnMainTimelinePage()) {
         if (isReplyToPreviousTweet($tweet) && hidPreviousItem != null) {
           hideItem = hidPreviousItem
           itemType = previousItemType
         } else {
-          hideItem = shouldHideTimelineItem(itemType, page)
+          hideItem = shouldHideMainTimelineItem(itemType, page)
         }
       }
     }
@@ -1748,12 +1751,8 @@ function processCurrentPage() {
   $body.classList.toggle('LatestTweets', isOnLatestTweetsTimeline())
   $body.classList.toggle('SeparatedTweets', isOnSeparatedTweetsTimeline())
 
-  let shouldObserveTimeline = isOnProfilePage() && (
-    config.verifiedAccounts != 'ignore' || config.hideWhoToFollowEtc
-  )
-
   if (isOnMainTimelinePage()) {
-    shouldObserveTimeline = (
+    let shouldObserveTimeline = (
       config.hideUnavailableQuoteTweets ||
       config.hideWhoToFollowEtc ||
       config.quoteTweets != 'ignore' ||
@@ -1771,12 +1770,18 @@ function processCurrentPage() {
     } else if (mobile) {
       removeMobileTimelineHeaderElements()
     }
+    if (shouldObserveTimeline) {
+      observeTimeline(currentPage)
+    }
   } else if (mobile) {
     removeMobileTimelineHeaderElements()
   }
 
-  if (shouldObserveTimeline) {
-    observeTimeline(currentPage)
+  if (isOnProfilePage()) {
+    if (config.hideWhoToFollowEtc ||
+        config.verifiedAccounts != 'ignore') {
+      observeTimeline(currentPage)
+    }
   }
 
   if (isOnIndividualTweetPage()) {
@@ -1802,8 +1807,10 @@ function processCurrentPage() {
  * re-add them later when needed.
  */
 function removeMobileTimelineHeaderElements() {
-  document.querySelector('#tnt_shared_tweets_timeline_title')?.remove()
-  document.querySelector('#tnt_switch_timeline')?.remove()
+  if (mobile) {
+    document.querySelector('#tnt_shared_tweets_timeline_title')?.remove()
+    document.querySelector('#tnt_switch_timeline')?.remove()
+  }
 }
 
 /**
@@ -1848,7 +1855,7 @@ function setTitle(page) {
  * @param {string} page
  * @returns {boolean}
  */
-function shouldHideTimelineItem(type, page) {
+function shouldHideMainTimelineItem(type, page) {
   switch (type) {
     case 'LIKED':
       return shouldHideAlgorithmicTweet(config.likedTweets, page)
