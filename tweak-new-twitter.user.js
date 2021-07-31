@@ -602,32 +602,6 @@ let separatedTweetsTimelineTitle = null
  */
 let themeColor = null
 
-function configureSeparatedTweetsTimelineTitle() {
-  let wasOnSeparatedTweetsTimeline = isOnSeparatedTweetsTimeline()
-
-  if (config.retweets == 'separate' && config.quoteTweets == 'separate') {
-    separatedTweetsTimelineTitle = getString('SHARED_TWEETS')
-  } else if (config.retweets == 'separate') {
-    separatedTweetsTimelineTitle = getString('RETWEETS')
-  } else if (config.quoteTweets == 'separate') {
-    separatedTweetsTimelineTitle = getString('QUOTE_TWEETS')
-  } else {
-    separatedTweetsTimelineTitle = null
-  }
-
-  if (wasOnSeparatedTweetsTimeline) {
-    if (separatedTweetsTimelineTitle != null) {
-      log('staying on separated tweets timeline after configuration change')
-      currentPage = separatedTweetsTimelineTitle
-      lastMainTimelineTitle = separatedTweetsTimelineTitle
-    } else {
-      log('returning from separated tweets timeline after configuration change')
-      currentPage = currentMainTimelineType
-      lastMainTimelineTitle = currentMainTimelineType
-    }
-  }
-}
-
 function isOnExplorePage() {
   return currentPath.startsWith('/explore')
 }
@@ -1359,6 +1333,50 @@ const configureCss = (function() {
   }
 })()
 
+/**
+ * Configures – or re-configures – the separated tweets timeline title.
+ *
+ * If we're currently on the separated tweets timeline and…
+ * - …its title has changed, the page title will be changed to "navigate" to it.
+ * - …the separated tweets timeline is no longer needed, we'll change the page
+ *   title to "navigate" back to the main timeline.
+ *
+ * @returns {boolean} `true` if "navigation" was triggered by this call
+ */
+ function configureSeparatedTweetsTimelineTitle() {
+  let wasOnSeparatedTweetsTimeline = isOnSeparatedTweetsTimeline()
+  let previousTitle = separatedTweetsTimelineTitle
+
+  if (config.retweets == 'separate' && config.quoteTweets == 'separate') {
+    separatedTweetsTimelineTitle = getString('SHARED_TWEETS')
+  } else if (config.retweets == 'separate') {
+    separatedTweetsTimelineTitle = getString('RETWEETS')
+  } else if (config.quoteTweets == 'separate') {
+    separatedTweetsTimelineTitle = getString('QUOTE_TWEETS')
+  } else {
+    separatedTweetsTimelineTitle = null
+  }
+
+  let titleChanged = previousTitle != separatedTweetsTimelineTitle
+  if (wasOnSeparatedTweetsTimeline) {
+    if (separatedTweetsTimelineTitle == null) {
+      log('moving from separated tweets timeline to main timeline after config change')
+      setTitle(currentMainTimelineType)
+      return true
+    }
+    if (titleChanged) {
+      log('applying new separated tweets timeline title after config change')
+      setTitle(separatedTweetsTimelineTitle)
+      return true
+    }
+  } else {
+    if (titleChanged && previousTitle != null && lastMainTimelineTitle == previousTitle) {
+      log('updating lastMainTimelineTitle with new separated tweets timeline title')
+      lastMainTimelineTitle = separatedTweetsTimelineTitle
+    }
+  }
+}
+
 const configureThemeCss = (function() {
   if (mobile) return () => {}
 
@@ -1989,13 +2007,13 @@ function main() {
 function configChanged(changes) {
   log('config changed', changes)
 
-  configureSeparatedTweetsTimelineTitle()
   configureCss()
   configureThemeCss()
   observeFontSize()
   observePopups()
 
-  if (!checkforDisabledHomeTimeline()) {
+  if (!configureSeparatedTweetsTimelineTitle() &&
+      !checkforDisabledHomeTimeline()) {
     processCurrentPage()
   }
 }
