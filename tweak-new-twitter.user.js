@@ -1043,30 +1043,31 @@ async function addSeparatedTweetsTimelineControl(page) {
       stopIf: pageIsNot(page),
     })
 
-    if ($timelineTitle == null) {
-      return
-    }
+    if ($timelineTitle == null) return
 
-    if (document.querySelector('#tnt_separated_tweets') != null) {
+    let $newHeading = document.querySelector('#tnt_separated_tweets')
+    if ($newHeading) {
       log('separated tweets timeline heading already present')
-      document.querySelector('#tnt_separated_tweets span').textContent = separatedTweetsTimelineTitle
+      $newHeading.querySelector('span').textContent = separatedTweetsTimelineTitle
       return
     }
 
     log('inserting separated tweets timeline heading')
-    let $heading = /** @type {HTMLElement} */ ($timelineTitle.parentElement.cloneNode(true))
-    $heading.querySelector('h2').id = 'tnt_separated_tweets'
-    $heading.querySelector('span').textContent = separatedTweetsTimelineTitle
+    $newHeading = /** @type {HTMLElement} */ ($timelineTitle.parentElement.cloneNode(true))
+    $newHeading.querySelector('h2').id = 'tnt_separated_tweets'
+    $newHeading.querySelector('span').textContent = separatedTweetsTimelineTitle
+
     // This script assumes navigation has occurred when the document title
     // changes, so by changing the title we fake navigation to a non-existent
     // page representing the separated tweets timeline.
-    $heading.addEventListener('click', () => {
+    $newHeading.addEventListener('click', () => {
       if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
         setTitle(separatedTweetsTimelineTitle)
       }
       window.scrollTo({top: 0})
     })
-    $timelineTitle.parentElement.parentElement.insertAdjacentElement('afterend', $heading)
+    $timelineTitle.parentElement.parentElement.insertAdjacentElement('afterend', $newHeading)
+
     // Return to the main timeline when Latest Tweets / Home heading is clicked
     $timelineTitle.parentElement.addEventListener('click', () => {
       if (!document.title.startsWith(currentMainTimelineType)) {
@@ -1074,13 +1075,18 @@ async function addSeparatedTweetsTimelineControl(page) {
         setTitle(currentMainTimelineType)
       }
     })
+
     // Return to the main timeline when the Home nav link is clicked
-    document.querySelector(Selectors.NAV_HOME_LINK).addEventListener('click', () => {
-      homeNavigationIsBeingUsed = true
-      if (location.pathname == '/home' && !document.title.startsWith(currentMainTimelineType)) {
-        setTitle(currentMainTimelineType)
-      }
-    })
+    let $homeNavLink = /** @type {HTMLElement} */ (document.querySelector(Selectors.NAV_HOME_LINK))
+    if (!$homeNavLink.dataset.tweakNewTwitterListener) {
+      $homeNavLink.addEventListener('click', () => {
+        homeNavigationIsBeingUsed = true
+        if (location.pathname == '/home' && !document.title.startsWith(currentMainTimelineType)) {
+          setTitle(currentMainTimelineType)
+        }
+      })
+      $homeNavLink.dataset.tweakNewTwitterListener = 'true'
+    }
   }
 
   if (mobile) {
@@ -1089,9 +1095,7 @@ async function addSeparatedTweetsTimelineControl(page) {
       stopIf: pageIsNot(page),
     })
 
-    if ($timelineTitle == null) {
-      return
-    }
+    if ($timelineTitle == null) return
 
     // We hide the existing timeline title via CSS when it's not wanted instead
     // of changing its text, as those changes persist when you view a tweet.
