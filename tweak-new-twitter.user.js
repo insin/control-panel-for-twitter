@@ -1749,44 +1749,25 @@ function processCurrentPage() {
   $body.classList.toggle('SeparatedTweets', isOnSeparatedTweetsTimeline())
 
   if (isOnMainTimelinePage()) {
-    let shouldObserveTimeline = (
-      config.hideUnavailableQuoteTweets ||
-      config.hideWhoToFollowEtc ||
-      config.quoteTweets != 'ignore' ||
-      config.retweets != 'ignore' ||
-      config.verifiedAccounts != 'ignore' ||
-      (currentMainTimelineType == getString('HOME') && (
-        config.likedTweets != 'ignore' ||
-        config.repliedToTweets != 'ignore' ||
-        config.suggestedTopicTweets != 'ignore'
-      ))
-    )
-
-    if (shouldObserveTimeline && (config.retweets == 'separate' || config.quoteTweets == 'separate')) {
+    if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
       addSeparatedTweetsTimelineControl(currentPage)
     } else if (mobile) {
       removeMobileTimelineHeaderElements()
     }
-    if (shouldObserveTimeline) {
-      observeTimeline(currentPage)
-    }
+    observeTimeline(currentPage)
   } else if (mobile) {
     removeMobileTimelineHeaderElements()
   }
 
   if (isOnProfilePage()) {
-    if (config.hideWhoToFollowEtc ||
-        config.verifiedAccounts != 'ignore') {
-      observeTimeline(currentPage)
+    observeTimeline(currentPage)
+    if (config.hideSidebarContent) {
+      tweakProfilePage(currentPage)
     }
   }
 
   if (isOnIndividualTweetPage()) {
     tweakIndividualTweetPage()
-  }
-
-  if (config.hideSidebarContent && isOnProfilePage()) {
-    tweakProfilePage(currentPage)
   }
 
   if (config.tweakQuoteTweetsPage && isOnQuoteTweetsPage()) {
