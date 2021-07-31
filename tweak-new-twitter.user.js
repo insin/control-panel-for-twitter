@@ -1578,10 +1578,10 @@ function onTimelineChange($timeline, page) {
       }
     }
 
-    if (hideItem !== true &&
-        config.verifiedAccounts != 'ignore' &&
-        $tweet?.querySelector(Selectors.VERIFIED_TICK)) {
-      hideItem = config.verifiedAccounts == 'hide'
+    if ($tweet?.querySelector(Selectors.VERIFIED_TICK)) {
+      if (hideItem !== true) {
+        hideItem = config.verifiedAccounts == 'hide'
+      }
       highlightItem = config.verifiedAccounts == 'highlight'
     }
 
