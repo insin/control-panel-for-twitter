@@ -1304,6 +1304,12 @@ const configureCss = (function() {
       if (config.hideMessagesBottomNavItem) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
       }
+      if (config.hideMetrics) {
+        hideCssSelectors.push(
+          // Tweet count under username header on profile pages
+          `body.Profile header > div > div:first-of-type h2 + div[dir="auto"]`,
+        )
+      }
       if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
         // Use CSS to tweak layout of mobile header elements on pages where it's
         // needed, as changes made directly to them can persist across pages.
