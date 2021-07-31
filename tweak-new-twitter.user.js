@@ -1138,6 +1138,21 @@ async function addSeparatedTweetsTimelineControl(page) {
   }
 }
 
+/**
+ * Redirects away from the home timeline if we're on it and it's disabled.
+ * @returns {boolean} `true` if redirected as a result of this call
+ */
+ function checkforDisabledHomeTimeline() {
+  if (config.disableHomeTimeline && location.pathname == '/home') {
+    log(`home timeline disabled, redirecting to /${config.disabledHomeTimelineRedirect}`)
+    let primaryNavSelector = desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE
+    ;/** @type {HTMLElement} */ (
+      document.querySelector(`${primaryNavSelector} a[href="/${config.disabledHomeTimelineRedirect}"]`)
+    ).click()
+    return true
+  }
+}
+
 const configureCss = (function() {
   let $style = addStyle('features')
 
@@ -1570,6 +1585,8 @@ function onTimelineChange($timeline, page) {
 function onTitleChange(title) {
   log('title changed', {title: title.split(ltr ? ' / ' : ' \\ ')[ltr ? 0 : 1], path: location.pathname})
 
+  if (checkforDisabledHomeTimeline()) return
+
   // Ignore leading notification counts in titles, e.g. '(1) Latest Tweets'
   let notificationCount = ''
   if (TITLE_NOTIFICATION_RE.test(title)) {
@@ -1592,13 +1609,6 @@ function onTitleChange(title) {
       log('ignoring Flash of Uninitialised Title')
       return
     }
-  }
-
-  if (config.disableHomeTimeline && location.pathname == '/home') {
-    /** @type {HTMLElement} */ (
-      document.querySelector(`${desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE} a[href="/${config.disabledHomeTimelineRedirect}"]`)
-    ).click()
-    return
   }
 
   let newPage = title.split(ltr ? ' / ' : ' \\ ')[ltr ? 0 : 1]
@@ -1973,7 +1983,9 @@ function configChanged(changes) {
   observeFontSize()
   observePopups()
 
-  processCurrentPage()
+  if (!checkforDisabledHomeTimeline()) {
+    processCurrentPage()
+  }
 }
 
 if (typeof GM == 'undefined') {
