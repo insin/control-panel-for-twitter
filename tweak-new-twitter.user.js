@@ -1754,10 +1754,11 @@ function processCurrentPage() {
 
   if (isOnMainTimelinePage()) {
     shouldObserveTimeline = (
-      config.retweets != 'ignore' ||
-      config.quoteTweets != 'ignore' ||
-      config.verifiedAccounts != 'ignore' ||
+      config.hideUnavailableQuoteTweets ||
       config.hideWhoToFollowEtc ||
+      config.quoteTweets != 'ignore' ||
+      config.retweets != 'ignore' ||
+      config.verifiedAccounts != 'ignore' ||
       (currentMainTimelineType == getString('HOME') && (
         config.likedTweets != 'ignore' ||
         config.repliedToTweets != 'ignore' ||
