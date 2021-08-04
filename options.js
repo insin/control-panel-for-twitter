@@ -1,6 +1,7 @@
 const mobile = navigator.userAgent.includes('Android')
 const desktop = !mobile
 document.body.classList.add(mobile ? 'mobile' : 'desktop')
+document.body.classList.toggle('edge', navigator.userAgent.includes('Edg/'))
 document.querySelectorAll(mobile ? '.desktop' : '.mobile').forEach($el => $el.remove())
 
 /** @type {Map<string, string[]>} */

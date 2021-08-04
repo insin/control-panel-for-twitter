@@ -25,12 +25,12 @@ select {
   cursor: pointer;
 }
 
-section.group > label:not(.checkbox) {
-  cursor: default;
-}
-
 input[type=checkbox] {
   margin-left: 12px;
+}
+
+section.group > label:not(.checkbox) {
+  cursor: default;
 }
 
 section:not(:first-of-type) {
@@ -72,6 +72,21 @@ section.group > section > p {
   }
 }
 
+/* Edge overrides */
+body.edge {
+  font-family: "system-ui", sans-serif;
+  font-size: 14px;
+}
+body.edge section:not(:first-of-type) {
+  border-color: #B6B6B6;
+}
+body.edge section.group > label {
+  font-weight: 600;
+}
+body.edge section.group > section > * {
+  color: #767676;
+}
+
 /* Dark mode overrides */
 @media (prefers-color-scheme: dark) {
   body {
@@ -83,6 +98,21 @@ section.group > section > p {
   }
   section.group > section > * {
     color: rgb(154, 160, 166);
+  }
+
+  /* Edge dark mode overrides */
+  body.edge {
+    background-color: #3B3B3B;
+    color: #A7A7A7;
+  }
+  body.edge section.group > label {
+    color: #fff;
+  }
+  body.edge section:not(:first-of-type) {
+    border-color: #737373;
+  }
+  body.edge section.group > section > * {
+    color: #A7A7A7;
   }
 
   /* Firefox dark mode overrides */
