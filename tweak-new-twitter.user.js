@@ -4,7 +4,7 @@
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
-// @version     36
+// @version     37
 // ==/UserScript==
 
 const enableDebugLogging = false
@@ -2041,7 +2041,9 @@ function configChanged(changes) {
   }
 }
 
-if (typeof GM == 'undefined') {
+if (typeof GM == 'undefined' &&
+    typeof chrome != 'undefined' &&
+    typeof chrome.storage != 'undefined') {
   chrome.storage.local.get((storedConfig) => {
     Object.assign(config, storedConfig)
     main()
