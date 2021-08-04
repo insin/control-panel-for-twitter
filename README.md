@@ -6,10 +6,10 @@
 
 ## Install
 
-* [Install Firefox Add-on](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/)
-* [Install Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/tweak-new-twitter/foccddlibbeccjiobcnakipdpkjiijjp)
-* [Install Chrome Extension](https://chrome.google.com/webstore/detail/tweak-new-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj) – also compatible with [Edge](https://support.microsoft.com/en-us/microsoft-edge/add-turn-off-or-remove-extensions-in-microsoft-edge-9c0ec68c-2fbc-2f2c-9ff0-bdc76f46b026) and [Opera](https://addons.opera.com/en/extensions/details/install-chrome-extensions/)
-* [Install as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) (requires a [user script manager](https://greasyfork.org/en#home-step-1)) - compatible with with the [Userscripts extension for Safari](https://apps.apple.com/us/app/userscripts/id1463298887)
+* [Install Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/)
+* [Install Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/tweak-new-twitter/foccddlibbeccjiobcnakipdpkjiijjp) – currently out of date, use the Chrome version for the latest features
+* [Install Chrome Extension](https://chrome.google.com/webstore/detail/tweak-new-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj) – can also be installed in [Edge](https://support.microsoft.com/en-us/microsoft-edge/add-turn-off-or-remove-extensions-in-microsoft-edge-9c0ec68c-2fbc-2f2c-9ff0-bdc76f46b026) and [Opera](https://addons.opera.com/en/extensions/details/install-chrome-extensions/) (instructions in links)
+* [Install as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) (requires a [user script manager](https://greasyfork.org/en#home-step-1)) – compatible with the [Userscripts extension for Safari](https://apps.apple.com/us/app/userscripts/id1463298887)
 
 ### Install on Firefox Nightly for Android
 
@@ -130,6 +130,14 @@ As of v2.2, all 48 of the display languages available on Twitter are supported, 
 | Gaeilge (Irish) | 日本語 (Japanese) | العربية (Arabic) |
 | - | - | - |
 | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, as Gaeilge](screenshots/irish.png) | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, in Japanese](screenshots/japanese.png) | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, in Arabic](screenshots/arabic.png) |
+
+### User script support
+
+ [Tweak New Twitter is also available as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) – to change the default options, you'll need to edit the `config` object at the top of the script.
+
+| Tweak New Twitter on Safari using the [Userscripts extension](https://apps.apple.com/us/app/userscripts/id1463298887) |
+| - |
+| ![Screenshot of Tweak New Twitter running on the Userscripts extension for Safari](screenshots/safari.png) |
 
 ## Attribution
 
