@@ -959,6 +959,74 @@ async function observeTitle() {
 //#endregion
 
 //#region Page observers
+/**
+ * If a profile is blocked its media box won't appear, add a `Blocked` class to
+ * `<body>` to hide sidebar content.
+ * @param {string} currentPage
+ */
+async function observeProfileBlockedStatus(currentPage) {
+  let $buttonContainer = await getElement(`[data-testid="userActions"] ~ [data-testid="placementTracking"], a[href="${PagePaths.PROFILE_SETTINGS}"]`, {
+    name: 'Follow / Unblock button container or Edit profile button',
+    stopIf: pageIsNot(currentPage),
+  })
+  if ($buttonContainer == null) return
+
+  if ($buttonContainer.hasAttribute('href')) {
+    log('on own profile page')
+    $body.classList.remove('Blocked')
+    return
+  }
+
+  log('observing Follow / Unblock button container for blocked status changes')
+  pageObservers.push(
+    observeElement($buttonContainer, () => {
+      let isBlocked = (/** @type {HTMLElement} */ ($buttonContainer.querySelector('[role="button"]'))?.dataset.testid ?? '').endsWith('unblock')
+      $body.classList.toggle('Blocked', isBlocked)
+    })
+  )
+}
+
+/**
+ * If an account has never tweeted any media, add a `NoMedia` class to `<body>`
+ * to hide the "You might like" section which will appear where the media box
+ * would have been.
+ * @param {string} currentPage
+ */
+async function observeProfileSidebar(currentPage) {
+  let $sidebarContent = await getElement(Selectors.SIDEBAR_WRAPPERS, {
+    name: 'profile sidebar content container',
+    stopIf: pageIsNot(currentPage),
+  })
+  if ($sidebarContent == null) return
+
+  log('observing profile sidebar content container')
+  let sidebarContentObserver = observeElement($sidebarContent, () => {
+    $body.classList.toggle('NoMedia', $sidebarContent.childElementCount == 5)
+  })
+  pageObservers.push(sidebarContentObserver)
+
+  // On initial appearance, the sidebar is injected with static HTML with
+  // spinner placeholders, which gets replaced. When this happens we need to
+  // observe the new content container instead.
+  let $sidebarContentParent = $sidebarContent.parentElement
+  pageObservers.push(
+    observeElement($sidebarContentParent, (mutations) => {
+      let sidebarContentReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($sidebarContent))
+      if (sidebarContentReplaced) {
+        log('profile sidebar content container replaced, observing new container')
+        sidebarContentObserver.disconnect()
+        pageObservers.splice(pageObservers.indexOf(sidebarContentObserver), 1)
+        $sidebarContent = /** @type {HTMLElement} */ ($sidebarContentParent.firstElementChild)
+        pageObservers.push(
+          observeElement($sidebarContent, () => {
+            $body.classList.toggle('NoMedia', $sidebarContent.childElementCount == 5)
+          })
+        )
+      }
+    })
+  )
+}
+
 async function observeTimeline(page) {
   let $timeline = await getElement(Selectors.TIMELINE, {
     name: 'timeline',
@@ -1162,6 +1230,7 @@ const configureCss = (function() {
     let hideCssSelectors = []
 
     if (config.alwaysUseLatestTweets) {
+      // Hide the sparkle when automatically staying on Latest Tweets
       hideCssSelectors.push(mobile
         ? 'body.MainTimeline header div:nth-of-type(3)'
         : `body.MainTimeline ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type > div > div > div > div > div > div:last-of-type`
@@ -1264,12 +1333,12 @@ const configureCss = (function() {
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
-        // Re-show subsesquent non-algorithmic sections on specific pages
+        // Re-show subsequent non-algorithmic sections on specific pages
         cssRules.push(`
           ${Selectors.SIDEBAR_WRAPPERS} > div:not(:first-of-type) {
             display: none;
           }
-          body.Profile:not(.Blocked) ${Selectors.SIDEBAR_WRAPPERS} > div:is(:nth-of-type(2), :nth-of-type(3)) {
+          body.Profile:not(.Blocked, .NoMedia) ${Selectors.SIDEBAR_WRAPPERS} > div:is(:nth-of-type(2), :nth-of-type(3)) {
             display: block;
           }
         `)
@@ -1768,7 +1837,7 @@ function processCurrentPage() {
   $body.classList.toggle('MainTimeline', isOnMainTimelinePage())
   $body.classList.toggle('Profile', isOnProfilePage())
   if (!isOnProfilePage()) {
-    $body.classList.remove('Blocked')
+    $body.classList.remove('Blocked', 'NoMedia')
   }
   $body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
   $body.classList.toggle('Tweet', isOnIndividualTweetPage())
@@ -1791,7 +1860,7 @@ function processCurrentPage() {
 
   if (isOnProfilePage()) {
     observeTimeline(currentPage)
-    if (config.hideSidebarContent) {
+    if (desktop && config.hideSidebarContent) {
       tweakProfilePage(currentPage)
     }
   }
@@ -1952,26 +2021,9 @@ async function tweakIndividualTweetPage() {
   }
 }
 
-async function tweakProfilePage(currentPage) {
-  let $buttonContainer = await getElement(`[data-testid="userActions"] ~ [data-testid="placementTracking"], a[href="${PagePaths.PROFILE_SETTINGS}"]`, {
-    name: 'Follow / Unblock button container or Edit profile button',
-    stopIf: pageIsNot(currentPage),
-  })
-  if ($buttonContainer == null) return
-
-  if ($buttonContainer.hasAttribute('href')) {
-    log('on own profile page')
-    $body.classList.remove('Blocked')
-    return
-  }
-
-  log('observing Follow / Unblock button container for blocked status changes')
-  pageObservers.push(
-    observeElement($buttonContainer, () => {
-      let isBlocked = (/** @type {HTMLElement} */ ($buttonContainer.querySelector('[role="button"]'))?.dataset.testid ?? '').endsWith('unblock')
-      $body.classList.toggle('Blocked', isBlocked)
-    })
-  )
+function tweakProfilePage(currentPage) {
+  observeProfileBlockedStatus(currentPage)
+  observeProfileSidebar(currentPage)
 }
 
 async function tweakQuoteTweetsPage() {
