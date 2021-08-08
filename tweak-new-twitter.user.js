@@ -49,6 +49,12 @@ const config = {
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
   hideMetrics: false,
+  hideFollowingMetrics: true,
+  hideLikeMetrics: true,
+  hideQuoteTweetMetrics: true,
+  hideReplyMetrics: true,
+  hideRetweetMetrics: true,
+  hideTotalTweetsMetrics: true,
   reducedInteractionMode: false,
   verifiedAccounts: 'ignore',
   // Desktop only
@@ -1254,23 +1260,7 @@ const configureCss = (function() {
       hideCssSelectors.push('div[role="dialog"] a[href$="/lists"]')
     }
     if (config.hideMetrics) {
-      hideCssSelectors.push(
-        // User profile hover card and page metrics
-        ':is(#layers, body.Profile) a:is([href$="/following"], [href$="/followers"]) > :first-child',
-        // Individual tweet metrics
-        'body.Tweet a:is([href$="/retweets"], [href$="/retweets/with_comments"], [href$="/likes"]) > :first-child',
-      )
-      cssRules.push(
-        // Metrics under timeline-style tweets
-        '[data-testid="tweet"] [role="group"] span:only-child { visibility: hidden; }',
-        // Fix display of whitespace after hidden metrics
-        `
-          body.Tweet a:is([href$="/retweets"], [href$="/retweets/with_comments"], [href$="/likes"]),
-          :is(#layers, body.Profile) a:is([href$="/following"], [href$="/followers"]) {
-            white-space: pre-line;
-          }
-        `,
-      )
+      configureHideMetricsCss(cssRules, hideCssSelectors)
     }
     if (config.hideMomentsNav) {
       hideCssSelectors.push('div[role="dialog"] a[href$="/moment_maker"]')
@@ -1356,12 +1346,6 @@ const configureCss = (function() {
       if (config.hideMessagesDrawer) {
         hideCssSelectors.push(Selectors.MESSAGES_DRAWER)
       }
-      if (config.hideMetrics) {
-        hideCssSelectors.push(
-          // Tweet count under username header on profile pages
-          `body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 + div[dir="auto"]`,
-        )
-      }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
         hideCssSelectors.push('#tnt_separated_tweets')
       }
@@ -1397,12 +1381,6 @@ const configureCss = (function() {
       if (config.hideMessagesBottomNavItem) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
       }
-      if (config.hideMetrics) {
-        hideCssSelectors.push(
-          // Tweet count under username header on profile pages
-          `body.Profile header > div > div:first-of-type h2 + div[dir="auto"]`,
-        )
-      }
       if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
         // Use CSS to tweak layout of mobile header elements on pages where it's
         // needed, as changes made directly to them can persist across pages.
@@ -1430,6 +1408,56 @@ const configureCss = (function() {
     $style.textContent = cssRules.map(dedent).join('\n')
   }
 })()
+
+/**
+ * @param {string[]} cssRules
+ * @param {string[]} hideCssSelectors
+ */
+function configureHideMetricsCss(cssRules, hideCssSelectors) {
+  if (config.hideFollowingMetrics) {
+    // User profile hover card and page metrics
+    hideCssSelectors.push(
+      ':is(#layers, body.Profile) a:is([href$="/following"], [href$="/followers"]) > :first-child'
+    )
+    // Fix display of whitespace after hidden metrics
+    cssRules.push(
+      ':is(#layers, body.Profile) a:is([href$="/following"], [href$="/followers"]) { white-space: pre-line; }'
+    )
+  }
+
+  if (config.hideTotalTweetsMetrics) {
+    // Tweet count under username header on profile pages
+    hideCssSelectors.push(
+      `body.Profile ${desktop ? Selectors.PRIMARY_COLUMN : 'header'} > div > div:first-of-type h2 + div[dir="auto"]`
+    )
+  }
+
+  let individualTweetMetricSelectors = [
+    config.hideRetweetMetrics    && '[href$="/retweets"]',
+    config.hideLikeMetrics       && '[href$="/likes"]',
+    config.hideQuoteTweetMetrics && '[href$="/retweets/with_comments"]',
+  ].filter(Boolean).join(', ')
+
+  if (individualTweetMetricSelectors) {
+    // Individual tweet metrics
+    hideCssSelectors.push(`body.Tweet a:is(${individualTweetMetricSelectors}) > :first-child`)
+    // Fix display of whitespace after hidden metrics
+    cssRules.push(`body.Tweet a:is(${individualTweetMetricSelectors}) { white-space: pre-line; }`)
+  }
+
+  let timelineMetricSelectors = [
+    config.hideReplyMetrics   && ':nth-of-type(1)',
+    config.hideRetweetMetrics && ':nth-of-type(2)',
+    config.hideLikeMetrics    && ':nth-of-type(3)',
+  ].filter(Boolean).join(', ')
+
+  if (timelineMetricSelectors) {
+    // Metrics under timeline-style tweets
+    cssRules.push(
+      `[data-testid="tweet"] [role="group"] > div:is(${timelineMetricSelectors}) div > span { visibility: hidden;}`
+    )
+  }
+}
 
 /**
  * Configures – or re-configures – the separated tweets timeline title.

@@ -7,6 +7,7 @@ body, html {
 
 body.mobile .desktop,
 body.desktop .mobile,
+body:not(.hidingMetrics) .hidingMetrics,
 body:not(.home) .home,
 body:not(.disabledHomeTimeline) .disabledHomeTimeline {
   display: none;

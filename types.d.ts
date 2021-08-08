@@ -27,6 +27,12 @@ export type Config = {
   disableHomeTimeline: boolean
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
   hideMetrics: boolean
+  hideFollowingMetrics: boolean
+  hideLikeMetrics: boolean
+  hideQuoteTweetMetrics: boolean
+  hideReplyMetrics: boolean
+  hideRetweetMetrics: boolean
+  hideTotalTweetsMetrics: boolean
   reducedInteractionMode: boolean
   verifiedAccounts: VerifiedAccountsConfig
   // Desktop only

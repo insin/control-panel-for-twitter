@@ -39,6 +39,14 @@ const checkboxGroups = new Map(Object.entries({
     mobile && 'hideBookmarksNav',
     mobile && 'hideListsNav',
   ].filter(Boolean),
+  hideAllMetrics: [
+    'hideFollowingMetrics',
+    'hideLikeMetrics',
+    'hideReplyMetrics',
+    'hideRetweetMetrics',
+    'hideQuoteTweetMetrics',
+    'hideTotalTweetsMetrics',
+  ]
 }))
 
 /** @type {import("./types").Config} */
@@ -69,6 +77,12 @@ const defaultConfig = {
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
   hideMetrics: false,
+  hideFollowingMetrics: true,
+  hideLikeMetrics: true,
+  hideQuoteTweetMetrics: true,
+  hideReplyMetrics: true,
+  hideRetweetMetrics: true,
+  hideTotalTweetsMetrics: true,
   reducedInteractionMode: false,
   verifiedAccounts: 'ignore',
   // Desktop only
@@ -114,6 +128,7 @@ chrome.storage.local.get((storedConfig) => {
   }
 
   document.body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
+  document.body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
   document.body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
 
   updateCheckboxGroups()
@@ -139,6 +154,7 @@ chrome.storage.local.get((storedConfig) => {
     }
 
     document.body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
+    document.body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
     document.body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
 
     chrome.storage.local.set(changedConfig)
