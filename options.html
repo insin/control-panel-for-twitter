@@ -280,100 +280,121 @@
         </label>
       </section>
     </section>
-    <section class="group">
-      <label>Experiments</label>
-      <section class="checkbox">
-        <label>
-          Hide metrics
-          <input type="checkbox" name="hideMetrics">
-        </label>
-        <p>
-          Hide like, retweet, quote tweet and follower counts
-        </p>
-        <section class="group hidingMetrics">
-          <label class="checkbox">
-            Hide all
-            <input type="checkbox" name="hideAllMetrics">
-          </label>
+    <section>
+      <details id="experiments">
+        <summary>
+          Experiments
+        </summary>
+        <section class="group">
           <section class="checkbox">
             <label>
-              Replies
-              <input type="checkbox" name="hideReplyMetrics">
+              Hide metrics
+              <input type="checkbox" name="hideMetrics">
             </label>
+            <p>
+              Hide like, retweet, quote tweet and follower counts
+            </p>
+            <section class="group hidingMetrics">
+              <label class="checkbox">
+                Hide all
+                <input type="checkbox" name="hideAllMetrics">
+              </label>
+              <section class="checkbox">
+                <label>
+                  Replies
+                  <input type="checkbox" name="hideReplyMetrics">
+                </label>
+              </section>
+              <section class="checkbox">
+                <label>
+                  Retweets
+                  <input type="checkbox" name="hideRetweetMetrics">
+                </label>
+              </section>
+              <section class="checkbox">
+                <label>
+                  Likes
+                  <input type="checkbox" name="hideLikeMetrics">
+                </label>
+              </section>
+              <section class="checkbox">
+                <label>
+                  Quote tweets
+                  <input type="checkbox" name="hideQuoteTweetMetrics">
+                </label>
+              </section>
+              <section class="checkbox">
+                <label>
+                  Following / followers
+                  <input type="checkbox" name="hideFollowingMetrics">
+                </label>
+              </section>
+              <section class="checkbox">
+                <label>
+                  Total tweets
+                  <input type="checkbox" name="hideTotalTweetsMetrics">
+                </label>
+              </section>
+            </section>
           </section>
           <section class="checkbox">
             <label>
-              Retweets
-              <input type="checkbox" name="hideRetweetMetrics">
+              Reduced interaction mode
+              <input type="checkbox" name="reducedInteractionMode">
             </label>
+            <p>
+              Hide the action bar under tweets &ndash; replies are now the only means of interacting
+            </p>
           </section>
-          <section class="checkbox">
+          <section class="checkbox desktop">
             <label>
-              Likes
-              <input type="checkbox" name="hideLikeMetrics">
+              Full-width timeline content
+              <input type="checkbox" name="fullWidthContent">
             </label>
+            <p>
+              Hide the sidebar and let timeline content go full-width
+            </p>
+            <section class="checkbox fullWidthContent">
+              <label>
+                Full-width media &amp; cards
+                <input type="checkbox" name="fullWidthMedia">
+              </label>
+            </section>
           </section>
-          <section class="checkbox">
+          <section class="select">
             <label>
-              Quote tweets
-              <input type="checkbox" name="hideQuoteTweetMetrics">
+              Verified accounts
+              <select name="verifiedAccounts">
+                <option value="ignore">Do nothing</option>
+                <option value="hide">Hide</option>
+                <option value="highlight">Highlight</option>
+              </select>
             </label>
+            <p>
+              Highlight tweets by &ndash; or interacting with &ndash; verified accounts, or hide them to
+              simulate the aftermath of the July 2020 Twitter hacks
+            </p>
           </section>
-          <section class="checkbox">
-            <label>
-              Following / followers
-              <input type="checkbox" name="hideFollowingMetrics">
+          <section>
+            <label class="checkbox">
+              Disable the home timeline
+              <input type="checkbox" name="disableHomeTimeline">
             </label>
-          </section>
-          <section class="checkbox">
-            <label>
-              Total tweets
-              <input type="checkbox" name="hideTotalTweetsMetrics">
-            </label>
+            <p>
+              Find yourself wasting too much time on Twitter? Try preventing use of the home timeline
+            </p>
+            <section class="select disabledHomeTimeline">
+              <label>
+                Redirect home timeline to
+                <select name="disabledHomeTimelineRedirect">
+                  <option value="notifications">Notifications</option>
+                  <option value="messages">Messages</option>
+                </select>
+              </label>
+            </section>
           </section>
         </section>
-      </section>
-      <section class="checkbox">
-        <label>
-          Reduced interaction mode
-          <input type="checkbox" name="reducedInteractionMode">
-        </label>
-        <p>
-          Hide the action bar under tweets &ndash; replies are now the only means of interacting
-        </p>
-      </section>
-      <section class="select">
-        <label>
-          Verified accounts
-          <select name="verifiedAccounts">
-            <option value="ignore">Do nothing</option>
-            <option value="hide">Hide</option>
-            <option value="highlight">Highlight</option>
-          </select>
-        </label>
-        <p>
-          Highlight tweets by &ndash; or interacting with &ndash; verified accounts, or hide them to
-          simulate the aftermath of the July 2020 Twitter hacks
-        </p>
-      </section>
-      <section>
-        <label class="checkbox">
-          Disable the home timeline
-          <input type="checkbox" name="disableHomeTimeline">
-        </label>
-        <p>
-          Find yourself wasting too much time on Twitter? Try preventing use of the home timeline
-        </p>
-        <section class="select disabledHomeTimeline">
-          <label>
-            Redirect home timeline to
-            <select name="disabledHomeTimelineRedirect">
-              <option value="notifications">Notifications</option>
-              <option value="messages">Messages</option>
-            </select>
-          </label>
-        </section>
-      </section>
+      </details>
     </section>
   </form>
   <script src="options.js"></script>

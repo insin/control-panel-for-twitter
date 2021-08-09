@@ -1,8 +1,10 @@
 const mobile = navigator.userAgent.includes('Android')
 const desktop = !mobile
-document.body.classList.add(mobile ? 'mobile' : 'desktop')
-document.body.classList.toggle('edge', navigator.userAgent.includes('Edg/'))
-document.querySelectorAll(mobile ? '.desktop' : '.mobile').forEach($el => $el.remove())
+const $body = document.body
+
+$body.classList.add(mobile ? 'mobile' : 'desktop')
+$body.classList.toggle('edge', navigator.userAgent.includes('Edg/'))
+$body.querySelectorAll(mobile ? '.desktop' : '.mobile').forEach($el => $el.remove())
 
 /** @type {Map<string, string[]>} */
 const checkboxGroups = new Map(Object.entries({
@@ -78,6 +80,8 @@ const defaultConfig = {
   // Experiments
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
+  fullWidthContent: false,
+  fullWidthMedia: false,
   hideMetrics: false,
   hideFollowingMetrics: true,
   hideLikeMetrics: true,
@@ -106,18 +110,18 @@ const defaultConfig = {
  */
 let optionsConfig
 
-function updateBodyClassNames() {
-  document.body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
-  document.body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
-  document.body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
-  document.body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
-  document.body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
-}
-
 chrome.storage.local.get((storedConfig) => {
   optionsConfig = {...defaultConfig, ...storedConfig}
 
   let $form = document.querySelector('form')
+  let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('details#experiments'))
+  $experiments.open = (
+    optionsConfig.disableHomeTimeline ||
+    optionsConfig.fullWidthContent ||
+    optionsConfig.hideMetrics ||
+    optionsConfig.reducedInteractionMode ||
+    optionsConfig.verifiedAccounts != 'ignore'
+  )
 
   function updateCheckboxGroups() {
     for (let [group, checkboxNames] of checkboxGroups.entries()) {
@@ -125,6 +129,15 @@ chrome.storage.local.get((storedConfig) => {
       $form.elements[group].checked = checkedCount == checkboxNames.length
       $form.elements[group].indeterminate = checkedCount > 0 && checkedCount < checkboxNames.length;
     }
+  }
+
+  function updateBodyClassNames() {
+    $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
+    $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
+    $body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
+    $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
+    $body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
+    $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
   }
 
   for (let prop in optionsConfig) {

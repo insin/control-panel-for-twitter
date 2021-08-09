@@ -51,6 +51,8 @@ const config = {
   // Experiments
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
+  fullWidthContent: false,
+  fullWidthMedia: false,
   hideMetrics: false,
   hideFollowingMetrics: true,
   hideLikeMetrics: true,
@@ -580,6 +582,7 @@ const THEME_COLORS = new Set([
 ])
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_PHOTO_RE = /photo\/\d$/
+const URL_LIST_RE = /\/i\/lists\/\d+$/
 const URL_TWEET_ID_RE = /\/status\/(\d+)$/
 
 /** `true` when a 'Block @${user}' menu item was seen in the last popup. */
@@ -651,8 +654,8 @@ function isOnLatestTweetsTimeline() {
   return currentPage == getString('LATEST_TWEETS')
 }
 
-function isOnListsPage() {
-  return currentPath.endsWith('/lists') || currentPath.startsWith('/i/lists')
+function isOnListPage() {
+  return URL_LIST_RE.test(currentPath)
 }
 
 function isOnMainTimelinePage() {
@@ -938,7 +941,7 @@ async function observeColor() {
  * When the "Font size" setting is changed in "Customize your view", `<html>`'s
  * fontSize is changed, after which we need to update nav font size accordingly.
  */
-const observeFontSize = (function() {
+const observeFontSize = (() => {
   if (mobile) return () => {}
 
   /** @type {MutationObserver} */
@@ -998,7 +1001,7 @@ const observeFontSize = (function() {
   }
 })()
 
-const observePopups = (function() {
+const observePopups = (() => {
   /** @type {MutationObserver} */
   let popupObserver
   /** @type {WeakMap<HTMLElement, MutationObserver>} */
@@ -1111,6 +1114,17 @@ async function observeProfileSidebar(currentPage) {
         )
       }
     }, 'sidebar content container parent')
+  )
+}
+
+function observeSidebar() {
+  let $sidebarContainer = document.querySelector(Selectors.PRIMARY_COLUMN).parentElement
+  pageObservers.push(
+    observeElement($sidebarContainer, () => {
+      let $sidebar = $sidebarContainer.querySelector(Selectors.SIDEBAR)
+      log(`sidebar ${$sidebar ? 'appeared' : 'disappeared'}`)
+      $body.classList.toggle('Sidebar', Boolean($sidebar))
+    }, 'sidebar container')
   )
 }
 
@@ -1307,7 +1321,7 @@ function checkforDisabledHomeTimeline() {
   }
 }
 
-const configureCss = (function() {
+const configureCss = (() => {
   let $style = addStyle('features')
 
   return function configureCss() {
@@ -1379,6 +1393,46 @@ const configureCss = (function() {
     if (desktop) {
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
+      }
+      if (config.fullWidthContent) {
+        // Pseudo-selector for pages full-width is enabled on
+        let pageSelector = ':is(.List, .MainTimeline)'
+        cssRules.push(`
+          /* Use full width when the sidebar is visible */
+          body.Sidebar${pageSelector} ${Selectors.PRIMARY_COLUMN},
+          body.Sidebar${pageSelector} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:last-child {
+            max-width: 990px;
+          }
+          /* Make the "What's happening" input keep its original width */
+          body.MainTimeline ${Selectors.PRIMARY_COLUMN} > div:first-child > div:nth-of-type(2) div[role="progressbar"] + div {
+            max-width: 598px;
+          }
+          /* Use full width when the sidebar is not visible */
+          body:not(.Sidebar)${pageSelector} header[role="banner"] {
+            flex-grow: 0;
+          }
+          body:not(.Sidebar)${pageSelector} main[role="main"] > div {
+            width: 100%;
+          }
+          body:not(.Sidebar)${pageSelector} ${Selectors.PRIMARY_COLUMN} {
+            max-width: unset;
+            width: 100%;
+          }
+          body:not(.Sidebar)${pageSelector} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:first-child div,
+          body:not(.Sidebar)${pageSelector} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:last-child {
+            max-width: unset;
+          }
+        `)
+        if (!config.fullWidthMedia) {
+          // Make media & cards keep their original width
+          cssRules.push(`
+            body${pageSelector} ${Selectors.PRIMARY_COLUMN} ${Selectors.TWEET} > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-last-of-type(2):not(:empty) {
+              max-width: 504px;
+            }
+          `)
+        }
+        // Hide the sidebar when present
+        hideCssSelectors.push(`body.Sidebar${pageSelector} ${Selectors.SIDEBAR}`)
       }
       if (config.hideAccountSwitcher) {
         cssRules.push(`
@@ -2023,6 +2077,7 @@ function processCurrentPage() {
     mobile && config.hideAppNags && MOBILE_LOGGED_OUT_URLS.includes(currentPath))
   )
   $body.classList.toggle('HideSidebar', shouldHideSidebar())
+  $body.classList.toggle('List', isOnListPage())
   $body.classList.toggle('MainTimeline', isOnMainTimelinePage())
   $body.classList.toggle('Profile', isOnProfilePage())
   if (!isOnProfilePage()) {
@@ -2036,6 +2091,14 @@ function processCurrentPage() {
   $body.classList.toggle('LatestTweets', isOnLatestTweetsTimeline())
   $body.classList.toggle('SeparatedTweets', isOnSeparatedTweetsTimeline())
 
+  if (desktop) {
+    if (config.fullWidthContent && (isOnMainTimelinePage() || isOnListPage())) {
+      observeSidebar()
+    } else {
+      $body.classList.remove('Sidebar')
+    }
+  }
+
   if (isOnMainTimelinePage()) {
     if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
       addSeparatedTweetsTimelineControl(currentPage)
@@ -2043,8 +2106,10 @@ function processCurrentPage() {
       removeMobileTimelineHeaderElements()
     }
     observeTimeline(currentPage)
-  } else if (mobile) {
-    removeMobileTimelineHeaderElements()
+  } else {
+    if (mobile) {
+      removeMobileTimelineHeaderElements()
+    }
   }
 
   if (isOnProfilePage()) {
@@ -2272,6 +2337,9 @@ function main() {
   observeTitle()
 }
 
+/**
+ * @param {Partial<import("./types").Config} changes
+ */
 function configChanged(changes) {
   log('config changed', changes)
 

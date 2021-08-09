@@ -29,6 +29,8 @@ export type Config = {
   // Experiments
   disableHomeTimeline: boolean
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
+  fullWidthContent: boolean
+  fullWidthMedia: boolean
   hideMetrics: boolean
   hideFollowingMetrics: boolean
   hideLikeMetrics: boolean
