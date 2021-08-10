@@ -2082,6 +2082,15 @@ async function tweakQuoteTweetsPage() {
       let $clone = /** @type {HTMLElement} */ ($quotedTweet.cloneNode(true))
       $clone.id = 'tnt_pinned_quoted_tweet'
       $clone.style.margin = '0 16px 9px 16px'
+      // Media doesn't work when we clone it, so just remove it to save space
+      let $media = $clone.querySelector('div[role="link"] > div > div:nth-of-type(3)')
+      $media?.remove()
+      // Clicking on the clone doesn't work either, so click a real quoted tweet
+      $clone.addEventListener('click', () => {
+        /** @type {HTMLElement} */ (
+          document.querySelector('[data-testid="tweet"] [aria-labelledby] > div:last-child [role="link"]')
+        )?.click()
+      })
       $heading.insertAdjacentElement('afterend', $clone)
     }
   }
