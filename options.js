@@ -16,7 +16,6 @@ const checkboxGroups = new Map(Object.entries({
   uiImprovements: [
     'addAddMutedWordMenuItem',
     'fastBlock',
-    'tweakQuoteTweetsPage',
     desktop && 'navBaseFontSize',
     mobile && 'hideAppNags',
   ].filter(Boolean),
@@ -54,6 +53,7 @@ const defaultConfig = {
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
+  dontUseChirpFont: false,
   fastBlock: true,
   hideAnalyticsNav: true,
   hideBookmarksNav: true,

@@ -54,6 +54,7 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 
 ### UI improvements
 
+- Disable use of the Chirp font if you don't like it
 - Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
 - Fast blocking - skips the confirm dialog when you try to block an account
 - Add a new item to the "More" menu (desktop) or slide-out menu (mobile) which takes you straight to the "Add muted word" page

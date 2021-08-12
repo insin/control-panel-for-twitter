@@ -26,6 +26,7 @@ const config = {
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
+  dontUseChirpFont: false,
   fastBlock: true,
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
@@ -1459,6 +1460,63 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   }
 }
 
+const configureFont = (() => {
+  /** @type {CSSStyleRule[]} */
+  let fontFamilyRules = []
+  // Don't keep checking the stylesheet forever if someone doesn't have the new
+  // font yet, or if Twitter ever change the name or remove it.
+  let attempts = 0
+
+  function findFontFamilyRules() {
+    let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
+    if (!$style) {
+      log('<style id="react-native-stylesheet"> not found to configure use of Chirp font')
+      return
+    }
+
+    for (let rule of $style.sheet.cssRules) {
+      if (rule instanceof CSSStyleRule && rule.style.fontFamily && rule.style.fontFamily.startsWith('"TwitterChirp"')) {
+        fontFamilyRules.push(rule)
+      }
+    }
+
+    if (fontFamilyRules.length > 0) {
+      log(`found Chirp fontFamily CSS rule${s(fontFamilyRules.length)}`, fontFamilyRules)
+      applyFontPreference()
+    } else {
+      if (attempts < 10) {
+        log('waiting for Chirp fontFamily CSS rule')
+        attempts++
+        setTimeout(findFontFamilyRules, 100)
+      } else {
+        log(`stopped waiting for Chirp fontFamily CSS rule after ${attempts} attempts`)
+      }
+    }
+  }
+
+  function applyFontPreference() {
+    fontFamilyRules.forEach((rule) => {
+      if (config.dontUseChirpFont) {
+        if (rule.style.fontFamily.includes('TwitterChirp')) {
+          rule.style.fontFamily = rule.style.fontFamily.replace('"TwitterChirp", ', '')
+          log('disabled Chirp font')
+        }
+      } else if (!rule.style.fontFamily.includes('TwitterChirp')) {
+        rule.style.fontFamily = `"TwitterChirp", ${rule.style.fontFamily}`
+        log(`enabled Chirp font`)
+      }
+    })
+  }
+
+  return function configureFont() {
+    if (fontFamilyRules.length > 0) {
+      applyFontPreference()
+    } else {
+      findFontFamilyRules()
+    }
+  }
+})()
+
 /**
  * Configures – or re-configures – the separated tweets timeline title.
  *
@@ -2103,6 +2161,7 @@ function main() {
 
   configureSeparatedTweetsTimelineTitle()
   configureCss()
+  configureFont()
   observeFontSize()
   observeBackgroundColor()
   observeColor()
@@ -2115,6 +2174,7 @@ function configChanged(changes) {
   log('config changed', changes)
 
   configureCss()
+  configureFont()
   configureThemeCss()
   observeFontSize()
   observePopups()

@@ -4,6 +4,7 @@ export type Config = {
   // Shared
   addAddMutedWordMenuItem: boolean
   alwaysUseLatestTweets: boolean
+  dontUseChirpFont: boolean
   fastBlock: boolean
   hideAnalyticsNav: boolean
   hideBookmarksNav: boolean
