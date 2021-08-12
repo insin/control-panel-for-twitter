@@ -55,6 +55,8 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 ### UI improvements
 
 - Disable use of the Chirp font if you don't like it
+- Uninvert the Follow and Following buttons to make them less jarring
+  - Choice of monochrome or themed (classic) styling for uninverted Follow buttons
 - Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
 - Fast blocking - skips the confirm dialog when you try to block an account
 - Add a new item to the "More" menu (desktop) or slide-out menu (mobile) which takes you straight to the "Add muted word" page
@@ -78,7 +80,7 @@ Optional features you can try, to see how they change how you perceive and use T
 
 ## Screenshots
 
-### Home timeline with default settings
+### Home timeline with all tweaks enabled
 
 | Desktop | Mobile |
 | - | - |

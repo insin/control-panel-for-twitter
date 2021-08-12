@@ -28,6 +28,7 @@ const config = {
   alwaysUseLatestTweets: true,
   dontUseChirpFont: false,
   fastBlock: true,
+  followButtonStyle: 'monochrome',
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
   hideListsNav: true,
@@ -46,6 +47,7 @@ const config = {
   retweets: 'separate',
   suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
+  uninvertFollowButtons: false,
   // Experiments
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
@@ -539,6 +541,8 @@ const PagePaths = {
 
 /** @enum {string} */
 const Selectors = {
+  DISPLAY_DONE_BUTTON_DESKTOP: '#layers div[role="button"]:not([aria-label])',
+  DISPLAY_DONE_BUTTON_MOBILE: 'main div[role="button"]:not([aria-label])',
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
@@ -565,6 +569,14 @@ const PROFILE_FOLLOWS_URL_RE = /\/[a-zA-Z\d_]{1,15}\/(following|followers|follow
 const PROFILE_TABS_URL_RE = /\/[a-zA-Z\d_]{1,15}\/(with_replies|media|likes)\/?$/
 // https://twitter.com/${user}'s title ends with (@${user})
 const PROFILE_TITLE_RE = /\(@[a-zA-Z\d_]{1,15}\)$/
+const THEME_COLORS = new Set([
+  'rgb(29, 161, 242)', // blue
+  'rgb(255, 173, 31)', // yellow
+  'rgb(224, 36, 94)',  // pink
+  'rgb(121, 75, 196)', // purple
+  'rgb(244, 93, 34)',  // orange
+  'rgb(23, 191, 99)',  // green
+])
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_PHOTO_RE = /photo\/\d$/
 const URL_TWEET_ID_RE = /\/status\/(\d+)$/
@@ -583,6 +595,13 @@ let currentPage = ''
 
 /** Current `location.pathname`. */
 let currentPath = ''
+
+/**
+ * CSS rule in the React Native stylesheet which defines the Chirp font-family
+ * and fallbacks for the whole app.
+ * @type {CSSStyleRule}
+ */
+let fontFamilyRule = null
 
 /** Set to `true` when a Home/Latest Tweets heading or Home nav link is used. */
 let homeNavigationIsBeingUsed = false
@@ -806,6 +825,40 @@ function s(n) {
 //#endregion
 
 //#region Global observers
+function checkReactNativeStylesheet() {
+  let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
+  if (!$style) {
+    log('React Native stylesheet not found')
+    return
+  }
+
+  for (let rule of $style.sheet.cssRules) {
+    if (!(rule instanceof CSSStyleRule)) continue
+
+    if (fontFamilyRule == null &&
+        rule.style.fontFamily &&
+        rule.style.fontFamily.startsWith('"TwitterChirp"')) {
+      fontFamilyRule = rule
+      log('found Chirp fontFamily CSS rule in React Native stylesheet')
+      configureFont()
+    }
+
+    if (themeColor == null &&
+        rule.style.backgroundColor &&
+        THEME_COLORS.has(rule.style.backgroundColor)) {
+      themeColor = rule.style.backgroundColor
+      log(`found initial theme color in React Native stylesheet: ${themeColor}`)
+      configureThemeCss()
+    }
+  }
+
+  if (fontFamilyRule == null || themeColor == null) {
+    setTimeout(checkReactNativeStylesheet, 100)
+  } else {
+    log('finished checking React Native stylesheet')
+  }
+}
+
 /**
  * When the "Background" setting is changed in "Customize your view", <body>'s
  * backgroundColor is changed and the app is re-rendered, so we need to
@@ -844,22 +897,22 @@ async function observeColor() {
 
   log('observing Color change re-renders')
   observeElement($primaryColorRerenderBoundary, async () => {
-    let $tweetButton = await getElement('a[data-testid="SideNav_NewTweet_Button"]', {
-      name: 'Tweet button'
+    if (location.pathname != PagePaths.CUSTOMIZE_YOUR_VIEW) return
+
+    let $doneButton = await getElement(desktop ? Selectors.DISPLAY_DONE_BUTTON_DESKTOP : Selectors.DISPLAY_DONE_BUTTON_MOBILE, {
+      name: 'Done button',
+      stopIf: pathIsNot(location.pathname),
     })
-    let color = getComputedStyle($tweetButton).backgroundColor
+    if (!$doneButton) return
+
+    let color = getComputedStyle($doneButton).backgroundColor
     if (color == themeColor) return
 
-    let themeColorChanged = themeColor != null
-
+    log('Color setting changed - re-processing current page')
     themeColor = color
     configureThemeCss()
-
-    if (themeColorChanged) {
-      log('Color setting changed - re-processing current page')
-      observePopups()
-      processCurrentPage()
-    }
+    observePopups()
+    processCurrentPage()
   })
 }
 
@@ -1410,6 +1463,18 @@ const configureCss = (function() {
   }
 })()
 
+function configureFont() {
+  if (config.dontUseChirpFont) {
+    if (fontFamilyRule.style.fontFamily.includes('TwitterChirp')) {
+      fontFamilyRule.style.fontFamily = fontFamilyRule.style.fontFamily.replace('"TwitterChirp", ', '')
+      log('disabled Chirp font')
+    }
+  } else if (!fontFamilyRule.style.fontFamily.includes('TwitterChirp')) {
+    fontFamilyRule.style.fontFamily = `"TwitterChirp", ${fontFamilyRule.style.fontFamily}`
+    log(`enabled Chirp font`)
+  }
+}
+
 /**
  * @param {string[]} cssRules
  * @param {string[]} hideCssSelectors
@@ -1460,63 +1525,6 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   }
 }
 
-const configureFont = (() => {
-  /** @type {CSSStyleRule[]} */
-  let fontFamilyRules = []
-  // Don't keep checking the stylesheet forever if someone doesn't have the new
-  // font yet, or if Twitter ever change the name or remove it.
-  let attempts = 0
-
-  function findFontFamilyRules() {
-    let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
-    if (!$style) {
-      log('<style id="react-native-stylesheet"> not found to configure use of Chirp font')
-      return
-    }
-
-    for (let rule of $style.sheet.cssRules) {
-      if (rule instanceof CSSStyleRule && rule.style.fontFamily && rule.style.fontFamily.startsWith('"TwitterChirp"')) {
-        fontFamilyRules.push(rule)
-      }
-    }
-
-    if (fontFamilyRules.length > 0) {
-      log(`found Chirp fontFamily CSS rule${s(fontFamilyRules.length)}`, fontFamilyRules)
-      applyFontPreference()
-    } else {
-      if (attempts < 10) {
-        log('waiting for Chirp fontFamily CSS rule')
-        attempts++
-        setTimeout(findFontFamilyRules, 100)
-      } else {
-        log(`stopped waiting for Chirp fontFamily CSS rule after ${attempts} attempts`)
-      }
-    }
-  }
-
-  function applyFontPreference() {
-    fontFamilyRules.forEach((rule) => {
-      if (config.dontUseChirpFont) {
-        if (rule.style.fontFamily.includes('TwitterChirp')) {
-          rule.style.fontFamily = rule.style.fontFamily.replace('"TwitterChirp", ', '')
-          log('disabled Chirp font')
-        }
-      } else if (!rule.style.fontFamily.includes('TwitterChirp')) {
-        rule.style.fontFamily = `"TwitterChirp", ${rule.style.fontFamily}`
-        log(`enabled Chirp font`)
-      }
-    })
-  }
-
-  return function configureFont() {
-    if (fontFamilyRules.length > 0) {
-      applyFontPreference()
-    } else {
-      findFontFamilyRules()
-    }
-  }
-})()
-
 /**
  * Configures – or re-configures – the separated tweets timeline title.
  *
@@ -1562,14 +1570,12 @@ function configureSeparatedTweetsTimelineTitle() {
 }
 
 const configureThemeCss = (function() {
-  if (mobile) return () => {}
-
   let $style = addStyle('theme')
 
   return function configureThemeCss() {
     let cssRules = []
 
-    if (themeColor != null && (config.retweets == 'separate' || config.quoteTweets == 'separate')) {
+    if (themeColor != null && desktop && (config.retweets == 'separate' || config.quoteTweets == 'separate')) {
       cssRules.push(`
         body.Home main h2:not(#tnt_separated_tweets),
         body.LatestTweets main h2:not(#tnt_separated_tweets),
@@ -1577,6 +1583,63 @@ const configureThemeCss = (function() {
           color: ${themeColor};
         }
       `)
+    }
+
+    if (themeColor != null && config.uninvertFollowButtons) {
+      // Use the theme color for Following buttons
+      cssRules.push(`
+        [role="button"][data-testid$="-unfollow"]:not(:hover) {
+          background-color: ${themeColor};
+          border-color: ${themeColor};
+        }
+        [role="button"][data-testid$="-unfollow"]:not(:hover) > * {
+          color: rgb(255, 255, 255);
+        }
+      `)
+      // Shared styles for Follow buttons
+      cssRules.push(`
+        [role="button"][data-testid$="-follow"] {
+          background-color: rgba(0, 0, 0, 0) !important;
+        }
+      `)
+      if (config.followButtonStyle == 'monochrome') {
+        cssRules.push(`
+          body.Default [role="button"][data-testid$="-follow"] {
+            border-color: rgb(207, 217, 222);
+          }
+          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"] {
+            border-color: rgb(83, 100, 113);
+          }
+          body.Default [role="button"][data-testid$="-follow"] > * {
+            color: rgb(15, 20, 25);
+          }
+          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"] > * {
+            color: rgb(255, 255, 255);
+          }
+          body.Default [role="button"][data-testid$="-follow"]:hover {
+            background-color: rgba(15, 20, 25, 0.1) !important;
+          }
+          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"]:hover {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+          }
+        `)
+      }
+      if (config.followButtonStyle == 'themed') {
+        cssRules.push(`
+          [role="button"][data-testid$="-follow"] {
+            border-color: ${themeColor};
+          }
+          [role="button"][data-testid$="-follow"] > * {
+            color: ${themeColor};
+          }
+          [role="button"][data-testid$="-follow"]:hover {
+            background-color: ${themeColor} !important;
+          }
+          [role="button"][data-testid$="-follow"]:hover > * {
+            color: rgb(255, 255, 255);
+          }
+        `)
+      }
     }
 
     $style.textContent = cssRules.map(dedent).join('\n')
@@ -2161,7 +2224,7 @@ function main() {
 
   configureSeparatedTweetsTimelineTitle()
   configureCss()
-  configureFont()
+  checkReactNativeStylesheet()
   observeFontSize()
   observeBackgroundColor()
   observeColor()

@@ -6,6 +6,7 @@ export type Config = {
   alwaysUseLatestTweets: boolean
   dontUseChirpFont: boolean
   fastBlock: boolean
+  followButtonStyle: 'monochrome' | 'themed'
   hideAnalyticsNav: boolean
   hideBookmarksNav: boolean
   hideListsNav: boolean
@@ -24,6 +25,7 @@ export type Config = {
   retweets: SharedTweetsConfig
   suggestedTopicTweets: AlgorithmicTweetsConfig
   tweakQuoteTweetsPage: boolean
+  uninvertFollowButtons: boolean
   // Experiments
   disableHomeTimeline: boolean
   disabledHomeTimelineRedirect: 'notifications' | 'messages'

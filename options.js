@@ -55,6 +55,7 @@ const defaultConfig = {
   alwaysUseLatestTweets: true,
   dontUseChirpFont: false,
   fastBlock: true,
+  followButtonStyle: 'monochrome',
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
   hideListsNav: true,
@@ -73,6 +74,7 @@ const defaultConfig = {
   retweets: 'separate',
   suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
+  uninvertFollowButtons: false,
   // Experiments
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
@@ -130,6 +132,7 @@ chrome.storage.local.get((storedConfig) => {
   document.body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
   document.body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
   document.body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
+  document.body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
 
   updateCheckboxGroups()
 
@@ -156,6 +159,7 @@ chrome.storage.local.get((storedConfig) => {
     document.body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
     document.body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
     document.body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
+    document.body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
 
     chrome.storage.local.set(changedConfig)
   })
