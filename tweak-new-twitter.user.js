@@ -837,7 +837,7 @@ function checkReactNativeStylesheet() {
 
     if (fontFamilyRule == null &&
         rule.style.fontFamily &&
-        rule.style.fontFamily.startsWith('"TwitterChirp"')) {
+        rule.style.fontFamily.includes('TwitterChirp')) {
       fontFamilyRule = rule
       log('found Chirp fontFamily CSS rule in React Native stylesheet')
       configureFont()
@@ -1464,9 +1464,14 @@ const configureCss = (function() {
 })()
 
 function configureFont() {
+  if (!fontFamilyRule) {
+    log('no fontFamilyRule founnd for configureFont to use')
+    return
+  }
+
   if (config.dontUseChirpFont) {
     if (fontFamilyRule.style.fontFamily.includes('TwitterChirp')) {
-      fontFamilyRule.style.fontFamily = fontFamilyRule.style.fontFamily.replace('"TwitterChirp", ', '')
+      fontFamilyRule.style.fontFamily = fontFamilyRule.style.fontFamily.replace(/"?TwitterChirp"?, ?/, '')
       log('disabled Chirp font')
     }
   } else if (!fontFamilyRule.style.fontFamily.includes('TwitterChirp')) {
