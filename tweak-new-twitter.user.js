@@ -991,8 +991,8 @@ const observePopups = (function() {
 
     if (!(config.addAddMutedWordMenuItem || config.fastBlock)) return
 
-    let $keyboardWrapper = await getElement('[data-at-shortcutkeys]', {
-      name: 'keyboard wrapper',
+    let $layers = await getElement('#layers', {
+      name: 'layers',
     })
 
     // There can be only one
@@ -1001,7 +1001,7 @@ const observePopups = (function() {
     }
 
     log(`${popupObserver ? 're-' : ''}observing popups`)
-    popupObserver = observeElement($keyboardWrapper.previousElementSibling, (mutations) => {
+    popupObserver = observeElement($layers, (mutations) => {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((/** @type {HTMLElement} */ $el) => {
           let observer = onPopup($el)
