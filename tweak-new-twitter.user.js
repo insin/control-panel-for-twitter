@@ -826,39 +826,48 @@ function s(n) {
 //#endregion
 
 //#region Global observers
-function checkReactNativeStylesheet() {
-  let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
-  if (!$style) {
-    log('React Native stylesheet not found')
-    return
-  }
+const checkReactNativeStylesheet = (() => {
+  let startTime = Date.now()
 
-  for (let rule of $style.sheet.cssRules) {
-    if (!(rule instanceof CSSStyleRule)) continue
-
-    if (fontFamilyRule == null &&
-        rule.style.fontFamily &&
-        rule.style.fontFamily.includes('TwitterChirp')) {
-      fontFamilyRule = rule
-      log('found Chirp fontFamily CSS rule in React Native stylesheet')
-      configureFont()
+  return function checkReactNativeStylesheet() {
+    let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
+    if (!$style) {
+      log('React Native stylesheet not found')
+      return
     }
 
-    if (themeColor == null &&
-        rule.style.backgroundColor &&
-        THEME_COLORS.has(rule.style.backgroundColor)) {
-      themeColor = rule.style.backgroundColor
-      log(`found initial theme color in React Native stylesheet: ${themeColor}`)
-      configureThemeCss()
+    for (let rule of $style.sheet.cssRules) {
+      if (!(rule instanceof CSSStyleRule)) continue
+
+      if (fontFamilyRule == null &&
+          rule.style.fontFamily &&
+          rule.style.fontFamily.includes('TwitterChirp')) {
+        fontFamilyRule = rule
+        log('found Chirp fontFamily CSS rule in React Native stylesheet')
+        configureFont()
+      }
+
+      if (themeColor == null &&
+          rule.style.backgroundColor &&
+          THEME_COLORS.has(rule.style.backgroundColor)) {
+        themeColor = rule.style.backgroundColor
+        log(`found initial theme color in React Native stylesheet: ${themeColor}`)
+        configureThemeCss()
+      }
+    }
+
+    let elapsedTime = Date.now() - startTime
+    if (fontFamilyRule == null || themeColor == null) {
+      if (elapsedTime < 3000) {
+        setTimeout(checkReactNativeStylesheet, 100)
+      } else {
+        log(`stopped checking React Native stylesheet after ${elapsedTime}ms`)
+      }
+    } else {
+      log(`finished checking React Native stylesheet in ${elapsedTime}ms`)
     }
   }
-
-  if (fontFamilyRule == null || themeColor == null) {
-    setTimeout(checkReactNativeStylesheet, 100)
-  } else {
-    log('finished checking React Native stylesheet')
-  }
-}
+})()
 
 /**
  * When the "Background" setting is changed in "Customize your view", <body>'s
