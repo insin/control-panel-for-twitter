@@ -1,5 +1,4 @@
 Yak stack:
-  ☐ Collapse media in a `<details>` when pinning quote tweets which contain media @created(Fri 2021-08-06 02:44)
   ☐ Handle being on the Home timeline, switching to the separated tweets timeline then enabling "Always use latest tweets" @created(Sat 2021-07-31 04:32)
     Should use the sparkle menu to move you over to latest tweets then put you on the separated tweets timeline
   ☐ The page sometimes isn't processed after fast unblocking someone on their profile page, or with the Unblock button + confirm popup @created(Thu 2021-07-22 13:00)
@@ -18,52 +17,6 @@ New features:
   ☐ Add a new item in the Report Tweet flow which takes you to the page where you can provide a description @created(Fri 2021-08-06 02:45)
   ☐ RegExp or simple pattern-based mute @created(Thu 2021-07-22 18:49)
     For when the next snowclone outstays its welcome
-  ☐ Allow specific sidebar sections to be shown @created(Fri 2021-07-23 23:40)
-    Home:
-    Notifications:
-    Bookmarks:
-    Lists:
-    what's happening - 3
-    who to follow - 4
-    topics to follow - 5
-
-    Tweet:
-    relevant people - 3
-    what's happening - 4
-
-    Quote Tweets:
-    what's happening - 3
-    topics to follow - 4
-
-    Profile (with media):
-    You might like - 4
-    what's happening - 5
-    topics to follow - 6
-
-    Profile (of someone who's never tweeted any media):
-    You might like - 3
-    what's happening - 4
-    topics to follow - 5
-
-    Connect:
-    what's happening - 3
-    topics to follow - 4
-
-    Explore:
-    who to follow - 1
-    topics to follow - 2
-
-    Topics:
-    what's happening - 3
-    who to follow - 4
-
-    Search:
-    what's happening - 2
-    who to follow - 3
-    topics to follow - 4
-
-    Follows:
-    what's happening - 2
 
 Refactoring/tech debt:
   ☐ Create a Tweet object which encapsulates finding things out about a tweet Element in the timeline @created(Tue 2021-07-20 15:41)
