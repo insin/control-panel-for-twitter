@@ -93,6 +93,7 @@ const defaultConfig = {
   hideMessagesDrawer: true,
   hideSidebarContent: true,
   navBaseFontSize: true,
+  showRelevantPeople: false,
   // Mobile only
   hideAppNags: true,
   hideExplorePageContents: true,
@@ -104,6 +105,14 @@ const defaultConfig = {
  * @type {import("./types").Config}
  */
 let optionsConfig
+
+function updateBodyClassNames() {
+  document.body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
+  document.body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
+  document.body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
+  document.body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
+  document.body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
+}
 
 chrome.storage.local.get((storedConfig) => {
   optionsConfig = {...defaultConfig, ...storedConfig}
@@ -129,11 +138,7 @@ chrome.storage.local.get((storedConfig) => {
     }
   }
 
-  document.body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
-  document.body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
-  document.body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
-  document.body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
-
+  updateBodyClassNames()
   updateCheckboxGroups()
 
   $form.addEventListener('change', (e) => {
@@ -156,10 +161,7 @@ chrome.storage.local.get((storedConfig) => {
       optionsConfig[$el.name] = changedConfig[$el.name] = $el.value
     }
 
-    document.body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
-    document.body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
-    document.body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
-    document.body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
+    updateBodyClassNames()
 
     chrome.storage.local.set(changedConfig)
   })

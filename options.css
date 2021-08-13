@@ -8,6 +8,7 @@ body, html {
 body.mobile .desktop,
 body.desktop .mobile,
 body:not(.hidingMetrics) .hidingMetrics,
+body:not(.hidingSidebarContent) .hidingSidebarContent,
 body:not(.home) .home,
 body:not(.disabledHomeTimeline) .disabledHomeTimeline,
 body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {

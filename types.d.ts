@@ -44,6 +44,7 @@ export type Config = {
   hideMessagesDrawer: boolean
   hideSidebarContent: boolean
   navBaseFontSize: boolean
+  showRelevantPeople: boolean
   // Mobile only
   hideAppNags: boolean
   hideExplorePageContents: boolean

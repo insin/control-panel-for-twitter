@@ -66,6 +66,7 @@ const config = {
   hideMessagesDrawer: true,
   hideSidebarContent: true,
   navBaseFontSize: true,
+  showRelevantPeople: false,
   // Mobile only
   hideAppNags: true,
   hideExplorePageContents: true,
@@ -1395,6 +1396,13 @@ const configureCss = (function() {
             display: block;
           }
         `)
+        if (config.showRelevantPeople) {
+          cssRules.push(`
+            body.Tweet ${Selectors.SIDEBAR_WRAPPERS} > div:is(:nth-of-type(2), :nth-of-type(3)) {
+              display: block;
+            }
+          `)
+        }
         hideCssSelectors.push(`body.HideSidebar ${Selectors.SIDEBAR}`)
       }
       if (config.hideExploreNav) {
