@@ -1,6 +1,150 @@
 const fs = require('fs')
 const path = require('path')
 
+const externalTranslations = {
+  'ar-x-fm': {
+    SHARED_TWEETS: 'التغريدات المشتركة',
+  },
+  ar: {
+    SHARED_TWEETS: 'التغريدات المشتركة',
+  },
+  bg: {
+    SHARED_TWEETS: 'Споделени туитове',
+  },
+  bn: {
+    SHARED_TWEETS: 'ভাগ করা টুইটগুলি',
+  },
+  ca: {
+    SHARED_TWEETS: 'Tuits compartits',
+  },
+  cs: {
+    SHARED_TWEETS: 'Sdílené tweety',
+  },
+  da: {
+    SHARED_TWEETS: 'Delte tweets',
+  },
+  de: {
+    SHARED_TWEETS: 'Geteilte Tweets',
+  },
+  el: {
+    SHARED_TWEETS: 'Κοινόχρηστα Tweets',
+  },
+  en: {
+    SHARED_TWEETS: 'Shared Tweets',
+  },
+  es: {
+    SHARED_TWEETS: 'Tweets compartidos',
+  },
+  eu: {
+    SHARED_TWEETS: 'Partekatutako',
+  },
+  fa: {
+    SHARED_TWEETS: 'توییتهای مشترک',
+  },
+  fi: {
+    SHARED_TWEETS: 'Jaetut twiitit',
+  },
+  fil: {
+    SHARED_TWEETS: 'Mga Ibinahaging Tweet',
+  },
+  fr: {
+    SHARED_TWEETS: 'Tweets partagés',
+  },
+  ga: {
+    SHARED_TWEETS: 'Tweetanna Roinnte',
+  },
+  gl: {
+    SHARED_TWEETS: 'Chíos compartidos',
+  },
+  gu: {
+    SHARED_TWEETS: 'શેર કરેલી ટ્વીટ્સ',
+  },
+  he: {
+    SHARED_TWEETS: 'ציוצים משותפים',
+  },
+  hi: {
+    SHARED_TWEETS: 'साझा किए गए ट्वीट',
+  },
+  hr: {
+    SHARED_TWEETS: 'Dijeljeni tweetovi',
+  },
+  hu: {
+    SHARED_TWEETS: 'Megosztott tweetek',
+  },
+  id: {
+    SHARED_TWEETS: 'Tweet yang Dibagikan',
+  },
+  it: {
+    SHARED_TWEETS: 'Tweet condivisi',
+  },
+  ja: {
+    SHARED_TWEETS: '共有ツイート',
+  },
+  kn: {
+    SHARED_TWEETS: 'ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು',
+  },
+  ko: {
+    SHARED_TWEETS: '공유 트윗',
+  },
+  mr: {
+    SHARED_TWEETS: 'सामायिक ट्विट',
+  },
+  ms: {
+    SHARED_TWEETS: 'Tweet Berkongsi',
+  },
+  nb: {
+    SHARED_TWEETS: 'Delte tweets',
+  },
+  nl: {
+    SHARED_TWEETS: 'Gedeelde Tweets',
+  },
+  pl: {
+    SHARED_TWEETS: 'Udostępnione Tweety',
+  },
+  pt: {
+    SHARED_TWEETS: 'Tweets Compartilhados',
+  },
+  ro: {
+    SHARED_TWEETS: 'Tweeturi partajate',
+  },
+  ru: {
+    SHARED_TWEETS: 'Общие твиты',
+  },
+  sk: {
+    SHARED_TWEETS: 'Zdieľané Tweety',
+  },
+  sr: {
+    SHARED_TWEETS: 'Дељени твитови',
+  },
+  sv: {
+    SHARED_TWEETS: 'Delade tweetsen',
+  },
+  ta: {
+    SHARED_TWEETS: 'பகிரப்பட்ட ட்வீட்டுகள்',
+  },
+  th: {
+    SHARED_TWEETS: 'ทวีตที่แชร์',
+  },
+  tr: {
+    SHARED_TWEETS: 'Paylaşılan Tweetler',
+  },
+  uk: {
+    SHARED_TWEETS: 'Спільні твіти',
+  },
+  ur: {
+    SHARED_TWEETS: 'مشترکہ ٹویٹس',
+  },
+  vi: {
+    SHARED_TWEETS: 'Tweet được chia sẻ',
+  },
+  'zh-Hant': {
+    SHARED_TWEETS: '分享的推文',
+  },
+  zh: {
+    SHARED_TWEETS: '分享的推文',
+  },
+}
+
 // These codes are from Twitter's own locale files - we can use them to create
 // locales with just the translations we need.
 let template = {
@@ -22,8 +166,9 @@ for (let file of fs.readdirSync('./files')) {
     locale[key] = src.match(new RegExp(`"${code}","([^"]+)"`))[1]
   }
   if (locale.TWITTER == 'Twitter') delete locale.TWITTER
-  locale.SHARED_TWEETS = ''
-  locales[file.split('.')[0]] = locale
+  let localeCode = file.split('.')[0]
+  Object.assign(locale, externalTranslations[localeCode])
+  locales[localeCode] = locale
 }
 
 fs.writeFileSync('locales.js', JSON.stringify(locales, null, 2), {encoding: 'utf8'})

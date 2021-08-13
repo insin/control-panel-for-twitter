@@ -114,7 +114,7 @@ const locales = {
     QUOTE_TWEET: 'টুইট উদ্ধৃত করুন',
     QUOTE_TWEETS: 'টুইট উদ্ধৃতিগুলো',
     RETWEETS: 'পুনঃটুইটগুলো',
-    SHARED_TWEETS: '',
+    SHARED_TWEETS: 'ভাগ করা টুইটগুলি',
     TWITTER: 'টুইটার',
   },
   ca: {
