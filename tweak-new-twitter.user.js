@@ -791,12 +791,22 @@ function log(...args) {
  * change, without looking at MutationRecords.
  * @param {Node} $element
  * @param {MutationCallback} callback
+ * @param {string} name
  * @param {MutationObserverInit} options
  */
-function observeElement($element, callback, options = {childList: true}) {
+function observeElement($element, callback, name = '', options = {childList: true}) {
+  if (name) {
+    if (options.childList && callback.length > 0) {
+      log(`observing ${name}`, $element)
+    } else {
+      log (`observing ${name}`)
+    }
+  }
+
   let observer = new MutationObserver(callback)
   callback([], observer)
   observer.observe($element, options)
+  observer['name'] = name
   return observer
 }
 
@@ -877,7 +887,6 @@ const checkReactNativeStylesheet = (() => {
 function observeBackgroundColor() {
   let lastBackgroundColor = null
 
-  log('observing body style attribute for backgroundColor changes')
   observeElement($body, () => {
     let backgroundColor = $body.style.backgroundColor
     if (backgroundColor == lastBackgroundColor) return
@@ -892,7 +901,7 @@ function observeBackgroundColor() {
       processCurrentPage()
     }
     lastBackgroundColor = backgroundColor
-  }, {
+  }, '<body> style attribute', {
     attributes: true,
     attributeFilter: ['style']
   })
@@ -903,10 +912,9 @@ function observeBackgroundColor() {
  * re-renders from a certain point, so we need to re-process the current page.
  */
 async function observeColor() {
-  let $primaryColorRerenderBoundary = await getElement('#react-root > div > div')
+  let $colorRerenderBoundary = await getElement('#react-root > div > div')
 
-  log('observing Color change re-renders')
-  observeElement($primaryColorRerenderBoundary, async () => {
+  observeElement($colorRerenderBoundary, async () => {
     if (location.pathname != PagePaths.CUSTOMIZE_YOUR_VIEW) return
 
     let $doneButton = await getElement(desktop ? Selectors.DISPLAY_DONE_BUTTON_DESKTOP : Selectors.DISPLAY_DONE_BUTTON_MOBILE, {
@@ -923,7 +931,7 @@ async function observeColor() {
     configureThemeCss()
     observePopups()
     processCurrentPage()
-  })
+  }, 'Color change re-render boundary')
 }
 
 /**
@@ -952,7 +960,6 @@ const observeFontSize = (function() {
     let lastFontSize = ''
     let lastOverflow = ''
 
-    log('observing <html> style attribute for fontSize changes')
     fontSizeObserver = observeElement($html, () => {
       if (!$html.style.fontSize) return
 
@@ -984,7 +991,7 @@ const observeFontSize = (function() {
         observePopups()
         processCurrentPage()
       }
-    }, {
+    }, '<html> style attribute', {
       attributes: true,
       attributeFilter: ['style']
     })
@@ -1014,7 +1021,6 @@ const observePopups = (function() {
       popupObserver.disconnect()
     }
 
-    log(`${popupObserver ? 're-' : ''}observing popups`)
     popupObserver = observeElement($layers, (mutations) => {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((/** @type {HTMLElement} */ $el) => {
@@ -1030,15 +1036,14 @@ const observePopups = (function() {
           }
         })
       })
-    })
+    }, 'popup container')
   }
 })()
 
 async function observeTitle() {
   let $title = await getElement('title', {name: '<title>'})
   observingTitle = true
-  log('observing <title>')
-  observeElement($title, () => onTitleChange($title.textContent))
+  observeElement($title, () => onTitleChange($title.textContent), '<title>')
 }
 //#endregion
 
@@ -1061,12 +1066,11 @@ async function observeProfileBlockedStatus(currentPage) {
     return
   }
 
-  log('observing Follow / Unblock button container for blocked status changes')
   pageObservers.push(
     observeElement($buttonContainer, () => {
       let isBlocked = (/** @type {HTMLElement} */ ($buttonContainer.querySelector('[role="button"]'))?.dataset.testid ?? '').endsWith('unblock')
       $body.classList.toggle('Blocked', isBlocked)
-    })
+    }, 'Follow / Unblock button container')
   )
 }
 
@@ -1083,10 +1087,9 @@ async function observeProfileSidebar(currentPage) {
   })
   if ($sidebarContent == null) return
 
-  log('observing profile sidebar content container')
   let sidebarContentObserver = observeElement($sidebarContent, () => {
     $body.classList.toggle('NoMedia', $sidebarContent.childElementCount == 5)
-  })
+  }, 'profile sidebar content container')
   pageObservers.push(sidebarContentObserver)
 
   // On initial appearance, the sidebar is injected with static HTML with
@@ -1104,10 +1107,10 @@ async function observeProfileSidebar(currentPage) {
         pageObservers.push(
           observeElement($sidebarContent, () => {
             $body.classList.toggle('NoMedia', $sidebarContent.childElementCount == 5)
-          })
+          }, 'sidebar content container')
         )
       }
-    })
+    }, 'sidebar content container parent')
   )
 }
 
@@ -1121,9 +1124,8 @@ async function observeTimeline(page) {
 
   // The inital timeline element is a placeholder without a style attribute
   if ($timeline.hasAttribute('style')) {
-    log('observing timeline', {$timeline})
     pageObservers.push(
-      observeElement($timeline, () => onTimelineChange($timeline, page))
+      observeElement($timeline, () => onTimelineChange($timeline, page), 'timeline')
     )
   }
   else {
@@ -1136,13 +1138,12 @@ async function observeTimeline(page) {
             if (Date.now() > startTime) {
               log(`timeline appeared after ${Date.now() - startTime}ms`)
             }
-            log('observing timeline', {$timeline})
             pageObservers.push(
-              observeElement($timeline, () => onTimelineChange($timeline, page))
+              observeElement($timeline, () => onTimelineChange($timeline, page), 'timeline')
             )
           })
         })
-      })
+      }, 'timeline parent')
     )
   }
 }
@@ -1791,7 +1792,6 @@ function onPopup($popup) {
 
   if (handlePopup($popup)) return
 
-  log('observing nested popups')
   return observeElement($popup, (mutations) => {
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((/** @type {HTMLElement} */ $nestedPopup) => {
@@ -2004,7 +2004,10 @@ function onTitleChange(title) {
 
 function processCurrentPage() {
   if (pageObservers.length > 0) {
-    log(`disconnecting ${pageObservers.length} page observer${s(pageObservers.length)}`)
+    log(
+      `disconnecting ${pageObservers.length} page observer${s(pageObservers.length)}`,
+      pageObservers.map(observer => observer['name'])
+    )
     pageObservers.forEach(observer => observer.disconnect())
     pageObservers = []
   }
@@ -2194,7 +2197,7 @@ async function tweakExplorePage(page) {
           }
         })
       })
-    })
+    }, 'back button parent')
   )
 }
 
