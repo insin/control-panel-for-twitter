@@ -940,25 +940,34 @@ const observeFontSize = (function() {
     }
 
     let lastFontSize = ''
+    let lastOverflow = ''
 
     log('observing html style attribute for fontSize changes')
     fontSizeObserver = observeElement($html, () => {
-      if ($html.style.fontSize) {
-        if ($html.style.fontSize!= lastFontSize) {
-          lastFontSize = $html.style.fontSize
-          log(`setting nav font size to ${lastFontSize}`)
-          $style.textContent = dedent(`
-            ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] span { font-size: ${lastFontSize}; font-weight: normal; }
-            ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] { margin-top: -4px; }
-          `)
-        }
+      if (!$html.style.fontSize) return
 
-        // Try to avoid excessive reprocessing on init
-        if (observingTitle) {
-          log('html style attribute changed, re-processing current page')
-          observePopups()
-          processCurrentPage()
-        }
+      if ($html.style.fontSize != lastFontSize) {
+        lastFontSize = $html.style.fontSize
+        log(`setting nav font size to ${lastFontSize}`)
+        $style.textContent = dedent(`
+          ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] span { font-size: ${lastFontSize}; font-weight: normal; }
+          ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] { margin-top: -4px; }
+        `)
+      }
+
+      // Ignore overflow changes, which happen when a dialog is shown or hidden
+      let hasOverflowChanged = $html.style.overflow != lastOverflow
+      lastOverflow = $html.style.overflow
+      if (hasOverflowChanged) {
+        log('ignoring html style overflow change')
+        return
+      }
+
+      // Try to avoid excessive reprocessing on init
+      if (observingTitle) {
+        log('html style attribute changed, re-processing current page')
+        observePopups()
+        processCurrentPage()
       }
     }, {
       attributes: true,
