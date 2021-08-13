@@ -902,7 +902,7 @@ async function observeColor() {
 
     let $doneButton = await getElement(desktop ? Selectors.DISPLAY_DONE_BUTTON_DESKTOP : Selectors.DISPLAY_DONE_BUTTON_MOBILE, {
       name: 'Done button',
-      stopIf: pathIsNot(location.pathname),
+      stopIf: not(() => location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW),
     })
     if (!$doneButton) return
 
@@ -943,9 +943,11 @@ const observeFontSize = (function() {
     let lastFontSize = ''
     let lastOverflow = ''
 
-    log('observing html style attribute for fontSize changes')
+    log('observing <html> style attribute for fontSize changes')
     fontSizeObserver = observeElement($html, () => {
       if (!$html.style.fontSize) return
+
+      let hasFontSizeChanged = lastFontSize != '' && $html.style.fontSize != lastFontSize
 
       if ($html.style.fontSize != lastFontSize) {
         lastFontSize = $html.style.fontSize
@@ -959,14 +961,17 @@ const observeFontSize = (function() {
       // Ignore overflow changes, which happen when a dialog is shown or hidden
       let hasOverflowChanged = $html.style.overflow != lastOverflow
       lastOverflow = $html.style.overflow
-      if (hasOverflowChanged) {
-        log('ignoring html style overflow change')
+      if (!hasFontSizeChanged && hasOverflowChanged) {
+        log('ignoring <html> style overflow change')
         return
       }
 
-      // Try to avoid excessive reprocessing on init
-      if (observingTitle) {
-        log('html style attribute changed, re-processing current page')
+      // When you switch between the smallest "Font size" options, <html>'s
+      // style is updated but the font size is kept the same - re-process just
+      // in case.
+      if (hasFontSizeChanged ||
+          location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW && lastFontSize == '14px') {
+        log('<html> style attribute changed, re-processing current page')
         observePopups()
         processCurrentPage()
       }
@@ -1099,7 +1104,7 @@ async function observeProfileSidebar(currentPage) {
 
 async function observeTimeline(page) {
   let $timeline = await getElement(Selectors.TIMELINE, {
-    name: 'timeline',
+    name: 'initial timeline',
     stopIf: pageIsNot(page),
   })
 
