@@ -1742,17 +1742,18 @@ function handlePopup($popup) {
 }
 
 /**
- * Automatically click a tweet to get rid of the "More Tweets" section.
+ * Automatically click a tweet's link to get rid of the "More Tweets" section.
  */
 async function hideMoreTweetsSection(path) {
   let id = URL_TWEET_ID_RE.exec(path)[1]
-  let $link = await getElement(`a[href$="/status/${id}"]`, {
+  let $tweetLink = await getElement(`a[href$="/status/${id}"]`, {
     name: 'tweet',
     stopIf: pathIsNot(path),
+    timeout: 2000,
   })
-  if ($link) {
-    log('clicking "Show this thread" link')
-    $link.click()
+  if ($tweetLink) {
+    log('clicking the tweet link to hide "More Tweets"')
+    $tweetLink.click()
   }
 }
 
@@ -2185,8 +2186,7 @@ async function tweakExplorePage(page) {
 
 async function tweakIndividualTweetPage() {
   if (config.hideMoreTweets) {
-    let searchParams = new URLSearchParams(location.search)
-    if (searchParams.has('ref_src') || searchParams.has('s')) {
+    if (location.search) {
       hideMoreTweetsSection(currentPath)
     }
   }
