@@ -1676,24 +1676,31 @@ const configureThemeCss = (() => {
     }
 
     if (themeColor != null && config.uninvertFollowButtons) {
-      // Use the theme color for Following buttons
+      // Shared styles for Following and Follow buttons
       cssRules.push(`
         [role="button"][data-testid$="-unfollow"]:not(:hover) {
-          background-color: ${themeColor};
-          border-color: ${themeColor};
+          border-color: rgba(0, 0, 0, 0);
         }
-        [role="button"][data-testid$="-unfollow"]:not(:hover) > * {
-          color: rgb(255, 255, 255);
-        }
-      `)
-      // Shared styles for Follow buttons
-      cssRules.push(`
         [role="button"][data-testid$="-follow"] {
           background-color: rgba(0, 0, 0, 0) !important;
         }
       `)
       if (config.followButtonStyle == 'monochrome') {
         cssRules.push(`
+          /* Following button */
+          body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) {
+            background-color: rgb(15, 20, 25);
+          }
+          body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) > * {
+              color: rgb(255, 255, 255);
+          }
+          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) {
+            background-color: rgb(255, 255, 255);
+          }
+          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) > * {
+              color: rgb(15, 20, 25);
+          }
+          /* Follow button */
           body.Default [role="button"][data-testid$="-follow"] {
             border-color: rgb(207, 217, 222);
           }
@@ -1716,6 +1723,14 @@ const configureThemeCss = (() => {
       }
       if (config.followButtonStyle == 'themed') {
         cssRules.push(`
+          /* Following button */
+          [role="button"][data-testid$="-unfollow"]:not(:hover) {
+            background-color: ${themeColor};
+          }
+          [role="button"][data-testid$="-unfollow"]:not(:hover) > * {
+              color: rgb(255, 255, 255);
+          }
+          /* Follow button */
           [role="button"][data-testid$="-follow"] {
             border-color: ${themeColor};
           }
