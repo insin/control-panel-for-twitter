@@ -607,6 +607,9 @@ let currentPath = ''
  */
 let fontFamilyRule = null
 
+/** @type {string} */
+let fontSize = null
+
 /** Set to `true` when a Home/Latest Tweets heading or Home nav link is used. */
 let homeNavigationIsBeingUsed = false
 
@@ -887,7 +890,7 @@ const checkReactNativeStylesheet = (() => {
  * backgroundColor is changed and the app is re-rendered, so we need to
  * re-process the current page.
  */
-function observeBackgroundColor() {
+function observeBodyBackgroundColor() {
   let lastBackgroundColor = null
 
   observeElement($body, () => {
@@ -904,7 +907,7 @@ function observeBackgroundColor() {
       processCurrentPage()
     }
     lastBackgroundColor = backgroundColor
-  }, '<body> style attribute', {
+  }, '<body> style attribute for backgroundColor', {
     attributes: true,
     attributeFilter: ['style']
   })
@@ -939,67 +942,46 @@ async function observeColor() {
 
 /**
  * When the "Font size" setting is changed in "Customize your view", `<html>`'s
- * fontSize is changed, after which we need to update nav font size accordingly.
+ * fontSize is changed and the app is re-rendered.
  */
-const observeFontSize = (() => {
-  if (mobile) return () => {}
+function observeHtmlFontSize() {
+  if (mobile) return
 
-  /** @type {MutationObserver} */
-  let fontSizeObserver
-  let $style = addStyle('nav-font-size')
+  let lastOverflow = ''
 
-  return function observeFontSize() {
-    if (fontSizeObserver) {
-      log('disconnecting previous font size observer')
-      fontSizeObserver.disconnect()
-      fontSizeObserver = null
+  observeElement($html, () => {
+    if (!$html.style.fontSize) return
+
+    let hasFontSizeChanged = fontSize != null && $html.style.fontSize != fontSize
+
+    if ($html.style.fontSize != fontSize) {
+      fontSize = $html.style.fontSize
+      log(`<html> fontSize has changed to ${fontSize}`)
+      configureNavFontSizeCss()
     }
 
-    if (!config.navBaseFontSize) {
-      $style.textContent = ''
+    // Ignore overflow changes, which happen when a dialog is shown or hidden
+    let hasOverflowChanged = $html.style.overflow != lastOverflow
+    lastOverflow = $html.style.overflow
+    if (!hasFontSizeChanged && hasOverflowChanged) {
+      log('ignoring <html> style overflow change')
       return
     }
 
-    let lastFontSize = ''
-    let lastOverflow = ''
-
-    fontSizeObserver = observeElement($html, () => {
-      if (!$html.style.fontSize) return
-
-      let hasFontSizeChanged = lastFontSize != '' && $html.style.fontSize != lastFontSize
-
-      if ($html.style.fontSize != lastFontSize) {
-        lastFontSize = $html.style.fontSize
-        log(`setting nav font size to ${lastFontSize}`)
-        $style.textContent = dedent(`
-          ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] span { font-size: ${lastFontSize}; font-weight: normal; }
-          ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] { margin-top: -4px; }
-        `)
-      }
-
-      // Ignore overflow changes, which happen when a dialog is shown or hidden
-      let hasOverflowChanged = $html.style.overflow != lastOverflow
-      lastOverflow = $html.style.overflow
-      if (!hasFontSizeChanged && hasOverflowChanged) {
-        log('ignoring <html> style overflow change')
-        return
-      }
-
-      // When you switch between the smallest "Font size" options, <html>'s
-      // style is updated but the font size is kept the same - re-process just
-      // in case.
-      if (hasFontSizeChanged ||
-          location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW && lastFontSize == '14px') {
-        log('<html> style attribute changed, re-processing current page')
-        observePopups()
-        processCurrentPage()
-      }
-    }, '<html> style attribute', {
-      attributes: true,
-      attributeFilter: ['style']
-    })
-  }
-})()
+    // When you switch between the smallest "Font size" options, <html>'s
+    // style is updated but the font size is kept the same - re-process just
+    // in case.
+    if (hasFontSizeChanged ||
+        location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW && fontSize == '14px') {
+      log('<html> style attribute changed, re-processing current page')
+      observePopups()
+      processCurrentPage()
+    }
+  }, '<html> style attribute for fontSize', {
+    attributes: true,
+    attributeFilter: ['style']
+  })
+}
 
 const observePopups = (() => {
   /** @type {MutationObserver} */
@@ -1551,7 +1533,7 @@ const configureCss = (() => {
 
 function configureFont() {
   if (!fontFamilyRule) {
-    log('no fontFamilyRule founnd for configureFont to use')
+    log('no fontFamilyRule found for configureFont to use')
     return
   }
 
@@ -1616,6 +1598,23 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   }
 }
 
+const configureNavFontSizeCss = (() => {
+  let $style = addStyle('nav-font-size')
+
+  return function configureNavFontSizeCss() {
+    let cssRules = []
+
+    if (fontSize != null && config.navBaseFontSize) {
+      cssRules.push(`
+        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] span { font-size: ${fontSize}; font-weight: normal; }
+        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] { margin-top: -4px; }
+      `)
+    }
+
+    $style.textContent = cssRules.map(dedent).join('\n')
+  }
+})()
+
 /**
  * Configures – or re-configures – the separated tweets timeline title.
  *
@@ -1660,7 +1659,7 @@ function configureSeparatedTweetsTimelineTitle() {
   }
 }
 
-const configureThemeCss = (function() {
+const configureThemeCss = (() => {
   let $style = addStyle('theme')
 
   return function configureThemeCss() {
@@ -2329,8 +2328,8 @@ function main() {
   configureSeparatedTweetsTimelineTitle()
   configureCss()
   checkReactNativeStylesheet()
-  observeFontSize()
-  observeBackgroundColor()
+  observeHtmlFontSize()
+  observeBodyBackgroundColor()
   observeColor()
   observePopups()
 
@@ -2345,8 +2344,8 @@ function configChanged(changes) {
 
   configureCss()
   configureFont()
+  configureNavFontSizeCss()
   configureThemeCss()
-  observeFontSize()
   observePopups()
 
   // Only re-process the current page if navigation wasn't already triggered
