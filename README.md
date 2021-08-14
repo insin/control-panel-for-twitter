@@ -101,6 +101,10 @@ Optional features you can try, to see how they change how you perceive and use T
 
 ### Uninverted Follow buttons
 
+| Followers page with uninverted buttons |
+| - |
+| ![A Twitter Followers page with white Follow buttons and black Following buttons](screenshots/uninverted_follow_buttons.png) |
+
 | Monochrome | Themed |
 | - | - |
 | ![Uninverted Follow / Following buttons using the new monochrome Twitter style](screenshots/uninverted_follow_buttons_monochrome.png) | ![Uninverted Follow / Following buttons using the classic themed Twitter style](screenshots/uninverted_follow_buttons_themed.png) |
