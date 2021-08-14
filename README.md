@@ -56,7 +56,7 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 
 - Disable use of the Chirp font if you don't like it
 - Uninvert the Follow and Following buttons to make them less jarring
-  - Choice of monochrome or themed (classic) styling for uninverted Follow buttons
+  - Choice of monochrome or themed (classic) styling for uninverted buttons
 - Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
 - Fast blocking - skips the confirm dialog when you try to block an account
 - Add a new item to the "More" menu (desktop) or slide-out menu (mobile) which takes you straight to the "Add muted word" page
@@ -75,6 +75,7 @@ Optional features you can try, to see how they change how you perceive and use T
 
 - Hide metrics: hide like, retweet, quote tweet and follower counts
 - Reduced interaction mode: hide the action bar under tweets – replies are now the only means of interacting
+- Full-width timeline content: hide the sidebar and let timeline content go full-width
 - Verified accounts: highlight tweets by – or interacting with – verified accounts, or hide them to simulate the aftermath of the [July 2020 Twitter hacks](https://en.wikipedia.org/wiki/2020_Twitter_account_hijacking)
 - Disable the home timeline: find yourself [wasting too much time on Twitter](https://world.hey.com/brecht/free-range-tweet-farming-9399f6e5)? Try preventing use of the home timeline, going to Notifications or Messages by default instead
 
@@ -92,29 +93,29 @@ Optional features you can try, to see how they change how you perceive and use T
 | - | - |
 | ![Screenshot of the separate timeline Tweak New Twitter adds to desktop Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/shared_tweets.png) | ![Screenshot of the separate timeline Tweak New Twitter adds to mobile Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/firefox_android_shared_tweets.jpg) |
 
-### Tidied-up menus, with instant access to "Add muted word"
+### Tidied-up menu, with instant access to "Add muted word"
 
 | Desktop - "More" menu | Mobile - slide-out menu |
 | - | - |
 | ![Screenshot of the "More" menu on desktop Twitter, with most of the menu items removed and a new "Add muted word" menu item](screenshots/more_menu.png) | ![Screenshot of the slide-out menu on mobile Twitter, with most of the menu items removed and a new "Add muted word" menu item](screenshots/firefox_android_menu.jpg) |
+
+### Uninverted Follow buttons
+
+| Monochrome | Themed |
+| - | - |
+| ![Uninverted Follow / Following buttons using the new monochrome Twitter style](screenshots/uninverted_follow_buttons_monochrome.png) | ![Uninverted Follow / Following buttons using the classic themed Twitter style](screenshots/uninverted_follow_buttons_themed.png) |
+
+### Disable use of Chirp font
+
+| Chirp on | Chirp off |
+| - | - |
+| ![A Twitter thread using the Chirp font](screenshots/chirp_on.png) | ![The same Twitter thread using the fallback system fonts](screenshots/chirp_off.png) |
 
 ### Improved Quote Tweets page
 
 | Desktop - quoted tweet pinned to header, duplicates under each tweet are hidden | Mobile - duplicate quoted tweet hidden, leaving more room for quotes  |
 | - | - |
 | ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on desktop, pinning the quoted tweet in the header instead of repeating it in every tweet](screenshots/quote_tweets.png) | ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on mobile, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/firefox_android_quote_tweets.jpg) |
-
-### Configurable via extension options
-
-| Chrome | Firefox | Firefox Android |
-| - | - | - |
-| ![Screenshot of the extension options dialog in Chrome](screenshots/chrome_options_dark.png) | ![Screenshot of the add-on options page in Firefox](screenshots/firefox_options_dark.png) | ![Screenshot of the add-on settings page in Firefox Android](screenshots/firefox_android_settings.jpg) |
-
-### Other mobile features
-
-| No trends on Explore screen, just search | No "Open app" nag in tweet header | No "Switch to the app" nag when logged out… | …or when logging in
-| - | - | - | - |
-| ![Screenshot of the Explore screen in mobile Twitter, with only the search part of the screen visible](screenshots/firefox_android_explore.jpg) | ![Screenshot an individual tweet in mobile Twitter, without the usual "Open app" buttoin in the header, and without the usual Messages navigation item in the bottom navigation bar](screenshots/firefox_android_tweet.jpg) | ![Screenshot of the login screen in mobile Twitter, without the usual "Twitter is better on the app" overlay](screenshots/firefox_android_no_nag_home.jpg) | ![Screenshot of the logged out home screen in mobile Twitter, without the usual "Twitter is better on the app" overlay](screenshots/firefox_android_no_nag_login.jpg) |
 
 ### Experimental features
 
@@ -125,6 +126,26 @@ Optional features you can try, to see how they change how you perceive and use T
 | Highlight (or hide) verified accounts | Disable the home timeline |
 | - | - |
 | ![Sceenshot of a Twitter timeline with a tweet by a user with a verified badge highlighted](screenshots/highlight_verified_accounts.png) | ![Sceenshot of Twitter without the Home navigation item](screenshots/disable_home_timeline.png) |
+
+| Full-width timeline |
+| - |
+| ![Sceenshot of a Twitter timeline which takes up all the available width in the layout](screenshots/full_width_timeline.png) |
+
+### Configurable via extension options
+
+| Firefox | Edge |
+| - | - |
+| ![Screenshot of the add-on options page in Firefox](screenshots/firefox_options_dark.png) | ![Screenshot of the add-on settings page in Edge](screenshots/edge_options_dark.png) |
+
+| Chrome | Firefox Android |
+| - | - |
+| ![Screenshot of the extension options dialog in Chrome](screenshots/chrome_options_dark.png) | ![Screenshot of the add-on settings page in Firefox Android](screenshots/firefox_android_settings.jpg) |
+
+### Other mobile features
+
+| No trends on Explore screen, just search | No "Open app" nag in tweet header | No "Switch to the app" nag when logged out… | …or when logging in
+| - | - | - | - |
+| ![Screenshot of the Explore screen in mobile Twitter, with only the search part of the screen visible](screenshots/firefox_android_explore.jpg) | ![Screenshot an individual tweet in mobile Twitter, without the usual "Open app" buttoin in the header, and without the usual Messages navigation item in the bottom navigation bar](screenshots/firefox_android_tweet.jpg) | ![Screenshot of the login screen in mobile Twitter, without the usual "Twitter is better on the app" overlay](screenshots/firefox_android_no_nag_home.jpg) | ![Screenshot of the logged out home screen in mobile Twitter, without the usual "Twitter is better on the app" overlay](screenshots/firefox_android_no_nag_login.jpg) |
 
 ### Language support
 
