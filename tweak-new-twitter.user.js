@@ -47,7 +47,7 @@ const config = {
   retweets: 'separate',
   suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
-  uninvertFollowButtons: false,
+  uninvertFollowButtons: true,
   // Experiments
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',

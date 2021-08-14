@@ -18,6 +18,7 @@ const checkboxGroups = new Map(Object.entries({
   uiImprovements: [
     'addAddMutedWordMenuItem',
     'fastBlock',
+    'uninvertFollowButtons',
     desktop && 'navBaseFontSize',
     mobile && 'hideAppNags',
   ].filter(Boolean),
@@ -76,7 +77,7 @@ const defaultConfig = {
   retweets: 'separate',
   suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
-  uninvertFollowButtons: false,
+  uninvertFollowButtons: true,
   // Experiments
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
