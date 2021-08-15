@@ -159,6 +159,16 @@ let template = {
 
 let locales = {}
 
+function sortProperties(locale) {
+  let entries = Object.entries(locale)
+  entries.sort(([a], [b]) => {
+    if (a < b) return -1
+    if (a > b) return 1
+    return 0
+  })
+  return Object.fromEntries(entries)
+}
+
 for (let file of fs.readdirSync('./files')) {
   let locale = {}
   let src = fs.readFileSync(path.join('files', file), {encoding: 'utf8'})
@@ -168,7 +178,7 @@ for (let file of fs.readdirSync('./files')) {
   if (locale.TWITTER == 'Twitter') delete locale.TWITTER
   let localeCode = file.split('.')[0]
   Object.assign(locale, externalTranslations[localeCode])
-  locales[localeCode] = locale
+  locales[localeCode] = sortProperties(locale)
 }
 
 fs.writeFileSync('locales.js', JSON.stringify(locales, null, 2), {encoding: 'utf8'})
