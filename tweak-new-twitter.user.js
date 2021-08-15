@@ -1678,7 +1678,7 @@ const configureThemeCss = (() => {
       `)
     }
 
-    if (themeColor != null && config.uninvertFollowButtons) {
+    if (config.uninvertFollowButtons) {
       // Shared styles for Following and Follow buttons
       cssRules.push(`
         [role="button"][data-testid$="-unfollow"]:not(:hover) {
@@ -1688,7 +1688,7 @@ const configureThemeCss = (() => {
           background-color: rgba(0, 0, 0, 0) !important;
         }
       `)
-      if (config.followButtonStyle == 'monochrome') {
+      if (config.followButtonStyle == 'monochrome' || themeColor == null) {
         cssRules.push(`
           /* Following button */
           body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) {
@@ -1724,7 +1724,7 @@ const configureThemeCss = (() => {
           }
         `)
       }
-      if (config.followButtonStyle == 'themed') {
+      if (config.followButtonStyle == 'themed' && themeColor != null) {
         cssRules.push(`
           /* Following button */
           [role="button"][data-testid$="-unfollow"]:not(:hover) {
