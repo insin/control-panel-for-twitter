@@ -1110,6 +1110,9 @@ function observeSidebar() {
   )
 }
 
+/**
+ * @param {string} page
+ */
 async function observeTimeline(page) {
   let $timeline = await getElement(Selectors.TIMELINE, {
     name: 'initial timeline',
