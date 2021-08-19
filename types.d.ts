@@ -9,6 +9,8 @@ export type Config = {
   followButtonStyle: 'monochrome' | 'themed'
   hideAnalyticsNav: boolean
   hideBookmarksNav: boolean
+  hideHelpCenterNav: boolean
+  hideKeyboardShortcutsNav: boolean
   hideListsNav: boolean
   hideMomentsNav: boolean
   hideMoreTweets: boolean

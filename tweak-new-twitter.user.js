@@ -31,6 +31,8 @@ const config = {
   followButtonStyle: 'monochrome',
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
+  hideHelpCenterNav: true,
+  hideKeyboardShortcutsNav: false,
   hideListsNav: true,
   hideMomentsNav: true,
   hideMoreTweets: true,
@@ -1489,6 +1491,9 @@ const configureCss = (() => {
         'body.Tweet [data-testid="tweet"] + div > div > [role="group"] > div:nth-of-type(4)',
       )
     }
+    if (config.hideHelpCenterNav) {
+      hideCssSelectors.push('div[role="dialog"] a[href*="support.twitter.com"]')
+    }
     if (config.hideListsNav) {
       hideCssSelectors.push('div[role="dialog"] a[href$="/lists"]')
     }
@@ -1593,6 +1598,9 @@ const configureCss = (() => {
           body.Dim .tnt_menu_item:hover { background-color: rgb(25, 39, 52) !important; }
           body.LightsOut .tnt_menu_item:hover { background-color: rgb(21, 24, 28) !important; }
         `)
+      }
+      if (config.hideKeyboardShortcutsNav) {
+        hideCssSelectors.push('div[role="dialog"] a[href$="/i/keyboard_shortcuts"]')
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
