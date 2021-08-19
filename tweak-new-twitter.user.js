@@ -1253,8 +1253,19 @@ async function observeTimeline(page) {
  * the individual screens!).
  * @param {HTMLElement} $settingsLink
  */
-function addAddMutedWordMenuItem($settingsLink) {
+async function addAddMutedWordMenuItem($settingsLink) {
   log('adding "Add muted word" menu item')
+
+  // Wait for the menu to render properly on desktop
+  if (desktop) {
+    $settingsLink = await getElement(`:scope > div > div > div > div > a[href="/settings"]`, {
+      context: $settingsLink.parentElement.parentElement,
+      name: 'rendered settings menu item',
+      timeout: 100,
+    })
+    if (!$settingsLink) return
+  }
+
   let $addMutedWord = /** @type {HTMLElement} */ ($settingsLink.parentElement.cloneNode(true))
   $addMutedWord.classList.add('tnt_menu_item')
   $addMutedWord.querySelector('a').href = PagePaths.ADD_MUTED_WORD
@@ -1264,7 +1275,7 @@ function addAddMutedWordMenuItem($settingsLink) {
     e.preventDefault()
     addMutedWord()
   })
-  $settingsLink.parentElement.insertAdjacentElement('afterend', $addMutedWord)
+  $settingsLink.parentElement.previousElementSibling.insertAdjacentElement('beforebegin', $addMutedWord)
 }
 
 function addCaretMenuListenerForQuoteTweet($tweet) {
