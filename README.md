@@ -51,6 +51,7 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 - Move Retweets to a separate timeline (default setting), or hide them entirely
 - Move Quote Tweets and replies to them to a separate timeline, or hide them entirely (off by default)
 - Hide tweets quoting accounts you've blocked or muted
+- Mute quoting of specific tweets - adds a "Mute this conversation" menu item to Quote Tweets in the timeline
 
 ### UI improvements
 
