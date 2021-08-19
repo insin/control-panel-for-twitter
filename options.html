@@ -403,8 +403,9 @@
               Disable the home timeline
               <input type="checkbox" name="disableHomeTimeline">
             </label>
-            <p>
+            <p id="showDebugOptions">
               Find yourself wasting too much time on Twitter? Try preventing use of the home timeline
+              <small id="debugCountdown"></small>
             </p>
             <section class="select disabledHomeTimeline">
               <label>
@@ -418,6 +419,22 @@
           </section>
         </section>
       </details>
+    </section>
+    <section class="group debug">
+      <label>Debug options</label>
+      <section class="checkbox">
+        <label>
+          Debug mode
+          <input type="checkbox" name="debug">
+        </label>
+        <p>Enables debug logging and displays tweet debug info in the timeline</p>
+      </section>
+      <section>
+        <label>
+          Export configuration for bug report
+          <input type="button" value="Export" id="export-config">
+        </label>
+      </section>
     </section>
   </form>
   <script src="options.js"></script>

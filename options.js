@@ -55,6 +55,7 @@ const checkboxGroups = new Map(Object.entries({
 
 /** @type {import("./types").Config} */
 const defaultConfig = {
+  debug: false,
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
@@ -118,6 +119,7 @@ const defaultConfig = {
 let optionsConfig
 
 let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('details#experiments'))
+let $exportConfig = document.querySelector('#export-config')
 let $form = document.querySelector('form')
 let $mutedQuotes =  /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
 let $mutedQuotesDetails =  /** @type {HTMLDetailsElement} */ (document.querySelector('details#mutedQuotesDetails'))
@@ -127,6 +129,16 @@ function applyConfig() {
   updateFormControls()
   updateCheckboxGroups()
   updateDisplay()
+}
+
+function exportConfig() {
+  let $a = document.createElement('a')
+  $a.download = 'tweak-new-twitter.config.txt'
+  $a.href = URL.createObjectURL(new Blob([
+    JSON.stringify({version: '2.10', ...sortProperties(optionsConfig)}, null, 2)
+  ], {type: 'text/plain'}))
+  $a.click()
+  URL.revokeObjectURL($a.href)
 }
 
 /**
@@ -198,8 +210,26 @@ function onStorageChanged(changes) {
   applyConfig()
 }
 
+/**
+ * @param {number} n
+ * @returns {string}
+ */
+ function s(n) {
+  return n == 1 ? '' : 's'
+}
+
 function shouldDisplayMutedQuotes() {
   return optionsConfig.mutableQuoteTweets && optionsConfig.mutedQuotes.length > 0
+}
+
+function sortProperties(obj) {
+  let entries = Object.entries(obj)
+  entries.sort(([a], [b]) => {
+    if (a < b) return -1
+    if (a > b) return 1
+    return 0
+  })
+  return Object.fromEntries(entries)
 }
 
 /**
@@ -279,6 +309,7 @@ function updateFormControls() {
 chrome.storage.local.get((storedConfig) => {
   optionsConfig = {...defaultConfig, ...storedConfig}
 
+  $body.classList.toggle('debug', optionsConfig.debug === true)
   $experiments.open = (
     optionsConfig.disableHomeTimeline ||
     optionsConfig.fullWidthContent ||
@@ -286,10 +317,36 @@ chrome.storage.local.get((storedConfig) => {
     optionsConfig.reducedInteractionMode ||
     optionsConfig.verifiedAccounts != 'ignore'
   )
-
+  $exportConfig.addEventListener('click', exportConfig)
   $form.addEventListener('change', onFormChanged)
   $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
   chrome.storage.onChanged.addListener(onStorageChanged)
+
+  if (!optionsConfig.debug) {
+    let $showDebugOptions = document.querySelector('#showDebugOptions')
+    let $debugCountdown = document.querySelector('#debugCountdown')
+    let debugCountdown = 5
+
+    function onClick(e) {
+      if (e.target === $showDebugOptions || $showDebugOptions.contains(/** @type {Node} */ (e.target))) {
+        debugCountdown--
+      } else {
+        debugCountdown = 5
+      }
+
+      if (debugCountdown == 0) {
+        $body.classList.add('debug')
+        $debugCountdown.textContent = ''
+        $form.removeEventListener('click', onClick)
+        $showDebugOptions.classList.remove('clickable')
+      } else if (debugCountdown <= 3) {
+        $debugCountdown.textContent = ` (Debug options: ${debugCountdown} more click${s(debugCountdown)} to enable)`
+      }
+    }
+
+    $form.addEventListener('click', onClick)
+    $showDebugOptions.classList.add('clickable')
+  }
 
   applyConfig()
 })

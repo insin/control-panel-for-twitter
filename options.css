@@ -7,6 +7,7 @@ body, html {
 
 body.mobile .desktop,
 body.desktop .mobile,
+body:not(.debug) .debug,
 body:not(.disabledHomeTimeline) .disabledHomeTimeline,
 body:not(.fullWidthContent) .fullWidthContent,
 body:not(.hidingMetrics) .hidingMetrics,
@@ -15,6 +16,11 @@ body:not(.home) .home,
 body:not(.mutedQuotes) .mutedQuotes,
 body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   display: none;
+}
+
+#showDebugOptions.clickable {
+  cursor: pointer;
+  user-select: none;
 }
 
 label {

@@ -7,7 +7,7 @@
 // @version     43
 // ==/UserScript==
 
-const debug = false
+let debug = false
 
 const mobile = navigator.userAgent.includes('Android')
 const desktop = !mobile
@@ -23,6 +23,7 @@ const ltr = dir == 'ltr'
  * @type {import("./types").Config}
  */
 const config = {
+  debug: false,
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
@@ -886,6 +887,14 @@ function observeElement($element, callback, name = '', options = {childList: tru
  * @param {{[key: string]: chrome.storage.StorageChange}} changes
  */
 function onStorageChanged(changes) {
+  if ('debug' in changes) {
+    log('disabling debug mode')
+    debug = changes.debug.newValue
+    log('enabled debug mode')
+    configureThemeCss()
+    return
+  }
+
   let configChanges = Object.fromEntries(
     Object.entries(changes).map(([key, {newValue}]) => [key, newValue])
   )
@@ -1839,7 +1848,7 @@ const configureThemeCss = (() => {
           right: 50px;
           content: attr(data-item-type);
           font-family: ${fontFamilyRule?.style.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial'};
-          background-color: ${themeColor || 'rgb(29, 161, 242)'};
+          background-color: rgb(242, 29, 29);
           color: white;
           font-size: 11px;
           font-weight: bold;
@@ -2599,6 +2608,10 @@ async function tweakQuoteTweetsPage() {
 
 //#region Main
 function main() {
+  if (config.debug) {
+    debug = true
+  }
+
   log({config, lang, platform: mobile ? 'mobile' : 'desktop'})
 
   configureSeparatedTweetsTimelineTitle()

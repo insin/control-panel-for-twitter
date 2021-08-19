@@ -1,6 +1,7 @@
 export type AlgorithmicTweetsConfig = 'hide' | 'ignore'
 
 export type Config = {
+  debug: boolean,
   // Shared
   addAddMutedWordMenuItem: boolean
   alwaysUseLatestTweets: boolean
