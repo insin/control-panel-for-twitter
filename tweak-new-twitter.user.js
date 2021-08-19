@@ -7,7 +7,7 @@
 // @version     43
 // ==/UserScript==
 
-const enableDebugLogging = false
+const debug = false
 
 const mobile = navigator.userAgent.includes('Android')
 const desktop = !mobile
@@ -42,6 +42,8 @@ const config = {
   hideUnavailableQuoteTweets: true,
   hideWhoToFollowEtc: true,
   likedTweets: 'hide',
+  mutableQuoteTweets: true,
+  mutedQuotes: [],
   quoteTweets: 'ignore',
   repliedToTweets: 'hide',
   retweets: 'separate',
@@ -85,6 +87,7 @@ const locales = {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     HOME: 'الرئيسيّة',
     LATEST_TWEETS: 'أحدث التغريدات',
+    MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RETWEETS: 'إعادات التغريد',
@@ -95,6 +98,7 @@ const locales = {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     HOME: 'الرئيسيّة',
     LATEST_TWEETS: 'أحدث التغريدات',
+    MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RETWEETS: 'إعادات التغريد',
@@ -105,6 +109,7 @@ const locales = {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
     HOME: 'Начало',
     LATEST_TWEETS: 'Най-новите туитове',
+    MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
     QUOTE_TWEET: 'Цитиране на туита',
     QUOTE_TWEETS: 'Туитове с цитат',
     RETWEETS: 'Ретуитове',
@@ -114,6 +119,7 @@ const locales = {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
     HOME: 'হোম',
     LATEST_TWEETS: 'সাম্প্রতিক টুইটগুলি',
+    MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
     QUOTE_TWEET: 'টুইট উদ্ধৃত করুন',
     QUOTE_TWEETS: 'টুইট উদ্ধৃতিগুলো',
     RETWEETS: 'পুনঃটুইটগুলো',
@@ -124,6 +130,7 @@ const locales = {
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
     HOME: 'Inici',
     LATEST_TWEETS: 'Tuits més recents',
+    MUTE_THIS_CONVERSATION: 'Silencia la conversa',
     QUOTE_TWEET: 'Cita el tuit',
     QUOTE_TWEETS: 'Tuits amb cita',
     RETWEETS: 'Retuits',
@@ -133,6 +140,7 @@ const locales = {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
     HOME: 'Hlavní stránka',
     LATEST_TWEETS: 'Nejnovější tweety',
+    MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
     QUOTE_TWEET: 'Citovat Tweet',
     QUOTE_TWEETS: 'Tweety s citací',
     RETWEETS: 'Retweety',
@@ -142,6 +150,7 @@ const locales = {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
     HOME: 'Forside',
     LATEST_TWEETS: 'Seneste Tweets',
+    MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
     QUOTE_TWEET: 'Citér Tweet',
     QUOTE_TWEETS: 'Citat-Tweets',
     RETWEETS: 'Retweets',
@@ -151,6 +160,7 @@ const locales = {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
     HOME: 'Startseite',
     LATEST_TWEETS: 'Neueste Tweets',
+    MUTE_THIS_CONVERSATION: 'Diese Unterhaltung stummschalten',
     QUOTE_TWEET: 'Tweet zitieren',
     QUOTE_TWEETS: 'Zitierte Tweets',
     RETWEETS: 'Retweets',
@@ -160,6 +170,7 @@ const locales = {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
     HOME: 'Αρχική σελίδα',
     LATEST_TWEETS: 'Τα πιο πρόσφατα Tweet',
+    MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
     QUOTE_TWEET: 'Παράθεση Tweet',
     QUOTE_TWEETS: 'Tweet με παράθεση',
     RETWEETS: 'Retweet',
@@ -169,6 +180,7 @@ const locales = {
     ADD_MUTED_WORD: 'Add muted word',
     HOME: 'Home',
     LATEST_TWEETS: 'Latest Tweets',
+    MUTE_THIS_CONVERSATION: 'Mute this conversation',
     QUOTE_TWEET: 'Quote Tweet',
     QUOTE_TWEETS: 'Quote Tweets',
     RETWEETS: 'Retweets',
@@ -179,6 +191,7 @@ const locales = {
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
     HOME: 'Inicio',
     LATEST_TWEETS: 'Tweets más recientes',
+    MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
     QUOTE_TWEET: 'Citar Tweet',
     QUOTE_TWEETS: 'Tweets citados',
     RETWEETS: 'Retweets',
@@ -188,6 +201,7 @@ const locales = {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
     HOME: 'Hasiera',
     LATEST_TWEETS: 'Azken txioak',
+    MUTE_THIS_CONVERSATION: 'Isilarazi elkarrizketa hau',
     QUOTE_TWEET: 'Txioa apaitu',
     QUOTE_TWEETS: 'Aipatu txioak',
     RETWEETS: 'Bertxioak',
@@ -197,6 +211,7 @@ const locales = {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
     HOME: 'خانه',
     LATEST_TWEETS: 'جدیدترین توییت‌ها',
+    MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
     QUOTE_TWEET: 'نقل‌توییت',
     QUOTE_TWEETS: 'نقل‌توییت',
     RETWEETS: 'بازتوییت‌ها',
@@ -207,6 +222,7 @@ const locales = {
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
     HOME: 'Etusivu',
     LATEST_TWEETS: 'Uusimmat twiitit',
+    MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
     QUOTE_TWEET: 'Twiitin lainaus',
     QUOTE_TWEETS: 'Twiitin lainaukset',
     RETWEETS: 'Uudelleentwiittaukset',
@@ -216,6 +232,7 @@ const locales = {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
     HOME: 'Home',
     LATEST_TWEETS: 'Mga Pinakabagong Tweet',
+    MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
     QUOTE_TWEET: 'Quote na Tweet',
     QUOTE_TWEETS: 'Mga Quote na Tweet',
     RETWEETS: 'Mga Retweet',
@@ -225,6 +242,7 @@ const locales = {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
     HOME: 'Accueil',
     LATEST_TWEETS: 'Tout derniers Tweets',
+    MUTE_THIS_CONVERSATION: 'Masquer cette conversation',
     QUOTE_TWEET: 'Citer le Tweet',
     QUOTE_TWEETS: 'Tweets cités',
     RETWEETS: 'Retweets',
@@ -234,6 +252,7 @@ const locales = {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
     HOME: 'Baile',
     LATEST_TWEETS: 'Tweetanna is déanaí',
+    MUTE_THIS_CONVERSATION: 'Balbhaigh an comhrá seo',
     QUOTE_TWEET: 'Cuir Ráiteas Leis',
     QUOTE_TWEETS: 'Luaigh Tvuíteanna',
     RETWEETS: 'Atweetanna',
@@ -243,6 +262,7 @@ const locales = {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
     HOME: 'Inicio',
     LATEST_TWEETS: 'Últimos chíos',
+    MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     QUOTE_TWEET: 'Citar chío',
     QUOTE_TWEETS: 'Chíos citados',
     RETWEETS: 'Rechouchíos',
@@ -252,6 +272,7 @@ const locales = {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
     HOME: 'હોમ',
     LATEST_TWEETS: 'તાજેતરની ટ્વીટ્સ',
+    MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
     QUOTE_TWEET: 'અવતરણની સાથે ટ્વીટ કરો',
     QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ',
     RETWEETS: 'પુનટ્વીટ્સ',
@@ -261,6 +282,7 @@ const locales = {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
     HOME: 'דף הבית',
     LATEST_TWEETS: 'הציוצים האחרונים',
+    MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
     QUOTE_TWEET: 'ציטוט ציוץ',
     QUOTE_TWEETS: 'ציוצי ציטוט',
     RETWEETS: 'ציוצים מחדש',
@@ -271,6 +293,7 @@ const locales = {
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
     HOME: 'होम',
     LATEST_TWEETS: 'नवीनतम ट्वीट्स',
+    MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
     QUOTE_TWEET: 'कोट ट्वीट',
     QUOTE_TWEETS: 'कोट ट्वीट्स',
     RETWEETS: 'रीट्वीट्स',
@@ -280,6 +303,7 @@ const locales = {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
     HOME: 'Naslovnica',
     LATEST_TWEETS: 'Najnoviji tweetovi',
+    MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
     QUOTE_TWEET: 'Citiraj Tweet',
     QUOTE_TWEETS: 'Citirani tweetovi',
     RETWEETS: 'Proslijeđeni tweetovi',
@@ -289,6 +313,7 @@ const locales = {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
     HOME: 'Kezdőlap',
     LATEST_TWEETS: 'A legfrissebb Tweetek',
+    MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
     QUOTE_TWEET: 'Tweet idézése',
     QUOTE_TWEETS: 'Tweet-idézések',
     RETWEETS: 'Retweetek',
@@ -298,6 +323,7 @@ const locales = {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
     HOME: 'Beranda',
     LATEST_TWEETS: 'Tweet Terbaru',
+    MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
     QUOTE_TWEET: 'Kutip Tweet',
     QUOTE_TWEETS: 'Kutip Tweet',
     RETWEETS: 'Retweet',
@@ -307,6 +333,7 @@ const locales = {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
     HOME: 'Home',
     LATEST_TWEETS: 'Tweet più recenti',
+    MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
     QUOTE_TWEET: 'Cita il Tweet',
     QUOTE_TWEETS: 'Tweet di citazione',
     RETWEETS: 'Retweet',
@@ -316,6 +343,7 @@ const locales = {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
     HOME: 'ホーム',
     LATEST_TWEETS: '最新ツイート',
+    MUTE_THIS_CONVERSATION: 'この会話をミュート',
     QUOTE_TWEET: '引用ツイート',
     QUOTE_TWEETS: '引用ツイート',
     RETWEETS: 'リツイート',
@@ -325,6 +353,7 @@ const locales = {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
     HOME: 'ಹೋಮ್',
     LATEST_TWEETS: 'ಇತ್ತೀಚಿನ ಟ್ವೀಟ್‌ಗಳು',
+    MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
     QUOTE_TWEET: 'ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ',
     QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು',
     RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳು',
@@ -334,6 +363,7 @@ const locales = {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
     HOME: '홈',
     LATEST_TWEETS: '최신 트윗',
+    MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
     QUOTE_TWEET: '트윗 인용하기',
     QUOTE_TWEETS: '트윗 인용하기',
     RETWEETS: '리트윗',
@@ -344,6 +374,7 @@ const locales = {
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
     HOME: 'होम',
     LATEST_TWEETS: 'अगदी अलीकडच्या ट्विट्स',
+    MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
     QUOTE_TWEET: 'ट्विट वर भाष्य करा',
     QUOTE_TWEETS: 'भाष्य ट्विट्स',
     RETWEETS: 'पुनर्ट्विट्स',
@@ -353,6 +384,7 @@ const locales = {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
     HOME: 'Laman Utama',
     LATEST_TWEETS: 'Tweet terkini',
+    MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
     QUOTE_TWEET: 'Petik Tweet',
     QUOTE_TWEETS: 'Tweet Petikan',
     RETWEETS: 'Tweet semula',
@@ -362,6 +394,7 @@ const locales = {
     ADD_MUTED_WORD: 'Skjul nytt ord',
     HOME: 'Hjem',
     LATEST_TWEETS: 'De nyeste tweetene',
+    MUTE_THIS_CONVERSATION: 'Skjul denne samtalen',
     QUOTE_TWEET: 'Sitat-Tweet',
     QUOTE_TWEETS: 'Sitat-Tweets',
     RETWEETS: 'Retweets',
@@ -371,6 +404,7 @@ const locales = {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
     HOME: 'Startpagina',
     LATEST_TWEETS: 'Nieuwste Tweets',
+    MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
     QUOTE_TWEET: 'Citeer Tweet',
     QUOTE_TWEETS: 'Geciteerde Tweets',
     RETWEETS: 'Retweets',
@@ -380,6 +414,7 @@ const locales = {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
     HOME: 'Główna',
     LATEST_TWEETS: 'Najnowsze Tweety',
+    MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
     QUOTE_TWEET: 'Cytuj Tweeta',
     QUOTE_TWEETS: 'Cytatów z Tweeta',
     RETWEETS: 'Tweety podane dalej',
@@ -389,6 +424,7 @@ const locales = {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
     HOME: 'Página Inicial',
     LATEST_TWEETS: 'Tweets Mais Recentes',
+    MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     QUOTE_TWEET: 'Comentar o Tweet',
     QUOTE_TWEETS: 'Tweets com comentário',
     RETWEETS: 'Retweets',
@@ -398,6 +434,7 @@ const locales = {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
     HOME: 'Pagina principală',
     LATEST_TWEETS: 'Cele mai recente Tweeturi',
+    MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
     QUOTE_TWEET: 'Tweet cu citat',
     QUOTE_TWEETS: 'Tweeturi cu citat',
     RETWEETS: 'Retweeturi',
@@ -407,6 +444,7 @@ const locales = {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
     HOME: 'Главная',
     LATEST_TWEETS: 'Последние твиты',
+    MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
     QUOTE_TWEET: 'Цитировать твит',
     QUOTE_TWEETS: 'Твиты с цитатами',
     RETWEETS: 'Ретвиты',
@@ -417,6 +455,7 @@ const locales = {
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
     HOME: 'Domov',
     LATEST_TWEETS: 'Najnovšie Tweety',
+    MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
     QUOTE_TWEET: 'Tweet s citátom',
     QUOTE_TWEETS: 'Tweety s citátom',
     RETWEETS: 'Retweety',
@@ -426,6 +465,7 @@ const locales = {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
     HOME: 'Почетна',
     LATEST_TWEETS: 'Најновији твитови',
+    MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
     QUOTE_TWEET: 'твит са цитатом',
     QUOTE_TWEETS: 'твит(ов)а са цитатом',
     RETWEETS: 'Ретвитови',
@@ -436,6 +476,7 @@ const locales = {
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
     HOME: 'Hem',
     LATEST_TWEETS: 'Senaste tweetsen',
+    MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
     QUOTE_TWEET: 'Citera Tweet',
     QUOTE_TWEETS: 'Citattweets',
     RETWEETS: 'Retweets',
@@ -445,6 +486,7 @@ const locales = {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
     HOME: 'முகப்பு',
     LATEST_TWEETS: 'சமீபத்திய கீச்சுகள்',
+    MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
     QUOTE_TWEET: 'ட்விட்டை மேற்கோள் காட்டு',
     QUOTE_TWEETS: 'மேற்கோள் கீச்சுகள்',
     RETWEETS: 'மறுகீச்சுகள்',
@@ -454,6 +496,7 @@ const locales = {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
     HOME: 'หน้าแรก',
     LATEST_TWEETS: 'ทวีตล่าสุด',
+    MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
     QUOTE_TWEET: 'อ้างอิงทวีต',
     QUOTE_TWEETS: 'ทวีตและคำพูด',
     RETWEETS: 'รีทวีต',
@@ -464,6 +507,7 @@ const locales = {
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
     HOME: 'Anasayfa',
     LATEST_TWEETS: 'En Son Tweetler',
+    MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
     QUOTE_TWEET: 'Alıntı Tweet',
     QUOTE_TWEETS: 'Alıntı Tweetler',
     RETWEETS: 'Retweetler',
@@ -473,6 +517,7 @@ const locales = {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
     HOME: 'Головна',
     LATEST_TWEETS: 'Найновіші твіти',
+    MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
     QUOTE_TWEET: 'Цитувати твіт',
     QUOTE_TWEETS: 'Твіти з цитатою',
     RETWEETS: 'Ретвіти',
@@ -483,6 +528,7 @@ const locales = {
     ADD_MUTED_WORD: 'خاموش کردہ لفظ شامل کریں',
     HOME: 'سرورق',
     LATEST_TWEETS: 'جدید ترین ٹویٹ',
+    MUTE_THIS_CONVERSATION: 'اس گفتگو کو خاموش کریں',
     QUOTE_TWEET: 'ٹویٹ اقتباس کریں',
     QUOTE_TWEETS: 'ٹویٹ کو نقل کرو',
     RETWEETS: 'ریٹویٹس',
@@ -493,6 +539,7 @@ const locales = {
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
     HOME: 'Trang chủ',
     LATEST_TWEETS: 'Tweet mới nhất',
+    MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
     QUOTE_TWEET: 'Trích dẫn Tweet',
     QUOTE_TWEETS: 'Tweet trích dẫn',
     RETWEETS: 'Các Tweet lại',
@@ -502,6 +549,7 @@ const locales = {
     ADD_MUTED_WORD: '加入靜音文字',
     HOME: '首頁',
     LATEST_TWEETS: '最新推文',
+    MUTE_THIS_CONVERSATION: '將此對話靜音',
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用的推文',
     RETWEETS: '轉推',
@@ -511,6 +559,7 @@ const locales = {
     ADD_MUTED_WORD: '添加要隐藏的字词',
     HOME: '主页',
     LATEST_TWEETS: '最新推文',
+    MUTE_THIS_CONVERSATION: '隐藏此对话',
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用推文',
     RETWEETS: '转推',
@@ -544,6 +593,7 @@ const PagePaths = {
 
 /** @enum {string} */
 const Selectors = {
+  BLOCK_MENU_ITEM: '[data-testid="block"]',
   DISPLAY_DONE_BUTTON_DESKTOP: '#layers div[role="button"]:not([aria-label])',
   DISPLAY_DONE_BUTTON_MOBILE: 'main div[role="button"]:not([aria-label])',
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
@@ -584,6 +634,12 @@ const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_PHOTO_RE = /photo\/\d$/
 const URL_LIST_RE = /\/i\/lists\/\d+$/
 const URL_TWEET_ID_RE = /\/status\/(\d+)$/
+
+/**
+ * The quoted Tweet associated with a caret menu that's just been opened.
+ * @type {import("./types").QuotedTweet}
+ */
+let quotedTweet = null
 
 /** `true` when a 'Block @${user}' menu item was seen in the last popup. */
 let blockMenuItemSeen = false
@@ -777,8 +833,16 @@ function getElement(selector, {
   })
 }
 
+function isExtension() {
+  return (
+    typeof GM == 'undefined' &&
+    typeof chrome != 'undefined' &&
+    typeof chrome.storage != 'undefined'
+  )
+}
+
 function log(...args) {
-  if (enableDebugLogging) {
+  if (debug) {
     console.log(`🧨${currentPage ? `(${currentPage})` : ''}`, ...args)
   }
 }
@@ -817,6 +881,17 @@ function observeElement($element, callback, name = '', options = {childList: tru
 }
 
 /**
+ * @param {{[key: string]: chrome.storage.StorageChange}} changes
+ */
+function onStorageChanged(changes) {
+  let configChanges = Object.fromEntries(
+    Object.entries(changes).map(([key, {newValue}]) => [key, newValue])
+  )
+  Object.assign(config, configChanges)
+  configChanged(configChanges)
+}
+
+/**
  * @param {string} page
  * @returns {() => boolean}
  */
@@ -838,6 +913,14 @@ function pathIsNot(path) {
  */
 function s(n) {
   return n == 1 ? '' : 's'
+}
+
+function storeConfigChanges(changes) {
+  if (!isExtension()) return
+  chrome.storage.onChanged.removeListener(onStorageChanged)
+  chrome.storage.local.set(changes, () => {
+    chrome.storage.onChanged.addListener(onStorageChanged)
+  })
 }
 //#endregion
 
@@ -983,10 +1066,20 @@ function observeHtmlFontSize() {
   })
 }
 
+/**
+ * Twitter displays popups in the #layers element. It also reuses open popups
+ * in certain cases rather than creating one from scratch, so we also need to
+ * deal with nested popups, e.g. if you hover over the caret menu in a Tweet, a
+ * popup will be created to display a "More" tootip and clicking to open the
+ * menu will create a nested element in the existing popup, whereas clicking the
+ * caret quickly without hovering over it will display the menu in new popup.
+ * Use of nested popups can also differ between desktop and mobile, so features
+ * need to be mindful of that.
+ */
 const observePopups = (() => {
   /** @type {MutationObserver} */
   let popupObserver
-  /** @type {WeakMap<HTMLElement, MutationObserver>} */
+  /** @type {WeakMap<HTMLElement, {disconnect()}>} */
   let nestedObservers = new WeakMap()
 
   return async function observePopups() {
@@ -995,7 +1088,9 @@ const observePopups = (() => {
       popupObserver = null
     }
 
-    if (!(config.addAddMutedWordMenuItem || config.fastBlock)) return
+    if (!(config.addAddMutedWordMenuItem ||
+          config.fastBlock ||
+          config.mutableQuoteTweets)) return
 
     let $layers = await getElement('#layers', {
       name: 'layers',
@@ -1009,9 +1104,9 @@ const observePopups = (() => {
     popupObserver = observeElement($layers, (mutations) => {
       mutations.forEach((mutation) => {
         mutation.addedNodes.forEach((/** @type {HTMLElement} */ $el) => {
-          let observer = onPopup($el)
-          if (observer) {
-            nestedObservers.set($el, observer)
+          let nestedObserver = onPopup($el)
+          if (nestedObserver) {
+            nestedObservers.set($el, nestedObserver)
           }
         })
         mutation.removedNodes.forEach((/** @type {HTMLElement} */ $el) => {
@@ -1099,8 +1194,11 @@ async function observeProfileSidebar(currentPage) {
   )
 }
 
-function observeSidebar() {
-  let $sidebarContainer = document.querySelector(Selectors.PRIMARY_COLUMN).parentElement
+async function observeSidebar() {
+  let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {
+    name: 'primary column'
+  })
+  let $sidebarContainer = $primaryColumn.parentElement
   pageObservers.push(
     observeElement($sidebarContainer, () => {
       let $sidebar = $sidebarContainer.querySelector(Selectors.SIDEBAR)
@@ -1155,7 +1253,7 @@ async function observeTimeline(page) {
  * the individual screens!).
  * @param {HTMLElement} $settingsLink
  */
-async function addAddMutedWordMenuItem($settingsLink) {
+function addAddMutedWordMenuItem($settingsLink) {
   log('adding "Add muted word" menu item')
   let $addMutedWord = /** @type {HTMLElement} */ ($settingsLink.parentElement.cloneNode(true))
   $addMutedWord.classList.add('tnt_menu_item')
@@ -1169,6 +1267,49 @@ async function addAddMutedWordMenuItem($settingsLink) {
   $settingsLink.parentElement.insertAdjacentElement('afterend', $addMutedWord)
 }
 
+function addCaretMenuListenerForQuoteTweet($tweet) {
+  let $caret = /** @type {HTMLElement} */ ($tweet.querySelector('[data-testid="caret"]'))
+  if ($caret && !$caret.dataset.tweakNewTwitterListener) {
+    $caret.addEventListener('click', () => {
+      quotedTweet = getQuotedTweetDetails($tweet)
+    })
+    $caret.dataset.tweakNewTwitterListener = 'true'
+  }
+}
+
+/**
+ * Add a "Mute this conversation" menu item to a Quote Tweet's menu.
+ * @param {HTMLElement} $blockMenuItem
+ */
+async function addMuteQuotesMenuItem($blockMenuItem) {
+  log('adding "Mute this conversation" menu item')
+
+  // Wait for the menu to render properly on desktop
+  if (desktop) {
+    $blockMenuItem = await getElement(`:scope > div > div > div > ${Selectors.BLOCK_MENU_ITEM}`, {
+      context: $blockMenuItem.parentElement,
+      name: 'rendered block menu item',
+      timeout: 100,
+    })
+    if (!$blockMenuItem) return
+  }
+
+  let $muteQuotes = /** @type {HTMLElement} */ ($blockMenuItem.previousElementSibling.cloneNode(true))
+  $muteQuotes.classList.add('tnt_menu_item')
+  $muteQuotes.querySelector('span').textContent = getString('MUTE_THIS_CONVERSATION')
+  $muteQuotes.addEventListener('click', (e) => {
+    e.preventDefault()
+    log('muting quotes of a tweet', quotedTweet)
+    config.mutedQuotes = config.mutedQuotes.concat(quotedTweet)
+    storeConfigChanges({mutedQuotes: config.mutedQuotes})
+    processCurrentPage()
+    // Dismiss the menu
+    ;/** @type {HTMLElement} */ ($blockMenuItem.closest('[role="dialog"]').firstElementChild).click()
+  })
+
+  $blockMenuItem.insertAdjacentElement('beforebegin', $muteQuotes)
+}
+
 async function addMutedWord() {
   for (let path of [
     '/settings',
@@ -1177,7 +1318,7 @@ async function addMutedWord() {
     '/settings/muted_keywords',
     '/settings/add_muted_keyword',
   ]) {
-    let $link = await getElement(`a[href="${path}"]`)
+    let $link = await getElement(`a[href="${path}"]`, {timeout: 500})
     if (!$link) return
     $link.click()
   }
@@ -1185,6 +1326,9 @@ async function addMutedWord() {
   setTimeout(() => $input.focus(), 100)
 }
 
+/**
+ * @param {string} page
+ */
 async function addSeparatedTweetsTimelineControl(page) {
   if (desktop) {
     let $timelineTitle = await getElement('main h2', {
@@ -1431,12 +1575,12 @@ const configureCss = (() => {
           '[data-testid="SideNav_AccountSwitcher_Button"] > div:first-child + div',
         )
       }
-      if (config.addAddMutedWordMenuItem) {
+      if (config.addAddMutedWordMenuItem || config.mutableQuoteTweets) {
         // Hover colors for custom menu items
         cssRules.push(`
-          body.Default .tnt_menu_item a:hover { background-color: rgb(247, 249, 249); }
-          body.Dim .tnt_menu_item a:hover { background-color: rgb(25, 39, 52); }
-          body.LightsOut .tnt_menu_item a:hover { background-color: rgb(21, 24, 28); }
+          body.Default .tnt_menu_item:hover { background-color: rgb(247, 249, 249) !important; }
+          body.Dim .tnt_menu_item:hover { background-color: rgb(25, 39, 52) !important; }
+          body.LightsOut .tnt_menu_item:hover { background-color: rgb(21, 24, 28) !important; }
         `)
       }
       if (config.hideSidebarContent) {
@@ -1668,6 +1812,25 @@ const configureThemeCss = (() => {
   return function configureThemeCss() {
     let cssRules = []
 
+    if (debug) {
+      cssRules.push(`
+        [data-item-type]::after {
+          position: absolute;
+          top: 0;
+          right: 50px;
+          content: attr(data-item-type);
+          font-family: ${fontFamilyRule?.style.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial'};
+          background-color: ${themeColor || 'rgb(29, 161, 242)'};
+          color: white;
+          font-size: 11px;
+          font-weight: bold;
+          padding: 4px 6px;
+          border-bottom-left-radius: 1em;
+          border-bottom-right-radius: 1em;
+        }
+      `)
+    }
+
     if (themeColor != null && desktop && (config.retweets == 'separate' || config.quoteTweets == 'separate')) {
       cssRules.push(`
         body.Home main h2:not(#tnt_separated_tweets),
@@ -1755,6 +1918,19 @@ const configureThemeCss = (() => {
 })()
 
 /**
+ * @param {HTMLElement} $tweet
+ * @returns {import("./types").QuotedTweet}
+ */
+ function getQuotedTweetDetails($tweet) {
+  let $quotedTweet = $tweet.querySelector('div[id^="id__"] > div[dir="auto"] > span').parentElement.nextElementSibling
+  let $heading = $quotedTweet?.querySelector(':scope > div > div:first-child')
+  let user = $heading?.querySelector('div:last-child > span')?.textContent
+  let time = $heading?.querySelector('time')?.dateTime
+  let text = $heading?.nextElementSibling?.querySelector('[lang]')?.textContent
+  return {user, time, text}
+}
+
+/**
  * Attempts to determine the type of a timeline Tweet given the element with
  * data-testid="tweet" on it, falling back to TWEET if it doesn't appear to be
  * one of the particular types we care about.
@@ -1781,6 +1957,10 @@ function getTweetType($tweet) {
     if ($tweet.querySelector('article')) {
       return 'UNAVAILABLE_RETWEET'
     }
+    // Quoted tweets are preceded by visually-hidden "Quote Tweet" text
+    if ($tweet.querySelector('div[id^="id__"] > div[dir="auto"] > span')?.textContent.includes(getString('QUOTE_TWEET'))) {
+      return 'RETWEETED_QUOTE_TWEET'
+    }
     return 'RETWEET'
   }
   // Quoted tweets are preceded by visually-hidden "Quote Tweet" text
@@ -1797,20 +1977,38 @@ function getTweetType($tweet) {
 
 /**
  * @param {HTMLElement} $popup
- * @returns {boolean} false if there was nothing actionable in the popup
+ * @returns {{tookAction: boolean, onPopupClosed?: () => void}}
  */
 function handlePopup($popup) {
+  let result = {tookAction: false, onPopupClosed: null}
+
+  if (config.mutableQuoteTweets) {
+    if (quotedTweet) {
+      let $blockMenuItem = /** @type {HTMLElement} */ ($popup.querySelector(Selectors.BLOCK_MENU_ITEM))
+      if ($blockMenuItem) {
+        addMuteQuotesMenuItem($blockMenuItem)
+        result.tookAction = true
+        // Clear the quoted tweet when the popup closes
+        result.onPopupClosed = () => {
+          quotedTweet = null
+        }
+      } else {
+        quotedTweet = null
+      }
+    }
+  }
+
   if (config.fastBlock) {
     if (blockMenuItemSeen && $popup.querySelector('[data-testid="confirmationSheetConfirm"]')) {
       log('fast blocking')
       ;/** @type {HTMLElement} */ ($popup.querySelector('[data-testid="confirmationSheetConfirm"]')).click()
-      return true
+      result.tookAction = true
     }
-    else if ($popup.querySelector('[data-testid="block"]')) {
+    else if ($popup.querySelector(Selectors.BLOCK_MENU_ITEM)) {
       log('preparing for fast blocking')
       blockMenuItemSeen = true
       // Create a nested observer for mobile, as it reuses the popup element
-      return !mobile
+      result.tookAction = !mobile
     } else {
       blockMenuItemSeen = false
     }
@@ -1820,11 +2018,11 @@ function handlePopup($popup) {
     let $settingsLink = /** @type {HTMLElement} */ ($popup.querySelector('a[href="/settings"]'))
     if ($settingsLink) {
       addAddMutedWordMenuItem($settingsLink)
-      return true
+      result.tookAction = true
     }
   }
 
-  return false
+  return result
 }
 
 /**
@@ -1856,21 +2054,47 @@ function isReplyToPreviousTweet($tweet) {
 }
 
 /**
- * @returns {MutationObserver | undefined}
+ * @returns {{disconnect()}}
  */
 function onPopup($popup) {
   log('popup appeared', $popup)
 
-  if (handlePopup($popup)) return
+  // If handlePopup did something, we don't need to observe nested popups
+  let {tookAction, onPopupClosed} = handlePopup($popup)
+  if (tookAction) {
+    return onPopupClosed ? {disconnect: onPopupClosed} : null
+  }
 
-  return observeElement($popup, (mutations) => {
+  /** @type {HTMLElement} */
+  let $nestedPopup
+
+  let nestedObserver = observeElement($popup, (mutations) => {
     mutations.forEach((mutation) => {
-      mutation.addedNodes.forEach((/** @type {HTMLElement} */ $nestedPopup) => {
-        log('nested popup appeared', $nestedPopup)
-        handlePopup($nestedPopup)
+      mutation.addedNodes.forEach((/** @type {HTMLElement} */ $el) => {
+        log('nested popup appeared', $el)
+        $nestedPopup = $el
+        ;({onPopupClosed} = handlePopup($el))
+      })
+      mutation.removedNodes.forEach((/** @type {HTMLElement} */ $el) => {
+        if ($el !== $nestedPopup) return
+        if (onPopupClosed) {
+          log('cleaning up after nested popup removed')
+          onPopupClosed()
+        }
       })
     })
   })
+
+  let disconnect = nestedObserver.disconnect.bind(nestedObserver)
+  nestedObserver.disconnect = () => {
+    if (onPopupClosed) {
+      log('cleaning up after nested popup observer disconnected')
+      onPopupClosed()
+    }
+    disconnect()
+  }
+
+  return nestedObserver
 }
 
 function onTimelineChange($timeline, page) {
@@ -1898,11 +2122,25 @@ function onTimelineChange($timeline, page) {
       // Only deal with retweets, quote tweets and algorithmic tweets on the
       // main timeline.
       if (isOnMainTimelinePage()) {
-        if (isReplyToPreviousTweet($tweet) && hidPreviousItem != null) {
+        let isReply = isReplyToPreviousTweet($tweet)
+        if (isReply && hidPreviousItem != null) {
           hideItem = hidPreviousItem
-          itemType = previousItemType
         } else {
           hideItem = shouldHideMainTimelineItem(itemType, page)
+        }
+
+        if (!hideItem && (itemType == 'QUOTE_TWEET' || itemType == 'RETWEETED_QUOTE_TWEET') && config.mutableQuoteTweets) {
+          if (config.mutedQuotes.length > 0) {
+            let quotedTweet = getQuotedTweetDetails($tweet)
+            hideItem = config.mutedQuotes.some(muted => muted.user == quotedTweet.user && muted.time == quotedTweet.time)
+          }
+          if (!hideItem) {
+            addCaretMenuListenerForQuoteTweet($tweet)
+          }
+        }
+
+        if (debug) {
+          $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}`
         }
       }
     }
@@ -2199,6 +2437,7 @@ function shouldHideMainTimelineItem(type, page) {
     case 'REPLIED':
       return shouldHideAlgorithmicTweet(config.repliedToTweets, page)
     case 'RETWEET':
+    case 'RETWEETED_QUOTE_TWEET':
       return shouldHideSharedTweet(config.retweets, page)
     case 'SUGGESTED_TOPIC_TWEET':
       return shouldHideAlgorithmicTweet(config.suggestedTopicTweets, page)
@@ -2377,21 +2616,13 @@ function configChanged(changes) {
   }
 }
 
-if (typeof GM == 'undefined' &&
-    typeof chrome != 'undefined' &&
-    typeof chrome.storage != 'undefined') {
+if (isExtension()) {
   chrome.storage.local.get((storedConfig) => {
     Object.assign(config, storedConfig)
     main()
   })
 
-  chrome.storage.onChanged.addListener((changes) => {
-    let configChanges = Object.fromEntries(
-      Object.entries(changes).map(([key, {newValue}]) => [key, newValue])
-    )
-    Object.assign(config, configChanges)
-    configChanged(configChanges)
-  })
+  chrome.storage.onChanged.addListener(onStorageChanged)
 }
 else {
   main()

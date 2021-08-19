@@ -151,6 +151,7 @@ let template = {
   ADD_MUTED_WORD: 'd768049b',
   HOME: 'ha8209bb',
   LATEST_TWEETS: 'd126cb7c',
+  MUTE_THIS_CONVERSATION: 'e2d6c17e',
   QUOTE_TWEET: 'c9d7235d',
   QUOTE_TWEETS: 'bd7c039f',
   RETWEETS: 'd497b854',
@@ -175,8 +176,8 @@ for (let file of fs.readdirSync('./files')) {
   for (let [key, code] of Object.entries(template)) {
     locale[key] = src.match(new RegExp(`"${code}","([^"]+)"`))[1]
   }
-  if (locale.TWITTER == 'Twitter') delete locale.TWITTER
   let localeCode = file.split('.')[0]
+  if (localeCode != 'en' && locale.TWITTER == 'Twitter') delete locale.TWITTER
   Object.assign(locale, externalTranslations[localeCode])
   locales[localeCode] = sortProperties(locale)
 }

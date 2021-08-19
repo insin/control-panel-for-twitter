@@ -80,6 +80,17 @@
           <input type="checkbox" name="hideUnavailableQuoteTweets">
         </label>
       </section>
+      <section class="checkbox">
+        <label>
+          Mute quoting of specific tweets
+          <input type="checkbox" name="mutableQuoteTweets">
+        </label>
+        <p>Adds a "Mute this conversation" menu item to Quote Tweets</p>
+        <details class="mutedQuotes" id="mutedQuotesDetails">
+          <summary><span id="mutedQuotesLabel"></span></summary>
+          <div id="mutedQuotes"></div>
+        </details>
+      </section>
     </section>
     <section class="group home">
       <label>

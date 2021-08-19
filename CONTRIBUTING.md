@@ -8,11 +8,13 @@ Install development dependencies:
 npm install
 ```
 
-## Debug logging
+## Debug mode
 
-To enable debug logging, set `enableDebugLogging = true` at the top of `tweak-new-twitter.user.js`.
+To enable debug mode, set `debug = true` at the top of `tweak-new-twitter.user.js`.
 
 There's a `log()` function which can and should be used to log useful debug information, such as the appearance of elements which trigger certain tweaks (useful as a starting point when Twitter changes things), or that a particular tweak is about to happen (for traceability).
+
+When debug mode is active, the detected type of each tweet in the main timeline is displayed.
 
 ## Desktop vs. mobile
 

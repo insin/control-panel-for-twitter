@@ -72,6 +72,8 @@ const defaultConfig = {
   hideUnavailableQuoteTweets: true,
   hideWhoToFollowEtc: true,
   likedTweets: 'hide',
+  mutableQuoteTweets: true,
+  mutedQuotes: [],
   quoteTweets: 'ignore',
   repliedToTweets: 'hide',
   retweets: 'separate',
@@ -111,11 +113,168 @@ const defaultConfig = {
  */
 let optionsConfig
 
+let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('details#experiments'))
+let $form = document.querySelector('form')
+let $mutedQuotes =  /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
+let $mutedQuotesDetails =  /** @type {HTMLDetailsElement} */ (document.querySelector('details#mutedQuotesDetails'))
+let $mutedQuotesLabel = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesLabel'))
+
+function applyConfig() {
+  updateFormControls()
+  updateCheckboxGroups()
+  updateDisplay()
+}
+
+/**
+ * @param {keyof HTMLElementTagNameMap} tagName
+ * @param {{[key: string]: any}} [attributes]
+ * @param {...any} children
+ * @returns {HTMLElement}
+ */
+ function h(tagName, attributes, ...children) {
+  let $el = document.createElement(tagName)
+
+  if (attributes) {
+    for (let [prop, value] of Object.entries(attributes)) {
+      if (prop.startsWith('on') && typeof value == 'function') {
+        $el.addEventListener(prop.slice(2).toLowerCase(), value)
+      } else {
+        $el[prop] = value
+      }
+    }
+  }
+
+  for (let child of children) {
+    if (child == null || child === false) continue
+    if (child instanceof Node) {
+      $el.appendChild(child)
+    } else {
+      $el.insertAdjacentText('beforeend', String(child))
+    }
+  }
+
+  return $el
+}
+
+/**
+ * @param {Event} e
+ */
+function onFormChanged(e) {
+  /** @type {Partial<import("./types").Config>} */
+  let changedConfig = {}
+
+  let $el = /** @type {HTMLInputElement} */ (e.target)
+  if ($el.type == 'checkbox') {
+    if (checkboxGroups.has($el.name)) {
+      checkboxGroups.get($el.name).forEach(checkboxName => {
+        optionsConfig[checkboxName] = changedConfig[checkboxName] = $form.elements[checkboxName].checked = $el.checked
+      })
+      $el.indeterminate = false
+    } else {
+      optionsConfig[$el.name] = changedConfig[$el.name] = $el.checked
+      updateCheckboxGroups()
+    }
+  } else {
+    optionsConfig[$el.name] = changedConfig[$el.name] = $el.value
+  }
+
+  updateDisplay()
+
+  storeConfigChanges(changedConfig)
+}
+
+/**
+ * @param {{[key: string]: chrome.storage.StorageChange}} changes
+ */
+function onStorageChanged(changes) {
+  let configChanges = Object.fromEntries(
+    Object.entries(changes).map(([key, {newValue}]) => [key, newValue])
+  )
+  Object.assign(optionsConfig, configChanges)
+  applyConfig()
+}
+
+function shouldDisplayMutedQuotes() {
+  return optionsConfig.mutableQuoteTweets && optionsConfig.mutedQuotes.length > 0
+}
+
+/**
+ * @param {Partial<import("./types").Config>} changes
+ */
+function storeConfigChanges(changes) {
+  chrome.storage.onChanged.removeListener(onStorageChanged)
+  chrome.storage.local.set(changes, () => {
+    chrome.storage.onChanged.addListener(onStorageChanged)
+  })
+}
+
+function updateCheckboxGroups() {
+  for (let [group, checkboxNames] of checkboxGroups.entries()) {
+    let checkedCount = checkboxNames.filter(name => optionsConfig[name]).length
+    $form.elements[group].checked = checkedCount == checkboxNames.length
+    $form.elements[group].indeterminate = checkedCount > 0 && checkedCount < checkboxNames.length;
+  }
+}
+
+function updateDisplay() {
+  $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
+  $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
+  $body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
+  $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
+  $body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
+  $body.classList.toggle('mutedQuotes', shouldDisplayMutedQuotes())
+  $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
+  updateMutedQuotesDisplay()
+}
+
+function updateMutedQuotesDisplay() {
+  if (!shouldDisplayMutedQuotes()) return
+
+  $mutedQuotesLabel.textContent = `Muted tweets (${optionsConfig.mutedQuotes.length})`
+
+  if (!$mutedQuotesDetails.open) return
+
+  while ($mutedQuotes.hasChildNodes()) $mutedQuotes.firstChild.remove()
+
+  optionsConfig.mutedQuotes.forEach(({user, time, text}, index) => {
+    $mutedQuotes.appendChild(
+      h('section', {className: 'button'},
+        h('span', null,
+          user,
+          ' – ',
+          new Intl.DateTimeFormat([], {dateStyle: 'medium'}).format(new Date(time)),
+          h('br'),
+          text,
+        ),
+        h('input', {
+          type: 'button',
+          value: 'Unmute',
+          onclick: () => {
+            optionsConfig.mutedQuotes = optionsConfig.mutedQuotes.filter((_, i) => i != index)
+            chrome.storage.local.set({mutedQuotes: optionsConfig.mutedQuotes})
+            updateDisplay()
+          },
+        })
+      )
+    )
+  })
+}
+
+function updateFormControls() {
+  for (let prop in optionsConfig) {
+    if (prop in $form.elements) {
+      if ($form.elements[prop].type == 'checkbox') {
+        $form.elements[prop].checked = optionsConfig[prop]
+      } else {
+        $form.elements[prop].value = optionsConfig[prop]
+      }
+    }
+  }
+}
+
 chrome.storage.local.get((storedConfig) => {
   optionsConfig = {...defaultConfig, ...storedConfig}
 
-  let $form = document.querySelector('form')
-  let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('details#experiments'))
   $experiments.open = (
     optionsConfig.disableHomeTimeline ||
     optionsConfig.fullWidthContent ||
@@ -124,61 +283,9 @@ chrome.storage.local.get((storedConfig) => {
     optionsConfig.verifiedAccounts != 'ignore'
   )
 
-  function updateCheckboxGroups() {
-    for (let [group, checkboxNames] of checkboxGroups.entries()) {
-      let checkedCount = checkboxNames.filter(name => optionsConfig[name]).length
-      $form.elements[group].checked = checkedCount == checkboxNames.length
-      $form.elements[group].indeterminate = checkedCount > 0 && checkedCount < checkboxNames.length;
-    }
-  }
+  $form.addEventListener('change', onFormChanged)
+  $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
+  chrome.storage.onChanged.addListener(onStorageChanged)
 
-  function updateBodyClassNames() {
-    $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
-    $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
-    $body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
-    $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
-    $body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
-    $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
-  }
-
-  for (let prop in optionsConfig) {
-    if (prop in $form.elements) {
-      if ($form.elements[prop].type == 'checkbox') {
-        $form.elements[prop].checked = optionsConfig[prop]
-      }
-      else {
-        $form.elements[prop].value = optionsConfig[prop]
-      }
-    }
-  }
-
-  updateBodyClassNames()
-  updateCheckboxGroups()
-
-  $form.addEventListener('change', (e) => {
-    /** @type {Partial<import("./types").Config>} */
-    let changedConfig = {}
-
-    let $el = /** @type {HTMLInputElement} */ (e.target)
-    if ($el.type == 'checkbox') {
-      if (checkboxGroups.has($el.name)) {
-        checkboxGroups.get($el.name).forEach(checkboxName => {
-          optionsConfig[checkboxName] = changedConfig[checkboxName] = $form.elements[checkboxName].checked = $el.checked
-        })
-        $el.indeterminate = false
-      } else {
-        optionsConfig[$el.name] = changedConfig[$el.name] = $el.checked
-        updateCheckboxGroups()
-      }
-    }
-    else {
-      optionsConfig[$el.name] = changedConfig[$el.name] = $el.value
-    }
-
-    updateBodyClassNames()
-
-    chrome.storage.local.set(changedConfig)
-  })
+  applyConfig()
 })
-
-

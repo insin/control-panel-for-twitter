@@ -20,6 +20,8 @@ export type Config = {
   hideUnavailableQuoteTweets: boolean
   hideWhoToFollowEtc: boolean
   likedTweets: AlgorithmicTweetsConfig
+  mutableQuoteTweets: boolean
+  mutedQuotes: QuotedTweet[]
   quoteTweets: SharedTweetsConfig
   repliedToTweets: AlgorithmicTweetsConfig
   retweets: SharedTweetsConfig
@@ -61,11 +63,18 @@ export type LocaleKey =
   | 'ADD_MUTED_WORD'
   | 'HOME'
   | 'LATEST_TWEETS'
+  | 'MUTE_THIS_CONVERSATION'
   | 'QUOTE_TWEET'
   | 'QUOTE_TWEETS'
   | 'RETWEETS'
   | 'SHARED_TWEETS'
   | 'TWITTER'
+
+export type QuotedTweet = {
+  user: string
+  time: string
+  text: string
+}
 
 export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
 
@@ -76,6 +85,7 @@ export type TimelineItemType =
   | 'QUOTE_TWEET'
   | 'REPLIED'
   | 'RETWEET'
+  | 'RETWEETED_QUOTE_TWEET'
   | 'SUGGESTED_TOPIC_TWEET'
   | 'TWEET'
   | 'UNAVAILABLE_QUOTE_TWEET'

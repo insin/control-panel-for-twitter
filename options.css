@@ -7,11 +7,12 @@ body, html {
 
 body.mobile .desktop,
 body.desktop .mobile,
+body:not(.disabledHomeTimeline) .disabledHomeTimeline,
 body:not(.fullWidthContent) .fullWidthContent,
 body:not(.hidingMetrics) .hidingMetrics,
 body:not(.hidingSidebarContent) .hidingSidebarContent,
 body:not(.home) .home,
-body:not(.disabledHomeTimeline) .disabledHomeTimeline,
+body:not(.mutedQuotes) .mutedQuotes,
 body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   display: none;
 }
@@ -22,6 +23,22 @@ label {
   padding: 4px 12px;
   margin: 8px 0;
   cursor: pointer;
+}
+
+section.button {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 12px;
+  margin: 8px 0;
+  align-items: flex-start;
+}
+
+section.button:not(:first-of-type) {
+  padding-top: 12px;
+}
+
+section.button input {
+  margin-left: 12px;
 }
 
 summary {
