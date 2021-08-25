@@ -626,12 +626,12 @@ const PROFILE_TABS_URL_RE = /\/[a-zA-Z\d_]{1,15}\/(with_replies|media|likes)\/?$
 // https://twitter.com/${user}'s title ends with (@${user})
 const PROFILE_TITLE_RE = /\(@[a-zA-Z\d_]{1,15}\)$/
 const THEME_COLORS = new Set([
-  'rgb(29, 161, 242)', // blue
-  'rgb(255, 173, 31)', // yellow
-  'rgb(224, 36, 94)',  // pink
-  'rgb(121, 75, 196)', // purple
-  'rgb(244, 93, 34)',  // orange
-  'rgb(23, 191, 99)',  // green
+  'rgb(29, 155, 240)', // blue
+  'rgb(255, 212, 0)', // yellow
+  'rgb(244, 33, 46)',  // pink
+  'rgb(120, 86, 255)', // purple
+  'rgb(255, 122, 0)',  // orange
+  'rgb(0, 186, 124)',  // green
 ])
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 const URL_PHOTO_RE = /photo\/\d$/
