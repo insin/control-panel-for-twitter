@@ -1536,7 +1536,7 @@ const configureCss = (() => {
       hideCssSelectors.push(
         '[data-testid="tweet"] [role="group"]',
         'body.Tweet a:is([href$="/retweets"], [href$="/likes"])',
-        'body.Tweet [data-testid="tweet"] + div > [role="group"]',
+        'body.Tweet [data-testid="tweet"] + div > div [role="group"]',
       )
     }
     if (config.tweakQuoteTweetsPage) {
