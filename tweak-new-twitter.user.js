@@ -1646,9 +1646,6 @@ const configureCss = (() => {
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
         hideCssSelectors.push('#tnt_separated_tweets')
       }
-      if (!config.tweakQuoteTweetsPage) {
-        hideCssSelectors.push('#tnt_pinned_quoted_tweet')
-      }
     }
 
     if (mobile) {
@@ -2406,10 +2403,6 @@ function processCurrentPage() {
     tweakIndividualTweetPage()
   }
 
-  if (config.tweakQuoteTweetsPage && isOnQuoteTweetsPage()) {
-    tweakQuoteTweetsPage()
-  }
-
   if (mobile && config.hideExplorePageContents && isOnExplorePage()) {
     tweakExplorePage(currentPage)
   }
@@ -2561,48 +2554,6 @@ async function tweakIndividualTweetPage() {
 function tweakProfilePage(currentPage) {
   observeProfileBlockedStatus(currentPage)
   observeProfileSidebar(currentPage)
-}
-
-async function tweakQuoteTweetsPage() {
-  if (desktop) {
-    // Show the quoted tweet once in the pinned header instead
-    let [$heading, $quotedTweet] = await Promise.all([
-      getElement(`${Selectors.PRIMARY_COLUMN} ${Selectors.TIMELINE_HEADING}`, {
-        name: 'Quote Tweets heading',
-        stopIf: not(isOnQuoteTweetsPage)
-      }),
-      getElement('[data-testid="tweet"] [aria-labelledby] > div:last-child', {
-        name: 'first quoted tweet',
-        stopIf: not(isOnQuoteTweetsPage)
-      })
-    ])
-
-    if ($heading != null && $quotedTweet != null) {
-      if (document.querySelector('#tnt_pinned_quoted_tweet')) {
-        log('pinned quoted tweet already present')
-        return
-      }
-
-      log('pinning quoted tweet in the Quote Tweets header')
-      do {
-        $heading = $heading.parentElement
-      } while (!$heading.nextElementSibling)
-
-      let $clone = /** @type {HTMLElement} */ ($quotedTweet.cloneNode(true))
-      $clone.id = 'tnt_pinned_quoted_tweet'
-      $clone.style.margin = '0 16px 9px 16px'
-      // Media doesn't work when we clone it, so just remove it to save space
-      let $media = $clone.querySelector('div[role="link"] > div > div:nth-of-type(3)')
-      $media?.remove()
-      // Clicking on the clone doesn't work either, so click a real quoted tweet
-      $clone.addEventListener('click', () => {
-        /** @type {HTMLElement} */ (
-          document.querySelector('[data-testid="tweet"] [aria-labelledby] > div:last-child [role="link"]')
-        )?.click()
-      })
-      $heading.insertAdjacentElement('afterend', $clone)
-    }
-  }
 }
 //#endregion
 

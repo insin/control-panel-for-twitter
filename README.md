@@ -61,7 +61,7 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 - Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
 - Fast blocking - skips the confirm dialog when you try to block an account
 - Add a new item to the "More" menu (desktop) or slide-out menu (mobile) which takes you straight to the "Add muted word" page
-- When viewing a tweet's Quote Tweets, pin the quoted tweet (desktop) or hide duplication of it in every tweet (mobile)
+- When viewing a tweet's Quote Tweets, hide the quoted tweet to make more room for quotes
 - Hide "Open app", "Switch to the app" etc. nags on mobile
 
 ### Hide UI items you don't use
@@ -118,9 +118,9 @@ Optional features you can try, to see how they change how you perceive and use T
 
 ### Improved Quote Tweets page
 
-| Desktop - quoted tweet pinned to header, duplicates under each tweet are hidden | Mobile - duplicate quoted tweet hidden, leaving more room for quotes  |
+| Desktop - duplicate quoted tweet hidden, leaving more room for quotes | Mobile - duplicate quoted tweet hidden, leaving more room for quotes  |
 | - | - |
-| ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on desktop, pinning the quoted tweet in the header instead of repeating it in every tweet](screenshots/quote_tweets.png) | ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on mobile, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/firefox_android_quote_tweets.jpg) |
+| ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on desktop, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/quote_tweets.png) | ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on mobile, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/firefox_android_quote_tweets.jpg) |
 
 ### Experimental features
 
