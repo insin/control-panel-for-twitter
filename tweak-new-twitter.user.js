@@ -1641,7 +1641,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href*="/lists"]`)
       }
       if (config.hideMessagesDrawer) {
-        hideCssSelectors.push(Selectors.MESSAGES_DRAWER)
+        cssRules.push(`${Selectors.MESSAGES_DRAWER} { visibility: hidden; }`)
       }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
         hideCssSelectors.push('#tnt_separated_tweets')
