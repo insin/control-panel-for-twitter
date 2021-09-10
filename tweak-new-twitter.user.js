@@ -609,7 +609,7 @@ const Selectors = {
   SIDEBAR_WRAPPERS: 'div[data-testid="sidebarColumn"] > div > div > div > div > div',
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
-  TWEET: 'div[data-testid="tweet"]',
+  TWEET: '[data-testid="tweet"]',
   VERIFIED_TICK: 'svg path[d^="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47"]',
 }
 
