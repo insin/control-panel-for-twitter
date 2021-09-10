@@ -1966,9 +1966,9 @@ function getTweetType($tweet) {
   if ($tweet.closest(Selectors.PROMOTED_TWEET_CONTAINER)) {
     return 'PROMOTED_TWEET'
   }
-  if ($tweet.previousElementSibling?.querySelector('[data-testid="socialContext"]')) {
+  if ($tweet.querySelector('[data-testid="socialContext"]')) {
     if (!config.alwaysUseLatestTweets && currentMainTimelineType == getString('HOME')) {
-      let svgPath = $tweet.previousElementSibling.querySelector('svg path')?.getAttribute('d') ?? ''
+      let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
       if (svgPath.startsWith('M12 21.638h-.014C9.403 21.5')) return 'LIKED'
       if (svgPath.startsWith('M14.046 2.242l-4.148-.01h-.')) return 'REPLIED'
       if (svgPath.startsWith('M18.265 3.314c-3.45-3.45-9.')) return 'SUGGESTED_TOPIC_TWEET'
@@ -2072,7 +2072,7 @@ async function hideMoreTweetsSection(path) {
  * @returns {boolean}
  */
 function isReplyToPreviousTweet($tweet) {
-  let $replyLine = $tweet.previousElementSibling?.firstElementChild?.firstElementChild?.firstElementChild
+  let $replyLine = $tweet.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild
   if ($replyLine) {
     return getComputedStyle($replyLine).width == '2px'
   }
