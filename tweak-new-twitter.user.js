@@ -1661,10 +1661,6 @@ const configureCss = (() => {
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
       }
-      if (config.hideAnalyticsNav && config.hideTwitterAdsNav) {
-        // XXX Quick but brittle way to hide the divider above these items
-        hideCssSelectors.push('div[role="dialog"] div:nth-of-type(8)[role="separator"]')
-      }
       if (config.hideAppNags) {
         cssRules.push(`
           body.Tweet header div:nth-of-type(3) > div > [role="button"] {
@@ -1892,13 +1888,13 @@ const configureThemeCss = (() => {
             background-color: rgb(15, 20, 25);
           }
           body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) > * {
-              color: rgb(255, 255, 255);
+            color: rgb(255, 255, 255);
           }
           body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) {
             background-color: rgb(255, 255, 255);
           }
           body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) > * {
-              color: rgb(15, 20, 25);
+            color: rgb(15, 20, 25);
           }
           /* Follow button */
           body.Default [role="button"][data-testid$="-follow"] {
