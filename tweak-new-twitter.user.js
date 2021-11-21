@@ -1478,6 +1478,7 @@ const configureCss = (() => {
   return function configureCss() {
     let cssRules = []
     let hideCssSelectors = []
+    let menuRole = `[role="${desktop ? 'menu' : 'dialog'}"]`
 
     if (config.alwaysUseLatestTweets) {
       // Hide the sparkle when automatically staying on Latest Tweets
@@ -1487,10 +1488,10 @@ const configureCss = (() => {
       )
     }
     if (config.hideAnalyticsNav) {
-      hideCssSelectors.push('div[role="dialog"] a[href*="analytics.twitter.com"]')
+      hideCssSelectors.push(`${menuRole} a[href*="analytics.twitter.com"]`)
     }
     if (config.hideBookmarksNav) {
-      hideCssSelectors.push('div[role="dialog"] a[href$="/bookmarks"]')
+      hideCssSelectors.push(`${menuRole} a[href$="/bookmarks"]`)
     }
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(
@@ -1501,22 +1502,22 @@ const configureCss = (() => {
       )
     }
     if (config.hideHelpCenterNav) {
-      hideCssSelectors.push('div[role="dialog"] a[href*="support.twitter.com"]')
+      hideCssSelectors.push(`${menuRole} a[href*="support.twitter.com"]`)
     }
     if (config.hideListsNav) {
-      hideCssSelectors.push('div[role="dialog"] a[href$="/lists"]')
+      hideCssSelectors.push(`${menuRole} a[href$="/lists"]`)
     }
     if (config.hideMetrics) {
       configureHideMetricsCss(cssRules, hideCssSelectors)
     }
     if (config.hideMomentsNav) {
-      hideCssSelectors.push('div[role="dialog"] a[href$="/moment_maker"]')
+      hideCssSelectors.push(`${menuRole} a[href$="/moment_maker"]`)
     }
     if (config.hideNewslettersNav) {
-      hideCssSelectors.push('div[role="dialog"] a[href$="/newsletters"]')
+      hideCssSelectors.push(`${menuRole} a[href$="/newsletters"]`)
     }
     if (config.hideTopicsNav) {
-      hideCssSelectors.push('div[role="dialog"] a[href$="/topics"]')
+      hideCssSelectors.push(`${menuRole} a[href$="/topics"]`)
     }
     if (config.hideTweetAnalyticsLinks) {
       hideCssSelectors.push(
@@ -1527,7 +1528,7 @@ const configureCss = (() => {
       )
     }
     if (config.hideTwitterAdsNav) {
-      hideCssSelectors.push('div[role="dialog"] a[href*="ads.twitter.com"]')
+      hideCssSelectors.push(`${menuRole} a[href*="ads.twitter.com"]`)
     }
     if (config.hideWhoToFollowEtc) {
       hideCssSelectors.push(`body.Profile ${Selectors.PRIMARY_COLUMN} aside[role="complementary"]`)
@@ -1609,7 +1610,7 @@ const configureCss = (() => {
         `)
       }
       if (config.hideKeyboardShortcutsNav) {
-        hideCssSelectors.push('div[role="dialog"] a[href$="/i/keyboard_shortcuts"]')
+        hideCssSelectors.push(`${menuRole} a[href$="/i/keyboard_shortcuts"]`)
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
