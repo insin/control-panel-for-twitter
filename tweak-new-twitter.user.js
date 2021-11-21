@@ -42,6 +42,8 @@ const config = {
   hideTopicsNav: true,
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
+  hideTwitterBlueNav: true,
+  hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
   hideWhoToFollowEtc: true,
   likedTweets: 'hide',
@@ -1529,6 +1531,12 @@ const configureCss = (() => {
     }
     if (config.hideTwitterAdsNav) {
       hideCssSelectors.push(`${menuRole} a[href*="ads.twitter.com"]`)
+    }
+    if (config.hideTwitterBlueNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/twitter_blue_sign_up"]`)
+    }
+    if (config.hideTwitterForProfessionalsNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/convert_to_professional"]`)
     }
     if (config.hideWhoToFollowEtc) {
       hideCssSelectors.push(`body.Profile ${Selectors.PRIMARY_COLUMN} aside[role="complementary"]`)
