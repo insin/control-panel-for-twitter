@@ -1659,7 +1659,7 @@ const configureCss = (() => {
       }
       if (config.hideAppNags) {
         cssRules.push(`
-          body.Tweet header div:nth-of-type(3) > [role="button"] {
+          body.Tweet header div:nth-of-type(3) > div > [role="button"] {
             visibility: hidden;
           }
         `)
