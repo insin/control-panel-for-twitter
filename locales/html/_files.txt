@@ -1,0 +1,94 @@
+-o ar-x-fm.html
+url="https://twitter.com?lang=ar-x-fm"
+-o ar.html
+url="https://twitter.com?lang=ar"
+-o bg.html
+url="https://twitter.com?lang=bg"
+-o bn.html
+url="https://twitter.com?lang=bn"
+-o ca.html
+url="https://twitter.com?lang=ca"
+-o cs.html
+url="https://twitter.com?lang=cs"
+-o da.html
+url="https://twitter.com?lang=da"
+-o de.html
+url="https://twitter.com?lang=de"
+-o el.html
+url="https://twitter.com?lang=el"
+-o en.html
+url="https://twitter.com?lang=en"
+-o es.html
+url="https://twitter.com?lang=es"
+-o eu.html
+url="https://twitter.com?lang=eu"
+-o fa.html
+url="https://twitter.com?lang=fa"
+-o fi.html
+url="https://twitter.com?lang=fi"
+-o fil.html
+url="https://twitter.com?lang=fil"
+-o fr.html
+url="https://twitter.com?lang=fr"
+-o ga.html
+url="https://twitter.com?lang=ga"
+-o gl.html
+url="https://twitter.com?lang=gl"
+-o gu.html
+url="https://twitter.com?lang=gu"
+-o he.html
+url="https://twitter.com?lang=he"
+-o hi.html
+url="https://twitter.com?lang=hi"
+-o hr.html
+url="https://twitter.com?lang=hr"
+-o hu.html
+url="https://twitter.com?lang=hu"
+-o id.html
+url="https://twitter.com?lang=id"
+-o it.html
+url="https://twitter.com?lang=it"
+-o ja.html
+url="https://twitter.com?lang=ja"
+-o kn.html
+url="https://twitter.com?lang=kn"
+-o ko.html
+url="https://twitter.com?lang=ko"
+-o mr.html
+url="https://twitter.com?lang=mr"
+-o ms.html
+url="https://twitter.com?lang=ms"
+-o nb.html
+url="https://twitter.com?lang=nb"
+-o nl.html
+url="https://twitter.com?lang=nl"
+-o pl.html
+url="https://twitter.com?lang=pl"
+-o pt.html
+url="https://twitter.com?lang=pt"
+-o ro.html
+url="https://twitter.com?lang=ro"
+-o ru.html
+url="https://twitter.com?lang=ru"
+-o sk.html
+url="https://twitter.com?lang=sk"
+-o sr.html
+url="https://twitter.com?lang=sr"
+-o sv.html
+url="https://twitter.com?lang=sv"
+-o ta.html
+url="https://twitter.com?lang=ta"
+-o th.html
+url="https://twitter.com?lang=th"
+-o tr.html
+url="https://twitter.com?lang=tr"
+-o uk.html
+url="https://twitter.com?lang=uk"
+-o ur.html
+url="https://twitter.com?lang=ur"
+-o vi.html
+url="https://twitter.com?lang=vi"
+-o zh-Hant.html
+url="https://twitter.com?lang=zh-Hant"
+-o zh.html
+url="https://twitter.com?lang=zh"

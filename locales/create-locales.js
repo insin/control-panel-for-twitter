@@ -170,9 +170,10 @@ function sortProperties(locale) {
   return Object.fromEntries(entries)
 }
 
-for (let file of fs.readdirSync('./files')) {
+for (let file of fs.readdirSync('./js')) {
+  if (!file.endsWith('.js')) continue
   let locale = {}
-  let src = fs.readFileSync(path.join('files', file), {encoding: 'utf8'})
+  let src = fs.readFileSync(path.join('js', file), {encoding: 'utf8'})
   for (let [key, code] of Object.entries(template)) {
     locale[key] = src.match(new RegExp(`"${code}","([^"]+)"`))[1]
   }
@@ -182,4 +183,6 @@ for (let file of fs.readdirSync('./files')) {
   locales[localeCode] = sortProperties(locale)
 }
 
-fs.writeFileSync('locales.js', JSON.stringify(locales, null, 2), {encoding: 'utf8'})
+fs.writeFileSync('locales.js', JSON.stringify(locales, null, 2), {
+  encoding: 'utf8',
+})

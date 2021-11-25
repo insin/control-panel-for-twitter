@@ -1,0 +1,94 @@
+-o ar-x-fm.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/ar-x-fm.9b6d9625.js"
+-o ar.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/ar.c56a3655.js"
+-o bg.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/bg.c7daf475.js"
+-o bn.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/bn.36541a45.js"
+-o ca.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/ca.dd43afd5.js"
+-o cs.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/cs.243cb7c5.js"
+-o da.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/da.0648a375.js"
+-o de.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/de.98f5e105.js"
+-o el.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/el.cdea0145.js"
+-o en.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/en.a31bf535.js"
+-o es.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/es.2465ea15.js"
+-o eu.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/eu.38342ee5.js"
+-o fa.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/fa.862946c5.js"
+-o fi.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/fi.481d4b35.js"
+-o fil.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/fil.1f715a55.js"
+-o fr.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/fr.713e97b5.js"
+-o ga.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/ga.489c5605.js"
+-o gl.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/gl.ce1202e5.js"
+-o gu.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/gu.578860b5.js"
+-o he.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/he.3da1c4c5.js"
+-o hi.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/hi.d9e089f5.js"
+-o hr.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/hr.458854c5.js"
+-o hu.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/hu.ec54a955.js"
+-o id.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/id.11745ed5.js"
+-o it.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/it.b4ef1905.js"
+-o ja.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/ja.02cba645.js"
+-o kn.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/kn.4a4a19d5.js"
+-o ko.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/ko.035bc5f5.js"
+-o mr.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/mr.dd1e6525.js"
+-o ms.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/ms.09e3cda5.js"
+-o nb.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/nb.93d0cc35.js"
+-o nl.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/nl.5c685cd5.js"
+-o pl.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/pl.a6334e55.js"
+-o pt.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/pt.6a60ed15.js"
+-o ro.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/ro.9ec76765.js"
+-o ru.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/ru.87e79b75.js"
+-o sk.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/sk.32050315.js"
+-o sr.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/sr.b2ffc2b5.js"
+-o sv.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/sv.8697e675.js"
+-o ta.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/ta.0229dee5.js"
+-o th.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/th.108876e5.js"
+-o tr.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/tr.9b55cb65.js"
+-o uk.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/uk.db582eb5.js"
+-o ur.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/ur.db029885.js"
+-o vi.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/vi.1048e915.js"
+-o zh-Hant.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/zh-Hant.3a034945.js"
+-o zh.js
+url="https://abs.twimg.com/responsive-web/client-web-legacy/i18n/zh.828d34c5.js"
