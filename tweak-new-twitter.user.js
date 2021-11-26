@@ -1381,7 +1381,11 @@ async function addMuteQuotesMenuItem($blockMenuItem) {
     storeConfigChanges({mutedQuotes: config.mutedQuotes})
     processCurrentPage()
     // Dismiss the menu
-    ;/** @type {HTMLElement} */ ($blockMenuItem.closest('[role="dialog"]').firstElementChild).click()
+    let $menuLayer = /** @type {HTMLElement} */ ($blockMenuItem.closest('[role="group"]')?.firstElementChild)
+    if (!$menuLayer) {
+      log('could not find menu layer to dismiss menu')
+    }
+    $menuLayer?.click()
   })
 
   $blockMenuItem.insertAdjacentElement('beforebegin', $muteQuotes)
