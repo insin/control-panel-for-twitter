@@ -40,6 +40,7 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 ### Remove algorithmic content
 
 - Keeps you on the Latest Tweets (chronological) timeline, automatically switching you back if Twitter tries to move you to the "Home" (algorithmic) timeline
+  - Hides the new timeline tabs if you have them
 - Hide "Who to follow", "Follow some Topics" etc. in the timeline
 - Hide "What's happening", "Topics to follow" etc. in the sidebar
 - Hide "More Tweets" when linked to a tweet
