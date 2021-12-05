@@ -25,6 +25,7 @@ export type Config = {
   hideUnavailableQuoteTweets: boolean
   hideWhoToFollowEtc: boolean
   likedTweets: AlgorithmicTweetsConfig
+  listTweets: AlgorithmicTweetsConfig
   mutableQuoteTweets: boolean
   mutedQuotes: QuotedTweet[]
   quoteTweets: SharedTweetsConfig
@@ -87,6 +88,7 @@ export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
 export type TimelineItemType =
   | 'HEADING'
   | 'LIKED'
+  | 'LIST_TWEET'
   | 'PROMOTED_TWEET'
   | 'QUOTE_TWEET'
   | 'REPLIED'
