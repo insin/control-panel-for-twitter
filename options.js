@@ -64,6 +64,7 @@ const defaultConfig = {
   dontUseChirpFont: false,
   fastBlock: true,
   followButtonStyle: 'monochrome',
+  followeesFollows: 'hide',
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
   hideHelpCenterNav: true,

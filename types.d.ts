@@ -8,6 +8,7 @@ export type Config = {
   dontUseChirpFont: boolean
   fastBlock: boolean
   followButtonStyle: 'monochrome' | 'themed'
+  followeesFollows: AlgorithmicTweetsConfig
   hideAnalyticsNav: boolean
   hideBookmarksNav: boolean
   hideHelpCenterNav: boolean
@@ -87,6 +88,7 @@ export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
 
 export type TimelineItemType =
   | 'HEADING'
+  | 'FOLLOWEES_FOLLOWS'
   | 'LIKED'
   | 'LIST_TWEET'
   | 'PROMOTED_TWEET'

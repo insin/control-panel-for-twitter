@@ -30,6 +30,7 @@ const config = {
   dontUseChirpFont: false,
   fastBlock: true,
   followButtonStyle: 'monochrome',
+  followeesFollows: 'hide',
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
   hideHelpCenterNav: true,
@@ -2068,6 +2069,7 @@ function getTweetType($tweet) {
   if ($tweet.querySelector('[data-testid="socialContext"]')) {
     if (!config.alwaysUseLatestTweets && currentMainTimelineType == getString('HOME')) {
       let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
+      if (svgPath.startsWith('M12.225 12.165c-1.356 0-2.8')) return 'FOLLOWEES_FOLLOWS'
       if (svgPath.startsWith('M12 21.638h-.014C9.403 21.5')) return 'LIKED'
       if (svgPath.startsWith('M19.75 2H4.25C3.013 2 2 3.0')) return 'LIST_TWEET'
       if (svgPath.startsWith('M14.046 2.242l-4.148-.01h-.')) return 'REPLIED'
@@ -2552,6 +2554,8 @@ function shouldHideAlgorithmicTweet(config, page) {
  */
 function shouldHideMainTimelineItem(type, page) {
   switch (type) {
+    case 'FOLLOWEES_FOLLOWS':
+      return shouldHideAlgorithmicTweet(config.followeesFollows, page)
     case 'LIKED':
       return shouldHideAlgorithmicTweet(config.likedTweets, page)
     case 'LIST_TWEET':
