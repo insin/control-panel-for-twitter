@@ -4,7 +4,7 @@
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
-// @version     53
+// @version     54
 // ==/UserScript==
 
 let debug = false
@@ -2719,7 +2719,7 @@ function main() {
 }
 
 /**
- * @param {Partial<import("./types").Config} changes
+ * @param {Partial<import("./types").Config>} changes
  */
 function configChanged(changes) {
   log('config changed', changes)
