@@ -2153,22 +2153,6 @@ function handlePopup($popup) {
 }
 
 /**
- * Automatically click a tweet's link to get rid of the "More Tweets" section.
- */
-async function hideMoreTweetsSection(path) {
-  let id = URL_TWEET_ID_RE.exec(path)[1]
-  let $tweetLink = await getElement(`a[href$="/status/${id}"]`, {
-    name: 'tweet',
-    stopIf: pathIsNot(path),
-    timeout: 2000,
-  })
-  if ($tweetLink) {
-    log('clicking the tweet link to hide "More Tweets"')
-    $tweetLink.click()
-  }
-}
-
-/**
  * Checks if a tweet is preceded by an element creating a vertical reply line.
  * @param {HTMLElement} $tweet
  * @returns {boolean}
@@ -2685,11 +2669,13 @@ async function tweakExplorePage(page) {
   )
 }
 
-async function tweakIndividualTweetPage() {
-  if (config.hideMoreTweets) {
-    if (location.search) {
-      hideMoreTweetsSection(currentPath)
-    }
+/**
+ * Re-navigates to a tweet to get rid of the "More Tweets" section.
+ */
+function tweakIndividualTweetPage() {
+  if (config.hideMoreTweets && location.search) {
+    log('re-navigating to get rid of More Tweets')
+    location.replace(location.origin + location.pathname)
   }
 }
 
