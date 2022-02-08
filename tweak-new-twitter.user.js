@@ -1583,6 +1583,8 @@ const configureCss = (() => {
         '[data-testid="tweet"] [role="group"] > div:nth-of-type(4)',
         // Under individual tweets
         'body.Tweet [data-testid="tweet"] + div > div > [role="group"] > div:nth-of-type(4)',
+        // In media modal
+        '[aria-modal="true"] [role="group"] > div:nth-of-type(4)',
       )
     }
     if (config.hideHelpCenterNav) {
@@ -1851,9 +1853,14 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
 
   if (individualTweetMetricSelectors) {
     // Individual tweet metrics
-    hideCssSelectors.push(`body.Tweet a:is(${individualTweetMetricSelectors}) > :first-child`)
+    hideCssSelectors.push(
+      `body.Tweet a:is(${individualTweetMetricSelectors}) > :first-child`,
+      `[aria-modal="true"] [data-testid="tweet"] a:is(${individualTweetMetricSelectors}) > :first-child`
+    )
     // Fix display of whitespace after hidden metrics
-    cssRules.push(`body.Tweet a:is(${individualTweetMetricSelectors}) { white-space: pre-line; }`)
+    cssRules.push(
+      `body.Tweet a:is(${individualTweetMetricSelectors}), [aria-modal="true"] [data-testid="tweet"] a:is(${individualTweetMetricSelectors}) { white-space: pre-line; }`
+    )
   }
 
   let timelineMetricSelectors = [
@@ -1863,9 +1870,11 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   ].filter(Boolean).join(', ')
 
   if (timelineMetricSelectors) {
-    // Metrics under timeline-style tweets
     cssRules.push(
-      `[data-testid="tweet"] [role="group"] > div:is(${timelineMetricSelectors}) div > span { visibility: hidden;}`
+      // Metrics under timeline-style tweets
+      `[data-testid="tweet"] [role="group"] > div:is(${timelineMetricSelectors}) div > span { visibility: hidden; }`,
+      // Metrics in media modal
+      `[aria-modal="true"] [role="group"] > div:is(${timelineMetricSelectors}) [data-testid="app-text-transition-container"] { visibility: hidden; }`,
     )
   }
 }
