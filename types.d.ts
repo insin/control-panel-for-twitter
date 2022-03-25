@@ -11,6 +11,7 @@ export type Config = {
   followeesFollows: AlgorithmicTweetsConfig
   hideAnalyticsNav: boolean
   hideBookmarksNav: boolean
+  hideCommunitiesNav: boolean
   hideHelpCenterNav: boolean
   hideKeyboardShortcutsNav: boolean
   hideListsNav: boolean

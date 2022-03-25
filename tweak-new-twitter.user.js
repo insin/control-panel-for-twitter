@@ -33,6 +33,7 @@ const config = {
   followeesFollows: 'hide',
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
+  hideCommunitiesNav: true,
   hideHelpCenterNav: true,
   hideKeyboardShortcutsNav: false,
   hideListsNav: true,
@@ -1693,6 +1694,9 @@ const configureCss = (() => {
           '[data-testid="SideNav_AccountSwitcher_Button"] > div:first-child + div',
         )
       }
+      if (config.hideCommunitiesNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
+      }
       if (config.addAddMutedWordMenuItem || config.mutableQuoteTweets) {
         // Hover colors for custom menu items
         cssRules.push(`
@@ -1730,9 +1734,6 @@ const configureCss = (() => {
       if (config.hideBookmarksNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`)
       }
-      if (config.hideListsNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href*="/lists"]`)
-      }
       if (config.hideMessagesDrawer) {
         cssRules.push(`${Selectors.MESSAGES_DRAWER} { visibility: hidden; }`)
       }
@@ -1760,6 +1761,9 @@ const configureCss = (() => {
           'body.Explore header nav',
           'body.Explore main',
         )
+      }
+      if (config.hideCommunitiesNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href$="/communities"]`)
       }
       if (config.hideMessagesBottomNavItem) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
