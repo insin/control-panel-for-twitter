@@ -15,7 +15,8 @@
     {
       "matches": [
         "https://twitter.com/*",
-        "https://mobile.twitter.com/*"
+        "https://mobile.twitter.com/*",
+        "https://twitter3e4tixl4xyajtrzo62zg5vztmjuricljdp2c5kshju4avyoid.onion/*"
       ],
       "js": [
         "./tweak-new-twitter.user.js"
