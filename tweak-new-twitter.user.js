@@ -4,7 +4,7 @@
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
-// @version     56
+// @version     57
 // ==/UserScript==
 
 let debug = false
@@ -649,7 +649,7 @@ const Selectors = {
   DISPLAY_DONE_BUTTON_DESKTOP: '#layers div[role="button"]:not([aria-label])',
   DISPLAY_DONE_BUTTON_MOBILE: 'main div[role="button"]:not([aria-label])',
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
-  MOBILE_TIMELINE_HEADER: 'header > div:nth-of-type(2) > div:first-of-type',
+  MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV_DESKTOP: 'header nav',
@@ -1482,7 +1482,7 @@ async function addSeparatedTweetsTimelineControl(page) {
       window.scrollTo({top: 0})
     })
 
-    let $timelineTitle = document.querySelector('header h2')
+    let $timelineTitle = document.querySelector('div[data-testid="TopNavBar"] h2')
 
     // Only the non-tabbed timeline has a heading in the header
     if ($timelineTitle != null) {
@@ -1504,13 +1504,15 @@ async function addSeparatedTweetsTimelineControl(page) {
       $timelineTitle.parentElement.classList.add('tnt_mobile_header')
     }
     else {
-      let $headerContent = document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER} > div > div > div > div > div`)
+      let $headerContent = document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER} > div > div:first-of-type > div > div > div > div`)
       if ($headerContent != null) {
         if (config.alwaysUseLatestTweets) {
           // This element reserves space for the timeline tabs - resize it for
           // the header's contents, as the tabs are going to be hidden.
-          let $headerSizer = /** @type {HTMLDivElement} */ (document.querySelector('header > div'))
-          $headerSizer.style.height = getComputedStyle($headerContent).height
+          let $headerSizer = /** @type {HTMLDivElement} */ (document.querySelector('div[data-testid="TopNavBar"] > div'))
+          if ($headerSizer) {
+            $headerSizer.style.height = getComputedStyle($headerContent).height
+          }
         }
 
         removeMobileTimelineHeaderElements()
@@ -1563,8 +1565,8 @@ const configureCss = (() => {
     if (config.alwaysUseLatestTweets) {
       // Hide the sparkle when automatically staying on Latest Tweets
       hideCssSelectors.push(mobile
-        ? `body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER} > div > div > div > div > div > div:nth-of-type(3)`
-        : `body.MainTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div > div > div > div > div:last-of-type`
+        ? `body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER} > div > div:first-of-type > div > div > div > div > div:nth-of-type(3)`
+        : `body.MainTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div > div > div > div > div > div:last-of-type`
       )
       // Hide timeline tabs
       hideCssSelectors.push(mobile
@@ -1758,8 +1760,10 @@ const configureCss = (() => {
         // Hide explore page contents so we don't get a brief flash of them
         // before automatically switching the page to search mode.
         hideCssSelectors.push(
-          'body.Explore header nav',
-          'body.Explore main',
+          // Tabs
+          `body.Explore ${Selectors.MOBILE_TIMELINE_HEADER} > div:nth-of-type(2)`,
+          // Content
+          `body.Explore ${Selectors.TIMELINE}`,
         )
       }
       if (config.hideCommunitiesNav) {
@@ -2593,7 +2597,7 @@ function shouldHideSharedTweet(config, page) {
 async function switchToLatestTweets(page) {
   log('switching to Latest Tweets timeline')
 
-  let contextSelector = mobile ? 'header div:nth-of-type(3)' : Selectors.PRIMARY_COLUMN
+  let contextSelector = mobile ? 'div[data-testid="TopNavBar"] div:nth-of-type(3)' : Selectors.PRIMARY_COLUMN
   let $sparkleButton = await getElement(`${contextSelector} [role="button"]`, {
     name: 'sparkle button',
     stopIf: pageIsNot(page),
