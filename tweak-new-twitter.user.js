@@ -1482,7 +1482,7 @@ async function addSeparatedTweetsTimelineControl(page) {
       window.scrollTo({top: 0})
     })
 
-    let $timelineTitle = document.querySelector('div[data-testid="TopNavBar"] h2')
+    let $timelineTitle = document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER} h2`)
 
     // Only the non-tabbed timeline has a heading in the header
     if ($timelineTitle != null) {
@@ -1509,7 +1509,7 @@ async function addSeparatedTweetsTimelineControl(page) {
         if (config.alwaysUseLatestTweets) {
           // This element reserves space for the timeline tabs - resize it for
           // the header's contents, as the tabs are going to be hidden.
-          let $headerSizer = /** @type {HTMLDivElement} */ (document.querySelector('div[data-testid="TopNavBar"] > div'))
+          let $headerSizer = /** @type {HTMLDivElement} */ (document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER} > div`))
           if ($headerSizer) {
             $headerSizer.style.height = getComputedStyle($headerContent).height
           }
@@ -2597,7 +2597,7 @@ function shouldHideSharedTweet(config, page) {
 async function switchToLatestTweets(page) {
   log('switching to Latest Tweets timeline')
 
-  let contextSelector = mobile ? 'div[data-testid="TopNavBar"] div:nth-of-type(3)' : Selectors.PRIMARY_COLUMN
+  let contextSelector = mobile ? `${Selectors.MOBILE_TIMELINE_HEADER} div:nth-of-type(3)` : Selectors.PRIMARY_COLUMN
   let $sparkleButton = await getElement(`${contextSelector} [role="button"]`, {
     name: 'sparkle button',
     stopIf: pageIsNot(page),
