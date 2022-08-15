@@ -1325,10 +1325,9 @@ async function observeTimeline(page) {
 async function addAddMutedWordMenuItem($settingsLink) {
   log('adding "Add muted word" menu item')
 
-  // Wait for the menu to render properly on desktop
+  // Wait for the dropdown to appear on desktop
   if (desktop) {
-    $settingsLink = await getElement(`:scope > div > div > div > div > a[href="/settings"]`, {
-      context: $settingsLink.parentElement.parentElement,
+    $settingsLink = await getElement('#layers div[data-testid="Dropdown"] a[href="/settings"]', {
       name: 'rendered settings menu item',
       timeout: 100,
     })
@@ -1344,7 +1343,7 @@ async function addAddMutedWordMenuItem($settingsLink) {
     e.preventDefault()
     addMutedWord()
   })
-  $settingsLink.parentElement.previousElementSibling.insertAdjacentElement('beforebegin', $addMutedWord)
+  $settingsLink.parentElement.insertAdjacentElement('afterend', $addMutedWord)
 }
 
 function addCaretMenuListenerForQuoteTweet($tweet) {
