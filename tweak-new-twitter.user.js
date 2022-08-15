@@ -34,6 +34,7 @@ const config = {
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
   hideCommunitiesNav: true,
+  hideExplorePageContents: true,
   hideHelpCenterNav: true,
   hideKeyboardShortcutsNav: false,
   hideListsNav: true,
@@ -81,7 +82,6 @@ const config = {
   showRelevantPeople: false,
   // Mobile only
   hideAppNags: true,
-  hideExplorePageContents: true,
   hideMessagesBottomNavItem: false,
 }
 //#endregion
@@ -1705,6 +1705,14 @@ const configureCss = (() => {
           body.Dim .tnt_menu_item:hover { background-color: rgb(25, 39, 52) !important; }
           body.LightsOut .tnt_menu_item:hover { background-color: rgb(21, 24, 28) !important; }
         `)
+      }
+      if (config.hideExplorePageContents) {
+        hideCssSelectors.push(
+          // Tabs
+          `body.Explore ${Selectors.DESKTOP_TIMELINE_HEADER} nav`,
+          // Content
+          `body.Explore ${Selectors.TIMELINE}`,
+        )
       }
       if (config.hideKeyboardShortcutsNav) {
         hideCssSelectors.push(`${menuRole} a[href$="/i/keyboard_shortcuts"]`)

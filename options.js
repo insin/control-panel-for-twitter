@@ -10,10 +10,10 @@ $body.querySelectorAll(mobile ? '.desktop' : '.mobile').forEach($el => $el.remov
 const checkboxGroups = new Map(Object.entries({
   reduceAlgorithmicContent: [
     'alwaysUseLatestTweets',
+    'hideExplorePageContents',
     'hideMoreTweets',
     'hideWhoToFollowEtc',
     desktop && 'hideSidebarContent',
-    mobile && 'hideExplorePageContents',
   ].filter(Boolean),
   uiImprovements: [
     'addAddMutedWordMenuItem',
@@ -68,6 +68,7 @@ const defaultConfig = {
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
   hideCommunitiesNav: true,
+  hideExplorePageContents: true,
   hideHelpCenterNav: true,
   hideKeyboardShortcutsNav: false,
   hideListsNav: true,
@@ -115,7 +116,6 @@ const defaultConfig = {
   showRelevantPeople: false,
   // Mobile only
   hideAppNags: true,
-  hideExplorePageContents: true,
   hideMessagesBottomNavItem: false,
 }
 
