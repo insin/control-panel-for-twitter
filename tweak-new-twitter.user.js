@@ -1757,7 +1757,7 @@ const configureCss = (() => {
       }
       if (config.hideAppNags) {
         cssRules.push(`
-          body.Tweet header div:nth-of-type(3) > div > [role="button"] {
+          body.Tweet ${Selectors.MOBILE_TIMELINE_HEADER} div:nth-of-type(3) > div > [role="button"] {
             visibility: hidden;
           }
         `)
