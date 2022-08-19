@@ -2669,8 +2669,7 @@ async function tweakExplorePage(page) {
   log('focusing search input')
   $searchInput.focus()
 
-  let $backButton = await getElement('[role="button"]:not([data-testid="DashButton_ProfileIcon_Link"])', {
-    context: $searchInput.closest('header'),
+  let $backButton = await getElement('div[data-testid="app-bar-back"]', {
     name: 'back button',
     stopIf: pageIsNot(page),
   })
