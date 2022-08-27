@@ -860,7 +860,7 @@ function getElement(selector, {
 
     function stop($element, reason) {
       if ($element == null) {
-        log(`stopped waiting for ${name || selector} after ${reason}`)
+        warn(`stopped waiting for ${name || selector} after ${reason}`)
       }
       else if (Date.now() > startTime) {
         log(`${name || selector} appeared after ${Date.now() - startTime}ms`)
@@ -906,6 +906,12 @@ function isExtension() {
 function log(...args) {
   if (debug) {
     console.log(`🧨${currentPage ? `(${currentPage})` : ''}`, ...args)
+  }
+}
+
+function warn(...args) {
+  if (debug) {
+    console.log(`⚠${currentPage ? `(${currentPage})` : ''}`, ...args)
   }
 }
 
@@ -1001,7 +1007,7 @@ const checkReactNativeStylesheet = (() => {
   return function checkReactNativeStylesheet() {
     let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
     if (!$style) {
-      log('React Native stylesheet not found')
+      warn('React Native stylesheet not found')
       return
     }
 
@@ -1030,7 +1036,7 @@ const checkReactNativeStylesheet = (() => {
       if (elapsedTime < 3000) {
         setTimeout(checkReactNativeStylesheet, 100)
       } else {
-        log(`stopped checking React Native stylesheet after ${elapsedTime}ms`)
+        warn(`stopped checking React Native stylesheet after ${elapsedTime}ms`)
       }
     } else {
       log(`finished checking React Native stylesheet in ${elapsedTime}ms`)
@@ -1524,7 +1530,7 @@ async function addSeparatedTweetsTimelineControl(page) {
         $headerContent.appendChild($toggle)
       }
       else {
-        log('could not find header content element')
+        warn('could not find header content element')
       }
     }
 
@@ -1832,7 +1838,7 @@ const configureCss = (() => {
 
 function configureFont() {
   if (!fontFamilyRule) {
-    log('no fontFamilyRule found for configureFont to use')
+    warn('no fontFamilyRule found for configureFont to use')
     return
   }
 
@@ -2113,7 +2119,7 @@ function getTweetType($tweet) {
       if (svgPath.startsWith('M18.265 3.314c-3.45-3.45-9.')) return 'SUGGESTED_TOPIC_TWEET'
       // This is the start of the SVG path for the Retweet icon
       if (!svgPath.startsWith('M23.615 15.477c-.47-.47-1.23')) {
-        log('unhandled socialContext tweet type - falling back to RETWEET', $tweet)
+        warn('unhandled socialContext tweet type - falling back to RETWEET', $tweet)
       }
     }
     // Quoted tweets from accounts you blocked or muted are displayed as an
@@ -2316,7 +2322,7 @@ function onTimelineChange($timeline, page) {
       // The first item in the timeline is sometimes an empty placeholder <div>
       else if ($item !== $timeline.firstElementChild && hideItem == null) {
         // We're probably also missing some spacer / divider nodes
-        log('unhandled timeline item', $item)
+        warn('unhandled timeline item', $item)
       }
     }
 
@@ -2632,7 +2638,7 @@ async function switchToLatestTweets(page) {
 
     let $timelineHeader = document.querySelector(desktop ? Selectors.DESKTOP_TIMELINE_HEADER : Selectors.MOBILE_TIMELINE_HEADER_OLD)
     if ($timelineHeader == null) {
-      log('could not find timeline header')
+      warn('could not find timeline header')
       return
     }
 
@@ -2652,7 +2658,7 @@ async function switchToLatestTweets(page) {
 
     let $latestTweetsTab = /** @type {HTMLElement} */ ($timelineHeader.querySelector('[data-testid="ScrollSnap-List"] [role="presentation"]:nth-child(2) a'))
     if ($latestTweetsTab == null) {
-      log('could not find "Latest Tweets" tab')
+      warn('could not find "Latest Tweets" tab')
       return
     }
 
