@@ -649,7 +649,8 @@ const Selectors = {
   DISPLAY_DONE_BUTTON_DESKTOP: '#layers div[role="button"]:not([aria-label])',
   DISPLAY_DONE_BUTTON_MOBILE: 'main div[role="button"]:not([aria-label])',
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
-  MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
+  MOBILE_TIMELINE_HEADER_OLD: 'header > div:nth-of-type(2) > div:first-of-type',
+  MOBILE_TIMELINE_HEADER_NEW: 'div[data-testid="TopNavBar"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV_DESKTOP: 'header nav',
@@ -799,7 +800,7 @@ function isOnTabbedTimeline() {
   if (!isOnMainTimelinePage()) {
     return false
   }
-  let $header = document.querySelector(desktop ? Selectors.DESKTOP_TIMELINE_HEADER : Selectors.MOBILE_TIMELINE_HEADER)
+  let $header = document.querySelector(desktop ? Selectors.DESKTOP_TIMELINE_HEADER : Selectors.MOBILE_TIMELINE_HEADER_OLD)
   return $header?.childElementCount == (desktop ? 3 : 2)
 }
 
@@ -1481,7 +1482,10 @@ async function addSeparatedTweetsTimelineControl(page) {
       window.scrollTo({top: 0})
     })
 
-    let $timelineTitle = document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER} h2`)
+    let $timelineTitle = document.querySelector(`
+      ${Selectors.MOBILE_TIMELINE_HEADER_OLD} h2,
+      ${Selectors.MOBILE_TIMELINE_HEADER_NEW} h2
+    `)
 
     // Only the non-tabbed timeline has a heading in the header
     if ($timelineTitle != null) {
@@ -1503,12 +1507,12 @@ async function addSeparatedTweetsTimelineControl(page) {
       $timelineTitle.parentElement.classList.add('tnt_mobile_header')
     }
     else {
-      let $headerContent = document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER} > div > div:first-of-type > div > div > div > div`)
+      let $headerContent = document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div > div > div > div > div`)
       if ($headerContent != null) {
         if (config.alwaysUseLatestTweets) {
           // This element reserves space for the timeline tabs - resize it for
           // the header's contents, as the tabs are going to be hidden.
-          let $headerSizer = /** @type {HTMLDivElement} */ (document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER} > div`))
+          let $headerSizer = /** @type {HTMLDivElement} */ (document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div`))
           if ($headerSizer) {
             $headerSizer.style.height = getComputedStyle($headerContent).height
           }
@@ -1564,12 +1568,16 @@ const configureCss = (() => {
     if (config.alwaysUseLatestTweets) {
       // Hide the sparkle when automatically staying on Latest Tweets
       hideCssSelectors.push(mobile
-        ? `body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER} > div > div:first-of-type > div > div > div > div > div:nth-of-type(3)`
-        : `body.MainTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div > div > div > div > div > div:last-of-type`
+        ? [`body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div > div > div > div > div > div:nth-of-type(3)`,
+           `body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:first-of-type > div > div > div > div > div:nth-of-type(3)`,
+          ].join(', ')
+        : [`body.MainTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div:only-child > div:only-child > div:only-child > div:only-child > div:last-of-type:not(:only-child)`,
+           `body.MainTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div:only-child > div:only-child > div:only-child > div:only-child > div:only-child > div:last-of-type:not(:only-child)`,
+          ].join(', ')
       )
       // Hide timeline tabs
       hideCssSelectors.push(mobile
-        ? `body.TimelineTabs ${Selectors.MOBILE_TIMELINE_HEADER} > div:nth-of-type(2)`
+        ? `body.TimelineTabs ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div:nth-of-type(2)`
         : `body.TimelineTabs ${Selectors.DESKTOP_TIMELINE_HEADER} > div:nth-of-type(2):not(:last-child)`
       )
     }
@@ -1757,7 +1765,8 @@ const configureCss = (() => {
       }
       if (config.hideAppNags) {
         cssRules.push(`
-          body.Tweet ${Selectors.MOBILE_TIMELINE_HEADER} div:nth-of-type(3) > div > [role="button"] {
+          body.Tweet ${Selectors.MOBILE_TIMELINE_HEADER_OLD} div:nth-of-type(3) > div > [role="button"],
+          body.Tweet ${Selectors.MOBILE_TIMELINE_HEADER_NEW} div:nth-of-type(3) > div > [role="button"] {
             visibility: hidden;
           }
         `)
@@ -1768,7 +1777,8 @@ const configureCss = (() => {
         // before automatically switching the page to search mode.
         hideCssSelectors.push(
           // Tabs
-          `body.Explore ${Selectors.MOBILE_TIMELINE_HEADER} > div:nth-of-type(2)`,
+          `body.Explore ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div:nth-of-type(2)`,
+          `body.Explore ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div:nth-of-type(2)`,
           // Content
           `body.Explore ${Selectors.TIMELINE}`,
         )
@@ -1856,7 +1866,10 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   if (config.hideTotalTweetsMetrics) {
     // Tweet count under username header on profile pages
     hideCssSelectors.push(
-      `body.Profile ${desktop ? Selectors.PRIMARY_COLUMN : Selectors.MOBILE_TIMELINE_HEADER} > div > div:first-of-type h2 + div[dir="auto"]`
+      mobile ? `
+        body.Profile header > div > div:first-of-type h2 + div[dir="auto"],
+        body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:first-of-type h2 + div[dir="auto"]
+      ` : `body.Profile  Selectors.PRIMARY_COLUMN  > div > div:first-of-type h2 + div[dir="auto"]`
     )
   }
 
@@ -2604,8 +2617,11 @@ function shouldHideSharedTweet(config, page) {
 async function switchToLatestTweets(page) {
   log('switching to Latest Tweets timeline')
 
-  let contextSelector = mobile ? `${Selectors.MOBILE_TIMELINE_HEADER} div:nth-of-type(3)` : Selectors.PRIMARY_COLUMN
-  let $sparkleButton = await getElement(`${contextSelector} [role="button"]`, {
+  let sparkleSelector = mobile ? `
+    ${Selectors.MOBILE_TIMELINE_HEADER_OLD} div:nth-of-type(3) [role="button"],
+    ${Selectors.MOBILE_TIMELINE_HEADER_NEW} div:nth-of-type(3) [role="button"]
+  ` : `${Selectors.PRIMARY_COLUMN} [role="button"]`
+  let $sparkleButton = await getElement(sparkleSelector, {
     name: 'sparkle button',
     stopIf: pageIsNot(page),
   })
@@ -2614,7 +2630,7 @@ async function switchToLatestTweets(page) {
   if ($sparkleButton.getAttribute('aria-label') == getString('TIMELINE_OPTIONS')) {
     log('tabbed timeline is being used')
 
-    let $timelineHeader = document.querySelector(desktop ? Selectors.DESKTOP_TIMELINE_HEADER : Selectors.MOBILE_TIMELINE_HEADER)
+    let $timelineHeader = document.querySelector(desktop ? Selectors.DESKTOP_TIMELINE_HEADER : Selectors.MOBILE_TIMELINE_HEADER_OLD)
     if ($timelineHeader == null) {
       log('could not find timeline header')
       return
