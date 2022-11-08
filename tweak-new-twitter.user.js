@@ -668,9 +668,9 @@ const Selectors = {
 
 /** @enum {string} */
 const Svgs = {
-  HOME: '<g><path d="M22.46 7.57L12.357 2.115c-.223-.12-.49-.12-.713 0L1.543 7.57c-.364.197-.5.652-.303 1.017.135.25.394.393.66.393.12 0 .243-.03.356-.09l.815-.44L4.7 19.963c.214 1.215 1.308 2.062 2.658 2.062h9.282c1.352 0 2.445-.848 2.663-2.087l1.626-11.49.818.442c.364.193.82.06 1.017-.304.196-.363.06-.818-.304-1.016zm-4.638 12.133c-.107.606-.703.822-1.18.822H7.36c-.48 0-1.075-.216-1.178-.798L4.48 7.69 12 3.628l7.522 4.06-1.7 12.015z"></path><path d="M8.22 12.184c0 2.084 1.695 3.78 3.78 3.78s3.78-1.696 3.78-3.78-1.695-3.78-3.78-3.78-3.78 1.696-3.78 3.78zm6.06 0c0 1.258-1.022 2.28-2.28 2.28s-2.28-1.022-2.28-2.28 1.022-2.28 2.28-2.28 2.28 1.022 2.28 2.28z"></path></g>',
-  MUTE: '<g><path d="M1.75 22.354c-.192 0-.384-.073-.53-.22-.293-.293-.293-.768 0-1.06L20.395 1.898c.293-.294.768-.294 1.06 0s.294.767 0 1.06L2.28 22.135c-.146.146-.338.22-.53.22zm1.716-5.577c-.134 0-.27-.036-.392-.11-.67-.413-1.07-1.13-1.07-1.917v-5.5c0-1.24 1.01-2.25 2.25-2.25H6.74l7.047-5.588c.225-.18.533-.215.792-.087.258.125.423.387.423.675v3.28c0 .415-.336.75-.75.75s-.75-.335-.75-.75V3.553L7.47 8.338c-.134.104-.298.162-.467.162h-2.75c-.413 0-.75.337-.75.75v5.5c0 .263.134.5.356.64.353.216.462.678.245 1.03-.14.23-.387.357-.64.357zm10.787 5.973c-.166 0-.33-.055-.466-.162l-4.795-3.803c-.325-.258-.38-.73-.122-1.054.258-.322.73-.38 1.054-.12l3.58 2.838v-7.013c0-.414.335-.75.75-.75s.75.336.75.75V22c0 .288-.166.55-.425.675-.104.05-.216.075-.327.075z"></path></g>',
-  RETWEET: '<g><path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"></path></g>',
+  HOME: '<g><path d="M12 9c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4zm0 6c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm0-13.304L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM19 19.5c0 .276-.224.5-.5.5h-13c-.276 0-.5-.224-.5-.5V8.429l7-4.375 7 4.375V19.5z"></path></g>',
+  MUTE: '<g><path d="M18 6.59V1.2L8.71 7H5.5C4.12 7 3 8.12 3 9.5v5C3 15.88 4.12 17 5.5 17h2.09l-2.3 2.29 1.42 1.42 15.5-15.5-1.42-1.42L18 6.59zm-8 8V8.55l6-3.75v3.79l-6 6zM5 9.5c0-.28.22-.5.5-.5H8v6H5.5c-.28 0-.5-.22-.5-.5v-5zm6.5 9.24l1.45-1.45L16 19.2V14l2 .02v8.78l-6.5-4.06z"></path></g>',
+  RETWEET: '<g><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"></path></g>',
 }
 
 const MOBILE_LOGGED_OUT_URLS = ['/', '/i/flow/login', '/i/flow/signup']
@@ -1329,21 +1329,21 @@ async function observeTimeline(page) {
  * Add an "Add muted word" menu item after "Settings and privacy" which takes
  * you straight to entering a new muted word (by clicking its way through all
  * the individual screens!).
- * @param {HTMLElement} $settingsLink
+ * @param {HTMLElement} $circleLink
  */
-async function addAddMutedWordMenuItem($settingsLink) {
+async function addAddMutedWordMenuItem($circleLink) {
   log('adding "Add muted word" menu item')
 
   // Wait for the dropdown to appear on desktop
   if (desktop) {
-    $settingsLink = await getElement('#layers div[data-testid="Dropdown"] a[href="/settings"]', {
-      name: 'rendered settings menu item',
+    $circleLink = await getElement('#layers div[data-testid="Dropdown"] a[href$="/i/circles"]', {
+      name: 'rendered Twitter Circle menu item',
       timeout: 100,
     })
-    if (!$settingsLink) return
+    if (!$circleLink) return
   }
 
-  let $addMutedWord = /** @type {HTMLElement} */ ($settingsLink.parentElement.cloneNode(true))
+  let $addMutedWord = /** @type {HTMLElement} */ ($circleLink.parentElement.cloneNode(true))
   $addMutedWord.classList.add('tnt_menu_item')
   $addMutedWord.querySelector('a').href = PagePaths.ADD_MUTED_WORD
   $addMutedWord.querySelector('span').textContent = getString('ADD_MUTED_WORD')
@@ -1352,7 +1352,7 @@ async function addAddMutedWordMenuItem($settingsLink) {
     e.preventDefault()
     addMutedWord()
   })
-  $settingsLink.parentElement.insertAdjacentElement('afterend', $addMutedWord)
+  $circleLink.parentElement.insertAdjacentElement('afterend', $addMutedWord)
 }
 
 function addCaretMenuListenerForQuoteTweet($tweet) {
@@ -1403,6 +1403,11 @@ async function addMuteQuotesMenuItem($blockMenuItem) {
 }
 
 async function addMutedWord() {
+  if (!document.querySelector('a[href="/settings')) {
+    let $settingsAndSupport = /** @type {HTMLElement} */ (document.querySelector('[data-testid="settingsAndSupport"]'))
+    $settingsAndSupport?.click()
+  }
+
   for (let path of [
     '/settings',
     '/settings/privacy_and_safety',
@@ -1723,9 +1728,9 @@ const configureCss = (() => {
       if (config.addAddMutedWordMenuItem || config.mutableQuoteTweets) {
         // Hover colors for custom menu items
         cssRules.push(`
-          body.Default .tnt_menu_item:hover { background-color: rgb(247, 249, 249) !important; }
-          body.Dim .tnt_menu_item:hover { background-color: rgb(25, 39, 52) !important; }
-          body.LightsOut .tnt_menu_item:hover { background-color: rgb(21, 24, 28) !important; }
+          body.Default .tnt_menu_item:hover a { background-color: rgb(247, 249, 249) !important; }
+          body.Dim .tnt_menu_item:hover a { background-color: rgb(30, 39, 50) !important; }
+          body.LightsOut .tnt_menu_item:hover a { background-color: rgb(22, 24, 28) !important; }
         `)
       }
       if (config.hideExplorePageContents) {
@@ -2193,9 +2198,9 @@ function handlePopup($popup) {
   }
 
   if (config.addAddMutedWordMenuItem) {
-    let $settingsLink = /** @type {HTMLElement} */ ($popup.querySelector('a[href="/settings"]'))
-    if ($settingsLink) {
-      addAddMutedWordMenuItem($settingsLink)
+    let $circleLink = /** @type {HTMLElement} */ ($popup.querySelector('a[href$="/i/circles"]'))
+    if ($circleLink) {
+      addAddMutedWordMenuItem($circleLink)
       result.tookAction = true
     }
   }
