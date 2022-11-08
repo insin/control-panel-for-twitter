@@ -2125,13 +2125,13 @@ function getTweetType($tweet) {
   if ($tweet.querySelector('[data-testid="socialContext"]')) {
     if (!config.alwaysUseLatestTweets && currentMainTimelineType == getString('HOME')) {
       let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
-      if (svgPath.startsWith('M12.225 12.165c-1.356 0-2.8')) return 'FOLLOWEES_FOLLOWS'
-      if (svgPath.startsWith('M12 21.638h-.014C9.403 21.5')) return 'LIKED'
-      if (svgPath.startsWith('M19.75 2H4.25C3.013 2 2 3.0')) return 'LIST_TWEET'
-      if (svgPath.startsWith('M14.046 2.242l-4.148-.01h-.')) return 'REPLIED'
-      if (svgPath.startsWith('M18.265 3.314c-3.45-3.45-9.')) return 'SUGGESTED_TOPIC_TWEET'
+      if (svgPath.startsWith('M7.471 21H.472l.029-1.027c.')) return 'COMMUNITY_TWEET'
+      if (svgPath.startsWith('M17.863 13.44c1.477 1.58 2.')) return 'FOLLOWEES_FOLLOWS'
+      if (svgPath.startsWith('M20.884 13.19c-1.351 2.48-4')) return 'LIKED'
+      if (svgPath.startsWith('M1.751 10c0-4.42 3.584-8 8.')) return 'REPLIED'
+      if (svgPath.startsWith('M12 1.75c-5.11 0-9.25 4.14-')) return 'SUGGESTED_TOPIC_TWEET'
       // This is the start of the SVG path for the Retweet icon
-      if (!svgPath.startsWith('M23.615 15.477c-.47-.47-1.23')) {
+      if (!svgPath.startsWith('M4.75 3.79l4.603 4.3-1.706 1')) {
         warn('unhandled socialContext tweet type - falling back to RETWEET', $tweet)
       }
     }
@@ -2594,12 +2594,12 @@ function shouldHideAlgorithmicTweet(config, page) {
  */
 function shouldHideMainTimelineItem(type, page) {
   switch (type) {
+    case 'COMMUNITY_TWEET':
+      return shouldHideAlgorithmicTweet(config.communityTweets, page)
     case 'FOLLOWEES_FOLLOWS':
       return shouldHideAlgorithmicTweet(config.followeesFollows, page)
     case 'LIKED':
       return shouldHideAlgorithmicTweet(config.likedTweets, page)
-    case 'LIST_TWEET':
-      return shouldHideAlgorithmicTweet(config.listTweets, page)
     case 'QUOTE_TWEET':
       return shouldHideSharedTweet(config.quoteTweets, page)
     case 'REPLIED':

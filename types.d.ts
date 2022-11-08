@@ -5,6 +5,7 @@ export type Config = {
   // Shared
   addAddMutedWordMenuItem: boolean
   alwaysUseLatestTweets: boolean
+  communityTweets: AlgorithmicTweetsConfig
   dontUseChirpFont: boolean
   fastBlock: boolean
   followButtonStyle: 'monochrome' | 'themed'
@@ -29,7 +30,6 @@ export type Config = {
   hideUnavailableQuoteTweets: boolean
   hideWhoToFollowEtc: boolean
   likedTweets: AlgorithmicTweetsConfig
-  listTweets: AlgorithmicTweetsConfig
   mutableQuoteTweets: boolean
   mutedQuotes: QuotedTweet[]
   quoteTweets: SharedTweetsConfig
@@ -90,10 +90,10 @@ export type QuotedTweet = {
 export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
 
 export type TimelineItemType =
-  | 'HEADING'
+  | 'COMMUNITY_TWEET'
   | 'FOLLOWEES_FOLLOWS'
+  | 'HEADING'
   | 'LIKED'
-  | 'LIST_TWEET'
   | 'PROMOTED_TWEET'
   | 'QUOTE_TWEET'
   | 'REPLIED'
