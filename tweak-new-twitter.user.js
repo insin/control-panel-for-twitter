@@ -1666,6 +1666,15 @@ const configureCss = (() => {
       hideCssSelectors.push('body.QuoteTweets [data-testid="tweet"] [aria-labelledby] > div:last-child')
     }
 
+    // Hide "Creator Studio" if all its contents are hidden
+    if (config.hideMomentsNav && config.hideNewslettersNav && config.hideAnalyticsNav) {
+      hideCssSelectors.push(`${menuRole} div[role="button"][aria-expanded]:nth-of-type(1)`)
+    }
+    // Hide "Professional Tools" if all its contents are hidden
+    if (config.hideTwitterForProfessionalsNav && config.hideTwitterAdsNav && config.hideMonetizationNav) {
+      hideCssSelectors.push(`${menuRole} div[role="button"][aria-expanded]:nth-of-type(2)`)
+    }
+
     if (desktop) {
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
