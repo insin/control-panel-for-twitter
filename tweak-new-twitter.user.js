@@ -39,12 +39,14 @@ const config = {
   hideKeyboardShortcutsNav: false,
   hideListsNav: true,
   hideMomentsNav: true,
+  hideMonetizationNav: true,
   hideMoreTweets: true,
   hideNewslettersNav: true,
   hideShareTweetButton: false,
   hideTopicsNav: true,
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
+  hideTwitterCircleNav: true,
   hideTwitterBlueNav: true,
   hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
@@ -1593,6 +1595,9 @@ const configureCss = (() => {
     if (config.hideBookmarksNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/bookmarks"]`)
     }
+    if (config.hideTwitterCircleNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/i/circles"]`)
+    }
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(
         // Under timeline-style tweets
@@ -1614,6 +1619,9 @@ const configureCss = (() => {
     }
     if (config.hideMomentsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/moment_maker"]`)
+    }
+    if (config.hideMonetizationNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/settings/monetization"]`)
     }
     if (config.hideNewslettersNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/newsletters"]`)

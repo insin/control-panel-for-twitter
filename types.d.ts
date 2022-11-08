@@ -16,6 +16,7 @@ export type Config = {
   hideKeyboardShortcutsNav: boolean
   hideListsNav: boolean
   hideMomentsNav: boolean
+  hideMonetizationNav: boolean
   hideMoreTweets: boolean
   hideNewslettersNav: boolean
   hideShareTweetButton: boolean
@@ -23,6 +24,7 @@ export type Config = {
   hideTweetAnalyticsLinks: boolean
   hideTwitterAdsNav: boolean
   hideTwitterBlueNav: boolean
+  hideTwitterCircleNav: boolean
   hideTwitterForProfessionalsNav: boolean
   hideUnavailableQuoteTweets: boolean
   hideWhoToFollowEtc: boolean
