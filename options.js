@@ -146,7 +146,7 @@ function exportConfig() {
   let $a = document.createElement('a')
   $a.download = 'tweak-new-twitter.config.txt'
   $a.href = URL.createObjectURL(new Blob([
-    JSON.stringify({version: '2.15.4', ...sortProperties(optionsConfig)}, null, 2)
+    JSON.stringify({version: '2.15.5', ...sortProperties(optionsConfig)}, null, 2)
   ], {type: 'text/plain'}))
   $a.click()
   URL.revokeObjectURL($a.href)
