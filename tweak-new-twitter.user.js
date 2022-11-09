@@ -663,7 +663,7 @@ const Selectors = {
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: '[data-testid="tweet"]',
-  VERIFIED_TICK: 'svg path[d^="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47"]',
+  VERIFIED_TICK: 'svg path[d^="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2."]',
 }
 
 /** @enum {string} */
@@ -2348,11 +2348,13 @@ function onTimelineChange($timeline, page) {
       }
     }
 
-    if ($tweet?.querySelector(Selectors.VERIFIED_TICK)) {
-      if (hideItem !== true) {
-        hideItem = config.verifiedAccounts == 'hide'
+    if (config.verifiedAccounts !== 'ignore') {
+      if ($tweet?.querySelector(Selectors.VERIFIED_TICK)) {
+        if (hideItem !== true) {
+          hideItem = config.verifiedAccounts == 'hide'
+        }
+        highlightItem = config.verifiedAccounts == 'highlight'
       }
-      highlightItem = config.verifiedAccounts == 'highlight'
     }
 
     if (hideItem != null) {
