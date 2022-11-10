@@ -795,6 +795,10 @@ function isOnQuoteTweetsPage() {
   return currentPath.endsWith('/retweets/with_comments')
 }
 
+function isOnSearchPage() {
+  return currentPath.startsWith('/search')
+}
+
 function isOnSeparatedTweetsTimeline() {
   return currentPage == separatedTweetsTimelineTitle
 }
@@ -1154,7 +1158,7 @@ const observePopups = (() => {
     if (!(config.addAddMutedWordMenuItem ||
           config.fastBlock ||
           config.mutableQuoteTweets ||
-          config.twitterBlueChecks !== 'ignore')) return
+          config.twitterBlueChecks != 'ignore')) return
 
     let $layers = await getElement('#layers', {
       name: 'layers',
@@ -1268,7 +1272,25 @@ async function observeSidebar() {
       let $sidebar = $sidebarContainer.querySelector(Selectors.SIDEBAR)
       log(`sidebar ${$sidebar ? 'appeared' : 'disappeared'}`)
       $body.classList.toggle('Sidebar', Boolean($sidebar))
+      if ($sidebar && config.twitterBlueChecks != 'ignore') {
+        observeSearchForm()
+      }
     }, 'sidebar container')
+  )
+}
+
+async function observeSearchForm() {
+  let $searchForm = await getElement('form[role="search"]', {
+    name: 'search form',
+    // The sidebar on Profile pages can be really slow
+    timeout: 1000,
+  })
+  if (!$searchForm) return
+  let $results =  /** @type {HTMLElement} */ ($searchForm.lastElementChild)
+  pageObservers.push(
+    observeElement($results, () => {
+      tagTwitterBlueCheckmarks($results)
+    }, 'search results', {childList: true, subtree: true})
   )
 }
 
@@ -1651,10 +1673,10 @@ const configureCss = (() => {
       // Hide the quoted tweet, which is repeated in every quote tweet
       hideCssSelectors.push('body.QuoteTweets [data-testid="tweet"] [aria-labelledby] > div:last-child')
     }
-    if (config.twitterBlueChecks === 'hide') {
+    if (config.twitterBlueChecks == 'hide') {
       hideCssSelectors.push('.tnt_blue_check')
     }
-    if (config.twitterBlueChecks === 'dim') {
+    if (config.twitterBlueChecks == 'dim') {
       cssRules.push(`
         .tnt_blue_check path { opacity: .75; }
         body.Default .tnt_blue_check path { color: rgb(83, 100, 113) !important; }
@@ -2222,7 +2244,7 @@ function handlePopup($popup) {
     }
   }
 
-  if (config.twitterBlueChecks !== 'ignore') {
+  if (config.twitterBlueChecks != 'ignore') {
     let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
     if ($hoverCard) {
       result.tookAction = true
@@ -2338,7 +2360,7 @@ function onTimelineChange($timeline, page) {
         }
 
         let checkType
-        if (config.twitterBlueChecks !== 'ignore' || config.verifiedAccounts !== 'ignore') {
+        if (config.twitterBlueChecks != 'ignore' || config.verifiedAccounts != 'ignore') {
           for (let $svgPath of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
             let verifiedProps = getVerifiedProps($svgPath.closest('svg'))
             if (!verifiedProps) continue
@@ -2556,6 +2578,7 @@ function processCurrentPage() {
   }
   $body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
   $body.classList.toggle('Tweet', isOnIndividualTweetPage())
+  $body.classList.toggle('Search', isOnSearchPage())
 
   // "Which version of the main timeline are we on?" hooks for styling
   $body.classList.toggle('Home', isOnHomeTimeline())
@@ -2564,10 +2587,14 @@ function processCurrentPage() {
   $body.classList.toggle('TimelineTabs', isOnTabbedTimeline())
 
   if (desktop) {
-    if (config.fullWidthContent && (isOnMainTimelinePage() || isOnListPage())) {
+    if (config.twitterBlueChecks != 'ignore' || config.fullWidthContent && (isOnMainTimelinePage() || isOnListPage())) {
       observeSidebar()
     } else {
       $body.classList.remove('Sidebar')
+    }
+
+    if (config.twitterBlueChecks != 'ignore' && (isOnSearchPage() || isOnExplorePage())) {
+      observeSearchForm()
     }
   }
 
