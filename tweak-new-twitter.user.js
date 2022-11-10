@@ -27,6 +27,7 @@ const config = {
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
+  communityTweets: 'hide',
   dontUseChirpFont: false,
   fastBlock: true,
   followButtonStyle: 'monochrome',
@@ -52,7 +53,6 @@ const config = {
   hideUnavailableQuoteTweets: true,
   hideWhoToFollowEtc: true,
   likedTweets: 'hide',
-  listTweets: 'hide',
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
