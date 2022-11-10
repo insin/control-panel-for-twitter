@@ -51,6 +51,7 @@ const config = {
   hideTwitterBlueNav: true,
   hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
+  hideVerifiedNotificationsTab: true,
   hideWhoToFollowEtc: true,
   likedTweets: 'hide',
   mutableQuoteTweets: true,
@@ -1659,6 +1660,9 @@ const configureCss = (() => {
     if (config.hideTwitterForProfessionalsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/convert_to_professional"]`)
     }
+    if (config.hideVerifiedNotificationsTab) {
+      hideCssSelectors.push('body.Notifications [data-testid="ScrollSnap-List"] > div:nth-child(2)')
+    }
     if (config.hideWhoToFollowEtc) {
       hideCssSelectors.push(`body.Profile ${Selectors.PRIMARY_COLUMN} aside[role="complementary"]`)
     }
@@ -2580,6 +2584,7 @@ function processCurrentPage() {
   $body.classList.toggle('HideSidebar', shouldHideSidebar())
   $body.classList.toggle('List', isOnListPage())
   $body.classList.toggle('MainTimeline', isOnMainTimelinePage())
+  $body.classList.toggle('Notifications', isOnNotificationsPage())
   $body.classList.toggle('Profile', isOnProfilePage())
   if (!isOnProfilePage()) {
     $body.classList.remove('Blocked', 'NoMedia')

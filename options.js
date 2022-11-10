@@ -18,6 +18,7 @@ const checkboxGroups = new Map(Object.entries({
   uiImprovements: [
     'addAddMutedWordMenuItem',
     'fastBlock',
+    'hideVerifiedNotificationsTab',
     'uninvertFollowButtons',
     desktop && 'navBaseFontSize',
     mobile && 'hideAppNags',
@@ -87,6 +88,7 @@ const defaultConfig = {
   hideTwitterCircleNav: true,
   hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
+  hideVerifiedNotificationsTab: true,
   hideWhoToFollowEtc: true,
   likedTweets: 'hide',
   mutableQuoteTweets: true,
