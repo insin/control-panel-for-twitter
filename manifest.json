@@ -18,9 +18,12 @@
         "https://mobile.twitter.com/*"
       ],
       "js": [
-        "./tweak-new-twitter.user.js"
+        "content.js"
       ]
     }
+  ],
+  "web_accessible_resources": [
+    "tweak-new-twitter.user.js"
   ],
   "options_ui": {
     "browser_style": true,

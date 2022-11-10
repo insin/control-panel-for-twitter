@@ -96,6 +96,7 @@ const defaultConfig = {
   retweets: 'separate',
   suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
+  twitterBlueChecks: 'dim',
   uninvertFollowButtons: true,
   // Experiments
   disableHomeTimeline: false,

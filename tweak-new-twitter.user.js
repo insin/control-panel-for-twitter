@@ -60,6 +60,7 @@ const config = {
   retweets: 'separate',
   suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
+  twitterBlueChecks: 'dim',
   uninvertFollowButtons: true,
   // Experiments
   disableHomeTimeline: false,
@@ -897,14 +898,6 @@ function getElement(selector, {
   })
 }
 
-function isExtension() {
-  return (
-    typeof GM == 'undefined' &&
-    typeof chrome != 'undefined' &&
-    typeof chrome.storage != 'undefined'
-  )
-}
-
 function log(...args) {
   if (debug) {
     console.log(`🧨${currentPage ? `(${currentPage})` : ''}`, ...args)
@@ -951,20 +944,16 @@ function observeElement($element, callback, name = '', options = {childList: tru
 }
 
 /**
- * @param {{[key: string]: chrome.storage.StorageChange}} changes
+ * @param {Partial<import("./types").Config>} configChanges
  */
-function onStorageChanged(changes) {
-  if ('debug' in changes) {
+ function onSettingsChanged(configChanges) {
+  if ('debug' in configChanges) {
     log('disabling debug mode')
-    debug = changes.debug.newValue
+    debug = configChanges.debug
     log('enabled debug mode')
     configureThemeCss()
     return
   }
-
-  let configChanges = Object.fromEntries(
-    Object.entries(changes).map(([key, {newValue}]) => [key, newValue])
-  )
   Object.assign(config, configChanges)
   configChanged(configChanges)
 }
@@ -994,11 +983,7 @@ function s(n) {
 }
 
 function storeConfigChanges(changes) {
-  if (!isExtension()) return
-  chrome.storage.onChanged.removeListener(onStorageChanged)
-  chrome.storage.local.set(changes, () => {
-    chrome.storage.onChanged.addListener(onStorageChanged)
-  })
+  window.postMessage({type: 'tntConfigChange', changes})
 }
 //#endregion
 
@@ -1168,7 +1153,8 @@ const observePopups = (() => {
 
     if (!(config.addAddMutedWordMenuItem ||
           config.fastBlock ||
-          config.mutableQuoteTweets)) return
+          config.mutableQuoteTweets ||
+          config.twitterBlueChecks !== 'ignore')) return
 
     let $layers = await getElement('#layers', {
       name: 'layers',
@@ -1664,6 +1650,17 @@ const configureCss = (() => {
     if (config.tweakQuoteTweetsPage) {
       // Hide the quoted tweet, which is repeated in every quote tweet
       hideCssSelectors.push('body.QuoteTweets [data-testid="tweet"] [aria-labelledby] > div:last-child')
+    }
+    if (config.twitterBlueChecks === 'hide') {
+      hideCssSelectors.push('.tnt_blue_check')
+    }
+    if (config.twitterBlueChecks === 'dim') {
+      cssRules.push(`
+        .tnt_blue_check path { opacity: .75; }
+        body.Default .tnt_blue_check path { color: rgb(83, 100, 113) !important; }
+        body.Dim .tnt_blue_check path { color: rgb(139, 152, 165) !important; }
+        body.LightsOut .tnt_blue_check path { color: rgb(113, 118, 123) !important; }
+      `)
     }
 
     // Hide "Creator Studio" if all its contents are hidden
@@ -2167,6 +2164,17 @@ function getTweetType($tweet) {
   return 'TWEET'
 }
 
+// Add 1 every time this gets broken: 1
+function getVerifiedProps($svg) {
+  let $parent = $svg.parentElement
+  let reactPropsKey = Object.keys($parent).find(key => key.startsWith('__reactProps$'))
+  let props = $parent[reactPropsKey]?.children?.props?.children?.[0]?.[0]?.props
+  if (!props) {
+    warn('verified props not found for', $svg, {reactPropsKey})
+  }
+  return props
+}
+
 /**
  * @param {HTMLElement} $popup
  * @returns {{tookAction: boolean, onPopupClosed?: () => void}}
@@ -2211,6 +2219,20 @@ function handlePopup($popup) {
     if ($circleLink) {
       addAddMutedWordMenuItem($circleLink)
       result.tookAction = true
+    }
+  }
+
+  if (config.twitterBlueChecks !== 'ignore') {
+    let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
+    if ($hoverCard) {
+      result.tookAction = true
+      getElement('div[data-testid^="UserAvatar-Container"]', {
+        context: $hoverCard,
+        name: 'hovercard contents',
+        timeout: 250,
+      }).then(($contents) => {
+        if ($contents) tagTwitterBlueCheckmarks($popup)
+      })
     }
   }
 
@@ -2315,8 +2337,33 @@ function onTimelineChange($timeline, page) {
           }
         }
 
+        let checkType
+        if (config.twitterBlueChecks !== 'ignore' || config.verifiedAccounts !== 'ignore') {
+          for (let $svgPath of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
+            let verifiedProps = getVerifiedProps($svgPath.closest('svg'))
+            if (!verifiedProps) continue
+
+            let isUserCheck = $svgPath.closest('div[data-testid="User-Names"]')
+            if (verifiedProps.isVerified) {
+              if (isUserCheck) {
+                checkType = 'VERIFIED'
+              }
+              if (hideItem !== true) {
+                hideItem = config.verifiedAccounts == 'hide'
+              }
+              highlightItem = config.verifiedAccounts == 'highlight'
+            }
+            else if (verifiedProps.isBlueVerified) {
+              if (isUserCheck) {
+                checkType = 'BLUE'
+              }
+              $svgPath.closest('div').classList.add('tnt_blue_check')
+            }
+          }
+        }
+
         if (debug) {
-          $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}`
+          $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${checkType ? ` / ${checkType}` : ''}`
         }
       }
     }
@@ -2345,15 +2392,6 @@ function onTimelineChange($timeline, page) {
       else if ($item !== $timeline.firstElementChild && hideItem == null) {
         // We're probably also missing some spacer / divider nodes
         warn('unhandled timeline item', $item)
-      }
-    }
-
-    if (config.verifiedAccounts !== 'ignore') {
-      if ($tweet?.querySelector(Selectors.VERIFIED_TICK)) {
-        if (hideItem !== true) {
-          hideItem = config.verifiedAccounts == 'hide'
-        }
-        highlightItem = config.verifiedAccounts == 'highlight'
       }
     }
 
@@ -2705,6 +2743,21 @@ async function switchToLatestTweets(page) {
   }
 }
 
+/**
+ * Add a tnt_blue_check class to any Twitter Blue checkmarks inside an element.
+ * @param {HTMLElement} $el
+ */
+function tagTwitterBlueCheckmarks($el) {
+  for (let $svgPath of $el.querySelectorAll(Selectors.VERIFIED_TICK)) {
+    let verifiedProps = getVerifiedProps($svgPath.closest('svg'))
+    if (!verifiedProps) continue
+
+    if (verifiedProps.isBlueVerified && !verifiedProps.isVerified) {
+      $svgPath.closest('div').classList.add('tnt_blue_check')
+    }
+  }
+}
+
 async function tweakExplorePage(page) {
   let $searchInput = await getElement('input[data-testid="SearchBox_Search_Input"]', {
     name: 'search input',
@@ -2756,6 +2809,24 @@ function tweakProfilePage(currentPage) {
 
 //#region Main
 function main() {
+  let $settings = /** @type {HTMLScriptElement} */ (document.querySelector('script#tnt_settings'))
+  if ($settings) {
+    try {
+      Object.assign(config, JSON.parse($settings.innerText))
+    } catch(e) {
+      warn('error getting initial settings', e)
+    }
+
+    let settingsObserver = new MutationObserver(() => {
+      try {
+        onSettingsChanged(JSON.parse($settings.innerText))
+      } catch(e) {
+        warn('error changing settings', e)
+      }
+    })
+    settingsObserver.observe($settings, {childList: true})
+  }
+
   if (config.debug) {
     debug = true
   }
@@ -2796,15 +2867,5 @@ function configChanged(changes) {
   }
 }
 
-if (isExtension()) {
-  chrome.storage.local.get((storedConfig) => {
-    Object.assign(config, storedConfig)
-    main()
-  })
-
-  chrome.storage.onChanged.addListener(onStorageChanged)
-}
-else {
-  main()
-}
+main()
 //#endregion
