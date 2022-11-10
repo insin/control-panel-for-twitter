@@ -2186,9 +2186,13 @@ function getTweetType($tweet) {
   return 'TWEET'
 }
 
-// Add 1 every time this gets broken: 1
+// Add 1 every time this gets broken: 2
 function getVerifiedProps($svg) {
   let $parent = $svg.parentElement
+  // Verified badge button on the profile screen
+  if ($parent.getAttribute('role') == 'button') {
+    $parent = $parent.closest('span')
+  }
   let reactPropsKey = Object.keys($parent).find(key => key.startsWith('__reactProps$'))
   let props = $parent[reactPropsKey]?.children?.props?.children?.[0]?.[0]?.props
   if (!props) {
@@ -2440,6 +2444,10 @@ function onTimelineChange($timeline, page) {
       previousItemType = itemType
     }
   }
+
+  if (config.twitterBlueChecks != 'ignore' && !isOnMainTimelinePage()) {
+    tagTwitterBlueCheckmarks($timeline)
+  }
 }
 
 function onTitleChange(title) {
@@ -2612,10 +2620,7 @@ function processCurrentPage() {
   }
 
   if (isOnProfilePage()) {
-    observeTimeline(currentPage)
-    if (desktop && config.hideSidebarContent) {
-      tweakProfilePage(currentPage)
-    }
+    tweakProfilePage()
   }
 
   if (isOnIndividualTweetPage()) {
@@ -2780,7 +2785,7 @@ function tagTwitterBlueCheckmarks($el) {
     if (!verifiedProps) continue
 
     if (verifiedProps.isBlueVerified && !verifiedProps.isVerified) {
-      $svgPath.closest('div').classList.add('tnt_blue_check')
+      $svgPath.closest(':is(div, span):not([role="button"]').classList.add('tnt_blue_check')
     }
   }
 }
@@ -2825,12 +2830,22 @@ function tweakIndividualTweetPage() {
   if (config.hideMoreTweets && location.search) {
     log('re-navigating to get rid of More Tweets')
     location.replace(location.origin + location.pathname)
+    return
+  }
+  if (config.twitterBlueChecks != 'ignore') {
+    observeTimeline(currentPage)
   }
 }
 
 function tweakProfilePage(currentPage) {
-  observeProfileBlockedStatus(currentPage)
-  observeProfileSidebar(currentPage)
+  if (config.twitterBlueChecks != 'ignore') {
+    tagTwitterBlueCheckmarks(document.querySelector(Selectors.PRIMARY_COLUMN))
+  }
+  observeTimeline(currentPage)
+  if (desktop && config.hideSidebarContent) {
+    observeProfileBlockedStatus(currentPage)
+    observeProfileSidebar(currentPage)
+  }
 }
 //#endregion
 
