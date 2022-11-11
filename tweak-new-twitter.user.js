@@ -4,7 +4,7 @@
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
-// @version     64
+// @version     65
 // ==/UserScript==
 
 let debug = false
@@ -2197,6 +2197,9 @@ function getVerifiedProps($svg) {
   // Verified badge button on the profile screen
   if ($parent.getAttribute('role') == 'button') {
     $parent = $parent.closest('span')
+  }
+  if ($parent.wrappedJSObject) {
+    $parent = $parent.wrappedJSObject
   }
   let reactPropsKey = Object.keys($parent).find(key => key.startsWith('__reactProps$'))
   let props = $parent[reactPropsKey]?.children?.props?.children?.[0]?.[0]?.props
