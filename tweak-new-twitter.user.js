@@ -2854,7 +2854,7 @@ function tweakIndividualTweetPage() {
   }
 }
 
-function tweakProfilePage(currentPage) {
+function tweakProfilePage() {
   if (config.twitterBlueChecks != 'ignore') {
     tagTwitterBlueCheckmarks(document.querySelector(Selectors.PRIMARY_COLUMN))
   }
