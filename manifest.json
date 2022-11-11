@@ -3,7 +3,7 @@
   "name": "Tweak New Twitter",
   "description": "Remove algorithmic content from Twitter, hide news & trends, control which shared tweets appear on your timeline, and improve the UI",
   "homepage_url": "https://github.com/insin/tweak-new-twitter/",
-  "version": "2.15.6",
+  "version": "2.16.0",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
