@@ -1283,8 +1283,9 @@ async function observeSidebar() {
 async function observeSearchForm() {
   let $searchForm = await getElement('form[role="search"]', {
     name: 'search form',
+    stopIf: pageIsNot(currentPage),
     // The sidebar on Profile pages can be really slow
-    timeout: 1000,
+    timeout: 2000,
   })
   if (!$searchForm) return
   let $results =  /** @type {HTMLElement} */ ($searchForm.lastElementChild)
