@@ -2398,6 +2398,17 @@ function onTimelineChange($timeline, page) {
         }
       }
     }
+    else if (!isOnMainTimelinePage()) {
+      if ($item.querySelector(':scope > div > div > div > article')) {
+        itemType = 'UNAVAILABLE'
+      }
+    }
+
+    if (!isOnMainTimelinePage()) {
+      if (itemType != null && debug) {
+        $item.firstElementChild.dataset.itemType = `${itemType}`
+      }
+    }
 
     if (itemType == null && config.hideWhoToFollowEtc) {
       // "Who to follow", "Follow some Topics" etc. headings
