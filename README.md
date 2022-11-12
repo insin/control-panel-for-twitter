@@ -41,23 +41,24 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 ### Remove algorithmic content
 
 - Keeps you on the Latest Tweets (chronological) timeline, automatically switching you back if Twitter tries to move you to the "Home" (algorithmic) timeline
-  - Hides the new timeline tabs if you have them
 - Hide "Who to follow", "Follow some Topics" etc. in the timeline
 - Hide "What's happening", "Topics to follow" etc. in the sidebar
 - Hide "More Tweets" when linked to a tweet
-- Hide algorithmic tweets based on likes, replies, lists, and suggested topics in the "Home" timeline, if you use it
-- Hide Explore page contents on mobile and use it only for searching
+- Hide algorithmic tweets based on likes, replies, communities, and suggested topics in the "Home" timeline, if you use it
+- Hide Explore page contents and use it only for searching
 
 ### Control which tweets shared by people you follow appear on your timeline
 
-- Move Retweets to a separate timeline (default setting), or hide them entirely
-- Move Quote Tweets and replies to them to a separate timeline, or hide them entirely (off by default)
+- Move Retweets to a separate tab (default setting), or hide them entirely
+- Move Quote Tweets and replies to them to a separate tab, or hide them entirely (off by default)
 - Hide tweets quoting accounts you've blocked or muted
 - Mute quoting of specific tweets - adds a "Mute this conversation" menu item to Quote Tweets in the timeline
 
 ### UI improvements
 
 - Disable use of the Chirp font if you don't like it
+- Dim or hide the checkmarks of Twitter Blue users so they're not as easily mistaken for verified accounts
+- Hide the "Verified" tab on the Notifications page
 - Uninvert the Follow and Following buttons to make them less jarring
   - Choice of monochrome or themed (classic) styling for uninverted buttons
 - Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
