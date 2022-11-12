@@ -1466,7 +1466,8 @@ async function addSeparatedTweetsTimelineControl(page) {
       }
       window.scrollTo({top: 0})
     })
-    $timelineTitle.parentElement.parentElement.insertAdjacentElement('afterend', $newHeading)
+    $timelineTitle.parentElement.parentElement.appendChild($newHeading)
+    $timelineTitle.parentElement.parentElement.classList.add('tnt_tabs')
 
     // Return to the main timeline when Latest Tweets / Home heading is clicked
     $timelineTitle.parentElement.addEventListener('click', () => {
@@ -1809,6 +1810,76 @@ const configureCss = (() => {
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
         hideCssSelectors.push('#tnt_separated_tweets')
       }
+      if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
+        cssRules.push(`
+          body.Default {
+            --active-tab-text: rgb(15, 20, 25);
+            --inactive-tab-text: rgb(83, 100, 113);
+            --tab-border: rgb(239, 243, 244);
+            --tab-hover: rgba(15, 20, 25, 0.1);
+          }
+          body.Dim {
+            --active-tab-text: rgb(247, 249, 249);
+            --inactive-tab-text: rgb(139, 152, 165);
+            --tab-border: rgb(56, 68, 77);
+            --tab-hover: rgba(247, 249, 249, 0.1);
+          }
+          body.LightsOut {
+            --active-tab-text: rgb(247, 249, 249);
+            --inactive-tab-text: rgb(113, 118, 123);
+            --tab-border: rgb(47, 51, 54);
+            --tab-hover: rgba(231, 233, 234, 0.1);
+          }
+          .tnt_tabs {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid var(--tab-border);
+            margin-left: -16px;
+            margin-right: -16px;
+          }
+          .tnt_tabs > div {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition-property: background-color;
+            transition-duration: 0.2s;
+          }
+          .tnt_tabs > div:hover {
+            background-color: var(--tab-hover);
+          }
+          .tnt_tabs > div > h2 {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            line-height: 20px;
+            font-weight: normal;
+            color: var(--inactive-tab-text);
+          }
+          body.Home main h2:not(#tnt_separated_tweets),
+          body.LatestTweets main h2:not(#tnt_separated_tweets),
+          body.SeparatedTweets #tnt_separated_tweets {
+            font-weight: bold;
+            color: var(--active-tab-text); !important;
+          }
+          .tnt_tabs > div > h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            height: 0;
+            width: 100%;
+            min-width: 56px;
+          }
+          body.Home .tnt_tabs > div > h2:not(#tnt_separated_tweets)::after,
+          body.LatestTweets .tnt_tabs > div > h2:not(#tnt_separated_tweets)::after,
+          body.SeparatedTweets .tnt_tabs > div > #tnt_separated_tweets::after {
+            height: 4px;
+          }
+        `)
+      }
     }
 
     if (mobile) {
@@ -2047,10 +2118,8 @@ const configureThemeCss = (() => {
 
     if (themeColor != null && desktop && (config.retweets == 'separate' || config.quoteTweets == 'separate')) {
       cssRules.push(`
-        body.Home main h2:not(#tnt_separated_tweets),
-        body.LatestTweets main h2:not(#tnt_separated_tweets),
-        body.SeparatedTweets #tnt_separated_tweets {
-          color: ${themeColor};
+        .tnt_tabs > div > h2::after {
+          background-color: ${themeColor} !important;
         }
       `)
     }
