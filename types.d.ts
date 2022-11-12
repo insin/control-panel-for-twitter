@@ -5,6 +5,7 @@ export type Config = {
   // Shared
   addAddMutedWordMenuItem: boolean
   alwaysUseLatestTweets: boolean
+  communityTweets: AlgorithmicTweetsConfig
   dontUseChirpFont: boolean
   fastBlock: boolean
   followButtonStyle: 'monochrome' | 'themed'
@@ -16,6 +17,7 @@ export type Config = {
   hideKeyboardShortcutsNav: boolean
   hideListsNav: boolean
   hideMomentsNav: boolean
+  hideMonetizationNav: boolean
   hideMoreTweets: boolean
   hideNewslettersNav: boolean
   hideShareTweetButton: boolean
@@ -23,11 +25,12 @@ export type Config = {
   hideTweetAnalyticsLinks: boolean
   hideTwitterAdsNav: boolean
   hideTwitterBlueNav: boolean
+  hideTwitterCircleNav: boolean
   hideTwitterForProfessionalsNav: boolean
   hideUnavailableQuoteTweets: boolean
+  hideVerifiedNotificationsTab: boolean
   hideWhoToFollowEtc: boolean
   likedTweets: AlgorithmicTweetsConfig
-  listTweets: AlgorithmicTweetsConfig
   mutableQuoteTweets: boolean
   mutedQuotes: QuotedTweet[]
   quoteTweets: SharedTweetsConfig
@@ -35,6 +38,7 @@ export type Config = {
   retweets: SharedTweetsConfig
   suggestedTopicTweets: AlgorithmicTweetsConfig
   tweakQuoteTweetsPage: boolean
+  twitterBlueChecks: 'ignore' | 'dim' | 'hide'
   uninvertFollowButtons: boolean
   // Experiments
   disableHomeTimeline: boolean
@@ -88,10 +92,10 @@ export type QuotedTweet = {
 export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
 
 export type TimelineItemType =
-  | 'HEADING'
+  | 'COMMUNITY_TWEET'
   | 'FOLLOWEES_FOLLOWS'
+  | 'HEADING'
   | 'LIKED'
-  | 'LIST_TWEET'
   | 'PROMOTED_TWEET'
   | 'QUOTE_TWEET'
   | 'REPLIED'
@@ -99,6 +103,7 @@ export type TimelineItemType =
   | 'RETWEETED_QUOTE_TWEET'
   | 'SUGGESTED_TOPIC_TWEET'
   | 'TWEET'
+  | 'UNAVAILABLE'
   | 'UNAVAILABLE_QUOTE_TWEET'
   | 'UNAVAILABLE_RETWEET'
 

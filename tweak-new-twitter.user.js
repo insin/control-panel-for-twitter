@@ -5,7 +5,7 @@
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
 // @match       https://twitter3e4tixl4xyajtrzo62zg5vztmjuricljdp2c5kshju4avyoid.onion/*
-// @version     56
+// @version     66
 // ==/UserScript==
 
 let debug = false
@@ -28,6 +28,7 @@ const config = {
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
+  communityTweets: 'hide',
   dontUseChirpFont: false,
   fastBlock: true,
   followButtonStyle: 'monochrome',
@@ -35,22 +36,25 @@ const config = {
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
   hideCommunitiesNav: true,
+  hideExplorePageContents: true,
   hideHelpCenterNav: true,
   hideKeyboardShortcutsNav: false,
   hideListsNav: true,
   hideMomentsNav: true,
+  hideMonetizationNav: true,
   hideMoreTweets: true,
   hideNewslettersNav: true,
   hideShareTweetButton: false,
   hideTopicsNav: true,
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
+  hideTwitterCircleNav: true,
   hideTwitterBlueNav: true,
   hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
+  hideVerifiedNotificationsTab: true,
   hideWhoToFollowEtc: true,
   likedTweets: 'hide',
-  listTweets: 'hide',
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
@@ -58,6 +62,7 @@ const config = {
   retweets: 'separate',
   suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
+  twitterBlueChecks: 'dim',
   uninvertFollowButtons: true,
   // Experiments
   disableHomeTimeline: false,
@@ -82,7 +87,6 @@ const config = {
   showRelevantPeople: false,
   // Mobile only
   hideAppNags: true,
-  hideExplorePageContents: true,
   hideMessagesBottomNavItem: false,
 }
 //#endregion
@@ -650,7 +654,8 @@ const Selectors = {
   DISPLAY_DONE_BUTTON_DESKTOP: '#layers div[role="button"]:not([aria-label])',
   DISPLAY_DONE_BUTTON_MOBILE: 'main div[role="button"]:not([aria-label])',
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
-  MOBILE_TIMELINE_HEADER: 'header > div:nth-of-type(2) > div:first-of-type',
+  MOBILE_TIMELINE_HEADER_OLD: 'header > div:nth-of-type(2) > div:first-of-type',
+  MOBILE_TIMELINE_HEADER_NEW: 'div[data-testid="TopNavBar"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV_DESKTOP: 'header nav',
@@ -661,17 +666,17 @@ const Selectors = {
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: '[data-testid="tweet"]',
-  VERIFIED_TICK: 'svg path[d^="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.998-3.818-3.998-.47"]',
+  VERIFIED_TICK: 'svg path[d^="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2."]',
 }
 
 /** @enum {string} */
 const Svgs = {
-  HOME: '<g><path d="M22.46 7.57L12.357 2.115c-.223-.12-.49-.12-.713 0L1.543 7.57c-.364.197-.5.652-.303 1.017.135.25.394.393.66.393.12 0 .243-.03.356-.09l.815-.44L4.7 19.963c.214 1.215 1.308 2.062 2.658 2.062h9.282c1.352 0 2.445-.848 2.663-2.087l1.626-11.49.818.442c.364.193.82.06 1.017-.304.196-.363.06-.818-.304-1.016zm-4.638 12.133c-.107.606-.703.822-1.18.822H7.36c-.48 0-1.075-.216-1.178-.798L4.48 7.69 12 3.628l7.522 4.06-1.7 12.015z"></path><path d="M8.22 12.184c0 2.084 1.695 3.78 3.78 3.78s3.78-1.696 3.78-3.78-1.695-3.78-3.78-3.78-3.78 1.696-3.78 3.78zm6.06 0c0 1.258-1.022 2.28-2.28 2.28s-2.28-1.022-2.28-2.28 1.022-2.28 2.28-2.28 2.28 1.022 2.28 2.28z"></path></g>',
-  MUTE: '<g><path d="M1.75 22.354c-.192 0-.384-.073-.53-.22-.293-.293-.293-.768 0-1.06L20.395 1.898c.293-.294.768-.294 1.06 0s.294.767 0 1.06L2.28 22.135c-.146.146-.338.22-.53.22zm1.716-5.577c-.134 0-.27-.036-.392-.11-.67-.413-1.07-1.13-1.07-1.917v-5.5c0-1.24 1.01-2.25 2.25-2.25H6.74l7.047-5.588c.225-.18.533-.215.792-.087.258.125.423.387.423.675v3.28c0 .415-.336.75-.75.75s-.75-.335-.75-.75V3.553L7.47 8.338c-.134.104-.298.162-.467.162h-2.75c-.413 0-.75.337-.75.75v5.5c0 .263.134.5.356.64.353.216.462.678.245 1.03-.14.23-.387.357-.64.357zm10.787 5.973c-.166 0-.33-.055-.466-.162l-4.795-3.803c-.325-.258-.38-.73-.122-1.054.258-.322.73-.38 1.054-.12l3.58 2.838v-7.013c0-.414.335-.75.75-.75s.75.336.75.75V22c0 .288-.166.55-.425.675-.104.05-.216.075-.327.075z"></path></g>',
-  RETWEET: '<g><path d="M23.77 15.67c-.292-.293-.767-.293-1.06 0l-2.22 2.22V7.65c0-2.068-1.683-3.75-3.75-3.75h-5.85c-.414 0-.75.336-.75.75s.336.75.75.75h5.85c1.24 0 2.25 1.01 2.25 2.25v10.24l-2.22-2.22c-.293-.293-.768-.293-1.06 0s-.294.768 0 1.06l3.5 3.5c.145.147.337.22.53.22s.383-.072.53-.22l3.5-3.5c.294-.292.294-.767 0-1.06zm-10.66 3.28H7.26c-1.24 0-2.25-1.01-2.25-2.25V6.46l2.22 2.22c.148.147.34.22.532.22s.384-.073.53-.22c.293-.293.293-.768 0-1.06l-3.5-3.5c-.293-.294-.768-.294-1.06 0l-3.5 3.5c-.294.292-.294.767 0 1.06s.767.293 1.06 0l2.22-2.22V16.7c0 2.068 1.683 3.75 3.75 3.75h5.85c.414 0 .75-.336.75-.75s-.337-.75-.75-.75z"></path></g>',
+  HOME: '<g><path d="M12 9c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4zm0 6c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm0-13.304L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM19 19.5c0 .276-.224.5-.5.5h-13c-.276 0-.5-.224-.5-.5V8.429l7-4.375 7 4.375V19.5z"></path></g>',
+  MUTE: '<g><path d="M18 6.59V1.2L8.71 7H5.5C4.12 7 3 8.12 3 9.5v5C3 15.88 4.12 17 5.5 17h2.09l-2.3 2.29 1.42 1.42 15.5-15.5-1.42-1.42L18 6.59zm-8 8V8.55l6-3.75v3.79l-6 6zM5 9.5c0-.28.22-.5.5-.5H8v6H5.5c-.28 0-.5-.22-.5-.5v-5zm6.5 9.24l1.45-1.45L16 19.2V14l2 .02v8.78l-6.5-4.06z"></path></g>',
+  RETWEET: '<g><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"></path></g>',
 }
 
-const MOBILE_LOGGED_OUT_URLS = ['/', '/login', '/i/flow/signup']
+const MOBILE_LOGGED_OUT_URLS = ['/', '/i/flow/login', '/i/flow/signup']
 const PROFILE_FOLLOWS_URL_RE = /\/[a-zA-Z\d_]{1,15}\/(following|followers|followers_you_follow)\/?$/
 const PROFILE_TABS_URL_RE = /\/[a-zA-Z\d_]{1,15}\/(with_replies|media|likes)\/?$/
 // https://twitter.com/${user}'s title ends with (@${user})
@@ -792,6 +797,10 @@ function isOnQuoteTweetsPage() {
   return currentPath.endsWith('/retweets/with_comments')
 }
 
+function isOnSearchPage() {
+  return currentPath.startsWith('/search')
+}
+
 function isOnSeparatedTweetsTimeline() {
   return currentPage == separatedTweetsTimelineTitle
 }
@@ -800,7 +809,7 @@ function isOnTabbedTimeline() {
   if (!isOnMainTimelinePage()) {
     return false
   }
-  let $header = document.querySelector(desktop ? Selectors.DESKTOP_TIMELINE_HEADER : Selectors.MOBILE_TIMELINE_HEADER)
+  let $header = document.querySelector(desktop ? Selectors.DESKTOP_TIMELINE_HEADER : Selectors.MOBILE_TIMELINE_HEADER_OLD)
   return $header?.childElementCount == (desktop ? 3 : 2)
 }
 
@@ -860,7 +869,7 @@ function getElement(selector, {
 
     function stop($element, reason) {
       if ($element == null) {
-        log(`stopped waiting for ${name || selector} after ${reason}`)
+        warn(`stopped waiting for ${name || selector} after ${reason}`)
       }
       else if (Date.now() > startTime) {
         log(`${name || selector} appeared after ${Date.now() - startTime}ms`)
@@ -895,17 +904,15 @@ function getElement(selector, {
   })
 }
 
-function isExtension() {
-  return (
-    typeof GM == 'undefined' &&
-    typeof chrome != 'undefined' &&
-    typeof chrome.storage != 'undefined'
-  )
-}
-
 function log(...args) {
   if (debug) {
     console.log(`🧨${currentPage ? `(${currentPage})` : ''}`, ...args)
+  }
+}
+
+function warn(...args) {
+  if (debug) {
+    console.log(`⚠${currentPage ? `(${currentPage})` : ''}`, ...args)
   }
 }
 
@@ -943,20 +950,16 @@ function observeElement($element, callback, name = '', options = {childList: tru
 }
 
 /**
- * @param {{[key: string]: chrome.storage.StorageChange}} changes
+ * @param {Partial<import("./types").Config>} configChanges
  */
-function onStorageChanged(changes) {
-  if ('debug' in changes) {
+ function onSettingsChanged(configChanges) {
+  if ('debug' in configChanges) {
     log('disabling debug mode')
-    debug = changes.debug.newValue
+    debug = configChanges.debug
     log('enabled debug mode')
     configureThemeCss()
     return
   }
-
-  let configChanges = Object.fromEntries(
-    Object.entries(changes).map(([key, {newValue}]) => [key, newValue])
-  )
   Object.assign(config, configChanges)
   configChanged(configChanges)
 }
@@ -986,11 +989,7 @@ function s(n) {
 }
 
 function storeConfigChanges(changes) {
-  if (!isExtension()) return
-  chrome.storage.onChanged.removeListener(onStorageChanged)
-  chrome.storage.local.set(changes, () => {
-    chrome.storage.onChanged.addListener(onStorageChanged)
-  })
+  window.postMessage({type: 'tntConfigChange', changes})
 }
 //#endregion
 
@@ -1001,7 +1000,7 @@ const checkReactNativeStylesheet = (() => {
   return function checkReactNativeStylesheet() {
     let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
     if (!$style) {
-      log('React Native stylesheet not found')
+      warn('React Native stylesheet not found')
       return
     }
 
@@ -1030,7 +1029,7 @@ const checkReactNativeStylesheet = (() => {
       if (elapsedTime < 3000) {
         setTimeout(checkReactNativeStylesheet, 100)
       } else {
-        log(`stopped checking React Native stylesheet after ${elapsedTime}ms`)
+        warn(`stopped checking React Native stylesheet after ${elapsedTime}ms`)
       }
     } else {
       log(`finished checking React Native stylesheet in ${elapsedTime}ms`)
@@ -1160,7 +1159,8 @@ const observePopups = (() => {
 
     if (!(config.addAddMutedWordMenuItem ||
           config.fastBlock ||
-          config.mutableQuoteTweets)) return
+          config.mutableQuoteTweets ||
+          config.twitterBlueChecks != 'ignore')) return
 
     let $layers = await getElement('#layers', {
       name: 'layers',
@@ -1274,7 +1274,26 @@ async function observeSidebar() {
       let $sidebar = $sidebarContainer.querySelector(Selectors.SIDEBAR)
       log(`sidebar ${$sidebar ? 'appeared' : 'disappeared'}`)
       $body.classList.toggle('Sidebar', Boolean($sidebar))
+      if ($sidebar && config.twitterBlueChecks != 'ignore') {
+        observeSearchForm()
+      }
     }, 'sidebar container')
+  )
+}
+
+async function observeSearchForm() {
+  let $searchForm = await getElement('form[role="search"]', {
+    name: 'search form',
+    stopIf: pageIsNot(currentPage),
+    // The sidebar on Profile pages can be really slow
+    timeout: 2000,
+  })
+  if (!$searchForm) return
+  let $results =  /** @type {HTMLElement} */ ($searchForm.lastElementChild)
+  pageObservers.push(
+    observeElement($results, () => {
+      tagTwitterBlueCheckmarks($results)
+    }, 'search results', {childList: true, subtree: true})
   )
 }
 
@@ -1321,22 +1340,21 @@ async function observeTimeline(page) {
  * Add an "Add muted word" menu item after "Settings and privacy" which takes
  * you straight to entering a new muted word (by clicking its way through all
  * the individual screens!).
- * @param {HTMLElement} $settingsLink
+ * @param {HTMLElement} $circleLink
  */
-async function addAddMutedWordMenuItem($settingsLink) {
+async function addAddMutedWordMenuItem($circleLink) {
   log('adding "Add muted word" menu item')
 
-  // Wait for the menu to render properly on desktop
+  // Wait for the dropdown to appear on desktop
   if (desktop) {
-    $settingsLink = await getElement(`:scope > div > div > div > div > a[href="/settings"]`, {
-      context: $settingsLink.parentElement.parentElement,
-      name: 'rendered settings menu item',
+    $circleLink = await getElement('#layers div[data-testid="Dropdown"] a[href$="/i/circles"]', {
+      name: 'rendered Twitter Circle menu item',
       timeout: 100,
     })
-    if (!$settingsLink) return
+    if (!$circleLink) return
   }
 
-  let $addMutedWord = /** @type {HTMLElement} */ ($settingsLink.parentElement.cloneNode(true))
+  let $addMutedWord = /** @type {HTMLElement} */ ($circleLink.parentElement.cloneNode(true))
   $addMutedWord.classList.add('tnt_menu_item')
   $addMutedWord.querySelector('a').href = PagePaths.ADD_MUTED_WORD
   $addMutedWord.querySelector('span').textContent = getString('ADD_MUTED_WORD')
@@ -1345,7 +1363,7 @@ async function addAddMutedWordMenuItem($settingsLink) {
     e.preventDefault()
     addMutedWord()
   })
-  $settingsLink.parentElement.previousElementSibling.insertAdjacentElement('beforebegin', $addMutedWord)
+  $circleLink.parentElement.insertAdjacentElement('afterend', $addMutedWord)
 }
 
 function addCaretMenuListenerForQuoteTweet($tweet) {
@@ -1396,6 +1414,11 @@ async function addMuteQuotesMenuItem($blockMenuItem) {
 }
 
 async function addMutedWord() {
+  if (!document.querySelector('a[href="/settings')) {
+    let $settingsAndSupport = /** @type {HTMLElement} */ (document.querySelector('[data-testid="settingsAndSupport"]'))
+    $settingsAndSupport?.click()
+  }
+
   for (let path of [
     '/settings',
     '/settings/privacy_and_safety',
@@ -1444,7 +1467,8 @@ async function addSeparatedTweetsTimelineControl(page) {
       }
       window.scrollTo({top: 0})
     })
-    $timelineTitle.parentElement.parentElement.insertAdjacentElement('afterend', $newHeading)
+    $timelineTitle.parentElement.parentElement.appendChild($newHeading)
+    $timelineTitle.parentElement.parentElement.classList.add('tnt_tabs')
 
     // Return to the main timeline when Latest Tweets / Home heading is clicked
     $timelineTitle.parentElement.addEventListener('click', () => {
@@ -1483,7 +1507,10 @@ async function addSeparatedTweetsTimelineControl(page) {
       window.scrollTo({top: 0})
     })
 
-    let $timelineTitle = document.querySelector('header h2')
+    let $timelineTitle = document.querySelector(`
+      ${Selectors.MOBILE_TIMELINE_HEADER_OLD} h2,
+      ${Selectors.MOBILE_TIMELINE_HEADER_NEW} h2
+    `)
 
     // Only the non-tabbed timeline has a heading in the header
     if ($timelineTitle != null) {
@@ -1505,13 +1532,15 @@ async function addSeparatedTweetsTimelineControl(page) {
       $timelineTitle.parentElement.classList.add('tnt_mobile_header')
     }
     else {
-      let $headerContent = document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER} > div > div > div > div > div`)
+      let $headerContent = document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div > div > div > div > div`)
       if ($headerContent != null) {
         if (config.alwaysUseLatestTweets) {
           // This element reserves space for the timeline tabs - resize it for
           // the header's contents, as the tabs are going to be hidden.
-          let $headerSizer = /** @type {HTMLDivElement} */ (document.querySelector('header > div'))
-          $headerSizer.style.height = getComputedStyle($headerContent).height
+          let $headerSizer = /** @type {HTMLDivElement} */ (document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div`))
+          if ($headerSizer) {
+            $headerSizer.style.height = getComputedStyle($headerContent).height
+          }
         }
 
         removeMobileTimelineHeaderElements()
@@ -1520,7 +1549,7 @@ async function addSeparatedTweetsTimelineControl(page) {
         $headerContent.appendChild($toggle)
       }
       else {
-        log('could not find header content element')
+        warn('could not find header content element')
       }
     }
 
@@ -1564,12 +1593,16 @@ const configureCss = (() => {
     if (config.alwaysUseLatestTweets) {
       // Hide the sparkle when automatically staying on Latest Tweets
       hideCssSelectors.push(mobile
-        ? `body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER} > div > div > div > div > div > div:nth-of-type(3)`
-        : `body.MainTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div > div > div > div > div:last-of-type`
+        ? [`body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div > div > div > div > div > div:nth-of-type(3)`,
+           `body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:first-of-type > div > div > div > div > div:nth-of-type(3)`,
+          ].join(', ')
+        : [`body.MainTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div:only-child > div:only-child > div:only-child > div:only-child > div:last-of-type:not(:only-child)`,
+           `body.MainTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div:only-child > div:only-child > div:only-child > div:only-child > div:only-child > div:last-of-type:not(:only-child)`,
+          ].join(', ')
       )
       // Hide timeline tabs
       hideCssSelectors.push(mobile
-        ? `body.TimelineTabs ${Selectors.MOBILE_TIMELINE_HEADER} > div:nth-of-type(2)`
+        ? `body.TimelineTabs ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div:nth-of-type(2)`
         : `body.TimelineTabs ${Selectors.DESKTOP_TIMELINE_HEADER} > div:nth-of-type(2):not(:last-child)`
       )
     }
@@ -1578,6 +1611,9 @@ const configureCss = (() => {
     }
     if (config.hideBookmarksNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/bookmarks"]`)
+    }
+    if (config.hideTwitterCircleNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/i/circles"]`)
     }
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(
@@ -1600,6 +1636,9 @@ const configureCss = (() => {
     }
     if (config.hideMomentsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/moment_maker"]`)
+    }
+    if (config.hideMonetizationNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/settings/monetization"]`)
     }
     if (config.hideNewslettersNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/newsletters"]`)
@@ -1624,6 +1663,9 @@ const configureCss = (() => {
     if (config.hideTwitterForProfessionalsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/convert_to_professional"]`)
     }
+    if (config.hideVerifiedNotificationsTab) {
+      hideCssSelectors.push('body.Notifications [data-testid="ScrollSnap-List"] > div:nth-child(2)')
+    }
     if (config.hideWhoToFollowEtc) {
       hideCssSelectors.push(`body.Profile ${Selectors.PRIMARY_COLUMN} aside[role="complementary"]`)
     }
@@ -1637,6 +1679,26 @@ const configureCss = (() => {
     if (config.tweakQuoteTweetsPage) {
       // Hide the quoted tweet, which is repeated in every quote tweet
       hideCssSelectors.push('body.QuoteTweets [data-testid="tweet"] [aria-labelledby] > div:last-child')
+    }
+    if (config.twitterBlueChecks == 'hide') {
+      hideCssSelectors.push('.tnt_blue_check')
+    }
+    if (config.twitterBlueChecks == 'dim') {
+      cssRules.push(`
+        .tnt_blue_check path { opacity: .75; }
+        body.Default .tnt_blue_check path { color: rgb(83, 100, 113) !important; }
+        body.Dim .tnt_blue_check path { color: rgb(139, 152, 165) !important; }
+        body.LightsOut .tnt_blue_check path { color: rgb(113, 118, 123) !important; }
+      `)
+    }
+
+    // Hide "Creator Studio" if all its contents are hidden
+    if (config.hideMomentsNav && config.hideNewslettersNav && config.hideAnalyticsNav) {
+      hideCssSelectors.push(`${menuRole} div[role="button"][aria-expanded]:nth-of-type(1)`)
+    }
+    // Hide "Professional Tools" if all its contents are hidden
+    if (config.hideTwitterForProfessionalsNav && config.hideTwitterAdsNav && config.hideMonetizationNav) {
+      hideCssSelectors.push(`${menuRole} div[role="button"][aria-expanded]:nth-of-type(2)`)
     }
 
     if (desktop) {
@@ -1701,10 +1763,18 @@ const configureCss = (() => {
       if (config.addAddMutedWordMenuItem || config.mutableQuoteTweets) {
         // Hover colors for custom menu items
         cssRules.push(`
-          body.Default .tnt_menu_item:hover { background-color: rgb(247, 249, 249) !important; }
-          body.Dim .tnt_menu_item:hover { background-color: rgb(25, 39, 52) !important; }
-          body.LightsOut .tnt_menu_item:hover { background-color: rgb(21, 24, 28) !important; }
+          body.Default .tnt_menu_item:hover a { background-color: rgb(247, 249, 249) !important; }
+          body.Dim .tnt_menu_item:hover a { background-color: rgb(30, 39, 50) !important; }
+          body.LightsOut .tnt_menu_item:hover a { background-color: rgb(22, 24, 28) !important; }
         `)
+      }
+      if (config.hideExplorePageContents) {
+        hideCssSelectors.push(
+          // Tabs
+          `body.Explore ${Selectors.DESKTOP_TIMELINE_HEADER} nav`,
+          // Content
+          `body.Explore ${Selectors.TIMELINE}`,
+        )
       }
       if (config.hideKeyboardShortcutsNav) {
         hideCssSelectors.push(`${menuRole} a[href$="/i/keyboard_shortcuts"]`)
@@ -1741,6 +1811,76 @@ const configureCss = (() => {
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
         hideCssSelectors.push('#tnt_separated_tweets')
       }
+      if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
+        cssRules.push(`
+          body.Default {
+            --active-tab-text: rgb(15, 20, 25);
+            --inactive-tab-text: rgb(83, 100, 113);
+            --tab-border: rgb(239, 243, 244);
+            --tab-hover: rgba(15, 20, 25, 0.1);
+          }
+          body.Dim {
+            --active-tab-text: rgb(247, 249, 249);
+            --inactive-tab-text: rgb(139, 152, 165);
+            --tab-border: rgb(56, 68, 77);
+            --tab-hover: rgba(247, 249, 249, 0.1);
+          }
+          body.LightsOut {
+            --active-tab-text: rgb(247, 249, 249);
+            --inactive-tab-text: rgb(113, 118, 123);
+            --tab-border: rgb(47, 51, 54);
+            --tab-hover: rgba(231, 233, 234, 0.1);
+          }
+          .tnt_tabs {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid var(--tab-border);
+            margin-left: -16px;
+            margin-right: -16px;
+          }
+          .tnt_tabs > div {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition-property: background-color;
+            transition-duration: 0.2s;
+          }
+          .tnt_tabs > div:hover {
+            background-color: var(--tab-hover);
+          }
+          .tnt_tabs > div > h2 {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            line-height: 20px;
+            font-weight: normal;
+            color: var(--inactive-tab-text);
+          }
+          body.Home main h2:not(#tnt_separated_tweets),
+          body.LatestTweets main h2:not(#tnt_separated_tweets),
+          body.SeparatedTweets #tnt_separated_tweets {
+            font-weight: bold;
+            color: var(--active-tab-text); !important;
+          }
+          .tnt_tabs > div > h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            height: 0;
+            width: 100%;
+            min-width: 56px;
+          }
+          body.Home .tnt_tabs > div > h2:not(#tnt_separated_tweets)::after,
+          body.LatestTweets .tnt_tabs > div > h2:not(#tnt_separated_tweets)::after,
+          body.SeparatedTweets .tnt_tabs > div > #tnt_separated_tweets::after {
+            height: 4px;
+          }
+        `)
+      }
     }
 
     if (mobile) {
@@ -1749,7 +1889,8 @@ const configureCss = (() => {
       }
       if (config.hideAppNags) {
         cssRules.push(`
-          body.Tweet header div:nth-of-type(3) > div > [role="button"] {
+          body.Tweet ${Selectors.MOBILE_TIMELINE_HEADER_OLD} div:nth-of-type(3) > div > [role="button"],
+          body.Tweet ${Selectors.MOBILE_TIMELINE_HEADER_NEW} div:nth-of-type(3) > div > [role="button"] {
             visibility: hidden;
           }
         `)
@@ -1759,8 +1900,11 @@ const configureCss = (() => {
         // Hide explore page contents so we don't get a brief flash of them
         // before automatically switching the page to search mode.
         hideCssSelectors.push(
-          'body.Explore header nav',
-          'body.Explore main',
+          // Tabs
+          `body.Explore ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div:nth-of-type(2)`,
+          `body.Explore ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div:nth-of-type(2)`,
+          // Content
+          `body.Explore ${Selectors.TIMELINE}`,
         )
       }
       if (config.hideCommunitiesNav) {
@@ -1812,7 +1956,7 @@ const configureCss = (() => {
 
 function configureFont() {
   if (!fontFamilyRule) {
-    log('no fontFamilyRule found for configureFont to use')
+    warn('no fontFamilyRule found for configureFont to use')
     return
   }
 
@@ -1846,7 +1990,10 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   if (config.hideTotalTweetsMetrics) {
     // Tweet count under username header on profile pages
     hideCssSelectors.push(
-      `body.Profile ${desktop ? Selectors.PRIMARY_COLUMN : 'header'} > div > div:first-of-type h2 + div[dir="auto"]`
+      mobile ? `
+        body.Profile header > div > div:first-of-type h2 + div[dir="auto"],
+        body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:first-of-type h2 + div[dir="auto"]
+      ` : `body.Profile  Selectors.PRIMARY_COLUMN  > div > div:first-of-type h2 + div[dir="auto"]`
     )
   }
 
@@ -1972,10 +2119,8 @@ const configureThemeCss = (() => {
 
     if (themeColor != null && desktop && (config.retweets == 'separate' || config.quoteTweets == 'separate')) {
       cssRules.push(`
-        body.Home main h2:not(#tnt_separated_tweets),
-        body.LatestTweets main h2:not(#tnt_separated_tweets),
-        body.SeparatedTweets #tnt_separated_tweets {
-          color: ${themeColor};
+        .tnt_tabs > div > h2::after {
+          background-color: ${themeColor} !important;
         }
       `)
     }
@@ -2083,14 +2228,14 @@ function getTweetType($tweet) {
   if ($tweet.querySelector('[data-testid="socialContext"]')) {
     if (!config.alwaysUseLatestTweets && currentMainTimelineType == getString('HOME')) {
       let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
-      if (svgPath.startsWith('M12.225 12.165c-1.356 0-2.8')) return 'FOLLOWEES_FOLLOWS'
-      if (svgPath.startsWith('M12 21.638h-.014C9.403 21.5')) return 'LIKED'
-      if (svgPath.startsWith('M19.75 2H4.25C3.013 2 2 3.0')) return 'LIST_TWEET'
-      if (svgPath.startsWith('M14.046 2.242l-4.148-.01h-.')) return 'REPLIED'
-      if (svgPath.startsWith('M18.265 3.314c-3.45-3.45-9.')) return 'SUGGESTED_TOPIC_TWEET'
+      if (svgPath.startsWith('M7.471 21H.472l.029-1.027c.')) return 'COMMUNITY_TWEET'
+      if (svgPath.startsWith('M17.863 13.44c1.477 1.58 2.')) return 'FOLLOWEES_FOLLOWS'
+      if (svgPath.startsWith('M20.884 13.19c-1.351 2.48-4')) return 'LIKED'
+      if (svgPath.startsWith('M1.751 10c0-4.42 3.584-8 8.')) return 'REPLIED'
+      if (svgPath.startsWith('M12 1.75c-5.11 0-9.25 4.14-')) return 'SUGGESTED_TOPIC_TWEET'
       // This is the start of the SVG path for the Retweet icon
-      if (!svgPath.startsWith('M23.615 15.477c-.47-.47-1.23')) {
-        log('unhandled socialContext tweet type - falling back to RETWEET', $tweet)
+      if (!svgPath.startsWith('M4.75 3.79l4.603 4.3-1.706 1')) {
+        warn('unhandled socialContext tweet type - falling back to RETWEET', $tweet)
       }
     }
     // Quoted tweets from accounts you blocked or muted are displayed as an
@@ -2114,6 +2259,24 @@ function getTweetType($tweet) {
     return 'UNAVAILABLE_QUOTE_TWEET'
   }
   return 'TWEET'
+}
+
+// Add 1 every time this gets broken: 2
+function getVerifiedProps($svg) {
+  let $parent = $svg.parentElement
+  // Verified badge button on the profile screen
+  if ($parent.getAttribute('role') == 'button') {
+    $parent = $parent.closest('span')
+  }
+  if ($parent.wrappedJSObject) {
+    $parent = $parent.wrappedJSObject
+  }
+  let reactPropsKey = Object.keys($parent).find(key => key.startsWith('__reactProps$'))
+  let props = $parent[reactPropsKey]?.children?.props?.children?.[0]?.[0]?.props
+  if (!props) {
+    warn('verified props not found for', $svg, {reactPropsKey})
+  }
+  return props
 }
 
 /**
@@ -2156,10 +2319,24 @@ function handlePopup($popup) {
   }
 
   if (config.addAddMutedWordMenuItem) {
-    let $settingsLink = /** @type {HTMLElement} */ ($popup.querySelector('a[href="/settings"]'))
-    if ($settingsLink) {
-      addAddMutedWordMenuItem($settingsLink)
+    let $circleLink = /** @type {HTMLElement} */ ($popup.querySelector('a[href$="/i/circles"]'))
+    if ($circleLink) {
+      addAddMutedWordMenuItem($circleLink)
       result.tookAction = true
+    }
+  }
+
+  if (config.twitterBlueChecks != 'ignore') {
+    let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
+    if ($hoverCard) {
+      result.tookAction = true
+      getElement('div[data-testid^="UserAvatar-Container"]', {
+        context: $hoverCard,
+        name: 'hovercard contents',
+        timeout: 250,
+      }).then(($contents) => {
+        if ($contents) tagTwitterBlueCheckmarks($popup)
+      })
     }
   }
 
@@ -2223,7 +2400,9 @@ function onPopup($popup) {
 }
 
 function onTimelineChange($timeline, page) {
-  log(`processing ${$timeline.children.length} timeline item${s($timeline.children.length)}`)
+  let itemTypes = {}
+  let hiddenItemCount = 0
+  let hiddenItemTypes = {}
 
   /** @type {HTMLElement} */
   let $previousItem = null
@@ -2264,8 +2443,47 @@ function onTimelineChange($timeline, page) {
           }
         }
 
+        let checkType
+        if (config.twitterBlueChecks != 'ignore' || config.verifiedAccounts != 'ignore') {
+          for (let $svgPath of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
+            let verifiedProps = getVerifiedProps($svgPath.closest('svg'))
+            if (!verifiedProps) continue
+
+            let isUserCheck = $svgPath.closest('div[data-testid="User-Names"]')
+            if (verifiedProps.isVerified) {
+              if (isUserCheck) {
+                checkType = 'VERIFIED'
+              }
+              if (hideItem !== true) {
+                hideItem = config.verifiedAccounts == 'hide'
+              }
+              highlightItem = config.verifiedAccounts == 'highlight'
+            }
+            else if (verifiedProps.isBlueVerified) {
+              if (isUserCheck) {
+                checkType = 'BLUE'
+              }
+              $svgPath.closest('div').classList.add('tnt_blue_check')
+            }
+          }
+        }
+
         if (debug) {
-          $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}`
+          $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${checkType ? ` / ${checkType}` : ''}`
+        }
+      }
+    }
+    else if (!isOnMainTimelinePage()) {
+      if ($item.querySelector(':scope > div > div > div > article')) {
+        itemType = 'UNAVAILABLE'
+      }
+    }
+
+    if (!isOnMainTimelinePage()) {
+      if (itemType != null) {
+        hideItem = shouldHideOtherTimelineItem(itemType)
+        if (debug) {
+          $item.firstElementChild.dataset.itemType = `${itemType}`
         }
       }
     }
@@ -2282,6 +2500,9 @@ function onTimelineChange($timeline, page) {
       }
     }
 
+    itemTypes[itemType] ||= 0
+    itemTypes[itemType]++
+
     if (itemType == null) {
       // Assume a non-identified item following an identified item is related.
       // "Who to follow" users and "Follow some Topics" topics appear in
@@ -2293,18 +2514,16 @@ function onTimelineChange($timeline, page) {
       // The first item in the timeline is sometimes an empty placeholder <div>
       else if ($item !== $timeline.firstElementChild && hideItem == null) {
         // We're probably also missing some spacer / divider nodes
-        log('unhandled timeline item', $item)
+        warn('unhandled timeline item', $item)
       }
-    }
-
-    if ($tweet?.querySelector(Selectors.VERIFIED_TICK)) {
-      if (hideItem !== true) {
-        hideItem = config.verifiedAccounts == 'hide'
-      }
-      highlightItem = config.verifiedAccounts == 'highlight'
     }
 
     if (hideItem != null) {
+      if (hideItem) {
+        hiddenItemCount++
+        hiddenItemTypes[itemType] ||= 0
+        hiddenItemTypes[itemType]++
+      }
       if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display != (hideItem ? 'none' : '')) {
         /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
         // Log these out as they can't be reliably triggered for testing
@@ -2327,6 +2546,12 @@ function onTimelineChange($timeline, page) {
       previousItemType = itemType
     }
   }
+
+  if (config.twitterBlueChecks != 'ignore' && !isOnMainTimelinePage()) {
+    tagTwitterBlueCheckmarks($timeline)
+  }
+
+  log(`processed ${$timeline.children.length} timeline item${s($timeline.children.length)}`, itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes)
 }
 
 function onTitleChange(title) {
@@ -2459,12 +2684,14 @@ function processCurrentPage() {
   $body.classList.toggle('HideSidebar', shouldHideSidebar())
   $body.classList.toggle('List', isOnListPage())
   $body.classList.toggle('MainTimeline', isOnMainTimelinePage())
+  $body.classList.toggle('Notifications', isOnNotificationsPage())
   $body.classList.toggle('Profile', isOnProfilePage())
   if (!isOnProfilePage()) {
     $body.classList.remove('Blocked', 'NoMedia')
   }
   $body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
   $body.classList.toggle('Tweet', isOnIndividualTweetPage())
+  $body.classList.toggle('Search', isOnSearchPage())
 
   // "Which version of the main timeline are we on?" hooks for styling
   $body.classList.toggle('Home', isOnHomeTimeline())
@@ -2473,10 +2700,14 @@ function processCurrentPage() {
   $body.classList.toggle('TimelineTabs', isOnTabbedTimeline())
 
   if (desktop) {
-    if (config.fullWidthContent && (isOnMainTimelinePage() || isOnListPage())) {
+    if (config.twitterBlueChecks != 'ignore' || config.fullWidthContent && (isOnMainTimelinePage() || isOnListPage())) {
       observeSidebar()
     } else {
       $body.classList.remove('Sidebar')
+    }
+
+    if (config.twitterBlueChecks != 'ignore' && (isOnSearchPage() || isOnExplorePage())) {
+      observeSearchForm()
     }
   }
 
@@ -2494,10 +2725,7 @@ function processCurrentPage() {
   }
 
   if (isOnProfilePage()) {
-    observeTimeline(currentPage)
-    if (desktop && config.hideSidebarContent) {
-      tweakProfilePage(currentPage)
-    }
+    tweakProfilePage()
   }
 
   if (isOnIndividualTweetPage()) {
@@ -2552,12 +2780,12 @@ function shouldHideAlgorithmicTweet(config, page) {
  */
 function shouldHideMainTimelineItem(type, page) {
   switch (type) {
+    case 'COMMUNITY_TWEET':
+      return shouldHideAlgorithmicTweet(config.communityTweets, page)
     case 'FOLLOWEES_FOLLOWS':
       return shouldHideAlgorithmicTweet(config.followeesFollows, page)
     case 'LIKED':
       return shouldHideAlgorithmicTweet(config.likedTweets, page)
-    case 'LIST_TWEET':
-      return shouldHideAlgorithmicTweet(config.listTweets, page)
     case 'QUOTE_TWEET':
       return shouldHideSharedTweet(config.quoteTweets, page)
     case 'REPLIED':
@@ -2579,6 +2807,25 @@ function shouldHideMainTimelineItem(type, page) {
 }
 
 /**
+ * @param {import("./types").TimelineItemType} type
+ * @returns {boolean}
+ */
+ function shouldHideOtherTimelineItem(type) {
+  switch (type) {
+    case 'QUOTE_TWEET':
+    case 'RETWEET':
+    case 'RETWEETED_QUOTE_TWEET':
+    case 'TWEET':
+    case 'UNAVAILABLE':
+    case 'UNAVAILABLE_QUOTE_TWEET':
+    case 'UNAVAILABLE_RETWEET':
+      return false
+    default:
+      return true
+  }
+}
+
+/**
  * @param {import("./types").SharedTweetsConfig} config
  * @param {string} page
  * @returns {boolean}
@@ -2594,8 +2841,11 @@ function shouldHideSharedTweet(config, page) {
 async function switchToLatestTweets(page) {
   log('switching to Latest Tweets timeline')
 
-  let contextSelector = mobile ? 'header div:nth-of-type(3)' : Selectors.PRIMARY_COLUMN
-  let $sparkleButton = await getElement(`${contextSelector} [role="button"]`, {
+  let sparkleSelector = mobile ? `
+    ${Selectors.MOBILE_TIMELINE_HEADER_OLD} div:nth-of-type(3) [role="button"],
+    ${Selectors.MOBILE_TIMELINE_HEADER_NEW} div:nth-of-type(3) [role="button"]
+  ` : `${Selectors.PRIMARY_COLUMN} [role="button"]`
+  let $sparkleButton = await getElement(sparkleSelector, {
     name: 'sparkle button',
     stopIf: pageIsNot(page),
   })
@@ -2604,9 +2854,9 @@ async function switchToLatestTweets(page) {
   if ($sparkleButton.getAttribute('aria-label') == getString('TIMELINE_OPTIONS')) {
     log('tabbed timeline is being used')
 
-    let $timelineHeader = document.querySelector(desktop ? Selectors.DESKTOP_TIMELINE_HEADER : Selectors.MOBILE_TIMELINE_HEADER)
+    let $timelineHeader = document.querySelector(desktop ? Selectors.DESKTOP_TIMELINE_HEADER : Selectors.MOBILE_TIMELINE_HEADER_OLD)
     if ($timelineHeader == null) {
-      log('could not find timeline header')
+      warn('could not find timeline header')
       return
     }
 
@@ -2626,7 +2876,7 @@ async function switchToLatestTweets(page) {
 
     let $latestTweetsTab = /** @type {HTMLElement} */ ($timelineHeader.querySelector('[data-testid="ScrollSnap-List"] [role="presentation"]:nth-child(2) a'))
     if ($latestTweetsTab == null) {
-      log('could not find "Latest Tweets" tab')
+      warn('could not find "Latest Tweets" tab')
       return
     }
 
@@ -2649,6 +2899,21 @@ async function switchToLatestTweets(page) {
   }
 }
 
+/**
+ * Add a tnt_blue_check class to any Twitter Blue checkmarks inside an element.
+ * @param {HTMLElement} $el
+ */
+function tagTwitterBlueCheckmarks($el) {
+  for (let $svgPath of $el.querySelectorAll(Selectors.VERIFIED_TICK)) {
+    let verifiedProps = getVerifiedProps($svgPath.closest('svg'))
+    if (!verifiedProps) continue
+
+    if (verifiedProps.isBlueVerified && !verifiedProps.isVerified) {
+      $svgPath.closest(':is(div, span):not([role="button"]').classList.add('tnt_blue_check')
+    }
+  }
+}
+
 async function tweakExplorePage(page) {
   let $searchInput = await getElement('input[data-testid="SearchBox_Search_Input"]', {
     name: 'search input',
@@ -2659,8 +2924,7 @@ async function tweakExplorePage(page) {
   log('focusing search input')
   $searchInput.focus()
 
-  let $backButton = await getElement('[role="button"]:not([data-testid="DashButton_ProfileIcon_Link"])', {
-    context: $searchInput.closest('header'),
+  let $backButton = await getElement('div[data-testid="app-bar-back"]', {
     name: 'back button',
     stopIf: pageIsNot(page),
   })
@@ -2690,17 +2954,45 @@ function tweakIndividualTweetPage() {
   if (config.hideMoreTweets && location.search) {
     log('re-navigating to get rid of More Tweets')
     location.replace(location.origin + location.pathname)
+    return
+  }
+  if (config.twitterBlueChecks != 'ignore') {
+    observeTimeline(currentPage)
   }
 }
 
-function tweakProfilePage(currentPage) {
-  observeProfileBlockedStatus(currentPage)
-  observeProfileSidebar(currentPage)
+function tweakProfilePage() {
+  if (config.twitterBlueChecks != 'ignore') {
+    tagTwitterBlueCheckmarks(document.querySelector(Selectors.PRIMARY_COLUMN))
+  }
+  observeTimeline(currentPage)
+  if (desktop && config.hideSidebarContent) {
+    observeProfileBlockedStatus(currentPage)
+    observeProfileSidebar(currentPage)
+  }
 }
 //#endregion
 
 //#region Main
 function main() {
+  let $settings = /** @type {HTMLScriptElement} */ (document.querySelector('script#tnt_settings'))
+  if ($settings) {
+    try {
+      Object.assign(config, JSON.parse($settings.innerText))
+    } catch(e) {
+      warn('error getting initial settings', e)
+    }
+
+    let settingsObserver = new MutationObserver(() => {
+      try {
+        onSettingsChanged(JSON.parse($settings.innerText))
+      } catch(e) {
+        warn('error changing settings', e)
+      }
+    })
+    settingsObserver.observe($settings, {childList: true})
+  }
+
   if (config.debug) {
     debug = true
   }
@@ -2741,15 +3033,5 @@ function configChanged(changes) {
   }
 }
 
-if (isExtension()) {
-  chrome.storage.local.get((storedConfig) => {
-    Object.assign(config, storedConfig)
-    main()
-  })
-
-  chrome.storage.onChanged.addListener(onStorageChanged)
-}
-else {
-  main()
-}
+main()
 //#endregion

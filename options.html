@@ -37,7 +37,7 @@
           <input type="checkbox" name="hideWhoToFollowEtc">
         </label>
       </section>
-      <section class="checkbox mobile">
+      <section class="checkbox">
         <label>
           Hide Explore page contents and use it only for searching
           <input type="checkbox" name="hideExplorePageContents">
@@ -98,6 +98,15 @@
       </label>
       <section class="select">
         <label>
+          Tweets from your communities
+          <select name="communityTweets">
+            <option value="ignore">Do nothing</option>
+            <option value="hide">Hide</option>
+          </select>
+        </label>
+      </section>
+      <section class="select">
+        <label>
           Tweets from your followees' follows
           <select name="followeesFollows">
             <option value="ignore">Do nothing</option>
@@ -109,15 +118,6 @@
         <label>
           Liked tweets
           <select name="likedTweets">
-            <option value="ignore">Do nothing</option>
-            <option value="hide">Hide</option>
-          </select>
-        </label>
-      </section>
-      <section class="select">
-        <label>
-          Tweets from your lists
-          <select name="listTweets">
             <option value="ignore">Do nothing</option>
             <option value="hide">Hide</option>
           </select>
@@ -181,6 +181,12 @@
           <input type="checkbox" name="addAddMutedWordMenuItem">
         </label>
       </section>
+      <section class="checkbox">
+        <label>
+          Hide "Verified" tab in Notifications
+          <input type="checkbox" name="hideVerifiedNotificationsTab">
+        </label>
+      </section>
       <section class="checkbox mobile">
         <label>
           Hide "Open app", "Switch to the app" etc. nags
@@ -196,6 +202,16 @@
         <label>
           Don't use Chirp font
           <input type="checkbox" name="dontUseChirpFont">
+        </label>
+      </section>
+      <section class="select">
+        <label>
+          Twitter Blue verified checkmarks
+          <select name="twitterBlueChecks">
+            <option value="ignore">Do nothing</option>
+            <option value="dim">Dim</option>
+            <option value="hide">Hide</option>
+          </select>
         </label>
       </section>
       <section class="checkbox">
@@ -267,8 +283,8 @@
       </label>
       <section class="checkbox">
         <label>
-          Lists
-          <input type="checkbox" name="hideListsNav">
+          Twitter Blue
+          <input type="checkbox" name="hideTwitterBlueNav">
         </label>
       </section>
       <section class="checkbox">
@@ -285,20 +301,32 @@
       </section>
       <section class="checkbox">
         <label>
+          Lists
+          <input type="checkbox" name="hideListsNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          Twitter Circle
+          <input type="checkbox" name="hideTwitterCircleNav">
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
           Moments
           <input type="checkbox" name="hideMomentsNav">
         </label>
       </section>
       <section class="checkbox">
         <label>
-          Twitter Blue
-          <input type="checkbox" name="hideTwitterBlueNav">
+          Newsletters
+          <input type="checkbox" name="hideNewslettersNav">
         </label>
       </section>
       <section class="checkbox">
         <label>
-          Newsletters
-          <input type="checkbox" name="hideNewslettersNav">
+          Analytics
+          <input type="checkbox" name="hideAnalyticsNav">
         </label>
       </section>
       <section class="checkbox">
@@ -315,8 +343,8 @@
       </section>
       <section class="checkbox">
         <label>
-          Analytics
-          <input type="checkbox" name="hideAnalyticsNav">
+          Monetization
+          <input type="checkbox" name="hideMonetizationNav">
         </label>
       </section>
       <section class="checkbox">

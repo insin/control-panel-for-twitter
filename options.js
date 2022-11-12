@@ -10,14 +10,15 @@ $body.querySelectorAll(mobile ? '.desktop' : '.mobile').forEach($el => $el.remov
 const checkboxGroups = new Map(Object.entries({
   reduceAlgorithmicContent: [
     'alwaysUseLatestTweets',
+    'hideExplorePageContents',
     'hideMoreTweets',
     'hideWhoToFollowEtc',
     desktop && 'hideSidebarContent',
-    mobile && 'hideExplorePageContents',
   ].filter(Boolean),
   uiImprovements: [
     'addAddMutedWordMenuItem',
     'fastBlock',
+    'hideVerifiedNotificationsTab',
     'uninvertFollowButtons',
     desktop && 'navBaseFontSize',
     mobile && 'hideAppNags',
@@ -37,10 +38,12 @@ const checkboxGroups = new Map(Object.entries({
     'hideHelpCenterNav',
     'hideListsNav',
     'hideMomentsNav',
+    'hideMonetizationNav',
     'hideNewslettersNav',
     'hideTopicsNav',
     'hideTwitterAdsNav',
     'hideTwitterBlueNav',
+    'hideTwitterCircleNav',
     'hideTwitterForProfessionalsNav',
     desktop && 'hideKeyboardShortcutsNav',
     mobile && 'hideBookmarksNav',
@@ -61,6 +64,7 @@ const defaultConfig = {
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
+  communityTweets: 'hide',
   dontUseChirpFont: false,
   fastBlock: true,
   followButtonStyle: 'monochrome',
@@ -68,10 +72,12 @@ const defaultConfig = {
   hideAnalyticsNav: true,
   hideBookmarksNav: true,
   hideCommunitiesNav: true,
+  hideExplorePageContents: true,
   hideHelpCenterNav: true,
   hideKeyboardShortcutsNav: false,
   hideListsNav: true,
   hideMomentsNav: true,
+  hideMonetizationNav: true,
   hideMoreTweets: true,
   hideNewslettersNav: true,
   hideShareTweetButton: false,
@@ -79,11 +85,12 @@ const defaultConfig = {
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
   hideTwitterBlueNav: true,
+  hideTwitterCircleNav: true,
   hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
+  hideVerifiedNotificationsTab: true,
   hideWhoToFollowEtc: true,
   likedTweets: 'hide',
-  listTweets: 'hide',
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
@@ -91,6 +98,7 @@ const defaultConfig = {
   retweets: 'separate',
   suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
+  twitterBlueChecks: 'dim',
   uninvertFollowButtons: true,
   // Experiments
   disableHomeTimeline: false,
@@ -115,7 +123,6 @@ const defaultConfig = {
   showRelevantPeople: false,
   // Mobile only
   hideAppNags: true,
-  hideExplorePageContents: true,
   hideMessagesBottomNavItem: false,
 }
 
@@ -142,7 +149,7 @@ function exportConfig() {
   let $a = document.createElement('a')
   $a.download = 'tweak-new-twitter.config.txt'
   $a.href = URL.createObjectURL(new Blob([
-    JSON.stringify({version: '2.15.0', ...sortProperties(optionsConfig)}, null, 2)
+    JSON.stringify({version: '2.16.1', ...sortProperties(optionsConfig)}, null, 2)
   ], {type: 'text/plain'}))
   $a.click()
   URL.revokeObjectURL($a.href)
