@@ -2399,7 +2399,9 @@ function onPopup($popup) {
 }
 
 function onTimelineChange($timeline, page) {
-  log(`processing ${$timeline.children.length} timeline item${s($timeline.children.length)}`)
+  let itemTypes = {}
+  let hiddenItemCount = 0
+  let hiddenItemTypes = {}
 
   /** @type {HTMLElement} */
   let $previousItem = null
@@ -2477,8 +2479,11 @@ function onTimelineChange($timeline, page) {
     }
 
     if (!isOnMainTimelinePage()) {
-      if (itemType != null && debug) {
-        $item.firstElementChild.dataset.itemType = `${itemType}`
+      if (itemType != null) {
+        hideItem = shouldHideOtherTimelineItem(itemType)
+        if (debug) {
+          $item.firstElementChild.dataset.itemType = `${itemType}`
+        }
       }
     }
 
@@ -2493,6 +2498,9 @@ function onTimelineChange($timeline, page) {
         }
       }
     }
+
+    itemTypes[itemType] ||= 0
+    itemTypes[itemType]++
 
     if (itemType == null) {
       // Assume a non-identified item following an identified item is related.
@@ -2510,6 +2518,11 @@ function onTimelineChange($timeline, page) {
     }
 
     if (hideItem != null) {
+      if (hideItem) {
+        hiddenItemCount++
+        hiddenItemTypes[itemType] ||= 0
+        hiddenItemTypes[itemType]++
+      }
       if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display != (hideItem ? 'none' : '')) {
         /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
         // Log these out as they can't be reliably triggered for testing
@@ -2536,6 +2549,8 @@ function onTimelineChange($timeline, page) {
   if (config.twitterBlueChecks != 'ignore' && !isOnMainTimelinePage()) {
     tagTwitterBlueCheckmarks($timeline)
   }
+
+  log(`processed ${$timeline.children.length} timeline item${s($timeline.children.length)}`, itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes)
 }
 
 function onTitleChange(title) {
@@ -2785,6 +2800,25 @@ function shouldHideMainTimelineItem(type, page) {
       return config.hideUnavailableQuoteTweets || shouldHideSharedTweet(config.quoteTweets, page)
     case 'UNAVAILABLE_RETWEET':
       return config.hideUnavailableQuoteTweets || shouldHideSharedTweet(config.retweets, page)
+    default:
+      return true
+  }
+}
+
+/**
+ * @param {import("./types").TimelineItemType} type
+ * @returns {boolean}
+ */
+ function shouldHideOtherTimelineItem(type) {
+  switch (type) {
+    case 'QUOTE_TWEET':
+    case 'RETWEET':
+    case 'RETWEETED_QUOTE_TWEET':
+    case 'TWEET':
+    case 'UNAVAILABLE':
+    case 'UNAVAILABLE_QUOTE_TWEET':
+    case 'UNAVAILABLE_RETWEET':
+      return false
     default:
       return true
   }
