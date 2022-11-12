@@ -7,9 +7,8 @@
 ## Install
 
 * [Install Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/)
-* [Install Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/tweak-new-twitter/foccddlibbeccjiobcnakipdpkjiijjp)
-* [Install Chrome Extension](https://chrome.google.com/webstore/detail/tweak-new-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj) – can also be installed in [Edge](https://support.microsoft.com/en-us/microsoft-edge/add-turn-off-or-remove-extensions-in-microsoft-edge-9c0ec68c-2fbc-2f2c-9ff0-bdc76f46b026) (instructions in links)
-  * [Opera](https://chrome.google.com/webstore/detail/tweak-new-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj) - Now fully supports installing extensions directly from the Chrome webstore.
+* [Install Chrome Extension](https://chrome.google.com/webstore/detail/tweak-new-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj) – can also be installed in Edge and Opera
+* [Install Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/tweak-new-twitter/foccddlibbeccjiobcnakipdpkjiijjp) - any recent changes to the extension usually take longer to appear in the Edge Add-ons store
 
 * [Install as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) (requires a [user script manager](https://greasyfork.org/en#home-step-1)) – compatible with the [Userscripts extension for Safari](https://apps.apple.com/us/app/userscripts/id1463298887)
 
