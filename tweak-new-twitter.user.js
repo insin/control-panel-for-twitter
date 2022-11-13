@@ -2898,9 +2898,14 @@ function shouldHideMainTimelineItem(type, page) {
  */
  function shouldHideOtherTimelineItem(type) {
   switch (type) {
+    case 'COMMUNITY_TWEET':
+    case 'FOLLOWEES_FOLLOWS':
+    case 'LIKED':
     case 'QUOTE_TWEET':
+    case 'REPLIED':
     case 'RETWEET':
     case 'RETWEETED_QUOTE_TWEET':
+    case 'SUGGESTED_TOPIC_TWEET':
     case 'TWEET':
     case 'UNAVAILABLE':
     case 'UNAVAILABLE_QUOTE_TWEET':
