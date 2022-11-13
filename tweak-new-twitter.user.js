@@ -1290,7 +1290,7 @@ async function observeSidebar() {
       let $sidebar = $sidebarContainer.querySelector(Selectors.SIDEBAR)
       log(`sidebar ${$sidebar ? 'appeared' : 'disappeared'}`)
       $body.classList.toggle('Sidebar', Boolean($sidebar))
-      if ($sidebar && config.twitterBlueChecks != 'ignore') {
+      if ($sidebar && config.twitterBlueChecks != 'ignore' && !isOnSearchPage() && !isOnExplorePage()) {
         observeSearchForm()
       }
     }, 'sidebar container')
