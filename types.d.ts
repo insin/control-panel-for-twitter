@@ -83,6 +83,8 @@ export type LocaleKey =
   | 'TIMELINE_OPTIONS'
   | 'TWITTER'
 
+export type NamedMutationObserver = MutationObserver & {name?: string}
+
 export type QuotedTweet = {
   user: string
   time: string
@@ -106,5 +108,10 @@ export type TimelineItemType =
   | 'UNAVAILABLE'
   | 'UNAVAILABLE_QUOTE_TWEET'
   | 'UNAVAILABLE_RETWEET'
+
+export type TimelineOptions = {
+  hideHeadings?: boolean
+  isTabbed?: boolean
+}
 
 export type VerifiedAccountsConfig = 'highlight' | 'hide' | 'ignore'

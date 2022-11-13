@@ -663,6 +663,7 @@ const Selectors = {
   PROMOTED_TWEET_CONTAINER: '[data-testid="placementTracking"]',
   SIDEBAR: 'div[data-testid="sidebarColumn"]',
   SIDEBAR_WRAPPERS: 'div[data-testid="sidebarColumn"] > div > div > div > div > div',
+  TABBED_TIMELINE_CONTAINER: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: '[data-testid="tweet"]',
@@ -740,7 +741,7 @@ let observingTitle = false
 /**
  * MutationObservers active on the current page, or anything else we want to
  * clean up when the user moves off the current page.
- * @type {(MutationObserver|{disconnect(): void})[]}
+ * @type {(import("./types").NamedMutationObserver|{disconnect(): void})[]}
  */
 let pageObservers = []
 
@@ -847,6 +848,20 @@ function dedent(str) {
 }
 
 /**
+ * @param {string} name
+ */
+function disconnectPageObserver(name) {
+  for (let i = pageObservers.length -1; i >= 0; i--) {
+    let pageObserver = pageObservers[i]
+    if ('name' in pageObserver && pageObserver.name == name) {
+      pageObserver.disconnect()
+      pageObservers.splice(i, 1)
+      log(`disconnected ${name} page observer`)
+    }
+  }
+}
+
+/**
  * @param {string} selector
  * @param {{
  *   name?: string
@@ -932,6 +947,7 @@ function warn(...args) {
  * @param {MutationCallback} callback
  * @param {string} name
  * @param {MutationObserverInit} options
+ * @return {import("./types").NamedMutationObserver}
  */
 function observeElement($element, callback, name = '', options = {childList: true}) {
   if (name) {
@@ -1299,8 +1315,11 @@ async function observeSearchForm() {
 
 /**
  * @param {string} page
+ * @param {import("./types").TimelineOptions} [options]
  */
-async function observeTimeline(page) {
+async function observeTimeline(page, options = {}) {
+  let {isTabbed = false} = options
+
   let $timeline = await getElement(Selectors.TIMELINE, {
     name: 'initial timeline',
     stopIf: pageIsNot(page),
@@ -1308,29 +1327,83 @@ async function observeTimeline(page) {
 
   if ($timeline == null) return
 
-  // The inital timeline element is a placeholder without a style attribute
-  if ($timeline.hasAttribute('style')) {
+  /**
+   * @param {HTMLElement} $timeline
+   */
+  function observeTimelineItems($timeline) {
+    disconnectPageObserver('timeline')
     pageObservers.push(
-      observeElement($timeline, () => onTimelineChange($timeline, page), 'timeline')
+      observeElement($timeline, () => onTimelineChange($timeline, page, options), 'timeline')
     )
+    if (isTabbed) {
+      // When a tab which has been viewed before is revisited, the timeline is
+      // replaced.
+      disconnectPageObserver('timeline parent')
+      pageObservers.push(
+        observeElement($timeline.parentElement, (mutations) => {
+          mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((/** @type {HTMLElement} */ $newTimeline) => {
+              log('timeline replaced')
+              disconnectPageObserver('timeline')
+              pageObservers.push(
+                observeElement($newTimeline, () => onTimelineChange($newTimeline, page, options), 'timeline')
+              )
+            })
+          })
+        }, 'timeline parent')
+      )
+    }
+  }
+
+  // If the inital timeline doesn't have a style attribute it's a placeholder
+  if ($timeline.hasAttribute('style')) {
+    observeTimelineItems($timeline)
   }
   else {
     log('waiting for timeline')
     let startTime = Date.now()
     pageObservers.push(
-      observeElement($timeline.parentNode, (mutations) => {
+      observeElement($timeline.parentElement, (mutations) => {
         mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach(($timeline) => {
+          mutation.addedNodes.forEach((/** @type {HTMLElement} */ $timeline) => {
+            disconnectPageObserver('timeline parent')
             if (Date.now() > startTime) {
-              log(`timeline appeared after ${Date.now() - startTime}ms`)
+              log(`timeline appeared after ${Date.now() - startTime}ms`, $timeline)
             }
-            pageObservers.push(
-              observeElement($timeline, () => onTimelineChange($timeline, page), 'timeline')
-            )
+            observeTimelineItems($timeline)
           })
         })
       }, 'timeline parent')
     )
+  }
+
+  if (isTabbed) {
+    let $tabbedTimelineContainer = document.querySelector(Selectors.TABBED_TIMELINE_CONTAINER)
+    if ($tabbedTimelineContainer) {
+      let waitingForNewTimeline = false
+      // The first time a new tab is navigated to, the section containing the
+      // timeline is replaced with a loading spinner.
+      pageObservers.push(
+        observeElement($tabbedTimelineContainer, async (mutations) => {
+          // This is going to fire twice on a new tab, as the spinner is added
+          // then replaced with the new timeline section.
+          if (!mutations.some(mutation => mutation.addedNodes.length > 0) || waitingForNewTimeline) return
+
+          waitingForNewTimeline = true
+          let $newTimeline = await getElement(Selectors.TIMELINE, {
+            name: 'new timeline',
+            stopIf: pageIsNot(page),
+          })
+          waitingForNewTimeline = false
+          if (!$newTimeline) return
+
+          observeTimelineItems($newTimeline)
+        }, 'tabbed timeline container')
+      )
+    }
+    else {
+      console.log('tabbed timeline container not found')
+    }
   }
 }
 //#endregion
@@ -2399,7 +2472,14 @@ function onPopup($popup) {
   return nestedObserver
 }
 
-function onTimelineChange($timeline, page) {
+/**
+ * @param {HTMLElement} $timeline
+ * @param {string} page
+ * @param {import("./types").TimelineOptions} [options]
+ */
+function onTimelineChange($timeline, page, options = {}) {
+  let {hideHeadings = true} = options
+
   let itemTypes = {}
   let hiddenItemCount = 0
   let hiddenItemTypes = {}
@@ -2492,10 +2572,12 @@ function onTimelineChange($timeline, page) {
       // "Who to follow", "Follow some Topics" etc. headings
       if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
         itemType = 'HEADING'
-        hideItem = true
-        // Also hide the divider above the heading
-        if ($previousItem?.innerText == '' && $previousItem.firstElementChild) {
-          /** @type {HTMLElement} */ ($previousItem.firstElementChild).style.display = 'none'
+        if (hideHeadings) {
+          hideItem = true
+          // Also hide the divider above the heading
+          if ($previousItem?.innerText == '' && $previousItem.firstElementChild) {
+            /** @type {HTMLElement} */ ($previousItem.firstElementChild).style.display = 'none'
+          }
         }
       }
     }
@@ -2527,7 +2609,7 @@ function onTimelineChange($timeline, page) {
       if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display != (hideItem ? 'none' : '')) {
         /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
         // Log these out as they can't be reliably triggered for testing
-        if (itemType == 'HEADING' || previousItemType == 'HEADING') {
+        if (hideItem && itemType == 'HEADING' || previousItemType == 'HEADING') {
           log(`hid a ${previousItemType == 'HEADING' ? 'post-' : ''}heading item`, $item)
         }
       }
@@ -2730,6 +2812,10 @@ function processCurrentPage() {
 
   if (isOnIndividualTweetPage()) {
     tweakIndividualTweetPage()
+  }
+
+  if (isOnSearchPage()) {
+    tweakSearchPage()
   }
 
   if (mobile && config.hideExplorePageContents && isOnExplorePage()) {
@@ -2970,6 +3056,10 @@ function tweakProfilePage() {
     observeProfileBlockedStatus(currentPage)
     observeProfileSidebar(currentPage)
   }
+}
+
+function tweakSearchPage() {
+  observeTimeline(currentPage, {hideHeadings: false, isTabbed: true})
 }
 //#endregion
 
