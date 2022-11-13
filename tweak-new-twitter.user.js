@@ -5,7 +5,7 @@
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
 // @match       https://twitter3e4tixl4xyajtrzo62zg5vztmjuricljdp2c5kshju4avyoid.onion/*
-// @version     66
+// @version     67
 // ==/UserScript==
 
 let debug = false
