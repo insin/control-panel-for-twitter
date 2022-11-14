@@ -2796,26 +2796,27 @@ function processCurrentPage() {
   if (isOnMainTimelinePage()) {
     if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
       addSeparatedTweetsTimelineControl(currentPage)
-    } else if (mobile) {
+    }
+    else if (mobile) {
       removeMobileTimelineHeaderElements()
     }
     observeTimeline(currentPage)
-  } else {
-    if (mobile) {
-      removeMobileTimelineHeaderElements()
-    }
+  }
+  else if (mobile) {
+    removeMobileTimelineHeaderElements()
   }
 
   if (isOnProfilePage()) {
     tweakProfilePage()
   }
-
-  if (isOnIndividualTweetPage()) {
+  else if (isOnIndividualTweetPage()) {
     tweakIndividualTweetPage()
   }
-
-  if (isOnSearchPage()) {
+  else if (isOnSearchPage()) {
     tweakSearchPage()
+  }
+  else if (isOnQuoteTweetsPage()) {
+    tweakQuoteTweetsPage()
   }
 
   if (mobile && config.hideExplorePageContents && isOnExplorePage()) {
@@ -3060,6 +3061,12 @@ function tweakProfilePage() {
   if (desktop && config.hideSidebarContent) {
     observeProfileBlockedStatus(currentPage)
     observeProfileSidebar(currentPage)
+  }
+}
+
+function tweakQuoteTweetsPage() {
+  if (config.twitterBlueChecks != 'ignore') {
+    observeTimeline(currentPage)
   }
 }
 
