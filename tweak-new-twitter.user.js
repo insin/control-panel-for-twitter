@@ -2061,7 +2061,7 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
       mobile ? `
         body.Profile header > div > div:first-of-type h2 + div[dir="auto"],
         body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:first-of-type h2 + div[dir="auto"]
-      ` : `body.Profile  Selectors.PRIMARY_COLUMN  > div > div:first-of-type h2 + div[dir="auto"]`
+      ` : `body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 + div[dir="auto"]`
     )
   }
 
