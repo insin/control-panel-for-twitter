@@ -662,7 +662,6 @@ const Selectors = {
   PROMOTED_TWEET_CONTAINER: '[data-testid="placementTracking"]',
   SIDEBAR: 'div[data-testid="sidebarColumn"]',
   SIDEBAR_WRAPPERS: 'div[data-testid="sidebarColumn"] > div > div > div > div > div',
-  TABBED_TIMELINE_CONTAINER: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: '[data-testid="tweet"]',
@@ -1318,7 +1317,7 @@ async function observeSearchForm() {
  * @param {import("./types").TimelineOptions} [options]
  */
 async function observeTimeline(page, options = {}) {
-  let {isTabbed = false} = options
+  let {isTabbed = false, tabbedTimelineContainerSelector = null} = options
 
   let $timeline = await getElement(Selectors.TIMELINE, {
     name: 'initial timeline',
@@ -1378,7 +1377,7 @@ async function observeTimeline(page, options = {}) {
   }
 
   if (isTabbed) {
-    let $tabbedTimelineContainer = document.querySelector(Selectors.TABBED_TIMELINE_CONTAINER)
+    let $tabbedTimelineContainer = document.querySelector(tabbedTimelineContainerSelector)
     if ($tabbedTimelineContainer) {
       let waitingForNewTimeline = false
       // The first time a new tab is navigated to, the section containing the
@@ -2329,18 +2328,23 @@ function getTweetType($tweet) {
   return 'TWEET'
 }
 
-// Add 1 every time this gets broken: 2
+// Add 1 every time this gets broken: 3
 function getVerifiedProps($svg) {
+  let childIndex = 0
   let $parent = $svg.parentElement
   // Verified badge button on the profile screen
   if ($parent.getAttribute('role') == 'button') {
     $parent = $parent.closest('span')
   }
+  // Link variant in "user followed/liked/retweeted" notifications
+  else if ($parent.getAttribute('role') == 'link') {
+    childIndex = 1
+  }
   if ($parent.wrappedJSObject) {
     $parent = $parent.wrappedJSObject
   }
   let reactPropsKey = Object.keys($parent).find(key => key.startsWith('__reactProps$'))
-  let props = $parent[reactPropsKey]?.children?.props?.children?.[0]?.[0]?.props
+  let props = $parent[reactPropsKey]?.children?.props?.children?.[0]?.[childIndex]?.props
   if (!props) {
     warn('verified props not found for', $svg, {reactPropsKey})
   }
@@ -2506,7 +2510,13 @@ function onPopup($popup) {
  * @param {import("./types").TimelineOptions} [options]
  */
 function onTimelineChange($timeline, page, options = {}) {
-  let {hideHeadings = true} = options
+  let {classifyTweets = true, hideHeadings = true} = options
+
+  if (config.twitterBlueChecks != 'ignore' && !isOnMainTimelinePage()) {
+    tagTwitterBlueCheckmarks($timeline)
+  }
+
+  if (!classifyTweets) return
 
   let itemTypes = {}
   let hiddenItemCount = 0
@@ -2655,10 +2665,6 @@ function onTimelineChange($timeline, page, options = {}) {
     if (!(previousItemType == 'HEADING' && itemType == null)) {
       previousItemType = itemType
     }
-  }
-
-  if (config.twitterBlueChecks != 'ignore' && !isOnMainTimelinePage()) {
-    tagTwitterBlueCheckmarks($timeline)
   }
 
   log(`processed ${$timeline.children.length} timeline item${s($timeline.children.length)}`, itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes)
@@ -2839,6 +2845,9 @@ function processCurrentPage() {
   }
   else if (isOnIndividualTweetPage()) {
     tweakIndividualTweetPage()
+  }
+  else if (isOnNotificationsPage()) {
+    tweakNotificationsPage()
   }
   else if (isOnSearchPage()) {
     tweakSearchPage()
@@ -3080,6 +3089,17 @@ function tweakIndividualTweetPage() {
   }
 }
 
+function tweakNotificationsPage() {
+  if (config.twitterBlueChecks != 'ignore') {
+    observeTimeline(currentPage, {
+      classifyTweets: false,
+      hideHeadings: false,
+      isTabbed: true,
+      tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
+    })
+  }
+}
+
 function tweakProfilePage() {
   if (config.twitterBlueChecks != 'ignore') {
     tagTwitterBlueCheckmarks(document.querySelector(Selectors.PRIMARY_COLUMN))
@@ -3098,7 +3118,11 @@ function tweakQuoteTweetsPage() {
 }
 
 function tweakSearchPage() {
-  observeTimeline(currentPage, {hideHeadings: false, isTabbed: true})
+  observeTimeline(currentPage, {
+    hideHeadings: false,
+    isTabbed: true,
+    tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
+  })
 }
 //#endregion
 

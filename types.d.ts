@@ -110,8 +110,10 @@ export type TimelineItemType =
   | 'UNAVAILABLE_RETWEET'
 
 export type TimelineOptions = {
+  classifyTweets?: boolean
   hideHeadings?: boolean
   isTabbed?: boolean
+  tabbedTimelineContainerSelector?: string
 }
 
 export type VerifiedAccountsConfig = 'highlight' | 'hide' | 'ignore'
