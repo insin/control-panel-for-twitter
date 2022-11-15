@@ -56,7 +56,7 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 ### UI improvements
 
 - Disable use of the Chirp font if you don't like it
-- Dim or hide the checkmarks of Twitter Blue users so they're not as easily mistaken for verified accounts
+- Replace (default setting) or hide Twitter Blue user checkmarks so they're not as easily mistaken for verified accounts
 - Hide the "Verified" tab on the Notifications page
 - Uninvert the Follow and Following buttons to make them less jarring
   - Choice of monochrome or themed (classic) styling for uninverted buttons

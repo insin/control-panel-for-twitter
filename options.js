@@ -98,7 +98,7 @@ const defaultConfig = {
   retweets: 'separate',
   suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
-  twitterBlueChecks: 'dim',
+  twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
   // Experiments
   disableHomeTimeline: false,
@@ -320,7 +320,11 @@ function updateFormControls() {
   }
 }
 
-chrome.storage.local.get((storedConfig) => {
+chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ storedConfig) => {
+  // @ts-ignore
+  if (storedConfig.twitterBlueChecks == 'dim') {
+    storedConfig.twitterBlueChecks = 'replace'
+  }
   optionsConfig = {...defaultConfig, ...storedConfig}
 
   $body.classList.toggle('debug', optionsConfig.debug === true)

@@ -38,7 +38,7 @@ export type Config = {
   retweets: SharedTweetsConfig
   suggestedTopicTweets: AlgorithmicTweetsConfig
   tweakQuoteTweetsPage: boolean
-  twitterBlueChecks: 'ignore' | 'dim' | 'hide'
+  twitterBlueChecks: 'ignore' | 'replace' | 'hide'
   uninvertFollowButtons: boolean
   // Experiments
   disableHomeTimeline: boolean

@@ -61,7 +61,7 @@ const config = {
   retweets: 'separate',
   suggestedTopicTweets: 'hide',
   tweakQuoteTweetsPage: true,
-  twitterBlueChecks: 'dim',
+  twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
   // Experiments
   disableHomeTimeline: false,
@@ -671,6 +671,7 @@ const Selectors = {
 
 /** @enum {string} */
 const Svgs = {
+  BLUE_LOGO_PATH: 'M16.5 3H2v18h15c3.038 0 5.5-2.46 5.5-5.5 0-1.4-.524-2.68-1.385-3.65-.08-.09-.089-.22-.023-.32.574-.87.908-1.91.908-3.03C22 5.46 19.538 3 16.5 3zm-.796 5.99c.457-.05.892-.17 1.296-.35-.302.45-.684.84-1.125 1.15.004.1.006.19.006.29 0 2.94-2.269 6.32-6.421 6.32-1.274 0-2.46-.37-3.459-1 .177.02.357.03.539.03 1.057 0 2.03-.35 2.803-.95-.988-.02-1.821-.66-2.109-1.54.138.03.28.04.425.04.206 0 .405-.03.595-.08-1.033-.2-1.811-1.1-1.811-2.18v-.03c.305.17.652.27 1.023.28-.606-.4-1.004-1.08-1.004-1.85 0-.4.111-.78.305-1.11 1.113 1.34 2.775 2.22 4.652 2.32-.038-.17-.058-.33-.058-.51 0-1.23 1.01-2.22 2.256-2.22.649 0 1.235.27 1.647.7.514-.1.997-.28 1.433-.54-.168.52-.526.96-.992 1.23z',
   HOME: '<g><path d="M12 9c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4zm0 6c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm0-13.304L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM19 19.5c0 .276-.224.5-.5.5h-13c-.276 0-.5-.224-.5-.5V8.429l7-4.375 7 4.375V19.5z"></path></g>',
   MUTE: '<g><path d="M18 6.59V1.2L8.71 7H5.5C4.12 7 3 8.12 3 9.5v5C3 15.88 4.12 17 5.5 17h2.09l-2.3 2.29 1.42 1.42 15.5-15.5-1.42-1.42L18 6.59zm-8 8V8.55l6-3.75v3.79l-6 6zM5 9.5c0-.28.22-.5.5-.5H8v6H5.5c-.28 0-.5-.22-.5-.5v-5zm6.5 9.24l1.45-1.45L16 19.2V14l2 .02v8.78l-6.5-4.06z"></path></g>',
   RETWEET: '<g><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"></path></g>',
@@ -1755,13 +1756,8 @@ const configureCss = (() => {
     if (config.twitterBlueChecks == 'hide') {
       hideCssSelectors.push('.tnt_blue_check')
     }
-    if (config.twitterBlueChecks == 'dim') {
-      cssRules.push(`
-        .tnt_blue_check path { opacity: .75; }
-        body.Default .tnt_blue_check path { color: rgb(83, 100, 113) !important; }
-        body.Dim .tnt_blue_check path { color: rgb(139, 152, 165) !important; }
-        body.LightsOut .tnt_blue_check path { color: rgb(113, 118, 123) !important; }
-      `)
+    if (config.twitterBlueChecks == 'replace') {
+      cssRules.push(`.tnt_blue_check path { d: path("${Svgs.BLUE_LOGO_PATH}"); }`)
     }
 
     // Hide "Creator Studio" if all its contents are hidden
@@ -2404,7 +2400,7 @@ function handlePopup($popup) {
       result.tookAction = true
       getElement('div[data-testid^="UserAvatar-Container"]', {
         context: $hoverCard,
-        name: 'hovercard contents',
+        name: 'user hovercard contents',
         timeout: 250,
       }).then(($contents) => {
         if ($contents) tagTwitterBlueCheckmarks($popup)
@@ -2412,7 +2408,40 @@ function handlePopup($popup) {
     }
   }
 
+  if (config.twitterBlueChecks == 'replace' && isOnProfilePage()) {
+    let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
+    if ($hoverCard) {
+      getElement(':scope > div > div > svg:first-child path[d^="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2."]', {
+        context: $hoverCard,
+        name: 'verified account hovercard svg path',
+        timeout: 250,
+      }).then(($hoverCardSvgPath) => {
+        if (!$hoverCardSvgPath) return
+
+        let $headerSvgPath = document.querySelector(mobile ? `
+          body.Profile header ${Selectors.VERIFIED_TICK},
+          body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} ${Selectors.VERIFIED_TICK}
+        ` : `body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 ${Selectors.VERIFIED_TICK}`)
+        if (!$headerSvgPath) return
+
+        if (isBlueVerified($headerSvgPath.closest('svg'))) {
+          // Wait for the hovercard to render its contents
+          let popupRenderObserver = observeElement($popup, (mutations) => {
+            if (!mutations.length) return
+            $popup.querySelector('svg').classList.add('tnt_blue_check')
+            popupRenderObserver.disconnect()
+          }, 'verified popup render', {childList: true, subtree: true})
+        }
+      })
+    }
+  }
+
   return result
+}
+
+function isBlueVerified($svg) {
+  let props = getVerifiedProps($svg)
+  return Boolean(props && props.isBlueVerified && !props.isVerified)
 }
 
 /**
@@ -2992,14 +3021,13 @@ async function switchToLatestTweets(page) {
 
 /**
  * Add a tnt_blue_check class to any Twitter Blue checkmarks inside an element.
+ * Since hiding is an option, this needs to be added to an appropriate parent
+ * element.
  * @param {HTMLElement} $el
  */
 function tagTwitterBlueCheckmarks($el) {
   for (let $svgPath of $el.querySelectorAll(Selectors.VERIFIED_TICK)) {
-    let verifiedProps = getVerifiedProps($svgPath.closest('svg'))
-    if (!verifiedProps) continue
-
-    if (verifiedProps.isBlueVerified && !verifiedProps.isVerified) {
+    if (isBlueVerified($svgPath.closest('svg'))) {
       $svgPath.closest(':is(div, span):not([role="button"]').classList.add('tnt_blue_check')
     }
   }

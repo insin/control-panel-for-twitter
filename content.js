@@ -3,7 +3,11 @@ $settings.type = 'text/json'
 $settings.id = 'tnt_settings'
 document.body.appendChild($settings)
 
-chrome.storage.local.get((storedConfig) => {
+chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ storedConfig) => {
+  // @ts-ignore
+  if (storedConfig.twitterBlueChecks == 'dim') {
+    storedConfig.twitterBlueChecks = 'replace'
+  }
   $settings.innerText = JSON.stringify(storedConfig)
   let $main = document.createElement('script')
   $main.src = chrome.runtime.getURL('tweak-new-twitter.user.js')
