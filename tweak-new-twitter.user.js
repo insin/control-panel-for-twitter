@@ -2831,12 +2831,12 @@ function processCurrentPage() {
     if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
       addSeparatedTweetsTimelineControl(currentPage)
     }
-    else if (mobile) {
+    else {
       removeMobileTimelineHeaderElements()
     }
     observeTimeline(currentPage)
   }
-  else if (mobile) {
+  else {
     removeMobileTimelineHeaderElements()
   }
 
@@ -2855,9 +2855,8 @@ function processCurrentPage() {
   else if (isOnQuoteTweetsPage()) {
     tweakQuoteTweetsPage()
   }
-
-  if (mobile && config.hideExplorePageContents && isOnExplorePage()) {
-    tweakExplorePage(currentPage)
+  else if (isOnExplorePage()) {
+    tweakExplorePage()
   }
 }
 
@@ -3042,37 +3041,41 @@ function tagTwitterBlueCheckmarks($el) {
   }
 }
 
-async function tweakExplorePage(page) {
+async function tweakExplorePage() {
+  if (!config.hideExplorePageContents) return
+
   let $searchInput = await getElement('input[data-testid="SearchBox_Search_Input"]', {
-    name: 'search input',
-    stopIf: pageIsNot(page),
+    name: 'explore page search input',
+    stopIf: () => !isOnExplorePage(),
   })
   if (!$searchInput) return
 
   log('focusing search input')
   $searchInput.focus()
 
-  let $backButton = await getElement('div[data-testid="app-bar-back"]', {
-    name: 'back button',
-    stopIf: pageIsNot(page),
-  })
-  if (!$backButton) return
+  if (mobile) {
+    // The back button appears after the search input is focused on mobile. When
+    // you tap it or otherwise navigate back, it's replaced with the slide-out
+    // menu button and Explore page contents are shown - we want to skip that.
+    let $backButton = await getElement('div[data-testid="app-bar-back"]', {
+      name: 'back button',
+      stopIf: () => !isOnExplorePage(),
+    })
+    if (!$backButton) return
 
-  // The back button appears after the search input is focused. When you tap it
-  // or go back manually, it's replaced with the slide-out menu button and the
-  // Explore page contents are shown - we want to skip that.
-  pageObservers.push(
-    observeElement($backButton.parentElement, (mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((/** @type {HTMLElement} */ $el) => {
-          if ($el.querySelector('[data-testid="DashButton_ProfileIcon_Link"]')) {
-            log('slide-out menu button appeared, going back to skip Explore page')
-            history.go(-2)
-          }
+    pageObservers.push(
+      observeElement($backButton.parentElement, (mutations) => {
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((/** @type {HTMLElement} */ $el) => {
+            if ($el.querySelector('[data-testid="DashButton_ProfileIcon_Link"]')) {
+              log('slide-out menu button appeared, going back to skip Explore page')
+              history.go(-2)
+            }
+          })
         })
-      })
-    }, 'back button parent')
-  )
+      }, 'back button parent')
+    )
+  }
 }
 
 /**
