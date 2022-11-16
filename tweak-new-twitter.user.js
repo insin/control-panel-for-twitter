@@ -2510,6 +2510,7 @@ function onPopup($popup) {
  * @param {import("./types").TimelineOptions} [options]
  */
 function onTimelineChange($timeline, page, options = {}) {
+  let startTime = Date.now()
   let {classifyTweets = true, hideHeadings = true} = options
 
   if (config.twitterBlueChecks != 'ignore' && !isOnMainTimelinePage()) {
@@ -2667,7 +2668,7 @@ function onTimelineChange($timeline, page, options = {}) {
     }
   }
 
-  log(`processed ${$timeline.children.length} timeline item${s($timeline.children.length)}`, itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes)
+  log(`processed ${$timeline.children.length} timeline item${s($timeline.children.length)} in ${Date.now() - startTime}ms`, itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes)
 }
 
 function onTitleChange(title) {
