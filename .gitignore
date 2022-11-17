@@ -1,3 +1,4 @@
+browser_action.html
 locales/html/*.html
 locales/js/*.js
 locales/locales.js

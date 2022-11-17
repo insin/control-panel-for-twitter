@@ -5,6 +5,10 @@ body, html {
   font-size: 13px;
 }
 
+body.browserAction {
+  min-width: 450px;
+}
+
 body.mobile .desktop,
 body.desktop .mobile,
 body:not(.debug) .debug,
@@ -96,6 +100,10 @@ section.group > section > p {
   body {
     font-family: inherit;
     font-size: 15px;
+  }
+  body.browserAction {
+    min-width: auto;
+    max-width: 450px;
   }
   section:not(:first-of-type) {
     border-color: #d7d7db;
