@@ -2916,8 +2916,9 @@ function shouldHideMainTimelineItem(type, page) {
     case 'REPLIED':
       return shouldHideAlgorithmicTweet(config.repliedToTweets, page)
     case 'RETWEET':
-    case 'RETWEETED_QUOTE_TWEET':
       return shouldHideSharedTweet(config.retweets, page)
+    case 'RETWEETED_QUOTE_TWEET':
+      return shouldHideSharedTweet(config.retweets, page) || shouldHideSharedTweet(config.quoteTweets, page)
     case 'SUGGESTED_TOPIC_TWEET':
       return shouldHideAlgorithmicTweet(config.suggestedTopicTweets, page)
     case 'TWEET':
