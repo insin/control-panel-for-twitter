@@ -798,7 +798,7 @@ function isOnQuoteTweetsPage() {
 }
 
 function isOnSearchPage() {
-  return currentPath.startsWith('/search')
+  return currentPath.startsWith('/search') || currentPath.startsWith('/hashtag/')
 }
 
 function isOnSeparatedTweetsTimeline() {
