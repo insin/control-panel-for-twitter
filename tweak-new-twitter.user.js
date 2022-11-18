@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name        Tweak New Twitter
 // @description Remove algorithmic content from Twitter, hide news & trends, control which shared tweets appear on your timeline, and improve the UI
+// @icon        https://raw.githubusercontent.com/insin/tweak-new-twitter/master/icons/icon32.png
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
-// @version     70
+// @version     71
 // ==/UserScript==
 
 let debug = false
