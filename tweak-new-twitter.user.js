@@ -30,6 +30,7 @@ const config = {
   alwaysUseLatestTweets: true,
   communityTweets: 'ignore',
   dontUseChirpFont: false,
+  dropdownMenuFontWeight: true,
   fastBlock: true,
   followButtonStyle: 'monochrome',
   followeesFollows: 'ignore',
@@ -1678,6 +1679,13 @@ const configureCss = (() => {
         ? `body.TimelineTabs ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div:nth-of-type(2)`
         : `body.TimelineTabs ${Selectors.DESKTOP_TIMELINE_HEADER} > div:nth-of-type(2):not(:last-child)`
       )
+    }
+    if (config.dropdownMenuFontWeight) {
+      cssRules.push(`
+        [data-testid="Dropdown"] [role="menuitem"] [dir="auto"] {
+          font-weight: normal;
+        }
+      `)
     }
     if (config.hideAnalyticsNav) {
       hideCssSelectors.push(`${menuRole} a[href*="analytics.twitter.com"]`)

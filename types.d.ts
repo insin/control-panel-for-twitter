@@ -7,6 +7,7 @@ export type Config = {
   alwaysUseLatestTweets: boolean
   communityTweets: AlgorithmicTweetsConfig
   dontUseChirpFont: boolean
+  dropdownMenuFontWeight: boolean
   fastBlock: boolean
   followButtonStyle: 'monochrome' | 'themed'
   followeesFollows: AlgorithmicTweetsConfig

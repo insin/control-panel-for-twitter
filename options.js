@@ -17,6 +17,7 @@ const checkboxGroups = new Map(Object.entries({
   ].filter(Boolean),
   uiImprovements: [
     'addAddMutedWordMenuItem',
+    'dropdownMenuFontWeight',
     'fastBlock',
     'hideVerifiedNotificationsTab',
     'uninvertFollowButtons',
@@ -66,6 +67,7 @@ const defaultConfig = {
   alwaysUseLatestTweets: true,
   communityTweets: 'ignore',
   dontUseChirpFont: false,
+  dropdownMenuFontWeight: true,
   fastBlock: true,
   followButtonStyle: 'monochrome',
   followeesFollows: 'ignore',
