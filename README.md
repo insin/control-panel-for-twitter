@@ -61,6 +61,7 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 - Uninvert the Follow and Following buttons to make them less jarring
   - Choice of monochrome or themed (classic) styling for uninverted buttons
 - Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
+- Use normal font weight in dropdown menus
 - Fast blocking - skips the confirm dialog when you try to block an account
 - Add a new item to the "More" menu (desktop) or slide-out menu (mobile) which takes you straight to the "Add muted word" page
 - When viewing a tweet's Quote Tweets, hide the quoted tweet to make more room for quotes
