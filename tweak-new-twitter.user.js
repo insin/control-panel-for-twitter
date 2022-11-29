@@ -1682,7 +1682,7 @@ const configureCss = (() => {
     }
     if (config.dropdownMenuFontWeight) {
       cssRules.push(`
-        [data-testid="Dropdown"] [role="menuitem"] [dir="auto"] {
+        [data-testid="Dropdown"] [role="menuitem"] [dir] {
           font-weight: normal;
         }
       `)
@@ -2067,9 +2067,9 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
     // Tweet count under username header on profile pages
     hideCssSelectors.push(
       mobile ? `
-        body.Profile header > div > div:first-of-type h2 + div[dir="auto"],
-        body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:first-of-type h2 + div[dir="auto"]
-      ` : `body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 + div[dir="auto"]`
+        body.Profile header > div > div:first-of-type h2 + div[dir],
+        body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:first-of-type h2 + div[dir]
+      ` : `body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 + div[dir]`
     )
   }
 
@@ -2115,8 +2115,8 @@ const configureNavFontSizeCss = (() => {
 
     if (fontSize != null && config.navBaseFontSize) {
       cssRules.push(`
-        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] span { font-size: ${fontSize}; font-weight: normal; }
-        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir="auto"] { margin-top: -4px; }
+        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir] span { font-size: ${fontSize}; font-weight: normal; }
+        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir] { margin-top: -4px; }
       `)
     }
 
@@ -2282,7 +2282,7 @@ const configureThemeCss = (() => {
  * @returns {import("./types").QuotedTweet}
  */
  function getQuotedTweetDetails($tweet) {
-  let $quotedTweet = $tweet.querySelector('div[id^="id__"] > div[dir="auto"] > span').parentElement.nextElementSibling
+  let $quotedTweet = $tweet.querySelector('div[id^="id__"] > div[dir] > span').parentElement.nextElementSibling
   let $heading = $quotedTweet?.querySelector(':scope > div > div:first-child')
   let user = $heading?.querySelector('div:last-child > span')?.textContent
   let time = $heading?.querySelector('time')?.dateTime
@@ -2320,13 +2320,13 @@ function getTweetType($tweet) {
       return 'UNAVAILABLE_RETWEET'
     }
     // Quoted tweets are preceded by visually-hidden "Quote Tweet" text
-    if ($tweet.querySelector('div[id^="id__"] > div[dir="auto"] > span')?.textContent.includes(getString('QUOTE_TWEET'))) {
+    if ($tweet.querySelector('div[id^="id__"] > div[dir] > span')?.textContent.includes(getString('QUOTE_TWEET'))) {
       return 'RETWEETED_QUOTE_TWEET'
     }
     return 'RETWEET'
   }
   // Quoted tweets are preceded by visually-hidden "Quote Tweet" text
-  if ($tweet.querySelector('div[id^="id__"] > div[dir="auto"] > span')?.textContent.includes(getString('QUOTE_TWEET'))) {
+  if ($tweet.querySelector('div[id^="id__"] > div[dir] > span')?.textContent.includes(getString('QUOTE_TWEET'))) {
     return 'QUOTE_TWEET'
   }
   // Quoted tweets from accounts you blocked or muted are displayed as an
