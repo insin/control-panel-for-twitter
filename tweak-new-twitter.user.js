@@ -5,7 +5,7 @@
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
-// @version     73
+// @version     74
 // ==/UserScript==
 
 let debug = false
