@@ -679,10 +679,10 @@ const Svgs = {
 }
 
 const MOBILE_LOGGED_OUT_URLS = ['/', '/i/flow/login', '/i/flow/signup']
-const PROFILE_FOLLOWS_URL_RE = /\/[a-zA-Z\d_]{1,15}\/(following|followers|followers_you_follow)\/?$/
-const PROFILE_TABS_URL_RE = /\/[a-zA-Z\d_]{1,15}\/(with_replies|media|likes)\/?$/
+const PROFILE_FOLLOWS_URL_RE = /\/[a-zA-Z\d_]{1,20}\/(following|followers|followers_you_follow)\/?$/
+const PROFILE_TABS_URL_RE = /\/[a-zA-Z\d_]{1,20}\/(with_replies|media|likes)\/?$/
 // https://twitter.com/${user}'s title ends with (@${user})
-const PROFILE_TITLE_RE = /\(@[a-zA-Z\d_]{1,15}\)$/
+const PROFILE_TITLE_RE = /\(@[a-zA-Z\d_]{1,20}\)$/
 const THEME_COLORS = new Set([
   'rgb(29, 155, 240)', // blue
   'rgb(255, 212, 0)', // yellow
