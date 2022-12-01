@@ -75,15 +75,22 @@ const defaultConfig = {
   hideBookmarksNav: true,
   hideCommunitiesNav: true,
   hideExplorePageContents: true,
+  hideFollowingMetrics: true,
   hideHelpCenterNav: true,
   hideKeyboardShortcutsNav: false,
+  hideLikeMetrics: true,
   hideListsNav: true,
+  hideMetrics: false,
   hideMomentsNav: true,
   hideMonetizationNav: true,
   hideMoreTweets: true,
   hideNewslettersNav: true,
+  hideQuoteTweetMetrics: true,
+  hideReplyMetrics: true,
+  hideRetweetMetrics: true,
   hideShareTweetButton: false,
   hideTopicsNav: true,
+  hideTotalTweetsMetrics: true,
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
   hideTwitterBlueNav: true,
@@ -107,13 +114,6 @@ const defaultConfig = {
   disabledHomeTimelineRedirect: 'notifications',
   fullWidthContent: false,
   fullWidthMedia: false,
-  hideMetrics: false,
-  hideFollowingMetrics: true,
-  hideLikeMetrics: true,
-  hideQuoteTweetMetrics: true,
-  hideReplyMetrics: true,
-  hideRetweetMetrics: true,
-  hideTotalTweetsMetrics: true,
   reducedInteractionMode: false,
   verifiedAccounts: 'ignore',
   // Desktop only
@@ -333,7 +333,6 @@ chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ store
   $experiments.open = (
     optionsConfig.disableHomeTimeline ||
     optionsConfig.fullWidthContent ||
-    optionsConfig.hideMetrics ||
     optionsConfig.reducedInteractionMode ||
     optionsConfig.verifiedAccounts != 'ignore'
   )

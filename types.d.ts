@@ -14,15 +14,22 @@ export type Config = {
   hideAnalyticsNav: boolean
   hideBookmarksNav: boolean
   hideCommunitiesNav: boolean
+  hideFollowingMetrics: boolean
   hideHelpCenterNav: boolean
   hideKeyboardShortcutsNav: boolean
+  hideLikeMetrics: boolean
   hideListsNav: boolean
+  hideMetrics: boolean
   hideMomentsNav: boolean
   hideMonetizationNav: boolean
   hideMoreTweets: boolean
   hideNewslettersNav: boolean
+  hideQuoteTweetMetrics: boolean
+  hideReplyMetrics: boolean
+  hideRetweetMetrics: boolean
   hideShareTweetButton: boolean
   hideTopicsNav: boolean
+  hideTotalTweetsMetrics: boolean
   hideTweetAnalyticsLinks: boolean
   hideTwitterAdsNav: boolean
   hideTwitterBlueNav: boolean
@@ -46,13 +53,6 @@ export type Config = {
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
   fullWidthContent: boolean
   fullWidthMedia: boolean
-  hideMetrics: boolean
-  hideFollowingMetrics: boolean
-  hideLikeMetrics: boolean
-  hideQuoteTweetMetrics: boolean
-  hideReplyMetrics: boolean
-  hideRetweetMetrics: boolean
-  hideTotalTweetsMetrics: boolean
   reducedInteractionMode: boolean
   verifiedAccounts: VerifiedAccountsConfig
   // Desktop only

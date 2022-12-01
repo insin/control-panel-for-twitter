@@ -69,6 +69,7 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 
 ### Hide UI items you don't use
 
+- Hide any metrics you don't want to see
 - Hide navigation items you don't use on desktop, and other distracting screen elements such as the account switcher and Messages drawer
 - Hide the bottom nav item for Messages on mobile if you don't use it
 - Hide items you don't use in the "More" menu (desktop) or slide-out menu (mobile)
@@ -77,7 +78,6 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 
 Optional features you can try, to see how they change how you perceive and use Twitter:
 
-- Hide metrics: hide like, retweet, quote tweet and follower counts
 - Reduced interaction mode: hide the action bar under tweets – replies are now the only means of interacting
 - Full-width timeline content: hide the sidebar and let timeline content go full-width
 - Verified accounts: highlight tweets by – or interacting with – verified accounts, or hide them to simulate the aftermath of the [July 2020 Twitter hacks](https://en.wikipedia.org/wiki/2020_Twitter_account_hijacking)
