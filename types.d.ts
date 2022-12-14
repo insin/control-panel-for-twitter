@@ -81,7 +81,6 @@ export type LocaleKey =
   | 'QUOTE_TWEETS'
   | 'RETWEETS'
   | 'SHARED_TWEETS'
-  | 'TIMELINE_OPTIONS'
   | 'TWITTER'
 
 export type NamedMutationObserver = MutationObserver & {name?: string}

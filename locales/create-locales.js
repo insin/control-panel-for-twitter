@@ -155,7 +155,6 @@ let template = {
   QUOTE_TWEET: 'c9d7235d',
   QUOTE_TWEETS: 'bd7c039f',
   RETWEETS: 'd497b854',
-  TIMELINE_OPTIONS: 'gf85d8c5',
   TWITTER: 'd2fb334b',
 }
 
@@ -180,7 +179,6 @@ for (let file of fs.readdirSync('./js')) {
   }
   let localeCode = file.split('.')[0]
   if (localeCode != 'en' && locale.TWITTER == 'Twitter') delete locale.TWITTER
-  if (localeCode != 'en' && locale.TIMELINE_OPTIONS == 'Timeline options') delete locale.TIMELINE_OPTIONS
   Object.assign(locale, externalTranslations[localeCode])
   locales[localeCode] = sortProperties(locale)
 }

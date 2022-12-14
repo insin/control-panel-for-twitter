@@ -106,7 +106,6 @@ const locales = {
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RETWEETS: 'إعادات التغريد',
     SHARED_TWEETS: 'التغريدات المشتركة',
-    TIMELINE_OPTIONS: 'خيارات اليوميات',
     TWITTER: 'تويتر',
   },
   ar: {
@@ -118,7 +117,6 @@ const locales = {
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RETWEETS: 'إعادات التغريد',
     SHARED_TWEETS: 'التغريدات المشتركة',
-    TIMELINE_OPTIONS: 'خيارات اليوميات',
     TWITTER: 'تويتر',
   },
   bg: {
@@ -130,7 +128,6 @@ const locales = {
     QUOTE_TWEETS: 'Туитове с цитат',
     RETWEETS: 'Ретуитове',
     SHARED_TWEETS: 'Споделени туитове',
-    TIMELINE_OPTIONS: 'Опции за хрониката',
   },
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
@@ -141,7 +138,6 @@ const locales = {
     QUOTE_TWEETS: 'টুইট উদ্ধৃতিগুলো',
     RETWEETS: 'পুনঃটুইটগুলো',
     SHARED_TWEETS: 'ভাগ করা টুইটগুলি',
-    TIMELINE_OPTIONS: 'সময়রেখার বিকল্প',
     TWITTER: 'টুইটার',
   },
   ca: {
@@ -153,7 +149,6 @@ const locales = {
     QUOTE_TWEETS: 'Tuits amb cita',
     RETWEETS: 'Retuits',
     SHARED_TWEETS: 'Tuits compartits',
-    TIMELINE_OPTIONS: 'Opcions de la cronologia',
   },
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
@@ -164,7 +159,6 @@ const locales = {
     QUOTE_TWEETS: 'Tweety s citací',
     RETWEETS: 'Retweety',
     SHARED_TWEETS: 'Sdílené tweety',
-    TIMELINE_OPTIONS: 'Možnosti časové osy',
   },
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
@@ -175,7 +169,6 @@ const locales = {
     QUOTE_TWEETS: 'Citat-Tweets',
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Delte tweets',
-    TIMELINE_OPTIONS: 'Tidslinjeindstillinger',
   },
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
@@ -186,7 +179,6 @@ const locales = {
     QUOTE_TWEETS: 'Zitierte Tweets',
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Geteilte Tweets',
-    TIMELINE_OPTIONS: 'Timeline-Optionen',
   },
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
@@ -197,7 +189,6 @@ const locales = {
     QUOTE_TWEETS: 'Tweet με παράθεση',
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Κοινόχρηστα Tweets',
-    TIMELINE_OPTIONS: 'Επιλογές χρονολογίου',
   },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
@@ -208,7 +199,6 @@ const locales = {
     QUOTE_TWEETS: 'Quote Tweets',
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Shared Tweets',
-    TIMELINE_OPTIONS: 'Timeline options',
     TWITTER: 'Twitter',
   },
   es: {
@@ -220,7 +210,6 @@ const locales = {
     QUOTE_TWEETS: 'Tweets citados',
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Tweets compartidos',
-    TIMELINE_OPTIONS: 'Opciones de cronología',
   },
   eu: {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
@@ -241,7 +230,6 @@ const locales = {
     QUOTE_TWEETS: 'نقل‌توییت',
     RETWEETS: 'بازتوییت‌ها',
     SHARED_TWEETS: 'توییتهای مشترک',
-    TIMELINE_OPTIONS: 'گزینه‌های خط زمان',
     TWITTER: 'توییتر',
   },
   fi: {
@@ -253,7 +241,6 @@ const locales = {
     QUOTE_TWEETS: 'Twiitin lainaukset',
     RETWEETS: 'Uudelleentwiittaukset',
     SHARED_TWEETS: 'Jaetut twiitit',
-    TIMELINE_OPTIONS: 'Aikajanavalinnat',
   },
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
@@ -264,7 +251,6 @@ const locales = {
     QUOTE_TWEETS: 'Mga Quote na Tweet',
     RETWEETS: 'Mga Retweet',
     SHARED_TWEETS: 'Mga Ibinahaging Tweet',
-    TIMELINE_OPTIONS: 'Mga opsyon sa timeline',
   },
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
@@ -275,7 +261,6 @@ const locales = {
     QUOTE_TWEETS: 'Tweets cités',
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Tweets partagés',
-    TIMELINE_OPTIONS: 'Options du fil',
   },
   ga: {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
@@ -306,7 +291,6 @@ const locales = {
     QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ',
     RETWEETS: 'પુનટ્વીટ્સ',
     SHARED_TWEETS: 'શેર કરેલી ટ્વીટ્સ',
-    TIMELINE_OPTIONS: 'સમય અવધિના વિકલ્પો',
   },
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
@@ -317,7 +301,6 @@ const locales = {
     QUOTE_TWEETS: 'ציוצי ציטוט',
     RETWEETS: 'ציוצים מחדש',
     SHARED_TWEETS: 'ציוצים משותפים',
-    TIMELINE_OPTIONS: 'אפשרויות ציר זמן',
     TWITTER: 'טוויטר',
   },
   hi: {
@@ -329,7 +312,6 @@ const locales = {
     QUOTE_TWEETS: 'कोट ट्वीट्स',
     RETWEETS: 'रीट्वीट्स',
     SHARED_TWEETS: 'साझा किए गए ट्वीट',
-    TIMELINE_OPTIONS: 'टाइमलाइन विकल्प',
   },
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
@@ -340,7 +322,6 @@ const locales = {
     QUOTE_TWEETS: 'Citirani tweetovi',
     RETWEETS: 'Proslijeđeni tweetovi',
     SHARED_TWEETS: 'Dijeljeni tweetovi',
-    TIMELINE_OPTIONS: 'Mogućnosti vremenske crte',
   },
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
@@ -351,7 +332,6 @@ const locales = {
     QUOTE_TWEETS: 'Tweet-idézések',
     RETWEETS: 'Retweetek',
     SHARED_TWEETS: 'Megosztott tweetek',
-    TIMELINE_OPTIONS: 'Idővonal beállításai',
   },
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
@@ -362,7 +342,6 @@ const locales = {
     QUOTE_TWEETS: 'Kutip Tweet',
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Tweet yang Dibagikan',
-    TIMELINE_OPTIONS: 'Pilihan Timeline',
   },
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
@@ -373,7 +352,6 @@ const locales = {
     QUOTE_TWEETS: 'Tweet di citazione',
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Tweet condivisi',
-    TIMELINE_OPTIONS: 'Opzioni cronologia',
   },
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
@@ -384,7 +362,6 @@ const locales = {
     QUOTE_TWEETS: '引用ツイート',
     RETWEETS: 'リツイート',
     SHARED_TWEETS: '共有ツイート',
-    TIMELINE_OPTIONS: 'タイムラインオプション',
   },
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
@@ -395,7 +372,6 @@ const locales = {
     QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು',
     RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳು',
     SHARED_TWEETS: 'ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು',
-    TIMELINE_OPTIONS: 'ಟೈಮ್‌ಲೈನ್ ಆಯ್ಕೆಗಳು',
   },
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
@@ -406,7 +382,6 @@ const locales = {
     QUOTE_TWEETS: '트윗 인용하기',
     RETWEETS: '리트윗',
     SHARED_TWEETS: '공유 트윗',
-    TIMELINE_OPTIONS: '타임라인 옵션',
     TWITTER: '트위터',
   },
   mr: {
@@ -418,7 +393,6 @@ const locales = {
     QUOTE_TWEETS: 'भाष्य ट्विट्स',
     RETWEETS: 'पुनर्ट्विट्स',
     SHARED_TWEETS: 'सामायिक ट्विट',
-    TIMELINE_OPTIONS: 'टाइमलाइनचे पर्याय',
   },
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
@@ -429,7 +403,6 @@ const locales = {
     QUOTE_TWEETS: 'Tweet Petikan',
     RETWEETS: 'Tweet semula',
     SHARED_TWEETS: 'Tweet Berkongsi',
-    TIMELINE_OPTIONS: 'Pilihan Garis Masa',
   },
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
@@ -440,7 +413,6 @@ const locales = {
     QUOTE_TWEETS: 'Sitat-Tweets',
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Delte tweets',
-    TIMELINE_OPTIONS: 'Alternativer for tidslinjen',
   },
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
@@ -451,7 +423,6 @@ const locales = {
     QUOTE_TWEETS: 'Geciteerde Tweets',
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Gedeelde Tweets',
-    TIMELINE_OPTIONS: 'Tijdlijn-opties',
   },
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
@@ -462,7 +433,6 @@ const locales = {
     QUOTE_TWEETS: 'Cytaty z Tweeta',
     RETWEETS: 'Tweety podane dalej',
     SHARED_TWEETS: 'Udostępnione Tweety',
-    TIMELINE_OPTIONS: 'Opcje dotyczące osi czasu',
   },
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
@@ -473,7 +443,6 @@ const locales = {
     QUOTE_TWEETS: 'Tweets com comentário',
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Tweets Compartilhados',
-    TIMELINE_OPTIONS: 'Opções de timeline',
   },
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
@@ -484,7 +453,6 @@ const locales = {
     QUOTE_TWEETS: 'Tweeturi cu citat',
     RETWEETS: 'Retweeturi',
     SHARED_TWEETS: 'Tweeturi partajate',
-    TIMELINE_OPTIONS: 'Opțiuni pentru cronologie',
   },
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
@@ -495,7 +463,6 @@ const locales = {
     QUOTE_TWEETS: 'Твиты с цитатами',
     RETWEETS: 'Ретвиты',
     SHARED_TWEETS: 'Общие твиты',
-    TIMELINE_OPTIONS: 'Параметры ленты',
     TWITTER: 'Твиттер',
   },
   sk: {
@@ -507,7 +474,6 @@ const locales = {
     QUOTE_TWEETS: 'Tweety s citátom',
     RETWEETS: 'Retweety',
     SHARED_TWEETS: 'Zdieľané Tweety',
-    TIMELINE_OPTIONS: 'Možnosti časovej osi',
   },
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
@@ -518,7 +484,6 @@ const locales = {
     QUOTE_TWEETS: 'твит(ов)а са цитатом',
     RETWEETS: 'Ретвитови',
     SHARED_TWEETS: 'Дељени твитови',
-    TIMELINE_OPTIONS: 'Опције временске траке',
     TWITTER: 'Твитер',
   },
   sv: {
@@ -530,7 +495,6 @@ const locales = {
     QUOTE_TWEETS: 'Citattweets',
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Delade tweetsen',
-    TIMELINE_OPTIONS: 'Alternativ för tidslinjen',
   },
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
@@ -541,7 +505,6 @@ const locales = {
     QUOTE_TWEETS: 'மேற்கோள் கீச்சுகள்',
     RETWEETS: 'மறுகீச்சுகள்',
     SHARED_TWEETS: 'பகிரப்பட்ட ட்வீட்டுகள்',
-    TIMELINE_OPTIONS: 'காலவரிசை விருப்பங்கள்',
   },
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
@@ -552,7 +515,6 @@ const locales = {
     QUOTE_TWEETS: 'ทวีตและคำพูด',
     RETWEETS: 'รีทวีต',
     SHARED_TWEETS: 'ทวีตที่แชร์',
-    TIMELINE_OPTIONS: 'ตัวเลือกลำดับเหตุการณ์',
     TWITTER: 'ทวิตเตอร์',
   },
   tr: {
@@ -564,7 +526,6 @@ const locales = {
     QUOTE_TWEETS: 'Alıntı Tweetler',
     RETWEETS: 'Retweetler',
     SHARED_TWEETS: 'Paylaşılan Tweetler',
-    TIMELINE_OPTIONS: 'Zaman akışı seçenekleri',
   },
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
@@ -575,7 +536,6 @@ const locales = {
     QUOTE_TWEETS: 'Твіти з цитатою',
     RETWEETS: 'Ретвіти',
     SHARED_TWEETS: 'Спільні твіти',
-    TIMELINE_OPTIONS: 'Параметри стрічки',
     TWITTER: 'Твіттер',
   },
   ur: {
@@ -598,7 +558,6 @@ const locales = {
     QUOTE_TWEETS: 'Tweet trích dẫn',
     RETWEETS: 'Các Tweet lại',
     SHARED_TWEETS: 'Tweet được chia sẻ',
-    TIMELINE_OPTIONS: 'Các tùy chọn Dòng thời gian',
   },
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
@@ -609,7 +568,6 @@ const locales = {
     QUOTE_TWEETS: '引用的推文',
     RETWEETS: '轉推',
     SHARED_TWEETS: '分享的推文',
-    TIMELINE_OPTIONS: '時間軸選項',
   },
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
@@ -620,7 +578,6 @@ const locales = {
     QUOTE_TWEETS: '引用推文',
     RETWEETS: '转推',
     SHARED_TWEETS: '分享的推文',
-    TIMELINE_OPTIONS: '时间线选项',
   },
 }
 
@@ -805,14 +762,6 @@ function isOnSearchPage() {
 
 function isOnSeparatedTweetsTimeline() {
   return currentPage == separatedTweetsTimelineTitle
-}
-
-function isOnTabbedTimeline() {
-  if (!isOnMainTimelinePage()) {
-    return false
-  }
-  let $header = document.querySelector(desktop ? Selectors.DESKTOP_TIMELINE_HEADER : Selectors.MOBILE_TIMELINE_HEADER_OLD)
-  return $header?.childElementCount == (desktop ? 3 : 2)
 }
 
 function isOnTopicsPage() {
@@ -1674,11 +1623,6 @@ const configureCss = (() => {
            `body.MainTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div:only-child > div:only-child > div:only-child > div:only-child > div:only-child > div:last-of-type:not(:only-child)`,
           ].join(', ')
       )
-      // Hide timeline tabs
-      hideCssSelectors.push(mobile
-        ? `body.TimelineTabs ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div:nth-of-type(2)`
-        : `body.TimelineTabs ${Selectors.DESKTOP_TIMELINE_HEADER} > div:nth-of-type(2):not(:last-child)`
-      )
     }
     if (config.dropdownMenuFontWeight) {
       cssRules.push(`
@@ -2008,14 +1952,6 @@ const configureCss = (() => {
         cssRules.push(`
           #tnt_switch_timeline span {
             cursor: pointer;
-          }
-          body.TimelineTabs #tnt_switch_timeline {
-            align-items: end;
-            align-self: stretch;
-            display: flex;
-            flex-basis: 50%;
-            flex-direction: column;
-            justify-content: center;
           }
         `)
       }
@@ -2826,7 +2762,6 @@ function processCurrentPage() {
   $body.classList.toggle('Home', isOnHomeTimeline())
   $body.classList.toggle('LatestTweets', isOnLatestTweetsTimeline())
   $body.classList.toggle('SeparatedTweets', isOnSeparatedTweetsTimeline())
-  $body.classList.toggle('TimelineTabs', isOnTabbedTimeline())
 
   if (desktop) {
     if (config.twitterBlueChecks != 'ignore' || config.fullWidthContent && (isOnMainTimelinePage() || isOnListPage())) {
@@ -2993,52 +2928,17 @@ async function switchToLatestTweets(page) {
   })
   if ($sparkleButton == null) return
 
-  if ($sparkleButton.getAttribute('aria-label') == getString('TIMELINE_OPTIONS')) {
-    log('tabbed timeline is being used')
+  log('clicking sparkle button')
+  $sparkleButton.click()
 
-    let $timelineHeader = document.querySelector(desktop ? Selectors.DESKTOP_TIMELINE_HEADER : Selectors.MOBILE_TIMELINE_HEADER_OLD)
-    if ($timelineHeader == null) {
-      warn('could not find timeline header')
-      return
-    }
+  let $seeLatestTweetsInstead = await getElement('div[role="menu"] div[role="menuitem"]', {
+    name: '"See latest Tweets instead" menu item',
+    stopIf: pageIsNot(page),
+  })
+  if ($seeLatestTweetsInstead == null) return
 
-    if ($timelineHeader.childElementCount != (desktop ? 3 : 2)) {
-      log('timeline tabs not showing - clicking sparkle button')
-      $sparkleButton.click()
-
-      let $pinYourLatestTimeline = await getElement('div[role="menu"] div[role="menuitem"]', {
-        name: '"Pin your Latest timeline" menu item',
-        stopIf: pageIsNot(page),
-      })
-      if ($pinYourLatestTimeline == null) return
-
-      log('clicking "Pin your Latest timeline" menu item')
-      $pinYourLatestTimeline.click()
-    }
-
-    let $latestTweetsTab = /** @type {HTMLElement} */ ($timelineHeader.querySelector('[data-testid="ScrollSnap-List"] [role="presentation"]:nth-child(2) a'))
-    if ($latestTweetsTab == null) {
-      warn('could not find "Latest Tweets" tab')
-      return
-    }
-
-    log('clicking "Latest Tweets" tab')
-    $latestTweetsTab.click()
-  }
-  else {
-    log('non-tabbed timeline is being used')
-    log('clicking sparkle button')
-    $sparkleButton.click()
-
-    let $seeLatestTweetsInstead = await getElement('div[role="menu"] div[role="menuitem"]', {
-      name: '"See latest Tweets instead" menu item',
-      stopIf: pageIsNot(page),
-    })
-    if ($seeLatestTweetsInstead == null) return
-
-    log('clicking "See latest Tweets" instead menu item')
-    $seeLatestTweetsInstead.click()
-  }
+  log('clicking "See latest Tweets" instead menu item')
+  $seeLatestTweetsInstead.click()
 }
 
 /**
