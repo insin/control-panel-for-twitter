@@ -1661,7 +1661,7 @@ const configureCss = (() => {
     }
     if (config.dropdownMenuFontWeight) {
       cssRules.push(`
-        [data-testid="Dropdown"] [role="menuitem"] [dir] {
+        [data-testid="${desktop ? 'Dropdown' : 'sheetDialog'}"] [role="menuitem"] [dir] {
           font-weight: normal;
         }
       `)
