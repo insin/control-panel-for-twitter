@@ -32,6 +32,7 @@ const checkboxGroups = new Map(Object.entries({
     desktop && 'hideBookmarksNav',
     desktop && 'hideExploreNav',
     desktop && 'hideMessagesDrawer',
+    desktop && 'hideTwitterBlueNav',
     mobile && 'hideMessagesBottomNavItem',
   ].filter(Boolean),
   hideMoreSlideOutMenuItems: [
@@ -43,11 +44,11 @@ const checkboxGroups = new Map(Object.entries({
     'hideNewslettersNav',
     'hideTopicsNav',
     'hideTwitterAdsNav',
-    'hideTwitterBlueNav',
     'hideTwitterCircleNav',
     'hideTwitterForProfessionalsNav',
     desktop && 'hideKeyboardShortcutsNav',
     mobile && 'hideBookmarksNav',
+    mobile && 'hideTwitterBlueNav',
   ].filter(Boolean),
   hideAllMetrics: [
     'hideFollowingMetrics',
