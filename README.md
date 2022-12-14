@@ -42,7 +42,7 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 - Keeps you on the Latest Tweets (chronological) timeline, automatically switching you back if Twitter tries to move you to the "Home" (algorithmic) timeline
 - Hide "Who to follow", "Follow some Topics" etc. in the timeline
 - Hide "What's happening", "Topics to follow" etc. in the sidebar
-- Hide "More Tweets" when linked to a tweet
+- Hide "Discover more" algorithmic tweets when viewing an individual tweet
 - Hide algorithmic tweets based on likes, replies, communities, and suggested topics in the "Home" timeline, if you use it
 - Hide Explore page contents and use it only for searching
 
