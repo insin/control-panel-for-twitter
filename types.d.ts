@@ -74,6 +74,7 @@ export type Locale = {
 
 export type LocaleKey =
   | 'ADD_MUTED_WORD'
+  | 'DISCOVER_MORE'
   | 'HOME'
   | 'LATEST_TWEETS'
   | 'MUTE_THIS_CONVERSATION'
@@ -95,6 +96,7 @@ export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
 
 export type TimelineItemType =
   | 'COMMUNITY_TWEET'
+  | 'DISCOVER_MORE_HEADING'
   | 'FOLLOWEES_FOLLOWS'
   | 'HEADING'
   | 'LIKED'

@@ -99,6 +99,7 @@ const config = {
 const locales = {
   'ar-x-fm': {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
+    DISCOVER_MORE: 'اكتشاف المزيد',
     HOME: 'الرئيسيّة',
     LATEST_TWEETS: 'أحدث التغريدات',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
@@ -110,6 +111,7 @@ const locales = {
   },
   ar: {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
+    DISCOVER_MORE: 'اكتشاف المزيد',
     HOME: 'الرئيسيّة',
     LATEST_TWEETS: 'أحدث التغريدات',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
@@ -117,10 +119,10 @@ const locales = {
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RETWEETS: 'إعادات التغريد',
     SHARED_TWEETS: 'التغريدات المشتركة',
-    TWITTER: 'تويتر',
   },
   bg: {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
+    DISCOVER_MORE: 'Откриване на още',
     HOME: 'Начало',
     LATEST_TWEETS: 'Най-новите туитове',
     MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
@@ -131,6 +133,7 @@ const locales = {
   },
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
+    DISCOVER_MORE: 'আরও খুঁজুন',
     HOME: 'হোম',
     LATEST_TWEETS: 'সাম্প্রতিক টুইটগুলি',
     MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
@@ -142,6 +145,7 @@ const locales = {
   },
   ca: {
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
+    DISCOVER_MORE: 'Descobreix-ne més',
     HOME: 'Inici',
     LATEST_TWEETS: 'Tuits més recents',
     MUTE_THIS_CONVERSATION: 'Silencia la conversa',
@@ -152,6 +156,7 @@ const locales = {
   },
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
+    DISCOVER_MORE: 'Objevte víc',
     HOME: 'Hlavní stránka',
     LATEST_TWEETS: 'Nejnovější tweety',
     MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
@@ -162,26 +167,27 @@ const locales = {
   },
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
+    DISCOVER_MORE: 'Opdag mere',
     HOME: 'Forside',
     LATEST_TWEETS: 'Seneste Tweets',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
     QUOTE_TWEET: 'Citér Tweet',
     QUOTE_TWEETS: 'Citat-Tweets',
-    RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Delte tweets',
   },
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
+    DISCOVER_MORE: 'Mehr entdecken',
     HOME: 'Startseite',
     LATEST_TWEETS: 'Neueste Tweets',
-    MUTE_THIS_CONVERSATION: 'Diese Unterhaltung stummschalten',
+    MUTE_THIS_CONVERSATION: 'Diese Konversation stummschalten',
     QUOTE_TWEET: 'Tweet zitieren',
     QUOTE_TWEETS: 'Zitierte Tweets',
-    RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Geteilte Tweets',
   },
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
+    DISCOVER_MORE: 'Ανακαλύψτε περισσότερα',
     HOME: 'Αρχική σελίδα',
     LATEST_TWEETS: 'Τα πιο πρόσφατα Tweet',
     MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
@@ -192,6 +198,7 @@ const locales = {
   },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
+    DISCOVER_MORE: 'Discover more',
     HOME: 'Home',
     LATEST_TWEETS: 'Latest Tweets',
     MUTE_THIS_CONVERSATION: 'Mute this conversation',
@@ -203,12 +210,12 @@ const locales = {
   },
   es: {
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
+    DISCOVER_MORE: 'Descubrir más',
     HOME: 'Inicio',
     LATEST_TWEETS: 'Tweets más recientes',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
     QUOTE_TWEET: 'Citar Tweet',
     QUOTE_TWEETS: 'Tweets citados',
-    RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Tweets compartidos',
   },
   eu: {
@@ -223,17 +230,19 @@ const locales = {
   },
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
+    DISCOVER_MORE: 'کاوش بیشتر',
     HOME: 'خانه',
     LATEST_TWEETS: 'جدیدترین توییت‌ها',
     MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
     QUOTE_TWEET: 'نقل‌توییت',
-    QUOTE_TWEETS: 'نقل‌توییت',
+    QUOTE_TWEETS: 'نقل‌توییت‌ها',
     RETWEETS: 'بازتوییت‌ها',
     SHARED_TWEETS: 'توییتهای مشترک',
     TWITTER: 'توییتر',
   },
   fi: {
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
+    DISCOVER_MORE: 'Löydä uutta',
     HOME: 'Etusivu',
     LATEST_TWEETS: 'Uusimmat twiitit',
     MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
@@ -244,6 +253,7 @@ const locales = {
   },
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
+    DISCOVER_MORE: 'Tuklasin ang higit pa',
     HOME: 'Home',
     LATEST_TWEETS: 'Mga Pinakabagong Tweet',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
@@ -254,12 +264,12 @@ const locales = {
   },
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
+    DISCOVER_MORE: 'Découvrez plus',
     HOME: 'Accueil',
     LATEST_TWEETS: 'Tout derniers Tweets',
     MUTE_THIS_CONVERSATION: 'Masquer cette conversation',
     QUOTE_TWEET: 'Citer le Tweet',
     QUOTE_TWEETS: 'Tweets cités',
-    RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Tweets partagés',
   },
   ga: {
@@ -284,6 +294,7 @@ const locales = {
   },
   gu: {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
+    DISCOVER_MORE: 'વધુ શોધો',
     HOME: 'હોમ',
     LATEST_TWEETS: 'તાજેતરની ટ્વીટ્સ',
     MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
@@ -294,6 +305,7 @@ const locales = {
   },
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
+    DISCOVER_MORE: 'גלה עוד',
     HOME: 'דף הבית',
     LATEST_TWEETS: 'הציוצים האחרונים',
     MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
@@ -305,16 +317,18 @@ const locales = {
   },
   hi: {
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
+    DISCOVER_MORE: 'और अधिक जानें',
     HOME: 'होम',
     LATEST_TWEETS: 'नवीनतम ट्वीट्स',
     MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
-    QUOTE_TWEET: 'कोट ट्वीट',
+    QUOTE_TWEET: 'ट्वीट क्वोट करें',
     QUOTE_TWEETS: 'कोट ट्वीट्स',
     RETWEETS: 'रीट्वीट्स',
     SHARED_TWEETS: 'साझा किए गए ट्वीट',
   },
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
+    DISCOVER_MORE: 'Otkrijte više',
     HOME: 'Naslovnica',
     LATEST_TWEETS: 'Najnoviji tweetovi',
     MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
@@ -325,6 +339,7 @@ const locales = {
   },
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
+    DISCOVER_MORE: 'Továbbiak felfedezése',
     HOME: 'Kezdőlap',
     LATEST_TWEETS: 'A legfrissebb Tweetek',
     MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
@@ -335,26 +350,29 @@ const locales = {
   },
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
+    DISCOVER_MORE: 'Temukan lebih banyak',
     HOME: 'Beranda',
     LATEST_TWEETS: 'Tweet Terbaru',
     MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
     QUOTE_TWEET: 'Kutip Tweet',
-    QUOTE_TWEETS: 'Kutip Tweet',
+    QUOTE_TWEETS: 'Tweet Kutipan',
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Tweet yang Dibagikan',
   },
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
+    DISCOVER_MORE: 'Continua con la scoperta',
     HOME: 'Home',
     LATEST_TWEETS: 'Tweet più recenti',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
-    QUOTE_TWEET: 'Cita il Tweet',
+    QUOTE_TWEET: 'Cita Tweet',
     QUOTE_TWEETS: 'Tweet di citazione',
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Tweet condivisi',
   },
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
+    DISCOVER_MORE: 'もっと見つける',
     HOME: 'ホーム',
     LATEST_TWEETS: '最新ツイート',
     MUTE_THIS_CONVERSATION: 'この会話をミュート',
@@ -365,6 +383,7 @@ const locales = {
   },
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
+    DISCOVER_MORE: 'ಇನ್ನಷ್ಟನ್ನು ಕಂಡುಕೊಳ್ಳಿ',
     HOME: 'ಹೋಮ್',
     LATEST_TWEETS: 'ಇತ್ತೀಚಿನ ಟ್ವೀಟ್‌ಗಳು',
     MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
@@ -375,6 +394,7 @@ const locales = {
   },
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
+    DISCOVER_MORE: '더 찾아보기',
     HOME: '홈',
     LATEST_TWEETS: '최신 트윗',
     MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
@@ -386,6 +406,7 @@ const locales = {
   },
   mr: {
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
+    DISCOVER_MORE: 'अधिक प्रमाणामध्ये शोधा',
     HOME: 'होम',
     LATEST_TWEETS: 'अगदी अलीकडच्या ट्विट्स',
     MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
@@ -396,6 +417,7 @@ const locales = {
   },
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
+    DISCOVER_MORE: 'Temui lagi',
     HOME: 'Laman Utama',
     LATEST_TWEETS: 'Tweet terkini',
     MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
@@ -406,26 +428,27 @@ const locales = {
   },
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
+    DISCOVER_MORE: 'Oppdag mer',
     HOME: 'Hjem',
     LATEST_TWEETS: 'De nyeste tweetene',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtalen',
     QUOTE_TWEET: 'Sitat-Tweet',
     QUOTE_TWEETS: 'Sitat-Tweets',
-    RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Delte tweets',
   },
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
+    DISCOVER_MORE: 'Meer ontdekken',
     HOME: 'Startpagina',
     LATEST_TWEETS: 'Nieuwste Tweets',
     MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
     QUOTE_TWEET: 'Citeer Tweet',
     QUOTE_TWEETS: 'Geciteerde Tweets',
-    RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Gedeelde Tweets',
   },
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
+    DISCOVER_MORE: 'Odkryj więcej',
     HOME: 'Główna',
     LATEST_TWEETS: 'Najnowsze Tweety',
     MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
@@ -436,30 +459,32 @@ const locales = {
   },
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
+    DISCOVER_MORE: 'Descubra mais',
     HOME: 'Página Inicial',
     LATEST_TWEETS: 'Tweets Mais Recentes',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     QUOTE_TWEET: 'Comentar o Tweet',
     QUOTE_TWEETS: 'Tweets com comentário',
-    RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Tweets Compartilhados',
   },
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
+    DISCOVER_MORE: 'Descoperă mai mult',
     HOME: 'Pagina principală',
     LATEST_TWEETS: 'Cele mai recente Tweeturi',
     MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
-    QUOTE_TWEET: 'Tweet cu citat',
+    QUOTE_TWEET: 'Citează Tweetul',
     QUOTE_TWEETS: 'Tweeturi cu citat',
     RETWEETS: 'Retweeturi',
     SHARED_TWEETS: 'Tweeturi partajate',
   },
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
+    DISCOVER_MORE: 'Узнать больше',
     HOME: 'Главная',
     LATEST_TWEETS: 'Последние твиты',
     MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
-    QUOTE_TWEET: 'Цитировать твит',
+    QUOTE_TWEET: 'Цитировать',
     QUOTE_TWEETS: 'Твиты с цитатами',
     RETWEETS: 'Ретвиты',
     SHARED_TWEETS: 'Общие твиты',
@@ -467,6 +492,7 @@ const locales = {
   },
   sk: {
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
+    DISCOVER_MORE: 'Objaviť viac',
     HOME: 'Domov',
     LATEST_TWEETS: 'Najnovšie Tweety',
     MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
@@ -477,6 +503,7 @@ const locales = {
   },
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
+    DISCOVER_MORE: 'Откриј више',
     HOME: 'Почетна',
     LATEST_TWEETS: 'Најновији твитови',
     MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
@@ -488,16 +515,17 @@ const locales = {
   },
   sv: {
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
+    DISCOVER_MORE: 'Upptäck mer',
     HOME: 'Hem',
     LATEST_TWEETS: 'Senaste tweetsen',
     MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
     QUOTE_TWEET: 'Citera Tweet',
-    QUOTE_TWEETS: 'Citattweets',
-    RETWEETS: 'Retweets',
+    QUOTE_TWEETS: 'Citat-tweets',
     SHARED_TWEETS: 'Delade tweetsen',
   },
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
+    DISCOVER_MORE: 'மேலும் கண்டறியவும்',
     HOME: 'முகப்பு',
     LATEST_TWEETS: 'சமீபத்திய கீச்சுகள்',
     MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
@@ -508,6 +536,7 @@ const locales = {
   },
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
+    DISCOVER_MORE: 'ค้นหาเพิ่มเติม',
     HOME: 'หน้าแรก',
     LATEST_TWEETS: 'ทวีตล่าสุด',
     MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
@@ -519,31 +548,34 @@ const locales = {
   },
   tr: {
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
+    DISCOVER_MORE: 'Daha fazlasını keşfet',
     HOME: 'Anasayfa',
     LATEST_TWEETS: 'En Son Tweetler',
     MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
-    QUOTE_TWEET: 'Alıntı Tweet',
+    QUOTE_TWEET: 'Tweeti Alıntıla',
     QUOTE_TWEETS: 'Alıntı Tweetler',
     RETWEETS: 'Retweetler',
     SHARED_TWEETS: 'Paylaşılan Tweetler',
   },
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
+    DISCOVER_MORE: 'Дізнавайтеся більше',
     HOME: 'Головна',
     LATEST_TWEETS: 'Найновіші твіти',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
     QUOTE_TWEET: 'Цитувати твіт',
-    QUOTE_TWEETS: 'Твіти з цитатою',
+    QUOTE_TWEETS: 'Цитовані твіти',
     RETWEETS: 'Ретвіти',
     SHARED_TWEETS: 'Спільні твіти',
     TWITTER: 'Твіттер',
   },
   ur: {
-    ADD_MUTED_WORD: 'خاموش کردہ لفظ شامل کریں',
-    HOME: 'سرورق',
-    LATEST_TWEETS: 'جدید ترین ٹویٹ',
-    MUTE_THIS_CONVERSATION: 'اس گفتگو کو خاموش کریں',
-    QUOTE_TWEET: 'ٹویٹ اقتباس کریں',
+    ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
+    DISCOVER_MORE: 'مزید دریافت کریں',
+    HOME: 'ہوم',
+    LATEST_TWEETS: 'تازہ ترین ٹویٹس',
+    MUTE_THIS_CONVERSATION: 'اس گفتگو کو میوٹ کریں',
+    QUOTE_TWEET: 'ٹویٹ کا حوالہ دیں',
     QUOTE_TWEETS: 'ٹویٹ کو نقل کرو',
     RETWEETS: 'ریٹویٹس',
     SHARED_TWEETS: 'مشترکہ ٹویٹس',
@@ -551,6 +583,7 @@ const locales = {
   },
   vi: {
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
+    DISCOVER_MORE: 'Khám phá thêm',
     HOME: 'Trang chủ',
     LATEST_TWEETS: 'Tweet mới nhất',
     MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
@@ -561,6 +594,7 @@ const locales = {
   },
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
+    DISCOVER_MORE: '探索更多',
     HOME: '首頁',
     LATEST_TWEETS: '最新推文',
     MUTE_THIS_CONVERSATION: '將此對話靜音',
@@ -571,6 +605,7 @@ const locales = {
   },
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
+    DISCOVER_MORE: '发现更多',
     HOME: '主页',
     LATEST_TWEETS: '最新推文',
     MUTE_THIS_CONVERSATION: '隐藏此对话',
@@ -2477,6 +2512,7 @@ function onTimelineChange($timeline, page, options = {}) {
   let previousItemType = null
   /** @type {?boolean} */
   let hidPreviousItem = null
+  let hideAllSubsequentItems = false
 
   for (let $item of $timeline.children) {
     /** @type {?import("./types").TimelineItemType} */
@@ -2488,7 +2524,11 @@ function onTimelineChange($timeline, page, options = {}) {
     /** @type {?HTMLElement} */
     let $tweet = $item.querySelector(Selectors.TWEET)
 
-    if ($tweet != null) {
+    if (hideAllSubsequentItems) {
+      hideItem = true
+      itemType = previousItemType
+    }
+    else if ($tweet != null) {
       itemType = getTweetType($tweet)
       // Only deal with retweets, quote tweets and algorithmic tweets on the
       // main timeline.
@@ -2550,21 +2590,28 @@ function onTimelineChange($timeline, page, options = {}) {
       if (itemType != null) {
         hideItem = shouldHideOtherTimelineItem(itemType)
         if (debug) {
-          $item.firstElementChild.dataset.itemType = `${itemType}`
+          $item.firstElementChild.dataset.itemType = itemType
         }
       }
     }
 
-    if (itemType == null && config.hideWhoToFollowEtc) {
-      // "Who to follow", "Follow some Topics" etc. headings
+    if (itemType == null) {
       if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
         itemType = 'HEADING'
-        if (hideHeadings) {
-          hideItem = true
-          // Also hide the divider above the heading
-          if ($previousItem?.innerText == '' && $previousItem.firstElementChild) {
-            /** @type {HTMLElement} */ ($previousItem.firstElementChild).style.display = 'none'
+        // "Discover more" heading and subsequent algorithmic tweets
+        if (isOnIndividualTweetPage()) {
+          if ($item.querySelector('[dir]')?.innerText == getString('DISCOVER_MORE')) {
+            itemType = 'DISCOVER_MORE_HEADING'
+            hideItem = config.hideMoreTweets
+            hideAllSubsequentItems = config.hideMoreTweets
           }
+        }
+        // "Who to follow", "Follow some Topics" etc. headings
+        else if (hideHeadings) {
+          hideItem = config.hideWhoToFollowEtc
+        }
+        if (debug) {
+          $item.firstElementChild.dataset.itemType = itemType
         }
       }
     }
@@ -2992,18 +3039,10 @@ async function tweakExplorePage() {
   }
 }
 
-/**
- * Re-navigates to a tweet to get rid of the "More Tweets" section.
- */
 function tweakIndividualTweetPage() {
-  if (config.hideMoreTweets && location.search) {
-    log('re-navigating to get rid of More Tweets')
-    location.replace(location.origin + location.pathname)
-    return
-  }
-  if (config.twitterBlueChecks != 'ignore') {
-    observeTimeline(currentPage)
-  }
+  observeTimeline(currentPage, {
+    hideHeadings: false,
+  })
 }
 
 function tweakNotificationsPage() {
