@@ -1739,7 +1739,7 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} a[href*="ads.twitter.com"]`)
     }
     if (config.hideTwitterBlueNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/twitter_blue_sign_up"]`)
+      hideCssSelectors.push(`${menuRole} a[href$="/i/twitter_blue_sign_up"]`)
     }
     if (config.hideTwitterForProfessionalsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/convert_to_professional"]`)
@@ -1854,6 +1854,9 @@ const configureCss = (() => {
       }
       if (config.hideKeyboardShortcutsNav) {
         hideCssSelectors.push(`${menuRole} a[href$="/i/keyboard_shortcuts"]`)
+      }
+      if (config.hideTwitterBlueNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/twitter_blue_sign_up"]`)
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
