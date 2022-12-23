@@ -55,6 +55,7 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 
 ### UI improvements
 
+- Hide view metrics/analytics links under tweets
 - Disable use of the Chirp font if you don't like it
 - Replace (default setting) or hide Twitter Blue user checkmarks so they're not as easily mistaken for verified accounts
 - Hide the "Verified" tab on the Notifications page
