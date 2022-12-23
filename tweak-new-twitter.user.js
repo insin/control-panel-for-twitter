@@ -61,6 +61,7 @@ const config = {
   hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
+  hideViews: true,
   hideWhoToFollowEtc: true,
   likedTweets: 'ignore',
   mutableQuoteTweets: true,
@@ -1678,11 +1679,11 @@ const configureCss = (() => {
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(
         // Under timeline-style tweets
-        '[data-testid="tweet"] [role="group"] > div:nth-of-type(4)',
+        '[data-testid="tweet"][tabindex="0"] [role="group"] > div:nth-of-type(5)',
         // Under individual tweets
-        'body.Tweet [data-testid="tweet"] + div > div > [role="group"] > div:nth-of-type(4)',
+        '[data-testid="tweet"][tabindex="-1"] [role="group"] > div:nth-of-type(4)',
         // In media modal
-        '[aria-modal="true"] [role="group"] > div:nth-of-type(4)',
+        '[aria-modal="true"] [role="group"] > div:nth-of-type(5)',
       )
     }
     if (config.hideHelpCenterNav) {
@@ -1707,12 +1708,7 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} a[href$="/topics"]`)
     }
     if (config.hideTweetAnalyticsLinks) {
-      hideCssSelectors.push(
-        // Under timeline-style tweets
-        '[data-testid="tweet"] [role="group"] > div:nth-of-type(5)',
-        // Under individual tweets
-        '[data-testid="analyticsButton"]',
-      )
+      hideCssSelectors.push('[data-testid="analyticsButton"]')
     }
     if (config.hideTwitterAdsNav) {
       hideCssSelectors.push(`${menuRole} a[href*="ads.twitter.com"]`)
@@ -1725,6 +1721,16 @@ const configureCss = (() => {
     }
     if (config.hideVerifiedNotificationsTab) {
       hideCssSelectors.push('body.Notifications [data-testid="ScrollSnap-List"] > div:nth-child(2)')
+    }
+    if (config.hideViews) {
+      hideCssSelectors.push(
+        // Under timeline-style tweets
+        '[data-testid="tweet"][tabindex="0"] [role="group"] > div:nth-of-type(1)',
+        // "Views" under other people's individual tweets
+        `body.Tweet a[href$="/analytics"]`,
+        // "Views" in media modal
+        `[aria-modal="true"] [data-testid="tweet"] a[href$="/analytics"]`
+      )
     }
     if (config.hideWhoToFollowEtc) {
       hideCssSelectors.push(`body.Profile ${Selectors.PRIMARY_COLUMN} aside[role="complementary"]`)
@@ -2066,17 +2072,14 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   }
 
   let timelineMetricSelectors = [
-    config.hideReplyMetrics   && ':nth-of-type(1)',
-    config.hideRetweetMetrics && ':nth-of-type(2)',
-    config.hideLikeMetrics    && ':nth-of-type(3)',
+    config.hideReplyMetrics   && '[data-testid="reply"]',
+    config.hideRetweetMetrics && '[data-testid="retweet"]',
+    config.hideLikeMetrics    && '[data-testid="like"]',
   ].filter(Boolean).join(', ')
 
   if (timelineMetricSelectors) {
     cssRules.push(
-      // Metrics under timeline-style tweets
-      `[data-testid="tweet"] [role="group"] > div:is(${timelineMetricSelectors}) div > span { visibility: hidden; }`,
-      // Metrics in media modal
-      `[aria-modal="true"] [role="group"] > div:is(${timelineMetricSelectors}) [data-testid="app-text-transition-container"] { visibility: hidden; }`,
+      `[role="group"] div:is(${timelineMetricSelectors}) [data-testid="app-text-transition-container"] { visibility: hidden; }`
     )
   }
 }

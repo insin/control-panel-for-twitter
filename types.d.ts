@@ -37,6 +37,7 @@ export type Config = {
   hideTwitterForProfessionalsNav: boolean
   hideUnavailableQuoteTweets: boolean
   hideVerifiedNotificationsTab: boolean
+  hideViews: boolean
   hideWhoToFollowEtc: boolean
   likedTweets: AlgorithmicTweetsConfig
   mutableQuoteTweets: boolean
