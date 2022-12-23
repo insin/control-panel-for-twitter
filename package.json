@@ -24,6 +24,7 @@
       "jsconfig.json",
       "locales/",
       "package.json",
+      "promo/",
       "screenshots/",
       "types.d.ts"
     ]
