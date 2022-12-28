@@ -1679,11 +1679,9 @@ const configureCss = (() => {
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(
         // Under timeline-style tweets
-        '[data-testid="tweet"][tabindex="0"] [role="group"] > div:nth-of-type(5)',
+        `[data-testid="tweet"][tabindex="0"] [role="group"] > div:nth-of-type(${desktop ? 5 : 4})`,
         // Under individual tweets
         '[data-testid="tweet"][tabindex="-1"] [role="group"] > div:nth-of-type(4)',
-        // In media modal
-        '[aria-modal="true"] [role="group"] > div:nth-of-type(5)',
       )
     }
     if (config.hideHelpCenterNav) {
@@ -1724,12 +1722,8 @@ const configureCss = (() => {
     }
     if (config.hideViews) {
       hideCssSelectors.push(
-        // Under timeline-style tweets
-        '[data-testid="tweet"][tabindex="0"] [role="group"] > div:nth-of-type(1)',
         // "Views" under other people's individual tweets
         `body.Tweet a[href$="/analytics"]`,
-        // "Views" in media modal
-        `[aria-modal="true"] [data-testid="tweet"] a[href$="/analytics"]`
       )
     }
     if (config.hideWhoToFollowEtc) {
@@ -1863,6 +1857,12 @@ const configureCss = (() => {
         }
         hideCssSelectors.push(`body.HideSidebar ${Selectors.SIDEBAR}`)
       }
+      if (config.hideShareTweetButton) {
+        hideCssSelectors.push(
+          // In media modal
+          `[aria-modal="true"] [role="group"] > div:nth-of-type(4)`,
+        )
+      }
       if (config.hideExploreNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
       }
@@ -1871,6 +1871,14 @@ const configureCss = (() => {
       }
       if (config.hideMessagesDrawer) {
         cssRules.push(`${Selectors.MESSAGES_DRAWER} { visibility: hidden; }`)
+      }
+      if (config.hideViews) {
+        hideCssSelectors.push(
+          // Under timeline-style tweets
+          '[data-testid="tweet"][tabindex="0"] [role="group"] > div:nth-of-type(1)',
+          // "Views" in media modal
+          `[aria-modal="true"] [data-testid="tweet"] a[href$="/analytics"]`,
+        )
       }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
         hideCssSelectors.push('#tnt_separated_tweets')
@@ -1976,6 +1984,12 @@ const configureCss = (() => {
       }
       if (config.hideMessagesBottomNavItem) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
+      }
+      if (config.hideShareTweetButton) {
+        hideCssSelectors.push(
+          // In media modal
+          `body.MobilePhoto [role="group"] > div:nth-of-type(4)`,
+        )
       }
       if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
         // Use CSS to tweak layout of mobile header elements on pages where it's
@@ -2807,6 +2821,7 @@ function processCurrentPage() {
   $body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
   $body.classList.toggle('Tweet', isOnIndividualTweetPage())
   $body.classList.toggle('Search', isOnSearchPage())
+  $body.classList.toggle('MobilePhoto', mobile && URL_PHOTO_RE.test(location.pathname))
 
   // "Which version of the main timeline are we on?" hooks for styling
   $body.classList.toggle('Home', isOnHomeTimeline())
