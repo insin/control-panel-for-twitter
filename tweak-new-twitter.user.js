@@ -1679,9 +1679,9 @@ const configureCss = (() => {
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(
         // Under timeline-style tweets
-        `[data-testid="tweet"][tabindex="0"] [role="group"] > div:nth-of-type(${desktop ? 5 : 4})`,
+        `[data-testid="tweet"][tabindex="0"] [role="group"] > div[style]`,
         // Under individual tweets
-        '[data-testid="tweet"][tabindex="-1"] [role="group"] > div:nth-of-type(4)',
+        '[data-testid="tweet"][tabindex="-1"] [role="group"] > div[style]',
       )
     }
     if (config.hideHelpCenterNav) {
@@ -1722,8 +1722,9 @@ const configureCss = (() => {
     }
     if (config.hideViews) {
       hideCssSelectors.push(
-        // "Views" under other people's individual tweets
-        `body.Tweet a[href$="/analytics"]`,
+        // "Views" under individual tweets
+        'body.Tweet [data-testid="tweet"][tabindex="-1"] a[href*="/status/"] + span[aria-hidden]',
+        'body.Tweet [data-testid="tweet"][tabindex="-1"] a[href*="/status/"] + span[aria-hidden] + span',
       )
     }
     if (config.hideWhoToFollowEtc) {
@@ -1860,7 +1861,7 @@ const configureCss = (() => {
       if (config.hideShareTweetButton) {
         hideCssSelectors.push(
           // In media modal
-          `[aria-modal="true"] [role="group"] > div:nth-of-type(4)`,
+          `[aria-modal="true"] [role="group"] > div[style]`,
         )
       }
       if (config.hideExploreNav) {
@@ -1876,8 +1877,6 @@ const configureCss = (() => {
         hideCssSelectors.push(
           // Under timeline-style tweets
           '[data-testid="tweet"][tabindex="0"] [role="group"] > div:nth-of-type(1)',
-          // "Views" in media modal
-          `[aria-modal="true"] [data-testid="tweet"] a[href$="/analytics"]`,
         )
       }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
@@ -1988,7 +1987,7 @@ const configureCss = (() => {
       if (config.hideShareTweetButton) {
         hideCssSelectors.push(
           // In media modal
-          `body.MobilePhoto [role="group"] > div:nth-of-type(4)`,
+          `body.MobilePhoto [role="group"] > div[style]`,
         )
       }
       if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
