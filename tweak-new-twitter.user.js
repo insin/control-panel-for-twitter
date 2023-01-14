@@ -1551,28 +1551,28 @@ async function addSeparatedTweetsTimelineControl(page) {
   }
 
   if (mobile) {
-    let $toggle = document.createElement('div')
-    $toggle.id = 'tnt_switch_timeline'
-    let toggleColor = getComputedStyle(document.querySelector(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"] svg`)).color
-    $toggle.innerHTML = `<span><svg viewBox="0 0 24 24" aria-hidden="true" style="color: ${toggleColor}; width: 22px; vertical-align: text-bottom; position: relative; max-width: 100%; height: 22px; fill: currentcolor; display: inline-block;">
-      ${page == separatedTweetsTimelineTitle ? Svgs.HOME : Svgs.RETWEET}
-    </svg></span>`
-    let $span = /** @type {HTMLSpanElement} */ ($toggle.firstElementChild)
-    $span.title = `Switch to ${page == currentMainTimelineType ? separatedTweetsTimelineTitle : currentMainTimelineType}`
-    $span.addEventListener('click', () => {
-      let newTitle = page == separatedTweetsTimelineTitle ? currentMainTimelineType : separatedTweetsTimelineTitle
-      setTitle(newTitle)
-      $span.title = `Switch to ${newTitle == currentMainTimelineType ? separatedTweetsTimelineTitle : currentMainTimelineType}`
-      window.scrollTo({top: 0})
-    })
-
     let $timelineTitle = document.querySelector(`
       ${Selectors.MOBILE_TIMELINE_HEADER_OLD} h2,
       ${Selectors.MOBILE_TIMELINE_HEADER_NEW} h2
     `)
 
-    // Only the non-tabbed timeline has a heading in the header
+    // Only the Sparkle timeline has a heading in the header
     if ($timelineTitle != null) {
+      let $toggle = document.createElement('div')
+      $toggle.id = 'tnt_switch_timeline'
+      let toggleColor = getComputedStyle(document.querySelector(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"] svg`)).color
+      $toggle.innerHTML = `<span><svg viewBox="0 0 24 24" aria-hidden="true" style="color: ${toggleColor}; width: 22px; vertical-align: text-bottom; position: relative; max-width: 100%; height: 22px; fill: currentcolor; display: inline-block;">
+        ${page == separatedTweetsTimelineTitle ? Svgs.HOME : Svgs.RETWEET}
+      </svg></span>`
+      let $span = /** @type {HTMLSpanElement} */ ($toggle.firstElementChild)
+      $span.title = `Switch to ${page == currentMainTimelineType ? separatedTweetsTimelineTitle : currentMainTimelineType}`
+      $span.addEventListener('click', () => {
+        let newTitle = page == separatedTweetsTimelineTitle ? currentMainTimelineType : separatedTweetsTimelineTitle
+        setTitle(newTitle)
+        $span.title = `Switch to ${newTitle == currentMainTimelineType ? separatedTweetsTimelineTitle : currentMainTimelineType}`
+        window.scrollTo({top: 0})
+      })
+
       // We hide the existing timeline title via CSS when it's not wanted instead
       // of changing its text, as those changes persist when you view a tweet.
       $timelineTitle.classList.add('tnt_home_timeline_title')
@@ -1589,27 +1589,6 @@ async function addSeparatedTweetsTimelineControl(page) {
         $timelineTitle.insertAdjacentElement('afterend', $sharedTweetsTitle)
       }
       $timelineTitle.parentElement.classList.add('tnt_mobile_header')
-    }
-    else {
-      let $headerContent = document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div > div > div > div > div`)
-      if ($headerContent != null) {
-        if (config.alwaysUseLatestTweets) {
-          // This element reserves space for the timeline tabs - resize it for
-          // the header's contents, as the tabs are going to be hidden.
-          let $headerSizer = /** @type {HTMLDivElement} */ (document.querySelector(`${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div`))
-          if ($headerSizer) {
-            $headerSizer.style.height = getComputedStyle($headerContent).height
-          }
-        }
-
-        removeMobileTimelineHeaderElements()
-
-        log('inserting separated tweets timeline switcher in header')
-        $headerContent.appendChild($toggle)
-      }
-      else {
-        warn('could not find header content element')
-      }
     }
 
     // Go back to the main timeline when the Home bottom nav link is clicked on
@@ -1652,13 +1631,22 @@ const configureCss = (() => {
     if (config.alwaysUseLatestTweets) {
       // Hide the sparkle when automatically staying on Latest Tweets
       hideCssSelectors.push(mobile
-        ? [`body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div > div > div > div > div > div:nth-of-type(3)`,
-           `body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:first-of-type > div > div > div > div > div:nth-of-type(3)`,
+        ? [`body.MainTimeline:not(.TabbedTimeline) ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div > div > div > div > div > div:nth-of-type(3)`,
+           `body.MainTimeline:not(.TabbedTimeline) ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:first-of-type > div > div > div > div > div:nth-of-type(3)`,
           ].join(', ')
-        : [`body.MainTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div:only-child > div:only-child > div:only-child > div:only-child > div:last-of-type:not(:only-child)`,
-           `body.MainTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div:only-child > div:only-child > div:only-child > div:only-child > div:only-child > div:last-of-type:not(:only-child)`,
+        : [`body.MainTimeline:not(.TabbedTimeline) ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div:only-child > div:only-child > div:only-child > div:only-child > div:last-of-type:not(:only-child)`,
+           `body.MainTimeline:not(.TabbedTimeline) ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div:only-child > div:only-child > div:only-child > div:only-child > div:only-child > div:last-of-type:not(:only-child)`,
           ].join(', ')
       )
+      // Hide the "For you" tab when automatically staying on Latest Tweets
+      cssRules.push(`
+        body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child {
+          flex: 0;
+        }
+        body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child > a {
+          display: none;
+        }
+      `)
     }
     if (config.dropdownMenuFontWeight) {
       cssRules.push(`
@@ -1757,7 +1745,53 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} div[role="button"][aria-expanded]:nth-of-type(2)`)
     }
 
+    if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
+      cssRules.push(`
+        body.Default {
+          --active-tab-text: rgb(15, 20, 25);
+          --inactive-tab-text: rgb(83, 100, 113);
+          --tab-border: rgb(239, 243, 244);
+          --tab-hover: rgba(15, 20, 25, 0.1);
+        }
+        body.Dim {
+          --active-tab-text: rgb(247, 249, 249);
+          --inactive-tab-text: rgb(139, 152, 165);
+          --tab-border: rgb(56, 68, 77);
+          --tab-hover: rgba(247, 249, 249, 0.1);
+        }
+        body.LightsOut {
+          --active-tab-text: rgb(247, 249, 249);
+          --inactive-tab-text: rgb(113, 118, 123);
+          --tab-border: rgb(47, 51, 54);
+          --tab-hover: rgba(231, 233, 234, 0.1);
+        }
+
+        /* Tabbed timeline */
+        #tnt_separated_tweets_tab:hover {
+          background-color: var(--tab-hover);
+        }
+        body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div,
+        body.TabbedTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div {
+          font-weight: normal !important;
+          color: var(--inactive-tab-text) !important;
+        }
+        body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div {
+          font-weight: bold;
+          color: var(--active-tab-text); !important;
+        }
+        body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div > div,
+        body.TabbedTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div > div {
+          height: 0 !important;
+        }
+        body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div > div {
+          height: 4px !important;
+        }
+      `)
+    }
+
     if (desktop) {
+      // Hide the "Home" heading on the tabbed timeline as it just takes up space
+      hideCssSelectors.push(`body.TabbedTimeline ${Selectors.PRIMARY_COLUMN} > div > div > div > div:first-child`)
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
       }
@@ -1880,28 +1914,16 @@ const configureCss = (() => {
         )
       }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
-        hideCssSelectors.push('#tnt_separated_tweets')
+        hideCssSelectors.push(
+          // Sparkle timeline
+          '#tnt_separated_tweets',
+          // Tabbed timeline
+          '#tnt_separated_tweets_tab',
+          )
       }
       if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
         cssRules.push(`
-          body.Default {
-            --active-tab-text: rgb(15, 20, 25);
-            --inactive-tab-text: rgb(83, 100, 113);
-            --tab-border: rgb(239, 243, 244);
-            --tab-hover: rgba(15, 20, 25, 0.1);
-          }
-          body.Dim {
-            --active-tab-text: rgb(247, 249, 249);
-            --inactive-tab-text: rgb(139, 152, 165);
-            --tab-border: rgb(56, 68, 77);
-            --tab-hover: rgba(247, 249, 249, 0.1);
-          }
-          body.LightsOut {
-            --active-tab-text: rgb(247, 249, 249);
-            --inactive-tab-text: rgb(113, 118, 123);
-            --tab-border: rgb(47, 51, 54);
-            --tab-hover: rgba(231, 233, 234, 0.1);
-          }
+          /* Sparkle timeline */
           .tnt_tabs {
             display: flex;
             flex-direction: row;
@@ -2799,11 +2821,6 @@ function processCurrentPage() {
     pageObservers = []
   }
 
-  if (config.alwaysUseLatestTweets && currentPage == getString('HOME')) {
-    switchToLatestTweets(currentPage)
-    return
-  }
-
   // Hooks for styling pages
   $body.classList.toggle('Explore', isOnExplorePage())
   $body.classList.toggle('HideAppNags', (
@@ -2821,11 +2838,10 @@ function processCurrentPage() {
   $body.classList.toggle('Tweet', isOnIndividualTweetPage())
   $body.classList.toggle('Search', isOnSearchPage())
   $body.classList.toggle('MobilePhoto', mobile && URL_PHOTO_RE.test(location.pathname))
-
-  // "Which version of the main timeline are we on?" hooks for styling
-  $body.classList.toggle('Home', isOnHomeTimeline())
-  $body.classList.toggle('LatestTweets', isOnLatestTweetsTimeline())
-  $body.classList.toggle('SeparatedTweets', isOnSeparatedTweetsTimeline())
+  $body.classList.remove('TabbedTimeline')
+  $body.classList.remove('Home')
+  $body.classList.remove('LatestTweets')
+  $body.classList.remove('SeparatedTweets')
 
   if (desktop) {
     if (config.twitterBlueChecks != 'ignore' || config.fullWidthContent && (isOnMainTimelinePage() || isOnListPage())) {
@@ -2840,13 +2856,7 @@ function processCurrentPage() {
   }
 
   if (isOnMainTimelinePage()) {
-    if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
-      addSeparatedTweetsTimelineControl(currentPage)
-    }
-    else {
-      removeMobileTimelineHeaderElements()
-    }
-    observeTimeline(currentPage)
+    tweakMainTimelinePage()
   }
   else {
     removeMobileTimelineHeaderElements()
@@ -3060,6 +3070,97 @@ function tweakIndividualTweetPage() {
   observeTimeline(currentPage, {
     hideHeadings: false,
   })
+}
+
+function tweakMainTimelinePage() {
+  let $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav`)
+
+  // "Which version of the main timeline are we on?" hooks for styling
+  $body.classList.toggle('TabbedTimeline', $timelineTabs != null)
+  $body.classList.toggle('Home', $timelineTabs == null && isOnHomeTimeline())
+  $body.classList.toggle('LatestTweets', $timelineTabs == null && isOnLatestTweetsTimeline())
+  $body.classList.toggle('SeparatedTweets', isOnSeparatedTweetsTimeline())
+
+  if ($timelineTabs != null) {
+    log('on tabbed timeline')
+    let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a'))
+    if (config.alwaysUseLatestTweets && !document.title.startsWith(separatedTweetsTimelineTitle)) {
+      let $firstTabSelectedLink = $timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected]')
+      if ($firstTabSelectedLink) {
+        log('switching to Following timeline')
+        $followingTabLink.click()
+      }
+    }
+
+    if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
+      let $newTab = document.querySelector('#tnt_separated_tweets_tab')
+      if ($newTab) {
+        log('separated tweets timeline tab already present')
+        $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
+      }
+      else {
+        log('inserting separated tweets tab')
+        $newTab = /** @type {HTMLElement} */ ($followingTabLink.parentElement.cloneNode(true))
+        $newTab.id = 'tnt_separated_tweets_tab'
+        $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
+
+        // This script assumes navigation has occurred when the document title
+        // changes, so by changing the title we fake navigation to a non-existent
+        // page representing the separated tweets timeline.
+        $newTab.querySelector('a').addEventListener('click', (e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
+            setTitle(separatedTweetsTimelineTitle)
+          }
+          window.scrollTo({top: 0})
+        })
+        $followingTabLink.parentElement.insertAdjacentElement('afterend', $newTab)
+
+        // Return to the main timeline view when any other tab is clicked
+        $followingTabLink.parentElement.parentElement.addEventListener('click', () => {
+          if (!document.title.startsWith(getString('HOME'))) {
+            log('setting title to Home')
+            homeNavigationIsBeingUsed = true
+            setTitle(currentMainTimelineType)
+          }
+        })
+
+        // Return to the main timeline when the Home nav link is clicked
+        let $homeNavLink = /** @type {HTMLElement} */ (document.querySelector(Selectors.NAV_HOME_LINK))
+        if (!$homeNavLink.dataset.tweakNewTwitterListener) {
+          $homeNavLink.addEventListener('click', () => {
+            homeNavigationIsBeingUsed = true
+            if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
+              setTitle(getString('HOME'))
+            }
+          })
+          $homeNavLink.dataset.tweakNewTwitterListener = 'true'
+        }
+      }
+    }
+
+    observeTimeline(currentPage, {
+      isTabbed: true,
+      tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
+    })
+  }
+  else {
+    // Sparkle timeline
+    log('on Sparkle timeline')
+    if (config.alwaysUseLatestTweets && currentPage == getString('HOME')) {
+      switchToLatestTweets(currentPage)
+      return
+    }
+
+    if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
+      addSeparatedTweetsTimelineControl(currentPage)
+    }
+    else {
+      removeMobileTimelineHeaderElements()
+    }
+    observeTimeline(currentPage)
+  }
 }
 
 function tweakNotificationsPage() {
