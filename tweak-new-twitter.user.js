@@ -1895,7 +1895,7 @@ const configureCss = (() => {
       if (config.hideShareTweetButton) {
         hideCssSelectors.push(
           // In media modal
-          `[aria-modal="true"] [role="group"] > div[style]`,
+          `[aria-modal="true"] [role="group"] > div[style]:not([role])`,
         )
       }
       if (config.hideExploreNav) {
