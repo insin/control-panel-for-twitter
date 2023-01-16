@@ -2349,23 +2349,23 @@ function getTweetType($tweet) {
   return 'TWEET'
 }
 
-// Add 1 every time this gets broken: 3
+// Add 1 every time this gets broken: 4
 function getVerifiedProps($svg) {
-  let childIndex = 0
+  let propsGetter = (props) => props?.children?.props?.children?.[0]?.[0]?.props
   let $parent = $svg.parentElement
   // Verified badge button on the profile screen
   if ($parent.getAttribute('role') == 'button') {
     $parent = $parent.closest('span')
   }
   // Link variant in "user followed/liked/retweeted" notifications
-  else if ($parent.getAttribute('role') == 'link') {
-    childIndex = 1
+  else if (isOnNotificationsPage() && $parent.parentElement.getAttribute('role') == 'link') {
+    propsGetter = (props) => props?.children?.[1]?.props
   }
   if ($parent.wrappedJSObject) {
     $parent = $parent.wrappedJSObject
   }
   let reactPropsKey = Object.keys($parent).find(key => key.startsWith('__reactProps$'))
-  let props = $parent[reactPropsKey]?.children?.props?.children?.[0]?.[childIndex]?.props
+  let props = propsGetter($parent[reactPropsKey])
   if (!props) {
     warn('verified props not found for', $svg, {reactPropsKey})
   }
