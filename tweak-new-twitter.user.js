@@ -3083,62 +3083,19 @@ function tweakMainTimelinePage() {
 
   if ($timelineTabs != null) {
     log('on tabbed timeline')
-    let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a'))
-    if (config.alwaysUseLatestTweets && !document.title.startsWith(separatedTweetsTimelineTitle)) {
-      let $firstTabSelectedLink = $timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected]')
-      if ($firstTabSelectedLink) {
-        log('switching to Following timeline')
-        $followingTabLink.click()
-      }
-    }
+    tweakTimelineTabs($timelineTabs)
 
-    if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
-      let $newTab = document.querySelector('#tnt_separated_tweets_tab')
-      if ($newTab) {
-        log('separated tweets timeline tab already present')
-        $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
-      }
-      else {
-        log('inserting separated tweets tab')
-        $newTab = /** @type {HTMLElement} */ ($followingTabLink.parentElement.cloneNode(true))
-        $newTab.id = 'tnt_separated_tweets_tab'
-        $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
-
-        // This script assumes navigation has occurred when the document title
-        // changes, so by changing the title we fake navigation to a non-existent
-        // page representing the separated tweets timeline.
-        $newTab.querySelector('a').addEventListener('click', (e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
-            setTitle(separatedTweetsTimelineTitle)
-          }
-          window.scrollTo({top: 0})
-        })
-        $followingTabLink.parentElement.insertAdjacentElement('afterend', $newTab)
-
-        // Return to the main timeline view when any other tab is clicked
-        $followingTabLink.parentElement.parentElement.addEventListener('click', () => {
-          if (!document.title.startsWith(getString('HOME'))) {
-            log('setting title to Home')
-            homeNavigationIsBeingUsed = true
-            setTitle(currentMainTimelineType)
-          }
-        })
-
-        // Return to the main timeline when the Home nav link is clicked
-        let $homeNavLink = /** @type {HTMLElement} */ (document.querySelector(Selectors.NAV_HOME_LINK))
-        if (!$homeNavLink.dataset.tweakNewTwitterListener) {
-          $homeNavLink.addEventListener('click', () => {
-            homeNavigationIsBeingUsed = true
-            if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
-              setTitle(getString('HOME'))
-            }
-          })
-          $homeNavLink.dataset.tweakNewTwitterListener = 'true'
+    // If there are pinned lists, the timeline tabs <nav> will be replaced when they load
+    pageObservers.push(
+      observeElement($timelineTabs.parentElement, (mutations) => {
+        let timelineTabsReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($timelineTabs))
+        if (timelineTabsReplaced) {
+          log('timeline tabs replaced')
+          $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav`)
+          tweakTimelineTabs($timelineTabs)
         }
-      }
-    }
+      }, 'timeline tabs nav container')
+    )
 
     observeTimeline(currentPage, {
       isTabbed: true,
@@ -3160,6 +3117,69 @@ function tweakMainTimelinePage() {
       removeMobileTimelineHeaderElements()
     }
     observeTimeline(currentPage)
+  }
+}
+
+async function tweakTimelineTabs($timelineTabs) {
+  let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a'))
+
+  if (config.alwaysUseLatestTweets && !document.title.startsWith(separatedTweetsTimelineTitle)) {
+    let $firstTabSelectedLink = $timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected]')
+    if ($firstTabSelectedLink) {
+      log('switching to Following timeline')
+      $followingTabLink.click()
+    }
+  }
+
+  if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
+    let $newTab = /** @type {HTMLElement} */ ($timelineTabs.querySelector('#tnt_separated_tweets_tab'))
+    if ($newTab) {
+      log('separated tweets timeline tab already present')
+      $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
+    }
+    else {
+      log('inserting separated tweets tab')
+      $newTab = /** @type {HTMLElement} */ ($followingTabLink.parentElement.cloneNode(true))
+      $newTab.id = 'tnt_separated_tweets_tab'
+      $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
+
+      // This script assumes navigation has occurred when the document title
+      // changes, so by changing the title we fake navigation to a non-existent
+      // page representing the separated tweets timeline.
+      $newTab.querySelector('a').addEventListener('click', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
+          setTitle(separatedTweetsTimelineTitle)
+        }
+        window.scrollTo({top: 0})
+      })
+      $followingTabLink.parentElement.insertAdjacentElement('afterend', $newTab)
+
+      // Return to the main timeline view when any other tab is clicked
+      $followingTabLink.parentElement.parentElement.addEventListener('click', () => {
+        if (!document.title.startsWith(getString('HOME'))) {
+          log('setting title to Home')
+          homeNavigationIsBeingUsed = true
+          setTitle(currentMainTimelineType)
+        }
+      })
+
+      // Return to the main timeline when the Home nav link is clicked
+      let $homeNavLink = await getElement(Selectors.NAV_HOME_LINK, {
+        name: 'home nav link',
+        stopIf: pathIsNot(currentPath),
+      })
+      if ($homeNavLink && !$homeNavLink.dataset.tweakNewTwitterListener) {
+        $homeNavLink.addEventListener('click', () => {
+          homeNavigationIsBeingUsed = true
+          if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
+            setTitle(getString('HOME'))
+          }
+        })
+        $homeNavLink.dataset.tweakNewTwitterListener = 'true'
+      }
+    }
   }
 }
 
