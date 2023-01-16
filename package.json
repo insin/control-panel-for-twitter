@@ -26,6 +26,7 @@
       "package.json",
       "promo/",
       "screenshots/",
+      "scripts/",
       "types.d.ts"
     ]
   },
