@@ -44,7 +44,7 @@ If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Instal
 - Hide "Who to follow", "Follow some Topics" etc. in the timeline
 - Hide "What's happening", "Topics to follow" etc. in the sidebar
 - Hide "Discover more" algorithmic tweets when viewing an individual tweet
-- Hide algorithmic tweets based on likes, replies, communities, and suggested topics in the "Home" timeline, if you use it
+- Hide algorithmic tweets based on likes, replies, communities, and suggested topics in the "For you" timeline, if you use it
 - Hide Explore page contents and use it only for searching
 
 ### Control which tweets shared by people you follow appear on your timeline
