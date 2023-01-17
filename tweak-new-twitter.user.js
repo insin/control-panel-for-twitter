@@ -1910,7 +1910,7 @@ const configureCss = (() => {
       if (config.hideViews) {
         hideCssSelectors.push(
           // Under timeline-style tweets
-          '[data-testid="tweet"][tabindex="0"] [role="group"] > div:nth-of-type(1)',
+          '[data-testid="tweet"][tabindex="0"] [role="group"] > div:nth-of-type(4)',
         )
       }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
