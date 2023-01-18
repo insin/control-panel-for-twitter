@@ -2886,6 +2886,7 @@ function removeMobileTimelineHeaderElements() {
   if (mobile) {
     document.querySelector('#tnt_shared_tweets_timeline_title')?.remove()
     document.querySelector('#tnt_switch_timeline')?.remove()
+    document.querySelector('#tnt_separated_tweets_tab')?.remove()
   }
 }
 
@@ -3175,6 +3176,8 @@ async function tweakTimelineTabs($timelineTabs) {
         $homeNavLink.dataset.tweakNewTwitterListener = 'true'
       }
     }
+  } else {
+    removeMobileTimelineHeaderElements()
   }
 }
 
