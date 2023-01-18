@@ -1993,7 +1993,7 @@ const configureCss = (() => {
         hideCssSelectors.push(
           // Tabs
           `body.Explore ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div:nth-of-type(2)`,
-          `body.Explore ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div:nth-of-type(2)`,
+          `body.Explore ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:nth-of-type(2)`,
           // Content
           `body.Explore ${Selectors.TIMELINE}`,
         )
