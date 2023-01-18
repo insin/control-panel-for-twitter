@@ -129,7 +129,9 @@ Optional features you can try, to see how they change how you perceive and use T
 
 ### Improved Quote Tweets page
 
-| Desktop - duplicate quoted tweet hidden, leaving more room for quotes | Mobile - duplicate quoted tweet hidden, leaving more room for quotes  |
+The quoted tweet is hidden, instead of being duplicated under every quote, leaving more room for quotes
+
+| Desktop | Mobile |
 | - | - |
 | ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on desktop, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/quote_tweets.png) | ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on mobile, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/firefox_android_quote_tweets.jpg) |
 
