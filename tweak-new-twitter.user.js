@@ -671,7 +671,6 @@ const Svgs = {
   RETWEET: '<g><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"></path></g>',
 }
 
-const MOBILE_LOGGED_OUT_URLS = ['/', '/i/flow/login', '/i/flow/signup']
 const PROFILE_FOLLOWS_URL_RE = /\/[a-zA-Z\d_]{1,20}\/(following|followers|followers_you_follow)\/?$/
 const PROFILE_TABS_URL_RE = /\/[a-zA-Z\d_]{1,20}\/(with_replies|media|likes)\/?$/
 // https://twitter.com/${user}'s title ends with (@${user})
@@ -1987,7 +1986,6 @@ const configureCss = (() => {
             visibility: hidden;
           }
         `)
-        hideCssSelectors.push('.HideAppNags #layers > div')
       }
       if (config.hideExplorePageContents) {
         // Hide explore page contents so we don't get a brief flash of them
@@ -2823,9 +2821,6 @@ function processCurrentPage() {
 
   // Hooks for styling pages
   $body.classList.toggle('Explore', isOnExplorePage())
-  $body.classList.toggle('HideAppNags', (
-    mobile && config.hideAppNags && MOBILE_LOGGED_OUT_URLS.includes(currentPath))
-  )
   $body.classList.toggle('HideSidebar', shouldHideSidebar())
   $body.classList.toggle('List', isOnListPage())
   $body.classList.toggle('MainTimeline', isOnMainTimelinePage())

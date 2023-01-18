@@ -153,9 +153,9 @@ Optional features you can try, to see how they change how you perceive and use T
 
 ### Other mobile features
 
-| No trends on Explore screen, just search | No "Open app" nag in tweet header | No "Switch to the app" nag when logged out… | …or when logging in
-| - | - | - | - |
-| ![Screenshot of the Explore screen in mobile Twitter, with only the search part of the screen visible](screenshots/firefox_android_explore.jpg) | ![Screenshot an individual tweet in mobile Twitter, without the usual "Open app" buttoin in the header, and without the usual Messages navigation item in the bottom navigation bar](screenshots/firefox_android_tweet.jpg) | ![Screenshot of the login screen in mobile Twitter, without the usual "Twitter is better on the app" overlay](screenshots/firefox_android_no_nag_home.jpg) | ![Screenshot of the logged out home screen in mobile Twitter, without the usual "Twitter is better on the app" overlay](screenshots/firefox_android_no_nag_login.jpg) |
+| No trends on Explore screen, just search | No "Open app" nag in tweet header |
+| - | - |
+| ![Screenshot of the Explore screen in mobile Twitter, with only the search part of the screen visible](screenshots/firefox_android_explore.jpg) | ![Screenshot an individual tweet in mobile Twitter, without the usual "Open app" buttoin in the header, and without the usual Messages navigation item in the bottom navigation bar](screenshots/firefox_android_tweet.jpg) |
 
 ### Language support
 
