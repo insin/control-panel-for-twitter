@@ -3149,6 +3149,9 @@ async function tweakTimelineTabs($timelineTabs) {
           setTitle(separatedTweetsTimelineTitle)
         }
         window.scrollTo({top: 0})
+        if (mobile) {
+          e.target.blur()
+        }
       })
       $followingTabLink.parentElement.insertAdjacentElement('afterend', $newTab)
 
