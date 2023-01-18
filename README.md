@@ -105,6 +105,12 @@ Optional features you can try, to see how they change how you perceive and use T
 | - | - |
 | ![Screenshot of the "More" menu on desktop Twitter, with most of the menu items removed and a new "Add muted word" menu item](screenshots/more_menu.png) | ![Screenshot of the slide-out menu on mobile Twitter, with most of the menu items removed and a new "Add muted word" menu item](screenshots/firefox_android_menu.jpg) |
 
+### Hide metrics
+
+| Desktop | Mobile |
+| - | - |
+| ![Scteenshot of a Twitter timeline with blank spaces where numbers for metrics should be](screenshots/hide_metrics.png) | ![Sceenshot of a mobile Twitter timeline with blank spaces where numbers for metrics should be](screenshots/firefox_android_hide_metrics.jpg) |
+
 ### Uninverted Follow buttons
 
 | Followers page with uninverted buttons |
@@ -129,27 +135,19 @@ Optional features you can try, to see how they change how you perceive and use T
 
 ### Experimental features
 
-| Hide metrics | Reduced interaction mode |
-| - | - |
-| ![Sceenshot of a Twitter timeline with blank spaces where numbers for metrics should be](screenshots/hide_metrics.png) | ![Sceenshot of a Twitter timeline with the action bar below each tweet completely missing](screenshots/reduced_interaction_mode.png) |
-
-| Highlight (or hide) verified accounts | Disable the home timeline |
-| - | - |
-| ![Sceenshot of a Twitter timeline with a tweet by a user with a verified badge highlighted](screenshots/highlight_verified_accounts.png) | ![Sceenshot of Twitter without the Home navigation item](screenshots/disable_home_timeline.png) |
+| Reduced interaction mode | Highlight (or hide) verified accounts | Disable the home timeline |
+| - | - | - |
+| ![Screenshot of a Twitter timeline with the action bar below each tweet completely missing](screenshots/reduced_interaction_mode.png) | ![Screenshot of a Twitter timeline with a tweet by a user with a verified badge highlighted](screenshots/highlight_verified_accounts.png) | ![Screenshot of Twitter without the Home navigation item](screenshots/disable_home_timeline.png) |
 
 | Full-width timeline |
 | - |
-| ![Sceenshot of a Twitter timeline which takes up all the available width in the layout](screenshots/full_width_timeline.png) |
+| ![Screenshot of a Twitter timeline which takes up all the available width in the layout](screenshots/full_width_timeline.png) |
 
-### Configurable via extension options
+### Configurable via options popup and the extension options page
 
-| Firefox | Edge |
+| Desktop | Mobile |
 | - | - |
-| ![Screenshot of the add-on options page in Firefox](screenshots/firefox_options_dark.png) | ![Screenshot of the add-on settings page in Edge](screenshots/edge_options_dark.png) |
-
-| Chrome | Firefox Android |
-| - | - |
-| ![Screenshot of the extension options dialog in Chrome](screenshots/chrome_options_dark.png) | ![Screenshot of the add-on settings page in Firefox Android](screenshots/firefox_android_settings.jpg) |
+| ![Screenshot of the options popup in Firefox on desktop](screenshots/firefox_options_popup.png) | ![Screenshot of the options popup in Firefox Nightly for Android on mobile](screenshots/firefox_android_options_popup.jpg) |
 
 ### Other mobile features
 
