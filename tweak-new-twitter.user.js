@@ -3124,7 +3124,7 @@ async function tweakTimelineTabs($timelineTabs) {
   let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a'))
 
   if (config.alwaysUseLatestTweets && !document.title.startsWith(separatedTweetsTimelineTitle)) {
-    let $firstTabSelectedLink = $timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected]')
+    let $firstTabSelectedLink = $timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]')
     if ($firstTabSelectedLink) {
       log('switching to Following timeline')
       $followingTabLink.click()
