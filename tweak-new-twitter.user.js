@@ -1461,7 +1461,7 @@ async function addMuteQuotesMenuItem($blockMenuItem) {
     storeConfigChanges({mutedQuotes: config.mutedQuotes})
     processCurrentPage()
     // Dismiss the menu
-    let $menuLayer = /** @type {HTMLElement} */ ($blockMenuItem.closest('[role="group"]')?.firstElementChild)
+    let $menuLayer = /** @type {HTMLElement} */ ($blockMenuItem.closest('[role="group"]')?.firstElementChild?.firstElementChild)
     if (!$menuLayer) {
       log('could not find menu layer to dismiss menu')
     }
@@ -1857,9 +1857,9 @@ const configureCss = (() => {
       if (config.addAddMutedWordMenuItem || config.mutableQuoteTweets) {
         // Hover colors for custom menu items
         cssRules.push(`
-          body.Default .tnt_menu_item:hover a { background-color: rgb(247, 249, 249) !important; }
-          body.Dim .tnt_menu_item:hover a { background-color: rgb(30, 39, 50) !important; }
-          body.LightsOut .tnt_menu_item:hover a { background-color: rgb(22, 24, 28) !important; }
+          body.Default .tnt_menu_item:hover { background-color: rgb(247, 249, 249) !important; }
+          body.Dim .tnt_menu_item:hover { background-color: rgb(30, 39, 50) !important; }
+          body.LightsOut .tnt_menu_item:hover { background-color: rgb(22, 24, 28) !important; }
         `)
       }
       if (config.hideExplorePageContents) {
