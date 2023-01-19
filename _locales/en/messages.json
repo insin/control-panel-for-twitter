@@ -7,6 +7,10 @@
     "message": "Remove algorithmic content from Twitter, hide news & trends, control which shared tweets appear on your timeline, and improve the UI",
     "description": "Must not exceed 132 characters"
   },
+  "extensionDescriptionShort": {
+    "message": "Remove algorithmic content & trends from Twitter, control shared tweets on your timeline, and improve the UI",
+    "description": "Must not exceed 112 characters"
+  },
   "optionsPageTitle": {
     "message": "Tweak New Twitter Options"
   },

@@ -12,16 +12,19 @@
       <label class="checkbox">
         <span id="reduceAlgorithmicContentOptionsLabel">Remove algorithmic content</span>
         <input type="checkbox" name="reduceAlgorithmicContent">
+        <span class="toggle"></span>
       </label>
       <section class="checkbox">
         <label>
           <span id="alwaysUseLatestTweetsLabel">Use the Following (chronological) timeline by default</span>
           <input type="checkbox" name="alwaysUseLatestTweets">
+          <span class="toggle"></span>
         </label>
         <section class="checkbox chronological">
           <label>
             <span id="hideForYouTimelineLabel">Hide the "For you" (algorithmic) timeline</span>
             <input type="checkbox" name="hideForYouTimeline">
+            <span class="toggle"></span>
           </label>
         </section>
       </section>
@@ -29,11 +32,13 @@
         <label>
           <span id="hideSidebarContentLabel">Hide "What's happening", "You might like" etc. in the sidebar</span>
           <input type="checkbox" name="hideSidebarContent">
+          <span class="toggle"></span>
         </label>
         <section class="checkbox hidingSidebarContent">
           <label>
             <span id="showRelevantPeopleLabel">Show "Relevant people" when viewing a tweet</span>
             <input type="checkbox" name="showRelevantPeople">
+            <span class="toggle"></span>
           </label>
         </section>
       </section>
@@ -41,22 +46,25 @@
         <label>
           <span id="hideWhoToFollowEtcLabel">Hide "Who to follow", "Follow some Topics" etc. in the timeline</span>
           <input type="checkbox" name="hideWhoToFollowEtc">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideExplorePageContentsLabel">Hide Explore page contents and use it only for searching</span>
           <input type="checkbox" name="hideExplorePageContents">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideMoreTweetsLabel">Hide "Discover more" tweets</span>
           <input type="checkbox" name="hideMoreTweets">
+          <span class="toggle"></span>
         </label>
       </section>
     </section>
-    <section class="group">
+    <section class="group labelled">
       <label id="sharedTweetsOptionsLabel">
         Tweets shared by other users
       </label>
@@ -84,12 +92,14 @@
         <label>
           <span id="hideUnavailableQuoteTweetsLabel">Hide tweets quoting accounts you've blocked or muted</span>
           <input type="checkbox" name="hideUnavailableQuoteTweets">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="mutableQuoteTweetsLabel">Mute quoting of specific tweets</span>
           <input type="checkbox" name="mutableQuoteTweets">
+          <span class="toggle"></span>
         </label>
         <p id="mutableQuoteTweetsInfo">Adds a "Mute this conversation" menu item to Quote Tweets</p>
         <details class="mutedQuotes" id="mutedQuotesDetails">
@@ -98,7 +108,7 @@
         </details>
       </section>
     </section>
-    <section class="group algorithmic">
+    <section class="group labelled algorithmic">
       <label id="algorithmicTweetsOptionsLabel">
         Algorithmic tweets in "For you" timeline
       </label>
@@ -155,11 +165,13 @@
       <label class="checkbox">
         <span id="uiImprovementsOptionsLabel">UI improvements</span>
         <input type="checkbox" name="uiImprovements">
+        <span class="toggle"></span>
       </label>
       <section class="checkbox">
         <label>
           <span id="uninvertFollowButtonsLabel">Uninvert Follow / Following buttons</span>
           <input type="checkbox" name="uninvertFollowButtons">
+          <span class="toggle"></span>
         </label>
         <section class="select uninvertedFollowButtons">
           <label>
@@ -175,18 +187,21 @@
         <label>
           <span id="navBaseFontSizeLabel">Use normal text font style in navigation bar</span>
           <input type="checkbox" name="navBaseFontSize">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="dropdownMenuFontWeightLabel">Use normal font weight in dropdown menus</span>
           <input type="checkbox" name="dropdownMenuFontWeight">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="fastBlockLabel">Fast blocking (skips confirm dialog)</span>
           <input type="checkbox" name="fastBlock">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
@@ -194,28 +209,32 @@
           <span id="addAddMutedWordMenuItemLabel_desktop" class="desktop">Add "Add muted word" to the "More" menu</span>
           <span id="addAddMutedWordMenuItemLabel_mobile" class="mobile">Add "Add muted word" to the slide-out menu</span>
           <input type="checkbox" name="addAddMutedWordMenuItem">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideVerifiedNotificationsTabLabel">Hide "Verified" tab in Notifications</span>
           <input type="checkbox" name="hideVerifiedNotificationsTab">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideViewsLabel">Hide views / analytics links under tweets</span>
           <input type="checkbox" name="hideViews">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox mobile">
         <label>
           <span id="hideAppNagsLabel">Hide "Open app", "Switch to the app" etc. nags</span>
           <input type="checkbox" name="hideAppNags">
+          <span class="toggle"></span>
         </label>
       </section>
     </section>
-    <section class="group">
+    <section class="group labelled">
       <label id="uiTweaksOptionsLabel">
         UI tweaks
       </label>
@@ -223,6 +242,7 @@
         <label>
           <span id="dontUseChirpFontLabel">Don't use Chirp font</span>
           <input type="checkbox" name="dontUseChirpFont">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="select">
@@ -239,52 +259,61 @@
         <label>
           <span id="tweakQuoteTweetsPageLabel">Hide the quoted tweet when viewing Quote Tweets</span>
           <input type="checkbox" name="tweakQuoteTweetsPage">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideMetricsLabel">Hide metrics</span>
           <input type="checkbox" name="hideMetrics">
+          <span class="toggle"></span>
         </label>
         <section class="group hidingMetrics">
           <label class="checkbox">
             <span id="hideAllMetricsLabel">Hide all</span>
             <input type="checkbox" name="hideAllMetrics">
+            <span class="toggle"></span>
           </label>
           <section class="checkbox">
             <label>
               <span id="hideReplyMetricsLabel">Replies</span>
               <input type="checkbox" name="hideReplyMetrics">
+              <span class="toggle"></span>
             </label>
           </section>
           <section class="checkbox">
             <label>
               <span id="hideRetweetMetricsLabel">Retweets</span>
               <input type="checkbox" name="hideRetweetMetrics">
+              <span class="toggle"></span>
             </label>
           </section>
           <section class="checkbox">
             <label>
               <span id="hideLikeMetricsLabel">Likes</span>
               <input type="checkbox" name="hideLikeMetrics">
+              <span class="toggle"></span>
             </label>
           </section>
           <section class="checkbox">
             <label>
               <span id="hideQuoteTweetMetricsLabel">Quote tweets</span>
               <input type="checkbox" name="hideQuoteTweetMetrics">
+              <span class="toggle"></span>
             </label>
           </section>
           <section class="checkbox">
             <label>
               <span id="hideFollowingMetricsLabel">Following / followers</span>
               <input type="checkbox" name="hideFollowingMetrics">
+              <span class="toggle"></span>
             </label>
           </section>
           <section class="checkbox">
             <label>
               <span id="hideTotalTweetsMetricsLabel">Total tweets</span>
               <input type="checkbox" name="hideTotalTweetsMetrics">
+              <span class="toggle"></span>
             </label>
           </section>
         </section>
@@ -294,59 +323,69 @@
       <label class="checkbox">
         <span id="hideUnusedUiItemsOptionsLabel">Hide UI items you don't use</span>
         <input type="checkbox" name="hideUnusedUiItems">
+        <span class="toggle"></span>
       </label>
       <section class="checkbox desktop">
         <label>
           <span id="hideAccountSwitcherLabel">Account switcher</span>
           <input type="checkbox" name="hideAccountSwitcher">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox desktop">
         <label>
           <span id="hideMessagesDrawerLabel">Messages drawer</span>
           <input type="checkbox" name="hideMessagesDrawer">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox desktop">
         <label>
           <span id="hideExploreNavLabel">Explore (navigation item)</span>
           <input type="checkbox" name="hideExploreNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideCommunitiesNavLabel">Communities (navigation item)</span>
           <input type="checkbox" name="hideCommunitiesNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox mobile">
         <label>
           <span id="hideMessagesBottomNavItemLabel">Messages (navigation item)</span>
           <input type="checkbox" name="hideMessagesBottomNavItem">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox desktop">
         <label>
           <span id="hideBookmarksNavLabel_desktop">Bookmarks (navigation item)</span>
           <input type="checkbox" name="hideBookmarksNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox desktop">
         <label>
           <span id="hideTwitterBlueNavLabel_desktop">Twitter Blue (navigation item)</span>
           <input type="checkbox" name="hideTwitterBlueNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideShareTweetButtonLabel">Share button under tweets</span>
           <input type="checkbox" name="hideShareTweetButton">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideTweetAnalyticsLinksLabel">Analytics links under your own tweets</span>
           <input type="checkbox" name="hideTweetAnalyticsLinks">
+          <span class="toggle"></span>
         </label>
       </section>
     </section>
@@ -355,83 +394,97 @@
         <span id="hideMoreSlideOutMenuItemsOptionsLabel_desktop" class="desktop">Hide "More" menu items you don't use</span>
         <span id="hideMoreSlideOutMenuItemsOptionsLabel_mobile" class="mobile">Hide slide-out menu items you don't use</span>
         <input type="checkbox" name="hideMoreSlideOutMenuItems">
+        <span class="toggle"></span>
       </label>
       <section class="checkbox mobile">
         <label>
           <span id="hideTwitterBlueNavLabel_mobile">Twitter Blue</span>
           <input type="checkbox" name="hideTwitterBlueNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideTopicsNavLabel">Topics</span>
           <input type="checkbox" name="hideTopicsNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox mobile">
         <label>
           <span id="hideBookmarksNavLabel_mobile">Bookmarks</span>
           <input type="checkbox" name="hideBookmarksNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideListsNavLabel">Lists</span>
           <input type="checkbox" name="hideListsNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideTwitterCircleNavLabel">Twitter Circle</span>
           <input type="checkbox" name="hideTwitterCircleNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <!--section class="checkbox">
         <label>
           <span id="hideMomentsNavLabel">Moments</span>
           <input type="checkbox" name="hideMomentsNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideNewslettersNavLabel">Newsletters</span>
           <input type="checkbox" name="hideNewslettersNav">
+          <span class="toggle"></span>
         </label>
       </section-->
       <section class="checkbox">
         <label>
           <span id="hideAnalyticsNavLabel">Analytics</span>
           <input type="checkbox" name="hideAnalyticsNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideTwitterForProfessionalsNavLabel">Twitter for Professionals</span>
           <input type="checkbox" name="hideTwitterForProfessionalsNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideTwitterAdsNavLabel">Twitter Ads</span>
           <input type="checkbox" name="hideTwitterAdsNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideMonetizationNavLabel">Monetization</span>
           <input type="checkbox" name="hideMonetizationNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox">
         <label>
           <span id="hideHelpCenterNavLabel">Help Center</span>
           <input type="checkbox" name="hideHelpCenterNav">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox desktop">
         <label>
           <span id="hideKeyboardShortcutsNavLabel">Keyboard shortcuts</span>
           <input type="checkbox" name="hideKeyboardShortcutsNav">
+          <span class="toggle"></span>
         </label>
       </section>
     </section>
@@ -445,6 +498,7 @@
             <label>
               <span id="reducedInteractionModeLabel">Reduced interaction mode</span>
               <input type="checkbox" name="reducedInteractionMode">
+              <span class="toggle"></span>
             </label>
             <p id="reducedInteractionModeInfo">
               Hide the action bar under tweets &ndash; replies are now the only means of interacting
@@ -454,6 +508,7 @@
             <label>
               <span id="fullWidthContentLabel">Full-width timeline content</span>
               <input type="checkbox" name="fullWidthContent">
+              <span class="toggle"></span>
             </label>
             <p id="fullWidthContentInfo">
               Hide the sidebar and let timeline content go full-width
@@ -462,6 +517,7 @@
               <label>
                 <span id="fullWidthMediaLabel">Full-width media &amp; cards</span>
                 <input type="checkbox" name="fullWidthMedia">
+                <span class="toggle"></span>
               </label>
             </section>
           </section>
@@ -483,6 +539,7 @@
             <label class="checkbox">
               <span id="disableHomeTimelineLabel">Disable the home timeline</span>
               <input type="checkbox" name="disableHomeTimeline">
+              <span class="toggle"></span>
             </label>
             <p id="showDebugOptions">
               <span id="disableHomeTimelineInfo">Find yourself wasting too much time on Twitter? Try preventing use of the home timeline</span>
@@ -501,17 +558,18 @@
         </section>
       </details>
     </section>
-    <section class="group debug">
+    <section class="group labelled debug">
       <label id="debugOptionsLabel">Debug options</label>
       <section class="checkbox">
         <label>
           <span id="debugLabel">Debug mode</span>
           <input type="checkbox" name="debug">
+          <span class="toggle"></span>
         </label>
         <p id="debugInfo">Enables debug logging and displays tweet debug info in the timeline</p>
       </section>
       <section>
-        <label>
+        <label class="button">
           <span id="exportConfigLabel">Export configuration for bug report</span>
           <input type="button" value="Export" id="export-config">
         </label>

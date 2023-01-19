@@ -1,12 +1,21 @@
-body, html {
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  user-select: none;
   padding: 0;
   margin: 0;
-  font-family: Roboto, "Segoe UI", Tahoma, sans-serif;
+  /* XXX These are defaults for Chrome, do something else instead */
   font-size: 13px;
+  font-family: Roboto, "Segoe UI", Tahoma, sans-serif;
 }
 
 body.browserAction {
   min-width: 450px;
+}
+body.iOS.browserAction {
+  min-width: 0;
 }
 
 body.mobile .desktop,
@@ -18,6 +27,7 @@ body:not(.disabledHomeTimeline) .disabledHomeTimeline,
 body:not(.fullWidthContent) .fullWidthContent,
 body:not(.hidingMetrics) .hidingMetrics,
 body:not(.hidingSidebarContent) .hidingSidebarContent,
+body:not(.iOS.safari) .toggle,
 body:not(.mutedQuotes) .mutedQuotes,
 body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   display: none;
@@ -31,24 +41,13 @@ body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
 label {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
   padding: 4px 12px;
   margin: 8px 0;
   cursor: pointer;
 }
 
-section.button {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 12px;
-  margin: 8px 0;
-  align-items: flex-start;
-}
-
-section.button:not(:first-of-type) {
-  padding-top: 12px;
-}
-
-section.button input {
+label.button button {
   margin-left: 12px;
 }
 
@@ -101,6 +100,10 @@ section.group > section > p {
   font-size: 12px;
 }
 
+#mutedQuotes p {
+  white-space: pre-line;
+}
+
 /* Firefox overrides */
 @-moz-document url-prefix() {
   body {
@@ -138,6 +141,226 @@ body.edge section.group > label {
 body.edge section.group > p,
 body.edge section.group > section > * {
   color: #767676;
+}
+
+/* Safari overrides */
+body.safari {
+  font-family: system-ui;
+  -webkit-user-select: none;
+}
+
+/* Safari overrides (macOS) */
+body.macOS.safari form {
+  padding: 4px 0;
+}
+/* Space option groups */
+body.macOS.safari form > section:not(:first-of-type) {
+  margin-top: 20px;
+}
+/* Add colons to option group labels */
+body.macOS.safari section.group > label:not(.checkbox)::after {
+  content: ":";
+}
+body.macOS.safari section.group > label {
+  margin-bottom: 0;
+}
+/* Indent options to align with the toggle all checkbox if there is one */
+body.macOS.safari section.group > section {
+  margin-left: 32px;
+}
+/* Align option group help text with options */
+body.macOS.safari section.group > p {
+  margin: 12px 12px 12px 32px;
+}
+/* Don't display dividing lines between option groups or options */
+body.macOS.safari section {
+  border-top: none;
+}
+/* Indent nested options to align with checkbox labels */
+body.macOS.safari section.group > section > section {
+  margin-left: 8px;
+}
+/* Put controls next to their labels... */
+body.macOS.safari label {
+  justify-content: start;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+/* ...except for muted quotes' Unmute button */
+body.macOS.safari label.mutedQuote {
+  justify-content: space-between;
+}
+/* Put checkboxes before their labels */
+body.macOS.safari section.checkbox > label,
+body.macOS.safari label.checkbox {
+  flex-direction: row-reverse;
+}
+body.macOS.safari input[type=checkbox] {
+  margin-left: 0;
+  margin-right: 6px;
+}
+/* Put a period between labels and their buttons. */
+body.macOS.safari label.button :is(div, span) {
+  margin-right: 6px
+}
+body.macOS.safari label.button span::after {
+  content: ".";
+}
+/* Add colons to dropdown labels */
+body.macOS.safari section.select label {
+  display: block;
+}
+body.macOS.safari section.select span::after {
+  content: ": ";
+  display: inline-block
+}
+/* Align help text with checkbox labels */
+body.macOS.safari section.checkbox > p {
+  margin-left: 20px;
+  margin-right: 12px;
+}
+body.macOS.safari p {
+  color: rgb(123, 123, 123) !important;
+}
+body.macOS.safari section.group > section > * {
+  color: inherit;
+}
+
+/* Safari overrides (iOS) */
+body.iOS.safari {
+  background-color: rgb(240, 240, 245);
+  padding: 18px;
+  font-size: inherit;
+}
+body.iOS.safari label {
+  /* Prevent flash when labels are tapped */
+  -webkit-tap-highlight-color: transparent;
+  padding-left: 0;
+  padding-right: 18px;
+}
+/* Option groups should contain their options in a rounded box */
+body.iOS.safari form > section {
+  background-color: white;
+  border-radius: 10px;
+  padding-left: 18px;
+  padding-bottom: 1px;
+  padding-top: 1px;
+  border-top: none !important;
+}
+body.iOS.safari form > section:not(:first-of-type) {
+  margin-top: 34px;
+}
+/* All options should have a dividing line */
+body.iOS.safari section.group section {
+  border-top: 1px solid rgb(236, 236, 237);
+}
+/* Options should not be indented by default */
+body.iOS.safari section.group > section {
+  margin-left: 0;
+}
+/* Groups which have a toggle for all their options should indent their options */
+body.iOS.safari section.group > label.checkbox ~ section {
+  margin-left: 18px;
+}
+/* Labelled option groups should display their label above the box */
+body.iOS.safari form > section.labelled {
+  position: relative;
+  margin-top: 46px;
+}
+body.iOS.safari form > section.labelled > label {
+  position: absolute;
+  top: -32px;
+  text-transform: uppercase;
+  font-size: 75%;
+  color: rgb(133,133,135);
+}
+body.iOS.safari form > section.labelled > label + p {
+  margin-top: 12px;
+  margin-left: 0;
+}
+/* A checkbox options with nested options should indent their names */
+body.iOS.safari section.checkbox > section:not(.group) > label {
+  padding-left:18px
+}
+/* A checkbox option with nested group should indent it */
+body.iOS.safari section.checkbox > section.group {
+  margin-left:18px
+}
+body.iOS.safari summary {
+  padding-left: 0;
+}
+body.iOS.safari p {
+  font-size: inherit !important;
+  color: rgb(95, 99, 104) !important;
+  margin-right: 18px;
+}
+body.iOS.safari section.group > section > * {
+  color: inherit;
+}
+
+/* iOS-style toggles */
+body.iOS.safari .checkbox input[type="checkbox"] {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px; width: 1px;
+  margin: -1px; padding: 0; border: 0;
+}
+body.iOS.safari .checkbox .toggle {
+  position: relative;
+  display: inline-block;
+  min-width: 46px;
+  height: 26px;
+  background-color: #e6e6e6;
+  border-radius: 23px;
+  vertical-align: text-bottom;
+  transition: all 0.3s linear;
+  margin-left: 8px;
+}
+body.iOS.safari .checkbox .toggle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 42px;
+  height: 22px;
+  background-color: #fff;
+  border-radius: 11px;
+  transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1);
+  transition: all 0.25s linear;
+}
+body.iOS.safari .checkbox .toggle::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  background-color: #fff;
+  border-radius: 11px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24);
+  transform: translate3d(2px, 2px, 0);
+  transition: all 0.2s ease-in-out;
+}
+body.iOS.safari .checkbox label:active .toggle::after,
+body.iOS.safari label.checkbox:active .toggle:after {
+  width: 28px;
+  transform: translate3d(2px, 2px, 0);
+}
+body.iOS.safari .checkbox label:active input:checked + .toggle::after,
+body.iOS.safari label.checkbox:active input:checked + .toggle::after {
+  transform: translate3d(16px, 2px, 0);
+}
+body.iOS.safari input:checked + .toggle {
+  background-color: #4BD763;
+}
+body.iOS.safari input:checked + .toggle::before {
+  transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0);
+}
+body.iOS.safari input:checked + .toggle::after {
+  transform: translate3d(22px, 2px, 0);
+}
+body.iOS.safari .checkbox input:focus + .toggle {
+ outline: 5px auto Highlight;
+ outline: 5px auto -webkit-focus-ring-color;
 }
 
 /* Dark mode overrides */
@@ -183,4 +406,34 @@ body.edge section.group > section > * {
       color: rgb(191, 191, 201);
     }
   }
+
+  /* Safari dark mode overrides */
+  body.macOS.safari p {
+    color: rgb(184, 184, 184) !important;
+  }
+  body.iOS.safari {
+    background-color: rgb(0, 0, 0);
+  }
+  body.iOS.safari form > section {
+    background-color: rgb(28, 28, 30);
+  }
+  body.iOS.safari form > section.labelled > label {
+    color: rgb(115,115,121);
+  }
+  body.iOS.safari section.group section {
+    border-color: rgb(35, 35, 37);
+  }
+  body.iOS.safari p {
+    color: rgb(132, 132, 138) !important;
+  }
+  body.iOS.safari .checkbox .toggle {
+    background-color: rgb(57, 57, 61);
+  }
+  body.iOS.safari .checkbox .toggle::before {
+    background-color: rgb(57, 57, 61);
+  }
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
 }

@@ -33,6 +33,7 @@
     "page": "options.html"
   },
   "browser_action": {
+    "browser_style": true,
     "default_title": "__MSG_extensionName__",
     "default_popup": "browser_action.html"
   },

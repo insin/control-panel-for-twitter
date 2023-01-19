@@ -109,14 +109,18 @@ let mobile
 
 const $body = document.body
 
-$body.classList.toggle('edge', navigator.userAgent.includes('Edg/'))
+if (navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.userAgent)) {
+  $body.classList.add('safari', /iP(ad|hone)/.test(navigator.userAgent) ? 'iOS' : 'macOS')
+} else {
+  $body.classList.toggle('edge', navigator.userAgent.includes('Edg/'))
+}
 
 //#region Default config
 /** @type {import("./types").Config} */
 const defaultConfig = {
   debug: false,
   // Default based on the platform if Tweak New Twitter hasn't run on Twitter yet
-  version: /(Android|iPhone|iPad)/.test(navigator.userAgent) ? 'mobile' : 'desktop',
+  version: /(Android|iP(ad|hone))/.test(navigator.userAgent) ? 'mobile' : 'desktop',
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
@@ -403,23 +407,23 @@ function updateMutedQuotesDisplay() {
 
   optionsConfig.mutedQuotes.forEach(({user, time, text}, index) => {
     $mutedQuotes.appendChild(
-      h('section', {className: 'button'},
-        h('span', null,
-          user,
-          ' – ',
-          new Intl.DateTimeFormat([], {dateStyle: 'medium'}).format(new Date(time)),
-          h('br'),
-          text,
-        ),
-        h('input', {
-          type: 'button',
-          value: chrome.i18n.getMessage('unmuteButtonText'),
-          onclick: () => {
-            optionsConfig.mutedQuotes = optionsConfig.mutedQuotes.filter((_, i) => i != index)
-            chrome.storage.local.set({mutedQuotes: optionsConfig.mutedQuotes})
-            updateDisplay()
-          },
-        })
+      h('section', null,
+        h('label', {className: 'button mutedQuote'},
+          h('div', null,
+            user,
+            ' – ',
+            new Intl.DateTimeFormat([], {dateStyle: 'medium'}).format(new Date(time)),
+            text && h('p', {className: 'mb-0'}, text),
+          ),
+          h('button', {
+            type: 'button',
+            onclick: () => {
+              optionsConfig.mutedQuotes = optionsConfig.mutedQuotes.filter((_, i) => i != index)
+              chrome.storage.local.set({mutedQuotes: optionsConfig.mutedQuotes})
+              updateDisplay()
+            },
+          }, chrome.i18n.getMessage('unmuteButtonText'))
+        )
       )
     )
   })

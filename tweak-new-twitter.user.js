@@ -2557,7 +2557,14 @@ const configureThemeCss = (() => {
   let $heading = $quotedTweet?.querySelector(':scope > div > div:first-child')
   let user = $heading?.querySelector('div:last-child > span')?.textContent
   let time = $heading?.querySelector('time')?.dateTime
-  let text = $heading?.nextElementSibling?.querySelector('[lang]')?.textContent
+  let $qtText = $heading?.nextElementSibling?.querySelector('[lang]')
+  let text = $qtText && Array.from($qtText.childNodes, node => {
+    if (node.nodeType == 1) {
+      if (node.nodeName == 'IMG') return node.alt
+      return node.textContent
+    }
+    return node.nodeValue
+  }).join('')
   return {user, time, text}
 }
 

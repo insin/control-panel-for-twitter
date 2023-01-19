@@ -18,12 +18,18 @@
   "webExt": {
     "ignoreFiles": [
       "CONTRIBUTING.md",
+      "PRIVACY_POLICY.md",
       "README.md",
       "icons/chrome-web-store-icon.png",
-      "icons/icon-600.png",
+      "icons/icon.svg",
+      "icons/icon256.png",
+      "icons/icon512.png",
+      "icons/icon600.png",
+      "icons/toolbar-*.png",
       "jsconfig.json",
       "package.json",
       "promo/",
+      "safari/",
       "screenshots/",
       "scripts/",
       "types.d.ts"
