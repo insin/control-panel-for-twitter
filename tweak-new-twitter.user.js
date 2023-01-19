@@ -5,12 +5,12 @@
 // @namespace   https://github.com/insin/tweak-new-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
-// @version     86
+// @version     87
 // ==/UserScript==
 
 let debug = false
 
-const mobile = navigator.userAgent.includes('Android')
+const mobile = /(Android|iPhone|iPad)/.test(navigator.userAgent)
 const desktop = !mobile
 
 const $html = document.querySelector('html')
