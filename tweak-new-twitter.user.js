@@ -1784,6 +1784,11 @@ const configureCss = (() => {
         }
         body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div > div {
           height: 4px !important;
+          min-width: 56px;
+          width: 100%;
+          position: absolute;
+          bottom: 0;
+          border-radius: 9999px;
         }
       `)
     }
@@ -1965,6 +1970,7 @@ const configureCss = (() => {
             height: 0;
             width: 100%;
             min-width: 56px;
+            border-radius: 9999px;
           }
           body.Home .tnt_tabs > div > h2:not(#tnt_separated_tweets)::after,
           body.LatestTweets .tnt_tabs > div > h2:not(#tnt_separated_tweets)::after,
@@ -2203,12 +2209,20 @@ const configureThemeCss = (() => {
       `)
     }
 
-    if (themeColor != null && desktop && (config.retweets == 'separate' || config.quoteTweets == 'separate')) {
+    // Active tab colour for custom tabs
+    if (themeColor != null && (config.retweets == 'separate' || config.quoteTweets == 'separate')) {
       cssRules.push(`
-        .tnt_tabs > div > h2::after {
+        body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div > div {
           background-color: ${themeColor} !important;
         }
       `)
+      if (desktop) {
+        cssRules.push(`
+          .tnt_tabs > div > h2::after {
+            background-color: ${themeColor} !important;
+          }
+        `)
+      }
     }
 
     if (config.uninvertFollowButtons) {
