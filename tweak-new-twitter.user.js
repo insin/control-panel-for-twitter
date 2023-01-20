@@ -7,6 +7,7 @@
 // @match       https://mobile.twitter.com/*
 // @version     87
 // ==/UserScript==
+void function() {
 
 let debug = false
 
@@ -3297,3 +3298,5 @@ function configChanged(changes) {
 
 main()
 //#endregion
+
+}()
