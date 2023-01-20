@@ -1408,7 +1408,7 @@ async function observeTimeline(page, options = {}) {
       )
     }
     else {
-      console.log('tabbed timeline container not found')
+      warn('tabbed timeline container not found')
     }
   }
 }
