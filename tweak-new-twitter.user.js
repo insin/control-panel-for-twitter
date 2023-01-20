@@ -3018,9 +3018,9 @@ async function switchToLatestTweets(page) {
   log('switching to Following timeline')
 
   let sparkleSelector = mobile ? `
-    ${Selectors.MOBILE_TIMELINE_HEADER_OLD} div:nth-of-type(3) [role="button"],
-    ${Selectors.MOBILE_TIMELINE_HEADER_NEW} div:nth-of-type(3) [role="button"]
-  ` : `${Selectors.PRIMARY_COLUMN} > div > div [role="button"]`
+    body.Mobile ${Selectors.MOBILE_TIMELINE_HEADER_OLD} div:nth-of-type(3) [role="button"],
+    body.Mobile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} div:nth-of-type(3) [role="button"]
+  ` : `body.Desktop ${Selectors.PRIMARY_COLUMN} > div > div [role="button"]`
   let $sparkleButton = await getElement(sparkleSelector, {
     name: 'sparkle button',
     stopIf: pageIsNot(page),
