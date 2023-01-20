@@ -27,6 +27,7 @@ const defaultConfig = {
   hideCommunitiesNav: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
+  hideForYouTimeline: true,
   hideHelpCenterNav: true,
   hideKeyboardShortcutsNav: false,
   hideLikeMetrics: true,
@@ -283,11 +284,12 @@ function updateCheckboxGroups() {
 }
 
 function updateDisplay() {
+  $body.classList.toggle('algorithmic', !optionsConfig.hideForYouTimeline)
+  $body.classList.toggle('chronological', optionsConfig.alwaysUseLatestTweets)
   $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
   $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
   $body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
   $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
-  $body.classList.toggle('home', !optionsConfig.alwaysUseLatestTweets)
   $body.classList.toggle('mutedQuotes', shouldDisplayMutedQuotes())
   $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
   updateMutedQuotesDisplay()

@@ -15,13 +15,15 @@
       </label>
       <section class="checkbox">
         <label>
-          Always use the Following (chronological) timeline
+          Use the Following (chronological) timeline by default
           <input type="checkbox" name="alwaysUseLatestTweets">
         </label>
-        <p class="home">
-          Note: using the "For you" timeline can cause performance issues when a large number of tweets
-          are being hidden
-        </p>
+        <section class="checkbox chronological">
+          <label>
+            Hide the "For you" (algorithmic) timeline
+            <input type="checkbox" name="hideForYouTimeline">
+          </label>
+        </section>
       </section>
       <section class="checkbox desktop">
         <label>
@@ -96,10 +98,13 @@
         </details>
       </section>
     </section>
-    <section class="group home">
+    <section class="group algorithmic">
       <label>
         Algorithmic tweets in "For you" timeline
       </label>
+      <p>
+        Note: hiding large numbers of tweets can cause performance issues
+      </p>
       <section class="select">
         <label>
           Tweets from your communities

@@ -5,6 +5,7 @@ export type Config = {
   version?: 'desktop' | 'mobile'
   // Shared
   addAddMutedWordMenuItem: boolean
+  // XXX This is now more like "prefer chronological timeline by default"
   alwaysUseLatestTweets: boolean
   communityTweets: AlgorithmicTweetsConfig
   dontUseChirpFont: boolean
@@ -16,6 +17,7 @@ export type Config = {
   hideBookmarksNav: boolean
   hideCommunitiesNav: boolean
   hideFollowingMetrics: boolean
+  hideForYouTimeline: boolean
   hideHelpCenterNav: boolean
   hideKeyboardShortcutsNav: boolean
   hideLikeMetrics: boolean
@@ -117,6 +119,7 @@ export type TimelineOptions = {
   classifyTweets?: boolean
   hideHeadings?: boolean
   isTabbed?: boolean
+  onTabChange?: () => void
   tabbedTimelineContainerSelector?: string
 }
 

@@ -42,6 +42,7 @@ const config = {
   hideCommunitiesNav: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
+  hideForYouTimeline: true,
   hideHelpCenterNav: true,
   hideKeyboardShortcutsNav: false,
   hideLikeMetrics: true,
@@ -750,6 +751,11 @@ let separatedTweetsTimelineTitle = null
  */
 let themeColor = null
 
+/**
+ * `true` when "For you" was the last tab selected on the main timeline.
+ */
+let wasForYouTabSelected = false
+
 function isOnExplorePage() {
   return currentPath.startsWith('/explore')
 }
@@ -1316,7 +1322,7 @@ async function observeSearchForm() {
  * @param {import("./types").TimelineOptions} [options]
  */
 async function observeTimeline(page, options = {}) {
-  let {isTabbed = false, tabbedTimelineContainerSelector = null} = options
+  let {isTabbed = false, onTabChange = null, tabbedTimelineContainerSelector = null} = options
 
   let $timeline = await getElement(Selectors.TIMELINE, {
     name: 'initial timeline',
@@ -1343,6 +1349,7 @@ async function observeTimeline(page, options = {}) {
             mutation.addedNodes.forEach((/** @type {HTMLElement} */ $newTimeline) => {
               log('timeline replaced')
               disconnectPageObserver('timeline')
+              onTabChange?.()
               pageObservers.push(
                 observeElement($newTimeline, () => onTimelineChange($newTimeline, page, options), 'timeline')
               )
@@ -1395,6 +1402,7 @@ async function observeTimeline(page, options = {}) {
           waitingForNewTimeline = false
           if (!$newTimeline) return
 
+          onTabChange?.()
           observeTimelineItems($newTimeline)
         }, 'tabbed timeline container')
       )
@@ -1650,15 +1658,16 @@ const configureCss = (() => {
            `body.MainTimeline:not(.TabbedTimeline) ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div:only-child > div:only-child > div:only-child > div:only-child > div:only-child > div:last-of-type:not(:only-child)`,
           ].join(', ')
       )
-      // Hide the "For you" tab when automatically staying on Latest Tweets
-      cssRules.push(`
-        body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child {
-          flex: 0;
-        }
-        body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child > a {
-          display: none;
-        }
-      `)
+      if (config.hideForYouTimeline) {
+        cssRules.push(`
+          body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child {
+            flex: 0;
+          }
+          body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child > a {
+            display: none;
+          }
+        `)
+      }
     }
     if (config.dropdownMenuFontWeight) {
       cssRules.push(`
@@ -3124,6 +3133,9 @@ function tweakMainTimelinePage() {
 
     observeTimeline(currentPage, {
       isTabbed: true,
+      onTabChange: () => {
+        wasForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]'))
+      },
       tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
     })
   }
@@ -3149,8 +3161,8 @@ async function tweakTimelineTabs($timelineTabs) {
   let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a'))
 
   if (config.alwaysUseLatestTweets && !document.title.startsWith(separatedTweetsTimelineTitle)) {
-    let $firstTabSelectedLink = $timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]')
-    if ($firstTabSelectedLink) {
+    let isForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]'))
+    if (isForYouTabSelected && (!wasForYouTabSelected || config.hideForYouTimeline)) {
       log('switching to Following timeline')
       $followingTabLink.click()
     }

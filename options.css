@@ -11,12 +11,13 @@ body.browserAction {
 
 body.mobile .desktop,
 body.desktop .mobile,
+body:not(.algorithmic) .algorithmic,
+body:not(.chronological) .chronological,
 body:not(.debug) .debug,
 body:not(.disabledHomeTimeline) .disabledHomeTimeline,
 body:not(.fullWidthContent) .fullWidthContent,
 body:not(.hidingMetrics) .hidingMetrics,
 body:not(.hidingSidebarContent) .hidingSidebarContent,
-body:not(.home) .home,
 body:not(.mutedQuotes) .mutedQuotes,
 body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   display: none;
@@ -90,6 +91,11 @@ section.group > section > * {
   padding-left: 0;
 }
 
+section.group > p {
+  margin: 0 0 12px 40px;
+  font-size: 12px;
+}
+
 section.group > section > p {
   margin: 0 60px 12px 0;
   font-size: 12px;
@@ -108,9 +114,11 @@ section.group > section > p {
   section:not(:first-of-type) {
     border-color: #d7d7db;
   }
+  section.group > p,
   section.group > section > * {
     color: rgb(91, 91, 102);
   }
+  section.group > p,
   section.group > section > p {
     font-size: 14px;
   }
@@ -127,6 +135,7 @@ body.edge section:not(:first-of-type) {
 body.edge section.group > label {
   font-weight: 600;
 }
+body.edge section.group > p,
 body.edge section.group > section > * {
   color: #767676;
 }
@@ -140,6 +149,7 @@ body.edge section.group > section > * {
   section:not(:first-of-type) {
     border-color: #3f4042;
   }
+  section.group > p,
   section.group > section > * {
     color: rgb(154, 160, 166);
   }
@@ -155,6 +165,7 @@ body.edge section.group > section > * {
   body.edge section:not(:first-of-type) {
     border-color: #737373;
   }
+  body.edge section.group > p,
   body.edge section.group > section > * {
     color: #A7A7A7;
   }
@@ -167,6 +178,7 @@ body.edge section.group > section > * {
     section:not(:first-of-type) {
       border-color: #4e4d54;
     }
+    section.group > p,
     section.group > section > * {
       color: rgb(191, 191, 201);
     }
