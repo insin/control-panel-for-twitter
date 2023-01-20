@@ -3,7 +3,9 @@ $settings.type = 'text/json'
 $settings.id = 'tnt_settings'
 document.body.appendChild($settings)
 
+// Get initial config and inject it and the main script into the Twitter page
 chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ storedConfig) => {
+  // Update deprecated config values
   // @ts-ignore
   if (storedConfig.twitterBlueChecks == 'dim') {
     storedConfig.twitterBlueChecks = 'replace'
@@ -18,6 +20,7 @@ chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ store
   chrome.storage.onChanged.addListener(onConfigChange)
 })
 
+// Inject config changes from options pages into the settings <script>
 function onConfigChange(changes) {
   let configChanges = Object.fromEntries(
     Object.entries(changes).map(([key, {newValue}]) => [key, newValue])
@@ -25,6 +28,7 @@ function onConfigChange(changes) {
   $settings.innerText = JSON.stringify(configChanges)
 }
 
+// Store config changes sent from the injected script
 window.addEventListener('message', (event) => {
   if (event.source !== window) return
   if (event.data.type === 'tntConfigChange' && event.data.changes) {

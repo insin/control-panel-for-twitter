@@ -1,69 +1,18 @@
-const mobile = navigator.userAgent.includes('Android')
-const desktop = !mobile
+/** @type {boolean} */
+let desktop
+/** @type {boolean} */
+let mobile
+
 const $body = document.body
 
-$body.classList.add(mobile ? 'mobile' : 'desktop')
 $body.classList.toggle('edge', navigator.userAgent.includes('Edg/'))
-$body.querySelectorAll(mobile ? '.desktop' : '.mobile').forEach($el => $el.remove())
 
-/** @type {Map<string, string[]>} */
-const checkboxGroups = new Map(Object.entries({
-  reduceAlgorithmicContent: [
-    'alwaysUseLatestTweets',
-    'hideExplorePageContents',
-    'hideMoreTweets',
-    'hideWhoToFollowEtc',
-    desktop && 'hideSidebarContent',
-  ].filter(Boolean),
-  uiImprovements: [
-    'addAddMutedWordMenuItem',
-    'dropdownMenuFontWeight',
-    'fastBlock',
-    'hideVerifiedNotificationsTab',
-    'hideViews',
-    'uninvertFollowButtons',
-    desktop && 'navBaseFontSize',
-    mobile && 'hideAppNags',
-  ].filter(Boolean),
-  hideUnusedUiItems: [
-    'hideCommunitiesNav',
-    'hideShareTweetButton',
-    'hideTweetAnalyticsLinks',
-    desktop && 'hideAccountSwitcher',
-    desktop && 'hideBookmarksNav',
-    desktop && 'hideExploreNav',
-    desktop && 'hideMessagesDrawer',
-    desktop && 'hideTwitterBlueNav',
-    mobile && 'hideMessagesBottomNavItem',
-  ].filter(Boolean),
-  hideMoreSlideOutMenuItems: [
-    'hideAnalyticsNav',
-    'hideHelpCenterNav',
-    'hideListsNav',
-    'hideMomentsNav',
-    'hideMonetizationNav',
-    'hideNewslettersNav',
-    'hideTopicsNav',
-    'hideTwitterAdsNav',
-    'hideTwitterCircleNav',
-    'hideTwitterForProfessionalsNav',
-    desktop && 'hideKeyboardShortcutsNav',
-    mobile && 'hideBookmarksNav',
-    mobile && 'hideTwitterBlueNav',
-  ].filter(Boolean),
-  hideAllMetrics: [
-    'hideFollowingMetrics',
-    'hideLikeMetrics',
-    'hideReplyMetrics',
-    'hideRetweetMetrics',
-    'hideQuoteTweetMetrics',
-    'hideTotalTweetsMetrics',
-  ]
-}))
-
+//#region Default config
 /** @type {import("./types").Config} */
 const defaultConfig = {
   debug: false,
+  // Default based on the platform if Tweak New Twitter hasn't run on Twitter yet
+  version: /(Android|iPhone|iPad)/.test(navigator.userAgent) ? 'mobile' : 'desktop',
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
@@ -130,31 +79,36 @@ const defaultConfig = {
   hideAppNags: true,
   hideMessagesBottomNavItem: false,
 }
+//#endregion
 
+//#region Config & variables
 /**
  * Complete configuration for the options page.
  * @type {import("./types").Config}
  */
 let optionsConfig
 
+/**
+ * Checkbox group configuration for the version being used (mobile or desktop).
+ * @type {Map<string, string[]>}
+ */
+let checkboxGroups
+
+// Page elements
 let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('details#experiments'))
 let $exportConfig = document.querySelector('#export-config')
 let $form = document.querySelector('form')
 let $mutedQuotes =  /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
 let $mutedQuotesDetails =  /** @type {HTMLDetailsElement} */ (document.querySelector('details#mutedQuotesDetails'))
 let $mutedQuotesLabel = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesLabel'))
+//#endregion
 
-function applyConfig() {
-  updateFormControls()
-  updateCheckboxGroups()
-  updateDisplay()
-}
-
+//#region Utility functions
 function exportConfig() {
   let $a = document.createElement('a')
-  $a.download = 'tweak-new-twitter.config.txt'
+  $a.download = 'tweak-new-twitter-v2.21.6.config.txt'
   $a.href = URL.createObjectURL(new Blob([
-    JSON.stringify({version: '2.21.6', ...sortProperties(optionsConfig)}, null, 2)
+    JSON.stringify(optionsConfig, null, 2)
   ], {type: 'text/plain'}))
   $a.click()
   URL.revokeObjectURL($a.href)
@@ -192,6 +146,82 @@ function exportConfig() {
 }
 
 /**
+ * @param {number} n
+ * @returns {string}
+ */
+function s(n) {
+  return n == 1 ? '' : 's'
+}
+//#endregion
+
+//#region Options page functions
+/**
+ * Update the options page to match the current config.
+ */
+function applyConfig() {
+  mobile = optionsConfig.version == 'mobile'
+  desktop = !mobile
+  $body.classList.toggle('mobile', mobile)
+  $body.classList.toggle('desktop', desktop)
+  checkboxGroups = new Map(Object.entries({
+    reduceAlgorithmicContent: [
+      'alwaysUseLatestTweets',
+      'hideExplorePageContents',
+      'hideMoreTweets',
+      'hideWhoToFollowEtc',
+      desktop && 'hideSidebarContent',
+    ].filter(Boolean),
+    uiImprovements: [
+      'addAddMutedWordMenuItem',
+      'dropdownMenuFontWeight',
+      'fastBlock',
+      'hideVerifiedNotificationsTab',
+      'hideViews',
+      'uninvertFollowButtons',
+      desktop && 'navBaseFontSize',
+      mobile && 'hideAppNags',
+    ].filter(Boolean),
+    hideUnusedUiItems: [
+      'hideCommunitiesNav',
+      'hideShareTweetButton',
+      'hideTweetAnalyticsLinks',
+      desktop && 'hideAccountSwitcher',
+      desktop && 'hideBookmarksNav',
+      desktop && 'hideExploreNav',
+      desktop && 'hideMessagesDrawer',
+      desktop && 'hideTwitterBlueNav',
+      mobile && 'hideMessagesBottomNavItem',
+    ].filter(Boolean),
+    hideMoreSlideOutMenuItems: [
+      'hideAnalyticsNav',
+      'hideHelpCenterNav',
+      'hideListsNav',
+      'hideMomentsNav',
+      'hideMonetizationNav',
+      'hideNewslettersNav',
+      'hideTopicsNav',
+      'hideTwitterAdsNav',
+      'hideTwitterCircleNav',
+      'hideTwitterForProfessionalsNav',
+      desktop && 'hideKeyboardShortcutsNav',
+      mobile && 'hideBookmarksNav',
+      mobile && 'hideTwitterBlueNav',
+    ].filter(Boolean),
+    hideAllMetrics: [
+      'hideFollowingMetrics',
+      'hideLikeMetrics',
+      'hideReplyMetrics',
+      'hideRetweetMetrics',
+      'hideQuoteTweetMetrics',
+      'hideTotalTweetsMetrics',
+    ]
+  }))
+  updateFormControls()
+  updateCheckboxGroups()
+  updateDisplay()
+}
+
+/**
  * @param {Event} e
  */
 function onFormChanged(e) {
@@ -202,7 +232,8 @@ function onFormChanged(e) {
   if ($el.type == 'checkbox') {
     if (checkboxGroups.has($el.name)) {
       checkboxGroups.get($el.name).forEach(checkboxName => {
-        optionsConfig[checkboxName] = changedConfig[checkboxName] = $form.elements[checkboxName].checked = $el.checked
+        optionsConfig[checkboxName] = changedConfig[checkboxName] = $el.checked
+        updateFormControl($form.elements[checkboxName], $el.checked)
       })
       $el.indeterminate = false
     } else {
@@ -229,26 +260,8 @@ function onStorageChanged(changes) {
   applyConfig()
 }
 
-/**
- * @param {number} n
- * @returns {string}
- */
- function s(n) {
-  return n == 1 ? '' : 's'
-}
-
 function shouldDisplayMutedQuotes() {
   return optionsConfig.mutableQuoteTweets && optionsConfig.mutedQuotes.length > 0
-}
-
-function sortProperties(obj) {
-  let entries = Object.entries(obj)
-  entries.sort(([a], [b]) => {
-    if (a < b) return -1
-    if (a > b) return 1
-    return 0
-  })
-  return Object.fromEntries(entries)
 }
 
 /**
@@ -314,61 +327,77 @@ function updateMutedQuotesDisplay() {
 }
 
 function updateFormControls() {
-  for (let prop in optionsConfig) {
-    if (prop in $form.elements) {
-      if ($form.elements[prop].type == 'checkbox') {
-        $form.elements[prop].checked = optionsConfig[prop]
-      } else {
-        $form.elements[prop].value = optionsConfig[prop]
-      }
-    }
-  }
+  Object.keys(optionsConfig)
+        .filter(prop => prop in $form.elements)
+        .forEach(prop => updateFormControl($form.elements[prop], optionsConfig[prop]))
 }
 
-chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ storedConfig) => {
-  // @ts-ignore
-  if (storedConfig.twitterBlueChecks == 'dim') {
-    storedConfig.twitterBlueChecks = 'replace'
+function updateFormControl($control, value) {
+  if ($control instanceof RadioNodeList) {
+    // If a checkbox displays in multiple sections, update them all
+    $control.forEach(input => input.checked = value)
   }
-  optionsConfig = {...defaultConfig, ...storedConfig}
+  else if ($control.type == 'checkbox') {
+    $control.checked = value
+  }
+  else {
+    $control.value = value
+  }
+}
+//#endregion
 
-  $body.classList.toggle('debug', optionsConfig.debug === true)
-  $experiments.open = (
-    optionsConfig.disableHomeTimeline ||
-    optionsConfig.fullWidthContent ||
-    optionsConfig.reducedInteractionMode ||
-    optionsConfig.verifiedAccounts != 'ignore'
-  )
-  $exportConfig.addEventListener('click', exportConfig)
-  $form.addEventListener('change', onFormChanged)
-  $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
-  chrome.storage.onChanged.addListener(onStorageChanged)
+//#region Main
+function main() {
+  chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ storedConfig) => {
+    // Update deprecated config values
+    // @ts-ignore
+    if (storedConfig.twitterBlueChecks == 'dim') {
+      storedConfig.twitterBlueChecks = 'replace'
+    }
+    optionsConfig = {...defaultConfig, ...storedConfig}
 
-  if (!optionsConfig.debug) {
-    let $showDebugOptions = document.querySelector('#showDebugOptions')
-    let $debugCountdown = document.querySelector('#debugCountdown')
-    let debugCountdown = 5
+    $body.classList.toggle('debug', optionsConfig.debug === true)
+    $experiments.open = (
+      optionsConfig.disableHomeTimeline ||
+      optionsConfig.fullWidthContent ||
+      optionsConfig.reducedInteractionMode ||
+      optionsConfig.verifiedAccounts != 'ignore'
+    )
+    $exportConfig.addEventListener('click', exportConfig)
+    $form.addEventListener('change', onFormChanged)
+    $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
+    chrome.storage.onChanged.addListener(onStorageChanged)
 
-    function onClick(e) {
-      if (e.target === $showDebugOptions || $showDebugOptions.contains(/** @type {Node} */ (e.target))) {
-        debugCountdown--
-      } else {
-        debugCountdown = 5
+    if (!optionsConfig.debug) {
+      let $showDebugOptions = document.querySelector('#showDebugOptions')
+      let $debugCountdown = document.querySelector('#debugCountdown')
+      let debugCountdown = 5
+
+      function onClick(e) {
+        if (e.target === $showDebugOptions || $showDebugOptions.contains(/** @type {Node} */ (e.target))) {
+          debugCountdown--
+        } else {
+          debugCountdown = 5
+        }
+
+        if (debugCountdown == 0) {
+          $body.classList.add('debug')
+          $debugCountdown.textContent = ''
+          $form.removeEventListener('click', onClick)
+          $showDebugOptions.classList.remove('clickable')
+        }
+        else if (debugCountdown <= 3) {
+          $debugCountdown.textContent = ` (Debug options: ${debugCountdown} more click${s(debugCountdown)} to enable)`
+        }
       }
 
-      if (debugCountdown == 0) {
-        $body.classList.add('debug')
-        $debugCountdown.textContent = ''
-        $form.removeEventListener('click', onClick)
-        $showDebugOptions.classList.remove('clickable')
-      } else if (debugCountdown <= 3) {
-        $debugCountdown.textContent = ` (Debug options: ${debugCountdown} more click${s(debugCountdown)} to enable)`
-      }
+      $form.addEventListener('click', onClick)
+      $showDebugOptions.classList.add('clickable')
     }
 
-    $form.addEventListener('click', onClick)
-    $showDebugOptions.classList.add('clickable')
-  }
+    applyConfig()
+  })
+}
 
-  applyConfig()
-})
+main()
+//#endregion

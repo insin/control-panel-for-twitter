@@ -11,8 +11,10 @@ void function() {
 
 let debug = false
 
-const mobile = /(Android|iPhone|iPad)/.test(navigator.userAgent)
-const desktop = !mobile
+/** @type {boolean} */
+let desktop
+/** @type {boolean} */
+let mobile
 
 const $html = document.querySelector('html')
 const $body = document.body
@@ -729,9 +731,6 @@ let homeNavigationIsBeingUsed = false
  */
 let lastMainTimelineTitle = null
 
-/** `true` when `<title>` has appeared and we're observing it for changes. */
-let observingTitle = false
-
 /**
  * MutationObservers active on the current page, or anything else we want to
  * clean up when the user moves off the current page.
@@ -917,6 +916,10 @@ function warn(...args) {
   }
 }
 
+function error(...args) {
+  console.log(`❌${currentPage ? `(${currentPage})` : ''}`, ...args)
+}
+
 /**
  * @param {() => boolean} condition
  * @returns {() => boolean}
@@ -1061,7 +1064,7 @@ function observeBodyBackgroundColor() {
       processCurrentPage()
     }
     lastBackgroundColor = backgroundColor
-  }, '<body> style attribute for backgroundColor', {
+  }, '<body> style attribute for background colour changes', {
     attributes: true,
     attributeFilter: ['style']
   })
@@ -1095,47 +1098,57 @@ async function observeColor() {
 }
 
 /**
- * When the "Font size" setting is changed in "Customize your view", `<html>`'s
- * fontSize is changed and the app is re-rendered.
+ * When the "Font size" setting is changed in "Customize your view" on desktop,
+ * `<html>`'s fontSize is changed and the app is re-rendered.
  */
-function observeHtmlFontSize() {
-  if (mobile) return
+const observeHtmlFontSize = (() => {
+  /** @type {MutationObserver} */
+  let fontSizeObserver
 
-  let lastOverflow = ''
-
-  observeElement($html, () => {
-    if (!$html.style.fontSize) return
-
-    let hasFontSizeChanged = fontSize != null && $html.style.fontSize != fontSize
-
-    if ($html.style.fontSize != fontSize) {
-      fontSize = $html.style.fontSize
-      log(`<html> fontSize has changed to ${fontSize}`)
-      configureNavFontSizeCss()
+  return function observeHtmlFontSize() {
+    if (fontSizeObserver) {
+      fontSizeObserver.disconnect()
+      fontSizeObserver = null
     }
 
-    // Ignore overflow changes, which happen when a dialog is shown or hidden
-    let hasOverflowChanged = $html.style.overflow != lastOverflow
-    lastOverflow = $html.style.overflow
-    if (!hasFontSizeChanged && hasOverflowChanged) {
-      log('ignoring <html> style overflow change')
-      return
-    }
+    if (mobile) return
 
-    // When you switch between the smallest "Font size" options, <html>'s
-    // style is updated but the font size is kept the same - re-process just
-    // in case.
-    if (hasFontSizeChanged ||
-        location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW && fontSize == '14px') {
-      log('<html> style attribute changed, re-processing current page')
-      observePopups()
-      processCurrentPage()
-    }
-  }, '<html> style attribute for fontSize', {
-    attributes: true,
-    attributeFilter: ['style']
-  })
-}
+    let lastOverflow = ''
+
+    fontSizeObserver = observeElement($html, () => {
+      if (!$html.style.fontSize) return
+
+      let hasFontSizeChanged = fontSize != null && $html.style.fontSize != fontSize
+
+      if ($html.style.fontSize != fontSize) {
+        fontSize = $html.style.fontSize
+        log(`<html> fontSize has changed to ${fontSize}`)
+        configureNavFontSizeCss()
+      }
+
+      // Ignore overflow changes, which happen when a dialog is shown or hidden
+      let hasOverflowChanged = $html.style.overflow != lastOverflow
+      lastOverflow = $html.style.overflow
+      if (!hasFontSizeChanged && hasOverflowChanged) {
+        log('ignoring <html> style overflow change')
+        return
+      }
+
+      // When you switch between the smallest "Font size" options, <html>'s
+      // style is updated but the font size is kept the same - re-process just
+      // in case.
+      if (hasFontSizeChanged ||
+          location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW && fontSize == '14px') {
+        log('<html> style attribute changed, re-processing current page')
+        observePopups()
+        processCurrentPage()
+      }
+    }, '<html> style attribute for font size changes', {
+      attributes: true,
+      attributeFilter: ['style']
+    })
+  }
+})()
 
 /**
  * Twitter displays popups in the #layers element. It also reuses open popups
@@ -1194,7 +1207,6 @@ const observePopups = (() => {
 
 async function observeTitle() {
   let $title = await getElement('title', {name: '<title>'})
-  observingTitle = true
   observeElement($title, () => onTitleChange($title.textContent), '<title>')
 }
 //#endregion
@@ -2432,6 +2444,7 @@ function handlePopup($popup) {
     }
   }
 
+  // User hovercard popup
   if (config.twitterBlueChecks != 'ignore') {
     let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
     if ($hoverCard) {
@@ -2446,6 +2459,7 @@ function handlePopup($popup) {
     }
   }
 
+  // Verified account popup when you click the check on a user's profile page
   if (config.twitterBlueChecks == 'replace' && isOnProfilePage()) {
     let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
     if ($hoverCard) {
@@ -3237,20 +3251,20 @@ function tweakSearchPage() {
 //#endregion
 
 //#region Main
-function main() {
+async function main() {
   let $settings = /** @type {HTMLScriptElement} */ (document.querySelector('script#tnt_settings'))
   if ($settings) {
     try {
       Object.assign(config, JSON.parse($settings.innerText))
     } catch(e) {
-      warn('error getting initial settings', e)
+      error('error getting initial settings', e)
     }
 
     let settingsObserver = new MutationObserver(() => {
       try {
         onSettingsChanged(JSON.parse($settings.innerText))
       } catch(e) {
-        warn('error changing settings', e)
+        error('error changing settings', e)
       }
     })
     settingsObserver.observe($settings, {childList: true})
@@ -3260,17 +3274,62 @@ function main() {
     debug = true
   }
 
-  log({config, lang, platform: mobile ? 'mobile' : 'desktop'})
+  let $appWrapper = await getElement('#layers + div', {
+    name: 'app wrapper',
+    timeout: 10000,
+  })
+  if ($appWrapper == null) {
+    error('Unable to initialise Tweak New Twitter - app wrapper was not found after 10 seconds')
+    return
+  }
 
-  configureSeparatedTweetsTimelineTitle()
-  configureCss()
-  checkReactNativeStylesheet()
-  observeHtmlFontSize()
-  observeBodyBackgroundColor()
-  observeColor()
-  observePopups()
+  let lastFlexDirection
+  observeElement($appWrapper, () => {
+    let flexDirection = getComputedStyle($appWrapper).flexDirection
 
-  observeTitle()
+    mobile = flexDirection == 'column'
+    desktop = !mobile
+
+    /** @type {'mobile' | 'desktop'} */
+    let version = mobile ? 'mobile' : 'desktop'
+
+    if (version != config.version) {
+      log('setting version to', version)
+      config.version = version
+      // Let the options page know which version is being used
+      storeConfigChanges({version})
+    }
+
+    if (lastFlexDirection == null) {
+      log('initial config', {config, lang, version})
+
+      // One-time setup
+      checkReactNativeStylesheet()
+      observeBodyBackgroundColor()
+      observeColor()
+
+      // Repeatable configuration setup
+      configureSeparatedTweetsTimelineTitle()
+      configureCss()
+      observeHtmlFontSize()
+      observePopups()
+
+      // Start watching for page changes
+      observeTitle()
+    }
+    else if (flexDirection != lastFlexDirection) {
+      observeHtmlFontSize()
+      configChanged({version})
+    }
+
+    $body.classList.toggle('Mobile', mobile)
+    $body.classList.toggle('Desktop', desktop)
+
+    lastFlexDirection = flexDirection
+  }, 'app wrapper class attribute for version changes (mobile ↔ desktop)', {
+    attributes: true,
+    attributeFilter: ['class']
+  })
 }
 
 /**
