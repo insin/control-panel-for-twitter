@@ -4,4 +4,5 @@ locales/js/*.js
 locales/locales.js
 node_modules/
 promo/*.png
+!promo/blue_promo.png
 web-ext-artifacts/
