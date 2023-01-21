@@ -3286,15 +3286,7 @@ async function main() {
     debug = true
   }
 
-  let $appWrapper = await getElement('#layers + div', {
-    name: 'app wrapper',
-    timeout: 10000,
-  })
-  if ($appWrapper == null) {
-    error('Unable to initialise Tweak New Twitter - app wrapper was not found after 10 seconds')
-    return
-  }
-
+  let $appWrapper = await getElement('#layers + div', {name: 'app wrapper'})
   let lastFlexDirection
   observeElement($appWrapper, () => {
     let flexDirection = getComputedStyle($appWrapper).flexDirection
