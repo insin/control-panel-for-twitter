@@ -1,8 +1,8 @@
 browser_action.html
-locales/html/*.html
-locales/js/*.js
-locales/locales.js
 node_modules/
 promo/*.png
 !promo/blue_promo.png
+scripts/locales/html/*.html
+scripts/locales/js/*.js
+scripts/locales/locales.js
 web-ext-artifacts/
