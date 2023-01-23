@@ -15,7 +15,7 @@
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
   },
   "option-hide": {
-    "message": "Hide",
+    "message": "非表示にする",
     "description": "Option for hiding things, e.g. algorithmic tweets, Twitter Blue checks"
   },
   "option-separate": {
@@ -23,7 +23,7 @@
     "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
   },
   "unmuteButtonText": {
-    "message": "Unmute",
+    "message": "ミュートを解除",
     "description": "Button used in the options page to unmute a muted Quote Tweet"
   },
   "debugCountdownLabel": {
@@ -64,10 +64,10 @@
     "message": "Tweets shared by other users"
   },
   "retweetsLabel": {
-    "message": "Retweets"
+    "message": "リツイート"
   },
   "quoteTweetsLabel": {
-    "message": "Quote Tweets"
+    "message": "引用ツイート"
   },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "Hide tweets quoting accounts you've blocked or muted"
@@ -161,16 +161,16 @@
     "message": "Hide all"
   },
   "hideReplyMetricsLabel": {
-    "message": "Replies"
+    "message": "返信"
   },
   "hideRetweetMetricsLabel": {
-    "message": "Retweets"
+    "message": "リツイート"
   },
   "hideLikeMetricsLabel": {
-    "message": "Likes"
+    "message": "いいね"
   },
   "hideQuoteTweetMetricsLabel": {
-    "message": "Quote tweets"
+    "message": "引用ツイート"
   },
   "hideFollowingMetricsLabel": {
     "message": "Following / followers"
@@ -218,40 +218,40 @@
     "message": "Twitter Blue"
   },
   "hideTopicsNavLabel": {
-    "message": "Topics"
+    "message": "トピック"
   },
   "hideBookmarksNavLabel-mobile": {
-    "message": "Bookmarks"
+    "message": "ブックマーク"
   },
   "hideListsNavLabel": {
-    "message": "Lists"
+    "message": "リスト"
   },
   "hideTwitterCircleNavLabel": {
-    "message": "Twitter Circle"
+    "message": "Twitterサークル"
   },
   "hideMomentsNavLabel": {
-    "message": "Moments"
+    "message": "モーメント"
   },
   "hideNewslettersNavLabel": {
-    "message": "Newsletters"
+    "message": "ニュースレター"
   },
   "hideAnalyticsNavLabel": {
-    "message": "Analytics"
+    "message": "アナリティクス"
   },
   "hideTwitterForProfessionalsNavLabel": {
-    "message": "Twitter for Professionals"
+    "message": "Twitter Pro"
   },
   "hideTwitterAdsNavLabel": {
-    "message": "Twitter Ads"
+    "message": "Twitter広告"
   },
   "hideMonetizationNavLabel": {
-    "message": "Monetization"
+    "message": "収益化"
   },
   "hideHelpCenterNavLabel": {
-    "message": "Help Center"
+    "message": "ヘルプセンター"
   },
   "hideKeyboardShortcutsNavLabel": {
-    "message": "Keyboard shortcuts"
+    "message": "キーボードショートカット"
   },
   "experimentsOptionsLabel": {
     "message": "Experiments"
@@ -290,10 +290,10 @@
     "message": "Redirect home timeline to"
   },
   "disabledHomeTimelineRedirectOption-notifications": {
-    "message": "Notifications"
+    "message": "通知"
   },
   "disabledHomeTimelineRedirectOption-messages": {
-    "message": "Messages"
+    "message": "メッセージ"
   },
   "debugOptionsLabel": {
     "message": "Debug options"
