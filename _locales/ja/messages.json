@@ -1,0 +1,310 @@
+{
+  "extensionName": {
+    "message": "ツイッターなおしたったー",
+    "description": "Must not exceed 45 characters"
+  },
+  "extensionDescription": {
+    "message": "アルゴリズムコンテンツを取り除き、ニュースとトレンドを非表示にして、タイムライン上の共有ツイートを制御することで、UIを改善します",
+    "description": "Must not exceed 132 characters"
+  },
+  "optionsPageTitle": {
+    "message": "ツイッターなおしたったー　オプション機能"
+  },
+  "option-ignore": {
+    "message": "そのまま",
+    "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
+  },
+  "option-hide": {
+    "message": "非表示",
+    "description": "Option for hiding things, e.g. algorithmic tweets, Twitter Blue checks"
+  },
+  "option-separate": {
+    "message": "別タブで開く",
+    "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
+  },
+  "unmuteButtonText": {
+    "message": "ミュート解除",
+    "description": "Button used in the options page to unmute a muted Quote Tweet"
+  },
+  "debugCountdownLabel": {
+    "message": " (デバッグオプション: 有効にするには $DEBUG_COUNTDOWN$ を複数回クリック)",
+    "description": "Displayed when the user clicks multiple times on the info text at the end of the Experiments section to enable debug mode",
+    "placeholders": {
+      "DEBUG_COUNTDOWN": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "reduceAlgorithmicContentOptionsLabel": {
+    "message": "アルゴリズムコンテンツを取り除く"
+  },
+  "alwaysUseLatestTweetsLabel": {
+    "message": "常にタイムラインを「フォロー中」（時系列順）にする"
+  },
+  "hideForYouTimelineLabel": {
+    "message": "アルゴリズムによる「おすすめ」を非表示"
+  },
+  "hideSidebarContentLabel": {
+    "message": "スライドバーの「今どうしてる？」「おすすめトレンド」等を非表示"
+  },
+  "showRelevantPeopleLabel": {
+    "message": "ツイート閲覧時に「おすすめユーザー」を表示する"
+  },
+  "hideWhoToFollowEtcLabel": {
+    "message": "タイムラインの「おすすめユーザー」「おすすめトピック」を非表示"
+  },
+  "hideExplorePageContentsLabel": {
+    "message": "Exploreページの内容を非表示（検索のみに使用する）"
+  },
+  "hideMoreTweetsLabel": {
+    "message": "ツイートの「もっと見る」を非表示"
+  },
+  "sharedTweetsOptionsLabel": {
+    "message": "他のユーザーが共有したツイート"
+  },
+  "retweetsLabel": {
+    "message": "リツイート"
+  },
+  "quoteTweetsLabel": {
+    "message": "引用ツイート"
+  },
+  "hideUnavailableQuoteTweetsLabel": {
+    "message": "ミュートやブロックしたアカウントが含まれる引用ツイートを非表示"
+  },
+  "mutableQuoteTweetsLabel": {
+    "message": "ラベルのついたツイートをミュートする"
+  },
+  "mutableQuoteTweetsInfo": {
+    "message": "「この会話をミュートする\"」メニューを引用ツイートに追加",
+    "description": "The translations for 'Mute this conversation' in tweak-new-twitter.user.js are from Twitter's own locale data"
+  },
+  "algorithmicTweetsOptionsLabel": {
+    "message": "タイムライン上のアルゴリズムによる「おすすめ」を非表示"
+  },
+  "algorithmicTweetsWarning": {
+    "message": "注意：大量のツイートを非表示にするとパフォーマンスが低下するおそれがあります"
+  },
+  "communityTweetsLabel": {
+    "message": "あなたのコミュニティからのツイート"
+  },
+  "followeesFollowsLabel": {
+    "message": "あなたがフォローしてる人のフォロワーからのツイート"
+  },
+  "likedTweetsLabel": {
+    "message": "「いいね」されたツイート"
+  },
+  "repliedToTweetsLabel": {
+    "message": "新しいリプライがありました"
+  },
+  "suggestedTopicTweetsLabel": {
+    "message": "おすすめトピックのツイート"
+  },
+  "uiImprovementsOptionsLabel": {
+    "message": "UIの改善"
+  },
+  "uninvertFollowButtonsLabel": {
+    "message": "フォロー／フォロワーボタンの反転表示を解除"
+  },
+  "followButtonStyleLabel": {
+    "message": "ボタンのスタイル"
+  },
+  "followButtonStyleOption-monochrome": {
+    "message": "モノクロ"
+  },
+  "followButtonStyleOption-themed": {
+    "message": "テーマ"
+  },
+  "navBaseFontSizeLabel": {
+    "message": "ナビゲーションバーを通常のテキストフォント形式にする"
+  },
+  "dropdownMenuFontWeightLabel": {
+    "message": "ドロップダウンメニューを通常のフォント太さにする"
+  },
+  "fastBlockLabel": {
+    "message": "即ブロック（確認画面をスキップする）"
+  },
+  "addAddMutedWordMenuItemLabel-desktop": {
+    "message": "もっと見るに「ミュートするキーワードを追加」を追加"
+  },
+  "addAddMutedWordMenuItemLabel-mobile": {
+    "message": "スライドアウトメニューに「ミュートするキーワードを追加」を追加"
+  },
+  "hideVerifiedNotificationsTabLabel": {
+    "message": "通知の「認証済み」タブを非表示"
+  },
+  "hideViewsLabel": {
+    "message": "ツイート下部のアナリティクスのリンクを非表示"
+  },
+  "hideAppNagsLabel": {
+    "message": "「アプリで開く」を非表示"
+  },
+  "uiTweaksOptionsLabel": {
+    "message": "UIを微調整"
+  },
+  "dontUseChirpFontLabel": {
+    "message": "Chirpフォントを使用しない"
+  },
+  "twitterBlueChecksLabel": {
+    "message": "Twitter Blueの認証済みチェックマーク"
+  },
+  "twitterBlueChecksOption-replace": {
+    "message": "Twitter Blueロゴに変更"
+  },
+  "tweakQuoteTweetsPageLabel": {
+    "message": "引用ツイート閲覧時に引用元ツイートを非表示"
+  },
+  "hideMetricsLabel": {
+    "message": "マトリクスを非表示"
+  },
+  "hideAllMetricsLabel": {
+    "message": "すべて非表示"
+  },
+  "hideReplyMetricsLabel": {
+    "message": "返信"
+  },
+  "hideRetweetMetricsLabel": {
+    "message": "リツイート"
+  },
+  "hideLikeMetricsLabel": {
+    "message": "いいね"
+  },
+  "hideQuoteTweetMetricsLabel": {
+    "message": "引用ツイート"
+  },
+  "hideFollowingMetricsLabel": {
+    "message": "フォロー／フォロワー"
+  },
+  "hideTotalTweetsMetricsLabel": {
+    "message": "総ツイート数"
+  },
+  "hideUnusedUiItemsOptionsLabel": {
+    "message": "使用しないUI項目を非表示"
+  },
+  "hideAccountSwitcherLabel": {
+    "message": "アカウントの切り替え"
+  },
+  "hideMessagesDrawerLabel": {
+    "message": "メッセージ入力"
+  },
+  "hideExploreNavLabel": {
+    "message": "Explore（ナビゲーション項目）"
+  },
+  "hideCommunitiesNavLabel": {
+    "message": "コミュニティ（ナビゲーション項目）"
+  },
+  "hideMessagesBottomNavItemLabel": {
+    "message": "メッセージ（ナビゲーション項目）"
+  },
+  "hideBookmarksNavLabel-desktop": {
+    "message": "ブックマーク（ナビゲーション項目）"
+  },
+  "hideTwitterBlueNavLabel-desktop": {
+    "message": "Twitter Blue（ナビゲーション項目）"
+  },
+  "hideShareTweetButtonLabel": {
+    "message": "ツイート下部のシェアボタン"
+  },
+  "hideTweetAnalyticsLinksLabel": {
+    "message": "ツイート下部のアナリティクスリンク"
+  },
+  "hideMoreSlideOutMenuItemsOptionsLabel-desktop": {
+    "message": "使用しない「もっと見る」メニューの項目を非表示"
+  },
+  "hideMoreSlideOutMenuItemsOptionsLabel-mobile": {
+    "message": "使用しないスライドアウトメニューの項目を非表示"
+  },
+  "hideTwitterBlueNavLabel-mobile": {
+    "message": "Twitter Blue"
+  },
+  "hideTopicsNavLabel": {
+    "message": "トピックス"
+  },
+  "hideBookmarksNavLabel-mobile": {
+    "message": "ブックマーク"
+  },
+  "hideListsNavLabel": {
+    "message": "リスト"
+  },
+  "hideTwitterCircleNavLabel": {
+    "message": "Twitterサークル"
+  },
+  "hideMomentsNavLabel": {
+    "message": "モーメント"
+  },
+  "hideNewslettersNavLabel": {
+    "message": "ニュースレター"
+  },
+  "hideAnalyticsNavLabel": {
+    "message": "アナリティクス"
+  },
+  "hideTwitterForProfessionalsNavLabel": {
+    "message": "Twitter Pro"
+  },
+  "hideTwitterAdsNavLabel": {
+    "message": "Twitter Ads"
+  },
+  "hideMonetizationNavLabel": {
+    "message": "収益化"
+  },
+  "hideHelpCenterNavLabel": {
+    "message": "ヘルプセンター"
+  },
+  "hideKeyboardShortcutsNavLabel": {
+    "message": "キーボードショートカット"
+  },
+  "experimentsOptionsLabel": {
+    "message": "実験的機能"
+  },
+  "reducedInteractionModeLabel": {
+    "message": "インタラクションモードを減らす"
+  },
+  "reducedInteractionModeInfo": {
+    "message": "ツイートの下にあるアクションバーを非表示（リプライのみで交流する）"
+  },
+  "fullWidthContentLabel": {
+    "message": "タイムラインのコンテンツを全幅表示"
+  },
+  "fullWidthContentInfo": {
+    "message": "サイドバーを非表示にして、タイムラインコンテンツを全幅表示にする"
+  },
+  "fullWidthMediaLabel": {
+    "message": "メディア＆カードを全幅表示"
+  },
+  "verifiedAccountsLabel": {
+    "message": "認証済みアカウント"
+  },
+  "verifiedAccountsOption-highlight": {
+    "message": "ハイライト"
+  },
+  "verifiedAccountsInfo": {
+    "message": "認証済みアカウントとのやり取りやツイートを強調、あるいは非表示にすることで2020年7月のTwitterハッキングの影響をシュミレートする"
+  },
+  "disableHomeTimelineLabel": {
+    "message": "「ホーム」タイムラインを無効化"
+  },
+  "disableHomeTimelineInfo": {
+    "message": "Twitterに時間を盗まれていませんか？「ホーム」タイムラインの利用を控えてみる"
+  },
+  "disabledHomeTimelineRedirectLabel": {
+    "message": "「ホーム」タイムラインをリダイレクト"
+  },
+  "disabledHomeTimelineRedirectOption-notifications": {
+    "message": "通知"
+  },
+  "disabledHomeTimelineRedirectOption-messages": {
+    "message": "メッセージ"
+  },
+  "debugOptionsLabel": {
+    "message": "デバッグオプション"
+  },
+  "debugLabel": {
+    "message": "デバッグモード"
+  },
+  "debugInfo": {
+    "message": "デバッグログを有効化し、ツイートデバッグ情報をタイムラインに表示"
+  },
+  "exportConfigLabel": {
+    "message": "バグレポートの設定をエクスポート"
+  }
+}

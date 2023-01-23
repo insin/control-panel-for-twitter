@@ -165,6 +165,10 @@ As of v2.2, all 48 of the display languages available on Twitter are supported, 
 | - | - | - |
 | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, as Gaeilge](screenshots/irish.png) | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, in Japanese](screenshots/japanese.png) | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, in Arabic](screenshots/arabic.png) |
 
+Options are also available in the following languages:
+
+- Japanese (translation by [@MitoKurato](https://github.com/MitoKurato))
+
 ### User script support
 
  [Tweak New Twitter is also available as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) – to change the default options, you'll need to edit the `config` object at the top of the script.
