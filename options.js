@@ -1,3 +1,107 @@
+document.title = chrome.i18n.getMessage(`optionsPageTitle`)
+
+for (let optionValue of ['ignore', 'hide', 'separate']) {
+  let label = chrome.i18n.getMessage(`option-${optionValue}`)
+  for (let $option of document.querySelectorAll(`option[value="${optionValue}"]`)) {
+    $option.textContent = label
+  }
+}
+
+for (let translationId of [
+  'reduceAlgorithmicContentOptionsLabel',
+  'alwaysUseLatestTweetsLabel',
+  'hideForYouTimelineLabel',
+  'hideSidebarContentLabel',
+  'showRelevantPeopleLabel',
+  'hideWhoToFollowEtcLabel',
+  'hideExplorePageContentsLabel',
+  'hideMoreTweetsLabel',
+  'sharedTweetsOptionsLabel',
+  'retweetsLabel',
+  'quoteTweetsLabel',
+  'hideUnavailableQuoteTweetsLabel',
+  'mutableQuoteTweetsLabel',
+  'mutableQuoteTweetsInfo',
+  'algorithmicTweetsOptionsLabel',
+  'algorithmicTweetsWarning',
+  'communityTweetsLabel',
+  'followeesFollowsLabel',
+  'likedTweetsLabel',
+  'repliedToTweetsLabel',
+  'suggestedTopicTweetsLabel',
+  'uiImprovementsOptionsLabel',
+  'uninvertFollowButtonsLabel',
+  'followButtonStyleLabel',
+  'followButtonStyleOption-monochrome',
+  'followButtonStyleOption-themed',
+  'navBaseFontSizeLabel',
+  'dropdownMenuFontWeightLabel',
+  'fastBlockLabel',
+  'addAddMutedWordMenuItemLabel-desktop',
+  'addAddMutedWordMenuItemLabel-mobile',
+  'hideVerifiedNotificationsTabLabel',
+  'hideViewsLabel',
+  'hideAppNagsLabel',
+  'uiTweaksOptionsLabel',
+  'dontUseChirpFontLabel',
+  'twitterBlueChecksLabel',
+  'twitterBlueChecksOption-replace',
+  'tweakQuoteTweetsPageLabel',
+  'hideMetricsLabel',
+  'hideAllMetricsLabel',
+  'hideReplyMetricsLabel',
+  'hideRetweetMetricsLabel',
+  'hideLikeMetricsLabel',
+  'hideQuoteTweetMetricsLabel',
+  'hideFollowingMetricsLabel',
+  'hideTotalTweetsMetricsLabel',
+  'hideUnusedUiItemsOptionsLabel',
+  'hideAccountSwitcherLabel',
+  'hideMessagesDrawerLabel',
+  'hideExploreNavLabel',
+  'hideCommunitiesNavLabel',
+  'hideMessagesBottomNavItemLabel',
+  'hideBookmarksNavLabel-desktop',
+  'hideTwitterBlueNavLabel-desktop',
+  'hideShareTweetButtonLabel',
+  'hideTweetAnalyticsLinksLabel',
+  'hideMoreSlideOutMenuItemsOptionsLabel-desktop',
+  'hideMoreSlideOutMenuItemsOptionsLabel-mobile',
+  'hideTwitterBlueNavLabel-mobile',
+  'hideTopicsNavLabel',
+  'hideBookmarksNavLabel-mobile',
+  'hideListsNavLabel',
+  'hideTwitterCircleNavLabel',
+  'hideMomentsNavLabel',
+  'hideNewslettersNavLabel',
+  'hideAnalyticsNavLabel',
+  'hideTwitterForProfessionalsNavLabel',
+  'hideTwitterAdsNavLabel',
+  'hideMonetizationNavLabel',
+  'hideHelpCenterNavLabel',
+  'hideKeyboardShortcutsNavLabel',
+  'experimentsOptionsLabel',
+  'reducedInteractionModeLabel',
+  'reducedInteractionModeInfo',
+  'fullWidthContentLabel',
+  'fullWidthContentInfo',
+  'fullWidthMediaLabel',
+  'verifiedAccountsLabel',
+  'verifiedAccountsOption-highlight',
+  'verifiedAccountsInfo',
+  'disableHomeTimelineLabel',
+  'disableHomeTimelineInfo',
+  'disabledHomeTimelineRedirectLabel',
+  'disabledHomeTimelineRedirectOption-notifications',
+  'disabledHomeTimelineRedirectOption-messages',
+  'debugOptionsLabel',
+  'debugLabel',
+  'debugInfo',
+  'exportConfigLabel',
+]) {
+  document.getElementById(translationId).textContent = chrome.i18n.getMessage(translationId)
+}
+
 /** @type {boolean} */
 let desktop
 /** @type {boolean} */
@@ -144,14 +248,6 @@ function exportConfig() {
   }
 
   return $el
-}
-
-/**
- * @param {number} n
- * @returns {string}
- */
-function s(n) {
-  return n == 1 ? '' : 's'
 }
 //#endregion
 
@@ -316,7 +412,7 @@ function updateMutedQuotesDisplay() {
         ),
         h('input', {
           type: 'button',
-          value: 'Unmute',
+          value: chrome.i18n.getMessage('unmuteButtonText'),
           onclick: () => {
             optionsConfig.mutedQuotes = optionsConfig.mutedQuotes.filter((_, i) => i != index)
             chrome.storage.local.set({mutedQuotes: optionsConfig.mutedQuotes})
@@ -389,7 +485,7 @@ function main() {
           $showDebugOptions.classList.remove('clickable')
         }
         else if (debugCountdown <= 3) {
-          $debugCountdown.textContent = ` (Debug options: ${debugCountdown} more click${s(debugCountdown)} to enable)`
+          $debugCountdown.textContent = chrome.i18n.getMessage('debugCountdownLabel', String(debugCountdown))
         }
       }
 
