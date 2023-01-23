@@ -2348,7 +2348,7 @@ function getTweetType($tweet) {
     return 'PROMOTED_TWEET'
   }
   if ($tweet.querySelector('[data-testid="socialContext"]')) {
-    if (!config.alwaysUseLatestTweets && currentMainTimelineType == getString('HOME')) {
+    if ((!config.alwaysUseLatestTweets || !config.hideForYouTimeline) && currentMainTimelineType == getString('HOME')) {
       let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
       if (svgPath.startsWith('M7.471 21H.472l.029-1.027c.')) return 'COMMUNITY_TWEET'
       if (svgPath.startsWith('M17.863 13.44c1.477 1.58 2.')) return 'FOLLOWEES_FOLLOWS'
