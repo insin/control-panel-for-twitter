@@ -52,6 +52,7 @@ const defaultConfig = {
   hideVerifiedNotificationsTab: true,
   hideViews: true,
   hideWhoToFollowEtc: true,
+  hidePromotedTweets: false,
   likedTweets: 'ignore',
   mutableQuoteTweets: true,
   mutedQuotes: [],
@@ -170,6 +171,7 @@ function applyConfig() {
       'hideExplorePageContents',
       'hideMoreTweets',
       'hideWhoToFollowEtc',
+      'hidePromotedTweets',
       desktop && 'hideSidebarContent',
     ].filter(Boolean),
     uiImprovements: [
