@@ -10,15 +10,15 @@
   "optionsPageTitle": {
     "message": "Tweak New Twitter Options"
   },
-  "option-ignore": {
+  "option_ignore": {
     "message": "Do nothing",
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
   },
-  "option-hide": {
+  "option_hide": {
     "message": "Hide",
     "description": "Option for hiding things, e.g. algorithmic tweets, Twitter Blue checks"
   },
-  "option-separate": {
+  "option_separate": {
     "message": "Show in separate tab",
     "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
   },
@@ -30,7 +30,7 @@
     "message": " (Debug options: click $DEBUG_COUNTDOWN$ more times to enable)",
     "description": "Displayed when the user clicks multiple times on the info text at the end of the Experiments section to enable debug mode",
     "placeholders": {
-      "DEBUG_COUNTDOWN": {
+      "debug_countdown": {
         "content": "$1",
         "example": "3"
       }
@@ -109,10 +109,10 @@
   "followButtonStyleLabel": {
     "message": "Button style"
   },
-  "followButtonStyleOption-monochrome": {
+  "followButtonStyleOption_monochrome": {
     "message": "Monochrome"
   },
-  "followButtonStyleOption-themed": {
+  "followButtonStyleOption_themed": {
     "message": "Themed"
   },
   "navBaseFontSizeLabel": {
@@ -124,10 +124,10 @@
   "fastBlockLabel": {
     "message": "Fast blocking (skips confirm dialog)"
   },
-  "addAddMutedWordMenuItemLabel-desktop": {
+  "addAddMutedWordMenuItemLabel_desktop": {
     "message": "Add \"Add muted word\" to the \"More\" menu"
   },
-  "addAddMutedWordMenuItemLabel-mobile": {
+  "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Add \"Add muted word\" to the slide-out menu"
   },
   "hideVerifiedNotificationsTabLabel": {
@@ -148,7 +148,7 @@
   "twitterBlueChecksLabel": {
     "message": "Twitter Blue verified checkmarks"
   },
-  "twitterBlueChecksOption-replace": {
+  "twitterBlueChecksOption_replace": {
     "message": "Replace with Twitter Blue logo"
   },
   "tweakQuoteTweetsPageLabel": {
@@ -196,10 +196,10 @@
   "hideMessagesBottomNavItemLabel": {
     "message": "Messages (navigation item)"
   },
-  "hideBookmarksNavLabel-desktop": {
+  "hideBookmarksNavLabel_desktop": {
     "message": "Bookmarks (navigation item)"
   },
-  "hideTwitterBlueNavLabel-desktop": {
+  "hideTwitterBlueNavLabel_desktop": {
     "message": "Twitter Blue (navigation item)"
   },
   "hideShareTweetButtonLabel": {
@@ -208,19 +208,19 @@
   "hideTweetAnalyticsLinksLabel": {
     "message": "Analytics links under your own tweets"
   },
-  "hideMoreSlideOutMenuItemsOptionsLabel-desktop": {
+  "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "Hide \"More\" menu items you don't use"
   },
-  "hideMoreSlideOutMenuItemsOptionsLabel-mobile": {
+  "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Hide slide-out menu items you don't use"
   },
-  "hideTwitterBlueNavLabel-mobile": {
+  "hideTwitterBlueNavLabel_mobile": {
     "message": "Twitter Blue"
   },
   "hideTopicsNavLabel": {
     "message": "Topics"
   },
-  "hideBookmarksNavLabel-mobile": {
+  "hideBookmarksNavLabel_mobile": {
     "message": "Bookmarks"
   },
   "hideListsNavLabel": {
@@ -274,7 +274,7 @@
   "verifiedAccountsLabel": {
     "message": "Verified accounts"
   },
-  "verifiedAccountsOption-highlight": {
+  "verifiedAccountsOption_highlight": {
     "message": "Highlight"
   },
   "verifiedAccountsInfo": {
@@ -289,10 +289,10 @@
   "disabledHomeTimelineRedirectLabel": {
     "message": "Redirect home timeline to"
   },
-  "disabledHomeTimelineRedirectOption-notifications": {
+  "disabledHomeTimelineRedirectOption_notifications": {
     "message": "Notifications"
   },
-  "disabledHomeTimelineRedirectOption-messages": {
+  "disabledHomeTimelineRedirectOption_messages": {
     "message": "Messages"
   },
   "debugOptionsLabel": {

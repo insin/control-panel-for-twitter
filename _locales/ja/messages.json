@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "ツイッターなおしたったー",
+    "message": "Tweak New Twitter",
     "description": "Must not exceed 45 characters"
   },
   "extensionDescription": {
@@ -8,17 +8,17 @@
     "description": "Must not exceed 132 characters"
   },
   "optionsPageTitle": {
-    "message": "ツイッターなおしたったー　オプション機能"
+    "message": "Tweak New Twitter　オプション機能"
   },
-  "option-ignore": {
+  "option_ignore": {
     "message": "そのまま",
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
   },
-  "option-hide": {
+  "option_hide": {
     "message": "非表示",
     "description": "Option for hiding things, e.g. algorithmic tweets, Twitter Blue checks"
   },
-  "option-separate": {
+  "option_separate": {
     "message": "別タブで開く",
     "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
   },
@@ -109,10 +109,10 @@
   "followButtonStyleLabel": {
     "message": "ボタンのスタイル"
   },
-  "followButtonStyleOption-monochrome": {
+  "followButtonStyleOption_monochrome": {
     "message": "モノクロ"
   },
-  "followButtonStyleOption-themed": {
+  "followButtonStyleOption_themed": {
     "message": "テーマ"
   },
   "navBaseFontSizeLabel": {
@@ -124,10 +124,10 @@
   "fastBlockLabel": {
     "message": "即ブロック（確認画面をスキップする）"
   },
-  "addAddMutedWordMenuItemLabel-desktop": {
+  "addAddMutedWordMenuItemLabel_desktop": {
     "message": "もっと見るに「ミュートするキーワードを追加」を追加"
   },
-  "addAddMutedWordMenuItemLabel-mobile": {
+  "addAddMutedWordMenuItemLabel_mobile": {
     "message": "スライドアウトメニューに「ミュートするキーワードを追加」を追加"
   },
   "hideVerifiedNotificationsTabLabel": {
@@ -148,7 +148,7 @@
   "twitterBlueChecksLabel": {
     "message": "Twitter Blueの認証済みチェックマーク"
   },
-  "twitterBlueChecksOption-replace": {
+  "twitterBlueChecksOption_replace": {
     "message": "Twitter Blueロゴに変更"
   },
   "tweakQuoteTweetsPageLabel": {
@@ -196,10 +196,10 @@
   "hideMessagesBottomNavItemLabel": {
     "message": "メッセージ（ナビゲーション項目）"
   },
-  "hideBookmarksNavLabel-desktop": {
+  "hideBookmarksNavLabel_desktop": {
     "message": "ブックマーク（ナビゲーション項目）"
   },
-  "hideTwitterBlueNavLabel-desktop": {
+  "hideTwitterBlueNavLabel_desktop": {
     "message": "Twitter Blue（ナビゲーション項目）"
   },
   "hideShareTweetButtonLabel": {
@@ -208,19 +208,19 @@
   "hideTweetAnalyticsLinksLabel": {
     "message": "ツイート下部のアナリティクスリンク"
   },
-  "hideMoreSlideOutMenuItemsOptionsLabel-desktop": {
+  "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "使用しない「もっと見る」メニューの項目を非表示"
   },
-  "hideMoreSlideOutMenuItemsOptionsLabel-mobile": {
+  "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "使用しないスライドアウトメニューの項目を非表示"
   },
-  "hideTwitterBlueNavLabel-mobile": {
+  "hideTwitterBlueNavLabel_mobile": {
     "message": "Twitter Blue"
   },
   "hideTopicsNavLabel": {
     "message": "トピックス"
   },
-  "hideBookmarksNavLabel-mobile": {
+  "hideBookmarksNavLabel_mobile": {
     "message": "ブックマーク"
   },
   "hideListsNavLabel": {
@@ -274,7 +274,7 @@
   "verifiedAccountsLabel": {
     "message": "認証済みアカウント"
   },
-  "verifiedAccountsOption-highlight": {
+  "verifiedAccountsOption_highlight": {
     "message": "ハイライト"
   },
   "verifiedAccountsInfo": {
@@ -289,10 +289,10 @@
   "disabledHomeTimelineRedirectLabel": {
     "message": "「ホーム」タイムラインをリダイレクト"
   },
-  "disabledHomeTimelineRedirectOption-notifications": {
+  "disabledHomeTimelineRedirectOption_notifications": {
     "message": "通知"
   },
-  "disabledHomeTimelineRedirectOption-messages": {
+  "disabledHomeTimelineRedirectOption_messages": {
     "message": "メッセージ"
   },
   "debugOptionsLabel": {
