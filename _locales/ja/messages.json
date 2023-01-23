@@ -1,0 +1,310 @@
+{
+  "extensionName": {
+    "message": "Tweak New Twitter",
+    "description": "Must not exceed 45 characters"
+  },
+  "extensionDescription": {
+    "message": "Remove algorithmic content from Twitter, hide news & trends, control which shared tweets appear on your timeline, and improve the UI",
+    "description": "Must not exceed 132 characters"
+  },
+  "optionsPageTitle": {
+    "message": "Tweak New Twitter Options"
+  },
+  "option-ignore": {
+    "message": "Do nothing",
+    "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
+  },
+  "option-hide": {
+    "message": "Hide",
+    "description": "Option for hiding things, e.g. algorithmic tweets, Twitter Blue checks"
+  },
+  "option-separate": {
+    "message": "Show in separate tab",
+    "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
+  },
+  "unmuteButtonText": {
+    "message": "Unmute",
+    "description": "Button used in the options page to unmute a muted Quote Tweet"
+  },
+  "debugCountdownLabel": {
+    "message": " (Debug options: click $DEBUG_COUNTDOWN$ more times to enable)",
+    "description": "Displayed when the user clicks multiple times on the info text at the end of the Experiments section to enable debug mode",
+    "placeholders": {
+      "DEBUG_COUNTDOWN": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "reduceAlgorithmicContentOptionsLabel": {
+    "message": "Remove algorithmic content"
+  },
+  "alwaysUseLatestTweetsLabel": {
+    "message": "Use the Following (chronological) timeline by default"
+  },
+  "hideForYouTimelineLabel": {
+    "message": "Hide the \"For you\" (algorithmic) timeline"
+  },
+  "hideSidebarContentLabel": {
+    "message": "Hide \"What's happening\", \"You might like\" etc. in the sidebar"
+  },
+  "showRelevantPeopleLabel": {
+    "message": "Show \"Relevant people\" when viewing a tweet"
+  },
+  "hideWhoToFollowEtcLabel": {
+    "message": "Hide \"Who to follow\", \"Follow some Topics\" etc. in the timeline"
+  },
+  "hideExplorePageContentsLabel": {
+    "message": "Hide Explore page contents and use it only for searching"
+  },
+  "hideMoreTweetsLabel": {
+    "message": "Hide \"Discover more\" tweets"
+  },
+  "sharedTweetsOptionsLabel": {
+    "message": "Tweets shared by other users"
+  },
+  "retweetsLabel": {
+    "message": "Retweets"
+  },
+  "quoteTweetsLabel": {
+    "message": "Quote Tweets"
+  },
+  "hideUnavailableQuoteTweetsLabel": {
+    "message": "Hide tweets quoting accounts you've blocked or muted"
+  },
+  "mutableQuoteTweetsLabel": {
+    "message": "Mute quoting of specific tweets"
+  },
+  "mutableQuoteTweetsInfo": {
+    "message": "Adds a \"Mute this conversation\" menu item to Quote Tweets",
+    "description": "The translations for 'Mute this conversation' in tweak-new-twitter.user.js are from Twitter's own locale data"
+  },
+  "algorithmicTweetsOptionsLabel": {
+    "message": "Algorithmic tweets in \"For you\" timeline"
+  },
+  "algorithmicTweetsWarning": {
+    "message": "Note: hiding large numbers of tweets can cause performance issues"
+  },
+  "communityTweetsLabel": {
+    "message": "Tweets from your communities"
+  },
+  "followeesFollowsLabel": {
+    "message": "Tweets from people followed by people you follow"
+  },
+  "likedTweetsLabel": {
+    "message": "Liked tweets"
+  },
+  "repliedToTweetsLabel": {
+    "message": "Received new replies"
+  },
+  "suggestedTopicTweetsLabel": {
+    "message": "Suggested topic tweets"
+  },
+  "uiImprovementsOptionsLabel": {
+    "message": "UI improvements"
+  },
+  "uninvertFollowButtonsLabel": {
+    "message": "Uninvert Follow / Following buttons"
+  },
+  "followButtonStyleLabel": {
+    "message": "Button style"
+  },
+  "followButtonStyleOption-monochrome": {
+    "message": "Monochrome"
+  },
+  "followButtonStyleOption-themed": {
+    "message": "Themed"
+  },
+  "navBaseFontSizeLabel": {
+    "message": "Use normal text font style in navigation bar"
+  },
+  "dropdownMenuFontWeightLabel": {
+    "message": "Use normal font weight in dropdown menus"
+  },
+  "fastBlockLabel": {
+    "message": "Fast blocking (skips confirm dialog)"
+  },
+  "addAddMutedWordMenuItemLabel-desktop": {
+    "message": "Add \"Add muted word\" to the \"More\" menu"
+  },
+  "addAddMutedWordMenuItemLabel-mobile": {
+    "message": "Add \"Add muted word\" to the slide-out menu"
+  },
+  "hideVerifiedNotificationsTabLabel": {
+    "message": "Hide \"Verified\" tab in Notifications"
+  },
+  "hideViewsLabel": {
+    "message": "Hide views / analytics links under tweets"
+  },
+  "hideAppNagsLabel": {
+    "message": "Hide \"Open app\" nags"
+  },
+  "uiTweaksOptionsLabel": {
+    "message": "UI tweaks"
+  },
+  "dontUseChirpFontLabel": {
+    "message": "Don't use Chirp font"
+  },
+  "twitterBlueChecksLabel": {
+    "message": "Twitter Blue verified checkmarks"
+  },
+  "twitterBlueChecksOption-replace": {
+    "message": "Replace with Twitter Blue logo"
+  },
+  "tweakQuoteTweetsPageLabel": {
+    "message": "Hide the quoted tweet when viewing Quote Tweets"
+  },
+  "hideMetricsLabel": {
+    "message": "Hide metrics"
+  },
+  "hideAllMetricsLabel": {
+    "message": "Hide all"
+  },
+  "hideReplyMetricsLabel": {
+    "message": "Replies"
+  },
+  "hideRetweetMetricsLabel": {
+    "message": "Retweets"
+  },
+  "hideLikeMetricsLabel": {
+    "message": "Likes"
+  },
+  "hideQuoteTweetMetricsLabel": {
+    "message": "Quote tweets"
+  },
+  "hideFollowingMetricsLabel": {
+    "message": "Following / followers"
+  },
+  "hideTotalTweetsMetricsLabel": {
+    "message": "Total tweets"
+  },
+  "hideUnusedUiItemsOptionsLabel": {
+    "message": "Hide UI items you don't use"
+  },
+  "hideAccountSwitcherLabel": {
+    "message": "Account switcher"
+  },
+  "hideMessagesDrawerLabel": {
+    "message": "Messages drawer"
+  },
+  "hideExploreNavLabel": {
+    "message": "Explore (navigation item)"
+  },
+  "hideCommunitiesNavLabel": {
+    "message": "Communities (navigation item)"
+  },
+  "hideMessagesBottomNavItemLabel": {
+    "message": "Messages (navigation item)"
+  },
+  "hideBookmarksNavLabel-desktop": {
+    "message": "Bookmarks (navigation item)"
+  },
+  "hideTwitterBlueNavLabel-desktop": {
+    "message": "Twitter Blue (navigation item)"
+  },
+  "hideShareTweetButtonLabel": {
+    "message": "Share button under tweets"
+  },
+  "hideTweetAnalyticsLinksLabel": {
+    "message": "Analytics links under your own tweets"
+  },
+  "hideMoreSlideOutMenuItemsOptionsLabel-desktop": {
+    "message": "Hide \"More\" menu items you don't use"
+  },
+  "hideMoreSlideOutMenuItemsOptionsLabel-mobile": {
+    "message": "Hide slide-out menu items you don't use"
+  },
+  "hideTwitterBlueNavLabel-mobile": {
+    "message": "Twitter Blue"
+  },
+  "hideTopicsNavLabel": {
+    "message": "Topics"
+  },
+  "hideBookmarksNavLabel-mobile": {
+    "message": "Bookmarks"
+  },
+  "hideListsNavLabel": {
+    "message": "Lists"
+  },
+  "hideTwitterCircleNavLabel": {
+    "message": "Twitter Circle"
+  },
+  "hideMomentsNavLabel": {
+    "message": "Moments"
+  },
+  "hideNewslettersNavLabel": {
+    "message": "Newsletters"
+  },
+  "hideAnalyticsNavLabel": {
+    "message": "Analytics"
+  },
+  "hideTwitterForProfessionalsNavLabel": {
+    "message": "Twitter for Professionals"
+  },
+  "hideTwitterAdsNavLabel": {
+    "message": "Twitter Ads"
+  },
+  "hideMonetizationNavLabel": {
+    "message": "Monetization"
+  },
+  "hideHelpCenterNavLabel": {
+    "message": "Help Center"
+  },
+  "hideKeyboardShortcutsNavLabel": {
+    "message": "Keyboard shortcuts"
+  },
+  "experimentsOptionsLabel": {
+    "message": "Experiments"
+  },
+  "reducedInteractionModeLabel": {
+    "message": "Reduced interaction mode"
+  },
+  "reducedInteractionModeInfo": {
+    "message": "Hide the action bar under tweets – replies are now the only means of interacting"
+  },
+  "fullWidthContentLabel": {
+    "message": "Full-width timeline content"
+  },
+  "fullWidthContentInfo": {
+    "message": "Hide the sidebar and let timeline content go full-width"
+  },
+  "fullWidthMediaLabel": {
+    "message": "Full-width media & cards"
+  },
+  "verifiedAccountsLabel": {
+    "message": "Verified accounts"
+  },
+  "verifiedAccountsOption-highlight": {
+    "message": "Highlight"
+  },
+  "verifiedAccountsInfo": {
+    "message": "Highlight tweets by – or interacting with – verified accounts, or hide them to simulate the aftermath of the July 2020 Twitter hacks"
+  },
+  "disableHomeTimelineLabel": {
+    "message": "Disable the home timeline"
+  },
+  "disableHomeTimelineInfo": {
+    "message": "Find yourself wasting too much time on Twitter? Try preventing use of the home timeline"
+  },
+  "disabledHomeTimelineRedirectLabel": {
+    "message": "Redirect home timeline to"
+  },
+  "disabledHomeTimelineRedirectOption-notifications": {
+    "message": "Notifications"
+  },
+  "disabledHomeTimelineRedirectOption-messages": {
+    "message": "Messages"
+  },
+  "debugOptionsLabel": {
+    "message": "Debug options"
+  },
+  "debugLabel": {
+    "message": "Debug mode"
+  },
+  "debugInfo": {
+    "message": "Enables debug logging and displays tweet debug info in the timeline"
+  },
+  "exportConfigLabel": {
+    "message": "Export configuration for bug report"
+  }
+}
