@@ -961,21 +961,6 @@ function observeElement($element, callback, name = '', options = {childList: tru
 }
 
 /**
- * @param {Partial<import("./types").Config>} configChanges
- */
- function onSettingsChanged(configChanges) {
-  if ('debug' in configChanges) {
-    log('disabling debug mode')
-    debug = configChanges.debug
-    log('enabled debug mode')
-    configureThemeCss()
-    return
-  }
-  Object.assign(config, configChanges)
-  configChanged(configChanges)
-}
-
-/**
  * @param {string} page
  * @returns {() => boolean}
  */
@@ -3269,17 +3254,31 @@ async function main() {
     try {
       Object.assign(config, JSON.parse($settings.innerText))
     } catch(e) {
-      error('error getting initial settings', e)
+      error('error parsing initial settings', e)
     }
 
-    let settingsObserver = new MutationObserver(() => {
+    let settingsChangeObserver = new MutationObserver(() => {
+      /** @type {Partial<import("./types").Config>} */
+      let configChanges
       try {
-        onSettingsChanged(JSON.parse($settings.innerText))
+        configChanges = JSON.parse($settings.innerText)
       } catch(e) {
-        error('error changing settings', e)
+        error('error parsing incoming settings change', e)
+        return
       }
+
+      if ('debug' in configChanges) {
+        log('disabling debug mode')
+        debug = configChanges.debug
+        log('enabled debug mode')
+        configureThemeCss()
+        return
+      }
+
+      Object.assign(config, configChanges)
+      configChanged(configChanges)
     })
-    settingsObserver.observe($settings, {childList: true})
+    settingsChangeObserver.observe($settings, {childList: true})
   }
 
   if (config.debug) {
