@@ -1732,8 +1732,8 @@ const configureCss = (() => {
     if (config.hideViews) {
       hideCssSelectors.push(
         // "Views" under individual tweets
-        'body.Tweet [data-testid="tweet"][tabindex="-1"] a[href*="/status/"] + span[aria-hidden]',
-        'body.Tweet [data-testid="tweet"][tabindex="-1"] a[href*="/status/"] + span[aria-hidden] + span',
+        '[data-testid="tweet"][tabindex="-1"] a[href*="/status/"] + span[aria-hidden]',
+        '[data-testid="tweet"][tabindex="-1"] a[href*="/status/"] + span[aria-hidden] + span',
       )
     }
     if (config.hideWhoToFollowEtc) {
