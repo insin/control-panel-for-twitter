@@ -677,12 +677,11 @@ const Svgs = {
 }
 
 const PROFILE_FOLLOWS_URL_RE = /\/[a-zA-Z\d_]{1,20}\/(following|followers|followers_you_follow)\/?$/
-const PROFILE_TABS_URL_RE = /\/[a-zA-Z\d_]{1,20}\/(with_replies|media|likes)\/?$/
 // https://twitter.com/${user}'s title ends with (@${user})
 const PROFILE_TITLE_RE = /\(@[a-zA-Z\d_]{1,20}\)$/
 const THEME_COLORS = new Set([
   'rgb(29, 155, 240)', // blue
-  'rgb(255, 212, 0)', // yellow
+  'rgb(255, 212, 0)',  // yellow
   'rgb(244, 33, 46)',  // pink
   'rgb(120, 86, 255)', // purple
   'rgb(255, 122, 0)',  // orange
