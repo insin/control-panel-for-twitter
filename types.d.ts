@@ -90,6 +90,8 @@ export type LocaleKey =
 
 export type NamedMutationObserver = MutationObserver & {name?: string}
 
+export type Disconnectable = NamedMutationObserver|{disconnect(): void}
+
 export type QuotedTweet = {
   user: string
   time: string

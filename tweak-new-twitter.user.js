@@ -652,6 +652,7 @@ const Selectors = {
   DISPLAY_DONE_BUTTON_DESKTOP: '#layers div[role="button"]:not([aria-label])',
   DISPLAY_DONE_BUTTON_MOBILE: 'main div[role="button"]:not([aria-label])',
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
+  MODAL_TIMELINE: '#layers section > h1 + div[aria-label] > div',
   MOBILE_TIMELINE_HEADER_OLD: 'header > div:nth-of-type(2) > div:first-of-type',
   MOBILE_TIMELINE_HEADER_NEW: 'div[data-testid="TopNavBar"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
@@ -726,6 +727,9 @@ let fontSize = null
 /** Set to `true` when a Home/Following heading or Home nav link is used. */
 let homeNavigationIsBeingUsed = false
 
+/** Set to `true` when the media modal is open on desktop. */
+let isDesktopMediaModalOpen = false
+
 /**
  * Cache for the last page title which was used for the main timeline.
  * @type {string}
@@ -733,9 +737,15 @@ let homeNavigationIsBeingUsed = false
 let lastMainTimelineTitle = null
 
 /**
+ * MutationObservers active on the current modal.
+ * @type {import("./types").Disconnectable[]}
+ */
+let modalObservers = []
+
+/**
  * MutationObservers active on the current page, or anything else we want to
  * clean up when the user moves off the current page.
- * @type {(import("./types").NamedMutationObserver|{disconnect(): void})[]}
+ * @type {import("./types").Disconnectable[]}
  */
 let pageObservers = []
 
@@ -840,14 +850,16 @@ function dedent(str) {
 
 /**
  * @param {string} name
+ * @param {import("./types").Disconnectable[]} observers
+ * @param {string} [type]
  */
-function disconnectPageObserver(name) {
-  for (let i = pageObservers.length -1; i >= 0; i--) {
-    let pageObserver = pageObservers[i]
-    if ('name' in pageObserver && pageObserver.name == name) {
-      pageObserver.disconnect()
-      pageObservers.splice(i, 1)
-      log(`disconnected ${name} page observer`)
+function disconnectObserver(name, observers, type = 'observer') {
+  for (let i = observers.length -1; i >= 0; i--) {
+    let observer = observers[i]
+    if ('name' in observer && observer.name == name) {
+      observer.disconnect()
+      observers.splice(i, 1)
+      log(`disconnected ${name} ${type}`)
     }
   }
 }
@@ -1141,6 +1153,97 @@ const observeHtmlFontSize = (() => {
   }
 })()
 
+async function observeDesktopModalTimeline() {
+  // Media modals remember if they were previously collapsed, so we could be
+  // waiting for the initial timeline to be either rendered or expanded.
+  let $initialTimeline = await getElement(Selectors.MODAL_TIMELINE, {
+    name: 'initial modal timeline',
+    stopIf: () => !isDesktopMediaModalOpen,
+  })
+
+  if ($initialTimeline == null) return
+
+  function disconnectModalObserver(name) {
+    disconnectObserver(name, modalObservers)
+  }
+
+  /**
+   * @param {HTMLElement} $timeline
+   */
+  function observeModalTimelineItems($timeline) {
+    disconnectModalObserver('modal timeline')
+    modalObservers.push(
+      observeElement($timeline, () => onTimelineChange($timeline, 'Desktop Media Modal', {hideHeadings: false}), 'modal timeline')
+    )
+
+    // If other media in the modal is clicked, the timeline is replaced.
+    disconnectModalObserver('modal timeline parent')
+    modalObservers.push(
+      observeElement($timeline.parentElement, (mutations) => {
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((/** @type {HTMLElement} */ $newTimeline) => {
+            log('modal timeline replaced')
+            disconnectModalObserver('modal timeline')
+            modalObservers.push(
+              observeElement($newTimeline, () => onTimelineChange($newTimeline, 'Desktop Media Modal', {hideHeadings: false}), 'modal timeline')
+            )
+          })
+        })
+      }, 'modal timeline parent')
+    )
+  }
+
+  /**
+   * @param {HTMLElement} $timeline
+   */
+  function observeModalTimeline($timeline) {
+    // If the inital timeline doesn't have a style attribute it's a placeholder
+    if ($timeline.hasAttribute('style')) {
+      observeModalTimelineItems($timeline)
+    }
+    else {
+      log('waiting for modal timeline')
+      let startTime = Date.now()
+      modalObservers.push(
+        observeElement($timeline.parentElement, (mutations) => {
+          mutations.forEach((mutation) => {
+            mutation.addedNodes.forEach((/** @type {HTMLElement} */ $timeline) => {
+              disconnectModalObserver('modal timeline parent')
+              if (Date.now() > startTime) {
+                log(`modal timeline appeared after ${Date.now() - startTime}ms`, $timeline)
+              }
+              observeModalTimelineItems($timeline)
+            })
+          })
+        }, 'modal timeline parent')
+      )
+    }
+  }
+
+  // The modal timeline can be expanded and collapsed
+  let $expandedContainer = $initialTimeline.closest('[aria-expanded="true"]')
+  modalObservers.push(
+    observeElement($expandedContainer.parentElement, async (mutations) => {
+      if (mutations.some(mutation => mutation.removedNodes.length > 0)) {
+        log('modal timeline collapsed')
+        disconnectModalObserver('modal timeline parent')
+        disconnectModalObserver('modal timeline')
+      }
+      else if (mutations.some(mutation => mutation.addedNodes.length > 0)) {
+        log('modal timeline expanded')
+        let $timeline = await getElement(Selectors.MODAL_TIMELINE, {
+          name: 'expanded modal timeline',
+          stopIf: () => !isDesktopMediaModalOpen,
+        })
+        if ($timeline == null) return
+        observeModalTimeline($timeline)
+      }
+    }, 'collapsible modal timeline container')
+  )
+
+  observeModalTimeline($initialTimeline)
+}
+
 /**
  * Twitter displays popups in the #layers element. It also reuses open popups
  * in certain cases rather than creating one from scratch, so we also need to
@@ -1315,6 +1418,10 @@ async function observeTimeline(page, options = {}) {
   })
 
   if ($timeline == null) return
+
+  function disconnectPageObserver(name) {
+    disconnectObserver(name, pageObservers, 'page observer')
+  }
 
   /**
    * @param {HTMLElement} $timeline
@@ -2397,6 +2504,27 @@ function getVerifiedProps($svg) {
  */
 function handlePopup($popup) {
   let result = {tookAction: false, onPopupClosed: null}
+
+  if (desktop && !isDesktopMediaModalOpen && URL_PHOTO_RE.test(location.pathname) && currentPath != location.pathname) {
+    log('media modal opened')
+    isDesktopMediaModalOpen = true
+    observeDesktopModalTimeline()
+    return {
+      tookAction: true,
+      onPopupClosed() {
+        log('media modal closed')
+        isDesktopMediaModalOpen = false
+        if (modalObservers.length > 0) {
+          log(
+            `disconnecting ${modalObservers.length} modal observer${s(modalObservers.length)}`,
+            modalObservers.map(observer => observer['name'])
+          )
+          modalObservers.forEach(observer => observer.disconnect())
+          modalObservers = []
+        }
+      }
+    }
+  }
 
   if (config.mutableQuoteTweets) {
     if (quotedTweet) {
