@@ -3214,7 +3214,6 @@ function tweakNotificationsPage() {
   if (config.twitterBlueChecks != 'ignore') {
     observeTimeline(currentPage, {
       classifyTweets: false,
-      hideHeadings: false,
       isTabbed: true,
       tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
     })
