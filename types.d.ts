@@ -58,7 +58,7 @@ export type Config = {
   fullWidthContent: boolean
   fullWidthMedia: boolean
   reducedInteractionMode: boolean
-  verifiedAccounts: VerifiedAccountsConfig
+  verifiedAccounts: 'highlight' | 'hide' | 'ignore'
   // Desktop only
   hideAccountSwitcher: boolean
   hideExploreNav: boolean
@@ -93,7 +93,7 @@ export type NamedMutationObserver = MutationObserver & {name?: string}
 export type QuotedTweet = {
   user: string
   time: string
-  text: string
+  text?: string
 }
 
 export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
@@ -122,5 +122,3 @@ export type TimelineOptions = {
   onTabChange?: () => void
   tabbedTimelineContainerSelector?: string
 }
-
-export type VerifiedAccountsConfig = 'highlight' | 'hide' | 'ignore'

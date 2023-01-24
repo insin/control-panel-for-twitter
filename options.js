@@ -1,3 +1,4 @@
+//#region Translations
 document.title = chrome.i18n.getMessage(`optionsPageTitle`)
 
 for (let optionValue of ['ignore', 'hide', 'separate']) {
@@ -101,6 +102,7 @@ for (let translationId of [
 ]) {
   document.getElementById(translationId).textContent = chrome.i18n.getMessage(translationId)
 }
+//#endregion
 
 /** @type {boolean} */
 let desktop
@@ -201,24 +203,16 @@ let checkboxGroups
 
 // Page elements
 let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('details#experiments'))
-let $exportConfig = document.querySelector('#export-config')
+let $exportConfig = document.querySelector('#exportConfig')
 let $form = document.querySelector('form')
+let $importConfig = /** @type {HTMLInputElement} */ (document.querySelector('#importConfig'))
+let $importMessages = /** @type {HTMLElement} */ (document.querySelector('#importMessages'))
 let $mutedQuotes =  /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
 let $mutedQuotesDetails =  /** @type {HTMLDetailsElement} */ (document.querySelector('details#mutedQuotesDetails'))
 let $mutedQuotesLabel = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesLabel'))
 //#endregion
 
 //#region Utility functions
-function exportConfig() {
-  let $a = document.createElement('a')
-  $a.download = 'tweak-new-twitter-v2.23.2.config.txt'
-  $a.href = URL.createObjectURL(new Blob([
-    JSON.stringify(optionsConfig, null, 2)
-  ], {type: 'text/plain'}))
-  $a.click()
-  URL.revokeObjectURL($a.href)
-}
-
 /**
  * @param {keyof HTMLElementTagNameMap} tagName
  * @param {{[key: string]: any}} [attributes]
@@ -248,6 +242,126 @@ function exportConfig() {
   }
 
   return $el
+}
+//#endregion
+
+//#region Config validation for import
+function isBoolean(value) {
+  return typeof value == 'boolean'
+}
+
+/**
+ * @param {string[]} allowedValues
+ */
+function isOneOf(allowedValues) {
+  return function(value) {
+    return typeof value == 'string' && allowedValues.includes(value)
+  }
+}
+
+function validateObject(obj, validators) {
+  let unexpectedProps = []
+  let invalidProps = []
+  for (let [prop, value] of Object.values(obj)) {
+    if (!validators.hasOwnProperty(prop)) {
+      unexpectedProps.push(prop)
+    }
+    else if (!validators[prop](value)) {
+      invalidProps.push(prop)
+    }
+  }
+  if (unexpectedProps.length > 0 || invalidProps.length > 0) {
+    return {
+      valid: false,
+      messages: [
+        unexpectedProps.length > 0 && 'Unexpected properties: ' + unexpectedProps.join(', '),
+        invalidProps.length > 0 && 'Invalid properties: ' + invalidProps.join(', '),
+      ].filter(Boolean)
+    }
+  }
+  return {valid: true}
+}
+
+const isAlgorithmicTweetConfig = isOneOf(['hide', 'ignore'])
+const isSharedTweetConfig = isOneOf(['separate', 'hide', 'ignore'])
+
+/**
+ * @type {{[key: string]: (value: any) => boolean}}
+ */
+let configValidators = {
+  debug: isBoolean,
+  version: isOneOf(['desktop', 'mobile']),
+  addAddMutedWordMenuItem: isBoolean,
+  alwaysUseLatestTweets: isBoolean,
+  communityTweets: isAlgorithmicTweetConfig,
+  dontUseChirpFont: isBoolean,
+  dropdownMenuFontWeight: isBoolean,
+  fastBlock: isBoolean,
+  followButtonStyle: isOneOf(['monochrome', 'themed']),
+  followeesFollows: isAlgorithmicTweetConfig,
+  hideAnalyticsNav: isBoolean,
+  hideBookmarksNav: isBoolean,
+  hideCommunitiesNav: isBoolean,
+  hideFollowingMetrics: isBoolean,
+  hideForYouTimeline: isBoolean,
+  hideHelpCenterNav: isBoolean,
+  hideKeyboardShortcutsNav: isBoolean,
+  hideLikeMetrics: isBoolean,
+  hideListsNav: isBoolean,
+  hideMetrics: isBoolean,
+  hideMomentsNav: isBoolean,
+  hideMonetizationNav: isBoolean,
+  hideMoreTweets: isBoolean,
+  hideNewslettersNav: isBoolean,
+  hideQuoteTweetMetrics: isBoolean,
+  hideReplyMetrics: isBoolean,
+  hideRetweetMetrics: isBoolean,
+  hideShareTweetButton: isBoolean,
+  hideTopicsNav: isBoolean,
+  hideTotalTweetsMetrics: isBoolean,
+  hideTweetAnalyticsLinks: isBoolean,
+  hideTwitterAdsNav: isBoolean,
+  hideTwitterBlueNav: isBoolean,
+  hideTwitterCircleNav: isBoolean,
+  hideTwitterForProfessionalsNav: isBoolean,
+  hideUnavailableQuoteTweets: isBoolean,
+  hideVerifiedNotificationsTab: isBoolean,
+  hideViews: isBoolean,
+  hideWhoToFollowEtc: isBoolean,
+  likedTweets: isAlgorithmicTweetConfig,
+  mutableQuoteTweets: isBoolean,
+  mutedQuotes: function(value) {
+    return (
+      Array.isArray(value) &&
+      value.every(qt => (
+        typeof qt.user == 'string' &&
+        typeof qt.name == 'string' &&
+        (qt.text == null || typeof qt.text == 'string')
+      ))
+    )
+  },
+  quoteTweets: isSharedTweetConfig,
+  repliedToTweets: isAlgorithmicTweetConfig,
+  retweets: isSharedTweetConfig,
+  suggestedTopicTweets: isAlgorithmicTweetConfig,
+  tweakQuoteTweetsPage: isBoolean,
+  twitterBlueChecks: isOneOf(['ignore', 'replace', 'hide']),
+  uninvertFollowButtons: isBoolean,
+  disableHomeTimeline: isBoolean,
+  disabledHomeTimelineRedirect: isOneOf(['notifications', 'messages']),
+  fullWidthContent: isBoolean,
+  fullWidthMedia: isBoolean,
+  reducedInteractionMode: isBoolean,
+  verifiedAccounts: isOneOf(['highlight', 'hide', 'ignore']),
+  hideAccountSwitcher: isBoolean,
+  hideExploreNav: isBoolean,
+  hideMessagesDrawer: isBoolean,
+  hideSidebarContent: isBoolean,
+  navBaseFontSize: isBoolean,
+  showRelevantPeople: isBoolean,
+  hideAppNags: isBoolean,
+  hideExplorePageContents: isBoolean,
+  hideMessagesBottomNavItem: isBoolean,
 }
 //#endregion
 
@@ -316,6 +430,49 @@ function applyConfig() {
   updateFormControls()
   updateCheckboxGroups()
   updateDisplay()
+}
+
+function exportConfig() {
+  let $a = document.createElement('a')
+  $a.download = 'tweak-new-twitter-v2.23.2.config.txt'
+  $a.href = URL.createObjectURL(new Blob([
+    JSON.stringify(optionsConfig, null, 2)
+  ], {type: 'text/plain'}))
+  $a.click()
+  URL.revokeObjectURL($a.href)
+}
+
+function importConfig() {
+  let file = $importConfig.files?.[0]
+  if (!file) {
+    $importMessages.textContent = 'No file selected'
+    return
+  }
+  let reader = new FileReader()
+  reader.addEventListener('load', () => {
+    let importedConfig
+    try {
+      importedConfig = JSON.parse(reader.result)
+    }
+    catch (e) {
+      $importMessages.textContent = 'Unable to parse config file'
+      return
+    }
+
+    let validationResult = validateObject(importedConfig, configValidators)
+    if (!validationResult.valid) {
+      $importMessages.textContent = validationResult.messages.join('\n\n')
+      return
+    }
+
+    delete importedConfig.debug
+    delete importedConfig.version
+    Object.assign(optionsConfig, importedConfig)
+    applyConfig()
+    storeConfigChanges(importedConfig)
+    $importMessages.textContent = 'Import succeeded'
+  })
+  reader.readAsText(file)
 }
 
 /**
@@ -463,6 +620,7 @@ function main() {
     )
     $exportConfig.addEventListener('click', exportConfig)
     $form.addEventListener('change', onFormChanged)
+    $importConfig.addEventListener('change', importConfig)
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
     chrome.storage.onChanged.addListener(onStorageChanged)
 
