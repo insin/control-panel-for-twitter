@@ -10,27 +10,24 @@ npm install
 
 ## Debug mode
 
-To enable debug mode, set `debug = true` at the top of `tweak-new-twitter.user.js`.
+To enable debug mode, you can either manually set `debug = true` at the top of `tweak-new-twitter.user.js`, or open the options page, expand the Experiments secion and click the last paragraph 5 times to gain access to the debug options, where you can enable debug mode.
+
+When debug mode is active, log statemente are displayed in the browser console and the detected type of each tweet is displayed in all supported tweet timelines where the tweet type is being detected.
 
 There's a `log()` function which can and should be used to log useful debug information, such as the appearance of elements which trigger certain tweaks (useful as a starting point when Twitter changes things), or that a particular tweak is about to happen (for traceability).
-
-When debug mode is active, the detected type of each tweet in the main timeline is displayed.
 
 ## Desktop vs. mobile
 
 At the time of writing, the [current version of Twitter](https://blog.twitter.com/engineering/en_us/topics/infrastructure/2019/buildingthenewtwitter) uses the same webapp to provide different experiences for desktop and mobile devices.
 
-As a result, some of the tweaks in Tweak New Twitter work well in both versions, e.g. watching the timeline and filtering what appears for `config.retweets` and `config.quoteTweets`, but others…
-
-- need a different implementation for each version, e.g. the UI we need to add to access the separated tweets timeline when `config.retweets` or `config.quoteTweets` are '`separated'`
-- aren't present in one of the versions, e.g. there's no sidebar next to the timeline in the mobile version for `config.hideSidebarContent`
-- aren't possible in the same way in both versions, e.g. on mobile there's not enough room to pin a quoted tweet for `config.tweakQuoteTweetsPage`
+Some of the tweaks in Tweak New Twitter work the same in both versions, but others need a different implementation or CSS selector for each version, or aren't present in one of the versions at all.
 
 To handle this, scripts in the extension have `mobile` and `desktop` flags which are used to tailor what they do according to version of Twitter being used.
 
 ### Developing mobile features
 
-If you want to develop a feature for the mobile version, the easiest way to get started is to hardcode `mobile = true` at the top of `tweak-new-twitter.user.js` and `options.js`, and use the responsive design / mobile device simulation mode in your browser's developer tools to access the mobile version on desktop.
+If you want to test a feature in the mobile version, use the responsive design / mobile device simulation mode in your browser's developer tools. Tweak New Twitter will automatically detect which
+version is being used, and the options page will also be updated accordingly.
 
 ## Running as a browser extension
 
@@ -54,11 +51,11 @@ To run in Microsoft Edge:
 npm run edge
 ```
 
-> Note: this command assumes you have Windows installed on the `C:` drive, change it in your local `package.json` if that's not the case
+> Note: the edge command assumes you have Windows installed on the `C:` drive, change it in your local `package.json` if that's not the case
 
 ### Running on Firefox for Android
 
-To test the mobile version as an extension, you'll need an Android device with [Firefox Nightly for Android](https://play.google.com/store/apps/details?id=org.mozilla.fenix) installed.
+To test the mobile version on-device as an extension, you'll need an Android device with [Firefox Nightly](https://play.google.com/store/apps/details?id=org.mozilla.fenix) installed.
 
 Follow the setup guide in web-ext's [Developing extensions for Firefox for Android](https://extensionworkshop.com/documentation/develop/developing-extensions-for-firefox-for-android/) documentation, and after connecting your device to your computer, run `adb` to get its id:
 
@@ -68,7 +65,7 @@ List of devices attached
 1a23456b       device
 ```
 
-To run in Firefox for Android Nightly, pass in your device's id like so:
+To run in Firefox Nightly, pass in your device's id like so:
 
 ```shell
 npm run android -- --adb-device 1a23456b
