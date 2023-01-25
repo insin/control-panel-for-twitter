@@ -23,10 +23,10 @@ export type Config = {
   hideLikeMetrics: boolean
   hideListsNav: boolean
   hideMetrics: boolean
-  hideMomentsNav: boolean
+  // hideMomentsNav: boolean
   hideMonetizationNav: boolean
   hideMoreTweets: boolean
-  hideNewslettersNav: boolean
+  // hideNewslettersNav: boolean
   hideQuoteTweetMetrics: boolean
   hideReplyMetrics: boolean
   hideRetweetMetrics: boolean

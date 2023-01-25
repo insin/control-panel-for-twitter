@@ -48,10 +48,10 @@ const config = {
   hideLikeMetrics: true,
   hideListsNav: true,
   hideMetrics: false,
-  hideMomentsNav: true,
+  // hideMomentsNav: true,
   hideMonetizationNav: true,
   hideMoreTweets: true,
-  hideNewslettersNav: true,
+  // hideNewslettersNav: true,
   hideQuoteTweetMetrics: true,
   hideReplyMetrics: true,
   hideRetweetMetrics: true,
@@ -1793,15 +1793,15 @@ const configureCss = (() => {
     if (config.hideMetrics) {
       configureHideMetricsCss(cssRules, hideCssSelectors)
     }
-    if (config.hideMomentsNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/moment_maker"]`)
-    }
+    // if (config.hideMomentsNav) {
+    //   hideCssSelectors.push(`${menuRole} a[href$="/moment_maker"]`)
+    // }
     if (config.hideMonetizationNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/settings/monetization"]`)
     }
-    if (config.hideNewslettersNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/newsletters"]`)
-    }
+    // if (config.hideNewslettersNav) {
+    //   hideCssSelectors.push(`${menuRole} a[href$="/newsletters"]`)
+    // }
     if (config.hideTopicsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/topics"]`)
     }
@@ -1849,7 +1849,8 @@ const configureCss = (() => {
     }
 
     // Hide "Creator Studio" if all its contents are hidden
-    if (config.hideMomentsNav && config.hideNewslettersNav && config.hideAnalyticsNav) {
+    // if (config.hideMomentsNav && config.hideNewslettersNav && config.hideAnalyticsNav) {
+    if (config.hideAnalyticsNav) {
       hideCssSelectors.push(`${menuRole} div[role="button"][aria-expanded]:nth-of-type(1)`)
     }
     // Hide "Professional Tools" if all its contents are hidden
