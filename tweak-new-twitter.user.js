@@ -850,7 +850,7 @@ function dedent(str) {
 /**
  * @param {string} name
  * @param {import("./types").Disconnectable[]} observers
- * @param {string} [type]
+ * @param {string?} type
  */
 function disconnectObserver(name, observers, type = 'observer') {
   for (let i = observers.length -1; i >= 0; i--) {
@@ -870,7 +870,7 @@ function disconnectObserver(name, observers, type = 'observer') {
  *   stopIf?: () => boolean
  *   timeout?: number
  *   context?: Document | HTMLElement
- * }} [options]
+ * }?} options
  * @returns {Promise<HTMLElement | null>}
  */
 function getElement(selector, {
@@ -1406,7 +1406,7 @@ async function observeSearchForm() {
 
 /**
  * @param {string} page
- * @param {import("./types").TimelineOptions} [options]
+ * @param {import("./types").TimelineOptions?} options
  */
 async function observeTimeline(page, options = {}) {
   let {isTabbed = false, onTabChange = null, tabbedTimelineContainerSelector = null} = options
@@ -2680,7 +2680,7 @@ function onPopup($popup) {
 /**
  * @param {HTMLElement} $timeline
  * @param {string} page
- * @param {import("./types").TimelineOptions} [options]
+ * @param {import("./types").TimelineOptions?} options
  */
 function onTimelineChange($timeline, page, options = {}) {
   let startTime = Date.now()

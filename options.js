@@ -221,7 +221,7 @@ function exportConfig() {
 
 /**
  * @param {keyof HTMLElementTagNameMap} tagName
- * @param {{[key: string]: any}} [attributes]
+ * @param {({[key: string]: any} | null)?} attributes
  * @param {...any} children
  * @returns {HTMLElement}
  */
