@@ -2027,7 +2027,10 @@ const configureCss = (() => {
       if (config.hideViews) {
         hideCssSelectors.push(
           // Under timeline-style tweets
-          '[data-testid="tweet"][tabindex="0"] [role="group"] > div:nth-of-type(4)',
+          // The Buffer extension adds a new button in position 2 - use their added class to avoid
+          // hiding the wrong button (#209)
+          '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(4)',
+          '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(5)',
         )
       }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
