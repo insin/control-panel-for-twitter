@@ -2365,7 +2365,7 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
 
   if (timelineMetricSelectors) {
     cssRules.push(
-      `[role="group"] div:is(${timelineMetricSelectors}) [data-testid="app-text-transition-container"] { visibility: hidden; }`
+      `[role="group"] div:is(${timelineMetricSelectors}) span { visibility: hidden; }`
     )
   }
 }
