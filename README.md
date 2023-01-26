@@ -34,8 +34,6 @@ Mozilla Add-ons currently only lets you install a [small, curated list of extens
   <img src="https://raw.githubusercontent.com/insin/tweak-new-twitter/master/screenshots/install_addons.png" alt="Screenshot of the Add-ons page in Firefox Nightly setting up the Custom Add-on collection with the details above" style="max-width:100%;">
 </details>
 
-If you open [mobile.twitter.com](https://mobile.twitter.com) and use the "Install" option in Firefox Nightly's main menu, you'll have a configurable (via Firefox Nightly's Add-ons settings), user-respectful Twitter app on your phone.
-
 ## Releases / What's New?
 
 The [Tweak New Twitter Releases page](https://github.com/insin/tweak-new-twitter/releases) highlights new features, changes and fixes in each version, and shows which version is currently published on each of the browser extension stores.
