@@ -157,6 +157,7 @@ const defaultConfig = {
   hideViews: true,
   hideWhoToFollowEtc: true,
   likedTweets: 'ignore',
+  listRetweets: 'ignore',
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',

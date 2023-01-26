@@ -195,6 +195,8 @@ let template = {
   QUOTE_TWEET: 'c9d7235e',
   QUOTE_TWEETS: 'bd7c0390',
   TWITTER: 'd2fb334c',
+  TURN_OFF_RETWEETS: 'b62e432e',
+  TURN_ON_RETWEETS: 'b2e20eac',
 }
 
 let locales = {}

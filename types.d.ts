@@ -43,6 +43,7 @@ export type Config = {
   hideViews: boolean
   hideWhoToFollowEtc: boolean
   likedTweets: AlgorithmicTweetsConfig
+  listRetweets: 'ignore' | 'hide'
   mutableQuoteTweets: boolean
   mutedQuotes: QuotedTweet[]
   quoteTweets: SharedTweetsConfig
@@ -87,6 +88,8 @@ export type LocaleKey =
   | 'RETWEETS'
   | 'SHARED_TWEETS'
   | 'TWITTER'
+  | 'TURN_OFF_RETWEETS'
+  | 'TURN_ON_RETWEETS'
 
 export type NamedMutationObserver = MutationObserver & {name?: string}
 

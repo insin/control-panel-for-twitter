@@ -68,6 +68,7 @@ const config = {
   hideViews: true,
   hideWhoToFollowEtc: true,
   likedTweets: 'ignore',
+  listRetweets: 'ignore',
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
@@ -112,6 +113,8 @@ const locales = {
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RETWEETS: 'إعادات التغريد',
     SHARED_TWEETS: 'التغريدات المشتركة',
+    TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
+    TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
     TWITTER: 'تويتر',
   },
   ar: {
@@ -124,6 +127,8 @@ const locales = {
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RETWEETS: 'إعادات التغريد',
     SHARED_TWEETS: 'التغريدات المشتركة',
+    TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
+    TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
   },
   bg: {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
@@ -135,6 +140,8 @@ const locales = {
     QUOTE_TWEETS: 'Туитове с цитат',
     RETWEETS: 'Ретуитове',
     SHARED_TWEETS: 'Споделени туитове',
+    TURN_OFF_RETWEETS: 'Изключване на ретуитовете',
+    TURN_ON_RETWEETS: 'Включване на ретуитовете',
   },
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
@@ -146,6 +153,8 @@ const locales = {
     QUOTE_TWEETS: 'টুইট উদ্ধৃতিগুলো',
     RETWEETS: 'পুনঃটুইটগুলো',
     SHARED_TWEETS: 'ভাগ করা টুইটগুলি',
+    TURN_OFF_RETWEETS: 'পুনঃ টুইটগুলি বন্ধ করুন',
+    TURN_ON_RETWEETS: 'পুনঃ টুইটগুলি চালু করুন',
     TWITTER: 'টুইটার',
   },
   ca: {
@@ -158,6 +167,8 @@ const locales = {
     QUOTE_TWEETS: 'Tuits amb cita',
     RETWEETS: 'Retuits',
     SHARED_TWEETS: 'Tuits compartits',
+    TURN_OFF_RETWEETS: 'Desactiva els retuits',
+    TURN_ON_RETWEETS: 'Activa els retuits',
   },
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
@@ -169,6 +180,8 @@ const locales = {
     QUOTE_TWEETS: 'Tweety s citací',
     RETWEETS: 'Retweety',
     SHARED_TWEETS: 'Sdílené tweety',
+    TURN_OFF_RETWEETS: 'Vypnout retweety',
+    TURN_ON_RETWEETS: 'Zapnout retweety',
   },
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
@@ -179,6 +192,8 @@ const locales = {
     QUOTE_TWEET: 'Citér Tweet',
     QUOTE_TWEETS: 'Citat-Tweets',
     SHARED_TWEETS: 'Delte tweets',
+    TURN_OFF_RETWEETS: 'Slå Retweets fra',
+    TURN_ON_RETWEETS: 'Slå Retweets til',
   },
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
@@ -189,6 +204,8 @@ const locales = {
     QUOTE_TWEET: 'Tweet zitieren',
     QUOTE_TWEETS: 'Zitierte Tweets',
     SHARED_TWEETS: 'Geteilte Tweets',
+    TURN_OFF_RETWEETS: 'Retweets ausschalten',
+    TURN_ON_RETWEETS: 'Retweets einschalten',
   },
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
@@ -200,6 +217,8 @@ const locales = {
     QUOTE_TWEETS: 'Tweet με παράθεση',
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Κοινόχρηστα Tweets',
+    TURN_OFF_RETWEETS: 'Απενεργοποίηση των Retweet',
+    TURN_ON_RETWEETS: 'Ενεργοποίηση των Retweet',
   },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
@@ -211,6 +230,8 @@ const locales = {
     QUOTE_TWEETS: 'Quote Tweets',
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Shared Tweets',
+    TURN_OFF_RETWEETS: 'Turn off Retweets',
+    TURN_ON_RETWEETS: 'Turn on Retweets',
     TWITTER: 'Twitter',
   },
   es: {
@@ -222,6 +243,8 @@ const locales = {
     QUOTE_TWEET: 'Citar Tweet',
     QUOTE_TWEETS: 'Tweets citados',
     SHARED_TWEETS: 'Tweets compartidos',
+    TURN_OFF_RETWEETS: 'Desactivar Retweets',
+    TURN_ON_RETWEETS: 'Activar Retweets',
   },
   eu: {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
@@ -232,6 +255,8 @@ const locales = {
     QUOTE_TWEETS: 'Aipatu txioak',
     RETWEETS: 'Bertxioak',
     SHARED_TWEETS: 'Partekatutako',
+    TURN_OFF_RETWEETS: 'Desaktibatu birtxioak',
+    TURN_ON_RETWEETS: 'Aktibatu birtxioak',
   },
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
@@ -243,6 +268,8 @@ const locales = {
     QUOTE_TWEETS: 'نقل‌توییت‌ها',
     RETWEETS: 'بازتوییت‌ها',
     SHARED_TWEETS: 'توییتهای مشترک',
+    TURN_OFF_RETWEETS: 'غیرفعال‌سازی بازتوییت‌ها',
+    TURN_ON_RETWEETS: 'فعال سازی بازتوییت‌ها',
     TWITTER: 'توییتر',
   },
   fi: {
@@ -255,6 +282,8 @@ const locales = {
     QUOTE_TWEETS: 'Twiitin lainaukset',
     RETWEETS: 'Uudelleentwiittaukset',
     SHARED_TWEETS: 'Jaetut twiitit',
+    TURN_OFF_RETWEETS: 'Poista uudelleentwiittaukset käytöstä',
+    TURN_ON_RETWEETS: 'Ota uudelleentwiittaukset käyttöön',
   },
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
@@ -266,6 +295,8 @@ const locales = {
     QUOTE_TWEETS: 'Mga Quote na Tweet',
     RETWEETS: 'Mga Retweet',
     SHARED_TWEETS: 'Mga Ibinahaging Tweet',
+    TURN_OFF_RETWEETS: 'I-off ang Retweets',
+    TURN_ON_RETWEETS: 'I-on ang Retweets',
   },
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
@@ -276,6 +307,8 @@ const locales = {
     QUOTE_TWEET: 'Citer le Tweet',
     QUOTE_TWEETS: 'Tweets cités',
     SHARED_TWEETS: 'Tweets partagés',
+    TURN_OFF_RETWEETS: 'Désactiver les Retweets',
+    TURN_ON_RETWEETS: 'Activer les Retweets',
   },
   ga: {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
@@ -286,6 +319,8 @@ const locales = {
     QUOTE_TWEETS: 'Luaigh Tvuíteanna',
     RETWEETS: 'Atweetanna',
     SHARED_TWEETS: 'Tweetanna Roinnte',
+    TURN_OFF_RETWEETS: 'Cas as Atweetanna',
+    TURN_ON_RETWEETS: 'Cas Atweetanna air',
   },
   gl: {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
@@ -296,6 +331,8 @@ const locales = {
     QUOTE_TWEETS: 'Chíos citados',
     RETWEETS: 'Rechouchíos',
     SHARED_TWEETS: 'Chíos compartidos',
+    TURN_OFF_RETWEETS: 'Desactivar os rechouchíos',
+    TURN_ON_RETWEETS: 'Activar os rechouchíos',
   },
   gu: {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
@@ -307,6 +344,8 @@ const locales = {
     QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ',
     RETWEETS: 'પુનટ્વીટ્સ',
     SHARED_TWEETS: 'શેર કરેલી ટ્વીટ્સ',
+    TURN_OFF_RETWEETS: 'પુનટ્વીટ્સ બંધ કરો',
+    TURN_ON_RETWEETS: 'પુનટ્વીટ્સ ચાલુ કરો',
   },
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
@@ -318,6 +357,8 @@ const locales = {
     QUOTE_TWEETS: 'ציוצי ציטוט',
     RETWEETS: 'ציוצים מחדש',
     SHARED_TWEETS: 'ציוצים משותפים',
+    TURN_OFF_RETWEETS: 'כבה ציוצים מחדש',
+    TURN_ON_RETWEETS: 'הפעל ציוצים מחדש',
     TWITTER: 'טוויטר',
   },
   hi: {
@@ -330,6 +371,8 @@ const locales = {
     QUOTE_TWEETS: 'कोट ट्वीट्स',
     RETWEETS: 'रीट्वीट्स',
     SHARED_TWEETS: 'साझा किए गए ट्वीट',
+    TURN_OFF_RETWEETS: 'रीट्वीट बंद करें',
+    TURN_ON_RETWEETS: 'रीट्वीट चालू करें',
   },
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
@@ -341,6 +384,8 @@ const locales = {
     QUOTE_TWEETS: 'Citirani tweetovi',
     RETWEETS: 'Proslijeđeni tweetovi',
     SHARED_TWEETS: 'Dijeljeni tweetovi',
+    TURN_OFF_RETWEETS: 'Isključi proslijeđene tweetove',
+    TURN_ON_RETWEETS: 'Uključi proslijeđene tweetove',
   },
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
@@ -352,6 +397,8 @@ const locales = {
     QUOTE_TWEETS: 'Tweet-idézések',
     RETWEETS: 'Retweetek',
     SHARED_TWEETS: 'Megosztott tweetek',
+    TURN_OFF_RETWEETS: 'Retweetek kikapcsolása',
+    TURN_ON_RETWEETS: 'Retweetek bekapcsolása',
   },
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
@@ -363,6 +410,8 @@ const locales = {
     QUOTE_TWEETS: 'Tweet Kutipan',
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Tweet yang Dibagikan',
+    TURN_OFF_RETWEETS: 'Matikan Retweet',
+    TURN_ON_RETWEETS: 'Nyalakan Retweet',
   },
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
@@ -374,6 +423,8 @@ const locales = {
     QUOTE_TWEETS: 'Tweet di citazione',
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Tweet condivisi',
+    TURN_OFF_RETWEETS: 'Disattiva Retweet',
+    TURN_ON_RETWEETS: 'Attiva Retweet',
   },
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
@@ -385,6 +436,8 @@ const locales = {
     QUOTE_TWEETS: '引用ツイート',
     RETWEETS: 'リツイート',
     SHARED_TWEETS: '共有ツイート',
+    TURN_OFF_RETWEETS: 'リツイートをオフにする',
+    TURN_ON_RETWEETS: 'リツイートをオンにする',
   },
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
@@ -396,6 +449,8 @@ const locales = {
     QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು',
     RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳು',
     SHARED_TWEETS: 'ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು',
+    TURN_OFF_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
+    TURN_ON_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆನ್ ಮಾಡಿ',
   },
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
@@ -407,6 +462,8 @@ const locales = {
     QUOTE_TWEETS: '트윗 인용하기',
     RETWEETS: '리트윗',
     SHARED_TWEETS: '공유 트윗',
+    TURN_OFF_RETWEETS: '리트윗 끄기',
+    TURN_ON_RETWEETS: '리트윗 켜기',
     TWITTER: '트위터',
   },
   mr: {
@@ -419,6 +476,8 @@ const locales = {
     QUOTE_TWEETS: 'भाष्य ट्विट्स',
     RETWEETS: 'पुनर्ट्विट्स',
     SHARED_TWEETS: 'सामायिक ट्विट',
+    TURN_OFF_RETWEETS: 'पुनर्ट्विट्स बंद करा',
+    TURN_ON_RETWEETS: 'पुनर्ट्विट्स चालू करा',
   },
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
@@ -430,6 +489,8 @@ const locales = {
     QUOTE_TWEETS: 'Tweet Petikan',
     RETWEETS: 'Tweet semula',
     SHARED_TWEETS: 'Tweet Berkongsi',
+    TURN_OFF_RETWEETS: 'Matikan Tweet semula',
+    TURN_ON_RETWEETS: 'Hidupkan Tweet semula',
   },
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
@@ -440,6 +501,8 @@ const locales = {
     QUOTE_TWEET: 'Sitat-Tweet',
     QUOTE_TWEETS: 'Sitat-Tweets',
     SHARED_TWEETS: 'Delte tweets',
+    TURN_OFF_RETWEETS: 'Slå av Retweets',
+    TURN_ON_RETWEETS: 'Slå på Retweets',
   },
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
@@ -450,6 +513,8 @@ const locales = {
     QUOTE_TWEET: 'Citeer Tweet',
     QUOTE_TWEETS: 'Geciteerde Tweets',
     SHARED_TWEETS: 'Gedeelde Tweets',
+    TURN_OFF_RETWEETS: 'Retweets uitschakelen',
+    TURN_ON_RETWEETS: 'Retweets inschakelen',
   },
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
@@ -461,6 +526,8 @@ const locales = {
     QUOTE_TWEETS: 'Cytaty z Tweeta',
     RETWEETS: 'Tweety podane dalej',
     SHARED_TWEETS: 'Udostępnione Tweety',
+    TURN_OFF_RETWEETS: 'Wyłącz Tweety podane dalej',
+    TURN_ON_RETWEETS: 'Włącz Tweety podane dalej',
   },
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
@@ -471,6 +538,8 @@ const locales = {
     QUOTE_TWEET: 'Comentar o Tweet',
     QUOTE_TWEETS: 'Tweets com comentário',
     SHARED_TWEETS: 'Tweets Compartilhados',
+    TURN_OFF_RETWEETS: 'Desativar Retweets',
+    TURN_ON_RETWEETS: 'Ativar Retweets',
   },
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
@@ -482,6 +551,8 @@ const locales = {
     QUOTE_TWEETS: 'Tweeturi cu citat',
     RETWEETS: 'Retweeturi',
     SHARED_TWEETS: 'Tweeturi partajate',
+    TURN_OFF_RETWEETS: 'Dezactivează Retweeturile',
+    TURN_ON_RETWEETS: 'Activează Retweeturile',
   },
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
@@ -493,6 +564,8 @@ const locales = {
     QUOTE_TWEETS: 'Твиты с цитатами',
     RETWEETS: 'Ретвиты',
     SHARED_TWEETS: 'Общие твиты',
+    TURN_OFF_RETWEETS: 'Отключить ретвиты',
+    TURN_ON_RETWEETS: 'Включить ретвиты',
     TWITTER: 'Твиттер',
   },
   sk: {
@@ -505,6 +578,8 @@ const locales = {
     QUOTE_TWEETS: 'Tweety s citátom',
     RETWEETS: 'Retweety',
     SHARED_TWEETS: 'Zdieľané Tweety',
+    TURN_OFF_RETWEETS: 'Vypnúť retweety',
+    TURN_ON_RETWEETS: 'Zapnúť retweety',
   },
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
@@ -516,6 +591,8 @@ const locales = {
     QUOTE_TWEETS: 'твит(ов)а са цитатом',
     RETWEETS: 'Ретвитови',
     SHARED_TWEETS: 'Дељени твитови',
+    TURN_OFF_RETWEETS: 'Искључи ретвитове',
+    TURN_ON_RETWEETS: 'Укључи ретвитове',
     TWITTER: 'Твитер',
   },
   sv: {
@@ -527,6 +604,8 @@ const locales = {
     QUOTE_TWEET: 'Citera Tweet',
     QUOTE_TWEETS: 'Citat-tweets',
     SHARED_TWEETS: 'Delade tweetsen',
+    TURN_OFF_RETWEETS: 'Stäng av Retweets',
+    TURN_ON_RETWEETS: 'Slå på Retweets',
   },
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
@@ -538,6 +617,8 @@ const locales = {
     QUOTE_TWEETS: 'மேற்கோள் கீச்சுகள்',
     RETWEETS: 'மறுகீச்சுகள்',
     SHARED_TWEETS: 'பகிரப்பட்ட ட்வீட்டுகள்',
+    TURN_OFF_RETWEETS: 'மறுகீச்சுகளை அணை',
+    TURN_ON_RETWEETS: 'மறுகீச்சுகளை இயக்கு',
   },
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
@@ -549,6 +630,8 @@ const locales = {
     QUOTE_TWEETS: 'ทวีตและคำพูด',
     RETWEETS: 'รีทวีต',
     SHARED_TWEETS: 'ทวีตที่แชร์',
+    TURN_OFF_RETWEETS: 'ปิดรีทวีต',
+    TURN_ON_RETWEETS: 'เปิดรีทวีต',
     TWITTER: 'ทวิตเตอร์',
   },
   tr: {
@@ -561,6 +644,8 @@ const locales = {
     QUOTE_TWEETS: 'Alıntı Tweetler',
     RETWEETS: 'Retweetler',
     SHARED_TWEETS: 'Paylaşılan Tweetler',
+    TURN_OFF_RETWEETS: 'Retweetleri kapat',
+    TURN_ON_RETWEETS: 'Retweetleri aç',
   },
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
@@ -572,6 +657,8 @@ const locales = {
     QUOTE_TWEETS: 'Цитовані твіти',
     RETWEETS: 'Ретвіти',
     SHARED_TWEETS: 'Спільні твіти',
+    TURN_OFF_RETWEETS: 'Вимкнути ретвіти',
+    TURN_ON_RETWEETS: 'Увімкнути ретвіти',
     TWITTER: 'Твіттер',
   },
   ur: {
@@ -584,6 +671,8 @@ const locales = {
     QUOTE_TWEETS: 'ٹویٹ کو نقل کرو',
     RETWEETS: 'ریٹویٹس',
     SHARED_TWEETS: 'مشترکہ ٹویٹس',
+    TURN_OFF_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
+    TURN_ON_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
     TWITTER: 'ٹوئٹر',
   },
   vi: {
@@ -596,6 +685,8 @@ const locales = {
     QUOTE_TWEETS: 'Tweet trích dẫn',
     RETWEETS: 'Các Tweet lại',
     SHARED_TWEETS: 'Tweet được chia sẻ',
+    TURN_OFF_RETWEETS: 'Tắt Tweet lại',
+    TURN_ON_RETWEETS: 'Bật Tweet lại',
   },
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
@@ -607,6 +698,8 @@ const locales = {
     QUOTE_TWEETS: '引用的推文',
     RETWEETS: '轉推',
     SHARED_TWEETS: '分享的推文',
+    TURN_OFF_RETWEETS: '關閉轉推',
+    TURN_ON_RETWEETS: '開啟轉推',
   },
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
@@ -618,6 +711,8 @@ const locales = {
     QUOTE_TWEETS: '引用推文',
     RETWEETS: '转推',
     SHARED_TWEETS: '分享的推文',
+    TURN_OFF_RETWEETS: '关闭转推',
+    TURN_ON_RETWEETS: '开启转推',
   },
 }
 
@@ -674,6 +769,7 @@ const Svgs = {
   HOME: '<g><path d="M12 9c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4zm0 6c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm0-13.304L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM19 19.5c0 .276-.224.5-.5.5h-13c-.276 0-.5-.224-.5-.5V8.429l7-4.375 7 4.375V19.5z"></path></g>',
   MUTE: '<g><path d="M18 6.59V1.2L8.71 7H5.5C4.12 7 3 8.12 3 9.5v5C3 15.88 4.12 17 5.5 17h2.09l-2.3 2.29 1.42 1.42 15.5-15.5-1.42-1.42L18 6.59zm-8 8V8.55l6-3.75v3.79l-6 6zM5 9.5c0-.28.22-.5.5-.5H8v6H5.5c-.28 0-.5-.22-.5-.5v-5zm6.5 9.24l1.45-1.45L16 19.2V14l2 .02v8.78l-6.5-4.06z"></path></g>',
   RETWEET: '<g><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"></path></g>',
+  RETWEETS_OFF: '<g><path d="M3.707 21.707l18-18-1.414-1.414-2.088 2.088C17.688 4.137 17.11 4 16.5 4H11v2h5.5c.028 0 .056 0 .084.002l-10.88 10.88c-.131-.266-.204-.565-.204-.882V7.551l2.068 1.93 1.365-1.462L4.5 3.882.068 8.019l1.365 1.462 2.068-1.93V16c0 .871.278 1.677.751 2.334l-1.959 1.959 1.414 1.414zM18.5 9h2v7.449l2.068-1.93 1.365 1.462-4.433 4.137-4.432-4.137 1.365-1.462 2.067 1.93V9zm-8.964 9l-2 2H13v-2H9.536z"></path></g>'
 }
 
 const PROFILE_FOLLOWS_URL_RE = /\/[a-zA-Z\d_]{1,20}\/(following|followers|followers_you_follow)\/?$/
@@ -1265,11 +1361,6 @@ const observePopups = (() => {
       popupObserver = null
     }
 
-    if (!(config.addAddMutedWordMenuItem ||
-          config.fastBlock ||
-          config.mutableQuoteTweets ||
-          config.twitterBlueChecks != 'ignore')) return
-
     let $layers = await getElement('#layers', {
       name: 'layers',
     })
@@ -1716,6 +1807,46 @@ async function addSeparatedTweetsTimelineControl(page) {
   }
 }
 
+
+/**
+ * Add a "Turn on/off Retweets" menu item to a List's menu.
+ * @param {HTMLElement} $switchMenuItem
+ */
+async function addToggleListRetweetsMenuItem($switchMenuItem) {
+  log('adding "Turn on/off Retweets" menu item')
+
+  // Wait for the menu to render properly on desktop
+  if (desktop) {
+    $switchMenuItem = await getElement(':scope > div > div > div > [role="menuitem"]', {
+      context: $switchMenuItem.parentElement,
+      name: 'rendered switch menu item',
+      timeout: 100,
+    })
+    if (!$switchMenuItem) return
+  }
+
+  let $toggleRetweets = /** @type {HTMLElement} */ ($switchMenuItem.cloneNode(true))
+  $toggleRetweets.classList.add('tnt_menu_item')
+  $toggleRetweets.querySelector('span').textContent = getString(`TURN_${config.listRetweets == 'ignore' ? 'OFF' : 'ON'}_RETWEETS`)
+  $toggleRetweets.querySelector('svg').innerHTML = config.listRetweets == 'ignore' ? Svgs.RETWEETS_OFF : Svgs.RETWEET
+  $toggleRetweets.querySelector(':scope > div:last-child > div:last-child')?.remove()
+  $toggleRetweets.addEventListener('click', (e) => {
+    e.preventDefault()
+    log('toggling list retweets')
+    config.listRetweets = config.listRetweets == 'ignore' ? 'hide' : 'ignore'
+    storeConfigChanges({listRetweets: config.listRetweets})
+    processCurrentPage()
+    // Dismiss the menu
+    let $menuLayer = /** @type {HTMLElement} */ ($switchMenuItem.closest('[role="group"]')?.firstElementChild?.firstElementChild)
+    if (!$menuLayer) {
+      log('could not find menu layer to dismiss menu')
+    }
+    $menuLayer?.click()
+  })
+
+  $switchMenuItem.insertAdjacentElement('beforebegin', $toggleRetweets)
+}
+
 /**
  * Redirects away from the home timeline if we're on it and it's been disabled.
  * @returns {boolean} `true` if redirected as a result of this call
@@ -1738,6 +1869,13 @@ const configureCss = (() => {
     let cssRules = []
     let hideCssSelectors = []
     let menuRole = `[role="${desktop ? 'menu' : 'dialog'}"]`
+
+    // Hover colours for custom menu items
+    cssRules.push(`
+      body.Default .tnt_menu_item:hover { background-color: rgb(247, 249, 249) !important; }
+      body.Dim .tnt_menu_item:hover { background-color: rgb(30, 39, 50) !important; }
+      body.LightsOut .tnt_menu_item:hover { background-color: rgb(22, 24, 28) !important; }
+    `)
 
     if (config.alwaysUseLatestTweets) {
       // Hide the sparkle when automatically staying on Latest Tweets
@@ -1967,14 +2105,6 @@ const configureCss = (() => {
       }
       if (config.hideCommunitiesNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
-      }
-      if (config.addAddMutedWordMenuItem || config.mutableQuoteTweets) {
-        // Hover colors for custom menu items
-        cssRules.push(`
-          body.Default .tnt_menu_item:hover { background-color: rgb(247, 249, 249) !important; }
-          body.Dim .tnt_menu_item:hover { background-color: rgb(30, 39, 50) !important; }
-          body.LightsOut .tnt_menu_item:hover { background-color: rgb(22, 24, 28) !important; }
-        `)
       }
       if (config.hideExplorePageContents) {
         hideCssSelectors.push(
@@ -2529,6 +2659,14 @@ function handlePopup($popup) {
     }
   }
 
+  if (isOnListPage()) {
+    let $switchSvg = $popup.querySelector(`svg path[d^="M15.96 1.54L21.41 7l-5.45 5.46-1.42-1"]`)
+    if ($switchSvg) {
+      addToggleListRetweetsMenuItem($popup.querySelector(`[role="menuitem"]`))
+      return {tookAction: true}
+    }
+  }
+
   if (config.mutableQuoteTweets) {
     if (quotedTweet) {
       let $blockMenuItem = /** @type {HTMLElement} */ ($popup.querySelector(Selectors.BLOCK_MENU_ITEM))
@@ -2686,7 +2824,10 @@ function onTimelineChange($timeline, page, options = {}) {
   let startTime = Date.now()
   let {classifyTweets = true, hideHeadings = true} = options
 
-  if (config.twitterBlueChecks != 'ignore' && !isOnMainTimelinePage()) {
+  let isOnMainTimeline = isOnMainTimelinePage()
+  let isOnListTimeline = isOnListPage()
+
+  if (config.twitterBlueChecks != 'ignore' && !isOnMainTimeline && !isOnListTimeline) {
     tagTwitterBlueCheckmarks($timeline)
   }
 
@@ -2720,17 +2861,20 @@ function onTimelineChange($timeline, page, options = {}) {
     }
     else if ($tweet != null) {
       itemType = getTweetType($tweet)
-      // Only deal with retweets, quote tweets and algorithmic tweets on the
-      // main timeline.
-      if (isOnMainTimelinePage()) {
+      if (isOnMainTimeline || isOnListTimeline) {
         let isReply = isReplyToPreviousTweet($tweet)
         if (isReply && hidPreviousItem != null) {
           hideItem = hidPreviousItem
         } else {
-          hideItem = shouldHideMainTimelineItem(itemType, page)
+          if (isOnMainTimeline) {
+            hideItem = shouldHideMainTimelineItem(itemType, page)
+          }
+          else if (isOnListTimeline) {
+            hideItem = shouldHideListTimelineItem(itemType)
+          }
         }
 
-        if (!hideItem && (itemType == 'QUOTE_TWEET' || itemType == 'RETWEETED_QUOTE_TWEET') && config.mutableQuoteTweets) {
+        if (!hideItem && config.mutableQuoteTweets && (itemType == 'QUOTE_TWEET' || itemType == 'RETWEETED_QUOTE_TWEET')) {
           if (config.mutedQuotes.length > 0) {
             let quotedTweet = getQuotedTweetDetails($tweet)
             hideItem = config.mutedQuotes.some(muted => muted.user == quotedTweet.user && muted.time == quotedTweet.time)
@@ -2770,13 +2914,13 @@ function onTimelineChange($timeline, page, options = {}) {
         }
       }
     }
-    else if (!isOnMainTimelinePage()) {
+    else if (!isOnMainTimeline && !isOnListTimeline) {
       if ($item.querySelector(':scope > div > div > div > article')) {
         itemType = 'UNAVAILABLE'
       }
     }
 
-    if (!isOnMainTimelinePage()) {
+    if (!isOnMainTimeline && !isOnListTimeline) {
       if (itemType != null) {
         hideItem = shouldHideOtherTimelineItem(itemType)
         if (debug) {
@@ -3026,6 +3170,9 @@ function processCurrentPage() {
   else if (isOnQuoteTweetsPage()) {
     tweakQuoteTweetsPage()
   }
+  else if (isOnListPage()) {
+    tweakListPage()
+  }
   else if (isOnExplorePage()) {
     tweakExplorePage()
   }
@@ -3065,6 +3212,24 @@ function shouldHideAlgorithmicTweet(config, page) {
   switch (config) {
     case 'hide': return true
     case 'ignore': return page == separatedTweetsTimelineTitle
+  }
+}
+
+/**
+ * @param {import("./types").TimelineItemType} type
+ * @returns {boolean}
+ */
+function shouldHideListTimelineItem(type) {
+  switch (type) {
+    case 'RETWEET':
+    case 'RETWEETED_QUOTE_TWEET':
+      return config.listRetweets == 'hide'
+    case 'UNAVAILABLE_QUOTE_TWEET':
+      return config.hideUnavailableQuoteTweets
+    case 'UNAVAILABLE_RETWEET':
+      return config.hideUnavailableQuoteTweets || config.listRetweets == 'hide'
+    default:
+      return false
   }
 }
 
@@ -3217,6 +3382,12 @@ async function tweakExplorePage() {
 }
 
 function tweakIndividualTweetPage() {
+  observeTimeline(currentPage, {
+    hideHeadings: false,
+  })
+}
+
+function tweakListPage() {
   observeTimeline(currentPage, {
     hideHeadings: false,
   })
