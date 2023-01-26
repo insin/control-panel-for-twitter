@@ -2359,8 +2359,8 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
 
   let timelineMetricSelectors = [
     config.hideReplyMetrics   && '[data-testid="reply"]',
-    config.hideRetweetMetrics && '[data-testid="retweet"]',
-    config.hideLikeMetrics    && '[data-testid="like"]',
+    config.hideRetweetMetrics && '[data-testid$="retweet"]',
+    config.hideLikeMetrics    && '[data-testid$="like"]',
   ].filter(Boolean).join(', ')
 
   if (timelineMetricSelectors) {
