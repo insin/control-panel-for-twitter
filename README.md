@@ -54,10 +54,11 @@ New versions can take anything from minutes to days to be approved for publishin
 
 ### Control which tweets shared by people you follow appear on your timeline
 
-- Move Retweets to a separate tab (default setting), or hide them entirely
-- Move Quote Tweets and replies to them to a separate tab, or hide them entirely (off by default)
+- Move Retweets to a separate tab (default setting) in the Home timeline, or hide them entirely
+- Move Quote Tweets and replies to them to a separate tab in the Home timeline, or hide them entirely (off by default)
 - Hide tweets quoting accounts you've blocked or muted
 - Mute quoting of specific tweets - adds a "Mute this conversation" menu item to Quote Tweets in the timeline
+- Hide Retweets in Lists using a new "Turn off Retweets" menu item
 
 ### UI improvements
 
