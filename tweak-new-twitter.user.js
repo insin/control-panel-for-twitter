@@ -15,6 +15,7 @@ let debug = false
 let desktop
 /** @type {boolean} */
 let mobile
+let isSafari = navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.userAgent)
 
 const $html = document.querySelector('html')
 const $body = document.body
@@ -2740,20 +2741,21 @@ function handlePopup($popup) {
       }).then(($hoverCardSvgPath) => {
         if (!$hoverCardSvgPath) return
 
-        let $headerSvgPath = document.querySelector(mobile ? `
-          body.Profile header ${Selectors.VERIFIED_TICK},
-          body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} ${Selectors.VERIFIED_TICK}
-        ` : `body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 ${Selectors.VERIFIED_TICK}`)
-        if (!$headerSvgPath) return
+        let $headerBlueCheck = document.querySelector(mobile ? `
+          body.Profile header .tnt_blue_check,
+          body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} .tnt_blue_check
+        ` : `body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 .tnt_blue_check`)
+        if (!$headerBlueCheck) return
 
-        if (isBlueVerified($headerSvgPath.closest('svg'))) {
-          // Wait for the hovercard to render its contents
-          let popupRenderObserver = observeElement($popup, (mutations) => {
-            if (!mutations.length) return
-            $popup.querySelector('svg').classList.add('tnt_blue_check')
-            popupRenderObserver.disconnect()
-          }, 'verified popup render', {childList: true, subtree: true})
-        }
+        // Wait for the hovercard to render its contents
+        let popupRenderObserver = observeElement($popup, (mutations) => {
+          if (!mutations.length) return
+          $popup.querySelector('svg').classList.add('tnt_blue_check')
+          if (isSafari) {
+            $popup.querySelector('svg path').setAttribute('d', Svgs.BLUE_LOGO_PATH)
+          }
+          popupRenderObserver.disconnect()
+        }, 'verified popup render', {childList: true, subtree: true})
       })
     }
   }
@@ -2912,6 +2914,9 @@ function onTimelineChange($timeline, page, options = {}) {
                 checkType = 'BLUE'
               }
               $svgPath.closest('div').classList.add('tnt_blue_check')
+              if (isSafari) {
+                $svgPath.setAttribute('d', Svgs.BLUE_LOGO_PATH)
+              }
             }
           }
         }
@@ -3347,6 +3352,9 @@ function tagTwitterBlueCheckmarks($el) {
   for (let $svgPath of $el.querySelectorAll(Selectors.VERIFIED_TICK)) {
     if (isBlueVerified($svgPath.closest('svg'))) {
       $svgPath.closest(':is(div, span):not([role="button"]').classList.add('tnt_blue_check')
+      if (isSafari) {
+        $svgPath.setAttribute('d', Svgs.BLUE_LOGO_PATH)
+      }
     }
   }
 }
