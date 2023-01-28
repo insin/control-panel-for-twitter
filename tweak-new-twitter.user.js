@@ -2047,7 +2047,7 @@ const configureCss = (() => {
 
     if (desktop) {
       // Hide the "Home" heading on the tabbed timeline as it just takes up space
-      hideCssSelectors.push(`body.TabbedTimeline ${Selectors.PRIMARY_COLUMN} > div > div > div > div:first-child`)
+      hideCssSelectors.push(`body.TabbedTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div:first-child > div:first-child`)
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
       }
