@@ -1,3 +1,4 @@
+.DS_Store
 browser_action.html
 node_modules/
 promo/*.png
