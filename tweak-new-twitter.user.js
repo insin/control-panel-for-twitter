@@ -67,6 +67,7 @@ const config = {
   hideVerifiedNotificationsTab: true,
   hideViews: true,
   hideWhoToFollowEtc: true,
+  hidePromotedTweets: false,
   likedTweets: 'ignore',
   listRetweets: 'ignore',
   mutableQuoteTweets: true,
@@ -3262,6 +3263,8 @@ function shouldHideMainTimelineItem(type, page) {
       return config.hideUnavailableQuoteTweets || shouldHideSharedTweet(config.quoteTweets, page)
     case 'UNAVAILABLE_RETWEET':
       return config.hideUnavailableQuoteTweets || shouldHideSharedTweet(config.retweets, page)
+    case 'PROMOTED_TWEET':
+      return config.hidePromotedTweets
     default:
       return true
   }

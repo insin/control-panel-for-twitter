@@ -42,6 +42,7 @@ export type Config = {
   hideVerifiedNotificationsTab: boolean
   hideViews: boolean
   hideWhoToFollowEtc: boolean
+  hidePromotedTweets: boolean
   likedTweets: AlgorithmicTweetsConfig
   listRetweets: 'ignore' | 'hide'
   mutableQuoteTweets: boolean
