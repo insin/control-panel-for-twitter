@@ -2451,7 +2451,7 @@ const configureThemeCss = (() => {
         [data-item-type]::after {
           position: absolute;
           top: 0;
-          right: 50px;
+          ${ltr ? 'right': 'left'}: 50px;
           content: attr(data-item-type);
           font-family: ${fontFamilyRule?.style.fontFamily || '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial'};
           background-color: rgb(242, 29, 29);
