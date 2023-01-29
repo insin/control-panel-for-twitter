@@ -2624,17 +2624,20 @@ function getTweetType($tweet) {
   return 'TWEET'
 }
 
-// Add 1 every time this gets broken: 4
+// Add 1 every time this gets broken: 5
 function getVerifiedProps($svg) {
   let propsGetter = (props) => props?.children?.props?.children?.[0]?.[0]?.props
   let $parent = $svg.parentElement
   // Verified badge button on the profile screen
-  if ($parent.getAttribute('role') == 'button') {
+  if (isOnProfilePage() && $parent.getAttribute('role') == 'button') {
     $parent = $parent.closest('span')
   }
   // Link variant in "user followed/liked/retweeted" notifications
-  else if (isOnNotificationsPage() && $parent.parentElement.getAttribute('role') == 'link') {
-    propsGetter = (props) => props?.children?.[1]?.props
+  else if (isOnNotificationsPage() && $parent.getAttribute('role') == 'link') {
+    propsGetter = (props) => {
+      let linkChildren = props?.children?.props?.children?.[0]
+      return linkChildren?.[linkChildren.length - 1]?.props
+    }
   }
   if ($parent.wrappedJSObject) {
     $parent = $parent.wrappedJSObject
