@@ -773,9 +773,6 @@ const Svgs = {
   RETWEETS_OFF: '<g><path d="M3.707 21.707l18-18-1.414-1.414-2.088 2.088C17.688 4.137 17.11 4 16.5 4H11v2h5.5c.028 0 .056 0 .084.002l-10.88 10.88c-.131-.266-.204-.565-.204-.882V7.551l2.068 1.93 1.365-1.462L4.5 3.882.068 8.019l1.365 1.462 2.068-1.93V16c0 .871.278 1.677.751 2.334l-1.959 1.959 1.414 1.414zM18.5 9h2v7.449l2.068-1.93 1.365 1.462-4.433 4.137-4.432-4.137 1.365-1.462 2.067 1.93V9zm-8.964 9l-2 2H13v-2H9.536z"></path></g>'
 }
 
-const PROFILE_FOLLOWS_URL_RE = /\/[a-zA-Z\d_]{1,20}\/(following|followers|followers_you_follow)\/?$/
-// https://twitter.com/${user}'s title ends with (@${user})
-const PROFILE_TITLE_RE = /\(@[a-zA-Z\d_]{1,20}\)$/
 const THEME_COLORS = new Set([
   'rgb(29, 155, 240)', // blue
   'rgb(255, 212, 0)',  // yellow
@@ -784,8 +781,16 @@ const THEME_COLORS = new Set([
   'rgb(255, 122, 0)',  // orange
   'rgb(0, 186, 124)',  // green
 ])
+// Matches any notification count at the start of the title
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
+// twitter.com/user and its sub-URLs put @user in the title
+const TITLE_PROFILE_USERNAME_RE_LTR = /@([a-zA-Z\d_]{1,20})/
+const TITLE_PROFILE_USERNAME_RE_RTL = /([a-zA-Z\d_]{1,20})@/
 const URL_PHOTO_RE = /photo\/\d$/
+// Matches URLs which show a user's Followers you know / Followers / Following tab
+const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/(follow(?:ing|ers|ers_you_follow))\/?$/
+// Matches URLs which show one of the tabs on a user profile page
+const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(with_replies|media|likes)\/?|\/)?$/
 const URL_LIST_RE = /\/i\/lists\/\d+$/
 const URL_TWEET_ID_RE = /\/status\/(\d+)$/
 
@@ -896,7 +901,10 @@ function isOnNotificationsPage() {
 }
 
 function isOnProfilePage() {
-  return PROFILE_TITLE_RE.test(currentPage) && !PROFILE_FOLLOWS_URL_RE.test(currentPath)
+  let profilePathUsername = currentPath.match(URL_PROFILE_RE)?.[1]
+  let titleUsername = currentPage.match(ltr ? TITLE_PROFILE_USERNAME_RE_LTR : TITLE_PROFILE_USERNAME_RE_RTL)?.[1]
+  // @user in the title helps guard against false positives for twitter.com/user
+  return titleUsername != null && profilePathUsername != null && titleUsername == profilePathUsername
 }
 
 function isOnQuoteTweetsPage() {
