@@ -80,7 +80,6 @@ export type Locale = {
 export type LocaleKey =
   | 'ADD_MUTED_WORD'
   | 'DISCOVER_MORE'
-  | 'FOLLOWING'
   | 'HOME'
   | 'MUTE_THIS_CONVERSATION'
   | 'QUOTE_TWEET'

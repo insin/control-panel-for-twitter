@@ -189,7 +189,6 @@ const externalTranslations = {
 let template = {
   ADD_MUTED_WORD: 'd768049c',
   DISCOVER_MORE: 'd172116a',
-  FOLLOWING: 'd960b55c',
   HOME: 'ha8209bc',
   MUTE_THIS_CONVERSATION: 'e2d6c17e',
   QUOTE_TWEET: 'c9d7235e',

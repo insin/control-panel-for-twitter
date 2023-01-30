@@ -107,7 +107,6 @@ const locales = {
   'ar-x-fm': {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     DISCOVER_MORE: 'اكتشاف المزيد',
-    FOLLOWING: 'متابَع',
     HOME: 'الرئيسيّة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     QUOTE_TWEET: 'اقتباس التغريدة',
@@ -121,7 +120,6 @@ const locales = {
   ar: {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     DISCOVER_MORE: 'اكتشاف المزيد',
-    FOLLOWING: 'متابَع',
     HOME: 'الرئيسيّة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     QUOTE_TWEET: 'اقتباس التغريدة',
@@ -134,7 +132,6 @@ const locales = {
   bg: {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
     DISCOVER_MORE: 'Откриване на още',
-    FOLLOWING: 'Следвано',
     HOME: 'Начало',
     MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
     QUOTE_TWEET: 'Цитиране на туита',
@@ -147,7 +144,6 @@ const locales = {
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
     DISCOVER_MORE: 'আরও খুঁজুন',
-    FOLLOWING: 'অনুসরণ করছেন',
     HOME: 'হোম',
     MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
     QUOTE_TWEET: 'টুইট উদ্ধৃত করুন',
@@ -161,7 +157,6 @@ const locales = {
   ca: {
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
     DISCOVER_MORE: 'Descobreix-ne més',
-    FOLLOWING: 'Seguint',
     HOME: 'Inici',
     MUTE_THIS_CONVERSATION: 'Silencia la conversa',
     QUOTE_TWEET: 'Cita el tuit',
@@ -174,7 +169,6 @@ const locales = {
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
     DISCOVER_MORE: 'Objevte víc',
-    FOLLOWING: 'Sleduji',
     HOME: 'Hlavní stránka',
     MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
     QUOTE_TWEET: 'Citovat Tweet',
@@ -187,7 +181,6 @@ const locales = {
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
     DISCOVER_MORE: 'Opdag mere',
-    FOLLOWING: 'Følger',
     HOME: 'Forside',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
     QUOTE_TWEET: 'Citér Tweet',
@@ -199,7 +192,6 @@ const locales = {
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
     DISCOVER_MORE: 'Mehr entdecken',
-    FOLLOWING: 'Folge ich',
     HOME: 'Startseite',
     MUTE_THIS_CONVERSATION: 'Diese Konversation stummschalten',
     QUOTE_TWEET: 'Tweet zitieren',
@@ -211,7 +203,6 @@ const locales = {
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
     DISCOVER_MORE: 'Ανακαλύψτε περισσότερα',
-    FOLLOWING: 'Ακολουθείτε',
     HOME: 'Αρχική σελίδα',
     MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
     QUOTE_TWEET: 'Παράθεση Tweet',
@@ -224,7 +215,6 @@ const locales = {
   en: {
     ADD_MUTED_WORD: 'Add muted word',
     DISCOVER_MORE: 'Discover more',
-    FOLLOWING: 'Following',
     HOME: 'Home',
     MUTE_THIS_CONVERSATION: 'Mute this conversation',
     QUOTE_TWEET: 'Quote Tweet',
@@ -238,7 +228,6 @@ const locales = {
   es: {
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
     DISCOVER_MORE: 'Descubrir más',
-    FOLLOWING: 'Siguiendo',
     HOME: 'Inicio',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
     QUOTE_TWEET: 'Citar Tweet',
@@ -249,7 +238,6 @@ const locales = {
   },
   eu: {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
-    FOLLOWING: 'Jarraitzen',
     HOME: 'Hasiera',
     MUTE_THIS_CONVERSATION: 'Isilarazi elkarrizketa hau',
     QUOTE_TWEET: 'Txioa apaitu',
@@ -262,7 +250,6 @@ const locales = {
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
     DISCOVER_MORE: 'کاوش بیشتر',
-    FOLLOWING: 'دنبال‌شده',
     HOME: 'خانه',
     MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
     QUOTE_TWEET: 'نقل‌توییت',
@@ -276,7 +263,6 @@ const locales = {
   fi: {
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
     DISCOVER_MORE: 'Löydä uutta',
-    FOLLOWING: 'Seurataan',
     HOME: 'Etusivu',
     MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
     QUOTE_TWEET: 'Twiitin lainaus',
@@ -289,7 +275,6 @@ const locales = {
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
     DISCOVER_MORE: 'Tuklasin ang higit pa',
-    FOLLOWING: 'Sinusundan',
     HOME: 'Home',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
     QUOTE_TWEET: 'Quote na Tweet',
@@ -302,7 +287,6 @@ const locales = {
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
     DISCOVER_MORE: 'Découvrez plus',
-    FOLLOWING: 'Abonné',
     HOME: 'Accueil',
     MUTE_THIS_CONVERSATION: 'Masquer cette conversation',
     QUOTE_TWEET: 'Citer le Tweet',
@@ -313,7 +297,6 @@ const locales = {
   },
   ga: {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
-    FOLLOWING: 'Á Leanúint',
     HOME: 'Baile',
     MUTE_THIS_CONVERSATION: 'Balbhaigh an comhrá seo',
     QUOTE_TWEET: 'Cuir Ráiteas Leis',
@@ -325,7 +308,6 @@ const locales = {
   },
   gl: {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
-    FOLLOWING: 'Seguindo',
     HOME: 'Inicio',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     QUOTE_TWEET: 'Citar chío',
@@ -338,7 +320,6 @@ const locales = {
   gu: {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
     DISCOVER_MORE: 'વધુ શોધો',
-    FOLLOWING: 'અનુસરે છે',
     HOME: 'હોમ',
     MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
     QUOTE_TWEET: 'અવતરણની સાથે ટ્વીટ કરો',
@@ -351,7 +332,6 @@ const locales = {
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
     DISCOVER_MORE: 'גלה עוד',
-    FOLLOWING: 'עוקב',
     HOME: 'דף הבית',
     MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
     QUOTE_TWEET: 'ציטוט ציוץ',
@@ -365,7 +345,6 @@ const locales = {
   hi: {
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
     DISCOVER_MORE: 'और अधिक जानें',
-    FOLLOWING: 'फ़ॉलो कर रहे हैं',
     HOME: 'होम',
     MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
     QUOTE_TWEET: 'ट्वीट क्वोट करें',
@@ -378,7 +357,6 @@ const locales = {
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
     DISCOVER_MORE: 'Otkrijte više',
-    FOLLOWING: 'Pratim',
     HOME: 'Naslovnica',
     MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
     QUOTE_TWEET: 'Citiraj Tweet',
@@ -391,7 +369,6 @@ const locales = {
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
     DISCOVER_MORE: 'Továbbiak felfedezése',
-    FOLLOWING: 'követés',
     HOME: 'Kezdőlap',
     MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
     QUOTE_TWEET: 'Tweet idézése',
@@ -404,7 +381,6 @@ const locales = {
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
     DISCOVER_MORE: 'Temukan lebih banyak',
-    FOLLOWING: 'Mengikuti',
     HOME: 'Beranda',
     MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
     QUOTE_TWEET: 'Kutip Tweet',
@@ -417,7 +393,6 @@ const locales = {
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
     DISCOVER_MORE: 'Continua con la scoperta',
-    FOLLOWING: 'Following',
     HOME: 'Home',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
     QUOTE_TWEET: 'Cita Tweet',
@@ -430,7 +405,6 @@ const locales = {
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
     DISCOVER_MORE: 'もっと見つける',
-    FOLLOWING: 'フォロー中',
     HOME: 'ホーム',
     MUTE_THIS_CONVERSATION: 'この会話をミュート',
     QUOTE_TWEET: '引用ツイート',
@@ -443,7 +417,6 @@ const locales = {
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
     DISCOVER_MORE: 'ಇನ್ನಷ್ಟನ್ನು ಕಂಡುಕೊಳ್ಳಿ',
-    FOLLOWING: 'ಹಿಂಬಾಲಿಸಲಾಗುತ್ತಿದೆ',
     HOME: 'ಹೋಮ್',
     MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
     QUOTE_TWEET: 'ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ',
@@ -456,7 +429,6 @@ const locales = {
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
     DISCOVER_MORE: '더 찾아보기',
-    FOLLOWING: '팔로잉',
     HOME: '홈',
     MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
     QUOTE_TWEET: '트윗 인용하기',
@@ -470,7 +442,6 @@ const locales = {
   mr: {
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
     DISCOVER_MORE: 'अधिक प्रमाणामध्ये शोधा',
-    FOLLOWING: 'फॉलोइंग',
     HOME: 'होम',
     MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
     QUOTE_TWEET: 'ट्विट वर भाष्य करा',
@@ -483,7 +454,6 @@ const locales = {
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
     DISCOVER_MORE: 'Temui lagi',
-    FOLLOWING: 'Mengikuti',
     HOME: 'Laman Utama',
     MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
     QUOTE_TWEET: 'Petik Tweet',
@@ -496,7 +466,6 @@ const locales = {
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
     DISCOVER_MORE: 'Oppdag mer',
-    FOLLOWING: 'Følger',
     HOME: 'Hjem',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtalen',
     QUOTE_TWEET: 'Sitat-Tweet',
@@ -508,7 +477,6 @@ const locales = {
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
     DISCOVER_MORE: 'Meer ontdekken',
-    FOLLOWING: 'Volgend',
     HOME: 'Startpagina',
     MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
     QUOTE_TWEET: 'Citeer Tweet',
@@ -520,7 +488,6 @@ const locales = {
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
     DISCOVER_MORE: 'Odkryj więcej',
-    FOLLOWING: 'Obserwujesz',
     HOME: 'Główna',
     MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
     QUOTE_TWEET: 'Cytuj Tweeta',
@@ -533,7 +500,6 @@ const locales = {
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
     DISCOVER_MORE: 'Descubra mais',
-    FOLLOWING: 'Seguindo',
     HOME: 'Página Inicial',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     QUOTE_TWEET: 'Comentar o Tweet',
@@ -545,7 +511,6 @@ const locales = {
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
     DISCOVER_MORE: 'Descoperă mai mult',
-    FOLLOWING: 'Urmărești',
     HOME: 'Pagina principală',
     MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
     QUOTE_TWEET: 'Citează Tweetul',
@@ -558,7 +523,6 @@ const locales = {
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
     DISCOVER_MORE: 'Узнать больше',
-    FOLLOWING: 'Читаю',
     HOME: 'Главная',
     MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
     QUOTE_TWEET: 'Цитировать',
@@ -572,7 +536,6 @@ const locales = {
   sk: {
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
     DISCOVER_MORE: 'Objaviť viac',
-    FOLLOWING: 'Sledujem',
     HOME: 'Domov',
     MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
     QUOTE_TWEET: 'Tweet s citátom',
@@ -585,7 +548,6 @@ const locales = {
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
     DISCOVER_MORE: 'Откриј више',
-    FOLLOWING: 'Пратиш',
     HOME: 'Почетна',
     MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
     QUOTE_TWEET: 'твит са цитатом',
@@ -599,7 +561,6 @@ const locales = {
   sv: {
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
     DISCOVER_MORE: 'Upptäck mer',
-    FOLLOWING: 'Följer',
     HOME: 'Hem',
     MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
     QUOTE_TWEET: 'Citera Tweet',
@@ -611,7 +572,6 @@ const locales = {
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
     DISCOVER_MORE: 'மேலும் கண்டறியவும்',
-    FOLLOWING: 'பின்தொடர்கிறீர்கள்',
     HOME: 'முகப்பு',
     MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
     QUOTE_TWEET: 'ட்விட்டை மேற்கோள் காட்டு',
@@ -624,7 +584,6 @@ const locales = {
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
     DISCOVER_MORE: 'ค้นหาเพิ่มเติม',
-    FOLLOWING: 'กําลังติดตาม',
     HOME: 'หน้าแรก',
     MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
     QUOTE_TWEET: 'อ้างอิงทวีต',
@@ -638,7 +597,6 @@ const locales = {
   tr: {
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
     DISCOVER_MORE: 'Daha fazlasını keşfet',
-    FOLLOWING: 'Takip ediliyor',
     HOME: 'Anasayfa',
     MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
     QUOTE_TWEET: 'Tweeti Alıntıla',
@@ -651,7 +609,6 @@ const locales = {
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
     DISCOVER_MORE: 'Дізнавайтеся більше',
-    FOLLOWING: 'Стрічка',
     HOME: 'Головна',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
     QUOTE_TWEET: 'Цитувати твіт',
@@ -665,7 +622,6 @@ const locales = {
   ur: {
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
     DISCOVER_MORE: 'مزید دریافت کریں',
-    FOLLOWING: 'فالو کر رہے ہیں',
     HOME: 'ہوم',
     MUTE_THIS_CONVERSATION: 'اس گفتگو کو میوٹ کریں',
     QUOTE_TWEET: 'ٹویٹ کا حوالہ دیں',
@@ -679,7 +635,6 @@ const locales = {
   vi: {
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
     DISCOVER_MORE: 'Khám phá thêm',
-    FOLLOWING: 'Đang theo dõi',
     HOME: 'Trang chủ',
     MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
     QUOTE_TWEET: 'Trích dẫn Tweet',
@@ -692,7 +647,6 @@ const locales = {
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
     DISCOVER_MORE: '探索更多',
-    FOLLOWING: '正在跟隨',
     HOME: '首頁',
     MUTE_THIS_CONVERSATION: '將此對話靜音',
     QUOTE_TWEET: '引用推文',
@@ -705,7 +659,6 @@ const locales = {
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
     DISCOVER_MORE: '发现更多',
-    FOLLOWING: '正在关注',
     HOME: '主页',
     MUTE_THIS_CONVERSATION: '隐藏此对话',
     QUOTE_TWEET: '引用推文',
@@ -803,9 +756,6 @@ let quotedTweet = null
 /** `true` when a 'Block @${user}' menu item was seen in the last popup. */
 let blockMenuItemSeen = false
 
-/** `'Home'` or `'Following'` page title. */
-let currentMainTimelineType = ''
-
 /** Notification count in the title (including trailing space), e.g. `'(1) '`. */
 let currentNotificationCount = ''
 
@@ -879,10 +829,6 @@ function isOnIndividualTweetPage() {
   return URL_TWEET_ID_RE.test(currentPath)
 }
 
-function isOnLatestTweetsTimeline() {
-  return currentPage == getString('FOLLOWING')
-}
-
 function isOnListPage() {
   return URL_LIST_RE.test(currentPath)
 }
@@ -891,7 +837,6 @@ function isOnMainTimelinePage() {
   return currentPath == PagePaths.HOME || (
     currentPath == PagePaths.CUSTOMIZE_YOUR_VIEW &&
     isOnHomeTimeline() ||
-    isOnLatestTweetsTimeline() ||
     isOnSeparatedTweetsTimeline()
   )
 }
@@ -1705,119 +1650,6 @@ async function addMutedWord() {
 }
 
 /**
- * @param {string} page
- */
-async function addSeparatedTweetsTimelineControl(page) {
-  if (desktop) {
-    let $timelineTitle = await getElement('main h2', {
-      name: 'timeline title',
-      stopIf: pageIsNot(page),
-    })
-
-    if ($timelineTitle == null) return
-
-    let $newHeading = document.querySelector('#tnt_separated_tweets')
-    if ($newHeading) {
-      log('separated tweets timeline heading already present')
-      $newHeading.querySelector('span').textContent = separatedTweetsTimelineTitle
-      return
-    }
-
-    log('inserting separated tweets timeline heading')
-    $newHeading = /** @type {HTMLElement} */ ($timelineTitle.parentElement.cloneNode(true))
-    $newHeading.querySelector('h2').id = 'tnt_separated_tweets'
-    $newHeading.querySelector('span').textContent = separatedTweetsTimelineTitle
-
-    // This script assumes navigation has occurred when the document title
-    // changes, so by changing the title we fake navigation to a non-existent
-    // page representing the separated tweets timeline.
-    $newHeading.addEventListener('click', () => {
-      if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
-        setTitle(separatedTweetsTimelineTitle)
-      }
-      window.scrollTo({top: 0})
-    })
-    $timelineTitle.parentElement.parentElement.appendChild($newHeading)
-    $timelineTitle.parentElement.parentElement.classList.add('tnt_tabs')
-
-    // Return to the main timeline when Following / Home heading is clicked
-    $timelineTitle.parentElement.addEventListener('click', () => {
-      if (!document.title.startsWith(currentMainTimelineType)) {
-        homeNavigationIsBeingUsed = true
-        setTitle(currentMainTimelineType)
-      }
-    })
-
-    // Return to the main timeline when the Home nav link is clicked
-    let $homeNavLink = /** @type {HTMLElement} */ (document.querySelector(Selectors.NAV_HOME_LINK))
-    if (!$homeNavLink.dataset.tweakNewTwitterListener) {
-      $homeNavLink.addEventListener('click', () => {
-        homeNavigationIsBeingUsed = true
-        if (location.pathname == '/home' && !document.title.startsWith(currentMainTimelineType)) {
-          setTitle(currentMainTimelineType)
-        }
-      })
-      $homeNavLink.dataset.tweakNewTwitterListener = 'true'
-    }
-  }
-
-  if (mobile) {
-    let $timelineTitle = document.querySelector(`
-      ${Selectors.MOBILE_TIMELINE_HEADER_OLD} h2,
-      ${Selectors.MOBILE_TIMELINE_HEADER_NEW} h2
-    `)
-
-    // Only the Sparkle timeline has a heading in the header
-    if ($timelineTitle != null) {
-      let $toggle = document.createElement('div')
-      $toggle.id = 'tnt_switch_timeline'
-      let toggleColor = getComputedStyle(document.querySelector(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"] svg`)).color
-      $toggle.innerHTML = `<span><svg viewBox="0 0 24 24" aria-hidden="true" style="color: ${toggleColor}; width: 22px; vertical-align: text-bottom; position: relative; max-width: 100%; height: 22px; fill: currentcolor; display: inline-block;">
-        ${page == separatedTweetsTimelineTitle ? Svgs.HOME : Svgs.RETWEET}
-      </svg></span>`
-      let $span = /** @type {HTMLSpanElement} */ ($toggle.firstElementChild)
-      $span.title = `Switch to ${page == currentMainTimelineType ? separatedTweetsTimelineTitle : currentMainTimelineType}`
-      $span.addEventListener('click', () => {
-        let newTitle = page == separatedTweetsTimelineTitle ? currentMainTimelineType : separatedTweetsTimelineTitle
-        setTitle(newTitle)
-        $span.title = `Switch to ${newTitle == currentMainTimelineType ? separatedTweetsTimelineTitle : currentMainTimelineType}`
-        window.scrollTo({top: 0})
-      })
-
-      // We hide the existing timeline title via CSS when it's not wanted instead
-      // of changing its text, as those changes persist when you view a tweet.
-      $timelineTitle.classList.add('tnt_home_timeline_title')
-      removeMobileTimelineHeaderElements()
-
-      log('inserting separated tweets timeline switcher in timeline title')
-      $timelineTitle.insertAdjacentElement('afterend', $toggle)
-
-      if (page == separatedTweetsTimelineTitle) {
-        let $sharedTweetsTitle = /** @type {HTMLElement} */ ($timelineTitle.cloneNode(true))
-        $sharedTweetsTitle.querySelector('span').textContent = separatedTweetsTimelineTitle
-        $sharedTweetsTitle.id = 'tnt_shared_tweets_timeline_title'
-        $sharedTweetsTitle.classList.remove('tnt_home_timeline_title')
-        $timelineTitle.insertAdjacentElement('afterend', $sharedTweetsTitle)
-      }
-      $timelineTitle.parentElement.classList.add('tnt_mobile_header')
-    }
-
-    // Go back to the main timeline when the Home bottom nav link is clicked on
-    // the shared tweets timeline.
-    let $homeBottomNavItem = /** @type {HTMLElement} */ (document.querySelector(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`))
-    if (!$homeBottomNavItem.dataset.tweakNewTwitterListener) {
-      $homeBottomNavItem.addEventListener('click', () => {
-        if (location.pathname == '/home' && currentPage == separatedTweetsTimelineTitle) {
-          setTitle(currentMainTimelineType)
-        }
-      })
-      $homeBottomNavItem.dataset.tweakNewTwitterListener = 'true'
-    }
-  }
-}
-
-
-/**
  * Add a "Turn on/off Retweets" menu item to a List's menu.
  * @param {HTMLElement} $switchMenuItem
  */
@@ -1886,26 +1718,15 @@ const configureCss = (() => {
       body.LightsOut .tnt_menu_item:hover { background-color: rgb(22, 24, 28) !important; }
     `)
 
-    if (config.alwaysUseLatestTweets) {
-      // Hide the sparkle when automatically staying on Latest Tweets
-      hideCssSelectors.push(mobile
-        ? [`body.MainTimeline:not(.TabbedTimeline) ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div > div > div > div > div > div:nth-of-type(3)`,
-           `body.MainTimeline:not(.TabbedTimeline) ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:first-of-type > div > div > div > div > div:nth-of-type(3)`,
-          ].join(', ')
-        : [`body.MainTimeline:not(.TabbedTimeline) ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div:only-child > div:only-child > div:only-child > div:only-child > div:last-of-type:not(:only-child)`,
-           `body.MainTimeline:not(.TabbedTimeline) ${Selectors.DESKTOP_TIMELINE_HEADER} > div > div:only-child > div:only-child > div:only-child > div:only-child > div:only-child > div:last-of-type:not(:only-child)`,
-          ].join(', ')
-      )
-      if (config.hideForYouTimeline) {
-        cssRules.push(`
-          body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child {
-            flex: 0;
-          }
-          body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child > a {
-            display: none;
-          }
-        `)
-      }
+    if (config.alwaysUseLatestTweets && config.hideForYouTimeline) {
+      cssRules.push(`
+        body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child {
+          flex: 0;
+        }
+        body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child > a {
+          display: none;
+        }
+      `)
     }
     if (config.dropdownMenuFontWeight) {
       cssRules.push(`
@@ -2174,66 +1995,7 @@ const configureCss = (() => {
         )
       }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
-        hideCssSelectors.push(
-          // Sparkle timeline
-          '#tnt_separated_tweets',
-          // Tabbed timeline
-          '#tnt_separated_tweets_tab',
-          )
-      }
-      if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
-        cssRules.push(`
-          /* Sparkle timeline */
-          .tnt_tabs {
-            display: flex;
-            flex-direction: row;
-            border-bottom: 1px solid var(--tab-border);
-            margin-left: -16px;
-            margin-right: -16px;
-          }
-          .tnt_tabs > div {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition-property: background-color;
-            transition-duration: 0.2s;
-          }
-          .tnt_tabs > div:hover {
-            background-color: var(--tab-hover);
-          }
-          .tnt_tabs > div > h2 {
-            position: relative;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            line-height: 20px;
-            font-weight: normal;
-            color: var(--inactive-tab-text);
-          }
-          body.Home main h2:not(#tnt_separated_tweets),
-          body.LatestTweets main h2:not(#tnt_separated_tweets),
-          body.SeparatedTweets #tnt_separated_tweets {
-            font-weight: bold;
-            color: var(--active-tab-text); !important;
-          }
-          .tnt_tabs > div > h2::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            height: 0;
-            width: 100%;
-            min-width: 56px;
-            border-radius: 9999px;
-          }
-          body.Home .tnt_tabs > div > h2:not(#tnt_separated_tweets)::after,
-          body.LatestTweets .tnt_tabs > div > h2:not(#tnt_separated_tweets)::after,
-          body.SeparatedTweets .tnt_tabs > div > #tnt_separated_tweets::after {
-            height: 4px;
-          }
-        `)
+        hideCssSelectors.push('#tnt_separated_tweets_tab')
       }
     }
 
@@ -2279,25 +2041,6 @@ const configureCss = (() => {
           '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-child(4):nth-last-child(2)',
           '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-child(4):nth-last-child(2)',
         )
-      }
-      if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
-        // Use CSS to tweak layout of mobile header elements on pages where it's
-        // needed, as changes made directly to them can persist across pages.
-        cssRules.push(`
-          body.Home .tnt_mobile_header,
-          body.LatestTweets .tnt_mobile_header,
-          body.SeparatedTweets .tnt_mobile_header {
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-          }
-        `)
-        hideCssSelectors.push('body.SeparatedTweets .tnt_home_timeline_title')
-        cssRules.push(`
-          #tnt_switch_timeline span {
-            cursor: pointer;
-          }
-        `)
       }
     }
 
@@ -2432,7 +2175,7 @@ function configureSeparatedTweetsTimelineTitle() {
   if (wasOnSeparatedTweetsTimeline) {
     if (separatedTweetsTimelineTitle == null) {
       log('moving from separated tweets timeline to main timeline after config change')
-      setTitle(currentMainTimelineType)
+      setTitle(getString('HOME'))
       return true
     }
     if (titleChanged) {
@@ -2480,13 +2223,6 @@ const configureThemeCss = (() => {
           background-color: ${themeColor} !important;
         }
       `)
-      if (desktop) {
-        cssRules.push(`
-          .tnt_tabs > div > h2::after {
-            background-color: ${themeColor} !important;
-          }
-        `)
-      }
     }
 
     if (config.uninvertFollowButtons) {
@@ -2597,7 +2333,8 @@ function getTweetType($tweet) {
     return 'PROMOTED_TWEET'
   }
   if ($tweet.querySelector('[data-testid="socialContext"]')) {
-    if ((!config.alwaysUseLatestTweets || !config.hideForYouTimeline) && currentMainTimelineType == getString('HOME')) {
+    // Only check social context icons on "For you", otherwise assume Retweet
+    if ((!config.alwaysUseLatestTweets || !config.hideForYouTimeline) && wasForYouTabSelected) {
       let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
       if (svgPath.startsWith('M7.471 21H.472l.029-1.027c.')) return 'COMMUNITY_TWEET'
       if (svgPath.startsWith('M17.863 13.44c1.477 1.58 2.')) return 'FOLLOWEES_FOLLOWS'
@@ -3082,7 +2819,7 @@ function onTitleChange(title) {
   // On desktop, stay on the separated tweets timeline when…
   if (desktop && currentPage == separatedTweetsTimelineTitle &&
       // …the title has changed back to the main timeline…
-      (newPage == getString('FOLLOWING') || newPage == getString('HOME')) &&
+      (newPage == getString('HOME')) &&
       // …the Home nav link or Following / Home header _wasn't_ clicked and…
       !homeNavigationWasUsed &&
       (
@@ -3135,9 +2872,6 @@ function onTitleChange(title) {
   currentNotificationCount = notificationCount
   currentPath = location.pathname
 
-  if (isOnLatestTweetsTimeline() || isOnHomeTimeline()) {
-    currentMainTimelineType = currentPage
-  }
   if (isOnMainTimelinePage()) {
     lastMainTimelineTitle = currentPage
   }
@@ -3225,8 +2959,6 @@ function processCurrentPage() {
  */
 function removeMobileTimelineHeaderElements() {
   if (mobile) {
-    document.querySelector('#tnt_shared_tweets_timeline_title')?.remove()
-    document.querySelector('#tnt_switch_timeline')?.remove()
     document.querySelector('#tnt_separated_tweets_tab')?.remove()
   }
 }
@@ -3344,32 +3076,6 @@ function shouldHideSharedTweet(config, page) {
   }
 }
 
-async function switchToLatestTweets(page) {
-  log('switching to Following timeline')
-
-  let sparkleSelector = mobile ? `
-    body.Mobile ${Selectors.MOBILE_TIMELINE_HEADER_OLD} div:nth-of-type(3) [role="button"],
-    body.Mobile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} div:nth-of-type(3) [role="button"]
-  ` : `body.Desktop ${Selectors.PRIMARY_COLUMN} > div > div [role="button"]`
-  let $sparkleButton = await getElement(sparkleSelector, {
-    name: 'sparkle button',
-    stopIf: pageIsNot(page),
-  })
-  if ($sparkleButton == null) return
-
-  log('clicking sparkle button')
-  $sparkleButton.click()
-
-  let $seeLatestTweetsInstead = await getElement('div[role="menu"] div[role="menuitem"]', {
-    name: '"See latest Tweets instead" menu item',
-    stopIf: pageIsNot(page),
-  })
-  if ($seeLatestTweetsInstead == null) return
-
-  log('clicking "See latest Tweets" instead menu item')
-  $seeLatestTweetsInstead.click()
-}
-
 /**
  * Add a tnt_blue_check class to any Twitter Blue checkmarks inside an element.
  * Since hiding is an option, this needs to be added to an appropriate parent
@@ -3441,8 +3147,6 @@ function tweakMainTimelinePage() {
 
   // "Which version of the main timeline are we on?" hooks for styling
   $body.classList.toggle('TabbedTimeline', $timelineTabs != null)
-  $body.classList.toggle('Home', $timelineTabs == null && isOnHomeTimeline())
-  $body.classList.toggle('LatestTweets', $timelineTabs == null && isOnLatestTweetsTimeline())
   $body.classList.toggle('SeparatedTweets', isOnSeparatedTweetsTimeline())
 
   if ($timelineTabs != null) {
@@ -3468,22 +3172,8 @@ function tweakMainTimelinePage() {
       },
       tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
     })
-  }
-  else {
-    // Sparkle timeline
-    log('on Sparkle timeline')
-    if (config.alwaysUseLatestTweets && currentPage == getString('HOME')) {
-      switchToLatestTweets(currentPage)
-      return
-    }
-
-    if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
-      addSeparatedTweetsTimelineControl(currentPage)
-    }
-    else {
-      removeMobileTimelineHeaderElements()
-    }
-    observeTimeline(currentPage)
+  } else {
+    warn('could not find timeline tabs')
   }
 }
 
@@ -3495,6 +3185,9 @@ async function tweakTimelineTabs($timelineTabs) {
     if (isForYouTabSelected && (!wasForYouTabSelected || config.hideForYouTimeline)) {
       log('switching to Following timeline')
       $followingTabLink.click()
+      wasForYouTabSelected = false
+    } else {
+      wasForYouTabSelected = isForYouTabSelected
     }
   }
 
@@ -3531,7 +3224,7 @@ async function tweakTimelineTabs($timelineTabs) {
         if (!document.title.startsWith(getString('HOME'))) {
           log('setting title to Home')
           homeNavigationIsBeingUsed = true
-          setTitle(currentMainTimelineType)
+          setTitle(getString('HOME'))
         }
       })
 
