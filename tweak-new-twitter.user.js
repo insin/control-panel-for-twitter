@@ -821,6 +821,10 @@ function isOnExplorePage() {
   return currentPath.startsWith('/explore')
 }
 
+function isOnFollowListPage() {
+  return URL_PROFILE_FOLLOWS_RE.test(currentPath)
+}
+
 function isOnHomeTimeline() {
   return currentPage == getString('HOME')
 }
@@ -2893,6 +2897,7 @@ function processCurrentPage() {
 
   // Hooks for styling pages
   $body.classList.toggle('Explore', isOnExplorePage())
+  $body.classList.toggle('FollowList', isOnFollowListPage())
   $body.classList.toggle('HideSidebar', shouldHideSidebar())
   $body.classList.toggle('List', isOnListPage())
   $body.classList.toggle('MainTimeline', isOnMainTimelinePage())
@@ -2931,6 +2936,9 @@ function processCurrentPage() {
 
   if (isOnProfilePage()) {
     tweakProfilePage()
+  }
+  else if (isOnFollowListPage()) {
+    tweakFollowListPage()
   }
   else if (isOnIndividualTweetPage()) {
     tweakIndividualTweetPage()
@@ -3127,6 +3135,14 @@ async function tweakExplorePage() {
         })
       }, 'back button parent')
     )
+  }
+}
+
+function tweakFollowListPage() {
+  if (config.twitterBlueChecks != 'ignore') {
+    observeTimeline(currentPage, {
+      classifyTweets: false,
+    })
   }
 }
 
