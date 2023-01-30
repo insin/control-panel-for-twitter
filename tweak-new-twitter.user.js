@@ -651,7 +651,7 @@ const locales = {
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
     DISCOVER_MORE: 'Дізнавайтеся більше',
-    FOLLOWING: 'Читає(те)',
+    FOLLOWING: 'Стрічка',
     HOME: 'Головна',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
     QUOTE_TWEET: 'Цитувати твіт',

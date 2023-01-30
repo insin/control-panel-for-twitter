@@ -1,11 +1,17 @@
 ## Updating Locales
 
-Tweak `html/_files.txt` if needed to add new locales.
+### Get locale files from Twitter
 
-In `html/` run `curl -K _files.txt` to retrieve HTML from Twitter with the latest URLs for hashed locale files.
+> Tweak `html/_files.txt` and `create-js-curl-config.js` first if locales have changed.
 
-Use the contents of the HTML files to update `js/_files.txt` - left as an exercise for the reader.
+```sh
+(cd html && curl -K _files.txt)
+node create-js-curl-config.js
+(cd js && curl -K _files.txt)
+```
 
-In `js/` run `curl -K _files.txt` to retrieve locale files.
+### Create locale object for tweak-new-twitter.user.js
 
-Run `node create-locales.js` to create a `locales.js` file and use it to update `tweak-new-twitter.user.js`.
+Run `node create-locales.js` to create `locales.js`.
+
+Open it, save to format it with Prettier, then use its contents to update `tweak-new-twitter.user.js`.

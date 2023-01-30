@@ -231,6 +231,6 @@ for (let file of fs.readdirSync('./js')) {
   locales[localeCode] = sortProperties(locale)
 }
 
-fs.writeFileSync('locales.js', JSON.stringify(locales, null, 2), {
+fs.writeFileSync('locales.js', 'let locales = ' + JSON.stringify(locales, null, 2), {
   encoding: 'utf8',
 })
