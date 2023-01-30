@@ -1925,7 +1925,7 @@ const configureCss = (() => {
     }
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(
-        // Under timeline-style tweets
+        // Under timeline tweets
         `[data-testid="tweet"][tabindex="0"] [role="group"] > div[style]`,
         // Under individual tweets
         '[data-testid="tweet"][tabindex="-1"] [role="group"] > div[style]',
@@ -2166,7 +2166,7 @@ const configureCss = (() => {
       }
       if (config.hideViews) {
         hideCssSelectors.push(
-          // Under timeline-style tweets
+          // Under timeline tweets
           // The Buffer extension adds a new button in position 2 - use their added class to avoid
           // hiding the wrong button (#209)
           '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(4)',
@@ -2270,6 +2270,14 @@ const configureCss = (() => {
         hideCssSelectors.push(
           // In media modal
           `body.MobilePhoto [role="group"] > div[style]`,
+        )
+      }
+      if (config.hideViews) {
+        hideCssSelectors.push(
+          // Under timeline tweets
+          // Views only display on mobile at larger widths - only hide the 4th button if there are 5
+          '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-child(4):nth-last-child(2)',
+          '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-child(4):nth-last-child(2)',
         )
       }
       if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
