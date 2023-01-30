@@ -2751,6 +2751,18 @@ function handlePopup($popup) {
 
   // Verified account popup when you click the check on a user's profile page
   if (config.twitterBlueChecks == 'replace' && isOnProfilePage()) {
+    if (mobile) {
+      let $verificationBadge = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="sheetDialog"] [data-testid="verificationBadge"]'))
+      if (!$verificationBadge) return
+      let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} .tnt_blue_check`)
+      if (!$headerBlueCheck) return
+      $verificationBadge.classList.add('tnt_blue_check')
+      if (isSafari) {
+        $verificationBadge.querySelector('path').setAttribute('d', Svgs.BLUE_LOGO_PATH)
+      }
+      return
+    }
+
     let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
     if ($hoverCard) {
       getElement(':scope > div > div > svg:first-child path[d^="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2."]', {
@@ -2760,10 +2772,7 @@ function handlePopup($popup) {
       }).then(($hoverCardSvgPath) => {
         if (!$hoverCardSvgPath) return
 
-        let $headerBlueCheck = document.querySelector(mobile ? `
-          body.Profile header .tnt_blue_check,
-          body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} .tnt_blue_check
-        ` : `body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 .tnt_blue_check`)
+        let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 .tnt_blue_check`)
         if (!$headerBlueCheck) return
 
         // Wait for the hovercard to render its contents
@@ -3558,6 +3567,9 @@ function tweakNotificationsPage() {
 
 function tweakProfilePage() {
   if (config.twitterBlueChecks != 'ignore') {
+    if (mobile) {
+      tagTwitterBlueCheckmarks(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER_NEW))
+    }
     tagTwitterBlueCheckmarks(document.querySelector(Selectors.PRIMARY_COLUMN))
   }
   observeTimeline(currentPage)
