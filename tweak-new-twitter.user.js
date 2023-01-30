@@ -2916,10 +2916,10 @@ function processCurrentPage() {
     } else {
       $body.classList.remove('Sidebar')
     }
+  }
 
-    if (config.twitterBlueChecks != 'ignore' && (isOnSearchPage() || isOnExplorePage())) {
-      observeSearchForm()
-    }
+  if (config.twitterBlueChecks != 'ignore' && (isOnSearchPage() || isOnExplorePage())) {
+    observeSearchForm()
   }
 
   if (isOnMainTimelinePage()) {
