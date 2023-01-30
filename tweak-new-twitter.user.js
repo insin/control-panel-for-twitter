@@ -83,7 +83,7 @@ const config = {
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
   fullWidthContent: false,
-  fullWidthMedia: false,
+  fullWidthMedia: true,
   reducedInteractionMode: false,
   verifiedAccounts: 'ignore',
   // Desktop only

@@ -40,6 +40,12 @@
       }
     }
   },
+  "homeTimelineOptionsLabel": {
+    "message": "Cronología de inicio"
+  },
+  "reduceEngagementOptionsLabel": {
+    "message": "Reducir el \"compromiso\""
+  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "Eliminar contenido algorítmico"
   },

@@ -8,6 +8,8 @@ for (let optionValue of ['ignore', 'hide', 'separate']) {
 }
 
 for (let translationId of [
+  'homeTimelineOptionsLabel',
+  'reduceEngagementOptionsLabel',
   'reduceAlgorithmicContentOptionsLabel',
   'alwaysUseLatestTweetsLabel',
   'hideForYouTimelineLabel',
@@ -16,7 +18,6 @@ for (let translationId of [
   'hideWhoToFollowEtcLabel',
   'hideExplorePageContentsLabel',
   'hideMoreTweetsLabel',
-  'sharedTweetsOptionsLabel',
   'retweetsLabel',
   'quoteTweetsLabel',
   'hideUnavailableQuoteTweetsLabel',
@@ -175,7 +176,7 @@ const defaultConfig = {
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
   fullWidthContent: false,
-  fullWidthMedia: false,
+  fullWidthMedia: true,
   reducedInteractionMode: false,
   verifiedAccounts: 'ignore',
   // Desktop only
@@ -267,10 +268,8 @@ function applyConfig() {
   $body.classList.toggle('desktop', desktop)
   checkboxGroups = new Map(Object.entries({
     reduceAlgorithmicContent: [
-      'alwaysUseLatestTweets',
       'hideExplorePageContents',
       'hideMoreTweets',
-      'hideWhoToFollowEtc',
       desktop && 'hideSidebarContent',
     ].filter(Boolean),
     uiImprovements: [
@@ -278,8 +277,6 @@ function applyConfig() {
       'dropdownMenuFontWeight',
       'fastBlock',
       'hideVerifiedNotificationsTab',
-      'hideViews',
-      'uninvertFollowButtons',
       desktop && 'navBaseFontSize',
       mobile && 'hideAppNags',
     ].filter(Boolean),

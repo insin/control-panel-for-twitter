@@ -40,6 +40,12 @@
       }
     }
   },
+  "homeTimelineOptionsLabel": {
+    "message": "ホームタイムライン"
+  },
+  "reduceEngagementOptionsLabel": {
+    "message": "「エンゲージメント」を減らす"
+  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "アルゴリズムコンテンツを取り除く"
   },

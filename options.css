@@ -183,6 +183,7 @@ body.macOS.safari section.group > section > section {
 /* Put controls next to their labels... */
 body.macOS.safari label {
   justify-content: start;
+  align-items: center;
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -266,6 +267,9 @@ body.iOS.safari section.group > label.checkbox ~ section {
 body.iOS.safari form > section.labelled {
   position: relative;
   margin-top: 46px;
+}
+body.iOS.safari form > section:first-child.labelled {
+  margin-top: 12px;
 }
 body.iOS.safari form > section.labelled > label {
   position: absolute;

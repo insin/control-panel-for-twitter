@@ -40,11 +40,17 @@
       }
     }
   },
+  "homeTimelineOptionsLabel": {
+    "message": "Home timeline"
+  },
+  "reduceEngagementOptionsLabel": {
+    "message": "Reduce \"engagement\""
+  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "Remove algorithmic content"
   },
   "alwaysUseLatestTweetsLabel": {
-    "message": "Use the Following (chronological) timeline by default"
+    "message": "Use the \"Following\" (chronological) timeline by default"
   },
   "hideForYouTimelineLabel": {
     "message": "Hide the \"For you\" (algorithmic) timeline"
@@ -84,7 +90,7 @@
     "description": "The translations for 'Mute this conversation' in tweak-new-twitter.user.js are from Twitter's own locale data"
   },
   "algorithmicTweetsOptionsLabel": {
-    "message": "Algorithmic tweets in \"For you\" timeline"
+    "message": "Algorithmic tweets in the \"For you\" timeline"
   },
   "algorithmicTweetsWarning": {
     "message": "Note: hiding large numbers of tweets can cause performance issues"
@@ -147,7 +153,7 @@
     "message": "UI tweaks"
   },
   "dontUseChirpFontLabel": {
-    "message": "Don't use Chirp font"
+    "message": "Don't use the Chirp font"
   },
   "twitterBlueChecksLabel": {
     "message": "Twitter Blue verified checkmarks"

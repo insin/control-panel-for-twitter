@@ -73,7 +73,7 @@ New versions can take anything from minutes to days to be approved for publishin
 - Fast blocking - skips the confirm dialog when you try to block an account
 - Add a new item to the "More" menu (desktop) or slide-out menu (mobile) which takes you straight to the "Add muted word" page
 - When viewing a tweet's Quote Tweets, hide the quoted tweet to make more room for quotes
-- Hide "Open app", "Switch to the app" etc. nags on mobile
+- Hide "Open app" nags on mobile
 
 ### Hide UI items you don't use
 
