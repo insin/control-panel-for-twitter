@@ -915,6 +915,10 @@ function addStyle(role) {
  * @param {Element} $svg
  */
 function blueCheck($svg) {
+  if (!$svg) {
+    warn('blueCheck was given', $svg)
+    return
+  }
   $svg.classList.add('tnt_blue_check')
   // Safari doesn't support using `d: path(...)` to replace paths in an SVG, so
   // we have to manually patch the path in it.
@@ -1858,7 +1862,7 @@ const configureCss = (() => {
     }
     if (config.twitterBlueChecks == 'replace') {
       cssRules.push(`
-        ${Selectors.VERIFIED_TICK}.tnt_blue_check path {
+        :is(${Selectors.VERIFIED_TICK}, svg[data-testid="verificationBadge"]).tnt_blue_check path {
           d: path("${Svgs.BLUE_LOGO_PATH}");
         }
       `)
@@ -2550,12 +2554,12 @@ function handlePopup($popup) {
 
     let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
     if ($hoverCard) {
-      getElement(':scope > div > div > svg:first-child path[d^="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2."]', {
+      getElement(':scope > div > div > svg[data-testid="verificationBadge"]', {
         context: $hoverCard,
-        name: 'verified account hovercard svg path',
+        name: 'verified account hovercard verification badge',
         timeout: 500,
-      }).then(($hoverCardSvgPath) => {
-        if (!$hoverCardSvgPath) return
+      }).then(($verificationBadge) => {
+        if (!$verificationBadge) return
 
         let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 .tnt_blue_check`)
         if (!$headerBlueCheck) return
@@ -2563,8 +2567,7 @@ function handlePopup($popup) {
         // Wait for the hovercard to render its contents
         let popupRenderObserver = observeElement($popup, (mutations) => {
           if (!mutations.length) return
-          let $svg = $popup.querySelector('svg')
-          blueCheck($svg)
+          blueCheck($popup.querySelector('svg[data-testid="verificationBadge"]'))
           popupRenderObserver.disconnect()
         }, 'verified popup render', {childList: true, subtree: true})
       })
