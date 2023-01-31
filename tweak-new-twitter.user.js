@@ -739,6 +739,8 @@ const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 // twitter.com/user and its sub-URLs put @user in the title
 const TITLE_PROFILE_USERNAME_RE_LTR = /@([a-zA-Z\d_]{1,20})/
 const TITLE_PROFILE_USERNAME_RE_RTL = /([a-zA-Z\d_]{1,20})@/
+// The initial URL when you open the Twitter Circle modal is i/circles
+const URL_CIRCLE_RE = /^\/i\/circles(?:\/\d+\/members(?:\/suggested)?)?\/?$/
 // The Communities nav item takes you to /yourusername/communities
 const URL_COMMUNITIES_RE = /^\/[a-zA-Z\d_]{1,20}\/communities\/?$/
 const URL_COMMUNITY_RE = /^\/i\/communities\/\d+(?:\/about)?\/?$/
@@ -782,6 +784,9 @@ let fontSize = null
 
 /** Set to `true` when a Home/Following heading or Home nav link is used. */
 let homeNavigationIsBeingUsed = false
+
+/** Set to `true` when the Twitter Circle modal is open. */
+let isCircleModalOpen = false
 
 /** Set to `true` when the media modal is open on desktop. */
 let isDesktopMediaModalOpen = false
@@ -952,6 +957,14 @@ function disconnectObserver(name, observers, type = 'observer') {
       log(`disconnected ${name} ${type}`)
     }
   }
+}
+
+function disconnectModalObserver(name) {
+  disconnectObserver(name, modalObservers)
+}
+
+function disconnectPageObserver(name) {
+  disconnectObserver(name, pageObservers, 'page observer')
 }
 
 /**
@@ -1164,6 +1177,47 @@ function observeBodyBackgroundColor() {
 }
 
 /**
+ * @param {Element} $tabContent
+ * @param {import("./types").Disconnectable[]} observers
+ * @param {(name: string) => void} disconnect
+ */
+function observeTwitterCircleTabContent($tabContent, observers, disconnect) {
+  disconnect('circle tab content')
+  // The Recommended tab replaces its initial user list with a typeahead
+  // dropdown when you use the input, and reverts if you clear it.
+  observers.push(observeElement($tabContent, () => {
+    let $userList = /** @type {HTMLElement} */ ($tabContent.querySelector(':scope > div:last-child:not(:first-child), div[id^="typeaheadDropdown"]'))
+    if ($userList) {
+      disconnect('user list')
+      observers.push(observeElement($userList, () => {
+        processBlueChecks($userList)
+      }, 'user list'))
+    } else {
+      warn('could not find circle user list')
+    }
+  }, 'circle tab content'))
+}
+
+async function observeCircleModal() {
+  let $viewport = await getElement('div[data-viewportview="true"]', {
+    name: 'circle modal viewport',
+    stopIf: () => !isCircleModalOpen,
+  })
+
+  if ($viewport == null) return
+
+  modalObservers.push(observeElement($viewport, (mutations) => {
+    // Ignore loading indicators on initial load of each tab
+    if (!mutations.length || mutations.some(mutation => mutation.addedNodes[0]?.querySelector('svg circle'))) {
+      return
+    }
+    // The modal version doesn't have a separate container for tab content, it's
+    // a sibling of the tabs.
+    observeTwitterCircleTabContent($viewport.lastElementChild, modalObservers, disconnectModalObserver)
+  }, 'circle modal viewport'))
+}
+
+/**
  * When the "Color" setting is changed in "Customize your view", the app
  * re-renders from a certain point, so we need to re-process the current page.
  */
@@ -1252,10 +1306,6 @@ async function observeDesktopModalTimeline() {
   })
 
   if ($initialTimeline == null) return
-
-  function disconnectModalObserver(name) {
-    disconnectObserver(name, modalObservers)
-  }
 
   /**
    * @param {HTMLElement} $timeline
@@ -1509,10 +1559,6 @@ async function observeTimeline(page, options = {}) {
   })
 
   if ($timeline == null) return
-
-  function disconnectPageObserver(name) {
-    disconnectObserver(name, pageObservers, 'page observer')
-  }
 
   /**
    * @param {HTMLElement} $timeline
@@ -2478,6 +2524,27 @@ function handlePopup($popup) {
     }
   }
 
+  if (desktop && !isCircleModalOpen && URL_CIRCLE_RE.test(location.pathname) && currentPath != location.pathname) {
+    log('circle modal opened')
+    isCircleModalOpen = true
+    observeCircleModal()
+    return {
+      tookAction: true,
+      onPopupClosed() {
+        log('circle modal closed')
+        isCircleModalOpen = false
+        if (modalObservers.length > 0) {
+          log(
+            `disconnecting ${modalObservers.length} modal observer${s(modalObservers.length)}`,
+            modalObservers.map(observer => observer['name'])
+          )
+          modalObservers.forEach(observer => observer.disconnect())
+          modalObservers = []
+        }
+      }
+    }
+  }
+
   if (isOnListPage()) {
     let $switchSvg = $popup.querySelector(`svg path[d^="M15.96 1.54L21.41 7l-5.45 5.46-1.42-1"]`)
     if ($switchSvg) {
@@ -2541,7 +2608,7 @@ function handlePopup($popup) {
     }
   }
 
-  // Verified account popup when you click the check on a user's profile page
+  // Verified account popup when you press the check button on a profile page
   if (config.twitterBlueChecks == 'replace' && isOnProfilePage()) {
     if (mobile) {
       let $verificationBadge = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="sheetDialog"] [data-testid="verificationBadge"]'))
@@ -3014,6 +3081,10 @@ function processCurrentPage() {
   else if (isOnCommunityMembersPage()) {
     tweakCommunityMembersPage()
   }
+
+  if (mobile && URL_CIRCLE_RE.test(currentPath)) {
+    tweakMobileTwitterCirclePage()
+  }
 }
 
 /**
@@ -3260,6 +3331,23 @@ function tweakMainTimelinePage() {
   } else {
     warn('could not find timeline tabs')
   }
+}
+
+async function tweakMobileTwitterCirclePage() {
+  let $tabContentContainer = await getElement('main > div > div > div:last-child:not(:first-child)', {
+    name: 'circle page tab content container',
+    stopIf: pageIsNot(currentPage),
+  })
+
+  if ($tabContentContainer == null) return
+
+  pageObservers.push(observeElement($tabContentContainer, (mutations) => {
+    // Ignore loading indicators on initial load of each tab
+    if (!mutations.length || mutations.some(mutation => mutation.addedNodes[0]?.querySelector('svg circle'))) {
+      return
+    }
+    observeTwitterCircleTabContent($tabContentContainer.firstElementChild, pageObservers, disconnectPageObserver)
+  }, 'circle page tab content container'))
 }
 
 async function tweakTimelineTabs($timelineTabs) {
