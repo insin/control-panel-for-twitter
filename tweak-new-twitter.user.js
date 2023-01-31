@@ -1907,7 +1907,7 @@ const configureCss = (() => {
       }
       if (config.fullWidthContent) {
         // Pseudo-selector for pages full-width is enabled on
-        let pageSelector = ':is(.List, .MainTimeline)'
+        let pageSelector = ':is(.Community, .List, .MainTimeline)'
         cssRules.push(`
           /* Use full width when the sidebar is visible */
           body.Sidebar${pageSelector} ${Selectors.PRIMARY_COLUMN},
@@ -2916,6 +2916,7 @@ function processCurrentPage() {
   }
 
   // Hooks for styling pages
+  $body.classList.toggle('Community', isOnCommunityPage())
   $body.classList.toggle('Explore', isOnExplorePage())
   $body.classList.toggle('HideSidebar', shouldHideSidebar())
   $body.classList.toggle('List', isOnListPage())
