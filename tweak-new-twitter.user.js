@@ -714,7 +714,7 @@ const Selectors = {
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: '[data-testid="tweet"]',
-  VERIFIED_TICK: 'svg path[d^="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2."]',
+  VERIFIED_TICK: 'svg[data-testid="icon-verified"]',
 }
 
 /** @enum {string} */
@@ -909,6 +909,18 @@ function addStyle(role) {
   $style.dataset.role = role
   document.head.appendChild($style)
   return $style
+}
+
+/**
+ * @param {Element} $svg
+ */
+function blueCheck($svg) {
+  $svg.classList.add('tnt_blue_check')
+  // Safari doesn't support using `d: path(...)` to replace paths in an SVG, so
+  // we have to manually patch the path in it.
+  if (isSafari) {
+    $svg.firstElementChild.firstElementChild.setAttribute('d', Svgs.BLUE_LOGO_PATH)
+  }
 }
 
 /**
@@ -1469,7 +1481,7 @@ async function observeSearchForm() {
   let $results =  /** @type {HTMLElement} */ ($searchForm.lastElementChild)
   pageObservers.push(
     observeElement($results, () => {
-      tagTwitterBlueCheckmarks($results)
+      processBlueChecks($results)
     }, 'search results', {childList: true, subtree: true})
   )
 }
@@ -1837,7 +1849,11 @@ const configureCss = (() => {
       hideCssSelectors.push('.tnt_blue_check')
     }
     if (config.twitterBlueChecks == 'replace') {
-      cssRules.push(`.tnt_blue_check path { d: path("${Svgs.BLUE_LOGO_PATH}"); }`)
+      cssRules.push(`
+        ${Selectors.VERIFIED_TICK}.tnt_blue_check path {
+          d: path("${Svgs.BLUE_LOGO_PATH}");
+        }
+      `)
     }
 
     // Hide "Creator Studio" if all its contents are hidden
@@ -2414,7 +2430,10 @@ function getVerifiedProps($svg) {
   let reactPropsKey = Object.keys($parent).find(key => key.startsWith('__reactProps$'))
   let props = propsGetter($parent[reactPropsKey])
   if (!props) {
-    warn('verified props not found for', $svg, {reactPropsKey})
+    warn('React props not found for', $svg)
+  }
+  else if (!('isVerified' in props)) {
+    warn('isVerified not in React props for', $svg, {props})
   }
   return props
 }
@@ -2505,7 +2524,7 @@ function handlePopup($popup) {
         name: 'user hovercard contents',
         timeout: 500,
       }).then(($contents) => {
-        if ($contents) tagTwitterBlueCheckmarks($popup)
+        if ($contents) processBlueChecks($popup)
       })
     }
   }
@@ -2517,10 +2536,7 @@ function handlePopup($popup) {
       if (!$verificationBadge) return
       let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} .tnt_blue_check`)
       if (!$headerBlueCheck) return
-      $verificationBadge.classList.add('tnt_blue_check')
-      if (isSafari) {
-        $verificationBadge.querySelector('path').setAttribute('d', Svgs.BLUE_LOGO_PATH)
-      }
+      blueCheck($verificationBadge)
       return
     }
 
@@ -2539,10 +2555,8 @@ function handlePopup($popup) {
         // Wait for the hovercard to render its contents
         let popupRenderObserver = observeElement($popup, (mutations) => {
           if (!mutations.length) return
-          $popup.querySelector('svg').classList.add('tnt_blue_check')
-          if (isSafari) {
-            $popup.querySelector('svg path').setAttribute('d', Svgs.BLUE_LOGO_PATH)
-          }
+          let $svg = $popup.querySelector('svg')
+          blueCheck($svg)
           popupRenderObserver.disconnect()
         }, 'verified popup render', {childList: true, subtree: true})
       })
@@ -2626,7 +2640,7 @@ function onTimelineChange($timeline, page, options = {}) {
   let isOnListTimeline = isOnListPage()
 
   if (config.twitterBlueChecks != 'ignore' && !isOnMainTimeline && !isOnListTimeline) {
-    tagTwitterBlueCheckmarks($timeline)
+    processBlueChecks($timeline)
   }
 
   if (!classifyTweets) return
@@ -2684,11 +2698,11 @@ function onTimelineChange($timeline, page, options = {}) {
 
         let checkType
         if (config.twitterBlueChecks != 'ignore' || config.verifiedAccounts != 'ignore') {
-          for (let $svgPath of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
-            let verifiedProps = getVerifiedProps($svgPath.closest('svg'))
+          for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
+            let verifiedProps = getVerifiedProps($svg)
             if (!verifiedProps) continue
 
-            let isUserCheck = $svgPath.closest('div[data-testid="User-Names"]')
+            let isUserCheck = $svg.closest('div[data-testid="User-Names"]')
             if (verifiedProps.isVerified) {
               if (isUserCheck) {
                 checkType = 'VERIFIED'
@@ -2702,10 +2716,7 @@ function onTimelineChange($timeline, page, options = {}) {
               if (isUserCheck) {
                 checkType = 'BLUE'
               }
-              $svgPath.closest('div').classList.add('tnt_blue_check')
-              if (isSafari) {
-                $svgPath.setAttribute('d', Svgs.BLUE_LOGO_PATH)
-              }
+              blueCheck($svg)
             }
           }
         }
@@ -2903,6 +2914,18 @@ function onTitleChange(title) {
   log('processing new page')
 
   processCurrentPage()
+}
+
+/**
+ * Processes all Twitter Blue checks inside an element.
+ * @param {HTMLElement} $el
+ */
+function processBlueChecks($el) {
+  for (let $svg of $el.querySelectorAll(`${Selectors.VERIFIED_TICK}:not(.tnt_blue_check)`)) {
+    if (isBlueVerified($svg)) {
+      blueCheck($svg)
+    }
+  }
 }
 
 function processCurrentPage() {
@@ -3111,23 +3134,6 @@ function shouldHideSharedTweet(config, page) {
   }
 }
 
-/**
- * Add a tnt_blue_check class to any Twitter Blue checkmarks inside an element.
- * Since hiding is an option, this needs to be added to an appropriate parent
- * element.
- * @param {HTMLElement} $el
- */
-function tagTwitterBlueCheckmarks($el) {
-  for (let $svgPath of $el.querySelectorAll(Selectors.VERIFIED_TICK)) {
-    if (isBlueVerified($svgPath.closest('svg'))) {
-      $svgPath.closest(':is(div, span):not([role="button"]').classList.add('tnt_blue_check')
-      if (isSafari) {
-        $svgPath.setAttribute('d', Svgs.BLUE_LOGO_PATH)
-      }
-    }
-  }
-}
-
 async function tweakExplorePage() {
   if (!config.hideExplorePageContents) return
 
@@ -3327,9 +3333,9 @@ function tweakNotificationsPage() {
 function tweakProfilePage() {
   if (config.twitterBlueChecks != 'ignore') {
     if (mobile) {
-      tagTwitterBlueCheckmarks(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER_NEW))
+      processBlueChecks(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER_NEW))
     }
-    tagTwitterBlueCheckmarks(document.querySelector(Selectors.PRIMARY_COLUMN))
+    processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
   }
   observeTimeline(currentPage)
   if (desktop && config.hideSidebarContent) {
