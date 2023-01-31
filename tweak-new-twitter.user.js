@@ -2917,7 +2917,6 @@ function processCurrentPage() {
 
   // Hooks for styling pages
   $body.classList.toggle('Explore', isOnExplorePage())
-  $body.classList.toggle('FollowList', isOnFollowListPage())
   $body.classList.toggle('HideSidebar', shouldHideSidebar())
   $body.classList.toggle('List', isOnListPage())
   $body.classList.toggle('MainTimeline', isOnMainTimelinePage())
@@ -2931,8 +2930,6 @@ function processCurrentPage() {
   $body.classList.toggle('Search', isOnSearchPage())
   $body.classList.toggle('MobilePhoto', mobile && URL_PHOTO_RE.test(location.pathname))
   $body.classList.remove('TabbedTimeline')
-  $body.classList.remove('Home')
-  $body.classList.remove('LatestTweets')
   $body.classList.remove('SeparatedTweets')
 
   if (desktop) {
