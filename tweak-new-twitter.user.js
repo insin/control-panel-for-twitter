@@ -739,13 +739,18 @@ const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 // twitter.com/user and its sub-URLs put @user in the title
 const TITLE_PROFILE_USERNAME_RE_LTR = /@([a-zA-Z\d_]{1,20})/
 const TITLE_PROFILE_USERNAME_RE_RTL = /([a-zA-Z\d_]{1,20})@/
-const URL_PHOTO_RE = /photo\/\d$/
-// Matches URLs which show a user's Followers you know / Followers / Following tab
-const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/(follow(?:ing|ers|ers_you_follow))\/?$/
+// The Communities nav item takes you to /yourusername/communities
+const URL_COMMUNITIES_RE = /^\/[a-zA-Z\d_]{1,20}\/communities\/?$/
+const URL_COMMUNITY_RE = /^\/i\/communities\/\d+(?:\/about)?\/?$/
+const URL_COMMUNITY_MEMBERS_RE = /^\/i\/communities\/\d+\/(?:members|moderators)\/?$/
+const URL_DISCOVER_COMMUNITIES_RE = /^\/i\/communities\/suggested\/?/
+const URL_LIST_RE = /\/i\/lists\/\d+\/?$/
+const URL_PHOTO_RE = /photo\/\d\/?$/
 // Matches URLs which show one of the tabs on a user profile page
 const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(with_replies|media|likes)\/?|\/)?$/
-const URL_LIST_RE = /\/i\/lists\/\d+$/
-const URL_TWEET_ID_RE = /\/status\/(\d+)$/
+// Matches URLs which show a user's Followers you know / Followers / Following tab
+const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/(follow(?:ing|ers|ers_you_follow))\/?$/
+const URL_TWEET_ID_RE = /\/status\/(\d+)\/?$/
 
 /**
  * The quoted Tweet associated with a caret menu that's just been opened.
@@ -817,6 +822,22 @@ let themeColor = null
  */
 let wasForYouTabSelected = false
 
+function isOnCommunitiesPage() {
+  return URL_COMMUNITIES_RE.test(currentPath)
+}
+
+function isOnCommunityPage() {
+  return URL_COMMUNITY_RE.test(currentPath)
+}
+
+function isOnCommunityMembersPage() {
+  return URL_COMMUNITY_MEMBERS_RE.test(currentPath)
+}
+
+function isOnDiscoverCommunitiesPage() {
+  return URL_DISCOVER_COMMUNITIES_RE.test(currentPath)
+}
+
 function isOnExplorePage() {
   return currentPath.startsWith('/explore')
 }
@@ -873,7 +894,7 @@ function isOnTopicsPage() {
 }
 
 function shouldHideSidebar() {
-  return isOnExplorePage()
+  return isOnExplorePage() || isOnDiscoverCommunitiesPage()
 }
 //#endregion
 
@@ -1458,9 +1479,9 @@ async function observeSearchForm() {
  * @param {import("./types").TimelineOptions?} options
  */
 async function observeTimeline(page, options = {}) {
-  let {isTabbed = false, onTabChange = null, tabbedTimelineContainerSelector = null} = options
+  let {isTabbed = false, onTabChange = null, tabbedTimelineContainerSelector = null, timelineSelector = Selectors.TIMELINE} = options
 
-  let $timeline = await getElement(Selectors.TIMELINE, {
+  let $timeline = await getElement(timelineSelector, {
     name: 'initial timeline',
     stopIf: pageIsNot(page),
   })
@@ -1522,7 +1543,7 @@ async function observeTimeline(page, options = {}) {
     )
   }
 
-  if (isTabbed) {
+  if (isTabbed && tabbedTimelineContainerSelector) {
     let $tabbedTimelineContainer = document.querySelector(tabbedTimelineContainerSelector)
     if ($tabbedTimelineContainer) {
       let waitingForNewTimeline = false
@@ -1546,8 +1567,7 @@ async function observeTimeline(page, options = {}) {
           observeTimelineItems($newTimeline)
         }, 'tabbed timeline container')
       )
-    }
-    else {
+    } else {
       warn('tabbed timeline container not found')
     }
   }
@@ -2958,6 +2978,15 @@ function processCurrentPage() {
   else if (isOnExplorePage()) {
     tweakExplorePage()
   }
+  else if (isOnCommunitiesPage()) {
+    tweakCommunitiesPage()
+  }
+  else if (isOnCommunityPage()) {
+    tweakCommunityPage()
+  }
+  else if (isOnCommunityMembersPage()) {
+    tweakCommunityMembersPage()
+  }
 }
 
 /**
@@ -3135,6 +3164,29 @@ async function tweakExplorePage() {
         })
       }, 'back button parent')
     )
+  }
+}
+
+function tweakCommunitiesPage() {
+  observeTimeline(currentPage)
+}
+
+function tweakCommunityPage() {
+  if (config.twitterBlueChecks != 'ignore') {
+    observeTimeline(currentPage, {
+      classifyTweets: false,
+      isTabbed: true,
+    })
+  }
+}
+
+function tweakCommunityMembersPage() {
+  if (config.twitterBlueChecks != 'ignore') {
+    observeTimeline(currentPage, {
+      classifyTweets: false,
+      isTabbed: true,
+      timelineSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
+    })
   }
 }
 

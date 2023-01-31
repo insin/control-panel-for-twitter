@@ -125,6 +125,7 @@ export type TimelineOptions = {
   isTabbed?: boolean
   onTabChange?: () => void
   tabbedTimelineContainerSelector?: string
+  timelineSelector?: string
 }
 
 export type VerifiedAccountsConfig = 'highlight' | 'hide' | 'ignore'
