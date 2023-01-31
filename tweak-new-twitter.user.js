@@ -2781,11 +2781,6 @@ function onTimelineChange($timeline, page, options = {}) {
         hideItem = hidPreviousItem
         itemType = previousItemType
       }
-      // The first item in the timeline is sometimes an empty placeholder <div>
-      else if ($item !== $timeline.firstElementChild && hideItem == null) {
-        // We're probably also missing some spacer / divider nodes
-        warn('unhandled timeline item', $item)
-      }
     }
 
     if (hideItem != null) {
