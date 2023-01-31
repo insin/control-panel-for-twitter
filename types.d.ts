@@ -123,7 +123,8 @@ export type TimelineOptions = {
   classifyTweets?: boolean
   hideHeadings?: boolean
   isTabbed?: boolean
-  onTabChange?: () => void
+  onTabChanged?: () => void
+  onTimelineAppeared?: () => void
   tabbedTimelineContainerSelector?: string
   timelineSelector?: string
 }

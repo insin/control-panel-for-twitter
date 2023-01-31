@@ -1491,7 +1491,13 @@ async function observeSearchForm() {
  * @param {import("./types").TimelineOptions?} options
  */
 async function observeTimeline(page, options = {}) {
-  let {isTabbed = false, onTabChange = null, tabbedTimelineContainerSelector = null, timelineSelector = Selectors.TIMELINE} = options
+  let {
+    isTabbed = false,
+    onTabChanged = null,
+    onTimelineAppeared = null,
+    tabbedTimelineContainerSelector = null,
+    timelineSelector = Selectors.TIMELINE,
+  } = options
 
   let $timeline = await getElement(timelineSelector, {
     name: 'initial timeline',
@@ -1512,6 +1518,7 @@ async function observeTimeline(page, options = {}) {
     pageObservers.push(
       observeElement($timeline, () => onTimelineChange($timeline, page, options), 'timeline')
     )
+    onTimelineAppeared?.()
     if (isTabbed) {
       // When a tab which has been viewed before is revisited, the timeline is
       // replaced.
@@ -1520,9 +1527,9 @@ async function observeTimeline(page, options = {}) {
         observeElement($timeline.parentElement, (mutations) => {
           mutations.forEach((mutation) => {
             mutation.addedNodes.forEach((/** @type {HTMLElement} */ $newTimeline) => {
-              log('timeline replaced')
               disconnectPageObserver('timeline')
-              onTabChange?.()
+              log('tab changed')
+              onTabChanged?.()
               pageObservers.push(
                 observeElement($newTimeline, () => onTimelineChange($newTimeline, page, options), 'timeline')
               )
@@ -1555,27 +1562,28 @@ async function observeTimeline(page, options = {}) {
     )
   }
 
+  // On some tabbed timeline pages, the first time a new tab is navigated to,
+  // the element containing the timeline is replaced with a loading spinner.
   if (isTabbed && tabbedTimelineContainerSelector) {
     let $tabbedTimelineContainer = document.querySelector(tabbedTimelineContainerSelector)
     if ($tabbedTimelineContainer) {
       let waitingForNewTimeline = false
-      // The first time a new tab is navigated to, the section containing the
-      // timeline is replaced with a loading spinner.
       pageObservers.push(
         observeElement($tabbedTimelineContainer, async (mutations) => {
           // This is going to fire twice on a new tab, as the spinner is added
-          // then replaced with the new timeline section.
+          // then replaced with the new timeline element.
           if (!mutations.some(mutation => mutation.addedNodes.length > 0) || waitingForNewTimeline) return
 
           waitingForNewTimeline = true
-          let $newTimeline = await getElement(Selectors.TIMELINE, {
+          let $newTimeline = await getElement(timelineSelector, {
             name: 'new timeline',
             stopIf: pageIsNot(page),
           })
           waitingForNewTimeline = false
           if (!$newTimeline) return
 
-          onTabChange?.()
+          log('tab changed')
+          onTabChanged?.()
           observeTimelineItems($newTimeline)
         }, 'tabbed timeline container')
       )
@@ -3180,6 +3188,13 @@ function tweakCommunityPage() {
     observeTimeline(currentPage, {
       classifyTweets: false,
       isTabbed: true,
+      tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
+      onTimelineAppeared() {
+        // The About tab has static content at the top which can include a check
+        if (/\/about\/?$/.test(location.pathname)) {
+          processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
+        }
+      }
     })
   }
 }
@@ -3239,7 +3254,7 @@ function tweakMainTimelinePage() {
 
     observeTimeline(currentPage, {
       isTabbed: true,
-      onTabChange: () => {
+      onTabChanged: () => {
         wasForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]'))
       },
       tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
