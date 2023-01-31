@@ -2503,7 +2503,7 @@ function handlePopup($popup) {
       getElement('div[data-testid^="UserAvatar-Container"]', {
         context: $hoverCard,
         name: 'user hovercard contents',
-        timeout: 250,
+        timeout: 500,
       }).then(($contents) => {
         if ($contents) tagTwitterBlueCheckmarks($popup)
       })
@@ -2529,7 +2529,7 @@ function handlePopup($popup) {
       getElement(':scope > div > div > svg:first-child path[d^="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2."]', {
         context: $hoverCard,
         name: 'verified account hovercard svg path',
-        timeout: 250,
+        timeout: 500,
       }).then(($hoverCardSvgPath) => {
         if (!$hoverCardSvgPath) return
 
