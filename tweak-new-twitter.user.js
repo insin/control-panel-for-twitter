@@ -3466,6 +3466,12 @@ async function tweakTimelineTabs($timelineTabs) {
         e.preventDefault()
         e.stopPropagation()
         if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
+          // The sparated tweets tab belongs to the Following tab
+          let isFollowingTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
+          if (!isFollowingTabSelected) {
+            log('switching to the Following tab for separated tweets')
+            $followingTabLink.click()
+          }
           setTitle(separatedTweetsTimelineTitle)
         }
         window.scrollTo({top: 0})
