@@ -3473,7 +3473,7 @@ async function tweakTimelineTabs($timelineTabs) {
 
       // Return to the main timeline view when any other tab is clicked
       $followingTabLink.parentElement.parentElement.addEventListener('click', () => {
-        if (!document.title.startsWith(getString('HOME'))) {
+        if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
           log('setting title to Home')
           homeNavigationIsBeingUsed = true
           setTitle(getString('HOME'))
