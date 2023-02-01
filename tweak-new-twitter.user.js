@@ -3380,32 +3380,32 @@ function tweakMainTimelinePage() {
   $body.classList.toggle('TabbedTimeline', $timelineTabs != null)
   $body.classList.toggle('SeparatedTweets', isOnSeparatedTweetsTimeline())
 
-  if ($timelineTabs != null) {
-    log('on tabbed timeline')
-    tweakTimelineTabs($timelineTabs)
-
-    // If there are pinned lists, the timeline tabs <nav> will be replaced when they load
-    pageObservers.push(
-      observeElement($timelineTabs.parentElement, (mutations) => {
-        let timelineTabsReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($timelineTabs))
-        if (timelineTabsReplaced) {
-          log('timeline tabs replaced')
-          $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav`)
-          tweakTimelineTabs($timelineTabs)
-        }
-      }, 'timeline tabs nav container')
-    )
-
-    observeTimeline(currentPage, {
-      isTabbed: true,
-      onTabChanged: () => {
-        wasForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]'))
-      },
-      tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
-    })
-  } else {
+  if ($timelineTabs == null) {
     warn('could not find timeline tabs')
+    return
   }
+
+  tweakTimelineTabs($timelineTabs)
+
+  // If there are pinned lists, the timeline tabs <nav> will be replaced when they load
+  pageObservers.push(
+    observeElement($timelineTabs.parentElement, (mutations) => {
+      let timelineTabsReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($timelineTabs))
+      if (timelineTabsReplaced) {
+        log('timeline tabs replaced')
+        $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav`)
+        tweakTimelineTabs($timelineTabs)
+      }
+    }, 'timeline tabs nav container')
+  )
+
+  observeTimeline(currentPage, {
+    isTabbed: true,
+    onTabChanged: () => {
+      wasForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]'))
+    },
+    tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
+  })
 }
 
 function tweakMobileComposeTweetPage() {
@@ -3501,6 +3501,20 @@ async function tweakTimelineTabs($timelineTabs) {
 }
 
 function tweakNotificationsPage() {
+  let $navigationTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav`)
+  if ($navigationTabs == null) {
+    warn('could not find Notifications tabs')
+    return
+  }
+
+  if (config.hideVerifiedNotificationsTab) {
+    let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
+    if (isVerifiedTabSelected) {
+      log('switching to All tab')
+      $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a')?.click()
+    }
+  }
+
   if (config.twitterBlueChecks != 'ignore') {
     observeTimeline(currentPage, {
       classifyTweets: false,
