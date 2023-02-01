@@ -1963,7 +1963,9 @@ const configureCss = (() => {
         }
 
         /* Tabbed timeline */
-        #tnt_separated_tweets_tab:hover {
+        body.Desktop #tnt_separated_tweets_tab:hover,
+        body.Mobile:not(.SeparatedTweets) #tnt_separated_tweets_tab:hover,
+        body.Mobile #tnt_separated_tweets_tab:active {
           background-color: var(--tab-hover);
         }
         body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div,
@@ -3467,9 +3469,6 @@ async function tweakTimelineTabs($timelineTabs) {
           setTitle(separatedTweetsTimelineTitle)
         }
         window.scrollTo({top: 0})
-        if (mobile) {
-          e.target.blur()
-        }
       })
       $followingTabLink.parentElement.insertAdjacentElement('afterend', $newTab)
 
