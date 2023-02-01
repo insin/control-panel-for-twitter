@@ -991,6 +991,7 @@ function getElement(selector, {
     let startTime = Date.now()
     let rafId
     let timeoutId
+    let stopped = false
 
     function stop($element, reason) {
       if ($element == null) {
@@ -1005,11 +1006,21 @@ function getElement(selector, {
       if (timeoutId) {
         clearTimeout(timeoutId)
       }
+      stopped = true
       resolve($element)
     }
 
     if (timeout !== Infinity) {
-      timeoutId = setTimeout(stop, timeout, null, `${timeout}ms timeout`)
+      // Delay the timeout until after a rAF to avoid
+      // https://github.com/insin/tweak-new-twitter/issues/198.
+      // Under normal circumstances, this should be a negligible increase in the
+      // timeout, but if this tab is in the background, this rAF will delay
+      // until it has focus.
+      requestAnimationFrame(() => {
+        if (!stopped) {
+          timeoutId = setTimeout(stop, timeout, null, `${timeout}ms timeout`)
+        }
+      })
     }
 
     function queryElement() {
