@@ -967,6 +967,17 @@ function disconnectModalObserver(name) {
   disconnectObserver(name, modalObservers)
 }
 
+function disconnectAllModalObservers() {
+  if (modalObservers.length > 0) {
+    log(
+      `disconnecting ${modalObservers.length} modal observer${s(modalObservers.length)}`,
+      modalObservers.map(observer => observer['name'])
+    )
+    modalObservers.forEach(observer => observer.disconnect())
+    modalObservers = []
+  }
+}
+
 function disconnectPageObserver(name) {
   disconnectObserver(name, pageObservers, 'page observer')
 }
@@ -2516,14 +2527,7 @@ function handlePopup($popup) {
       onPopupClosed() {
         log('media modal closed')
         isDesktopMediaModalOpen = false
-        if (modalObservers.length > 0) {
-          log(
-            `disconnecting ${modalObservers.length} modal observer${s(modalObservers.length)}`,
-            modalObservers.map(observer => observer['name'])
-          )
-          modalObservers.forEach(observer => observer.disconnect())
-          modalObservers = []
-        }
+        disconnectAllModalObservers()
       }
     }
   }
@@ -2537,14 +2541,7 @@ function handlePopup($popup) {
       onPopupClosed() {
         log('circle modal closed')
         isCircleModalOpen = false
-        if (modalObservers.length > 0) {
-          log(
-            `disconnecting ${modalObservers.length} modal observer${s(modalObservers.length)}`,
-            modalObservers.map(observer => observer['name'])
-          )
-          modalObservers.forEach(observer => observer.disconnect())
-          modalObservers = []
-        }
+        disconnectAllModalObservers()
       }
     }
   }
