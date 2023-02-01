@@ -2597,8 +2597,24 @@ function handlePopup($popup) {
     }
   }
 
-  // User hovercard popup
   if (config.twitterBlueChecks != 'ignore') {
+    // User typeahead dropdown
+    let $typeaheadDropdown = /** @type {HTMLElement} */ ($popup.querySelector('div[id^="typeaheadDropdown"]'))
+    if ($typeaheadDropdown) {
+      log('typeahead dropdown appeared')
+      let observer = observeElement($typeaheadDropdown, () => {
+        processBlueChecks($typeaheadDropdown)
+      }, 'popup typeahead dropdown')
+      return {
+        tookAction: true,
+        onPopupClosed() {
+          log('typeahead dropdown closed')
+          observer.disconnect()
+        }
+      }
+    }
+
+    // User hovercard popup
     let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
     if ($hoverCard) {
       result.tookAction = true
@@ -3089,8 +3105,14 @@ function processCurrentPage() {
     tweakCommunityMembersPage()
   }
 
-  if (mobile && URL_CIRCLE_RE.test(currentPath)) {
-    tweakMobileTwitterCirclePage()
+  // Om mobile, these are pages instead of modals
+  if (mobile) {
+    if (URL_CIRCLE_RE.test(currentPath)) {
+      tweakMobileTwitterCirclePage()
+    }
+    else if (currentPath == PagePaths.COMPOSE_TWEET) {
+      tweakMobileComposeTweetPage()
+    }
   }
 }
 
@@ -3313,7 +3335,45 @@ function tweakListPage() {
   })
 }
 
+async function tweakTweetBox() {
+  if (config.twitterBlueChecks == 'ignore') return
+
+  let $tweetTextarea = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} label[data-testid^="tweetTextarea"]`, {
+    name: 'tweet textarea',
+    stopIf: pageIsNot(currentPage),
+  })
+  if (!$tweetTextarea) return
+
+  /** @type {HTMLElement} */
+  let $typeaheadDropdown
+
+  pageObservers.push(
+    observeElement($tweetTextarea.parentElement.parentElement.parentElement.parentElement, (mutations) => {
+      for (let mutation of mutations) {
+        if ($typeaheadDropdown && mutations.some(mutation => Array.from(mutation.removedNodes).includes($typeaheadDropdown))) {
+          disconnectPageObserver('tweet textarea typeahead dropdown')
+          $typeaheadDropdown = null
+        }
+        for (let $addedNode of mutation.addedNodes) {
+          if ($addedNode instanceof HTMLElement && $addedNode.getAttribute('id')?.startsWith('typeaheadDropdown')) {
+            $typeaheadDropdown = $addedNode
+            pageObservers.push(
+              observeElement($typeaheadDropdown, () => {
+                processBlueChecks($typeaheadDropdown)
+              }, 'tweet textarea typeahead dropdown')
+            )
+          }
+        }
+      }
+    }, 'tweet textarea typeahead dropdown container')
+  )
+}
+
 function tweakMainTimelinePage() {
+  if (desktop) {
+    tweakTweetBox()
+  }
+
   let $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav`)
 
   // "Which version of the main timeline are we on?" hooks for styling
@@ -3346,6 +3406,10 @@ function tweakMainTimelinePage() {
   } else {
     warn('could not find timeline tabs')
   }
+}
+
+function tweakMobileComposeTweetPage() {
+  tweakTweetBox()
 }
 
 async function tweakMobileTwitterCirclePage() {
