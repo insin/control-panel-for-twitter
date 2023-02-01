@@ -2629,32 +2629,35 @@ function handlePopup($popup) {
   if (config.twitterBlueChecks == 'replace' && isOnProfilePage()) {
     if (mobile) {
       let $verificationBadge = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="sheetDialog"] [data-testid="verificationBadge"]'))
-      if (!$verificationBadge) return
-      let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} .tnt_blue_check`)
-      if (!$headerBlueCheck) return
-      blueCheck($verificationBadge)
-      return
-    }
+      if ($verificationBadge) {
+        result.tookAction = true
+        let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} .tnt_blue_check`)
+        if ($headerBlueCheck) {
+          blueCheck($verificationBadge)
+        }
+      }
+    } else {
+      let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
+      if ($hoverCard) {
+        result.tookAction = true
+        getElement(':scope > div > div > svg[data-testid="verificationBadge"]', {
+          context: $hoverCard,
+          name: 'verified account hovercard verification badge',
+          timeout: 500,
+        }).then(($verificationBadge) => {
+          if (!$verificationBadge) return
 
-    let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
-    if ($hoverCard) {
-      getElement(':scope > div > div > svg[data-testid="verificationBadge"]', {
-        context: $hoverCard,
-        name: 'verified account hovercard verification badge',
-        timeout: 500,
-      }).then(($verificationBadge) => {
-        if (!$verificationBadge) return
+          let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 .tnt_blue_check`)
+          if (!$headerBlueCheck) return
 
-        let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 .tnt_blue_check`)
-        if (!$headerBlueCheck) return
-
-        // Wait for the hovercard to render its contents
-        let popupRenderObserver = observeElement($popup, (mutations) => {
-          if (!mutations.length) return
-          blueCheck($popup.querySelector('svg[data-testid="verificationBadge"]'))
-          popupRenderObserver.disconnect()
-        }, 'verified popup render', {childList: true, subtree: true})
-      })
+          // Wait for the hovercard to render its contents
+          let popupRenderObserver = observeElement($popup, (mutations) => {
+            if (!mutations.length) return
+            blueCheck($popup.querySelector('svg[data-testid="verificationBadge"]'))
+            popupRenderObserver.disconnect()
+          }, 'verified popup render', {childList: true, subtree: true})
+        })
+      }
     }
   }
 
