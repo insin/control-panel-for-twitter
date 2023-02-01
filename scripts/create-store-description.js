@@ -10,42 +10,54 @@ let messages = Object.fromEntries(Object.entries(locale).map(([prop, value]) => 
 let storeDescription
 with (messages) {
   storeDescription = `
-${reduceAlgorithmicContentOptionsLabel}
+${homeTimelineOptionsLabel}
 
 – ${alwaysUseLatestTweetsLabel}
-– ${hideForYouTimelineLabel}
-– ${hideWhoToFollowEtcLabel}
-– ${hideSidebarContentLabel}
-– ${hideMoreTweetsLabel}
-– ${hideExplorePageContentsLabel}
-
-${sharedTweetsOptionsLabel}
-
+  – ${hideForYouTimelineLabel}
 – ${retweetsLabel}
   – ${option_separate}
 – ${hideUnavailableQuoteTweetsLabel}
 – ${mutableQuoteTweetsLabel}
   – ${mutableQuoteTweetsInfo}
+– ${hideWhoToFollowEtcLabel}
+– ${fullWidthContentLabel}
+  – ${fullWidthContentInfo}
+
+${reduceEngagementOptionsLabel}
+
+– ${hideViewsLabel}
+– ${hideMetricsLabel}
+– ${reducedInteractionModeLabel}
+  – ${reducedInteractionModeInfo}
+– ${disableHomeTimelineLabel}
+  – ${disableHomeTimelineInfo}
+
+${reduceAlgorithmicContentOptionsLabel}
+
+– ${hideSidebarContentLabel}
+– ${hideExplorePageContentsLabel}
+– ${hideMoreTweetsLabel}
+
+${uiImprovementsOptionsLabel}
+
+– ${hideVerifiedNotificationsTabLabel}
+– ${twitterBlueChecksLabel}
+  – ${twitterBlueChecksOption_replace}
+– ${addAddMutedWordMenuItemLabel_desktop}
+– ${fastBlockLabel}
+– ${navBaseFontSizeLabel}
+– ${dropdownMenuFontWeightLabel}
 
 ${uiTweaksOptionsLabel}
 
-– ${hideViewsLabel}
 – ${dontUseChirpFontLabel}
-– ${twitterBlueChecksLabel}
-  – ${twitterBlueChecksOption_replace}
-– ${hideVerifiedNotificationsTabLabel}
 – ${uninvertFollowButtonsLabel}
   – ${followButtonStyleOption_monochrome}
   – ${followButtonStyleOption_themed}
-– ${navBaseFontSizeLabel}
-– ${dropdownMenuFontWeightLabel}
-– ${fastBlockLabel}
-– ${addAddMutedWordMenuItemLabel_desktop}
 – ${tweakQuoteTweetsPageLabel}
 
 ${hideUnusedUiItemsOptionsLabel}
 
-– ${hideMetricsLabel}
 – ${hideShareTweetButtonLabel}
 – ${hideAccountSwitcherLabel}
 – ${hideMessagesDrawerLabel}
@@ -53,14 +65,10 @@ ${hideUnusedUiItemsOptionsLabel}
 
 ${experimentsOptionsLabel}
 
-– ${reducedInteractionModeLabel}
-  – ${reducedInteractionModeInfo}
-– ${fullWidthContentLabel}
-  – ${fullWidthContentInfo}
+– ${algorithmicTweetsOptionsLabel}
+  – ${option_hide}
 – ${verifiedAccountsLabel}
   – ${verifiedAccountsInfo}
-– ${disableHomeTimelineLabel}
-  – ${disableHomeTimelineInfo}
   `
 }
 
