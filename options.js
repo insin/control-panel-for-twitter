@@ -125,12 +125,12 @@ const defaultConfig = {
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
-  communityTweets: 'ignore',
+  disableHomeTimeline: false,
+  disabledHomeTimelineRedirect: 'notifications',
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
   fastBlock: true,
   followButtonStyle: 'monochrome',
-  followeesFollows: 'ignore',
   hideAnalyticsNav: true,
   hideBookmarksNav: false,
   hideCommunitiesNav: true,
@@ -161,25 +161,25 @@ const defaultConfig = {
   hideVerifiedNotificationsTab: true,
   hideViews: true,
   hideWhoToFollowEtc: true,
-  likedTweets: 'ignore',
   listRetweets: 'ignore',
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
-  repliedToTweets: 'ignore',
+  reducedInteractionMode: false,
   retweets: 'separate',
-  suggestedTopicTweets: 'ignore',
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
   // Experiments
-  disableHomeTimeline: false,
-  disabledHomeTimelineRedirect: 'notifications',
-  fullWidthContent: false,
-  fullWidthMedia: true,
-  reducedInteractionMode: false,
+  communityTweets: 'ignore',
+  followeesFollows: 'ignore',
+  likedTweets: 'ignore',
+  repliedToTweets: 'ignore',
+  suggestedTopicTweets: 'ignore',
   verifiedAccounts: 'ignore',
   // Desktop only
+  fullWidthContent: false,
+  fullWidthMedia: true,
   hideAccountSwitcher: true,
   hideExploreNav: true,
   hideMessagesDrawer: true,
@@ -267,19 +267,6 @@ function applyConfig() {
   $body.classList.toggle('mobile', mobile)
   $body.classList.toggle('desktop', desktop)
   checkboxGroups = new Map(Object.entries({
-    reduceAlgorithmicContent: [
-      'hideExplorePageContents',
-      'hideMoreTweets',
-      desktop && 'hideSidebarContent',
-    ].filter(Boolean),
-    uiImprovements: [
-      'addAddMutedWordMenuItem',
-      'dropdownMenuFontWeight',
-      'fastBlock',
-      'hideVerifiedNotificationsTab',
-      desktop && 'navBaseFontSize',
-      mobile && 'hideAppNags',
-    ].filter(Boolean),
     hideUnusedUiItems: [
       'hideCommunitiesNav',
       'hideShareTweetButton',
@@ -382,7 +369,7 @@ function updateCheckboxGroups() {
 }
 
 function updateDisplay() {
-  $body.classList.toggle('algorithmic', !optionsConfig.hideForYouTimeline)
+  $body.classList.toggle('algorithmic', !optionsConfig.alwaysUseLatestTweets || !optionsConfig.hideForYouTimeline)
   $body.classList.toggle('chronological', optionsConfig.alwaysUseLatestTweets)
   $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
   $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
@@ -458,9 +445,13 @@ function main() {
 
     $body.classList.toggle('debug', optionsConfig.debug === true)
     $experiments.open = (
-      optionsConfig.disableHomeTimeline ||
-      optionsConfig.fullWidthContent ||
-      optionsConfig.reducedInteractionMode ||
+      (!optionsConfig.alwaysUseLatestTweets || !optionsConfig.hideForYouTimeline) && (
+        optionsConfig.communityTweets != 'ignore' ||
+        optionsConfig.followeesFollows != 'ignore' ||
+        optionsConfig.likedTweets != 'ignore' ||
+        optionsConfig.repliedToTweets != 'ignore' ||
+        optionsConfig.suggestedTopicTweets != 'ignore'
+      ) ||
       optionsConfig.verifiedAccounts != 'ignore'
     )
     $exportConfig.addEventListener('click', exportConfig)

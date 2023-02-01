@@ -161,7 +161,7 @@ body.macOS.safari form > section:not(:first-of-type) {
 body.macOS.safari section.group > label:not(.checkbox)::after {
   content: ":";
 }
-body.macOS.safari section.group > label {
+body.macOS.safari form > section.group > label {
   margin-bottom: 0;
 }
 /* Indent options to align with the toggle all checkbox if there is one */
@@ -169,7 +169,7 @@ body.macOS.safari section.group > section {
   margin-left: 32px;
 }
 /* Align option group help text with options */
-body.macOS.safari section.group > p {
+body.macOS.safari form > section.group > p {
   margin: 12px 12px 12px 32px;
 }
 /* Don't display dividing lines between option groups or options */
@@ -260,7 +260,9 @@ body.iOS.safari section.group > section {
   margin-left: 0;
 }
 /* Groups which have a toggle for all their options should indent their options */
-body.iOS.safari section.group > label.checkbox ~ section {
+body.iOS.safari section.group > label.checkbox ~ section,
+/* Nested groups should indent their options */
+body.iOS.safari section.group > section.group > section {
   margin-left: 18px;
 }
 /* Labelled option groups should display their label above the box */

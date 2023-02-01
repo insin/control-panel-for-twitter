@@ -189,66 +189,8 @@
       </section>
     </section>
 
-    <section class="group labelled algorithmic">
-      <label id="algorithmicTweetsOptionsLabel">
-        Algorithmic tweets in the "For you" timeline
-      </label>
-      <p id="algorithmicTweetsWarning">
-        Note: hiding large numbers of tweets can cause performance issues
-      </p>
-      <section class="select">
-        <label>
-          <span id="communityTweetsLabel">Tweets from your communities</span>
-          <select name="communityTweets">
-            <option value="ignore">Do nothing</option>
-            <option value="hide">Hide</option>
-          </select>
-        </label>
-      </section>
-      <section class="select">
-        <label>
-          <span id="followeesFollowsLabel">Tweets from people followed by people you follow</span>
-          <select name="followeesFollows">
-            <option value="ignore">Do nothing</option>
-            <option value="hide">Hide</option>
-          </select>
-        </label>
-      </section>
-      <section class="select">
-        <label>
-          <span id="likedTweetsLabel">Liked tweets</span>
-          <select name="likedTweets">
-            <option value="ignore">Do nothing</option>
-            <option value="hide">Hide</option>
-          </select>
-        </label>
-      </section>
-      <section class="select">
-        <label>
-          <span id="repliedToTweetsLabel">Received new replies</span>
-          <select name="repliedToTweets">
-            <option value="ignore">Do nothing</option>
-            <option value="hide">Hide</option>
-          </select>
-        </label>
-      </section>
-      <section class="select">
-        <label>
-          <span id="suggestedTopicTweetsLabel">Suggested topic tweets</span>
-          <select name="suggestedTopicTweets">
-            <option value="ignore">Do nothing</option>
-            <option value="hide">Hide</option>
-          </select>
-        </label>
-      </section>
-    </section>
-
-    <section class="group">
-      <label class="checkbox">
-        <span id="reduceAlgorithmicContentOptionsLabel">Remove algorithmic content</span>
-        <input type="checkbox" name="reduceAlgorithmicContent">
-        <span class="toggle"></span>
-      </label>
+    <section class="group labelled">
+      <label id="reduceAlgorithmicContentOptionsLabel">Remove algorithmic content</label>
       <section class="checkbox desktop">
         <label>
           <span id="hideSidebarContentLabel">Hide "What's happening", "You might like" etc. in the sidebar</span>
@@ -279,16 +221,37 @@
       </section>
     </section>
 
-    <section class="group">
-      <label class="checkbox">
-        <span id="uiImprovementsOptionsLabel">UI improvements</span>
-        <input type="checkbox" name="uiImprovements">
-        <span class="toggle"></span>
-      </label>
+    <section class="group labelled">
+      <label id="uiImprovementsOptionsLabel">UI improvements</label>
       <section class="checkbox">
         <label>
           <span id="hideVerifiedNotificationsTabLabel">Hide "Verified" tab in Notifications</span>
           <input type="checkbox" name="hideVerifiedNotificationsTab">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="select">
+        <label>
+          <span id="twitterBlueChecksLabel">Twitter Blue verified checkmarks</span>
+          <select name="twitterBlueChecks">
+            <option value="ignore">Do nothing</option>
+            <option id="twitterBlueChecksOption_replace" value="replace">Replace with Twitter Blue logo</option>
+            <option value="hide">Hide</option>
+          </select>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="addAddMutedWordMenuItemLabel_desktop" class="desktop">Add "Add muted word" to the "More" menu</span>
+          <span id="addAddMutedWordMenuItemLabel_mobile" class="mobile">Add "Add muted word" to the slide-out menu</span>
+          <input type="checkbox" name="addAddMutedWordMenuItem">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="fastBlockLabel">Fast blocking (skips confirm dialog)</span>
+          <input type="checkbox" name="fastBlock">
           <span class="toggle"></span>
         </label>
       </section>
@@ -303,21 +266,6 @@
         <label>
           <span id="dropdownMenuFontWeightLabel">Use normal font weight in dropdown menus</span>
           <input type="checkbox" name="dropdownMenuFontWeight">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="fastBlockLabel">Fast blocking (skips confirm dialog)</span>
-          <input type="checkbox" name="fastBlock">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="addAddMutedWordMenuItemLabel_desktop" class="desktop">Add "Add muted word" to the "More" menu</span>
-          <span id="addAddMutedWordMenuItemLabel_mobile" class="mobile">Add "Add muted word" to the slide-out menu</span>
-          <input type="checkbox" name="addAddMutedWordMenuItem">
           <span class="toggle"></span>
         </label>
       </section>
@@ -339,16 +287,6 @@
           <span id="dontUseChirpFontLabel">Don't use the Chirp font</span>
           <input type="checkbox" name="dontUseChirpFont">
           <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="select">
-        <label>
-          <span id="twitterBlueChecksLabel">Twitter Blue verified checkmarks</span>
-          <select name="twitterBlueChecks">
-            <option value="ignore">Do nothing</option>
-            <option id="twitterBlueChecksOption_replace" value="replace">Replace with Twitter Blue logo</option>
-            <option value="hide">Hide</option>
-          </select>
         </label>
       </section>
       <section class="checkbox">
@@ -552,6 +490,59 @@
           Experiments
         </summary>
         <section class="group">
+          <section class="group algorithmic">
+            <label id="algorithmicTweetsOptionsLabel">
+              Algorithmic tweets in the "For you" timeline
+            </label>
+            <p id="algorithmicTweetsWarning">
+              Note: these can cause performance issues by hiding large numbers of tweets
+            </p>
+            <section class="select">
+              <label>
+                <span id="communityTweetsLabel">Tweets from your communities</span>
+                <select name="communityTweets">
+                  <option value="ignore">Do nothing</option>
+                  <option value="hide">Hide</option>
+                </select>
+              </label>
+            </section>
+            <section class="select">
+              <label>
+                <span id="followeesFollowsLabel">Tweets from people followed by people you follow</span>
+                <select name="followeesFollows">
+                  <option value="ignore">Do nothing</option>
+                  <option value="hide">Hide</option>
+                </select>
+              </label>
+            </section>
+            <section class="select">
+              <label>
+                <span id="likedTweetsLabel">Liked tweets</span>
+                <select name="likedTweets">
+                  <option value="ignore">Do nothing</option>
+                  <option value="hide">Hide</option>
+                </select>
+              </label>
+            </section>
+            <section class="select">
+              <label>
+                <span id="repliedToTweetsLabel">Received new replies</span>
+                <select name="repliedToTweets">
+                  <option value="ignore">Do nothing</option>
+                  <option value="hide">Hide</option>
+                </select>
+              </label>
+            </section>
+            <section class="select">
+              <label>
+                <span id="suggestedTopicTweetsLabel">Suggested topic tweets</span>
+                <select name="suggestedTopicTweets">
+                  <option value="ignore">Do nothing</option>
+                  <option value="hide">Hide</option>
+                </select>
+              </label>
+            </section>
+          </section>
           <section class="select">
             <label>
               <span id="verifiedAccountsLabel">Verified accounts</span>
