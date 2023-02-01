@@ -827,6 +827,10 @@ let themeColor = null
  */
 let wasForYouTabSelected = false
 
+function isOnBookmarksPage() {
+  return currentPath == PagePaths.BOOKMARKS
+}
+
 function isOnCommunitiesPage() {
   return URL_COMMUNITIES_RE.test(currentPath)
 }
@@ -3072,6 +3076,9 @@ function processCurrentPage() {
   else if (isOnExplorePage()) {
     tweakExplorePage()
   }
+  else if (isOnBookmarksPage()) {
+    tweakBookmarksPage()
+  }
   else if (isOnCommunitiesPage()) {
     tweakCommunitiesPage()
   }
@@ -3208,6 +3215,14 @@ function shouldHideSharedTweet(config, page) {
     case 'hide': return true
     case 'ignore': return page == separatedTweetsTimelineTitle
     case 'separate': return page != separatedTweetsTimelineTitle
+  }
+}
+
+async function tweakBookmarksPage() {
+  if (config.twitterBlueChecks != 'ignore') {
+    observeTimeline(currentPage, {
+      classifyTweets: false,
+    })
   }
 }
 
