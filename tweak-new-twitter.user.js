@@ -929,7 +929,7 @@ function blueCheck($svg) {
     return
   }
   $svg.classList.add('tnt_blue_check')
-  // Safari doesn't support using `d: path(...)` to replace paths in an SVG, so
+  // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
   // we have to manually patch the path in it.
   if (isSafari) {
     $svg.firstElementChild.firstElementChild.setAttribute('d', Svgs.BLUE_LOGO_PATH)
@@ -1042,18 +1042,20 @@ function getElement(selector, {
 
 function log(...args) {
   if (debug) {
-    console.log(`🧨${currentPage ? `(${currentPage})` : ''}`, ...args)
+    console.log(`🧨${currentPage ? `(${
+      currentPage.length < 70 ? currentPage : currentPage.slice(0, 70) + '…'
+    })` : ''}`, ...args)
   }
 }
 
 function warn(...args) {
   if (debug) {
-    console.log(`⚠${currentPage ? `(${currentPage})` : ''}`, ...args)
+    console.log(`⚠ ${currentPage ? `(${currentPage})` : ''}`, ...args)
   }
 }
 
 function error(...args) {
-  console.log(`❌${currentPage ? `(${currentPage})` : ''}`, ...args)
+  console.log(`❌ ${currentPage ? `(${currentPage})` : ''}`, ...args)
 }
 
 /**
