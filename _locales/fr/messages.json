@@ -1,0 +1,320 @@
+{
+  "extensionName" : {
+    "message" : "Tweak New Twitter",
+    "description" : "Ne doit pas dépasser 45 caractères"
+  },
+  "extensionDescription" : {
+    "message" : "Supprimer le contenu algorithmique de Twitter, masquer les actualités et les tendances, contrôler les tweets partagés qui apparaissent sur votre timeline et améliorer l'interface utilisateur",
+    "description" : "Ne doit pas dépasser 132 caractères"
+  },
+  "extensionDescriptionShort" : {
+    "message" : "Supprimer le contenu algorithmique et les tendances de Twitter, contrôler les tweets partagés sur votre timeline et améliorer l'interface utilisateur",
+    "description" : "Ne doit pas dépasser 112 caractères"
+  },
+  "optionsPageTitle" : {
+    "message" : "Modifier les nouvelles options de Twitter"
+  },
+  "option_ignore" : {
+    "message" : "Ne rien faire",
+    "description" : "Option pour ne pas modifier les fonctionnalités existantes de Twitter - nous n'utilisons pas Ignore pour cela en anglais car cela pourrait être confondu avec Hide"
+  },
+  "option_hide": {
+    "message": "Cacher",
+    "description": "Option pour cacher des choses, par exemple les tweets algorithmiques, les vérifications de Twitter Blue"
+  },
+  "option_separate": {
+    "message": "Afficher dans un onglet séparé",
+    "description": "Option permettant d'afficher les Retweets ou les Tweets cités dans un onglet séparé de la timeline principale"
+  },
+  "unmuteButtonText" : {
+    "message" : "Unmute",
+    "description" : "Bouton utilisé dans la page d'options pour rétablir le son d'un Tweet de citation en sourdine"
+  },
+  "debugCountdownLabel" : {
+    "message" : " (Options de débogage : cliquez sur $DEBUG_COUNTDOWN$ plusieurs fois pour activer)",
+    "description" : "Affiché lorsque l'utilisateur clique plusieurs fois sur le texte d'information à la fin de la section Expériences pour activer le mode de débogage",
+    "placeholders" : {
+      "debug_countdown" : {
+        "content" : "$1",
+        "exemple" : "3"
+      }
+    }
+  },
+  "homeTimelineOptionsLabel" : {
+    " message " : "Contenu algorithmique d'origine"
+  },
+  "reduceEngagementOptionsLabel" : {
+    " message " : "Réduire l'engagement"
+  },
+  "reduceAlgorithmicContentOptionsLabel" : {
+    " message " : "Supprimer le contenu algorithmique"
+  },
+  "alwaysUseLatestTweetsLabel" : {
+    "message" : "Utiliser la chronologie \"Following\" (chronologique) par défaut"
+  },
+  "hideForYouTimelineLabel" : {
+    "message" : "Cacher la chronologie Pour vous (algorithmique)"
+  },
+  "hideSidebarContentLabel" : {
+    "message" : "Masquer les rubriques Quoi de neuf, Vous pourriez aimer, etc, dans la barre latérale"
+  },
+  "showRelevantPeopleLabel" : {
+    "message" : "Afficher Personnes pertinentes lors de l'affichage d'un tweet"
+  },
+  "hideWhoToFollowEtcLabel" : {
+    "message" : "Masquer Qui suivre, Suivre certains sujets, etc. dans la timeline"
+  },
+  "hideExplorePageContentsLabel" : {
+    "message" : "Masquer le contenu de la page Explore et l'utiliser uniquement pour la recherche"
+  },
+  "hideMoreTweetsLabel" : {
+    "message" : "Masquer les tweets de la page Découvrir plus"
+  },
+  "sharedTweetsOptionsLabel" : {
+    "message" : "Tweets partagés par d'autres utilisateurs"
+  },
+  "retweetsLabel" : {
+    "message" : "Retweets"
+  },
+  "quoteTweetsLabel" : {
+    "message" : "Tweets de citation"
+  },
+  "hideUnavailableQuoteTweetsLabel": {
+    "message": "Masquer les tweets citant des comptes que vous avez bloqués ou mis en mute"
+  },
+   "mutableQuoteTweetsLabel" : {
+    "message" : "Désactiver la citation de certains tweets"
+  },
+  "mutableQuoteTweetsInfo": {
+    "message": "Ajoute un élément de menu \"Mettre cette conversation en muté\" pour citer les Tweets",
+    "description": "Les traductions de 'Mettre cette conversation en muté' dans tweak-new-twitter.user.js proviennent des données locales de Twitter"
+  },
+  "algorithmicTweetsOptionsLabel" : {
+    " message " : "Tweets algorithmiques dans la timeline Pour vous"
+  },
+  "algorithmicTweetsWarning" : {
+    "message" : "Remarque : le masquage d'un grand nombre de tweets peut entraîner des problèmes de performances"
+  },
+  "CommunityTweetsLabel" : {
+    "message" : "Tweets de vos communautés"
+  },
+  "followeesFollowsLabel" : {
+    "message" : "Tweets de personnes suivies par des personnes que vous suivez"
+  },
+  "likedTweetsLabel" : {
+    "message" : "Tweets aimés"
+  },
+  "repliedToTweetsLabel" : {
+    "message" : "Reçu de nouvelles réponses"
+  },
+  "suggestedTopicTweetsLabel" : {
+    "message" : "Suggestion de tweets thématiques"
+  },
+  "uiImprovementsOptionsLabel" : {
+    "message" : "Améliorations de l'interface utilisateur"
+  },
+  "uninvertFollowButtonsLabel" : {
+    "message" : "Inverser les boutons Follow / Following"
+  },
+  "followButtonStyleLabel" : {
+    "message" : "Style de bouton"
+  },
+  "followButtonStyleOption_monochrome" : {
+    "message" : "Monochrome"
+  },
+  "followButtonStyleOption_themed" : {
+    "message" : "Thématique"
+  },
+  "navBaseFontSizeLabel" : {
+    "message" : "Utiliser le style de police de texte normal dans la barre de navigation"
+  },
+  "dropdownMenuFontWeightLabel" : {
+    "message" : "Utiliser un poids de police normal dans les menus déroulants"
+  },
+  "fastBlockLabel" : {
+    "message" : "Blocage rapide (ignore la boîte de dialogue de confirmation)"
+  },
+  "addAddMutedWordMenuItemLabel_desktop": {
+    "message": "Ajouter \"Ajouter un mot muté\" au menu \"More\""
+  },
+  "addAddMutedWordMenuItemLabel_mobile" : {
+    "message" : "Ajouter \"Ajouter un mot en sourdine\" au menu déroulant"
+  },
+  "hideVerifiedNotificationsTabLabel" : {
+    "message" : "Masquer l'onglet Vérifié dans les notifications"
+  },
+  "hideViewsLabel" : {
+    "message" : "Masquer les vues sous les tweets"
+  },
+  "hideAppNagsLabel": {
+    "message": "Maquer les messages \"Ouverture application\""
+  },
+  "uiTweaksOptionsLabel" : {
+    "message" : "Améliorations de l'interface utilisateur"
+  },
+  "dontUseChirpFontLabel" : {
+    "message" : "N'utilisez pas la police Chirp"
+  },
+  "twitterBlueChecksLabel" : {
+    "message" : "Coches vérifiées de Twitter Blue"
+  },
+  "twitterBlueChecksOption_replace" : {
+    "message" : "Remplacer par le logo Twitter Blue"
+  },
+  "tweakQuoteTweetsPageLabel" : {
+    "message" : "Masquer le tweet cité lors de l'affichage des Tweets cités"
+  },
+  "hideMetricsLabel" : {
+    "message" : "Masquer les métriques"
+  },
+  "hideAllMetricsLabel" : {
+    "message" : "Masquer tous les paramètres"
+  },
+  "hideReplyMetricsLabel" : {
+    "message" : "Réponses"
+  },
+  "hideRetweetMetricsLabel" : {
+    "message" : "Retweets"
+  },
+  "hideLikeMetricsLabel" : {
+    "message" : "Aime"
+  },
+  "hideQuoteTweetMetricsLabel" : {
+    "message" : "Tweets de citation"
+  },
+  "hideFollowingMetricsLabel" : {
+    "message" : "Suivre / followers"
+  },
+  "hideTotalTweetsMetricsLabel" : {
+    "message" : "Total des tweets"
+  },
+  "hideUnusedUiItemsOptionsLabel" : {
+    "message" : "Masquer les éléments de l'interface utilisateur que vous n'utilisez pas"
+  },
+  "hideAccountSwitcherLabel" : {
+    "message" : "Changement de compte"
+  },
+  "hideMessagesDrawerLabel" : {
+    "message" : "Tiroir des messages"
+  },
+  "hideExploreNavLabel" : {
+    "message" : "Explorer (élément de navigation)"
+  },
+  "hideCommunitiesNavLabel" : {
+    "message" : "Communautés (élément de navigation)"
+  },
+  "hideMessagesBottomNavItemLabel" : {
+    "message" : "Messages (élément de navigation)"
+  },
+  "hideBookmarksNavLabel_desktop" : {
+    "message" : "Signets (élément de navigation)"
+  },
+  "hideTwitterBlueNavLabel_desktop" : {
+    "message" : "Twitter Blue (élément de navigation)"
+  },
+  "hideShareTweetButtonLabel" : {
+    "message" : "Bouton de partage sous les tweets"
+  },
+  "hideTweetAnalyticsLinksLabel" : {
+    "message" : "Liens analytiques sous vos propres tweets"
+  },
+  "hideMoreSlideOutMenuItemsOptionsLabel_desktop" : {
+    "message" : "Masquer les éléments de menu que vous n'utilisez pas"
+  },
+   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
+    "message": "Masquer les éléments inutilisés du menu hamburger"
+  },
+  "hideTwitterBlueNavLabel_mobile": {
+    "message": "Twitter Blue"
+  },
+  "hideTopicsNavLabel" : {
+    "message" : "Sujets"
+  },
+  "hideBookmarksNavLabel_mobile" : {
+    "message" : "Signets"
+  },
+  "hideListsNavLabel" : {
+    "message" : "Listes"
+  },
+  "hideTwitterCircleNavLabel" : {
+    "message" : "Cercle Twitter"
+  },
+  "hideMomentsNavLabel" : {
+    "message" : "Moments"
+  },
+  "hideNewslettersNavLabel" : {
+    "message" : "Newsletters"
+  },
+  "hideAnalyticsNavLabel" : {
+    "message" : "Analytique"
+  },
+  "hideTwitterForProfessionalsNavLabel" : {
+    "message" : "Twitter pour les professionnels"
+  },
+  "hideTwitterAdsNavLabel" : {
+    "message" : "Publicités Twitter"
+  },
+  "hideMonetizationNavLabel" : {
+    "message" : "Monétisation"
+  },
+  "hideHelpCenterNavLabel": {
+    "message": "Centre d'aide"
+  },
+  "hideKeyboardShortcutsNavLabel": {
+    "message": "Raccourcis clavier"
+  },
+  "experimentsOptionsLabel": {
+    "message": "Expériences"
+  },
+  "reducedInteractionModeLabel": {
+    "message": "Mode d'interaction réduit"
+  },
+  "reducedInteractionModeInfo": {
+    "message": "Masquer la barre d'action sous les tweets - les réponses sont désormais le seul moyen d'interagir"
+  },
+  "fullWidthContentLabel": {
+    "message": "Contenu de la timeline en pleine largeur"
+  },
+  "fullWidthContentInfo": {
+    "message": "Masquer la barre latérale et laisser le contenu de la timeline en pleine largeur"
+  },
+  "fullWidthMediaLabel": {
+    "message": "Médias et cartes en pleine largeur"
+  },
+  "verifiedAccountsLabel": {
+    "message": "Comptes vérifiés"
+  },
+  "verifiedAccountsOption_highlight": {
+    "message": "Mise en évidence"
+  },
+  "verifiedAccountsInfo": {
+    "message": "Mettre en évidence les tweets de - ou interagissant avec - les comptes vérifiés, ou les masquer pour simuler les conséquences des piratages de Twitter de juillet 2020"
+  },
+  "disableHomeTimelineLabel": {
+    "message": "Désactiver la timeline d'accueil"
+  },
+  "disableHomeTimelineInfo": {
+    "message": "Vous perdez trop de temps sur Twitter ? Essayez d'empêcher l'utilisation de la timeline d'accueil"
+  },
+  "disabledHomeTimelineRedirectLabel": {
+    "message": "Rediriger la timeline d'accueil vers"
+  },
+  "disabledHomeTimelineRedirectOption_notifications": {
+    "message": "Notifications"
+  },
+  "disabledHomeTimelineRedirectOption_messages": {
+    "message": "Messages"
+  },
+  "debugOptionsLabel": {
+    "message": "Options de débogage (debug)"
+  },
+  "debugLabel": {
+    "message": "Mode de débogage (debug)"
+  },
+  "debugInfo": {
+    "message": "Active la journalisation du débogage et affiche les informations de débogage du tweet dans la ligne de temps"
+  },
+  "exportConfigLabel": {
+    "message": "Exporter la configuration pour un rapport de bug"
+  }
+}
