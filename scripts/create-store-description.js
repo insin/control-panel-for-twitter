@@ -10,6 +10,8 @@ let messages = Object.fromEntries(Object.entries(locale).map(([prop, value]) => 
 let storeDescription
 with (messages) {
   storeDescription = `
+${features}:
+
 ${homeTimelineOptionsLabel}
 
 – ${alwaysUseLatestTweetsLabel}

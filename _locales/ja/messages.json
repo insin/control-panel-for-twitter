@@ -7,6 +7,9 @@
     "message": "アルゴリズムコンテンツを削除し、ニュース・トレンドを非表示にし、共有ツイートを制御してUIを改善します",
     "description": "Must not exceed 112 characters"
   },
+  "features": {
+    "message": "特徴"
+  },
   "option_ignore": {
     "message": "そのまま",
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"

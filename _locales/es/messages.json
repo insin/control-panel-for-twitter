@@ -7,6 +7,9 @@
     "message": "Quita el contenido algorítmico y tendencias en Twitter, controla los tweets compartidos, y mejora la interfaz",
     "description": "Must not exceed 112 characters"
   },
+  "features": {
+    "message": "Características"
+  },
   "option_ignore": {
     "message": "No cambiar",
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
