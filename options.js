@@ -1,4 +1,4 @@
-document.title = chrome.i18n.getMessage(`optionsPageTitle`)
+document.title = chrome.i18n.getMessage(`extensionName`)
 
 for (let optionValue of ['ignore', 'hide', 'separate']) {
   let label = chrome.i18n.getMessage(`option_${optionValue}`)
@@ -120,7 +120,7 @@ if (navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.
 /** @type {import("./types").Config} */
 const defaultConfig = {
   debug: false,
-  // Default based on the platform if Tweak New Twitter hasn't run on Twitter yet
+  // Default based on the platform if the main script hasn't run on Twitter yet
   version: /(Android|iP(ad|hone))/.test(navigator.userAgent) ? 'mobile' : 'desktop',
   // Shared
   addAddMutedWordMenuItem: true,

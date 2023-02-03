@@ -12,7 +12,7 @@ chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ store
   }
   $settings.innerText = JSON.stringify(storedConfig)
   let $main = document.createElement('script')
-  $main.src = chrome.runtime.getURL('tweak-new-twitter.user.js')
+  $main.src = chrome.runtime.getURL('script.js')
   $main.onload = function() {
     this.remove()
   }

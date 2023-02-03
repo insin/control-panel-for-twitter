@@ -1,8 +1,4 @@
 {
-  "extensionName": {
-    "message": "Tweak New Twitter",
-    "description": "Must not exceed 45 characters"
-  },
   "extensionDescription": {
     "message": "アルゴリズムコンテンツを取り除き、ニュースとトレンドを非表示にして、タイムライン上の共有ツイートを制御することで、UIを改善します",
     "description": "Must not exceed 132 characters"
@@ -10,9 +6,6 @@
   "extensionDescriptionShort": {
     "message": "アルゴリズムコンテンツを削除し、ニュース・トレンドを非表示にし、共有ツイートを制御してUIを改善します",
     "description": "Must not exceed 112 characters"
-  },
-  "optionsPageTitle": {
-    "message": "Tweak New Twitter　オプション機能"
   },
   "option_ignore": {
     "message": "そのまま",

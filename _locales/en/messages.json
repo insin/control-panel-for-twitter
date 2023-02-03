@@ -11,9 +11,6 @@
     "message": "Remove algorithmic content & trends from Twitter, control shared tweets on your timeline, and improve the UI",
     "description": "Must not exceed 112 characters"
   },
-  "optionsPageTitle": {
-    "message": "Tweak New Twitter Options"
-  },
   "option_ignore": {
     "message": "Do nothing",
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"

@@ -25,7 +25,7 @@
     }
   ],
   "web_accessible_resources": [
-    "tweak-new-twitter.user.js"
+    "script.js"
   ],
   "options_ui": {
     "browser_style": true,
