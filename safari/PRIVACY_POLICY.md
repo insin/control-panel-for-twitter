@@ -1,6 +1,6 @@
 # Privacy Policy
 
-No data or personal information is collected by Tweak New Twitter.
+No data or personal information is collected by Control Panel for Twitter.
 
 ### Contact
 
