@@ -4,7 +4,7 @@
     "description" : "Ne doit pas dépasser 45 caractères"
   },
   "extensionDescription" : {
-    "message" : "Supprimer le contenu algorithmique de Twitter, masquer les actualités et les tendances, contrôler les tweets partagés qui apparaissent sur votre timeline et améliorer l'interface utilisateur",
+    "message" : "Supprimer le contenu algorithmique de Twitter, masquer les tendances qui apparaissent sur votre timeline et améliorer l'interface utilisateur",
     "description" : "Ne doit pas dépasser 132 caractères"
   },
   "extensionDescriptionShort" : {
