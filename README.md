@@ -53,21 +53,9 @@ New versions can take anything from minutes to days to be approved for publishin
 - Hide "Who to follow", "Follow some Topics" etc. in the Home timeline and elsewhere
 - Full-width timeline: hide the sidebar and let timeline content go full-width on Home, Lists and Communities
 
-### Reduce "engagement"
-
-- Hide Views under tweets
-- Hide metrics
-- Reduced interaction mode: hide the action bar under tweets – replies are now the only means of interacting
-- Disable the home timeline: find yourself [wasting too much time on Twitter](https://world.hey.com/brecht/free-range-tweet-farming-9399f6e5)? Try preventing use of the home timeline, going to Notifications or Messages by default instead
-
-### Remove algorithmic content
-
-- Hide "What's happening", "Topics to follow" etc. in the sidebar
-- Hide Explore page contents and use it only for searching
-- Hide "Discover more" algorithmic tweets when viewing a tweet
-
 ### UI improvements
 
+- Hide Views under tweets
 - Hide the "Verified" tab on the Notifications page
 - Replace Twitter Blue checkmarks with the Blue logo so they're not as easily mistaken for verified accounts, or hide them altogether
 - Add "Add muted word" to the "More" menu (desktop) or slide-out menu (mobile)
@@ -84,6 +72,18 @@ New versions can take anything from minutes to days to be approved for publishin
   - Choice of monochrome or themed (classic) styling for uninverted buttons
 - When viewing a tweet's Quote Tweets, hide the quoted tweet to make more room for quotes
 
+### Remove algorithmic content
+
+- Hide "What's happening", "Topics to follow" etc. in the sidebar
+- Hide Explore page contents and use it only for searching
+- Hide "Discover more" algorithmic tweets when viewing a tweet
+
+### Reduce "engagement"
+
+- Hide metrics
+- Reduced interaction mode: hide the action bar under tweets – replies are now the only means of interacting
+- Disable the home timeline: find yourself [wasting too much time on Twitter](https://world.hey.com/brecht/free-range-tweet-farming-9399f6e5)? Try preventing use of the home timeline, going to Notifications or Messages by default instead
+
 ### Hide UI items you don't use
 
 - Share button under tweets
@@ -92,16 +92,9 @@ New versions can take anything from minutes to days to be approved for publishin
 - Hide the bottom nav items for Communities and Messages on mobile if you don't use them
 - Hide items you don't use in the "More" menu (desktop) or slide-out menu (mobile)
 
-### Experiments
-
-Features which aren't core to Tweak New Twitter, but are there to try:
-
-- Hide algorithmic tweets based on likes, replies, communities, and suggested topics in the "For you" timeline, if you use it - note that using can cause performance issues by hiding large numbers of tweets
-- Verified accounts: highlight tweets by – or interacting with – verified accounts, or hide them to simulate the aftermath of the [July 2020 Twitter hacks](https://en.wikipedia.org/wiki/2020_Twitter_account_hijacking)
-
 ## Screenshots
 
-### Home timeline with all tweaks enabled
+### Home timeline with most tweaks enabled
 
 | Desktop | Mobile |
 | - | - |
@@ -112,6 +105,12 @@ Features which aren't core to Tweak New Twitter, but are there to try:
 | Desktop | Mobile |
 | - | - |
 | ![Screenshot of the separate timeline Tweak New Twitter adds to desktop Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/shared_tweets.png) | ![Screenshot of the separate timeline Tweak New Twitter adds to mobile Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/firefox_android_shared_tweets.jpg) |
+
+### Full-width timeline
+
+| Desktop only |
+| - |
+| ![Screenshot of a Twitter timeline which takes up all the available width in the layout](screenshots/full_width_timeline.png) |
 
 ### Tidied-up menu, with instant access to "Add muted word"
 
@@ -126,10 +125,6 @@ Features which aren't core to Tweak New Twitter, but are there to try:
 | ![Scteenshot of a Twitter timeline with blank spaces where numbers for metrics should be](screenshots/hide_metrics.png) | ![Sceenshot of a mobile Twitter timeline with blank spaces where numbers for metrics should be](screenshots/firefox_android_hide_metrics.jpg) |
 
 ### Uninverted Follow buttons
-
-| Followers page with uninverted buttons |
-| - |
-| ![A Twitter Followers page with white Follow buttons and black Following buttons](screenshots/uninverted_follow_buttons.png) |
 
 | Monochrome | Themed |
 | - | - |
@@ -149,15 +144,17 @@ The quoted tweet is hidden, instead of being duplicated under every quote, leavi
 | - | - |
 | ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on desktop, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/quote_tweets.png) | ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on mobile, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/firefox_android_quote_tweets.jpg) |
 
-### Experimental features
+### Reduced interaction mode
 
-| Reduced interaction mode | Highlight (or hide) verified accounts | Disable the home timeline |
-| - | - | - |
-| ![Screenshot of a Twitter timeline with the action bar below each tweet completely missing](screenshots/reduced_interaction_mode.png) | ![Screenshot of a Twitter timeline with a tweet by a user with a verified badge highlighted](screenshots/highlight_verified_accounts.png) | ![Screenshot of Twitter without the Home navigation item](screenshots/disable_home_timeline.png) |
+| Desktop | Mobile |
+| - | - |
+| ![Screenshot of a Twitter timeline with the action bar below each tweet completely missing](screenshots/reduced_interaction_mode.png) | ![Screenshot of a Twitter timeline in Firefox Nightly with the action bar below each tweet completely missing](screenshots/firefox_android_reduced_interaction_mode.jpg) |
 
-| Full-width timeline |
-| - |
-| ![Screenshot of a Twitter timeline which takes up all the available width in the layout](screenshots/full_width_timeline.png) |
+## Disable the home timeline
+
+| Desktop | Mobile |
+| - | - |
+| ![Screenshot of Twitter without the Home navigation item](screenshots/disable_home_timeline.png) | ![Screenshot of Twitter in Firefox Nightly without the Home navigation item](screenshots/firefox_android_disable_home_timeline.jpg) |
 
 ### Configurable via options popup and the extension options page
 
