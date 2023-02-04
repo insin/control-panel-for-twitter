@@ -178,6 +178,7 @@ As of v2.2, all 48 of the display languages available on Twitter are supported, 
 
 Options are also available in the following languages:
 
+- French (translation by [@THEDARKK](https://github.com/THEDARKK))
 - Japanese (translation by [@MitoKurato](https://github.com/MitoKurato))
 - Spanish (translation by [@rogama25](https://github.com/rogama25))
 

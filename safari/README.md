@@ -71,6 +71,7 @@ The features above support all 48 of the display languages available on Twitter.
 
 The extensions options are also available in the following languages:
 
+- French (translation by [@THEDARKK](https://github.com/THEDARKK))
 - Japanese (translation by [@MitoKurato](https://github.com/MitoKurato))
 - Spanish (translation by [@rogama25](https://github.com/rogama25))
 
