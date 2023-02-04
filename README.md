@@ -6,13 +6,13 @@
 
 ## Install
 
-* [Install Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/)
-  * Can also be installed in [Firefox Nightly](#install-in-firefox-nightly-on-android) on Android
-* [Install Chrome Extension](https://chrome.google.com/webstore/detail/tweak-new-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj)
-  * Can also be installed in Edge, Opera, and Brave on desktop, and [Kiwi Browser](https://play.google.com/store/apps/details?id=com.kiwibrowser.browser) on Android
+* Safari Extension
+
+  [![Download on the App Store](promo/app-store.png)](https://apps.apple.com/app/id1668516167?platform=iphone)
+* [Install Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/) - can also be installed in [Firefox Nightly](#install-in-firefox-nightly-on-android) on Android
+* [Install Chrome Extension](https://chrome.google.com/webstore/detail/tweak-new-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj) - can also be installed in Edge, Opera, and Brave on desktop, and [Kiwi Browser](https://play.google.com/store/apps/details?id=com.kiwibrowser.browser) on Android
 * [Install Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/tweak-new-twitter/foccddlibbeccjiobcnakipdpkjiijjp)
-* [Install as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) (requires a [user script manager](https://greasyfork.org/en#home-step-1))
-  * Compatible with the [Userscripts extension for Safari](https://apps.apple.com/us/app/userscripts/id1463298887)
+* [Install as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) - requires a [user script manager](https://greasyfork.org/en#home-step-1)
 
 ### Install in Firefox Nightly on Android
 
@@ -187,10 +187,6 @@ Options are also available in the following languages:
 ### User script support
 
  [Tweak New Twitter is also available as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) – to change the default options, you'll need to edit the `config` object at the top of the script.
-
-| Tweak New Twitter on Safari using the [Userscripts extension](https://apps.apple.com/us/app/userscripts/id1463298887) |
-| - |
-| ![Screenshot of Tweak New Twitter running on the Userscripts extension for Safari](screenshots/safari.png) |
 
 ## Attribution
 

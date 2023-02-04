@@ -2,7 +2,7 @@
 browser_action.html
 node_modules/
 promo/*.png
-!promo/blue_promo.png
+!promo/app-store.png
 scripts/locales/html/*.html
 scripts/locales/js/_files.txt
 scripts/locales/js/*.js
