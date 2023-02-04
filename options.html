@@ -92,9 +92,7 @@
     </section>
 
     <section class="group labelled">
-      <label id="reduceEngagementOptionsLabel">
-        Reduce "engagement"
-      </label>
+      <label id="uiImprovementsOptionsLabel">UI improvements</label>
       <section class="checkbox">
         <label>
           <span id="hideViewsLabel">Hide Views under tweets</span>
@@ -102,127 +100,6 @@
           <span class="toggle"></span>
         </label>
       </section>
-      <section class="checkbox">
-        <label>
-          <span id="hideMetricsLabel">Hide metrics</span>
-          <input type="checkbox" name="hideMetrics">
-          <span class="toggle"></span>
-        </label>
-        <section class="group hidingMetrics">
-          <label class="checkbox">
-            <span id="hideAllMetricsLabel">Hide all</span>
-            <input type="checkbox" name="hideAllMetrics">
-            <span class="toggle"></span>
-          </label>
-          <section class="checkbox">
-            <label>
-              <span id="hideReplyMetricsLabel">Replies</span>
-              <input type="checkbox" name="hideReplyMetrics">
-              <span class="toggle"></span>
-            </label>
-          </section>
-          <section class="checkbox">
-            <label>
-              <span id="hideRetweetMetricsLabel">Retweets</span>
-              <input type="checkbox" name="hideRetweetMetrics">
-              <span class="toggle"></span>
-            </label>
-          </section>
-          <section class="checkbox">
-            <label>
-              <span id="hideLikeMetricsLabel">Likes</span>
-              <input type="checkbox" name="hideLikeMetrics">
-              <span class="toggle"></span>
-            </label>
-          </section>
-          <section class="checkbox">
-            <label>
-              <span id="hideQuoteTweetMetricsLabel">Quote tweets</span>
-              <input type="checkbox" name="hideQuoteTweetMetrics">
-              <span class="toggle"></span>
-            </label>
-          </section>
-          <section class="checkbox">
-            <label>
-              <span id="hideFollowingMetricsLabel">Following / followers</span>
-              <input type="checkbox" name="hideFollowingMetrics">
-              <span class="toggle"></span>
-            </label>
-          </section>
-          <section class="checkbox">
-            <label>
-              <span id="hideTotalTweetsMetricsLabel">Total tweets</span>
-              <input type="checkbox" name="hideTotalTweetsMetrics">
-              <span class="toggle"></span>
-            </label>
-          </section>
-        </section>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="reducedInteractionModeLabel">Reduced interaction mode</span>
-          <input type="checkbox" name="reducedInteractionMode">
-          <span class="toggle"></span>
-        </label>
-        <p id="reducedInteractionModeInfo">
-          Hide the action bar under tweets &ndash; replies are now the only means of interacting
-        </p>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="disableHomeTimelineLabel">Disable the home timeline</span>
-          <input type="checkbox" name="disableHomeTimeline">
-          <span class="toggle"></span>
-        </label>
-        <p id="disableHomeTimelineInfo">
-          <span>Find yourself wasting too much time on Twitter? Try preventing use of the home timeline</span>
-        </p>
-        <section class="select disabledHomeTimeline">
-          <label>
-            <span id="disabledHomeTimelineRedirectLabel">Redirect home timeline to</span>
-            <select name="disabledHomeTimelineRedirect">
-              <option value="notifications" id="disabledHomeTimelineRedirectOption_notifications">Notifications</option>
-              <option value="messages" id="disabledHomeTimelineRedirectOption_messages">Messages</option>
-            </select>
-          </label>
-        </section>
-      </section>
-    </section>
-
-    <section class="group labelled">
-      <label id="reduceAlgorithmicContentOptionsLabel">Remove algorithmic content</label>
-      <section class="checkbox desktop">
-        <label>
-          <span id="hideSidebarContentLabel">Hide "What's happening", "You might like" etc. in the sidebar</span>
-          <input type="checkbox" name="hideSidebarContent">
-          <span class="toggle"></span>
-        </label>
-        <section class="checkbox hidingSidebarContent">
-          <label>
-            <span id="showRelevantPeopleLabel">Show "Relevant people" when viewing a tweet</span>
-            <input type="checkbox" name="showRelevantPeople">
-            <span class="toggle"></span>
-          </label>
-        </section>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="hideExplorePageContentsLabel">Hide Explore page contents and use it only for searching</span>
-          <input type="checkbox" name="hideExplorePageContents">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="hideMoreTweetsLabel">Hide "Discover more" tweets</span>
-          <input type="checkbox" name="hideMoreTweets">
-          <span class="toggle"></span>
-        </label>
-      </section>
-    </section>
-
-    <section class="group labelled">
-      <label id="uiImprovementsOptionsLabel">UI improvements</label>
       <section class="checkbox">
         <label>
           <span id="hideVerifiedNotificationsTabLabel">Hide "Verified" tab in Notifications</span>
@@ -311,6 +188,130 @@
           <input type="checkbox" name="tweakQuoteTweetsPage">
           <span class="toggle"></span>
         </label>
+      </section>
+    </section>
+
+
+    <section class="group labelled">
+      <label id="reduceAlgorithmicContentOptionsLabel">Remove algorithmic content</label>
+      <section class="checkbox desktop">
+        <label>
+          <span id="hideSidebarContentLabel">Hide "What's happening", "You might like" etc. in the sidebar</span>
+          <input type="checkbox" name="hideSidebarContent">
+          <span class="toggle"></span>
+        </label>
+        <section class="checkbox hidingSidebarContent">
+          <label>
+            <span id="showRelevantPeopleLabel">Show "Relevant people" when viewing a tweet</span>
+            <input type="checkbox" name="showRelevantPeople">
+            <span class="toggle"></span>
+          </label>
+        </section>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="hideExplorePageContentsLabel">Hide Explore page contents and use it only for searching</span>
+          <input type="checkbox" name="hideExplorePageContents">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="hideMoreTweetsLabel">Hide "Discover more" tweets</span>
+          <input type="checkbox" name="hideMoreTweets">
+          <span class="toggle"></span>
+        </label>
+      </section>
+    </section>
+
+    <section class="group labelled">
+      <label id="reduceEngagementOptionsLabel">
+        Reduce "engagement"
+      </label>
+      <section class="checkbox">
+        <label>
+          <span id="hideMetricsLabel">Hide metrics</span>
+          <input type="checkbox" name="hideMetrics">
+          <span class="toggle"></span>
+        </label>
+        <section class="group hidingMetrics">
+          <label class="checkbox">
+            <span id="hideAllMetricsLabel">Hide all</span>
+            <input type="checkbox" name="hideAllMetrics">
+            <span class="toggle"></span>
+          </label>
+          <section class="checkbox">
+            <label>
+              <span id="hideReplyMetricsLabel">Replies</span>
+              <input type="checkbox" name="hideReplyMetrics">
+              <span class="toggle"></span>
+            </label>
+          </section>
+          <section class="checkbox">
+            <label>
+              <span id="hideRetweetMetricsLabel">Retweets</span>
+              <input type="checkbox" name="hideRetweetMetrics">
+              <span class="toggle"></span>
+            </label>
+          </section>
+          <section class="checkbox">
+            <label>
+              <span id="hideLikeMetricsLabel">Likes</span>
+              <input type="checkbox" name="hideLikeMetrics">
+              <span class="toggle"></span>
+            </label>
+          </section>
+          <section class="checkbox">
+            <label>
+              <span id="hideQuoteTweetMetricsLabel">Quote tweets</span>
+              <input type="checkbox" name="hideQuoteTweetMetrics">
+              <span class="toggle"></span>
+            </label>
+          </section>
+          <section class="checkbox">
+            <label>
+              <span id="hideFollowingMetricsLabel">Following / followers</span>
+              <input type="checkbox" name="hideFollowingMetrics">
+              <span class="toggle"></span>
+            </label>
+          </section>
+          <section class="checkbox">
+            <label>
+              <span id="hideTotalTweetsMetricsLabel">Total tweets</span>
+              <input type="checkbox" name="hideTotalTweetsMetrics">
+              <span class="toggle"></span>
+            </label>
+          </section>
+        </section>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="reducedInteractionModeLabel">Reduced interaction mode</span>
+          <input type="checkbox" name="reducedInteractionMode">
+          <span class="toggle"></span>
+        </label>
+        <p id="reducedInteractionModeInfo">
+          Hide the action bar under tweets &ndash; replies are now the only means of interacting
+        </p>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="disableHomeTimelineLabel">Disable the home timeline</span>
+          <input type="checkbox" name="disableHomeTimeline">
+          <span class="toggle"></span>
+        </label>
+        <p id="disableHomeTimelineInfo">
+          <span>Find yourself wasting too much time on Twitter? Try preventing use of the home timeline</span>
+        </p>
+        <section class="select disabledHomeTimeline">
+          <label>
+            <span id="disabledHomeTimelineRedirectLabel">Redirect home timeline to</span>
+            <select name="disabledHomeTimelineRedirect">
+              <option value="notifications" id="disabledHomeTimelineRedirectOption_notifications">Notifications</option>
+              <option value="messages" id="disabledHomeTimelineRedirectOption_messages">Messages</option>
+            </select>
+          </label>
+        </section>
       </section>
     </section>
 
