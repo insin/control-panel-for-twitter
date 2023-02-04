@@ -3,8 +3,8 @@
   "default_locale": "en",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescriptionShort__",
-  "homepage_url": "https://github.com/insin/tweak-new-twitter/",
-  "version": "2.25.2",
+  "homepage_url": "https://github.com/insin/tweak-new-twitter/tree/master/safari/",
+  "version": "3.0.0",
   "icons": {
     "48": "icon48.png",
     "96": "icon96.png",
@@ -30,7 +30,7 @@
         "https://mobile.twitter.com/*"
       ],
       "resources": [
-        "tweak-new-twitter.user.js"
+        "script.js"
       ]
     }
   ],
