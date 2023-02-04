@@ -280,6 +280,10 @@ body.iOS.safari form > section.labelled > label {
   font-size: 75%;
   color: rgb(133,133,135);
 }
+body.iOS.safari form > section.labelled > label + section,
+body.iOS.safari form > section.labelled > label + section.desktop + section {
+  border-top: none;
+}
 body.iOS.safari form > section.labelled > label + p {
   margin-top: 12px;
   margin-left: 0;
