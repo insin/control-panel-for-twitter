@@ -9,29 +9,29 @@
 * Safari Extension for iPhone, iPad and Mac (as "Control Panel for Twitter" due to App Store name restrictions)
 
   [![Download on the App Store](promo/app-store.png)](https://apps.apple.com/app/id1668516167?platform=iphone)
-* [Install Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/) - can also be installed in [Firefox Nightly](#install-in-firefox-nightly-on-android) on Android
+* [Install Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/) - can also be installed in [Firefox Beta](#install-in-firefox-beta-on-android) on Android
 * [Install Chrome Extension](https://chrome.google.com/webstore/detail/tweak-new-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj) - can also be installed in Edge, Opera, and Brave on desktop, and [Kiwi Browser](https://play.google.com/store/apps/details?id=com.kiwibrowser.browser) on Android
 * [Install Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/tweak-new-twitter/foccddlibbeccjiobcnakipdpkjiijjp)
 * [Install as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) - requires a [user script manager](https://greasyfork.org/en#home-step-1)
 
-### Install in Firefox Nightly on Android
+### Install in Firefox Beta on Android
 
 Mozilla Add-ons currently only lets you install a [small, curated list of extensions on Android](https://addons.mozilla.org/en-US/android/), so you'll need to add a Custom Add-on collection which contains Tweak New Twitter by following these steps:
 
-- Install [Firefox Nightly](https://play.google.com/store/apps/details?id=org.mozilla.fenix) on your Android device
-- [Follow these instructions](https://blog.mozilla.org/addons/2020/09/29/expanded-extension-support-in-firefox-for-android-nightly/) to enable Custom Add-on collections:
-  - TL;DR: Settings → About Firefox Nightly → Tap on the Firefox logo 5 times
-- In the "Custom Add-on collection" setting which is now available, enter the following details and tap "OK":
+- Install [Firefox Beta](https://play.google.com/store/apps/details?id=org.mozilla.firefox_beta) on your Android device
+- [Follow these instructions](https://blog.mozilla.org/addons/2020/09/29/expanded-extension-support-in-firefox-for-android-nightly/) to enable Custom Add-on collections, TL;DR:
+  - Settings → About Firefox Beta → Tap on the Firefox logo 5 times
+- In "Custom Add-on collection", which is now available under Advanced settings, enter the following details and tap "OK":
   - 13844640
   - Android-Collection
 
-![Screenshot of what the custom collection to install Tweak New Twitter on Firefox Nightly should look like when correctly configured](screenshots/install_custom_collection.png)
+![Screenshot of what the custom collection to install Tweak New Twitter on Firefox Beta should look like when correctly configured](screenshots/install_custom_collection.png)
 
 <details>
   <summary>
   You'll now be able to install Tweak New Twitter via the Add-ons page.
   </summary>
-  <img src="https://raw.githubusercontent.com/insin/tweak-new-twitter/master/screenshots/install_addons.png" alt="Screenshot of the Add-ons page in Firefox Nightly setting up the Custom Add-on collection with the details above" style="max-width:100%;">
+  <img src="https://raw.githubusercontent.com/insin/tweak-new-twitter/master/screenshots/install_addons.png" alt="Screenshot of the Add-ons page in Firefox Beta setting up the Custom Add-on collection with the details above" style="max-width:100%;">
 </details>
 
 ## Releases / What's New?
@@ -148,19 +148,19 @@ The quoted tweet is hidden, instead of being duplicated under every quote, leavi
 
 | Desktop | Mobile |
 | - | - |
-| ![Screenshot of a Twitter timeline with the action bar below each tweet completely missing](screenshots/reduced_interaction_mode.png) | ![Screenshot of a Twitter timeline in Firefox Nightly with the action bar below each tweet completely missing](screenshots/firefox_android_reduced_interaction_mode.jpg) |
+| ![Screenshot of a Twitter timeline with the action bar below each tweet completely missing](screenshots/reduced_interaction_mode.png) | ![Screenshot of a Twitter timeline in Firefox on Android with the action bar below each tweet completely missing](screenshots/firefox_android_reduced_interaction_mode.jpg) |
 
 ## Disable the home timeline
 
 | Desktop | Mobile |
 | - | - |
-| ![Screenshot of Twitter without the Home navigation item](screenshots/disable_home_timeline.png) | ![Screenshot of Twitter in Firefox Nightly without the Home navigation item](screenshots/firefox_android_disable_home_timeline.jpg) |
+| ![Screenshot of Twitter without the Home navigation item](screenshots/disable_home_timeline.png) | ![Screenshot of Twitter in Firefox on Android without the Home navigation item](screenshots/firefox_android_disable_home_timeline.jpg) |
 
 ### Configurable via options popup and the extension options page
 
 | Desktop | Mobile |
 | - | - |
-| ![Screenshot of the options popup in Firefox on desktop](screenshots/firefox_options_popup.png) | ![Screenshot of the options popup in Firefox Nightly on Android](screenshots/firefox_android_options_popup.jpg) |
+| ![Screenshot of the options popup in Firefox on desktop](screenshots/firefox_options_popup.png) | ![Screenshot of the options popup in Firefox on Android on Android](screenshots/firefox_android_options_popup.jpg) |
 
 ### Other mobile features
 
