@@ -14,56 +14,56 @@ ${features}:
 
 ${homeTimelineOptionsLabel}
 
-– ${alwaysUseLatestTweetsLabel}
-  – ${hideForYouTimelineLabel}
-– ${retweetsLabel}
-  – ${option_separate}
-– ${hideUnavailableQuoteTweetsLabel}
-– ${mutableQuoteTweetsLabel}
-  – ${mutableQuoteTweetsInfo}
-– ${hideWhoToFollowEtcLabel}
-– ${fullWidthContentLabel}
-  – ${fullWidthContentInfo}
+• ${alwaysUseLatestTweetsLabel}
+  • ${hideForYouTimelineLabel}
+• ${retweetsLabel}
+  • ${option_separate}
+• ${hideUnavailableQuoteTweetsLabel}
+• ${mutableQuoteTweetsLabel}
+  • ${mutableQuoteTweetsInfo}
+• ${hideWhoToFollowEtcLabel}
+• ${fullWidthContentLabel}
+  • ${fullWidthContentInfo}
 
 ${uiImprovementsOptionsLabel}
 
-– ${hideViewsLabel}
-– ${hideVerifiedNotificationsTabLabel}
-– ${twitterBlueChecksLabel}
-  – ${twitterBlueChecksOption_replace}
-– ${addAddMutedWordMenuItemLabel_desktop}
-– ${fastBlockLabel}
-– ${navBaseFontSizeLabel}
-– ${dropdownMenuFontWeightLabel}
+• ${hideViewsLabel}
+• ${hideVerifiedNotificationsTabLabel}
+• ${twitterBlueChecksLabel}
+  • ${twitterBlueChecksOption_replace}
+• ${addAddMutedWordMenuItemLabel_desktop}
+• ${fastBlockLabel}
+• ${navBaseFontSizeLabel}
+• ${dropdownMenuFontWeightLabel}
 
 ${uiTweaksOptionsLabel}
 
-– ${dontUseChirpFontLabel}
-– ${uninvertFollowButtonsLabel}
-  – ${followButtonStyleOption_monochrome}
-  – ${followButtonStyleOption_themed}
-– ${tweakQuoteTweetsPageLabel}
+• ${dontUseChirpFontLabel}
+• ${uninvertFollowButtonsLabel}
+  • ${followButtonStyleOption_monochrome}
+  • ${followButtonStyleOption_themed}
+• ${tweakQuoteTweetsPageLabel}
 
 ${reduceAlgorithmicContentOptionsLabel}
 
-– ${hideSidebarContentLabel}
-– ${hideExplorePageContentsLabel}
-– ${hideMoreTweetsLabel}
+• ${hideSidebarContentLabel}
+• ${hideExplorePageContentsLabel}
+• ${hideMoreTweetsLabel}
 
 ${reduceEngagementOptionsLabel}
 
-– ${hideMetricsLabel}
-– ${reducedInteractionModeLabel}
-  – ${reducedInteractionModeInfo}
-– ${disableHomeTimelineLabel}
-  – ${disableHomeTimelineInfo}
+• ${hideMetricsLabel}
+• ${reducedInteractionModeLabel}
+  • ${reducedInteractionModeInfo}
+• ${disableHomeTimelineLabel}
+  • ${disableHomeTimelineInfo}
 
 ${hideUnusedUiItemsOptionsLabel}
 
-– ${hideShareTweetButtonLabel}
-– ${hideAccountSwitcherLabel}
-– ${hideMessagesDrawerLabel}
-– ${hideMoreSlideOutMenuItemsOptionsLabel_desktop}
+• ${hideShareTweetButtonLabel}
+• ${hideAccountSwitcherLabel}
+• ${hideMessagesDrawerLabel}
+• ${hideMoreSlideOutMenuItemsOptionsLabel_desktop}
   `
 }
 
@@ -72,11 +72,11 @@ if (process.argv[3] == 'html') {
   //     are used in the template string above.
   storeDescription = storeDescription.trim()
     // 2 nested items
-    .replace(/^– ([^\n]+)\n  – ([^\n]+)\n  – ([^\n]+)/gm, '<li>$1<ul>\n<li>$2</li>\n<li>$3</li></ul></li>')
+    .replace(/^• ([^\n]+)\n  • ([^\n]+)\n  • ([^\n]+)/gm, '<li>$1<ul>\n<li>$2</li>\n<li>$3</li></ul></li>')
     // 1 nested item
-    .replace(/^– ([^\n]+)\n  – ([^\n]+)/gm, '<li>$1<ul>\n<li>$2</li></ul></li>')
+    .replace(/^• ([^\n]+)\n  • ([^\n]+)/gm, '<li>$1<ul>\n<li>$2</li></ul></li>')
     // No nested items
-    .replace(/^– ([^\n]+)/gm, '<li>$1</li>')
+    .replace(/^• ([^\n]+)/gm, '<li>$1</li>')
     // Section titles
     .replace(/^([^\n<][^\n]+)\n\n/gm, '<strong>$1</strong>\n<ul>\n')
     // Remaining empty lines
@@ -84,4 +84,4 @@ if (process.argv[3] == 'html') {
     .replace(/$/, '\n</ul>')
 }
 
-console.log(storeDescription)
+console.log(storeDescription + '\nTWITTER, TWEET and RETWEET are trademarks of Twitter Inc. or its affiliates')
