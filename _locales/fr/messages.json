@@ -1,4 +1,7 @@
 {
+  "extensionName": {
+    "message": "Tweak New Twitter"
+  },
   "extensionDescription": {
     "message": "Supprimer contenu algorithmique, masquer actualités & tendances, contrôler tweets sur timeline & améliorer interface utilisateur",
     "description": "Ne doit pas dépasser 132 caractères"

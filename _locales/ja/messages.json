@@ -1,4 +1,7 @@
 {
+  "extensionName": {
+    "message": "Tweak New Twitter"
+  },
   "extensionDescription": {
     "message": "アルゴリズムコンテンツを取り除き、ニュースとトレンドを非表示にして、タイムライン上の共有ツイートを制御することで、UIを改善します",
     "description": "Must not exceed 132 characters"

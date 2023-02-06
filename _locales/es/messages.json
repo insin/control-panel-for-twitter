@@ -1,4 +1,7 @@
 {
+  "extensionName": {
+    "message": "Tweak New Twitter"
+  },
   "extensionDescription": {
     "message": "Quita el contenido algorítmico, elimina noticias y tendencias, controla los tweets compartidos que te aparecen, y mejora la interfaz",
     "description": "Must not exceed 132 characters"
