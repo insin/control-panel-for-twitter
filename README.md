@@ -6,7 +6,7 @@
 
 ## Install
 
-* Safari Extension
+* Safari Extension for iPhone, iPad and Mac (as "Control Panel for Twitter" due to App Store name restrictions)
 
   [![Download on the App Store](promo/app-store.png)](https://apps.apple.com/app/id1668516167?platform=iphone)
 * [Install Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/) - can also be installed in [Firefox Nightly](#install-in-firefox-nightly-on-android) on Android

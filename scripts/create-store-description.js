@@ -25,23 +25,9 @@ ${homeTimelineOptionsLabel}
 – ${fullWidthContentLabel}
   – ${fullWidthContentInfo}
 
-${reduceEngagementOptionsLabel}
-
-– ${hideViewsLabel}
-– ${hideMetricsLabel}
-– ${reducedInteractionModeLabel}
-  – ${reducedInteractionModeInfo}
-– ${disableHomeTimelineLabel}
-  – ${disableHomeTimelineInfo}
-
-${reduceAlgorithmicContentOptionsLabel}
-
-– ${hideSidebarContentLabel}
-– ${hideExplorePageContentsLabel}
-– ${hideMoreTweetsLabel}
-
 ${uiImprovementsOptionsLabel}
 
+– ${hideViewsLabel}
 – ${hideVerifiedNotificationsTabLabel}
 – ${twitterBlueChecksLabel}
   – ${twitterBlueChecksOption_replace}
@@ -58,19 +44,26 @@ ${uiTweaksOptionsLabel}
   – ${followButtonStyleOption_themed}
 – ${tweakQuoteTweetsPageLabel}
 
+${reduceAlgorithmicContentOptionsLabel}
+
+– ${hideSidebarContentLabel}
+– ${hideExplorePageContentsLabel}
+– ${hideMoreTweetsLabel}
+
+${reduceEngagementOptionsLabel}
+
+– ${hideMetricsLabel}
+– ${reducedInteractionModeLabel}
+  – ${reducedInteractionModeInfo}
+– ${disableHomeTimelineLabel}
+  – ${disableHomeTimelineInfo}
+
 ${hideUnusedUiItemsOptionsLabel}
 
 – ${hideShareTweetButtonLabel}
 – ${hideAccountSwitcherLabel}
 – ${hideMessagesDrawerLabel}
 – ${hideMoreSlideOutMenuItemsOptionsLabel_desktop}
-
-${experimentsOptionsLabel}
-
-– ${algorithmicTweetsOptionsLabel}
-  – ${option_hide}
-– ${verifiedAccountsLabel}
-  – ${verifiedAccountsInfo}
   `
 }
 
