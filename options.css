@@ -67,6 +67,7 @@ select {
 
 input[type=checkbox] {
   margin-left: 12px;
+  flex-shrink: 0;
 }
 
 section.group > label:not(.checkbox) {
