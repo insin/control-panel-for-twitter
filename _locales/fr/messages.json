@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "Tweak New Twitter"
+    "message": "Control Panel for Twitter"
   },
   "extensionDescription": {
     "message": "Supprimer contenu algorithmique, masquer actualités & tendances, contrôler tweets sur timeline & améliorer interface utilisateur",
@@ -86,7 +86,7 @@
   },
   "mutableQuoteTweetsInfo": {
     "message": "Ajoute un élément de menu \"Mettre cette conversation en muté\" pour citer les Tweets",
-    "description": "Les traductions de 'Mettre cette conversation en muté' dans tweak-new-twitter.user.js proviennent des données locales de Twitter"
+    "description": "Les traductions de 'Mettre cette conversation en muté' dans script.js proviennent des données locales de Twitter"
   },
   "algorithmicTweetsOptionsLabel": {
     "message": "Tweets algorithmiques dans la timeline Pour vous"

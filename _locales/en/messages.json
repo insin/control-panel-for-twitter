@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "Tweak New Twitter",
+    "message": "Control Panel for Twitter",
     "description": "Must not exceed 45 characters"
   },
   "extensionDescription": {
@@ -87,7 +87,7 @@
   },
   "mutableQuoteTweetsInfo": {
     "message": "Adds a \"Mute this conversation\" menu item to Quote Tweets",
-    "description": "The translations for 'Mute this conversation' in tweak-new-twitter.user.js are from Twitter's own locale data"
+    "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
   },
   "algorithmicTweetsOptionsLabel": {
     "message": "Algorithmic tweets in the \"For you\" timeline"

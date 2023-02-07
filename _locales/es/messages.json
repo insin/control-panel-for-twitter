@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "Tweak New Twitter"
+    "message": "Control Panel for Twitter"
   },
   "extensionDescription": {
     "message": "Quita el contenido algorítmico, elimina noticias y tendencias, controla los tweets compartidos que te aparecen, y mejora la interfaz",
@@ -86,7 +86,7 @@
   },
   "mutableQuoteTweetsInfo": {
     "message": "Añade la opción \"Silenciar esta conversación\" en el menú de los citados",
-    "description": "The translations for 'Mute this conversation' in tweak-new-twitter.user.js are from Twitter's own locale data"
+    "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
   },
   "algorithmicTweetsOptionsLabel": {
     "message": "Tweets algorítmicos en la timeline \"Para ti\""

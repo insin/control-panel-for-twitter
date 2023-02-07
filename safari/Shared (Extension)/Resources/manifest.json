@@ -3,7 +3,7 @@
   "default_locale": "en",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescriptionShort__",
-  "homepage_url": "https://github.com/insin/tweak-new-twitter/tree/master/safari/",
+  "homepage_url": "https://github.com/insin/control-panel-for-twitter/",
   "version": "3.1.0",
   "icons": {
     "48": "icon48.png",

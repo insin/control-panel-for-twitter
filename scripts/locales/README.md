@@ -10,8 +10,8 @@ node create-js-curl-config.js
 (cd js && curl -K _files.txt)
 ```
 
-### Create locale object for tweak-new-twitter.user.js
+### Create locale object for script.js
 
 Run `node create-locales.js` to create `locales.js`.
 
-Open it, save to format it with Prettier, then use its contents to update `tweak-new-twitter.user.js`.
+Open it, save to format it with Prettier, then use its contents to update `script.js`.

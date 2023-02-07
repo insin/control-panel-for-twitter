@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name        Tweak New Twitter
+// @name        Control Panel for Twitter
 // @description Remove algorithmic content from Twitter, hide news & trends, control which shared tweets appear on your timeline, and improve the UI
-// @icon        https://raw.githubusercontent.com/insin/tweak-new-twitter/master/icons/icon32.png
-// @namespace   https://github.com/insin/tweak-new-twitter/
+// @icon        https://raw.githubusercontent.com/insin/control-panel-for-twitter/master/icons/icon32.png
+// @namespace   https://github.com/insin/control-panel-for-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
 // @version     95
@@ -914,7 +914,7 @@ function shouldHideSidebar() {
  */
 function addStyle(role) {
   let $style = document.createElement('style')
-  $style.dataset.insertedBy = 'tweak-new-twitter'
+  $style.dataset.insertedBy = 'control-panel-for-twitter'
   $style.dataset.role = role
   document.head.appendChild($style)
   return $style

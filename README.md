@@ -1,22 +1,22 @@
-# Tweak New Twitter
+# Control Panel for Twitter
 
 ![](icons/icon128.png)
 
-**Tweak New Twitter is a browser extension which removes algorithmic content from Twitter, hides news and trends, lets you control which shared tweets appear on your timeline, and adds other UI improvements**
+**Control Panel for Twitter is a browser extension which removes algorithmic content from Twitter, hides news and trends, lets you control which shared tweets appear on your timeline, and adds other UI improvements**
 
 ## Install
 
-* Safari Extension for iPhone, iPad and Mac (as "Control Panel for Twitter" due to App Store name restrictions)
+* Safari Extension for iPhone, iPad and Mac
 
   [![Download on the App Store](promo/app-store.png)](https://apps.apple.com/app/id1668516167?platform=iphone)
-* [Install Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/tweak-new-twitter/) - can also be installed in [Firefox Beta](#install-in-firefox-beta-on-android) on Android
-* [Install Chrome Extension](https://chrome.google.com/webstore/detail/tweak-new-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj) - can also be installed in Edge, Opera, and Brave on desktop, and [Kiwi Browser](https://play.google.com/store/apps/details?id=com.kiwibrowser.browser) on Android
-* [Install Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/tweak-new-twitter/foccddlibbeccjiobcnakipdpkjiijjp)
-* [Install as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) - requires a [user script manager](https://greasyfork.org/en#home-step-1)
+* [Install Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/control-panel-for-twitter/) - can also be installed in [Firefox Beta](#install-in-firefox-beta-on-android) on Android
+* [Install Chrome Extension](https://chrome.google.com/webstore/detail/control-panel-for-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj) - can also be installed in Edge, Opera, and Brave on desktop, and [Kiwi Browser](https://play.google.com/store/apps/details?id=com.kiwibrowser.browser) on Android
+* [Install Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/control-panel-for-twitter/foccddlibbeccjiobcnakipdpkjiijjp)
+* [Install as a user script](https://greasyfork.org/en/scripts/387773-control-panel-for-twitter) - requires a [user script manager](https://greasyfork.org/en#home-step-1)
 
 ### Install in Firefox Beta on Android
 
-Mozilla Add-ons currently only lets you install a [small, curated list of extensions on Android](https://addons.mozilla.org/en-US/android/), so you'll need to add a Custom Add-on collection which contains Tweak New Twitter by following these steps:
+Mozilla Add-ons currently only lets you install a [small, curated list of extensions on Android](https://addons.mozilla.org/en-US/android/), so you'll need to add a Custom Add-on collection which contains Control Panel for Twitter by following these steps:
 
 - Install [Firefox Beta](https://play.google.com/store/apps/details?id=org.mozilla.firefox_beta) on your Android device
 - [Follow these instructions](https://blog.mozilla.org/addons/2020/09/29/expanded-extension-support-in-firefox-for-android-nightly/) to enable Custom Add-on collections, TL;DR:
@@ -25,18 +25,18 @@ Mozilla Add-ons currently only lets you install a [small, curated list of extens
   - 13844640
   - Android-Collection
 
-![Screenshot of what the custom collection to install Tweak New Twitter on Firefox Beta should look like when correctly configured](screenshots/install_custom_collection.png)
+![Screenshot of what the custom collection to install Control Panel for Twitter on Firefox Beta should look like when correctly configured](screenshots/install_custom_collection.png)
 
 <details>
   <summary>
-  You'll now be able to install Tweak New Twitter via the Add-ons page.
+  You'll now be able to install Control Panel for Twitter via the Add-ons page.
   </summary>
-  <img src="https://raw.githubusercontent.com/insin/tweak-new-twitter/master/screenshots/install_addons.png" alt="Screenshot of the Add-ons page in Firefox Beta setting up the Custom Add-on collection with the details above" style="max-width:100%;">
+  <img src="https://raw.githubusercontent.com/insin/control-panel-for-twitter/master/screenshots/install_addons.png" alt="Screenshot of the Add-ons page in Firefox Beta setting up the Custom Add-on collection with the details above" style="max-width:100%;">
 </details>
 
 ## Releases / What's New?
 
-The [Tweak New Twitter Releases page](https://github.com/insin/tweak-new-twitter/releases) highlights new features, changes and fixes in each version, and shows which version is currently published on each of the browser extension stores.
+The [Control Panel for Twitter Releases page](https://github.com/insin/control-panel-for-twitter/releases) highlights new features, changes and fixes in each version, and shows which version is currently published on each of the browser extension stores.
 
 New versions can take anything from minutes to days to be approved for publishing after they're submitted to a browser extension store.
 
@@ -104,7 +104,7 @@ New versions can take anything from minutes to days to be approved for publishin
 
 | Desktop | Mobile |
 | - | - |
-| ![Screenshot of the separate timeline Tweak New Twitter adds to desktop Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/shared_tweets.png) | ![Screenshot of the separate timeline Tweak New Twitter adds to mobile Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/firefox_android_shared_tweets.jpg) |
+| ![Screenshot of the separate timeline Control Panel for Twitter adds to desktop Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/shared_tweets.png) | ![Screenshot of the separate timeline Control Panel for Twitter adds to mobile Twitter, configured to separate Retweets from the rest of the home timeline](screenshots/firefox_android_shared_tweets.jpg) |
 
 ### Full-width timeline
 
@@ -142,7 +142,7 @@ The quoted tweet is hidden, instead of being duplicated under every quote, leavi
 
 | Desktop | Mobile |
 | - | - |
-| ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on desktop, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/quote_tweets.png) | ![Screenshot of the improvements Tweak New Twitter makes to Quote Tweet pages on mobile, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/firefox_android_quote_tweets.jpg) |
+| ![Screenshot of the improvements Control Panel for Twitter makes to Quote Tweet pages on desktop, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/quote_tweets.png) | ![Screenshot of the improvements Control Panel for Twitter makes to Quote Tweet pages on mobile, showing quote content only instead of repeating the quoted tweet in every tweet](screenshots/firefox_android_quote_tweets.jpg) |
 
 ### Reduced interaction mode
 
@@ -174,7 +174,7 @@ As of v2.2, all 48 of the display languages available on Twitter are supported, 
 
 | Gaeilge (Irish) | 日本語 (Japanese) | العربية (Arabic) |
 | - | - | - |
-| ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, as Gaeilge](screenshots/irish.png) | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, in Japanese](screenshots/japanese.png) | ![Screenshot of a desktop Twitter home timeline using Tweak New Twitter, in Arabic](screenshots/arabic.png) |
+| ![Screenshot of a desktop Twitter home timeline using Control Panel for Twitter, as Gaeilge](screenshots/irish.png) | ![Screenshot of a desktop Twitter home timeline using Control Panel for Twitter, in Japanese](screenshots/japanese.png) | ![Screenshot of a desktop Twitter home timeline using Control Panel for Twitter, in Arabic](screenshots/arabic.png) |
 
 Options are also available in the following languages:
 
@@ -184,7 +184,7 @@ Options are also available in the following languages:
 
 ### User script support
 
- [Tweak New Twitter is also available as a user script](https://greasyfork.org/en/scripts/387773-tweak-new-twitter) – to change the default options, you'll need to edit the `config` object at the top of the script.
+ [Control Panel for Twitter is also available as a user script](https://greasyfork.org/en/scripts/387773-control-panel-for-twitter) – to change the default options, you'll need to edit the `config` object at the top of the script.
 
 ## Attribution
 

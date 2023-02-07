@@ -1,4 +1,4 @@
-tweak-new-twitter.user.js includes the dedent() function from https://github.com/victornpb/tiny-dedent
+script.js includes the dedent() function from https://github.com/victornpb/tiny-dedent
 
 MIT License
 
