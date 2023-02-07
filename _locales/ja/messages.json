@@ -55,7 +55,7 @@
     "message": "アルゴリズムによる「おすすめ」を非表示"
   },
   "hideSidebarContentLabel": {
-    "message": "スライドバーの「今どうしてる？」「おすすめトレンド」等を非表示"
+    "message": "サイドバーの「今どうしてる？」「おすすめトレンド」等を非表示"
   },
   "showRelevantPeopleLabel": {
     "message": "ツイート閲覧時に「おすすめユーザー」を表示する"
@@ -64,7 +64,7 @@
     "message": "タイムラインの「おすすめユーザー」「おすすめトピック」を非表示"
   },
   "hideExplorePageContentsLabel": {
-    "message": "Exploreページの内容を非表示（検索のみに使用する）"
+    "message": "「話題を検索」ページの内容を非表示（検索のみに使用する）"
   },
   "hideMoreTweetsLabel": {
     "message": "ツイートの「もっと見る」を非表示"
@@ -89,7 +89,7 @@
     "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
   },
   "algorithmicTweetsOptionsLabel": {
-    "message": "タイムライン上のアルゴリズムによる「おすすめ」を非表示"
+    "message": "「おすすめ」タイムラインのアルゴリズムツイートを非表示"
   },
   "algorithmicTweetsWarning": {
     "message": "注意：大量のツイートを非表示にするとパフォーマンスが低下するおそれがあります"
@@ -125,10 +125,10 @@
     "message": "テーマ"
   },
   "navBaseFontSizeLabel": {
-    "message": "ナビゲーションバーを通常のテキストフォント形式にする"
+    "message": "ナビゲーションバーを通常のフォントサイズにする"
   },
   "dropdownMenuFontWeightLabel": {
-    "message": "ドロップダウンメニューを通常のフォント太さにする"
+    "message": "ドロップダウンメニューを通常のフォントの太さにする"
   },
   "fastBlockLabel": {
     "message": "即ブロック（確認画面をスキップする）"
@@ -164,22 +164,22 @@
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"
   },
   "hideMetricsLabel": {
-    "message": "マトリクスを非表示"
+    "message": "メトリクスを非表示"
   },
   "hideAllMetricsLabel": {
     "message": "すべて非表示"
   },
   "hideReplyMetricsLabel": {
-    "message": "返信"
+    "message": "返信件数"
   },
   "hideRetweetMetricsLabel": {
-    "message": "リツイート"
+    "message": "リツイート件数"
   },
   "hideLikeMetricsLabel": {
-    "message": "いいね"
+    "message": "いいね件数"
   },
   "hideQuoteTweetMetricsLabel": {
-    "message": "引用ツイート"
+    "message": "引用ツイート件数"
   },
   "hideFollowingMetricsLabel": {
     "message": "フォロー／フォロワー"
@@ -194,10 +194,10 @@
     "message": "アカウントの切り替え"
   },
   "hideMessagesDrawerLabel": {
-    "message": "メッセージ入力"
+    "message": "メッセージドロワー"
   },
   "hideExploreNavLabel": {
-    "message": "Explore（ナビゲーション項目）"
+    "message": "「話題を検索」（ナビゲーション項目）"
   },
   "hideCommunitiesNavLabel": {
     "message": "コミュニティ（ナビゲーション項目）"
