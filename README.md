@@ -9,10 +9,10 @@
 * Safari Extension for iPhone, iPad and Mac
 
   [![Download on the App Store](promo/app-store.png)](https://apps.apple.com/app/id1668516167?platform=iphone)
-* [Install Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/control-panel-for-twitter/) - can also be installed in [Firefox Beta](#install-in-firefox-beta-on-android) on Android
-* [Install Chrome Extension](https://chrome.google.com/webstore/detail/control-panel-for-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj) - can also be installed in Edge, Opera, and Brave on desktop, and [Kiwi Browser](https://play.google.com/store/apps/details?id=com.kiwibrowser.browser) on Android
-* [Install Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/control-panel-for-twitter/foccddlibbeccjiobcnakipdpkjiijjp)
-* [Install as a user script](https://greasyfork.org/en/scripts/387773-control-panel-for-twitter) - requires a [user script manager](https://greasyfork.org/en#home-step-1)
+* [Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/control-panel-for-twitter/) - can also be installed in [Firefox Beta](#install-in-firefox-beta-on-android) on Android
+* [Chrome Extension](https://chrome.google.com/webstore/detail/control-panel-for-twitter/kpmjjdhbcfebfjgdnpjagcndoelnidfj) - can also be installed in Edge, Opera, and Brave on desktop, and [Kiwi Browser](https://play.google.com/store/apps/details?id=com.kiwibrowser.browser) on Android
+* [Edge Add-on](https://microsoftedge.microsoft.com/addons/detail/control-panel-for-twitter/foccddlibbeccjiobcnakipdpkjiijjp)
+* [User script version](https://greasyfork.org/en/scripts/387773-control-panel-for-twitter) - requires a [user script manager](https://greasyfork.org/en#home-step-1)
 
 ### Install in Firefox Beta on Android
 
