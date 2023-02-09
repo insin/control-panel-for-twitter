@@ -160,7 +160,7 @@ The quoted tweet is hidden, instead of being duplicated under every quote, leavi
 
 | Desktop | Mobile |
 | - | - |
-| ![Screenshot of the options popup in Firefox on desktop](screenshots/firefox_options_popup.png) | ![Screenshot of the options popup in Firefox on Android on Android](screenshots/firefox_android_options_popup.jpg) |
+| ![Screenshot of the options popup in Chrome on desktop](screenshots/options_popup.png) | ![Screenshot of the options popup in Firefox on Android on Android](screenshots/firefox_android_options_popup.jpg) |
 
 ### Other mobile features
 
