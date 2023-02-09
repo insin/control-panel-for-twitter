@@ -2,12 +2,11 @@
 
 [![](./Shared%20%28App%29/Assets.xcassets/AppIcon.appiconset/appicon128.png)](https://apps.apple.com/app/id1668516167?platform=iphone)
 
-**Control Panel for Twitter is a Safari extension for iPhone, iPad and Mac which removes algorithmic content from Twitter, hides news and trends, lets you control which shared tweets appear on your timeline, and adds other UI improvements**
+**Control Panel for Twitter is a Safari extension for iPhone, iPad and Mac which gives you more control over Twitter and adds missing features and UI improvements**
 
 [![Download on the App Store](../promo/app-store.png)](https://apps.apple.com/app/id1668516167?platform=iphone)
 
 ## Features
-
 
 ### Home timeline
 

@@ -3,12 +3,12 @@
     "message": "Control Panel for Twitter"
   },
   "extensionDescription": {
-    "message": "アルゴリズムコンテンツを取り除き、ニュースとトレンドを非表示にして、タイムライン上の共有ツイートを制御することで、UIを改善します",
-    "description": "Must not exceed 132 characters"
+    "message": "Twitter をより細かく制御し、不足している機能を追加して UI を改善します",
+    "description": "<= 132 characters"
   },
   "extensionDescriptionShort": {
-    "message": "アルゴリズムコンテンツを削除し、ニュース・トレンドを非表示にし、共有ツイートを制御してUIを改善します",
-    "description": "Must not exceed 112 characters"
+    "message": "Twitter をより細かく制御し、不足している機能を追加して UI を改善します",
+    "description": "<= 112 characters"
   },
   "features": {
     "message": "特徴"

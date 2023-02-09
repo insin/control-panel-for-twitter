@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        Control Panel for Twitter
-// @description Remove algorithmic content from Twitter, hide news & trends, control which shared tweets appear on your timeline, and improve the UI
+// @description Gives you more control over Twitter and adds missing features and UI improvements
 // @icon        https://raw.githubusercontent.com/insin/control-panel-for-twitter/master/icons/icon32.png
 // @namespace   https://github.com/insin/control-panel-for-twitter/
 // @match       https://twitter.com/*

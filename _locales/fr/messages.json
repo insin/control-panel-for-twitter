@@ -3,12 +3,12 @@
     "message": "Control Panel for Twitter"
   },
   "extensionDescription": {
-    "message": "Supprimer contenu algorithmique, masquer actualités & tendances, contrôler tweets sur timeline & améliorer interface utilisateur",
-    "description": "Ne doit pas dépasser 132 caractères"
+    "message": "Vous donne plus de contrôle sur Twitter et ajoute des fonctionnalités manquantes et des améliorations de l'interface utilisateur",
+    "description": "<= 132 caractères"
   },
   "extensionDescriptionShort": {
-    "message": "Supprimez l'algo Twitter, masquez les tendances, améliorez l'interface",
-    "description": "Ne doit pas dépasser 112 caractères"
+    "message": "Donne plus de contrôle sur Twitter, ajoute des fonctionnalités manquantes, améliore l'interface utilisateur",
+    "description": "<= 112 caractères"
   },
   "features": {
     "message": "Fonctionnalités"

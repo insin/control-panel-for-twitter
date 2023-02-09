@@ -2,7 +2,7 @@
 
 ![](icons/icon128.png)
 
-**Control Panel for Twitter is a browser extension which removes algorithmic content from Twitter, hides news and trends, lets you control which shared tweets appear on your timeline, and adds other UI improvements**
+**Control Panel for Twitter is a browser extension which gives you more control over Twitter and adds missing features and UI improvements**
 
 ## Install
 
