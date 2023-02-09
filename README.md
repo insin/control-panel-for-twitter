@@ -6,7 +6,7 @@
 
 ## Install
 
-* Safari Extension for iPhone, iPad and Mac
+* [Safari Extension](https://apps.apple.com/app/id1668516167?platform=iphone) - for iPhone, iPad and Mac
 
   [![Download on the App Store](promo/app-store.png)](https://apps.apple.com/app/id1668516167?platform=iphone)
 * [Firefox Extension](https://addons.mozilla.org/en-US/firefox/addon/control-panel-for-twitter/) - can also be installed in [Firefox Beta](#install-in-firefox-beta-on-android) on Android
