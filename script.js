@@ -1042,7 +1042,7 @@ function getElement(selector, {
 
 function log(...args) {
   if (debug) {
-    console.log(`🧨${currentPage ? `(${
+    console.log(`${currentPage ? `(${
       currentPage.length < 70 ? currentPage : currentPage.slice(0, 70) + '…'
     })` : ''}`, ...args)
   }
@@ -1050,7 +1050,7 @@ function log(...args) {
 
 function warn(...args) {
   if (debug) {
-    console.log(`⚠ ${currentPage ? `(${currentPage})` : ''}`, ...args)
+    console.log(`❗ ${currentPage ? `(${currentPage})` : ''}`, ...args)
   }
 }
 
