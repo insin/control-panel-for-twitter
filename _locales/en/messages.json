@@ -1,6 +1,6 @@
 {
   "extensionName": {
-    "message": "Control Panel for Twitter",
+    "message": "Control Panel for Twitter"
   },
   "extensionDescription": {
     "message": "Gives you more control over Twitter and adds missing features and UI improvements",
@@ -123,6 +123,9 @@
   },
   "followButtonStyleOption_themed": {
     "message": "Themed"
+  },
+  "defaultToLatestSearchLabel": {
+    "message": "Default to \"Latest\" tab in Search"
   },
   "navBaseFontSizeLabel": {
     "message": "Use normal text font style in navigation bar"

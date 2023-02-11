@@ -124,6 +124,9 @@
   "followButtonStyleOption_themed": {
     "message": "Thématique"
   },
+  "defaultToLatestSearchLabel": {
+    "message": "Par défaut, utilisez l'onglet \"Récent\" dans Chercher"
+  },
   "navBaseFontSizeLabel": {
     "message": "Utiliser le style de police de texte normal dans la barre de navigation"
   },

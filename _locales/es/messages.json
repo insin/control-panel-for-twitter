@@ -124,6 +124,9 @@
   "followButtonStyleOption_themed": {
     "message": "Tematizados"
   },
+  "defaultToLatestSearchLabel": {
+    "message": "Por defecto a \"Más reciente\" en Buscar"
+  },
   "navBaseFontSizeLabel": {
     "message": "Usar el estilo de fuente normal en la barra de navegación"
   },

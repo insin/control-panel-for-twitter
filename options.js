@@ -35,6 +35,7 @@ for (let translationId of [
   'followButtonStyleLabel',
   'followButtonStyleOption_monochrome',
   'followButtonStyleOption_themed',
+  'defaultToLatestSearchLabel',
   'navBaseFontSizeLabel',
   'dropdownMenuFontWeightLabel',
   'fastBlockLabel',
@@ -125,6 +126,7 @@ const defaultConfig = {
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
+  defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
   dontUseChirpFont: false,

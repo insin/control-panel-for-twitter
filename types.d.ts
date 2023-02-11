@@ -5,9 +5,10 @@ export type Config = {
   version?: 'desktop' | 'mobile'
   // Shared
   addAddMutedWordMenuItem: boolean
-  // XXX This is now more like "prefer chronological timeline by default"
+  // XXX This is now more like "use Following tab by default"
   alwaysUseLatestTweets: boolean
   communityTweets: AlgorithmicTweetsConfig
+  defaultToLatestSearch: boolean
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
   fastBlock: boolean

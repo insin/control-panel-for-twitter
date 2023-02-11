@@ -124,6 +124,9 @@
   "followButtonStyleOption_themed": {
     "message": "テーマ"
   },
+  "defaultToLatestSearchLabel": {
+    "message": "検索のデフォルトは「最新」タブ"
+  },
   "navBaseFontSizeLabel": {
     "message": "ナビゲーションバーを通常のフォントサイズにする"
   },

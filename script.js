@@ -32,6 +32,7 @@ const config = {
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
+  defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
   dontUseChirpFont: false,
@@ -2948,6 +2949,13 @@ function onTitleChange(title) {
     return
   }
 
+  // Search terms are shown in the title
+  if (currentPath == PagePaths.SEARCH && location.pathname == PagePaths.SEARCH) {
+    log('ignoring title change on Search page')
+    currentNotificationCount = notificationCount
+    return
+  }
+
   // On desktop, stay on the separated tweets timeline when…
   if (desktop && currentPage == separatedTweetsTimelineTitle &&
       // …the title has changed back to the main timeline…
@@ -3552,6 +3560,19 @@ function tweakQuoteTweetsPage() {
 }
 
 function tweakSearchPage() {
+  let $searchTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav`)
+  if ($searchTabs != null) {
+    if (config.defaultToLatestSearch) {
+      let isTopTabSelected = Boolean($searchTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a[aria-selected="true"]'))
+      if (isTopTabSelected) {
+        log('switching to Latest tab')
+        $searchTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a')?.click()
+      }
+    }
+  } else {
+    warn('could not find Search tabs')
+  }
+
   observeTimeline(currentPage, {
     hideHeadings: false,
     isTabbed: true,
