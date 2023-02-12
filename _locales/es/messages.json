@@ -88,6 +88,15 @@
     "message": "Añade la opción \"Silenciar esta conversación\" en el menú de los citados",
     "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
   },
+  "mutedTweetsLabel": {
+    "message": "Tweets silenciados ($COUNT)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
   "algorithmicTweetsOptionsLabel": {
     "message": "Tweets algorítmicos en la timeline \"Para ti\""
   },

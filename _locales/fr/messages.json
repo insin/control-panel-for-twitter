@@ -88,6 +88,15 @@
     "message": "Ajoute un élément de menu \"Mettre cette conversation en muté\" pour citer les Tweets",
     "description": "Les traductions de 'Mettre cette conversation en muté' dans script.js proviennent des données locales de Twitter"
   },
+  "mutedTweetsLabel": {
+    "message": "Tweets masqués ($COUNT)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
   "algorithmicTweetsOptionsLabel": {
     "message": "Tweets algorithmiques dans la timeline Pour vous"
   },

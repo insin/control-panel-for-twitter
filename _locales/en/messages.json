@@ -88,6 +88,15 @@
     "message": "Adds a \"Mute this conversation\" menu item to Quote Tweets",
     "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
   },
+  "mutedTweetsLabel": {
+    "message": "Muted tweets ($COUNT)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
   "algorithmicTweetsOptionsLabel": {
     "message": "Algorithmic tweets in the \"For you\" timeline"
   },

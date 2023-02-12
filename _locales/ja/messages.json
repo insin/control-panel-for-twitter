@@ -88,6 +88,15 @@
     "message": "「この会話をミュートする\"」メニューを引用ツイートに追加",
     "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
   },
+  "mutedTweetsLabel": {
+    "message": "ミュートされたツイート（$COUNT）",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
   "algorithmicTweetsOptionsLabel": {
     "message": "「おすすめ」タイムラインのアルゴリズムツイートを非表示"
   },

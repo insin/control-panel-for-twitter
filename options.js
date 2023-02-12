@@ -385,7 +385,7 @@ function updateDisplay() {
 function updateMutedQuotesDisplay() {
   if (!shouldDisplayMutedQuotes()) return
 
-  $mutedQuotesLabel.textContent = `Muted tweets (${optionsConfig.mutedQuotes.length})`
+  $mutedQuotesLabel.textContent = chrome.i18n.getMessage('mutedTweetsLabel', String(optionsConfig.mutedQuotes.length))
 
   if (!$mutedQuotesDetails.open) return
 
