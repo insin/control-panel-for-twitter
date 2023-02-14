@@ -60,6 +60,9 @@
   "showRelevantPeopleLabel": {
     "message": "ツイート閲覧時に「おすすめユーザー」を表示する"
   },
+  "hideHomeHeadingLabel": {
+    "message": "「ホーム」見出しを非表示にする"
+  },
   "hideWhoToFollowEtcLabel": {
     "message": "タイムラインの「おすすめユーザー」「おすすめトピック」を非表示"
   },

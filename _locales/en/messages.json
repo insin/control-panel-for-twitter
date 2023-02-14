@@ -60,6 +60,9 @@
   "showRelevantPeopleLabel": {
     "message": "Show \"Relevant people\" when viewing a tweet"
   },
+  "hideHomeHeadingLabel": {
+    "message": "Hide the \"Home\" heading"
+  },
   "hideWhoToFollowEtcLabel": {
     "message": "Hide \"Who to follow\", \"Follow some Topics\" etc. in the timeline"
   },

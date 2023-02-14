@@ -46,6 +46,7 @@ const config = {
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
   hideHelpCenterNav: true,
+  hideHomeHeading: true,
   hideKeyboardShortcutsNav: false,
   hideLikeMetrics: true,
   hideListsNav: false,
@@ -1994,8 +1995,9 @@ const configureCss = (() => {
     }
 
     if (desktop) {
-      // Hide the "Home" heading on the tabbed timeline as it just takes up space
-      hideCssSelectors.push(`body.TabbedTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div:first-child > div:first-child`)
+      if (config.hideHomeHeading) {
+        hideCssSelectors.push(`body.TabbedTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div:first-child > div:first-child`)
+      }
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
       }
