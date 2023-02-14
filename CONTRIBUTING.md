@@ -10,9 +10,9 @@ npm install
 
 ## Debug mode
 
-To enable debug mode, you can either manually set `debug = true` at the top of `script.js`, or open the options page, expand the Experiments secion and click the last paragraph 5 times to gain access to the debug options, where you can enable debug mode.
+To enable debug mode, you can either manually set `debug = true` at the top of `script.js`, or open the options page, expand the Experiments section and click the last paragraph 5 times to gain access to the debug options, where you can enable debug mode.
 
-When debug mode is active, log statemente are displayed in the browser console and the detected type of each tweet is displayed in all supported tweet timelines where the tweet type is being detected.
+When debug mode is active, log statemente are displayed in the browser console and the detected type of each tweet is displayed in all supported timelines where the tweet type is being detected.
 
 There's a `log()` function which can and should be used to log useful debug information, such as the appearance of elements which trigger certain tweaks (useful as a starting point when Twitter changes things), or that a particular tweak is about to happen (for traceability).
 
@@ -26,8 +26,7 @@ To handle this, scripts in the extension have `mobile` and `desktop` flags which
 
 ### Developing mobile features
 
-If you want to test a feature in the mobile version, use the responsive design / mobile device simulation mode in your browser's developer tools. Control Panel for Twitter will automatically detect which
-version is being used, and the options page will also be updated accordingly.
+If you want to test a feature in the mobile version, use the responsive design / mobile device simulation mode in your browser's developer tools. Control Panel for Twitter will automatically detect which version is being used, and the options page will also be updated accordingly.
 
 ## Running as a browser extension
 
@@ -45,13 +44,19 @@ To run in Google Chrome:
 npm run chrome
 ```
 
-To run in Microsoft Edge:
+To run in Microsoft Edge on Windows:
 
 ```shell
 npm run edge
 ```
 
 > Note: the edge command assumes you have Windows installed on the `C:` drive, change it in your local `package.json` if that's not the case
+
+To run in Microsoft Edge on macOS:
+
+```shell
+npm run edge-mac
+```
 
 ### Running on Firefox for Android
 
@@ -83,7 +88,7 @@ Waiting for org.mozilla.fenix Remote Debugging Server...
 Make sure to enable "Remote Debugging via USB" from Settings -> Developer Tools if it is not yet enabled.
 Building web extension from /path/to/control-panel-for-twitter
 You can connect to this Android device on TCP port 56265
-Installed /data/local/tmp/web-ext-artifacts-1626656312714/tweak_new_twitter-1.234.xpi as a temporary add-on
+Installed /data/local/tmp/web-ext-artifacts-1626656312714/control_pabel_for_twitter-1.234.xpi as a temporary add-on
 The extension will reload if any source file changes
 Press R to reload (and Ctrl-C to quit)
 ```
