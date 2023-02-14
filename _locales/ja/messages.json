@@ -92,7 +92,7 @@
     "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
   },
   "mutedTweetsLabel": {
-    "message": "ミュートされたツイート（$COUNT）",
+    "message": "ミュートされたツイート（$COUNT$）",
     "placeholders": {
       "count": {
         "content": "$1",
