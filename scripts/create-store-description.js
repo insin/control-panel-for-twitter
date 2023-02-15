@@ -42,6 +42,7 @@ ${uiTweaksOptionsLabel}
 • ${uninvertFollowButtonsLabel}
   • ${followButtonStyleOption_monochrome}
   • ${followButtonStyleOption_themed}
+• ${defaultToLatestSearchLabel}
 • ${tweakQuoteTweetsPageLabel}
 
 ${reduceAlgorithmicContentOptionsLabel}

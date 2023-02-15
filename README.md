@@ -70,6 +70,7 @@ New versions can take anything from minutes to days to be approved for publishin
 - Disable use of the Chirp font if you don't like it
 - Uninvert the Follow and Following buttons to make them less jarring
   - Choice of monochrome or themed (classic) styling for uninverted buttons
+- Default to "Latest" tab in Search
 - When viewing a tweet's Quote Tweets, hide the quoted tweet to make more room for quotes
 
 ### Remove algorithmic content
