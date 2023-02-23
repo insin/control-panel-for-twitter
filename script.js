@@ -5,7 +5,7 @@
 // @namespace   https://github.com/insin/control-panel-for-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
-// @version     97
+// @version     98
 // ==/UserScript==
 void function() {
 
