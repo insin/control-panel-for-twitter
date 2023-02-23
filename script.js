@@ -1904,8 +1904,8 @@ const configureCss = (() => {
     if (config.hideViews) {
       hideCssSelectors.push(
         // "Views" under individual tweets
-        '[data-testid="tweet"][tabindex="-1"] a[href*="/status/"] + span[aria-hidden]',
-        '[data-testid="tweet"][tabindex="-1"] a[href*="/status/"] + span[aria-hidden] + span',
+        '[data-testid="tweet"][tabindex="-1"] div[aria-hidden="true"]:nth-child(2):nth-last-child(2)',
+        '[data-testid="tweet"][tabindex="-1"] div[aria-hidden="true"]:nth-child(2):nth-last-child(2) + div[dir]:last-child'
       )
     }
     if (config.hideWhoToFollowEtc) {
