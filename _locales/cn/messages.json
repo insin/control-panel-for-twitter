@@ -1,0 +1,334 @@
+{
+  "extensionName": {
+    "message": "Control Panel for Twitter"
+  },
+  "extensionDescription": {
+    "message": "让你对Twitter有更多的控制，并增加了缺失的功能和UI改进",
+    "description": "<= 132 characters"
+  },
+  "extensionDescriptionShort": {
+    "message": "让你对Twitter有更多的控制，并增加了缺失的功能和UI改进",
+    "description": "<= 112 characters"
+  },
+  "features": {
+    "message": "特征"
+  },
+  "option_ignore": {
+    "message": "什么都不做",
+    "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
+  },
+  "option_hide": {
+    "message": "隐藏",
+    "description": "Option for hiding things, e.g. algorithmic tweets, Twitter Blue checks"
+  },
+  "option_separate": {
+    "message": "在单独的标签中显示",
+    "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
+  },
+  "unmuteButtonText": {
+    "message": "取消隐藏",
+    "description": "Button used in the options page to unmute a muted Quote Tweet"
+  },
+  "debugCountdownLabel": {
+    "message": " (调试选项：多次点击 $DEBUG_COUNTDOWN$ 来启用)",
+    "description": "Displayed when the user clicks multiple times on the info text at the end of the Experiments section to enable debug mode",
+    "placeholders": {
+      "debug_countdown": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "homeTimelineOptionsLabel": {
+    "message": "首页时间线"
+  },
+  "reduceEngagementOptionsLabel": {
+    "message": "降低 \"参与\""
+  },
+  "reduceAlgorithmicContentOptionsLabel": {
+    "message": "删除算法性内容"
+  },
+  "alwaysUseLatestTweetsLabel": {
+    "message": "默认使用 \"正在关注\"（按时间顺序）的时间线"
+  },
+  "hideForYouTimelineLabel": {
+    "message": "隐藏 \"为你推荐\" (算法) 时间线"
+  },
+  "hideSidebarContentLabel": {
+    "message": "在侧边栏中隐藏 \"有什么新鲜事？\", \"你可能会喜欢\"等"
+  },
+  "showRelevantPeopleLabel": {
+    "message": "查看推文时显示\"相关人员\""
+  },
+  "hideHomeHeadingLabel": {
+    "message": "隐藏\"主页\"标题"
+  },
+  "hideWhoToFollowEtcLabel": {
+    "message": "在时间线中隐藏\"关注谁\", \"关注一些话题\"等"
+  },
+  "hideExplorePageContentsLabel": {
+    "message": "隐藏\"探索\"页面内容，只用于搜索"
+  },
+  "hideMoreTweetsLabel": {
+    "message": "隐藏\"发现更多\"推文"
+  },
+  "sharedTweetsOptionsLabel": {
+    "message": "其他用户分享的推文"
+  },
+  "retweetsLabel": {
+    "message": "转发"
+  },
+  "quoteTweetsLabel": {
+    "message": "引用推文"
+  },
+  "hideUnavailableQuoteTweetsLabel": {
+    "message": "隐藏引用你已经屏蔽或隐藏的账户的推文"
+  },
+  "mutableQuoteTweetsLabel": {
+    "message": "对特定推文进行隐藏引用"
+  },
+  "mutableQuoteTweetsInfo": {
+    "message": "在引用推文中增加了一个\"将此对话隐藏\"的菜单项",
+    "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
+  },
+  "mutedTweetsLabel": {
+    "message": "已隐藏推文 ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "algorithmicTweetsOptionsLabel": {
+    "message": "在\"为你推荐\"时间线的算法推文"
+  },
+  "algorithmicTweetsWarning": {
+    "message": "注意：隐藏大量的推文会导致性能问题"
+  },
+  "communityTweetsLabel": {
+    "message": "来自你所在社区的推文"
+  },
+  "followeesFollowsLabel": {
+    "message": "你所关注的人所发的推文"
+  },
+  "likedTweetsLabel": {
+    "message": "喜欢的推文"
+  },
+  "repliedToTweetsLabel": {
+    "message": "收到了新的回复"
+  },
+  "suggestedTopicTweetsLabel": {
+    "message": "建议的话题推文"
+  },
+  "uiImprovementsOptionsLabel": {
+    "message": "用户界面改进"
+  },
+  "uninvertFollowButtonsLabel": {
+    "message": "取消 关注着/正在关注 按钮"
+  },
+  "followButtonStyleLabel": {
+    "message": "按钮样式"
+  },
+  "followButtonStyleOption_monochrome": {
+    "message": "单色"
+  },
+  "followButtonStyleOption_themed": {
+    "message": "主题"
+  },
+  "defaultToLatestSearchLabel": {
+    "message": "在搜索中默认为\"最新\"选项卡"
+  },
+  "navBaseFontSizeLabel": {
+    "message": "在导航栏中使用正常的文本字体样式"
+  },
+  "dropdownMenuFontWeightLabel": {
+    "message": "在下拉菜单中使用正常的字体大小"
+  },
+  "fastBlockLabel": {
+    "message": "快速屏蔽(跳过确认对话框)"
+  },
+  "addAddMutedWordMenuItemLabel_desktop": {
+    "message": "在\"更多\"菜单中添加\"增加隐藏词\""
+  },
+  "addAddMutedWordMenuItemLabel_mobile": {
+    "message": "在滑出式菜单中添加\"增加隐藏词\""
+  },
+  "hideVerifiedNotificationsTabLabel": {
+    "message": "隐藏通知菜单中的\"已认证\"标签"
+  },
+  "hideViewsLabel": {
+    "message": "隐藏推文下的观点"
+  },
+  "hideAppNagsLabel": {
+    "message": "隐藏\"打开应用程序\"的提示"
+  },
+  "uiTweaksOptionsLabel": {
+    "message": "用户界面调整"
+  },
+  "dontUseChirpFontLabel": {
+    "message": "不要使用Chirp字体"
+  },
+  "twitterBlueChecksLabel": {
+    "message": "Twitter Blue认证标记"
+  },
+  "twitterBlueChecksOption_replace": {
+    "message": "替换为Twitter Blue标识"
+  },
+  "tweakQuoteTweetsPageLabel": {
+    "message": "查看引用推文时隐藏被引用的推文"
+  },
+  "hideMetricsLabel": {
+    "message": "隐藏指标"
+  },
+  "hideAllMetricsLabel": {
+    "message": "全部隐藏"
+  },
+  "hideReplyMetricsLabel": {
+    "message": "回复"
+  },
+  "hideRetweetMetricsLabel": {
+    "message": "转推"
+  },
+  "hideLikeMetricsLabel": {
+    "message": "喜欢"
+  },
+  "hideQuoteTweetMetricsLabel": {
+    "message": "引用推文"
+  },
+  "hideFollowingMetricsLabel": {
+    "message": "正在关注/关注者"
+  },
+  "hideTotalTweetsMetricsLabel": {
+    "message": "推文总数"
+  },
+  "hideUnusedUiItemsOptionsLabel": {
+    "message": "隐藏你不使用的用户界面项目"
+  },
+  "hideAccountSwitcherLabel": {
+    "message": "帐户切换"
+  },
+  "hideMessagesDrawerLabel": {
+    "message": "讯息抽屉"
+  },
+  "hideExploreNavLabel": {
+    "message": "探索(导航栏)"
+  },
+  "hideCommunitiesNavLabel": {
+    "message": "社区(导航栏)"
+  },
+  "hideMessagesBottomNavItemLabel": {
+    "message": "私信(导航栏)"
+  },
+  "hideBookmarksNavLabel_desktop": {
+    "message": "书签(导航栏)"
+  },
+  "hideTwitterBlueNavLabel_desktop": {
+    "message": "Twitter Blue (导航栏)"
+  },
+  "hideShareTweetButtonLabel": {
+    "message": "推文下的分享按钮"
+  },
+  "hideTweetAnalyticsLinksLabel": {
+    "message": "在自己的推文下的分析链接"
+  },
+  "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
+    "message": "隐藏你不使用的\"更多\"菜单项"
+  },
+  "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
+    "message": "隐藏你不使用的滑出式菜单项"
+  },
+  "hideTwitterBlueNavLabel_mobile": {
+    "message": "Twitter Blue"
+  },
+  "hideTopicsNavLabel": {
+    "message": "话题"
+  },
+  "hideBookmarksNavLabel_mobile": {
+    "message": "书签"
+  },
+  "hideListsNavLabel": {
+    "message": "列表"
+  },
+  "hideTwitterCircleNavLabel": {
+    "message": "Twitter圈子"
+  },
+  "hideMomentsNavLabel": {
+    "message": "瞬间"
+  },
+  "hideNewslettersNavLabel": {
+    "message": "新闻简讯"
+  },
+  "hideAnalyticsNavLabel": {
+    "message": "分析"
+  },
+  "hideTwitterForProfessionalsNavLabel": {
+    "message": "Twitter专业版"
+  },
+  "hideTwitterAdsNavLabel": {
+    "message": "Twitter广告"
+  },
+  "hideMonetizationNavLabel": {
+    "message": "盈利"
+  },
+  "hideHelpCenterNavLabel": {
+    "message": "帮助中心"
+  },
+  "hideKeyboardShortcutsNavLabel": {
+    "message": "键盘快捷键"
+  },
+  "experimentsOptionsLabel": {
+    "message": "试验"
+  },
+  "reducedInteractionModeLabel": {
+    "message": "减少互动模式"
+  },
+  "reducedInteractionModeInfo": {
+    "message": "隐藏推文下的动作栏--回复现在是唯一的互动方式"
+  },
+  "fullWidthContentLabel": {
+    "message": "全宽的时间线内容"
+  },
+  "fullWidthContentInfo": {
+    "message": "隐藏侧边栏，让时间线内容全宽化"
+  },
+  "fullWidthMediaLabel": {
+    "message": "全宽的媒体和卡片"
+  },
+  "verifiedAccountsLabel": {
+    "message": "已认证账户"
+  },
+  "verifiedAccountsOption_highlight": {
+    "message": "突出显示"
+  },
+  "verifiedAccountsInfo": {
+    "message": "突出已认证账户的推文--或与之互动的推文，或将其隐藏，以模拟2020年7月Twitter黑客事件的后果"
+  },
+  "disableHomeTimelineLabel": {
+    "message": "禁用主页时间线"
+  },
+  "disableHomeTimelineInfo": {
+    "message": "发现自己在Twitter上浪费了太多的时间？试着防止使用主页时间线"
+  },
+  "disabledHomeTimelineRedirectLabel": {
+    "message": "将主页时间线重定向至"
+  },
+  "disabledHomeTimelineRedirectOption_notifications": {
+    "message": "通知"
+  },
+  "disabledHomeTimelineRedirectOption_messages": {
+    "message": "私信"
+  },
+  "debugOptionsLabel": {
+    "message": "调试选项"
+  },
+  "debugLabel": {
+    "message": "调试模式"
+  },
+  "debugInfo": {
+    "message": "启用调试日志并在时间线上显示推文调试信息"
+  },
+  "exportConfigLabel": {
+    "message": "导出配置用于错误报告"
+  }
+}
