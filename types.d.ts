@@ -55,6 +55,7 @@ export type Config = {
   tweakQuoteTweetsPage: boolean
   twitterBlueChecks: 'ignore' | 'replace' | 'hide'
   uninvertFollowButtons: boolean
+  replaceDogeLogo: boolean
   // Experiments
   disableHomeTimeline: boolean
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
