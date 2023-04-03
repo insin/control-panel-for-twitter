@@ -86,6 +86,7 @@ for (let translationId of [
   'experimentsOptionsLabel',
   'reducedInteractionModeLabel',
   'reducedInteractionModeInfo',
+  // 'replaceDogeLogo',
   'fullWidthContentLabel',
   'fullWidthContentInfo',
   'fullWidthMediaLabel',
@@ -174,6 +175,7 @@ const defaultConfig = {
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
+  replaceDogeLogo: true,
   // Experiments
   communityTweets: 'ignore',
   followeesFollows: 'ignore',
@@ -381,6 +383,7 @@ function updateDisplay() {
   $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
   $body.classList.toggle('mutedQuotes', shouldDisplayMutedQuotes())
   $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
+  $body.classList.toggle('replaceDogeLogo', optionsConfig.replaceDogeLogo)
   updateMutedQuotesDisplay()
 }
 
