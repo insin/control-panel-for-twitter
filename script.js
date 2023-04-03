@@ -700,7 +700,7 @@ const PagePaths = {
 /** @enum {string} */
 const Selectors = {
   BLOCK_MENU_ITEM: '[data-testid="block"]',
-  DOGE_ICON_PATH: 'path[d="M2.412.974h19.176v22.052H2.412z"][fill]',
+  DOGE_ICON_PATH: 'svg pattern[height="1"] + path[d="M2.412.974h19.176v22.052H2.412z"][fill^="url"]',
   DESKTOP_TIMELINE_HEADER: 'div[data-testid="primaryColumn"] > div > div:first-of-type',
   DISPLAY_DONE_BUTTON_DESKTOP: '#layers div[role="button"]:not([aria-label])',
   DISPLAY_DONE_BUTTON_MOBILE: 'main div[role="button"]:not([aria-label])',
