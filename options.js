@@ -221,7 +221,7 @@ let $mutedQuotesLabel = /** @type {HTMLElement} */ (document.querySelector('#mut
 //#region Utility functions
 function exportConfig() {
   let $a = document.createElement('a')
-  $a.download = 'control-panel-for-twitter-v3.3.2.config.txt'
+  $a.download = 'control-panel-for-twitter-v3.3.3.config.txt'
   $a.href = URL.createObjectURL(new Blob([
     JSON.stringify(optionsConfig, null, 2)
   ], {type: 'text/plain'}))
