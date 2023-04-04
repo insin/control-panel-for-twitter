@@ -1,7 +1,5 @@
-let $settings = document.createElement('script')
-$settings.type = 'text/json'
-$settings.id = 'tnt_settings'
-document.body.appendChild($settings)
+/** @type {HTMLScriptElement} */
+let $settings
 
 // Get initial config and inject it and the main script into the Twitter page
 chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ storedConfig) => {
@@ -10,13 +8,20 @@ chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ store
   if (storedConfig.twitterBlueChecks == 'dim') {
     storedConfig.twitterBlueChecks = 'replace'
   }
+
+  $settings = document.createElement('script')
+  $settings.type = 'text/json'
+  $settings.id = 'tnt_settings'
+  document.documentElement.appendChild($settings)
   $settings.innerText = JSON.stringify(storedConfig)
+
   let $main = document.createElement('script')
   $main.src = chrome.runtime.getURL('script.js')
   $main.onload = function() {
     this.remove()
   }
-  document.body.appendChild($main)
+  document.documentElement.appendChild($main)
+
   chrome.storage.onChanged.addListener(onConfigChange)
 })
 
