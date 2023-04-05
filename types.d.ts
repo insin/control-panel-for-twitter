@@ -1,5 +1,3 @@
-export type AlgorithmicTweetsConfig = 'hide' | 'ignore'
-
 export type Config = {
   debug: boolean
   version?: 'desktop' | 'mobile'
@@ -7,13 +5,13 @@ export type Config = {
   addAddMutedWordMenuItem: boolean
   // XXX This is now more like "use Following tab by default"
   alwaysUseLatestTweets: boolean
-  communityTweets: AlgorithmicTweetsConfig
   defaultToLatestSearch: boolean
+  disableHomeTimeline: boolean
+  disabledHomeTimelineRedirect: 'notifications' | 'messages'
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
   fastBlock: boolean
   followButtonStyle: 'monochrome' | 'themed'
-  followeesFollows: AlgorithmicTweetsConfig
   hideAnalyticsNav: boolean
   hideBookmarksNav: boolean
   hideCommunitiesNav: boolean
@@ -44,25 +42,20 @@ export type Config = {
   hideVerifiedNotificationsTab: boolean
   hideViews: boolean
   hideWhoToFollowEtc: boolean
-  likedTweets: AlgorithmicTweetsConfig
   listRetweets: 'ignore' | 'hide'
   mutableQuoteTweets: boolean
   mutedQuotes: QuotedTweet[]
   quoteTweets: SharedTweetsConfig
-  repliedToTweets: AlgorithmicTweetsConfig
+  reducedInteractionMode: boolean
   retweets: SharedTweetsConfig
-  suggestedTopicTweets: AlgorithmicTweetsConfig
   tweakQuoteTweetsPage: boolean
   twitterBlueChecks: 'ignore' | 'replace' | 'hide'
   uninvertFollowButtons: boolean
   // Experiments
-  disableHomeTimeline: boolean
-  disabledHomeTimelineRedirect: 'notifications' | 'messages'
-  fullWidthContent: boolean
-  fullWidthMedia: boolean
-  reducedInteractionMode: boolean
   verifiedAccounts: VerifiedAccountsConfig
   // Desktop only
+  fullWidthContent: boolean
+  fullWidthMedia: boolean
   hideAccountSwitcher: boolean
   hideExploreNav: boolean
   hideMessagesDrawer: boolean
@@ -105,17 +98,12 @@ export type QuotedTweet = {
 export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
 
 export type TimelineItemType =
-  | 'COMMUNITY_TWEET'
   | 'DISCOVER_MORE_HEADING'
-  | 'FOLLOWEES_FOLLOWS'
   | 'HEADING'
-  | 'LIKED'
   | 'PROMOTED_TWEET'
   | 'QUOTE_TWEET'
-  | 'REPLIED'
   | 'RETWEET'
   | 'RETWEETED_QUOTE_TWEET'
-  | 'SUGGESTED_TOPIC_TWEET'
   | 'TWEET'
   | 'UNAVAILABLE'
   | 'UNAVAILABLE_QUOTE_TWEET'

@@ -20,7 +20,6 @@ body.iOS.browserAction {
 
 body.mobile .desktop,
 body.desktop .mobile,
-body:not(.algorithmic) .algorithmic,
 body:not(.chronological) .chronological,
 body:not(.debug) .debug,
 body:not(.disabledHomeTimeline) .disabledHomeTimeline,

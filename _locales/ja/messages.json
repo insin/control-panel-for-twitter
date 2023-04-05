@@ -100,27 +100,6 @@
       }
     }
   },
-  "algorithmicTweetsOptionsLabel": {
-    "message": "「おすすめ」タイムラインのアルゴリズムツイートを非表示"
-  },
-  "algorithmicTweetsWarning": {
-    "message": "注意：大量のツイートを非表示にするとパフォーマンスが低下するおそれがあります"
-  },
-  "communityTweetsLabel": {
-    "message": "あなたのコミュニティからのツイート"
-  },
-  "followeesFollowsLabel": {
-    "message": "あなたがフォローしてる人のフォロワーからのツイート"
-  },
-  "likedTweetsLabel": {
-    "message": "「いいね」されたツイート"
-  },
-  "repliedToTweetsLabel": {
-    "message": "新しいリプライがありました"
-  },
-  "suggestedTopicTweetsLabel": {
-    "message": "おすすめトピックのツイート"
-  },
   "uiImprovementsOptionsLabel": {
     "message": "UIの改善"
   },

@@ -100,27 +100,6 @@
       }
     }
   },
-  "algorithmicTweetsOptionsLabel": {
-    "message": "Tweets algorítmicos en la timeline \"Para ti\""
-  },
-  "algorithmicTweetsWarning": {
-    "message": "Nota: Ocultar muchos tweets puede causar un peor rendimiento"
-  },
-  "communityTweetsLabel": {
-    "message": "Tweets de tus comunidades"
-  },
-  "followeesFollowsLabel": {
-    "message": "Tweets de seguidos de la gente que sigues"
-  },
-  "likedTweetsLabel": {
-    "message": "Tweets que han gustado"
-  },
-  "repliedToTweetsLabel": {
-    "message": "Tweets que reciben nuevas respuestas"
-  },
-  "suggestedTopicTweetsLabel": {
-    "message": "Tweets de temas sugeridos"
-  },
   "uiImprovementsOptionsLabel": {
     "message": "Mejoras de interfaz"
   },

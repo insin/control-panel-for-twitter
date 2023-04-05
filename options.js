@@ -24,13 +24,6 @@ for (let translationId of [
   'hideUnavailableQuoteTweetsLabel',
   'mutableQuoteTweetsLabel',
   'mutableQuoteTweetsInfo',
-  'algorithmicTweetsOptionsLabel',
-  'algorithmicTweetsWarning',
-  'communityTweetsLabel',
-  'followeesFollowsLabel',
-  'likedTweetsLabel',
-  'repliedToTweetsLabel',
-  'suggestedTopicTweetsLabel',
   'uiImprovementsOptionsLabel',
   'uninvertFollowButtonsLabel',
   'followButtonStyleLabel',
@@ -175,11 +168,6 @@ const defaultConfig = {
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
   // Experiments
-  communityTweets: 'ignore',
-  followeesFollows: 'ignore',
-  likedTweets: 'ignore',
-  repliedToTweets: 'ignore',
-  suggestedTopicTweets: 'ignore',
   verifiedAccounts: 'ignore',
   // Desktop only
   fullWidthContent: false,
@@ -373,7 +361,6 @@ function updateCheckboxGroups() {
 }
 
 function updateDisplay() {
-  $body.classList.toggle('algorithmic', !optionsConfig.alwaysUseLatestTweets || !optionsConfig.hideForYouTimeline)
   $body.classList.toggle('chronological', optionsConfig.alwaysUseLatestTweets)
   $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
   $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
@@ -449,13 +436,6 @@ function main() {
 
     $body.classList.toggle('debug', optionsConfig.debug === true)
     $experiments.open = (
-      (!optionsConfig.alwaysUseLatestTweets || !optionsConfig.hideForYouTimeline) && (
-        optionsConfig.communityTweets != 'ignore' ||
-        optionsConfig.followeesFollows != 'ignore' ||
-        optionsConfig.likedTweets != 'ignore' ||
-        optionsConfig.repliedToTweets != 'ignore' ||
-        optionsConfig.suggestedTopicTweets != 'ignore'
-      ) ||
       optionsConfig.verifiedAccounts != 'ignore'
     )
     $exportConfig.addEventListener('click', exportConfig)
