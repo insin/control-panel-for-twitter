@@ -13,6 +13,8 @@ export type Config = {
   fastBlock: boolean
   followButtonStyle: 'monochrome' | 'themed'
   hideAnalyticsNav: boolean
+  hideBookmarkButton: boolean
+  hideBookmarkMetrics: boolean
   hideBookmarksNav: boolean
   hideCommunitiesNav: boolean
   hideFollowingMetrics: boolean

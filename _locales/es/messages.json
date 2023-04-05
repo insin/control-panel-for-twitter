@@ -172,6 +172,9 @@
   "hideLikeMetricsLabel": {
     "message": "Me gustas"
   },
+  "hideBookmarkMetricsLabel": {
+    "message": "Guardados"
+  },
   "hideQuoteTweetMetricsLabel": {
     "message": "Citados"
   },
@@ -204,6 +207,9 @@
   },
   "hideTwitterBlueNavLabel_desktop": {
     "message": "Twitter Blue (menú de navegación)"
+  },
+  "hideBookmarkButtonLabel": {
+    "message": "Botón de guardados debajo de los tweets"
   },
   "hideShareTweetButtonLabel": {
     "message": "Botón de compartir debajo de los tweets"

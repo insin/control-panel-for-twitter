@@ -172,6 +172,9 @@
   "hideLikeMetricsLabel": {
     "message": "いいね件数"
   },
+  "hideBookmarkMetricsLabel": {
+    "message": "ブックマーク"
+  },
   "hideQuoteTweetMetricsLabel": {
     "message": "引用ツイート件数"
   },
@@ -204,6 +207,9 @@
   },
   "hideTwitterBlueNavLabel_desktop": {
     "message": "Twitter Blue（ナビゲーション項目）"
+  },
+  "hideBookmarkButtonLabel": {
+    "message": "ツイート下部のブックマークボタン"
   },
   "hideShareTweetButtonLabel": {
     "message": "ツイート下部のシェアボタン"

@@ -46,6 +46,8 @@ const config = {
   fastBlock: true,
   followButtonStyle: 'monochrome',
   hideAnalyticsNav: true,
+  hideBookmarkButton: false,
+  hideBookmarkMetrics: false,
   hideBookmarksNav: false,
   hideCommunitiesNav: true,
   hideExplorePageContents: true,
@@ -1866,6 +1868,12 @@ const configureCss = (() => {
     if (config.hideAnalyticsNav) {
       hideCssSelectors.push(`${menuRole} a[href*="analytics.twitter.com"]`)
     }
+    if (config.hideBookmarkButton) {
+      hideCssSelectors.push(
+        // Under individual tweets - only hide the 4th button if there are 5
+        '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"] > div:nth-child(4):nth-last-child(2)',
+      )
+    }
     if (config.hideBookmarksNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/bookmarks"]`)
     }
@@ -2250,6 +2258,11 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
     cssRules.push(
       `body.Tweet a:is(${individualTweetMetricSelectors}), [aria-modal="true"] [data-testid="tweet"] a:is(${individualTweetMetricSelectors}) { white-space: pre-line; }`
     )
+  }
+
+  if (config.hideBookmarkMetrics) {
+    // Bookmark metrics are the only one without a link
+    hideCssSelectors.push('[data-testid="tweet"][tabindex="-1"] [role="group"]:not([id]) > div > div')
   }
 
   let timelineMetricSelectors = [

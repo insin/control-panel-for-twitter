@@ -172,6 +172,9 @@
   "hideLikeMetricsLabel": {
     "message": "Aime"
   },
+  "hideBookmarkMetricsLabel": {
+    "message": "Signets"
+  },
   "hideQuoteTweetMetricsLabel": {
     "message": "Tweets de citation"
   },
@@ -204,6 +207,9 @@
   },
   "hideTwitterBlueNavLabel_desktop": {
     "message": "Twitter Blue (élément de navigation)"
+  },
+  "hideBookmarkButtonLabel": {
+    "message": "Bouton de signet sous les tweets"
   },
   "hideShareTweetButtonLabel": {
     "message": "Bouton de partage sous les tweets"

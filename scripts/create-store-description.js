@@ -61,6 +61,7 @@ ${reduceEngagementOptionsLabel}
 
 ${hideUnusedUiItemsOptionsLabel}
 
+• ${hideBookmarkButtonLabel}
 • ${hideShareTweetButtonLabel}
 • ${hideAccountSwitcherLabel}
 • ${hideMessagesDrawerLabel}
