@@ -2695,7 +2695,7 @@ function handlePopup($popup) {
 
 function isBlueVerified($svg) {
   let props = getVerifiedProps($svg)
-  return Boolean(props && props.isBlueVerified && !props.isVerified)
+  return Boolean(props && props.isBlueVerified && !props.isVerified && !props.verifiedType)
 }
 
 /**
