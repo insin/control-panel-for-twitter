@@ -19,7 +19,7 @@
   },
   "option_hide": {
     "message": "Ocultar",
-    "description": "Option for hiding things, e.g. algorithmic tweets, Twitter Blue checks"
+    "description": "Option for hiding things, e.g. Twitter Blue checks"
   },
   "option_separate": {
     "message": "Mostrar en pestaña aparte",
