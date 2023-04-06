@@ -55,6 +55,7 @@ New versions can take anything from minutes to days to be approved for publishin
 
 ### UI improvements
 
+- Remove the Doge
 - Hide Views under tweets
 - Hide the "Verified" tab on the Notifications page
 - Replace Twitter Blue checkmarks with the Blue logo so they're not as easily mistaken for verified accounts, or hide them altogether
@@ -87,6 +88,7 @@ New versions can take anything from minutes to days to be approved for publishin
 
 ### Hide UI items you don't use
 
+- Bookmark button under tweets
 - Share button under tweets
 - Analytics links under your own tweets
 - Hide navigation items you don't use on desktop, and other distracting screen elements such as the account switcher and Messages drawer
@@ -181,6 +183,7 @@ Options are also available in the following languages:
 
 - French (translation by [@THEDARKK](https://github.com/THEDARKK))
 - Japanese (translation by [@MitoKurato](https://github.com/MitoKurato))
+- Simplified Chinese (translation by [@CodeQiu](https://github.com/CodeQiu))
 - Spanish (translation by [@rogama25](https://github.com/rogama25))
 
 ### User script support
