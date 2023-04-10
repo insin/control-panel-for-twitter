@@ -730,7 +730,6 @@ const Svgs = {
   MUTE: '<g><path d="M18 6.59V1.2L8.71 7H5.5C4.12 7 3 8.12 3 9.5v5C3 15.88 4.12 17 5.5 17h2.09l-2.3 2.29 1.42 1.42 15.5-15.5-1.42-1.42L18 6.59zm-8 8V8.55l6-3.75v3.79l-6 6zM5 9.5c0-.28.22-.5.5-.5H8v6H5.5c-.28 0-.5-.22-.5-.5v-5zm6.5 9.24l1.45-1.45L16 19.2V14l2 .02v8.78l-6.5-4.06z"></path></g>',
   RETWEET: '<g><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"></path></g>',
   RETWEETS_OFF: '<g><path d="M3.707 21.707l18-18-1.414-1.414-2.088 2.088C17.688 4.137 17.11 4 16.5 4H11v2h5.5c.028 0 .056 0 .084.002l-10.88 10.88c-.131-.266-.204-.565-.204-.882V7.551l2.068 1.93 1.365-1.462L4.5 3.882.068 8.019l1.365 1.462 2.068-1.93V16c0 .871.278 1.677.751 2.334l-1.959 1.959 1.414 1.414zM18.5 9h2v7.449l2.068-1.93 1.365 1.462-4.433 4.137-4.432-4.137 1.365-1.462 2.067 1.93V9zm-8.964 9l-2 2H13v-2H9.536z"></path></g>',
-  TWITTER_LOGO_PATH: 'M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z',
 }
 
 const THEME_COLORS = new Set([
@@ -941,15 +940,6 @@ function blueCheck($svg) {
   if (isSafari) {
     $svg.firstElementChild.firstElementChild.setAttribute('d', Svgs.BLUE_LOGO_PATH)
   }
-}
-
-/**
- * @param {Element} $svgPath
- */
-function twitterLogo($svgPath) {
-  // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
-  // we have to manually patch the path in it.
-  $svgPath.setAttribute('d', Svgs.TWITTER_LOGO_PATH)
 }
 
 /**
@@ -2769,9 +2759,6 @@ function onTimelineChange($timeline, page, options = {}) {
   if (config.twitterBlueChecks != 'ignore' && !isOnMainTimeline && !isOnListTimeline) {
     processBlueChecks($timeline)
   }
-  if (isSafari && isOnNotificationsPage()) {
-    processTwitterLogos($timeline)
-  }
 
   if (!classifyTweets) return
 
@@ -3060,15 +3047,6 @@ function processBlueChecks($el) {
   }
 }
 
-/**
- * Processes all Twitter logos inside an element.
- */
-function processTwitterLogos($el) {
-  for (let $svgPath of $el.querySelectorAll(Selectors.DOGE_LOGO_PATH)) {
-    twitterLogo($svgPath)
-  }
-}
-
 function processCurrentPage() {
   if (pageObservers.length > 0) {
     log(
@@ -3102,9 +3080,6 @@ function processCurrentPage() {
       observeSidebar()
     } else {
       $body.classList.remove('Sidebar')
-    }
-    if (isSafari) {
-      tweakDesktopLogo()
     }
   }
 
@@ -3359,13 +3334,6 @@ function tweakListPage() {
   })
 }
 
-async function tweakDesktopLogo() {
-  let $logoPath = await getElement(`h1 ${Selectors.DOGE_LOGO_PATH}`, {name: 'desktop nav logo', timeout: 5000})
-  if ($logoPath) {
-    twitterLogo($logoPath)
-  }
-}
-
 async function tweakTweetBox() {
   if (config.twitterBlueChecks == 'ignore') return
 
@@ -3417,9 +3385,6 @@ function tweakMainTimelinePage() {
   }
 
   tweakTimelineTabs($timelineTabs)
-  if (isSafari && mobile) {
-    processTwitterLogos(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER_NEW))
-  }
 
   // If there are pinned lists, the timeline tabs <nav> will be replaced when they load
   pageObservers.push(
@@ -3639,27 +3604,6 @@ async function main() {
 
   if (config.debug) {
     debug = true
-  }
-
-  getElement('html', {name: 'html element'}).then(($html) => {
-    let $style = document.createElement('style')
-    $style.dataset.insertedBy = 'control-panel-for-twitter'
-    $style.dataset.role = 'doge-fix'
-    $style.textContent = dedent(`
-      ${Selectors.DOGE_LOGO_PATH} {
-        fill: inherit;
-        d: path("${Svgs.TWITTER_LOGO_PATH}");
-      }
-    `)
-    $html.appendChild($style)
-  })
-
-  if (isSafari) {
-    getElement(Selectors.DOGE_LOGO_PATH, {name: 'pre-loading indicator logo', timeout: 2000}).then(($logoPath) => {
-      if ($logoPath) {
-        twitterLogo($logoPath)
-      }
-    })
   }
 
   let $appWrapper = await getElement('#layers + div', {name: 'app wrapper'})
