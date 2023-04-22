@@ -76,6 +76,7 @@ const config = {
   hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
+  hideVerifiedOrgsNav: true,
   hideViews: true,
   hideWhoToFollowEtc: true,
   listRetweets: 'ignore',
@@ -1908,6 +1909,9 @@ const configureCss = (() => {
     if (config.hideTwitterBlueNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/i/twitter_blue_sign_up"]`)
     }
+    if (config.hideVerifiedOrgsNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/i/verified-orgs-signup"]`)
+    }
     if (config.hideTwitterForProfessionalsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/convert_to_professional"]`)
     }
@@ -1947,7 +1951,6 @@ const configureCss = (() => {
     }
 
     // Hide "Creator Studio" if all its contents are hidden
-    // if (config.hideMomentsNav && config.hideNewslettersNav && config.hideAnalyticsNav) {
     if (config.hideAnalyticsNav) {
       hideCssSelectors.push(`${menuRole} div[role="button"][aria-expanded]:nth-of-type(1)`)
     }
@@ -2082,6 +2085,9 @@ const configureCss = (() => {
       }
       if (config.hideTwitterBlueNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/twitter_blue_sign_up"]`)
+      }
+      if (config.hideVerifiedOrgsNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/verified-orgs-signup"]`)
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default

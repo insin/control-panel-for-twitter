@@ -208,6 +208,9 @@
   "hideTwitterBlueNavLabel_desktop": {
     "message": "Twitter Blue (navigation item)"
   },
+  "hideVerifiedOrgsNavLabel_desktop": {
+    "message": "Verified Organizations (navigation item)"
+  },
   "hideBookmarkButtonLabel": {
     "message": "Bookmark button under tweets"
   },
@@ -225,6 +228,9 @@
   },
   "hideTwitterBlueNavLabel_mobile": {
     "message": "Twitter Blue"
+  },
+  "hideVerifiedOrgsNavLabel_mobile": {
+    "message": "Verified Organizations"
   },
   "hideTopicsNavLabel": {
     "message": "Topics"

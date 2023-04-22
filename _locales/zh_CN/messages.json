@@ -208,6 +208,9 @@
   "hideTwitterBlueNavLabel_desktop": {
     "message": "Twitter Blue (导航栏)"
   },
+  "hideVerifiedOrgsNavLabel_desktop": {
+    "message": "已认证的组织 (导航栏)"
+  },
   "hideBookmarkButtonLabel": {
     "message": "推文下方的书签按钮"
   },
@@ -225,6 +228,9 @@
   },
   "hideTwitterBlueNavLabel_mobile": {
     "message": "Twitter Blue"
+  },
+  "hideVerifiedOrgsNavLabel_mobile": {
+    "message": "已认证的组织"
   },
   "hideTopicsNavLabel": {
     "message": "话题"
