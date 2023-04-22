@@ -47,7 +47,7 @@ const config = {
   followButtonStyle: 'monochrome',
   hideAnalyticsNav: true,
   hideBookmarkButton: false,
-  hideBookmarkMetrics: false,
+  hideBookmarkMetrics: true,
   hideBookmarksNav: false,
   hideCommunitiesNav: true,
   hideExplorePageContents: true,
