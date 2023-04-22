@@ -2700,7 +2700,7 @@ function isBlueVerified($svg) {
  * @returns {boolean}
  */
 function isReplyToPreviousTweet($tweet) {
-  let $replyLine = $tweet.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild
+  let $replyLine = $tweet.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild
   if ($replyLine) {
     return getComputedStyle($replyLine).width == '2px'
   }
