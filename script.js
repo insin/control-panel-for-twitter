@@ -1912,6 +1912,11 @@ const configureCss = (() => {
     if (config.hideTwitterForProfessionalsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/convert_to_professional"]`)
     }
+    if (config.hideVerifiedOrganizations) {
+      hideCssSelectors.push(`${menuRole} a[href$="/i/verified-orgs-signup"]`)
+      hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/verified-orgs-signup"]`)
+      hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href$="/i/verified-orgs-signup"]`)
+    }
     if (config.hideVerifiedNotificationsTab) {
       hideCssSelectors.push('body.Notifications [data-testid="ScrollSnap-List"] > div:nth-child(2)')
     }
