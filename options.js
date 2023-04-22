@@ -160,6 +160,7 @@ const defaultConfig = {
   hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
+  hideVerifiedOrganizations: true,
   hideViews: true,
   hideWhoToFollowEtc: true,
   listRetweets: 'ignore',

@@ -74,6 +74,7 @@ const config = {
   hideTwitterBlueNav: true,
   hideTwitterCircleNav: false,
   hideTwitterForProfessionalsNav: true,
+  hideVerifiedOrganizations: true,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
   hideViews: true,
