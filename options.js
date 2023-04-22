@@ -267,6 +267,7 @@ function applyConfig() {
   $body.classList.toggle('desktop', desktop)
   checkboxGroups = new Map(Object.entries({
     hideUnusedUiItems: [
+      'hideBookmarkButton',
       'hideCommunitiesNav',
       'hideShareTweetButton',
       'hideTweetAnalyticsLinks',
