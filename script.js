@@ -743,9 +743,6 @@ const THEME_COLORS = new Set([
 ])
 // Matches any notification count at the start of the title
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
-// twitter.com/user and its sub-URLs put @user in the title
-const TITLE_PROFILE_USERNAME_RE_LTR = /@([a-zA-Z\d_]{1,20})/
-const TITLE_PROFILE_USERNAME_RE_RTL = /([a-zA-Z\d_]{1,20})@/
 // The initial URL when you open the Twitter Circle modal is i/circles
 const URL_CIRCLE_RE = /^\/i\/circles(?:\/\d+\/members(?:\/suggested)?)?\/?$/
 // The Communities nav item takes you to /yourusername/communities
@@ -888,9 +885,9 @@ function isOnNotificationsPage() {
 
 function isOnProfilePage() {
   let profilePathUsername = currentPath.match(URL_PROFILE_RE)?.[1]
-  let titleUsername = currentPage.match(ltr ? TITLE_PROFILE_USERNAME_RE_LTR : TITLE_PROFILE_USERNAME_RE_RTL)?.[1]
-  // @user in the title helps guard against false positives for twitter.com/user
-  return titleUsername != null && profilePathUsername != null && titleUsername == profilePathUsername
+  if (!profilePathUsername) return false
+  // twitter.com/user and its sub-URLs put @user in the title
+  return currentPage.includes(`${ltr ? '@' : ''}${profilePathUsername}${!ltr ? '@' : ''}`)
 }
 
 function isOnQuoteTweetsPage() {
