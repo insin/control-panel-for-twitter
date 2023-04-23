@@ -1913,7 +1913,7 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} a[href$="/convert_to_professional"]`)
     }
     if (config.hideVerifiedNotificationsTab) {
-      hideCssSelectors.push('body.Notifications [data-testid="ScrollSnap-List"] > div:nth-child(2)')
+      hideCssSelectors.push('body.Notifications [data-testid="ScrollSnap-List"] > div:nth-child(2):nth-last-child(2)')
     }
     if (config.hideViews) {
       hideCssSelectors.push(
@@ -3513,7 +3513,7 @@ function tweakNotificationsPage() {
   }
 
   if (config.hideVerifiedNotificationsTab) {
-    let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
+    let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2):nth-last-child(2) > a[aria-selected="true"]'))
     if (isVerifiedTabSelected) {
       log('switching to All tab')
       $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a')?.click()
