@@ -2662,7 +2662,7 @@ function handlePopup($popup) {
       let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
       if ($hoverCard) {
         result.tookAction = true
-        getElement(':scope > div > div > svg[data-testid="verificationBadge"]', {
+        getElement(':scope > div > div > div > svg[data-testid="verificationBadge"]', {
           context: $hoverCard,
           name: 'verified account hovercard verification badge',
           timeout: 500,
