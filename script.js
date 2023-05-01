@@ -2887,7 +2887,7 @@ function onTimelineChange($timeline, page, options = {}) {
       hiddenItemTypes[itemType]++
     }
 
-    if (hideItem != null) {
+    if (hideItem != null && $item.firstElementChild) {
       if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display != (hideItem ? 'none' : '')) {
         /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
         // Log these out as they can't be reliably triggered for testing
