@@ -286,15 +286,6 @@
   "fullWidthMediaLabel": {
     "message": "メディア＆カードを全幅表示"
   },
-  "verifiedAccountsLabel": {
-    "message": "認証済みアカウント"
-  },
-  "verifiedAccountsOption_highlight": {
-    "message": "ハイライト"
-  },
-  "verifiedAccountsInfo": {
-    "message": "認証済みアカウントとのやり取りやツイートを強調、あるいは非表示にすることで2020年7月のTwitterハッキングの影響をシュミレートする"
-  },
   "disableHomeTimelineLabel": {
     "message": "「ホーム」タイムラインを無効化"
   },

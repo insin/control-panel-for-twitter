@@ -55,7 +55,7 @@ export type Config = {
   twitterBlueChecks: 'ignore' | 'replace' | 'hide'
   uninvertFollowButtons: boolean
   // Experiments
-  verifiedAccounts: VerifiedAccountsConfig
+  // none currently
   // Desktop only
   fullWidthContent: boolean
   fullWidthMedia: boolean
@@ -121,5 +121,3 @@ export type TimelineOptions = {
   tabbedTimelineContainerSelector?: string
   timelineSelector?: string
 }
-
-export type VerifiedAccountsConfig = 'highlight' | 'hide' | 'ignore'

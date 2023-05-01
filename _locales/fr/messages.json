@@ -286,15 +286,6 @@
   "fullWidthMediaLabel": {
     "message": "Médias et cartes en pleine largeur"
   },
-  "verifiedAccountsLabel": {
-    "message": "Comptes vérifiés"
-  },
-  "verifiedAccountsOption_highlight": {
-    "message": "Mise en évidence"
-  },
-  "verifiedAccountsInfo": {
-    "message": "Mettre en évidence les tweets de - ou interagissant avec - les comptes vérifiés, ou les masquer pour simuler les conséquences des piratages de Twitter de juillet 2020"
-  },
   "disableHomeTimelineLabel": {
     "message": "Désactiver la timeline d'accueil"
   },

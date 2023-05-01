@@ -286,15 +286,6 @@
   "fullWidthMediaLabel": {
     "message": "Full-width media & cards"
   },
-  "verifiedAccountsLabel": {
-    "message": "Verified accounts"
-  },
-  "verifiedAccountsOption_highlight": {
-    "message": "Highlight"
-  },
-  "verifiedAccountsInfo": {
-    "message": "Highlight tweets by – or interacting with – verified accounts, or hide them to simulate the aftermath of the July 2020 Twitter hacks"
-  },
   "disableHomeTimelineLabel": {
     "message": "Disable the home timeline"
   },

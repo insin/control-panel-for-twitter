@@ -286,15 +286,6 @@
   "fullWidthMediaLabel": {
     "message": "全宽的媒体和卡片"
   },
-  "verifiedAccountsLabel": {
-    "message": "已认证账户"
-  },
-  "verifiedAccountsOption_highlight": {
-    "message": "突出显示"
-  },
-  "verifiedAccountsInfo": {
-    "message": "突出已认证账户的推文--或与之互动的推文，或将其隐藏，以模拟2020年7月Twitter黑客事件的后果"
-  },
   "disableHomeTimelineLabel": {
     "message": "禁用主页时间线"
   },

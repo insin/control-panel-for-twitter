@@ -89,7 +89,7 @@ const config = {
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
   // Experiments
-  verifiedAccounts: 'ignore',
+  // none currently
   // Desktop only
   fullWidthContent: false,
   fullWidthMedia: true,
@@ -2782,8 +2782,6 @@ function onTimelineChange($timeline, page, options = {}) {
     let itemType = null
     /** @type {?boolean} */
     let hideItem = null
-    /** @type {?boolean} */
-    let highlightItem = null
     /** @type {?HTMLElement} */
     let $tweet = $item.querySelector(Selectors.TWEET)
 
@@ -2816,33 +2814,23 @@ function onTimelineChange($timeline, page, options = {}) {
           }
         }
 
-        let checkType
-        if (config.twitterBlueChecks != 'ignore' || config.verifiedAccounts != 'ignore') {
+        let tweetCheckType
+        if (config.twitterBlueChecks != 'ignore') {
           for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
-            let verifiedProps = getVerifiedProps($svg)
-            if (!verifiedProps) continue
+            let isBlueCheck = isBlueVerified($svg)
+            if (!isBlueCheck) continue
 
-            let isUserCheck = $svg.closest('div[data-testid="User-Names"]')
-            if (verifiedProps.isVerified) {
-              if (isUserCheck) {
-                checkType = 'VERIFIED'
-              }
-              if (hideItem !== true) {
-                hideItem = config.verifiedAccounts == 'hide'
-              }
-              highlightItem = config.verifiedAccounts == 'highlight'
-            }
-            else if (verifiedProps.isBlueVerified) {
-              if (isUserCheck) {
-                checkType = 'BLUE'
-              }
-              blueCheck($svg)
+            blueCheck($svg)
+
+            let userProfileLink = $svg.closest('a[role="link"]:not([href^="/i/status"])')
+            if (userProfileLink) {
+              tweetCheckType = 'BLUE'
             }
           }
         }
 
         if (debug) {
-          $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${checkType ? ` / ${checkType}` : ''}`
+          $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${tweetCheckType ? ` / ${tweetCheckType}` : ''}`
         }
       }
     }
@@ -2906,12 +2894,6 @@ function onTimelineChange($timeline, page, options = {}) {
         if (hideItem && itemType == 'HEADING' || previousItemType == 'HEADING') {
           log(`hid a ${previousItemType == 'HEADING' ? 'post-' : ''}heading item`, $item)
         }
-      }
-    }
-
-    if (highlightItem != null) {
-      if (/** @type {HTMLElement} */ ($item.firstElementChild).style.backgroundColor != (highlightItem ? 'rgba(29, 161, 242, 0.25)' : '')) {
-        /** @type {HTMLElement} */ ($item.firstElementChild).style.backgroundColor = highlightItem ? 'rgba(29, 161, 242, 0.25)' : ''
       }
     }
 

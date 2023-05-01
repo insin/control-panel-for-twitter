@@ -286,15 +286,6 @@
   "fullWidthMediaLabel": {
     "message": "Multimedia y tarjetas de ancho completo"
   },
-  "verifiedAccountsLabel": {
-    "message": "Cuentas verificadas"
-  },
-  "verifiedAccountsOption_highlight": {
-    "message": "Destacados"
-  },
-  "verifiedAccountsInfo": {
-    "message": "Destacar tweets al relacionarse o interactuar con cuentas verificadas, u ocultarlos para simular los hacks de Twitter de julio de 2020"
-  },
   "disableHomeTimelineLabel": {
     "message": "Desactivar la página de inicio"
   },

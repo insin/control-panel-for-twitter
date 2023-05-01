@@ -86,9 +86,6 @@ for (let translationId of [
   'fullWidthContentLabel',
   'fullWidthContentInfo',
   'fullWidthMediaLabel',
-  'verifiedAccountsLabel',
-  'verifiedAccountsOption_highlight',
-  'verifiedAccountsInfo',
   'disableHomeTimelineLabel',
   'disableHomeTimelineInfo',
   'disabledHomeTimelineRedirectLabel',
@@ -175,7 +172,7 @@ const defaultConfig = {
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
   // Experiments
-  verifiedAccounts: 'ignore',
+  // none currently
   // Desktop only
   fullWidthContent: false,
   fullWidthMedia: true,
@@ -446,9 +443,7 @@ function main() {
     optionsConfig = {...defaultConfig, ...storedConfig}
 
     $body.classList.toggle('debug', optionsConfig.debug === true)
-    $experiments.open = (
-      optionsConfig.verifiedAccounts != 'ignore'
-    )
+    // $experiments.open = ()
     $exportConfig.addEventListener('click', exportConfig)
     $form.addEventListener('change', onFormChanged)
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
