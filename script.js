@@ -2893,14 +2893,13 @@ function onTimelineChange($timeline, page, options = {}) {
         hideItem = hidPreviousItem
         itemType = previousItemType
       }
+    } else if (hideItem) {
+      hiddenItemCount++
+      hiddenItemTypes[itemType] ||= 0
+      hiddenItemTypes[itemType]++
     }
 
     if (hideItem != null) {
-      if (hideItem) {
-        hiddenItemCount++
-        hiddenItemTypes[itemType] ||= 0
-        hiddenItemTypes[itemType]++
-      }
       if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display != (hideItem ? 'none' : '')) {
         /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
         // Log these out as they can't be reliably triggered for testing
