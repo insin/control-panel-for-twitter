@@ -887,7 +887,7 @@ function isOnProfilePage() {
   let profilePathUsername = currentPath.match(URL_PROFILE_RE)?.[1]
   if (!profilePathUsername) return false
   // twitter.com/user and its sub-URLs put @user in the title
-  return currentPage.includes(`${ltr ? '@' : ''}${profilePathUsername}${!ltr ? '@' : ''}`)
+  return currentPage.toLowerCase().includes(`${ltr ? '@' : ''}${profilePathUsername.toLowerCase()}${!ltr ? '@' : ''}`)
 }
 
 function isOnQuoteTweetsPage() {
