@@ -1863,6 +1863,9 @@ const configureCss = (() => {
     if (config.hideBookmarksNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/bookmarks"]`)
     }
+    if (config.hideCommunitiesNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
+    }
     if (config.hideTwitterCircleNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/i/circles"]`)
     }
@@ -2058,9 +2061,6 @@ const configureCss = (() => {
           '[data-testid="SideNav_AccountSwitcher_Button"] > div:first-child + div',
         )
       }
-      if (config.hideCommunitiesNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
-      }
       if (config.hideExplorePageContents) {
         hideCssSelectors.push(
           // Tabs
@@ -2149,9 +2149,6 @@ const configureCss = (() => {
           // Content
           `body.Explore ${Selectors.TIMELINE}`,
         )
-      }
-      if (config.hideCommunitiesNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href$="/communities"]`)
       }
       if (config.hideMessagesBottomNavItem) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)

@@ -261,7 +261,6 @@ function applyConfig() {
   checkboxGroups = new Map(Object.entries({
     hideUnusedUiItems: [
       'hideBookmarkButton',
-      'hideCommunitiesNav',
       'hideShareTweetButton',
       'hideTweetAnalyticsLinks',
       desktop && 'hideAccountSwitcher',
@@ -274,6 +273,7 @@ function applyConfig() {
     ].filter(Boolean),
     hideMoreSlideOutMenuItems: [
       'hideAnalyticsNav',
+      'hideCommunitiesNav',
       'hideHelpCenterNav',
       'hideListsNav',
       'hideMonetizationNav',
