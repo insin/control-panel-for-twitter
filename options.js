@@ -266,6 +266,7 @@ function applyConfig() {
       desktop && 'hideAccountSwitcher',
       desktop && 'hideBookmarksNav',
       desktop && 'hideExploreNav',
+      desktop && 'hideListsNav',
       desktop && 'hideMessagesDrawer',
       desktop && 'hideTwitterBlueNav',
       mobile && 'hideMessagesBottomNavItem',
@@ -274,7 +275,6 @@ function applyConfig() {
       'hideAnalyticsNav',
       'hideCommunitiesNav',
       'hideHelpCenterNav',
-      'hideListsNav',
       'hideMonetizationNav',
       'hideTwitterAdsNav',
       'hideTwitterCircleNav',
@@ -283,6 +283,7 @@ function applyConfig() {
       desktop && 'hideConnectNav',
       desktop && 'hideKeyboardShortcutsNav',
       mobile && 'hideBookmarksNav',
+      mobile && 'hideListsNav',
       mobile && 'hideTwitterBlueNav',
     ].filter(Boolean),
     hideAllMetrics: [
