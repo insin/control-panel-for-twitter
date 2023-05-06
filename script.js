@@ -50,6 +50,7 @@ const config = {
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
   hideCommunitiesNav: true,
+  hideConnectNav: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
@@ -2061,6 +2062,9 @@ const configureCss = (() => {
           // Content
           `body.Explore ${Selectors.TIMELINE}`,
         )
+      }
+      if (config.hideConnectNav) {
+        hideCssSelectors.push(`${menuRole} a[href$="/i/connect_people"]`)
       }
       if (config.hideKeyboardShortcutsNav) {
         hideCssSelectors.push(`${menuRole} a[href$="/i/keyboard_shortcuts"]`)

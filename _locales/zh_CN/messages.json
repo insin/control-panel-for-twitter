@@ -229,6 +229,9 @@
   "hideTwitterBlueNavLabel_mobile": {
     "message": "Twitter Blue"
   },
+  "hideConnectNavLabel": {
+    "message": "连接"
+  },
   "hideVerifiedOrgsNavLabel": {
     "message": "已认证的组织"
   },

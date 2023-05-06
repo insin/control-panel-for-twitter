@@ -229,6 +229,9 @@
   "hideTwitterBlueNavLabel_mobile": {
     "message": "Twitter Blue"
   },
+  "hideConnectNavLabel": {
+    "message": "移動する"
+  },
   "hideVerifiedOrgsNavLabel": {
     "message": "認証済み組織"
   },

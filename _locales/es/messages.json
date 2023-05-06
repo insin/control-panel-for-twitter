@@ -229,6 +229,9 @@
   "hideTwitterBlueNavLabel_mobile": {
     "message": "Twitter Blue"
   },
+  "hideConnectNavLabel": {
+    "message": "Conectar"
+  },
   "hideVerifiedOrgsNavLabel": {
     "message": "Organizaciones verificadas"
   },
