@@ -1879,9 +1879,6 @@ const configureCss = (() => {
     if (config.hideHelpCenterNav) {
       hideCssSelectors.push(`${menuRole} a[href*="support.twitter.com"]`)
     }
-    if (config.hideListsNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/lists"]`)
-    }
     if (config.hideMetrics) {
       configureHideMetricsCss(cssRules, hideCssSelectors)
     }
@@ -2068,6 +2065,9 @@ const configureCss = (() => {
       if (config.hideKeyboardShortcutsNav) {
         hideCssSelectors.push(`${menuRole} a[href$="/i/keyboard_shortcuts"]`)
       }
+      if (config.hideListsNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
+      }
       if (config.hideTwitterBlueNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/twitter_blue_sign_up"]`)
       }
@@ -2145,6 +2145,9 @@ const configureCss = (() => {
           // Content
           `body.Explore ${Selectors.TIMELINE}`,
         )
+      }
+      if (config.hideListsNav) {
+        hideCssSelectors.push(`${menuRole} a[href$="/lists"]`)
       }
       if (config.hideMessagesBottomNavItem) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)

@@ -202,6 +202,9 @@
   "hideMessagesBottomNavItemLabel": {
     "message": "私信(导航栏)"
   },
+  "hideListsNavLabel_desktop": {
+    "message": "列表(导航栏)"
+  },
   "hideBookmarksNavLabel_desktop": {
     "message": "书签(导航栏)"
   },
@@ -232,7 +235,7 @@
   "hideBookmarksNavLabel_mobile": {
     "message": "书签"
   },
-  "hideListsNavLabel": {
+  "hideListsNavLabel_mobile": {
     "message": "列表"
   },
   "hideTwitterCircleNavLabel": {

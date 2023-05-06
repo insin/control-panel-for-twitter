@@ -202,6 +202,9 @@
   "hideMessagesBottomNavItemLabel": {
     "message": "メッセージ（ナビゲーション項目）"
   },
+  "hideListsNavLabel_desktop": {
+    "message": "リスト（ナビゲーション項目）"
+  },
   "hideBookmarksNavLabel_desktop": {
     "message": "ブックマーク（ナビゲーション項目）"
   },
@@ -232,7 +235,7 @@
   "hideBookmarksNavLabel_mobile": {
     "message": "ブックマーク"
   },
-  "hideListsNavLabel": {
+  "hideListsNavLabel_mobile": {
     "message": "リスト"
   },
   "hideTwitterCircleNavLabel": {

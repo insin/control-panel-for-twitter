@@ -202,6 +202,9 @@
   "hideMessagesBottomNavItemLabel": {
     "message": "Messages (navigation item)"
   },
+  "hideListsNavLabel_desktop": {
+    "message": "Lists (navigation item)"
+  },
   "hideBookmarksNavLabel_desktop": {
     "message": "Bookmarks (navigation item)"
   },
@@ -232,7 +235,7 @@
   "hideBookmarksNavLabel_mobile": {
     "message": "Bookmarks"
   },
-  "hideListsNavLabel": {
+  "hideListsNavLabel_mobile": {
     "message": "Lists"
   },
   "hideTwitterCircleNavLabel": {
