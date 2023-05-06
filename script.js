@@ -65,7 +65,6 @@ const config = {
   hideReplyMetrics: true,
   hideRetweetMetrics: true,
   hideShareTweetButton: false,
-  hideTopicsNav: true,
   hideTotalTweetsMetrics: true,
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
@@ -1888,9 +1887,6 @@ const configureCss = (() => {
     }
     if (config.hideMonetizationNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/settings/monetization"]`)
-    }
-    if (config.hideTopicsNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/topics"]`)
     }
     if (config.hideTweetAnalyticsLinks) {
       hideCssSelectors.push('[data-testid="analyticsButton"]')
