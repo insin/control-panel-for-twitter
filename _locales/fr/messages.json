@@ -63,6 +63,9 @@
   "hideHomeHeadingLabel": {
     "message": "Masquer la rubrique \"Accueil\""
   },
+  "hideSeeNewTweetsLabel": {
+    "message": "Masquer \"Voir les nouveaux Tweets\""
+  },
   "hideWhoToFollowEtcLabel": {
     "message": "Masquer Qui suivre, Suivre certains sujets, etc. dans la timeline"
   },

@@ -63,6 +63,9 @@
   "hideHomeHeadingLabel": {
     "message": "「ホーム」見出しを非表示にする"
   },
+  "hideSeeNewTweetsLabel": {
+    "message": "「新しいツイートを表示」を非表示"
+  },
   "hideWhoToFollowEtcLabel": {
     "message": "タイムラインの「おすすめユーザー」「おすすめトピック」を非表示"
   },

@@ -63,6 +63,9 @@
   "hideHomeHeadingLabel": {
     "message": "隐藏\"主页\"标题"
   },
+  "hideSeeNewTweetsLabel": {
+    "message": "隐藏\"查看新推文\""
+  },
   "hideWhoToFollowEtcLabel": {
     "message": "在时间线中隐藏\"关注谁\", \"关注一些话题\"等"
   },

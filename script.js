@@ -66,6 +66,7 @@ const config = {
   hideReplyMetrics: true,
   hideRetweetMetrics: true,
   hideShareTweetButton: false,
+  hideSeeNewTweets: false,
   hideTotalTweetsMetrics: true,
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
@@ -2000,6 +2001,9 @@ const configureCss = (() => {
       if (config.hideHomeHeading) {
         hideCssSelectors.push(`body.TabbedTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div:first-child > div:first-child`)
       }
+      if (config.hideSeeNewTweets) {
+        hideCssSelectors.push(`body.MainTimeline ${Selectors.PRIMARY_COLUMN} > div > div:first-child > div[style^="transform"]`)
+      }
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
       }
@@ -2130,6 +2134,9 @@ const configureCss = (() => {
     if (mobile) {
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
+      }
+      if (config.hideSeeNewTweets) {
+        hideCssSelectors.push(`body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER_NEW} + div[style^="transform"]`)
       }
       if (config.hideAppNags) {
         cssRules.push(`
