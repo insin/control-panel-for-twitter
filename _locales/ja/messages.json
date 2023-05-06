@@ -208,9 +208,6 @@
   "hideTwitterBlueNavLabel_desktop": {
     "message": "Twitter Blue（ナビゲーション項目）"
   },
-  "hideVerifiedOrgsNavLabel_desktop": {
-    "message": "認証済み組織（ナビゲーション項目）"
-  },
   "hideBookmarkButtonLabel": {
     "message": "ツイート下部のブックマークボタン"
   },
@@ -229,7 +226,7 @@
   "hideTwitterBlueNavLabel_mobile": {
     "message": "Twitter Blue"
   },
-  "hideVerifiedOrgsNavLabel_mobile": {
+  "hideVerifiedOrgsNavLabel": {
     "message": "認証済み組織"
   },
   "hideTopicsNavLabel": {
