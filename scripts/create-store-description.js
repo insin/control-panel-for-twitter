@@ -22,6 +22,7 @@ ${homeTimelineOptionsLabel}
 • ${mutableQuoteTweetsLabel}
   • ${mutableQuoteTweetsInfo}
 • ${hideWhoToFollowEtcLabel}
+• ${hideSeeNewTweetsLabel}
 • ${fullWidthContentLabel}
   • ${fullWidthContentInfo}
 
