@@ -1666,24 +1666,25 @@ async function observeTimeline(page, options = {}) {
 
 //#region Tweak functions
 /**
- * Add an "Add muted word" menu item after "Settings and privacy" which takes
- * you straight to entering a new muted word (by clicking its way through all
- * the individual screens!).
- * @param {HTMLElement} $circleLink
+ * Add an "Add muted word" menu item after the given link which takes you
+ * straight to entering a new muted word (by clicking its way through all the
+ * individual screens!).
+ * @param {HTMLElement} $link
+ * @param {string} linkSelector
  */
-async function addAddMutedWordMenuItem($circleLink) {
+async function addAddMutedWordMenuItem($link, linkSelector) {
   log('adding "Add muted word" menu item')
 
   // Wait for the dropdown to appear on desktop
   if (desktop) {
-    $circleLink = await getElement('#layers div[data-testid="Dropdown"] a[href$="/i/circles"]', {
-      name: 'rendered Twitter Circle menu item',
+    $link = await getElement(`#layers div[data-testid="Dropdown"] ${linkSelector}`, {
+      name: 'rendered menu item',
       timeout: 100,
     })
-    if (!$circleLink) return
+    if (!$link) return
   }
 
-  let $addMutedWord = /** @type {HTMLElement} */ ($circleLink.parentElement.cloneNode(true))
+  let $addMutedWord = /** @type {HTMLElement} */ ($link.parentElement.cloneNode(true))
   $addMutedWord.classList.add('tnt_menu_item')
   $addMutedWord.querySelector('a').href = PagePaths.ADD_MUTED_WORD
   $addMutedWord.querySelector('span').textContent = getString('ADD_MUTED_WORD')
@@ -1692,7 +1693,7 @@ async function addAddMutedWordMenuItem($circleLink) {
     e.preventDefault()
     addMutedWord()
   })
-  $circleLink.parentElement.insertAdjacentElement('afterend', $addMutedWord)
+  $link.parentElement.insertAdjacentElement('afterend', $addMutedWord)
 }
 
 function addCaretMenuListenerForQuoteTweet($tweet) {
@@ -2608,9 +2609,10 @@ function handlePopup($popup) {
   }
 
   if (config.addAddMutedWordMenuItem) {
-    let $circleLink = /** @type {HTMLElement} */ ($popup.querySelector('a[href$="/i/circles"]'))
-    if ($circleLink) {
-      addAddMutedWordMenuItem($circleLink)
+    let linkSelector = 'a[href$="/i/verified-orgs-signup"]'
+    let $link = /** @type {HTMLElement} */ ($popup.querySelector(linkSelector))
+    if ($link) {
+      addAddMutedWordMenuItem($link, linkSelector)
       result.tookAction = true
     }
   }
