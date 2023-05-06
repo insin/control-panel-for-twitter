@@ -59,10 +59,8 @@ const config = {
   hideLikeMetrics: true,
   hideListsNav: false,
   hideMetrics: false,
-  // hideMomentsNav: true,
   hideMonetizationNav: true,
   hideMoreTweets: true,
-  // hideNewslettersNav: true,
   hideQuoteTweetMetrics: true,
   hideReplyMetrics: true,
   hideRetweetMetrics: true,
@@ -1885,15 +1883,9 @@ const configureCss = (() => {
     if (config.hideMetrics) {
       configureHideMetricsCss(cssRules, hideCssSelectors)
     }
-    // if (config.hideMomentsNav) {
-    //   hideCssSelectors.push(`${menuRole} a[href$="/moment_maker"]`)
-    // }
     if (config.hideMonetizationNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/settings/monetization"]`)
     }
-    // if (config.hideNewslettersNav) {
-    //   hideCssSelectors.push(`${menuRole} a[href$="/newsletters"]`)
-    // }
     if (config.hideTopicsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/topics"]`)
     }
