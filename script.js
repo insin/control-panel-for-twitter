@@ -2137,7 +2137,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
       }
       if (config.hideSeeNewTweets) {
-        hideCssSelectors.push(`body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER_NEW} + div[style^="transform"]`)
+        hideCssSelectors.push(`body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER_NEW} ~ div[style^="transform"]:last-child`)
       }
       if (config.hideAppNags) {
         cssRules.push(`
