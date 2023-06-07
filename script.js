@@ -1126,9 +1126,14 @@ function storeConfigChanges(changes) {
 
 //#region Global observers
 const checkReactNativeStylesheet = (() => {
-  let startTime = Date.now()
+  /** @type {number} */
+  let startTime
 
   return function checkReactNativeStylesheet() {
+    if (startTime == null) {
+      startTime = Date.now()
+    }
+
     let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
     if (!$style) {
       warn('React Native stylesheet not found')
