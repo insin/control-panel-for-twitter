@@ -2083,7 +2083,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
       }
       if (config.hideTwitterBlueNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/twitter_blue_sign_up"]`)
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/verified-choose"]`)
       }
       if (config.hideVerifiedOrgsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/verified-orgs-signup"]`)

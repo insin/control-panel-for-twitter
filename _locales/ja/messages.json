@@ -212,7 +212,7 @@
     "message": "ブックマーク（ナビゲーション項目）"
   },
   "hideTwitterBlueNavLabel_desktop": {
-    "message": "Twitter Blue（ナビゲーション項目）"
+    "message": "認証済み（ナビゲーション項目）"
   },
   "hideBookmarkButtonLabel": {
     "message": "ツイート下部のブックマークボタン"
