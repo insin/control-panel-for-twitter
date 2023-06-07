@@ -1,94 +1,188 @@
+-L
+--cookie nope
 -o ar-x-fm.html
-url="https://twitter.com?lang=ar-x-fm"
+url="https://twitter.com/?lang=ar-x-fm"
+-L
+--cookie nope
 -o ar.html
-url="https://twitter.com?lang=ar"
+url="https://twitter.com/?lang=ar"
+-L
+--cookie nope
 -o bg.html
-url="https://twitter.com?lang=bg"
+url="https://twitter.com/?lang=bg"
+-L
+--cookie nope
 -o bn.html
-url="https://twitter.com?lang=bn"
+url="https://twitter.com/?lang=bn"
+-L
+--cookie nope
 -o ca.html
-url="https://twitter.com?lang=ca"
+url="https://twitter.com/?lang=ca"
+-L
+--cookie nope
 -o cs.html
-url="https://twitter.com?lang=cs"
+url="https://twitter.com/?lang=cs"
+-L
+--cookie nope
 -o da.html
-url="https://twitter.com?lang=da"
+url="https://twitter.com/?lang=da"
+-L
+--cookie nope
 -o de.html
-url="https://twitter.com?lang=de"
+url="https://twitter.com/?lang=de"
+-L
+--cookie nope
 -o el.html
-url="https://twitter.com?lang=el"
+url="https://twitter.com/?lang=el"
+-L
+--cookie nope
 -o en.html
-url="https://twitter.com?lang=en"
+url="https://twitter.com/?lang=en"
+-L
+--cookie nope
 -o es.html
-url="https://twitter.com?lang=es"
+url="https://twitter.com/?lang=es"
+-L
+--cookie nope
 -o eu.html
-url="https://twitter.com?lang=eu"
+url="https://twitter.com/?lang=eu"
+-L
+--cookie nope
 -o fa.html
-url="https://twitter.com?lang=fa"
+url="https://twitter.com/?lang=fa"
+-L
+--cookie nope
 -o fi.html
-url="https://twitter.com?lang=fi"
+url="https://twitter.com/?lang=fi"
+-L
+--cookie nope
 -o fil.html
-url="https://twitter.com?lang=fil"
+url="https://twitter.com/?lang=fil"
+-L
+--cookie nope
 -o fr.html
-url="https://twitter.com?lang=fr"
+url="https://twitter.com/?lang=fr"
+-L
+--cookie nope
 -o ga.html
-url="https://twitter.com?lang=ga"
+url="https://twitter.com/?lang=ga"
+-L
+--cookie nope
 -o gl.html
-url="https://twitter.com?lang=gl"
+url="https://twitter.com/?lang=gl"
+-L
+--cookie nope
 -o gu.html
-url="https://twitter.com?lang=gu"
+url="https://twitter.com/?lang=gu"
+-L
+--cookie nope
 -o he.html
-url="https://twitter.com?lang=he"
+url="https://twitter.com/?lang=he"
+-L
+--cookie nope
 -o hi.html
-url="https://twitter.com?lang=hi"
+url="https://twitter.com/?lang=hi"
+-L
+--cookie nope
 -o hr.html
-url="https://twitter.com?lang=hr"
+url="https://twitter.com/?lang=hr"
+-L
+--cookie nope
 -o hu.html
-url="https://twitter.com?lang=hu"
+url="https://twitter.com/?lang=hu"
+-L
+--cookie nope
 -o id.html
-url="https://twitter.com?lang=id"
+url="https://twitter.com/?lang=id"
+-L
+--cookie nope
 -o it.html
-url="https://twitter.com?lang=it"
+url="https://twitter.com/?lang=it"
+-L
+--cookie nope
 -o ja.html
-url="https://twitter.com?lang=ja"
+url="https://twitter.com/?lang=ja"
+-L
+--cookie nope
 -o kn.html
-url="https://twitter.com?lang=kn"
+url="https://twitter.com/?lang=kn"
+-L
+--cookie nope
 -o ko.html
-url="https://twitter.com?lang=ko"
+url="https://twitter.com/?lang=ko"
+-L
+--cookie nope
 -o mr.html
-url="https://twitter.com?lang=mr"
+url="https://twitter.com/?lang=mr"
+-L
+--cookie nope
 -o ms.html
-url="https://twitter.com?lang=ms"
+url="https://twitter.com/?lang=ms"
+-L
+--cookie nope
 -o nb.html
-url="https://twitter.com?lang=nb"
+url="https://twitter.com/?lang=nb"
+-L
+--cookie nope
 -o nl.html
-url="https://twitter.com?lang=nl"
+url="https://twitter.com/?lang=nl"
+-L
+--cookie nope
 -o pl.html
-url="https://twitter.com?lang=pl"
+url="https://twitter.com/?lang=pl"
+-L
+--cookie nope
 -o pt.html
-url="https://twitter.com?lang=pt"
+url="https://twitter.com/?lang=pt"
+-L
+--cookie nope
 -o ro.html
-url="https://twitter.com?lang=ro"
+url="https://twitter.com/?lang=ro"
+-L
+--cookie nope
 -o ru.html
-url="https://twitter.com?lang=ru"
+url="https://twitter.com/?lang=ru"
+-L
+--cookie nope
 -o sk.html
-url="https://twitter.com?lang=sk"
+url="https://twitter.com/?lang=sk"
+-L
+--cookie nope
 -o sr.html
-url="https://twitter.com?lang=sr"
+url="https://twitter.com/?lang=sr"
+-L
+--cookie nope
 -o sv.html
-url="https://twitter.com?lang=sv"
+url="https://twitter.com/?lang=sv"
+-L
+--cookie nope
 -o ta.html
-url="https://twitter.com?lang=ta"
+url="https://twitter.com/?lang=ta"
+-L
+--cookie nope
 -o th.html
-url="https://twitter.com?lang=th"
+url="https://twitter.com/?lang=th"
+-L
+--cookie nope
 -o tr.html
-url="https://twitter.com?lang=tr"
+url="https://twitter.com/?lang=tr"
+-L
+--cookie nope
 -o uk.html
-url="https://twitter.com?lang=uk"
+url="https://twitter.com/?lang=uk"
+-L
+--cookie nope
 -o ur.html
-url="https://twitter.com?lang=ur"
+url="https://twitter.com/?lang=ur"
+-L
+--cookie nope
 -o vi.html
-url="https://twitter.com?lang=vi"
+url="https://twitter.com/?lang=vi"
+-L
+--cookie nope
 -o zh-Hant.html
-url="https://twitter.com?lang=zh-Hant"
+url="https://twitter.com/?lang=zh-Hant"
+-L
+--cookie nope
 -o zh.html
-url="https://twitter.com?lang=zh"
+url="https://twitter.com/?lang=zh"
