@@ -71,7 +71,6 @@ const config = {
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
   hideTwitterBlueNav: true,
-  hideTwitterCircleNav: false,
   hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
@@ -1872,9 +1871,6 @@ const configureCss = (() => {
     }
     if (config.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
-    }
-    if (config.hideTwitterCircleNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/i/circles"]`)
     }
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(
