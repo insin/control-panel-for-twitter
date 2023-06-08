@@ -127,6 +127,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "Usar grosor normal de fuentes en desplegables"
   },
+  "hideSubscriptionsLabel": {
+    "message": "Ocultar Suscripciones"
+  },
   "fastBlockLabel": {
     "message": "Bloqueo rápido (no muestra menú de confirmación)"
   },

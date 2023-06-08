@@ -33,6 +33,7 @@ ${uiImprovementsOptionsLabel}
 • ${twitterBlueChecksLabel}
   • ${twitterBlueChecksOption_replace}
 • ${addAddMutedWordMenuItemLabel_desktop}
+• ${hideSubscriptionsLabel}
 • ${fastBlockLabel}
 • ${navBaseFontSizeLabel}
 • ${dropdownMenuFontWeightLabel}

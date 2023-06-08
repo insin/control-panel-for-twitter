@@ -127,6 +127,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "Utiliser un poids de police normal dans les menus déroulants"
   },
+  "hideSubscriptionsLabel": {
+    "message": "Masquer Souscriptions"
+  },
   "fastBlockLabel": {
     "message": "Blocage rapide (ignore la boîte de dialogue de confirmation)"
   },

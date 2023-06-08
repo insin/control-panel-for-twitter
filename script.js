@@ -65,8 +65,9 @@ const config = {
   hideQuoteTweetMetrics: true,
   hideReplyMetrics: true,
   hideRetweetMetrics: true,
-  hideShareTweetButton: false,
   hideSeeNewTweets: false,
+  hideShareTweetButton: false,
+  hideSubscriptions: true,
   hideTotalTweetsMetrics: true,
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
@@ -1877,6 +1878,24 @@ const configureCss = (() => {
         `[data-testid="tweet"][tabindex="0"] [role="group"] > div[style]`,
         // Under individual tweets
         '[data-testid="tweet"][tabindex="-1"] [role="group"] > div[style]',
+      )
+    }
+    if (config.hideSubscriptions) {
+      hideCssSelectors.push(
+        // Subscribe buttons in profile (multiple locations)
+        'body.Profile [role="button"][style*="border-color: rgb(201, 54, 204)"]',
+        // Subscriptions count in profile
+        'body.Profile a[href$="/creator-subscriptions/subscriptions"]',
+        // Subscription Tweets tab in profile (3rd of 5)
+        'body.Profile [data-testid="ScrollSnap-List"] > [role="presentation"]:nth-child(3):nth-last-child(3)',
+        // Subscribe button in focused tweet
+        'body.Tweet [data-testid="tweet"][tabindex="-1"] [data-testid$="-subscribe"]',
+        // "Subscribe to" dropdown item (desktop)
+        '[data-testid="Dropdown"] > [data-testid="subscribe"]',
+        // "Subscribe to" menu item (mobile)
+        '[data-testid="sheetDialog"] > [data-testid="subscribe"]',
+        // "Subscriber" indicator in replies from subscribers
+        '[data-testid="tweet"] [data-testid="userFollowIndicator"][style*="color: rgb(141, 32, 144)"]',
       )
     }
     if (config.hideHelpCenterNav) {

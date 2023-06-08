@@ -127,6 +127,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "ドロップダウンメニューを通常のフォントの太さにする"
   },
+  "hideSubscriptionsLabel": {
+    "message": "サブスクリプションを非表示"
+  },
   "fastBlockLabel": {
     "message": "即ブロック（確認画面をスキップする）"
   },

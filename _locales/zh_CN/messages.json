@@ -127,6 +127,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "在下拉菜单中使用正常的字体大小"
   },
+  "hideSubscriptionsLabel": {
+    "message": "隐藏订阅服务"
+  },
   "fastBlockLabel": {
     "message": "快速屏蔽(跳过确认对话框)"
   },

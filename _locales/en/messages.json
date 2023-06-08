@@ -127,6 +127,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "Use normal font weight in dropdown menus"
   },
+  "hideSubscriptionsLabel": {
+    "message": "Hide Subscriptions"
+  },
   "fastBlockLabel": {
     "message": "Fast blocking (skips confirm dialog)"
   },
