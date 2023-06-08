@@ -748,7 +748,7 @@ const URL_COMMUNITY_RE = /^\/i\/communities\/\d+(?:\/about)?\/?$/
 const URL_COMMUNITY_MEMBERS_RE = /^\/i\/communities\/\d+\/(?:members|moderators)\/?$/
 const URL_DISCOVER_COMMUNITIES_RE = /^\/i\/communities\/suggested\/?/
 const URL_LIST_RE = /\/i\/lists\/\d+\/?$/
-const URL_PHOTO_RE = /photo\/\d\/?$/
+const URL_MEDIA_RE = /\/(?:photo|video)\/\d\/?$/
 // Matches URLs which show one of the tabs on a user profile page
 const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(with_replies|media|likes)\/?|\/)?$/
 // Matches URLs which show a user's Followers you know / Followers / Following tab
@@ -2179,7 +2179,7 @@ const configureCss = (() => {
       if (config.hideShareTweetButton) {
         hideCssSelectors.push(
           // In media modal
-          `body.MobilePhoto [role="group"] > div[style]`,
+          `body.MobileMedia [role="group"] > div[style]`,
         )
       }
       if (config.hideViews) {
@@ -2552,7 +2552,7 @@ function getVerifiedProps($svg) {
 function handlePopup($popup) {
   let result = {tookAction: false, onPopupClosed: null}
 
-  if (desktop && !isDesktopMediaModalOpen && URL_PHOTO_RE.test(location.pathname) && currentPath != location.pathname) {
+  if (desktop && !isDesktopMediaModalOpen && URL_MEDIA_RE.test(location.pathname) && currentPath != location.pathname) {
     log('media modal opened')
     isDesktopMediaModalOpen = true
     observeDesktopModalTimeline()
@@ -2937,10 +2937,10 @@ function onTitleChange(title) {
   homeNavigationIsBeingUsed = false
 
   if (title == getString('TWITTER')) {
-    // Mobile uses "Twitter" when viewing a photo - we need to let these process
-    // so the next page will be re-processed when the photo is closed.
-    if (mobile && URL_PHOTO_RE.test(location.pathname)) {
-      log('viewing a photo on mobile')
+    // Mobile uses "Twitter" when viewing media - we need to let these process
+    // so the next page will be re-processed when the media is closed.
+    if (mobile && URL_MEDIA_RE.test(location.pathname)) {
+      log('viewing media on mobile')
 		}
     // Ignore Flash of Uninitialised Title when navigating to a page for the
     // first time.
@@ -2974,10 +2974,10 @@ function onTitleChange(title) {
       // …the Home nav link or Following / Home header _wasn't_ clicked and…
       !homeNavigationWasUsed &&
       (
-        // …the user viewed a photo.
-        URL_PHOTO_RE.test(location.pathname) ||
-        // …the user stopped viewing a photo.
-        URL_PHOTO_RE.test(currentPath) ||
+        // …the user viewed media.
+        URL_MEDIA_RE.test(location.pathname) ||
+        // …the user stopped viewing media.
+        URL_MEDIA_RE.test(currentPath) ||
         // …the user opened or used the "Customize your view" dialog.
         location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW ||
         // …the user closed the "Customize your view" dialog.
@@ -3068,7 +3068,7 @@ function processCurrentPage() {
   $body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
   $body.classList.toggle('Tweet', isOnIndividualTweetPage())
   $body.classList.toggle('Search', isOnSearchPage())
-  $body.classList.toggle('MobilePhoto', mobile && URL_PHOTO_RE.test(location.pathname))
+  $body.classList.toggle('MobileMedia', mobile && URL_MEDIA_RE.test(location.pathname))
   $body.classList.remove('TabbedTimeline')
   $body.classList.remove('SeparatedTweets')
 
