@@ -235,9 +235,6 @@
   "hideConnectNavLabel": {
     "message": "Connect"
   },
-  "hideVerifiedOrgsNavLabel": {
-    "message": "Verified Orgs"
-  },
   "hideBookmarksNavLabel_mobile": {
     "message": "Bookmarks"
   },

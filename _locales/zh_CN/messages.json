@@ -235,9 +235,6 @@
   "hideConnectNavLabel": {
     "message": "连接"
   },
-  "hideVerifiedOrgsNavLabel": {
-    "message": "已认证的组织"
-  },
   "hideBookmarksNavLabel_mobile": {
     "message": "书签"
   },

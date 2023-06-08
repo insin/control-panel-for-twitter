@@ -74,7 +74,6 @@ const config = {
   hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
-  hideVerifiedOrgsNav: true,
   hideViews: true,
   hideWhoToFollowEtc: true,
   listRetweets: 'ignore',
@@ -1898,9 +1897,6 @@ const configureCss = (() => {
     if (config.hideTwitterBlueNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/i/twitter_blue_sign_up"]`)
     }
-    if (config.hideVerifiedOrgsNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/i/verified-orgs-signup"]`)
-    }
     if (config.hideTwitterForProfessionalsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/convert_to_professional"]`)
     }
@@ -2080,9 +2076,6 @@ const configureCss = (() => {
       }
       if (config.hideTwitterBlueNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/verified-choose"]`)
-      }
-      if (config.hideVerifiedOrgsNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/verified-orgs-signup"]`)
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
@@ -2610,7 +2603,7 @@ function handlePopup($popup) {
   }
 
   if (config.addAddMutedWordMenuItem) {
-    let linkSelector = 'a[href$="/i/verified-orgs-signup"]'
+    let linkSelector = 'a[href$="/communities"]'
     let $link = /** @type {HTMLElement} */ ($popup.querySelector(linkSelector))
     if ($link) {
       addAddMutedWordMenuItem($link, linkSelector)
