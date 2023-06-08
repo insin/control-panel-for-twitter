@@ -56,7 +56,6 @@ New versions can take anything from minutes to days to be approved for publishin
 
 ### UI improvements
 
-- Remove the Doge
 - Hide Views under tweets
 - Hide the "Verified" tab on the Notifications page
 - Replace Twitter Blue checkmarks with the Blue logo so they're not as easily mistaken for verified accounts, or hide them altogether

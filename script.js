@@ -704,7 +704,6 @@ const Selectors = {
   DESKTOP_TIMELINE_HEADER: 'div[data-testid="primaryColumn"] > div > div:first-of-type',
   DISPLAY_DONE_BUTTON_DESKTOP: '#layers div[role="button"]:not([aria-label])',
   DISPLAY_DONE_BUTTON_MOBILE: 'main div[role="button"]:not([aria-label])',
-  DOGE_LOGO_PATH: 'svg pattern + path[fill]',
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
   MODAL_TIMELINE: '#layers section > h1 + div[aria-label] > div',
   MOBILE_TIMELINE_HEADER_OLD: 'header > div:nth-of-type(2) > div:first-of-type',
