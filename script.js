@@ -2848,7 +2848,7 @@ function onTimelineChange($timeline, page, options = {}) {
       if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
         itemType = 'HEADING'
         // "Discover more" heading and subsequent algorithmic tweets
-        if (isDesktopMediaModalOpen) {
+        if (isOnIndividualTweetPage() || isDesktopMediaModalOpen) {
           if ($item.querySelector('[dir]')?.innerText == getString('DISCOVER_MORE')) {
             itemType = 'DISCOVER_MORE_HEADING'
             hideItem = config.hideMoreTweets
