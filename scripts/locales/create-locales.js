@@ -188,7 +188,6 @@ const externalTranslations = {
 // locales with just the translations we need.
 let template = {
   ADD_MUTED_WORD: 'd768049c',
-  DISCOVER_MORE: 'd172116a',
   HOME: 'ha8209bc',
   MUTE_THIS_CONVERSATION: 'e2d6c17e',
   QUOTE_TWEET: 'c9d7235e',
@@ -224,8 +223,6 @@ for (let file of fs.readdirSync('./js')) {
   }
   let localeCode = file.split('.')[0]
   if (localeCode != 'en' && locale.TWITTER == 'Twitter') delete locale.TWITTER
-  if (localeCode != 'en' && locale.DISCOVER_MORE == 'Discover more')
-    delete locale.DISCOVER_MORE
   Object.assign(locale, externalTranslations[localeCode])
   locales[localeCode] = sortProperties(locale)
 }

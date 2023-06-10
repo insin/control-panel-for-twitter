@@ -75,7 +75,6 @@ export type Locale = {
 
 export type LocaleKey =
   | 'ADD_MUTED_WORD'
-  | 'DISCOVER_MORE'
   | 'HOME'
   | 'MUTE_THIS_CONVERSATION'
   | 'QUOTE_TWEET'

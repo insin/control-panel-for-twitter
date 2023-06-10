@@ -110,7 +110,6 @@ const config = {
 const locales = {
   'ar-x-fm': {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
-    DISCOVER_MORE: 'اكتشاف المزيد',
     HOME: 'الرئيسيّة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     QUOTE_TWEET: 'اقتباس التغريدة',
@@ -123,7 +122,6 @@ const locales = {
   },
   ar: {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
-    DISCOVER_MORE: 'اكتشاف المزيد',
     HOME: 'الرئيسيّة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     QUOTE_TWEET: 'اقتباس التغريدة',
@@ -135,7 +133,6 @@ const locales = {
   },
   bg: {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
-    DISCOVER_MORE: 'Откриване на още',
     HOME: 'Начало',
     MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
     QUOTE_TWEET: 'Цитиране на туита',
@@ -147,7 +144,6 @@ const locales = {
   },
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
-    DISCOVER_MORE: 'আরও খুঁজুন',
     HOME: 'হোম',
     MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
     QUOTE_TWEET: 'টুইট উদ্ধৃত করুন',
@@ -160,7 +156,6 @@ const locales = {
   },
   ca: {
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
-    DISCOVER_MORE: 'Descobreix-ne més',
     HOME: 'Inici',
     MUTE_THIS_CONVERSATION: 'Silencia la conversa',
     QUOTE_TWEET: 'Cita el tuit',
@@ -172,7 +167,6 @@ const locales = {
   },
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
-    DISCOVER_MORE: 'Objevte víc',
     HOME: 'Hlavní stránka',
     MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
     QUOTE_TWEET: 'Citovat Tweet',
@@ -184,7 +178,6 @@ const locales = {
   },
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
-    DISCOVER_MORE: 'Opdag mere',
     HOME: 'Forside',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
     QUOTE_TWEET: 'Citér Tweet',
@@ -195,7 +188,6 @@ const locales = {
   },
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
-    DISCOVER_MORE: 'Mehr entdecken',
     HOME: 'Startseite',
     MUTE_THIS_CONVERSATION: 'Diese Konversation stummschalten',
     QUOTE_TWEET: 'Tweet zitieren',
@@ -206,7 +198,6 @@ const locales = {
   },
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
-    DISCOVER_MORE: 'Ανακαλύψτε περισσότερα',
     HOME: 'Αρχική σελίδα',
     MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
     QUOTE_TWEET: 'Παράθεση Tweet',
@@ -218,7 +209,6 @@ const locales = {
   },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
-    DISCOVER_MORE: 'Discover more',
     HOME: 'Home',
     MUTE_THIS_CONVERSATION: 'Mute this conversation',
     QUOTE_TWEET: 'Quote Tweet',
@@ -231,7 +221,6 @@ const locales = {
   },
   es: {
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
-    DISCOVER_MORE: 'Descubrir más',
     HOME: 'Inicio',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
     QUOTE_TWEET: 'Citar Tweet',
@@ -253,7 +242,6 @@ const locales = {
   },
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
-    DISCOVER_MORE: 'کاوش بیشتر',
     HOME: 'خانه',
     MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
     QUOTE_TWEET: 'نقل‌توییت',
@@ -266,7 +254,6 @@ const locales = {
   },
   fi: {
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
-    DISCOVER_MORE: 'Löydä uutta',
     HOME: 'Etusivu',
     MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
     QUOTE_TWEET: 'Twiitin lainaus',
@@ -278,7 +265,6 @@ const locales = {
   },
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
-    DISCOVER_MORE: 'Tuklasin ang higit pa',
     HOME: 'Home',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
     QUOTE_TWEET: 'Quote na Tweet',
@@ -290,7 +276,6 @@ const locales = {
   },
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
-    DISCOVER_MORE: 'Découvrez plus',
     HOME: 'Accueil',
     MUTE_THIS_CONVERSATION: 'Masquer cette conversation',
     QUOTE_TWEET: 'Citer le Tweet',
@@ -323,7 +308,6 @@ const locales = {
   },
   gu: {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
-    DISCOVER_MORE: 'વધુ શોધો',
     HOME: 'હોમ',
     MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
     QUOTE_TWEET: 'અવતરણની સાથે ટ્વીટ કરો',
@@ -335,7 +319,6 @@ const locales = {
   },
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
-    DISCOVER_MORE: 'גלה עוד',
     HOME: 'דף הבית',
     MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
     QUOTE_TWEET: 'ציטוט ציוץ',
@@ -348,7 +331,6 @@ const locales = {
   },
   hi: {
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
-    DISCOVER_MORE: 'और अधिक जानें',
     HOME: 'होम',
     MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
     QUOTE_TWEET: 'ट्वीट क्वोट करें',
@@ -360,7 +342,6 @@ const locales = {
   },
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
-    DISCOVER_MORE: 'Otkrijte više',
     HOME: 'Naslovnica',
     MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
     QUOTE_TWEET: 'Citiraj Tweet',
@@ -372,7 +353,6 @@ const locales = {
   },
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
-    DISCOVER_MORE: 'Továbbiak felfedezése',
     HOME: 'Kezdőlap',
     MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
     QUOTE_TWEET: 'Tweet idézése',
@@ -384,7 +364,6 @@ const locales = {
   },
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
-    DISCOVER_MORE: 'Temukan lebih banyak',
     HOME: 'Beranda',
     MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
     QUOTE_TWEET: 'Kutip Tweet',
@@ -396,7 +375,6 @@ const locales = {
   },
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
-    DISCOVER_MORE: 'Continua con la scoperta',
     HOME: 'Home',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
     QUOTE_TWEET: 'Cita Tweet',
@@ -408,7 +386,6 @@ const locales = {
   },
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
-    DISCOVER_MORE: 'もっと見つける',
     HOME: 'ホーム',
     MUTE_THIS_CONVERSATION: 'この会話をミュート',
     QUOTE_TWEET: '引用ツイート',
@@ -420,7 +397,6 @@ const locales = {
   },
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
-    DISCOVER_MORE: 'ಇನ್ನಷ್ಟನ್ನು ಕಂಡುಕೊಳ್ಳಿ',
     HOME: 'ಹೋಮ್',
     MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
     QUOTE_TWEET: 'ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ',
@@ -432,7 +408,6 @@ const locales = {
   },
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
-    DISCOVER_MORE: '더 찾아보기',
     HOME: '홈',
     MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
     QUOTE_TWEET: '트윗 인용하기',
@@ -445,7 +420,6 @@ const locales = {
   },
   mr: {
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
-    DISCOVER_MORE: 'अधिक प्रमाणामध्ये शोधा',
     HOME: 'होम',
     MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
     QUOTE_TWEET: 'ट्विट वर भाष्य करा',
@@ -457,7 +431,6 @@ const locales = {
   },
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
-    DISCOVER_MORE: 'Temui lagi',
     HOME: 'Laman Utama',
     MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
     QUOTE_TWEET: 'Petik Tweet',
@@ -469,7 +442,6 @@ const locales = {
   },
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
-    DISCOVER_MORE: 'Oppdag mer',
     HOME: 'Hjem',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtalen',
     QUOTE_TWEET: 'Sitat-Tweet',
@@ -480,7 +452,6 @@ const locales = {
   },
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
-    DISCOVER_MORE: 'Meer ontdekken',
     HOME: 'Startpagina',
     MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
     QUOTE_TWEET: 'Citeer Tweet',
@@ -491,7 +462,6 @@ const locales = {
   },
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
-    DISCOVER_MORE: 'Odkryj więcej',
     HOME: 'Główna',
     MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
     QUOTE_TWEET: 'Cytuj Tweeta',
@@ -503,7 +473,6 @@ const locales = {
   },
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
-    DISCOVER_MORE: 'Descubra mais',
     HOME: 'Página Inicial',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     QUOTE_TWEET: 'Comentar o Tweet',
@@ -514,7 +483,6 @@ const locales = {
   },
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
-    DISCOVER_MORE: 'Descoperă mai mult',
     HOME: 'Pagina principală',
     MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
     QUOTE_TWEET: 'Citează Tweetul',
@@ -526,7 +494,6 @@ const locales = {
   },
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
-    DISCOVER_MORE: 'Узнать больше',
     HOME: 'Главная',
     MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
     QUOTE_TWEET: 'Цитировать',
@@ -539,7 +506,6 @@ const locales = {
   },
   sk: {
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
-    DISCOVER_MORE: 'Objaviť viac',
     HOME: 'Domov',
     MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
     QUOTE_TWEET: 'Tweet s citátom',
@@ -551,7 +517,6 @@ const locales = {
   },
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
-    DISCOVER_MORE: 'Откриј више',
     HOME: 'Почетна',
     MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
     QUOTE_TWEET: 'твит са цитатом',
@@ -564,7 +529,6 @@ const locales = {
   },
   sv: {
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
-    DISCOVER_MORE: 'Upptäck mer',
     HOME: 'Hem',
     MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
     QUOTE_TWEET: 'Citera Tweet',
@@ -575,7 +539,6 @@ const locales = {
   },
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
-    DISCOVER_MORE: 'மேலும் கண்டறியவும்',
     HOME: 'முகப்பு',
     MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
     QUOTE_TWEET: 'ட்விட்டை மேற்கோள் காட்டு',
@@ -587,7 +550,6 @@ const locales = {
   },
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
-    DISCOVER_MORE: 'ค้นหาเพิ่มเติม',
     HOME: 'หน้าแรก',
     MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
     QUOTE_TWEET: 'อ้างอิงทวีต',
@@ -600,7 +562,6 @@ const locales = {
   },
   tr: {
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
-    DISCOVER_MORE: 'Daha fazlasını keşfet',
     HOME: 'Anasayfa',
     MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
     QUOTE_TWEET: 'Tweeti Alıntıla',
@@ -612,7 +573,6 @@ const locales = {
   },
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
-    DISCOVER_MORE: 'Дізнавайтеся більше',
     HOME: 'Головна',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
     QUOTE_TWEET: 'Цитувати твіт',
@@ -625,7 +585,6 @@ const locales = {
   },
   ur: {
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
-    DISCOVER_MORE: 'مزید دریافت کریں',
     HOME: 'ہوم',
     MUTE_THIS_CONVERSATION: 'اس گفتگو کو میوٹ کریں',
     QUOTE_TWEET: 'ٹویٹ کا حوالہ دیں',
@@ -638,7 +597,6 @@ const locales = {
   },
   vi: {
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
-    DISCOVER_MORE: 'Khám phá thêm',
     HOME: 'Trang chủ',
     MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
     QUOTE_TWEET: 'Trích dẫn Tweet',
@@ -650,7 +608,6 @@ const locales = {
   },
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
-    DISCOVER_MORE: '探索更多',
     HOME: '首頁',
     MUTE_THIS_CONVERSATION: '將此對話靜音',
     QUOTE_TWEET: '引用推文',
@@ -662,7 +619,6 @@ const locales = {
   },
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
-    DISCOVER_MORE: '发现更多',
     HOME: '主页',
     MUTE_THIS_CONVERSATION: '隐藏此对话',
     QUOTE_TWEET: '引用推文',
@@ -2867,7 +2823,10 @@ function onTimelineChange($timeline, page, options = {}) {
         itemType = 'HEADING'
         // "Discover more" heading and subsequent algorithmic tweets
         if (isOnIndividualTweetPage() || isDesktopMediaModalOpen) {
-          if ($item.querySelector('[dir]')?.innerText == getString('DISCOVER_MORE')) {
+          let $heading = $item.querySelector(Selectors.TIMELINE_HEADING)
+          if ($heading.nextElementSibling &&
+              $heading.nextElementSibling.tagName == 'DIV' &&
+              $heading.nextElementSibling.getAttribute('dir') != null) {
             itemType = 'DISCOVER_MORE_HEADING'
             hideItem = config.hideMoreTweets
             hideAllSubsequentItems = config.hideMoreTweets
