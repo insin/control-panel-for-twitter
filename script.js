@@ -2931,8 +2931,11 @@ function onIndividualTweetTimelineChange($timeline) {
           let userProfileLink = /** @type {HTMLAnchorElement} */ ($svg.closest('a[role="link"]:not([href^="/i/status"])'))
           if (userProfileLink) {
             isBlueTweet = true
-            if (!isReply && hideItem == null) {
+            if (!isReply && !hideItem) {
               hideItem = config.hideTwitterBlueReplies && userProfileLink.href.split('/').pop().toLowerCase() != op
+              if (hideItem) {
+                itemType = 'BLUE_REPLY'
+              }
             }
           }
         }
