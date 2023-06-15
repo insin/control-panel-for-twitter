@@ -3655,7 +3655,7 @@ function tweakSearchPage() {
   observeTimeline(currentPage, {
     hideHeadings: false,
     isTabbed: true,
-    tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
+    tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
   })
 }
 //#endregion
