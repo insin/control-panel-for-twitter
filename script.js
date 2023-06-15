@@ -889,7 +889,7 @@ function blueCheck($svg) {
   $svg.classList.add('tnt_blue_check')
   // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
   // we have to manually patch the path in it.
-  if (isSafari) {
+  if (isSafari && config.twitterBlueChecks == 'replace') {
     $svg.firstElementChild.firstElementChild.setAttribute('d', Svgs.BLUE_LOGO_PATH)
   }
 }
