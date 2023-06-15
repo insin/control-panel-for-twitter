@@ -2579,7 +2579,7 @@ function handlePopup($popup) {
   }
 
   if (config.addAddMutedWordMenuItem) {
-    let linkSelector = 'a[href$="/communities"]'
+    let linkSelector = 'a[href$="/compose/tweet/unsent/drafts"]'
     let $link = /** @type {HTMLElement} */ ($popup.querySelector(linkSelector))
     if ($link) {
       addAddMutedWordMenuItem($link, linkSelector)
