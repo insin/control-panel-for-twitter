@@ -2671,7 +2671,7 @@ function handlePopup($popup) {
 
 function isBlueVerified($svg) {
   let props = getVerifiedProps($svg)
-  return Boolean(props && props.isBlueVerified && !(props.verifiedType || props.affiliateBadgeInfo))
+  return Boolean(props && props.isBlueVerified && !(props.verifiedType || props.affiliateBadgeInfo?.userLabelType == 'BusinessLabel'))
 }
 
 /**
