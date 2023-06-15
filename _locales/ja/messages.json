@@ -127,6 +127,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "ドロップダウンメニューを通常のフォントの太さにする"
   },
+  "hideTwitterBlueUpsellsLabel": {
+    "message": "Twitter Blueのアップセルを非表示にする"
+  },
   "hideSubscriptionsLabel": {
     "message": "サブスクリプションを非表示"
   },
@@ -217,9 +220,6 @@
   "hideBookmarksNavLabel_desktop": {
     "message": "ブックマーク（ナビゲーション項目）"
   },
-  "hideTwitterBlueNavLabel_desktop": {
-    "message": "認証済み（ナビゲーション項目）"
-  },
   "hideBookmarkButtonLabel": {
     "message": "ツイート下部のブックマークボタン"
   },
@@ -234,9 +234,6 @@
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "使用しないスライドアウトメニューの項目を非表示"
-  },
-  "hideTwitterBlueNavLabel_mobile": {
-    "message": "Twitter Blue"
   },
   "hideConnectNavLabel": {
     "message": "移動する"

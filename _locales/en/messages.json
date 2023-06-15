@@ -127,6 +127,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "Use normal font weight in dropdown menus"
   },
+  "hideTwitterBlueUpsellsLabel": {
+    "message": "Hide Twitter Blue upsells"
+  },
   "hideSubscriptionsLabel": {
     "message": "Hide Subscriptions"
   },
@@ -217,9 +220,6 @@
   "hideBookmarksNavLabel_desktop": {
     "message": "Bookmarks (navigation item)"
   },
-  "hideTwitterBlueNavLabel_desktop": {
-    "message": "Verified (navigation item)"
-  },
   "hideBookmarkButtonLabel": {
     "message": "Bookmark button under tweets"
   },
@@ -234,9 +234,6 @@
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Hide slide-out menu items you don't use"
-  },
-  "hideTwitterBlueNavLabel_mobile": {
-    "message": "Twitter Blue"
   },
   "hideConnectNavLabel": {
     "message": "Connect"

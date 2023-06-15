@@ -127,6 +127,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "Usar grosor normal de fuentes en desplegables"
   },
+  "hideTwitterBlueUpsellsLabel": {
+    "message": "Ocultar promociones de Twitter Blue"
+  },
   "hideSubscriptionsLabel": {
     "message": "Ocultar Suscripciones"
   },
@@ -217,9 +220,6 @@
   "hideBookmarksNavLabel_desktop": {
     "message": "Elementos guardados (menú de navegación)"
   },
-  "hideTwitterBlueNavLabel_desktop": {
-    "message": "Verificado (menú de navegación)"
-  },
   "hideBookmarkButtonLabel": {
     "message": "Botón de guardados debajo de los tweets"
   },
@@ -234,9 +234,6 @@
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Ocultar elementos no usados en el menú hamburguesa"
-  },
-  "hideTwitterBlueNavLabel_mobile": {
-    "message": "Twitter Blue"
   },
   "hideConnectNavLabel": {
     "message": "Conectar"

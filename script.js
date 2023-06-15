@@ -71,8 +71,8 @@ const config = {
   hideTotalTweetsMetrics: true,
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
-  hideTwitterBlueNav: true,
   hideTwitterBlueReplies: false,
+  hideTwitterBlueUpsells: true,
   hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
@@ -856,8 +856,8 @@ function isOnSeparatedTweetsTimeline() {
   return currentPage == separatedTweetsTimelineTitle
 }
 
-function isOnTopicsPage() {
-  return currentPath != '/topics' && Boolean(currentPath.match(/\/topics(\/|$)/))
+function isOnSettingsPage() {
+  return currentPath.startsWith('/settings')
 }
 
 function shouldHideSidebar() {
@@ -1870,8 +1870,17 @@ const configureCss = (() => {
     if (config.hideTwitterAdsNav) {
       hideCssSelectors.push(`${menuRole} a[href*="ads.twitter.com"]`)
     }
-    if (config.hideTwitterBlueNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/i/twitter_blue_sign_up"]`)
+    if (config.hideTwitterBlueUpsells) {
+      hideCssSelectors.push(
+        // Twitter Blue menu item
+        `${menuRole} a[href$="/i/twitter_blue_sign_up"]`,
+        // "Highlight on your profile" on your tweets
+        'div[role="menuitem"][data-testid="highlightUpsell"]',
+        // "Edit with Twitter Blue" on recent tweets
+        'div[role="menuitem"][data-testid="editWithTwitterBlue"]',
+        // Twitter Blue item in Settings
+        'body.Settings a[href="/i/twitter_blue_sign_up"]'
+      )
     }
     if (config.hideTwitterForProfessionalsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/convert_to_professional"]`)
@@ -2050,7 +2059,7 @@ const configureCss = (() => {
       if (config.hideListsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
       }
-      if (config.hideTwitterBlueNav) {
+      if (config.hideTwitterBlueUpsells) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/verified-choose"]`)
       }
       if (config.hideSidebarContent) {
@@ -3123,6 +3132,7 @@ function processCurrentPage() {
   $body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
   $body.classList.toggle('Tweet', isOnIndividualTweetPage())
   $body.classList.toggle('Search', isOnSearchPage())
+  $body.classList.toggle('Settings', isOnSettingsPage())
   $body.classList.toggle('MobileMedia', mobile && URL_MEDIA_RE.test(location.pathname))
   $body.classList.remove('TabbedTimeline')
   $body.classList.remove('SeparatedTweets')

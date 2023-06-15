@@ -127,6 +127,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "在下拉菜单中使用正常的字体大小"
   },
+  "hideTwitterBlueUpsellsLabel": {
+    "message": "隐藏Twitter Blue强制销售"
+  },
   "hideSubscriptionsLabel": {
     "message": "隐藏订阅服务"
   },
@@ -217,9 +220,6 @@
   "hideBookmarksNavLabel_desktop": {
     "message": "书签(导航栏)"
   },
-  "hideTwitterBlueNavLabel_desktop": {
-    "message": "已认证 (导航栏)"
-  },
   "hideBookmarkButtonLabel": {
     "message": "推文下方的书签按钮"
   },
@@ -234,9 +234,6 @@
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "隐藏你不使用的滑出式菜单项"
-  },
-  "hideTwitterBlueNavLabel_mobile": {
-    "message": "Twitter Blue"
   },
   "hideConnectNavLabel": {
     "message": "连接"
