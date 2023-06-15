@@ -38,6 +38,7 @@ export type Config = {
   hideTweetAnalyticsLinks: boolean
   hideTwitterAdsNav: boolean
   hideTwitterBlueNav: boolean
+  hideTwitterBlueReplies: bolean
   hideTwitterForProfessionalsNav: boolean
   hideUnavailableQuoteTweets: boolean
   hideVerifiedNotificationsTab: boolean
@@ -115,6 +116,7 @@ export type TimelineOptions = {
   isTabbed?: boolean
   onTabChanged?: () => void
   onTimelineAppeared?: () => void
+  onTimelineItemsChanged?: (...any) => void
   tabbedTimelineContainerSelector?: string
   timelineSelector?: string
 }

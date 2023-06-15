@@ -72,6 +72,7 @@ const config = {
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
   hideTwitterBlueNav: true,
+  hideTwitterBlueReplies: false,
   hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
@@ -709,7 +710,7 @@ const URL_MEDIA_RE = /\/(?:photo|video)\/\d\/?$/
 const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(with_replies|media|likes)\/?|\/)?$/
 // Matches URLs which show a user's Followers you know / Followers / Following tab
 const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/(follow(?:ing|ers|ers_you_follow))\/?$/
-const URL_TWEET_ID_RE = /\/status\/(\d+)\/?$/
+const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)/
 
 /**
  * The quoted Tweet associated with a caret menu that's just been opened.
@@ -817,7 +818,7 @@ function isOnHomeTimeline() {
 }
 
 function isOnIndividualTweetPage() {
-  return URL_TWEET_ID_RE.test(currentPath)
+  return URL_TWEET_RE.test(currentPath)
 }
 
 function isOnListPage() {
@@ -1292,7 +1293,7 @@ async function observeDesktopModalTimeline() {
   function observeModalTimelineItems($timeline) {
     disconnectModalObserver('modal timeline')
     modalObservers.push(
-      observeElement($timeline, () => onTimelineChange($timeline, 'Desktop Media Modal', {hideHeadings: false}), 'modal timeline')
+      observeElement($timeline, () => onIndividualTweetTimelineChange($timeline), 'modal timeline')
     )
 
     // If other media in the modal is clicked, the timeline is replaced.
@@ -1304,7 +1305,7 @@ async function observeDesktopModalTimeline() {
             log('modal timeline replaced')
             disconnectModalObserver('modal timeline')
             modalObservers.push(
-              observeElement($newTimeline, () => onTimelineChange($newTimeline, 'Desktop Media Modal', {hideHeadings: false}), 'modal timeline')
+              observeElement($newTimeline, () => onIndividualTweetTimelineChange($newTimeline), 'modal timeline')
             )
           })
         })
@@ -1528,6 +1529,7 @@ async function observeTimeline(page, options = {}) {
     isTabbed = false,
     onTabChanged = null,
     onTimelineAppeared = null,
+    onTimelineItemsChanged = onTimelineChange,
     tabbedTimelineContainerSelector = null,
     timelineSelector = Selectors.TIMELINE,
   } = options
@@ -1545,7 +1547,7 @@ async function observeTimeline(page, options = {}) {
   function observeTimelineItems($timeline) {
     disconnectPageObserver('timeline')
     pageObservers.push(
-      observeElement($timeline, () => onTimelineChange($timeline, page, options), 'timeline')
+      observeElement($timeline, () => onTimelineItemsChanged($timeline, page, options), 'timeline')
     )
     onTimelineAppeared?.()
     if (isTabbed) {
@@ -1560,7 +1562,7 @@ async function observeTimeline(page, options = {}) {
               log('tab changed')
               onTabChanged?.()
               pageObservers.push(
-                observeElement($newTimeline, () => onTimelineChange($newTimeline, page, options), 'timeline')
+                observeElement($newTimeline, () => onTimelineItemsChanged($newTimeline, page, options), 'timeline')
               )
             })
           })
@@ -2738,13 +2740,10 @@ function onTimelineChange($timeline, page, options = {}) {
   let hiddenItemCount = 0
   let hiddenItemTypes = {}
 
-  /** @type {HTMLElement} */
-  let $previousItem = null
   /** @type {?import("./types").TimelineItemType} */
   let previousItemType = null
   /** @type {?boolean} */
   let hidPreviousItem = null
-  let hideAllSubsequentItems = false
 
   for (let $item of $timeline.children) {
     /** @type {?import("./types").TimelineItemType} */
@@ -2754,11 +2753,7 @@ function onTimelineChange($timeline, page, options = {}) {
     /** @type {?HTMLElement} */
     let $tweet = $item.querySelector(Selectors.TWEET)
 
-    if (hideAllSubsequentItems) {
-      hideItem = true
-      itemType = previousItemType
-    }
-    else if ($tweet != null) {
+    if ($tweet != null) {
       itemType = getTweetType($tweet)
       if (isOnMainTimeline || isOnListTimeline) {
         let isReply = isReplyToPreviousTweet($tweet)
@@ -2821,19 +2816,8 @@ function onTimelineChange($timeline, page, options = {}) {
     if (itemType == null) {
       if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
         itemType = 'HEADING'
-        // "Discover more" heading and subsequent algorithmic tweets
-        if (isOnIndividualTweetPage() || isDesktopMediaModalOpen) {
-          let $heading = $item.querySelector(Selectors.TIMELINE_HEADING)
-          if ($heading.nextElementSibling &&
-              $heading.nextElementSibling.tagName == 'DIV' &&
-              $heading.nextElementSibling.getAttribute('dir') != null) {
-            itemType = 'DISCOVER_MORE_HEADING'
-            hideItem = config.hideMoreTweets
-            hideAllSubsequentItems = config.hideMoreTweets
-          }
-        }
         // "Who to follow", "Follow some Topics" etc. headings
-        else if (hideHeadings) {
+        if (hideHeadings) {
           hideItem = config.hideWhoToFollowEtc
         }
         if (debug) {
@@ -2869,7 +2853,6 @@ function onTimelineChange($timeline, page, options = {}) {
       }
     }
 
-    $previousItem = $item
     hidPreviousItem = hideItem
     // If we hid a heading, keep hiding everything after it until we hit a tweet
     if (!(previousItemType == 'HEADING' && itemType == null)) {
@@ -2878,6 +2861,119 @@ function onTimelineChange($timeline, page, options = {}) {
   }
 
   log(`processed ${$timeline.children.length} timeline item${s($timeline.children.length)} in ${Date.now() - startTime}ms`, itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes)
+}
+
+/**
+ * @param {HTMLElement} $timeline
+ */
+function onIndividualTweetTimelineChange($timeline) {
+  let startTime = Date.now()
+
+  let itemTypes = {}
+  let hiddenItemCount = 0
+  let hiddenItemTypes = {}
+
+  /** @type {?import("./types").TimelineItemType} */
+  let previousItemType = null
+  /** @type {?boolean} */
+  let hidPreviousItem = null
+  /** @type {boolean} */
+  let hideAllSubsequentItems = false
+  /** @type {string} */
+  let op = URL_TWEET_RE.exec(currentPath)[1].toLowerCase()
+
+  for (let $item of $timeline.children) {
+    /** @type {?import("./types").TimelineItemType} */
+    let itemType = null
+    /** @type {?boolean} */
+    let hideItem = null
+    /** @type {?HTMLElement} */
+    let $tweet = $item.querySelector(Selectors.TWEET)
+    /** @type {boolean} */
+    let isReply = false
+    /** @type {boolean} */
+    let isBlueTweet = false
+
+    if (hideAllSubsequentItems) {
+      hideItem = true
+      itemType = previousItemType
+    }
+    else if ($tweet != null) {
+      itemType = getTweetType($tweet)
+      isReply = isReplyToPreviousTweet($tweet)
+      if (isReply && hidPreviousItem != null) {
+        hideItem = hidPreviousItem
+      }
+      else if (itemType.startsWith('UNAVILABLE') || itemType == 'PROMOTED_TWEET') {
+        hideItem = true
+      }
+      if (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies) {
+        for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
+          let isBlueCheck = isBlueVerified($svg)
+          if (!isBlueCheck) continue
+
+          if (config.twitterBlueChecks != 'ignore') {
+            blueCheck($svg)
+          }
+
+          let userProfileLink = /** @type {HTMLAnchorElement} */ ($svg.closest('a[role="link"]:not([href^="/i/status"])'))
+          if (userProfileLink) {
+            isBlueTweet = true
+            if (!isReply && hideItem == null) {
+              hideItem = config.hideTwitterBlueReplies && userProfileLink.href.split('/').pop().toLowerCase() != op
+            }
+          }
+        }
+      }
+    }
+    else if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
+      itemType = 'HEADING'
+      // "Discover more" heading and subsequent algorithmic tweets
+      let $heading = $item.querySelector(Selectors.TIMELINE_HEADING)
+      if ($heading.nextElementSibling &&
+          $heading.nextElementSibling.tagName == 'DIV' &&
+          $heading.nextElementSibling.getAttribute('dir') != null) {
+        itemType = 'DISCOVER_MORE_HEADING'
+        hideItem = config.hideMoreTweets
+        hideAllSubsequentItems = config.hideMoreTweets
+      }
+    }
+
+    if (itemType == null && hidPreviousItem) {
+      hideItem = true
+    }
+
+    if (debug && itemType != null) {
+      $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet ? ' / BLUE' : ''}`
+    }
+
+    itemTypes[itemType] ||= 0
+    itemTypes[itemType]++
+
+    if (itemType == null) {
+      // Assume a non-identified item following an identified item is related
+      if (previousItemType != null) {
+        hideItem = hidPreviousItem
+        itemType = previousItemType
+      }
+    } else if (hideItem) {
+      hiddenItemCount++
+      if (itemType != null) {
+        hiddenItemTypes[itemType] ||= 0
+        hiddenItemTypes[itemType]++
+      }
+    }
+
+    if (hideItem != null && $item.firstElementChild) {
+      if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display != (hideItem ? 'none' : '')) {
+        /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
+      }
+    }
+
+    hidPreviousItem = hideItem
+  }
+
+  log(`processed ${$timeline.children.length} tweet thread item${s($timeline.children.length)} in ${Date.now() - startTime}ms`, itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes, {op})
 }
 
 function onTitleChange(title) {
@@ -3281,6 +3377,7 @@ function tweakFollowListPage() {
 function tweakIndividualTweetPage() {
   observeTimeline(currentPage, {
     hideHeadings: false,
+    onTimelineItemsChanged: onIndividualTweetTimelineChange
   })
 }
 

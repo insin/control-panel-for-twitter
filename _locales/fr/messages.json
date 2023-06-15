@@ -160,6 +160,9 @@
   "twitterBlueChecksOption_replace": {
     "message": "Remplacer par le logo Twitter Blue"
   },
+  "hideTwitterBlueRepliesLabel": {
+    "message": "Masquer les réponses Twitter Blue"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "Masquer le tweet cité lors de l'affichage des Tweets cités"
   },

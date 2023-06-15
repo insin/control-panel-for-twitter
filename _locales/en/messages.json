@@ -155,10 +155,13 @@
     "message": "Don't use the Chirp font"
   },
   "twitterBlueChecksLabel": {
-    "message": "Twitter Blue verified checkmarks"
+    "message": "Twitter Blue checks"
   },
   "twitterBlueChecksOption_replace": {
     "message": "Replace with Twitter Blue logo"
+  },
+  "hideTwitterBlueRepliesLabel": {
+    "message": "Hide Twitter Blue replies"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "Hide the quoted tweet when viewing Quote Tweets"

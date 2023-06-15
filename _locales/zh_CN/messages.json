@@ -160,6 +160,9 @@
   "twitterBlueChecksOption_replace": {
     "message": "替换为Twitter Blue标识"
   },
+  "hideTwitterBlueRepliesLabel": {
+    "message": "隐藏Twitter Blue的回复"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "查看引用推文时隐藏被引用的推文"
   },

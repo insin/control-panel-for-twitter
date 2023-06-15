@@ -160,6 +160,9 @@
   "twitterBlueChecksOption_replace": {
     "message": "Twitter Blueロゴに変更"
   },
+  "hideTwitterBlueRepliesLabel": {
+    "message": "Twitter Blueの返信を非表示にする"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"
   },
