@@ -1852,7 +1852,10 @@ const configureCss = (() => {
         // "Subscribe to" menu item (mobile)
         '[data-testid="sheetDialog"] > [data-testid="subscribe"]',
         // "Subscriber" indicator in replies from subscribers
-        '[data-testid="tweet"] [data-testid="userFollowIndicator"][style*="color: rgb(141, 32, 144)"]',
+        'body.Default [data-testid="tweet"] [data-testid="userFollowIndicator"][style*="color: rgb(141, 32, 144)"]',
+        'body:is(.Dim, .LightsOut) [data-testid="tweet"] [data-testid="userFollowIndicator"][style*="color: rgb(223, 130, 224)"]',
+        // Monetization item in Settings
+        'body.Settings a[href="/settings/monetization"]',
       )
     }
     if (config.hideHelpCenterNav) {
