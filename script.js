@@ -2892,7 +2892,7 @@ function onIndividualTweetTimelineChange($timeline) {
   /** @type {boolean} */
   let hideAllSubsequentItems = false
   /** @type {string} */
-  let op = URL_TWEET_RE.exec(currentPath)[1].toLowerCase()
+  let op = URL_TWEET_RE.exec(location.pathname)[1].toLowerCase()
 
   for (let $item of $timeline.children) {
     /** @type {?import("./types").TimelineItemType} */
