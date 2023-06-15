@@ -99,6 +99,7 @@ export type QuotedTweet = {
 export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
 
 export type TimelineItemType =
+  | 'BLUE_REPLY'
   | 'DISCOVER_MORE_HEADING'
   | 'HEADING'
   | 'PROMOTED_TWEET'

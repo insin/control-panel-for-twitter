@@ -2916,8 +2916,8 @@ function onIndividualTweetTimelineChange($timeline) {
       if (isReply && hidPreviousItem != null) {
         hideItem = hidPreviousItem
       }
-      else if (itemType.startsWith('UNAVILABLE') || itemType == 'PROMOTED_TWEET') {
-        hideItem = true
+      else {
+        hideItem = shouldHideIndividualTweetTimelineItem(itemType)
       }
       if (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies) {
         for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
@@ -2937,6 +2937,10 @@ function onIndividualTweetTimelineChange($timeline) {
           }
         }
       }
+    }
+    else if ($item.querySelector('article')) {
+      itemType = 'UNAVAILABLE'
+      hideItem = config.hideUnavailableQuoteTweets
     }
     else if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
       itemType = 'HEADING'
@@ -2985,7 +2989,7 @@ function onIndividualTweetTimelineChange($timeline) {
     hidPreviousItem = hideItem
   }
 
-  log(`processed ${$timeline.children.length} tweet thread item${s($timeline.children.length)} in ${Date.now() - startTime}ms`, itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes, {op})
+  log(`processed ${$timeline.children.length} tweet thread item${s($timeline.children.length)} in ${Date.now() - startTime}ms`, itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes)
 }
 
 function onTitleChange(title) {
@@ -3228,6 +3232,25 @@ function setTitle(page) {
   ) : (
     `${currentNotificationCount}${getString('TWITTER')} \\ ${page}`
   )
+}
+
+/**
+ * @param {import("./types").TimelineItemType} type
+ * @returns {boolean}
+ */
+ function shouldHideIndividualTweetTimelineItem(type) {
+  switch (type) {
+    case 'QUOTE_TWEET':
+    case 'RETWEET':
+    case 'RETWEETED_QUOTE_TWEET':
+    case 'TWEET':
+      return false
+    case 'UNAVAILABLE_QUOTE_TWEET':
+    case 'UNAVAILABLE_RETWEET':
+      return config.hideUnavailableQuoteTweets
+    default:
+      return true
+  }
 }
 
 /**
