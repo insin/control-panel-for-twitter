@@ -289,6 +289,9 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "Mensajes"
   },
+  "experimentalNote": {
+    "message": "¡Experimental!"
+  },
   "debugOptionsLabel": {
     "message": "Opciones de desarrollo (debug)"
   },

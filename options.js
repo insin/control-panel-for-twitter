@@ -84,6 +84,7 @@ for (let translationId of [
   'disabledHomeTimelineRedirectLabel',
   'disabledHomeTimelineRedirectOption_notifications',
   'disabledHomeTimelineRedirectOption_messages',
+  'experimentalNote',
   'debugOptionsLabel',
   'debugLabel',
   'debugInfo',
@@ -440,7 +441,7 @@ function main() {
     optionsConfig = {...defaultConfig, ...storedConfig}
 
     $body.classList.toggle('debug', optionsConfig.debug === true)
-    // $experiments.open = ()
+    $experiments.open = (optionsConfig.hideTwitterBlueReplies)
     $exportConfig.addEventListener('click', exportConfig)
     $form.addEventListener('change', onFormChanged)
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)

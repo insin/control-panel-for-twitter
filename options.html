@@ -133,13 +133,6 @@
       </section>
       <section class="checkbox">
         <label>
-          <span id="hideTwitterBlueRepliesLabel">Hide Twitter Blue replies in threads</span>
-          <input type="checkbox" name="hideTwitterBlueReplies">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
           <span id="hideTwitterBlueUpsellsLabel">Hide Twitter Blue upsells</span>
           <input type="checkbox" name="hideTwitterBlueUpsells">
           <span class="toggle"></span>
@@ -525,10 +518,15 @@
           Experiments
         </summary>
         <section class="group">
-          <section>
+          <section class="checkbox">
+            <label>
+              <span id="hideTwitterBlueRepliesLabel">Hide Twitter Blue replies in threads</span>
+              <input type="checkbox" name="hideTwitterBlueReplies">
+              <span class="toggle"></span>
+            </label>
             <p id="showDebugOptions">
-              <span id="noExperiments">
-                There are no experiments in this version
+              <span id="experimentalNote">
+                Experimental!
               </span>
               <small id="debugCountdown"></small>
             </p>
