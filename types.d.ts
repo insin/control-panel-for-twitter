@@ -82,6 +82,7 @@ export type LocaleKey =
   | 'QUOTE_TWEETS'
   | 'RETWEETS'
   | 'SHARED_TWEETS'
+  | 'SHOW_MORE'
   | 'TWITTER'
   | 'TURN_OFF_RETWEETS'
   | 'TURN_ON_RETWEETS'

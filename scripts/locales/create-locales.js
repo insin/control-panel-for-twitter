@@ -192,6 +192,7 @@ let template = {
   MUTE_THIS_CONVERSATION: 'e2d6c17e',
   QUOTE_TWEET: 'c9d7235e',
   QUOTE_TWEETS: 'bd7c0390',
+  SHOW: 'a0e81a2e',
   TWITTER: 'd2fb334c',
   TURN_OFF_RETWEETS: 'b62e432e',
   TURN_ON_RETWEETS: 'b2e20eac',
