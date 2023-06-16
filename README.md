@@ -59,8 +59,9 @@ New versions can take anything from minutes to days to be approved for publishin
 - Hide Views under tweets
 - Hide the "Verified" tab on the Notifications page
 - Replace Twitter Blue checkmarks with the Blue logo so they're not as easily mistaken for verified accounts, or hide them altogether
-- Add "Add muted word" to the "More" menu (desktop) or slide-out menu (mobile)
+- Hide Twitter Blue upsells throughout the app
 - Hide Subscriptions
+- Add "Add muted word" to the "More" menu (desktop) or slide-out menu (mobile)
 - Fast blocking - skips the confirm dialog when you try to block an account
 - Toggle Retweets in Lists - adds a "Turn off Retweets" menu item to Lists
 - Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
