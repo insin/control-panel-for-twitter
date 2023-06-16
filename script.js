@@ -2122,6 +2122,9 @@ const configureCss = (() => {
           body.Profile:not(.Blocked, .NoMedia) ${Selectors.SIDEBAR_WRAPPERS} > div:is(:nth-of-type(2), :nth-of-type(3)) {
             display: block;
           }
+          body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:nth-of-type(2) {
+            display: block;
+          }
         `)
         if (config.showRelevantPeople) {
           cssRules.push(`
