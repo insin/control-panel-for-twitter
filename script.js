@@ -2097,6 +2097,9 @@ const configureCss = (() => {
       if (config.hideBookmarksNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`)
       }
+      if (config.hideCommunitiesNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
+      }
       if (config.hideMessagesDrawer) {
         cssRules.push(`${Selectors.MESSAGES_DRAWER} { visibility: hidden; }`)
       }
@@ -2591,7 +2594,7 @@ function handlePopup($popup) {
   }
 
   if (config.addAddMutedWordMenuItem) {
-    let linkSelector = 'a[href$="/compose/tweet/unsent/drafts"]'
+    let linkSelector = desktop ? 'a[href$="/compose/tweet/unsent/drafts"]' : 'a[href$="/bookmarks"]'
     let $link = /** @type {HTMLElement} */ ($popup.querySelector(linkSelector))
     if ($link) {
       addAddMutedWordMenuItem($link, linkSelector)

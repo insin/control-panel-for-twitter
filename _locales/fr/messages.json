@@ -206,19 +206,13 @@
     "message": "Tiroir des messages"
   },
   "hideExploreNavLabel": {
-    "message": "Explorer (élément de navigation)"
+    "message": "Explorer"
   },
   "hideCommunitiesNavLabel": {
     "message": "Communautés"
   },
   "hideMessagesBottomNavItemLabel": {
-    "message": "Messages (élément de navigation)"
-  },
-  "hideListsNavLabel_desktop": {
-    "message": "Listes (élément de navigation)"
-  },
-  "hideBookmarksNavLabel_desktop": {
-    "message": "Signets (élément de navigation)"
+    "message": "Messages"
   },
   "hideBookmarkButtonLabel": {
     "message": "Bouton de signet sous les tweets"
@@ -238,10 +232,10 @@
   "hideConnectNavLabel": {
     "message": "Se connecter"
   },
-  "hideBookmarksNavLabel_mobile": {
+  "hideBookmarksNavLabel": {
     "message": "Signets"
   },
-  "hideListsNavLabel_mobile": {
+  "hideListsNavLabel": {
     "message": "Listes"
   },
   "hideAnalyticsNavLabel": {

@@ -61,17 +61,12 @@ for (let translationId of [
   'hideMessagesDrawerLabel',
   'hideExploreNavLabel',
   'hideMessagesBottomNavItemLabel',
-  'hideListsNavLabel_desktop',
-  'hideBookmarksNavLabel_desktop',
   'hideBookmarkButtonLabel',
   'hideShareTweetButtonLabel',
   'hideTweetAnalyticsLinksLabel',
   'hideMoreSlideOutMenuItemsOptionsLabel_desktop',
   'hideMoreSlideOutMenuItemsOptionsLabel_mobile',
   'hideConnectNavLabel',
-  'hideCommunitiesNavLabel',
-  'hideBookmarksNavLabel_mobile',
-  'hideListsNavLabel_mobile',
   'hideAnalyticsNavLabel',
   'hideTwitterForProfessionalsNavLabel',
   'hideTwitterAdsNavLabel',
@@ -95,6 +90,17 @@ for (let translationId of [
   'exportConfigLabel',
 ]) {
   document.getElementById(translationId).textContent = chrome.i18n.getMessage(translationId)
+}
+
+for (let translationClass of [
+  'hideCommunitiesNavLabel',
+  'hideBookmarksNavLabel',
+  'hideListsNavLabel',
+]) {
+  let translation = chrome.i18n.getMessage(translationClass)
+  for (let $el of document.querySelectorAll(`.${translationClass}`)) {
+    $el.textContent = translation
+  }
 }
 
 /** @type {boolean} */

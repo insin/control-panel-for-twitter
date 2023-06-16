@@ -206,19 +206,13 @@
     "message": "メッセージドロワー"
   },
   "hideExploreNavLabel": {
-    "message": "「話題を検索」（ナビゲーション項目）"
+    "message": "「話題を検索」"
   },
   "hideCommunitiesNavLabel": {
     "message": "コミュニティ"
   },
   "hideMessagesBottomNavItemLabel": {
-    "message": "メッセージ（ナビゲーション項目）"
-  },
-  "hideListsNavLabel_desktop": {
-    "message": "リスト（ナビゲーション項目）"
-  },
-  "hideBookmarksNavLabel_desktop": {
-    "message": "ブックマーク（ナビゲーション項目）"
+    "message": "メッセージ"
   },
   "hideBookmarkButtonLabel": {
     "message": "ツイート下部のブックマークボタン"
@@ -238,10 +232,10 @@
   "hideConnectNavLabel": {
     "message": "移動する"
   },
-  "hideBookmarksNavLabel_mobile": {
+  "hideBookmarksNavLabel": {
     "message": "ブックマーク"
   },
-  "hideListsNavLabel_mobile": {
+  "hideListsNavLabel": {
     "message": "リスト"
   },
   "hideAnalyticsNavLabel": {

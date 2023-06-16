@@ -206,19 +206,13 @@
     "message": "讯息抽屉"
   },
   "hideExploreNavLabel": {
-    "message": "探索(导航栏)"
+    "message": "探索"
   },
   "hideCommunitiesNavLabel": {
     "message": "社区"
   },
   "hideMessagesBottomNavItemLabel": {
-    "message": "私信(导航栏)"
-  },
-  "hideListsNavLabel_desktop": {
-    "message": "列表(导航栏)"
-  },
-  "hideBookmarksNavLabel_desktop": {
-    "message": "书签(导航栏)"
+    "message": "私信"
   },
   "hideBookmarkButtonLabel": {
     "message": "推文下方的书签按钮"
@@ -238,10 +232,10 @@
   "hideConnectNavLabel": {
     "message": "连接"
   },
-  "hideBookmarksNavLabel_mobile": {
+  "hideBookmarksNavLabel": {
     "message": "书签"
   },
-  "hideListsNavLabel_mobile": {
+  "hideListsNavLabel": {
     "message": "列表"
   },
   "hideAnalyticsNavLabel": {

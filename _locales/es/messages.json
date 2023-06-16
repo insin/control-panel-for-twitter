@@ -206,19 +206,13 @@
     "message": "Bandeja de mensajes"
   },
   "hideExploreNavLabel": {
-    "message": "Explorar (menú de navegación)"
+    "message": "Explorar"
   },
   "hideCommunitiesNavLabel": {
     "message": "Comunidades"
   },
   "hideMessagesBottomNavItemLabel": {
-    "message": "Mensajes (menú de navegación)"
-  },
-  "hideListsNavLabel_desktop": {
-    "message": "Listas (menú de navegación)"
-  },
-  "hideBookmarksNavLabel_desktop": {
-    "message": "Elementos guardados (menú de navegación)"
+    "message": "Mensajes"
   },
   "hideBookmarkButtonLabel": {
     "message": "Botón de guardados debajo de los tweets"
@@ -238,10 +232,10 @@
   "hideConnectNavLabel": {
     "message": "Conectar"
   },
-  "hideBookmarksNavLabel_mobile": {
-    "message": "Elementos guardados"
+  "hideBookmarksNavLabel": {
+    "message": "Guardados"
   },
-  "hideListsNavLabel_mobile": {
+  "hideListsNavLabel": {
     "message": "Listas"
   },
   "hideAnalyticsNavLabel": {

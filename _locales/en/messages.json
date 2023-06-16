@@ -206,19 +206,13 @@
     "message": "Messages drawer"
   },
   "hideExploreNavLabel": {
-    "message": "Explore (navigation item)"
+    "message": "Explore"
   },
   "hideCommunitiesNavLabel": {
     "message": "Communities"
   },
   "hideMessagesBottomNavItemLabel": {
-    "message": "Messages (navigation item)"
-  },
-  "hideListsNavLabel_desktop": {
-    "message": "Lists (navigation item)"
-  },
-  "hideBookmarksNavLabel_desktop": {
-    "message": "Bookmarks (navigation item)"
+    "message": "Messages"
   },
   "hideBookmarkButtonLabel": {
     "message": "Bookmark button under tweets"
@@ -238,10 +232,10 @@
   "hideConnectNavLabel": {
     "message": "Connect"
   },
-  "hideBookmarksNavLabel_mobile": {
+  "hideBookmarksNavLabel": {
     "message": "Bookmarks"
   },
-  "hideListsNavLabel_mobile": {
+  "hideListsNavLabel": {
     "message": "Lists"
   },
   "hideAnalyticsNavLabel": {
