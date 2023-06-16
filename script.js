@@ -1925,9 +1925,9 @@ const configureCss = (() => {
         // Twitter Blue menu item
         `${menuRole} a[href$="/i/twitter_blue_sign_up"]`,
         // "Highlight on your profile" on your tweets
-        'div[role="menuitem"][data-testid="highlightUpsell"]',
+        '[role="menuitem"][data-testid="highlightUpsell"]',
         // "Edit with Twitter Blue" on recent tweets
-        'div[role="menuitem"][data-testid="editWithTwitterBlue"]',
+        '[role="menuitem"][data-testid="editWithTwitterBlue"]',
         // Twitter Blue item in Settings
         'body.Settings a[href="/i/twitter_blue_sign_up"]'
       )
