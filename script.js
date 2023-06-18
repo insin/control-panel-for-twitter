@@ -3088,8 +3088,8 @@ function onIndividualTweetTimelineChange($timeline) {
     }
 
     // Assume a non-identified item following a hidden item is related
-    if (itemType == null && hidPreviousItem) {
-      hideItem = true
+    if (itemType == null && hidPreviousItem != null) {
+      hideItem = hidPreviousItem
       itemType = 'SUBSEQUENT_ITEM'
     }
 
