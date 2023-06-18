@@ -2996,13 +2996,7 @@ function onIndividualTweetTimelineChange($timeline) {
   let hideAllSubsequentItems = false
   /** @type {string} */
   let op = URL_TWEET_RE.exec(location.pathname)[1].toLowerCase()
-  /**
-   * @type {{
-   *   $item: Element
-   *   itemType?: import("./types").TimelineItemType
-   *   hideItem?: boolean
-   * }[]}
-   */
+  /** @type {{$item: Element, hideItem?: boolean}[]} */
   let changes = []
 
   for (let $item of $timeline.children) {
@@ -3099,40 +3093,44 @@ function onIndividualTweetTimelineChange($timeline) {
       itemType = 'SUBSEQUENT_ITEM'
     }
 
+    if (itemType != null) {
+      itemTypes[itemType] ||= 0
+      itemTypes[itemType]++
+    }
+
+    if (hideItem) {
+      hiddenItemCount++
+      hiddenItemTypes[itemType] ||= 0
+      hiddenItemTypes[itemType]++
+    }
+
     if (debug && itemType != null) {
       $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet ? ' / BLUE' : ''}`
     }
 
-    itemTypes[itemType] ||= 0
-    itemTypes[itemType]++
-
     if (isFocusedTweet) {
       // Tweets prior to the focused tweet should never be hidden
       changes = []
+      hiddenItemCount = 0
+      hiddenItemTypes = {}
     }
     else if (hideItem != null && $item.firstElementChild) {
       if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display != (hideItem ? 'none' : '')) {
-        changes.push({$item, itemType, hideItem})
+        changes.push({$item, hideItem})
       }
     }
 
     hidPreviousItem = hideItem
   }
 
-  log(`applying ${changes.length} change${s(changes.length)}`)
-  for (let {$item, itemType, hideItem} of changes) {
-    if (hideItem) {
-      hiddenItemCount++
-      if (itemType != null) {
-        hiddenItemTypes[itemType] ||= 0
-        hiddenItemTypes[itemType]++
-      }
-    }
-
-    /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
+  for (let change of changes) {
+    /** @type {HTMLElement} */ (change.$item.firstElementChild).style.display = change.hideItem ? 'none' : ''
   }
 
-  log(`processed ${$timeline.children.length} tweet thread item${s($timeline.children.length)} in ${Date.now() - startTime}ms`, itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes)
+  log(
+    `processed ${$timeline.children.length} thread item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
+    itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
+  )
 }
 
 function onTitleChange(title) {
