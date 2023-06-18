@@ -2182,6 +2182,10 @@ const configureCss = (() => {
           `)
         }
         hideCssSelectors.push(`body.HideSidebar ${Selectors.SIDEBAR}`)
+      } else if (config.hideTwitterBlueUpsells) {
+        hideCssSelectors.push(
+          `body.MainTimeline ${Selectors.SIDEBAR_WRAPPERS} > div:nth-of-type(3)`
+        )
       }
       if (config.hideShareTweetButton) {
         hideCssSelectors.push(
