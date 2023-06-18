@@ -193,6 +193,7 @@ let template = {
   QUOTE_TWEET: 'c9d7235e',
   QUOTE_TWEETS: 'bd7c0390',
   SHOW: 'a0e81a2e',
+  SHOW_MORE_REPLIES: 'c837fcaa',
   TWITTER: 'd2fb334c',
   TURN_OFF_RETWEETS: 'b62e432e',
   TURN_ON_RETWEETS: 'b2e20eac',
@@ -228,6 +229,6 @@ for (let file of fs.readdirSync('./js')) {
   locales[localeCode] = sortProperties(locale)
 }
 
-fs.writeFileSync('locales.js', 'let locales = ' + JSON.stringify(locales, null, 2), {
+fs.writeFileSync('locales.js', 'const locales = ' + JSON.stringify(locales, null, 2), {
   encoding: 'utf8',
 })

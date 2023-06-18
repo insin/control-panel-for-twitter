@@ -118,6 +118,7 @@ const locales = {
     RETWEETS: 'إعادات التغريد',
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
+    SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
     TWITTER: 'تويتر',
@@ -131,6 +132,7 @@ const locales = {
     RETWEETS: 'إعادات التغريد',
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
+    SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
   },
@@ -143,6 +145,7 @@ const locales = {
     RETWEETS: 'Ретуитове',
     SHARED_TWEETS: 'Споделени туитове',
     SHOW: 'Показване',
+    SHOW_MORE_REPLIES: 'Показване на още отговори',
     TURN_OFF_RETWEETS: 'Изключване на ретуитовете',
     TURN_ON_RETWEETS: 'Включване на ретуитовете',
   },
@@ -155,6 +158,7 @@ const locales = {
     RETWEETS: 'পুনঃটুইটগুলো',
     SHARED_TWEETS: 'ভাগ করা টুইটগুলি',
     SHOW: 'দেখান',
+    SHOW_MORE_REPLIES: 'আরও উত্তর দেখান',
     TURN_OFF_RETWEETS: 'পুনঃ টুইটগুলি বন্ধ করুন',
     TURN_ON_RETWEETS: 'পুনঃ টুইটগুলি চালু করুন',
     TWITTER: 'টুইটার',
@@ -168,6 +172,7 @@ const locales = {
     RETWEETS: 'Retuits',
     SHARED_TWEETS: 'Tuits compartits',
     SHOW: 'Mostra',
+    SHOW_MORE_REPLIES: 'Mostra més respostes',
     TURN_OFF_RETWEETS: 'Desactiva els retuits',
     TURN_ON_RETWEETS: 'Activa els retuits',
   },
@@ -180,6 +185,7 @@ const locales = {
     RETWEETS: 'Retweety',
     SHARED_TWEETS: 'Sdílené tweety',
     SHOW: 'Zobrazit',
+    SHOW_MORE_REPLIES: 'Zobrazit další odpovědi',
     TURN_OFF_RETWEETS: 'Vypnout retweety',
     TURN_ON_RETWEETS: 'Zapnout retweety',
   },
@@ -191,6 +197,7 @@ const locales = {
     QUOTE_TWEETS: 'Citat-Tweets',
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
+    SHOW_MORE_REPLIES: 'Vis flere svar',
     TURN_OFF_RETWEETS: 'Slå Retweets fra',
     TURN_ON_RETWEETS: 'Slå Retweets til',
   },
@@ -202,6 +209,7 @@ const locales = {
     QUOTE_TWEETS: 'Zitierte Tweets',
     SHARED_TWEETS: 'Geteilte Tweets',
     SHOW: 'Anzeigen',
+    SHOW_MORE_REPLIES: 'Mehr Antworten anzeigen',
     TURN_OFF_RETWEETS: 'Retweets ausschalten',
     TURN_ON_RETWEETS: 'Retweets einschalten',
   },
@@ -214,6 +222,7 @@ const locales = {
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Κοινόχρηστα Tweets',
     SHOW: 'Εμφάνιση',
+    SHOW_MORE_REPLIES: 'Εμφάνιση περισσότερων απαντήσεων',
     TURN_OFF_RETWEETS: 'Απενεργοποίηση των Retweet',
     TURN_ON_RETWEETS: 'Ενεργοποίηση των Retweet',
   },
@@ -226,6 +235,7 @@ const locales = {
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Shared Tweets',
     SHOW: 'Show',
+    SHOW_MORE_REPLIES: 'Show more replies',
     TURN_OFF_RETWEETS: 'Turn off Retweets',
     TURN_ON_RETWEETS: 'Turn on Retweets',
     TWITTER: 'Twitter',
@@ -238,6 +248,7 @@ const locales = {
     QUOTE_TWEETS: 'Tweets citados',
     SHARED_TWEETS: 'Tweets compartidos',
     SHOW: 'Mostrar',
+    SHOW_MORE_REPLIES: 'Mostrar más respuestas',
     TURN_OFF_RETWEETS: 'Desactivar Retweets',
     TURN_ON_RETWEETS: 'Activar Retweets',
   },
@@ -250,6 +261,7 @@ const locales = {
     RETWEETS: 'Bertxioak',
     SHARED_TWEETS: 'Partekatutako',
     SHOW: 'Erakutsi',
+    SHOW_MORE_REPLIES: 'Erakutsi erantzun gehiago',
     TURN_OFF_RETWEETS: 'Desaktibatu birtxioak',
     TURN_ON_RETWEETS: 'Aktibatu birtxioak',
   },
@@ -262,6 +274,7 @@ const locales = {
     RETWEETS: 'بازتوییت‌ها',
     SHARED_TWEETS: 'توییتهای مشترک',
     SHOW: 'نمایش',
+    SHOW_MORE_REPLIES: 'نمایش پاسخ‌های بیشتر',
     TURN_OFF_RETWEETS: 'غیرفعال‌سازی بازتوییت‌ها',
     TURN_ON_RETWEETS: 'فعال سازی بازتوییت‌ها',
     TWITTER: 'توییتر',
@@ -275,6 +288,7 @@ const locales = {
     RETWEETS: 'Uudelleentwiittaukset',
     SHARED_TWEETS: 'Jaetut twiitit',
     SHOW: 'Näytä',
+    SHOW_MORE_REPLIES: 'Näytä lisää vastauksia',
     TURN_OFF_RETWEETS: 'Poista uudelleentwiittaukset käytöstä',
     TURN_ON_RETWEETS: 'Ota uudelleentwiittaukset käyttöön',
   },
@@ -287,6 +301,7 @@ const locales = {
     RETWEETS: 'Mga Retweet',
     SHARED_TWEETS: 'Mga Ibinahaging Tweet',
     SHOW: 'Ipakita',
+    SHOW_MORE_REPLIES: 'Magpakita pa ng mga sagot',
     TURN_OFF_RETWEETS: 'I-off ang Retweets',
     TURN_ON_RETWEETS: 'I-on ang Retweets',
   },
@@ -298,6 +313,7 @@ const locales = {
     QUOTE_TWEETS: 'Tweets cités',
     SHARED_TWEETS: 'Tweets partagés',
     SHOW: 'Afficher',
+    SHOW_MORE_REPLIES: 'Voir plus de réponses',
     TURN_OFF_RETWEETS: 'Désactiver les Retweets',
     TURN_ON_RETWEETS: 'Activer les Retweets',
   },
@@ -310,6 +326,7 @@ const locales = {
     RETWEETS: 'Atweetanna',
     SHARED_TWEETS: 'Tweetanna Roinnte',
     SHOW: 'Taispeáin',
+    SHOW_MORE_REPLIES: 'Taispeáin tuilleadh freagraí',
     TURN_OFF_RETWEETS: 'Cas as Atweetanna',
     TURN_ON_RETWEETS: 'Cas Atweetanna air',
   },
@@ -322,6 +339,7 @@ const locales = {
     RETWEETS: 'Rechouchíos',
     SHARED_TWEETS: 'Chíos compartidos',
     SHOW: 'Amosar',
+    SHOW_MORE_REPLIES: 'Amosar máis respostas',
     TURN_OFF_RETWEETS: 'Desactivar os rechouchíos',
     TURN_ON_RETWEETS: 'Activar os rechouchíos',
   },
@@ -334,6 +352,7 @@ const locales = {
     RETWEETS: 'પુનટ્વીટ્સ',
     SHARED_TWEETS: 'શેર કરેલી ટ્વીટ્સ',
     SHOW: 'બતાવો',
+    SHOW_MORE_REPLIES: 'વધુ પ્રત્યુતરો દર્શાવો',
     TURN_OFF_RETWEETS: 'પુનટ્વીટ્સ બંધ કરો',
     TURN_ON_RETWEETS: 'પુનટ્વીટ્સ ચાલુ કરો',
   },
@@ -346,6 +365,7 @@ const locales = {
     RETWEETS: 'ציוצים מחדש',
     SHARED_TWEETS: 'ציוצים משותפים',
     SHOW: 'הצג',
+    SHOW_MORE_REPLIES: 'הצג תשובות נוספות',
     TURN_OFF_RETWEETS: 'כבה ציוצים מחדש',
     TURN_ON_RETWEETS: 'הפעל ציוצים מחדש',
     TWITTER: 'טוויטר',
@@ -359,6 +379,7 @@ const locales = {
     RETWEETS: 'रीट्वीट्स',
     SHARED_TWEETS: 'साझा किए गए ट्वीट',
     SHOW: 'दिखाएं',
+    SHOW_MORE_REPLIES: 'और अधिक जवाब दिखाएँ',
     TURN_OFF_RETWEETS: 'रीट्वीट बंद करें',
     TURN_ON_RETWEETS: 'रीट्वीट चालू करें',
   },
@@ -371,6 +392,7 @@ const locales = {
     RETWEETS: 'Proslijeđeni tweetovi',
     SHARED_TWEETS: 'Dijeljeni tweetovi',
     SHOW: 'Prikaži',
+    SHOW_MORE_REPLIES: 'Prikaži još odgovora',
     TURN_OFF_RETWEETS: 'Isključi proslijeđene tweetove',
     TURN_ON_RETWEETS: 'Uključi proslijeđene tweetove',
   },
@@ -383,6 +405,7 @@ const locales = {
     RETWEETS: 'Retweetek',
     SHARED_TWEETS: 'Megosztott tweetek',
     SHOW: 'Megjelenítés',
+    SHOW_MORE_REPLIES: 'Több válasz megjelenítése',
     TURN_OFF_RETWEETS: 'Retweetek kikapcsolása',
     TURN_ON_RETWEETS: 'Retweetek bekapcsolása',
   },
@@ -395,6 +418,7 @@ const locales = {
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Tweet yang Dibagikan',
     SHOW: 'Tampilkan',
+    SHOW_MORE_REPLIES: 'Tampilkan balasan lainnya',
     TURN_OFF_RETWEETS: 'Matikan Retweet',
     TURN_ON_RETWEETS: 'Nyalakan Retweet',
   },
@@ -407,6 +431,7 @@ const locales = {
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Tweet condivisi',
     SHOW: 'Mostra',
+    SHOW_MORE_REPLIES: 'Mostra altre risposte',
     TURN_OFF_RETWEETS: 'Disattiva Retweet',
     TURN_ON_RETWEETS: 'Attiva Retweet',
   },
@@ -419,6 +444,7 @@ const locales = {
     RETWEETS: 'リツイート',
     SHARED_TWEETS: '共有ツイート',
     SHOW: '表示',
+    SHOW_MORE_REPLIES: '返信をさらに表示',
     TURN_OFF_RETWEETS: 'リツイートをオフにする',
     TURN_ON_RETWEETS: 'リツイートをオンにする',
   },
@@ -431,6 +457,7 @@ const locales = {
     RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳು',
     SHARED_TWEETS: 'ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು',
     SHOW: 'ತೋರಿಸಿ',
+    SHOW_MORE_REPLIES: 'ಇನ್ನಷ್ಟು ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ತೋರಿಸಿ',
     TURN_OFF_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
     TURN_ON_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆನ್ ಮಾಡಿ',
   },
@@ -443,6 +470,7 @@ const locales = {
     RETWEETS: '리트윗',
     SHARED_TWEETS: '공유 트윗',
     SHOW: '표시',
+    SHOW_MORE_REPLIES: '더 많은 답글 보기',
     TURN_OFF_RETWEETS: '리트윗 끄기',
     TURN_ON_RETWEETS: '리트윗 켜기',
     TWITTER: '트위터',
@@ -456,6 +484,7 @@ const locales = {
     RETWEETS: 'पुनर्ट्विट्स',
     SHARED_TWEETS: 'सामायिक ट्विट',
     SHOW: 'दाखवा',
+    SHOW_MORE_REPLIES: 'अधिक प्रत्युत्तरे दाखवा',
     TURN_OFF_RETWEETS: 'पुनर्ट्विट्स बंद करा',
     TURN_ON_RETWEETS: 'पुनर्ट्विट्स चालू करा',
   },
@@ -468,6 +497,7 @@ const locales = {
     RETWEETS: 'Tweet semula',
     SHARED_TWEETS: 'Tweet Berkongsi',
     SHOW: 'Tunjukkan',
+    SHOW_MORE_REPLIES: 'Tunjukkan lagi balasan',
     TURN_OFF_RETWEETS: 'Matikan Tweet semula',
     TURN_ON_RETWEETS: 'Hidupkan Tweet semula',
   },
@@ -479,6 +509,7 @@ const locales = {
     QUOTE_TWEETS: 'Sitat-Tweets',
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
+    SHOW_MORE_REPLIES: 'Vis flere svar',
     TURN_OFF_RETWEETS: 'Slå av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
   },
@@ -490,6 +521,7 @@ const locales = {
     QUOTE_TWEETS: 'Geciteerde Tweets',
     SHARED_TWEETS: 'Gedeelde Tweets',
     SHOW: 'Weergeven',
+    SHOW_MORE_REPLIES: 'Meer antwoorden tonen',
     TURN_OFF_RETWEETS: 'Retweets uitschakelen',
     TURN_ON_RETWEETS: 'Retweets inschakelen',
   },
@@ -502,6 +534,7 @@ const locales = {
     RETWEETS: 'Tweety podane dalej',
     SHARED_TWEETS: 'Udostępnione Tweety',
     SHOW: 'Pokaż',
+    SHOW_MORE_REPLIES: 'Pokaż więcej odpowiedzi',
     TURN_OFF_RETWEETS: 'Wyłącz Tweety podane dalej',
     TURN_ON_RETWEETS: 'Włącz Tweety podane dalej',
   },
@@ -513,6 +546,7 @@ const locales = {
     QUOTE_TWEETS: 'Tweets com comentário',
     SHARED_TWEETS: 'Tweets Compartilhados',
     SHOW: 'Mostrar',
+    SHOW_MORE_REPLIES: 'Mostrar mais respostas',
     TURN_OFF_RETWEETS: 'Desativar Retweets',
     TURN_ON_RETWEETS: 'Ativar Retweets',
   },
@@ -525,6 +559,7 @@ const locales = {
     RETWEETS: 'Retweeturi',
     SHARED_TWEETS: 'Tweeturi partajate',
     SHOW: 'Afișează',
+    SHOW_MORE_REPLIES: 'Afișează mai multe răspunsuri',
     TURN_OFF_RETWEETS: 'Dezactivează Retweeturile',
     TURN_ON_RETWEETS: 'Activează Retweeturile',
   },
@@ -537,6 +572,7 @@ const locales = {
     RETWEETS: 'Ретвиты',
     SHARED_TWEETS: 'Общие твиты',
     SHOW: 'Показать',
+    SHOW_MORE_REPLIES: 'Показать еще ответы',
     TURN_OFF_RETWEETS: 'Отключить ретвиты',
     TURN_ON_RETWEETS: 'Включить ретвиты',
     TWITTER: 'Твиттер',
@@ -550,6 +586,7 @@ const locales = {
     RETWEETS: 'Retweety',
     SHARED_TWEETS: 'Zdieľané Tweety',
     SHOW: 'Zobraziť',
+    SHOW_MORE_REPLIES: 'Zobraziť viac odpovedí',
     TURN_OFF_RETWEETS: 'Vypnúť retweety',
     TURN_ON_RETWEETS: 'Zapnúť retweety',
   },
@@ -562,6 +599,7 @@ const locales = {
     RETWEETS: 'Ретвитови',
     SHARED_TWEETS: 'Дељени твитови',
     SHOW: 'Прикажи',
+    SHOW_MORE_REPLIES: 'Прикажи још одговора',
     TURN_OFF_RETWEETS: 'Искључи ретвитове',
     TURN_ON_RETWEETS: 'Укључи ретвитове',
     TWITTER: 'Твитер',
@@ -574,6 +612,7 @@ const locales = {
     QUOTE_TWEETS: 'Citat-tweets',
     SHARED_TWEETS: 'Delade tweetsen',
     SHOW: 'Visa',
+    SHOW_MORE_REPLIES: 'Visa fler svar',
     TURN_OFF_RETWEETS: 'Stäng av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
   },
@@ -586,6 +625,7 @@ const locales = {
     RETWEETS: 'மறுகீச்சுகள்',
     SHARED_TWEETS: 'பகிரப்பட்ட ட்வீட்டுகள்',
     SHOW: 'காண்பி',
+    SHOW_MORE_REPLIES: 'மேலும் பதில்களைக் காண்பி',
     TURN_OFF_RETWEETS: 'மறுகீச்சுகளை அணை',
     TURN_ON_RETWEETS: 'மறுகீச்சுகளை இயக்கு',
   },
@@ -598,6 +638,7 @@ const locales = {
     RETWEETS: 'รีทวีต',
     SHARED_TWEETS: 'ทวีตที่แชร์',
     SHOW: 'แสดง',
+    SHOW_MORE_REPLIES: 'แสดงการตอบกลับเพิ่มเติม',
     TURN_OFF_RETWEETS: 'ปิดรีทวีต',
     TURN_ON_RETWEETS: 'เปิดรีทวีต',
     TWITTER: 'ทวิตเตอร์',
@@ -611,6 +652,7 @@ const locales = {
     RETWEETS: 'Retweetler',
     SHARED_TWEETS: 'Paylaşılan Tweetler',
     SHOW: 'Göster',
+    SHOW_MORE_REPLIES: 'Daha fazla yanıt göster',
     TURN_OFF_RETWEETS: 'Retweetleri kapat',
     TURN_ON_RETWEETS: 'Retweetleri aç',
   },
@@ -623,6 +665,7 @@ const locales = {
     RETWEETS: 'Ретвіти',
     SHARED_TWEETS: 'Спільні твіти',
     SHOW: 'Показати',
+    SHOW_MORE_REPLIES: 'Показати більше відповідей',
     TURN_OFF_RETWEETS: 'Вимкнути ретвіти',
     TURN_ON_RETWEETS: 'Увімкнути ретвіти',
     TWITTER: 'Твіттер',
@@ -636,6 +679,7 @@ const locales = {
     RETWEETS: 'ریٹویٹس',
     SHARED_TWEETS: 'مشترکہ ٹویٹس',
     SHOW: 'دکھائیں',
+    SHOW_MORE_REPLIES: 'مزید جوابات دکھائیں',
     TURN_OFF_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
     TURN_ON_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
     TWITTER: 'ٹوئٹر',
@@ -649,6 +693,7 @@ const locales = {
     RETWEETS: 'Các Tweet lại',
     SHARED_TWEETS: 'Tweet được chia sẻ',
     SHOW: 'Hiện',
+    SHOW_MORE_REPLIES: 'Hiển thị thêm trả lời',
     TURN_OFF_RETWEETS: 'Tắt Tweet lại',
     TURN_ON_RETWEETS: 'Bật Tweet lại',
   },
@@ -661,6 +706,7 @@ const locales = {
     RETWEETS: '轉推',
     SHARED_TWEETS: '分享的推文',
     SHOW: '顯示',
+    SHOW_MORE_REPLIES: '顯示更多回覆',
     TURN_OFF_RETWEETS: '關閉轉推',
     TURN_ON_RETWEETS: '開啟轉推',
   },
@@ -673,10 +719,12 @@ const locales = {
     RETWEETS: '转推',
     SHARED_TWEETS: '分享的推文',
     SHOW: '显示',
+    SHOW_MORE_REPLIES: '显示更多回复',
     TURN_OFF_RETWEETS: '关闭转推',
     TURN_ON_RETWEETS: '开启转推',
   },
 }
+
 
 /**
  * @param {import("./types").LocaleKey} code
@@ -2938,14 +2986,20 @@ function onIndividualTweetTimelineChange($timeline) {
   let hiddenItemCount = 0
   let hiddenItemTypes = {}
 
-  /** @type {?import("./types").TimelineItemType} */
-  let previousItemType = null
   /** @type {?boolean} */
   let hidPreviousItem = null
   /** @type {boolean} */
   let hideAllSubsequentItems = false
   /** @type {string} */
   let op = URL_TWEET_RE.exec(location.pathname)[1].toLowerCase()
+  /**
+   * @type {{
+   *   $item: Element
+   *   itemType?: import("./types").TimelineItemType
+   *   hideItem?: boolean
+   * }[]}
+   */
+  let changes = []
 
   for (let $item of $timeline.children) {
     /** @type {?import("./types").TimelineItemType} */
@@ -2955,23 +3009,31 @@ function onIndividualTweetTimelineChange($timeline) {
     /** @type {?HTMLElement} */
     let $tweet = $item.querySelector(Selectors.TWEET)
     /** @type {boolean} */
+    let isFocusedTweet = false
+    /** @type {boolean} */
     let isReply = false
     /** @type {boolean} */
     let isBlueTweet = false
 
     if (hideAllSubsequentItems) {
       hideItem = true
-      itemType = previousItemType
+      itemType = 'DISCOVER_MORE_TWEET'
     }
     else if ($tweet != null) {
-      itemType = getTweetType($tweet)
+      isFocusedTweet = $tweet.tabIndex == -1
       isReply = isReplyToPreviousTweet($tweet)
-      if (isReply && hidPreviousItem != null) {
-        hideItem = hidPreviousItem
+      if (isFocusedTweet) {
+        itemType = 'FOCUSED_TWEET'
+        hideItem = false
+      } else {
+        itemType = getTweetType($tweet)
+        if (isReply && hidPreviousItem != null) {
+          hideItem = hidPreviousItem
+        } else {
+          hideItem = shouldHideIndividualTweetTimelineItem(itemType)
+        }
       }
-      else {
-        hideItem = shouldHideIndividualTweetTimelineItem(itemType)
-      }
+
       if (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies) {
         for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
           let isBlueCheck = isBlueVerified($svg)
@@ -2984,7 +3046,8 @@ function onIndividualTweetTimelineChange($timeline) {
           let userProfileLink = /** @type {HTMLAnchorElement} */ ($svg.closest('a[role="link"]:not([href^="/i/status"])'))
           if (userProfileLink) {
             isBlueTweet = true
-            if (!isReply && !hideItem) {
+            // Replies to the focused tweet don't have the reply indicator
+            if (!isFocusedTweet && !isReply && !hideItem) {
               hideItem = config.hideTwitterBlueReplies && userProfileLink.href.split('/').pop().toLowerCase() != op
               if (hideItem) {
                 itemType = 'BLUE_REPLY'
@@ -3001,22 +3064,35 @@ function onIndividualTweetTimelineChange($timeline) {
         itemType = 'UNAVAILABLE'
         hideItem = config.hideUnavailableQuoteTweets
       }
-    }
-    else if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
-      itemType = 'HEADING'
-      // "Discover more" heading and subsequent algorithmic tweets
-      let $heading = $item.querySelector(Selectors.TIMELINE_HEADING)
-      if ($heading.nextElementSibling &&
-          $heading.nextElementSibling.tagName == 'DIV' &&
-          $heading.nextElementSibling.getAttribute('dir') != null) {
-        itemType = 'DISCOVER_MORE_HEADING'
-        hideItem = config.hideMoreTweets
-        hideAllSubsequentItems = config.hideMoreTweets
+    } else {
+      // We need to identify "Show more replies" so it doesn't get hidden if the
+      // item immediately before it was hidden.
+      let $button = $item.querySelector('div[role="button"]')
+      if ($button) {
+        if ($button?.textContent == getString('SHOW_MORE_REPLIES')) {
+          itemType = 'SHOW_MORE'
+        }
+      } else {
+        let $heading = $item.querySelector(Selectors.TIMELINE_HEADING)
+        if ($heading) {
+          // Discover More headings have a description next to them
+          if ($heading.nextElementSibling &&
+              $heading.nextElementSibling.tagName == 'DIV' &&
+              $heading.nextElementSibling.getAttribute('dir') != null) {
+            itemType = 'DISCOVER_MORE_HEADING'
+            hideItem = config.hideMoreTweets
+            hideAllSubsequentItems = config.hideMoreTweets
+          } else {
+            itemType = 'HEADING'
+          }
+        }
       }
     }
 
+    // Assume a non-identified item following a hidden item is related
     if (itemType == null && hidPreviousItem) {
       hideItem = true
+      itemType = 'SUBSEQUENT_ITEM'
     }
 
     if (debug && itemType != null) {
@@ -3026,13 +3102,22 @@ function onIndividualTweetTimelineChange($timeline) {
     itemTypes[itemType] ||= 0
     itemTypes[itemType]++
 
-    if (itemType == null) {
-      // Assume a non-identified item following an identified item is related
-      if (previousItemType != null) {
-        hideItem = hidPreviousItem
-        itemType = previousItemType
+    if (isFocusedTweet) {
+      // Tweets prior to the focused tweet should never be hidden
+      changes = []
+    }
+    else if (hideItem != null && $item.firstElementChild) {
+      if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display != (hideItem ? 'none' : '')) {
+        changes.push({$item, itemType, hideItem})
       }
-    } else if (hideItem) {
+    }
+
+    hidPreviousItem = hideItem
+  }
+
+  log(`applying ${changes.length} change${s(changes.length)}`)
+  for (let {$item, itemType, hideItem} of changes) {
+    if (hideItem) {
       hiddenItemCount++
       if (itemType != null) {
         hiddenItemTypes[itemType] ||= 0
@@ -3040,13 +3125,7 @@ function onIndividualTweetTimelineChange($timeline) {
       }
     }
 
-    if (hideItem != null && $item.firstElementChild) {
-      if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display != (hideItem ? 'none' : '')) {
-        /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
-      }
-    }
-
-    hidPreviousItem = hideItem
+    /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
   }
 
   log(`processed ${$timeline.children.length} tweet thread item${s($timeline.children.length)} in ${Date.now() - startTime}ms`, itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes)
