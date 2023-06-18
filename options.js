@@ -441,7 +441,7 @@ function main() {
     optionsConfig = {...defaultConfig, ...storedConfig}
 
     $body.classList.toggle('debug', optionsConfig.debug === true)
-    $experiments.open = (optionsConfig.hideTwitterBlueReplies)
+    // $experiments.open = (...)
     $exportConfig.addEventListener('click', exportConfig)
     $form.addEventListener('change', onFormChanged)
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)

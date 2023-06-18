@@ -290,7 +290,7 @@
     "message": "Messages"
   },
   "experimentalNote": {
-    "message": "Expérimental!"
+    "message": "Il n'y a pas d'expériences dans cette version"
   },
   "debugOptionsLabel": {
     "message": "Options de débogage (debug)"

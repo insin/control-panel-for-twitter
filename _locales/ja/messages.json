@@ -290,7 +290,7 @@
     "message": "メッセージ"
   },
   "experimentalNote": {
-    "message": "実験的！"
+    "message": "このバージョンには実験はありません"
   },
   "debugOptionsLabel": {
     "message": "デバッグオプション"
