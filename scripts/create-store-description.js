@@ -32,6 +32,7 @@ ${uiImprovementsOptionsLabel}
 • ${hideVerifiedNotificationsTabLabel}
 • ${twitterBlueChecksLabel}
   • ${twitterBlueChecksOption_replace}
+• ${hideTwitterBlueRepliesLabel}
 • ${hideTwitterBlueUpsellsLabel}
 • ${hideSubscriptionsLabel}
 • ${addAddMutedWordMenuItemLabel_desktop}

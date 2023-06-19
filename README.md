@@ -59,6 +59,7 @@ New versions can take anything from minutes to days to be approved for publishin
 - Hide Views under tweets
 - Hide the "Verified" tab on the Notifications page
 - Replace Twitter Blue checkmarks with the Blue logo so they're not as easily mistaken for verified accounts, or hide them altogether
+- Hide Twitter Blue replies in threads
 - Hide Twitter Blue upsells throughout the app
 - Hide Subscriptions
 - Add "Add muted word" to the "More" menu (desktop) or slide-out menu (mobile)
