@@ -22,6 +22,8 @@ let isSafari = navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test
 let $html
 /** @type {HTMLBodyElement} */
 let $body
+/** @type {HTMLElement} */
+let $reactRoot
 /** @type {string} */
 let lang
 /** @type {string} */
@@ -46,6 +48,8 @@ const config = {
   fastBlock: true,
   followButtonStyle: 'monochrome',
   hideAnalyticsNav: true,
+  hideBlueReplyFollowedBy: false,
+  hideBlueReplyFollowing: false,
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
@@ -84,6 +88,7 @@ const config = {
   quoteTweets: 'ignore',
   reducedInteractionMode: false,
   retweets: 'separate',
+  showBlueReplyFollowersCount: true,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
@@ -1091,6 +1096,29 @@ function getElement(selector, {
 
     queryElement()
   })
+}
+
+/**
+ * Gets cached user info from React state.
+ * @returns {import("./types").UserInfoObject}
+ */
+function getUserInfo() {
+  /** @type {import("./types").UserInfoObject} */
+  let userInfo = {}
+  let reactRootContainer = ($reactRoot?.wrappedJSObject ? $reactRoot.wrappedJSObject : $reactRoot)?._reactRootContainer
+  if (reactRootContainer) {
+    let userEntities = reactRootContainer?._internalRoot?.current?.memoizedState?.element?.props?.children?.props?.store?.getState()?.entities?.users?.entities
+    if (userEntities) {
+      for (let user of Object.values(userEntities)) {
+        userInfo[user.screen_name] = {following: user.following, followedBy: user.followed_by, followersCount: user.followers_count}
+      }
+    } else {
+      warn('user entities not found')
+    }
+  } else {
+    warn('React root container not found')
+  }
+  return userInfo
 }
 
 function log(...args) {
@@ -2995,9 +3023,11 @@ function onIndividualTweetTimelineChange($timeline) {
   /** @type {boolean} */
   let hideAllSubsequentItems = false
   /** @type {string} */
-  let op = URL_TWEET_RE.exec(location.pathname)[1].toLowerCase()
+  let opScreenName = URL_TWEET_RE.exec(location.pathname)[1].toLowerCase()
   /** @type {{$item: Element, hideItem?: boolean}[]} */
   let changes = []
+  /** @type {import("./types").UserInfoObject} */
+  let userInfo = getUserInfo()
 
   for (let $item of $timeline.children) {
     /** @type {?import("./types").TimelineItemType} */
@@ -3012,6 +3042,8 @@ function onIndividualTweetTimelineChange($timeline) {
     let isReply = false
     /** @type {boolean} */
     let isBlueTweet = false
+    /** @type {?string} */
+    let screenName = null
 
     if (hideAllSubsequentItems) {
       hideItem = true
@@ -3042,15 +3074,22 @@ function onIndividualTweetTimelineChange($timeline) {
           }
 
           let userProfileLink = /** @type {HTMLAnchorElement} */ ($svg.closest('a[role="link"]:not([href^="/i/status"])'))
-          if (userProfileLink) {
-            isBlueTweet = true
-            // Replies to the focused tweet don't have the reply indicator
-            if (!isFocusedTweet && !isReply && !hideItem) {
-              hideItem = config.hideTwitterBlueReplies && userProfileLink.href.split('/').pop().toLowerCase() != op
-              if (hideItem) {
-                itemType = 'BLUE_REPLY'
-              }
-            }
+          if (!userProfileLink) continue
+
+          isBlueTweet = true
+          screenName = userProfileLink.href.split('/').pop()
+        }
+
+        // Replies to the focused tweet don't have the reply indicator
+        if (isBlueTweet && !isFocusedTweet && !isReply && screenName.toLowerCase() != opScreenName) {
+          itemType = 'BLUE_REPLY'
+          if (!hideItem) {
+            let user = userInfo[screenName]
+            hideItem = config.hideTwitterBlueReplies && (user == null || !(
+              user.following && !config.hideBlueReplyFollowing ||
+              user.followedBy && !config.hideBlueReplyFollowedBy ||
+              user.followersCount >= 1000000 && config.showBlueReplyFollowersCount
+            ))
           }
         }
       }
@@ -3087,7 +3126,11 @@ function onIndividualTweetTimelineChange($timeline) {
       }
     }
 
-    // Assume a non-identified item following a hidden item is related
+    if (debug && itemType != null) {
+      $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet && itemType != 'BLUE_REPLY' ? ' / BLUE' : ''}`
+    }
+
+    // Assume a non-identified item following an identified item is related
     if (itemType == null && hidPreviousItem != null) {
       hideItem = hidPreviousItem
       itemType = 'SUBSEQUENT_ITEM'
@@ -3102,10 +3145,6 @@ function onIndividualTweetTimelineChange($timeline) {
       hiddenItemCount++
       hiddenItemTypes[itemType] ||= 0
       hiddenItemTypes[itemType]++
-    }
-
-    if (debug && itemType != null) {
-      $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet ? ' / BLUE' : ''}`
     }
 
     if (isFocusedTweet) {
@@ -3840,6 +3879,7 @@ async function main() {
 
   $html = document.querySelector('html')
   $body = document.body
+  $reactRoot = document.querySelector('#react-root')
   lang = $html.lang
   dir = $html.dir
   ltr = dir == 'ltr'

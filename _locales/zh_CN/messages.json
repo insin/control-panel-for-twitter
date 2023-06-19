@@ -166,6 +166,15 @@
   "hideTwitterBlueRepliesLabel": {
     "message": "隐藏Twitter Blue的回复"
   },
+  "hideBlueReplyFollowingLabel": {
+    "message": "隐藏我关注的人"
+  },
+  "hideBlueReplyFollowedByLabel": {
+    "message": "隐藏关注我的人"
+  },
+  "showBlueReplyFollowersCountLabel": {
+    "message": "显示拥有超过100万名关注者的人"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "查看引用推文时隐藏被引用的推文"
   },

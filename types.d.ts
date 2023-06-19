@@ -13,6 +13,8 @@ export type Config = {
   fastBlock: boolean
   followButtonStyle: 'monochrome' | 'themed'
   hideAnalyticsNav: boolean
+  hideBlueReplyFollowedBy: boolean
+  hideBlueReplyFollowing: boolean
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
   hideBookmarksNav: boolean
@@ -50,6 +52,7 @@ export type Config = {
   quoteTweets: SharedTweetsConfig
   reducedInteractionMode: boolean
   retweets: SharedTweetsConfig
+  showBlueReplyFollowersCount: boolean
   tweakQuoteTweetsPage: boolean
   twitterBlueChecks: 'ignore' | 'replace' | 'hide'
   uninvertFollowButtons: boolean
@@ -127,3 +130,11 @@ export type TimelineOptions = {
   tabbedTimelineContainerSelector?: string
   timelineSelector?: string
 }
+
+export type UserInfo = {
+  following: boolean
+  followedBy: boolean
+  followersCount: number
+}
+
+export type UserInfoObject = {[index: string]: UserInfo}

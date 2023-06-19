@@ -166,6 +166,15 @@
   "hideTwitterBlueRepliesLabel": {
     "message": "Masquer les réponses Twitter Blue"
   },
+  "hideBlueReplyFollowingLabel": {
+    "message": "Masquer les personnes que je suis"
+  },
+  "hideBlueReplyFollowedByLabel": {
+    "message": "Afficher les personnes ayant plus d'1 million d'abonnés"
+  },
+  "showBlueReplyFollowersCountLabel": {
+    "message": "Show people with over 1 million followers"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "Masquer le tweet cité lors de l'affichage des Tweets cités"
   },

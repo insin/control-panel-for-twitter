@@ -166,6 +166,15 @@
   "hideTwitterBlueRepliesLabel": {
     "message": "Twitter Blueの返信を非表示にする"
   },
+  "hideBlueReplyFollowingLabel": {
+    "message": "フォローしている人を非表示にする"
+  },
+  "hideBlueReplyFollowedByLabel": {
+    "message": "私をフォローしている人を非表示にします"
+  },
+  "showBlueReplyFollowersCountLabel": {
+    "message": "フォロワーが 100 万人を超える人を表示する"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"
   },

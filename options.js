@@ -46,6 +46,9 @@ for (let translationId of [
   'twitterBlueChecksLabel',
   'twitterBlueChecksOption_replace',
   'hideTwitterBlueRepliesLabel',
+  'hideBlueReplyFollowedByLabel',
+  'hideBlueReplyFollowingLabel',
+  'showBlueReplyFollowersCountLabel',
   'tweakQuoteTweetsPageLabel',
   'hideMetricsLabel',
   'hideAllMetricsLabel',
@@ -134,6 +137,8 @@ const defaultConfig = {
   fastBlock: true,
   followButtonStyle: 'monochrome',
   hideAnalyticsNav: true,
+  hideBlueReplyFollowedBy: false,
+  hideBlueReplyFollowing: false,
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
@@ -172,6 +177,7 @@ const defaultConfig = {
   quoteTweets: 'ignore',
   reducedInteractionMode: false,
   retweets: 'separate',
+  showBlueReplyFollowersCount: true,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
@@ -372,6 +378,7 @@ function updateDisplay() {
   $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
   $body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
   $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
+  $body.classList.toggle('hidingTwitterBlueReplies', optionsConfig.hideTwitterBlueReplies)
   $body.classList.toggle('mutedQuotes', shouldDisplayMutedQuotes())
   $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
   updateMutedQuotesDisplay()

@@ -26,6 +26,7 @@ body:not(.disabledHomeTimeline) .disabledHomeTimeline,
 body:not(.fullWidthContent) .fullWidthContent,
 body:not(.hidingMetrics) .hidingMetrics,
 body:not(.hidingSidebarContent) .hidingSidebarContent,
+body:not(.hidingTwitterBlueReplies) .hidingTwitterBlueReplies,
 body:not(.iOS.safari) .toggle,
 body:not(.mutedQuotes) .mutedQuotes,
 body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
