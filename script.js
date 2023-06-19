@@ -2148,7 +2148,7 @@ const configureCss = (() => {
         if (!config.fullWidthMedia) {
           // Make media & cards keep their original width
           cssRules.push(`
-            body${pageSelector} ${Selectors.PRIMARY_COLUMN} ${Selectors.TWEET} > div > div > div > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2) > div[id][aria-labelledby]:not(:empty) {
+            body${pageSelector} ${Selectors.PRIMARY_COLUMN} ${Selectors.TWEET} > div > div > div:nth-of-type(2) > div:nth-of-type(2) > div[id][aria-labelledby]:not(:empty) {
               max-width: 504px;
             }
           `)
