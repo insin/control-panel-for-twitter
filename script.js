@@ -1969,7 +1969,7 @@ const configureCss = (() => {
         // Subscription Tweets tab in profile (3rd of 5)
         'body.Profile [data-testid="ScrollSnap-List"] > [role="presentation"]:nth-child(3):nth-last-child(3)',
         // Subscribe button in focused tweet
-        'body.Tweet [data-testid="tweet"][tabindex="-1"] [data-testid$="-subscribe"]',
+        '[data-testid="tweet"][tabindex="-1"] [data-testid$="-subscribe"]',
         // "Subscribe to" dropdown item (desktop)
         '[data-testid="Dropdown"] > [data-testid="subscribe"]',
         // "Subscribe to" menu item (mobile)
