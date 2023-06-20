@@ -6,7 +6,7 @@
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
 // @run-at      document-start
-// @version     111
+// @version     112
 // ==/UserScript==
 void function() {
 
@@ -762,7 +762,7 @@ const Selectors = {
   DISPLAY_DONE_BUTTON_DESKTOP: '#layers div[role="button"]:not([aria-label])',
   DISPLAY_DONE_BUTTON_MOBILE: 'main div[role="button"]:not([aria-label])',
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
-  MODAL_TIMELINE: '#layers section > h1 + div[aria-label] > div',
+  MODAL_TIMELINE: '#layers section > h1 + div[aria-label] > div > div > div',
   MOBILE_TIMELINE_HEADER_OLD: 'header > div:nth-of-type(2) > div:first-of-type',
   MOBILE_TIMELINE_HEADER_NEW: 'div[data-testid="TopNavBar"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
