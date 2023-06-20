@@ -53,7 +53,7 @@ const config = {
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
-  hideCommunitiesNav: true,
+  hideCommunitiesNav: false,
   hideConnectNav: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
@@ -97,7 +97,7 @@ const config = {
   // Desktop only
   fullWidthContent: false,
   fullWidthMedia: true,
-  hideAccountSwitcher: true,
+  hideAccountSwitcher: false,
   hideExploreNav: true,
   hideMessagesDrawer: true,
   hideSidebarContent: true,
