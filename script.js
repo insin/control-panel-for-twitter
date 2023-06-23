@@ -868,6 +868,9 @@ let modalObservers = []
  */
 let pageObservers = []
 
+/** @type {number} */
+let selectedHomeTabIndex = -1
+
 /**
  * Title for the fake timeline used to separate out retweets and quote tweets.
  * @type {string}
@@ -962,6 +965,10 @@ function isOnSettingsPage() {
 
 function shouldHideSidebar() {
   return isOnExplorePage() || isOnDiscoverCommunitiesPage()
+}
+
+function shouldShowSeparatedTweetsTab() {
+  return config.retweets == 'separate' || config.quoteTweets == 'separate'
 }
 //#endregion
 
@@ -2055,7 +2062,7 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} div[role="button"][aria-expanded]:nth-of-type(2)`)
     }
 
-    if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
+    if (shouldShowSeparatedTweetsTab()) {
       cssRules.push(`
         body.Default {
           --active-tab-text: rgb(15, 20, 25);
@@ -2479,7 +2486,7 @@ const configureThemeCss = (() => {
     }
 
     // Active tab colour for custom tabs
-    if (themeColor != null && (config.retweets == 'separate' || config.quoteTweets == 'separate')) {
+    if (themeColor != null && shouldShowSeparatedTweetsTab()) {
       cssRules.push(`
         body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div > div {
           background-color: ${themeColor} !important;
@@ -3461,15 +3468,19 @@ function shouldHideMainTimelineItem(type, page) {
     case 'QUOTE_TWEET':
       return shouldHideSharedTweet(config.quoteTweets, page)
     case 'RETWEET':
-      return shouldHideSharedTweet(config.retweets, page)
+      return selectedHomeTabIndex >= 2 ? config.listRetweets == 'hide' : shouldHideSharedTweet(config.retweets, page)
     case 'RETWEETED_QUOTE_TWEET':
-      return shouldHideSharedTweet(config.retweets, page) || shouldHideSharedTweet(config.quoteTweets, page)
+      return selectedHomeTabIndex >= 2 ? (
+          config.listRetweets == 'hide'
+        ) : (
+          shouldHideSharedTweet(config.retweets, page) || shouldHideSharedTweet(config.quoteTweets, page)
+        )
     case 'TWEET':
       return page == separatedTweetsTimelineTitle
     case 'UNAVAILABLE_QUOTE_TWEET':
       return config.hideUnavailableQuoteTweets || shouldHideSharedTweet(config.quoteTweets, page)
     case 'UNAVAILABLE_RETWEET':
-      return config.hideUnavailableQuoteTweets || shouldHideSharedTweet(config.retweets, page)
+      return config.hideUnavailableQuoteTweets || selectedHomeTabIndex >= 2 ? config.listRetweets == 'hide' : shouldHideSharedTweet(config.retweets, page)
     default:
       return true
   }
@@ -3655,6 +3666,19 @@ function tweakMainTimelinePage() {
 
   tweakTimelineTabs($timelineTabs)
 
+  function updateSelectedHomeTabIndex() {
+    let $selectedHomeTabLink = $timelineTabs.querySelector('div[role="tablist"] a[aria-selected="true"]')
+    if ($selectedHomeTabLink) {
+      selectedHomeTabIndex = Array.from($selectedHomeTabLink.parentElement.parentElement.children).indexOf($selectedHomeTabLink.parentElement)
+      log({selectedHomeTabIndex})
+    } else {
+      warn('could not find selected Home tab link')
+      selectedHomeTabIndex = -1
+    }
+  }
+
+  updateSelectedHomeTabIndex()
+
   // If there are pinned lists, the timeline tabs <nav> will be replaced when they load
   pageObservers.push(
     observeElement($timelineTabs.parentElement, (mutations) => {
@@ -3670,7 +3694,8 @@ function tweakMainTimelinePage() {
   observeTimeline(currentPage, {
     isTabbed: true,
     onTabChanged: () => {
-      wasForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]'))
+      updateSelectedHomeTabIndex()
+      wasForYouTabSelected = selectedHomeTabIndex == 0
     },
     tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
   })
@@ -3711,7 +3736,7 @@ async function tweakTimelineTabs($timelineTabs) {
     }
   }
 
-  if (config.retweets == 'separate' || config.quoteTweets == 'separate') {
+  if (shouldShowSeparatedTweetsTab()) {
     let $newTab = /** @type {HTMLElement} */ ($timelineTabs.querySelector('#tnt_separated_tweets_tab'))
     if ($newTab) {
       log('separated tweets timeline tab already present')
@@ -3722,15 +3747,17 @@ async function tweakTimelineTabs($timelineTabs) {
       $newTab = /** @type {HTMLElement} */ ($followingTabLink.parentElement.cloneNode(true))
       $newTab.id = 'tnt_separated_tweets_tab'
       $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
+      let $link = $newTab.querySelector('a')
+      $link.removeAttribute('aria-selected')
 
       // This script assumes navigation has occurred when the document title
       // changes, so by changing the title we fake navigation to a non-existent
       // page representing the separated tweets timeline.
-      $newTab.querySelector('a').addEventListener('click', (e) => {
+      $link.addEventListener('click', (e) => {
         e.preventDefault()
         e.stopPropagation()
         if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
-          // The sparated tweets tab belongs to the Following tab
+          // The separated tweets tab belongs to the Following tab
           let isFollowingTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
           if (!isFollowingTabSelected) {
             log('switching to the Following tab for separated tweets')

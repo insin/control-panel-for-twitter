@@ -22,6 +22,7 @@ for (let translationId of [
   'hideMoreTweetsLabel',
   'retweetsLabel',
   'quoteTweetsLabel',
+  'listRetweetsLabel',
   'hideUnavailableQuoteTweetsLabel',
   'mutableQuoteTweetsLabel',
   'mutableQuoteTweetsInfo',

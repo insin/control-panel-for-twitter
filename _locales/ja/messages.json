@@ -84,6 +84,9 @@
   "quoteTweetsLabel": {
     "message": "引用ツイート"
   },
+  "listRetweetsLabel": {
+    "message": "リスト内のリツイート"
+  },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "ミュートやブロックしたアカウントが含まれる引用ツイートを非表示"
   },

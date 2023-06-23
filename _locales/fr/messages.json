@@ -84,6 +84,9 @@
   "quoteTweetsLabel": {
     "message": "Tweets de citation"
   },
+  "listRetweetsLabel": {
+    "message": "Retweets dans les Listes"
+  },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "Masquer les tweets citant des comptes que vous avez bloqués ou mis en mute"
   },

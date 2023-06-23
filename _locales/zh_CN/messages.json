@@ -84,6 +84,9 @@
   "quoteTweetsLabel": {
     "message": "引用推文"
   },
+  "listRetweetsLabel": {
+    "message": "转推列表"
+  },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "隐藏引用你已经屏蔽或隐藏的账户的推文"
   },
