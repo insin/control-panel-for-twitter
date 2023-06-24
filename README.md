@@ -48,6 +48,7 @@ New versions can take anything from minutes to days to be approved for publishin
 - Hide the "For you" timeline tab (default setting)
 - Move Retweets to a separate tab (default setting), or hide them entirely
 - Move Quote Tweets and replies to them to a separate tab in the Home timeline, or hide them entirely
+- Hide Retweets in pinned Lists
 - Hide tweets quoting accounts you've blocked or muted
 - Mute quoting of specific tweets - adds a "Mute this conversation" menu item to Quote Tweets in the Home and List timelines
 - Hide "Who to follow", "Follow some Topics" etc. in the Home timeline and elsewhere
@@ -64,7 +65,6 @@ New versions can take anything from minutes to days to be approved for publishin
 - Hide Subscriptions
 - Add "Add muted word" to the "More" menu (desktop) or slide-out menu (mobile)
 - Fast blocking - skips the confirm dialog when you try to block an account
-- Toggle Retweets in Lists - adds a "Turn off Retweets" menu item to Lists
 - Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
 - Use normal font weight in dropdown menus - if everything's bold, nothing's bold
 - Hide "Open app" nags on mobile
