@@ -220,6 +220,9 @@
   "hideExploreNavLabel": {
     "message": "探索"
   },
+  "hideExploreNavWithSidebarLabel": {
+    "message": "隐藏侧边栏时显示"
+  },
   "hideCommunitiesNavLabel": {
     "message": "社区"
   },

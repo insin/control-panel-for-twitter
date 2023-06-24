@@ -220,6 +220,9 @@
   "hideExploreNavLabel": {
     "message": "「話題を検索」"
   },
+  "hideExploreNavWithSidebarLabel": {
+    "message": "サイドバーが非表示の場合に表示"
+  },
   "hideCommunitiesNavLabel": {
     "message": "コミュニティ"
   },

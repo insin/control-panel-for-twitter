@@ -64,6 +64,7 @@ for (let translationId of [
   'hideAccountSwitcherLabel',
   'hideMessagesDrawerLabel',
   'hideExploreNavLabel',
+  'hideExploreNavWithSidebarLabel',
   'hideMessagesBottomNavItemLabel',
   'hideBookmarkButtonLabel',
   'hideShareTweetButtonLabel',
@@ -189,6 +190,7 @@ const defaultConfig = {
   fullWidthMedia: true,
   hideAccountSwitcher: false,
   hideExploreNav: true,
+  hideExploreNavWithSidebar: true,
   hideMessagesDrawer: true,
   hideSidebarContent: true,
   navBaseFontSize: true,
@@ -377,6 +379,7 @@ function updateDisplay() {
   $body.classList.toggle('chronological', optionsConfig.alwaysUseLatestTweets)
   $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
   $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
+  $body.classList.toggle('hidingExploreNav', optionsConfig.hideExploreNav)
   $body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
   $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
   $body.classList.toggle('hidingTwitterBlueReplies', optionsConfig.hideTwitterBlueReplies)

@@ -99,6 +99,7 @@ const config = {
   fullWidthMedia: true,
   hideAccountSwitcher: false,
   hideExploreNav: true,
+  hideExploreNavWithSidebar: true,
   hideMessagesDrawer: true,
   hideSidebarContent: true,
   navBaseFontSize: true,
@@ -795,6 +796,8 @@ const THEME_COLORS = new Set([
   'rgb(255, 122, 0)',  // orange
   'rgb(0, 186, 124)',  // green
 ])
+// <body> pseudo-selector for pages the full-width content feature works on
+const FULL_WIDTH_BODY_PSEUDO = ':is(.Community, .List, .MainTimeline)'
 // Matches any notification count at the start of the title
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 // The initial URL when you open the Twitter Circle modal is i/circles
@@ -2124,12 +2127,10 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
       }
       if (config.fullWidthContent) {
-        // Pseudo-selector for pages full-width is enabled on
-        let pageSelector = ':is(.Community, .List, .MainTimeline)'
         cssRules.push(`
           /* Use full width when the sidebar is visible */
-          body.Sidebar${pageSelector} ${Selectors.PRIMARY_COLUMN},
-          body.Sidebar${pageSelector} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:last-child {
+          body.Sidebar${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN},
+          body.Sidebar${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:last-child {
             max-width: 990px;
           }
           /* Make the "What's happening" input keep its original width */
@@ -2137,31 +2138,31 @@ const configureCss = (() => {
             max-width: 598px;
           }
           /* Use full width when the sidebar is not visible */
-          body:not(.Sidebar)${pageSelector} header[role="banner"] {
+          body:not(.Sidebar)${FULL_WIDTH_BODY_PSEUDO} header[role="banner"] {
             flex-grow: 0;
           }
-          body:not(.Sidebar)${pageSelector} main[role="main"] > div {
+          body:not(.Sidebar)${FULL_WIDTH_BODY_PSEUDO} main[role="main"] > div {
             width: 100%;
           }
-          body:not(.Sidebar)${pageSelector} ${Selectors.PRIMARY_COLUMN} {
+          body:not(.Sidebar)${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} {
             max-width: unset;
             width: 100%;
           }
-          body:not(.Sidebar)${pageSelector} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:first-child div,
-          body:not(.Sidebar)${pageSelector} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:last-child {
+          body:not(.Sidebar)${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:first-child div,
+          body:not(.Sidebar)${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:last-child {
             max-width: unset;
           }
         `)
         if (!config.fullWidthMedia) {
           // Make media & cards keep their original width
           cssRules.push(`
-            body${pageSelector} ${Selectors.PRIMARY_COLUMN} ${Selectors.TWEET} > div > div > div:nth-of-type(2) > div:nth-of-type(2) > div[id][aria-labelledby]:not(:empty) {
+            body${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} ${Selectors.TWEET} > div > div > div:nth-of-type(2) > div:nth-of-type(2) > div[id][aria-labelledby]:not(:empty) {
               max-width: 504px;
             }
           `)
         }
         // Hide the sidebar when present
-        hideCssSelectors.push(`body.Sidebar${pageSelector} ${Selectors.SIDEBAR}`)
+        hideCssSelectors.push(`body.Sidebar${FULL_WIDTH_BODY_PSEUDO} ${Selectors.SIDEBAR}`)
       }
       if (config.hideAccountSwitcher) {
         cssRules.push(`
@@ -2229,7 +2230,10 @@ const configureCss = (() => {
         )
       }
       if (config.hideExploreNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
+        // When configured, hide Explore only when the sidebar is showing, or
+        // when on a page full-width content is enabled on.
+        let bodySelector = `${config.hideExploreNavWithSidebar ? `body.Sidebar${config.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
+        hideCssSelectors.push(`${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
       }
       if (config.hideBookmarksNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`)

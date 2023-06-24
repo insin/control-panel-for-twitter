@@ -63,6 +63,7 @@ export type Config = {
   fullWidthMedia: boolean
   hideAccountSwitcher: boolean
   hideExploreNav: boolean
+  hideExploreNavWithSidebar: boolean
   hideMessagesDrawer: boolean
   hideSidebarContent: boolean
   navBaseFontSize: boolean

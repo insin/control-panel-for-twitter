@@ -220,6 +220,9 @@
   "hideExploreNavLabel": {
     "message": "Explorar"
   },
+  "hideExploreNavWithSidebarLabel": {
+    "message": "Mostrar si barra lateral está oculta"
+  },
   "hideCommunitiesNavLabel": {
     "message": "Comunidades"
   },
