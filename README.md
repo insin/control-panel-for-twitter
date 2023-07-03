@@ -31,7 +31,7 @@ Mozilla Add-ons currently only lets you install a [small, curated list of extens
   <summary>
   You'll now be able to install Control Panel for Twitter via the Add-ons page.
   </summary>
-  <img src="https://raw.githubusercontent.com/insin/control-panel-for-twitter/master/screenshots/install_addons.png" alt="Screenshot of the Add-ons page in Firefox Beta setting up the Custom Add-on collection with the details above" style="max-width:100%;">
+  <img src="https://raw.githubusercontent.com/insin/control-panel-for-twitter/master/screenshots/install_addons.jpg" alt="Screenshot of the Add-ons page in Firefox Beta setting up the Custom Add-on collection with the details above" style="max-width:100%;">
 </details>
 
 ## Releases / What's New?
