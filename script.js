@@ -2022,7 +2022,9 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} a[href$="/convert_to_professional"]`)
     }
     if (config.hideVerifiedNotificationsTab) {
-      hideCssSelectors.push('body.Notifications [data-testid="ScrollSnap-List"] > div:nth-child(2):nth-last-child(2)')
+      hideCssSelectors.push(
+        `body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} [data-testid="ScrollSnap-List"] > div:nth-child(2):nth-last-child(2)`
+      )
     }
     if (config.hideViews) {
       hideCssSelectors.push(
