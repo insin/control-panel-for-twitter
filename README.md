@@ -186,6 +186,7 @@ Options are also available in the following languages:
 
 - French (translation by [@THEDARKK](https://github.com/THEDARKK))
 - Japanese (translation by [@MitoKurato](https://github.com/MitoKurato))
+- Korean
 - Simplified Chinese (translation by [@CodeQiu](https://github.com/CodeQiu))
 - Spanish (translation by [@rogama25](https://github.com/rogama25))
 
