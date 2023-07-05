@@ -1987,8 +1987,9 @@ const configureCss = (() => {
         // "Subscriber" indicator in replies from subscribers
         'body.Default [data-testid="tweet"] [data-testid="userFollowIndicator"][style*="color: rgb(141, 32, 144)"]',
         'body:is(.Dim, .LightsOut) [data-testid="tweet"] [data-testid="userFollowIndicator"][style*="color: rgb(223, 130, 224)"]',
-        // Monetization item in Settings
+        // Monetization and Subscriptions items in Settings
         'body.Settings a[href="/settings/monetization"]',
+        'body.Settings a[href="/settings/manage_subscriptions"]',
       )
     }
     if (config.hideHelpCenterNav) {
