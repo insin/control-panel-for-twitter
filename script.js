@@ -2899,10 +2899,10 @@ function onTimelineChange($timeline, page, options = {}) {
   let hiddenItemCount = 0
   let hiddenItemTypes = {}
 
-  /** @type {?import("./types").TimelineItemType} */
-  let previousItemType = null
   /** @type {?boolean} */
   let hidPreviousItem = null
+  /** @type {{$item: Element, hideItem?: boolean}[]} */
+  let changes = []
 
   for (let $item of $timeline.children) {
     /** @type {?import("./types").TimelineItemType} */
@@ -2911,11 +2911,15 @@ function onTimelineChange($timeline, page, options = {}) {
     let hideItem = null
     /** @type {?HTMLElement} */
     let $tweet = $item.querySelector(Selectors.TWEET)
+    /** @type {boolean} */
+    let isReply = false
+    /** @type {boolean} */
+    let isBlueTweet = false
 
     if ($tweet != null) {
       itemType = getTweetType($tweet)
       if (isOnMainTimeline || isOnListTimeline) {
-        let isReply = isReplyToPreviousTweet($tweet)
+        isReply = isReplyToPreviousTweet($tweet)
         if (isReply && hidPreviousItem != null) {
           hideItem = hidPreviousItem
         } else {
@@ -2937,7 +2941,6 @@ function onTimelineChange($timeline, page, options = {}) {
           }
         }
 
-        let tweetCheckType
         if (config.twitterBlueChecks != 'ignore') {
           for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
             let isBlueCheck = isBlueVerified($svg)
@@ -2946,14 +2949,10 @@ function onTimelineChange($timeline, page, options = {}) {
             blueCheck($svg)
 
             let userProfileLink = $svg.closest('a[role="link"]:not([href^="/i/status"])')
-            if (userProfileLink) {
-              tweetCheckType = 'BLUE'
-            }
-          }
-        }
+            if (!userProfileLink) continue
 
-        if (debug) {
-          $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${tweetCheckType ? ` / ${tweetCheckType}` : ''}`
+            isBlueTweet = true
+          }
         }
       }
     }
@@ -2966,37 +2965,32 @@ function onTimelineChange($timeline, page, options = {}) {
     if (!isOnMainTimeline && !isOnListTimeline) {
       if (itemType != null) {
         hideItem = shouldHideOtherTimelineItem(itemType)
-        if (debug) {
-          $item.firstElementChild.dataset.itemType = itemType
-        }
       }
     }
 
     if (itemType == null) {
       if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
         itemType = 'HEADING'
-        // "Who to follow", "Follow some Topics" etc. headings
-        if (hideHeadings) {
-          hideItem = config.hideWhoToFollowEtc
-        }
-        if (debug) {
-          $item.firstElementChild.dataset.itemType = itemType
-        }
+        hideItem = hideHeadings && config.hideWhoToFollowEtc
       }
     }
 
-    itemTypes[itemType] ||= 0
-    itemTypes[itemType]++
+    if (debug && itemType != null) {
+      $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet ? ' / BLUE' : ''}`
+    }
 
-    if (itemType == null) {
-      // Assume a non-identified item following an identified item is related.
-      // "Who to follow" users and "Follow some Topics" topics appear in
-      // subsequent items, as do "Show this thread" and "Show more" links.
-      if (previousItemType != null) {
-        hideItem = hidPreviousItem
-        itemType = previousItemType
-      }
-    } else if (hideItem) {
+    // Assume a non-identified item following an identified item is related
+    if (itemType == null && hidPreviousItem != null) {
+      hideItem = hidPreviousItem
+      itemType = 'SUBSEQUENT_ITEM'
+    }
+
+    if (itemType != null) {
+      itemTypes[itemType] ||= 0
+      itemTypes[itemType]++
+    }
+
+    if (hideItem) {
       hiddenItemCount++
       hiddenItemTypes[itemType] ||= 0
       hiddenItemTypes[itemType]++
@@ -3004,22 +2998,21 @@ function onTimelineChange($timeline, page, options = {}) {
 
     if (hideItem != null && $item.firstElementChild) {
       if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display != (hideItem ? 'none' : '')) {
-        /** @type {HTMLElement} */ ($item.firstElementChild).style.display = hideItem ? 'none' : ''
-        // Log these out as they can't be reliably triggered for testing
-        if (hideItem && itemType == 'HEADING' || previousItemType == 'HEADING') {
-          log(`hid a ${previousItemType == 'HEADING' ? 'post-' : ''}heading item`, $item)
-        }
+        changes.push({$item, hideItem})
       }
     }
 
     hidPreviousItem = hideItem
-    // If we hid a heading, keep hiding everything after it until we hit a tweet
-    if (!(previousItemType == 'HEADING' && itemType == null)) {
-      previousItemType = itemType
-    }
   }
 
-  log(`processed ${$timeline.children.length} timeline item${s($timeline.children.length)} in ${Date.now() - startTime}ms`, itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes)
+  for (let change of changes) {
+    /** @type {HTMLElement} */ (change.$item.firstElementChild).style.display = change.hideItem ? 'none' : ''
+  }
+
+  log(
+    `processed ${$timeline.children.length} timeline item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
+    itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
+  )
 }
 
 /**
@@ -3206,7 +3199,7 @@ function onTitleChange(title) {
     // so the next page will be re-processed when the media is closed.
     if (mobile && URL_MEDIA_RE.test(location.pathname)) {
       log('viewing media on mobile')
-		}
+    }
     // Ignore Flash of Uninitialised Title when navigating to a page for the
     // first time.
     else {
