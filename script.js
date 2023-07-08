@@ -800,8 +800,6 @@ const THEME_COLORS = new Set([
 const FULL_WIDTH_BODY_PSEUDO = ':is(.Community, .List, .MainTimeline)'
 // Matches any notification count at the start of the title
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
-// The initial URL when you open the Twitter Circle modal is i/circles
-const URL_CIRCLE_RE = /^\/i\/circles(?:\/\d+\/members(?:\/suggested)?)?\/?$/
 // The Communities nav item takes you to /yourusername/communities
 const URL_COMMUNITIES_RE = /^\/[a-zA-Z\d_]{1,20}\/communities\/?$/
 const URL_COMMUNITY_RE = /^\/i\/communities\/\d+(?:\/about)?\/?$/
@@ -845,9 +843,6 @@ let fontSize = null
 
 /** Set to `true` when a Home/Following heading or Home nav link is used. */
 let homeNavigationIsBeingUsed = false
-
-/** Set to `true` when the Twitter Circle modal is open. */
-let isCircleModalOpen = false
 
 /** Set to `true` when the media modal is open on desktop. */
 let isDesktopMediaModalOpen = false
@@ -1290,47 +1285,6 @@ function observeBodyBackgroundColor() {
     attributes: true,
     attributeFilter: ['style']
   })
-}
-
-/**
- * @param {Element} $tabContent
- * @param {import("./types").Disconnectable[]} observers
- * @param {(name: string) => void} disconnect
- */
-function observeTwitterCircleTabContent($tabContent, observers, disconnect) {
-  disconnect('circle tab content')
-  // The Recommended tab replaces its initial user list with a typeahead
-  // dropdown when you use the input, and reverts if you clear it.
-  observers.push(observeElement($tabContent, () => {
-    let $userList = /** @type {HTMLElement} */ ($tabContent.querySelector(':scope > div:last-child:not(:first-child), div[id^="typeaheadDropdown"]'))
-    if ($userList) {
-      disconnect('user list')
-      observers.push(observeElement($userList, () => {
-        processBlueChecks($userList)
-      }, 'user list'))
-    } else {
-      warn('could not find circle user list')
-    }
-  }, 'circle tab content'))
-}
-
-async function observeCircleModal() {
-  let $viewport = await getElement('div[data-viewportview="true"]', {
-    name: 'circle modal viewport',
-    stopIf: () => !isCircleModalOpen,
-  })
-
-  if ($viewport == null) return
-
-  modalObservers.push(observeElement($viewport, (mutations) => {
-    // Ignore loading indicators on initial load of each tab
-    if (!mutations.length || mutations.some(mutation => mutation.addedNodes[0]?.querySelector('svg circle'))) {
-      return
-    }
-    // The modal version doesn't have a separate container for tab content, it's
-    // a sibling of the tabs.
-    observeTwitterCircleTabContent($viewport.lastElementChild, modalObservers, disconnectModalObserver)
-  }, 'circle modal viewport'))
 }
 
 /**
@@ -2699,20 +2653,6 @@ function handlePopup($popup) {
     }
   }
 
-  if (desktop && !isCircleModalOpen && URL_CIRCLE_RE.test(location.pathname) && currentPath != location.pathname) {
-    log('circle modal opened')
-    isCircleModalOpen = true
-    observeCircleModal()
-    return {
-      tookAction: true,
-      onPopupClosed() {
-        log('circle modal closed')
-        isCircleModalOpen = false
-        disconnectAllModalObservers()
-      }
-    }
-  }
-
   if (isOnListPage()) {
     let $switchSvg = $popup.querySelector(`svg path[d^="M12 3.75c-4.56 0-8.25 3.69-8.25 8.25s"]`)
     if ($switchSvg) {
@@ -3421,12 +3361,9 @@ function processCurrentPage() {
     tweakCommunityMembersPage()
   }
 
-  // Om mobile, these are pages instead of modals
+  // On mobile, these are pages instead of modals
   if (mobile) {
-    if (URL_CIRCLE_RE.test(currentPath)) {
-      tweakMobileTwitterCirclePage()
-    }
-    else if (currentPath == PagePaths.COMPOSE_TWEET) {
+    if (currentPath == PagePaths.COMPOSE_TWEET) {
       tweakMobileComposeTweetPage()
     }
   }
@@ -3737,23 +3674,6 @@ function tweakMainTimelinePage() {
 
 function tweakMobileComposeTweetPage() {
   tweakTweetBox()
-}
-
-async function tweakMobileTwitterCirclePage() {
-  let $tabContentContainer = await getElement('main > div > div > div:last-child:not(:first-child)', {
-    name: 'circle page tab content container',
-    stopIf: pageIsNot(currentPage),
-  })
-
-  if ($tabContentContainer == null) return
-
-  pageObservers.push(observeElement($tabContentContainer, (mutations) => {
-    // Ignore loading indicators on initial load of each tab
-    if (!mutations.length || mutations.some(mutation => mutation.addedNodes[0]?.querySelector('svg circle'))) {
-      return
-    }
-    observeTwitterCircleTabContent($tabContentContainer.firstElementChild, pageObservers, disconnectPageObserver)
-  }, 'circle page tab content container'))
 }
 
 async function tweakTimelineTabs($timelineTabs) {
