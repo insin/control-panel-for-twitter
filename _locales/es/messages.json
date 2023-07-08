@@ -10,6 +10,10 @@
     "message": "Le brinda más control sobre Twitter y agrega funciones faltantes y mejoras en la interfaz",
     "description": "<= 112 characters"
   },
+  "appStoreSubtitle": {
+    "message": "Controla tu línea de tiempo",
+    "description": "<= 30 characters"
+  },
   "features": {
     "message": "Características"
   },

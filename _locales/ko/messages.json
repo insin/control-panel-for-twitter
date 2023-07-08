@@ -10,6 +10,10 @@
     "message": "트위터에 대한 더 많은 제어권을 제공하고 기능을 보완하며 UI를 개선합니다",
     "description": "<= 112 characters"
   },
+  "appStoreSubtitle": {
+    "message": "타임라인을 통제하세요",
+    "description": "<= 30 characters"
+  },
   "features": {
     "message": "기능"
   },

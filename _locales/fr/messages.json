@@ -10,6 +10,10 @@
     "message": "Donne plus de contrôle sur Twitter, ajoute des fonctionnalités manquantes, améliore l'interface utilisateur",
     "description": "<= 112 caractères"
   },
+  "appStoreSubtitle": {
+    "message": "Contrôlez votre chronologie",
+    "description": "<= 30 characters"
+  },
   "features": {
     "message": "Fonctionnalités"
   },

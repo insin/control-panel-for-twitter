@@ -10,6 +10,10 @@
     "message": "让你对Twitter有更多的控制，并增加了缺失的功能和UI改进",
     "description": "<= 112 characters"
   },
+  "appStoreSubtitle": {
+    "message": "掌控你的时间线",
+    "description": "<= 30 characters"
+  },
   "features": {
     "message": "特征"
   },

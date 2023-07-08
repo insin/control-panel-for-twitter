@@ -10,6 +10,10 @@
     "message": "Twitter をより細かく制御し、不足している機能を追加して UI を改善します",
     "description": "<= 112 characters"
   },
+  "appStoreSubtitle": {
+    "message": "タイムラインを制御せよ",
+    "description": "<= 30 characters"
+  },
   "features": {
     "message": "特徴"
   },
