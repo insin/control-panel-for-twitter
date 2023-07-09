@@ -1,7 +1,7 @@
 {
   "scripts": {
     "create-browser-action": "node ./scripts/create-browser-action.js",
-    "create-store-description": "node ./scripts/create-store-description.js",
+    "create-store-description": "node ./scripts/create-store-description.mjs",
     "prebuild": "npm run create-browser-action",
     "build": "web-ext build",
     "lint": "web-ext lint",
@@ -40,6 +40,7 @@
   "devDependencies": {
     "@types/chrome": "0.0.x",
     "@types/greasemonkey": "4.x",
+    "clipboardy": "3.x",
     "web-ext": "7.x"
   }
 }
