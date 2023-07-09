@@ -329,7 +329,16 @@
   "disableTweetTextFormattingLabel": {
     "message": "Désactiver le texte en gras et en italique dans les tweets"
   },
-  "compactNavigationItemsLabel": {
-    "message": "Rendre les éléments de navigation compacts"
+  "navDensityLabel": {
+    "message": "Densité de navigation"
+  },
+  "option_default": {
+    "message": "Par défaut"
+  },
+  "option_comfortable": {
+    "message": "Confortable"
+  },
+  "option_compact": {
+    "message": "Compact"
   }
 }

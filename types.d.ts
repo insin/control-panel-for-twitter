@@ -61,7 +61,6 @@ export type Config = {
   // Experiments
   // none currently
   // Desktop only
-  compactNavigationItems: boolean
   fullWidthContent: boolean
   fullWidthMedia: boolean
   hideAccountSwitcher: boolean
@@ -70,6 +69,7 @@ export type Config = {
   hideMessagesDrawer: boolean
   hideSidebarContent: boolean
   navBaseFontSize: boolean
+  navDensity: 'default' | 'comfortable' | 'compact'
   showRelevantPeople: boolean
   // Mobile only
   hideAppNags: boolean

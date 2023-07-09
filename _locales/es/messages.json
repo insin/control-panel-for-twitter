@@ -329,7 +329,16 @@
   "disableTweetTextFormattingLabel": {
     "message": "Deshabilitar texto en negrita e itálica en los tweets"
   },
-  "compactNavigationItemsLabel": {
-    "message": "Compactar elementos de navegación"
+  "navDensityLabel": {
+    "message": "Densidad de navegación"
+  },
+  "option_default": {
+    "message": "Predet."
+  },
+  "option_comfortable": {
+    "message": "Cómodo"
+  },
+  "option_compact": {
+    "message": "Compacto"
   }
 }

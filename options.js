@@ -1,6 +1,13 @@
 document.title = chrome.i18n.getMessage(`extensionName`)
 
-for (let optionValue of ['ignore', 'hide', 'separate']) {
+for (let optionValue of [
+  'comfortable',
+  'compact',
+  'default',
+  'hide',
+  'ignore',
+  'separate',
+]) {
   let label = chrome.i18n.getMessage(`option_${optionValue}`)
   for (let $option of document.querySelectorAll(`option[value="${optionValue}"]`)) {
     $option.textContent = label
@@ -11,7 +18,6 @@ for (let translationId of [
   'addAddMutedWordMenuItemLabel_desktop',
   'addAddMutedWordMenuItemLabel_mobile',
   'alwaysUseLatestTweetsLabel',
-  'compactNavigationItemsLabel',
   'debugInfo',
   'debugLabel',
   'debugOptionsLabel',
@@ -83,6 +89,7 @@ for (let translationId of [
   'mutableQuoteTweetsInfo',
   'mutableQuoteTweetsLabel',
   'navBaseFontSizeLabel',
+  'navDensityLabel',
   'quoteTweetsLabel',
   'reduceAlgorithmicContentOptionsLabel',
   'reduceEngagementOptionsLabel',
@@ -191,7 +198,6 @@ const defaultConfig = {
   // Experiments
   // none currently
   // Desktop only
-  compactNavigationItems: false,
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,
@@ -200,6 +206,7 @@ const defaultConfig = {
   hideMessagesDrawer: true,
   hideSidebarContent: true,
   navBaseFontSize: true,
+  navDensity: 'default',
   showRelevantPeople: false,
   // Mobile only
   hideAppNags: true,

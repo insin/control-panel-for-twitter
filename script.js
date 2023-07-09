@@ -97,7 +97,6 @@ const config = {
   // Experiments
   // none currently
   // Desktop only
-  compactNavigationItems: false,
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,
@@ -106,6 +105,7 @@ const config = {
   hideMessagesDrawer: true,
   hideSidebarContent: true,
   navBaseFontSize: true,
+  navDensity: 'default',
   showRelevantPeople: false,
   // Mobile only
   hideAppNags: true,
@@ -2101,11 +2101,21 @@ const configureCss = (() => {
     }
 
     if (desktop) {
-      if (config.compactNavigationItems) {
+      if (config.navDensity == 'comfortable' || config.navDensity == 'compact') {
         cssRules.push(`
-          header nav > a {
+          header nav > a,
+          header nav > div[data-testid="AppTabBar_More_Menu"] {
             padding-top: 0 !important;
             padding-bottom: 0 !important;
+          }
+        `)
+      }
+      if (config.navDensity == 'compact') {
+        cssRules.push(`
+          header nav > a > div,
+          header nav > div[data-testid="AppTabBar_More_Menu"] > div {
+            padding-top: 6px !important;
+            padding-bottom: 6px !important;
           }
         `)
       }

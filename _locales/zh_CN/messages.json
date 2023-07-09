@@ -329,7 +329,16 @@
   "disableTweetTextFormattingLabel": {
     "message": "禁用推文中的加粗和斜体文本"
   },
-  "compactNavigationItemsLabel": {
-    "message": "压缩导航项"
+  "navDensityLabel": {
+    "message": "导航密度"
+  },
+  "option_default": {
+    "message": "默认"
+  },
+  "option_comfortable": {
+    "message": "舒适"
+  },
+  "option_compact": {
+    "message": "紧凑"
   }
 }
