@@ -11,6 +11,7 @@ for (let translationId of [
   'addAddMutedWordMenuItemLabel_desktop',
   'addAddMutedWordMenuItemLabel_mobile',
   'alwaysUseLatestTweetsLabel',
+  'compactNavigationItemsLabel',
   'debugInfo',
   'debugLabel',
   'debugOptionsLabel',
@@ -190,6 +191,7 @@ const defaultConfig = {
   // Experiments
   // none currently
   // Desktop only
+  compactNavigationItems: false,
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,

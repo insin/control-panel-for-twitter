@@ -97,6 +97,7 @@ const config = {
   // Experiments
   // none currently
   // Desktop only
+  compactNavigationItems: false,
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,
@@ -2100,6 +2101,14 @@ const configureCss = (() => {
     }
 
     if (desktop) {
+      if (config.compactNavigationItems) {
+        cssRules.push(`
+          header nav > a {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+          }
+        `)
+      }
       if (config.hideHomeHeading) {
         hideCssSelectors.push(`body.TabbedTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div:first-child > div:first-child`)
       }

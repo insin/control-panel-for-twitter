@@ -328,5 +328,8 @@
   },
   "disableTweetTextFormattingLabel": {
     "message": "禁用推文中的加粗和斜体文本"
+  },
+  "compactNavigationItemsLabel": {
+    "message": "压缩导航项"
   }
 }

@@ -328,5 +328,8 @@
   },
   "disableTweetTextFormattingLabel": {
     "message": "Désactiver le texte en gras et en italique dans les tweets"
+  },
+  "compactNavigationItemsLabel": {
+    "message": "Rendre les éléments de navigation compacts"
   }
 }

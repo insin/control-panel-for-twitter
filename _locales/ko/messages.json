@@ -328,5 +328,8 @@
   },
   "disableTweetTextFormattingLabel": {
     "message": "트윗에서 볼드체 및 이탤릭체 비활성화"
+  },
+  "compactNavigationItemsLabel": {
+    "message": "네비게이션 항목을 압축하다"
   }
 }

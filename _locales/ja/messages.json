@@ -328,5 +328,8 @@
   },
   "disableTweetTextFormattingLabel": {
     "message": "ツイートの太字と斜体を無効にする"
+  },
+  "compactNavigationItemsLabel": {
+    "message": "ナビゲーションアイテムをコンパクトにする"
   }
 }

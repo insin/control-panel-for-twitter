@@ -61,6 +61,7 @@ export type Config = {
   // Experiments
   // none currently
   // Desktop only
+  compactNavigationItems: boolean
   fullWidthContent: boolean
   fullWidthMedia: boolean
   hideAccountSwitcher: boolean

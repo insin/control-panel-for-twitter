@@ -328,5 +328,8 @@
   },
   "disableTweetTextFormattingLabel": {
     "message": "Disable bold and italic text in tweets"
+  },
+  "compactNavigationItemsLabel": {
+    "message": "Compact navigation items"
   }
 }
