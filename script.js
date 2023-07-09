@@ -1752,7 +1752,7 @@ function addCaretMenuListenerForQuoteTweet($tweet) {
   let $caret = /** @type {HTMLElement} */ ($tweet.querySelector('[data-testid="caret"]'))
   if ($caret && !$caret.dataset.tweakNewTwitterListener) {
     $caret.addEventListener('click', () => {
-      quotedTweet = getQuotedTweetDetails($tweet)
+      quotedTweet = getQuotedTweetDetails($tweet, {getText: true})
     })
     $caret.dataset.tweakNewTwitterListener = 'true'
   }
@@ -2550,13 +2550,18 @@ const configureThemeCss = (() => {
 
 /**
  * @param {HTMLElement} $tweet
+ * @param {?{getText?: boolean}} options
  * @returns {import("./types").QuotedTweet}
  */
- function getQuotedTweetDetails($tweet) {
+ function getQuotedTweetDetails($tweet, options = {}) {
+  let {getText = false} = options
   let $quotedTweet = $tweet.querySelector('div[id^="id__"] > div[dir] > span').parentElement.nextElementSibling
+  let $userName = $quotedTweet?.querySelector('[data-testid="User-Name"]')
+  let user = $userName?.querySelector('[tabindex="-1"]')?.textContent
+  let time = $userName?.querySelector('time')?.dateTime
+  if (!getText) return {user, time}
+
   let $heading = $quotedTweet?.querySelector(':scope > div > div:first-child')
-  let user = $heading?.querySelector('div:last-child > span')?.textContent
-  let time = $heading?.querySelector('time')?.dateTime
   let $qtText = $heading?.nextElementSibling?.querySelector('[lang]')
   let text = $qtText && Array.from($qtText.childNodes, node => {
     if (node.nodeType == 1) {

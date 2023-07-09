@@ -100,7 +100,7 @@ export type Disconnectable = NamedMutationObserver|{disconnect(): void}
 export type QuotedTweet = {
   user: string
   time: string
-  text: string
+  text?: string
 }
 
 export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
