@@ -51,8 +51,9 @@ New versions can take anything from minutes to days to be approved for publishin
 - Hide Retweets in pinned Lists
 - Hide tweets quoting accounts you've blocked or muted
 - Mute quoting of specific tweets - adds a "Mute this conversation" menu item to Quote Tweets in the Home and List timelines
-- Hide "Who to follow", "Follow some Topics" etc. in the Home timeline and elsewhere
+- Hide the "Home" heading
 - Hide the floating "See new Tweets" button
+- Hide "Who to follow", "Follow some Topics" etc. in the Home timeline and elsewhere
 - Full-width timeline: hide the sidebar and let timeline content go full-width on Home, Lists and Communities
 
 ### UI improvements
@@ -65,17 +66,20 @@ New versions can take anything from minutes to days to be approved for publishin
 - Hide Subscriptions
 - Add "Add muted word" to the "More" menu (desktop) or slide-out menu (mobile)
 - Fast blocking - skips the confirm dialog when you try to block an account
-- Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
-- Use normal font weight in dropdown menus - if everything's bold, nothing's bold
+- Hide Retweets in user profiles
+- Default to "Latest" tab in Search
+- When viewing a tweet's Quote Tweets, hide the quoted tweet to make more room for quotes
 - Hide "Open app" nags on mobile
 
 ### UI tweaks
 
 - Disable use of the Chirp font if you don't like it
+- Disable bold and italic text in tweets
+- Use the site's normal text font style in the primary navigation menu on desktop to make it less distracting
+- Change the navigation menu density on desktop to make it take less room
+- Use normal font weight in dropdown menus - if everything's bold, nothing's bold
 - Uninvert the Follow and Following buttons to make them less jarring
   - Choice of monochrome or themed (classic) styling for uninverted buttons
-- Default to "Latest" tab in Search
-- When viewing a tweet's Quote Tweets, hide the quoted tweet to make more room for quotes
 
 ### Remove algorithmic content
 
@@ -94,8 +98,8 @@ New versions can take anything from minutes to days to be approved for publishin
 - Bookmark button under tweets
 - Share button under tweets
 - Analytics links under your own tweets
-- Hide navigation items you don't use on desktop, and other distracting screen elements such as the account switcher and Messages drawer
-- Hide the bottom nav items for Communities and Messages on mobile if you don't use them
+- Hide navigation items you don't use on desktop, and other distracting screen elements such as the Messages drawer
+- Hide the bottom nav item for Messages on mobile if you don't use it often
 - Hide items you don't use in the "More" menu (desktop) or slide-out menu (mobile)
 
 ## Screenshots

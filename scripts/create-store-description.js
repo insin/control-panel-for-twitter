@@ -21,8 +21,8 @@ ${homeTimelineOptionsLabel}
 • ${hideUnavailableQuoteTweetsLabel}
 • ${mutableQuoteTweetsLabel}
   • ${mutableQuoteTweetsInfo}
-• ${hideWhoToFollowEtcLabel}
 • ${hideSeeNewTweetsLabel}
+• ${hideWhoToFollowEtcLabel}
 • ${fullWidthContentLabel}
   • ${fullWidthContentInfo}
 
@@ -38,18 +38,19 @@ ${uiImprovementsOptionsLabel}
 • ${addAddMutedWordMenuItemLabel_desktop}
 • ${fastBlockLabel}
 • ${hideProfileRetweetsLabel}
-• ${disableTweetTextFormattingLabel}
-• ${navBaseFontSizeLabel}
-• ${dropdownMenuFontWeightLabel}
+• ${defaultToLatestSearchLabel}
+• ${tweakQuoteTweetsPageLabel}
 
 ${uiTweaksOptionsLabel}
 
 • ${dontUseChirpFontLabel}
+• ${disableTweetTextFormattingLabel}
+• ${navBaseFontSizeLabel}
+• ${navDensityLabel}
+  • ${option_comfortable} / ${option_compact}
+• ${dropdownMenuFontWeightLabel}
 • ${uninvertFollowButtonsLabel}
-  • ${followButtonStyleOption_monochrome}
-  • ${followButtonStyleOption_themed}
-• ${defaultToLatestSearchLabel}
-• ${tweakQuoteTweetsPageLabel}
+  • ${followButtonStyleOption_monochrome} / ${followButtonStyleOption_themed}
 
 ${reduceAlgorithmicContentOptionsLabel}
 
