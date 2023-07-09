@@ -2497,13 +2497,13 @@ const configureThemeCss = (() => {
           body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) {
             background-color: rgb(15, 20, 25) !important;
           }
-          body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) > * {
+          body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) > div {
             color: rgb(255, 255, 255) !important;
           }
           body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) {
             background-color: rgb(255, 255, 255) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) > * {
+          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) > div {
             color: rgb(15, 20, 25) !important;
           }
           /* Follow button */
@@ -2513,10 +2513,10 @@ const configureThemeCss = (() => {
           body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"] {
             border-color: rgb(83, 100, 113) !important;
           }
-          body.Default [role="button"][data-testid$="-follow"] > * {
+          body.Default [role="button"][data-testid$="-follow"] > div {
             color: rgb(15, 20, 25) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"] > * {
+          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"] > div {
             color: rgb(255, 255, 255) !important;
           }
           body.Default [role="button"][data-testid$="-follow"]:hover {
@@ -2533,20 +2533,20 @@ const configureThemeCss = (() => {
           [role="button"][data-testid$="-unfollow"]:not(:hover) {
             background-color: ${themeColor} !important;
           }
-          [role="button"][data-testid$="-unfollow"]:not(:hover) > * {
+          [role="button"][data-testid$="-unfollow"]:not(:hover) > div {
               color: rgb(255, 255, 255) !important;
           }
           /* Follow button */
           [role="button"][data-testid$="-follow"] {
             border-color: ${themeColor} !important;
           }
-          [role="button"][data-testid$="-follow"] > * {
+          [role="button"][data-testid$="-follow"] > div {
             color: ${themeColor} !important;
           }
           [role="button"][data-testid$="-follow"]:hover {
             background-color: ${themeColor} !important;
           }
-          [role="button"][data-testid$="-follow"]:hover > * {
+          [role="button"][data-testid$="-follow"]:hover > div {
             color: rgb(255, 255, 255) !important;
           }
         `)
