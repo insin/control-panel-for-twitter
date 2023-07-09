@@ -325,5 +325,8 @@
   },
   "hideProfileRetweetsLabel": {
     "message": "Hide Retweets in user profiles"
+  },
+  "disableTweetTextFormattingLabel": {
+    "message": "Disable bold and italic text in tweets"
   }
 }

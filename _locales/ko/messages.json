@@ -325,5 +325,8 @@
   },
   "hideProfileRetweetsLabel": {
     "message": "사용자 프로필에서 리트윗 숨기기"
+  },
+  "disableTweetTextFormattingLabel": {
+    "message": "트윗에서 볼드체 및 이탤릭체 비활성화"
   }
 }

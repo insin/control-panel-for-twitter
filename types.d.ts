@@ -8,6 +8,7 @@ export type Config = {
   defaultToLatestSearch: boolean
   disableHomeTimeline: boolean
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
+  disableTweetTextFormatting: boolean
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
   fastBlock: boolean

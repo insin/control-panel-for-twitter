@@ -325,5 +325,8 @@
   },
   "hideProfileRetweetsLabel": {
     "message": "Masquer les Retweets dans les profils d'utilisateurs"
+  },
+  "disableTweetTextFormattingLabel": {
+    "message": "Désactiver le texte en gras et en italique dans les tweets"
   }
 }

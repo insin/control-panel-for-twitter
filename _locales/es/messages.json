@@ -325,5 +325,8 @@
   },
   "hideProfileRetweetsLabel": {
     "message": "Ocultar Retweets en los perfiles de usuario"
+  },
+  "disableTweetTextFormattingLabel": {
+    "message": "Deshabilitar texto en negrita e itálica en los tweets"
   }
 }

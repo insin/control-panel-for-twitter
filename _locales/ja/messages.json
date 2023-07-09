@@ -325,5 +325,8 @@
   },
   "hideProfileRetweetsLabel": {
     "message": "ユーザープロフィールでのリツイートを非表示にする"
+  },
+  "disableTweetTextFormattingLabel": {
+    "message": "ツイートの太字と斜体を無効にする"
   }
 }

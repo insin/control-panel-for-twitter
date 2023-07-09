@@ -325,5 +325,8 @@
   },
   "hideProfileRetweetsLabel": {
     "message": "在用户个人资料中隐藏转发"
+  },
+  "disableTweetTextFormattingLabel": {
+    "message": "禁用推文中的加粗和斜体文本"
   }
 }

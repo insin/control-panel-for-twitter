@@ -43,6 +43,7 @@ const config = {
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
+  disableTweetTextFormatting: false,
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
   fastBlock: true,
@@ -1895,6 +1896,14 @@ const configureCss = (() => {
         }
         body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child > a {
           display: none;
+        }
+      `)
+    }
+    if (config.disableTweetTextFormatting) {
+      cssRules.push(`
+        div[data-testid="tweetText"] span {
+          font-style: normal;
+          font-weight: normal;
         }
       `)
     }

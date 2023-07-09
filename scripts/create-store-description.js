@@ -37,6 +37,8 @@ ${uiImprovementsOptionsLabel}
 • ${hideSubscriptionsLabel}
 • ${addAddMutedWordMenuItemLabel_desktop}
 • ${fastBlockLabel}
+• ${hideProfileRetweetsLabel}
+• ${disableTweetTextFormattingLabel}
 • ${navBaseFontSizeLabel}
 • ${dropdownMenuFontWeightLabel}
 
