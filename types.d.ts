@@ -30,6 +30,7 @@ export type Config = {
   hideMetrics: boolean
   hideMonetizationNav: boolean
   hideMoreTweets: boolean
+  hideProfileRetweets: boolean
   hideQuoteTweetMetrics: boolean
   hideReplyMetrics: boolean
   hideRetweetMetrics: boolean
@@ -104,22 +105,27 @@ export type QuotedTweet = {
 
 export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
 
+export type TweetType =
+  | 'PINNED_TWEET'
+  | 'PROMOTED_TWEET'
+  | 'QUOTE_TWEET'
+  | 'RETWEET'
+  | 'RETWEETED_QUOTE_TWEET'
+  | 'TWEET'
+  | 'UNAVAILABLE'
+  | 'UNAVAILABLE_QUOTE_TWEET'
+  | 'UNAVAILABLE_RETWEET'
+
 export type TimelineItemType =
+  | TweetType
   | 'BLUE_REPLY'
   | 'DISCOVER_MORE_HEADING'
   | 'DISCOVER_MORE_TWEET'
   | 'FOCUSED_TWEET'
   | 'HEADING'
-  | 'PROMOTED_TWEET'
-  | 'QUOTE_TWEET'
-  | 'RETWEET'
-  | 'RETWEETED_QUOTE_TWEET'
   | 'SHOW_MORE'
   | 'SUBSEQUENT_ITEM'
-  | 'TWEET'
   | 'UNAVAILABLE'
-  | 'UNAVAILABLE_QUOTE_TWEET'
-  | 'UNAVAILABLE_RETWEET'
 
 export type TimelineOptions = {
   classifyTweets?: boolean

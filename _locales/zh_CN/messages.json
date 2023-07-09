@@ -322,5 +322,8 @@
   },
   "exportConfigLabel": {
     "message": "导出配置用于错误报告"
+  },
+  "hideProfileRetweetsLabel": {
+    "message": "在用户个人资料中隐藏转发"
   }
 }

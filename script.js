@@ -66,6 +66,7 @@ const config = {
   hideMetrics: false,
   hideMonetizationNav: true,
   hideMoreTweets: true,
+  hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
   hideReplyMetrics: true,
   hideRetweetMetrics: true,
@@ -2572,14 +2573,19 @@ const configureThemeCss = (() => {
  * data-testid="tweet" on it, falling back to TWEET if it doesn't appear to be
  * one of the particular types we care about.
  * @param {HTMLElement} $tweet
- * @returns {import("./types").TimelineItemType}
+ * @param {?boolean} checkSocialContext
+ * @returns {import("./types").TweetType}
  */
-function getTweetType($tweet) {
+function getTweetType($tweet, checkSocialContext = false) {
   if ($tweet.closest(Selectors.PROMOTED_TWEET_CONTAINER)) {
     return 'PROMOTED_TWEET'
   }
   // Assume social context tweets are Retweets
   if ($tweet.querySelector('[data-testid="socialContext"]')) {
+    if (checkSocialContext) {
+      let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
+      if (svgPath.startsWith('M7 4.5C7 3.12 8.12 2 9.5 2h5C1')) return 'PINNED_TWEET'
+    }
     // Quoted tweets from accounts you blocked or muted are displayed as an
     // <article> with "This Tweet is unavailable."
     if ($tweet.querySelector('article')) {
@@ -2862,8 +2868,10 @@ function onTimelineChange($timeline, page, options = {}) {
 
   let isOnMainTimeline = isOnMainTimelinePage()
   let isOnListTimeline = isOnListPage()
+  let isOnProfileTimeline = isOnProfilePage()
+  let timelineHasSpecificHandling = isOnMainTimeline || isOnListTimeline || isOnProfileTimeline
 
-  if (config.twitterBlueChecks != 'ignore' && !isOnMainTimeline && !isOnListTimeline) {
+  if (config.twitterBlueChecks != 'ignore' && !timelineHasSpecificHandling) {
     processBlueChecks($timeline)
   }
 
@@ -2891,8 +2899,8 @@ function onTimelineChange($timeline, page, options = {}) {
     let isBlueTweet = false
 
     if ($tweet != null) {
-      itemType = getTweetType($tweet)
-      if (isOnMainTimeline || isOnListTimeline) {
+      itemType = getTweetType($tweet, isOnProfileTimeline)
+      if (timelineHasSpecificHandling) {
         isReply = isReplyToPreviousTweet($tweet)
         if (isReply && hidPreviousItem != null) {
           hideItem = hidPreviousItem
@@ -2902,6 +2910,9 @@ function onTimelineChange($timeline, page, options = {}) {
           }
           else if (isOnListTimeline) {
             hideItem = shouldHideListTimelineItem(itemType)
+          }
+          else if (isOnProfileTimeline) {
+            hideItem = shouldHideProfileTimelineItem(itemType)
           }
         }
 
@@ -2930,13 +2941,13 @@ function onTimelineChange($timeline, page, options = {}) {
         }
       }
     }
-    else if (!isOnMainTimeline && !isOnListTimeline) {
+    else if (!timelineHasSpecificHandling) {
       if ($item.querySelector(':scope > div > div > div > article')) {
         itemType = 'UNAVAILABLE'
       }
     }
 
-    if (!isOnMainTimeline && !isOnListTimeline) {
+    if (!timelineHasSpecificHandling) {
       if (itemType != null) {
         hideItem = shouldHideOtherTimelineItem(itemType)
       }
@@ -3452,6 +3463,26 @@ function shouldHideMainTimelineItem(type, page) {
       return config.hideUnavailableQuoteTweets || shouldHideSharedTweet(config.quoteTweets, page)
     case 'UNAVAILABLE_RETWEET':
       return config.hideUnavailableQuoteTweets || selectedHomeTabIndex >= 2 ? config.listRetweets == 'hide' : shouldHideSharedTweet(config.retweets, page)
+    default:
+      return true
+  }
+}
+
+/**
+ * @param {import("./types").TimelineItemType} type
+ * @returns {boolean}
+ */
+function shouldHideProfileTimelineItem(type) {
+  switch (type) {
+    case 'PINNED_TWEET':
+    case 'QUOTE_TWEET':
+    case 'TWEET':
+      return false
+    case 'RETWEET':
+    case 'RETWEETED_QUOTE_TWEET':
+      return config.hideProfileRetweets
+    case 'UNAVAILABLE_QUOTE_TWEET':
+      return config.hideUnavailableQuoteTweets
     default:
       return true
   }

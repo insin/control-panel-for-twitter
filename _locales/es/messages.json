@@ -322,5 +322,8 @@
   },
   "exportConfigLabel": {
     "message": "Exportar configuración para informe de errores"
+  },
+  "hideProfileRetweetsLabel": {
+    "message": "Ocultar Retweets en los perfiles de usuario"
   }
 }

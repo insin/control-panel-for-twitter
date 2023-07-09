@@ -322,5 +322,8 @@
   },
   "exportConfigLabel": {
     "message": "버그 보고서를 위한 설정 내보내기"
+  },
+  "hideProfileRetweetsLabel": {
+    "message": "사용자 프로필에서 리트윗 숨기기"
   }
 }

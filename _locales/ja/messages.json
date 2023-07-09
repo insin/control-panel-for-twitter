@@ -322,5 +322,8 @@
   },
   "exportConfigLabel": {
     "message": "バグレポートの設定をエクスポート"
+  },
+  "hideProfileRetweetsLabel": {
+    "message": "ユーザープロフィールでのリツイートを非表示にする"
   }
 }
