@@ -2,6 +2,7 @@
   "scripts": {
     "create-browser-action": "node ./scripts/create-browser-action.js",
     "create-store-description": "node ./scripts/create-store-description.mjs",
+    "release": "node ./scripts/release.js",
     "prebuild": "npm run create-browser-action",
     "build": "web-ext build",
     "lint": "web-ext lint",
@@ -41,6 +42,7 @@
     "@types/chrome": "0.0.x",
     "@types/greasemonkey": "4.x",
     "clipboardy": "3.x",
+    "semver": "7.x",
     "web-ext": "7.x"
   }
 }
