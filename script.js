@@ -6,7 +6,7 @@
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
 // @run-at      document-start
-// @version     116
+// @version     117
 // ==/UserScript==
 void function() {
 
