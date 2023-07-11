@@ -2516,13 +2516,13 @@ const configureThemeCss = (() => {
           body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) {
             background-color: rgb(15, 20, 25) !important;
           }
-          body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) > div {
+          body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
             color: rgb(255, 255, 255) !important;
           }
           body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) {
             background-color: rgb(255, 255, 255) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) > div {
+          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
             color: rgb(15, 20, 25) !important;
           }
           /* Follow button */
@@ -2532,10 +2532,10 @@ const configureThemeCss = (() => {
           body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"] {
             border-color: rgb(83, 100, 113) !important;
           }
-          body.Default [role="button"][data-testid$="-follow"] > div {
+          body.Default [role="button"][data-testid$="-follow"] > :is(div, span) {
             color: rgb(15, 20, 25) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"] > div {
+          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"] > :is(div, span) {
             color: rgb(255, 255, 255) !important;
           }
           body.Default [role="button"][data-testid$="-follow"]:hover {
@@ -2552,20 +2552,20 @@ const configureThemeCss = (() => {
           [role="button"][data-testid$="-unfollow"]:not(:hover) {
             background-color: ${themeColor} !important;
           }
-          [role="button"][data-testid$="-unfollow"]:not(:hover) > div {
+          [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
               color: rgb(255, 255, 255) !important;
           }
           /* Follow button */
           [role="button"][data-testid$="-follow"] {
             border-color: ${themeColor} !important;
           }
-          [role="button"][data-testid$="-follow"] > div {
+          [role="button"][data-testid$="-follow"] > :is(div, span) {
             color: ${themeColor} !important;
           }
           [role="button"][data-testid$="-follow"]:hover {
             background-color: ${themeColor} !important;
           }
-          [role="button"][data-testid$="-follow"]:hover > div {
+          [role="button"][data-testid$="-follow"]:hover > :is(div, span) {
             color: rgb(255, 255, 255) !important;
           }
         `)
