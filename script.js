@@ -3226,7 +3226,8 @@ function onTitleChange(title) {
     }
   }
 
-  let newPage = title.split(ltr ? ' / ' : ' \\ ')[ltr ? 0 : 1]
+  // Remove " / Twitter" or "Twitter \ " from the title
+  let newPage = title.slice(...ltr ? [0, title.lastIndexOf('/') - 1] : [title.indexOf('\\') + 2])
 
   // Only allow the same page to re-process after a title change on desktop if
   // the "Customize your view" dialog is currently open.
