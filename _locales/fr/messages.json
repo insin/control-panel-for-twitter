@@ -177,10 +177,10 @@
     "message": "Masquer les personnes que je suis"
   },
   "hideBlueReplyFollowedByLabel": {
-    "message": "Afficher les personnes ayant plus d'1 million d'abonnés"
+    "message": "Masquer les personnes qui me suivent"
   },
   "showBlueReplyFollowersCountLabel": {
-    "message": "Show people with over 1 million followers"
+    "message": "Afficher les personnes ayant plus d'1 million d'abonnés"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "Masquer le tweet cité lors de l'affichage des Tweets cités"
