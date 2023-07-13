@@ -815,6 +815,10 @@ const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(with_replies|media|likes)\/?
 // Matches URLs which show a user's Followers you know / Followers / Following tab
 const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/(follow(?:ing|ers|ers_you_follow))\/?$/
 const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)/
+
+// The Twitter Media Assist exension adds a new button at the end of the action
+// bar (#346)
+const TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR = '.tva-download-icon, .tva-modal-download-icon'
 //#endregion
 
 //#region Variables
@@ -1922,8 +1926,8 @@ const configureCss = (() => {
     }
     if (config.hideBookmarkButton) {
       hideCssSelectors.push(
-        // Under individual tweets - only hide the 4th button if there are 5
-        '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"] > div:nth-child(4):nth-last-child(2)',
+        // Under individual tweets
+        '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"] > div:nth-child(4)',
       )
     }
     if (config.hideBookmarksNav) {
@@ -1935,9 +1939,9 @@ const configureCss = (() => {
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(
         // Under timeline tweets
-        `[data-testid="tweet"][tabindex="0"] [role="group"] > div[style]`,
+        `[data-testid="tweet"][tabindex="0"] [role="group"] > div[style]:not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
         // Under individual tweets
-        '[data-testid="tweet"][tabindex="-1"] [role="group"] > div[style]',
+        `[data-testid="tweet"][tabindex="-1"] [role="group"] > div[style]:not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
       )
     }
     if (config.hideSubscriptions) {
@@ -2230,7 +2234,7 @@ const configureCss = (() => {
       if (config.hideShareTweetButton) {
         hideCssSelectors.push(
           // In media modal
-          `[aria-modal="true"] [role="group"] > div[style]:not([role])`,
+          `[aria-modal="true"] [role="group"] > div[style]:not([role]):not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
         )
       }
       if (config.hideExploreNav) {
@@ -2297,7 +2301,7 @@ const configureCss = (() => {
       if (config.hideShareTweetButton) {
         hideCssSelectors.push(
           // In media modal
-          `body.MobileMedia [role="group"] > div[style]`,
+          `body.MobileMedia [role="group"] > div[style]:not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
         )
       }
       if (config.hideViews) {
