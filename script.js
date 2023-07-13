@@ -744,7 +744,7 @@ function getString(code) {
 }
 //#endregion
 
-//#region Config & variables
+//#region Constants
 /** @enum {string} */
 const PagePaths = {
   ADD_MUTED_WORD: '/settings/add_muted_keyword',
@@ -815,7 +815,9 @@ const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(with_replies|media|likes)\/?
 // Matches URLs which show a user's Followers you know / Followers / Following tab
 const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/(follow(?:ing|ers|ers_you_follow))\/?$/
 const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)/
+//#endregion
 
+//#region Variables
 /**
  * The quoted Tweet associated with a caret menu that's just been opened.
  * @type {import("./types").QuotedTweet}
