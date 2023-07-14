@@ -811,7 +811,7 @@ const URL_DISCOVER_COMMUNITIES_RE = /^\/i\/communities\/suggested\/?/
 const URL_LIST_RE = /\/i\/lists\/\d+\/?$/
 const URL_MEDIA_RE = /\/(?:photo|video)\/\d\/?$/
 // Matches URLs which show one of the tabs on a user profile page
-const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(with_replies|media|likes)\/?|\/)?$/
+const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(with_replies|superfollows|highlights|media|likes)\/?|\/)?$/
 // Matches URLs which show a user's Followers you know / Followers / Following tab
 const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/(follow(?:ing|ers|ers_you_follow))\/?$/
 const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)/
@@ -1950,8 +1950,8 @@ const configureCss = (() => {
         'body.Profile [role="button"][style*="border-color: rgb(201, 54, 204)"]',
         // Subscriptions count in profile
         'body.Profile a[href$="/creator-subscriptions/subscriptions"]',
-        // Subscription Tweets tab in profile (3rd of 5)
-        'body.Profile [data-testid="ScrollSnap-List"] > [role="presentation"]:nth-child(3):nth-last-child(3)',
+        // Subs tab in profile (3rd of 5, or 6 if they have Highlights)
+        'body.Profile [data-testid="ScrollSnap-List"] > [role="presentation"]:nth-child(3):is(:nth-last-child(3), :nth-last-child(4))',
         // Subscribe button in focused tweet
         '[data-testid="tweet"][tabindex="-1"] [data-testid$="-subscribe"]',
         // "Subscribe to" dropdown item (desktop)
