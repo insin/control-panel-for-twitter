@@ -18,19 +18,31 @@
 
 Mozilla Add-ons currently only lets you install a [small, curated list of extensions on Android](https://addons.mozilla.org/en-US/android/), so you'll need to add a Custom Add-on collection which contains Control Panel for Twitter by following these steps:
 
-- Install [Firefox Beta](https://play.google.com/store/apps/details?id=org.mozilla.firefox_beta) on your Android device
-- [Follow these instructions](https://blog.mozilla.org/addons/2020/09/29/expanded-extension-support-in-firefox-for-android-nightly/) to enable Custom Add-on collections, TL;DR:
-  - Settings → About Firefox Beta → Tap on the Firefox logo 5 times
-- In "Custom Add-on collection", which is now available under Advanced settings, enter the following details and tap "OK":
-  - 13844640
-  - Android-Collection
-
-![Screenshot of what the custom collection to install Control Panel for Twitter on Firefox Beta should look like when correctly configured](screenshots/install_custom_collection.png)
-
 <details>
   <summary>
-  You'll now be able to install Control Panel for Twitter via the Add-ons page.
+  View install instructions for Firefox Beta on Android
   </summary>
+  <br>
+  <ul>
+    <li>
+      Install <a href="https://play.google.com/store/apps/details?id=org.mozilla.firefox_beta" rel="nofollow">Firefox Beta</a> on your Android device</li>
+    <li>
+      <a href="https://blog.mozilla.org/addons/2020/09/29/expanded-extension-support-in-firefox-for-android-nightly/" rel="nofollow">Follow these instructions</a> to enable Custom Add-on collections, TL;DR:
+      <ul>
+        <li>Settings → About Firefox Beta → Tap on the Firefox logo 5 times</li>
+      </ul>
+    </li>
+    <li>
+      In "Custom Add-on collection", which is now available under Advanced settings, enter the following details and tap "OK":
+      <ul>
+        <li>13844640</li>
+        <li>Android-Collection</li>
+      </ul>
+      <br>
+      <img src="https://raw.githubusercontent.com/insin/control-panel-for-twitter/master/screenshots/install_custom_collection.png" alt="Screenshot of what the custom collection to install Control Panel for Twitter on Firefox Beta should look like when correctly configured">
+    </li>
+  </ul>
+  <p>You'll now be able to install Control Panel for Twitter via the Add-ons page.</p>
   <img src="https://raw.githubusercontent.com/insin/control-panel-for-twitter/master/screenshots/install_addons.jpg" alt="Screenshot of the Add-ons page in Firefox Beta setting up the Custom Add-on collection with the details above" style="max-width:100%;">
 </details>
 
