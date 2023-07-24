@@ -6,7 +6,7 @@
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
 // @run-at      document-start
-// @version     118
+// @version     119
 // ==/UserScript==
 void function() {
 
@@ -3773,7 +3773,7 @@ function tweakMainTimelinePage() {
   }
 
   tweakTimelineTabs($timelineTabs)
-  if (isSafari && mobile) {
+  if (mobile && isSafari && config.replaceLogo) {
     processTwitterLogos(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER_NEW))
   }
 
