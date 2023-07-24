@@ -810,6 +810,7 @@ const URL_COMMUNITY_MEMBERS_RE = /^\/i\/communities\/\d+\/(?:members|moderators)
 const URL_DISCOVER_COMMUNITIES_RE = /^\/i\/communities\/suggested\/?/
 const URL_LIST_RE = /\/i\/lists\/\d+\/?$/
 const URL_MEDIA_RE = /\/(?:photo|video)\/\d\/?$/
+const URL_MEDIAVIEWER_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)\/mediaviewer$/i
 // Matches URLs which show one of the tabs on a user profile page
 const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(with_replies|superfollows|highlights|media|likes)\/?|\/)?$/
 // Matches URLs which show a user's Followers you know / Followers / Following tab
@@ -3221,7 +3222,7 @@ function onTitleChange(title) {
   if (title == getString('TWITTER')) {
     // Mobile uses "Twitter" when viewing media - we need to let these process
     // so the next page will be re-processed when the media is closed.
-    if (mobile && URL_MEDIA_RE.test(location.pathname)) {
+    if (mobile && (URL_MEDIA_RE.test(location.pathname) || URL_MEDIAVIEWER_RE.test(location.pathname))) {
       log('viewing media on mobile')
     }
     // Ignore Flash of Uninitialised Title when navigating to a page for the
@@ -3233,7 +3234,10 @@ function onTitleChange(title) {
   }
 
   // Remove " / Twitter" or "Twitter \ " from the title
-  let newPage = title.slice(...ltr ? [0, title.lastIndexOf('/') - 1] : [title.indexOf('\\') + 2])
+  let newPage = title
+  if (newPage != getString('TWITTER')) {
+    newPage = title.slice(...ltr ? [0, title.lastIndexOf('/') - 1] : [title.indexOf('\\') + 2])
+  }
 
   // Only allow the same page to re-process after a title change on desktop if
   // the "Customize your view" dialog is currently open.
@@ -3353,6 +3357,7 @@ function processCurrentPage() {
   $body.classList.toggle('Search', isOnSearchPage())
   $body.classList.toggle('Settings', isOnSettingsPage())
   $body.classList.toggle('MobileMedia', mobile && URL_MEDIA_RE.test(location.pathname))
+  $body.classList.toggle('MediaViewer', mobile && URL_MEDIAVIEWER_RE.test(location.pathname))
   $body.classList.remove('TabbedTimeline')
   $body.classList.remove('SeparatedTweets')
 
