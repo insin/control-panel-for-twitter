@@ -5,6 +5,8 @@
 // @namespace   https://github.com/insin/control-panel-for-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
+// @match       https://x.com/*
+// @match       https://mobile.x.com/*
 // @run-at      document-start
 // @version     120
 // ==/UserScript==
@@ -3312,7 +3314,7 @@ function onTitleChange(title) {
   let homeNavigationWasUsed = homeNavigationIsBeingUsed
   homeNavigationIsBeingUsed = false
 
-  if (title == getString('TWITTER')) {
+  if (title == getString('TWITTER') || title == 'X') {
     // Mobile uses "Twitter" when viewing media - we need to let these process
     // so the next page will be re-processed when the media is closed.
     if (mobile && (URL_MEDIA_RE.test(location.pathname) || URL_MEDIAVIEWER_RE.test(location.pathname))) {
@@ -3328,7 +3330,7 @@ function onTitleChange(title) {
 
   // Remove " / Twitter" or "Twitter \ " from the title
   let newPage = title
-  if (newPage != getString('TWITTER')) {
+  if (newPage != getString('TWITTER') && newPage != 'X') {
     newPage = title.slice(...ltr ? [0, title.lastIndexOf('/') - 1] : [title.indexOf('\\') + 2])
   }
 
