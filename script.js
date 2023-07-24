@@ -819,12 +819,13 @@ const URL_COMMUNITY_MEMBERS_RE = /^\/i\/communities\/\d+\/(?:members|moderators)
 const URL_DISCOVER_COMMUNITIES_RE = /^\/i\/communities\/suggested\/?/
 const URL_LIST_RE = /\/i\/lists\/\d+\/?$/
 const URL_MEDIA_RE = /\/(?:photo|video)\/\d\/?$/
-const URL_MEDIAVIEWER_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)\/mediaviewer$/i
+const URL_MEDIAVIEWER_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/mediaviewer$/i
 // Matches URLs which show one of the tabs on a user profile page
-const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(with_replies|superfollows|highlights|media|likes)\/?|\/)?$/
+const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(?:with_replies|superfollows|highlights|media|likes))?\/?$/
 // Matches URLs which show a user's Followers you know / Followers / Following tab
-const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/(follow(?:ing|ers|ers_you_follow))\/?$/
+const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/follow(?:ing|ers|ers_you_follow)\/?$/
 const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)\/?$/
+const URL_TWEET_LIKES_RETWEETS_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/(likes|retweets)\/?$/
 
 // The Twitter Media Assist exension adds a new button at the end of the action
 // bar (#346)
@@ -865,6 +866,9 @@ let homeNavigationIsBeingUsed = false
 
 /** Set to `true` when the media modal is open on desktop. */
 let isDesktopMediaModalOpen = false
+
+/** Set to `true` when a user list modal is open on desktop. */
+let isDesktopUserListModalOpen = false
 
 /**
  * Cache for the last page title which was used for the main timeline.
@@ -1784,6 +1788,25 @@ async function observeTimeline(page, options = {}) {
       warn('tabbed timeline container not found')
     }
   }
+}
+
+/**
+ * @param {HTMLElement} $context
+ * @param {string} initialPath
+ */
+async function observeUserListTimeline($context, initialPath) {
+  let $timeline = await getElement('h1[id^="accessible-list"] + div > div > div > div', {
+    context: $context,
+    name: 'user list timeline',
+    stopIf: not(() => initialPath == location.pathname),
+  })
+  if (!$timeline) return
+
+  modalObservers.push(
+    observeElement($timeline, () => {
+      processBlueChecks($timeline)
+    }, 'user list timeline')
+  )
 }
 //#endregion
 
@@ -2784,6 +2807,21 @@ function handlePopup($popup) {
     }
   }
 
+  if (config.twitterBlueChecks != 'ignore' && desktop && !isDesktopUserListModalOpen && URL_TWEET_LIKES_RETWEETS_RE.test(location.pathname)) {
+    let modalType = URL_TWEET_LIKES_RETWEETS_RE.exec(location.pathname)[1]
+    log(`${modalType} modal opened`)
+    isDesktopUserListModalOpen = true
+    observeUserListTimeline($popup, location.pathname)
+    return {
+      tookAction: true,
+      onPopupClosed() {
+        log(`${modalType} modal closed`)
+        isDesktopUserListModalOpen = false
+        disconnectAllModalObservers()
+      }
+    }
+  }
+
   if (isOnListPage()) {
     let $switchSvg = $popup.querySelector(`svg path[d^="M12 3.75c-4.56 0-8.25 3.69-8.25 8.25s"]`)
     if ($switchSvg) {
@@ -3530,6 +3568,9 @@ function processCurrentPage() {
     else if (URL_MEDIAVIEWER_RE.test(currentPath)) {
       tweakMobileMediaViewerPage()
     }
+    else if (URL_TWEET_LIKES_RETWEETS_RE.test(currentPath)) {
+      tweakMobileUserListPage()
+    }
   }
 }
 
@@ -3965,6 +4006,12 @@ async function tweakTimelineTabs($timelineTabs) {
   } else {
     removeMobileTimelineHeaderElements()
   }
+}
+
+function tweakMobileUserListPage() {
+  if (config.twitterBlueChecks == 'ignore') return
+
+  observeUserListTimeline(undefined, currentPath)
 }
 
 function tweakNotificationsPage() {
