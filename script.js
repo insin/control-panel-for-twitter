@@ -815,7 +815,7 @@ const URL_MEDIAVIEWER_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)\/mediaviewer$/
 const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(with_replies|superfollows|highlights|media|likes)\/?|\/)?$/
 // Matches URLs which show a user's Followers you know / Followers / Following tab
 const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/(follow(?:ing|ers|ers_you_follow))\/?$/
-const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)/
+const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)\/?$/
 
 // The Twitter Media Assist exension adds a new button at the end of the action
 // bar (#346)
@@ -2560,7 +2560,7 @@ const configureThemeCss = (() => {
             background-color: ${themeColor} !important;
           }
           [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
-              color: rgb(255, 255, 255) !important;
+            color: rgb(255, 255, 255) !important;
           }
           /* Follow button */
           [role="button"][data-testid$="-follow"] {
@@ -2574,6 +2574,17 @@ const configureThemeCss = (() => {
           }
           [role="button"][data-testid$="-follow"]:hover > :is(div, span) {
             color: rgb(255, 255, 255) !important;
+          }
+        `)
+      }
+      if (mobile) {
+        cssRules.push(`
+          body.MediaViewer [role="button"][data-testid$="follow"]:not(:hover) {
+            border: revert !important;
+            background-color: transparent !important;
+          }
+          body.MediaViewer [role="button"][data-testid$="follow"]:not(:hover) > div {
+            color: ${themeColor} !important;
           }
         `)
       }
@@ -3422,6 +3433,9 @@ function processCurrentPage() {
     if (currentPath == PagePaths.COMPOSE_TWEET) {
       tweakMobileComposeTweetPage()
     }
+    else if (URL_MEDIAVIEWER_RE.test(currentPath)) {
+      tweakMobileMediaViewerPage()
+    }
   }
 }
 
@@ -3750,6 +3764,27 @@ function tweakMainTimelinePage() {
 
 function tweakMobileComposeTweetPage() {
   tweakTweetBox()
+}
+
+function tweakMobileMediaViewerPage() {
+  if (config.twitterBlueChecks == 'ignore') return
+
+  let $timeline = /** @type {HTMLElement} */ (document.querySelector('[data-testid="vss-scroll-view"] > div'))
+  if (!$timeline) {
+    warn('media viewer timeline not found')
+    return
+  }
+
+  observeElement($timeline, (mutations) => {
+    for (let mutation of mutations) {
+      if (!mutation.addedNodes) continue
+      for (let $addedNode of mutation.addedNodes) {
+        if ($addedNode.querySelector?.('div[data-testid^="immersive-tweet-ui-content-container"]')) {
+          processBlueChecks($addedNode)
+        }
+      }
+    }
+  }, 'media viewer timeline', {childList: true, subtree: true})
 }
 
 async function tweakTimelineTabs($timelineTabs) {
