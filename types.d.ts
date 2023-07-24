@@ -53,6 +53,7 @@ export type Config = {
   mutedQuotes: QuotedTweet[]
   quoteTweets: SharedTweetsConfig
   reducedInteractionMode: boolean
+  replaceLogo: boolean
   retweets: SharedTweetsConfig
   showBlueReplyFollowersCount: boolean
   tweakQuoteTweetsPage: boolean

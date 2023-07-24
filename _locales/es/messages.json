@@ -340,5 +340,8 @@
   },
   "option_compact": {
     "message": "Compacto"
+  },
+  "replaceLogoLabel": {
+    "message": "Reemplace el logo X"
   }
 }

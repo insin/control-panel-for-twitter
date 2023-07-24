@@ -340,5 +340,8 @@
   },
   "option_compact": {
     "message": "紧凑"
+  },
+  "replaceLogoLabel": {
+    "message": "替换X标志"
   }
 }

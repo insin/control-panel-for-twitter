@@ -340,5 +340,8 @@
   },
   "option_compact": {
     "message": "간략한"
+  },
+  "replaceLogoLabel": {
+    "message": "X 로고 교체"
   }
 }

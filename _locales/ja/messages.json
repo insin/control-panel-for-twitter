@@ -340,5 +340,8 @@
   },
   "option_compact": {
     "message": "コンパクト"
+  },
+  "replaceLogoLabel": {
+    "message": "X ロゴを置き換えます"
   }
 }
