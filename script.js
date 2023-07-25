@@ -2045,17 +2045,6 @@ const configureCss = (() => {
         'body.Tweet [data-testid="tweet"] + div > div [role="group"]',
       )
     }
-    if (config.replaceLogo) {
-      cssRules.push(`
-        ${Selectors.X_LOGO_PATH} {
-          fill: rgb(29, 155, 240);
-          d: path("${Svgs.TWITTER_LOGO_PATH}");
-        }
-        .tnt_logo {
-          fill: rgb(29, 155, 240);
-        }
-      `)
-    }
     if (config.tweakQuoteTweetsPage) {
       // Hide the quoted tweet, which is repeated in every quote tweet
       hideCssSelectors.push('body.QuoteTweets [data-testid="tweet"] [aria-labelledby] > div:last-child')
@@ -2527,6 +2516,18 @@ const configureThemeCss = (() => {
       cssRules.push(`
         body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div > div {
           background-color: ${themeColor} !important;
+        }
+      `)
+    }
+
+    if (config.replaceLogo) {
+      cssRules.push(`
+        ${Selectors.X_LOGO_PATH} {
+          fill: ${themeColor};
+          d: path("${Svgs.TWITTER_LOGO_PATH}");
+        }
+        .tnt_logo {
+          fill: ${themeColor};
         }
       `)
     }
@@ -4025,11 +4026,11 @@ async function main() {
       $loadingStyle.dataset.role = 'loading-logo'
       $loadingStyle.textContent = dedent(`
         ${Selectors.X_LOGO_PATH} {
-          fill: ${isSafari ? 'transparent' : 'rgb(29, 155, 240)'};
+          ${isSafari ? 'fill: transparent;' : ''}
           d: path("${Svgs.TWITTER_LOGO_PATH}");
         }
         .tnt_logo {
-          fill: rgb(29, 155, 240);
+          fill: revert;
         }
       `)
       $html.appendChild($loadingStyle)
