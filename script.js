@@ -1491,7 +1491,7 @@ const observeFavicon = (() => {
 
   async function observeFavicon() {
     if ($shortcutIcon == null) {
-      $shortcutIcon = await getElement('link[rel="shortcut icon"]', {name: 'shortcut-icon'})
+      $shortcutIcon = await getElement('link[rel="shortcut icon"]', {name: 'shortcut icon'})
     }
 
     if (!config.replaceLogo) {
