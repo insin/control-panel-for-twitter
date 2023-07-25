@@ -3182,7 +3182,7 @@ function onIndividualTweetTimelineChange($timeline) {
   /** @type {boolean} */
   let hideAllSubsequentItems = false
   /** @type {string} */
-  let opScreenName = URL_TWEET_RE.exec(location.pathname)[1].toLowerCase()
+  let opScreenName = /^\/([a-zA-Z\d_]{1,20})\//.exec(location.pathname)[1].toLowerCase()
   /** @type {{$item: Element, hideItem?: boolean}[]} */
   let changes = []
   /** @type {import("./types").UserInfoObject} */
