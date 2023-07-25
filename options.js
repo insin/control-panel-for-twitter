@@ -191,7 +191,7 @@ const defaultConfig = {
   mutedQuotes: [],
   quoteTweets: 'ignore',
   reducedInteractionMode: false,
-  replaceLogo: false,
+  replaceLogo: true,
   retweets: 'separate',
   showBlueReplyFollowersCount: true,
   tweakQuoteTweetsPage: true,
