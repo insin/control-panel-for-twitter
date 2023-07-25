@@ -794,6 +794,12 @@ const Svgs = {
   TWITTER_LOGO_PATH: 'M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z',
 }
 
+/** @enum {string} */
+const Images = {
+  TWITTER_FAVICON: 'data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAA0pJREFUWAntVk1oE1EQnnlJbFK3KUq9VJPYWgQVD/5QD0qpfweL1YJQoZAULBRPggp6kB78PQn14kHx0jRB0UO9REVFb1YqVBEsbZW2SbVS0B6apEnbbMbZ6qbZdTempqCHPAjvzcw3P5mdmfcAiquYgX+cAVwu/+5AdDMQnSPCHUhQA0hf+Rxy2OjicIvzm+qnKhito0qpb2wvJhWeJgCPP7oPELeHvdJ1VSGf3eOPnSWga0S0Qo9HxEkEusDBuNjbEca8G291nlBxmgDc/ukuIvAJxI6wr+yKCsq1ewLxQ2lZfpQLo8oQ4ZXdCkfnACrGWpyDCl+oQmVn5xuVPU102e2P3qoJkFOhzVb9S7KSnL5jJs/mI+As01PJFPSlZeFSZZoAGBRXBZyq9lk5NrC+e7pJ5en30c+JWk59pZ5vRDOuhAD381c/H/FKz1SMNgCE16rg505r5TT0uLqme93d0fbq+1SeLSeU83Ke0RHYFPGVPcjQfNDUwIa7M665+dQAEEjZoMwZMcEF9RxIDAgBQ2mCcqJ0Z0b+h4MNbZ4RnyOSDbNmE2iRk5jCNgIIckFoZAs4IgfLGrlKGjkzS16iwj6pV9I4mUvCPf73JVytH9nRJj24QHrqU8NCIWrMaGqAC+Ut/3ZzAS63cx4v2K/x/IvQBOCwWzu5KmJGwEJ5PIgeG9nQBDDcXPpFoDjJ7ThvBC6EZxXWkJG+JgAFwGM4KBAOcibeGCn8FQ/hyajXPmSk+1sACogn4hYk7OdiHDFSWipPkPWSmY6mCzIghEEuxJvcEYUvxIdhX2mvmSHDDPBF9AJRnDZTyp+P40671JYLbxiAohDxSTfQIg4oNxgPzCWPHaWQBViOf2jGqVwBaEaxGbAqOFMrp+SefC8eNhoFIY5lXzpmtnMGUB2IbU3JdIqVW9m5zcxINn/hAYKiIexdaTh4srHKORMAP0b28PNgJyGt5gvHzQVYx91QpVcwpRFl/p63HSR1DLbid1OcTpAJQOG7u+KH+aI5Qwj13IsamU5vkUSIc8uGLDa8OtoivV8U5HcydFLtT7hlSDVy2nfxI2Ibg9awuVU8IeJAOMF5m2B6jFs1tM5R9rS3GRP5uSuiihn4DzPwA7z7GDH+43gqAAAAAElFTkSuQmCC',
+  TWITTER_PIP_FAVICON: 'data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALASURBVHgB7VZNchJBFP5eM9FoRWV2WiZmbmBuIJ4g5ASBRWJlRXIC4ASQVUqxCo4QTwDegJzAiYlFXM1YZWmVQD9fQ6YyAwMMGBZW8i2G6e7He1+/3wHuOih4+fWieJhiKsirA0ZbE44fXZUaWDIGBH4/L+UUUB897DMfPf5ermKJUOaRIhTiDlNEBSwZlnkwY2vCuYOEWD/xMrCoKC41utISRlcc3Or2dfnqwHbDcj9X0fbztn9DAHxOoM0xrZILSIBXtR9F0VGKbJIhz7kVi3Lr770yAz4p2iYm188/awVi6lo4Ns4mETEDLz94uTHjIxDDRaWoohhOSjwi/9mKEFjtlKsayAuRM7M2HmFJwCRVIIqLSAAJjS822v0Vaip1E1oKC6XrXtrExjnxnJ6ldoVKFj0+ujywW3FKTTzJoibmAXP+Yt9uBEsrfLbWRelJzS/0B8z4WoKa6zW/1dd83Hlnn0Z0peAQkqNHvNPZi+qIELBWUNU97LLJ4hDESMZSlNmo+b5UTEvC85m0JCipTQREE+BhdzypIwSkLvyn4LKYrEzQkSZCloiyw+xJbnygfxX+VAJrPWnBoC9ixBXdDm4XflD7YajIinFq3L0E45J7fBa3HyEg7mhgeWjPJODu223J/iMsATzhcmp04+ueXTW1OsiD2zIuVfNNLockBAyIkdaaPxHGs3YR0JTQWnGbWkFCQZX5imwCmBoX++nGpONYD1zu2S0a9IN/g3jSNcNnqsy0ww2ZdPJzCKLXWAAy1N6ay2BRAgEcGZ+aqDnaoqdbjw6dhQgYwz1S2xKOQyQ0Phy7vDPr5iH5ITY+elmtpddLFyQzZBTP3xGl3FJ95NzQJ1hiAgMSw5jnJOZvMA/EMBNKSW89kUAAp+45+g+yojRjljL9NoP4GxdLYzk334vy3lYP0HBjhsw97vHf4C/b8RLHAOr+CQAAAABJRU5ErkJggg==',
+}
+
 const THEME_COLORS = new Set([
   'rgb(29, 155, 240)', // blue
   'rgb(255, 212, 0)',  // yellow
@@ -1476,6 +1482,49 @@ async function observeDesktopModalTimeline() {
 
   observeModalTimeline($initialTimeline)
 }
+
+const observeFavicon = (() => {
+  /** @type {HTMLElement} */
+  let $shortcutIcon
+  /** @type {MutationObserver} */
+  let shortcutIconObserver
+
+  async function observeFavicon() {
+    if ($shortcutIcon == null) {
+      $shortcutIcon = await getElement('link[rel="shortcut icon"]', {name: 'shortcut-icon'})
+    }
+
+    if (!config.replaceLogo) {
+      if (shortcutIconObserver != null) {
+        shortcutIconObserver.disconnect()
+        shortcutIconObserver = null
+        if ($shortcutIcon.getAttribute('href').startsWith('data:')) {
+          $shortcutIcon.setAttribute('href', `//abs.twimg.com/favicons/twitter${currentNotificationCount ? '-pip' : ''}.3.ico`)
+        }
+      }
+      return
+    }
+
+    shortcutIconObserver = observeElement($shortcutIcon, () => {
+      let href = $shortcutIcon.getAttribute('href')
+      if (href.startsWith('data:')) return
+      $shortcutIcon.setAttribute('href', href.includes('pip') ? Images.TWITTER_PIP_FAVICON : Images.TWITTER_FAVICON)
+    }, 'shortcut icon href', {
+      attributes: true,
+      attributeFilter: ['href']
+    })
+  }
+
+  observeFavicon.updatePip = function(showPip) {
+    if (!$shortcutIcon) return
+    let icon = showPip ? Images.TWITTER_PIP_FAVICON : Images.TWITTER_FAVICON
+    if ($shortcutIcon.getAttribute('href') != icon) {
+      $shortcutIcon.setAttribute('href', icon)
+    }
+  }
+
+  return observeFavicon
+})()
 
 /**
  * Twitter displays popups in the #layers element. It also reuses open popups
@@ -3256,6 +3305,10 @@ function onTitleChange(title) {
     title = title.replace(TITLE_NOTIFICATION_RE, '')
   }
 
+  if (config.replaceLogo && Boolean(notificationCount) != Boolean(currentNotificationCount)) {
+    observeFavicon.updatePip(Boolean(notificationCount))
+  }
+
   let homeNavigationWasUsed = homeNavigationIsBeingUsed
   homeNavigationIsBeingUsed = false
 
@@ -4043,6 +4096,8 @@ async function main() {
         }
       })
     }
+
+    observeFavicon()
   }
 
   let $appWrapper = await getElement('#layers + div', {name: 'app wrapper'})
@@ -4114,6 +4169,7 @@ function configChanged(changes) {
   configureFont()
   configureNavFontSizeCss()
   configureThemeCss()
+  observeFavicon()
   observePopups()
 
   // Only re-process the current page if navigation wasn't already triggered
