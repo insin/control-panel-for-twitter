@@ -1274,6 +1274,7 @@ const checkReactNativeStylesheet = (() => {
           rule.style.backgroundColor &&
           THEME_COLORS.has(rule.style.backgroundColor)) {
         themeColor = rule.style.backgroundColor
+        localStorage.lastThemeColor = themeColor
         log(`found initial theme color in React Native stylesheet: ${themeColor}`)
         configureThemeCss()
       }
@@ -1341,6 +1342,7 @@ async function observeColor() {
 
     log('Color setting changed - re-processing current page')
     themeColor = color
+    localStorage.lastThemeColor = color
     configureThemeCss()
     observePopups()
     processCurrentPage()
@@ -4124,20 +4126,21 @@ async function main() {
       $loadingStyle = document.createElement('style')
       $loadingStyle.dataset.insertedBy = 'control-panel-for-twitter'
       $loadingStyle.dataset.role = 'loading-logo'
+      let logoThemeColor = localStorage.lastThemeColor || Array.from(THEME_COLORS)[0]
       $loadingStyle.textContent = dedent(`
         ${Selectors.X_LOGO_PATH} {
-          ${isSafari ? 'fill: transparent;' : ''}
+          fill: ${isSafari ? 'transparent' : logoThemeColor};
           d: path("${Svgs.TWITTER_LOGO_PATH}");
         }
         .tnt_logo {
-          fill: revert;
+          fill: ${logoThemeColor};
         }
       `)
       $html.appendChild($loadingStyle)
     })
 
     if (isSafari) {
-      getElement(Selectors.X_LOGO_PATH, {name: 'pre-loading indicator logo', timeout: 2000}).then(($logoPath) => {
+      getElement(Selectors.X_LOGO_PATH, {name: 'pre-loading indicator logo', timeout: 1000}).then(($logoPath) => {
         if ($logoPath) {
           twitterLogo($logoPath)
         }
@@ -4184,12 +4187,16 @@ async function main() {
       // Repeatable configuration setup
       configureSeparatedTweetsTimelineTitle()
       configureCss()
-      $loadingStyle?.remove()
       observeHtmlFontSize()
       observePopups()
 
       // Start watching for page changes
       observeTitle()
+
+      // Delay removing loading icon styles to avoid Flash of X
+      if ($loadingStyle) {
+        setTimeout(() => $loadingStyle.remove(), 1000)
+      }
     }
     else if (flexDirection != lastFlexDirection) {
       observeHtmlFontSize()
