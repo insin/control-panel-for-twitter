@@ -2099,7 +2099,7 @@ const configureCss = (() => {
     }
     if (config.hideVerifiedNotificationsTab) {
       hideCssSelectors.push(
-        `body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} [data-testid="ScrollSnap-List"] > div:nth-child(2):nth-last-child(2)`
+        `body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2)`
       )
     }
     if (config.hideViews) {
@@ -4024,7 +4024,7 @@ function tweakNotificationsPage() {
   }
 
   if (config.hideVerifiedNotificationsTab) {
-    let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2):nth-last-child(2) > a[aria-selected="true"]'))
+    let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
     if (isVerifiedTabSelected) {
       log('switching to All tab')
       $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a')?.click()
