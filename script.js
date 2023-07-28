@@ -734,7 +734,6 @@ const locales = {
   },
 }
 
-
 /**
  * @param {import("./types").LocaleKey} code
  * @returns {string}
@@ -1583,7 +1582,14 @@ const observePopups = (() => {
 
 async function observeTitle() {
   let $title = await getElement('title', {name: '<title>'})
-  observeElement($title, () => onTitleChange($title.textContent), '<title>')
+  observeElement($title, () => {
+    let title = $title.textContent
+    if (config.replaceLogo && (ltr ? /X$/ : /^(?:\(\d+\+?\) )?X/).test(title)) {
+      document.title = title.replace(ltr ? /X$/ : 'X', getString('TWITTER'))
+      return
+    }
+    onTitleChange(title)
+  }, '<title>')
 }
 //#endregion
 

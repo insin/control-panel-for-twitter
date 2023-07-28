@@ -339,6 +339,6 @@
     "message": "コンパクト"
   },
   "replaceLogoLabel": {
-    "message": "X ロゴを置き換えます"
+    "message": "X ロゴとタイトルを置き換えます"
   }
 }
