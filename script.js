@@ -881,6 +881,12 @@ let lastMainTimelineTitle = null
 let modalObservers = []
 
 /**
+ * `true` after the app has initialised.
+ * @type {boolean}
+ */
+let observingPageChanges = false
+
+/**
  * MutationObservers active on the current page, or anything else we want to
  * clean up when the user moves off the current page.
  * @type {import("./types").Disconnectable[]}
@@ -1588,7 +1594,9 @@ async function observeTitle() {
       document.title = title.replace(ltr ? /X$/ : 'X', getString('TWITTER'))
       return
     }
-    onTitleChange(title)
+    if (observingPageChanges) {
+      onTitleChange(title)
+    }
   }, '<title>')
 }
 //#endregion
@@ -4128,6 +4136,8 @@ async function main() {
     debug = true
   }
 
+  observeTitle()
+
   let $loadingStyle
   if (config.replaceLogo) {
     getElement('html', {name: 'html element'}).then(($html) => {
@@ -4199,8 +4209,8 @@ async function main() {
       observeHtmlFontSize()
       observePopups()
 
-      // Start watching for page changes
-      observeTitle()
+      // Start taking action on page changes
+      observingPageChanges = true
 
       // Delay removing loading icon styles to avoid Flash of X
       if ($loadingStyle) {
