@@ -79,7 +79,6 @@ const config = {
   hideTwitterAdsNav: true,
   hideTwitterBlueReplies: false,
   hideTwitterBlueUpsells: true,
-  hideTwitterForProfessionalsNav: true,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
   hideViews: true,
@@ -2094,9 +2093,6 @@ const configureCss = (() => {
         }
       `)
     }
-    if (config.hideTwitterForProfessionalsNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/convert_to_professional"]`)
-    }
     if (config.hideVerifiedNotificationsTab) {
       hideCssSelectors.push(
         `body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2)`
@@ -2139,7 +2135,7 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} div[role="button"][aria-expanded]:nth-of-type(1)`)
     }
     // Hide "Professional Tools" if all its contents are hidden
-    if (config.hideTwitterForProfessionalsNav && config.hideTwitterAdsNav && config.hideMonetizationNav) {
+    if (config.hideTwitterAdsNav) {
       hideCssSelectors.push(`${menuRole} div[role="button"][aria-expanded]:nth-of-type(2)`)
     }
 

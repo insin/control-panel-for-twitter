@@ -43,7 +43,6 @@ export type Config = {
   hideTwitterAdsNav: boolean
   hideTwitterBlueReplies: boolean
   hideTwitterBlueUpsells: boolean
-  hideTwitterForProfessionalsNav: boolean
   hideUnavailableQuoteTweets: boolean
   hideVerifiedNotificationsTab: boolean
   hideViews: boolean
