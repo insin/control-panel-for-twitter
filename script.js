@@ -3334,7 +3334,7 @@ function onIndividualTweetTimelineChange($timeline) {
 }
 
 function onTitleChange(title) {
-  log('title changed', {title: title.split(ltr ? ' / ' : ' \\ ')[ltr ? 0 : 1], path: location.pathname})
+  log('title changed', {title, path: location.pathname})
 
   if (checkforDisabledHomeTimeline()) return
 
@@ -3352,7 +3352,7 @@ function onTitleChange(title) {
   let homeNavigationWasUsed = homeNavigationIsBeingUsed
   homeNavigationIsBeingUsed = false
 
-  if (title == getString('TWITTER')) {
+  if (title == 'X' || title == getString('TWITTER')) {
     // Mobile uses "Twitter" when viewing media - we need to let these process
     // so the next page will be re-processed when the media is closed.
     if (mobile && (URL_MEDIA_RE.test(location.pathname) || URL_MEDIAVIEWER_RE.test(location.pathname))) {
@@ -3368,7 +3368,7 @@ function onTitleChange(title) {
 
   // Remove " / Twitter" or "Twitter \ " from the title
   let newPage = title
-  if (newPage != getString('TWITTER')) {
+  if (newPage != 'X' && newPage != getString('TWITTER')) {
     newPage = title.slice(...ltr ? [0, title.lastIndexOf('/') - 1] : [title.indexOf('\\') + 2])
   }
 
