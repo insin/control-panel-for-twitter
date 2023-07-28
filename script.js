@@ -3329,12 +3329,18 @@ function onIndividualTweetTimelineChange($timeline) {
   )
 }
 
+/**
+ * Title format (including notification count):
+ * - LTR: (3) ${title} / X
+ * - RTL: (3) X \ ${title}
+ * @param {string} title
+ */
 function onTitleChange(title) {
   log('title changed', {title, path: location.pathname})
 
   if (checkforDisabledHomeTimeline()) return
 
-  // Ignore leading notification counts in titles, e.g. '(1) Following'
+  // Ignore leading notification counts in titles
   let notificationCount = ''
   if (TITLE_NOTIFICATION_RE.test(title)) {
     notificationCount = TITLE_NOTIFICATION_RE.exec(title)[0]
