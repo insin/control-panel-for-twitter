@@ -2072,13 +2072,13 @@ const configureCss = (() => {
     if (config.hideTwitterBlueUpsells) {
       hideCssSelectors.push(
         // Twitter Blue menu item
-        `${menuRole} a[href$="/i/twitter_blue_sign_up"]`,
+        `${menuRole} a[href$="/i/blue_sign_up"]`,
         // "Highlight on your profile" on your tweets
         '[role="menuitem"][data-testid="highlightUpsell"]',
         // "Edit with Twitter Blue" on recent tweets
         '[role="menuitem"][data-testid="editWithTwitterBlue"]',
         // Twitter Blue item in Settings
-        'body.Settings a[href="/i/twitter_blue_sign_up"]',
+        'body.Settings a[href="/i/blue_sign_up"]',
         // "Highlight your best content instead" on the pin modal
         '.PinModal [data-testid="sheetDialog"] > div > div:last-child > div > div > div:first-child',
         // Highlight button on the pin modal
