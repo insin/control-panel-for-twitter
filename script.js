@@ -903,7 +903,7 @@ let separatedTweetsTimelineTitle = null
  * The current "Color" setting, which can be changed in "Customize your view".
  * @type {string}
  */
-let themeColor = null
+let themeColor = localStorage.lastThemeColor
 
 /**
  * `true` when "For you" was the last tab selected on the main timeline.
@@ -2599,11 +2599,11 @@ const configureThemeCss = (() => {
     if (config.replaceLogo) {
       cssRules.push(`
         ${Selectors.X_LOGO_PATH} {
-          fill: ${themeColor};
+          ${themeColor ? `fill: ${themeColor};` : ''}
           d: path("${Svgs.TWITTER_LOGO_PATH}");
         }
         .tnt_logo {
-          fill: ${themeColor};
+          ${themeColor ? `fill: ${themeColor};` : ''}
         }
       `)
     }
@@ -4134,7 +4134,7 @@ async function main() {
       $loadingStyle = document.createElement('style')
       $loadingStyle.dataset.insertedBy = 'control-panel-for-twitter'
       $loadingStyle.dataset.role = 'loading-logo'
-      let logoThemeColor = localStorage.lastThemeColor || Array.from(THEME_COLORS)[0]
+      let logoThemeColor = themeColor || Array.from(THEME_COLORS)[0]
       $loadingStyle.textContent = dedent(`
         ${Selectors.X_LOGO_PATH} {
           fill: ${isSafari ? 'transparent' : logoThemeColor};
@@ -4195,6 +4195,7 @@ async function main() {
       // Repeatable configuration setup
       configureSeparatedTweetsTimelineTitle()
       configureCss()
+      configureThemeCss()
       observeHtmlFontSize()
       observePopups()
 
