@@ -1946,7 +1946,8 @@ async function addToggleListRetweetsMenuItem($switchMenuItem) {
   $toggleRetweets.classList.add('tnt_menu_item')
   $toggleRetweets.querySelector('span').textContent = getString(`TURN_${config.listRetweets == 'ignore' ? 'OFF' : 'ON'}_RETWEETS`)
   $toggleRetweets.querySelector('svg').innerHTML = config.listRetweets == 'ignore' ? Svgs.RETWEETS_OFF : Svgs.RETWEET
-  $toggleRetweets.querySelector(':scope > div:last-child > div:last-child')?.remove()
+  // Remove subtitle if the cloned menu item has one
+  $toggleRetweets.querySelector('div[dir] + div[dir]')?.remove()
   $toggleRetweets.addEventListener('click', (e) => {
     e.preventDefault()
     log('toggling list retweets')
