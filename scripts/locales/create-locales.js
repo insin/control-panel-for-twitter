@@ -5,6 +5,7 @@ const externalTranslations = {
   'ar-x-fm': {
     RETWEETS: 'إعادات التغريد',
     SHARED_TWEETS: 'التغريدات المشتركة',
+    TWITTER: 'تويتر',
   },
   ar: {
     RETWEETS: 'إعادات التغريد',
@@ -17,6 +18,7 @@ const externalTranslations = {
   bn: {
     RETWEETS: 'পুনঃটুইটগুলো',
     SHARED_TWEETS: 'ভাগ করা টুইটগুলি',
+    TWITTER: 'টুইটার',
   },
   ca: {
     RETWEETS: 'Retuits',
@@ -39,6 +41,7 @@ const externalTranslations = {
   en: {
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Shared Tweets',
+    TWITTER: 'Twitter',
   },
   es: {
     SHARED_TWEETS: 'Tweets compartidos',
@@ -50,6 +53,7 @@ const externalTranslations = {
   fa: {
     RETWEETS: 'بازتوییت‌ها',
     SHARED_TWEETS: 'توییتهای مشترک',
+    TWITTER: 'توییتر',
   },
   fi: {
     RETWEETS: 'Uudelleentwiittaukset',
@@ -77,6 +81,7 @@ const externalTranslations = {
   he: {
     RETWEETS: 'ציוצים מחדש',
     SHARED_TWEETS: 'ציוצים משותפים',
+    TWITTER: 'טוויטר',
   },
   hi: {
     RETWEETS: 'रीट्वीट्स',
@@ -109,6 +114,7 @@ const externalTranslations = {
   ko: {
     RETWEETS: '리트윗',
     SHARED_TWEETS: '공유 트윗',
+    TWITTER: '트위터',
   },
   mr: {
     RETWEETS: 'पुनर्ट्विट्स',
@@ -138,6 +144,7 @@ const externalTranslations = {
   ru: {
     RETWEETS: 'Ретвиты',
     SHARED_TWEETS: 'Общие твиты',
+    TWITTER: 'Твиттер',
   },
   sk: {
     RETWEETS: 'Retweety',
@@ -146,6 +153,7 @@ const externalTranslations = {
   sr: {
     RETWEETS: 'Ретвитови',
     SHARED_TWEETS: 'Дељени твитови',
+    TWITTER: 'Твитер',
   },
   sv: {
     SHARED_TWEETS: 'Delade tweetsen',
@@ -157,6 +165,7 @@ const externalTranslations = {
   th: {
     RETWEETS: 'รีทวีต',
     SHARED_TWEETS: 'ทวีตที่แชร์',
+    TWITTER: 'ทวิตเตอร์',
   },
   tr: {
     RETWEETS: 'Retweetler',
@@ -165,10 +174,12 @@ const externalTranslations = {
   uk: {
     RETWEETS: 'Ретвіти',
     SHARED_TWEETS: 'Спільні твіти',
+    TWITTER: 'Твіттер',
   },
   ur: {
     RETWEETS: 'ریٹویٹس',
     SHARED_TWEETS: 'مشترکہ ٹویٹس',
+    TWITTER: 'ٹوئٹر',
   },
   vi: {
     RETWEETS: 'Các Tweet lại',
@@ -194,7 +205,6 @@ let template = {
   QUOTE_TWEETS: 'bd7c0390',
   SHOW: 'a0e81a2e',
   SHOW_MORE_REPLIES: 'c837fcaa',
-  TWITTER: 'd2fb334c',
   TURN_OFF_RETWEETS: 'b62e432e',
   TURN_ON_RETWEETS: 'b2e20eac',
 }
@@ -224,7 +234,6 @@ for (let file of fs.readdirSync('./js')) {
     }
   }
   let localeCode = file.split('.')[0]
-  if (localeCode != 'en' && locale.TWITTER == 'Twitter') delete locale.TWITTER
   Object.assign(locale, externalTranslations[localeCode])
   locales[localeCode] = sortProperties(locale)
 }
