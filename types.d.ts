@@ -85,17 +85,18 @@ export type LocaleKey =
   | 'ADD_MUTED_WORD'
   | 'HOME'
   | 'MUTE_THIS_CONVERSATION'
+  | 'POST_ALL'
   | 'QUOTE_TWEET'
   | 'QUOTE_TWEETS'
   | 'RETWEETS'
   | 'SHARED_TWEETS'
   | 'SHOW'
   | 'SHOW_MORE_REPLIES'
-  | 'TWITTER'
   | 'TURN_OFF_RETWEETS'
   | 'TURN_ON_RETWEETS'
   | 'TWEET'
   | 'TWEET_ALL'
+  | 'TWITTER'
 
 export type NamedMutationObserver = MutationObserver & {name?: string}
 

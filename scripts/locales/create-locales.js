@@ -285,6 +285,7 @@ let template = {
   ADD_MUTED_WORD: 'd768049c',
   HOME: 'ha8209bc',
   MUTE_THIS_CONVERSATION: 'e2d6c17e',
+  POST_ALL: 'ge8e4a38',
   QUOTE_TWEET: 'c9d7235e',
   QUOTE_TWEETS: 'bd7c0390',
   SHOW: 'a0e81a2e',

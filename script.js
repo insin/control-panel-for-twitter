@@ -122,6 +122,7 @@ const locales = {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     HOME: 'الرئيسيّة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
+    POST_ALL: 'نشر الكل',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RETWEETS: 'إعادات التغريد',
@@ -130,12 +131,15 @@ const locales = {
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
+    TWEET: 'غرّدي',
+    TWEET_ALL: 'تغريد الكل',
     TWITTER: 'تويتر',
   },
   ar: {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     HOME: 'الرئيسيّة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
+    POST_ALL: 'نشر الكل',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RETWEETS: 'إعادات التغريد',
@@ -144,11 +148,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
+    TWEET: 'تغريد',
+    TWEET_ALL: 'تغريد الكل',
   },
   bg: {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
     HOME: 'Начало',
     MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
+    POST_ALL: 'Публикуване на всичко',
     QUOTE_TWEET: 'Цитиране на туита',
     QUOTE_TWEETS: 'Туитове с цитат',
     RETWEETS: 'Ретуитове',
@@ -157,11 +164,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Показване на още отговори',
     TURN_OFF_RETWEETS: 'Изключване на ретуитовете',
     TURN_ON_RETWEETS: 'Включване на ретуитовете',
+    TWEET: 'تغريد',
+    TWEET_ALL: 'تغريد الكل',
   },
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
     HOME: 'হোম',
     MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
+    POST_ALL: 'সবকটি পোস্ট করুন',
     QUOTE_TWEET: 'টুইট উদ্ধৃত করুন',
     QUOTE_TWEETS: 'টুইট উদ্ধৃতিগুলো',
     RETWEETS: 'পুনঃটুইটগুলো',
@@ -170,12 +180,15 @@ const locales = {
     SHOW_MORE_REPLIES: 'আরও উত্তর দেখান',
     TURN_OFF_RETWEETS: 'পুনঃ টুইটগুলি বন্ধ করুন',
     TURN_ON_RETWEETS: 'পুনঃ টুইটগুলি চালু করুন',
+    TWEET: 'টুইট',
+    TWEET_ALL: 'সব টুইট করুন',
     TWITTER: 'টুইটার',
   },
   ca: {
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
     HOME: 'Inici',
     MUTE_THIS_CONVERSATION: 'Silencia la conversa',
+    POST_ALL: 'Publica-ho tot',
     QUOTE_TWEET: 'Cita el tuit',
     QUOTE_TWEETS: 'Tuits amb cita',
     RETWEETS: 'Retuits',
@@ -184,11 +197,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Mostra més respostes',
     TURN_OFF_RETWEETS: 'Desactiva els retuits',
     TURN_ON_RETWEETS: 'Activa els retuits',
+    TWEET: 'Tuita',
+    TWEET_ALL: 'Tuita-ho tot',
   },
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
     HOME: 'Hlavní stránka',
     MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
+    POST_ALL: 'Publikovat vše',
     QUOTE_TWEET: 'Citovat Tweet',
     QUOTE_TWEETS: 'Tweety s citací',
     RETWEETS: 'Retweety',
@@ -197,11 +213,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Zobrazit další odpovědi',
     TURN_OFF_RETWEETS: 'Vypnout retweety',
     TURN_ON_RETWEETS: 'Zapnout retweety',
+    TWEET: 'Tweetovat',
+    TWEET_ALL: 'Tweetnout vše',
   },
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
     HOME: 'Forside',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
+    POST_ALL: 'Post alle',
     QUOTE_TWEET: 'Citér Tweet',
     QUOTE_TWEETS: 'Citat-Tweets',
     SHARED_TWEETS: 'Delte tweets',
@@ -209,11 +228,13 @@ const locales = {
     SHOW_MORE_REPLIES: 'Vis flere svar',
     TURN_OFF_RETWEETS: 'Slå Retweets fra',
     TURN_ON_RETWEETS: 'Slå Retweets til',
+    TWEET_ALL: 'Tweet alt',
   },
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
     HOME: 'Startseite',
     MUTE_THIS_CONVERSATION: 'Diese Konversation stummschalten',
+    POST_ALL: 'Alle posten',
     QUOTE_TWEET: 'Tweet zitieren',
     QUOTE_TWEETS: 'Zitierte Tweets',
     SHARED_TWEETS: 'Geteilte Tweets',
@@ -221,11 +242,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Mehr Antworten anzeigen',
     TURN_OFF_RETWEETS: 'Retweets ausschalten',
     TURN_ON_RETWEETS: 'Retweets einschalten',
+    TWEET: 'Twittern',
+    TWEET_ALL: 'Alle twittern',
   },
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
     HOME: 'Αρχική σελίδα',
     MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
+    POST_ALL: 'Δημοσίευση όλων',
     QUOTE_TWEET: 'Παράθεση Tweet',
     QUOTE_TWEETS: 'Tweet με παράθεση',
     RETWEETS: 'Retweet',
@@ -234,11 +258,13 @@ const locales = {
     SHOW_MORE_REPLIES: 'Εμφάνιση περισσότερων απαντήσεων',
     TURN_OFF_RETWEETS: 'Απενεργοποίηση των Retweet',
     TURN_ON_RETWEETS: 'Ενεργοποίηση των Retweet',
+    TWEET_ALL: 'Δημοσίευση όλων ως Tweet',
   },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
     HOME: 'Home',
     MUTE_THIS_CONVERSATION: 'Mute this conversation',
+    POST_ALL: 'Post all',
     QUOTE_TWEET: 'Quote Tweet',
     QUOTE_TWEETS: 'Quote Tweets',
     RETWEETS: 'Retweets',
@@ -247,12 +273,15 @@ const locales = {
     SHOW_MORE_REPLIES: 'Show more replies',
     TURN_OFF_RETWEETS: 'Turn off Retweets',
     TURN_ON_RETWEETS: 'Turn on Retweets',
+    TWEET: 'Tweet',
+    TWEET_ALL: 'Tweet all',
     TWITTER: 'Twitter',
   },
   es: {
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
     HOME: 'Inicio',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
+    POST_ALL: 'Publicar todo',
     QUOTE_TWEET: 'Citar Tweet',
     QUOTE_TWEETS: 'Tweets citados',
     SHARED_TWEETS: 'Tweets compartidos',
@@ -260,11 +289,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Mostrar más respuestas',
     TURN_OFF_RETWEETS: 'Desactivar Retweets',
     TURN_ON_RETWEETS: 'Activar Retweets',
+    TWEET: 'Twittear',
+    TWEET_ALL: 'Twittear todo',
   },
   eu: {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
     HOME: 'Hasiera',
     MUTE_THIS_CONVERSATION: 'Isilarazi elkarrizketa hau',
+    POST_ALL: 'Post all',
     QUOTE_TWEET: 'Txioa apaitu',
     QUOTE_TWEETS: 'Aipatu txioak',
     RETWEETS: 'Bertxioak',
@@ -273,11 +305,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Erakutsi erantzun gehiago',
     TURN_OFF_RETWEETS: 'Desaktibatu birtxioak',
     TURN_ON_RETWEETS: 'Aktibatu birtxioak',
+    TWEET: 'Txio',
+    TWEET_ALL: 'Txiotu guztiak',
   },
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
     HOME: 'خانه',
     MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
+    POST_ALL: 'پست کردن همه',
     QUOTE_TWEET: 'نقل‌توییت',
     QUOTE_TWEETS: 'نقل‌توییت‌ها',
     RETWEETS: 'بازتوییت‌ها',
@@ -286,12 +321,15 @@ const locales = {
     SHOW_MORE_REPLIES: 'نمایش پاسخ‌های بیشتر',
     TURN_OFF_RETWEETS: 'غیرفعال‌سازی بازتوییت‌ها',
     TURN_ON_RETWEETS: 'فعال سازی بازتوییت‌ها',
+    TWEET: 'توییت',
+    TWEET_ALL: 'توییت به همه',
     TWITTER: 'توییتر',
   },
   fi: {
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
     HOME: 'Etusivu',
     MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
+    POST_ALL: 'Julkaise kaikki',
     QUOTE_TWEET: 'Twiitin lainaus',
     QUOTE_TWEETS: 'Twiitin lainaukset',
     RETWEETS: 'Uudelleentwiittaukset',
@@ -300,11 +338,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Näytä lisää vastauksia',
     TURN_OFF_RETWEETS: 'Poista uudelleentwiittaukset käytöstä',
     TURN_ON_RETWEETS: 'Ota uudelleentwiittaukset käyttöön',
+    TWEET: 'Twiittaa',
+    TWEET_ALL: 'Twiittaa kaikki',
   },
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
     HOME: 'Home',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
+    POST_ALL: 'I-post lahat',
     QUOTE_TWEET: 'Quote na Tweet',
     QUOTE_TWEETS: 'Mga Quote na Tweet',
     RETWEETS: 'Mga Retweet',
@@ -313,11 +354,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Magpakita pa ng mga sagot',
     TURN_OFF_RETWEETS: 'I-off ang Retweets',
     TURN_ON_RETWEETS: 'I-on ang Retweets',
+    TWEET: 'Mag-tweet',
+    TWEET_ALL: 'I-tweet lahat',
   },
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
     HOME: 'Accueil',
     MUTE_THIS_CONVERSATION: 'Masquer cette conversation',
+    POST_ALL: 'Tout publier',
     QUOTE_TWEET: 'Citer le Tweet',
     QUOTE_TWEETS: 'Tweets cités',
     SHARED_TWEETS: 'Tweets partagés',
@@ -325,11 +369,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Voir plus de réponses',
     TURN_OFF_RETWEETS: 'Désactiver les Retweets',
     TURN_ON_RETWEETS: 'Activer les Retweets',
+    TWEET: 'Tweeter',
+    TWEET_ALL: 'Tout tweeter',
   },
   ga: {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
     HOME: 'Baile',
     MUTE_THIS_CONVERSATION: 'Balbhaigh an comhrá seo',
+    POST_ALL: 'Post all',
     QUOTE_TWEET: 'Cuir Ráiteas Leis',
     QUOTE_TWEETS: 'Luaigh Tvuíteanna',
     RETWEETS: 'Atweetanna',
@@ -338,11 +385,13 @@ const locales = {
     SHOW_MORE_REPLIES: 'Taispeáin tuilleadh freagraí',
     TURN_OFF_RETWEETS: 'Cas as Atweetanna',
     TURN_ON_RETWEETS: 'Cas Atweetanna air',
+    TWEET_ALL: 'Tweetáil gach rud',
   },
   gl: {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
     HOME: 'Inicio',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
+    POST_ALL: 'Post all',
     QUOTE_TWEET: 'Citar chío',
     QUOTE_TWEETS: 'Chíos citados',
     RETWEETS: 'Rechouchíos',
@@ -351,11 +400,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Amosar máis respostas',
     TURN_OFF_RETWEETS: 'Desactivar os rechouchíos',
     TURN_ON_RETWEETS: 'Activar os rechouchíos',
+    TWEET: 'Chío',
+    TWEET_ALL: 'Chiar todo',
   },
   gu: {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
     HOME: 'હોમ',
     MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
+    POST_ALL: 'બધા પોસ્ટ કરો',
     QUOTE_TWEET: 'અવતરણની સાથે ટ્વીટ કરો',
     QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ',
     RETWEETS: 'પુનટ્વીટ્સ',
@@ -364,11 +416,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'વધુ પ્રત્યુતરો દર્શાવો',
     TURN_OFF_RETWEETS: 'પુનટ્વીટ્સ બંધ કરો',
     TURN_ON_RETWEETS: 'પુનટ્વીટ્સ ચાલુ કરો',
+    TWEET: 'ટ્વીટ',
+    TWEET_ALL: 'બધાને ટ્વીટ કરો',
   },
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
     HOME: 'דף הבית',
     MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
+    POST_ALL: 'פרסום הכל',
     QUOTE_TWEET: 'ציטוט ציוץ',
     QUOTE_TWEETS: 'ציוצי ציטוט',
     RETWEETS: 'ציוצים מחדש',
@@ -377,12 +432,15 @@ const locales = {
     SHOW_MORE_REPLIES: 'הצג תשובות נוספות',
     TURN_OFF_RETWEETS: 'כבה ציוצים מחדש',
     TURN_ON_RETWEETS: 'הפעל ציוצים מחדש',
+    TWEET: 'צייץ',
+    TWEET_ALL: 'צייץ הכול',
     TWITTER: 'טוויטר',
   },
   hi: {
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
     HOME: 'होम',
     MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
+    POST_ALL: 'सभी पोस्ट करें',
     QUOTE_TWEET: 'ट्वीट क्वोट करें',
     QUOTE_TWEETS: 'कोट ट्वीट्स',
     RETWEETS: 'रीट्वीट्स',
@@ -391,11 +449,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'और अधिक जवाब दिखाएँ',
     TURN_OFF_RETWEETS: 'रीट्वीट बंद करें',
     TURN_ON_RETWEETS: 'रीट्वीट चालू करें',
+    TWEET: 'ट्वीट करें',
+    TWEET_ALL: 'सभी ट्वीट करें',
   },
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
     HOME: 'Naslovnica',
     MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
+    POST_ALL: 'Objavi sve',
     QUOTE_TWEET: 'Citiraj Tweet',
     QUOTE_TWEETS: 'Citirani tweetovi',
     RETWEETS: 'Proslijeđeni tweetovi',
@@ -404,11 +465,13 @@ const locales = {
     SHOW_MORE_REPLIES: 'Prikaži još odgovora',
     TURN_OFF_RETWEETS: 'Isključi proslijeđene tweetove',
     TURN_ON_RETWEETS: 'Uključi proslijeđene tweetove',
+    TWEET_ALL: 'Tweetaj sve',
   },
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
     HOME: 'Kezdőlap',
     MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
+    POST_ALL: 'Az összes közzététele',
     QUOTE_TWEET: 'Tweet idézése',
     QUOTE_TWEETS: 'Tweet-idézések',
     RETWEETS: 'Retweetek',
@@ -417,11 +480,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Több válasz megjelenítése',
     TURN_OFF_RETWEETS: 'Retweetek kikapcsolása',
     TURN_ON_RETWEETS: 'Retweetek bekapcsolása',
+    TWEET: 'Tweetelj',
+    TWEET_ALL: 'Tweet küldése mindenkinek',
   },
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
     HOME: 'Beranda',
     MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
+    POST_ALL: 'Posting semua',
     QUOTE_TWEET: 'Kutip Tweet',
     QUOTE_TWEETS: 'Tweet Kutipan',
     RETWEETS: 'Retweet',
@@ -430,11 +496,13 @@ const locales = {
     SHOW_MORE_REPLIES: 'Tampilkan balasan lainnya',
     TURN_OFF_RETWEETS: 'Matikan Retweet',
     TURN_ON_RETWEETS: 'Nyalakan Retweet',
+    TWEET_ALL: 'Tweet semua',
   },
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
     HOME: 'Home',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
+    POST_ALL: 'Pubblica tutto',
     QUOTE_TWEET: 'Cita Tweet',
     QUOTE_TWEETS: 'Tweet di citazione',
     RETWEETS: 'Retweet',
@@ -443,11 +511,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Mostra altre risposte',
     TURN_OFF_RETWEETS: 'Disattiva Retweet',
     TURN_ON_RETWEETS: 'Attiva Retweet',
+    TWEET: 'Twitta',
+    TWEET_ALL: 'Twitta tutto',
   },
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
     HOME: 'ホーム',
     MUTE_THIS_CONVERSATION: 'この会話をミュート',
+    POST_ALL: 'すべて投稿',
     QUOTE_TWEET: '引用ツイート',
     QUOTE_TWEETS: '引用ツイート',
     RETWEETS: 'リツイート',
@@ -456,11 +527,14 @@ const locales = {
     SHOW_MORE_REPLIES: '返信をさらに表示',
     TURN_OFF_RETWEETS: 'リツイートをオフにする',
     TURN_ON_RETWEETS: 'リツイートをオンにする',
+    TWEET: 'ツイートする',
+    TWEET_ALL: 'すべてツイート',
   },
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
     HOME: 'ಹೋಮ್',
     MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
+    POST_ALL: 'ಎಲ್ಲವನ್ನೂ ಪೋಸ್ಟ್ ಮಾಡಿ',
     QUOTE_TWEET: 'ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ',
     QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು',
     RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳು',
@@ -469,11 +543,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'ಇನ್ನಷ್ಟು ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ತೋರಿಸಿ',
     TURN_OFF_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
     TURN_ON_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆನ್ ಮಾಡಿ',
+    TWEET: 'ಟ್ವೀಟ್',
+    TWEET_ALL: 'ಎಲ್ಲಾ ಟ್ವೀಟ್ ಮಾಡಿ',
   },
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
     HOME: '홈',
     MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
+    POST_ALL: '모두 게시하기',
     QUOTE_TWEET: '트윗 인용하기',
     QUOTE_TWEETS: '트윗 인용하기',
     RETWEETS: '리트윗',
@@ -482,12 +559,15 @@ const locales = {
     SHOW_MORE_REPLIES: '더 많은 답글 보기',
     TURN_OFF_RETWEETS: '리트윗 끄기',
     TURN_ON_RETWEETS: '리트윗 켜기',
+    TWEET: '트윗',
+    TWEET_ALL: '모두 트윗하기',
     TWITTER: '트위터',
   },
   mr: {
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
     HOME: 'होम',
     MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
+    POST_ALL: 'सर्व पोस्ट करा',
     QUOTE_TWEET: 'ट्विट वर भाष्य करा',
     QUOTE_TWEETS: 'भाष्य ट्विट्स',
     RETWEETS: 'पुनर्ट्विट्स',
@@ -496,11 +576,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'अधिक प्रत्युत्तरे दाखवा',
     TURN_OFF_RETWEETS: 'पुनर्ट्विट्स बंद करा',
     TURN_ON_RETWEETS: 'पुनर्ट्विट्स चालू करा',
+    TWEET: 'ट्विट',
+    TWEET_ALL: 'सर्व ट्विट करा',
   },
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
     HOME: 'Laman Utama',
     MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
+    POST_ALL: 'Siarkan semua',
     QUOTE_TWEET: 'Petik Tweet',
     QUOTE_TWEETS: 'Tweet Petikan',
     RETWEETS: 'Tweet semula',
@@ -509,11 +592,13 @@ const locales = {
     SHOW_MORE_REPLIES: 'Tunjukkan lagi balasan',
     TURN_OFF_RETWEETS: 'Matikan Tweet semula',
     TURN_ON_RETWEETS: 'Hidupkan Tweet semula',
+    TWEET_ALL: 'Tweet semua',
   },
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
     HOME: 'Hjem',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtalen',
+    POST_ALL: 'Publiser alle',
     QUOTE_TWEET: 'Sitat-Tweet',
     QUOTE_TWEETS: 'Sitat-Tweets',
     SHARED_TWEETS: 'Delte tweets',
@@ -521,11 +606,13 @@ const locales = {
     SHOW_MORE_REPLIES: 'Vis flere svar',
     TURN_OFF_RETWEETS: 'Slå av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
+    TWEET_ALL: 'Tweet alle',
   },
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
     HOME: 'Startpagina',
     MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
+    POST_ALL: 'Alles plaatsen',
     QUOTE_TWEET: 'Citeer Tweet',
     QUOTE_TWEETS: 'Geciteerde Tweets',
     SHARED_TWEETS: 'Gedeelde Tweets',
@@ -533,11 +620,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Meer antwoorden tonen',
     TURN_OFF_RETWEETS: 'Retweets uitschakelen',
     TURN_ON_RETWEETS: 'Retweets inschakelen',
+    TWEET: 'Tweeten',
+    TWEET_ALL: 'Alles tweeten',
   },
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
     HOME: 'Główna',
     MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
+    POST_ALL: 'Opublikuj wszystko',
     QUOTE_TWEET: 'Cytuj Tweeta',
     QUOTE_TWEETS: 'Cytaty z Tweeta',
     RETWEETS: 'Tweety podane dalej',
@@ -546,11 +636,13 @@ const locales = {
     SHOW_MORE_REPLIES: 'Pokaż więcej odpowiedzi',
     TURN_OFF_RETWEETS: 'Wyłącz Tweety podane dalej',
     TURN_ON_RETWEETS: 'Włącz Tweety podane dalej',
+    TWEET_ALL: 'Tweetnij wszystko',
   },
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
     HOME: 'Página Inicial',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
+    POST_ALL: 'Publicar tudo',
     QUOTE_TWEET: 'Comentar o Tweet',
     QUOTE_TWEETS: 'Tweets com comentário',
     SHARED_TWEETS: 'Tweets Compartilhados',
@@ -558,11 +650,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Mostrar mais respostas',
     TURN_OFF_RETWEETS: 'Desativar Retweets',
     TURN_ON_RETWEETS: 'Ativar Retweets',
+    TWEET: 'Tweetar',
+    TWEET_ALL: 'Tweetar tudo',
   },
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
     HOME: 'Pagina principală',
     MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
+    POST_ALL: 'Postează tot',
     QUOTE_TWEET: 'Citează Tweetul',
     QUOTE_TWEETS: 'Tweeturi cu citat',
     RETWEETS: 'Retweeturi',
@@ -571,11 +666,13 @@ const locales = {
     SHOW_MORE_REPLIES: 'Afișează mai multe răspunsuri',
     TURN_OFF_RETWEETS: 'Dezactivează Retweeturile',
     TURN_ON_RETWEETS: 'Activează Retweeturile',
+    TWEET_ALL: 'Dă Tweeturi cu tot',
   },
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
     HOME: 'Главная',
     MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
+    POST_ALL: 'Опубликовать все',
     QUOTE_TWEET: 'Цитировать',
     QUOTE_TWEETS: 'Твиты с цитатами',
     RETWEETS: 'Ретвиты',
@@ -584,12 +681,15 @@ const locales = {
     SHOW_MORE_REPLIES: 'Показать еще ответы',
     TURN_OFF_RETWEETS: 'Отключить ретвиты',
     TURN_ON_RETWEETS: 'Включить ретвиты',
+    TWEET: 'Твитнуть',
+    TWEET_ALL: 'Твитнуть все',
     TWITTER: 'Твиттер',
   },
   sk: {
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
     HOME: 'Domov',
     MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
+    POST_ALL: 'Uverejniť všetko',
     QUOTE_TWEET: 'Tweet s citátom',
     QUOTE_TWEETS: 'Tweety s citátom',
     RETWEETS: 'Retweety',
@@ -598,11 +698,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Zobraziť viac odpovedí',
     TURN_OFF_RETWEETS: 'Vypnúť retweety',
     TURN_ON_RETWEETS: 'Zapnúť retweety',
+    TWEET: 'Tweetnuť',
+    TWEET_ALL: 'Tweetnuť všetko',
   },
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
     HOME: 'Почетна',
     MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
+    POST_ALL: 'Објави све',
     QUOTE_TWEET: 'твит са цитатом',
     QUOTE_TWEETS: 'твит(ов)а са цитатом',
     RETWEETS: 'Ретвитови',
@@ -611,12 +714,15 @@ const locales = {
     SHOW_MORE_REPLIES: 'Прикажи још одговора',
     TURN_OFF_RETWEETS: 'Искључи ретвитове',
     TURN_ON_RETWEETS: 'Укључи ретвитове',
+    TWEET: 'Твитуј',
+    TWEET_ALL: 'Твитуј све',
     TWITTER: 'Твитер',
   },
   sv: {
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
     HOME: 'Hem',
     MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
+    POST_ALL: 'Lägg upp allt',
     QUOTE_TWEET: 'Citera Tweet',
     QUOTE_TWEETS: 'Citat-tweets',
     SHARED_TWEETS: 'Delade tweetsen',
@@ -624,11 +730,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Visa fler svar',
     TURN_OFF_RETWEETS: 'Stäng av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
+    TWEET: 'Tweeta',
+    TWEET_ALL: 'Tweeta allt',
   },
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
     HOME: 'முகப்பு',
     MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
+    POST_ALL: 'எல்லாம் இடுகையிடு',
     QUOTE_TWEET: 'ட்விட்டை மேற்கோள் காட்டு',
     QUOTE_TWEETS: 'மேற்கோள் கீச்சுகள்',
     RETWEETS: 'மறுகீச்சுகள்',
@@ -637,11 +746,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'மேலும் பதில்களைக் காண்பி',
     TURN_OFF_RETWEETS: 'மறுகீச்சுகளை அணை',
     TURN_ON_RETWEETS: 'மறுகீச்சுகளை இயக்கு',
+    TWEET: 'ட்விட் செய்',
+    TWEET_ALL: 'அனைத்தையும் ட்விட் செய்',
   },
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
     HOME: 'หน้าแรก',
     MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
+    POST_ALL: 'โพสต์ทั้งหมด',
     QUOTE_TWEET: 'อ้างอิงทวีต',
     QUOTE_TWEETS: 'ทวีตและคำพูด',
     RETWEETS: 'รีทวีต',
@@ -650,12 +762,15 @@ const locales = {
     SHOW_MORE_REPLIES: 'แสดงการตอบกลับเพิ่มเติม',
     TURN_OFF_RETWEETS: 'ปิดรีทวีต',
     TURN_ON_RETWEETS: 'เปิดรีทวีต',
+    TWEET: 'ทวีต',
+    TWEET_ALL: 'ทวีตทั้งหมด',
     TWITTER: 'ทวิตเตอร์',
   },
   tr: {
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
     HOME: 'Anasayfa',
     MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
+    POST_ALL: 'Tümünü gönder',
     QUOTE_TWEET: 'Tweeti Alıntıla',
     QUOTE_TWEETS: 'Alıntı Tweetler',
     RETWEETS: 'Retweetler',
@@ -664,11 +779,14 @@ const locales = {
     SHOW_MORE_REPLIES: 'Daha fazla yanıt göster',
     TURN_OFF_RETWEETS: 'Retweetleri kapat',
     TURN_ON_RETWEETS: 'Retweetleri aç',
+    TWEET: 'Tweetle',
+    TWEET_ALL: 'Hepsini Tweetle',
   },
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
     HOME: 'Головна',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
+    POST_ALL: 'Опублікувати все',
     QUOTE_TWEET: 'Цитувати твіт',
     QUOTE_TWEETS: 'Цитовані твіти',
     RETWEETS: 'Ретвіти',
@@ -677,12 +795,15 @@ const locales = {
     SHOW_MORE_REPLIES: 'Показати більше відповідей',
     TURN_OFF_RETWEETS: 'Вимкнути ретвіти',
     TURN_ON_RETWEETS: 'Увімкнути ретвіти',
+    TWEET: 'Твіт',
+    TWEET_ALL: 'Твітнути все',
     TWITTER: 'Твіттер',
   },
   ur: {
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
     HOME: 'ہوم',
     MUTE_THIS_CONVERSATION: 'اس گفتگو کو میوٹ کریں',
+    POST_ALL: 'Post all',
     QUOTE_TWEET: 'ٹویٹ کا حوالہ دیں',
     QUOTE_TWEETS: 'ٹویٹ کو نقل کرو',
     RETWEETS: 'ریٹویٹس',
@@ -691,12 +812,15 @@ const locales = {
     SHOW_MORE_REPLIES: 'مزید جوابات دکھائیں',
     TURN_OFF_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
     TURN_ON_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
+    TWEET: 'ٹویٹ',
+    TWEET_ALL: 'سب کو ٹویٹ کریں',
     TWITTER: 'ٹوئٹر',
   },
   vi: {
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
     HOME: 'Trang chủ',
     MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
+    POST_ALL: 'Đăng tất cả',
     QUOTE_TWEET: 'Trích dẫn Tweet',
     QUOTE_TWEETS: 'Tweet trích dẫn',
     RETWEETS: 'Các Tweet lại',
@@ -705,11 +829,13 @@ const locales = {
     SHOW_MORE_REPLIES: 'Hiển thị thêm trả lời',
     TURN_OFF_RETWEETS: 'Tắt Tweet lại',
     TURN_ON_RETWEETS: 'Bật Tweet lại',
+    TWEET_ALL: 'Đăng Tweet tất cả',
   },
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
     HOME: '首頁',
     MUTE_THIS_CONVERSATION: '將此對話靜音',
+    POST_ALL: '全部發佈',
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用的推文',
     RETWEETS: '轉推',
@@ -718,11 +844,14 @@ const locales = {
     SHOW_MORE_REPLIES: '顯示更多回覆',
     TURN_OFF_RETWEETS: '關閉轉推',
     TURN_ON_RETWEETS: '開啟轉推',
+    TWEET: '推文',
+    TWEET_ALL: '推全部內容',
   },
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
     HOME: '主页',
     MUTE_THIS_CONVERSATION: '隐藏此对话',
+    POST_ALL: '全部发布',
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用推文',
     RETWEETS: '转推',
@@ -731,6 +860,8 @@ const locales = {
     SHOW_MORE_REPLIES: '显示更多回复',
     TURN_OFF_RETWEETS: '关闭转推',
     TURN_ON_RETWEETS: '开启转推',
+    TWEET: '推文',
+    TWEET_ALL: '全部发推',
   },
 }
 
@@ -864,6 +995,9 @@ let homeNavigationIsBeingUsed = false
 
 /** Set to `true` when the media modal is open on desktop. */
 let isDesktopMediaModalOpen = false
+
+/** Set to `true` when the compose tweet modal is open on desktop. */
+let isDesktopComposeTweetModalOpen = false
 
 /** Set to `true` when a user list modal is open on desktop. */
 let isDesktopUserListModalOpen = false
@@ -1248,6 +1382,15 @@ function s(n) {
   return n == 1 ? '' : 's'
 }
 
+/**
+ * @param {Element} $tweetButtonText
+ */
+function setTweetButtonText($tweetButtonText) {
+  let currentText = $tweetButtonText.textContent
+  if (currentText == getString('TWEET') || currentText == getString('TWEET_ALL')) return
+  $tweetButtonText.textContent = currentText == getString('POST_ALL') ? getString('TWEET_ALL') : getString('TWEET')
+}
+
 function storeConfigChanges(changes) {
   window.postMessage({type: 'tntConfigChange', changes})
 }
@@ -1322,6 +1465,7 @@ function observeBodyBackgroundColor() {
     if (lastBackgroundColor != null) {
       log('Background setting changed - re-processing current page')
       observePopups()
+      observeSideNavTweetButton()
       processCurrentPage()
     }
     lastBackgroundColor = backgroundColor
@@ -1355,6 +1499,7 @@ async function observeColor() {
     localStorage.lastThemeColor = color
     configureThemeCss()
     observePopups()
+    observeSideNavTweetButton()
     processCurrentPage()
   }, 'Color change re-render boundary')
 }
@@ -1403,6 +1548,7 @@ const observeHtmlFontSize = (() => {
           location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW && fontSize == '14px') {
         log('<html> style attribute changed, re-processing current page')
         observePopups()
+        observeSideNavTweetButton()
         processCurrentPage()
       }
     }, '<html> style attribute for font size changes', {
@@ -1411,6 +1557,62 @@ const observeHtmlFontSize = (() => {
     })
   }
 })()
+
+async function observeDesktopComposeTweetModal($popup) {
+ let $modalDialog = await getElement('div[role="dialog"][aria-labelledby]', {
+  context: $popup,
+  stopIf: () => !isDesktopComposeTweetModalOpen
+ })
+ if (!$modalDialog) return
+
+ /** @type {import("./types").Disconnectable} */
+ let tweetButtonObserver
+
+ function disconnectTweetButtonObserver() {
+   if (tweetButtonObserver) {
+     log('disconnecting tweet button dialog observer')
+     tweetButtonObserver.disconnect()
+     modalObservers.splice(modalObservers.indexOf(tweetButtonObserver), 1)
+     tweetButtonObserver = null
+   }
+ }
+
+ let waitingForTweetButton = false
+
+ modalObservers.push(
+  observeElement($modalDialog, async () => {
+    if (waitingForTweetButton) return
+
+    waitingForTweetButton = true
+    let $tweetButtonText = await getElement('div[data-testid="tweetButton"] span > span', {
+      context: $modalDialog,
+      name: 'tweet button',
+      timeout: 500,
+    })
+    waitingForTweetButton = false
+
+    if (!$tweetButtonText) {
+      disconnectTweetButtonObserver()
+      return
+    }
+
+    setTweetButtonText($tweetButtonText)
+
+    // The button will be moved around when multiple Tweets are being edited
+    tweetButtonObserver = observeElement($modalDialog, (mutations) => {
+      for (let mutation of mutations) {
+        for (let $addedNode of mutation.addedNodes) {
+          let $tweetButtonText = $addedNode.querySelector?.('div[data-testid="tweetButton"] span > span')
+          if ($tweetButtonText) {
+            setTweetButtonText($tweetButtonText)
+          }
+        }
+      }
+    }, 'tweet button dialog', {childList: true, subtree: true})
+    modalObservers.push(tweetButtonObserver)
+  }, 'compose tweet modal dialog')
+ )
+}
 
 async function observeDesktopModalTimeline() {
   // Media modals remember if they were previously collapsed, so we could be
@@ -1690,6 +1892,33 @@ async function observeSidebar() {
     }, 'sidebar container')
   )
 }
+
+const observeSideNavTweetButton = (() => {
+  /** @type {MutationObserver} */
+  let observer
+
+  return async function observeSideNavTweetButton() {
+    if (observer) {
+      observer.disconnect()
+      observer = null
+    }
+
+    if (!desktop || !config.replaceLogo) return
+
+    // This element is updated when text is added or removed on resize
+    let $buttonTextContainer = await getElement('a[data-testid="SideNav_NewTweet_Button"] > div > span')
+    observer = observeElement($buttonTextContainer, () => {
+      if ($buttonTextContainer.childElementCount > 0) {
+        let $buttonText = /** @type {HTMLElement} */ ($buttonTextContainer.querySelector('span > span'))
+        if ($buttonText) {
+          setTweetButtonText($buttonText)
+        } else {
+          warn('could not find tweet button text')
+        }
+      }
+    }, 'sidenav tweet button')
+  }
+})()
 
 async function observeSearchForm() {
   let $searchForm = await getElement('form[role="search"]', {
@@ -2812,6 +3041,24 @@ function getVerifiedProps($svg) {
 function handlePopup($popup) {
   let result = {tookAction: false, onPopupClosed: null}
 
+  if (desktop && !isDesktopComposeTweetModalOpen && location.pathname.startsWith(PagePaths.COMPOSE_TWEET)) {
+    log('compose tweet modal opened')
+    isDesktopComposeTweetModalOpen = true
+    observeDesktopComposeTweetModal($popup)
+    return {
+      tookAction: true,
+      onPopupClosed() {
+        log('compose tweet modal closed')
+        isDesktopComposeTweetModalOpen = false
+        // The Tweet button will re-render if the modal was opened to edit
+        // multiple Tweets on the home timeline.
+        if (config.replaceLogo && isOnHomeTimeline()) {
+          tweakTweetButton()
+        }
+      }
+    }
+  }
+
   if (desktop && !isDesktopMediaModalOpen && URL_MEDIA_RE.test(location.pathname) && currentPath != location.pathname) {
     log('media modal opened')
     isDesktopMediaModalOpen = true
@@ -3004,7 +3251,7 @@ function isReplyToPreviousTweet($tweet) {
  * @returns {{disconnect()}}
  */
 function onPopup($popup) {
-  log('popup appeared', $popup)
+  log('popup appeared', $popup, location.pathname)
 
   // If handlePopup did something, we don't need to observe nested popups
   let {tookAction, onPopupClosed} = handlePopup($popup)
@@ -3862,37 +4109,57 @@ async function tweakDesktopLogo() {
 }
 
 async function tweakTweetBox() {
-  if (config.twitterBlueChecks == 'ignore') return
+  // Observe username typeahead dropdowns to replace Blue checks
+  if (config.twitterBlueChecks != 'ignore') {
+    let $tweetTextarea = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} label[data-testid^="tweetTextarea"]`, {
+      name: 'tweet textarea',
+      stopIf: pageIsNot(currentPage),
+    })
+    if (!$tweetTextarea) return
 
-  let $tweetTextarea = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} label[data-testid^="tweetTextarea"]`, {
-    name: 'tweet textarea',
-    stopIf: pageIsNot(currentPage),
-  })
-  if (!$tweetTextarea) return
+    /** @type {HTMLElement} */
+    let $typeaheadDropdown
 
-  /** @type {HTMLElement} */
-  let $typeaheadDropdown
-
-  pageObservers.push(
-    observeElement($tweetTextarea.parentElement.parentElement.parentElement.parentElement, (mutations) => {
-      for (let mutation of mutations) {
-        if ($typeaheadDropdown && mutations.some(mutation => Array.from(mutation.removedNodes).includes($typeaheadDropdown))) {
-          disconnectPageObserver('tweet textarea typeahead dropdown')
-          $typeaheadDropdown = null
-        }
-        for (let $addedNode of mutation.addedNodes) {
-          if ($addedNode instanceof HTMLElement && $addedNode.getAttribute('id')?.startsWith('typeaheadDropdown')) {
-            $typeaheadDropdown = $addedNode
-            pageObservers.push(
-              observeElement($typeaheadDropdown, () => {
-                processBlueChecks($typeaheadDropdown)
-              }, 'tweet textarea typeahead dropdown')
-            )
+    pageObservers.push(
+      observeElement($tweetTextarea.parentElement.parentElement.parentElement.parentElement, (mutations) => {
+        for (let mutation of mutations) {
+          if ($typeaheadDropdown && mutations.some(mutation => Array.from(mutation.removedNodes).includes($typeaheadDropdown))) {
+            disconnectPageObserver('tweet textarea typeahead dropdown')
+            $typeaheadDropdown = null
+          }
+          for (let $addedNode of mutation.addedNodes) {
+            if ($addedNode instanceof HTMLElement && $addedNode.getAttribute('id')?.startsWith('typeaheadDropdown')) {
+              $typeaheadDropdown = $addedNode
+              pageObservers.push(
+                observeElement($typeaheadDropdown, () => {
+                  processBlueChecks($typeaheadDropdown)
+                }, 'tweet textarea typeahead dropdown')
+              )
+            }
           }
         }
-      }
-    }, 'tweet textarea typeahead dropdown container')
-  )
+      }, 'tweet textarea typeahead dropdown container')
+    )
+  }
+
+  if (config.replaceLogo) {
+    tweakTweetButton()
+  }
+}
+
+async function tweakTweetButton() {
+  let $tweetButton = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} div[data-testid^="tweetButton"]`, {
+    name: 'tweet button',
+    stopIf: pageIsNot(currentPage),
+  })
+  if ($tweetButton) {
+    let $text = $tweetButton.querySelector('span > span')
+    if ($text) {
+      setTweetButtonText($text)
+    } else {
+      warn('could not find tweet button text')
+    }
+  }
 }
 
 function tweakMainTimelinePage() {
@@ -4234,6 +4501,7 @@ async function main() {
       configureThemeCss()
       observeHtmlFontSize()
       observePopups()
+      observeSideNavTweetButton()
 
       // Start taking action on page changes
       observingPageChanges = true
@@ -4270,6 +4538,7 @@ function configChanged(changes) {
   configureThemeCss()
   observeFavicon()
   observePopups()
+  observeSideNavTweetButton()
 
   // Only re-process the current page if navigation wasn't already triggered
   // while applying the following config changes (if there were any).
