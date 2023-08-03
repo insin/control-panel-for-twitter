@@ -94,6 +94,8 @@ export type LocaleKey =
   | 'TWITTER'
   | 'TURN_OFF_RETWEETS'
   | 'TURN_ON_RETWEETS'
+  | 'TWEET'
+  | 'TWEET_ALL'
 
 export type NamedMutationObserver = MutationObserver & {name?: string}
 
