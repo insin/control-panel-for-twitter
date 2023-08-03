@@ -1155,7 +1155,13 @@ function getUserInfo() {
     let userEntities = reactRootContainer?._internalRoot?.current?.memoizedState?.element?.props?.children?.props?.store?.getState()?.entities?.users?.entities
     if (userEntities) {
       for (let user of Object.values(userEntities)) {
-        userInfo[user.screen_name] = {following: user.following, followedBy: user.followed_by, followersCount: user.followers_count}
+        userInfo[user.screen_name] = {
+          following: user.following,
+          followedBy: user.followed_by,
+          followersCount: user.followers_count,
+          // Blue users hiding their check still have access to Blue features
+          shyBlue: !user.is_blue_verified && user.has_custom_timelines,
+        }
       }
     } else {
       warn('user entities not found')
@@ -3245,11 +3251,22 @@ function onIndividualTweetTimelineChange($timeline) {
             blueCheck($svg)
           }
 
-          let userProfileLink = /** @type {HTMLAnchorElement} */ ($svg.closest('a[role="link"]:not([href^="/i/status"])'))
-          if (!userProfileLink) continue
+          let $userProfileLink = /** @type {HTMLAnchorElement} */ ($svg.closest('a[role="link"]:not([href^="/i/status"])'))
+          if (!$userProfileLink) continue
 
           isBlueTweet = true
-          screenName = userProfileLink.href.split('/').pop()
+          screenName = $userProfileLink.href.split('/').pop()
+        }
+
+        // Check replies to the focused tweet for Blue users hiding their check
+        if (!isBlueTweet && !isFocusedTweet && !isReply) {
+          let $userProfileLink = /** @type {HTMLAnchorElement} */ ($tweet.querySelector('[data-testid="User-Name"] a'))
+          if ($userProfileLink) {
+            screenName = $userProfileLink.href.split('/').pop()
+            if (userInfo[screenName]?.shyBlue) {
+              isBlueTweet = true
+            }
+          }
         }
 
         // Replies to the focused tweet don't have the reply indicator

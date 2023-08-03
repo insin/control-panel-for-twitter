@@ -144,6 +144,7 @@ export type UserInfo = {
   following: boolean
   followedBy: boolean
   followersCount: number
+  shyBlue: boolean
 }
 
 export type UserInfoObject = {[index: string]: UserInfo}
