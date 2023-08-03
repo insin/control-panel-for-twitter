@@ -3225,6 +3225,8 @@ function onIndividualTweetTimelineChange($timeline) {
     let isReply = false
     /** @type {boolean} */
     let isBlueTweet = false
+    /** @type {boolean} */
+    let isShy = false
     /** @type {?string} */
     let screenName = null
 
@@ -3270,6 +3272,7 @@ function onIndividualTweetTimelineChange($timeline) {
             screenName = $userProfileLink.href.split('/').pop()
             if (userInfo[screenName]?.shyBlue) {
               isBlueTweet = true
+              isShy = true
             }
           }
         }
@@ -3321,7 +3324,7 @@ function onIndividualTweetTimelineChange($timeline) {
     }
 
     if (debug && itemType != null) {
-      $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet && itemType != 'BLUE_REPLY' ? ' / BLUE' : ''}`
+      $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet && itemType != 'BLUE_REPLY' ? ' / BLUE' : ''}${isShy ? ' / SHY' : ''}`
     }
 
     // Assume a non-identified item following an identified item is related
