@@ -33,6 +33,7 @@ ${messages.homeTimelineOptionsLabel}
 
 ${messages.uiImprovementsOptionsLabel}
 
+• ${messages.replaceLogo}
 • ${messages.hideViewsLabel}
 • ${messages.hideVerifiedNotificationsTabLabel}
 • ${messages.twitterBlueChecksLabel}
