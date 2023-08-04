@@ -1293,8 +1293,7 @@ function getUserInfo() {
           following: user.following,
           followedBy: user.followed_by,
           followersCount: user.followers_count,
-          // Blue users hiding their check still have access to Blue features
-          shyBlue: !user.is_blue_verified && user.has_custom_timelines,
+          shyBlue: false,
         }
       }
     } else {
@@ -3513,16 +3512,16 @@ function onIndividualTweetTimelineChange($timeline) {
         }
 
         // Check replies to the focused tweet for Blue users hiding their check
-        if (!isBlueTweet && !isFocusedTweet && !isReply) {
-          let $userProfileLink = /** @type {HTMLAnchorElement} */ ($tweet.querySelector('[data-testid="User-Name"] a'))
-          if ($userProfileLink) {
-            screenName = $userProfileLink.href.split('/').pop()
-            if (userInfo[screenName]?.shyBlue) {
-              isBlueTweet = true
-              isShy = true
-            }
-          }
-        }
+        // if (!isBlueTweet && !isFocusedTweet && !isReply) {
+        //   let $userProfileLink = /** @type {HTMLAnchorElement} */ ($tweet.querySelector('[data-testid="User-Name"] a'))
+        //   if ($userProfileLink) {
+        //     screenName = $userProfileLink.href.split('/').pop()
+        //     if (userInfo[screenName]?.shyBlue) {
+        //       isBlueTweet = true
+        //       isShy = true
+        //     }
+        //   }
+        // }
 
         // Replies to the focused tweet don't have the reply indicator
         if (isBlueTweet && !isFocusedTweet && !isReply && screenName.toLowerCase() != opScreenName) {
