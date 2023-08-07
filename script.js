@@ -1098,6 +1098,10 @@ function isOnMainTimelinePage() {
   )
 }
 
+function isOnMessagesPage() {
+  return currentPath.startsWith('/messages')
+}
+
 function isOnNotificationsPage() {
   return currentPath.startsWith('/notifications')
 }
@@ -3792,7 +3796,12 @@ function processCurrentPage() {
   $body.classList.remove('SeparatedTweets')
 
   if (desktop) {
-    if (config.twitterBlueChecks != 'ignore' || config.fullWidthContent && (isOnMainTimelinePage() || isOnListPage())) {
+    let shouldObserveSidebarForConfig = (
+      config.twitterBlueChecks != 'ignore' ||
+      config.fullWidthContent ||
+      config.hideExploreNav && config.hideExploreNavWithSidebar
+    )
+    if (shouldObserveSidebarForConfig && !isOnMessagesPage() && !isOnSettingsPage()) {
       observeSidebar()
     } else {
       $body.classList.remove('Sidebar')
