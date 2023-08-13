@@ -125,6 +125,9 @@ const locales = {
     POST_ALL: 'نشر الكل',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
+    REPOSTS: 'المنشورات المُعاد نشرها',
+    RETWEET: 'إعادة التغريد',
+    RETWEETED_BY: 'مُعاد تغريدها بواسطة',
     RETWEETS: 'إعادات التغريد',
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
@@ -142,6 +145,9 @@ const locales = {
     POST_ALL: 'نشر الكل',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
+    REPOSTS: 'المنشورات المُعاد نشرها',
+    RETWEET: 'إعادة التغريد',
+    RETWEETED_BY: 'مُعاد تغريدها بواسطة',
     RETWEETS: 'إعادات التغريد',
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
@@ -158,6 +164,9 @@ const locales = {
     POST_ALL: 'Публикуване на всичко',
     QUOTE_TWEET: 'Цитиране на туита',
     QUOTE_TWEETS: 'Туитове с цитат',
+    REPOSTS: 'Препубликувания',
+    RETWEET: 'Ретуитване',
+    RETWEETED_BY: 'Ретуитнат от',
     RETWEETS: 'Ретуитове',
     SHARED_TWEETS: 'Споделени туитове',
     SHOW: 'Показване',
@@ -174,6 +183,9 @@ const locales = {
     POST_ALL: 'সবকটি পোস্ট করুন',
     QUOTE_TWEET: 'টুইট উদ্ধৃত করুন',
     QUOTE_TWEETS: 'টুইট উদ্ধৃতিগুলো',
+    REPOSTS: 'রিপোস্ট',
+    RETWEET: 'পুনঃটুইট',
+    RETWEETED_BY: 'পুনঃ টুইট করেছেন',
     RETWEETS: 'পুনঃটুইটগুলো',
     SHARED_TWEETS: 'ভাগ করা টুইটগুলি',
     SHOW: 'দেখান',
@@ -191,6 +203,9 @@ const locales = {
     POST_ALL: 'Publica-ho tot',
     QUOTE_TWEET: 'Cita el tuit',
     QUOTE_TWEETS: 'Tuits amb cita',
+    REPOSTS: 'Republicacions',
+    RETWEET: 'Retuit',
+    RETWEETED_BY: 'Retuitat per',
     RETWEETS: 'Retuits',
     SHARED_TWEETS: 'Tuits compartits',
     SHOW: 'Mostra',
@@ -207,6 +222,9 @@ const locales = {
     POST_ALL: 'Postovat vše',
     QUOTE_TWEET: 'Citovat Tweet',
     QUOTE_TWEETS: 'Tweety s citací',
+    REPOSTS: 'Reposty',
+    RETWEET: 'Retweetnout',
+    RETWEETED_BY: 'Retweetnuto uživateli',
     RETWEETS: 'Retweety',
     SHARED_TWEETS: 'Sdílené tweety',
     SHOW: 'Zobrazit',
@@ -223,6 +241,8 @@ const locales = {
     POST_ALL: 'Post alle',
     QUOTE_TWEET: 'Citér Tweet',
     QUOTE_TWEETS: 'Citat-Tweets',
+    RETWEET: 'Retweet',
+    RETWEETED_BY: 'Retweetet af',
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
@@ -237,6 +257,8 @@ const locales = {
     POST_ALL: 'Alle posten',
     QUOTE_TWEET: 'Tweet zitieren',
     QUOTE_TWEETS: 'Zitierte Tweets',
+    RETWEET: 'Retweeten',
+    RETWEETED_BY: 'Retweetet von',
     SHARED_TWEETS: 'Geteilte Tweets',
     SHOW: 'Anzeigen',
     SHOW_MORE_REPLIES: 'Mehr Antworten anzeigen',
@@ -252,6 +274,9 @@ const locales = {
     POST_ALL: 'Δημοσίευση όλων',
     QUOTE_TWEET: 'Παράθεση Tweet',
     QUOTE_TWEETS: 'Tweet με παράθεση',
+    REPOSTS: 'Αναδημοσιεύσεις',
+    RETWEET: 'Retweet',
+    RETWEETED_BY: 'Έγινε Retweet από',
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Κοινόχρηστα Tweets',
     SHOW: 'Εμφάνιση',
@@ -267,6 +292,9 @@ const locales = {
     POST_ALL: 'Post all',
     QUOTE_TWEET: 'Quote Tweet',
     QUOTE_TWEETS: 'Quote Tweets',
+    REPOSTS: 'Reposts',
+    RETWEET: 'Retweet',
+    RETWEETED_BY: 'Retweeted by',
     RETWEETS: 'Retweets',
     SHARED_TWEETS: 'Shared Tweets',
     SHOW: 'Show',
@@ -284,6 +312,8 @@ const locales = {
     POST_ALL: 'Postear todo',
     QUOTE_TWEET: 'Citar Tweet',
     QUOTE_TWEETS: 'Tweets citados',
+    RETWEET: 'Retwittear',
+    RETWEETED_BY: 'Retwitteado por',
     SHARED_TWEETS: 'Tweets compartidos',
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar más respuestas',
@@ -299,6 +329,8 @@ const locales = {
     POST_ALL: 'Post all',
     QUOTE_TWEET: 'Txioa apaitu',
     QUOTE_TWEETS: 'Aipatu txioak',
+    RETWEET: 'Bertxiotu',
+    RETWEETED_BY: 'Bertxiotua:',
     RETWEETS: 'Bertxioak',
     SHARED_TWEETS: 'Partekatutako',
     SHOW: 'Erakutsi',
@@ -315,6 +347,9 @@ const locales = {
     POST_ALL: 'پست کردن همه',
     QUOTE_TWEET: 'نقل‌توییت',
     QUOTE_TWEETS: 'نقل‌توییت‌ها',
+    REPOSTS: 'بازپست‌ها',
+    RETWEET: 'بازتوییت',
+    RETWEETED_BY: 'بازتوییت‌ شد توسط',
     RETWEETS: 'بازتوییت‌ها',
     SHARED_TWEETS: 'توییتهای مشترک',
     SHOW: 'نمایش',
@@ -332,6 +367,9 @@ const locales = {
     POST_ALL: 'Julkaise kaikki',
     QUOTE_TWEET: 'Twiitin lainaus',
     QUOTE_TWEETS: 'Twiitin lainaukset',
+    REPOSTS: 'Uudelleenjulkaisut',
+    RETWEET: 'Uudelleentwiittaa',
+    RETWEETED_BY: 'Uudelleentwiitannut',
     RETWEETS: 'Uudelleentwiittaukset',
     SHARED_TWEETS: 'Jaetut twiitit',
     SHOW: 'Näytä',
@@ -348,6 +386,9 @@ const locales = {
     POST_ALL: 'I-post lahat',
     QUOTE_TWEET: 'Quote na Tweet',
     QUOTE_TWEETS: 'Mga Quote na Tweet',
+    REPOSTS: '(na) Repost',
+    RETWEET: 'I-retweet',
+    RETWEETED_BY: 'Ni-retweet ni',
     RETWEETS: 'Mga Retweet',
     SHARED_TWEETS: 'Mga Ibinahaging Tweet',
     SHOW: 'Ipakita',
@@ -364,6 +405,8 @@ const locales = {
     POST_ALL: 'Tout poster',
     QUOTE_TWEET: 'Citer le Tweet',
     QUOTE_TWEETS: 'Tweets cités',
+    RETWEET: 'Retweeter',
+    RETWEETED_BY: 'Retweeté par',
     SHARED_TWEETS: 'Tweets partagés',
     SHOW: 'Afficher',
     SHOW_MORE_REPLIES: 'Voir plus de réponses',
@@ -379,6 +422,8 @@ const locales = {
     POST_ALL: 'Post all',
     QUOTE_TWEET: 'Cuir Ráiteas Leis',
     QUOTE_TWEETS: 'Luaigh Tvuíteanna',
+    RETWEET: 'Atweetáil',
+    RETWEETED_BY: 'Atweetáilte ag',
     RETWEETS: 'Atweetanna',
     SHARED_TWEETS: 'Tweetanna Roinnte',
     SHOW: 'Taispeáin',
@@ -394,6 +439,8 @@ const locales = {
     POST_ALL: 'Post all',
     QUOTE_TWEET: 'Citar chío',
     QUOTE_TWEETS: 'Chíos citados',
+    RETWEET: 'Rechouchiar',
+    RETWEETED_BY: 'Rechouchiado por',
     RETWEETS: 'Rechouchíos',
     SHARED_TWEETS: 'Chíos compartidos',
     SHOW: 'Amosar',
@@ -410,6 +457,9 @@ const locales = {
     POST_ALL: 'બધા પોસ્ટ કરો',
     QUOTE_TWEET: 'અવતરણની સાથે ટ્વીટ કરો',
     QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ',
+    REPOSTS: 'ફરીથી કરવામાં આવેલી પોસ્ટ',
+    RETWEET: 'પુનટ્વીટ',
+    RETWEETED_BY: 'આમની દ્વારા પુનટ્વીટ કરવામાં આવી',
     RETWEETS: 'પુનટ્વીટ્સ',
     SHARED_TWEETS: 'શેર કરેલી ટ્વીટ્સ',
     SHOW: 'બતાવો',
@@ -426,6 +476,9 @@ const locales = {
     POST_ALL: 'פרסום הכל',
     QUOTE_TWEET: 'ציטוט ציוץ',
     QUOTE_TWEETS: 'ציוצי ציטוט',
+    REPOSTS: 'פרסומים מחדש',
+    RETWEET: 'צייץ מחדש',
+    RETWEETED_BY: 'צויץ מחדש על־ידי',
     RETWEETS: 'ציוצים מחדש',
     SHARED_TWEETS: 'ציוצים משותפים',
     SHOW: 'הצג',
@@ -443,6 +496,9 @@ const locales = {
     POST_ALL: 'सभी पोस्ट करें',
     QUOTE_TWEET: 'ट्वीट क्वोट करें',
     QUOTE_TWEETS: 'कोट ट्वीट्स',
+    REPOSTS: 'रीपोस्ट्स',
+    RETWEET: 'रीट्वीट करें',
+    RETWEETED_BY: 'इनके द्वारा रीट्वीट किया गया',
     RETWEETS: 'रीट्वीट्स',
     SHARED_TWEETS: 'साझा किए गए ट्वीट',
     SHOW: 'दिखाएं',
@@ -459,6 +515,9 @@ const locales = {
     POST_ALL: 'Objavi sve',
     QUOTE_TWEET: 'Citiraj Tweet',
     QUOTE_TWEETS: 'Citirani tweetovi',
+    REPOSTS: 'Proslijeđene objave',
+    RETWEET: 'Proslijedi tweet',
+    RETWEETED_BY: 'Korisnici koji su proslijedili Tweet',
     RETWEETS: 'Proslijeđeni tweetovi',
     SHARED_TWEETS: 'Dijeljeni tweetovi',
     SHOW: 'Prikaži',
@@ -474,6 +533,9 @@ const locales = {
     POST_ALL: 'Az összes közzététele',
     QUOTE_TWEET: 'Tweet idézése',
     QUOTE_TWEETS: 'Tweet-idézések',
+    REPOSTS: 'Újraposztolások',
+    RETWEET: 'Retweet',
+    RETWEETED_BY: 'Retweetelte',
     RETWEETS: 'Retweetek',
     SHARED_TWEETS: 'Megosztott tweetek',
     SHOW: 'Megjelenítés',
@@ -490,6 +552,9 @@ const locales = {
     POST_ALL: 'Posting semua',
     QUOTE_TWEET: 'Kutip Tweet',
     QUOTE_TWEETS: 'Tweet Kutipan',
+    REPOSTS: 'Posting ulang',
+    RETWEET: 'Retweet',
+    RETWEETED_BY: 'Di-retweet oleh',
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Tweet yang Dibagikan',
     SHOW: 'Tampilkan',
@@ -505,6 +570,9 @@ const locales = {
     POST_ALL: 'Posta tutto',
     QUOTE_TWEET: 'Cita Tweet',
     QUOTE_TWEETS: 'Tweet di citazione',
+    REPOSTS: 'Repost',
+    RETWEET: 'Ritwitta',
+    RETWEETED_BY: 'Ritwittato da',
     RETWEETS: 'Retweet',
     SHARED_TWEETS: 'Tweet condivisi',
     SHOW: 'Mostra',
@@ -521,6 +589,9 @@ const locales = {
     POST_ALL: 'すべてポスト',
     QUOTE_TWEET: '引用ツイート',
     QUOTE_TWEETS: '引用ツイート',
+    REPOSTS: 'リポスト',
+    RETWEET: 'リツイート',
+    RETWEETED_BY: 'リツイートしたユーザー',
     RETWEETS: 'リツイート',
     SHARED_TWEETS: '共有ツイート',
     SHOW: '表示',
@@ -537,6 +608,9 @@ const locales = {
     POST_ALL: 'ಎಲ್ಲವನ್ನೂ ಪೋಸ್ಟ್ ಮಾಡಿ',
     QUOTE_TWEET: 'ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ',
     QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು',
+    REPOSTS: 'ಮರುಪೋಸ್ಟ್‌ಗಳು',
+    RETWEET: 'ಮರುಟ್ವೀಟಿಸಿ',
+    RETWEETED_BY: 'ಮರುಟ್ವೀಟಿಸಿದವರು',
     RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳು',
     SHARED_TWEETS: 'ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು',
     SHOW: 'ತೋರಿಸಿ',
@@ -553,6 +627,9 @@ const locales = {
     POST_ALL: '모두 게시하기',
     QUOTE_TWEET: '트윗 인용하기',
     QUOTE_TWEETS: '트윗 인용하기',
+    REPOSTS: '재게시',
+    RETWEET: '리트윗',
+    RETWEETED_BY: '리트윗함',
     RETWEETS: '리트윗',
     SHARED_TWEETS: '공유 트윗',
     SHOW: '표시',
@@ -570,6 +647,9 @@ const locales = {
     POST_ALL: 'सर्व पोस्ट करा',
     QUOTE_TWEET: 'ट्विट वर भाष्य करा',
     QUOTE_TWEETS: 'भाष्य ट्विट्स',
+    REPOSTS: 'रिपोस्ट',
+    RETWEET: 'पुन्हा ट्विट',
+    RETWEETED_BY: 'यांनी पुन्हा ट्विट केले',
     RETWEETS: 'पुनर्ट्विट्स',
     SHARED_TWEETS: 'सामायिक ट्विट',
     SHOW: 'दाखवा',
@@ -586,6 +666,9 @@ const locales = {
     POST_ALL: 'Siarkan semua',
     QUOTE_TWEET: 'Petik Tweet',
     QUOTE_TWEETS: 'Tweet Petikan',
+    REPOSTS: 'Siaran semula',
+    RETWEET: 'Tweet semula',
+    RETWEETED_BY: 'Ditweet semula oleh',
     RETWEETS: 'Tweet semula',
     SHARED_TWEETS: 'Tweet Berkongsi',
     SHOW: 'Tunjukkan',
@@ -601,6 +684,9 @@ const locales = {
     POST_ALL: 'Publiser alle',
     QUOTE_TWEET: 'Sitat-Tweet',
     QUOTE_TWEETS: 'Sitat-Tweets',
+    REPOSTS: 'Republiseringer',
+    RETWEET: 'Retweet',
+    RETWEETED_BY: 'Retweetet av',
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
@@ -615,6 +701,8 @@ const locales = {
     POST_ALL: 'Alles plaatsen',
     QUOTE_TWEET: 'Citeer Tweet',
     QUOTE_TWEETS: 'Geciteerde Tweets',
+    RETWEET: 'Retweeten',
+    RETWEETED_BY: 'Geretweet door',
     SHARED_TWEETS: 'Gedeelde Tweets',
     SHOW: 'Weergeven',
     SHOW_MORE_REPLIES: 'Meer antwoorden tonen',
@@ -630,6 +718,9 @@ const locales = {
     POST_ALL: 'Opublikuj wszystko',
     QUOTE_TWEET: 'Cytuj Tweeta',
     QUOTE_TWEETS: 'Cytaty z Tweeta',
+    REPOSTS: 'Wpisy podane dalej',
+    RETWEET: 'Podaj dalej',
+    RETWEETED_BY: 'Podane dalej przez',
     RETWEETS: 'Tweety podane dalej',
     SHARED_TWEETS: 'Udostępnione Tweety',
     SHOW: 'Pokaż',
@@ -645,6 +736,8 @@ const locales = {
     POST_ALL: 'Postar tudo',
     QUOTE_TWEET: 'Comentar o Tweet',
     QUOTE_TWEETS: 'Tweets com comentário',
+    RETWEET: 'Retweetar',
+    RETWEETED_BY: 'Retweetado por',
     SHARED_TWEETS: 'Tweets Compartilhados',
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar mais respostas',
@@ -660,6 +753,9 @@ const locales = {
     POST_ALL: 'Postează tot',
     QUOTE_TWEET: 'Citează Tweetul',
     QUOTE_TWEETS: 'Tweeturi cu citat',
+    REPOSTS: 'Repostări',
+    RETWEET: 'Redistribuie',
+    RETWEETED_BY: 'Redistribuit de către',
     RETWEETS: 'Retweeturi',
     SHARED_TWEETS: 'Tweeturi partajate',
     SHOW: 'Afișează',
@@ -675,6 +771,9 @@ const locales = {
     POST_ALL: 'Опубликовать все',
     QUOTE_TWEET: 'Цитировать',
     QUOTE_TWEETS: 'Твиты с цитатами',
+    REPOSTS: 'Репосты',
+    RETWEET: 'Ретвитнуть',
+    RETWEETED_BY: 'Ретвитнул(а)',
     RETWEETS: 'Ретвиты',
     SHARED_TWEETS: 'Общие твиты',
     SHOW: 'Показать',
@@ -692,6 +791,9 @@ const locales = {
     POST_ALL: 'Uverejniť všetko',
     QUOTE_TWEET: 'Tweet s citátom',
     QUOTE_TWEETS: 'Tweety s citátom',
+    REPOSTS: 'Opätovné uverejnenia',
+    RETWEET: 'Retweetnuť',
+    RETWEETED_BY: 'Retweetnuté používateľom',
     RETWEETS: 'Retweety',
     SHARED_TWEETS: 'Zdieľané Tweety',
     SHOW: 'Zobraziť',
@@ -708,6 +810,9 @@ const locales = {
     POST_ALL: 'Објави све',
     QUOTE_TWEET: 'твит са цитатом',
     QUOTE_TWEETS: 'твит(ов)а са цитатом',
+    REPOSTS: 'Понвне објаве',
+    RETWEET: 'Ретвитуј',
+    RETWEETED_BY: 'Ретвитовано од стране',
     RETWEETS: 'Ретвитови',
     SHARED_TWEETS: 'Дељени твитови',
     SHOW: 'Прикажи',
@@ -725,6 +830,9 @@ const locales = {
     POST_ALL: 'Lägg upp allt',
     QUOTE_TWEET: 'Citera Tweet',
     QUOTE_TWEETS: 'Citat-tweets',
+    REPOSTS: 'Återpubliceringar',
+    RETWEET: 'Retweeta',
+    RETWEETED_BY: 'Retweetad av',
     SHARED_TWEETS: 'Delade tweetsen',
     SHOW: 'Visa',
     SHOW_MORE_REPLIES: 'Visa fler svar',
@@ -740,6 +848,9 @@ const locales = {
     POST_ALL: 'எல்லாம் இடுகையிடு',
     QUOTE_TWEET: 'ட்விட்டை மேற்கோள் காட்டு',
     QUOTE_TWEETS: 'மேற்கோள் கீச்சுகள்',
+    REPOSTS: 'மறுஇடுகைகள்',
+    RETWEET: 'மறுட்விட் செய்',
+    RETWEETED_BY: 'இவரால் மறுட்விட் செய்யப்பட்டது',
     RETWEETS: 'மறுகீச்சுகள்',
     SHARED_TWEETS: 'பகிரப்பட்ட ட்வீட்டுகள்',
     SHOW: 'காண்பி',
@@ -756,6 +867,9 @@ const locales = {
     POST_ALL: 'โพสต์ทั้งหมด',
     QUOTE_TWEET: 'อ้างอิงทวีต',
     QUOTE_TWEETS: 'ทวีตและคำพูด',
+    REPOSTS: 'รีโพสต์',
+    RETWEET: 'รีทวีต',
+    RETWEETED_BY: 'ถูกรีทวีตโดย',
     RETWEETS: 'รีทวีต',
     SHARED_TWEETS: 'ทวีตที่แชร์',
     SHOW: 'แสดง',
@@ -773,6 +887,9 @@ const locales = {
     POST_ALL: 'Tümünü gönder',
     QUOTE_TWEET: 'Tweeti Alıntıla',
     QUOTE_TWEETS: 'Alıntı Tweetler',
+    REPOSTS: 'Yeniden gönderiler',
+    RETWEET: 'Retweet',
+    RETWEETED_BY: 'Retweetleyen(ler):',
     RETWEETS: 'Retweetler',
     SHARED_TWEETS: 'Paylaşılan Tweetler',
     SHOW: 'Göster',
@@ -789,6 +906,9 @@ const locales = {
     POST_ALL: 'Опублікувати все',
     QUOTE_TWEET: 'Цитувати твіт',
     QUOTE_TWEETS: 'Цитовані твіти',
+    REPOSTS: 'Репости',
+    RETWEET: 'Ретвітнути',
+    RETWEETED_BY: 'Ретвіти',
     RETWEETS: 'Ретвіти',
     SHARED_TWEETS: 'Спільні твіти',
     SHOW: 'Показати',
@@ -806,6 +926,8 @@ const locales = {
     POST_ALL: 'Post all',
     QUOTE_TWEET: 'ٹویٹ کا حوالہ دیں',
     QUOTE_TWEETS: 'ٹویٹ کو نقل کرو',
+    RETWEET: 'ریٹویٹ',
+    RETWEETED_BY: 'جنہوں نے ریٹویٹ کیا',
     RETWEETS: 'ریٹویٹس',
     SHARED_TWEETS: 'مشترکہ ٹویٹس',
     SHOW: 'دکھائیں',
@@ -823,6 +945,9 @@ const locales = {
     POST_ALL: 'Đăng tất cả',
     QUOTE_TWEET: 'Trích dẫn Tweet',
     QUOTE_TWEETS: 'Tweet trích dẫn',
+    REPOSTS: 'Bài đăng lại',
+    RETWEET: 'Tweet lại',
+    RETWEETED_BY: 'Được Tweet lại bởi',
     RETWEETS: 'Các Tweet lại',
     SHARED_TWEETS: 'Tweet được chia sẻ',
     SHOW: 'Hiện',
@@ -838,6 +963,9 @@ const locales = {
     POST_ALL: '全部發佈',
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用的推文',
+    REPOSTS: '轉發',
+    RETWEET: '轉推',
+    RETWEETED_BY: '已被轉推',
     RETWEETS: '轉推',
     SHARED_TWEETS: '分享的推文',
     SHOW: '顯示',
@@ -854,6 +982,9 @@ const locales = {
     POST_ALL: '全部发帖',
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用推文',
+    REPOSTS: '转帖',
+    RETWEET: '转推',
+    RETWEETED_BY: '转推者',
     RETWEETS: '转推',
     SHARED_TWEETS: '分享的推文',
     SHOW: '显示',
@@ -953,7 +1084,7 @@ const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(?:with_replies|superfollows|
 // Matches URLs which show a user's Followers you know / Followers / Following tab
 const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/follow(?:ing|ers|ers_you_follow)\/?$/
 const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)\/?$/
-const URL_TWEET_LIKES_RETWEETS_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/(likes|retweets)\/?$/
+const URL_TWEET_LIKES_RETWEETS_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/(likes|retweets|reposts)\/?$/
 
 // The Twitter Media Assist exension adds a new button at the end of the action
 // bar (#346)
@@ -2048,18 +2179,23 @@ async function observeTimeline(page, options = {}) {
 }
 
 /**
- * @param {HTMLElement} $context
- * @param {string} initialPath
+ * @param {{
+ *   context?: HTMLElement
+ *   initialPath: string
+ *   observers: import("./types").Disconnectable[]
+ * }} options
  */
-async function observeUserListTimeline($context, initialPath) {
+async function observeUserListTimeline({context, initialPath, observers}) {
+  if (config.twitterBlueChecks == 'ignore') return
+
   let $timeline = await getElement('h1[id^="accessible-list"] + div > div > div > div', {
-    context: $context,
+    context,
     name: 'user list timeline',
     stopIf: not(() => initialPath == location.pathname),
   })
   if (!$timeline) return
 
-  modalObservers.push(
+  observers.push(
     observeElement($timeline, () => {
       processBlueChecks($timeline)
     }, 'user list timeline')
@@ -3075,11 +3211,12 @@ function handlePopup($popup) {
     }
   }
 
-  if (config.twitterBlueChecks != 'ignore' && desktop && !isDesktopUserListModalOpen && URL_TWEET_LIKES_RETWEETS_RE.test(location.pathname)) {
+  if (desktop && !isDesktopUserListModalOpen && URL_TWEET_LIKES_RETWEETS_RE.test(location.pathname)) {
     let modalType = URL_TWEET_LIKES_RETWEETS_RE.exec(location.pathname)[1]
     log(`${modalType} modal opened`)
     isDesktopUserListModalOpen = true
-    observeUserListTimeline($popup, location.pathname)
+    tweakUserModalTimelineHeading(location.pathname)
+    observeUserListTimeline({context: $popup, initialPath: location.pathname, observers: modalObservers})
     return {
       tookAction: true,
       onPopupClosed() {
@@ -3460,6 +3597,8 @@ function onIndividualTweetTimelineChange($timeline) {
   let changes = []
   /** @type {import("./types").UserInfoObject} */
   let userInfo = getUserInfo()
+  /** @type {?HTMLElement} */
+  let $focusedTweet
 
   for (let $item of $timeline.children) {
     /** @type {?import("./types").TimelineItemType} */
@@ -3489,6 +3628,7 @@ function onIndividualTweetTimelineChange($timeline) {
       if (isFocusedTweet) {
         itemType = 'FOCUSED_TWEET'
         hideItem = false
+        $focusedTweet = $tweet
       } else {
         itemType = getTweetType($tweet)
         if (isReply && hidPreviousItem != null) {
@@ -3610,6 +3750,17 @@ function onIndividualTweetTimelineChange($timeline) {
 
   for (let change of changes) {
     /** @type {HTMLElement} */ (change.$item.firstElementChild).style.display = change.hideItem ? 'none' : ''
+  }
+
+  if ($focusedTweet && config.replaceLogo) {
+    // TODO Observe this if it's singular to catch it moving to plural
+    let $retweetsText = $focusedTweet.querySelector('a:is([href$="/retweets"], [href$="/reposts"]) > span > span')
+    if ($retweetsText) {
+      let currentText = $retweetsText.textContent
+      if (currentText != getString('RETWEETS') && currentText != getString('RETWEET')) {
+        $retweetsText.textContent = getString($retweetsText.textContent == getString('REPOSTS') ? 'RETWEETS' : 'RETWEET')
+      }
+    }
   }
 
   log(
@@ -4095,11 +4246,21 @@ function tweakFollowListPage() {
   }
 }
 
-function tweakIndividualTweetPage() {
+async function tweakIndividualTweetPage() {
   observeTimeline(currentPage, {
     hideHeadings: false,
     onTimelineItemsChanged: onIndividualTweetTimelineChange
   })
+
+  if (config.replaceLogo) {
+    let $headingText = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`, {
+      name: 'tweet thread heading',
+      stopIf: pageIsNot(currentPage)
+    })
+    if ($headingText && $headingText.textContent != getString('TWEET')) {
+      $headingText.textContent = getString('TWEET')
+    }
+  }
 }
 
 function tweakListPage() {
@@ -4326,10 +4487,9 @@ async function tweakTimelineTabs($timelineTabs) {
   }
 }
 
-function tweakMobileUserListPage() {
-  if (config.twitterBlueChecks == 'ignore') return
-
-  observeUserListTimeline(undefined, currentPath)
+async function tweakMobileUserListPage() {
+  tweakUserModalTimelineHeading(currentPath)
+  observeUserListTimeline({initialPath: currentPath, observers: pageObservers})
 }
 
 function tweakNotificationsPage() {
@@ -4374,6 +4534,19 @@ function tweakQuoteTweetsPage() {
   if (config.twitterBlueChecks != 'ignore') {
     observeTimeline(currentPage)
   }
+}
+
+async function tweakUserModalTimelineHeading(initialPath) {
+  let listType = initialPath.match(URL_TWEET_LIKES_RETWEETS_RE)?.[1]
+  if (!config.replaceLogo || !listType || listType == 'likes') return
+
+  let $headingText = await getElement(`h2#modal-header span`, {
+    name: 'Retweeted by heading',
+    stopIf: not(() => initialPath == location.pathname),
+  })
+  if (!$headingText) return
+
+  $headingText.textContent = getString('RETWEETED_BY')
 }
 
 function tweakSearchPage() {
