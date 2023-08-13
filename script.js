@@ -897,8 +897,7 @@ const Selectors = {
   DISPLAY_DONE_BUTTON_MOBILE: 'main div[role="button"]:not([aria-label])',
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
   MODAL_TIMELINE: 'section > h1 + div[aria-label] > div > div > div',
-  MOBILE_TIMELINE_HEADER_OLD: 'header > div:nth-of-type(2) > div:first-of-type',
-  MOBILE_TIMELINE_HEADER_NEW: 'div[data-testid="TopNavBar"]',
+  MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV_DESKTOP: 'header nav',
@@ -2243,10 +2242,10 @@ const configureCss = (() => {
 
     if (config.alwaysUseLatestTweets && config.hideForYouTimeline) {
       cssRules.push(`
-        body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child {
+        body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child {
           flex: 0;
         }
-        body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child > a {
+        body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child > a {
           display: none;
         }
       `)
@@ -2353,7 +2352,7 @@ const configureCss = (() => {
     }
     if (config.hideVerifiedNotificationsTab) {
       hideCssSelectors.push(
-        `body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2)`
+        `body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2)`
       )
     }
     if (config.hideViews) {
@@ -2425,7 +2424,7 @@ const configureCss = (() => {
           background-color: var(--tab-hover);
         }
         body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div,
-        body.TabbedTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div {
+        body.TabbedTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div {
           font-weight: normal !important;
           color: var(--inactive-tab-text) !important;
         }
@@ -2434,7 +2433,7 @@ const configureCss = (() => {
           color: var(--active-tab-text); !important;
         }
         body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div > div,
-        body.TabbedTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div > div {
+        body.TabbedTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div > div {
           height: 0 !important;
         }
         body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div > div {
@@ -2613,12 +2612,11 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
       }
       if (config.hideSeeNewTweets) {
-        hideCssSelectors.push(`body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER_NEW} ~ div[style^="transform"]:last-child`)
+        hideCssSelectors.push(`body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER} ~ div[style^="transform"]:last-child`)
       }
       if (config.hideAppNags) {
         cssRules.push(`
-          body.Tweet ${Selectors.MOBILE_TIMELINE_HEADER_OLD} div:nth-of-type(3) > div > [role="button"],
-          body.Tweet ${Selectors.MOBILE_TIMELINE_HEADER_NEW} div:nth-of-type(3) > div > [role="button"] {
+          body.Tweet ${Selectors.MOBILE_TIMELINE_HEADER} div:nth-of-type(3) > div > [role="button"] {
             visibility: hidden;
           }
         `)
@@ -2628,8 +2626,7 @@ const configureCss = (() => {
         // before automatically switching the page to search mode.
         hideCssSelectors.push(
           // Tabs
-          `body.Explore ${Selectors.MOBILE_TIMELINE_HEADER_OLD} > div:nth-of-type(2)`,
-          `body.Explore ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:nth-of-type(2)`,
+          `body.Explore ${Selectors.MOBILE_TIMELINE_HEADER} > div > div:nth-of-type(2)`,
           // Content
           `body.Explore ${Selectors.TIMELINE}`,
         )
@@ -2703,12 +2700,9 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
 
   if (config.hideTotalTweetsMetrics) {
     // Tweet count under username header on profile pages
-    hideCssSelectors.push(
-      mobile ? `
-        body.Profile header > div > div:first-of-type h2 + div[dir],
-        body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} > div > div:first-of-type h2 + div[dir]
-      ` : `body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 + div[dir]`
-    )
+    hideCssSelectors.push(`
+      body.Profile ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 + div[dir]
+    `)
   }
 
   let individualTweetMetricSelectors = [
@@ -3200,7 +3194,7 @@ function handlePopup($popup) {
       let $verificationBadge = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="sheetDialog"] [data-testid="verificationBadge"]'))
       if ($verificationBadge) {
         result.tookAction = true
-        let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.MOBILE_TIMELINE_HEADER_NEW} .tnt_blue_check`)
+        let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.MOBILE_TIMELINE_HEADER} .tnt_blue_check`)
         if ($headerBlueCheck) {
           blueCheck($verificationBadge)
         }
@@ -4180,7 +4174,7 @@ function tweakMainTimelinePage() {
     tweakTweetBox()
   }
 
-  let $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav`)
+  let $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
 
   // "Which version of the main timeline are we on?" hooks for styling
   $body.classList.toggle('TabbedTimeline', $timelineTabs != null)
@@ -4193,7 +4187,7 @@ function tweakMainTimelinePage() {
 
   tweakTimelineTabs($timelineTabs)
   if (mobile && isSafari && config.replaceLogo) {
-    processTwitterLogos(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER_NEW))
+    processTwitterLogos(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER))
   }
 
   function updateSelectedHomeTabIndex() {
@@ -4215,7 +4209,7 @@ function tweakMainTimelinePage() {
       let timelineTabsReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($timelineTabs))
       if (timelineTabsReplaced) {
         log('timeline tabs replaced')
-        $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav`)
+        $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
         tweakTimelineTabs($timelineTabs)
       }
     }, 'timeline tabs nav container')
@@ -4339,7 +4333,7 @@ function tweakMobileUserListPage() {
 }
 
 function tweakNotificationsPage() {
-  let $navigationTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav`)
+  let $navigationTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
   if ($navigationTabs == null) {
     warn('could not find Notifications tabs')
     return
@@ -4365,7 +4359,7 @@ function tweakNotificationsPage() {
 function tweakProfilePage() {
   if (config.twitterBlueChecks != 'ignore') {
     if (mobile) {
-      processBlueChecks(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER_NEW))
+      processBlueChecks(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER))
     }
     processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
   }
@@ -4383,7 +4377,7 @@ function tweakQuoteTweetsPage() {
 }
 
 function tweakSearchPage() {
-  let $searchTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER_NEW : Selectors.PRIMARY_COLUMN} nav`)
+  let $searchTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
   if ($searchTabs != null) {
     if (config.defaultToLatestSearch) {
       let isTopTabSelected = Boolean($searchTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a[aria-selected="true"]'))
