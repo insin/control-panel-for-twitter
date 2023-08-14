@@ -6,7 +6,7 @@
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
 // @run-at      document-start
-// @version     127
+// @version     128
 // ==/UserScript==
 void function() {
 
@@ -3758,7 +3758,7 @@ function onIndividualTweetTimelineChange($timeline) {
     if ($retweetsText) {
       let currentText = $retweetsText.textContent
       if (currentText != getString('RETWEETS') && currentText != getString('RETWEET')) {
-        $retweetsText.textContent = getString($retweetsText.textContent == getString('REPOSTS') ? 'RETWEETS' : 'RETWEET')
+        $retweetsText.textContent = getString(currentText == getString('REPOSTS') ? 'RETWEETS' : 'RETWEET')
       }
     }
   }
