@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/images/icon-default.png"
+      }
+    },
+    "condition": {
+      "urlFilter": "*://abs.twimg.com/responsive-web/client-web/icon-default.*.png",
+      "resourceTypes": ["image", "main_frame", "other", "sub_frame"]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/images/icon-default-large.png"
+      }
+    },
+    "condition": {
+      "urlFilter": "*://abs.twimg.com/responsive-web/client-web/icon-default-large.*.png",
+      "resourceTypes": ["image", "main_frame", "other", "sub_frame"]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/images/icon-default-maskable.png"
+      }
+    },
+    "condition": {
+      "urlFilter": "*://abs.twimg.com/responsive-web/client-web/icon-default-maskable.*.png",
+      "resourceTypes": ["image", "main_frame", "other", "sub_frame"]
+    }
+  },
+  {
+    "id": 4,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/images/icon-default-maskable-large.png"
+      }
+    },
+    "condition": {
+      "urlFilter": "*://abs.twimg.com/responsive-web/client-web/icon-default-maskable-large.*.png",
+      "resourceTypes": ["image", "main_frame", "other", "sub_frame"]
+    }
+  },
+  {
+    "id": 5,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/images/icon-ios.png"
+      }
+    },
+    "condition": {
+      "urlFilter": "*://abs.twimg.com/responsive-web/client-web/icon-ios.*.png",
+      "resourceTypes": ["image", "main_frame", "other", "sub_frame"]
+    }
+  },
+  {
+    "id": 6,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/images/icon-svg.svg"
+      }
+    },
+    "condition": {
+      "urlFilter": "*://abs.twimg.com/responsive-web/client-web/icon-svg.*.svg",
+      "resourceTypes": ["image", "main_frame", "other", "sub_frame"]
+    }
+  },
+  {
+    "id": 7,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/images/twitter-pip.2.ico"
+      }
+    },
+    "condition": {
+      "urlFilter": "*://abs.twimg.com/favicons/twitter-pip.3.ico",
+      "resourceTypes": ["image", "main_frame", "other", "sub_frame"]
+    }
+  },
+  {
+    "id": 8,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "extensionPath": "/images/twitter.2.ico"
+      }
+    },
+    "condition": {
+      "urlFilter": "*://abs.twimg.com/favicons/twitter.3.ico",
+      "resourceTypes": ["image", "main_frame", "other", "sub_frame"]
+    }
+  }
+]

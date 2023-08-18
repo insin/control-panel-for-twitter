@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "default_locale": "en",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
@@ -25,20 +25,51 @@
       "run_at": "document_start"
     }
   ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset",
+        "enabled": true,
+        "path": "ruleset.json"
+      }
+    ]
+  },
   "web_accessible_resources": [
-    "script.js"
+    {
+      "matches": [
+        "https://twitter.com/*",
+        "https://mobile.twitter.com/*"
+      ],
+      "resources": [
+        "script.js"
+      ]
+    },
+    {
+      "resources": [
+        "images/*"
+      ],
+      "matches": [
+        "*://twitter.com/*",
+        "*://*.twitter.com/*"
+      ]
+    }
   ],
   "options_ui": {
     "browser_style": true,
-    "chrome_style": false,
     "page": "options.html"
   },
-  "browser_action": {
+  "action": {
     "browser_style": true,
     "default_title": "__MSG_extensionName__",
     "default_popup": "browser_action.html"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "*://twitter.com/*",
+    "*://*.twitter.com/*",
+    "*://*.twimg.com/*"
   ]
 }
