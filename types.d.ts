@@ -88,6 +88,7 @@ export type LocaleKey =
   | 'POST_ALL'
   | 'QUOTE_TWEET'
   | 'QUOTE_TWEETS'
+  | 'REPOST'
   | 'REPOSTS'
   | 'RETWEET'
   | 'RETWEETED_BY'
@@ -99,6 +100,7 @@ export type LocaleKey =
   | 'TURN_ON_RETWEETS'
   | 'TWEET'
   | 'TWEET_ALL'
+  | 'TWEET_YOUR_REPLY'
   | 'TWITTER'
 
 export type NamedMutationObserver = MutationObserver & {name?: string}

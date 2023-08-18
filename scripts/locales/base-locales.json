@@ -10,6 +10,7 @@
     "TURN_ON_RETWEETS": "تفعيل إعادة التغريد",
     "TWEET": "غرّدي",
     "TWEET_ALL": "تغريد الكل",
+    "TWEET_YOUR_REPLY": "التغريد بردك!",
     "TWITTER": "تويتر"
   },
   "ar": {
@@ -22,7 +23,8 @@
     "TURN_OFF_RETWEETS": "تعطيل إعادة التغريد",
     "TURN_ON_RETWEETS": "تفعيل إعادة التغريد",
     "TWEET": "تغريد",
-    "TWEET_ALL": "تغريد الكل"
+    "TWEET_ALL": "تغريد الكل",
+    "TWEET_YOUR_REPLY": "التغريد بردك!"
   },
   "bg": {
     "QUOTE_TWEET": "Цитиране на туита",
@@ -34,7 +36,8 @@
     "TURN_OFF_RETWEETS": "Изключване на ретуитовете",
     "TURN_ON_RETWEETS": "Включване на ретуитовете",
     "TWEET": "تغريد",
-    "TWEET_ALL": "تغريد الكل"
+    "TWEET_ALL": "تغريد الكل",
+    "TWEET_YOUR_REPLY": "Отговори с туит!"
   },
   "bn": {
     "QUOTE_TWEET": "টুইট উদ্ধৃত করুন",
@@ -47,6 +50,7 @@
     "TURN_ON_RETWEETS": "পুনঃ টুইটগুলি চালু করুন",
     "TWEET": "টুইট",
     "TWEET_ALL": "সব টুইট করুন",
+    "TWEET_YOUR_REPLY": "আপনার উত্তর টুইট করুন!",
     "TWITTER": "টুইটার"
   },
   "ca": {
@@ -59,7 +63,8 @@
     "TURN_OFF_RETWEETS": "Desactiva els retuits",
     "TURN_ON_RETWEETS": "Activa els retuits",
     "TWEET": "Tuita",
-    "TWEET_ALL": "Tuita-ho tot"
+    "TWEET_ALL": "Tuita-ho tot",
+    "TWEET_YOUR_REPLY": "Tuita la teva resposta"
   },
   "cs": {
     "QUOTE_TWEET": "Citovat Tweet",
@@ -71,7 +76,8 @@
     "TURN_OFF_RETWEETS": "Vypnout retweety",
     "TURN_ON_RETWEETS": "Zapnout retweety",
     "TWEET": "Tweetovat",
-    "TWEET_ALL": "Tweetnout vše"
+    "TWEET_ALL": "Tweetnout vše",
+    "TWEET_YOUR_REPLY": "Tweetujte svou odpověď!"
   },
   "da": {
     "QUOTE_TWEET": "Citér Tweet",
@@ -81,7 +87,8 @@
     "SHARED_TWEETS": "Delte tweets",
     "TURN_OFF_RETWEETS": "Slå Retweets fra",
     "TURN_ON_RETWEETS": "Slå Retweets til",
-    "TWEET_ALL": "Tweet alt"
+    "TWEET_ALL": "Tweet alt",
+    "TWEET_YOUR_REPLY": "Tweet dit svar!"
   },
   "de": {
     "QUOTE_TWEET": "Tweet zitieren",
@@ -92,7 +99,8 @@
     "TURN_OFF_RETWEETS": "Retweets ausschalten",
     "TURN_ON_RETWEETS": "Retweets einschalten",
     "TWEET": "Twittern",
-    "TWEET_ALL": "Alle twittern"
+    "TWEET_ALL": "Alle twittern",
+    "TWEET_YOUR_REPLY": "Twittere deine Antwort!"
   },
   "el": {
     "QUOTE_TWEET": "Παράθεση Tweet",
@@ -103,7 +111,8 @@
     "SHARED_TWEETS": "Κοινόχρηστα Tweets",
     "TURN_OFF_RETWEETS": "Απενεργοποίηση των Retweet",
     "TURN_ON_RETWEETS": "Ενεργοποίηση των Retweet",
-    "TWEET_ALL": "Δημοσίευση όλων ως Tweet"
+    "TWEET_ALL": "Δημοσίευση όλων ως Tweet",
+    "TWEET_YOUR_REPLY": "Στείλτε την απάντησή σας!"
   },
   "en": {
     "QUOTE_TWEET": "Quote Tweet",
@@ -116,6 +125,7 @@
     "TURN_ON_RETWEETS": "Turn on Retweets",
     "TWEET": "Tweet",
     "TWEET_ALL": "Tweet all",
+    "TWEET_YOUR_REPLY": "Tweet your reply!",
     "TWITTER": "Twitter"
   },
   "es": {
@@ -127,7 +137,8 @@
     "TURN_OFF_RETWEETS": "Desactivar Retweets",
     "TURN_ON_RETWEETS": "Activar Retweets",
     "TWEET": "Twittear",
-    "TWEET_ALL": "Twittear todo"
+    "TWEET_ALL": "Twittear todo",
+    "TWEET_YOUR_REPLY": "¡Twittea tu respuesta!"
   },
   "eu": {
     "QUOTE_TWEET": "Txioa apaitu",
@@ -139,7 +150,8 @@
     "TURN_OFF_RETWEETS": "Desaktibatu birtxioak",
     "TURN_ON_RETWEETS": "Aktibatu birtxioak",
     "TWEET": "Txio",
-    "TWEET_ALL": "Txiotu guztiak"
+    "TWEET_ALL": "Txiotu guztiak",
+    "TWEET_YOUR_REPLY": "Tweet your reply!"
   },
   "fa": {
     "QUOTE_TWEET": "نقل‌توییت",
@@ -152,6 +164,7 @@
     "TURN_ON_RETWEETS": "فعال سازی بازتوییت‌ها",
     "TWEET": "توییت",
     "TWEET_ALL": "توییت به همه",
+    "TWEET_YOUR_REPLY": "پاسختان را توییت کنید!",
     "TWITTER": "توییتر"
   },
   "fi": {
@@ -164,7 +177,8 @@
     "TURN_OFF_RETWEETS": "Poista uudelleentwiittaukset käytöstä",
     "TURN_ON_RETWEETS": "Ota uudelleentwiittaukset käyttöön",
     "TWEET": "Twiittaa",
-    "TWEET_ALL": "Twiittaa kaikki"
+    "TWEET_ALL": "Twiittaa kaikki",
+    "TWEET_YOUR_REPLY": "Twiittaa vastauksesi"
   },
   "fil": {
     "QUOTE_TWEET": "Quote na Tweet",
@@ -176,7 +190,8 @@
     "TURN_OFF_RETWEETS": "I-off ang Retweets",
     "TURN_ON_RETWEETS": "I-on ang Retweets",
     "TWEET": "Mag-tweet",
-    "TWEET_ALL": "I-tweet lahat"
+    "TWEET_ALL": "I-tweet lahat",
+    "TWEET_YOUR_REPLY": "I-Tweet ang sagot mo!"
   },
   "fr": {
     "QUOTE_TWEET": "Citer le Tweet",
@@ -187,7 +202,8 @@
     "TURN_OFF_RETWEETS": "Désactiver les Retweets",
     "TURN_ON_RETWEETS": "Activer les Retweets",
     "TWEET": "Tweeter",
-    "TWEET_ALL": "Tout tweeter"
+    "TWEET_ALL": "Tout tweeter",
+    "TWEET_YOUR_REPLY": "Tweetez votre réponse !"
   },
   "ga": {
     "QUOTE_TWEET": "Cuir Ráiteas Leis",
@@ -198,7 +214,8 @@
     "SHARED_TWEETS": "Tweetanna Roinnte",
     "TURN_OFF_RETWEETS": "Cas as Atweetanna",
     "TURN_ON_RETWEETS": "Cas Atweetanna air",
-    "TWEET_ALL": "Tweetáil gach rud"
+    "TWEET_ALL": "Tweetáil gach rud",
+    "TWEET_YOUR_REPLY": "Tweet your reply!"
   },
   "gl": {
     "QUOTE_TWEET": "Citar chío",
@@ -210,7 +227,8 @@
     "TURN_OFF_RETWEETS": "Desactivar os rechouchíos",
     "TURN_ON_RETWEETS": "Activar os rechouchíos",
     "TWEET": "Chío",
-    "TWEET_ALL": "Chiar todo"
+    "TWEET_ALL": "Chiar todo",
+    "TWEET_YOUR_REPLY": "Tweet your reply!"
   },
   "gu": {
     "QUOTE_TWEET": "અવતરણની સાથે ટ્વીટ કરો",
@@ -222,7 +240,8 @@
     "TURN_OFF_RETWEETS": "પુનટ્વીટ્સ બંધ કરો",
     "TURN_ON_RETWEETS": "પુનટ્વીટ્સ ચાલુ કરો",
     "TWEET": "ટ્વીટ",
-    "TWEET_ALL": "બધાને ટ્વીટ કરો"
+    "TWEET_ALL": "બધાને ટ્વીટ કરો",
+    "TWEET_YOUR_REPLY": "તમારા પ્રત્યુત્તરને ટ્વીટ કરો!"
   },
   "he": {
     "QUOTE_TWEET": "ציטוט ציוץ",
@@ -235,6 +254,7 @@
     "TURN_ON_RETWEETS": "הפעל ציוצים מחדש",
     "TWEET": "צייץ",
     "TWEET_ALL": "צייץ הכול",
+    "TWEET_YOUR_REPLY": "צייץ את התשובה!",
     "TWITTER": "טוויטר"
   },
   "hi": {
@@ -247,7 +267,8 @@
     "TURN_OFF_RETWEETS": "रीट्वीट बंद करें",
     "TURN_ON_RETWEETS": "रीट्वीट चालू करें",
     "TWEET": "ट्वीट करें",
-    "TWEET_ALL": "सभी ट्वीट करें"
+    "TWEET_ALL": "सभी ट्वीट करें",
+    "TWEET_YOUR_REPLY": "अपना जवाब ट्वीट करें!"
   },
   "hr": {
     "QUOTE_TWEET": "Citiraj Tweet",
@@ -258,7 +279,8 @@
     "SHARED_TWEETS": "Dijeljeni tweetovi",
     "TURN_OFF_RETWEETS": "Isključi proslijeđene tweetove",
     "TURN_ON_RETWEETS": "Uključi proslijeđene tweetove",
-    "TWEET_ALL": "Tweetaj sve"
+    "TWEET_ALL": "Tweetaj sve",
+    "TWEET_YOUR_REPLY": "Pošaljite Tweet s odgovorom!"
   },
   "hu": {
     "QUOTE_TWEET": "Tweet idézése",
@@ -270,7 +292,8 @@
     "TURN_OFF_RETWEETS": "Retweetek kikapcsolása",
     "TURN_ON_RETWEETS": "Retweetek bekapcsolása",
     "TWEET": "Tweetelj",
-    "TWEET_ALL": "Tweet küldése mindenkinek"
+    "TWEET_ALL": "Tweet küldése mindenkinek",
+    "TWEET_YOUR_REPLY": "Tweeteld válaszodat"
   },
   "id": {
     "QUOTE_TWEET": "Kutip Tweet",
@@ -281,7 +304,8 @@
     "SHARED_TWEETS": "Tweet yang Dibagikan",
     "TURN_OFF_RETWEETS": "Matikan Retweet",
     "TURN_ON_RETWEETS": "Nyalakan Retweet",
-    "TWEET_ALL": "Tweet semua"
+    "TWEET_ALL": "Tweet semua",
+    "TWEET_YOUR_REPLY": "Tweet balasan Anda!"
   },
   "it": {
     "QUOTE_TWEET": "Cita Tweet",
@@ -293,7 +317,8 @@
     "TURN_OFF_RETWEETS": "Disattiva Retweet",
     "TURN_ON_RETWEETS": "Attiva Retweet",
     "TWEET": "Twitta",
-    "TWEET_ALL": "Twitta tutto"
+    "TWEET_ALL": "Twitta tutto",
+    "TWEET_YOUR_REPLY": "Twitta la tua risposta."
   },
   "ja": {
     "QUOTE_TWEET": "引用ツイート",
@@ -305,7 +330,8 @@
     "TURN_OFF_RETWEETS": "リツイートをオフにする",
     "TURN_ON_RETWEETS": "リツイートをオンにする",
     "TWEET": "ツイートする",
-    "TWEET_ALL": "すべてツイート"
+    "TWEET_ALL": "すべてツイート",
+    "TWEET_YOUR_REPLY": "返信をツイートしましょう。"
   },
   "kn": {
     "QUOTE_TWEET": "ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ",
@@ -317,7 +343,8 @@
     "TURN_OFF_RETWEETS": "ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ",
     "TURN_ON_RETWEETS": "ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆನ್ ಮಾಡಿ",
     "TWEET": "ಟ್ವೀಟ್",
-    "TWEET_ALL": "ಎಲ್ಲಾ ಟ್ವೀಟ್ ಮಾಡಿ"
+    "TWEET_ALL": "ಎಲ್ಲಾ ಟ್ವೀಟ್ ಮಾಡಿ",
+    "TWEET_YOUR_REPLY": "ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ!"
   },
   "ko": {
     "QUOTE_TWEET": "트윗 인용하기",
@@ -330,6 +357,7 @@
     "TURN_ON_RETWEETS": "리트윗 켜기",
     "TWEET": "트윗",
     "TWEET_ALL": "모두 트윗하기",
+    "TWEET_YOUR_REPLY": "내 답글을 트윗하세요",
     "TWITTER": "트위터"
   },
   "mr": {
@@ -342,7 +370,8 @@
     "TURN_OFF_RETWEETS": "पुनर्ट्विट्स बंद करा",
     "TURN_ON_RETWEETS": "पुनर्ट्विट्स चालू करा",
     "TWEET": "ट्विट",
-    "TWEET_ALL": "सर्व ट्विट करा"
+    "TWEET_ALL": "सर्व ट्विट करा",
+    "TWEET_YOUR_REPLY": "आपल्या प्रत्युत्तरावर ट्विट करा!"
   },
   "ms": {
     "QUOTE_TWEET": "Petik Tweet",
@@ -353,7 +382,8 @@
     "SHARED_TWEETS": "Tweet Berkongsi",
     "TURN_OFF_RETWEETS": "Matikan Tweet semula",
     "TURN_ON_RETWEETS": "Hidupkan Tweet semula",
-    "TWEET_ALL": "Tweet semua"
+    "TWEET_ALL": "Tweet semua",
+    "TWEET_YOUR_REPLY": "Tweet balasan anda!"
   },
   "nb": {
     "QUOTE_TWEET": "Sitat-Tweet",
@@ -363,7 +393,8 @@
     "SHARED_TWEETS": "Delte tweets",
     "TURN_OFF_RETWEETS": "Slå av Retweets",
     "TURN_ON_RETWEETS": "Slå på Retweets",
-    "TWEET_ALL": "Tweet alle"
+    "TWEET_ALL": "Tweet alle",
+    "TWEET_YOUR_REPLY": "Tweet svaret ditt!"
   },
   "nl": {
     "QUOTE_TWEET": "Citeer Tweet",
@@ -374,7 +405,8 @@
     "TURN_OFF_RETWEETS": "Retweets uitschakelen",
     "TURN_ON_RETWEETS": "Retweets inschakelen",
     "TWEET": "Tweeten",
-    "TWEET_ALL": "Alles tweeten"
+    "TWEET_ALL": "Alles tweeten",
+    "TWEET_YOUR_REPLY": "Tweet je antwoord!"
   },
   "pl": {
     "QUOTE_TWEET": "Cytuj Tweeta",
@@ -385,7 +417,8 @@
     "SHARED_TWEETS": "Udostępnione Tweety",
     "TURN_OFF_RETWEETS": "Wyłącz Tweety podane dalej",
     "TURN_ON_RETWEETS": "Włącz Tweety podane dalej",
-    "TWEET_ALL": "Tweetnij wszystko"
+    "TWEET_ALL": "Tweetnij wszystko",
+    "TWEET_YOUR_REPLY": "Wyślij Tweeta z odpowiedzią!"
   },
   "pt": {
     "QUOTE_TWEET": "Comentar o Tweet",
@@ -396,7 +429,8 @@
     "TURN_OFF_RETWEETS": "Desativar Retweets",
     "TURN_ON_RETWEETS": "Ativar Retweets",
     "TWEET": "Tweetar",
-    "TWEET_ALL": "Tweetar tudo"
+    "TWEET_ALL": "Tweetar tudo",
+    "TWEET_YOUR_REPLY": "Tweetar sua resposta!"
   },
   "ro": {
     "QUOTE_TWEET": "Citează Tweetul",
@@ -407,7 +441,8 @@
     "SHARED_TWEETS": "Tweeturi partajate",
     "TURN_OFF_RETWEETS": "Dezactivează Retweeturile",
     "TURN_ON_RETWEETS": "Activează Retweeturile",
-    "TWEET_ALL": "Dă Tweeturi cu tot"
+    "TWEET_ALL": "Dă Tweeturi cu tot",
+    "TWEET_YOUR_REPLY": "Dă Tweet cu răspunsul!"
   },
   "ru": {
     "QUOTE_TWEET": "Цитировать",
@@ -420,6 +455,7 @@
     "TURN_ON_RETWEETS": "Включить ретвиты",
     "TWEET": "Твитнуть",
     "TWEET_ALL": "Твитнуть все",
+    "TWEET_YOUR_REPLY": "Твитните свой ответ!",
     "TWITTER": "Твиттер"
   },
   "sk": {
@@ -432,7 +468,8 @@
     "TURN_OFF_RETWEETS": "Vypnúť retweety",
     "TURN_ON_RETWEETS": "Zapnúť retweety",
     "TWEET": "Tweetnuť",
-    "TWEET_ALL": "Tweetnuť všetko"
+    "TWEET_ALL": "Tweetnuť všetko",
+    "TWEET_YOUR_REPLY": "Tweetnite odpoveď!"
   },
   "sr": {
     "QUOTE_TWEET": "твит са цитатом",
@@ -445,6 +482,7 @@
     "TURN_ON_RETWEETS": "Укључи ретвитове",
     "TWEET": "Твитуј",
     "TWEET_ALL": "Твитуј све",
+    "TWEET_YOUR_REPLY": "Твитуј свој одговор!",
     "TWITTER": "Твитер"
   },
   "sv": {
@@ -456,7 +494,8 @@
     "TURN_OFF_RETWEETS": "Stäng av Retweets",
     "TURN_ON_RETWEETS": "Slå på Retweets",
     "TWEET": "Tweeta",
-    "TWEET_ALL": "Tweeta allt"
+    "TWEET_ALL": "Tweeta allt",
+    "TWEET_YOUR_REPLY": "Tweeta ditt svar!"
   },
   "ta": {
     "QUOTE_TWEET": "ட்விட்டை மேற்கோள் காட்டு",
@@ -468,7 +507,8 @@
     "TURN_OFF_RETWEETS": "மறுகீச்சுகளை அணை",
     "TURN_ON_RETWEETS": "மறுகீச்சுகளை இயக்கு",
     "TWEET": "ட்விட் செய்",
-    "TWEET_ALL": "அனைத்தையும் ட்விட் செய்"
+    "TWEET_ALL": "அனைத்தையும் ட்விட் செய்",
+    "TWEET_YOUR_REPLY": "உங்கள் பதிலை ட்விட் செய்யவும்!"
   },
   "th": {
     "QUOTE_TWEET": "อ้างอิงทวีต",
@@ -481,6 +521,7 @@
     "TURN_ON_RETWEETS": "เปิดรีทวีต",
     "TWEET": "ทวีต",
     "TWEET_ALL": "ทวีตทั้งหมด",
+    "TWEET_YOUR_REPLY": "ทวีตการตอบกลับของคุณ",
     "TWITTER": "ทวิตเตอร์"
   },
   "tr": {
@@ -493,7 +534,8 @@
     "TURN_OFF_RETWEETS": "Retweetleri kapat",
     "TURN_ON_RETWEETS": "Retweetleri aç",
     "TWEET": "Tweetle",
-    "TWEET_ALL": "Hepsini Tweetle"
+    "TWEET_ALL": "Hepsini Tweetle",
+    "TWEET_YOUR_REPLY": "Yanıtını Tweetle."
   },
   "uk": {
     "QUOTE_TWEET": "Цитувати твіт",
@@ -506,6 +548,7 @@
     "TURN_ON_RETWEETS": "Увімкнути ретвіти",
     "TWEET": "Твіт",
     "TWEET_ALL": "Твітнути все",
+    "TWEET_YOUR_REPLY": "Твітніть свою відповідь!",
     "TWITTER": "Твіттер"
   },
   "ur": {
@@ -519,6 +562,7 @@
     "TURN_ON_RETWEETS": "ری ٹویٹس غیر فعال کریں",
     "TWEET": "ٹویٹ",
     "TWEET_ALL": "سب کو ٹویٹ کریں",
+    "TWEET_YOUR_REPLY": "Tweet your reply!",
     "TWITTER": "ٹوئٹر"
   },
   "vi": {
@@ -530,7 +574,8 @@
     "SHARED_TWEETS": "Tweet được chia sẻ",
     "TURN_OFF_RETWEETS": "Tắt Tweet lại",
     "TURN_ON_RETWEETS": "Bật Tweet lại",
-    "TWEET_ALL": "Đăng Tweet tất cả"
+    "TWEET_ALL": "Đăng Tweet tất cả",
+    "TWEET_YOUR_REPLY": "Đăng Tweet câu trả lời của bạn!"
   },
   "zh-Hant": {
     "QUOTE_TWEET": "引用推文",
@@ -542,7 +587,8 @@
     "TURN_OFF_RETWEETS": "關閉轉推",
     "TURN_ON_RETWEETS": "開啟轉推",
     "TWEET": "推文",
-    "TWEET_ALL": "推全部內容"
+    "TWEET_ALL": "推全部內容",
+    "TWEET_YOUR_REPLY": "推你的回覆！"
   },
   "zh": {
     "QUOTE_TWEET": "引用推文",
@@ -554,6 +600,7 @@
     "TURN_OFF_RETWEETS": "关闭转推",
     "TURN_ON_RETWEETS": "开启转推",
     "TWEET": "推文",
-    "TWEET_ALL": "全部发推"
+    "TWEET_ALL": "全部发推",
+    "TWEET_YOUR_REPLY": "发布你的回复！"
   }
 }

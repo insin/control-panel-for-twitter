@@ -125,6 +125,7 @@ const locales = {
     POST_ALL: 'نشر الكل',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
+    REPOST: 'إعادة النشر',
     REPOSTS: 'المنشورات المُعاد نشرها',
     RETWEET: 'إعادة التغريد',
     RETWEETED_BY: 'مُعاد تغريدها بواسطة',
@@ -136,6 +137,7 @@ const locales = {
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
     TWEET: 'غرّدي',
     TWEET_ALL: 'تغريد الكل',
+    TWEET_YOUR_REPLY: 'التغريد بردك!',
     TWITTER: 'تويتر',
   },
   ar: {
@@ -145,6 +147,7 @@ const locales = {
     POST_ALL: 'نشر الكل',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
+    REPOST: 'إعادة النشر',
     REPOSTS: 'المنشورات المُعاد نشرها',
     RETWEET: 'إعادة التغريد',
     RETWEETED_BY: 'مُعاد تغريدها بواسطة',
@@ -156,6 +159,7 @@ const locales = {
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
     TWEET: 'تغريد',
     TWEET_ALL: 'تغريد الكل',
+    TWEET_YOUR_REPLY: 'التغريد بردك!',
   },
   bg: {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
@@ -164,6 +168,7 @@ const locales = {
     POST_ALL: 'Публикуване на всичко',
     QUOTE_TWEET: 'Цитиране на туита',
     QUOTE_TWEETS: 'Туитове с цитат',
+    REPOST: 'Препубликуване',
     REPOSTS: 'Препубликувания',
     RETWEET: 'Ретуитване',
     RETWEETED_BY: 'Ретуитнат от',
@@ -175,6 +180,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Включване на ретуитовете',
     TWEET: 'تغريد',
     TWEET_ALL: 'تغريد الكل',
+    TWEET_YOUR_REPLY: 'Отговори с туит!',
   },
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
@@ -183,6 +189,7 @@ const locales = {
     POST_ALL: 'সবকটি পোস্ট করুন',
     QUOTE_TWEET: 'টুইট উদ্ধৃত করুন',
     QUOTE_TWEETS: 'টুইট উদ্ধৃতিগুলো',
+    REPOST: 'রিপোস্ট',
     REPOSTS: 'রিপোস্ট',
     RETWEET: 'পুনঃটুইট',
     RETWEETED_BY: 'পুনঃ টুইট করেছেন',
@@ -194,6 +201,7 @@ const locales = {
     TURN_ON_RETWEETS: 'পুনঃ টুইটগুলি চালু করুন',
     TWEET: 'টুইট',
     TWEET_ALL: 'সব টুইট করুন',
+    TWEET_YOUR_REPLY: 'আপনার উত্তর টুইট করুন!',
     TWITTER: 'টুইটার',
   },
   ca: {
@@ -203,6 +211,7 @@ const locales = {
     POST_ALL: 'Publica-ho tot',
     QUOTE_TWEET: 'Cita el tuit',
     QUOTE_TWEETS: 'Tuits amb cita',
+    REPOST: 'Republicació',
     REPOSTS: 'Republicacions',
     RETWEET: 'Retuit',
     RETWEETED_BY: 'Retuitat per',
@@ -214,6 +223,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Activa els retuits',
     TWEET: 'Tuita',
     TWEET_ALL: 'Tuita-ho tot',
+    TWEET_YOUR_REPLY: 'Tuita la teva resposta',
   },
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
@@ -222,6 +232,7 @@ const locales = {
     POST_ALL: 'Postovat vše',
     QUOTE_TWEET: 'Citovat Tweet',
     QUOTE_TWEETS: 'Tweety s citací',
+    REPOST: 'Repost',
     REPOSTS: 'Reposty',
     RETWEET: 'Retweetnout',
     RETWEETED_BY: 'Retweetnuto uživateli',
@@ -233,6 +244,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Zapnout retweety',
     TWEET: 'Tweetovat',
     TWEET_ALL: 'Tweetnout vše',
+    TWEET_YOUR_REPLY: 'Tweetujte svou odpověď!',
   },
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
@@ -241,6 +253,7 @@ const locales = {
     POST_ALL: 'Post alle',
     QUOTE_TWEET: 'Citér Tweet',
     QUOTE_TWEETS: 'Citat-Tweets',
+    REPOST: 'Repost',
     RETWEET: 'Retweet',
     RETWEETED_BY: 'Retweetet af',
     SHARED_TWEETS: 'Delte tweets',
@@ -249,6 +262,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Slå Retweets fra',
     TURN_ON_RETWEETS: 'Slå Retweets til',
     TWEET_ALL: 'Tweet alt',
+    TWEET_YOUR_REPLY: 'Tweet dit svar!',
   },
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
@@ -257,6 +271,7 @@ const locales = {
     POST_ALL: 'Alle posten',
     QUOTE_TWEET: 'Tweet zitieren',
     QUOTE_TWEETS: 'Zitierte Tweets',
+    REPOST: 'Reposten',
     RETWEET: 'Retweeten',
     RETWEETED_BY: 'Retweetet von',
     SHARED_TWEETS: 'Geteilte Tweets',
@@ -266,6 +281,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Retweets einschalten',
     TWEET: 'Twittern',
     TWEET_ALL: 'Alle twittern',
+    TWEET_YOUR_REPLY: 'Twittere deine Antwort!',
   },
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
@@ -274,6 +290,7 @@ const locales = {
     POST_ALL: 'Δημοσίευση όλων',
     QUOTE_TWEET: 'Παράθεση Tweet',
     QUOTE_TWEETS: 'Tweet με παράθεση',
+    REPOST: 'Αναδημοσίευση',
     REPOSTS: 'Αναδημοσιεύσεις',
     RETWEET: 'Retweet',
     RETWEETED_BY: 'Έγινε Retweet από',
@@ -284,6 +301,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Απενεργοποίηση των Retweet',
     TURN_ON_RETWEETS: 'Ενεργοποίηση των Retweet',
     TWEET_ALL: 'Δημοσίευση όλων ως Tweet',
+    TWEET_YOUR_REPLY: 'Στείλτε την απάντησή σας!',
   },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
@@ -292,6 +310,7 @@ const locales = {
     POST_ALL: 'Post all',
     QUOTE_TWEET: 'Quote Tweet',
     QUOTE_TWEETS: 'Quote Tweets',
+    REPOST: 'Repost',
     REPOSTS: 'Reposts',
     RETWEET: 'Retweet',
     RETWEETED_BY: 'Retweeted by',
@@ -303,6 +322,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Turn on Retweets',
     TWEET: 'Tweet',
     TWEET_ALL: 'Tweet all',
+    TWEET_YOUR_REPLY: 'Tweet your reply!',
     TWITTER: 'Twitter',
   },
   es: {
@@ -312,6 +332,7 @@ const locales = {
     POST_ALL: 'Postear todo',
     QUOTE_TWEET: 'Citar Tweet',
     QUOTE_TWEETS: 'Tweets citados',
+    REPOST: 'Repostear',
     RETWEET: 'Retwittear',
     RETWEETED_BY: 'Retwitteado por',
     SHARED_TWEETS: 'Tweets compartidos',
@@ -321,6 +342,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Activar Retweets',
     TWEET: 'Twittear',
     TWEET_ALL: 'Twittear todo',
+    TWEET_YOUR_REPLY: '¡Twittea tu respuesta!',
   },
   eu: {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
@@ -329,6 +351,7 @@ const locales = {
     POST_ALL: 'Post all',
     QUOTE_TWEET: 'Txioa apaitu',
     QUOTE_TWEETS: 'Aipatu txioak',
+    REPOST: 'Repost',
     RETWEET: 'Bertxiotu',
     RETWEETED_BY: 'Bertxiotua:',
     RETWEETS: 'Bertxioak',
@@ -339,6 +362,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Aktibatu birtxioak',
     TWEET: 'Txio',
     TWEET_ALL: 'Txiotu guztiak',
+    TWEET_YOUR_REPLY: 'Tweet your reply!',
   },
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
@@ -347,6 +371,7 @@ const locales = {
     POST_ALL: 'پست کردن همه',
     QUOTE_TWEET: 'نقل‌توییت',
     QUOTE_TWEETS: 'نقل‌توییت‌ها',
+    REPOST: 'بازپست',
     REPOSTS: 'بازپست‌ها',
     RETWEET: 'بازتوییت',
     RETWEETED_BY: 'بازتوییت‌ شد توسط',
@@ -358,6 +383,7 @@ const locales = {
     TURN_ON_RETWEETS: 'فعال سازی بازتوییت‌ها',
     TWEET: 'توییت',
     TWEET_ALL: 'توییت به همه',
+    TWEET_YOUR_REPLY: 'پاسختان را توییت کنید!',
     TWITTER: 'توییتر',
   },
   fi: {
@@ -367,6 +393,7 @@ const locales = {
     POST_ALL: 'Julkaise kaikki',
     QUOTE_TWEET: 'Twiitin lainaus',
     QUOTE_TWEETS: 'Twiitin lainaukset',
+    REPOST: 'Uudelleenjulkaise',
     REPOSTS: 'Uudelleenjulkaisut',
     RETWEET: 'Uudelleentwiittaa',
     RETWEETED_BY: 'Uudelleentwiitannut',
@@ -378,6 +405,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Ota uudelleentwiittaukset käyttöön',
     TWEET: 'Twiittaa',
     TWEET_ALL: 'Twiittaa kaikki',
+    TWEET_YOUR_REPLY: 'Twiittaa vastauksesi',
   },
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
@@ -386,6 +414,7 @@ const locales = {
     POST_ALL: 'I-post lahat',
     QUOTE_TWEET: 'Quote na Tweet',
     QUOTE_TWEETS: 'Mga Quote na Tweet',
+    REPOST: 'I-repost',
     REPOSTS: '(na) Repost',
     RETWEET: 'I-retweet',
     RETWEETED_BY: 'Ni-retweet ni',
@@ -397,6 +426,7 @@ const locales = {
     TURN_ON_RETWEETS: 'I-on ang Retweets',
     TWEET: 'Mag-tweet',
     TWEET_ALL: 'I-tweet lahat',
+    TWEET_YOUR_REPLY: 'I-Tweet ang sagot mo!',
   },
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
@@ -405,6 +435,7 @@ const locales = {
     POST_ALL: 'Tout poster',
     QUOTE_TWEET: 'Citer le Tweet',
     QUOTE_TWEETS: 'Tweets cités',
+    REPOST: 'Repost',
     RETWEET: 'Retweeter',
     RETWEETED_BY: 'Retweeté par',
     SHARED_TWEETS: 'Tweets partagés',
@@ -414,6 +445,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Activer les Retweets',
     TWEET: 'Tweeter',
     TWEET_ALL: 'Tout tweeter',
+    TWEET_YOUR_REPLY: 'Tweetez votre réponse !',
   },
   ga: {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
@@ -422,6 +454,7 @@ const locales = {
     POST_ALL: 'Post all',
     QUOTE_TWEET: 'Cuir Ráiteas Leis',
     QUOTE_TWEETS: 'Luaigh Tvuíteanna',
+    REPOST: 'Repost',
     RETWEET: 'Atweetáil',
     RETWEETED_BY: 'Atweetáilte ag',
     RETWEETS: 'Atweetanna',
@@ -431,6 +464,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Cas as Atweetanna',
     TURN_ON_RETWEETS: 'Cas Atweetanna air',
     TWEET_ALL: 'Tweetáil gach rud',
+    TWEET_YOUR_REPLY: 'Tweet your reply!',
   },
   gl: {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
@@ -439,6 +473,7 @@ const locales = {
     POST_ALL: 'Post all',
     QUOTE_TWEET: 'Citar chío',
     QUOTE_TWEETS: 'Chíos citados',
+    REPOST: 'Repost',
     RETWEET: 'Rechouchiar',
     RETWEETED_BY: 'Rechouchiado por',
     RETWEETS: 'Rechouchíos',
@@ -449,6 +484,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Activar os rechouchíos',
     TWEET: 'Chío',
     TWEET_ALL: 'Chiar todo',
+    TWEET_YOUR_REPLY: 'Tweet your reply!',
   },
   gu: {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
@@ -457,6 +493,7 @@ const locales = {
     POST_ALL: 'બધા પોસ્ટ કરો',
     QUOTE_TWEET: 'અવતરણની સાથે ટ્વીટ કરો',
     QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ',
+    REPOST: 'રીપોસ્ટ કરો',
     REPOSTS: 'ફરીથી કરવામાં આવેલી પોસ્ટ',
     RETWEET: 'પુનટ્વીટ',
     RETWEETED_BY: 'આમની દ્વારા પુનટ્વીટ કરવામાં આવી',
@@ -468,6 +505,7 @@ const locales = {
     TURN_ON_RETWEETS: 'પુનટ્વીટ્સ ચાલુ કરો',
     TWEET: 'ટ્વીટ',
     TWEET_ALL: 'બધાને ટ્વીટ કરો',
+    TWEET_YOUR_REPLY: 'તમારા પ્રત્યુત્તરને ટ્વીટ કરો!',
   },
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
@@ -476,6 +514,7 @@ const locales = {
     POST_ALL: 'פרסום הכל',
     QUOTE_TWEET: 'ציטוט ציוץ',
     QUOTE_TWEETS: 'ציוצי ציטוט',
+    REPOST: 'דוחות',
     REPOSTS: 'פרסומים מחדש',
     RETWEET: 'צייץ מחדש',
     RETWEETED_BY: 'צויץ מחדש על־ידי',
@@ -487,6 +526,7 @@ const locales = {
     TURN_ON_RETWEETS: 'הפעל ציוצים מחדש',
     TWEET: 'צייץ',
     TWEET_ALL: 'צייץ הכול',
+    TWEET_YOUR_REPLY: 'צייץ את התשובה!',
     TWITTER: 'טוויטר',
   },
   hi: {
@@ -496,6 +536,7 @@ const locales = {
     POST_ALL: 'सभी पोस्ट करें',
     QUOTE_TWEET: 'ट्वीट क्वोट करें',
     QUOTE_TWEETS: 'कोट ट्वीट्स',
+    REPOST: 'रीपोस्ट',
     REPOSTS: 'रीपोस्ट्स',
     RETWEET: 'रीट्वीट करें',
     RETWEETED_BY: 'इनके द्वारा रीट्वीट किया गया',
@@ -507,6 +548,7 @@ const locales = {
     TURN_ON_RETWEETS: 'रीट्वीट चालू करें',
     TWEET: 'ट्वीट करें',
     TWEET_ALL: 'सभी ट्वीट करें',
+    TWEET_YOUR_REPLY: 'अपना जवाब ट्वीट करें!',
   },
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
@@ -515,6 +557,7 @@ const locales = {
     POST_ALL: 'Objavi sve',
     QUOTE_TWEET: 'Citiraj Tweet',
     QUOTE_TWEETS: 'Citirani tweetovi',
+    REPOST: 'Proslijedi objavu',
     REPOSTS: 'Proslijeđene objave',
     RETWEET: 'Proslijedi tweet',
     RETWEETED_BY: 'Korisnici koji su proslijedili Tweet',
@@ -525,6 +568,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Isključi proslijeđene tweetove',
     TURN_ON_RETWEETS: 'Uključi proslijeđene tweetove',
     TWEET_ALL: 'Tweetaj sve',
+    TWEET_YOUR_REPLY: 'Pošaljite Tweet s odgovorom!',
   },
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
@@ -533,6 +577,7 @@ const locales = {
     POST_ALL: 'Az összes közzététele',
     QUOTE_TWEET: 'Tweet idézése',
     QUOTE_TWEETS: 'Tweet-idézések',
+    REPOST: 'Újraposztolás',
     REPOSTS: 'Újraposztolások',
     RETWEET: 'Retweet',
     RETWEETED_BY: 'Retweetelte',
@@ -544,6 +589,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Retweetek bekapcsolása',
     TWEET: 'Tweetelj',
     TWEET_ALL: 'Tweet küldése mindenkinek',
+    TWEET_YOUR_REPLY: 'Tweeteld válaszodat',
   },
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
@@ -552,6 +598,7 @@ const locales = {
     POST_ALL: 'Posting semua',
     QUOTE_TWEET: 'Kutip Tweet',
     QUOTE_TWEETS: 'Tweet Kutipan',
+    REPOST: 'Posting ulang',
     REPOSTS: 'Posting ulang',
     RETWEET: 'Retweet',
     RETWEETED_BY: 'Di-retweet oleh',
@@ -562,14 +609,16 @@ const locales = {
     TURN_OFF_RETWEETS: 'Matikan Retweet',
     TURN_ON_RETWEETS: 'Nyalakan Retweet',
     TWEET_ALL: 'Tweet semua',
+    TWEET_YOUR_REPLY: 'Tweet balasan Anda!',
   },
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
     HOME: 'Home',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
-    POST_ALL: 'Posta tutto',
+    POST_ALL: 'Pubblica tutto',
     QUOTE_TWEET: 'Cita Tweet',
     QUOTE_TWEETS: 'Tweet di citazione',
+    REPOST: 'Riposta',
     REPOSTS: 'Repost',
     RETWEET: 'Ritwitta',
     RETWEETED_BY: 'Ritwittato da',
@@ -581,6 +630,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Attiva Retweet',
     TWEET: 'Twitta',
     TWEET_ALL: 'Twitta tutto',
+    TWEET_YOUR_REPLY: 'Twitta la tua risposta.',
   },
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
@@ -589,6 +639,7 @@ const locales = {
     POST_ALL: 'すべてポスト',
     QUOTE_TWEET: '引用ツイート',
     QUOTE_TWEETS: '引用ツイート',
+    REPOST: 'リポスト',
     REPOSTS: 'リポスト',
     RETWEET: 'リツイート',
     RETWEETED_BY: 'リツイートしたユーザー',
@@ -600,6 +651,7 @@ const locales = {
     TURN_ON_RETWEETS: 'リツイートをオンにする',
     TWEET: 'ツイートする',
     TWEET_ALL: 'すべてツイート',
+    TWEET_YOUR_REPLY: '返信をツイートしましょう。',
   },
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
@@ -608,6 +660,7 @@ const locales = {
     POST_ALL: 'ಎಲ್ಲವನ್ನೂ ಪೋಸ್ಟ್ ಮಾಡಿ',
     QUOTE_TWEET: 'ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ',
     QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು',
+    REPOST: 'ಮರುಪೋಸ್ಟ್ ಮಾಡಿ',
     REPOSTS: 'ಮರುಪೋಸ್ಟ್‌ಗಳು',
     RETWEET: 'ಮರುಟ್ವೀಟಿಸಿ',
     RETWEETED_BY: 'ಮರುಟ್ವೀಟಿಸಿದವರು',
@@ -619,6 +672,7 @@ const locales = {
     TURN_ON_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆನ್ ಮಾಡಿ',
     TWEET: 'ಟ್ವೀಟ್',
     TWEET_ALL: 'ಎಲ್ಲಾ ಟ್ವೀಟ್ ಮಾಡಿ',
+    TWEET_YOUR_REPLY: 'ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ!',
   },
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
@@ -627,6 +681,7 @@ const locales = {
     POST_ALL: '모두 게시하기',
     QUOTE_TWEET: '트윗 인용하기',
     QUOTE_TWEETS: '트윗 인용하기',
+    REPOST: '재게시',
     REPOSTS: '재게시',
     RETWEET: '리트윗',
     RETWEETED_BY: '리트윗함',
@@ -638,6 +693,7 @@ const locales = {
     TURN_ON_RETWEETS: '리트윗 켜기',
     TWEET: '트윗',
     TWEET_ALL: '모두 트윗하기',
+    TWEET_YOUR_REPLY: '내 답글을 트윗하세요',
     TWITTER: '트위터',
   },
   mr: {
@@ -647,6 +703,7 @@ const locales = {
     POST_ALL: 'सर्व पोस्ट करा',
     QUOTE_TWEET: 'ट्विट वर भाष्य करा',
     QUOTE_TWEETS: 'भाष्य ट्विट्स',
+    REPOST: 'पुन्हा पोस्ट करा',
     REPOSTS: 'रिपोस्ट',
     RETWEET: 'पुन्हा ट्विट',
     RETWEETED_BY: 'यांनी पुन्हा ट्विट केले',
@@ -658,6 +715,7 @@ const locales = {
     TURN_ON_RETWEETS: 'पुनर्ट्विट्स चालू करा',
     TWEET: 'ट्विट',
     TWEET_ALL: 'सर्व ट्विट करा',
+    TWEET_YOUR_REPLY: 'आपल्या प्रत्युत्तरावर ट्विट करा!',
   },
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
@@ -666,6 +724,7 @@ const locales = {
     POST_ALL: 'Siarkan semua',
     QUOTE_TWEET: 'Petik Tweet',
     QUOTE_TWEETS: 'Tweet Petikan',
+    REPOST: 'Siaran semula',
     REPOSTS: 'Siaran semula',
     RETWEET: 'Tweet semula',
     RETWEETED_BY: 'Ditweet semula oleh',
@@ -676,6 +735,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Matikan Tweet semula',
     TURN_ON_RETWEETS: 'Hidupkan Tweet semula',
     TWEET_ALL: 'Tweet semua',
+    TWEET_YOUR_REPLY: 'Tweet balasan anda!',
   },
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
@@ -684,6 +744,7 @@ const locales = {
     POST_ALL: 'Publiser alle',
     QUOTE_TWEET: 'Sitat-Tweet',
     QUOTE_TWEETS: 'Sitat-Tweets',
+    REPOST: 'Republiser',
     REPOSTS: 'Republiseringer',
     RETWEET: 'Retweet',
     RETWEETED_BY: 'Retweetet av',
@@ -693,6 +754,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Slå av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
     TWEET_ALL: 'Tweet alle',
+    TWEET_YOUR_REPLY: 'Tweet svaret ditt!',
   },
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
@@ -701,6 +763,7 @@ const locales = {
     POST_ALL: 'Alles plaatsen',
     QUOTE_TWEET: 'Citeer Tweet',
     QUOTE_TWEETS: 'Geciteerde Tweets',
+    REPOST: 'Repost',
     RETWEET: 'Retweeten',
     RETWEETED_BY: 'Geretweet door',
     SHARED_TWEETS: 'Gedeelde Tweets',
@@ -710,6 +773,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Retweets inschakelen',
     TWEET: 'Tweeten',
     TWEET_ALL: 'Alles tweeten',
+    TWEET_YOUR_REPLY: 'Tweet je antwoord!',
   },
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
@@ -718,6 +782,7 @@ const locales = {
     POST_ALL: 'Opublikuj wszystko',
     QUOTE_TWEET: 'Cytuj Tweeta',
     QUOTE_TWEETS: 'Cytaty z Tweeta',
+    REPOST: 'Podaj dalej wpis',
     REPOSTS: 'Wpisy podane dalej',
     RETWEET: 'Podaj dalej',
     RETWEETED_BY: 'Podane dalej przez',
@@ -728,6 +793,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Wyłącz Tweety podane dalej',
     TURN_ON_RETWEETS: 'Włącz Tweety podane dalej',
     TWEET_ALL: 'Tweetnij wszystko',
+    TWEET_YOUR_REPLY: 'Wyślij Tweeta z odpowiedzią!',
   },
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
@@ -736,6 +802,7 @@ const locales = {
     POST_ALL: 'Postar tudo',
     QUOTE_TWEET: 'Comentar o Tweet',
     QUOTE_TWEETS: 'Tweets com comentário',
+    REPOST: 'Repostar',
     RETWEET: 'Retweetar',
     RETWEETED_BY: 'Retweetado por',
     SHARED_TWEETS: 'Tweets Compartilhados',
@@ -745,6 +812,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Ativar Retweets',
     TWEET: 'Tweetar',
     TWEET_ALL: 'Tweetar tudo',
+    TWEET_YOUR_REPLY: 'Tweetar sua resposta!',
   },
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
@@ -753,6 +821,7 @@ const locales = {
     POST_ALL: 'Postează tot',
     QUOTE_TWEET: 'Citează Tweetul',
     QUOTE_TWEETS: 'Tweeturi cu citat',
+    REPOST: 'Repostează',
     REPOSTS: 'Repostări',
     RETWEET: 'Redistribuie',
     RETWEETED_BY: 'Redistribuit de către',
@@ -763,6 +832,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Dezactivează Retweeturile',
     TURN_ON_RETWEETS: 'Activează Retweeturile',
     TWEET_ALL: 'Dă Tweeturi cu tot',
+    TWEET_YOUR_REPLY: 'Dă Tweet cu răspunsul!',
   },
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
@@ -771,6 +841,7 @@ const locales = {
     POST_ALL: 'Опубликовать все',
     QUOTE_TWEET: 'Цитировать',
     QUOTE_TWEETS: 'Твиты с цитатами',
+    REPOST: 'Сделать репост',
     REPOSTS: 'Репосты',
     RETWEET: 'Ретвитнуть',
     RETWEETED_BY: 'Ретвитнул(а)',
@@ -782,6 +853,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Включить ретвиты',
     TWEET: 'Твитнуть',
     TWEET_ALL: 'Твитнуть все',
+    TWEET_YOUR_REPLY: 'Твитните свой ответ!',
     TWITTER: 'Твиттер',
   },
   sk: {
@@ -791,6 +863,7 @@ const locales = {
     POST_ALL: 'Uverejniť všetko',
     QUOTE_TWEET: 'Tweet s citátom',
     QUOTE_TWEETS: 'Tweety s citátom',
+    REPOST: 'Opätovné uverejnenie',
     REPOSTS: 'Opätovné uverejnenia',
     RETWEET: 'Retweetnuť',
     RETWEETED_BY: 'Retweetnuté používateľom',
@@ -802,6 +875,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Zapnúť retweety',
     TWEET: 'Tweetnuť',
     TWEET_ALL: 'Tweetnuť všetko',
+    TWEET_YOUR_REPLY: 'Tweetnite odpoveď!',
   },
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
@@ -810,6 +884,7 @@ const locales = {
     POST_ALL: 'Објави све',
     QUOTE_TWEET: 'твит са цитатом',
     QUOTE_TWEETS: 'твит(ов)а са цитатом',
+    REPOST: 'Поново објави',
     REPOSTS: 'Понвне објаве',
     RETWEET: 'Ретвитуј',
     RETWEETED_BY: 'Ретвитовано од стране',
@@ -821,6 +896,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Укључи ретвитове',
     TWEET: 'Твитуј',
     TWEET_ALL: 'Твитуј све',
+    TWEET_YOUR_REPLY: 'Твитуј свој одговор!',
     TWITTER: 'Твитер',
   },
   sv: {
@@ -830,6 +906,7 @@ const locales = {
     POST_ALL: 'Lägg upp allt',
     QUOTE_TWEET: 'Citera Tweet',
     QUOTE_TWEETS: 'Citat-tweets',
+    REPOST: 'Återpublicera',
     REPOSTS: 'Återpubliceringar',
     RETWEET: 'Retweeta',
     RETWEETED_BY: 'Retweetad av',
@@ -840,6 +917,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Slå på Retweets',
     TWEET: 'Tweeta',
     TWEET_ALL: 'Tweeta allt',
+    TWEET_YOUR_REPLY: 'Tweeta ditt svar!',
   },
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
@@ -848,6 +926,7 @@ const locales = {
     POST_ALL: 'எல்லாம் இடுகையிடு',
     QUOTE_TWEET: 'ட்விட்டை மேற்கோள் காட்டு',
     QUOTE_TWEETS: 'மேற்கோள் கீச்சுகள்',
+    REPOST: 'மறுஇடுகை',
     REPOSTS: 'மறுஇடுகைகள்',
     RETWEET: 'மறுட்விட் செய்',
     RETWEETED_BY: 'இவரால் மறுட்விட் செய்யப்பட்டது',
@@ -859,6 +938,7 @@ const locales = {
     TURN_ON_RETWEETS: 'மறுகீச்சுகளை இயக்கு',
     TWEET: 'ட்விட் செய்',
     TWEET_ALL: 'அனைத்தையும் ட்விட் செய்',
+    TWEET_YOUR_REPLY: 'உங்கள் பதிலை ட்விட் செய்யவும்!',
   },
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
@@ -867,6 +947,7 @@ const locales = {
     POST_ALL: 'โพสต์ทั้งหมด',
     QUOTE_TWEET: 'อ้างอิงทวีต',
     QUOTE_TWEETS: 'ทวีตและคำพูด',
+    REPOST: 'รีโพสต์',
     REPOSTS: 'รีโพสต์',
     RETWEET: 'รีทวีต',
     RETWEETED_BY: 'ถูกรีทวีตโดย',
@@ -878,6 +959,7 @@ const locales = {
     TURN_ON_RETWEETS: 'เปิดรีทวีต',
     TWEET: 'ทวีต',
     TWEET_ALL: 'ทวีตทั้งหมด',
+    TWEET_YOUR_REPLY: 'ทวีตการตอบกลับของคุณ',
     TWITTER: 'ทวิตเตอร์',
   },
   tr: {
@@ -887,6 +969,7 @@ const locales = {
     POST_ALL: 'Tümünü gönder',
     QUOTE_TWEET: 'Tweeti Alıntıla',
     QUOTE_TWEETS: 'Alıntı Tweetler',
+    REPOST: 'Yeniden gönder',
     REPOSTS: 'Yeniden gönderiler',
     RETWEET: 'Retweet',
     RETWEETED_BY: 'Retweetleyen(ler):',
@@ -898,6 +981,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Retweetleri aç',
     TWEET: 'Tweetle',
     TWEET_ALL: 'Hepsini Tweetle',
+    TWEET_YOUR_REPLY: 'Yanıtını Tweetle.',
   },
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
@@ -906,6 +990,7 @@ const locales = {
     POST_ALL: 'Опублікувати все',
     QUOTE_TWEET: 'Цитувати твіт',
     QUOTE_TWEETS: 'Цитовані твіти',
+    REPOST: 'Зробити репост',
     REPOSTS: 'Репости',
     RETWEET: 'Ретвітнути',
     RETWEETED_BY: 'Ретвіти',
@@ -917,6 +1002,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Увімкнути ретвіти',
     TWEET: 'Твіт',
     TWEET_ALL: 'Твітнути все',
+    TWEET_YOUR_REPLY: 'Твітніть свою відповідь!',
     TWITTER: 'Твіттер',
   },
   ur: {
@@ -926,6 +1012,7 @@ const locales = {
     POST_ALL: 'Post all',
     QUOTE_TWEET: 'ٹویٹ کا حوالہ دیں',
     QUOTE_TWEETS: 'ٹویٹ کو نقل کرو',
+    REPOST: 'Repost',
     RETWEET: 'ریٹویٹ',
     RETWEETED_BY: 'جنہوں نے ریٹویٹ کیا',
     RETWEETS: 'ریٹویٹس',
@@ -936,6 +1023,7 @@ const locales = {
     TURN_ON_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
     TWEET: 'ٹویٹ',
     TWEET_ALL: 'سب کو ٹویٹ کریں',
+    TWEET_YOUR_REPLY: 'Tweet your reply!',
     TWITTER: 'ٹوئٹر',
   },
   vi: {
@@ -945,6 +1033,7 @@ const locales = {
     POST_ALL: 'Đăng tất cả',
     QUOTE_TWEET: 'Trích dẫn Tweet',
     QUOTE_TWEETS: 'Tweet trích dẫn',
+    REPOST: 'Đăng lại',
     REPOSTS: 'Bài đăng lại',
     RETWEET: 'Tweet lại',
     RETWEETED_BY: 'Được Tweet lại bởi',
@@ -955,6 +1044,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Tắt Tweet lại',
     TURN_ON_RETWEETS: 'Bật Tweet lại',
     TWEET_ALL: 'Đăng Tweet tất cả',
+    TWEET_YOUR_REPLY: 'Đăng Tweet câu trả lời của bạn!',
   },
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
@@ -963,6 +1053,7 @@ const locales = {
     POST_ALL: '全部發佈',
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用的推文',
+    REPOST: '轉發',
     REPOSTS: '轉發',
     RETWEET: '轉推',
     RETWEETED_BY: '已被轉推',
@@ -974,6 +1065,7 @@ const locales = {
     TURN_ON_RETWEETS: '開啟轉推',
     TWEET: '推文',
     TWEET_ALL: '推全部內容',
+    TWEET_YOUR_REPLY: '推你的回覆！',
   },
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
@@ -982,6 +1074,7 @@ const locales = {
     POST_ALL: '全部发帖',
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用推文',
+    REPOST: '转帖',
     REPOSTS: '转帖',
     RETWEET: '转推',
     RETWEETED_BY: '转推者',
@@ -993,6 +1086,7 @@ const locales = {
     TURN_ON_RETWEETS: '开启转推',
     TWEET: '推文',
     TWEET_ALL: '全部发推',
+    TWEET_YOUR_REPLY: '发布你的回复！',
   },
 }
 
@@ -3227,6 +3321,19 @@ function handlePopup($popup) {
     }
   }
 
+  if (config.replaceLogo) {
+    let $retweetDropdownItem = $popup.querySelector('div:is([data-testid="retweetConfirm"], [data-testid="repostConfirm"])')
+    if ($retweetDropdownItem) {
+      tweakRetweetsDropdown($retweetDropdownItem)
+      return {tookAction: true}
+    }
+
+    let $hoverLabel = $popup.querySelector('span[data-testid="HoverLabel"] > span')
+    if ($hoverLabel?.textContent == getString('REPOST')) {
+      $hoverLabel.textContent = getString('RETWEET')
+    }
+  }
+
   if (isOnListPage()) {
     let $switchSvg = $popup.querySelector(`svg path[d^="M12 3.75c-4.56 0-8.25 3.69-8.25 8.25s"]`)
     if ($switchSvg) {
@@ -3760,6 +3867,13 @@ function onIndividualTweetTimelineChange($timeline) {
       if (currentText != getString('RETWEETS') && currentText != getString('RETWEET')) {
         $retweetsText.textContent = getString(currentText == getString('REPOSTS') ? 'RETWEETS' : 'RETWEET')
       }
+    }
+
+    // TODO Observe .DraftEditor-root while focused tweet is visible
+    //      .public-DraftEditorPlaceholder-root gets removed and re-added when you enter and clear text
+    let $placeholder = $focusedTweet.parentElement.querySelector('.public-DraftEditorPlaceholder-inner')
+    if ($placeholder) {
+      $placeholder.textContent = getString('TWEET_YOUR_REPLY')
     }
   }
 
@@ -4530,10 +4644,39 @@ function tweakProfilePage() {
   }
 }
 
-function tweakQuoteTweetsPage() {
+async function tweakQuoteTweetsPage() {
   if (config.twitterBlueChecks != 'ignore') {
     observeTimeline(currentPage)
   }
+  if (config.replaceLogo) {
+    let $headingText = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`, {
+      name: 'quote tweets heading',
+      stopIf: pageIsNot(currentPage)
+    })
+    if ($headingText) {
+      $headingText.textContent = getString('QUOTE_TWEETS')
+    }
+  }
+}
+
+async function tweakRetweetsDropdown($retweetDropdownItem) {
+  log('tweaking Retweet/Quote Tweet dropdown')
+
+  if (desktop) {
+    $retweetDropdownItem = await getElement(`
+      #layers div[data-testid="Dropdown"] div:is([data-testid="retweetConfirm"], [data-testid="repostConfirm"]
+    `, {
+      name: 'rendered Retweet menu item',
+      timeout: 100,
+    })
+    if (!$retweetDropdownItem) return
+  }
+
+  let $retweetText = $retweetDropdownItem.querySelector('div[dir] > span')
+  if ($retweetText) $retweetText.textContent = getString('RETWEET')
+
+  let $quoteTweetText = $retweetDropdownItem.nextElementSibling?.querySelector('div[dir] > span')
+  if ($quoteTweetText) $quoteTweetText.textContent = getString('QUOTE_TWEET')
 }
 
 async function tweakUserModalTimelineHeading(initialPath) {
