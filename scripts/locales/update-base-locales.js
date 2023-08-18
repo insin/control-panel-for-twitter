@@ -28,11 +28,22 @@ for (let file of fs.readdirSync(localesDir)) {
   let localeCode = file.split('.')[0]
   let locale = locales[localeCode]
   let src = fs.readFileSync(path.join(localesDir, file), {encoding: 'utf8'})
-  let match = src.match(new RegExp(`"${code}","([^"]+)"`))
-  if (match) {
-    locale[key] = match[1]
+  if (code == 'h99e9c95') {
+    let match = src.match(
+      new RegExp(`"${code}",get:function\\(\\)\\{return([^}]+)`)
+    )
+    if (match) {
+      locale[key] = JSON.parse(match[1])
+    } else {
+      console.log('no match', {file, key, code})
+    }
   } else {
-    console.log('no match', {file, key, code})
+    let match = src.match(new RegExp(`"${code}","([^"]+)"`))
+    if (match) {
+      locale[key] = match[1]
+    } else {
+      console.log('no match', {file, key, code})
+    }
   }
   locales[localeCode] = sortProperties(locale)
 }

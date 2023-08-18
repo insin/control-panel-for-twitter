@@ -3,6 +3,9 @@
     "QUOTE_TWEET": "اقتباس التغريدة",
     "QUOTE_TWEETS": "تغريدات اقتباس",
     "RETWEET": "إعادة التغريد",
+    "RETWEETED": [
+      "أعادت التغريد "
+    ],
     "RETWEETED_BY": "مُعاد تغريدها بواسطة",
     "RETWEETS": "إعادات التغريد",
     "SHARED_TWEETS": "التغريدات المشتركة",
@@ -17,6 +20,9 @@
     "QUOTE_TWEET": "اقتباس التغريدة",
     "QUOTE_TWEETS": "تغريدات اقتباس",
     "RETWEET": "إعادة التغريد",
+    "RETWEETED": [
+      "أعاد التغريد "
+    ],
     "RETWEETED_BY": "مُعاد تغريدها بواسطة",
     "RETWEETS": "إعادات التغريد",
     "SHARED_TWEETS": "التغريدات المشتركة",
@@ -30,6 +36,10 @@
     "QUOTE_TWEET": "Цитиране на туита",
     "QUOTE_TWEETS": "Туитове с цитат",
     "RETWEET": "Ретуитване",
+    "RETWEETED": [
+      "",
+      " ретуитна"
+    ],
     "RETWEETED_BY": "Ретуитнат от",
     "RETWEETS": "Ретуитове",
     "SHARED_TWEETS": "Споделени туитове",
@@ -43,6 +53,10 @@
     "QUOTE_TWEET": "টুইট উদ্ধৃত করুন",
     "QUOTE_TWEETS": "টুইট উদ্ধৃতিগুলো",
     "RETWEET": "পুনঃটুইট",
+    "RETWEETED": [
+      "",
+      " দ্বারা পুনঃ টুইটকৃত"
+    ],
     "RETWEETED_BY": "পুনঃ টুইট করেছেন",
     "RETWEETS": "পুনঃটুইটগুলো",
     "SHARED_TWEETS": "ভাগ করা টুইটগুলি",
@@ -57,6 +71,10 @@
     "QUOTE_TWEET": "Cita el tuit",
     "QUOTE_TWEETS": "Tuits amb cita",
     "RETWEET": "Retuit",
+    "RETWEETED": [
+      "",
+      " ha retuitat"
+    ],
     "RETWEETED_BY": "Retuitat per",
     "RETWEETS": "Retuits",
     "SHARED_TWEETS": "Tuits compartits",
@@ -70,6 +88,10 @@
     "QUOTE_TWEET": "Citovat Tweet",
     "QUOTE_TWEETS": "Tweety s citací",
     "RETWEET": "Retweetnout",
+    "RETWEETED": [
+      "Uživatel ",
+      " retweetnul"
+    ],
     "RETWEETED_BY": "Retweetnuto uživateli",
     "RETWEETS": "Retweety",
     "SHARED_TWEETS": "Sdílené tweety",
@@ -83,6 +105,10 @@
     "QUOTE_TWEET": "Citér Tweet",
     "QUOTE_TWEETS": "Citat-Tweets",
     "RETWEET": "Retweet",
+    "RETWEETED": [
+      "",
+      " retweetede"
+    ],
     "RETWEETED_BY": "Retweetet af",
     "SHARED_TWEETS": "Delte tweets",
     "TURN_OFF_RETWEETS": "Slå Retweets fra",
@@ -94,6 +120,10 @@
     "QUOTE_TWEET": "Tweet zitieren",
     "QUOTE_TWEETS": "Zitierte Tweets",
     "RETWEET": "Retweeten",
+    "RETWEETED": [
+      "",
+      " hat retweetet"
+    ],
     "RETWEETED_BY": "Retweetet von",
     "SHARED_TWEETS": "Geteilte Tweets",
     "TURN_OFF_RETWEETS": "Retweets ausschalten",
@@ -106,6 +136,10 @@
     "QUOTE_TWEET": "Παράθεση Tweet",
     "QUOTE_TWEETS": "Tweet με παράθεση",
     "RETWEET": "Retweet",
+    "RETWEETED": [
+      "Ο χρήστης ",
+      " έκανε Retweet"
+    ],
     "RETWEETED_BY": "Έγινε Retweet από",
     "RETWEETS": "Retweet",
     "SHARED_TWEETS": "Κοινόχρηστα Tweets",
@@ -118,6 +152,10 @@
     "QUOTE_TWEET": "Quote Tweet",
     "QUOTE_TWEETS": "Quote Tweets",
     "RETWEET": "Retweet",
+    "RETWEETED": [
+      "",
+      " Retweeted"
+    ],
     "RETWEETED_BY": "Retweeted by",
     "RETWEETS": "Retweets",
     "SHARED_TWEETS": "Shared Tweets",
@@ -132,6 +170,10 @@
     "QUOTE_TWEET": "Citar Tweet",
     "QUOTE_TWEETS": "Tweets citados",
     "RETWEET": "Retwittear",
+    "RETWEETED": [
+      "",
+      " retwitteó"
+    ],
     "RETWEETED_BY": "Retwitteado por",
     "SHARED_TWEETS": "Tweets compartidos",
     "TURN_OFF_RETWEETS": "Desactivar Retweets",
@@ -144,6 +186,10 @@
     "QUOTE_TWEET": "Txioa apaitu",
     "QUOTE_TWEETS": "Aipatu txioak",
     "RETWEET": "Bertxiotu",
+    "RETWEETED": [
+      "",
+      " erabiltzaileak bertxiotu du"
+    ],
     "RETWEETED_BY": "Bertxiotua:",
     "RETWEETS": "Bertxioak",
     "SHARED_TWEETS": "Partekatutako",
@@ -157,6 +203,10 @@
     "QUOTE_TWEET": "نقل‌توییت",
     "QUOTE_TWEETS": "نقل‌توییت‌ها",
     "RETWEET": "بازتوییت",
+    "RETWEETED": [
+      "",
+      " بازتوییت کرد"
+    ],
     "RETWEETED_BY": "بازتوییت‌ شد توسط",
     "RETWEETS": "بازتوییت‌ها",
     "SHARED_TWEETS": "توییتهای مشترک",
@@ -171,6 +221,10 @@
     "QUOTE_TWEET": "Twiitin lainaus",
     "QUOTE_TWEETS": "Twiitin lainaukset",
     "RETWEET": "Uudelleentwiittaa",
+    "RETWEETED": [
+      "",
+      " uudelleentwiittasi"
+    ],
     "RETWEETED_BY": "Uudelleentwiitannut",
     "RETWEETS": "Uudelleentwiittaukset",
     "SHARED_TWEETS": "Jaetut twiitit",
@@ -184,6 +238,9 @@
     "QUOTE_TWEET": "Quote na Tweet",
     "QUOTE_TWEETS": "Mga Quote na Tweet",
     "RETWEET": "I-retweet",
+    "RETWEETED": [
+      "Ni-retweet ni "
+    ],
     "RETWEETED_BY": "Ni-retweet ni",
     "RETWEETS": "Mga Retweet",
     "SHARED_TWEETS": "Mga Ibinahaging Tweet",
@@ -197,6 +254,10 @@
     "QUOTE_TWEET": "Citer le Tweet",
     "QUOTE_TWEETS": "Tweets cités",
     "RETWEET": "Retweeter",
+    "RETWEETED": [
+      "",
+      " a retweeté"
+    ],
     "RETWEETED_BY": "Retweeté par",
     "SHARED_TWEETS": "Tweets partagés",
     "TURN_OFF_RETWEETS": "Désactiver les Retweets",
@@ -209,6 +270,10 @@
     "QUOTE_TWEET": "Cuir Ráiteas Leis",
     "QUOTE_TWEETS": "Luaigh Tvuíteanna",
     "RETWEET": "Atweetáil",
+    "RETWEETED": [
+      "Rinne ",
+      " Atweetáil"
+    ],
     "RETWEETED_BY": "Atweetáilte ag",
     "RETWEETS": "Atweetanna",
     "SHARED_TWEETS": "Tweetanna Roinnte",
@@ -221,6 +286,10 @@
     "QUOTE_TWEET": "Citar chío",
     "QUOTE_TWEETS": "Chíos citados",
     "RETWEET": "Rechouchiar",
+    "RETWEETED": [
+      "",
+      " rechouchiou"
+    ],
     "RETWEETED_BY": "Rechouchiado por",
     "RETWEETS": "Rechouchíos",
     "SHARED_TWEETS": "Chíos compartidos",
@@ -234,6 +303,10 @@
     "QUOTE_TWEET": "અવતરણની સાથે ટ્વીટ કરો",
     "QUOTE_TWEETS": "અવતરણની સાથે ટ્વીટ્સ",
     "RETWEET": "પુનટ્વીટ",
+    "RETWEETED": [
+      "",
+      "એ પુનટ્વીટ કરી"
+    ],
     "RETWEETED_BY": "આમની દ્વારા પુનટ્વીટ કરવામાં આવી",
     "RETWEETS": "પુનટ્વીટ્સ",
     "SHARED_TWEETS": "શેર કરેલી ટ્વીટ્સ",
@@ -247,6 +320,10 @@
     "QUOTE_TWEET": "ציטוט ציוץ",
     "QUOTE_TWEETS": "ציוצי ציטוט",
     "RETWEET": "צייץ מחדש",
+    "RETWEETED": [
+      "",
+      " צייץ מחדש"
+    ],
     "RETWEETED_BY": "צויץ מחדש על־ידי",
     "RETWEETS": "ציוצים מחדש",
     "SHARED_TWEETS": "ציוצים משותפים",
@@ -261,6 +338,10 @@
     "QUOTE_TWEET": "ट्वीट क्वोट करें",
     "QUOTE_TWEETS": "कोट ट्वीट्स",
     "RETWEET": "रीट्वीट करें",
+    "RETWEETED": [
+      "",
+      " ने रीट्वीट किया"
+    ],
     "RETWEETED_BY": "इनके द्वारा रीट्वीट किया गया",
     "RETWEETS": "रीट्वीट्स",
     "SHARED_TWEETS": "साझा किए गए ट्वीट",
@@ -274,6 +355,10 @@
     "QUOTE_TWEET": "Citiraj Tweet",
     "QUOTE_TWEETS": "Citirani tweetovi",
     "RETWEET": "Proslijedi tweet",
+    "RETWEETED": [
+      "",
+      " proslijedio/la je Tweet"
+    ],
     "RETWEETED_BY": "Korisnici koji su proslijedili Tweet",
     "RETWEETS": "Proslijeđeni tweetovi",
     "SHARED_TWEETS": "Dijeljeni tweetovi",
@@ -286,6 +371,10 @@
     "QUOTE_TWEET": "Tweet idézése",
     "QUOTE_TWEETS": "Tweet-idézések",
     "RETWEET": "Retweet",
+    "RETWEETED": [
+      "",
+      " Retweetelte"
+    ],
     "RETWEETED_BY": "Retweetelte",
     "RETWEETS": "Retweetek",
     "SHARED_TWEETS": "Megosztott tweetek",
@@ -299,6 +388,10 @@
     "QUOTE_TWEET": "Kutip Tweet",
     "QUOTE_TWEETS": "Tweet Kutipan",
     "RETWEET": "Retweet",
+    "RETWEETED": [
+      "",
+      " me-retweet"
+    ],
     "RETWEETED_BY": "Di-retweet oleh",
     "RETWEETS": "Retweet",
     "SHARED_TWEETS": "Tweet yang Dibagikan",
@@ -311,6 +404,9 @@
     "QUOTE_TWEET": "Cita Tweet",
     "QUOTE_TWEETS": "Tweet di citazione",
     "RETWEET": "Ritwitta",
+    "RETWEETED": [
+      "Ritwittato da "
+    ],
     "RETWEETED_BY": "Ritwittato da",
     "RETWEETS": "Retweet",
     "SHARED_TWEETS": "Tweet condivisi",
@@ -324,6 +420,10 @@
     "QUOTE_TWEET": "引用ツイート",
     "QUOTE_TWEETS": "引用ツイート",
     "RETWEET": "リツイート",
+    "RETWEETED": [
+      "",
+      "さんがリツイートしました"
+    ],
     "RETWEETED_BY": "リツイートしたユーザー",
     "RETWEETS": "リツイート",
     "SHARED_TWEETS": "共有ツイート",
@@ -337,6 +437,10 @@
     "QUOTE_TWEET": "ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ",
     "QUOTE_TWEETS": "ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು",
     "RETWEET": "ಮರುಟ್ವೀಟಿಸಿ",
+    "RETWEETED": [
+      "",
+      " ಮರುಟ್ವೀಟಿಸಿದ್ದಾರೆ"
+    ],
     "RETWEETED_BY": "ಮರುಟ್ವೀಟಿಸಿದವರು",
     "RETWEETS": "ಮರುಟ್ವೀಟ್‌ಗಳು",
     "SHARED_TWEETS": "ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು",
@@ -350,6 +454,10 @@
     "QUOTE_TWEET": "트윗 인용하기",
     "QUOTE_TWEETS": "트윗 인용하기",
     "RETWEET": "리트윗",
+    "RETWEETED": [
+      "",
+      " 님이 리트윗했습니다"
+    ],
     "RETWEETED_BY": "리트윗함",
     "RETWEETS": "리트윗",
     "SHARED_TWEETS": "공유 트윗",
@@ -364,6 +472,10 @@
     "QUOTE_TWEET": "ट्विट वर भाष्य करा",
     "QUOTE_TWEETS": "भाष्य ट्विट्स",
     "RETWEET": "पुन्हा ट्विट",
+    "RETWEETED": [
+      "",
+      " यांनी पुन्हा ट्विट केले"
+    ],
     "RETWEETED_BY": "यांनी पुन्हा ट्विट केले",
     "RETWEETS": "पुनर्ट्विट्स",
     "SHARED_TWEETS": "सामायिक ट्विट",
@@ -377,6 +489,10 @@
     "QUOTE_TWEET": "Petik Tweet",
     "QUOTE_TWEETS": "Tweet Petikan",
     "RETWEET": "Tweet semula",
+    "RETWEETED": [
+      "",
+      " Tweet semula"
+    ],
     "RETWEETED_BY": "Ditweet semula oleh",
     "RETWEETS": "Tweet semula",
     "SHARED_TWEETS": "Tweet Berkongsi",
@@ -389,6 +505,10 @@
     "QUOTE_TWEET": "Sitat-Tweet",
     "QUOTE_TWEETS": "Sitat-Tweets",
     "RETWEET": "Retweet",
+    "RETWEETED": [
+      "",
+      " retweetet"
+    ],
     "RETWEETED_BY": "Retweetet av",
     "SHARED_TWEETS": "Delte tweets",
     "TURN_OFF_RETWEETS": "Slå av Retweets",
@@ -400,6 +520,10 @@
     "QUOTE_TWEET": "Citeer Tweet",
     "QUOTE_TWEETS": "Geciteerde Tweets",
     "RETWEET": "Retweeten",
+    "RETWEETED": [
+      "",
+      " heeft geretweet"
+    ],
     "RETWEETED_BY": "Geretweet door",
     "SHARED_TWEETS": "Gedeelde Tweets",
     "TURN_OFF_RETWEETS": "Retweets uitschakelen",
@@ -412,6 +536,10 @@
     "QUOTE_TWEET": "Cytuj Tweeta",
     "QUOTE_TWEETS": "Cytaty z Tweeta",
     "RETWEET": "Podaj dalej",
+    "RETWEETED": [
+      "",
+      " podał/a dalej Tweeta"
+    ],
     "RETWEETED_BY": "Podane dalej przez",
     "RETWEETS": "Tweety podane dalej",
     "SHARED_TWEETS": "Udostępnione Tweety",
@@ -424,6 +552,10 @@
     "QUOTE_TWEET": "Comentar o Tweet",
     "QUOTE_TWEETS": "Tweets com comentário",
     "RETWEET": "Retweetar",
+    "RETWEETED": [
+      "",
+      " Retweetou"
+    ],
     "RETWEETED_BY": "Retweetado por",
     "SHARED_TWEETS": "Tweets Compartilhados",
     "TURN_OFF_RETWEETS": "Desativar Retweets",
@@ -436,6 +568,10 @@
     "QUOTE_TWEET": "Citează Tweetul",
     "QUOTE_TWEETS": "Tweeturi cu citat",
     "RETWEET": "Redistribuie",
+    "RETWEETED": [
+      "",
+      " a redistribuit"
+    ],
     "RETWEETED_BY": "Redistribuit de către",
     "RETWEETS": "Retweeturi",
     "SHARED_TWEETS": "Tweeturi partajate",
@@ -448,6 +584,10 @@
     "QUOTE_TWEET": "Цитировать",
     "QUOTE_TWEETS": "Твиты с цитатами",
     "RETWEET": "Ретвитнуть",
+    "RETWEETED": [
+      "",
+      " ретвитнул(а)"
+    ],
     "RETWEETED_BY": "Ретвитнул(а)",
     "RETWEETS": "Ретвиты",
     "SHARED_TWEETS": "Общие твиты",
@@ -462,6 +602,9 @@
     "QUOTE_TWEET": "Tweet s citátom",
     "QUOTE_TWEETS": "Tweety s citátom",
     "RETWEET": "Retweetnuť",
+    "RETWEETED": [
+      "Retweetol používateľ "
+    ],
     "RETWEETED_BY": "Retweetnuté používateľom",
     "RETWEETS": "Retweety",
     "SHARED_TWEETS": "Zdieľané Tweety",
@@ -475,6 +618,10 @@
     "QUOTE_TWEET": "твит са цитатом",
     "QUOTE_TWEETS": "твит(ов)а са цитатом",
     "RETWEET": "Ретвитуј",
+    "RETWEETED": [
+      "",
+      " је ретвитовао/ла"
+    ],
     "RETWEETED_BY": "Ретвитовано од стране",
     "RETWEETS": "Ретвитови",
     "SHARED_TWEETS": "Дељени твитови",
@@ -489,6 +636,10 @@
     "QUOTE_TWEET": "Citera Tweet",
     "QUOTE_TWEETS": "Citat-tweets",
     "RETWEET": "Retweeta",
+    "RETWEETED": [
+      "",
+      " retweetade"
+    ],
     "RETWEETED_BY": "Retweetad av",
     "SHARED_TWEETS": "Delade tweetsen",
     "TURN_OFF_RETWEETS": "Stäng av Retweets",
@@ -501,6 +652,10 @@
     "QUOTE_TWEET": "ட்விட்டை மேற்கோள் காட்டு",
     "QUOTE_TWEETS": "மேற்கோள் கீச்சுகள்",
     "RETWEET": "மறுட்விட் செய்",
+    "RETWEETED": [
+      "",
+      " மறுட்வீட் செய்துள்ளார்"
+    ],
     "RETWEETED_BY": "இவரால் மறுட்விட் செய்யப்பட்டது",
     "RETWEETS": "மறுகீச்சுகள்",
     "SHARED_TWEETS": "பகிரப்பட்ட ட்வீட்டுகள்",
@@ -514,6 +669,10 @@
     "QUOTE_TWEET": "อ้างอิงทวีต",
     "QUOTE_TWEETS": "ทวีตและคำพูด",
     "RETWEET": "รีทวีต",
+    "RETWEETED": [
+      "",
+      " ได้รีทวีต"
+    ],
     "RETWEETED_BY": "ถูกรีทวีตโดย",
     "RETWEETS": "รีทวีต",
     "SHARED_TWEETS": "ทวีตที่แชร์",
@@ -528,6 +687,10 @@
     "QUOTE_TWEET": "Tweeti Alıntıla",
     "QUOTE_TWEETS": "Alıntı Tweetler",
     "RETWEET": "Retweet",
+    "RETWEETED": [
+      "",
+      " Retweetledi"
+    ],
     "RETWEETED_BY": "Retweetleyen(ler):",
     "RETWEETS": "Retweetler",
     "SHARED_TWEETS": "Paylaşılan Tweetler",
@@ -541,6 +704,10 @@
     "QUOTE_TWEET": "Цитувати твіт",
     "QUOTE_TWEETS": "Цитовані твіти",
     "RETWEET": "Ретвітнути",
+    "RETWEETED": [
+      "",
+      " ретвітнув(ла)"
+    ],
     "RETWEETED_BY": "Ретвіти",
     "RETWEETS": "Ретвіти",
     "SHARED_TWEETS": "Спільні твіти",
@@ -555,6 +722,10 @@
     "QUOTE_TWEET": "ٹویٹ کا حوالہ دیں",
     "QUOTE_TWEETS": "ٹویٹ کو نقل کرو",
     "RETWEET": "ریٹویٹ",
+    "RETWEETED": [
+      "",
+      " نے ریٹویٹ کیا"
+    ],
     "RETWEETED_BY": "جنہوں نے ریٹویٹ کیا",
     "RETWEETS": "ریٹویٹس",
     "SHARED_TWEETS": "مشترکہ ٹویٹس",
@@ -569,6 +740,10 @@
     "QUOTE_TWEET": "Trích dẫn Tweet",
     "QUOTE_TWEETS": "Tweet trích dẫn",
     "RETWEET": "Tweet lại",
+    "RETWEETED": [
+      "",
+      " đã Tweet lại"
+    ],
     "RETWEETED_BY": "Được Tweet lại bởi",
     "RETWEETS": "Các Tweet lại",
     "SHARED_TWEETS": "Tweet được chia sẻ",
@@ -581,6 +756,10 @@
     "QUOTE_TWEET": "引用推文",
     "QUOTE_TWEETS": "引用的推文",
     "RETWEET": "轉推",
+    "RETWEETED": [
+      "",
+      " 已轉推"
+    ],
     "RETWEETED_BY": "已被轉推",
     "RETWEETS": "轉推",
     "SHARED_TWEETS": "分享的推文",
@@ -594,6 +773,10 @@
     "QUOTE_TWEET": "引用推文",
     "QUOTE_TWEETS": "引用推文",
     "RETWEET": "转推",
+    "RETWEETED": [
+      "",
+      " 已转推"
+    ],
     "RETWEETED_BY": "转推者",
     "RETWEETS": "转推",
     "SHARED_TWEETS": "分享的推文",

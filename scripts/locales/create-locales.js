@@ -10,6 +10,7 @@ let template = {
   MUTE_THIS_CONVERSATION: 'e2d6c17e',
   POST_ALL: 'ge8e4a38',
   REPOST: 'g062295e',
+  REPOSTED: 'fcd931ed',
   REPOSTS: 'ja42739e',
   SHOW: 'a0e81a2e',
   SHOW_MORE_REPLIES: 'c837fcaa',
@@ -31,6 +32,18 @@ for (let file of fs.readdirSync('./js')) {
   let locale = locales[localeCode]
   let src = fs.readFileSync(path.join('js', file), {encoding: 'utf8'})
   for (let [key, code] of Object.entries(template)) {
+    if (code == 'fcd931ed') {
+      let match = src.match(
+        new RegExp(`"${code}",get:function get\\(\\)\\{return([^;]+)`)
+      )
+      if (match) {
+        locale[key] = JSON.parse(match[1])
+      } else {
+        console.log('no match', {file, key, code})
+      }
+      continue
+    }
+
     let match = src.match(new RegExp(`"${code}","([^"]+)"`))
     if (match) {
       locale[key] = match[1]
