@@ -1200,8 +1200,9 @@ const Images = {
   TWITTER_PIP_FAVICON: 'data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALASURBVHgB7VZNchJBFP5eM9FoRWV2WiZmbmBuIJ4g5ASBRWJlRXIC4ASQVUqxCo4QTwDegJzAiYlFXM1YZWmVQD9fQ6YyAwMMGBZW8i2G6e7He1+/3wHuOih4+fWieJhiKsirA0ZbE44fXZUaWDIGBH4/L+UUUB897DMfPf5ermKJUOaRIhTiDlNEBSwZlnkwY2vCuYOEWD/xMrCoKC41utISRlcc3Or2dfnqwHbDcj9X0fbztn9DAHxOoM0xrZILSIBXtR9F0VGKbJIhz7kVi3Lr770yAz4p2iYm188/awVi6lo4Ns4mETEDLz94uTHjIxDDRaWoohhOSjwi/9mKEFjtlKsayAuRM7M2HmFJwCRVIIqLSAAJjS822v0Vaip1E1oKC6XrXtrExjnxnJ6ldoVKFj0+ujywW3FKTTzJoibmAXP+Yt9uBEsrfLbWRelJzS/0B8z4WoKa6zW/1dd83Hlnn0Z0peAQkqNHvNPZi+qIELBWUNU97LLJ4hDESMZSlNmo+b5UTEvC85m0JCipTQREE+BhdzypIwSkLvyn4LKYrEzQkSZCloiyw+xJbnygfxX+VAJrPWnBoC9ixBXdDm4XflD7YajIinFq3L0E45J7fBa3HyEg7mhgeWjPJODu223J/iMsATzhcmp04+ueXTW1OsiD2zIuVfNNLockBAyIkdaaPxHGs3YR0JTQWnGbWkFCQZX5imwCmBoX++nGpONYD1zu2S0a9IN/g3jSNcNnqsy0ww2ZdPJzCKLXWAAy1N6ay2BRAgEcGZ+aqDnaoqdbjw6dhQgYwz1S2xKOQyQ0Phy7vDPr5iH5ITY+elmtpddLFyQzZBTP3xGl3FJ95NzQJ1hiAgMSw5jnJOZvMA/EMBNKSW89kUAAp+45+g+yojRjljL9NoP4GxdLYzk334vy3lYP0HBjhsw97vHf4C/b8RLHAOr+CQAAAABJRU5ErkJggg==',
 }
 
+const THEME_BLUE = 'rgb(29, 155, 240)'
 const THEME_COLORS = new Set([
-  'rgb(29, 155, 240)', // blue
+  THEME_BLUE,
   'rgb(255, 212, 0)',  // yellow
   'rgb(244, 33, 46)',  // pink
   'rgb(120, 86, 255)', // purple
@@ -3169,13 +3170,14 @@ const configureThemeCss = (() => {
     }
 
     if (config.replaceLogo) {
+      let fill = themeColor || THEME_BLUE
       cssRules.push(`
         ${Selectors.X_LOGO_PATH} {
-          ${themeColor ? `fill: ${themeColor};` : ''}
+          fill: ${fill};
           d: path("${Svgs.TWITTER_LOGO_PATH}");
         }
         .tnt_logo {
-          ${themeColor ? `fill: ${themeColor};` : ''}
+          fill: ${fill};
         }
       `)
     }
@@ -4899,14 +4901,14 @@ async function main() {
       $loadingStyle = document.createElement('style')
       $loadingStyle.dataset.insertedBy = 'control-panel-for-twitter'
       $loadingStyle.dataset.role = 'loading-logo'
-      let logoThemeColor = themeColor || Array.from(THEME_COLORS)[0]
+      let fill = themeColor || THEME_BLUE
       $loadingStyle.textContent = dedent(`
         ${Selectors.X_LOGO_PATH} {
-          fill: ${isSafari ? 'transparent' : logoThemeColor};
+          fill: ${isSafari ? 'transparent' : fill};
           d: path("${Svgs.TWITTER_LOGO_PATH}");
         }
         .tnt_logo {
-          fill: ${logoThemeColor};
+          fill: ${fill};
         }
       `)
       $html.appendChild($loadingStyle)
