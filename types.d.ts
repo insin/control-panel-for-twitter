@@ -86,6 +86,7 @@ export type LocaleKey =
   | 'HOME'
   | 'MUTE_THIS_CONVERSATION'
   | 'POST_ALL'
+  | 'QUOTE'
   | 'QUOTE_TWEET'
   | 'QUOTE_TWEETS'
   | 'REPOST'

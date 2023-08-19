@@ -9,6 +9,7 @@ let template = {
   HOME: 'ha8209bc',
   MUTE_THIS_CONVERSATION: 'e2d6c17e',
   POST_ALL: 'ge8e4a38',
+  QUOTE: 'bb5c5864',
   REPOST: 'g062295e',
   REPOSTS: 'ja42739e',
   SHOW: 'a0e81a2e',
