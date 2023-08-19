@@ -6,7 +6,7 @@
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
 // @run-at      document-start
-// @version     128
+// @version     129
 // ==/UserScript==
 void function() {
 
@@ -3960,24 +3960,6 @@ function onIndividualTweetTimelineChange($timeline, options) {
 
   if (config.replaceLogo) {
     tweakFocusedTweet($focusedTweet, options)
-  }
-
-  if ($focusedTweet && config.replaceLogo) {
-    // TODO Observe this if it's singular to catch it moving to plural
-    let $retweetsText = $focusedTweet.querySelector('a:is([href$="/retweets"], [href$="/reposts"]) > span > span')
-    if ($retweetsText) {
-      let currentText = $retweetsText.textContent
-      if (currentText != getString('RETWEETS') && currentText != getString('RETWEET')) {
-        $retweetsText.textContent = getString(currentText == getString('REPOSTS') ? 'RETWEETS' : 'RETWEET')
-      }
-    }
-
-    // TODO Observe .DraftEditor-root while focused tweet is visible
-    //      .public-DraftEditorPlaceholder-root gets removed and re-added when you enter and clear text
-    let $placeholder = $focusedTweet.parentElement.querySelector('.public-DraftEditorPlaceholder-inner')
-    if ($placeholder) {
-      $placeholder.textContent = getString('TWEET_YOUR_REPLY')
-    }
   }
 
   log(
