@@ -4453,6 +4453,20 @@ async function tweakFocusedTweet($focusedTweet, options) {
       }
     }
 
+    if (mobile) {
+      let $textArea = /** @type {HTMLTextAreaElement} */ (await getElement('textarea', {
+        context: $focusedTweet.parentElement,
+        name: 'mobile textarea',
+        timeout: 500,
+      }))
+      if ($textArea) {
+        if ($textArea.placeholder != getString('TWEET_YOUR_REPLY')) {
+          $textArea.placeholder = getString('TWEET_YOUR_REPLY')
+        }
+        return
+      }
+    }
+
     if (!isObserving(observers, 'tweet editor')) {
       let $editorRoot = await getElement('.DraftEditor-root', {
         context: $focusedTweet.parentElement,
