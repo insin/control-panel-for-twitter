@@ -115,7 +115,7 @@ const config = {
 
 //#region Locales
 /**
- * @type {{[key: string]: import("./types").Locale}}
+ * @type {Record<string, import("./types").Locale>}
  */
 const locales = {
   'ar-x-fm': {
@@ -1294,7 +1294,7 @@ let observingPageChanges = false
 /**
  * MutationObservers active on the current page, or anything else we want to
  * clean up when the user moves off the current page.
- * @type {import("./types").Disconnectable[]}
+ * @type {import("./types").NamedMutationObserver[]}
  */
 let pageObservers = []
 
@@ -1462,15 +1462,14 @@ function dedent(str) {
 /**
  * @param {string} name
  * @param {import("./types").Disconnectable[]} observers
- * @param {string?} type
  */
-function disconnectObserver(name, observers, type = 'observer') {
+function disconnectObserver(name, observers) {
   for (let i = observers.length -1; i >= 0; i--) {
     let observer = observers[i]
     if ('name' in observer && observer.name == name) {
       observer.disconnect()
       observers.splice(i, 1)
-      log(`disconnected ${name} ${type}`)
+      log(`disconnected ${name} ${observers === pageObservers ? 'page' : 'modal'} observer`)
     }
   }
 }
@@ -1491,7 +1490,7 @@ function disconnectAllModalObservers() {
 }
 
 function disconnectPageObserver(name) {
-  disconnectObserver(name, pageObservers, 'page observer')
+  disconnectObserver(name, pageObservers)
 }
 
 /**
@@ -1580,6 +1579,14 @@ function getUserInfo() {
   return userInfo
 }
 
+/**
+ * @param {import("./types").Disconnectable[]} observers
+ * @param {string} name
+ */
+function isObserving(observers, name) {
+  return observers.some(observer => 'name' in observer && observer.name == name)
+}
+
 function log(...args) {
   if (debug) {
     console.log(`${currentPage ? `(${
@@ -1616,7 +1623,7 @@ function error(...args) {
  * @param {MutationObserverInit} options
  * @return {import("./types").NamedMutationObserver}
  */
-function observeElement($element, callback, name = '', options = {childList: true}) {
+function observeElement($element, callback, name, options = {childList: true}) {
   if (name) {
     if (options.childList && callback.length > 0) {
       log(`observing ${name}`, $element)
@@ -1908,7 +1915,7 @@ async function observeDesktopModalTimeline($popup) {
   function observeModalTimelineItems($timeline) {
     disconnectModalObserver('modal timeline')
     modalObservers.push(
-      observeElement($timeline, () => onIndividualTweetTimelineChange($timeline), 'modal timeline')
+      observeElement($timeline, () => onIndividualTweetTimelineChange($timeline, {observers: modalObservers}), 'modal timeline')
     )
 
     // If other media in the modal is clicked, the timeline is replaced.
@@ -1920,7 +1927,7 @@ async function observeDesktopModalTimeline($popup) {
             log('modal timeline replaced')
             disconnectModalObserver('modal timeline')
             modalObservers.push(
-              observeElement($newTimeline, () => onIndividualTweetTimelineChange($newTimeline), 'modal timeline')
+              observeElement($newTimeline, () => onIndividualTweetTimelineChange($newTimeline, {observers: modalObservers}), 'modal timeline')
             )
           })
         })
@@ -2224,7 +2231,6 @@ async function observeTimeline(page, options = {}) {
     isTabbed = false,
     onTabChanged = null,
     onTimelineAppeared = null,
-    onTimelineItemsChanged = onTimelineChange,
     tabbedTimelineContainerSelector = null,
     timelineSelector = Selectors.TIMELINE,
   } = options
@@ -2242,7 +2248,7 @@ async function observeTimeline(page, options = {}) {
   function observeTimelineItems($timeline) {
     disconnectPageObserver('timeline')
     pageObservers.push(
-      observeElement($timeline, () => onTimelineItemsChanged($timeline, page, options), 'timeline')
+      observeElement($timeline, () => onTimelineChange($timeline, page, options), 'timeline')
     )
     onTimelineAppeared?.()
     if (isTabbed) {
@@ -2257,7 +2263,7 @@ async function observeTimeline(page, options = {}) {
               log('tab changed')
               onTabChanged?.()
               pageObservers.push(
-                observeElement($newTimeline, () => onTimelineItemsChanged($newTimeline, page, options), 'timeline')
+                observeElement($newTimeline, () => onTimelineChange($newTimeline, page, options), 'timeline')
               )
             })
           })
@@ -2316,6 +2322,49 @@ async function observeTimeline(page, options = {}) {
     } else {
       warn('tabbed timeline container not found')
     }
+  }
+}
+
+/**
+ * @param {string} page
+ */
+async function observeIndividualTweetTimeline(page) {
+  let $timeline = await getElement(Selectors.TIMELINE, {
+    name: 'initial individual tweet timeline',
+    stopIf: pageIsNot(page),
+  })
+
+  if ($timeline == null) return
+
+  /**
+   * @param {HTMLElement} $timeline
+   */
+  function observeTimelineItems($timeline) {
+    pageObservers.push(
+      observeElement($timeline, () => onIndividualTweetTimelineChange($timeline, {observers: pageObservers}), 'individual tweet timeline')
+    )
+  }
+
+  // If the inital timeline doesn't have a style attribute it's a placeholder
+  if ($timeline.hasAttribute('style')) {
+    observeTimelineItems($timeline)
+  }
+  else {
+    log('waiting for individual tweet timeline')
+    let startTime = Date.now()
+    pageObservers.push(
+      observeElement($timeline.parentElement, (mutations) => {
+        mutations.forEach((mutation) => {
+          mutation.addedNodes.forEach((/** @type {HTMLElement} */ $timeline) => {
+            disconnectPageObserver('individual tweet timeline parent')
+            if (Date.now() > startTime) {
+              log(`individual tweet timeline appeared after ${Date.now() - startTime}ms`, $timeline)
+            }
+            observeTimelineItems($timeline)
+          })
+        })
+      }, 'individual tweet timeline parent')
+    )
   }
 }
 
@@ -3570,7 +3619,7 @@ function onPopup($popup) {
         }
       })
     })
-  })
+  }, 'nested popup observer')
 
   let disconnect = nestedObserver.disconnect.bind(nestedObserver)
   nestedObserver.disconnect = () => {
@@ -3733,8 +3782,9 @@ function onTimelineChange($timeline, page, options = {}) {
 
 /**
  * @param {HTMLElement} $timeline
+ * @param {import("./types").IndividualTweetTimelineOptions} options
  */
-function onIndividualTweetTimelineChange($timeline) {
+function onIndividualTweetTimelineChange($timeline, options) {
   let startTime = Date.now()
 
   let itemTypes = {}
@@ -3904,6 +3954,10 @@ function onIndividualTweetTimelineChange($timeline) {
 
   for (let change of changes) {
     /** @type {HTMLElement} */ (change.$item.firstElementChild).style.display = change.hideItem ? 'none' : ''
+  }
+
+  if (config.replaceLogo) {
+    tweakFocusedTweet($focusedTweet, options)
   }
 
   if ($focusedTweet && config.replaceLogo) {
@@ -4399,6 +4453,47 @@ function tweakCommunityMembersPage() {
   }
 }
 
+/**
+ * @param {HTMLElement} $focusedTweet
+ * @param {import("./types").IndividualTweetTimelineOptions} options
+ */
+async function tweakFocusedTweet($focusedTweet, options) {
+  let {observers} = options
+  if ($focusedTweet) {
+    // TODO Observe this if it's singular to catch it moving to plural
+    let $retweetsText = $focusedTweet.querySelector('a:is([href$="/retweets"], [href$="/reposts"]) > span > span')
+    if ($retweetsText) {
+      let currentText = $retweetsText.textContent
+      if (currentText != getString('RETWEETS') && currentText != getString('RETWEET')) {
+        $retweetsText.textContent = getString(currentText == getString('REPOSTS') ? 'RETWEETS' : 'RETWEET')
+      }
+    }
+
+    if (!isObserving(observers, 'tweet editor')) {
+      let $editorRoot = await getElement('.DraftEditor-root', {
+        context: $focusedTweet.parentElement,
+        name: 'tweet editor in focused tweet',
+        timeout: 500,
+      })
+      if ($editorRoot && !isObserving(observers, 'tweet editor')) {
+        observers.unshift(
+          observeElement($editorRoot, () => {
+            if ($editorRoot.firstElementChild.classList.contains('public-DraftEditorPlaceholder-root')) {
+              let $placeholder = $editorRoot.querySelector('.public-DraftEditorPlaceholder-inner')
+              if ($placeholder) {
+                $placeholder.textContent = getString('TWEET_YOUR_REPLY')
+              }
+            }
+          }, 'tweet editor')
+        )
+      }
+    }
+  }
+  else {
+    disconnectObserver('tweet editor', observers)
+  }
+}
+
 function tweakFollowListPage() {
   if (config.twitterBlueChecks != 'ignore') {
     observeTimeline(currentPage, {
@@ -4408,10 +4503,7 @@ function tweakFollowListPage() {
 }
 
 async function tweakIndividualTweetPage() {
-  observeTimeline(currentPage, {
-    hideHeadings: false,
-    onTimelineItemsChanged: onIndividualTweetTimelineChange
-  })
+  observeIndividualTweetTimeline(currentPage)
 
   if (config.replaceLogo) {
     let $headingText = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`, {

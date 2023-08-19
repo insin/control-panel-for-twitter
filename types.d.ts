@@ -144,9 +144,12 @@ export type TimelineOptions = {
   isTabbed?: boolean
   onTabChanged?: () => void
   onTimelineAppeared?: () => void
-  onTimelineItemsChanged?: (...any) => void
   tabbedTimelineContainerSelector?: string
   timelineSelector?: string
+}
+
+export type IndividualTweetTimelineOptions = {
+  observers: Disconnectable[]
 }
 
 export type UserInfo = {
