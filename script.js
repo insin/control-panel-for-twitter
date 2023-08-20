@@ -2655,7 +2655,7 @@ const configureCss = (() => {
     if (config.hideTwitterBlueUpsells) {
       hideCssSelectors.push(
         // Premium menu item
-        `${menuRole} a[href$="/i/premium_sign_up"]`,
+        `${menuRole} a:is([href$="/i/premium_sign_up"], [href$="/i/verified-choose"])`,
         // "Highlight on your profile" on your tweets
         '[role="menuitem"][data-testid="highlightUpsell"]',
         // "Edit with Premium" on recent tweets
