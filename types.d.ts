@@ -100,6 +100,7 @@ export type LocaleKey =
   | 'TURN_OFF_RETWEETS'
   | 'TURN_ON_RETWEETS'
   | 'TWEET'
+  | 'TWEETS'
   | 'TWEET_ALL'
   | 'TWEET_YOUR_REPLY'
   | 'TWITTER'
