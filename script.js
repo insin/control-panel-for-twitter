@@ -2687,8 +2687,8 @@ const configureCss = (() => {
     }
     if (config.hideTwitterBlueUpsells) {
       hideCssSelectors.push(
-        // Premium menu item
-        `${menuRole} a:is([href$="/i/premium_sign_up"], [href$="/i/verified-choose"])`,
+        // Premium/Verified/Verified Orgs menu item
+        `${menuRole} a:is([href$="/i/premium_sign_up"], [href$="/i/verified-choose"], [href$="/i/verified-orgs-signup"])`,
         // "Highlight on your profile" on your tweets
         '[role="menuitem"][data-testid="highlightUpsell"]',
         // "Edit with Premium" on recent tweets
@@ -2903,7 +2903,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
       }
       if (config.hideTwitterBlueUpsells) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/verified-choose"]`)
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a:is([href$="/i/premium_sign_up"], [href$="/i/verified-choose"], [href$="/i/verified-orgs-signup"])`)
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
