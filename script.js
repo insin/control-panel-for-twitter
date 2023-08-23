@@ -1527,6 +1527,24 @@ function disconnectPageObserver(name) {
 }
 
 /**
+ * @param {MutationRecord[]} mutations
+ * @param {($el: Node) => boolean | HTMLElement} fn - return `true` to use [$el]
+ * as the result, or return a different HTMLElement to use it as the result.
+ * @returns {Node | HTMLElement | null}
+ */
+function findAddedNode(mutations, fn) {
+  for (let mutation of mutations) {
+    for (let el of mutation.addedNodes) {
+      let result = fn(el)
+      if (result) {
+        return result === true ? el : result
+      }
+    }
+  }
+  return null
+}
+
+/**
  * @param {string} selector
  * @param {{
  *   name?: string
@@ -4806,19 +4824,38 @@ async function tweakProfilePage() {
     }
     processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
   }
+
   observeTimeline(currentPage)
+
   if (desktop && config.hideSidebarContent) {
     observeProfileBlockedStatus(currentPage)
     observeProfileSidebar(currentPage)
   }
+
   if (config.replaceLogo) {
-    let $tweetsTabText = await getElement('[data-testid="ScrollSnap-List"] > [role="presentation"]:first-child div[dir] > span:first-child', {
-      name: 'tweets tab text',
+    let $profileTabs = await getElement(`${Selectors.PRIMARY_COLUMN} nav`, {
+      name: 'profile tabs',
       stopIf: pageIsNot(currentPage),
     })
-    if ($tweetsTabText && $tweetsTabText.textContent != getString('TWEETS')) {
-      $tweetsTabText.textContent = getString('TWEETS')
-    }
+    if (!$profileTabs) return
+    // The Profile tabs <nav> can be replaced
+    pageObservers.push(
+      observeElement($profileTabs.parentElement, async (mutations) => {
+        if (mutations.length > 0) {
+          let $newProfileTabs = findAddedNode(mutations, ($el) => $el instanceof HTMLElement && $el.tagName == 'NAV')
+          if ($newProfileTabs == null) return
+          $profileTabs = /** @type {HTMLElement} */ ($newProfileTabs)
+        }
+        let $tweetsTabText = await getElement('[data-testid="ScrollSnap-List"] > [role="presentation"]:first-child div[dir] > span:first-child', {
+          context: $profileTabs,
+          name: 'Tweets tab text',
+          stopIf: pageIsNot(currentPage),
+        })
+        if ($tweetsTabText && $tweetsTabText.textContent != getString('TWEETS')) {
+          $tweetsTabText.textContent = getString('TWEETS')
+        }
+      }, 'profile tabs', {childList: true})
+    )
   }
 }
 
