@@ -40,7 +40,17 @@ for (let file of fs.readdirSync('./js')) {
     }
   }
   if (localeCode != 'en') {
+    if (locale.ADD_MUTED_WORD == 'Add muted word') delete locale.ADD_MUTED_WORD
+    if (locale.HOME == 'Home') delete locale.HOME
+    if (locale.MUTE_THIS_CONVERSATION == 'Mute this conversation')
+      delete locale.MUTE_THIS_CONVERSATION
+    if (locale.POST_ALL == 'Post all') delete locale.POST_ALL
+    if (locale.QUOTE == 'Quote') delete locale.QUOTE
+    if (locale.REPOST == 'Repost') delete locale.REPOST
     if (locale.REPOSTS == 'Reposts') delete locale.REPOSTS
+    if (locale.SHOW == 'Show') delete locale.SHOW
+    if (locale.SHOW_MORE_REPLIES == 'Show more replies')
+      delete locale.SHOW_MORE_REPLIES
   }
   locales[localeCode] = sortProperties(locale)
 }
