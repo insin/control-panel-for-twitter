@@ -1183,7 +1183,7 @@ const Selectors = {
   DISPLAY_DONE_BUTTON_DESKTOP: '#layers div[role="button"]:not([aria-label])',
   DISPLAY_DONE_BUTTON_MOBILE: 'main div[role="button"]:not([aria-label])',
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
-  MODAL_TIMELINE: 'section > h1 + div[aria-label] > div > div > div',
+  MODAL_TIMELINE: 'section > h1 + div[aria-label] > div',
   MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
