@@ -140,6 +140,7 @@ const locales = {
     TWEET_ALL: 'تغريد الكل',
     TWEET_YOUR_REPLY: 'التغريد بردك!',
     TWITTER: 'تويتر',
+    UNDO_RETWEET: 'التراجع عن التغريدة',
   },
   ar: {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
@@ -163,6 +164,7 @@ const locales = {
     TWEETS: 'التغريدات',
     TWEET_ALL: 'تغريد الكل',
     TWEET_YOUR_REPLY: 'التغريد بردك!',
+    UNDO_RETWEET: 'التراجع عن التغريدة',
   },
   bg: {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
@@ -186,6 +188,7 @@ const locales = {
     TWEETS: 'Туитове',
     TWEET_ALL: 'تغريد الكل',
     TWEET_YOUR_REPLY: 'Отговори с туит!',
+    UNDO_RETWEET: 'Отмяна на ретуитването',
   },
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
@@ -210,6 +213,7 @@ const locales = {
     TWEET_ALL: 'সব টুইট করুন',
     TWEET_YOUR_REPLY: 'আপনার উত্তর টুইট করুন!',
     TWITTER: 'টুইটার',
+    UNDO_RETWEET: 'পুনঃ টুইট পুর্বাবস্থায় ফেরান',
   },
   ca: {
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
@@ -233,6 +237,7 @@ const locales = {
     TWEETS: 'Tuits',
     TWEET_ALL: 'Tuita-ho tot',
     TWEET_YOUR_REPLY: 'Tuita la teva resposta',
+    UNDO_RETWEET: 'Desfés el retuit',
   },
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
@@ -255,6 +260,7 @@ const locales = {
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnout vše',
     TWEET_YOUR_REPLY: 'Tweetujte svou odpověď!',
+    UNDO_RETWEET: 'Zrušit Retweet',
   },
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
@@ -272,6 +278,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Slå Retweets til',
     TWEET_ALL: 'Tweet alt',
     TWEET_YOUR_REPLY: 'Tweet dit svar!',
+    UNDO_RETWEET: 'Fortryd Retweet',
   },
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
@@ -292,6 +299,7 @@ const locales = {
     TWEET: 'Twittern',
     TWEET_ALL: 'Alle twittern',
     TWEET_YOUR_REPLY: 'Twittere deine Antwort!',
+    UNDO_RETWEET: 'Retweet rückgängig machen',
   },
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
@@ -313,6 +321,7 @@ const locales = {
     TWEETS: 'Tweet',
     TWEET_ALL: 'Δημοσίευση όλων ως Tweet',
     TWEET_YOUR_REPLY: 'Στείλτε την απάντησή σας!',
+    UNDO_RETWEET: 'Αναίρεση Retweet',
   },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
@@ -337,6 +346,7 @@ const locales = {
     TWEET_ALL: 'Tweet all',
     TWEET_YOUR_REPLY: 'Tweet your reply!',
     TWITTER: 'Twitter',
+    UNDO_RETWEET: 'Undo Retweet',
   },
   es: {
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
@@ -357,6 +367,7 @@ const locales = {
     TWEET: 'Twittear',
     TWEET_ALL: 'Twittear todo',
     TWEET_YOUR_REPLY: '¡Twittea tu respuesta!',
+    UNDO_RETWEET: 'Deshacer Retweet',
   },
   eu: {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
@@ -377,6 +388,7 @@ const locales = {
     TWEETS: 'Txioak',
     TWEET_ALL: 'Txiotu guztiak',
     TWEET_YOUR_REPLY: 'Tweet your reply!',
+    UNDO_RETWEET: 'Desegin birtxiokatzea',
   },
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
@@ -401,6 +413,7 @@ const locales = {
     TWEET_ALL: 'توییت به همه',
     TWEET_YOUR_REPLY: 'پاسختان را توییت کنید!',
     TWITTER: 'توییتر',
+    UNDO_RETWEET: 'لغو بازتوییت',
   },
   fi: {
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
@@ -424,6 +437,7 @@ const locales = {
     TWEETS: 'Twiitit',
     TWEET_ALL: 'Twiittaa kaikki',
     TWEET_YOUR_REPLY: 'Twiittaa vastauksesi',
+    UNDO_RETWEET: 'Kumoa uudelleentwiittaus',
   },
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
@@ -445,6 +459,7 @@ const locales = {
     TWEETS: 'Mga Tweet',
     TWEET_ALL: 'I-tweet lahat',
     TWEET_YOUR_REPLY: 'I-Tweet ang sagot mo!',
+    UNDO_RETWEET: 'Huwag nang I-retweet',
   },
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
@@ -464,6 +479,7 @@ const locales = {
     TWEET: 'Tweeter',
     TWEET_ALL: 'Tout tweeter',
     TWEET_YOUR_REPLY: 'Tweetez votre réponse !',
+    UNDO_RETWEET: 'Annuler le Retweet',
   },
   ga: {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
@@ -483,6 +499,7 @@ const locales = {
     TWEETS: 'Tweetanna',
     TWEET_ALL: 'Tweetáil gach rud',
     TWEET_YOUR_REPLY: 'Tweet your reply!',
+    UNDO_RETWEET: 'Cuir an Atweet ar ceal',
   },
   gl: {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
@@ -503,6 +520,7 @@ const locales = {
     TWEETS: 'Chíos',
     TWEET_ALL: 'Chiar todo',
     TWEET_YOUR_REPLY: 'Tweet your reply!',
+    UNDO_RETWEET: 'Desfacer rechouchío',
   },
   gu: {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
@@ -526,6 +544,7 @@ const locales = {
     TWEETS: 'ટ્વીટ્સ',
     TWEET_ALL: 'બધાને ટ્વીટ કરો',
     TWEET_YOUR_REPLY: 'તમારા પ્રત્યુત્તરને ટ્વીટ કરો!',
+    UNDO_RETWEET: 'પુનટ્વીટને પૂર્વવત કરો',
   },
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
@@ -535,7 +554,7 @@ const locales = {
     QUOTE: 'ציטוט',
     QUOTE_TWEET: 'ציטוט ציוץ',
     QUOTE_TWEETS: 'ציוצי ציטוט',
-    REPOST: 'דוחות',
+    REPOST: 'לפרסם מחדש',
     REPOSTS: 'פרסומים מחדש',
     RETWEET: 'צייץ מחדש',
     RETWEETED_BY: 'צויץ מחדש על־ידי',
@@ -550,6 +569,7 @@ const locales = {
     TWEET_ALL: 'צייץ הכול',
     TWEET_YOUR_REPLY: 'צייץ את התשובה!',
     TWITTER: 'טוויטר',
+    UNDO_RETWEET: 'ביטול ציוץ מחדש',
   },
   hi: {
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
@@ -573,6 +593,7 @@ const locales = {
     TWEETS: 'ट्वीट',
     TWEET_ALL: 'सभी ट्वीट करें',
     TWEET_YOUR_REPLY: 'अपना जवाब ट्वीट करें!',
+    UNDO_RETWEET: 'रीट्वीट को पूर्ववत करें',
   },
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
@@ -595,6 +616,7 @@ const locales = {
     TWEETS: 'Tweetovi',
     TWEET_ALL: 'Tweetaj sve',
     TWEET_YOUR_REPLY: 'Pošaljite Tweet s odgovorom!',
+    UNDO_RETWEET: 'Poništi prosljeđivanje tweeta',
   },
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
@@ -617,6 +639,7 @@ const locales = {
     TWEETS: 'Tweetek',
     TWEET_ALL: 'Tweet küldése mindenkinek',
     TWEET_YOUR_REPLY: 'Tweeteld válaszodat',
+    UNDO_RETWEET: 'Retweet visszavonása',
   },
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
@@ -638,6 +661,7 @@ const locales = {
     TWEETS: 'Tweet',
     TWEET_ALL: 'Tweet semua',
     TWEET_YOUR_REPLY: 'Tweet balasan Anda!',
+    UNDO_RETWEET: 'Batalkan Retweet',
   },
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
@@ -659,6 +683,7 @@ const locales = {
     TWEETS: 'Tweet',
     TWEET_ALL: 'Twitta tutto',
     TWEET_YOUR_REPLY: 'Twitta la tua risposta.',
+    UNDO_RETWEET: 'Annulla Retweet',
   },
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
@@ -682,6 +707,7 @@ const locales = {
     TWEETS: 'ツイート',
     TWEET_ALL: 'すべてツイート',
     TWEET_YOUR_REPLY: '返信をツイートしましょう。',
+    UNDO_RETWEET: 'リツイートを取り消す',
   },
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
@@ -705,6 +731,7 @@ const locales = {
     TWEETS: 'ಟ್ವೀಟ್‌ಗಳು',
     TWEET_ALL: 'ಎಲ್ಲಾ ಟ್ವೀಟ್ ಮಾಡಿ',
     TWEET_YOUR_REPLY: 'ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ!',
+    UNDO_RETWEET: 'ಮರುಟ್ವೀಟಿಸುವುದನ್ನು ರದ್ದುಮಾಡಿ',
   },
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
@@ -729,6 +756,7 @@ const locales = {
     TWEET_ALL: '모두 트윗하기',
     TWEET_YOUR_REPLY: '내 답글을 트윗하세요',
     TWITTER: '트위터',
+    UNDO_RETWEET: '리트윗 취소',
   },
   mr: {
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
@@ -752,6 +780,7 @@ const locales = {
     TWEETS: 'ट्विट्स',
     TWEET_ALL: 'सर्व ट्विट करा',
     TWEET_YOUR_REPLY: 'आपल्या प्रत्युत्तरावर ट्विट करा!',
+    UNDO_RETWEET: 'पुनर्ट्विट पूर्ववत करा',
   },
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
@@ -774,6 +803,7 @@ const locales = {
     TWEETS: 'Tweet',
     TWEET_ALL: 'Tweet semua',
     TWEET_YOUR_REPLY: 'Tweet balasan anda!',
+    UNDO_RETWEET: 'Buat asal Tweet semula',
   },
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
@@ -793,6 +823,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Slå på Retweets',
     TWEET_ALL: 'Tweet alle',
     TWEET_YOUR_REPLY: 'Tweet svaret ditt!',
+    UNDO_RETWEET: 'Angre Retweet',
   },
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
@@ -812,6 +843,7 @@ const locales = {
     TWEET: 'Tweeten',
     TWEET_ALL: 'Alles tweeten',
     TWEET_YOUR_REPLY: 'Tweet je antwoord!',
+    UNDO_RETWEET: 'Retweet ongedaan maken',
   },
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
@@ -834,6 +866,7 @@ const locales = {
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnij wszystko',
     TWEET_YOUR_REPLY: 'Wyślij Tweeta z odpowiedzią!',
+    UNDO_RETWEET: 'Cofnij podanie dalej',
   },
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
@@ -854,6 +887,7 @@ const locales = {
     TWEET: 'Tweetar',
     TWEET_ALL: 'Tweetar tudo',
     TWEET_YOUR_REPLY: 'Tweetar sua resposta!',
+    UNDO_RETWEET: 'Desfazer Retweet',
   },
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
@@ -876,6 +910,7 @@ const locales = {
     TWEETS: 'Tweeturi',
     TWEET_ALL: 'Dă Tweeturi cu tot',
     TWEET_YOUR_REPLY: 'Dă Tweet cu răspunsul!',
+    UNDO_RETWEET: 'Anulează Retweetul',
   },
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
@@ -900,6 +935,7 @@ const locales = {
     TWEET_ALL: 'Твитнуть все',
     TWEET_YOUR_REPLY: 'Твитните свой ответ!',
     TWITTER: 'Твиттер',
+    UNDO_RETWEET: 'Отменить ретвит',
   },
   sk: {
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
@@ -923,6 +959,7 @@ const locales = {
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnuť všetko',
     TWEET_YOUR_REPLY: 'Tweetnite odpoveď!',
+    UNDO_RETWEET: 'Zrušiť retweet',
   },
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
@@ -947,6 +984,7 @@ const locales = {
     TWEET_ALL: 'Твитуј све',
     TWEET_YOUR_REPLY: 'Твитуј свој одговор!',
     TWITTER: 'Твитер',
+    UNDO_RETWEET: 'Опозови ретвит',
   },
   sv: {
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
@@ -968,6 +1006,7 @@ const locales = {
     TWEET: 'Tweeta',
     TWEET_ALL: 'Tweeta allt',
     TWEET_YOUR_REPLY: 'Tweeta ditt svar!',
+    UNDO_RETWEET: 'Ångra retweeten',
   },
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
@@ -991,6 +1030,7 @@ const locales = {
     TWEETS: 'கீச்சுகள்',
     TWEET_ALL: 'அனைத்தையும் ட்விட் செய்',
     TWEET_YOUR_REPLY: 'உங்கள் பதிலை ட்விட் செய்யவும்!',
+    UNDO_RETWEET: 'மறுகீச்சை செயல்தவிர்',
   },
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
@@ -1015,6 +1055,7 @@ const locales = {
     TWEET_ALL: 'ทวีตทั้งหมด',
     TWEET_YOUR_REPLY: 'ทวีตการตอบกลับของคุณ',
     TWITTER: 'ทวิตเตอร์',
+    UNDO_RETWEET: 'ยกเลิกการรีทวีต',
   },
   tr: {
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
@@ -1037,6 +1078,7 @@ const locales = {
     TWEETS: 'Tweetler',
     TWEET_ALL: 'Hepsini Tweetle',
     TWEET_YOUR_REPLY: 'Yanıtını Tweetle.',
+    UNDO_RETWEET: 'Retweeti Geri Al',
   },
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
@@ -1061,6 +1103,7 @@ const locales = {
     TWEET_ALL: 'Твітнути все',
     TWEET_YOUR_REPLY: 'Твітніть свою відповідь!',
     TWITTER: 'Твіттер',
+    UNDO_RETWEET: 'Скасувати ретвіт',
   },
   ur: {
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
@@ -1081,6 +1124,7 @@ const locales = {
     TWEETS: 'ٹویٹس',
     TWEET_ALL: 'سب کو ٹویٹ کریں',
     TWITTER: 'ٹوئٹر',
+    UNDO_RETWEET: 'ری ٹویٹ کو کالعدم کریں',
   },
   vi: {
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
@@ -1103,6 +1147,7 @@ const locales = {
     TWEETS: 'Tweet',
     TWEET_ALL: 'Đăng Tweet tất cả',
     TWEET_YOUR_REPLY: 'Đăng Tweet câu trả lời của bạn!',
+    UNDO_RETWEET: 'Hoàn tác Tweet lại',
   },
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
@@ -1126,6 +1171,7 @@ const locales = {
     TWEETS: '推文',
     TWEET_ALL: '推全部內容',
     TWEET_YOUR_REPLY: '推你的回覆！',
+    UNDO_RETWEET: '取消轉推',
   },
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
@@ -1149,6 +1195,7 @@ const locales = {
     TWEETS: '推文',
     TWEET_ALL: '全部发推',
     TWEET_YOUR_REPLY: '发布你的回复！',
+    UNDO_RETWEET: '撤销转推',
   },
 }
 
@@ -3455,7 +3502,13 @@ function handlePopup($popup) {
   if (config.replaceLogo) {
     let $retweetDropdownItem = $popup.querySelector('div:is([data-testid="retweetConfirm"], [data-testid="repostConfirm"])')
     if ($retweetDropdownItem) {
-      tweakRetweetsDropdown($retweetDropdownItem)
+      tweakRetweetDropdown($retweetDropdownItem, 'div:is([data-testid="retweetConfirm"], [data-testid="repostConfirm"])', 'RETWEET')
+      return {tookAction: true}
+    }
+
+    let $unretweetDropdownItem = $popup.querySelector('div:is([data-testid="unretweetConfirm"], [data-testid="unrepostConfirm"])')
+    if ($unretweetDropdownItem) {
+      tweakRetweetDropdown($unretweetDropdownItem, 'div:is([data-testid="unretweetConfirm"], [data-testid="unrepostConfirm"])', 'UNDO_RETWEET')
       return {tookAction: true}
     }
 
@@ -4857,23 +4910,28 @@ async function tweakQuoteTweetsPage() {
   }
 }
 
-async function tweakRetweetsDropdown($retweetDropdownItem) {
+/**
+ * @param {Element} $dropdownItem
+ * @param {string} dropdownItemSelector
+ * @param {import("./types").LocaleKey} localeKey
+ */
+async function tweakRetweetDropdown($dropdownItem, dropdownItemSelector, localeKey) {
   log('tweaking Retweet/Quote Tweet dropdown')
 
   if (desktop) {
-    $retweetDropdownItem = await getElement(`
-      #layers div[data-testid="Dropdown"] div:is([data-testid="retweetConfirm"], [data-testid="repostConfirm"]
+    $dropdownItem = await getElement(`
+      #layers div[data-testid="Dropdown"] ${dropdownItemSelector}
     `, {
-      name: 'rendered Retweet menu item',
+      name: 'rendered menu item',
       timeout: 100,
     })
-    if (!$retweetDropdownItem) return
+    if (!$dropdownItem) return
   }
 
-  let $retweetText = $retweetDropdownItem.querySelector('div[dir] > span')
-  if ($retweetText) $retweetText.textContent = getString('RETWEET')
+  let $text = $dropdownItem.querySelector('div[dir] > span')
+  if ($text) $text.textContent = getString(localeKey)
 
-  let $quoteTweetText = $retweetDropdownItem.nextElementSibling?.querySelector('div[dir] > span')
+  let $quoteTweetText = $dropdownItem.nextElementSibling?.querySelector('div[dir] > span')
   if ($quoteTweetText) $quoteTweetText.textContent = getString('QUOTE_TWEET')
 }
 
