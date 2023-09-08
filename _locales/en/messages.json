@@ -340,5 +340,8 @@
   },
   "replaceLogoLabel": {
     "message": "Replace X branding changes"
+  },
+  "hideTimelineTweetBoxLabel": {
+    "message": "Tweet box in timeline"
   }
 }

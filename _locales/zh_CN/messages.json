@@ -340,5 +340,8 @@
   },
   "replaceLogoLabel": {
     "message": "更换 X 品牌变更"
+  },
+  "hideTimelineTweetBoxLabel": {
+    "message": "时间线推文框"
   }
 }

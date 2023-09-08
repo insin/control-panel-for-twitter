@@ -340,5 +340,8 @@
   },
   "replaceLogoLabel": {
     "message": "Remplacer les changements de marque X"
+  },
+  "hideTimelineTweetBoxLabel": {
+    "message": "Zone de tweet dans timeline"
   }
 }

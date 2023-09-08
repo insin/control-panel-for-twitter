@@ -74,6 +74,7 @@ const config = {
   hideSeeNewTweets: false,
   hideShareTweetButton: false,
   hideSubscriptions: true,
+  hideTimelineTweetBox: false,
   hideTotalTweetsMetrics: true,
   hideTweetAnalyticsLinks: false,
   hideTwitterAdsNav: true,
@@ -2629,6 +2630,7 @@ function checkforDisabledHomeTimeline() {
   }
 }
 
+//#region CSS
 const configureCss = (() => {
   let $style
 
@@ -2878,6 +2880,9 @@ const configureCss = (() => {
       }
       if (config.hideSeeNewTweets) {
         hideCssSelectors.push(`body.MainTimeline ${Selectors.PRIMARY_COLUMN} > div > div:first-child > div[style^="transform"]`)
+      }
+      if (config.hideTimelineTweetBox) {
+        hideCssSelectors.push(`body.MainTimeline ${Selectors.PRIMARY_COLUMN} > div > div:nth-child(3)`)
       }
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
@@ -3167,6 +3172,7 @@ const configureNavFontSizeCss = (() => {
     $style.textContent = cssRules.map(dedent).join('\n')
   }
 })()
+//#endregion
 
 /**
  * Configures – or re-configures – the separated tweets timeline title.

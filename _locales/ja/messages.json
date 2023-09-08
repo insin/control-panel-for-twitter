@@ -340,5 +340,8 @@
   },
   "replaceLogoLabel": {
     "message": "X のブランド変更を置き換える"
+  },
+  "hideTimelineTweetBoxLabel": {
+    "message": "タイムラインのツイートボックス"
   }
 }
