@@ -1289,7 +1289,7 @@ const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(?:with_replies|superfollows|
 // Matches URLs which show a user's Followers you know / Followers / Following tab
 const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/follow(?:ing|ers|ers_you_follow)\/?$/
 const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)\/?$/
-const URL_TWEET_LIKES_RETWEETS_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/(likes|retweets|reposts)\/?$/
+const URL_TWEET_ENGAGEMENT_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/(quotes|retweets|reposts|likes)\/?$/
 
 // The Twitter Media Assist exension adds a new button at the end of the action
 // bar (#346)
@@ -1333,9 +1333,6 @@ let isDesktopMediaModalOpen = false
 
 /** Set to `true` when the compose tweet modal is open on desktop. */
 let isDesktopComposeTweetModalOpen = false
-
-/** Set to `true` when a user list modal is open on desktop. */
-let isDesktopUserListModalOpen = false
 
 /**
  * Cache for the last page title which was used for the main timeline.
@@ -1449,7 +1446,8 @@ function isOnProfilePage() {
 }
 
 function isOnQuoteTweetsPage() {
-  return currentPath.endsWith('/retweets/with_comments')
+  let match = currentPath.match(URL_TWEET_ENGAGEMENT_RE)
+  return match?.[1] == 'quotes'
 }
 
 function isOnSearchPage() {
@@ -1633,6 +1631,36 @@ function getElement(selector, {
   })
 }
 
+function getStateEntities() {
+  let reactRootContainer = ($reactRoot?.wrappedJSObject ? $reactRoot.wrappedJSObject : $reactRoot)?._reactRootContainer
+  if (reactRootContainer) {
+    let entities = reactRootContainer._internalRoot?.current?.memoizedState?.element?.props?.children?.props?.store?.getState()?.entities
+    if (entities) {
+      return entities
+    } else {
+      warn('state entities not found')
+    }
+  } else {
+    warn('React root container not found')
+  }
+}
+
+/**
+ * Gets cached tweet info from React state.
+ */
+function getTweetInfo(id) {
+  let tweetEntities = getStateEntities()?.tweets?.entities
+  if (tweetEntities) {
+    let tweetInfo = tweetEntities[id]
+    if (!tweetInfo) {
+      warn('tweet info not found')
+    }
+    return tweetInfo
+  } else {
+    warn('tweet entities not found')
+  }
+}
+
 /**
  * Gets cached user info from React state.
  * @returns {import("./types").UserInfoObject}
@@ -1640,23 +1668,18 @@ function getElement(selector, {
 function getUserInfo() {
   /** @type {import("./types").UserInfoObject} */
   let userInfo = {}
-  let reactRootContainer = ($reactRoot?.wrappedJSObject ? $reactRoot.wrappedJSObject : $reactRoot)?._reactRootContainer
-  if (reactRootContainer) {
-    let userEntities = reactRootContainer?._internalRoot?.current?.memoizedState?.element?.props?.children?.props?.store?.getState()?.entities?.users?.entities
-    if (userEntities) {
-      for (let user of Object.values(userEntities)) {
-        userInfo[user.screen_name] = {
-          following: user.following,
-          followedBy: user.followed_by,
-          followersCount: user.followers_count,
-          shyBlue: false,
-        }
+  let userEntities = getStateEntities()?.users?.entities
+  if (userEntities) {
+    for (let user of Object.values(userEntities)) {
+      userInfo[user.screen_name] = {
+        following: user.following,
+        followedBy: user.followed_by,
+        followersCount: user.followers_count,
+        shyBlue: false,
       }
-    } else {
-      warn('user entities not found')
     }
   } else {
-    warn('React root container not found')
+    warn('user entities not found')
   }
   return userInfo
 }
@@ -2449,30 +2472,6 @@ async function observeIndividualTweetTimeline(page) {
     )
   }
 }
-
-/**
- * @param {{
- *   context?: HTMLElement
- *   initialPath: string
- *   observers: import("./types").Disconnectable[]
- * }} options
- */
-async function observeUserListTimeline({context, initialPath, observers}) {
-  if (config.twitterBlueChecks == 'ignore') return
-
-  let $timeline = await getElement('h1[id^="accessible-list"] + div > div > div > div', {
-    context,
-    name: 'user list timeline',
-    stopIf: not(() => initialPath == location.pathname),
-  })
-  if (!$timeline) return
-
-  observers.push(
-    observeElement($timeline, () => {
-      processBlueChecks($timeline)
-    }, 'user list timeline')
-  )
-}
 //#endregion
 
 //#region Tweak functions
@@ -2642,11 +2641,27 @@ const configureCss = (() => {
     let hideCssSelectors = []
     let menuRole = `[role="${desktop ? 'menu' : 'dialog'}"]`
 
-    // Hover colours for custom menu items
+    // Theme colours for custom UI items
     cssRules.push(`
-      body.Default .tnt_menu_item:hover { background-color: rgb(247, 249, 249) !important; }
-      body.Dim .tnt_menu_item:hover { background-color: rgb(30, 39, 50) !important; }
-      body.LightsOut .tnt_menu_item:hover { background-color: rgb(22, 24, 28) !important; }
+      body.Default {
+        --border-color: rgb(239, 243, 244);
+        --color: rgb(83, 100, 113);
+        --color-emphasis: rgb(15, 20, 25);
+        --hover-bg-color: rgb(247, 249, 249);
+      }
+      body.Dim {
+        --border-color: rgb(56, 68, 77);
+        --color: rgb(139, 152, 165);
+        --color-emphasis: rgb(247, 249, 249);
+        --hover-bg-color: rgb(30, 39, 50);
+      }
+      body.LightsOut {
+        --border-color: rgb(47, 51, 54);
+        --color: rgb(113, 118, 123);
+        --color-emphasis: rgb(247, 249, 249);
+        --hover-bg-color: rgb(22, 24, 28);
+      }
+      .tnt_menu_item:hover { background-color: var(--hover-bg-color) !important; }
     `)
 
     if (config.alwaysUseLatestTweets && config.hideForYouTimeline) {
@@ -2777,7 +2792,6 @@ const configureCss = (() => {
     if (config.reducedInteractionMode) {
       hideCssSelectors.push(
         '[data-testid="tweet"] [role="group"]',
-        'body.Tweet a:is([href$="/retweets"], [href$="/likes"])',
         'body.Tweet [data-testid="tweet"] + div > div [role="group"]',
       )
     }
@@ -2808,21 +2822,12 @@ const configureCss = (() => {
     if (shouldShowSeparatedTweetsTab()) {
       cssRules.push(`
         body.Default {
-          --active-tab-text: rgb(15, 20, 25);
-          --inactive-tab-text: rgb(83, 100, 113);
-          --tab-border: rgb(239, 243, 244);
           --tab-hover: rgba(15, 20, 25, 0.1);
         }
         body.Dim {
-          --active-tab-text: rgb(247, 249, 249);
-          --inactive-tab-text: rgb(139, 152, 165);
-          --tab-border: rgb(56, 68, 77);
           --tab-hover: rgba(247, 249, 249, 0.1);
         }
         body.LightsOut {
-          --active-tab-text: rgb(247, 249, 249);
-          --inactive-tab-text: rgb(113, 118, 123);
-          --tab-border: rgb(47, 51, 54);
           --tab-hover: rgba(231, 233, 234, 0.1);
         }
 
@@ -2835,11 +2840,11 @@ const configureCss = (() => {
         body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div,
         body.TabbedTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div {
           font-weight: normal !important;
-          color: var(--inactive-tab-text) !important;
+          color: var(--color) !important;
         }
         body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div {
           font-weight: bold;
-          color: var(--active-tab-text); !important;
+          color: var(--color-emphasis); !important;
         }
         body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div > div,
         body.TabbedTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div > div {
@@ -3012,6 +3017,8 @@ const configureCss = (() => {
           // hiding the wrong button (#209)
           '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(4)',
           '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(5)',
+          // In media modal
+          '[aria-modal="true"] [role="group"] > div:nth-child(4)',
         )
       }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
@@ -3061,6 +3068,8 @@ const configureCss = (() => {
           // Views only display on mobile at larger widths - only hide the 4th button if there are 5
           '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-child(4):nth-last-child(2)',
           '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-child(4):nth-last-child(2)',
+          // In media modal
+          'body.MobileMedia [role="group"] > div:nth-child(4)',
         )
       }
     }
@@ -3128,6 +3137,10 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
     cssRules.push(
       `[role="group"] div:is(${timelineMetricSelectors}) span { visibility: hidden; }`
     )
+  }
+
+  if (config.hideQuoteTweetMetrics) {
+    hideCssSelectors.push('#tntQuoteTweetCount')
   }
 }
 
@@ -3467,22 +3480,6 @@ function handlePopup($popup) {
     }
   }
 
-  if (desktop && !isDesktopUserListModalOpen && URL_TWEET_LIKES_RETWEETS_RE.test(location.pathname)) {
-    let modalType = URL_TWEET_LIKES_RETWEETS_RE.exec(location.pathname)[1]
-    log(`${modalType} modal opened`)
-    isDesktopUserListModalOpen = true
-    tweakUserModalTimelineHeading(location.pathname)
-    observeUserListTimeline({context: $popup, initialPath: location.pathname, observers: modalObservers})
-    return {
-      tookAction: true,
-      onPopupClosed() {
-        log(`${modalType} modal closed`)
-        isDesktopUserListModalOpen = false
-        disconnectAllModalObservers()
-      }
-    }
-  }
-
   if (config.replaceLogo) {
     let $retweetDropdownItem = $popup.querySelector('div:is([data-testid="retweetConfirm"], [data-testid="repostConfirm"])')
     if ($retweetDropdownItem) {
@@ -3561,7 +3558,7 @@ function handlePopup($popup) {
   }
 
   if (config.addAddMutedWordMenuItem) {
-    let linkSelector = desktop ? 'a[href$="/compose/tweet/unsent/drafts"]' : 'a[href$="/bookmarks"]'
+    let linkSelector = desktop ? 'a[href$="/i/connect_people"]' : 'a[href$="/bookmarks"]'
     let $link = /** @type {HTMLElement} */ ($popup.querySelector(linkSelector))
     if ($link) {
       addAddMutedWordMenuItem($link, linkSelector)
@@ -4256,8 +4253,8 @@ function processCurrentPage() {
   else if (isOnSearchPage()) {
     tweakSearchPage()
   }
-  else if (isOnQuoteTweetsPage()) {
-    tweakQuoteTweetsPage()
+  else if (URL_TWEET_ENGAGEMENT_RE.test(currentPath)) {
+    tweakTweetEngagementPage()
   }
   else if (isOnListPage()) {
     tweakListPage()
@@ -4285,9 +4282,6 @@ function processCurrentPage() {
     }
     else if (URL_MEDIAVIEWER_RE.test(currentPath)) {
       tweakMobileMediaViewerPage()
-    }
-    else if (URL_TWEET_LIKES_RETWEETS_RE.test(currentPath)) {
-      tweakMobileUserListPage()
     }
   }
 }
@@ -4514,21 +4508,42 @@ function tweakCommunityMembersPage() {
 async function tweakFocusedTweet($focusedTweet, options) {
   let {observers} = options
   if ($focusedTweet) {
-    if (mobile) {
-      let $textArea = /** @type {HTMLTextAreaElement} */ (await getElement('textarea', {
-        context: $focusedTweet.parentElement,
-        name: 'mobile textarea',
-        timeout: 500,
-      }))
-      if ($textArea) {
-        if ($textArea.placeholder != getString('TWEET_YOUR_REPLY')) {
-          $textArea.placeholder = getString('TWEET_YOUR_REPLY')
+    (function restoreQuoteTweetsLink() {
+      if ($focusedTweet.querySelector('#tntQuoteTweets')) return
+      let $link = /** @type {HTMLAnchorElement} */ ($focusedTweet.querySelector('a[role="link"][href*="/status/"]:not([href*="/photo/"])'))
+      if (!$link) return warn('focused tweet canonical link not found')
+      let tweetId = $link.pathname.match(URL_TWEET_RE)?.[2]
+      let tweetInfo = getTweetInfo(tweetId)
+      if (!tweetInfo) return
+      if (!tweetInfo.quote_count) return log('focused tweet Quote Tweet count is 0')
+      let $group = $focusedTweet.querySelector('[role="group"][id^="id__"]')
+      if (!$group) return warn('focused tweet action bar not found')
+      let formattedCount = Intl.NumberFormat(lang, {notation: 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)
+      let labelKey = tweetInfo.quote_count == 1 ? 'QUOTE_TWEET' :'QUOTE_TWEETS'
+      $group.parentElement.insertAdjacentHTML('beforebegin', `
+        <div id="tntQuoteTweets">
+          <div style="padding: 16px 4px; border-top: 1px solid var(--border-color);">
+            <a href="${$link.href}/quotes" dir="auto" role="link" class="${fontFamilyRule?.selectorText?.replace('.', '')}" style="text-decoration: none; color: var(--color);">
+              <span style="font-weight: 700; color: var(--color-emphasis);" id="tntQuoteTweetCount">${formattedCount}</span> <span>${getString(labelKey)}</span>
+            </a>
+          </div>
+        </div>
+      `)
+      $focusedTweet.querySelector('#tntQuoteTweets a').addEventListener('click', async (e) => {
+        let $caret = /** @type {HTMLElement} */ ($focusedTweet.querySelector('[data-testid="caret"]'))
+        if ($caret) {
+          log('clicking "View post engagements" menu item')
+          e.preventDefault()
+          $caret.click()
+          let $tweetEngagements = await getElement('#layers a[data-testid="tweetEngagements"]')
+          $tweetEngagements.click()
+        } else {
+          warn('focused tweet menu caret not found')
         }
-        return
-      }
-    }
+      })
+    })()
 
-    if (!isObserving(observers, 'tweet editor')) {
+    if (desktop && !isObserving(observers, 'tweet editor')) {
       let $editorRoot = await getElement('.DraftEditor-root', {
         context: $focusedTweet.parentElement,
         name: 'tweet editor in focused tweet',
@@ -4799,11 +4814,6 @@ async function tweakTimelineTabs($timelineTabs) {
   }
 }
 
-async function tweakMobileUserListPage() {
-  tweakUserModalTimelineHeading(currentPath)
-  observeUserListTimeline({initialPath: currentPath, observers: pageObservers})
-}
-
 function tweakNotificationsPage() {
   let $navigationTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
   if ($navigationTabs == null) {
@@ -4870,21 +4880,6 @@ async function tweakProfilePage() {
   }
 }
 
-async function tweakQuoteTweetsPage() {
-  if (config.twitterBlueChecks != 'ignore') {
-    observeTimeline(currentPage)
-  }
-  if (config.replaceLogo) {
-    let $headingText = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`, {
-      name: 'quote tweets heading',
-      stopIf: pageIsNot(currentPage)
-    })
-    if ($headingText) {
-      $headingText.textContent = getString('QUOTE_TWEETS')
-    }
-  }
-}
-
 /**
  * @param {Element} $dropdownItem
  * @param {string} dropdownItemSelector
@@ -4910,19 +4905,6 @@ async function tweakRetweetDropdown($dropdownItem, dropdownItemSelector, localeK
   if ($quoteTweetText) $quoteTweetText.textContent = getString('QUOTE_TWEET')
 }
 
-async function tweakUserModalTimelineHeading(initialPath) {
-  let listType = initialPath.match(URL_TWEET_LIKES_RETWEETS_RE)?.[1]
-  if (!config.replaceLogo || !listType || listType == 'likes') return
-
-  let $headingText = await getElement(`h2#modal-header span`, {
-    name: 'Retweeted by heading',
-    stopIf: not(() => initialPath == location.pathname),
-  })
-  if (!$headingText) return
-
-  $headingText.textContent = getString('RETWEETED_BY')
-}
-
 function tweakSearchPage() {
   let $searchTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
   if ($searchTabs != null) {
@@ -4942,6 +4924,25 @@ function tweakSearchPage() {
     isTabbed: true,
     tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
   })
+}
+
+function tweakTweetEngagementPage() {
+  let $tabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
+  if ($tabs == null) {
+    warn('could not find Post engagement tabs')
+    return
+  }
+
+  if (config.replaceLogo) {
+    let $quoteTweetsTabText = $tabs.querySelector('div[role="tablist"] > div:nth-child(1) div[dir] > span')
+    if ($quoteTweetsTabText) $quoteTweetsTabText.textContent = getString('QUOTE_TWEETS')
+    let $retweetsTabText = $tabs.querySelector('div[role="tablist"] > div:nth-child(2) div[dir] > span')
+    if ($retweetsTabText) $retweetsTabText.textContent = getString('RETWEETS')
+  }
+
+  if (config.twitterBlueChecks != 'ignore') {
+    observeTimeline(currentPage, {classifyTweets: false})
+  }
 }
 //#endregion
 
