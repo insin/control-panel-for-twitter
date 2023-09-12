@@ -3117,33 +3117,11 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
     `)
   }
 
-  let individualTweetMetricSelectors = [
-    config.hideRetweetMetrics    && '[href$="/retweets"]',
-    config.hideLikeMetrics       && '[href$="/likes"]',
-    config.hideQuoteTweetMetrics && '[href$="/retweets/with_comments"]',
-  ].filter(Boolean).join(', ')
-
-  if (individualTweetMetricSelectors) {
-    // Individual tweet metrics
-    hideCssSelectors.push(
-      `body.Tweet a:is(${individualTweetMetricSelectors}) > :first-child`,
-      `[aria-modal="true"] [data-testid="tweet"] a:is(${individualTweetMetricSelectors}) > :first-child`
-    )
-    // Fix display of whitespace after hidden metrics
-    cssRules.push(
-      `body.Tweet a:is(${individualTweetMetricSelectors}), [aria-modal="true"] [data-testid="tweet"] a:is(${individualTweetMetricSelectors}) { white-space: pre-line; }`
-    )
-  }
-
-  if (config.hideBookmarkMetrics) {
-    // Bookmark metrics are the only one without a link
-    hideCssSelectors.push('[data-testid="tweet"][tabindex="-1"] [role="group"]:not([id]) > div > div')
-  }
-
   let timelineMetricSelectors = [
     config.hideReplyMetrics   && '[data-testid="reply"]',
     config.hideRetweetMetrics && '[data-testid$="retweet"]',
     config.hideLikeMetrics    && '[data-testid$="like"]',
+    config.hideBookmarkMetrics && '[data-testid$="bookmark"]',
   ].filter(Boolean).join(', ')
 
   if (timelineMetricSelectors) {
@@ -4536,15 +4514,6 @@ function tweakCommunityMembersPage() {
 async function tweakFocusedTweet($focusedTweet, options) {
   let {observers} = options
   if ($focusedTweet) {
-    // TODO Observe this if it's singular to catch it moving to plural
-    let $retweetsText = $focusedTweet.querySelector('a:is([href$="/retweets"], [href$="/reposts"]) > span > span')
-    if ($retweetsText) {
-      let currentText = $retweetsText.textContent
-      if (currentText != getString('RETWEETS') && currentText != getString('RETWEET')) {
-        $retweetsText.textContent = getString(currentText == getString('REPOSTS') ? 'RETWEETS' : 'RETWEET')
-      }
-    }
-
     if (mobile) {
       let $textArea = /** @type {HTMLTextAreaElement} */ (await getElement('textarea', {
         context: $focusedTweet.parentElement,
