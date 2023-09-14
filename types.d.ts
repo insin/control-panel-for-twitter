@@ -147,6 +147,7 @@ export type TimelineOptions = {
   classifyTweets?: boolean
   hideHeadings?: boolean
   isTabbed?: boolean
+  isUserTimeline?: boolean
   onTabChanged?: () => void
   onTimelineAppeared?: () => void
   tabbedTimelineContainerSelector?: string

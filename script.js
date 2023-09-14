@@ -1285,7 +1285,7 @@ const URL_LIST_RE = /\/i\/lists\/\d+\/?$/
 const URL_MEDIA_RE = /\/(?:photo|video)\/\d\/?$/
 const URL_MEDIAVIEWER_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/mediaviewer$/i
 // Matches URLs which show one of the tabs on a user profile page
-const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(?:with_replies|superfollows|highlights|media|likes))?\/?$/
+const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(affiliates|with_replies|superfollows|highlights|media|likes))?\/?$/
 // Matches URLs which show a user's Followers you know / Followers / Following tab
 const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/(?:verified_followers|follow(?:ing|ers|ers_you_follow))\/?$/
 const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)\/?$/
@@ -2724,8 +2724,10 @@ const configureCss = (() => {
         'body.Profile [role="button"][style*="border-color: rgb(201, 54, 204)"]',
         // Subscriptions count in profile
         'body.Profile a[href$="/creator-subscriptions/subscriptions"]',
-        // Subs tab in profile (3rd of 5, or 6 if they have Highlights)
-        'body.Profile [data-testid="ScrollSnap-List"] > [role="presentation"]:nth-child(3):is(:nth-last-child(3), :nth-last-child(4))',
+        // Subs tab in profile (3rd of 5, or 3rd of 6 if they have Highlights)
+        'body.Profile div[data-testid="ScrollSnap-List"] > div[role="presentation"]:nth-child(3):is(:nth-last-child(3), :nth-last-child(4))',
+        // Subs tab in profile (4th of 7 if they have Affiliates and Highlights)
+        'body.Profile div[data-testid="ScrollSnap-List"] > div[role="presentation"]:nth-child(4):nth-last-child(4)',
         // Subscribe button in focused tweet
         '[data-testid="tweet"][tabindex="-1"] [data-testid$="-subscribe"]',
         // "Subscribe to" dropdown item (desktop)
@@ -3723,14 +3725,14 @@ function onPopup($popup) {
  */
 function onTimelineChange($timeline, page, options = {}) {
   let startTime = Date.now()
-  let {classifyTweets = true, hideHeadings = true} = options
+  let {classifyTweets = true, hideHeadings = true, isUserTimeline = false} = options
 
   let isOnMainTimeline = isOnMainTimelinePage()
   let isOnListTimeline = isOnListPage()
   let isOnProfileTimeline = isOnProfilePage()
   let timelineHasSpecificHandling = isOnMainTimeline || isOnListTimeline || isOnProfileTimeline
 
-  if (config.twitterBlueChecks != 'ignore' && !timelineHasSpecificHandling) {
+  if (config.twitterBlueChecks != 'ignore' && (isUserTimeline || !timelineHasSpecificHandling)) {
     processBlueChecks($timeline)
   }
 
@@ -3738,7 +3740,7 @@ function onTimelineChange($timeline, page, options = {}) {
     processTwitterLogos($timeline)
   }
 
-  if (!classifyTweets) return
+  if (isUserTimeline || !classifyTweets) return
 
   let itemTypes = {}
   let hiddenItemCount = 0
@@ -4876,7 +4878,11 @@ async function tweakProfilePage() {
     processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
   }
 
-  observeTimeline(currentPage)
+  let tab = currentPath.match(URL_PROFILE_RE)?.[2] || 'tweets'
+  log(`on ${tab} tab`)
+  observeTimeline(currentPage, {
+    isUserTimeline: tab == 'affiliates'
+  })
 
   if (desktop && config.hideSidebarContent) {
     observeProfileBlockedStatus(currentPage)
