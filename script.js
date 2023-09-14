@@ -1287,7 +1287,7 @@ const URL_MEDIAVIEWER_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/mediaviewer$/i
 // Matches URLs which show one of the tabs on a user profile page
 const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(?:with_replies|superfollows|highlights|media|likes))?\/?$/
 // Matches URLs which show a user's Followers you know / Followers / Following tab
-const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/follow(?:ing|ers|ers_you_follow)\/?$/
+const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/(?:verified_followers|follow(?:ing|ers|ers_you_follow))\/?$/
 const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)\/?$/
 const URL_TWEET_ENGAGEMENT_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/(quotes|retweets|reposts|likes)\/?$/
 
@@ -1749,7 +1749,13 @@ function observeElement($element, callback, name, options = {childList: true}) {
  * @returns {() => boolean}
  */
 function pageIsNot(page) {
-  return () => page != currentPage
+  return function() {
+    let pageChanged = page != currentPage
+    if (pageChanged) {
+      log('pageIsNot', {page, currentPage})
+    }
+    return pageChanged
+  }
 }
 
 /**
@@ -2762,7 +2768,7 @@ const configureCss = (() => {
         // "Highlight your best content instead" on the pin modal
         '.PinModal [data-testid="sheetDialog"] > div > div:last-child > div > div > div:first-child',
         // Highlight button on the pin modal
-        '.PinModal [data-testid="sheetDialog"] [role="button"]:first-child:nth-last-child(3)',
+        '.PinModal [data-testid="sheetDialog"] div[role="button"]:first-child:nth-last-child(3)',
       )
       // Allow Pin and Cancel buttons go to max-width on the pin modal
       cssRules.push(`
@@ -2775,9 +2781,16 @@ const configureCss = (() => {
       `)
     }
     if (config.hideVerifiedNotificationsTab) {
-      hideCssSelectors.push(
-        `body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2)`
-      )
+      cssRules.push(`
+        body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2),
+        body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) {
+          flex: 0;
+        }
+        body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > a,
+        body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) > a {
+          display: none;
+        }
+      `)
     }
     if (config.hideViews) {
       hideCssSelectors.push(
@@ -2985,6 +2998,7 @@ const configureCss = (() => {
         }
         hideCssSelectors.push(`body.HideSidebar ${Selectors.SIDEBAR}`)
       } else if (config.hideTwitterBlueUpsells) {
+        // Hide "Subscribe to premium" individually
         hideCssSelectors.push(
           `body.MainTimeline ${Selectors.SIDEBAR_WRAPPERS} > div:nth-of-type(3)`
         )
@@ -3111,11 +3125,11 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   if (config.hideFollowingMetrics) {
     // User profile hover card and page metrics
     hideCssSelectors.push(
-      ':is(#layers, body.Profile) a:is([href$="/following"], [href$="/followers"]) > :first-child'
+      ':is(#layers, body.Profile) a:is([href$="/following"], [href$="/verified_followers"]) > span:first-child'
     )
     // Fix display of whitespace after hidden metrics
     cssRules.push(
-      ':is(#layers, body.Profile) a:is([href$="/following"], [href$="/followers"]) { white-space: pre-line; }'
+      ':is(#layers, body.Profile) a:is([href$="/following"], [href$="/verified_followers"]) { white-space: pre-line; }'
     )
   }
 
@@ -4202,6 +4216,7 @@ function processCurrentPage() {
   if (!isOnProfilePage()) {
     $body.classList.remove('Blocked', 'NoMedia')
   }
+  $body.classList.toggle('ProfileFollows', isOnFollowListPage())
   $body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
   $body.classList.toggle('Tweet', isOnIndividualTweetPage())
   $body.classList.toggle('Search', isOnSearchPage())
@@ -4568,7 +4583,22 @@ async function tweakFocusedTweet($focusedTweet, options) {
   }
 }
 
-function tweakFollowListPage() {
+async function tweakFollowListPage() {
+  // These tabs are dynamic as "Followers you know" only appears when applicable
+  let $tabs = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`, {
+    name: 'Following tabs',
+    stopIf: pageIsNot(currentPage),
+  })
+  if (!$tabs) return
+
+  if (config.hideVerifiedNotificationsTab) {
+    let isVerifiedTabSelected = Boolean($tabs.querySelector('div[role="tablist"] > div:nth-child(1) > a[aria-selected="true"]'))
+    if (isVerifiedTabSelected) {
+      log('switching to Following tab')
+      $tabs.querySelector('div[role="tablist"] > div:nth-last-child(2) > a')?.click()
+    }
+  }
+
   if (config.twitterBlueChecks != 'ignore') {
     observeTimeline(currentPage, {
       classifyTweets: false,

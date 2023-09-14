@@ -3,7 +3,7 @@ export type Config = {
   version?: 'desktop' | 'mobile'
   // Shared
   addAddMutedWordMenuItem: boolean
-  // XXX This is now more like "use Following tab by default"
+  // XXX This is now more like "use the Following tab by default"
   alwaysUseLatestTweets: boolean
   defaultToLatestSearch: boolean
   disableHomeTimeline: boolean
@@ -45,6 +45,7 @@ export type Config = {
   hideTwitterBlueReplies: boolean
   hideTwitterBlueUpsells: boolean
   hideUnavailableQuoteTweets: boolean
+  // XXX This now also controls hiding Verified Followers
   hideVerifiedNotificationsTab: boolean
   hideViews: boolean
   hideWhoToFollowEtc: boolean
@@ -53,6 +54,7 @@ export type Config = {
   mutedQuotes: QuotedTweet[]
   quoteTweets: SharedTweetsConfig
   reducedInteractionMode: boolean
+  // XXX This now controls all replacement of X brand changes
   replaceLogo: boolean
   retweets: SharedTweetsConfig
   showBlueReplyFollowersCount: boolean

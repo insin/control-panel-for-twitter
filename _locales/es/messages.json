@@ -150,7 +150,7 @@
     "message": "Añade \"Añadir palabra silenciada\" al menú hamburguesa"
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "Oculta la pestaña \"Verificado\" en las notificaciones"
+    "message": "Ocultar pestañas \"Verificado\" en Notificaciones y Seguidores"
   },
   "hideViewsLabel": {
     "message": "Ocultar Reproducciones de tweets"

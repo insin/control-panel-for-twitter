@@ -150,7 +150,7 @@
     "message": "スライドアウトメニューに「ミュートするキーワードを追加」を追加"
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "通知の「認証済み」タブを非表示"
+    "message": "通知とフォロワーの「認証済み」タブを非表示"
   },
   "hideViewsLabel": {
     "message": "ツイート下部のアナリティクスのリンクを非表示"

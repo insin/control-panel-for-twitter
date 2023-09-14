@@ -150,7 +150,7 @@
     "message": "Ajouter \"Ajouter un mot en sourdine\" au menu déroulant"
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "Masquer l'onglet Vérifié dans les notifications"
+    "message": "Masquer les onglets \"Certifiés\" dans Notifications et Abonnés"
   },
   "hideViewsLabel": {
     "message": "Masquer les vues sous les tweets"

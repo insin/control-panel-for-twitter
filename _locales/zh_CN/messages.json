@@ -150,7 +150,7 @@
     "message": "在滑出式菜单中添加\"增加隐藏词\""
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "隐藏通知菜单中的\"已认证\"标签"
+    "message": "隐藏通知和关注者中的\"认证\"选项卡"
   },
   "hideViewsLabel": {
     "message": "隐藏推文下的观点"

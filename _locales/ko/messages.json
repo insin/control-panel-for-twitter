@@ -150,7 +150,7 @@
     "message": "슬라이드 메뉴에 \"뮤트할 단어 추가하기\" 추가"
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "알림에서 \"검증됨\" 탭 숨기기"
+    "message": "알림 및 팔로어에 \"인증된\" 탭 숨기기"
   },
   "hideViewsLabel": {
     "message": "트윗 아래의 조회수 숨기기"
