@@ -2348,7 +2348,9 @@ const observeSideNavTweetButton = (() => {
     if (!desktop || !config.replaceLogo) return
 
     // This element is updated when text is added or removed on resize
-    let $buttonTextContainer = await getElement('a[data-testid="SideNav_NewTweet_Button"] > div > span')
+    let $buttonTextContainer = await getElement('a[data-testid="SideNav_NewTweet_Button"] > div > span', {
+      name: 'sidenav tweet button text container',
+    })
     observer = observeElement($buttonTextContainer, () => {
       if ($buttonTextContainer.childElementCount > 0) {
         let $buttonText = /** @type {HTMLElement} */ ($buttonTextContainer.querySelector('span > span'))
@@ -2769,10 +2771,8 @@ const configureCss = (() => {
         'body.Profile [role="button"][style*="border-color: rgb(201, 54, 204)"]',
         // Subscriptions count in profile
         'body.Profile a[href$="/creator-subscriptions/subscriptions"]',
-        // Subs tab in profile (3rd of 5, or 3rd of 6 if they have Highlights)
-        'body.Profile div[data-testid="ScrollSnap-List"] > div[role="presentation"]:nth-child(3):is(:nth-last-child(3), :nth-last-child(4))',
-        // Subs tab in profile (4th of 7 if they have Affiliates and Highlights)
-        'body.Profile div[data-testid="ScrollSnap-List"] > div[role="presentation"]:nth-child(4):nth-last-child(4)',
+        // Subs tab in profile
+        'body.Profile .SubsTab',
         // Subscribe button in focused tweet
         '[data-testid="tweet"][tabindex="-1"] [data-testid$="-subscribe"]',
         // "Subscribe to" dropdown item (desktop)
@@ -4966,7 +4966,7 @@ async function tweakProfilePage() {
     observeProfileSidebar(currentPage)
   }
 
-  if (config.replaceLogo) {
+  if (config.replaceLogo || config.hideSubscriptions) {
     let $profileTabs = await getElement(`${Selectors.PRIMARY_COLUMN} nav`, {
       name: 'profile tabs',
       stopIf: pageIsNot(currentPage),
@@ -4980,13 +4980,25 @@ async function tweakProfilePage() {
           if ($newProfileTabs == null) return
           $profileTabs = /** @type {HTMLElement} */ ($newProfileTabs)
         }
-        let $tweetsTabText = await getElement('[data-testid="ScrollSnap-List"] > [role="presentation"]:first-child div[dir] > span:first-child', {
-          context: $profileTabs,
-          name: 'Tweets tab text',
-          stopIf: pageIsNot(currentPage),
-        })
-        if ($tweetsTabText && $tweetsTabText.textContent != getString('TWEETS')) {
-          $tweetsTabText.textContent = getString('TWEETS')
+        if (config.replaceLogo) {
+          let $tweetsTabText = await getElement('[data-testid="ScrollSnap-List"] > [role="presentation"]:first-child div[dir] > span:first-child', {
+            context: $profileTabs,
+            name: 'Tweets tab text',
+            stopIf: pageIsNot(currentPage),
+          })
+          if ($tweetsTabText && $tweetsTabText.textContent != getString('TWEETS')) {
+            $tweetsTabText.textContent = getString('TWEETS')
+          }
+        }
+        if (config.hideSubscriptions) {
+          let $subscriptionsTabLink = await getElement('a[href$="/superfollows"]', {
+            context: $profileTabs,
+            name: 'Subscriptions tab link',
+            stopIf: pageIsNot(currentPage),
+          })
+          if ($subscriptionsTabLink) {
+            $subscriptionsTabLink.parentElement.classList.add('SubsTab')
+          }
         }
       }, 'profile tabs', {childList: true})
     )
