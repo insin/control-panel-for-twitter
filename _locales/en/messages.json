@@ -343,5 +343,8 @@
   },
   "hideTimelineTweetBoxLabel": {
     "message": "Tweet box in timeline"
+  },
+  "restoreQuoteTweetsLinkLabel": {
+    "message": "Restore Quote Tweets link under Tweets"
   }
 }

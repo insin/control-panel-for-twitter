@@ -343,5 +343,8 @@
   },
   "hideTimelineTweetBoxLabel": {
     "message": "타임라인 트윗 상자"
+  },
+  "restoreQuoteTweetsLinkLabel": {
+    "message": "트윗 아래의 \"트윗 인용\" 링크 복원"
   }
 }

@@ -343,5 +343,8 @@
   },
   "hideTimelineTweetBoxLabel": {
     "message": "Zone de tweet dans timeline"
+  },
+  "restoreQuoteTweetsLinkLabel": {
+    "message": "Lien Restaurer les Tweets cités sous Tweets"
   }
 }

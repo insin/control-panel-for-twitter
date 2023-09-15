@@ -90,6 +90,7 @@ const config = {
   quoteTweets: 'ignore',
   reducedInteractionMode: false,
   replaceLogo: true,
+  restoreQuoteTweetsLink: true,
   retweets: 'separate',
   showBlueReplyFollowersCount: true,
   tweakQuoteTweetsPage: true,
@@ -139,6 +140,7 @@ const locales = {
     TWEET: 'غرّدي',
     TWEETS: 'التغريدات',
     TWEET_ALL: 'تغريد الكل',
+    TWEET_INTERACTIONS: 'تفاعلات التغريدة',
     TWEET_YOUR_REPLY: 'التغريد بردك!',
     TWITTER: 'تويتر',
     UNDO_RETWEET: 'التراجع عن التغريدة',
@@ -164,6 +166,7 @@ const locales = {
     TWEET: 'تغريد',
     TWEETS: 'التغريدات',
     TWEET_ALL: 'تغريد الكل',
+    TWEET_INTERACTIONS: 'تفاعلات التغريدة',
     TWEET_YOUR_REPLY: 'التغريد بردك!',
     UNDO_RETWEET: 'التراجع عن التغريدة',
   },
@@ -185,9 +188,10 @@ const locales = {
     SHOW_MORE_REPLIES: 'Показване на още отговори',
     TURN_OFF_RETWEETS: 'Изключване на ретуитовете',
     TURN_ON_RETWEETS: 'Включване на ретуитовете',
-    TWEET: 'تغريد',
+    TWEET: 'Туит',
     TWEETS: 'Туитове',
-    TWEET_ALL: 'تغريد الكل',
+    TWEET_ALL: 'Туитване на всички',
+    TWEET_INTERACTIONS: 'Интеракции с туит',
     TWEET_YOUR_REPLY: 'Отговори с туит!',
     UNDO_RETWEET: 'Отмяна на ретуитването',
   },
@@ -212,6 +216,7 @@ const locales = {
     TWEET: 'টুইট',
     TWEETS: 'টুইটগুলি',
     TWEET_ALL: 'সব টুইট করুন',
+    TWEET_INTERACTIONS: 'টুইট ইন্টারেকশন',
     TWEET_YOUR_REPLY: 'আপনার উত্তর টুইট করুন!',
     TWITTER: 'টুইটার',
     UNDO_RETWEET: 'পুনঃ টুইট পুর্বাবস্থায় ফেরান',
@@ -237,6 +242,7 @@ const locales = {
     TWEET: 'Tuita',
     TWEETS: 'Tuits',
     TWEET_ALL: 'Tuita-ho tot',
+    TWEET_INTERACTIONS: 'Interaccions amb tuits',
     TWEET_YOUR_REPLY: 'Tuita la teva resposta',
     UNDO_RETWEET: 'Desfés el retuit',
   },
@@ -260,6 +266,7 @@ const locales = {
     TWEET: 'Tweetovat',
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnout vše',
+    TWEET_INTERACTIONS: 'Tweetovat interakce',
     TWEET_YOUR_REPLY: 'Tweetujte svou odpověď!',
     UNDO_RETWEET: 'Zrušit Retweet',
   },
@@ -278,6 +285,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Slå Retweets fra',
     TURN_ON_RETWEETS: 'Slå Retweets til',
     TWEET_ALL: 'Tweet alt',
+    TWEET_INTERACTIONS: 'Tweet-interaktioner',
     TWEET_YOUR_REPLY: 'Tweet dit svar!',
     UNDO_RETWEET: 'Fortryd Retweet',
   },
@@ -299,6 +307,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Retweets einschalten',
     TWEET: 'Twittern',
     TWEET_ALL: 'Alle twittern',
+    TWEET_INTERACTIONS: 'Tweet-Interaktionen',
     TWEET_YOUR_REPLY: 'Twittere deine Antwort!',
     UNDO_RETWEET: 'Retweet rückgängig machen',
   },
@@ -321,6 +330,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Ενεργοποίηση των Retweet',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Δημοσίευση όλων ως Tweet',
+    TWEET_INTERACTIONS: 'Αλληλεπιδράσεις με tweet',
     TWEET_YOUR_REPLY: 'Στείλτε την απάντησή σας!',
     UNDO_RETWEET: 'Αναίρεση Retweet',
   },
@@ -345,6 +355,7 @@ const locales = {
     TWEET: 'Tweet',
     TWEETS: 'Tweets',
     TWEET_ALL: 'Tweet all',
+    TWEET_INTERACTIONS: 'Tweet interactions',
     TWEET_YOUR_REPLY: 'Tweet your reply!',
     TWITTER: 'Twitter',
     UNDO_RETWEET: 'Undo Retweet',
@@ -367,6 +378,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Activar Retweets',
     TWEET: 'Twittear',
     TWEET_ALL: 'Twittear todo',
+    TWEET_INTERACTIONS: 'Interacciones con Tweet',
     TWEET_YOUR_REPLY: '¡Twittea tu respuesta!',
     UNDO_RETWEET: 'Deshacer Retweet',
   },
@@ -388,7 +400,7 @@ const locales = {
     TWEET: 'Txio',
     TWEETS: 'Txioak',
     TWEET_ALL: 'Txiotu guztiak',
-    TWEET_YOUR_REPLY: 'Tweet your reply!',
+    TWEET_INTERACTIONS: 'Txio elkarrekintzak',
     UNDO_RETWEET: 'Desegin birtxiokatzea',
   },
   fa: {
@@ -412,6 +424,7 @@ const locales = {
     TWEET: 'توییت',
     TWEETS: 'توييت‌ها',
     TWEET_ALL: 'توییت به همه',
+    TWEET_INTERACTIONS: 'تعاملات توییت',
     TWEET_YOUR_REPLY: 'پاسختان را توییت کنید!',
     TWITTER: 'توییتر',
     UNDO_RETWEET: 'لغو بازتوییت',
@@ -437,6 +450,7 @@ const locales = {
     TWEET: 'Twiittaa',
     TWEETS: 'Twiitit',
     TWEET_ALL: 'Twiittaa kaikki',
+    TWEET_INTERACTIONS: 'Twiitin vuorovaikutukset',
     TWEET_YOUR_REPLY: 'Twiittaa vastauksesi',
     UNDO_RETWEET: 'Kumoa uudelleentwiittaus',
   },
@@ -459,6 +473,7 @@ const locales = {
     TWEET: 'Mag-tweet',
     TWEETS: 'Mga Tweet',
     TWEET_ALL: 'I-tweet lahat',
+    TWEET_INTERACTIONS: 'Interaksyon sa Tweet',
     TWEET_YOUR_REPLY: 'I-Tweet ang sagot mo!',
     UNDO_RETWEET: 'Huwag nang I-retweet',
   },
@@ -479,7 +494,8 @@ const locales = {
     TURN_ON_RETWEETS: 'Activer les Retweets',
     TWEET: 'Tweeter',
     TWEET_ALL: 'Tout tweeter',
-    TWEET_YOUR_REPLY: 'Tweetez votre réponse !',
+    TWEET_INTERACTIONS: 'Interactions avec Tweet',
+    TWEET_YOUR_REPLY: 'Tweetez votre réponse!',
     UNDO_RETWEET: 'Annuler le Retweet',
   },
   ga: {
@@ -499,7 +515,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Cas Atweetanna air',
     TWEETS: 'Tweetanna',
     TWEET_ALL: 'Tweetáil gach rud',
-    TWEET_YOUR_REPLY: 'Tweet your reply!',
+    TWEET_INTERACTIONS: 'Idirghníomhaíochtaí le Tweet',
     UNDO_RETWEET: 'Cuir an Atweet ar ceal',
   },
   gl: {
@@ -520,7 +536,7 @@ const locales = {
     TWEET: 'Chío',
     TWEETS: 'Chíos',
     TWEET_ALL: 'Chiar todo',
-    TWEET_YOUR_REPLY: 'Tweet your reply!',
+    TWEET_INTERACTIONS: 'Interaccións chío',
     UNDO_RETWEET: 'Desfacer rechouchío',
   },
   gu: {
@@ -544,6 +560,7 @@ const locales = {
     TWEET: 'ટ્વીટ',
     TWEETS: 'ટ્વીટ્સ',
     TWEET_ALL: 'બધાને ટ્વીટ કરો',
+    TWEET_INTERACTIONS: 'ટ્વીટ ક્રિયાપ્રતિક્રિયાઓ',
     TWEET_YOUR_REPLY: 'તમારા પ્રત્યુત્તરને ટ્વીટ કરો!',
     UNDO_RETWEET: 'પુનટ્વીટને પૂર્વવત કરો',
   },
@@ -568,6 +585,7 @@ const locales = {
     TWEET: 'צייץ',
     TWEETS: 'ציוצים',
     TWEET_ALL: 'צייץ הכול',
+    TWEET_INTERACTIONS: 'אינטראקציות צייץ',
     TWEET_YOUR_REPLY: 'צייץ את התשובה!',
     TWITTER: 'טוויטר',
     UNDO_RETWEET: 'ביטול ציוץ מחדש',
@@ -593,6 +611,7 @@ const locales = {
     TWEET: 'ट्वीट करें',
     TWEETS: 'ट्वीट',
     TWEET_ALL: 'सभी ट्वीट करें',
+    TWEET_INTERACTIONS: 'ट्वीट इंटरैक्शन',
     TWEET_YOUR_REPLY: 'अपना जवाब ट्वीट करें!',
     UNDO_RETWEET: 'रीट्वीट को पूर्ववत करें',
   },
@@ -616,6 +635,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Uključi proslijeđene tweetove',
     TWEETS: 'Tweetovi',
     TWEET_ALL: 'Tweetaj sve',
+    TWEET_INTERACTIONS: 'Interakcije s Tweet',
     TWEET_YOUR_REPLY: 'Pošaljite Tweet s odgovorom!',
     UNDO_RETWEET: 'Poništi prosljeđivanje tweeta',
   },
@@ -639,6 +659,7 @@ const locales = {
     TWEET: 'Tweetelj',
     TWEETS: 'Tweetek',
     TWEET_ALL: 'Tweet küldése mindenkinek',
+    TWEET_INTERACTIONS: 'Tweet interakciók',
     TWEET_YOUR_REPLY: 'Tweeteld válaszodat',
     UNDO_RETWEET: 'Retweet visszavonása',
   },
@@ -661,6 +682,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Nyalakan Retweet',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Tweet semua',
+    TWEET_INTERACTIONS: 'Interaksi Tweet',
     TWEET_YOUR_REPLY: 'Tweet balasan Anda!',
     UNDO_RETWEET: 'Batalkan Retweet',
   },
@@ -683,6 +705,7 @@ const locales = {
     TWEET: 'Twitta',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Twitta tutto',
+    TWEET_INTERACTIONS: 'Interazioni con Tweet',
     TWEET_YOUR_REPLY: 'Twitta la tua risposta.',
     UNDO_RETWEET: 'Annulla Retweet',
   },
@@ -707,6 +730,7 @@ const locales = {
     TWEET: 'ツイートする',
     TWEETS: 'ツイート',
     TWEET_ALL: 'すべてツイート',
+    TWEET_INTERACTIONS: 'ツイートの相互作用',
     TWEET_YOUR_REPLY: '返信をツイートしましょう。',
     UNDO_RETWEET: 'リツイートを取り消す',
   },
@@ -731,6 +755,7 @@ const locales = {
     TWEET: 'ಟ್ವೀಟ್',
     TWEETS: 'ಟ್ವೀಟ್‌ಗಳು',
     TWEET_ALL: 'ಎಲ್ಲಾ ಟ್ವೀಟ್ ಮಾಡಿ',
+    TWEET_INTERACTIONS: 'ಟ್ವೀಟ್ ಸಂವಾದಗಳು',
     TWEET_YOUR_REPLY: 'ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ!',
     UNDO_RETWEET: 'ಮರುಟ್ವೀಟಿಸುವುದನ್ನು ರದ್ದುಮಾಡಿ',
   },
@@ -755,6 +780,7 @@ const locales = {
     TWEET: '트윗',
     TWEETS: '트윗',
     TWEET_ALL: '모두 트윗하기',
+    TWEET_INTERACTIONS: '트윗 상호작용',
     TWEET_YOUR_REPLY: '내 답글을 트윗하세요',
     TWITTER: '트위터',
     UNDO_RETWEET: '리트윗 취소',
@@ -780,6 +806,7 @@ const locales = {
     TWEET: 'ट्विट',
     TWEETS: 'ट्विट्स',
     TWEET_ALL: 'सर्व ट्विट करा',
+    TWEET_INTERACTIONS: 'ट्वीट इंटरऍक्शन्स',
     TWEET_YOUR_REPLY: 'आपल्या प्रत्युत्तरावर ट्विट करा!',
     UNDO_RETWEET: 'पुनर्ट्विट पूर्ववत करा',
   },
@@ -803,6 +830,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Hidupkan Tweet semula',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Tweet semua',
+    TWEET_INTERACTIONS: 'Interaksi Tweet',
     TWEET_YOUR_REPLY: 'Tweet balasan anda!',
     UNDO_RETWEET: 'Buat asal Tweet semula',
   },
@@ -823,6 +851,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Slå av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
     TWEET_ALL: 'Tweet alle',
+    TWEET_INTERACTIONS: 'Tweet-interaksjoner',
     TWEET_YOUR_REPLY: 'Tweet svaret ditt!',
     UNDO_RETWEET: 'Angre Retweet',
   },
@@ -843,6 +872,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Retweets inschakelen',
     TWEET: 'Tweeten',
     TWEET_ALL: 'Alles tweeten',
+    TWEET_INTERACTIONS: 'Tweet-interacties',
     TWEET_YOUR_REPLY: 'Tweet je antwoord!',
     UNDO_RETWEET: 'Retweet ongedaan maken',
   },
@@ -866,6 +896,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Włącz Tweety podane dalej',
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnij wszystko',
+    TWEET_INTERACTIONS: 'Interakcje na Tweeta',
     TWEET_YOUR_REPLY: 'Wyślij Tweeta z odpowiedzią!',
     UNDO_RETWEET: 'Cofnij podanie dalej',
   },
@@ -887,6 +918,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Ativar Retweets',
     TWEET: 'Tweetar',
     TWEET_ALL: 'Tweetar tudo',
+    TWEET_INTERACTIONS: 'Interações com Tweet',
     TWEET_YOUR_REPLY: 'Tweetar sua resposta!',
     UNDO_RETWEET: 'Desfazer Retweet',
   },
@@ -910,6 +942,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Activează Retweeturile',
     TWEETS: 'Tweeturi',
     TWEET_ALL: 'Dă Tweeturi cu tot',
+    TWEET_INTERACTIONS: 'Interacțiuni cu Tweetul',
     TWEET_YOUR_REPLY: 'Dă Tweet cu răspunsul!',
     UNDO_RETWEET: 'Anulează Retweetul',
   },
@@ -934,6 +967,7 @@ const locales = {
     TWEET: 'Твитнуть',
     TWEETS: 'Твиты',
     TWEET_ALL: 'Твитнуть все',
+    TWEET_INTERACTIONS: 'Взаимодействие в Твитнуть',
     TWEET_YOUR_REPLY: 'Твитните свой ответ!',
     TWITTER: 'Твиттер',
     UNDO_RETWEET: 'Отменить ретвит',
@@ -959,6 +993,7 @@ const locales = {
     TWEET: 'Tweetnuť',
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnuť všetko',
+    TWEET_INTERACTIONS: 'Interakcie s Tweet',
     TWEET_YOUR_REPLY: 'Tweetnite odpoveď!',
     UNDO_RETWEET: 'Zrušiť retweet',
   },
@@ -983,6 +1018,7 @@ const locales = {
     TWEET: 'Твитуј',
     TWEETS: 'Твитови',
     TWEET_ALL: 'Твитуј све',
+    TWEET_INTERACTIONS: 'Интеракције са Твитуј',
     TWEET_YOUR_REPLY: 'Твитуј свој одговор!',
     TWITTER: 'Твитер',
     UNDO_RETWEET: 'Опозови ретвит',
@@ -1006,6 +1042,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Slå på Retweets',
     TWEET: 'Tweeta',
     TWEET_ALL: 'Tweeta allt',
+    TWEET_INTERACTIONS: 'Interaktioner med Tweet',
     TWEET_YOUR_REPLY: 'Tweeta ditt svar!',
     UNDO_RETWEET: 'Ångra retweeten',
   },
@@ -1030,6 +1067,7 @@ const locales = {
     TWEET: 'ட்விட் செய்',
     TWEETS: 'கீச்சுகள்',
     TWEET_ALL: 'அனைத்தையும் ட்விட் செய்',
+    TWEET_INTERACTIONS: 'ட்விட் செய் ஊடாடல்களைக்',
     TWEET_YOUR_REPLY: 'உங்கள் பதிலை ட்விட் செய்யவும்!',
     UNDO_RETWEET: 'மறுகீச்சை செயல்தவிர்',
   },
@@ -1054,6 +1092,7 @@ const locales = {
     TWEET: 'ทวีต',
     TWEETS: 'ทวีต',
     TWEET_ALL: 'ทวีตทั้งหมด',
+    TWEET_INTERACTIONS: 'การโต้ตอบของทวีต',
     TWEET_YOUR_REPLY: 'ทวีตการตอบกลับของคุณ',
     TWITTER: 'ทวิตเตอร์',
     UNDO_RETWEET: 'ยกเลิกการรีทวีต',
@@ -1078,6 +1117,7 @@ const locales = {
     TWEET: 'Tweetle',
     TWEETS: 'Tweetler',
     TWEET_ALL: 'Hepsini Tweetle',
+    TWEET_INTERACTIONS: 'Tweet etkileşimleri',
     TWEET_YOUR_REPLY: 'Yanıtını Tweetle.',
     UNDO_RETWEET: 'Retweeti Geri Al',
   },
@@ -1102,6 +1142,7 @@ const locales = {
     TWEET: 'Твіт',
     TWEETS: 'Твіти',
     TWEET_ALL: 'Твітнути все',
+    TWEET_INTERACTIONS: 'Взаємодія твітів',
     TWEET_YOUR_REPLY: 'Твітніть свою відповідь!',
     TWITTER: 'Твіттер',
     UNDO_RETWEET: 'Скасувати ретвіт',
@@ -1124,6 +1165,7 @@ const locales = {
     TWEET: 'ٹویٹ',
     TWEETS: 'ٹویٹس',
     TWEET_ALL: 'سب کو ٹویٹ کریں',
+    TWEET_INTERACTIONS: 'ٹویٹ تعاملات',
     TWITTER: 'ٹوئٹر',
     UNDO_RETWEET: 'ری ٹویٹ کو کالعدم کریں',
   },
@@ -1147,6 +1189,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Bật Tweet lại',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Đăng Tweet tất cả',
+    TWEET_INTERACTIONS: 'Tương tác Tweet',
     TWEET_YOUR_REPLY: 'Đăng Tweet câu trả lời của bạn!',
     UNDO_RETWEET: 'Hoàn tác Tweet lại',
   },
@@ -1171,6 +1214,7 @@ const locales = {
     TWEET: '推文',
     TWEETS: '推文',
     TWEET_ALL: '推全部內容',
+    TWEET_INTERACTIONS: '推文互動',
     TWEET_YOUR_REPLY: '推你的回覆！',
     UNDO_RETWEET: '取消轉推',
   },
@@ -1195,6 +1239,7 @@ const locales = {
     TWEET: '推文',
     TWEETS: '推文',
     TWEET_ALL: '全部发推',
+    TWEET_INTERACTIONS: '推文互动',
     TWEET_YOUR_REPLY: '发布你的回复！',
     UNDO_RETWEET: '撤销转推',
   },
@@ -2810,6 +2855,14 @@ const configureCss = (() => {
         'body.Tweet [data-testid="tweet"] + div > div [role="group"]',
       )
     }
+    if (config.restoreQuoteTweetsLink) {
+      cssRules.push(`
+        #tntQuoteTweets a:hover span:last-child { text-decoration: underline; }
+        #tntQuoteTweetCount { dsplay: inline-block; margin-right: 4px; }
+      `)
+    } else {
+      hideCssSelectors.push('#tntQuoteTweets')
+    }
     if (config.tweakQuoteTweetsPage) {
       // Hide the quoted tweet, which is repeated in every quote tweet
       hideCssSelectors.push('body.QuoteTweets [data-testid="tweet"] [aria-labelledby] > div:last-child')
@@ -4041,9 +4094,7 @@ function onIndividualTweetTimelineChange($timeline, options) {
     /** @type {HTMLElement} */ (change.$item.firstElementChild).style.display = change.hideItem ? 'none' : ''
   }
 
-  if (config.replaceLogo) {
-    tweakFocusedTweet($focusedTweet, options)
-  }
+  tweakFocusedTweet($focusedTweet, options)
 
   log(
     `processed ${$timeline.children.length} thread item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
@@ -4315,6 +4366,49 @@ function removeMobileTimelineHeaderElements() {
 }
 
 /**
+ * @param {HTMLElement} $focusedTweet
+ */
+function restoreQuoteTweetsLink($focusedTweet) {
+  if (!config.restoreQuoteTweetsLink || $focusedTweet.querySelector('#tntQuoteTweets')) return
+
+  let $link = /** @type {HTMLAnchorElement} */ ($focusedTweet.querySelector('a[role="link"][href*="/status/"]:not([href*="/photo/"])'))
+  if (!$link) return warn('focused tweet canonical link not found')
+
+  let tweetId = $link.pathname.match(URL_TWEET_RE)?.[2]
+  let tweetInfo = getTweetInfo(tweetId)
+  if (!tweetInfo) return
+  if (!tweetInfo.quote_count) return log(`focused tweet Quote Tweet count is ${tweetInfo.quote_count}`)
+
+  let $group = $focusedTweet.querySelector('[role="group"][id^="id__"]')
+  if (!$group) return warn('focused tweet action bar not found')
+
+  let formattedCount = Intl.NumberFormat(lang, {notation: 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)
+  let labelKey = tweetInfo.quote_count == 1 ? 'QUOTE_TWEET' :'QUOTE_TWEETS'
+  $group.parentElement.insertAdjacentHTML('beforebegin', `
+    <div id="tntQuoteTweets">
+      <div style="padding: 16px 4px; border-top: 1px solid var(--border-color);">
+        <a href="${$link.href}/quotes" dir="auto" role="link" class="${fontFamilyRule?.selectorText?.replace('.', '')}" style="text-decoration: none; color: var(--color);">
+          <span style="font-weight: 700; color: var(--color-emphasis);" id="tntQuoteTweetCount">${formattedCount}</span> <span>${getString(labelKey)}</span>
+        </a>
+      </div>
+    </div>
+  `)
+
+  $focusedTweet.querySelector('#tntQuoteTweets a').addEventListener('click', async (e) => {
+    let $caret = /** @type {HTMLElement} */ ($focusedTweet.querySelector('[data-testid="caret"]'))
+    if ($caret) {
+      log('clicking "View post engagements" menu item')
+      e.preventDefault()
+      $caret.click()
+      let $tweetEngagements = await getElement('#layers a[data-testid="tweetEngagements"]')
+      $tweetEngagements.click()
+    } else {
+      warn('focused tweet menu caret not found')
+    }
+  })
+}
+
+/**
  * Sets the page name in <title>, retaining any current notification count.
  * @param {string} page
  */
@@ -4525,42 +4619,9 @@ function tweakCommunityMembersPage() {
 async function tweakFocusedTweet($focusedTweet, options) {
   let {observers} = options
   if ($focusedTweet) {
-    (function restoreQuoteTweetsLink() {
-      if ($focusedTweet.querySelector('#tntQuoteTweets')) return
-      let $link = /** @type {HTMLAnchorElement} */ ($focusedTweet.querySelector('a[role="link"][href*="/status/"]:not([href*="/photo/"])'))
-      if (!$link) return warn('focused tweet canonical link not found')
-      let tweetId = $link.pathname.match(URL_TWEET_RE)?.[2]
-      let tweetInfo = getTweetInfo(tweetId)
-      if (!tweetInfo) return
-      if (!tweetInfo.quote_count) return log('focused tweet Quote Tweet count is 0')
-      let $group = $focusedTweet.querySelector('[role="group"][id^="id__"]')
-      if (!$group) return warn('focused tweet action bar not found')
-      let formattedCount = Intl.NumberFormat(lang, {notation: 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)
-      let labelKey = tweetInfo.quote_count == 1 ? 'QUOTE_TWEET' :'QUOTE_TWEETS'
-      $group.parentElement.insertAdjacentHTML('beforebegin', `
-        <div id="tntQuoteTweets">
-          <div style="padding: 16px 4px; border-top: 1px solid var(--border-color);">
-            <a href="${$link.href}/quotes" dir="auto" role="link" class="${fontFamilyRule?.selectorText?.replace('.', '')}" style="text-decoration: none; color: var(--color);">
-              <span style="font-weight: 700; color: var(--color-emphasis);" id="tntQuoteTweetCount">${formattedCount}</span> <span>${getString(labelKey)}</span>
-            </a>
-          </div>
-        </div>
-      `)
-      $focusedTweet.querySelector('#tntQuoteTweets a').addEventListener('click', async (e) => {
-        let $caret = /** @type {HTMLElement} */ ($focusedTweet.querySelector('[data-testid="caret"]'))
-        if ($caret) {
-          log('clicking "View post engagements" menu item')
-          e.preventDefault()
-          $caret.click()
-          let $tweetEngagements = await getElement('#layers a[data-testid="tweetEngagements"]')
-          $tweetEngagements.click()
-        } else {
-          warn('focused tweet menu caret not found')
-        }
-      })
-    })()
+    restoreQuoteTweetsLink($focusedTweet)
 
-    if (desktop && !isObserving(observers, 'tweet editor')) {
+    if (desktop && config.replaceLogo && !isObserving(observers, 'tweet editor')) {
       let $editorRoot = await getElement('.DraftEditor-root', {
         context: $focusedTweet.parentElement,
         name: 'tweet editor in focused tweet',
@@ -4963,6 +5024,17 @@ function tweakSearchPage() {
 }
 
 function tweakTweetEngagementPage() {
+  if (config.replaceLogo) {
+    let $headingText = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`)
+    if ($headingText) {
+      if ($headingText.textContent != getString('TWEET_INTERACTIONS')) {
+        $headingText.textContent = getString('TWEET_INTERACTIONS')
+      }
+    } else {
+      warn('could not find Post engagement heading')
+    }
+  }
+
   let $tabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
   if ($tabs == null) {
     warn('could not find Post engagement tabs')

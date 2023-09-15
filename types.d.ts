@@ -56,6 +56,7 @@ export type Config = {
   reducedInteractionMode: boolean
   // XXX This now controls all replacement of X brand changes
   replaceLogo: boolean
+  restoreQuoteTweetsLink: boolean
   retweets: SharedTweetsConfig
   showBlueReplyFollowersCount: boolean
   tweakQuoteTweetsPage: boolean
@@ -105,6 +106,7 @@ export type LocaleKey =
   | 'TWEET'
   | 'TWEETS'
   | 'TWEET_ALL'
+  | 'TWEET_INTERACTIONS'
   | 'TWEET_YOUR_REPLY'
   | 'TWITTER'
   | 'UNDO_RETWEET'

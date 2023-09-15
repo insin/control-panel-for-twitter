@@ -343,5 +343,8 @@
   },
   "hideTimelineTweetBoxLabel": {
     "message": "时间线推文框"
+  },
+  "restoreQuoteTweetsLinkLabel": {
+    "message": "恢复推文下的“引用推文”链接"
   }
 }
