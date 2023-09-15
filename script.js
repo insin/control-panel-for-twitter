@@ -2785,7 +2785,15 @@ const configureCss = (() => {
         // Monetization and Subscriptions items in Settings
         'body.Settings a[href="/settings/monetization"]',
         'body.Settings a[href="/settings/manage_subscriptions"]',
+        // Subscriptions tab link in Following/Follows
+        `body.ProfileFollows.Subscriptions ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:last-child > a`,
       )
+      // Subscriptions tab in Following/Follows
+      cssRules.push(`
+        body.ProfileFollows.Subscriptions ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:last-child {
+          flex: 0;
+        }
+      `)
     }
     if (config.hideHelpCenterNav) {
       hideCssSelectors.push(`${menuRole} a[href*="support.twitter.com"]`)
@@ -4270,6 +4278,9 @@ function processCurrentPage() {
     $body.classList.remove('Blocked', 'NoMedia')
   }
   $body.classList.toggle('ProfileFollows', isOnFollowListPage())
+  if (!isOnFollowListPage()) {
+    $body.classList.remove('Subscriptions')
+  }
   $body.classList.toggle('QuoteTweets', isOnQuoteTweetsPage())
   $body.classList.toggle('Tweet', isOnIndividualTweetPage())
   $body.classList.toggle('Search', isOnSearchPage())
@@ -4654,11 +4665,16 @@ async function tweakFollowListPage() {
   })
   if (!$tabs) return
 
+  let $subscriptionsTabLink = $tabs.querySelector('div[role="tablist"] a[href$="/subscriptions"]')
+  if ($subscriptionsTabLink) {
+    $body.classList.add('Subscriptions')
+  }
+
   if (config.hideVerifiedNotificationsTab) {
     let isVerifiedTabSelected = Boolean($tabs.querySelector('div[role="tablist"] > div:nth-child(1) > a[aria-selected="true"]'))
     if (isVerifiedTabSelected) {
       log('switching to Following tab')
-      $tabs.querySelector('div[role="tablist"] > div:nth-last-child(2) > a')?.click()
+      $tabs.querySelector(`div[role="tablist"] > div:nth-last-child(${$subscriptionsTabLink ? 3 : 2}) > a`)?.click()
     }
   }
 
