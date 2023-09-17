@@ -90,6 +90,7 @@ const config = {
   quoteTweets: 'ignore',
   reducedInteractionMode: false,
   replaceLogo: true,
+  restoreOtherInteractionLinks: false,
   restoreQuoteTweetsLink: true,
   retweets: 'separate',
   showBlueReplyFollowersCount: true,
@@ -123,6 +124,7 @@ const locales = {
   'ar-x-fm': {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     HOME: 'الرئيسيّة',
+    LIKES: 'الإعجابات',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
     QUOTE_TWEET: 'اقتباس التغريدة',
@@ -148,6 +150,7 @@ const locales = {
   ar: {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     HOME: 'الرئيسيّة',
+    LIKES: 'الإعجابات',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
     QUOTE: 'اقتباس',
@@ -173,6 +176,7 @@ const locales = {
   bg: {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
     HOME: 'Начало',
+    LIKES: 'Харесвания',
     MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
     POST_ALL: 'Публикуване на всичко',
     QUOTE: 'Цитат',
@@ -198,6 +202,7 @@ const locales = {
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
     HOME: 'হোম',
+    LIKES: 'পছন্দ',
     MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
     POST_ALL: 'সবকটি পোস্ট করুন',
     QUOTE: 'উদ্ধৃতি',
@@ -224,6 +229,7 @@ const locales = {
   ca: {
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
     HOME: 'Inici',
+    LIKES: 'Agradaments',
     MUTE_THIS_CONVERSATION: 'Silencia la conversa',
     POST_ALL: 'Publica-ho tot',
     QUOTE: 'Cita',
@@ -249,6 +255,7 @@ const locales = {
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
     HOME: 'Hlavní stránka',
+    LIKES: 'Lajky',
     MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
     POST_ALL: 'Postovat vše',
     QUOTE: 'Citace',
@@ -273,6 +280,7 @@ const locales = {
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
     HOME: 'Forside',
+    LIKES: 'Likes',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
     POST_ALL: 'Post alle',
     QUOTE: 'Citat',
@@ -292,6 +300,7 @@ const locales = {
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
     HOME: 'Startseite',
+    LIKES: 'Gefällt mir',
     MUTE_THIS_CONVERSATION: 'Diese Konversation stummschalten',
     POST_ALL: 'Alle posten',
     QUOTE: 'Zitat',
@@ -314,6 +323,7 @@ const locales = {
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
     HOME: 'Αρχική σελίδα',
+    LIKES: '"Μου αρέσει"',
     MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
     POST_ALL: 'Δημοσίευση όλων',
     QUOTE: 'Παράθεση',
@@ -337,6 +347,7 @@ const locales = {
   en: {
     ADD_MUTED_WORD: 'Add muted word',
     HOME: 'Home',
+    LIKES: 'Likes',
     MUTE_THIS_CONVERSATION: 'Mute this conversation',
     POST_ALL: 'Post all',
     QUOTE: 'Quote',
@@ -363,6 +374,7 @@ const locales = {
   es: {
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
     HOME: 'Inicio',
+    LIKES: 'Me gusta',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
     POST_ALL: 'Postear todo',
     QUOTE: 'Cita',
@@ -385,6 +397,7 @@ const locales = {
   eu: {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
     HOME: 'Hasiera',
+    LIKES: 'Atsegiteak',
     MUTE_THIS_CONVERSATION: 'Isilarazi elkarrizketa hau',
     QUOTE: 'Aipamena',
     QUOTE_TWEET: 'Txioa apaitu',
@@ -406,6 +419,7 @@ const locales = {
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
     HOME: 'خانه',
+    LIKES: 'پسندها',
     MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
     POST_ALL: 'پست کردن همه',
     QUOTE: 'نقل‌قول',
@@ -432,6 +446,7 @@ const locales = {
   fi: {
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
     HOME: 'Etusivu',
+    LIKES: 'Tykkäykset',
     MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
     POST_ALL: 'Julkaise kaikki',
     QUOTE: 'Lainaa',
@@ -456,6 +471,7 @@ const locales = {
   },
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
+    LIKES: 'Mga Gusto',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
     POST_ALL: 'I-post lahat',
     QUOTE_TWEET: 'Quote na Tweet',
@@ -480,6 +496,7 @@ const locales = {
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
     HOME: 'Accueil',
+    LIKES: "J'aime",
     MUTE_THIS_CONVERSATION: 'Masquer cette conversation',
     POST_ALL: 'Tout poster',
     QUOTE: 'Citation',
@@ -501,6 +518,7 @@ const locales = {
   ga: {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
     HOME: 'Baile',
+    LIKES: 'Thaitin siad seo le',
     MUTE_THIS_CONVERSATION: 'Balbhaigh an comhrá seo',
     QUOTE: 'Sliocht',
     QUOTE_TWEET: 'Cuir Ráiteas Leis',
@@ -521,6 +539,7 @@ const locales = {
   gl: {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
     HOME: 'Inicio',
+    LIKES: 'Gústames',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     QUOTE: 'Cita',
     QUOTE_TWEET: 'Citar chío',
@@ -542,6 +561,7 @@ const locales = {
   gu: {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
     HOME: 'હોમ',
+    LIKES: 'લાઈક્સ',
     MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
     POST_ALL: 'બધા પોસ્ટ કરો',
     QUOTE: 'અવતરણ',
@@ -567,6 +587,7 @@ const locales = {
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
     HOME: 'דף הבית',
+    LIKES: 'הערות "אהבתי"',
     MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
     POST_ALL: 'פרסום הכל',
     QUOTE: 'ציטוט',
@@ -593,6 +614,7 @@ const locales = {
   hi: {
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
     HOME: 'होम',
+    LIKES: 'पसंद',
     MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
     POST_ALL: 'सभी पोस्ट करें',
     QUOTE: 'कोट',
@@ -618,6 +640,7 @@ const locales = {
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
     HOME: 'Naslovnica',
+    LIKES: 'Oznake „sviđa mi se”',
     MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
     POST_ALL: 'Objavi sve',
     QUOTE: 'Citat',
@@ -642,6 +665,7 @@ const locales = {
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
     HOME: 'Kezdőlap',
+    LIKES: 'Kedvelések',
     MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
     POST_ALL: 'Az összes közzététele',
     QUOTE: 'Idézés',
@@ -666,6 +690,7 @@ const locales = {
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
     HOME: 'Beranda',
+    LIKES: 'Suka',
     MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
     POST_ALL: 'Posting semua',
     QUOTE: 'Kutipan',
@@ -688,6 +713,7 @@ const locales = {
   },
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
+    LIKES: 'Mi piace',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
     POST_ALL: 'Pubblica tutto',
     QUOTE: 'Citazione',
@@ -712,6 +738,7 @@ const locales = {
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
     HOME: 'ホーム',
+    LIKES: 'いいね',
     MUTE_THIS_CONVERSATION: 'この会話をミュート',
     POST_ALL: 'すべてポスト',
     QUOTE: '引用',
@@ -737,6 +764,7 @@ const locales = {
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
     HOME: 'ಹೋಮ್',
+    LIKES: 'ಇಷ್ಟಗಳು',
     MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
     POST_ALL: 'ಎಲ್ಲವನ್ನೂ ಪೋಸ್ಟ್ ಮಾಡಿ',
     QUOTE: 'ಕೋಟ್‌',
@@ -762,6 +790,7 @@ const locales = {
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
     HOME: '홈',
+    LIKES: '마음에 들어요',
     MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
     POST_ALL: '모두 게시하기',
     QUOTE: '인용',
@@ -788,6 +817,7 @@ const locales = {
   mr: {
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
     HOME: 'होम',
+    LIKES: 'पसंती',
     MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
     POST_ALL: 'सर्व पोस्ट करा',
     QUOTE: 'भाष्य',
@@ -813,6 +843,7 @@ const locales = {
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
     HOME: 'Laman Utama',
+    LIKES: 'Suka',
     MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
     POST_ALL: 'Siarkan semua',
     QUOTE: 'Petikan',
@@ -837,6 +868,7 @@ const locales = {
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
     HOME: 'Hjem',
+    LIKES: 'Liker',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtalen',
     POST_ALL: 'Publiser alle',
     QUOTE: 'Sitat',
@@ -858,6 +890,7 @@ const locales = {
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
     HOME: 'Startpagina',
+    LIKES: 'Vind-ik-leuks',
     MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
     POST_ALL: 'Alles plaatsen',
     QUOTE: 'Geciteerd',
@@ -879,6 +912,7 @@ const locales = {
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
     HOME: 'Główna',
+    LIKES: 'Polubienia',
     MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
     POST_ALL: 'Opublikuj wszystko',
     QUOTE: 'Cytuj',
@@ -903,6 +937,7 @@ const locales = {
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
     HOME: 'Página Inicial',
+    LIKES: 'Curtidas',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     POST_ALL: 'Postar tudo',
     QUOTE: 'Comentar',
@@ -925,6 +960,7 @@ const locales = {
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
     HOME: 'Pagina principală',
+    LIKES: 'Aprecieri',
     MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
     POST_ALL: 'Postează tot',
     QUOTE: 'Citat',
@@ -949,6 +985,7 @@ const locales = {
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
     HOME: 'Главная',
+    LIKES: 'Нравится',
     MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
     POST_ALL: 'Опубликовать все',
     QUOTE: 'Цитата',
@@ -975,6 +1012,7 @@ const locales = {
   sk: {
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
     HOME: 'Domov',
+    LIKES: 'Páči sa',
     MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
     POST_ALL: 'Uverejniť všetko',
     QUOTE: 'Citát',
@@ -1000,6 +1038,7 @@ const locales = {
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
     HOME: 'Почетна',
+    LIKES: 'Свиђања',
     MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
     POST_ALL: 'Објави све',
     QUOTE: 'Цитат',
@@ -1026,6 +1065,7 @@ const locales = {
   sv: {
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
     HOME: 'Hem',
+    LIKES: 'Gilla-markeringar',
     MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
     POST_ALL: 'Lägg upp allt',
     QUOTE: 'Citat',
@@ -1049,6 +1089,7 @@ const locales = {
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
     HOME: 'முகப்பு',
+    LIKES: 'விருப்பங்கள்',
     MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
     POST_ALL: 'எல்லாம் இடுகையிடு',
     QUOTE: 'மேற்கோள்',
@@ -1074,6 +1115,7 @@ const locales = {
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
     HOME: 'หน้าแรก',
+    LIKES: 'ความชอบ',
     MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
     POST_ALL: 'โพสต์ทั้งหมด',
     QUOTE: 'การอ้างอิง',
@@ -1100,6 +1142,7 @@ const locales = {
   tr: {
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
     HOME: 'Anasayfa',
+    LIKES: 'Beğeni',
     MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
     POST_ALL: 'Tümünü gönder',
     QUOTE: 'Alıntı',
@@ -1124,6 +1167,7 @@ const locales = {
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
     HOME: 'Головна',
+    LIKES: 'Вподобання',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
     POST_ALL: 'Опублікувати все',
     QUOTE: 'Цитата',
@@ -1150,6 +1194,7 @@ const locales = {
   ur: {
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
     HOME: 'ہوم',
+    LIKES: 'لائک',
     MUTE_THIS_CONVERSATION: 'اس گفتگو کو میوٹ کریں',
     QUOTE: 'نقل کریں',
     QUOTE_TWEET: 'ٹویٹ کا حوالہ دیں',
@@ -1172,6 +1217,7 @@ const locales = {
   vi: {
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
     HOME: 'Trang chủ',
+    LIKES: 'Lượt thích',
     MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
     POST_ALL: 'Đăng tất cả',
     QUOTE: 'Trích dẫn',
@@ -1196,6 +1242,7 @@ const locales = {
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
     HOME: '首頁',
+    LIKES: '喜歡的內容',
     MUTE_THIS_CONVERSATION: '將此對話靜音',
     POST_ALL: '全部發佈',
     QUOTE: '引用',
@@ -1221,6 +1268,7 @@ const locales = {
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
     HOME: '主页',
+    LIKES: '喜欢',
     MUTE_THIS_CONVERSATION: '隐藏此对话',
     POST_ALL: '全部发帖',
     QUOTE: '引用',
@@ -1421,6 +1469,12 @@ let separatedTweetsTimelineTitle = null
  * @type {string}
  */
 let themeColor = localStorage.lastThemeColor
+
+/**
+ * Tab to switch to after navigating to the Tweet interactions page.
+ * @type {string}
+ */
+let tweetInteractionsTab = null
 
 /**
  * `true` when "For you" was the last tab selected on the main timeline.
@@ -2863,13 +2917,28 @@ const configureCss = (() => {
         'body.Tweet [data-testid="tweet"] + div > div [role="group"]',
       )
     }
-    if (config.restoreQuoteTweetsLink) {
+    if (config.restoreQuoteTweetsLink || config.restoreOtherInteractionLinks) {
       cssRules.push(`
-        #tntQuoteTweets a:hover span:last-child { text-decoration: underline; }
-        #tntQuoteTweetCount { dsplay: inline-block; margin-right: 4px; }
+        #tntInteractionLinks a {
+          text-decoration: none;
+          color: var(--color);
+        }
+        #tntInteractionLinks a:hover span:last-child {
+          text-decoration: underline;
+        }
+        #tntQuoteTweetCount {
+          font-weight: 700;
+          color: var(--color-emphasis);
+        }
       `)
     } else {
-      hideCssSelectors.push('#tntQuoteTweets')
+      hideCssSelectors.push('#tntInteractionLinks')
+    }
+    if (!config.restoreQuoteTweetsLink) {
+      hideCssSelectors.push('#tntQuoteTweetsLink')
+    }
+    if (!config.restoreOtherInteractionLinks) {
+      hideCssSelectors.push('#tntRetweetsLink', '#tntLikesLink')
     }
     if (config.tweakQuoteTweetsPage) {
       // Hide the quoted tweet, which is repeated in every quote tweet
@@ -4379,8 +4448,8 @@ function removeMobileTimelineHeaderElements() {
 /**
  * @param {HTMLElement} $focusedTweet
  */
-function restoreQuoteTweetsLink($focusedTweet) {
-  if (!config.restoreQuoteTweetsLink || $focusedTweet.querySelector('#tntQuoteTweets')) return
+function restoreTweetInteractionsLinks($focusedTweet) {
+  if (!config.restoreQuoteTweetsLink && !config.restoreOtherInteractionLinks) return
 
   let $link = /** @type {HTMLAnchorElement} */ ($focusedTweet.querySelector('a[role="link"][href*="/status/"]:not([href*="/photo/"])'))
   if (!$link) return warn('focused tweet canonical link not found')
@@ -4388,34 +4457,61 @@ function restoreQuoteTweetsLink($focusedTweet) {
   let tweetId = $link.pathname.match(URL_TWEET_RE)?.[2]
   let tweetInfo = getTweetInfo(tweetId)
   if (!tweetInfo) return
-  if (!tweetInfo.quote_count) return log(`focused tweet Quote Tweet count is ${tweetInfo.quote_count}`)
+
+  let shouldDisplayLinks = (
+    (config.restoreQuoteTweetsLink && tweetInfo.quote_count > 0) ||
+    (config.restoreOtherInteractionLinks && (tweetInfo.retweet_count > 0 || tweetInfo.favorite_count > 0))
+  )
+  let $existingLinks = $focusedTweet.querySelector('#tntInteractionLinks')
+  if (!shouldDisplayLinks || $existingLinks) {
+    if (!shouldDisplayLinks) $existingLinks?.remove()
+    return
+  }
 
   let $group = $focusedTweet.querySelector('[role="group"][id^="id__"]')
   if (!$group) return warn('focused tweet action bar not found')
 
-  let formattedCount = Intl.NumberFormat(lang, {notation: 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)
-  let labelKey = tweetInfo.quote_count == 1 ? 'QUOTE_TWEET' :'QUOTE_TWEETS'
   $group.parentElement.insertAdjacentHTML('beforebegin', `
-    <div id="tntQuoteTweets">
-      <div style="padding: 16px 4px; border-top: 1px solid var(--border-color);">
-        <a href="${$link.href}/quotes" dir="auto" role="link" class="${fontFamilyRule?.selectorText?.replace('.', '')}" style="text-decoration: none; color: var(--color);">
-          <span style="font-weight: 700; color: var(--color-emphasis);" id="tntQuoteTweetCount">${formattedCount}</span> <span>${getString(labelKey)}</span>
-        </a>
+    <div id="tntInteractionLinks">
+      <div class="${fontFamilyRule?.selectorText?.replace('.', '')}" style="padding: 16px 4px; border-top: 1px solid var(--border-color); display: flex; gap: 20px;">
+        ${tweetInfo.quote_count > 0 ? `<a id="tntQuoteTweetsLink" class="quoteTweets" href="${$link.href}/quotes" dir="auto" role="link">
+          <span id="tntQuoteTweetCount">
+            ${Intl.NumberFormat(lang, {notation: 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)}
+          </span>
+          <span>${getString(tweetInfo.quote_count == 1 ? 'QUOTE_TWEET' :'QUOTE_TWEETS')}</span>
+        </a>` : ''}
+        ${tweetInfo.retweet_count > 0 ? `<a id="tntRetweetsLink" data-tab="2" href="${$link.href}/retweets" dir="auto" role="link">
+          <span>${getString('RETWEETS')}</span>
+        </a>` : ''}
+        ${tweetInfo.favorite_count > 0 ? `<a id="tntLikesLink" data-tab="3" href="${$link.href}/likes" dir="auto" role="link">
+          <span>${getString('LIKES')}</span>
+        </a>` : ''}
       </div>
     </div>
   `)
 
-  $focusedTweet.querySelector('#tntQuoteTweets a').addEventListener('click', async (e) => {
-    let $caret = /** @type {HTMLElement} */ ($focusedTweet.querySelector('[data-testid="caret"]'))
-    if ($caret) {
+  let links = /** @type {NodeListOf<HTMLAnchorElement>} */ ($focusedTweet.querySelectorAll('#tntInteractionLinks a'))
+  links.forEach(($link) => {
+    $link.addEventListener('click', async (e) => {
+      let $caret = /** @type {HTMLElement} */ ($focusedTweet.querySelector('[data-testid="caret"]'))
+      if (!$caret) return warn('focused tweet menu caret not found')
+
       log('clicking "View post engagements" menu item')
       e.preventDefault()
       $caret.click()
-      let $tweetEngagements = await getElement('#layers a[data-testid="tweetEngagements"]')
-      $tweetEngagements.click()
-    } else {
-      warn('focused tweet menu caret not found')
-    }
+      let $tweetEngagements = await getElement('#layers a[data-testid="tweetEngagements"]', {
+        name: 'View post engagements menu item',
+        stopIf: pageIsNot(currentPage),
+        timeout: 500,
+      })
+      if ($tweetEngagements) {
+        tweetInteractionsTab = $link.dataset.tab || null
+        $tweetEngagements.click()
+      } else {
+        warn('falling back to full page refresh')
+        location.href = $link.href
+      }
+    })
   })
 }
 
@@ -4630,7 +4726,7 @@ function tweakCommunityMembersPage() {
 async function tweakFocusedTweet($focusedTweet, options) {
   let {observers} = options
   if ($focusedTweet) {
-    restoreQuoteTweetsLink($focusedTweet)
+    restoreTweetInteractionsLinks($focusedTweet)
 
     if (desktop && config.replaceLogo && !isObserving(observers, 'tweet editor')) {
       let $editorRoot = await getElement('.DraftEditor-root', {
@@ -5067,6 +5163,12 @@ function tweakTweetEngagementPage() {
   if ($tabs == null) {
     warn('could not find Post engagement tabs')
     return
+  }
+
+  if (tweetInteractionsTab) {
+    log('switching to tab', tweetInteractionsTab)
+    $tabs.querySelector(`div[role="tablist"] > div:nth-child(${tweetInteractionsTab}) > a`)?.click()
+    tweetInteractionsTab = null
   }
 
   if (config.replaceLogo) {

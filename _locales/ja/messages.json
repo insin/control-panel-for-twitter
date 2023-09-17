@@ -346,5 +346,8 @@
   },
   "restoreQuoteTweetsLinkLabel": {
     "message": "ツイートの下にある「引用ツイート」リンクを復元し"
+  },
+  "restoreOtherInteractionLinksLabel": {
+    "message": "ツイートの下の他のリンクを復元する"
   }
 }

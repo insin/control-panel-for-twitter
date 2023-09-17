@@ -346,5 +346,8 @@
   },
   "restoreQuoteTweetsLinkLabel": {
     "message": "Restore Quote Tweets link under Tweets"
+  },
+  "restoreOtherInteractionLinksLabel": {
+    "message": "Restore other links under Tweets"
   }
 }

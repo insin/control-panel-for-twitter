@@ -7,6 +7,7 @@ const locales = JSON.parse(fs.readFileSync('./base-locales.json', 'utf-8'))
 let template = {
   ADD_MUTED_WORD: 'd768049c',
   HOME: 'ha8209bc',
+  LIKES: 'd7b8ebaa',
   MUTE_THIS_CONVERSATION: 'e2d6c17e',
   POST_ALL: 'ge8e4a38',
   QUOTE: 'bb5c5864',
@@ -33,6 +34,7 @@ for (let file of fs.readdirSync('./js')) {
   let src = fs.readFileSync(path.join('js', file), {encoding: 'utf8'})
   for (let [key, code] of Object.entries(template)) {
     let match = src.match(new RegExp(`"${code}","([^"]+)"`))
+    if (!match) match = src.match(new RegExp(`"${code}",'([^']+)'`))
     if (match) {
       locale[key] = match[1]
     } else {

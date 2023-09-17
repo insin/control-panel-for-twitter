@@ -346,5 +346,8 @@
   },
   "restoreQuoteTweetsLinkLabel": {
     "message": "트윗 아래의 \"트윗 인용\" 링크 복원"
+  },
+  "restoreOtherInteractionLinksLabel": {
+    "message": "트윗 아래의 다른 링크 복원"
   }
 }

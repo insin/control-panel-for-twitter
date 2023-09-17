@@ -57,6 +57,7 @@ export type Config = {
   // XXX This now controls all replacement of X brand changes
   replaceLogo: boolean
   restoreQuoteTweetsLink: boolean
+  restoreOtherInteractionLinks: boolean
   retweets: SharedTweetsConfig
   showBlueReplyFollowersCount: boolean
   tweakQuoteTweetsPage: boolean
@@ -88,6 +89,7 @@ export type Locale = {
 export type LocaleKey =
   | 'ADD_MUTED_WORD'
   | 'HOME'
+  | 'LIKES'
   | 'MUTE_THIS_CONVERSATION'
   | 'POST_ALL'
   | 'QUOTE'

@@ -346,5 +346,8 @@
   },
   "restoreQuoteTweetsLinkLabel": {
     "message": "恢复推文下的“引用推文”链接"
+  },
+  "restoreOtherInteractionLinksLabel": {
+    "message": "恢复推文下的其他链接"
   }
 }
