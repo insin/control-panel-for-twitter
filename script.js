@@ -2859,7 +2859,7 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} a[href$="/settings/monetization"]`)
     }
     if (config.hideTweetAnalyticsLinks) {
-      hideCssSelectors.push('[data-testid="analyticsButton"]')
+      hideCssSelectors.push('a[data-testid="analyticsButton"]')
     }
     if (config.hideTwitterAdsNav) {
       hideCssSelectors.push(`${menuRole} a[href*="ads.twitter.com"]`)
@@ -2929,6 +2929,10 @@ const configureCss = (() => {
         #tntQuoteTweetCount {
           font-weight: 700;
           color: var(--color-emphasis);
+        }
+        /* Replaces the "View post engagements" link under your own tweets */
+        a[data-testid="analyticsButton"] {
+          display: none;
         }
       `)
     } else {

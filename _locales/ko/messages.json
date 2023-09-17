@@ -240,7 +240,7 @@
     "message": "트윗 아래 공유 버튼 숨기기"
   },
   "hideTweetAnalyticsLinksLabel": {
-    "message": "자신의 트윗 아래 분석 링크 숨기기"
+    "message": "내 트윗 아래에 \"게시 참여수 조회\""
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "사용하지 않는 \"더 보기\" 메뉴 항목숨기기 (데스크톱)"
