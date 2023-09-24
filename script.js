@@ -2927,6 +2927,7 @@ const configureCss = (() => {
           text-decoration: underline;
         }
         #tntQuoteTweetCount {
+          margin-right: 2px;
           font-weight: 700;
           color: var(--color-emphasis);
         }
@@ -4458,7 +4459,8 @@ function restoreTweetInteractionsLinks($focusedTweet) {
   let $link = /** @type {HTMLAnchorElement} */ ($focusedTweet.querySelector('a[role="link"][href*="/status/"]:not([href*="/photo/"])'))
   if (!$link) return warn('focused tweet canonical link not found')
 
-  let tweetId = $link.pathname.match(URL_TWEET_RE)?.[2]
+  let tweetId = $link.pathname.match(/^\/[a-zA-Z\d_]{1,20}\/status\/(\d+)/)?.[1]
+  log('focused tweet id is ', tweetId)
   let tweetInfo = getTweetInfo(tweetId)
   if (!tweetInfo) return
 
