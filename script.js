@@ -4482,7 +4482,7 @@ function restoreTweetInteractionsLinks($focusedTweet) {
       <div class="${fontFamilyRule?.selectorText?.replace('.', '')}" style="padding: 16px 4px; border-top: 1px solid var(--border-color); display: flex; gap: 20px;">
         ${tweetInfo.quote_count > 0 ? `<a id="tntQuoteTweetsLink" class="quoteTweets" href="${$link.href}/quotes" dir="auto" role="link">
           <span id="tntQuoteTweetCount">
-            ${Intl.NumberFormat(lang, {notation: 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)}
+            ${Intl.NumberFormat(lang, {notation: tweetInfo.quote_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)}
           </span>
           <span>${getString(tweetInfo.quote_count == 1 ? 'QUOTE_TWEET' :'QUOTE_TWEETS')}</span>
         </a>` : ''}
