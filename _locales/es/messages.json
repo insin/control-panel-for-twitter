@@ -1,37 +1,16 @@
 {
-  "extensionName": {
-    "message": "Control Panel for Twitter"
+  "addAddMutedWordMenuItemLabel_desktop": {
+    "message": "Añade \"Añadir palabra silenciada\" al menú Más"
   },
-  "extensionDescription": {
-    "message": "Le brinda más control sobre Twitter y agrega funciones faltantes y mejoras en la interfaz",
-    "description": "<= 132 characters"
+  "addAddMutedWordMenuItemLabel_mobile": {
+    "message": "Añade \"Añadir palabra silenciada\" al menú hamburguesa"
   },
-  "extensionDescriptionShort": {
-    "message": "Le brinda más control sobre Twitter y agrega funciones faltantes y mejoras en la interfaz",
-    "description": "<= 112 characters"
+  "alwaysUseLatestTweetsLabel": {
+    "message": "Usar la timeline cronológica (Siguiendo) por defecto"
   },
   "appStoreSubtitle": {
     "message": "Controla tu línea de tiempo",
     "description": "<= 30 characters"
-  },
-  "features": {
-    "message": "Características"
-  },
-  "option_ignore": {
-    "message": "No cambiar",
-    "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
-  },
-  "option_hide": {
-    "message": "Ocultar",
-    "description": "Option for hiding things, e.g. Twitter Blue checks"
-  },
-  "option_separate": {
-    "message": "Mostrar en pestaña aparte",
-    "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
-  },
-  "unmuteButtonText": {
-    "message": "Dejar de silenciar",
-    "description": "Button used in the options page to unmute a muted Quote Tweet"
   },
   "debugCountdownLabel": {
     "message": " (Opciones de desarrollo: haz click $DEBUG_COUNTDOWN$ veces más para activar)",
@@ -43,78 +22,67 @@
       }
     }
   },
-  "homeTimelineOptionsLabel": {
-    "message": "Cronología de inicio"
+  "debugInfo": {
+    "message": "Activa los registros de debug y muestra estadísticas de debug en los tweets del Inicio"
   },
-  "reduceEngagementOptionsLabel": {
-    "message": "Reducir el \"compromiso\""
+  "debugLabel": {
+    "message": "Modo de desarrollo (debug)"
   },
-  "reduceAlgorithmicContentOptionsLabel": {
-    "message": "Eliminar contenido algorítmico"
+  "debugOptionsLabel": {
+    "message": "Opciones de desarrollo (debug)"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "Usar la timeline cronológica (Siguiendo) por defecto"
+  "defaultToLatestSearchLabel": {
+    "message": "Por defecto a \"Más reciente\" en Buscar"
   },
-  "hideForYouTimelineLabel": {
-    "message": "Ocultar la timeline algorítmica (Para ti)"
+  "disableHomeTimelineInfo": {
+    "message": "¿Pasas demasiado tiempo en Twitter? Desactiva la página de inicio para que no puedas acceder a ella"
   },
-  "hideSidebarContentLabel": {
-    "message": "Ocultar \"Qué está pasando\", \"quizá te interese\" etc. en el lateral"
+  "disableHomeTimelineLabel": {
+    "message": "Desactivar la página de inicio"
   },
-  "showRelevantPeopleLabel": {
-    "message": "Mostrar \"Personas relevantes\" al ver un tweet"
+  "disableTweetTextFormattingLabel": {
+    "message": "Deshabilitar texto en negrita e itálica en los tweets"
   },
-  "hideHomeHeadingLabel": {
-    "message": "Ocultar el encabezado \"Inicio\""
+  "disabledHomeTimelineRedirectLabel": {
+    "message": "Redirigir el inicio a:"
   },
-  "hideSeeNewTweetsLabel": {
-    "message": "Ocultar \"Ver Tweets nuevos\""
+  "disabledHomeTimelineRedirectOption_messages": {
+    "message": "Mensajes"
   },
-  "hideWhoToFollowEtcLabel": {
-    "message": "Ocultar \"A quién seguir\", \"Seguir temas\" etc. en la timeline"
+  "disabledHomeTimelineRedirectOption_notifications": {
+    "message": "Notificaciones"
   },
-  "hideExplorePageContentsLabel": {
-    "message": "Ocultar contenidos de Explorar y usarlo únicamente para buscar"
+  "dontUseChirpFontLabel": {
+    "message": "No usar la fuente Chirp"
   },
-  "hideMoreTweetsLabel": {
-    "message": "Ocultar tweets de \"Descubrir más\""
+  "dropdownMenuFontWeightLabel": {
+    "message": "Usar grosor normal de fuentes en desplegables"
   },
-  "sharedTweetsOptionsLabel": {
-    "message": "Tweets compartidos por otros usuarios"
+  "experimentalNote": {
+    "message": "No hay experimentos en esta versión"
   },
-  "retweetsLabel": {
-    "message": "Retweets"
+  "experimentsOptionsLabel": {
+    "message": "Experimentos"
   },
-  "quoteTweetsLabel": {
-    "message": "Citados"
+  "exportConfigLabel": {
+    "message": "Exportar configuración para informe de errores"
   },
-  "listRetweetsLabel": {
-    "message": "Retuits en Listas"
+  "extensionDescription": {
+    "message": "Le brinda más control sobre Twitter y agrega funciones faltantes y mejoras en la interfaz",
+    "description": "<= 132 characters"
   },
-  "hideUnavailableQuoteTweetsLabel": {
-    "message": "Ocultar tweets que citan cuentas bloqueadas o silenciadas"
+  "extensionDescriptionShort": {
+    "message": "Le brinda más control sobre Twitter y agrega funciones faltantes y mejoras en la interfaz",
+    "description": "<= 112 characters"
   },
-  "mutableQuoteTweetsLabel": {
-    "message": "Ocultar citados de determinados tweets"
+  "extensionName": {
+    "message": "Control Panel for Twitter"
   },
-  "mutableQuoteTweetsInfo": {
-    "message": "Añade la opción \"Silenciar esta conversación\" en el menú de los citados",
-    "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
+  "fastBlockLabel": {
+    "message": "Bloqueo rápido (no muestra menú de confirmación)"
   },
-  "mutedTweetsLabel": {
-    "message": "Tweets silenciados ($COUNT$)",
-    "placeholders": {
-      "count": {
-        "content": "$1",
-        "example": "1"
-      }
-    }
-  },
-  "uiImprovementsOptionsLabel": {
-    "message": "Mejoras de interfaz"
-  },
-  "uninvertFollowButtonsLabel": {
-    "message": "No invertir botones de Seguir/Siguiendo"
+  "features": {
+    "message": "Características"
   },
   "followButtonStyleLabel": {
     "message": "Estilo de botones"
@@ -125,101 +93,47 @@
   "followButtonStyleOption_themed": {
     "message": "Tematizados"
   },
-  "defaultToLatestSearchLabel": {
-    "message": "Por defecto a \"Más reciente\" en Buscar"
+  "fullWidthContentInfo": {
+    "message": "Ocultar la barra lateral y expandir el contenido de la timeline a todo el ancho de la ventana"
   },
-  "navBaseFontSizeLabel": {
-    "message": "Usar el estilo de fuente normal en la barra de navegación"
+  "fullWidthContentLabel": {
+    "message": "Timeline de ancho completo"
   },
-  "dropdownMenuFontWeightLabel": {
-    "message": "Usar grosor normal de fuentes en desplegables"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "Ocultar promociones de Twitter Blue"
-  },
-  "hideSubscriptionsLabel": {
-    "message": "Ocultar Suscripciones"
-  },
-  "fastBlockLabel": {
-    "message": "Bloqueo rápido (no muestra menú de confirmación)"
-  },
-  "addAddMutedWordMenuItemLabel_desktop": {
-    "message": "Añade \"Añadir palabra silenciada\" al menú Más"
-  },
-  "addAddMutedWordMenuItemLabel_mobile": {
-    "message": "Añade \"Añadir palabra silenciada\" al menú hamburguesa"
-  },
-  "hideVerifiedNotificationsTabLabel": {
-    "message": "Ocultar pestañas \"Verificado\" en Notificaciones y Seguidores"
-  },
-  "hideViewsLabel": {
-    "message": "Ocultar Reproducciones de tweets"
-  },
-  "hideAppNagsLabel": {
-    "message": "Ocultar paneles de \"Abrir en la app\""
-  },
-  "uiTweaksOptionsLabel": {
-    "message": "Cambios de interfaz"
-  },
-  "dontUseChirpFontLabel": {
-    "message": "No usar la fuente Chirp"
-  },
-  "twitterBlueChecksLabel": {
-    "message": "Ticks de verificado de Twitter Blue"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Cambiar por el logo de Twitter Blue"
-  },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "Ocultar respuestas de Twitter Blue"
-  },
-  "hideBlueReplyFollowingLabel": {
-    "message": "Ocultar personas que sigo"
-  },
-  "hideBlueReplyFollowedByLabel": {
-    "message": "Ocultar personas que me siguen"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "Mostrar personas con más de 1 millón de seguidores"
-  },
-  "tweakQuoteTweetsPageLabel": {
-    "message": "Ocultar el tweet citado en la página de citados"
-  },
-  "hideMetricsLabel": {
-    "message": "Ocultar métricas"
-  },
-  "hideAllMetricsLabel": {
-    "message": "Ocultar todo"
-  },
-  "hideReplyMetricsLabel": {
-    "message": "Respuestas"
-  },
-  "hideRetweetMetricsLabel": {
-    "message": "Retweets"
-  },
-  "hideLikeMetricsLabel": {
-    "message": "Me gustas"
-  },
-  "hideBookmarkMetricsLabel": {
-    "message": "Guardados"
-  },
-  "hideQuoteTweetMetricsLabel": {
-    "message": "Citados"
-  },
-  "hideFollowingMetricsLabel": {
-    "message": "Siguiendo / Seguidores"
-  },
-  "hideTotalTweetsMetricsLabel": {
-    "message": "Tweets totales"
-  },
-  "hideUnusedUiItemsOptionsLabel": {
-    "message": "Ocultar elementos de interfaz no utilizados"
+  "fullWidthMediaLabel": {
+    "message": "Multimedia y tarjetas de ancho completo"
   },
   "hideAccountSwitcherLabel": {
     "message": "Cambiador de cuentas"
   },
-  "hideMessagesDrawerLabel": {
-    "message": "Bandeja de mensajes"
+  "hideAllMetricsLabel": {
+    "message": "Ocultar todo"
+  },
+  "hideAnalyticsNavLabel": {
+    "message": "Analíticas"
+  },
+  "hideAppNagsLabel": {
+    "message": "Ocultar paneles de \"Abrir en la app\""
+  },
+  "hideBlueReplyFollowedByLabel": {
+    "message": "Ocultar personas que me siguen"
+  },
+  "hideBlueReplyFollowingLabel": {
+    "message": "Ocultar personas que sigo"
+  },
+  "hideBookmarkButtonLabel": {
+    "message": "Botón de guardados debajo de los tweets"
+  },
+  "hideBookmarkMetricsLabel": {
+    "message": "Guardados"
+  },
+  "hideBookmarksNavLabel": {
+    "message": "Guardados"
+  },
+  "hideCommunitiesNavLabel": {
+    "message": "Comunidades"
+  },
+  "hideConnectNavLabel": {
+    "message": "Conectar"
   },
   "hideExploreNavLabel": {
     "message": "Explorar"
@@ -227,20 +141,41 @@
   "hideExploreNavWithSidebarLabel": {
     "message": "Mostrar si barra lateral está oculta"
   },
-  "hideCommunitiesNavLabel": {
-    "message": "Comunidades"
+  "hideExplorePageContentsLabel": {
+    "message": "Ocultar contenidos de Explorar y usarlo únicamente para buscar"
+  },
+  "hideFollowingMetricsLabel": {
+    "message": "Siguiendo / Seguidores"
+  },
+  "hideForYouTimelineLabel": {
+    "message": "Ocultar la timeline algorítmica (Para ti)"
+  },
+  "hideHelpCenterNavLabel": {
+    "message": "Centro de ayuda"
+  },
+  "hideHomeHeadingLabel": {
+    "message": "Ocultar el encabezado \"Inicio\""
+  },
+  "hideKeyboardShortcutsNavLabel": {
+    "message": "Atajos de teclado"
+  },
+  "hideLikeMetricsLabel": {
+    "message": "Me gustas"
+  },
+  "hideListsNavLabel": {
+    "message": "Listas"
   },
   "hideMessagesBottomNavItemLabel": {
     "message": "Mensajes"
   },
-  "hideBookmarkButtonLabel": {
-    "message": "Botón de guardados debajo de los tweets"
+  "hideMessagesDrawerLabel": {
+    "message": "Bandeja de mensajes"
   },
-  "hideShareTweetButtonLabel": {
-    "message": "Botón de compartir debajo de los tweets"
+  "hideMetricsLabel": {
+    "message": "Ocultar métricas"
   },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "\"Ver las interacciones de post\" debajo de tus tweets"
+  "hideMonetizationNavLabel": {
+    "message": "Monetización"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "Ocultar elementos no usados en el menú \"Más\""
@@ -248,89 +183,93 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Ocultar elementos no usados en el menú hamburguesa"
   },
-  "hideConnectNavLabel": {
-    "message": "Conectar"
-  },
-  "hideBookmarksNavLabel": {
-    "message": "Guardados"
-  },
-  "hideListsNavLabel": {
-    "message": "Listas"
-  },
-  "hideAnalyticsNavLabel": {
-    "message": "Analíticas"
-  },
-  "hideTwitterAdsNavLabel": {
-    "message": "Twitter Ads"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "Monetización"
-  },
-  "hideHelpCenterNavLabel": {
-    "message": "Centro de ayuda"
-  },
-  "hideKeyboardShortcutsNavLabel": {
-    "message": "Atajos de teclado"
-  },
-  "experimentsOptionsLabel": {
-    "message": "Experimentos"
-  },
-  "reducedInteractionModeLabel": {
-    "message": "Modo de interacción reducida"
-  },
-  "reducedInteractionModeInfo": {
-    "message": "Oculta la barra de interacción debajo de los tweets - las respuestas es la única opción disponible"
-  },
-  "fullWidthContentLabel": {
-    "message": "Timeline de ancho completo"
-  },
-  "fullWidthContentInfo": {
-    "message": "Ocultar la barra lateral y expandir el contenido de la timeline a todo el ancho de la ventana"
-  },
-  "fullWidthMediaLabel": {
-    "message": "Multimedia y tarjetas de ancho completo"
-  },
-  "disableHomeTimelineLabel": {
-    "message": "Desactivar la página de inicio"
-  },
-  "disableHomeTimelineInfo": {
-    "message": "¿Pasas demasiado tiempo en Twitter? Desactiva la página de inicio para que no puedas acceder a ella"
-  },
-  "disabledHomeTimelineRedirectLabel": {
-    "message": "Redirigir el inicio a:"
-  },
-  "disabledHomeTimelineRedirectOption_notifications": {
-    "message": "Notificaciones"
-  },
-  "disabledHomeTimelineRedirectOption_messages": {
-    "message": "Mensajes"
-  },
-  "experimentalNote": {
-    "message": "No hay experimentos en esta versión"
-  },
-  "debugOptionsLabel": {
-    "message": "Opciones de desarrollo (debug)"
-  },
-  "debugLabel": {
-    "message": "Modo de desarrollo (debug)"
-  },
-  "debugInfo": {
-    "message": "Activa los registros de debug y muestra estadísticas de debug en los tweets del Inicio"
-  },
-  "exportConfigLabel": {
-    "message": "Exportar configuración para informe de errores"
+  "hideMoreTweetsLabel": {
+    "message": "Ocultar tweets de \"Descubrir más\""
   },
   "hideProfileRetweetsLabel": {
     "message": "Ocultar Retweets en los perfiles de usuario"
   },
-  "disableTweetTextFormattingLabel": {
-    "message": "Deshabilitar texto en negrita e itálica en los tweets"
+  "hideQuoteTweetMetricsLabel": {
+    "message": "Citados"
+  },
+  "hideReplyMetricsLabel": {
+    "message": "Respuestas"
+  },
+  "hideRetweetMetricsLabel": {
+    "message": "Retweets"
+  },
+  "hideSeeNewTweetsLabel": {
+    "message": "Ocultar \"Ver Tweets nuevos\""
+  },
+  "hideShareTweetButtonLabel": {
+    "message": "Botón de compartir debajo de los tweets"
+  },
+  "hideSidebarContentLabel": {
+    "message": "Ocultar \"Qué está pasando\", \"quizá te interese\" etc. en el lateral"
+  },
+  "hideSubscriptionsLabel": {
+    "message": "Ocultar Suscripciones"
+  },
+  "hideTimelineTweetBoxLabel": {
+    "message": "Cuadro de tweet en timeline"
+  },
+  "hideTotalTweetsMetricsLabel": {
+    "message": "Tweets totales"
+  },
+  "hideTweetAnalyticsLinksLabel": {
+    "message": "\"Ver las interacciones de post\" debajo de tus tweets"
+  },
+  "hideTwitterAdsNavLabel": {
+    "message": "Twitter Ads"
+  },
+  "hideTwitterBlueRepliesLabel": {
+    "message": "Ocultar respuestas de Twitter Blue"
+  },
+  "hideTwitterBlueUpsellsLabel": {
+    "message": "Ocultar promociones de Twitter Blue"
+  },
+  "hideUnavailableQuoteTweetsLabel": {
+    "message": "Ocultar tweets que citan cuentas bloqueadas o silenciadas"
+  },
+  "hideUnusedUiItemsOptionsLabel": {
+    "message": "Ocultar elementos de interfaz no utilizados"
+  },
+  "hideVerifiedNotificationsTabLabel": {
+    "message": "Ocultar pestañas \"Verificado\" en Notificaciones y Seguidores"
+  },
+  "hideViewsLabel": {
+    "message": "Ocultar Reproducciones de tweets"
+  },
+  "hideWhoToFollowEtcLabel": {
+    "message": "Ocultar \"A quién seguir\", \"Seguir temas\" etc. en la timeline"
+  },
+  "homeTimelineOptionsLabel": {
+    "message": "Cronología de inicio"
+  },
+  "listRetweetsLabel": {
+    "message": "Retuits en Listas"
+  },
+  "mutableQuoteTweetsInfo": {
+    "message": "Añade la opción \"Silenciar esta conversación\" en el menú de los citados",
+    "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
+  },
+  "mutableQuoteTweetsLabel": {
+    "message": "Ocultar citados de determinados tweets"
+  },
+  "mutedTweetsLabel": {
+    "message": "Tweets silenciados ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "navBaseFontSizeLabel": {
+    "message": "Usar el estilo de fuente normal en la barra de navegación"
   },
   "navDensityLabel": {
     "message": "Densidad de navegación"
-  },
-  "option_default": {
-    "message": "Predet."
   },
   "option_comfortable": {
     "message": "Cómodo"
@@ -338,16 +277,80 @@
   "option_compact": {
     "message": "Compacto"
   },
+  "option_default": {
+    "message": "Predet."
+  },
+  "option_hide": {
+    "message": "Ocultar",
+    "description": "Option for hiding things, e.g. Twitter Blue checks"
+  },
+  "option_ignore": {
+    "message": "No cambiar",
+    "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
+  },
+  "option_separate": {
+    "message": "Mostrar en pestaña aparte",
+    "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
+  },
+  "quoteTweetsLabel": {
+    "message": "Citados"
+  },
+  "reduceAlgorithmicContentOptionsLabel": {
+    "message": "Eliminar contenido algorítmico"
+  },
+  "reduceEngagementOptionsLabel": {
+    "message": "Reducir el \"compromiso\""
+  },
+  "reducedInteractionModeInfo": {
+    "message": "Oculta la barra de interacción debajo de los tweets - las respuestas es la única opción disponible"
+  },
+  "reducedInteractionModeLabel": {
+    "message": "Modo de interacción reducida"
+  },
   "replaceLogoLabel": {
     "message": "Reemplazar X cambios de marca"
   },
-  "hideTimelineTweetBoxLabel": {
-    "message": "Cuadro de tweet en timeline"
+  "restoreOtherInteractionLinksLabel": {
+    "message": "Restaurar otro enlaces debajo Tweets"
   },
   "restoreQuoteTweetsLinkLabel": {
     "message": "Restaurar el enlace de Tweets citados debajo Tweets"
   },
-  "restoreOtherInteractionLinksLabel": {
-    "message": "Restaurar otro enlaces debajo Tweets"
+  "retweetsLabel": {
+    "message": "Retweets"
+  },
+  "sharedTweetsOptionsLabel": {
+    "message": "Tweets compartidos por otros usuarios"
+  },
+  "showBlueReplyFollowersCountLabel": {
+    "message": "Mostrar personas con más de 1 millón de seguidores"
+  },
+  "showBlueReplyVerifiedAccountsLabel": {
+    "message": "Mostrar cuentas \"verificadas\""
+  },
+  "showRelevantPeopleLabel": {
+    "message": "Mostrar \"Personas relevantes\" al ver un tweet"
+  },
+  "tweakQuoteTweetsPageLabel": {
+    "message": "Ocultar el tweet citado en la página de citados"
+  },
+  "twitterBlueChecksLabel": {
+    "message": "Ticks de verificado de Twitter Blue"
+  },
+  "twitterBlueChecksOption_replace": {
+    "message": "Cambiar por el logo de Twitter Blue"
+  },
+  "uiImprovementsOptionsLabel": {
+    "message": "Mejoras de interfaz"
+  },
+  "uiTweaksOptionsLabel": {
+    "message": "Cambios de interfaz"
+  },
+  "uninvertFollowButtonsLabel": {
+    "message": "No invertir botones de Seguir/Siguiendo"
+  },
+  "unmuteButtonText": {
+    "message": "Dejar de silenciar",
+    "description": "Button used in the options page to unmute a muted Quote Tweet"
   }
 }

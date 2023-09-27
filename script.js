@@ -93,7 +93,8 @@ const config = {
   restoreOtherInteractionLinks: false,
   restoreQuoteTweetsLink: true,
   retweets: 'separate',
-  showBlueReplyFollowersCount: true,
+  showBlueReplyFollowersCount: false,
+  showBlueReplyVerifiedAccounts: false,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
@@ -1774,7 +1775,6 @@ function getUserInfo() {
         following: user.following,
         followedBy: user.followed_by,
         followersCount: user.followers_count,
-        shyBlue: false,
       }
     }
   } else {
@@ -1793,8 +1793,9 @@ function isObserving(observers, name) {
 
 function log(...args) {
   if (debug) {
-    console.log(`${currentPage ? `(${
-      currentPage.length < 70 ? currentPage : currentPage.slice(0, 70) + '…'
+    let page = currentPage?.replace(/(\r?\n)+/g, ' ')
+    console.log(`${page ? `(${
+      page.length < 42 ? page : page.slice(0, 42) + '…'
     })` : ''}`, ...args)
   }
 }
@@ -3586,8 +3587,8 @@ function getVerifiedProps($svg) {
   if (!props) {
     warn('React props not found for', $svg)
   }
-  else if (!('isVerified' in props)) {
-    warn('isVerified not in React props for', $svg, {props})
+  else if (!('isBlueVerified' in props)) {
+    warn('isBlueVerified not in React props for', $svg, {props})
   }
   return props
 }
@@ -3798,6 +3799,24 @@ function isBlueVerified($svg) {
 }
 
 /**
+ * @returns {import("./types").VerifiedType}
+ */
+function getVerifiedType($svg) {
+  let props = getVerifiedProps($svg)
+  if (props) {
+    if (props.affiliateBadgeInfo?.userLabelType == 'BusinessLabel' &&
+        props.affiliateBadgeInfo?.description == 'X')
+      // Ignore Twitter associated checks
+      return null
+    if (props.verifiedType == 'Business')
+      return 'VERIFIED_ORG'
+    if (props.isBlueVerified)
+      return 'BLUE'
+  }
+  return null
+}
+
+/**
  * Checks if a tweet is preceded by an element creating a vertical reply line.
  * @param {HTMLElement} $tweet
  * @returns {boolean}
@@ -3933,6 +3952,7 @@ function onTimelineChange($timeline, page, options = {}) {
 
             blueCheck($svg)
 
+            // Don't count a tweet as blue if the check is in a quoted tweet
             let userProfileLink = $svg.closest('a[role="link"]:not([href^="/i/status"])')
             if (!userProfileLink) continue
 
@@ -4035,10 +4055,8 @@ function onIndividualTweetTimelineChange($timeline, options) {
     let isFocusedTweet = false
     /** @type {boolean} */
     let isReply = false
-    /** @type {boolean} */
-    let isBlueTweet = false
-    /** @type {boolean} */
-    let isShy = false
+    /** @type {import("./types").VerifiedType} */
+    let tweetVerifiedType = null
     /** @type {?string} */
     let screenName = null
 
@@ -4062,40 +4080,33 @@ function onIndividualTweetTimelineChange($timeline, options) {
         }
       }
 
-      if (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies) {
+      if (!hideItem && (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies)) {
         for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
-          let isBlueCheck = isBlueVerified($svg)
-          if (!isBlueCheck) continue
+          let verifiedType = getVerifiedType($svg)
+          if (!verifiedType) continue
 
-          if (config.twitterBlueChecks != 'ignore') {
+          if (config.twitterBlueChecks != 'ignore' && verifiedType == 'BLUE') {
             blueCheck($svg)
           }
 
+          // Don't count a tweet as verified if the check is in a quoted tweet
           let $userProfileLink = /** @type {HTMLAnchorElement} */ ($svg.closest('a[role="link"]:not([href^="/i/status"])'))
           if (!$userProfileLink) continue
 
-          isBlueTweet = true
+          tweetVerifiedType = verifiedType
           screenName = $userProfileLink.href.split('/').pop()
         }
 
-        // Check replies to the focused tweet for Blue users hiding their check
-        // if (!isBlueTweet && !isFocusedTweet && !isReply) {
-        //   let $userProfileLink = /** @type {HTMLAnchorElement} */ ($tweet.querySelector('[data-testid="User-Name"] a'))
-        //   if ($userProfileLink) {
-        //     screenName = $userProfileLink.href.split('/').pop()
-        //     if (userInfo[screenName]?.shyBlue) {
-        //       isBlueTweet = true
-        //       isShy = true
-        //     }
-        //   }
-        // }
-
         // Replies to the focused tweet don't have the reply indicator
-        if (isBlueTweet && !isFocusedTweet && !isReply && screenName.toLowerCase() != opScreenName) {
-          itemType = 'BLUE_REPLY'
+        if (tweetVerifiedType && !isFocusedTweet && !isReply && screenName.toLowerCase() != opScreenName) {
+          itemType = `${tweetVerifiedType}_REPLY`
           if (!hideItem) {
             let user = userInfo[screenName]
-            hideItem = config.hideTwitterBlueReplies && (user == null || !(
+            let shouldHideBasedOnVerifiedType = config.hideTwitterBlueReplies && (
+              tweetVerifiedType == 'BLUE' ||
+              tweetVerifiedType == 'VERIFIED_ORG' && !config.showBlueReplyVerifiedAccounts
+            )
+            hideItem = shouldHideBasedOnVerifiedType && (user == null || !(
               user.following && !config.hideBlueReplyFollowing ||
               user.followedBy && !config.hideBlueReplyFollowedBy ||
               user.followersCount >= 1000000 && config.showBlueReplyFollowersCount
@@ -4137,7 +4148,7 @@ function onIndividualTweetTimelineChange($timeline, options) {
     }
 
     if (debug && itemType != null) {
-      $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet && itemType != 'BLUE_REPLY' ? ' / BLUE' : ''}${isShy ? ' / SHY' : ''}`
+      $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}`
     }
 
     // Assume a non-identified item following an identified item is related
@@ -4460,8 +4471,8 @@ function restoreTweetInteractionsLinks($focusedTweet) {
   if (!$link) return warn('focused tweet canonical link not found')
 
   let tweetId = $link.pathname.match(/^\/[a-zA-Z\d_]{1,20}\/status\/(\d+)/)?.[1]
-  log('focused tweet id is ', tweetId)
   let tweetInfo = getTweetInfo(tweetId)
+  log('focused tweet', {link: $link.href, tweetId, tweetInfo})
   if (!tweetInfo) return
 
   let shouldDisplayLinks = (

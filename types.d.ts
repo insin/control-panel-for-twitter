@@ -60,6 +60,7 @@ export type Config = {
   restoreOtherInteractionLinks: boolean
   retweets: SharedTweetsConfig
   showBlueReplyFollowersCount: boolean
+  showBlueReplyVerifiedAccounts: boolean
   tweakQuoteTweetsPage: boolean
   twitterBlueChecks: 'ignore' | 'replace' | 'hide'
   uninvertFollowButtons: boolean
@@ -139,6 +140,7 @@ export type TweetType =
 export type TimelineItemType =
   | TweetType
   | 'BLUE_REPLY'
+  | 'VERIFIED_ORG_REPLY'
   | 'DISCOVER_MORE_HEADING'
   | 'DISCOVER_MORE_TWEET'
   | 'FOCUSED_TWEET'
@@ -166,7 +168,8 @@ export type UserInfo = {
   following: boolean
   followedBy: boolean
   followersCount: number
-  shyBlue: boolean
 }
 
 export type UserInfoObject = {[index: string]: UserInfo}
+
+export type VerifiedType = 'BLUE' | 'VERIFIED_ORG'
