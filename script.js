@@ -4467,12 +4467,9 @@ function removeMobileTimelineHeaderElements() {
 function restoreTweetInteractionsLinks($focusedTweet) {
   if (!config.restoreQuoteTweetsLink && !config.restoreOtherInteractionLinks) return
 
-  let $link = /** @type {HTMLAnchorElement} */ ($focusedTweet.querySelector('a[role="link"][href*="/status/"]:not([href*="/photo/"])'))
-  if (!$link) return warn('focused tweet canonical link not found')
-
-  let tweetId = $link.pathname.match(/^\/[a-zA-Z\d_]{1,20}\/status\/(\d+)/)?.[1]
+  let [tweetLink, tweetId] = location.pathname.match(/^\/[a-zA-Z\d_]{1,20}\/status\/(\d+)/) ?? []
   let tweetInfo = getTweetInfo(tweetId)
-  log('focused tweet', {link: $link.href, tweetId, tweetInfo})
+  log('focused tweet', {tweetLink, tweetId, tweetInfo})
   if (!tweetInfo) return
 
   let shouldDisplayLinks = (
@@ -4491,16 +4488,16 @@ function restoreTweetInteractionsLinks($focusedTweet) {
   $group.parentElement.insertAdjacentHTML('beforebegin', `
     <div id="tntInteractionLinks">
       <div class="${fontFamilyRule?.selectorText?.replace('.', '')}" style="padding: 16px 4px; border-top: 1px solid var(--border-color); display: flex; gap: 20px;">
-        ${tweetInfo.quote_count > 0 ? `<a id="tntQuoteTweetsLink" class="quoteTweets" href="${$link.href}/quotes" dir="auto" role="link">
+        ${tweetInfo.quote_count > 0 ? `<a id="tntQuoteTweetsLink" class="quoteTweets" href="${tweetLink}/quotes" dir="auto" role="link">
           <span id="tntQuoteTweetCount">
             ${Intl.NumberFormat(lang, {notation: tweetInfo.quote_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)}
           </span>
           <span>${getString(tweetInfo.quote_count == 1 ? 'QUOTE_TWEET' :'QUOTE_TWEETS')}</span>
         </a>` : ''}
-        ${tweetInfo.retweet_count > 0 ? `<a id="tntRetweetsLink" data-tab="2" href="${$link.href}/retweets" dir="auto" role="link">
+        ${tweetInfo.retweet_count > 0 ? `<a id="tntRetweetsLink" data-tab="2" href="${tweetLink}/retweets" dir="auto" role="link">
           <span>${getString('RETWEETS')}</span>
         </a>` : ''}
-        ${tweetInfo.favorite_count > 0 ? `<a id="tntLikesLink" data-tab="3" href="${$link.href}/likes" dir="auto" role="link">
+        ${tweetInfo.favorite_count > 0 ? `<a id="tntLikesLink" data-tab="3" href="${tweetLink}/likes" dir="auto" role="link">
           <span>${getString('LIKES')}</span>
         </a>` : ''}
       </div>
