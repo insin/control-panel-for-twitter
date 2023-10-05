@@ -89,6 +89,7 @@ const config = {
   mutedQuotes: [],
   quoteTweets: 'ignore',
   reducedInteractionMode: false,
+  restoreLinkHeadlines: true,
   replaceLogo: true,
   restoreOtherInteractionLinks: false,
   restoreQuoteTweetsLink: true,
@@ -3960,6 +3961,10 @@ function onTimelineChange($timeline, page, options = {}) {
           }
         }
       }
+
+      if (!hideItem && config.restoreLinkHeadlines) {
+        restoreLinkHeadline($tweet)
+      }
     }
     else if (!timelineHasSpecificHandling) {
       if ($item.querySelector(':scope > div > div > div > article')) {
@@ -4078,6 +4083,10 @@ function onIndividualTweetTimelineChange($timeline, options) {
         } else {
           hideItem = shouldHideIndividualTweetTimelineItem(itemType)
         }
+      }
+
+      if (!hideItem && config.restoreLinkHeadlines) {
+        restoreLinkHeadline($tweet)
       }
 
       if (!hideItem && (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies)) {
@@ -4462,6 +4471,25 @@ function removeMobileTimelineHeaderElements() {
 }
 
 /**
+ * @param {HTMLElement} $tweet
+ */
+function restoreLinkHeadline($tweet) {
+  let $link = /** @type {HTMLElement} */ ($tweet.querySelector('div[data-testid="card.layoutLarge.media"] > a[rel][aria-label]'))
+  if ($link && !$link.dataset.headlineRestored) {
+    let [site, ...rest] = $link.getAttribute('aria-label').split(' ')
+    let headline = rest.join(' ')
+    log({site, headline})
+    // The site URL floating over the image
+    $link.lastElementChild?.remove()
+    $link.insertAdjacentHTML('beforeend', `<div class="${fontFamilyRule?.selectorText?.replace('.', '')}" style="border-top: 1px solid var(--border-color); padding: 14px;">
+      <div style="color: var(--color); margin-bottom: 2px;">${site}</div>
+      <div style="color: var(--color-emphasis)">${headline}</div>
+    </div>`)
+    $link.dataset.headlineRestored = 'true'
+  }
+}
+
+/**
  * @param {HTMLElement} $focusedTweet
  */
 function restoreTweetInteractionsLinks($focusedTweet) {
@@ -4660,9 +4688,7 @@ function shouldHideSharedTweet(config, page) {
 
 async function tweakBookmarksPage() {
   if (config.twitterBlueChecks != 'ignore') {
-    observeTimeline(currentPage, {
-      classifyTweets: false,
-    })
+    observeTimeline(currentPage)
   }
 }
 

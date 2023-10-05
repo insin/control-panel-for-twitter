@@ -3,7 +3,6 @@
     "create-browser-action": "node ./scripts/create-browser-action.js",
     "create-store-description": "node ./scripts/create-store-description.mjs",
     "release": "node ./scripts/release.js",
-    "update-locale-messages": "node ./scripts/update-locale-messages.js",
     "prebuild": "npm run create-browser-action",
     "build": "web-ext build",
     "lint": "web-ext lint",

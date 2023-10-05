@@ -310,6 +310,9 @@
   "replaceLogoLabel": {
     "message": "X 브랜딩 변경 사항 바꾸기"
   },
+  "restoreLinkHeadlinesLabel": {
+    "message": "외부 링크 아래의 제목 복원"
+  },
   "restoreOtherInteractionLinksLabel": {
     "message": "트윗 아래의 다른 링크 복원"
   },

@@ -310,6 +310,9 @@
   "replaceLogoLabel": {
     "message": "Reemplazar X cambios de marca"
   },
+  "restoreLinkHeadlinesLabel": {
+    "message": "Restaurar titulares bajo enlaces externos"
+  },
   "restoreOtherInteractionLinksLabel": {
     "message": "Restaurar otro enlaces debajo Tweets"
   },

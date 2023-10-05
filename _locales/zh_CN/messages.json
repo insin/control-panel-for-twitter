@@ -310,6 +310,9 @@
   "replaceLogoLabel": {
     "message": "更换 X 品牌变更"
   },
+  "restoreLinkHeadlinesLabel": {
+    "message": "恢复外部链接下的标题"
+  },
   "restoreOtherInteractionLinksLabel": {
     "message": "恢复推文下的其他链接"
   },

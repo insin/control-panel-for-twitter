@@ -56,6 +56,7 @@ export type Config = {
   reducedInteractionMode: boolean
   // XXX This now controls all replacement of X brand changes
   replaceLogo: boolean
+  restoreLinkHeadlines: boolean
   restoreQuoteTweetsLink: boolean
   restoreOtherInteractionLinks: boolean
   retweets: SharedTweetsConfig

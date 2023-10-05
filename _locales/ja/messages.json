@@ -310,6 +310,9 @@
   "replaceLogoLabel": {
     "message": "X のブランド変更を置き換える"
   },
+  "restoreLinkHeadlinesLabel": {
+    "message": "外部リンクの下に見出しを復元"
+  },
   "restoreOtherInteractionLinksLabel": {
     "message": "ツイートの下の他のリンクを復元する"
   },
