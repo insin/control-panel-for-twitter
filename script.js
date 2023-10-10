@@ -2919,6 +2919,11 @@ const configureCss = (() => {
         'body.Tweet [data-testid="tweet"] + div > div [role="group"]',
       )
     }
+    if (config.restoreLinkHeadlines) {
+      hideCssSelectors.push('.tnt_link_url')
+    } else {
+      hideCssSelectors.push('.tnt_link_headline')
+    }
     if (config.restoreQuoteTweetsLink || config.restoreOtherInteractionLinks) {
       cssRules.push(`
         #tntInteractionLinks a {
@@ -4479,9 +4484,8 @@ function restoreLinkHeadline($tweet) {
     let [site, ...rest] = $link.getAttribute('aria-label').split(' ')
     let headline = rest.join(' ')
     log({site, headline})
-    // The site URL floating over the image
-    $link.lastElementChild?.remove()
-    $link.insertAdjacentHTML('beforeend', `<div class="${fontFamilyRule?.selectorText?.replace('.', '')}" style="border-top: 1px solid var(--border-color); padding: 14px;">
+    $link.lastElementChild?.classList.add('tnt_link_url')
+    $link.insertAdjacentHTML('beforeend', `<div class="tnt_link_headline ${fontFamilyRule?.selectorText?.replace('.', '')}" style="border-top: 1px solid var(--border-color); padding: 14px;">
       <div style="color: var(--color); margin-bottom: 2px;">${site}</div>
       <div style="color: var(--color-emphasis)">${headline}</div>
     </div>`)
@@ -4687,7 +4691,7 @@ function shouldHideSharedTweet(config, page) {
 }
 
 async function tweakBookmarksPage() {
-  if (config.twitterBlueChecks != 'ignore') {
+  if (config.twitterBlueChecks != 'ignore' || config.restoreLinkHeadlines) {
     observeTimeline(currentPage)
   }
 }
@@ -5074,7 +5078,7 @@ function tweakNotificationsPage() {
     }
   }
 
-  if (config.twitterBlueChecks != 'ignore') {
+  if (config.twitterBlueChecks != 'ignore' || config.restoreLinkHeadlines) {
     observeTimeline(currentPage, {
       isTabbed: true,
       tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
