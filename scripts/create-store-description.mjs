@@ -36,6 +36,7 @@ ${messages.uiImprovementsOptionsLabel}
 • ${messages.replaceLogo}
 • ${messages.hideViewsLabel}
 • ${messages.hideVerifiedNotificationsTabLabel}
+• ${messages.restoreLinkHeadlinesLabel}
 • ${messages.restoreQuoteTweetsLinkLabel}
 • ${messages.twitterBlueChecksLabel}
   • ${messages.twitterBlueChecksOption_replace}
