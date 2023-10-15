@@ -1,15 +1,15 @@
 {
   "addAddMutedWordMenuItemLabel_desktop": {
-    "message": "Ajouter \"Ajouter un mot muté\" au menu \"More\""
+    "message": "Ajouter \"Ajouter un mot masqué\" au menu \"More\""
   },
   "addAddMutedWordMenuItemLabel_mobile": {
-    "message": "Ajouter \"Ajouter un mot en sourdine\" au menu déroulant"
+    "message": "Ajouter \"Ajouter un mot masqué\" au menu déroulant"
   },
   "alwaysUseLatestTweetsLabel": {
-    "message": "Utiliser la chronologie \"Following\" (chronologique) par défaut"
+    "message": "Utiliser le fil \"Abonnements\" (chronologique) par défaut"
   },
   "appStoreSubtitle": {
-    "message": "Contrôlez votre chronologie",
+    "message": "Contrôlez votre fil",
     "description": "<= 30 characters"
   },
   "debugCountdownLabel": {
@@ -32,19 +32,19 @@
     "message": "Options de débogage (debug)"
   },
   "defaultToLatestSearchLabel": {
-    "message": "Par défaut, utilisez l'onglet \"Récent\" dans Chercher"
+    "message": "Utiliser l'onglet \"Récent\" par défaut dans la recherche"
   },
   "disableHomeTimelineInfo": {
-    "message": "Vous perdez trop de temps sur Twitter ? Essayez d'empêcher l'utilisation de la timeline d'accueil"
+    "message": "Vous perdez trop de temps sur Twitter ? Essayez d'empêcher l'utilisation du fil Accueil"
   },
   "disableHomeTimelineLabel": {
-    "message": "Désactiver la timeline d'accueil"
+    "message": "Désactiver le fil Accueil"
   },
   "disableTweetTextFormattingLabel": {
     "message": "Désactiver le texte en gras et en italique dans les tweets"
   },
   "disabledHomeTimelineRedirectLabel": {
-    "message": "Rediriger la timeline d'accueil vers"
+    "message": "Rediriger le fil Accueil vers"
   },
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "Messages"
@@ -53,10 +53,10 @@
     "message": "Notifications"
   },
   "dontUseChirpFontLabel": {
-    "message": "N'utilisez pas la police Chirp"
+    "message": "Ne pas utiliser la police Chirp"
   },
   "dropdownMenuFontWeightLabel": {
-    "message": "Utiliser un poids de police normal dans les menus déroulants"
+    "message": "Utiliser une taille de police normale dans les menus déroulants"
   },
   "experimentalNote": {
     "message": "Il n'y a pas d'expériences dans cette version"
@@ -91,19 +91,19 @@
     "message": "Monochrome"
   },
   "followButtonStyleOption_themed": {
-    "message": "Thématique"
+    "message": "Thème"
   },
   "fullWidthContentInfo": {
-    "message": "Masquer la barre latérale et laisser le contenu de la timeline en pleine largeur"
+    "message": "Masquer la barre latérale et laisser le contenu du fil sur toute la largeur"
   },
   "fullWidthContentLabel": {
-    "message": "Contenu de la timeline en pleine largeur"
+    "message": "Contenu du fil sur toute la largeur"
   },
   "fullWidthMediaLabel": {
-    "message": "Médias et cartes en pleine largeur"
+    "message": "Médias et cartes sur toute la largeur"
   },
   "hideAccountSwitcherLabel": {
-    "message": "Changement de compte"
+    "message": "Changer de compte"
   },
   "hideAllMetricsLabel": {
     "message": "Masquer tous les paramètres"
@@ -112,7 +112,7 @@
     "message": "Analytique"
   },
   "hideAppNagsLabel": {
-    "message": "Maquer les messages \"Ouverture application\""
+    "message": "Maquer les messages \"Ouvrir l'application\""
   },
   "hideBlueReplyFollowedByLabel": {
     "message": "Masquer les personnes qui me suivent"
@@ -142,13 +142,13 @@
     "message": "Afficher si la barre latérale est masquée"
   },
   "hideExplorePageContentsLabel": {
-    "message": "Masquer le contenu de la page Explore et l'utiliser uniquement pour la recherche"
+    "message": "Masquer le contenu de la page Explorer et l'utiliser uniquement pour la recherche"
   },
   "hideFollowingMetricsLabel": {
     "message": "Suivre / followers"
   },
   "hideForYouTimelineLabel": {
-    "message": "Cacher la chronologie Pour vous (algorithmique)"
+    "message": "Masquer le fil \"Pour vous\" (algorithmique)"
   },
   "hideHelpCenterNavLabel": {
     "message": "Centre d'aide"
@@ -160,7 +160,7 @@
     "message": "Raccourcis clavier"
   },
   "hideLikeMetricsLabel": {
-    "message": "Aime"
+    "message": "J'aime"
   },
   "hideListsNavLabel": {
     "message": "Listes"
@@ -181,16 +181,16 @@
     "message": "Masquer les éléments de menu que vous n'utilisez pas"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
-    "message": "Masquer les éléments inutilisés du menu hamburger"
+    "message": "Masquer les éléments inutilisés du menu latéral"
   },
   "hideMoreTweetsLabel": {
-    "message": "Masquer \"Découvrez plus\" tweets"
+    "message": "Masquer \"Découvrez plus\" de tweets"
   },
   "hideProfileRetweetsLabel": {
     "message": "Masquer les Retweets dans les profils d'utilisateurs"
   },
   "hideQuoteTweetMetricsLabel": {
-    "message": "Tweets de citation"
+    "message": "Citations des tweets"
   },
   "hideReplyMetricsLabel": {
     "message": "Réponses"
@@ -202,16 +202,16 @@
     "message": "Masquer \"Voir les nouveaux Tweets\""
   },
   "hideShareTweetButtonLabel": {
-    "message": "Bouton de partage sous les tweets"
+    "message": "Bouton \"Partager\" sous les tweets"
   },
   "hideSidebarContentLabel": {
-    "message": "Masquer les rubriques Quoi de neuf, Vous pourriez aimer, etc, dans la barre latérale"
+    "message": "Masquer les rubriques \"Quoi de neuf\", \"Vous pourriez aimer\", etc, dans la barre latérale"
   },
   "hideSubscriptionsLabel": {
-    "message": "Masquer Souscriptions"
+    "message": "Masquer \"Souscriptions\""
   },
   "hideTimelineTweetBoxLabel": {
-    "message": "Zone de tweet dans timeline"
+    "message": "Zone de tweet dans le fil"
   },
   "hideTotalTweetsMetricsLabel": {
     "message": "Total des tweets"
@@ -229,19 +229,19 @@
     "message": "Masquer les promotions Twitter Blue"
   },
   "hideUnavailableQuoteTweetsLabel": {
-    "message": "Masquer les tweets citant des comptes que vous avez bloqués ou mis en mute"
+    "message": "Masquer les tweets citant des comptes que vous avez bloqués ou masqués"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Masquer les éléments de l'interface utilisateur que vous n'utilisez pas"
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "Masquer les onglets \"Certifiés\" dans Notifications et Abonnés"
+    "message": "Masquer les onglets \"Certifié\" dans Notifications et Abonnés"
   },
   "hideViewsLabel": {
     "message": "Masquer les vues sous les tweets"
   },
   "hideWhoToFollowEtcLabel": {
-    "message": "Masquer Qui suivre, Suivre certains sujets, etc. dans la timeline"
+    "message": "Masquer \"Qui suivre\", \"Suivre certains sujets\", etc. dans le fil"
   },
   "homeTimelineOptionsLabel": {
     "message": "Fil d'actualités"
@@ -250,8 +250,8 @@
     "message": "Retweets dans les Listes"
   },
   "mutableQuoteTweetsInfo": {
-    "message": "Ajoute un élément de menu \"Mettre cette conversation en muté\" pour citer les Tweets",
-    "description": "Les traductions de 'Mettre cette conversation en muté' dans script.js proviennent des données locales de Twitter"
+    "message": "Ajoute un élément de menu \"Mettre cette conversation en sourdine\" pour les citations de Tweets",
+    "description": "Les traductions de 'Mettre cette conversation en sourdine' dans script.js proviennent des données locales de Twitter"
   },
   "mutableQuoteTweetsLabel": {
     "message": "Désactiver la citation de certains tweets"
@@ -266,7 +266,7 @@
     }
   },
   "navBaseFontSizeLabel": {
-    "message": "Utiliser le style de police de texte normal dans la barre de navigation"
+    "message": "Utiliser la police d'écriture normale dans la barre de navigation"
   },
   "navDensityLabel": {
     "message": "Densité de navigation"
@@ -281,8 +281,8 @@
     "message": "Par défaut"
   },
   "option_hide": {
-    "message": "Cacher",
-    "description": "Option pour cacher des choses, par exemple les tweets algorithmiques, les vérifications de Twitter Blue"
+    "message": "Masquer",
+    "description": "Option pour masquer des choses, par exemple les tweets algorithmiques, les vérifications de Twitter Blue"
   },
   "option_ignore": {
     "message": "Ne rien faire",
@@ -290,7 +290,7 @@
   },
   "option_separate": {
     "message": "Afficher dans un onglet séparé",
-    "description": "Option permettant d'afficher les Retweets ou les Tweets cités dans un onglet séparé de la timeline principale"
+    "description": "Option permettant d'afficher les Retweets ou les Tweets cités dans un onglet séparé du fil principale"
   },
   "quoteTweetsLabel": {
     "message": "Tweets de citation"
@@ -314,10 +314,10 @@
     "message": "Restaurer les titres sous les liens externes"
   },
   "restoreOtherInteractionLinksLabel": {
-    "message": "Restaurer d'autres liens sous Tweets"
+    "message": "Restaurer d'autres liens sous les Tweets"
   },
   "restoreQuoteTweetsLinkLabel": {
-    "message": "Lien Restaurer les Tweets cités sous Tweets"
+    "message": "Restaurer les liens des Tweets cités sous les Tweets"
   },
   "retweetsLabel": {
     "message": "Retweets"
@@ -329,16 +329,16 @@
     "message": "Afficher les personnes ayant plus d'1 million d'abonnés"
   },
   "showBlueReplyVerifiedAccountsLabel": {
-    "message": "Afficher les comptes \"vérifiés\""
+    "message": "Afficher les comptes \"certifiés\""
   },
   "showRelevantPeopleLabel": {
-    "message": "Afficher Personnes pertinentes lors de l'affichage d'un tweet"
+    "message": "Afficher \"Personnes pertinentes\" lors de l'affichage d'un tweet"
   },
   "tweakQuoteTweetsPageLabel": {
-    "message": "Masquer le tweet cité lors de l'affichage des Tweets cités"
+    "message": "Masquer le tweet cité lors de l'affichage des citations de tweets"
   },
   "twitterBlueChecksLabel": {
-    "message": "Coches vérifiées de Twitter Blue"
+    "message": "Coches de Twitter Blue"
   },
   "twitterBlueChecksOption_replace": {
     "message": "Remplacer par le logo Twitter Blue"
@@ -350,10 +350,10 @@
     "message": "Ajustements de l'interface utilisateur"
   },
   "uninvertFollowButtonsLabel": {
-    "message": "Inverser les boutons Follow / Following"
+    "message": "Inverser les boutons Suivre / Se désabonner"
   },
   "unmuteButtonText": {
-    "message": "Unmute",
-    "description": "Bouton utilisé dans la page d'options pour rétablir le son d'un Tweet de citation en sourdine"
+    "message": "Restaurer",
+    "description": "Bouton utilisé dans la page d'options pour restaurer une citation de tweet masquée"
   }
 }
