@@ -3737,7 +3737,7 @@ function handlePopup($popup) {
   }
 
   if (config.addAddMutedWordMenuItem) {
-    let linkSelector = desktop ? 'a[href$="/i/connect_people"]' : 'a[href$="/bookmarks"]'
+    let linkSelector = desktop ? 'a[href$="/settings/monetization"]' : 'a[href$="/bookmarks"]'
     let $link = /** @type {HTMLElement} */ ($popup.querySelector(linkSelector))
     if ($link) {
       addAddMutedWordMenuItem($link, linkSelector)
