@@ -60,7 +60,6 @@ const config = {
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
   hideHelpCenterNav: true,
-  hideHomeHeading: true,
   hideKeyboardShortcutsNav: false,
   hideLikeMetrics: true,
   hideListsNav: false,
@@ -3055,9 +3054,6 @@ const configureCss = (() => {
             padding-bottom: 6px !important;
           }
         `)
-      }
-      if (config.hideHomeHeading) {
-        hideCssSelectors.push(`body.TabbedTimeline ${Selectors.DESKTOP_TIMELINE_HEADER} > div:first-child > div:first-child`)
       }
       if (config.hideSeeNewTweets) {
         hideCssSelectors.push(`body.MainTimeline ${Selectors.PRIMARY_COLUMN} > div > div:first-child > div[style^="transform"]`)
