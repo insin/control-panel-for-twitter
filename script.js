@@ -1316,6 +1316,7 @@ const PagePaths = {
   NOTIFICATION_TIMELINE: '/i/timeline',
   PROFILE_SETTINGS: '/settings/profile',
   SEARCH: '/search',
+  TIMELINE_SETTINGS: '/home/pinned/edit',
 }
 
 /** @enum {string} */
@@ -4297,6 +4298,10 @@ function onTitleChange(title) {
       // …the Home nav link or Following / Home header _wasn't_ clicked and…
       !homeNavigationWasUsed &&
       (
+        // …the user opened Timeline settings dialog.
+        location.pathname == PagePaths.TIMELINE_SETTINGS ||
+        // …the user closed the Timeline settings dialog.
+        currentPath == PagePaths.TIMELINE_SETTINGS ||
         // …the user viewed media.
         URL_MEDIA_RE.test(location.pathname) ||
         // …the user stopped viewing media.
