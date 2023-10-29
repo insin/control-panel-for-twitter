@@ -2794,13 +2794,24 @@ const configureCss = (() => {
 
     if (config.alwaysUseLatestTweets && config.hideForYouTimeline) {
       cssRules.push(`
+        /* Prevent the For you tab container taking up space */
         body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child {
-          flex: 0;
+          flex-grow: 0;
+          flex-shrink: 1;
         }
+        /* Hide the For you tab link */
         body.TabbedTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child > a {
           display: none;
         }
       `)
+      if (desktop) {
+        // Don't accidentally hide the Media button in the Tweet box toolbar
+        cssRules.push(`
+          body.TabbedTimeline ${Selectors.PRIMARY_COLUMN} div[data-testid="toolBar"] nav div[role="tablist"] > div:first-child {
+            flex-shrink: 0;
+          }
+        `)
+      }
     }
     if (config.disableTweetTextFormatting) {
       cssRules.push(`
