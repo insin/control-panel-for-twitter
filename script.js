@@ -2833,7 +2833,12 @@ const configureCss = (() => {
     }
     if (config.hideBookmarkButton) {
       hideCssSelectors.push(
-        // Under individual tweets
+        // Under timeline tweets
+        // The Buffer extension adds a new button in position 2 - use their added class to avoid
+        // hiding the wrong button.
+        '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(5)',
+        '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(6)',
+        // Under the focused tweet
         '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"] > div:nth-child(4)',
       )
     }
@@ -2847,7 +2852,7 @@ const configureCss = (() => {
       hideCssSelectors.push(
         // Under timeline tweets
         `[data-testid="tweet"][tabindex="0"] [role="group"] > div[style]:not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
-        // Under individual tweets
+        // Under the focused tweet
         `[data-testid="tweet"][tabindex="-1"] [role="group"] > div[style]:not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
       )
     }
@@ -2935,7 +2940,7 @@ const configureCss = (() => {
     }
     if (config.hideViews) {
       hideCssSelectors.push(
-        // "Views" under individual tweets
+        // "Views" under the focused tweet
         '[data-testid="tweet"][tabindex="-1"] div[dir] + div[aria-hidden="true"]:nth-child(2):nth-last-child(2)',
         '[data-testid="tweet"][tabindex="-1"] div[dir] + div[aria-hidden="true"]:nth-child(2):nth-last-child(2) + div[dir]:last-child'
       )
