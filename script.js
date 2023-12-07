@@ -3437,14 +3437,13 @@ const configureThemeCss = (() => {
     }
 
     if (config.replaceLogo) {
-      let fill = themeColor || THEME_BLUE
       cssRules.push(`
         ${Selectors.X_LOGO_PATH} {
-          fill: ${fill};
+          fill: ${THEME_BLUE};
           d: path("${Svgs.TWITTER_LOGO_PATH}");
         }
         .tnt_logo {
-          fill: ${fill};
+          fill: ${THEME_BLUE};
         }
         svg path[d="${Svgs.X_HOME_ACTIVE_PATH}"] {
           d: path("${Svgs.TWITTER_HOME_ACTIVE_PATH}");
@@ -5326,14 +5325,13 @@ async function main() {
       $loadingStyle = document.createElement('style')
       $loadingStyle.dataset.insertedBy = 'control-panel-for-twitter'
       $loadingStyle.dataset.role = 'loading-logo'
-      let fill = themeColor || THEME_BLUE
       $loadingStyle.textContent = dedent(`
         ${Selectors.X_LOGO_PATH} {
-          fill: ${isSafari ? 'transparent' : fill};
+          fill: ${isSafari ? 'transparent' : THEME_BLUE};
           d: path("${Svgs.TWITTER_LOGO_PATH}");
         }
         .tnt_logo {
-          fill: ${fill};
+          fill: ${THEME_BLUE};
         }
       `)
       $html.appendChild($loadingStyle)
