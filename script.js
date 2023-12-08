@@ -66,6 +66,7 @@ const config = {
   hideMetrics: false,
   hideMonetizationNav: true,
   hideMoreTweets: true,
+  hideOwnRetweetHome : false,
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
   hideReplyMetrics: true,
@@ -3968,7 +3969,7 @@ function onTimelineChange($timeline, page, options = {}) {
           hideItem = hidPreviousItem
         } else {
           if (isOnMainTimeline) {
-            hideItem = shouldHideMainTimelineItem(itemType, page)
+            hideItem = shouldHideMainTimelineItem($tweet, itemType, page)
           }
           else if (isOnListTimeline) {
             hideItem = shouldHideListTimelineItem(itemType)
@@ -4656,16 +4657,17 @@ function shouldHideListTimelineItem(type) {
 }
 
 /**
+ * @param {HTMLElement} tweet
  * @param {import("./types").TimelineItemType} type
  * @param {string} page
  * @returns {boolean}
  */
-function shouldHideMainTimelineItem(type, page) {
+function shouldHideMainTimelineItem(tweet, type, page) {
   switch (type) {
     case 'QUOTE_TWEET':
       return shouldHideSharedTweet(config.quoteTweets, page)
     case 'RETWEET':
-      return selectedHomeTabIndex >= 2 ? config.listRetweets == 'hide' : shouldHideSharedTweet(config.retweets, page)
+      return selectedHomeTabIndex >= 2 ? config.listRetweets == 'hide' : shouldHideSharedTweet(config.retweets, page) || isOwnRetweetAndShouldHide(tweet, type)
     case 'RETWEETED_QUOTE_TWEET':
       return selectedHomeTabIndex >= 2 ? (
           config.listRetweets == 'hide'
@@ -4733,6 +4735,18 @@ function shouldHideSharedTweet(config, page) {
     case 'ignore': return page == separatedTweetsTimelineTitle
     case 'separate': return page != separatedTweetsTimelineTitle
   }
+}
+
+/**
+ * @param {HTMLElement} tweet
+ * @param {import("./types").TimelineItemType} type
+ * @returns {boolean}
+ */
+function isOwnRetweetAndShouldHide(tweet, type) {
+  if (!config.hideOwnRetweetHome) return false
+  if (type !== 'RETWEET') return false
+  const retweetedUser = tweet.querySelector('span[data-testid="socialContext"]')
+  return retweetedUser?.querySelector('span[dir]') == null
 }
 
 async function tweakBookmarksPage() {

@@ -30,6 +30,7 @@ export type Config = {
   hideMetrics: boolean
   hideMonetizationNav: boolean
   hideMoreTweets: boolean
+  hideOwnRetweetHome : boolean
   hideProfileRetweets: boolean
   hideQuoteTweetMetrics: boolean
   hideReplyMetrics: boolean
