@@ -1929,7 +1929,7 @@ const checkReactNativeStylesheet = (() => {
 
       if (fontFamilyRule == null &&
           rule.style.fontFamily &&
-          rule.style.fontFamily.includes('TwitterChirp')) {
+          rule.style.fontFamily.includes('TwitterChirp') && !rule.style.fontFamily.includes('TwitterChirpExtendedHeavy')) {
         fontFamilyRule = rule
         log('found Chirp fontFamily CSS rule in React Native stylesheet')
         configureFont()
