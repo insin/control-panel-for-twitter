@@ -2316,7 +2316,14 @@ async function observeTitle() {
   observeElement($title, () => {
     let title = $title.textContent
     if (config.replaceLogo && (ltr ? /X$/ : /^(?:\(\d+\+?\) )?X/).test(title)) {
-      document.title = title.replace(ltr ? /X$/ : 'X', getString('TWITTER'))
+      let newTitle = title.replace(ltr ? /X$/ : 'X', getString('TWITTER'))
+      document.title = newTitle
+      // If Twitter is opened in the background, changing the title might not
+      // re-fire the title MutationObserver, preventing the initial page from
+      // being processed.
+      if (!currentPage) {
+        onTitleChange(newTitle)
+      }
       return
     }
     if (observingPageChanges) {
