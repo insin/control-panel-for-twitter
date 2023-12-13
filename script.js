@@ -4284,6 +4284,11 @@ function onTitleChange(title) {
     if (mobile && (URL_MEDIA_RE.test(location.pathname) || URL_MEDIAVIEWER_RE.test(location.pathname))) {
       log('viewing media on mobile')
     }
+    // Going to the root Settings page on desktop when the sidebar is hidden
+    // sets an empty title.
+    else if (desktop && location.pathname == '/settings' && currentPath != '/settings') {
+      log('viewing root Settings page')
+    }
     // Ignore Flash of Uninitialised Title when navigating to a page for the
     // first time.
     else {
