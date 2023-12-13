@@ -2335,72 +2335,6 @@ async function observeTitle() {
 //#endregion
 
 //#region Page observers
-/**
- * If a profile is blocked its media box won't appear, add a `Blocked` class to
- * `<body>` to hide sidebar content.
- * @param {string} currentPage
- */
-async function observeProfileBlockedStatus(currentPage) {
-  let $buttonContainer = await getElement(`[data-testid="userActions"] ~ [data-testid="placementTracking"], a[href="${PagePaths.PROFILE_SETTINGS}"]`, {
-    name: 'Follow / Unblock button container or Edit profile button',
-    stopIf: pageIsNot(currentPage),
-  })
-  if ($buttonContainer == null) return
-
-  if ($buttonContainer.hasAttribute('href')) {
-    log('on own profile page')
-    $body.classList.remove('Blocked')
-    return
-  }
-
-  pageObservers.push(
-    observeElement($buttonContainer, () => {
-      let isBlocked = (/** @type {HTMLElement} */ ($buttonContainer.querySelector('[role="button"]'))?.dataset.testid ?? '').endsWith('unblock')
-      $body.classList.toggle('Blocked', isBlocked)
-    }, 'Follow / Unblock button container')
-  )
-}
-
-/**
- * If an account has never tweeted any media, add a `NoMedia` class to `<body>`
- * to hide the "You might like" section which will appear where the media box
- * would have been.
- * @param {string} currentPage
- */
-async function observeProfileSidebar(currentPage) {
-  let $sidebarContent = await getElement(Selectors.SIDEBAR_WRAPPERS, {
-    name: 'profile sidebar content container',
-    stopIf: pageIsNot(currentPage),
-  })
-  if ($sidebarContent == null) return
-
-  let sidebarContentObserver = observeElement($sidebarContent, () => {
-    $body.classList.toggle('NoMedia', $sidebarContent.childElementCount == 5)
-  }, 'profile sidebar content container')
-  pageObservers.push(sidebarContentObserver)
-
-  // On initial appearance, the sidebar is injected with static HTML with
-  // spinner placeholders, which gets replaced. When this happens we need to
-  // observe the new content container instead.
-  let $sidebarContentParent = $sidebarContent.parentElement
-  pageObservers.push(
-    observeElement($sidebarContentParent, (mutations) => {
-      let sidebarContentReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($sidebarContent))
-      if (sidebarContentReplaced) {
-        log('profile sidebar content container replaced, observing new container')
-        sidebarContentObserver.disconnect()
-        pageObservers.splice(pageObservers.indexOf(sidebarContentObserver), 1)
-        $sidebarContent = /** @type {HTMLElement} */ ($sidebarContentParent.firstElementChild)
-        pageObservers.push(
-          observeElement($sidebarContent, () => {
-            $body.classList.toggle('NoMedia', $sidebarContent.childElementCount == 5)
-          }, 'sidebar content container')
-        )
-      }
-    }, 'sidebar content container parent')
-  )
-}
-
 async function observeSidebar() {
   let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {
     name: 'primary column'
@@ -3168,9 +3102,6 @@ const configureCss = (() => {
         cssRules.push(`
           ${Selectors.SIDEBAR_WRAPPERS} > div:not(:first-of-type) {
             display: none;
-          }
-          body.Profile:not(.Blocked, .NoMedia) ${Selectors.SIDEBAR_WRAPPERS} > div:is(:nth-of-type(2), :nth-of-type(3)) {
-            display: block;
           }
           body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:nth-of-type(2) {
             display: block;
@@ -4433,9 +4364,6 @@ function processCurrentPage() {
   $body.classList.toggle('MainTimeline', isOnMainTimelinePage())
   $body.classList.toggle('Notifications', isOnNotificationsPage())
   $body.classList.toggle('Profile', isOnProfilePage())
-  if (!isOnProfilePage()) {
-    $body.classList.remove('Blocked', 'NoMedia')
-  }
   $body.classList.toggle('ProfileFollows', isOnFollowListPage())
   if (!isOnFollowListPage()) {
     $body.classList.remove('Subscriptions')
@@ -5170,11 +5098,6 @@ async function tweakProfilePage() {
   observeTimeline(currentPage, {
     isUserTimeline: tab == 'affiliates'
   })
-
-  if (desktop && config.hideSidebarContent) {
-    observeProfileBlockedStatus(currentPage)
-    observeProfileSidebar(currentPage)
-  }
 
   if (config.replaceLogo || config.hideSubscriptions) {
     let $profileTabs = await getElement(`${Selectors.PRIMARY_COLUMN} nav`, {
