@@ -113,8 +113,9 @@ for (let translationId of [
 }
 
 for (let translationClass of [
-  'hideCommunitiesNavLabel',
   'hideBookmarksNavLabel',
+  'hideCommunitiesNavLabel',
+  'hideGrokNavLabel',
   'hideListsNavLabel',
 ]) {
   let translation = chrome.i18n.getMessage(translationClass)
@@ -164,6 +165,7 @@ const defaultConfig = {
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
+  hideGrokNav: true,
   hideHelpCenterNav: true,
   hideKeyboardShortcutsNav: false,
   hideLikeMetrics: true,
@@ -305,6 +307,7 @@ function applyConfig() {
       desktop && 'hideBookmarksNav',
       desktop && 'hideCommunitiesNav',
       desktop && 'hideExploreNav',
+      desktop && 'hideGrokNav',
       desktop && 'hideListsNav',
       desktop && 'hideMessagesDrawer',
       desktop && 'hideTimelineTweetBox',
@@ -319,6 +322,7 @@ function applyConfig() {
       desktop && 'hideKeyboardShortcutsNav',
       mobile && 'hideBookmarksNav',
       mobile && 'hideCommunitiesNav',
+      mobile && 'hideGrokNav',
       mobile && 'hideListsNav',
     ].filter(Boolean),
     hideAllMetrics: [

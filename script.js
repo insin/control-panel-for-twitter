@@ -59,6 +59,7 @@ const config = {
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
+  hideGrokNav: true,
   hideHelpCenterNav: true,
   hideKeyboardShortcutsNav: false,
   hideLikeMetrics: true,
@@ -2911,7 +2912,7 @@ const configureCss = (() => {
     if (config.hideTwitterBlueUpsells) {
       hideCssSelectors.push(
         // Premium/Verified/Verified Orgs menu item
-        `${menuRole} a:is([href$="/i/premium_sign_up"], [href$="/i/verified-choose"], [href$="/i/verified-orgs-signup"])`,
+        `${menuRole} a:is([href$="/i/premium_sign_up"], [href$="/i/premium_tier_switch"], [href$="/i/verified-choose"], [href$="/i/verified-orgs-signup"])`,
         // "Highlight on your profile" on your tweets
         '[role="menuitem"][data-testid="highlightUpsell"]',
         // "Edit with Premium" on recent tweets
@@ -3152,11 +3153,14 @@ const configureCss = (() => {
       if (config.hideKeyboardShortcutsNav) {
         hideCssSelectors.push(`${menuRole} a[href$="/i/keyboard_shortcuts"]`)
       }
+      if (config.hideGrokNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`)
+      }
       if (config.hideListsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
       }
       if (config.hideTwitterBlueUpsells) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a:is([href$="/i/premium_sign_up"], [href$="/i/verified-choose"], [href$="/i/verified-orgs-signup"])`)
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a:is([href$="/i/premium_sign_up"], [href$="/i/premium_tier_switch"], [href$="/i/verified-choose"], [href$="/i/verified-orgs-signup"])`)
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
@@ -3246,6 +3250,9 @@ const configureCss = (() => {
           // Content
           `body.Explore ${Selectors.TIMELINE}`,
         )
+      }
+      if (config.hideGrokNav) {
+        hideCssSelectors.push(`${menuRole} a[href$="/i/grok"]`)
       }
       if (config.hideListsNav) {
         hideCssSelectors.push(`${menuRole} a[href$="/lists"]`)

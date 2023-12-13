@@ -150,6 +150,9 @@
   "hideForYouTimelineLabel": {
     "message": "隐藏 \"为你推荐\" (算法) 时间线"
   },
+  "hideGrokNavLabel": {
+    "message": "Grok"
+  },
   "hideHelpCenterNavLabel": {
     "message": "帮助中心"
   },

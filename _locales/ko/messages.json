@@ -150,6 +150,9 @@
   "hideForYouTimelineLabel": {
     "message": "\"나를 위한 추천\" (알고리즘) 타임라인 숨기기"
   },
+  "hideGrokNavLabel": {
+    "message": "Grok"
+  },
   "hideHelpCenterNavLabel": {
     "message": "고객센터"
   },

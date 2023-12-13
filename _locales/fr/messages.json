@@ -150,6 +150,9 @@
   "hideForYouTimelineLabel": {
     "message": "Masquer le fil \"Pour vous\" (algorithmique)"
   },
+  "hideGrokNavLabel": {
+    "message": "Grok"
+  },
   "hideHelpCenterNavLabel": {
     "message": "Centre d'aide"
   },

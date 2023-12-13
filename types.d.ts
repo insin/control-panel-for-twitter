@@ -23,6 +23,7 @@ export type Config = {
   hideConnectNav: boolean
   hideFollowingMetrics: boolean
   hideForYouTimeline: boolean
+  hideGrokNav: boolean
   hideHelpCenterNav: boolean
   hideKeyboardShortcutsNav: boolean
   hideLikeMetrics: boolean
