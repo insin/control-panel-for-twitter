@@ -33,7 +33,7 @@ ${messages.homeTimelineOptionsLabel}
 
 ${messages.uiImprovementsOptionsLabel}
 
-• ${messages.replaceLogo}
+• ${messages.replaceLogoLabel}
 • ${messages.hideViewsLabel}
 • ${messages.hideVerifiedNotificationsTabLabel}
 • ${messages.restoreLinkHeadlinesLabel}
@@ -42,6 +42,7 @@ ${messages.uiImprovementsOptionsLabel}
   • ${messages.twitterBlueChecksOption_replace}
 • ${messages.hideTwitterBlueRepliesLabel}
 • ${messages.hideTwitterBlueUpsellsLabel}
+• ${messages.hideGrok}
 • ${messages.hideSubscriptionsLabel}
 • ${messages.addAddMutedWordMenuItemLabel_desktop}
 • ${messages.fastBlockLabel}

@@ -150,6 +150,9 @@
   "hideForYouTimelineLabel": {
     "message": "アルゴリズムによる「おすすめ」を非表示"
   },
+  "hideGrok": {
+    "message": "Grok を非表示にする"
+  },
   "hideGrokNavLabel": {
     "message": "Grok"
   },
