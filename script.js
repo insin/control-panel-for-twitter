@@ -3182,11 +3182,16 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
-      if (config.hideGrokNav) {
-        hideCssSelectors.push(`${menuRole} a[href$="/i/grok"]`)
-      }
       if (config.hideListsNav) {
         hideCssSelectors.push(`${menuRole} a[href$="/lists"]`)
+      }
+      if (config.hideGrokNav) {
+        hideCssSelectors.push(
+          // Grok is currently in the bottom nav on mobile
+          `${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/grok"]`,
+          // In case they ever move it to the slide-out menu
+          `${menuRole} a[href$="/i/grok"]`,
+        )
       }
       if (config.hideMessagesBottomNavItem) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)

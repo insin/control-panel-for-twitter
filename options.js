@@ -311,6 +311,7 @@ function applyConfig() {
       desktop && 'hideListsNav',
       desktop && 'hideMessagesDrawer',
       desktop && 'hideTimelineTweetBox',
+      mobile && 'hideGrokNav',
       mobile && 'hideMessagesBottomNavItem',
     ].filter(Boolean),
     hideMoreSlideOutMenuItems: [
@@ -322,7 +323,6 @@ function applyConfig() {
       desktop && 'hideKeyboardShortcutsNav',
       mobile && 'hideBookmarksNav',
       mobile && 'hideCommunitiesNav',
-      mobile && 'hideGrokNav',
       mobile && 'hideListsNav',
     ].filter(Boolean),
     hideAllMetrics: [
