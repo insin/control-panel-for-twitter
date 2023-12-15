@@ -3124,7 +3124,7 @@ const configureCss = (() => {
       if (config.hideShareTweetButton) {
         hideCssSelectors.push(
           // In media modal
-          `[aria-modal="true"] [role="group"] > div[style]:not([role]):not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
+          `[aria-modal="true"] div > div:first-of-type [role="group"] > div[style]:not([role]):not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
         )
       }
       if (config.hideExploreNav) {
@@ -3150,7 +3150,7 @@ const configureCss = (() => {
           '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(4)',
           '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(5)',
           // In media modal
-          '[aria-modal="true"] [role="group"] > div:nth-child(4)',
+          '[aria-modal="true"] > div > div:first-of-type [role="group"] > div:nth-child(4)',
         )
       }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
