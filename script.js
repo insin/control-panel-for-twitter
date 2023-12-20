@@ -1000,7 +1000,7 @@ const locales = {
     RETWEETS: 'Ретвиты',
     SHARED_TWEETS: 'Общие твиты',
     SHOW: 'Показать',
-    SHOW_MORE_REPLIES: 'Показать еще ответы',
+    SHOW_MORE_REPLIES: 'Показать ещё ответы',
     TURN_OFF_RETWEETS: 'Отключить ретвиты',
     TURN_ON_RETWEETS: 'Включить ретвиты',
     TWEET: 'Твитнуть',
