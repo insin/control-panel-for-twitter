@@ -2781,7 +2781,8 @@ const configureCss = (() => {
         '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(5)',
         '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(6)',
         // Under the focused tweet
-        '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"] > div:nth-child(4)',
+        '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"]:not(.buffer-inserted) > div:nth-child(4)',
+        '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"].buffer-inserted > div:nth-child(5)',
       )
     }
     if (config.hideBookmarksNav) {
