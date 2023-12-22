@@ -3204,10 +3204,13 @@ const configureCss = (() => {
       }
       if (config.hideViews) {
         hideCssSelectors.push(
-          // Under timeline tweets
-          // Views only display on mobile at larger widths - only hide the 4th button if there are 5
+          // Under timeline tweets - views only display on mobile at larger widths on mobile
+          // When only the Share button is also displayed - 4th of 5
           '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-child(4):nth-last-child(2)',
-          '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-child(4):nth-last-child(2)',
+          '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-child(5):nth-last-child(2)',
+          // When the Bookmark and Share buttons are also displayed - 4th of 6
+          '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-child(4):nth-last-child(3)',
+          '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-child(5):nth-last-child(3)',
           // In media modal
           'body.MobileMedia [role="group"] > div:nth-child(4)',
         )
