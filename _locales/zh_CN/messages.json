@@ -111,9 +111,6 @@
   "hideAnalyticsNavLabel": {
     "message": "分析"
   },
-  "hideAppNagsLabel": {
-    "message": "隐藏\"打开应用程序\"的提示"
-  },
   "hideBlueReplyFollowedByLabel": {
     "message": "隐藏关注我的人"
   },

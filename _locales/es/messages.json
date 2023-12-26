@@ -111,9 +111,6 @@
   "hideAnalyticsNavLabel": {
     "message": "Analíticas"
   },
-  "hideAppNagsLabel": {
-    "message": "Ocultar paneles de \"Abrir en la app\""
-  },
   "hideBlueReplyFollowedByLabel": {
     "message": "Ocultar personas que me siguen"
   },

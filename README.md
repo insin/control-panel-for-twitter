@@ -52,7 +52,6 @@ New versions can take anything from minutes to days to be approved for publishin
 - Hide Retweets in user profiles
 - Default to "Latest" tab in Search
 - When viewing a tweet's Quote Tweets, hide the quoted tweet to make more room for quotes
-- Hide "Open app" nags on mobile
 
 ### UI tweaks
 
@@ -155,11 +154,11 @@ The quoted tweet is hidden, instead of being duplicated under every quote, leavi
 | - | - |
 | ![Screenshot of the options popup in Chrome on desktop](screenshots/options_popup.png) | ![Screenshot of the options popup in Firefox on Android on Android](screenshots/firefox_android_options_popup.jpg) |
 
-### Other mobile features
+### No trends on Explore screen, just search
 
-| No trends on Explore screen, just search | No "Open app" nag in tweet header |
-| - | - |
-| ![Screenshot of the Explore screen in mobile Twitter, with only the search part of the screen visible](screenshots/firefox_android_explore.jpg) | ![Screenshot an individual tweet in mobile Twitter, without the usual "Open app" buttoin in the header, and without the usual Messages navigation item in the bottom navigation bar](screenshots/firefox_android_tweet.jpg) |
+| Mobile |
+| - |
+| ![Screenshot of the Explore screen in mobile Twitter, with only the search part of the screen visible](screenshots/firefox_android_explore.jpg) |
 
 ### Language support
 

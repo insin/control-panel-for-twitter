@@ -113,7 +113,6 @@ const config = {
   navDensity: 'default',
   showRelevantPeople: false,
   // Mobile only
-  hideAppNags: true,
   hideMessagesBottomNavItem: false,
 }
 //#endregion
@@ -3165,13 +3164,6 @@ const configureCss = (() => {
       }
       if (config.hideSeeNewTweets) {
         hideCssSelectors.push(`body.MainTimeline ${Selectors.MOBILE_TIMELINE_HEADER} ~ div[style^="transform"]:last-child`)
-      }
-      if (config.hideAppNags) {
-        cssRules.push(`
-          body.Tweet ${Selectors.MOBILE_TIMELINE_HEADER} div:nth-of-type(3) > div > [role="button"] {
-            visibility: hidden;
-          }
-        `)
       }
       if (config.hideExplorePageContents) {
         // Hide explore page contents so we don't get a brief flash of them

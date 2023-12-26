@@ -21,6 +21,7 @@ export type Config = {
   hideBookmarksNav: boolean
   hideCommunitiesNav: boolean
   hideConnectNav: boolean
+  hideExplorePageContents: boolean
   hideFollowingMetrics: boolean
   hideForYouTimeline: boolean
   hideGrokNav: boolean
@@ -79,8 +80,6 @@ export type Config = {
   navDensity: 'default' | 'comfortable' | 'compact'
   showRelevantPeople: boolean
   // Mobile only
-  hideAppNags: boolean
-  hideExplorePageContents: boolean
   hideMessagesBottomNavItem: boolean
 }
 

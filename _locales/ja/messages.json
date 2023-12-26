@@ -111,9 +111,6 @@
   "hideAnalyticsNavLabel": {
     "message": "アナリティクス"
   },
-  "hideAppNagsLabel": {
-    "message": "「アプリで開く」を非表示"
-  },
   "hideBlueReplyFollowedByLabel": {
     "message": "私をフォローしている人を非表示にします"
   },

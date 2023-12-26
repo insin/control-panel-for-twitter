@@ -43,7 +43,6 @@ for (let translationId of [
   'hideAccountSwitcherLabel',
   'hideAllMetricsLabel',
   'hideAnalyticsNavLabel',
-  'hideAppNagsLabel',
   'hideBlueReplyFollowedByLabel',
   'hideBlueReplyFollowingLabel',
   'hideBookmarkButtonLabel',
@@ -219,7 +218,6 @@ const defaultConfig = {
   navDensity: 'default',
   showRelevantPeople: false,
   // Mobile only
-  hideAppNags: true,
   hideMessagesBottomNavItem: false,
 }
 //#endregion
