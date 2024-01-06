@@ -2897,7 +2897,12 @@ const configureCss = (() => {
       )
     }
     if (config.restoreLinkHeadlines) {
-      hideCssSelectors.push('.tnt_link_url')
+      hideCssSelectors.push(
+        // Existing headline overlaid on the card
+        '.tnt_overlay_headline',
+        // From <domain> link after the card
+        'div[data-testid="card.wrapper"] + a',
+      )
     } else {
       hideCssSelectors.push('.tnt_link_headline')
     }
@@ -4476,8 +4481,7 @@ function restoreLinkHeadline($tweet) {
   if ($link && !$link.dataset.headlineRestored) {
     let [site, ...rest] = $link.getAttribute('aria-label').split(' ')
     let headline = rest.join(' ')
-    log({site, headline})
-    $link.lastElementChild?.classList.add('tnt_link_url')
+    $link.lastElementChild?.classList.add('tnt_overlay_headline')
     $link.insertAdjacentHTML('beforeend', `<div class="tnt_link_headline ${fontFamilyRule?.selectorText?.replace('.', '')}" style="border-top: 1px solid var(--border-color); padding: 14px;">
       <div style="color: var(--color); margin-bottom: 2px;">${site}</div>
       <div style="color: var(--color-emphasis)">${headline}</div>
