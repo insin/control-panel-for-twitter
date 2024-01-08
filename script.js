@@ -2867,6 +2867,14 @@ const configureCss = (() => {
           padding-right: 32px;
         }
       `)
+      // Hide Subscribe prompts in the timeline
+      cssRules.push(`
+        @supports selector(:has(*)) {
+          div[data-testid="inlinePrompt"]:has(a[href^="/i/premium"]) {
+            display: none !important;
+          }
+        }
+      `)
     }
     if (config.hideVerifiedNotificationsTab) {
       cssRules.push(`
@@ -3000,6 +3008,7 @@ const configureCss = (() => {
       `)
     }
 
+    //#region Desktop-only
     if (desktop) {
       if (config.navDensity == 'comfortable' || config.navDensity == 'compact') {
         cssRules.push(`
@@ -3162,7 +3171,9 @@ const configureCss = (() => {
         hideCssSelectors.push('#tnt_separated_tweets_tab')
       }
     }
+    //#endregion
 
+    //#region Mobile only
     if (mobile) {
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
@@ -3213,6 +3224,7 @@ const configureCss = (() => {
           'body.MobileMedia [role="group"] > div:nth-child(4)',
         )
       }
+      //#endregion
     }
 
     if (hideCssSelectors.length > 0) {
