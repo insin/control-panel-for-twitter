@@ -186,6 +186,9 @@
   "hideMoreTweetsLabel": {
     "message": "Hide \"Discover more\" tweets"
   },
+  "hideOwnRetweetHomeLabel": {
+    "message": "Hide your own retweets"
+  },
   "hideProfileRetweetsLabel": {
     "message": "Hide Retweets in user profiles"
   },

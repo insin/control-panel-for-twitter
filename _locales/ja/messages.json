@@ -186,6 +186,9 @@
   "hideMoreTweetsLabel": {
     "message": "「もっと見つける」を非表示"
   },
+  "hideOwnRetweetHomeLabel": {
+    "message": "自分のリツイートを非表示"
+  },
   "hideProfileRetweetsLabel": {
     "message": "ユーザープロフィールでのリツイートを非表示にする"
   },
