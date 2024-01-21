@@ -239,7 +239,7 @@ let $mutedQuotesLabel = /** @type {HTMLElement} */ (document.querySelector('#mut
 //#region Utility functions
 function exportConfig() {
   let $a = document.createElement('a')
-  $a.download = 'control-panel-for-twitter-v3.22.2.config.txt'
+  $a.download = 'control-panel-for-twitter-v3.23.0.config.txt'
   $a.href = URL.createObjectURL(new Blob([
     JSON.stringify(optionsConfig, null, 2)
   ], {type: 'text/plain'}))
@@ -291,17 +291,16 @@ function applyConfig() {
   checkboxGroups = new Map(Object.entries({
     hideUnusedUiItems: [
       'hideBookmarkButton',
+      'hideGrokNav',
       'hideShareTweetButton',
       'hideTweetAnalyticsLinks',
       desktop && 'hideAccountSwitcher',
       desktop && 'hideBookmarksNav',
       desktop && 'hideCommunitiesNav',
       desktop && 'hideExploreNav',
-      desktop && 'hideGrokNav',
       desktop && 'hideListsNav',
       desktop && 'hideMessagesDrawer',
       desktop && 'hideTimelineTweetBox',
-      mobile && 'hideGrokNav',
       mobile && 'hideMessagesBottomNavItem',
     ].filter(Boolean),
     hideMoreSlideOutMenuItems: [

@@ -280,7 +280,7 @@ body.iOS.safari form > section.labelled > label {
   top: -32px;
   text-transform: uppercase;
   font-size: 75%;
-  color: rgb(133,133,135);
+  color: rgb(133, 133, 135);
 }
 body.iOS.safari form > section.labelled > label + section,
 body.iOS.safari form > section.labelled > label + section.desktop + section {
@@ -292,11 +292,11 @@ body.iOS.safari form > section.labelled > label + p {
 }
 /* A checkbox options with nested options should indent their names */
 body.iOS.safari section.checkbox > section:not(.group) > label {
-  padding-left:18px
+  padding-left: 18px
 }
 /* A checkbox option with nested group should indent it */
 body.iOS.safari section.checkbox > section.group {
-  margin-left:18px
+  margin-left: 18px
 }
 body.iOS.safari summary {
   padding-left: 0;
@@ -315,8 +315,11 @@ body.iOS.safari .checkbox input[type="checkbox"] {
   position: absolute;
   overflow: hidden;
   clip: rect(0 0 0 0);
-  height: 1px; width: 1px;
-  margin: -1px; padding: 0; border: 0;
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
 }
 body.iOS.safari .checkbox .toggle {
   position: relative;
@@ -371,8 +374,8 @@ body.iOS.safari input:checked + .toggle::after {
   transform: translate3d(22px, 2px, 0);
 }
 body.iOS.safari .checkbox input:focus + .toggle {
- outline: 5px auto Highlight;
- outline: 5px auto -webkit-focus-ring-color;
+  outline: 5px auto Highlight;
+  outline: 5px auto -webkit-focus-ring-color;
 }
 
 /* Dark mode overrides */
@@ -430,7 +433,7 @@ body.iOS.safari .checkbox input:focus + .toggle {
     background-color: rgb(28, 28, 30);
   }
   body.iOS.safari form > section.labelled > label {
-    color: rgb(115,115,121);
+    color: rgb(115, 115, 121);
   }
   body.iOS.safari section.group section {
     border-color: rgb(35, 35, 37);
