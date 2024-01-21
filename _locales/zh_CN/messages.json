@@ -108,9 +108,6 @@
   "hideAllMetricsLabel": {
     "message": "全部隐藏"
   },
-  "hideAnalyticsNavLabel": {
-    "message": "分析"
-  },
   "hideBlueReplyFollowedByLabel": {
     "message": "隐藏关注我的人"
   },
@@ -128,9 +125,6 @@
   },
   "hideCommunitiesNavLabel": {
     "message": "社区"
-  },
-  "hideConnectNavLabel": {
-    "message": "连接"
   },
   "hideExploreNavLabel": {
     "message": "探索"
@@ -152,12 +146,6 @@
   },
   "hideGrokNavLabel": {
     "message": "Grok"
-  },
-  "hideHelpCenterNavLabel": {
-    "message": "帮助中心"
-  },
-  "hideKeyboardShortcutsNavLabel": {
-    "message": "键盘快捷键"
   },
   "hideLikeMetricsLabel": {
     "message": "喜欢"
@@ -185,6 +173,9 @@
   },
   "hideMoreTweetsLabel": {
     "message": "隐藏\"发现更多\"推文"
+  },
+  "hideProNavLabel": {
+    "message": "专业版"
   },
   "hideProfileRetweetsLabel": {
     "message": "在用户个人资料中隐藏转发"
@@ -218,9 +209,6 @@
   },
   "hideTweetAnalyticsLinksLabel": {
     "message": "您自己的推文下的\"查看 帖子 互动量\""
-  },
-  "hideTwitterAdsNavLabel": {
-    "message": "Twitter广告"
   },
   "hideTwitterBlueRepliesLabel": {
     "message": "隐藏Twitter Blue的回复"

@@ -108,9 +108,6 @@
   "hideAllMetricsLabel": {
     "message": "すべて非表示"
   },
-  "hideAnalyticsNavLabel": {
-    "message": "アナリティクス"
-  },
   "hideBlueReplyFollowedByLabel": {
     "message": "私をフォローしている人を非表示にします"
   },
@@ -128,9 +125,6 @@
   },
   "hideCommunitiesNavLabel": {
     "message": "コミュニティ"
-  },
-  "hideConnectNavLabel": {
-    "message": "移動する"
   },
   "hideExploreNavLabel": {
     "message": "「話題を検索」"
@@ -152,12 +146,6 @@
   },
   "hideGrokNavLabel": {
     "message": "Grok"
-  },
-  "hideHelpCenterNavLabel": {
-    "message": "ヘルプセンター"
-  },
-  "hideKeyboardShortcutsNavLabel": {
-    "message": "キーボードショートカット"
   },
   "hideLikeMetricsLabel": {
     "message": "いいね件数"
@@ -185,6 +173,9 @@
   },
   "hideMoreTweetsLabel": {
     "message": "「もっと見つける」を非表示"
+  },
+  "hideProNavLabel": {
+    "message": "Pro"
   },
   "hideProfileRetweetsLabel": {
     "message": "ユーザープロフィールでのリツイートを非表示にする"
@@ -218,9 +209,6 @@
   },
   "hideTweetAnalyticsLinksLabel": {
     "message": "自分のツイートの下に「ポストのエンゲージメントを表示」"
-  },
-  "hideTwitterAdsNavLabel": {
-    "message": "Twitter Ads"
   },
   "hideTwitterBlueRepliesLabel": {
     "message": "Twitter Blueの返信を非表示にする"

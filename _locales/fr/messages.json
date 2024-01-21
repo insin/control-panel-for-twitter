@@ -108,9 +108,6 @@
   "hideAllMetricsLabel": {
     "message": "Masquer tous les paramètres"
   },
-  "hideAnalyticsNavLabel": {
-    "message": "Analytique"
-  },
   "hideBlueReplyFollowedByLabel": {
     "message": "Masquer les personnes qui me suivent"
   },
@@ -128,9 +125,6 @@
   },
   "hideCommunitiesNavLabel": {
     "message": "Communautés"
-  },
-  "hideConnectNavLabel": {
-    "message": "Se connecter"
   },
   "hideExploreNavLabel": {
     "message": "Explorer"
@@ -152,12 +146,6 @@
   },
   "hideGrokNavLabel": {
     "message": "Grok"
-  },
-  "hideHelpCenterNavLabel": {
-    "message": "Centre d'aide"
-  },
-  "hideKeyboardShortcutsNavLabel": {
-    "message": "Raccourcis clavier"
   },
   "hideLikeMetricsLabel": {
     "message": "J'aime"
@@ -185,6 +173,9 @@
   },
   "hideMoreTweetsLabel": {
     "message": "Masquer \"Découvrez plus\" de tweets"
+  },
+  "hideProNavLabel": {
+    "message": "Pro"
   },
   "hideProfileRetweetsLabel": {
     "message": "Masquer les Retweets dans les profils d'utilisateurs"
@@ -218,9 +209,6 @@
   },
   "hideTweetAnalyticsLinksLabel": {
     "message": "\"Voir les engagements avec le post\" sous vos tweets"
-  },
-  "hideTwitterAdsNavLabel": {
-    "message": "Publicités Twitter"
   },
   "hideTwitterBlueRepliesLabel": {
     "message": "Masquer les réponses Twitter Blue"

@@ -20,7 +20,7 @@ let isSafari = navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test
 
 /** @type {HTMLHtmlElement} */
 let $html
-/** @type {HTMLBodyElement} */
+/** @type {HTMLElement} */
 let $body
 /** @type {HTMLElement} */
 let $reactRoot
@@ -48,20 +48,16 @@ const config = {
   dropdownMenuFontWeight: true,
   fastBlock: true,
   followButtonStyle: 'monochrome',
-  hideAnalyticsNav: true,
   hideBlueReplyFollowedBy: false,
   hideBlueReplyFollowing: false,
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
   hideCommunitiesNav: false,
-  hideConnectNav: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
   hideGrokNav: true,
-  hideHelpCenterNav: true,
-  hideKeyboardShortcutsNav: false,
   hideLikeMetrics: true,
   hideListsNav: false,
   hideMetrics: false,
@@ -77,7 +73,6 @@ const config = {
   hideTimelineTweetBox: false,
   hideTotalTweetsMetrics: true,
   hideTweetAnalyticsLinks: false,
-  hideTwitterAdsNav: true,
   hideTwitterBlueReplies: false,
   hideTwitterBlueUpsells: true,
   hideUnavailableQuoteTweets: true,
@@ -108,6 +103,7 @@ const config = {
   hideExploreNav: true,
   hideExploreNavWithSidebar: true,
   hideMessagesDrawer: true,
+  hideProNav: true,
   hideSidebarContent: true,
   navBaseFontSize: true,
   navDensity: 'default',
@@ -999,7 +995,7 @@ const locales = {
     RETWEETS: 'Ретвиты',
     SHARED_TWEETS: 'Общие твиты',
     SHOW: 'Показать',
-    SHOW_MORE_REPLIES: 'Показать ещё ответы',
+    SHOW_MORE_REPLIES: 'Показать еще ответы',
     TURN_OFF_RETWEETS: 'Отключить ретвиты',
     TURN_ON_RETWEETS: 'Включить ретвиты',
     TWEET: 'Твитнуть',
@@ -2572,7 +2568,7 @@ async function addAddMutedWordMenuItem($link, linkSelector) {
     e.preventDefault()
     addMutedWord()
   })
-  $link.parentElement.insertAdjacentElement('afterend', $addMutedWord)
+  $link.parentElement.insertAdjacentElement('beforebegin', $addMutedWord)
 }
 
 function addCaretMenuListenerForQuoteTweet($tweet) {
@@ -2769,9 +2765,6 @@ const configureCss = (() => {
         }
       `)
     }
-    if (config.hideAnalyticsNav) {
-      hideCssSelectors.push(`${menuRole} a[href*="analytics.twitter.com"]`)
-    }
     if (config.hideBookmarkButton) {
       hideCssSelectors.push(
         // Under timeline tweets
@@ -2828,9 +2821,6 @@ const configureCss = (() => {
         }
       `)
     }
-    if (config.hideHelpCenterNav) {
-      hideCssSelectors.push(`${menuRole} a[href*="support.twitter.com"]`)
-    }
     if (config.hideMetrics) {
       configureHideMetricsCss(cssRules, hideCssSelectors)
     }
@@ -2839,9 +2829,6 @@ const configureCss = (() => {
     }
     if (config.hideTweetAnalyticsLinks) {
       hideCssSelectors.push('a[data-testid="analyticsButton"]')
-    }
-    if (config.hideTwitterAdsNav) {
-      hideCssSelectors.push(`${menuRole} a[href*="ads.twitter.com"]`)
     }
     if (config.hideTwitterBlueUpsells) {
       hideCssSelectors.push(
@@ -2955,15 +2942,6 @@ const configureCss = (() => {
           d: path("${Svgs.BLUE_LOGO_PATH}");
         }
       `)
-    }
-
-    // Hide "Creator Studio" if all its contents are hidden
-    if (config.hideAnalyticsNav) {
-      hideCssSelectors.push(`${menuRole} div[role="button"][aria-expanded]:nth-of-type(1)`)
-    }
-    // Hide "Professional Tools" if all its contents are hidden
-    if (config.hideTwitterAdsNav) {
-      hideCssSelectors.push(`${menuRole} div[role="button"][aria-expanded]:nth-of-type(2)`)
     }
 
     if (shouldShowSeparatedTweetsTab()) {
@@ -3095,17 +3073,14 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
-      if (config.hideConnectNav) {
-        hideCssSelectors.push(`${menuRole} a[href$="/i/connect_people"]`)
-      }
-      if (config.hideKeyboardShortcutsNav) {
-        hideCssSelectors.push(`${menuRole} a[href$="/i/keyboard_shortcuts"]`)
-      }
       if (config.hideGrokNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`)
       }
       if (config.hideListsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
+      }
+      if (config.hideProNav) {
+        hideCssSelectors.push(`${menuRole} a:is([href*="tweetdeck.twitter.com"], [href*="pro.twitter.com"])`)
       }
       if (config.hideTwitterBlueUpsells) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a:is([href$="/i/premium_sign_up"], [href$="/i/premium_tier_switch"], [href$="/i/verified-choose"], [href$="/i/verified-orgs-signup"])`)
@@ -3716,7 +3691,7 @@ function handlePopup($popup) {
   }
 
   if (config.addAddMutedWordMenuItem) {
-    let linkSelector = desktop ? 'a[href$="/settings/monetization"]' : 'a[href$="/bookmarks"]'
+    let linkSelector = 'a[href$="/settings"]'
     let $link = /** @type {HTMLElement} */ ($popup.querySelector(linkSelector))
     if ($link) {
       addAddMutedWordMenuItem($link, linkSelector)

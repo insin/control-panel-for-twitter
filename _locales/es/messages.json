@@ -108,9 +108,6 @@
   "hideAllMetricsLabel": {
     "message": "Ocultar todo"
   },
-  "hideAnalyticsNavLabel": {
-    "message": "Analíticas"
-  },
   "hideBlueReplyFollowedByLabel": {
     "message": "Ocultar personas que me siguen"
   },
@@ -128,9 +125,6 @@
   },
   "hideCommunitiesNavLabel": {
     "message": "Comunidades"
-  },
-  "hideConnectNavLabel": {
-    "message": "Conectar"
   },
   "hideExploreNavLabel": {
     "message": "Explorar"
@@ -152,12 +146,6 @@
   },
   "hideGrokNavLabel": {
     "message": "Grok"
-  },
-  "hideHelpCenterNavLabel": {
-    "message": "Centro de ayuda"
-  },
-  "hideKeyboardShortcutsNavLabel": {
-    "message": "Atajos de teclado"
   },
   "hideLikeMetricsLabel": {
     "message": "Me gustas"
@@ -185,6 +173,9 @@
   },
   "hideMoreTweetsLabel": {
     "message": "Ocultar tweets de \"Descubrir más\""
+  },
+  "hideProNavLabel": {
+    "message": "Pro"
   },
   "hideProfileRetweetsLabel": {
     "message": "Ocultar Retweets en los perfiles de usuario"
@@ -218,9 +209,6 @@
   },
   "hideTweetAnalyticsLinksLabel": {
     "message": "\"Ver las interacciones de post\" debajo de tus tweets"
-  },
-  "hideTwitterAdsNavLabel": {
-    "message": "Twitter Ads"
   },
   "hideTwitterBlueRepliesLabel": {
     "message": "Ocultar respuestas de Twitter Blue"

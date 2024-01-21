@@ -13,20 +13,16 @@ export type Config = {
   dropdownMenuFontWeight: boolean
   fastBlock: boolean
   followButtonStyle: 'monochrome' | 'themed'
-  hideAnalyticsNav: boolean
   hideBlueReplyFollowedBy: boolean
   hideBlueReplyFollowing: boolean
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
   hideBookmarksNav: boolean
   hideCommunitiesNav: boolean
-  hideConnectNav: boolean
   hideExplorePageContents: boolean
   hideFollowingMetrics: boolean
   hideForYouTimeline: boolean
   hideGrokNav: boolean
-  hideHelpCenterNav: boolean
-  hideKeyboardShortcutsNav: boolean
   hideLikeMetrics: boolean
   hideListsNav: boolean
   hideMetrics: boolean
@@ -42,7 +38,6 @@ export type Config = {
   hideTimelineTweetBox: boolean
   hideTotalTweetsMetrics: boolean
   hideTweetAnalyticsLinks: boolean
-  hideTwitterAdsNav: boolean
   hideTwitterBlueReplies: boolean
   hideTwitterBlueUpsells: boolean
   hideUnavailableQuoteTweets: boolean
@@ -75,6 +70,7 @@ export type Config = {
   hideExploreNav: boolean
   hideExploreNavWithSidebar: boolean
   hideMessagesDrawer: boolean
+  hideProNav: boolean
   hideSidebarContent: boolean
   navBaseFontSize: boolean
   navDensity: 'default' | 'comfortable' | 'compact'

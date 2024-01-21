@@ -108,9 +108,6 @@
   "hideAllMetricsLabel": {
     "message": "모두 숨기기"
   },
-  "hideAnalyticsNavLabel": {
-    "message": "애널리틱스"
-  },
   "hideBlueReplyFollowedByLabel": {
     "message": "나를 팔로우하는 사람 숨기기"
   },
@@ -128,9 +125,6 @@
   },
   "hideCommunitiesNavLabel": {
     "message": "커뮤니티"
-  },
-  "hideConnectNavLabel": {
-    "message": "연결하기"
   },
   "hideExploreNavLabel": {
     "message": "탐색"
@@ -152,12 +146,6 @@
   },
   "hideGrokNavLabel": {
     "message": "Grok"
-  },
-  "hideHelpCenterNavLabel": {
-    "message": "고객센터"
-  },
-  "hideKeyboardShortcutsNavLabel": {
-    "message": "키보드 단축키"
   },
   "hideLikeMetricsLabel": {
     "message": "좋아요"
@@ -185,6 +173,9 @@
   },
   "hideMoreTweetsLabel": {
     "message": "\"더 알아보기\" 트윗 숨기기"
+  },
+  "hideProNavLabel": {
+    "message": "Pro"
   },
   "hideProfileRetweetsLabel": {
     "message": "사용자 프로필에서 리트윗 숨기기"
@@ -218,9 +209,6 @@
   },
   "hideTweetAnalyticsLinksLabel": {
     "message": "내 트윗 아래에 \"게시 참여수 조회\""
-  },
-  "hideTwitterAdsNavLabel": {
-    "message": "트위터 광고"
   },
   "hideTwitterBlueRepliesLabel": {
     "message": "Twitter Blue 답글 숨기기"
