@@ -48,6 +48,7 @@ const config = {
   dropdownMenuFontWeight: true,
   fastBlock: true,
   followButtonStyle: 'monochrome',
+  hideAdsNav: true,
   hideBlueReplyFollowedBy: false,
   hideBlueReplyFollowing: false,
   hideBookmarkButton: false,
@@ -2826,6 +2827,9 @@ const configureCss = (() => {
     }
     if (config.hideMonetizationNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/settings/monetization"]`)
+    }
+    if (config.hideAdsNav) {
+      hideCssSelectors.push(`${menuRole} a[href*="ads.twitter.com"]`)
     }
     if (config.hideTweetAnalyticsLinks) {
       hideCssSelectors.push('a[data-testid="analyticsButton"]')

@@ -41,6 +41,7 @@ for (let translationId of [
   'fullWidthContentLabel',
   'fullWidthMediaLabel',
   'hideAccountSwitcherLabel',
+  'hideAdsNavLabel',
   'hideAllMetricsLabel',
   'hideBlueReplyFollowedByLabel',
   'hideBlueReplyFollowingLabel',
@@ -149,6 +150,7 @@ const defaultConfig = {
   dropdownMenuFontWeight: true,
   fastBlock: true,
   followButtonStyle: 'monochrome',
+  hideAdsNav: true,
   hideBlueReplyFollowedBy: false,
   hideBlueReplyFollowing: false,
   hideBookmarkButton: false,
@@ -304,6 +306,7 @@ function applyConfig() {
       mobile && 'hideMessagesBottomNavItem',
     ].filter(Boolean),
     hideMoreSlideOutMenuItems: [
+      'hideAdsNav',
       'hideMonetizationNav',
       desktop && 'hideProNav',
       mobile && 'hideBookmarksNav',

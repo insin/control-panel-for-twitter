@@ -105,6 +105,9 @@
   "hideAccountSwitcherLabel": {
     "message": "계정 전환기"
   },
+  "hideAdsNavLabel": {
+    "message": "광고"
+  },
   "hideAllMetricsLabel": {
     "message": "모두 숨기기"
   },

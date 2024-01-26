@@ -105,6 +105,9 @@
   "hideAccountSwitcherLabel": {
     "message": "Cambiador de cuentas"
   },
+  "hideAdsNavLabel": {
+    "message": "Anuncios"
+  },
   "hideAllMetricsLabel": {
     "message": "Ocultar todo"
   },

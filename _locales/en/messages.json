@@ -105,6 +105,9 @@
   "hideAccountSwitcherLabel": {
     "message": "Account switcher"
   },
+  "hideAdsNavLabel": {
+    "message": "Ads"
+  },
   "hideAllMetricsLabel": {
     "message": "Hide all"
   },

@@ -105,6 +105,9 @@
   "hideAccountSwitcherLabel": {
     "message": "アカウントの切り替え"
   },
+  "hideAdsNavLabel": {
+    "message": "広告"
+  },
   "hideAllMetricsLabel": {
     "message": "すべて非表示"
   },

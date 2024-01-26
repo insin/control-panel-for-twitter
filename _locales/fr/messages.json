@@ -105,6 +105,9 @@
   "hideAccountSwitcherLabel": {
     "message": "Changer de compte"
   },
+  "hideAdsNavLabel": {
+    "message": "Publicités"
+  },
   "hideAllMetricsLabel": {
     "message": "Masquer tous les paramètres"
   },

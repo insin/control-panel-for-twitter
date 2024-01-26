@@ -13,6 +13,7 @@ export type Config = {
   dropdownMenuFontWeight: boolean
   fastBlock: boolean
   followButtonStyle: 'monochrome' | 'themed'
+  hideAdsNav: boolean
   hideBlueReplyFollowedBy: boolean
   hideBlueReplyFollowing: boolean
   hideBookmarkButton: boolean

@@ -105,6 +105,9 @@
   "hideAccountSwitcherLabel": {
     "message": "帐户切换"
   },
+  "hideAdsNavLabel": {
+    "message": "广告"
+  },
   "hideAllMetricsLabel": {
     "message": "全部隐藏"
   },
