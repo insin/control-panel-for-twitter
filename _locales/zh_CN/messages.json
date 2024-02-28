@@ -150,6 +150,9 @@
   "hideGrokNavLabel": {
     "message": "Grok"
   },
+  "hideInlinePrompts": {
+    "message": "隐藏时间线中的内联提示"
+  },
   "hideLikeMetricsLabel": {
     "message": "喜欢"
   },

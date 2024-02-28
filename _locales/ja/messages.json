@@ -150,6 +150,9 @@
   "hideGrokNavLabel": {
     "message": "Grok"
   },
+  "hideInlinePrompts": {
+    "message": "タイムライン内のインラインプロンプトを非表示にする"
+  },
   "hideLikeMetricsLabel": {
     "message": "いいね件数"
   },

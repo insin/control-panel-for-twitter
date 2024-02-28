@@ -59,6 +59,7 @@ const config = {
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
   hideGrokNav: true,
+  hideInlinePrompts: true,
   hideLikeMetrics: true,
   hideListsNav: false,
   hideMetrics: false,
@@ -2784,6 +2785,15 @@ const configureCss = (() => {
     if (config.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
     }
+    if (config.hideInlinePrompts) {
+      cssRules.push(`
+        @supports selector(:has(*)) {
+          div[data-testid="inlinePrompt"] {
+            display: none !important;
+          }
+        }
+      `)
+    }
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(
         // Under timeline tweets
@@ -2858,14 +2868,16 @@ const configureCss = (() => {
           padding-right: 32px;
         }
       `)
-      // Hide Subscribe prompts in the timeline
-      cssRules.push(`
-        @supports selector(:has(*)) {
-          div[data-testid="inlinePrompt"]:has(a[href^="/i/premium"]) {
-            display: none !important;
+      if (!config.hideInlinePrompts) {
+        // Hide Subscribe prompts in the timeline
+        cssRules.push(`
+          @supports selector(:has(*)) {
+            div[data-testid="inlinePrompt"]:has(a[href^="/i/premium"]) {
+              display: none !important;
+            }
           }
-        }
-      `)
+        `)
+      }
     }
     if (config.hideVerifiedNotificationsTab) {
       cssRules.push(`

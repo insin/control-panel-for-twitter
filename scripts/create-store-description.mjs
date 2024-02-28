@@ -28,6 +28,7 @@ ${messages.homeTimelineOptionsLabel}
   • ${messages.mutableQuoteTweetsInfo}
 • ${messages.hideSeeNewTweetsLabel}
 • ${messages.hideWhoToFollowEtcLabel}
+• ${messages.hideInlinePrompts}
 • ${messages.fullWidthContentLabel}
   • ${messages.fullWidthContentInfo}
 

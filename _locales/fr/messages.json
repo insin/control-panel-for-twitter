@@ -150,6 +150,9 @@
   "hideGrokNavLabel": {
     "message": "Grok"
   },
+  "hideInlinePrompts": {
+    "message": "Masquer les invites en ligne dans la fil"
+  },
   "hideLikeMetricsLabel": {
     "message": "J'aime"
   },

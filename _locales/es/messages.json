@@ -150,6 +150,9 @@
   "hideGrokNavLabel": {
     "message": "Grok"
   },
+  "hideInlinePrompts": {
+    "message": "Ocultar indicaciones en línea en la timeline"
+  },
   "hideLikeMetricsLabel": {
     "message": "Me gustas"
   },

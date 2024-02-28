@@ -33,6 +33,7 @@ New versions can take anything from minutes to days to be approved for publishin
 - Mute quoting of specific tweets - adds a "Mute this conversation" menu item to Quote Tweets in the Home and List timelines
 - Hide the floating "See new Tweets" button
 - Hide "Who to follow", "Follow some Topics" etc. in the Home timeline and elsewhere
+- Hide inline prompts in the timeline
 - Full-width timeline: hide the sidebar and let timeline content go full-width on Home, Lists and Communities
 
 ### UI improvements
