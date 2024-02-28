@@ -2846,14 +2846,14 @@ const configureCss = (() => {
     }
     if (config.hideTwitterBlueUpsells) {
       hideCssSelectors.push(
-        // Premium/Verified/Verified Orgs menu item
-        `${menuRole} a:is([href$="/i/premium_sign_up"], [href$="/i/premium_tier_switch"], [href$="/i/verified-choose"], [href$="/i/verified-orgs-signup"])`,
+        // Premium/Verified menu items
+        `${menuRole} a:is([href^="/i/premium"], [href^="/i/verified"])`,
         // "Highlight on your profile" on your tweets
         '[role="menuitem"][data-testid="highlightUpsell"]',
         // "Edit with Premium" on recent tweets
         '[role="menuitem"][data-testid="editWithTwitterBlue"]',
         // Premium item in Settings
-        'body.Settings a[href="/i/premium_sign_up"]',
+        'body.Settings a[href^="/i/premium"]',
         // "Highlight your best content instead" on the pin modal
         '.PinModal [data-testid="sheetDialog"] > div > div:last-child > div > div > div:first-child',
         // Highlight button on the pin modal
@@ -3099,7 +3099,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${menuRole} a:is([href*="tweetdeck.twitter.com"], [href*="pro.twitter.com"])`)
       }
       if (config.hideTwitterBlueUpsells) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a:is([href$="/i/premium_sign_up"], [href$="/i/premium_tier_switch"], [href$="/i/verified-choose"], [href$="/i/verified-orgs-signup"])`)
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a:is([href^="/i/premium"], [href^="/i/verified"])`)
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
@@ -3195,6 +3195,9 @@ const configureCss = (() => {
       }
       if (config.hideMessagesBottomNavItem) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
+      }
+      if (config.hideTwitterBlueUpsells) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href^="/i/premium"]`)
       }
       if (config.hideShareTweetButton) {
         hideCssSelectors.push(
