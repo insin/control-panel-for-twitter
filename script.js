@@ -1307,7 +1307,7 @@ const PagePaths = {
   ADD_MUTED_WORD: '/settings/add_muted_keyword',
   BOOKMARKS: '/i/bookmarks',
   COMPOSE_MESSAGE: '/messages/compose',
-  COMPOSE_TWEET: '/compose/tweet',
+  COMPOSE_TWEET: '/compose/post',
   CONNECT: '/i/connect',
   CUSTOMIZE_YOUR_VIEW: '/i/display',
   HOME: '/home',
