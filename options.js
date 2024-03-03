@@ -164,6 +164,7 @@ if (navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.
 //#region Default config
 /** @type {import("./types").Config} */
 const defaultConfig = {
+  enabled: true,
   debug: false,
   debugLogTimelineStats: false,
   // Default based on the platform if the main script hasn't run on Twitter yet
@@ -450,6 +451,7 @@ function updateCheckboxGroups() {
 function updateDisplay() {
   $body.classList.toggle('debugging', optionsConfig.debug)
   $body.classList.toggle('chronological', optionsConfig.alwaysUseLatestTweets)
+  $body.classList.toggle('disabled', !optionsConfig.enabled)
   $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
   $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
   $body.classList.toggle('hidingBookmarkButton', optionsConfig.hideBookmarkButton)
