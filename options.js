@@ -140,6 +140,7 @@ const defaultConfig = {
   debug: false,
   // Default based on the platform if the main script hasn't run on Twitter yet
   version: /(Android|iP(ad|hone))/.test(navigator.userAgent) ? 'mobile' : 'desktop',
+  enabled: true,
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
@@ -393,6 +394,7 @@ function updateCheckboxGroups() {
 
 function updateDisplay() {
   $body.classList.toggle('chronological', optionsConfig.alwaysUseLatestTweets)
+  $body.classList.toggle('disabled', !optionsConfig.enabled)
   $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
   $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
   $body.classList.toggle('hidingExploreNav', optionsConfig.hideExploreNav)
