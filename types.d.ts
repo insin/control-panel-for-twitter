@@ -2,6 +2,7 @@ export type Config = {
   debug: boolean
   debugLogTimelineStats: boolean
   version?: 'desktop' | 'mobile'
+  enabled: boolean
   // Shared
   addAddMutedWordMenuItem: boolean
   // XXX This is now more like "use the Following tab by default"
@@ -144,9 +145,9 @@ export type LocaleKey =
   | 'VIEW'
   | 'WHATS_HAPPENING'
 
-export type NamedMutationObserver = MutationObserver & {name?: string}
+export type NamedMutationObserver = MutationObserver & {name: string}
 
-export type Disconnectable = NamedMutationObserver|{disconnect(): void}
+export type Disconnectable = {name: string, disconnect(): void}
 
 export type QuotedTweet = {
   quotedBy: string
@@ -193,7 +194,7 @@ export type TimelineOptions = {
 }
 
 export type IndividualTweetTimelineOptions = {
-  observers: Disconnectable[]
+  observers: Map<string, Disconnectable>
 }
 
 export type UserInfo = {
