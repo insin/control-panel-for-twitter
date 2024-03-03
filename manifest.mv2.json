@@ -13,6 +13,13 @@
     "96": "icons/icon96.png",
     "128": "icons/icon128.png"
   },
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false,
+    "type": "module"
+  },
   "content_scripts": [
     {
       "matches": [

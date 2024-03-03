@@ -13,6 +13,10 @@
     "96": "icons/icon96.png",
     "128": "icons/icon128.png"
   },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
   "content_scripts": [
     {
       "matches": [

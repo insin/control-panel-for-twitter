@@ -55,6 +55,7 @@ let ltr
  * @type {import("./types").Config}
  */
 const config = {
+  enabled: true,
   debug: false,
   debugLogTimelineStats: false,
   // Shared
@@ -2050,6 +2051,9 @@ let fontFamilyRule = null
 /** @type {string} */
 let fontSize = null
 
+/** @type {Map<string, import("./types").Disconnectable>} */
+let globalObservers = new Map()
+
 /** Set to `true` when a Home/Following heading or Home nav link is used. */
 let homeNavigationIsBeingUsed = false
 
@@ -2063,6 +2067,12 @@ let isDesktopComposeTweetModalOpen = false
 let $desktopComposeTweetModalPopup = null
 
 /**
+ * flex-direction on the element wrapping the app is used to determine the
+ * current mode (mobile or desktop).
+ */
+let lastFlexDirection = null
+
+/**
  * Cache for the last page title which was used for the Home timeline.
  * @type {string}
  */
@@ -2070,9 +2080,9 @@ let lastHomeTimelineTitle = null
 
 /**
  * MutationObservers active on the current modal.
- * @type {import("./types").Disconnectable[]}
+ * @type {Map<string, import("./types").Disconnectable>}
  */
-let modalObservers = []
+let modalObservers = new Map()
 
 /**
  * `true` after the app has initialised.
@@ -2083,9 +2093,9 @@ let observingPageChanges = false
 /**
  * MutationObservers active on the current page, or anything else we want to
  * clean up when the user moves off the current page.
- * @type {import("./types").NamedMutationObserver[]}
+ * @type {Map<string, import("./types").Disconnectable>}
  */
-let pageObservers = []
+let pageObservers = new Map()
 
 /** @type {number} */
 let selectedHomeTabIndex = -1
@@ -2207,14 +2217,11 @@ function shouldShowSeparatedTweetsTab() {
 //#endregion
 
 //#region Utility functions
-/**
- * @param {string} role
- * @returns {HTMLStyleElement}
- */
-function addStyle(role) {
+function addStyle(css = '') {
   let $style = document.createElement('style')
-  $style.dataset.insertedBy = 'control-panel-for-twitter'
-  $style.dataset.role = role
+  if (css) {
+    $style.textContent = css
+  }
   document.head.appendChild($style)
   return $style
 }
@@ -2272,37 +2279,18 @@ function dedent(str) {
 }
 
 /**
- * @param {string} name
- * @param {import("./types").Disconnectable[]} observers
+ * @param {Map<string, import("./types").Disconnectable>} observers
+ * @param {'global' | 'page' | 'modal'} scope
  */
-function disconnectObserver(name, observers) {
-  for (let i = observers.length -1; i >= 0; i--) {
-    let observer = observers[i]
-    if ('name' in observer && observer.name == name) {
-      observer.disconnect()
-      observers.splice(i, 1)
-      log(`disconnected ${name} ${observers === pageObservers ? 'page' : 'modal'} observer`)
-    }
-  }
-}
-
-function disconnectModalObserver(name) {
-  disconnectObserver(name, modalObservers)
-}
-
-function disconnectAllModalObservers() {
-  if (modalObservers.length > 0) {
-    log(
-      `disconnecting ${modalObservers.length} modal observer${s(modalObservers.length)}`,
-      modalObservers.map(observer => observer['name'])
-    )
-    modalObservers.forEach(observer => observer.disconnect())
-    modalObservers = []
-  }
-}
-
-function disconnectPageObserver(name) {
-  disconnectObserver(name, pageObservers)
+function disconnectObservers(observers, scope) {
+  if (observers.size == 0) return
+  log(
+    `disconnecting ${observers.size} ${scope} observer${s(observers.size)}`,
+    Array.from(observers.keys())
+  )
+  logObserverDisconnects = false
+  for (let observer of observers.values()) observer.disconnect()
+  logObserverDisconnects = true
 }
 
 /**
@@ -2475,11 +2463,11 @@ function getUserInfo() {
 }
 
 /**
- * @param {import("./types").Disconnectable[]} observers
- * @param {string} name
+ * @param {*} value
+ * @returns {value is string}
  */
-function isObserving(observers, name) {
-  return observers.some(observer => 'name' in observer && observer.name == name)
+function isString(value) {
+  return Object.getPrototypeOf(value) === String.prototype
 }
 
 function log(...args) {
@@ -2501,37 +2489,66 @@ function error(...args) {
   console.log(`❌ ${currentPage ? `(${currentPage})` : ''}`, ...args)
 }
 
-/**
- * @param {() => boolean} condition
- * @returns {() => boolean}
- */
- function not(condition) {
-  return () => !condition()
-}
+let logObserverDisconnects = true
 
 /**
- * Convenience wrapper for the MutationObserver API - the callback is called
- * immediately to support using an observer and its options as a trigger for any
- * change, without looking at MutationRecords.
- * @param {Node} $element
+ * Convenience wrapper for the MutationObserver API:
+ * - Observers have associated names
+ * - Optional leading call for callback
+ * - Observers are stored in a scope map
+ * - Observers already in the given scope will be disconnected
+ * - MutationObserver options default to `{childList: true}`
+ * @param {Node} $target
  * @param {MutationCallback} callback
- * @param {string} name
- * @param {MutationObserverInit} options
+ * @param {string | {
+ *   leading?: boolean
+ *   logElement?: boolean
+ *   name: string
+ *   observers: Map<string, import("./types").Disconnectable>
+ * }} nameOrOptions
+ * @param {MutationObserverInit} mutationObserverOptions
  * @returns {import("./types").NamedMutationObserver}
  */
-function observeElement($element, callback, name, options = {childList: true}) {
-  if (name) {
-    if (options.childList && callback.length > 0) {
-      log(`observing ${name}`, $element)
-    } else {
-      log (`observing ${name}`)
+function observeElement($target, callback, nameOrOptions, mutationObserverOptions = {childList: true}) {
+  // Passing just a name opts out of the rest of the wrapper features
+  if (isString(nameOrOptions)) {
+    let observer = Object.assign(new MutationObserver(callback), {name: nameOrOptions})
+    observer.observe($target, mutationObserverOptions)
+    return observer
+  }
+
+  let {leading, logElement, name, observers} = nameOrOptions
+
+  let observer = Object.assign(new MutationObserver(callback), {name})
+  let disconnect = observer.disconnect.bind(observer)
+  let disconnected = false
+  observer.disconnect = () => {
+    if (disconnected) return
+    disconnected = true
+    disconnect()
+    observers.delete(name)
+    if (logObserverDisconnects) {
+      log(`disconnected ${name} observer`)
     }
   }
 
-  let observer = new MutationObserver(callback)
-  callback([], observer)
-  observer.observe($element, options)
-  observer['name'] = name
+  if (observers.has(name)) {
+    log(`disconnecting existing ${name} observer`)
+    logObserverDisconnects = false
+    observers.get(name).disconnect()
+    logObserverDisconnects = true
+  }
+
+  observers.set(name, observer)
+  if (logElement) {
+    log(`observing ${name}`, $target)
+  } else {
+    log(`observing ${name}`)
+  }
+  observer.observe($target, mutationObserverOptions)
+  if (leading) {
+    callback([], observer)
+  }
   return observer
 }
 
@@ -2646,7 +2663,11 @@ function observeBodyBackgroundColor() {
       processCurrentPage()
     }
     lastBackgroundColor = backgroundColor
-  }, '<body> style attribute for background colour changes', {
+  }, {
+    leading: true,
+    name: '<body> style attribute for background colour changes',
+    observers: globalObservers,
+  }, {
     attributes: true,
     attributeFilter: ['style']
   })
@@ -2670,37 +2691,38 @@ async function observeDesktopComposeTweetModal($popup) {
     setTweetButtonText($tweetButtonText)
   }
 
-  modalObservers.push(
-    observeElement($mask.nextElementSibling, () => {
-      disconnectModalObserver('Modal Tweet editor root (for placeholder)')
-      let $editorRoots = $popup.querySelectorAll('.DraftEditor-root')
-      $editorRoots.forEach((/** @type {HTMLElement} */ $editorRoot, index) => {
-        $editorRoot.setAttribute('data-placeholder', getString(index == 0 ? 'WHATS_HAPPENING' : 'ADD_ANOTHER_TWEET'))
-        observeDesktopTweetEditorPlaceholder($editorRoot, {
-          name: 'Modal Tweet editor root (for placeholder)',
-          observers: modalObservers,
-        })
+  observeElement($mask.nextElementSibling, () => {
+    let $editorRoots = $popup.querySelectorAll('.DraftEditor-root')
+    $editorRoots.forEach((/** @type {HTMLElement} */ $editorRoot, index) => {
+      $editorRoot.setAttribute('data-placeholder', getString(index == 0 ? 'WHATS_HAPPENING' : 'ADD_ANOTHER_TWEET'))
+      observeDesktopTweetEditorPlaceholder($editorRoot, {
+        name: 'Modal Tweet editor root (for placeholder)',
+        observers: modalObservers,
       })
-    }, 'Compose Tweet modal Tweets container (for Tweets being added or removed)')
-  )
+    })
+  }, {
+    name: 'Compose Tweet modal Tweets container (for Tweets being added or removed)',
+    observers: modalObservers,
+  })
 
   // The Tweet button gets moved around when Tweets are added or removed
-  modalObservers.push(
-    observeElement($mask.nextElementSibling, (mutations) => {
-      for (let mutation of mutations) {
-        for (let $addedNode of mutation.addedNodes) {
-          if (!($addedNode instanceof HTMLElement) || $addedNode.nodeName != 'DIV') continue
-          let $tweetButtonText = $addedNode.querySelector('button[data-testid="tweetButton"] span > span')
-          if ($tweetButtonText) {
-            setTweetButtonText($tweetButtonText)
-          }
+  observeElement($mask.nextElementSibling, (mutations) => {
+    for (let mutation of mutations) {
+      for (let $addedNode of mutation.addedNodes) {
+        if (!($addedNode instanceof HTMLElement) || $addedNode.nodeName != 'DIV') continue
+        let $tweetButtonText = $addedNode.querySelector('button[data-testid="tweetButton"] span > span')
+        if ($tweetButtonText) {
+          setTweetButtonText($tweetButtonText)
         }
       }
-    }, 'Compose Tweet modal contents (for Tweet button moving)', {
-      childList: true,
-      subtree: true,
-    })
-  )
+    }
+  }, {
+    name: 'Compose Tweet modal contents (for Tweet button moving)',
+    observers: modalObservers,
+  }, {
+    childList: true,
+    subtree: true,
+  })
 }
 
 /**
@@ -2729,6 +2751,7 @@ async function observeDesktopHomeTimelineTweetBox() {
       })
       if (!$editorRoot) return
       observeDesktopTweetEditorPlaceholder($editorRoot, {
+        name: 'Tweet editor root (for placeholder)',
         observers: pageObservers,
         placeholder: getString('WHATS_HAPPENING'),
       })
@@ -2743,28 +2766,29 @@ async function observeDesktopHomeTimelineTweetBox() {
     observeTweetBox($timelineTweetBox)
   }
 
-  pageObservers.push(
-    observeElement($container, (mutations) => {
-      for (let mutation of mutations) {
-        for (let $addedNode of mutation.addedNodes) {
-          if (!($addedNode instanceof HTMLElement)) continue
-          if ($addedNode.querySelector('[data-testid^="tweetTextarea"]')) {
-            log('Home timeline Tweet box appeared')
-            $timelineTweetBox = $addedNode
-            observeTweetBox($timelineTweetBox)
-          }
-        }
-        for (let $removedNode of mutation.removedNodes) {
-          if (!($removedNode instanceof HTMLElement)) continue
-          if ($removedNode === $timelineTweetBox) {
-            log('Home timeline Tweet box removed')
-            $timelineTweetBox = null
-            disconnectPageObserver('Tweet box editor root')
-          }
+  observeElement($container, (mutations) => {
+    for (let mutation of mutations) {
+      for (let $addedNode of mutation.addedNodes) {
+        if (!($addedNode instanceof HTMLElement)) continue
+        if ($addedNode.querySelector('[data-testid^="tweetTextarea"]')) {
+          log('Home timeline Tweet box appeared')
+          $timelineTweetBox = $addedNode
+          observeTweetBox($timelineTweetBox)
         }
       }
-    }, 'Home timeline Tweet box container')
-  )
+      for (let $removedNode of mutation.removedNodes) {
+        if (!($removedNode instanceof HTMLElement)) continue
+        if ($removedNode === $timelineTweetBox) {
+          log('Home timeline Tweet box removed')
+          $timelineTweetBox = null
+          pageObservers.get('Tweet box editor root')?.disconnect()
+        }
+      }
+    }
+  }, {
+    name: 'Home timeline Tweet box container',
+    observers: pageObservers,
+  })
 }
 
 /**
@@ -2785,26 +2809,31 @@ async function observeDesktopModalTimeline($popup) {
    * @param {HTMLElement} $timeline
    */
   function observeModalTimelineItems($timeline) {
-    disconnectModalObserver('modal timeline')
-    modalObservers.push(
-      observeElement($timeline, () => onIndividualTweetTimelineChange($timeline, {observers: modalObservers}), 'modal timeline')
-    )
+    observeElement($timeline, () => {
+      onIndividualTweetTimelineChange($timeline, {observers: modalObservers})
+    }, {
+      name: 'modal timeline',
+      observers: modalObservers,
+    })
 
     // If other media in the modal is clicked, the timeline is replaced.
-    disconnectModalObserver('modal timeline parent')
-    modalObservers.push(
-      observeElement($timeline.parentElement, (mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((/** @type {HTMLElement} */ $newTimeline) => {
-            log('modal timeline replaced')
-            disconnectModalObserver('modal timeline')
-            modalObservers.push(
-              observeElement($newTimeline, () => onIndividualTweetTimelineChange($newTimeline, {observers: modalObservers}), 'modal timeline')
-            )
+    observeElement($timeline.parentElement, (mutations) => {
+      for (let mutation of mutations) {
+        for (let $newTimeline of mutation.addedNodes) {
+          if (!($newTimeline instanceof HTMLElement)) continue
+          log('modal timeline replaced')
+          observeElement($newTimeline, () => {
+            onIndividualTweetTimelineChange($newTimeline, {observers: modalObservers})
+          }, {
+            name: 'modal timeline',
+            observers: modalObservers,
           })
-        })
-      }, 'modal timeline parent')
-    )
+        }
+      }
+    }, {
+      name: 'modal timeline parent',
+      observers: modalObservers,
+    })
   }
 
   /**
@@ -2818,43 +2847,46 @@ async function observeDesktopModalTimeline($popup) {
     else {
       log('waiting for modal timeline')
       let startTime = Date.now()
-      modalObservers.push(
-        observeElement($timeline.parentElement, (mutations) => {
-          mutations.forEach((mutation) => {
-            mutation.addedNodes.forEach((/** @type {HTMLElement} */ $timeline) => {
-              disconnectModalObserver('modal timeline parent')
-              if (Date.now() > startTime) {
-                log(`modal timeline appeared after ${Date.now() - startTime}ms`, $timeline)
-              }
-              observeModalTimelineItems($timeline)
-            })
-          })
-        }, 'modal timeline parent')
-      )
+      observeElement($timeline.parentElement, (mutations, observer) => {
+        for (let mutation of mutations) {
+          for (let $addedNode of mutation.addedNodes) {
+            if (!($addedNode instanceof HTMLElement)) continue
+            if (Date.now() > startTime) {
+              log(`modal timeline appeared after ${Date.now() - startTime}ms`, $addedNode)
+            }
+            observer.disconnect()
+            observeModalTimelineItems($addedNode)
+          }
+        }
+      }, {
+        name: 'modal timeline parent',
+        observers: modalObservers,
+      })
     }
   }
 
   // The modal timeline can be expanded and collapsed
   let $expandedContainer = $initialTimeline.closest('[aria-expanded="true"]')
-  modalObservers.push(
-    observeElement($expandedContainer.parentElement, async (mutations) => {
-      if (mutations.some(mutation => mutation.removedNodes.length > 0)) {
-        log('modal timeline collapsed')
-        disconnectModalObserver('modal timeline parent')
-        disconnectModalObserver('modal timeline')
-      }
-      else if (mutations.some(mutation => mutation.addedNodes.length > 0)) {
-        log('modal timeline expanded')
-        let $timeline = await getElement(Selectors.MODAL_TIMELINE, {
-          context: $popup,
-          name: 'expanded modal timeline',
-          stopIf: () => !isDesktopMediaModalOpen,
-        })
-        if ($timeline == null) return
-        observeModalTimeline($timeline)
-      }
-    }, 'collapsible modal timeline container')
-  )
+  observeElement($expandedContainer.parentElement, async (mutations) => {
+    if (mutations.some(mutation => mutation.removedNodes.length > 0)) {
+      log('modal timeline collapsed')
+      modalObservers.get('modal timeline parent')?.disconnect()
+      modalObservers.get('modal timeline')?.disconnect()
+    }
+    else if (mutations.some(mutation => mutation.addedNodes.length > 0)) {
+      log('modal timeline expanded')
+      let $timeline = await getElement(Selectors.MODAL_TIMELINE, {
+        context: $popup,
+        name: 'expanded modal timeline',
+        stopIf: () => !isDesktopMediaModalOpen,
+      })
+      if ($timeline == null) return
+      observeModalTimeline($timeline)
+    }
+  }, {
+    name: 'collapsible modal timeline container',
+    observers: modalObservers,
+  })
 
   observeModalTimeline($initialTimeline)
 }
@@ -2888,9 +2920,13 @@ const observeFavicon = (() => {
           $shortcutIcon.href = href.replace('-pip', '')
         }
       }
-    }, 'shortcut icon href', {
+    }, {
+      leading: true,
+      name: 'shortcut icon href',
+      observers: globalObservers,
+    }, {
       attributes: true,
-      attributeFilter: ['href']
+      attributeFilter: ['href'],
     })
   }
 
@@ -2932,36 +2968,31 @@ const observePopups = (() => {
   let nestedObservers = new WeakMap()
 
   return async function observePopups() {
-    if (popupObserver) {
-      popupObserver.disconnect()
-      popupObserver = null
-    }
-
     let $layers = await getElement('#layers', {
       name: 'layers',
     })
 
-    // There can be only one
-    if (popupObserver) {
-      popupObserver.disconnect()
-    }
-
-    popupObserver = observeElement($layers, (mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((/** @type {HTMLElement} */ $el) => {
-          let nestedObserver = onPopup($el)
+    observeElement($layers, (mutations) => {
+      for (let mutation of mutations) {
+        for (let $addedNode of mutation.addedNodes) {
+          if (!($addedNode instanceof HTMLElement)) continue
+          let nestedObserver = onPopup($addedNode)
           if (nestedObserver) {
-            nestedObservers.set($el, nestedObserver)
+            nestedObservers.set($addedNode, nestedObserver)
           }
-        })
-        mutation.removedNodes.forEach((/** @type {HTMLElement} */ $el) => {
-          if (nestedObservers.has($el)) {
-            nestedObservers.get($el).disconnect()
-            nestedObservers.delete($el)
+        }
+        for (let $removedNode of mutation.removedNodes) {
+          if (!($removedNode instanceof HTMLElement)) continue
+          if (nestedObservers.has($removedNode)) {
+            nestedObservers.get($removedNode).disconnect()
+            nestedObservers.delete($removedNode)
           }
-        })
-      })
-    }, 'popup container')
+        }
+      }
+    }, {
+      name: 'popup container',
+      observers: globalObservers,
+    })
   }
 })()
 
@@ -2993,7 +3024,11 @@ async function observeTitle() {
     if (observingPageChanges) {
       onTitleChange(title)
     }
-  }, '<title>')
+  }, {
+    leading: true,
+    name: '<title>',
+    observers: globalObservers,
+  })
 }
 //#endregion
 
@@ -3001,120 +3036,123 @@ async function observeTitle() {
 async function observeSidebar() {
   let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {name: 'primary column'})
   let $sidebarContainer = $primaryColumn.parentElement
-  pageObservers.push(
-    observeElement($sidebarContainer, () => {
-      let $sidebar = /** @type {HTMLElement} */ ($sidebarContainer.querySelector(Selectors.SIDEBAR))
-      log(`sidebar ${$sidebar ? 'appeared' : 'disappeared'}`)
-      $body.classList.toggle('Sidebar', Boolean($sidebar))
-      if (!$sidebar) {
-        if (!config.hideSidebarContent) {
-          disconnectPageObserver('sidebar contents (for Live on X loading)')
-          disconnectPageObserver("sidebar What's happening timeline")
+  observeElement($sidebarContainer, () => {
+    let $sidebar = /** @type {HTMLElement} */ ($sidebarContainer.querySelector(Selectors.SIDEBAR))
+    log(`sidebar ${$sidebar ? 'appeared' : 'disappeared'}`)
+    $body.classList.toggle('Sidebar', Boolean($sidebar))
+    if (!$sidebar) {
+      if (!config.hideSidebarContent) {
+        pageObservers.get('sidebar contents (for Live on X loading)')?.disconnect()
+        pageObservers.get("sidebar What's happening timeline")?.disconnect()
+      }
+      return
+    }
+    // Process blue checks in the sidebar search dropdown
+    if (config.twitterBlueChecks != 'ignore' && !isOnSearchPage() && !isOnExplorePage()) {
+      observeSearchForm()
+    }
+    // Process blue checks in the sidebar user box
+    if (!config.hideSidebarContent) {
+      void async function() {
+        // Avoid false positive from Premium upsells in the sidebar
+        let $aside = await getElement('aside[role="complementary"]:not(:has(a[href^="/i/premium"]))', {
+          name: 'sidebar aside box',
+          context: $sidebar,
+          stopIf: pageIsNot(currentPage),
+          timeout: 2000,
+        })
+        if (!$aside) return
+        if (config.twitterBlueChecks != 'ignore') processBlueChecks($aside)
+        let $container = $aside.parentElement
+        while (!$container.nextElementSibling) $container = $container.parentElement
+        $container.classList.toggle(
+          'SuggestedFollows',
+          config.hideSuggestedFollows && !(config.showRelevantPeople && isOnIndividualTweetPage())
+        )
+      }()
+    }
+    if (!config.hideSidebarContent && !isOnExplorePage()) {
+      // Hide the ad in sidebar What's happening
+      void async function() {
+        // What's happening has a unique DOM structure we can look for
+        let $whatsHappeningTimeline = await getElement('section > div[aria-label] > div', {
+          name: "sidebar What's happening timeline",
+          context: $sidebar,
+          stopIf: pageIsNot(currentPage),
+          timeout: 2000,
+        })
+        if (!$whatsHappeningTimeline) return
+        // What's happening loads asynchronously and refreshes every time the
+        // page regains refocus.
+        observeElement($whatsHappeningTimeline, () => {
+          let $firstTrend = $whatsHappeningTimeline.querySelector(':scope > div:has([data-testid="trend"])')
+          if ($firstTrend && !$firstTrend.previousElementSibling.classList.contains('HiddenAd')) {
+            $firstTrend.previousElementSibling.classList.toggle('HiddenAd', !$firstTrend.previousElementSibling.querySelector('h2'))
+          }
+        }, {
+          name: "sidebar What's happening timeline",
+          observers: pageObservers,
+        }, {childList: true, subtree: true})
+        if (config.hideWhatsHappening) $whatsHappeningTimeline.closest('section').parentElement.classList.add('WhatsHappening')
+      }()
+    }
+    if (!config.hideSidebarContent) {
+      // Observe the Live on X section
+      void async function() {
+        /**
+         * @param {HTMLElement} $liveOnX
+         * @param {HTMLElement} $heading
+         */
+        function handleLiveOnX($liveOnX, $heading) {
+          $liveOnX.classList.add('LiveBroadcasts')
+          if (config.twitterBlueChecks != 'ignore') {
+            // XXX This is sometimes too early, observe changes for them appearing?
+            processBlueChecks($liveOnX)
+          }
+          let branding = $heading.getAttribute('data-branding') || 'x'
+          if (config.replaceLogo ? branding == 'x' : branding == 'twitter') {
+            let $span = $heading.querySelector('span')
+            if ($span) {
+              $span.textContent = branding == 'x' ? $span.textContent.replace('X', getString('TWITTER')) : getString('TWITTER')
+              $heading.setAttribute('data-branding', branding == 'x' ? 'twitter' : 'x')
+            }
+          }
         }
-        return
-      }
-      // Process blue checks in the sidebar search dropdown
-      if (config.twitterBlueChecks != 'ignore' && !isOnSearchPage() && !isOnExplorePage()) {
-        observeSearchForm()
-      }
-      // Process blue checks in the sidebar user box
-      if (!config.hideSidebarContent) {
-        void async function() {
-          // Avoid false positive from Premium upsells in the sidebar
-          let $aside = await getElement('aside[role="complementary"]:not(:has(a[href^="/i/premium"]))', {
-            name: 'sidebar aside box',
-            context: $sidebar,
-            stopIf: pageIsNot(currentPage),
-            timeout: 2000,
-          })
-          if (!$aside) return
-          if (config.twitterBlueChecks != 'ignore') processBlueChecks($aside)
-          let $container = $aside.parentElement
-          while (!$container.nextElementSibling) $container = $container.parentElement
-          $container.classList.toggle(
-            'SuggestedFollows',
-            config.hideSuggestedFollows && !(config.showRelevantPeople && isOnIndividualTweetPage())
-          )
-        }()
-      }
-      if (!config.hideSidebarContent && !isOnExplorePage()) {
-        // Hide the ad in sidebar What's happening
-        void async function() {
-          // What's happening has a unique DOM structure we can look for
-          let $whatsHappeningTimeline = await getElement('section > div[aria-label] > div', {
-            name: "sidebar What's happening timeline",
-            context: $sidebar,
-            stopIf: pageIsNot(currentPage),
-            timeout: 2000,
-          })
-          if (!$whatsHappeningTimeline) return
-          // What's happening loads asynchronously and refreshes every time the
-          // page regains refocus.
-          pageObservers.push(
-            observeElement($whatsHappeningTimeline, () => {
-              let $firstTrend = $whatsHappeningTimeline.querySelector(':scope > div:has([data-testid="trend"])')
-              if ($firstTrend && !$firstTrend.previousElementSibling.classList.contains('HiddenAd')) {
-                $firstTrend.previousElementSibling.classList.toggle('HiddenAd', !$firstTrend.previousElementSibling.querySelector('h2'))
-              }
-            }, "sidebar What's happening timeline", {childList: true, subtree: true})
-          )
-          if (config.hideWhatsHappening) $whatsHappeningTimeline.closest('section').parentElement.classList.add('WhatsHappening')
-        }()
-      }
-      if (!config.hideSidebarContent) {
-        // Observe the Live on X section
-        void async function() {
-          /**
-           * @param {HTMLElement} $liveOnX
-           * @param {HTMLElement} $heading
-           */
-          function handleLiveOnX($liveOnX, $heading) {
-            $liveOnX.classList.add('LiveBroadcasts')
-            if (config.twitterBlueChecks != 'ignore') {
-              // XXX This is sometimes too early, observe changes for them appearing?
-              processBlueChecks($liveOnX)
-            }
-            let branding = $heading.getAttribute('data-branding') || 'x'
-            if (config.replaceLogo ? branding == 'x' : branding == 'twitter') {
-              let $span = $heading.querySelector('span')
-              if ($span) {
-                $span.textContent = branding == 'x' ? $span.textContent.replace('X', getString('TWITTER')) : getString('TWITTER')
-                $heading.setAttribute('data-branding', branding == 'x' ? 'twitter' : 'x')
+        // The heading should be available if the component is already loaded
+        let $liveOnXHeading = Array.from($sidebar.querySelectorAll('h2')).find((h2) =>
+          h2.hasAttribute('data-branding') || h2.textContent == getString('LIVE_ON_X')
+        )
+        if ($liveOnXHeading) {
+          handleLiveOnX($liveOnXHeading.parentElement.parentElement, $liveOnXHeading)
+        }
+        // The Live on X box can pop in and out of  existence while you're
+        // sitting on a page, so always oveserve for it.
+        let $sidebarContents = await getElement(`div[aria-label] > div${isOnHomeTimelinePage() ? ' > div' : ''}`, {
+          context: $sidebar,
+          name: 'sidebar contents',
+        })
+        observeElement($sidebarContents, (mutations) => {
+          for (let mutation of mutations) {
+            for (let $addedNode of mutation.addedNodes) {
+              if (!($addedNode instanceof HTMLElement)) continue
+              let $heading = $addedNode.querySelector('h2')
+              if ($heading?.textContent == getString('LIVE_ON_X')) {
+                log('Live on X appeared')
+                handleLiveOnX($addedNode, $heading)
+                return
               }
             }
           }
-          // The heading should be available if the component is already loaded
-          let $liveOnXHeading = Array.from($sidebar.querySelectorAll('h2')).find((h2) =>
-            h2.hasAttribute('data-branding') || h2.textContent == getString('LIVE_ON_X')
-          )
-          if ($liveOnXHeading) {
-            handleLiveOnX($liveOnXHeading.parentElement.parentElement, $liveOnXHeading)
-          }
-          // The Live on X box can pop in and out of  existence while you're
-          // sitting on a page, so always oveserve for it.
-          let $sidebarContents = await getElement(`div[aria-label] > div${isOnHomeTimelinePage() ? ' > div' : ''}`, {
-            context: $sidebar,
-            name: 'sidebar contents',
-          })
-          pageObservers.push(
-            observeElement($sidebarContents, (mutations) => {
-              for (let mutation of mutations) {
-                for (let $addedNode of mutation.addedNodes) {
-                  if (!($addedNode instanceof HTMLElement)) continue
-                  let $heading = $addedNode.querySelector('h2')
-                  if ($heading?.textContent == getString('LIVE_ON_X')) {
-                    log('Live on X appeared')
-                    handleLiveOnX($addedNode, $heading)
-                    return
-                  }
-                }
-              }
-            }, 'sidebar contents (for Live on X loading)')
-          )
-        }()
-      }
-    }, 'sidebar container')
-  )
+        }, {
+          name: 'sidebar contents (for Live on X loading)',
+          observers: pageObservers,
+        })
+      }()
+    }
+  }, {
+    name:'sidebar container',
+    observers: pageObservers,
+  })
 }
 
 const observeSideNavTweetButton = (() => {
@@ -3142,7 +3180,11 @@ const observeSideNavTweetButton = (() => {
           warn('could not find tweet button text')
         }
       }
-    }, 'sidenav tweet button')
+    }, {
+      leading: true,
+      name: 'sidenav tweet button',
+      observers: globalObservers,
+    })
   }
 })()
 
@@ -3155,11 +3197,16 @@ async function observeSearchForm() {
   })
   if (!$searchForm) return
   let $results =  /** @type {HTMLElement} */ ($searchForm.lastElementChild)
-  pageObservers.push(
-    observeElement($results, () => {
-      processBlueChecks($results)
-    }, 'search results', {childList: true, subtree: true})
-  )
+  observeElement($results, () => {
+    processBlueChecks($results)
+  }, {
+    leading: true,
+    name: 'search results',
+    observers: pageObservers,
+  }, {
+    childList: true,
+    subtree: true,
+  })
 }
 
 /**
@@ -3186,29 +3233,37 @@ async function observeTimeline(page, options = {}) {
    * @param {HTMLElement} $timeline
    */
   function observeTimelineItems($timeline) {
-    disconnectPageObserver('timeline')
-    pageObservers.push(
-      observeElement($timeline, () => onTimelineChange($timeline, page, options), 'timeline')
-    )
+    observeElement($timeline, () => {
+      onTimelineChange($timeline, page, options)
+    }, {
+      leading: true,
+      name: 'timeline',
+      observers: pageObservers,
+    })
     onTimelineAppeared?.()
     if (isTabbed) {
       // When a tab which has been viewed before is revisited, the timeline is
       // replaced.
-      disconnectPageObserver('timeline parent')
-      pageObservers.push(
-        observeElement($timeline.parentElement, (mutations) => {
-          mutations.forEach((mutation) => {
-            mutation.addedNodes.forEach((/** @type {HTMLElement} */ $newTimeline) => {
-              disconnectPageObserver('timeline')
-              log('tab changed')
-              onTabChanged?.()
-              pageObservers.push(
-                observeElement($newTimeline, () => onTimelineChange($newTimeline, page, options), 'timeline')
-              )
+      observeElement($timeline.parentElement, (mutations) => {
+        for (let mutation of mutations) {
+          for (let $addedNode of mutation.addedNodes) {
+            if (!($addedNode instanceof HTMLElement)) continue
+            let $newTimeline = $addedNode
+            log('tab changed')
+            onTabChanged?.()
+            observeElement($newTimeline, () => {
+              onTimelineChange($newTimeline, page, options)
+            }, {
+              leading: true,
+              name: 'timeline',
+              observers: pageObservers,
             })
-          })
-        }, 'timeline parent')
-      )
+          }
+        }
+      }, {
+        name: 'timeline parent',
+        observers: pageObservers,
+      })
     }
   }
 
@@ -3219,19 +3274,21 @@ async function observeTimeline(page, options = {}) {
   else {
     log('waiting for timeline')
     let startTime = Date.now()
-    pageObservers.push(
-      observeElement($timeline.parentElement, (mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((/** @type {HTMLElement} */ $timeline) => {
-            disconnectPageObserver('timeline parent')
-            if (Date.now() > startTime) {
-              log(`timeline appeared after ${Date.now() - startTime}ms`, $timeline)
-            }
-            observeTimelineItems($timeline)
-          })
-        })
-      }, 'timeline parent')
-    )
+    observeElement($timeline.parentElement, (mutations, observer) => {
+      for (let mutation of mutations) {
+        for (let $addedNode of mutation.addedNodes) {
+          if (!($addedNode instanceof HTMLElement)) continue
+          observer.disconnect()
+          if (Date.now() > startTime) {
+            log(`timeline appeared after ${Date.now() - startTime}ms`, $addedNode)
+          }
+          observeTimelineItems($addedNode)
+        }
+      }
+    }, {
+      name: 'timeline parent',
+      observers: pageObservers,
+    })
   }
 
   // On some tabbed timeline pages, the first time a new tab is navigated to,
@@ -3240,25 +3297,26 @@ async function observeTimeline(page, options = {}) {
     let $tabbedTimelineContainer = document.querySelector(tabbedTimelineContainerSelector)
     if ($tabbedTimelineContainer) {
       let waitingForNewTimeline = false
-      pageObservers.push(
-        observeElement($tabbedTimelineContainer, async (mutations) => {
-          // This is going to fire twice on a new tab, as the spinner is added
-          // then replaced with the new timeline element.
-          if (!mutations.some(mutation => mutation.addedNodes.length > 0) || waitingForNewTimeline) return
+      observeElement($tabbedTimelineContainer, async (mutations) => {
+        // This is going to fire twice on a new tab, as the spinner is added
+        // then replaced with the new timeline element.
+        if (!mutations.some(mutation => mutation.addedNodes.length > 0) || waitingForNewTimeline) return
 
-          waitingForNewTimeline = true
-          let $newTimeline = await getElement(timelineSelector, {
-            name: 'new timeline',
-            stopIf: pageIsNot(page),
-          })
-          waitingForNewTimeline = false
-          if (!$newTimeline) return
+        waitingForNewTimeline = true
+        let $newTimeline = await getElement(timelineSelector, {
+          name: 'new timeline',
+          stopIf: pageIsNot(page),
+        })
+        waitingForNewTimeline = false
+        if (!$newTimeline) return
 
-          log('tab changed')
-          onTabChanged?.()
-          observeTimelineItems($newTimeline)
-        }, 'tabbed timeline container')
-      )
+        log('tab changed')
+        onTabChanged?.()
+        observeTimelineItems($newTimeline)
+      }, {
+        name: 'tabbed timeline container',
+        observers: pageObservers,
+      })
     } else {
       warn('tabbed timeline container not found', tabbedTimelineContainerSelector)
     }
@@ -3268,27 +3326,25 @@ async function observeTimeline(page, options = {}) {
 /**
  * @param {HTMLElement} $editorRoot
  * @param {{
- *   name?: string
- *   observers: import("./types").Disconnectable[]
+ *   name: string
+ *   observers: Map<string, import("./types").Disconnectable>
  *   placeholder?: string
  * }} options
  */
 function observeDesktopTweetEditorPlaceholder($editorRoot, {
-  name = 'Tweet editor root (for placeholder)',
+  name,
   observers,
   placeholder = '',
 }) {
-  observers.push(
-    observeElement($editorRoot, () => {
-      if ($editorRoot.firstElementChild.classList.contains('public-DraftEditorPlaceholder-root')) {
-        let $placeholder = $editorRoot.querySelector('.public-DraftEditorPlaceholder-inner')
-        placeholder = $editorRoot.getAttribute('data-placeholder') || placeholder
-        if ($placeholder && $placeholder.textContent != placeholder) {
-          $placeholder.textContent = placeholder
-        }
+  observeElement($editorRoot, () => {
+    if ($editorRoot.firstElementChild.classList.contains('public-DraftEditorPlaceholder-root')) {
+      let $placeholder = $editorRoot.querySelector('.public-DraftEditorPlaceholder-inner')
+      placeholder = $editorRoot.getAttribute('data-placeholder') || placeholder
+      if ($placeholder && $placeholder.textContent != placeholder) {
+        $placeholder.textContent = placeholder
       }
-    }, name)
-  )
+    }
+  }, {leading: true, name, observers})
 }
 
 /**
@@ -3306,9 +3362,13 @@ async function observeIndividualTweetTimeline(page) {
    * @param {HTMLElement} $timeline
    */
   function observeTimelineItems($timeline) {
-    pageObservers.push(
-      observeElement($timeline, () => onIndividualTweetTimelineChange($timeline, {observers: pageObservers}), 'individual tweet timeline')
-    )
+    observeElement($timeline, () => {
+      onIndividualTweetTimelineChange($timeline, {observers: pageObservers})
+    }, {
+      leading: true,
+      name: 'individual tweet timeline',
+      observers: pageObservers,
+    })
   }
 
   // If the inital timeline doesn't have a style attribute it's a placeholder
@@ -3318,19 +3378,21 @@ async function observeIndividualTweetTimeline(page) {
   else {
     log('waiting for individual tweet timeline')
     let startTime = Date.now()
-    pageObservers.push(
-      observeElement($timeline.parentElement, (mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((/** @type {HTMLElement} */ $timeline) => {
-            disconnectPageObserver('individual tweet timeline parent')
-            if (Date.now() > startTime) {
-              log(`individual tweet timeline appeared after ${Date.now() - startTime}ms`, $timeline)
-            }
-            observeTimelineItems($timeline)
-          })
-        })
-      }, 'individual tweet timeline parent')
-    )
+    observeElement($timeline.parentElement, (mutations, observer) => {
+      for (let mutation of mutations) {
+        for (let $addedNode of mutation.addedNodes) {
+          if (!($addedNode instanceof HTMLElement)) continue
+          if (Date.now() > startTime) {
+            log(`individual tweet timeline appeared after ${Date.now() - startTime}ms`, $addedNode)
+          }
+          observer.disconnect()
+          observeTimelineItems($addedNode)
+        }
+      }
+    }, {
+      name: 'individual tweet timeline parent',
+      observers: pageObservers,
+    })
   }
 }
 //#endregion
@@ -3526,7 +3588,13 @@ const configureCss = (() => {
   let $style
 
   return function configureCss() {
-    $style ??= addStyle('features')
+    if (!config.enabled) {
+      log('removing main stylesheet')
+      $style?.remove()
+      $style = null
+      return
+    }
+
     let cssRules = [`
       .tnt_font_family {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -4369,7 +4437,12 @@ const configureCss = (() => {
       `)
     }
 
-    $style.textContent = cssRules.map(dedent).join('\n')
+    let css = cssRules.map(dedent).join('\n')
+    if ($style == null) {
+      $style = addStyle(css)
+    } else {
+      $style.textContent = css
+    }
   }
 })()
 
@@ -4379,7 +4452,7 @@ function configureFont() {
     return
   }
 
-  if (config.dontUseChirpFont) {
+  if (config.enabled && config.dontUseChirpFont) {
     if (fontFamilyRule.style.fontFamily.includes('TwitterChirp')) {
       fontFamilyRule.style.fontFamily = fontFamilyRule.style.fontFamily.replace(/"?TwitterChirp"?, ?/, '')
       log('disabled Chirp font')
@@ -4457,7 +4530,13 @@ const configureDynamicCss = (() => {
   let $style
 
   return function configureDynamicCss() {
-    $style ??= addStyle('dynamic')
+    if (!config.enabled) {
+      log('removing nav font size stylesheet')
+      $style?.remove()
+      $style = null
+      return
+    }
+
     let cssRules = []
 
     if (fontSize != null && config.navBaseFontSize) {
@@ -4478,7 +4557,12 @@ const configureDynamicCss = (() => {
       `)
     }
 
-    $style.textContent = cssRules.map(dedent).join('\n')
+    let css = cssRules.map(dedent).join('\n')
+    if ($style == null) {
+      $style = addStyle(css)
+    } else {
+      $style.textContent = css
+    }
   }
 })()
 //#endregion
@@ -4531,7 +4615,13 @@ const configureThemeCss = (() => {
   let $style
 
   return function configureThemeCss() {
-    $style ??= addStyle('theme')
+    if (!config.enabled) {
+      log('removing theme stylesheet')
+      $style?.remove()
+      $style = null
+      return
+    }
+
     let cssRules = []
 
     if (themeColor != null) {
@@ -4692,7 +4782,12 @@ const configureThemeCss = (() => {
       }
     }
 
-    $style.textContent = cssRules.map(dedent).join('\n')
+    let css = cssRules.map(dedent).join('\n')
+    if ($style == null) {
+      $style = addStyle(css)
+    } else {
+      $style.textContent = css
+    }
   }
 })()
 
@@ -4859,7 +4954,7 @@ function handlePopup($popup) {
         log('Compose Tweet modal closed')
         isDesktopComposeTweetModalOpen = false
         $desktopComposeTweetModalPopup = null
-        disconnectAllModalObservers()
+        disconnectObservers(modalObservers, 'modal')
         // The Tweet button will re-render if the modal was opened to edit
         // multiple Tweets on the Home timeline.
         if (config.replaceLogo && isOnHomeTimelinePage()) {
@@ -4880,7 +4975,7 @@ function handlePopup($popup) {
       onPopupClosed() {
         log('media modal closed')
         isDesktopMediaModalOpen = false
-        disconnectAllModalObservers()
+        disconnectObservers(modalObservers, 'modal')
       }
     }
   }
@@ -5022,11 +5117,16 @@ function handlePopup($popup) {
           if (!$headerBlueCheck) return
 
           // Wait for the hovercard to render its contents
-          let popupRenderObserver = observeElement($popup, (mutations) => {
-            if (!mutations.length) return
+          observeElement($popup, (mutations, observer) => {
             blueCheck($popup.querySelector('svg[data-testid="verificationBadge"]'))
-            popupRenderObserver.disconnect()
-          }, 'verified popup render', {childList: true, subtree: true})
+            observer.disconnect()
+          }, {
+            name: 'verified popup render',
+            observers: pageObservers,
+           }, {
+            childList: true,
+            subtree: true,
+          })
         })
       }
     }
@@ -5091,20 +5191,22 @@ function onPopup($popup) {
   let $nestedPopup
 
   let nestedObserver = observeElement($popup, (mutations) => {
-    mutations.forEach((mutation) => {
-      mutation.addedNodes.forEach((/** @type {HTMLElement} */ $el) => {
-        log('nested popup appeared', $el)
-        $nestedPopup = $el
-        ;({onPopupClosed} = handlePopup($el))
-      })
-      mutation.removedNodes.forEach((/** @type {HTMLElement} */ $el) => {
-        if ($el !== $nestedPopup) return
+    for (let mutation of mutations) {
+      for (let $addedNode of mutation.addedNodes) {
+        if (!($addedNode instanceof HTMLElement)) continue
+        log('nested popup appeared', $addedNode)
+        $nestedPopup = $addedNode
+        onPopupClosed = handlePopup($addedNode).onPopupClosed
+      }
+      for (let $removedNode of mutation.removedNodes) {
+        if (!($removedNode instanceof HTMLElement)) continue
+        if ($removedNode !== $nestedPopup) return
         if (onPopupClosed) {
           log('cleaning up after nested popup removed')
           onPopupClosed()
         }
-      })
-    })
+      }
+    }
   }, 'nested popup observer')
 
   let disconnect = nestedObserver.disconnect.bind(nestedObserver)
@@ -5592,7 +5694,7 @@ function onTitleChange(title) {
     if (isDesktopComposeTweetModalOpen) {
       if (currentPath == ModalPaths.COMPOSE_TWEET && COMPOSE_TWEET_MODAL_PAGES.has(location.pathname)) {
         log('navigated away from Compose Tweet editor')
-        disconnectAllModalObservers()
+        disconnectObservers(modalObservers, 'modal')
       }
       else if (COMPOSE_TWEET_MODAL_PAGES.has(currentPath) && location.pathname == ModalPaths.COMPOSE_TWEET) {
         log('navigated back to Compose Tweet editor')
@@ -5684,14 +5786,7 @@ function processTwitterLogos($el) {
 }
 
 function processCurrentPage() {
-  if (pageObservers.length > 0) {
-    log(
-      `disconnecting ${pageObservers.length} page observer${s(pageObservers.length)}`,
-      pageObservers.map(observer => observer['name'])
-    )
-    pageObservers.forEach(observer => observer.disconnect())
-    pageObservers = []
-  }
+  disconnectObservers(pageObservers, 'page')
 
   // Hooks for styling pages
   if (!$body) $body = document.body
@@ -6095,18 +6190,21 @@ async function tweakExplorePage() {
     })
     if (!$backButton) return
 
-    pageObservers.push(
-      observeElement($backButton.parentElement, (mutations) => {
-        mutations.forEach((mutation) => {
-          mutation.addedNodes.forEach((/** @type {HTMLElement} */ $el) => {
-            if ($el.querySelector('[data-testid="DashButton_ProfileIcon_Link"]')) {
-              log('slide-out menu button appeared, going back to skip Explore page')
-              history.go(-2)
-            }
-          })
-        })
-      }, 'back button parent')
-    )
+    observeElement($backButton.parentElement, (mutations) => {
+      for (let mutation of mutations) {
+        for (let $addedNode of mutation.addedNodes) {
+          if (!($addedNode instanceof HTMLElement)) continue
+          if ($addedNode.querySelector('[data-testid="DashButton_ProfileIcon_Link"]')) {
+            log('slide-out menu button appeared, going back to skip Explore page')
+            history.go(-2)
+            return
+          }
+        }
+      }
+    }, {
+      name: 'back button parent',
+      observers: pageObservers,
+    })
   }
 }
 
@@ -6144,37 +6242,39 @@ function tweakDisplaySettingsPage() {
   (async () => {
     let $colorRerenderBoundary = await getElement('#react-root > div > div')
 
-    pageObservers.push(
-      observeElement($colorRerenderBoundary, () => {
-        let newThemeColor = getThemeColorFromState()
-        if (newThemeColor == themeColor) return
+    observeElement($colorRerenderBoundary, () => {
+      let newThemeColor = getThemeColorFromState()
+      if (newThemeColor == themeColor) return
 
-        log('Color setting changed')
-        themeColor = newThemeColor
-        configureThemeCss()
-        observePopups()
-        observeSideNavTweetButton()
-      }, 'Color change re-render boundary')
-    )
+      log('Color setting changed')
+      themeColor = newThemeColor
+      configureThemeCss()
+      observePopups()
+      observeSideNavTweetButton()
+    }, {
+      name: 'Color change re-render boundary',
+      observers: pageObservers,
+    })
   })()
 
   if (desktop) {
-    pageObservers.push(
-      observeElement($html, () => {
-        if (!$html.style.fontSize) return
+    observeElement($html, () => {
+      if (!$html.style.fontSize) return
 
-        if ($html.style.fontSize != fontSize) {
-          fontSize = $html.style.fontSize
-          log(`<html> fontSize has changed to ${fontSize}`)
-          configureDynamicCss()
-          observePopups()
-          observeSideNavTweetButton()
-        }
-      }, '<html> style attribute for font size changes', {
-        attributes: true,
-        attributeFilter: ['style']
-      })
-    )
+      if ($html.style.fontSize != fontSize) {
+        fontSize = $html.style.fontSize
+        log(`<html> fontSize has changed to ${fontSize}`)
+        configureDynamicCss()
+        observePopups()
+        observeSideNavTweetButton()
+      }
+    }, {
+      name: '<html> style attribute for font size changes',
+      observers: pageObservers,
+    }, {
+      attributes: true,
+      attributeFilter: ['style']
+    })
   }
 }
 
@@ -6191,7 +6291,7 @@ const tweakFocusedTweet = (() => {
     if (!$focusedTweet) {
       if (desktop) {
         waitingForFocusedTweetEditor = false
-        disconnectObserver('tweet editor', observers)
+        observers.get('tweet editor')?.disconnect()
       }
       return
     }
@@ -6201,7 +6301,7 @@ const tweakFocusedTweet = (() => {
 
     if (desktop && config.replaceLogo &&
         !waitingForFocusedTweetEditor &&
-        !isObserving(observers, 'tweet editor')) {
+        !observers.has('tweet editor')) {
       waitingForFocusedTweetEditor = true
       /** @type {HTMLElement} */
       let $editorRoot
@@ -6222,6 +6322,8 @@ const tweakFocusedTweet = (() => {
           observers,
         })
       }
+    } else {
+      observers.get('tweet editor')?.disconnect()
     }
   }
 })()
@@ -6396,16 +6498,17 @@ function tweakHomeTimelinePage() {
   updateSelectedHomeTabIndex()
 
   // If there are pinned lists, the timeline tabs <nav> will be replaced when they load
-  pageObservers.push(
-    observeElement($timelineTabs.parentElement, (mutations) => {
-      let timelineTabsReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($timelineTabs))
-      if (timelineTabsReplaced) {
-        log('Home timeline tabs replaced')
-        $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
-        tweakTimelineTabs($timelineTabs)
-      }
-    }, 'Home timeline tabs nav container')
-  )
+  observeElement($timelineTabs.parentElement, (mutations) => {
+    let timelineTabsReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($timelineTabs))
+    if (timelineTabsReplaced) {
+      log('Home timeline tabs replaced')
+      $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
+      tweakTimelineTabs($timelineTabs)
+    }
+  }, {
+    name: 'timeline tabs nav container',
+    observers: pageObservers,
+  })
 
   observeTimeline(currentPage, {
     isTabbed: true,
@@ -6430,41 +6533,41 @@ async function tweakMobileComposeTweetPage() {
       return
     }
 
-    disconnectPageObserver('Tweet box typeahead dropdown container')
-    disconnectPageObserver('Tweet box typeahead dropdown')
     let $dropdownContainer = $tweetTextareaContainer.parentElement.parentElement.parentElement.parentElement
     /** @type {HTMLElement} */
     let $typeaheadDropdown = $dropdownContainer.querySelector(':scope > [id^="typeaheadDropdown"]')
     function observeDropdown() {
-      pageObservers.push(
-        observeElement($typeaheadDropdown, () => {
-          processBlueChecks($typeaheadDropdown)
-        }, 'Tweet box typeahead dropdown')
-      )
+      observeElement($typeaheadDropdown, () => {
+        processBlueChecks($typeaheadDropdown)
+      }, {
+        name: 'Tweet box typeahead dropdown',
+        observers: pageObservers,
+      })
     }
     // If the list was re-rendered to display a dropdown for an additional
     // Tweet, it will already be in the DOM.
     if ($typeaheadDropdown) {
       observeDropdown()
     }
-    pageObservers.push(
-      observeElement($dropdownContainer, (mutations) => {
-        for (let mutation of mutations) {
-          if ($typeaheadDropdown &&
-              mutations.some(mutation => Array.from(mutation.removedNodes).includes($typeaheadDropdown))) {
-            disconnectPageObserver('Tweet box typeahead dropdown')
-            $typeaheadDropdown = null
-          }
-          for (let $addedNode of mutation.addedNodes) {
-            if ($addedNode instanceof HTMLElement &&
-                $addedNode.getAttribute('id')?.startsWith('typeaheadDropdown')) {
-              $typeaheadDropdown = $addedNode
-              observeDropdown()
-            }
+    observeElement($dropdownContainer, (mutations) => {
+      for (let mutation of mutations) {
+        if ($typeaheadDropdown &&
+            mutations.some(mutation => Array.from(mutation.removedNodes).includes($typeaheadDropdown))) {
+          pageObservers.get('Tweet box typeahead dropdown')?.disconnect()
+          $typeaheadDropdown = null
+        }
+        for (let $addedNode of mutation.addedNodes) {
+          if ($addedNode instanceof HTMLElement &&
+              $addedNode.getAttribute('id')?.startsWith('typeaheadDropdown')) {
+            $typeaheadDropdown = $addedNode
+            observeDropdown()
           }
         }
-      }, 'Tweet box typeahead dropdown container')
-    )
+      }
+    }, {
+      name:'Tweet box typeahead dropdown container',
+      observers: pageObservers,
+    })
   }
 
   let isReply = Boolean(document.querySelector('article[data-testid="tweet"]'))
@@ -6507,7 +6610,10 @@ async function tweakMobileComposeTweetPage() {
         if (config.replaceLogo && !document.querySelector('main [id^="typeaheadDropdown"]')) {
           $tweetButtonText.textContent = getString($containers.length == 1 ? 'TWEET' : 'TWEET_ALL')
         }
-      }, 'Tweets container')
+      }, {
+        name: 'Tweets container',
+        observers: pageObservers,
+      })
     } else {
       warn('could not find all elements needed to tweak the Compose Tweet page', {$mask, $tweetButtonText})
     }
@@ -6536,25 +6642,26 @@ async function tweakMobileMediaViewerPage() {
     processBlueChecks($timeline)
   }
 
-  pageObservers.push(
-    observeElement($timeline, (mutations) => {
-      for (let mutation of mutations) {
-        for (let $addedNode of mutation.addedNodes) {
-          if (!($addedNode instanceof HTMLElement) || $addedNode.nodeName != 'DIV') continue
-          let $video = $addedNode.querySelector('video')
-          if ($video) {
-            processVideo($video)
-          }
-          if (config.twitterBlueChecks != 'ignore') {
-            let $videoInfo = $addedNode.querySelector('[data-testid^="immersive-tweet-ui-content-container"]')
-            if ($videoInfo) {
-              processBlueChecks($addedNode)
-            }
+  observeElement($timeline, (mutations) => {
+    for (let mutation of mutations) {
+      for (let $addedNode of mutation.addedNodes) {
+        if (!($addedNode instanceof HTMLElement) || $addedNode.nodeName != 'DIV') continue
+        let $video = $addedNode.querySelector('video')
+        if ($video) {
+          processVideo($video)
+        }
+        if (config.twitterBlueChecks != 'ignore') {
+          let $videoInfo = $addedNode.querySelector('[data-testid^="immersive-tweet-ui-content-container"]')
+          if ($videoInfo) {
+            processBlueChecks($addedNode)
           }
         }
       }
-    }, 'media viewer timeline', {childList: true, subtree: true})
-  )
+    }
+  }, {
+    name: 'media viewer timeline',
+    observers: pageObservers,
+  }, {childList: true, subtree: true})
 }
 
 async function tweakTimelineTabs($timelineTabs) {
@@ -6710,36 +6817,38 @@ async function tweakProfilePage() {
     })
     if (!$profileTabs) return
     // The Profile tabs <nav> can be replaced
-    pageObservers.push(
-      observeElement($profileTabs.parentElement, async (mutations) => {
-        if (mutations.length > 0) {
-          let $newProfileTabs = findAddedNode(mutations, ($el) => $el instanceof HTMLElement && $el.tagName == 'NAV')
-          if ($newProfileTabs == null) return
-          $profileTabs = /** @type {HTMLElement} */ ($newProfileTabs)
+    observeElement($profileTabs.parentElement, async (mutations) => {
+      if (mutations.length > 0) {
+        let $newProfileTabs = findAddedNode(mutations, ($el) => $el instanceof HTMLElement && $el.tagName == 'NAV')
+        if ($newProfileTabs == null) return
+        $profileTabs = /** @type {HTMLElement} */ ($newProfileTabs)
+      }
+      if (config.replaceLogo) {
+        let $tweetsTabText = await getElement('[data-testid="ScrollSnap-List"] > [role="presentation"]:first-child div[dir] > span:first-child', {
+          context: $profileTabs,
+          name: 'Tweets tab text',
+          stopIf: pageIsNot(currentPage),
+        })
+        if ($tweetsTabText && $tweetsTabText.textContent != getString('TWEETS')) {
+          $tweetsTabText.textContent = getString('TWEETS')
         }
-        if (config.replaceLogo) {
-          let $tweetsTabText = await getElement('[data-testid="ScrollSnap-List"] > [role="presentation"]:first-child div[dir] > span:first-child', {
-            context: $profileTabs,
-            name: 'Tweets tab text',
-            stopIf: pageIsNot(currentPage),
-          })
-          if ($tweetsTabText && $tweetsTabText.textContent != getString('TWEETS')) {
-            $tweetsTabText.textContent = getString('TWEETS')
-          }
+      }
+      if (config.hideSubscriptions) {
+        let $subscriptionsTabLink = await getElement('a[href$="/superfollows"]', {
+          context: $profileTabs,
+          name: 'Subscriptions tab link',
+          stopIf: pageIsNot(currentPage),
+          timeout: 1000,
+        })
+        if ($subscriptionsTabLink) {
+          $subscriptionsTabLink.parentElement.classList.add('SubsTab')
         }
-        if (config.hideSubscriptions) {
-          let $subscriptionsTabLink = await getElement('a[href$="/superfollows"]', {
-            context: $profileTabs,
-            name: 'Subscriptions tab link',
-            stopIf: pageIsNot(currentPage),
-            timeout: 1000,
-          })
-          if ($subscriptionsTabLink) {
-            $subscriptionsTabLink.parentElement.classList.add('SubsTab')
-          }
-        }
-      }, 'profile tabs', {childList: true})
-    )
+      }
+    }, {
+      leading: true,
+      name: 'profile tabs',
+      observers: pageObservers,
+    }, {childList: true})
   }
 }
 
@@ -6842,19 +6951,6 @@ function tweakTweetEngagementPage() {
 
 //#region Main
 async function main() {
-  let $settings = /** @type {HTMLScriptElement} */ (document.querySelector('script#tnt_settings'))
-  if ($settings) {
-    try {
-      Object.assign(config, JSON.parse($settings.innerText))
-    } catch(e) {
-      error('error parsing initial settings', e)
-    }
-  }
-
-  if (config.debug) {
-    debug = true
-  }
-
   // Don't run on URLs used for OAuth
   if (location.pathname.startsWith('/i/oauth2/authorize') ||
       location.pathname.startsWith('/oauth/authorize')) {
@@ -6862,65 +6958,21 @@ async function main() {
     return
   }
 
+  if (!config.enabled) return
+
+  // Reset state so initial setup runs again when re-enabled
+  currentPage = ''
+  currentPath = ''
+  fontSize = null
+  lastFlexDirection = null
+
   // Don't run if we're redirecting to twitter.com
   if (redirectToTwitter()) {
     return
   }
 
-  if ($settings) {
-    let settingsChangeObserver = new MutationObserver(() => {
-      /** @type {Partial<import("./types").Config>} */
-      let configChanges
-      try {
-        configChanges = JSON.parse($settings.innerText)
-      } catch(e) {
-        error('error parsing incoming settings change', e)
-        return
-      }
-
-      if ('debug' in configChanges) {
-        log('disabling debug mode')
-        debug = configChanges.debug
-        log('enabled debug mode')
-        configureThemeCss()
-        return
-      }
-
-      Object.assign(config, configChanges)
-      configChanged(configChanges)
-    })
-    settingsChangeObserver.observe($settings, {childList: true})
-  }
-
   observeTitle()
   observeFavicon()
-
-  let $loadingStyle
-  if (config.replaceLogo) {
-    getElement('html', {name: 'html element'}).then(($html) => {
-      $loadingStyle = document.createElement('style')
-      $loadingStyle.dataset.insertedBy = 'control-panel-for-twitter'
-      $loadingStyle.dataset.role = 'loading-logo'
-      $loadingStyle.textContent = dedent(`
-        ${Selectors.X_LOGO_PATH} {
-          fill: ${isSafari ? 'transparent' : THEME_BLUE};
-          d: path("${Svgs.TWITTER_LOGO_PATH}");
-        }
-        .tnt_logo {
-          fill: ${THEME_BLUE};
-        }
-      `)
-      $html.appendChild($loadingStyle)
-    })
-
-    if (isSafari) {
-      getElement(Selectors.X_LOGO_PATH, {name: 'pre-loading indicator logo', timeout: 1000}).then(($logoPath) => {
-        if ($logoPath) {
-          twitterLogo($logoPath)
-        }
-      })
-    }
-  }
 
   let $appWrapper = await getElement('#layers + div', {name: 'app wrapper'})
 
@@ -6930,7 +6982,6 @@ async function main() {
   lang = $html.lang
   dir = $html.dir
   ltr = dir == 'ltr'
-  let lastFlexDirection
 
   observeElement($appWrapper, () => {
     let flexDirection = getComputedStyle($appWrapper).flexDirection
@@ -6977,9 +7028,10 @@ async function main() {
       // Start taking action on page changes
       observingPageChanges = true
 
-      // Delay removing loading icon styles to avoid Flash of X
-      if ($loadingStyle) {
-        setTimeout(() => $loadingStyle.remove(), 1000)
+      // Remove the loading stylesheet if the content script added one
+      let $loadingStylesheet = document.querySelector('style#cpft_loading')
+      if ($loadingStylesheet) {
+        requestAnimationFrame(() => $loadingStylesheet.remove())
       }
     }
     else if (flexDirection != lastFlexDirection) {
@@ -6990,7 +7042,11 @@ async function main() {
     $body.classList.toggle('Desktop', desktop)
 
     lastFlexDirection = flexDirection
-  }, 'app wrapper class attribute for version changes (mobile ↔ desktop)', {
+  }, {
+    leading: true,
+    name: 'app wrapper class attribute for version changes (mobile ↔ desktop)',
+    observers: globalObservers,
+  }, {
     attributes: true,
     attributeFilter: ['class']
   })
@@ -7002,6 +7058,24 @@ async function main() {
 function configChanged(changes) {
   log('config changed', changes)
 
+  if ('enabled' in changes) {
+    log(`${changes.enabled ? 'en' : 'dis'}abling extension functionality`)
+    if (changes.enabled) {
+      main()
+    } else {
+      configureCss()
+      configureFont()
+      configureDynamicCss()
+      configureThemeCss()
+      document.querySelector('#tnt_separated_tweets_tab')?.remove()
+      // TODO Show all tweets if a timeline is visible
+      disconnectObservers(modalObservers, 'modal')
+      disconnectObservers(pageObservers, 'page')
+      disconnectObservers(globalObservers, 'global')
+    }
+    return
+  }
+
   if ('redirectToTwitter' in changes && redirectToTwitter()) {
     return
   }
@@ -7010,6 +7084,7 @@ function configChanged(changes) {
     fontSize = desktop ? $html.style.fontSize : null
   }
 
+  // Apply configuration changes
   configureCss()
   configureFont()
   configureDynamicCss()
@@ -7050,6 +7125,41 @@ function configChanged(changes) {
     processCurrentPage()
   }
 }
+
+// Initial config and config changes are injected into a <script> element
+let $settings = /** @type {HTMLScriptElement} */ (document.querySelector('script#tnt_settings'))
+if ($settings) {
+  try {
+    Object.assign(config, JSON.parse($settings.innerText))
+  } catch(e) {
+    error('error parsing initial settings', e)
+  }
+
+  let settingsChangeObserver = new MutationObserver(() => {
+    /** @type {Partial<import("./types").Config>} */
+    let configChanges
+    try {
+      configChanges = JSON.parse($settings.innerText)
+    } catch(e) {
+      error('error parsing incoming settings change', e)
+      return
+    }
+
+    if ('debug' in configChanges) {
+      log('disabling debug mode')
+      debug = configChanges.debug
+      log('enabled debug mode')
+      configureThemeCss()
+      return
+    }
+
+    Object.assign(config, configChanges)
+    configChanged(configChanges)
+  })
+  settingsChangeObserver.observe($settings, {childList: true})
+}
+
+debug = config.debug
 
 main()
 //#endregion

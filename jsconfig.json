@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "checkJs": true,
-    "target": "es2020"
+    "module": "NodeNext",
+    "moduleDetection": "force",
+    "moduleResolution": "nodenext",
+    "target": "ES2022"
   },
   "exclude": [
     "node_modules",
