@@ -39,6 +39,22 @@ body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   user-select: none;
 }
 
+.icon {
+  height: 1.25em;
+}
+
+body.disabled .icon {
+  filter: grayscale(100%);
+}
+
+body.disabled form > section ~ section {
+  visibility: hidden;
+}
+
+body.disabled:not(.safari) form > section {
+  border-bottom: 1px solid var(--border-color);
+}
+
 label {
   display: flex;
   justify-content: space-between;
