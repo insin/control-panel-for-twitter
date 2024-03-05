@@ -4656,6 +4656,8 @@ function shouldHideProfileTimelineItem(type) {
       return config.hideProfileRetweets
     case 'UNAVAILABLE_QUOTE_TWEET':
       return config.hideUnavailableQuoteTweets
+    case 'UNAVAILABLE_RETWEET':
+      return config.hideUnavailableQuoteTweets || config.hideProfileRetweets
     default:
       return true
   }
