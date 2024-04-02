@@ -153,6 +153,9 @@
   "hideInlinePrompts": {
     "message": "タイムライン内のインラインプロンプトを非表示にする"
   },
+  "hideJobsNavlabel": {
+    "message": "求人"
+  },
   "hideLikeMetricsLabel": {
     "message": "いいね件数"
   },

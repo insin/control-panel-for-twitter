@@ -60,6 +60,7 @@ const config = {
   hideForYouTimeline: true,
   hideGrokNav: true,
   hideInlinePrompts: true,
+  hideJobsNav: true,
   hideLikeMetrics: true,
   hideListsNav: false,
   hideMetrics: false,
@@ -2840,6 +2841,9 @@ const configureCss = (() => {
     }
     if (config.hideAdsNav) {
       hideCssSelectors.push(`${menuRole} a[href*="ads.twitter.com"]`)
+    }
+    if (config.hideJobsNav) {
+      hideCssSelectors.push(`${menuRole} a[href="/jobs"]`)
     }
     if (config.hideTweetAnalyticsLinks) {
       hideCssSelectors.push('a[data-testid="analyticsButton"]')

@@ -153,6 +153,9 @@
   "hideInlinePrompts": {
     "message": "타임라인에서 인라인 프롬프트 숨기기"
   },
+  "hideJobsNavlabel": {
+    "message": "채용"
+  },
   "hideLikeMetricsLabel": {
     "message": "좋아요"
   },

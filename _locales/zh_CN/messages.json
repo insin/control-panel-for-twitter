@@ -153,6 +153,9 @@
   "hideInlinePrompts": {
     "message": "隐藏时间线中的内联提示"
   },
+  "hideJobsNavlabel": {
+    "message": "工作"
+  },
   "hideLikeMetricsLabel": {
     "message": "喜欢"
   },

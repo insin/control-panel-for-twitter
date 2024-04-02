@@ -153,6 +153,9 @@
   "hideInlinePrompts": {
     "message": "Hide inline prompts in the timeline"
   },
+  "hideJobsNavlabel": {
+    "message": "Jobs"
+  },
   "hideLikeMetricsLabel": {
     "message": "Likes"
   },

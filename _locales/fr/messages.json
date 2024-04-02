@@ -153,6 +153,9 @@
   "hideInlinePrompts": {
     "message": "Masquer les invites en ligne dans la fil"
   },
+  "hideJobsNavlabel": {
+    "message": "Tâche"
+  },
   "hideLikeMetricsLabel": {
     "message": "J'aime"
   },

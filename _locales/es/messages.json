@@ -153,6 +153,9 @@
   "hideInlinePrompts": {
     "message": "Ocultar indicaciones en línea en la timeline"
   },
+  "hideJobsNavlabel": {
+    "message": "Trabajos"
+  },
   "hideLikeMetricsLabel": {
     "message": "Me gustas"
   },
