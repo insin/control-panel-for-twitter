@@ -322,8 +322,16 @@
   "sharedTweetsOptionsLabel": {
     "message": "다른 사용자가 공유한 트윗"
   },
+  "showBlueReplyFollowersCountAmountLabel": {
+    "message": "팔로워 수"
+  },
   "showBlueReplyFollowersCountLabel": {
-    "message": "100만 명 이상의 팔로워가 있는 사람 표시"
+    "message": "$AMOUNT$명 이상의 팔로워 보기",
+    "placeholders": {
+      "amount": {
+        "content": "$1"
+      }
+    }
   },
   "showBlueReplyVerifiedAccountsLabel": {
     "message": "\"인증됨\" 계정 표시"

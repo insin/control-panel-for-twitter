@@ -322,8 +322,16 @@
   "sharedTweetsOptionsLabel": {
     "message": "他のユーザーが共有したツイート"
   },
+  "showBlueReplyFollowersCountAmountLabel": {
+    "message": "フォロワー数"
+  },
   "showBlueReplyFollowersCountLabel": {
-    "message": "フォロワーが 100 万人を超える人を表示する"
+    "message": "$AMOUNT$ 人以上のフォロワーを表示する",
+    "placeholders": {
+      "amount": {
+        "content": "$1"
+      }
+    }
   },
   "showBlueReplyVerifiedAccountsLabel": {
     "message": "「認証済み」アカウントを表示"

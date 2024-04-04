@@ -59,6 +59,7 @@ export type Config = {
   restoreQuoteTweetsLink: boolean
   restoreOtherInteractionLinks: boolean
   retweets: SharedTweetsConfig
+  showBlueReplyFollowersCountAmount: string
   showBlueReplyFollowersCount: boolean
   showBlueReplyVerifiedAccounts: boolean
   tweakQuoteTweetsPage: boolean

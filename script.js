@@ -92,6 +92,7 @@ const config = {
   restoreOtherInteractionLinks: false,
   restoreQuoteTweetsLink: true,
   retweets: 'separate',
+  showBlueReplyFollowersCountAmount: '1000000',
   showBlueReplyFollowersCount: false,
   showBlueReplyVerifiedAccounts: false,
   tweakQuoteTweetsPage: true,
@@ -4121,7 +4122,7 @@ function onIndividualTweetTimelineChange($timeline, options) {
             hideItem = shouldHideBasedOnVerifiedType && (user == null || !(
               user.following && !config.hideBlueReplyFollowing ||
               user.followedBy && !config.hideBlueReplyFollowedBy ||
-              user.followersCount >= 1000000 && config.showBlueReplyFollowersCount
+              config.showBlueReplyFollowersCount && user.followersCount >= Number(config.showBlueReplyFollowersCountAmount)
             ))
           }
         }

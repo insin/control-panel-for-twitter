@@ -322,8 +322,16 @@
   "sharedTweetsOptionsLabel": {
     "message": "Tweets compartidos por otros usuarios"
   },
+  "showBlueReplyFollowersCountAmountLabel": {
+    "message": "Número de seguidores"
+  },
   "showBlueReplyFollowersCountLabel": {
-    "message": "Mostrar personas con más de 1 millón de seguidores"
+    "message": "Mostrar personas con más de $AMOUNT$ seguidores",
+    "placeholders": {
+      "amount": {
+        "content": "$1"
+      }
+    }
   },
   "showBlueReplyVerifiedAccountsLabel": {
     "message": "Mostrar cuentas \"verificadas\""

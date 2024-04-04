@@ -96,7 +96,7 @@ for (let translationId of [
   'restoreOtherInteractionLinksLabel',
   'restoreQuoteTweetsLinkLabel',
   'retweetsLabel',
-  'showBlueReplyFollowersCountLabel',
+  'showBlueReplyFollowersCountAmountLabel',
   'showBlueReplyVerifiedAccountsLabel',
   'showRelevantPeopleLabel',
   'tweakQuoteTweetsPageLabel',
@@ -120,6 +120,10 @@ for (let translationClass of [
   for (let $el of document.querySelectorAll(`.${translationClass}`)) {
     $el.textContent = translation
   }
+}
+
+for (let amount of [1_000, 10_000, 100_000, 1_000_000]) {
+  document.querySelector(`option[value="${amount}"]`).textContent = formatFollowerCount(amount)
 }
 
 /** @type {boolean} */
@@ -196,6 +200,7 @@ const defaultConfig = {
   restoreOtherInteractionLinks: false,
   restoreQuoteTweetsLink: true,
   retweets: 'separate',
+  showBlueReplyFollowersCountAmount: '1000000',
   showBlueReplyFollowersCount: false,
   showBlueReplyVerifiedAccounts: false,
   tweakQuoteTweetsPage: true,
@@ -240,6 +245,7 @@ let $form = document.querySelector('form')
 let $mutedQuotes =  /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
 let $mutedQuotesDetails =  /** @type {HTMLDetailsElement} */ (document.querySelector('details#mutedQuotesDetails'))
 let $mutedQuotesLabel = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesLabel'))
+let $showBlueReplyFollowersCountLabel = /** @type {HTMLElement} */ (document.querySelector('#showBlueReplyFollowersCountLabel'))
 //#endregion
 
 //#region Utility functions
@@ -251,6 +257,11 @@ function exportConfig() {
   ], {type: 'text/plain'}))
   $a.click()
   URL.revokeObjectURL($a.href)
+}
+
+function formatFollowerCount(num) {
+  let numFormat = Intl.NumberFormat(undefined, {notation: 'compact', compactDisplay: num < 1_000_000 ? 'short' : 'long'})
+  return numFormat.format(num)
 }
 
 /**
@@ -402,7 +413,12 @@ function updateDisplay() {
   $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
   $body.classList.toggle('hidingTwitterBlueReplies', optionsConfig.hideTwitterBlueReplies)
   $body.classList.toggle('mutedQuotes', shouldDisplayMutedQuotes())
+  $body.classList.toggle('showingBlueReplyFollowersCount', optionsConfig.showBlueReplyFollowersCount)
   $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
+  $showBlueReplyFollowersCountLabel.textContent = chrome.i18n.getMessage(
+    'showBlueReplyFollowersCountLabel',
+    formatFollowerCount(Number(optionsConfig.showBlueReplyFollowersCountAmount))
+  )
   updateMutedQuotesDisplay()
 }
 
