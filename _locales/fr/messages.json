@@ -205,7 +205,7 @@
     "message": "Bouton \"Partager\" sous les tweets"
   },
   "hideSidebarContentLabel": {
-    "message": "Masquer les rubriques \"Quoi de neuf\", \"Vous pourriez aimer\", etc, dans la barre latérale"
+    "message": "Masquer le contenu de la barre latérale"
   },
   "hideSubscriptionsLabel": {
     "message": "Masquer \"Souscriptions\""

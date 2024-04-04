@@ -205,7 +205,7 @@
     "message": "推文下的分享按钮"
   },
   "hideSidebarContentLabel": {
-    "message": "在侧边栏中隐藏 \"有什么新鲜事？\", \"你可能会喜欢\"等"
+    "message": "隐藏侧边栏内容"
   },
   "hideSubscriptionsLabel": {
     "message": "隐藏订阅服务"

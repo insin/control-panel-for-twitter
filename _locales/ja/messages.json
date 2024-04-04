@@ -205,7 +205,7 @@
     "message": "ツイート下部のシェアボタン"
   },
   "hideSidebarContentLabel": {
-    "message": "サイドバーの「今どうしてる？」「おすすめトレンド」等を非表示"
+    "message": "サイドバーコンテンツを非表示にする"
   },
   "hideSubscriptionsLabel": {
     "message": "サブスクリプションを非表示"

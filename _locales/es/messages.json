@@ -205,7 +205,7 @@
     "message": "Botón de compartir debajo de los tweets"
   },
   "hideSidebarContentLabel": {
-    "message": "Ocultar \"Qué está pasando\", \"quizá te interese\" etc. en el lateral"
+    "message": "Ocultar contenido de la barra lateral"
   },
   "hideSubscriptionsLabel": {
     "message": "Ocultar Suscripciones"

@@ -205,7 +205,7 @@
     "message": "Share button under tweets"
   },
   "hideSidebarContentLabel": {
-    "message": "Hide \"What's happening\", \"You might like\" etc. in the sidebar"
+    "message": "Hide sidebar contents"
   },
   "hideSubscriptionsLabel": {
     "message": "Hide Subscriptions"

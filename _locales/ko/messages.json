@@ -205,7 +205,7 @@
     "message": "트윗 아래 공유 버튼 숨기기"
   },
   "hideSidebarContentLabel": {
-    "message": "사이드바에서 \"무슨 일이 일어나고 있나요\", \"내가 좋아할 만한 콘텐츠\" 등 숨기기"
+    "message": "사이드바 내용 숨기기"
   },
   "hideSubscriptionsLabel": {
     "message": "구독 숨기기"

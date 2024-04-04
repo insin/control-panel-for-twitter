@@ -66,7 +66,7 @@ New versions can take anything from minutes to days to be approved for publishin
 
 ### Remove algorithmic content
 
-- Hide "What's happening", "Topics to follow" etc. in the sidebar
+- Hide sidebar contents
 - Hide Explore page contents and use it only for searching
 - Hide "Discover more" algorithmic tweets when viewing a tweet
 
