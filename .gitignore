@@ -1,11 +1,12 @@
 .DS_Store
 browser_action.html
+manifest.json
 node_modules/
 promo/*.png
 !promo/app-store.png
 scripts/locales/html/*.html
-scripts/locales/js/_files.txt
 scripts/locales/js/*.js
+scripts/locales/js/_files.txt
 scripts/locales/locales.js
 scripts/locales/old/
 scripts/translations.json

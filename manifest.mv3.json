@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "default_locale": "en",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
@@ -26,15 +26,20 @@
     }
   ],
   "web_accessible_resources": [
-    "script.js"
+    {
+      "matches": [
+        "https://twitter.com/*",
+        "https://mobile.twitter.com/*"
+      ],
+      "resources": [
+        "script.js"
+      ]
+    }
   ],
   "options_ui": {
-    "browser_style": true,
-    "chrome_style": false,
     "page": "options.html"
   },
-  "browser_action": {
-    "browser_style": true,
+  "action": {
     "default_title": "__MSG_extensionName__",
     "default_popup": "browser_action.html"
   },
