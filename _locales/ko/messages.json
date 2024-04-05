@@ -9,12 +9,10 @@
     "message": "기본적으로 \"팔로잉\" (시간순) 타임라인 사용"
   },
   "appStoreSubtitle": {
-    "message": "타임라인을 통제하세요",
-    "description": "<= 30 characters"
+    "message": "타임라인을 통제하세요"
   },
   "debugCountdownLabel": {
     "message": " (디버그 옵션: $DEBUG_COUNTDOWN$번 더 클릭하여 활성화)",
-    "description": "Displayed when the user clicks multiple times on the info text at the end of the Experiments section to enable debug mode",
     "placeholders": {
       "debug_countdown": {
         "content": "$1",
@@ -68,12 +66,10 @@
     "message": "버그 보고서를 위한 설정 내보내기"
   },
   "extensionDescription": {
-    "message": "트위터에 대한 더 많은 제어권을 제공하고 기능을 보완하며 UI를 개선합니다",
-    "description": "<= 132 characters"
+    "message": "트위터에 대한 더 많은 제어권을 제공하고 기능을 보완하며 UI를 개선합니다"
   },
   "extensionDescriptionShort": {
-    "message": "트위터에 대한 더 많은 제어권을 제공하고 기능을 보완하며 UI를 개선합니다",
-    "description": "<= 112 characters"
+    "message": "트위터에 대한 더 많은 제어권을 제공하고 기능을 보완하며 UI를 개선합니다"
   },
   "extensionName": {
     "message": "Control Panel for Twitter"
@@ -220,10 +216,10 @@
     "message": "내 트윗 아래에 \"게시 참여수 조회\""
   },
   "hideTwitterBlueRepliesLabel": {
-    "message": "Twitter Blue 답글 숨기기"
+    "message": "Premium 파란색 체크 답장 숨기기"
   },
   "hideTwitterBlueUpsellsLabel": {
-    "message": "Twitter Blue 업셀 숨기기"
+    "message": "Premium 업셀 숨기기"
   },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "차단하거나 음소거한 계정을 인용하는 트윗 숨기기"
@@ -247,8 +243,7 @@
     "message": "리스트에 포함된 리트윗"
   },
   "mutableQuoteTweetsInfo": {
-    "message": "인용 트윗에 \"이 대화 뮤트하기\" 메뉴 항목 추가",
-    "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
+    "message": "인용 트윗에 \"이 대화 뮤트하기\" 메뉴 항목 추가"
   },
   "mutableQuoteTweetsLabel": {
     "message": "특정 트윗의 인용 트윗 음소거"
@@ -278,16 +273,13 @@
     "message": "기본"
   },
   "option_hide": {
-    "message": "숨기기",
-    "description": "Option for hiding things, e.g. Twitter Blue checks"
+    "message": "숨기기"
   },
   "option_ignore": {
-    "message": "아무것도 하지 않음",
-    "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
+    "message": "아무것도 하지 않음"
   },
   "option_separate": {
-    "message": "별도의 탭에 표시",
-    "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
+    "message": "별도의 탭에 표시"
   },
   "quoteTweetsLabel": {
     "message": "인용 트윗"
@@ -346,7 +338,7 @@
     "message": "인용 트윗을 볼 때 인용된 트윗 숨기기"
   },
   "twitterBlueChecksLabel": {
-    "message": "Twitter Blue 확인 표시"
+    "message": "Premium 파란색 체크"
   },
   "twitterBlueChecksOption_replace": {
     "message": "Twitter Blue 로고로 교체"
@@ -361,7 +353,6 @@
     "message": "팔로우/팔로잉 버튼 색상 반전 해제"
   },
   "unmuteButtonText": {
-    "message": "음소거 해제",
-    "description": "Button used in the options page to unmute a muted Quote Tweet"
+    "message": "음소거 해제"
   }
 }

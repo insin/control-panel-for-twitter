@@ -9,12 +9,10 @@
     "message": "常にタイムラインを「フォロー中」（時系列順）にする"
   },
   "appStoreSubtitle": {
-    "message": "タイムラインを制御せよ",
-    "description": "<= 30 characters"
+    "message": "タイムラインを制御せよ"
   },
   "debugCountdownLabel": {
     "message": " (デバッグオプション: 有効にするには $DEBUG_COUNTDOWN$ を複数回クリック)",
-    "description": "Displayed when the user clicks multiple times on the info text at the end of the Experiments section to enable debug mode",
     "placeholders": {
       "DEBUG_COUNTDOWN": {
         "content": "$1",
@@ -68,12 +66,10 @@
     "message": "バグレポートの設定をエクスポート"
   },
   "extensionDescription": {
-    "message": "Twitter をより細かく制御し、不足している機能を追加して UI を改善します",
-    "description": "<= 132 characters"
+    "message": "Twitter をより細かく制御し、不足している機能を追加して UI を改善します"
   },
   "extensionDescriptionShort": {
-    "message": "Twitter をより細かく制御し、不足している機能を追加して UI を改善します",
-    "description": "<= 112 characters"
+    "message": "Twitter をより細かく制御し、不足している機能を追加して UI を改善します"
   },
   "extensionName": {
     "message": "Control Panel for Twitter"
@@ -220,10 +216,10 @@
     "message": "自分のツイートの下に「ポストのエンゲージメントを表示」"
   },
   "hideTwitterBlueRepliesLabel": {
-    "message": "Twitter Blueの返信を非表示にする"
+    "message": "プレミアム ブルー チェックの返信を非表示にする"
   },
   "hideTwitterBlueUpsellsLabel": {
-    "message": "Twitter Blueのアップセルを非表示にする"
+    "message": "プレミアムのアップセルを非表示にする"
   },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "ミュートやブロックしたアカウントが含まれる引用ツイートを非表示"
@@ -247,8 +243,7 @@
     "message": "リスト内のリツイート"
   },
   "mutableQuoteTweetsInfo": {
-    "message": "「この会話をミュートする\"」メニューを引用ツイートに追加",
-    "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
+    "message": "「この会話をミュートする\"」メニューを引用ツイートに追加"
   },
   "mutableQuoteTweetsLabel": {
     "message": "ラベルのついたツイートをミュートする"
@@ -278,16 +273,13 @@
     "message": "デフォルト"
   },
   "option_hide": {
-    "message": "非表示",
-    "description": "Option for hiding things, e.g. Twitter Blue checks"
+    "message": "非表示"
   },
   "option_ignore": {
-    "message": "そのまま",
-    "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
+    "message": "そのまま"
   },
   "option_separate": {
-    "message": "別タブで開く",
-    "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
+    "message": "別タブで開く"
   },
   "quoteTweetsLabel": {
     "message": "引用ツイート"
@@ -346,7 +338,7 @@
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"
   },
   "twitterBlueChecksLabel": {
-    "message": "Twitter Blueの認証済みチェックマーク"
+    "message": "プレミアムブルーチェック"
   },
   "twitterBlueChecksOption_replace": {
     "message": "Twitter Blueロゴに変更"
@@ -361,7 +353,6 @@
     "message": "フォロー／フォロワーボタンの反転表示を解除"
   },
   "unmuteButtonText": {
-    "message": "ミュート解除",
-    "description": "Button used in the options page to unmute a muted Quote Tweet"
+    "message": "ミュート解除"
   }
 }

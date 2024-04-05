@@ -9,12 +9,10 @@
     "message": "Usar la timeline cronológica (Siguiendo) por defecto"
   },
   "appStoreSubtitle": {
-    "message": "Controla tu línea de tiempo",
-    "description": "<= 30 characters"
+    "message": "Controla tu línea de tiempo"
   },
   "debugCountdownLabel": {
     "message": " (Opciones de desarrollo: haz click $DEBUG_COUNTDOWN$ veces más para activar)",
-    "description": "Displayed when the user clicks multiple times on the info text at the end of the Experiments section to enable debug mode",
     "placeholders": {
       "debug_countdown": {
         "content": "$1",
@@ -68,12 +66,10 @@
     "message": "Exportar configuración para informe de errores"
   },
   "extensionDescription": {
-    "message": "Le brinda más control sobre Twitter y agrega funciones faltantes y mejoras en la interfaz",
-    "description": "<= 132 characters"
+    "message": "Le brinda más control sobre Twitter y agrega funciones faltantes y mejoras en la interfaz"
   },
   "extensionDescriptionShort": {
-    "message": "Le brinda más control sobre Twitter y agrega funciones faltantes y mejoras en la interfaz",
-    "description": "<= 112 characters"
+    "message": "Le brinda más control sobre Twitter y agrega funciones faltantes y mejoras en la interfaz"
   },
   "extensionName": {
     "message": "Control Panel for Twitter"
@@ -220,10 +216,10 @@
     "message": "\"Ver las interacciones de post\" debajo de tus tweets"
   },
   "hideTwitterBlueRepliesLabel": {
-    "message": "Ocultar respuestas de Twitter Blue"
+    "message": "Ocultar respuestas de cheque azul Premium"
   },
   "hideTwitterBlueUpsellsLabel": {
-    "message": "Ocultar promociones de Twitter Blue"
+    "message": "Ocultar promociones de Premium"
   },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "Ocultar tweets que citan cuentas bloqueadas o silenciadas"
@@ -247,8 +243,7 @@
     "message": "Retuits en Listas"
   },
   "mutableQuoteTweetsInfo": {
-    "message": "Añade la opción \"Silenciar esta conversación\" en el menú de los citados",
-    "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
+    "message": "Añade la opción \"Silenciar esta conversación\" en el menú de los citados"
   },
   "mutableQuoteTweetsLabel": {
     "message": "Ocultar citados de determinados tweets"
@@ -278,16 +273,13 @@
     "message": "Predet."
   },
   "option_hide": {
-    "message": "Ocultar",
-    "description": "Option for hiding things, e.g. Twitter Blue checks"
+    "message": "Ocultar"
   },
   "option_ignore": {
-    "message": "No cambiar",
-    "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
+    "message": "No cambiar"
   },
   "option_separate": {
-    "message": "Mostrar en pestaña aparte",
-    "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
+    "message": "Mostrar en pestaña aparte"
   },
   "quoteTweetsLabel": {
     "message": "Citados"
@@ -346,7 +338,7 @@
     "message": "Ocultar el tweet citado en la página de citados"
   },
   "twitterBlueChecksLabel": {
-    "message": "Ticks de verificado de Twitter Blue"
+    "message": "Marcas de verificación azules Premium"
   },
   "twitterBlueChecksOption_replace": {
     "message": "Cambiar por el logo de Twitter Blue"
@@ -361,7 +353,6 @@
     "message": "No invertir botones de Seguir/Siguiendo"
   },
   "unmuteButtonText": {
-    "message": "Dejar de silenciar",
-    "description": "Button used in the options page to unmute a muted Quote Tweet"
+    "message": "Dejar de silenciar"
   }
 }

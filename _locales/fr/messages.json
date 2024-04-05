@@ -9,12 +9,10 @@
     "message": "Utiliser le fil \"Abonnements\" (chronologique) par défaut"
   },
   "appStoreSubtitle": {
-    "message": "Contrôlez votre fil",
-    "description": "<= 30 characters"
+    "message": "Contrôlez votre fil"
   },
   "debugCountdownLabel": {
     "message": " (Options de débogage : cliquez sur $DEBUG_COUNTDOWN$ plusieurs fois pour activer)",
-    "description": "Affiché lorsque l'utilisateur clique plusieurs fois sur le texte d'information à la fin de la section Expériences pour activer le mode de débogage",
     "placeholders": {
       "debug_countdown": {
         "content": "$1",
@@ -68,12 +66,10 @@
     "message": "Exporter la configuration pour un rapport de bug"
   },
   "extensionDescription": {
-    "message": "Vous donne plus de contrôle sur Twitter et ajoute des fonctionnalités manquantes et des améliorations de l'interface utilisateur",
-    "description": "<= 132 caractères"
+    "message": "Vous donne plus de contrôle sur Twitter et ajoute des fonctionnalités manquantes et des améliorations de l'interface utilisateur"
   },
   "extensionDescriptionShort": {
-    "message": "Donne plus de contrôle sur Twitter, ajoute des fonctionnalités manquantes, améliore l'interface utilisateur",
-    "description": "<= 112 caractères"
+    "message": "Donne plus de contrôle sur Twitter, ajoute des fonctionnalités manquantes, améliore l'interface utilisateur"
   },
   "extensionName": {
     "message": "Control Panel for Twitter"
@@ -220,10 +216,10 @@
     "message": "\"Voir les engagements avec le post\" sous vos tweets"
   },
   "hideTwitterBlueRepliesLabel": {
-    "message": "Masquer les réponses Twitter Blue"
+    "message": "Masquer les réponses aux chèques bleus Premium"
   },
   "hideTwitterBlueUpsellsLabel": {
-    "message": "Masquer les promotions Twitter Blue"
+    "message": "Masquer les promotions Premium"
   },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "Masquer les tweets citant des comptes que vous avez bloqués ou masqués"
@@ -247,8 +243,7 @@
     "message": "Retweets dans les Listes"
   },
   "mutableQuoteTweetsInfo": {
-    "message": "Ajoute un élément de menu \"Mettre cette conversation en sourdine\" pour les citations de Tweets",
-    "description": "Les traductions de 'Mettre cette conversation en sourdine' dans script.js proviennent des données locales de Twitter"
+    "message": "Ajoute un élément de menu \"Mettre cette conversation en sourdine\" pour les citations de Tweets"
   },
   "mutableQuoteTweetsLabel": {
     "message": "Désactiver la citation de certains tweets"
@@ -278,16 +273,13 @@
     "message": "Par défaut"
   },
   "option_hide": {
-    "message": "Masquer",
-    "description": "Option pour masquer des choses, par exemple les tweets algorithmiques, les vérifications de Twitter Blue"
+    "message": "Masquer"
   },
   "option_ignore": {
-    "message": "Ne rien faire",
-    "description": "Option pour ne pas modifier les fonctionnalités existantes de Twitter - nous n'utilisons pas Ignore pour cela en anglais car cela pourrait être confondu avec Hide"
+    "message": "Ne rien faire"
   },
   "option_separate": {
-    "message": "Afficher dans un onglet séparé",
-    "description": "Option permettant d'afficher les Retweets ou les Tweets cités dans un onglet séparé du fil principale"
+    "message": "Afficher dans un onglet séparé"
   },
   "quoteTweetsLabel": {
     "message": "Tweets de citation"
@@ -346,7 +338,7 @@
     "message": "Masquer le tweet cité lors de l'affichage des citations de tweets"
   },
   "twitterBlueChecksLabel": {
-    "message": "Coches de Twitter Blue"
+    "message": "Coches bleues Premium"
   },
   "twitterBlueChecksOption_replace": {
     "message": "Remplacer par le logo Twitter Blue"
@@ -361,7 +353,6 @@
     "message": "Inverser les boutons Suivre / Se désabonner"
   },
   "unmuteButtonText": {
-    "message": "Restaurer",
-    "description": "Bouton utilisé dans la page d'options pour restaurer une citation de tweet masquée"
+    "message": "Restaurer"
   }
 }

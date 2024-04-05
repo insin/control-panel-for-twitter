@@ -220,10 +220,10 @@
     "message": "\"View post engagements\" under your tweets"
   },
   "hideTwitterBlueRepliesLabel": {
-    "message": "Hide Twitter Blue replies"
+    "message": "Hide Premium blue check replies"
   },
   "hideTwitterBlueUpsellsLabel": {
-    "message": "Hide Twitter Blue upsells"
+    "message": "Hide Premium upsells"
   },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "Hide tweets quoting accounts you've blocked or muted"
@@ -279,7 +279,7 @@
   },
   "option_hide": {
     "message": "Hide",
-    "description": "Option for hiding things, e.g. Twitter Blue checks"
+    "description": "Option for hiding things"
   },
   "option_ignore": {
     "message": "Do nothing",
@@ -347,7 +347,7 @@
     "message": "Hide the quoted tweet when viewing Quote Tweets"
   },
   "twitterBlueChecksLabel": {
-    "message": "Twitter Blue checks"
+    "message": "Premium blue checks"
   },
   "twitterBlueChecksOption_replace": {
     "message": "Replace with Twitter Blue logo"
