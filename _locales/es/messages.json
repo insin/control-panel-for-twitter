@@ -336,6 +336,9 @@
   "showBlueReplyVerifiedAccountsLabel": {
     "message": "Mostrar cuentas \"verificadas\""
   },
+  "showBookmarkButtonUnderFocusedTweetsLabel": {
+    "message": "Mostrar debajo de los tweets destacados"
+  },
   "showRelevantPeopleLabel": {
     "message": "Mostrar \"Personas relevantes\" al ver un tweet"
   },

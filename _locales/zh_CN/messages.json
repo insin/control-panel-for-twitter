@@ -336,6 +336,9 @@
   "showBlueReplyVerifiedAccountsLabel": {
     "message": "显示\"已验证\"账号"
   },
+  "showBookmarkButtonUnderFocusedTweetsLabel": {
+    "message": "在焦点推文下显示"
+  },
   "showRelevantPeopleLabel": {
     "message": "查看推文时显示\"相关人员\""
   },

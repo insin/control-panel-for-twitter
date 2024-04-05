@@ -62,6 +62,7 @@ export type Config = {
   showBlueReplyFollowersCountAmount: string
   showBlueReplyFollowersCount: boolean
   showBlueReplyVerifiedAccounts: boolean
+  showBookmarkButtonUnderFocusedTweets: boolean
   tweakQuoteTweetsPage: boolean
   twitterBlueChecks: 'ignore' | 'replace' | 'hide'
   uninvertFollowButtons: boolean

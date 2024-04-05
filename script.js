@@ -95,6 +95,7 @@ const config = {
   showBlueReplyFollowersCountAmount: '1000000',
   showBlueReplyFollowersCount: false,
   showBlueReplyVerifiedAccounts: false,
+  showBookmarkButtonUnderFocusedTweets: true,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
@@ -2770,16 +2771,20 @@ const configureCss = (() => {
       `)
     }
     if (config.hideBookmarkButton) {
+      // The Buffer extension adds a new button in position 2 - use their buffer-inserted class to
+      // avoid hiding the wrong button.
       hideCssSelectors.push(
         // Under timeline tweets
-        // The Buffer extension adds a new button in position 2 - use their added class to avoid
-        // hiding the wrong button.
         '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(5)',
         '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(6)',
-        // Under the focused tweet
-        '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"]:not(.buffer-inserted) > div:nth-child(4)',
-        '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"].buffer-inserted > div:nth-child(5)',
       )
+      if (!config.showBookmarkButtonUnderFocusedTweets) {
+        hideCssSelectors.push(
+          // Under the focused tweet
+          '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"]:not(.buffer-inserted) > div:nth-child(4)',
+          '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"].buffer-inserted > div:nth-child(5)',
+        )
+      }
     }
     if (config.hideBookmarksNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/bookmarks"]`)

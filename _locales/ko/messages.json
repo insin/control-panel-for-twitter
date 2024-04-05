@@ -336,6 +336,9 @@
   "showBlueReplyVerifiedAccountsLabel": {
     "message": "\"인증됨\" 계정 표시"
   },
+  "showBookmarkButtonUnderFocusedTweetsLabel": {
+    "message": "집중된 트윗 아래에 표시"
+  },
   "showRelevantPeopleLabel": {
     "message": "트윗 보기 시 \"연관된 사람\" 표시"
   },

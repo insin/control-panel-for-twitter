@@ -336,6 +336,9 @@
   "showBlueReplyVerifiedAccountsLabel": {
     "message": "「認証済み」アカウントを表示"
   },
+  "showBookmarkButtonUnderFocusedTweetsLabel": {
+    "message": "フォーカスされたツイートの下に表示"
+  },
   "showRelevantPeopleLabel": {
     "message": "ツイート閲覧時に「おすすめユーザー」を表示する"
   },

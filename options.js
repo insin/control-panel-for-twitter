@@ -98,6 +98,7 @@ for (let translationId of [
   'retweetsLabel',
   'showBlueReplyFollowersCountAmountLabel',
   'showBlueReplyVerifiedAccountsLabel',
+  'showBookmarkButtonUnderFocusedTweetsLabel',
   'showRelevantPeopleLabel',
   'tweakQuoteTweetsPageLabel',
   'twitterBlueChecksLabel',
@@ -203,6 +204,7 @@ const defaultConfig = {
   showBlueReplyFollowersCountAmount: '1000000',
   showBlueReplyFollowersCount: false,
   showBlueReplyVerifiedAccounts: false,
+  showBookmarkButtonUnderFocusedTweets: true,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
@@ -408,6 +410,7 @@ function updateDisplay() {
   $body.classList.toggle('chronological', optionsConfig.alwaysUseLatestTweets)
   $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
   $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
+  $body.classList.toggle('hidingBookmarkButton', optionsConfig.hideBookmarkButton)
   $body.classList.toggle('hidingExploreNav', optionsConfig.hideExploreNav)
   $body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
   $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
