@@ -2849,7 +2849,12 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} a[href*="ads.twitter.com"]`)
     }
     if (config.hideJobsNav) {
-      hideCssSelectors.push(`${menuRole} a[href="/jobs"]`)
+      hideCssSelectors.push(
+        // Jobs navigation item
+        `${menuRole} a[href="/jobs"]`,
+        // Jobs section in profiles
+        '.Profile [data-testid="jobs"]',
+      )
     }
     if (config.hideTweetAnalyticsLinks) {
       hideCssSelectors.push('a[data-testid="analyticsButton"]')
