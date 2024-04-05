@@ -2869,6 +2869,19 @@ const configureCss = (() => {
         // Highlight button on the pin modal
         '.PinModal [data-testid="sheetDialog"] div[role="button"]:first-child:nth-last-child(3)',
       )
+      // Hide Highlights and Articles tabs in your own profile if you don't have Premium
+      let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
+      let upsellTabLinks = 'a:is([href$="/highlights"], [href$="/articles"])'
+      cssRules.push(`
+        @supports selector(:has(*)) {
+          ${profileTabsList} > div:has(> ${upsellTabLinks}) {
+            flex: 0;
+          }
+          ${profileTabsList} > div > ${upsellTabLinks} {
+            display: none;
+          }
+        }
+      `)
       // Allow Pin and Cancel buttons go to max-width on the pin modal
       cssRules.push(`
         .PinModal [data-testid="sheetDialog"] > div > div:last-child > div > div {
@@ -4386,6 +4399,9 @@ function processCurrentPage() {
   $body.classList.toggle('MainTimeline', isOnMainTimelinePage())
   $body.classList.toggle('Notifications', isOnNotificationsPage())
   $body.classList.toggle('Profile', isOnProfilePage())
+  if (!isOnProfilePage()) {
+    $body.classList.remove('OwnProfile', 'PremiumProfile')
+  }
   $body.classList.toggle('ProfileFollows', isOnFollowListPage())
   if (!isOnFollowListPage()) {
     $body.classList.remove('Subscriptions')
@@ -5119,6 +5135,11 @@ async function tweakProfilePage() {
   observeTimeline(currentPage, {
     isUserTimeline: tab == 'affiliates'
   })
+
+  let $editProfileButton = document.querySelector('a[href="/settings/profile"]')
+  let $headerVerifiedIcon = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.TIMELINE_HEADING} [data-testid="icon-verified"]`)
+  $body.classList.toggle('OwnProfile', Boolean($editProfileButton))
+  $body.classList.toggle('PremiumProfile', Boolean($headerVerifiedIcon))
 
   if (config.replaceLogo || config.hideSubscriptions) {
     let $profileTabs = await getElement(`${Selectors.PRIMARY_COLUMN} nav`, {
