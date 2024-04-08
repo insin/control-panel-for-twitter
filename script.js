@@ -1755,7 +1755,7 @@ function getElement(selector, {
 function getStateEntities() {
   let reactRootContainer = ($reactRoot?.wrappedJSObject ? $reactRoot.wrappedJSObject : $reactRoot)?._reactRootContainer
   if (reactRootContainer) {
-    let entities = reactRootContainer._internalRoot?.current?.memoizedState?.element?.props?.children?.props?.store?.getState()?.entities
+    let entities = reactRootContainer.current?.memoizedState?.element?.props?.children?.props?.store?.getState()?.entities
     if (entities) {
       return entities
     } else {
