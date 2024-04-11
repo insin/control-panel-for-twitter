@@ -2691,10 +2691,7 @@ async function addToggleListRetweetsMenuItem($switchMenuItem) {
 function checkforDisabledHomeTimeline() {
   if (config.disableHomeTimeline && location.pathname == '/home') {
     log(`home timeline disabled, redirecting to /${config.disabledHomeTimelineRedirect}`)
-    let primaryNavSelector = desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE
-    ;/** @type {HTMLElement} */ (
-      document.querySelector(`${primaryNavSelector} a[href="/${config.disabledHomeTimelineRedirect}"]`)
-    ).click()
+    setTimeout(() => location.href = `/${config.disabledHomeTimelineRedirect}`, 100)
     return true
   }
 }
