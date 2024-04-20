@@ -1,26 +1,20 @@
 const fs = require('fs')
 const path = require('path')
 
+const {sortProperties} = require('../utils')
+
 const locales = JSON.parse(fs.readFileSync('./base-locales.json', 'utf-8'))
 
 const [key, code, localesDir = 'js'] = process.argv.slice(2)
 if (!key || !code) {
   console.log(`
+Copies a translation from Twitter's locale files to ./base-locales.json
+
 Usage:
   node update-base-locales.js TWEET 123456
   node update-base-locales.js TWEET 123456 ./old
 `.trim())
   process.exit(1)
-}
-
-function sortProperties(locale) {
-  let entries = Object.entries(locale)
-  entries.sort(([a], [b]) => {
-    if (a < b) return -1
-    if (a > b) return 1
-    return 0
-  })
-  return Object.fromEntries(entries)
 }
 
 for (let file of fs.readdirSync(localesDir)) {
