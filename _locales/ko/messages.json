@@ -203,6 +203,9 @@
   "hideSidebarContentLabel": {
     "message": "사이드바 내용 숨기기"
   },
+  "hideSpacesNavLabel": {
+    "message": "스페이스 만들기"
+  },
   "hideSubscriptionsLabel": {
     "message": "구독 숨기기"
   },

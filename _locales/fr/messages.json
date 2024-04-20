@@ -203,6 +203,9 @@
   "hideSidebarContentLabel": {
     "message": "Masquer le contenu de la barre latérale"
   },
+  "hideSpacesNavLabel": {
+    "message": "Créer votre Espace"
+  },
   "hideSubscriptionsLabel": {
     "message": "Masquer \"Souscriptions\""
   },

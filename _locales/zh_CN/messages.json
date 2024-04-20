@@ -203,6 +203,9 @@
   "hideSidebarContentLabel": {
     "message": "隐藏侧边栏内容"
   },
+  "hideSpacesNavLabel": {
+    "message": "创建你的空间"
+  },
   "hideSubscriptionsLabel": {
     "message": "隐藏订阅服务"
   },

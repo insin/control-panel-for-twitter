@@ -110,6 +110,7 @@ const config = {
   hideMessagesDrawer: true,
   hideProNav: true,
   hideSidebarContent: true,
+  hideSpacesNav: false,
   navBaseFontSize: true,
   navDensity: 'default',
   showRelevantPeople: false,
@@ -3133,6 +3134,9 @@ const configureCss = (() => {
       }
       if (config.hideProNav) {
         hideCssSelectors.push(`${menuRole} a:is([href*="tweetdeck.twitter.com"], [href*="pro.twitter.com"])`)
+      }
+      if (config.hideSpacesNav) {
+        hideCssSelectors.push(`${menuRole} a[href="/i/spaces/start"]`)
       }
       if (config.hideTwitterBlueUpsells) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a:is([href^="/i/premium"], [href^="/i/verified"])`)

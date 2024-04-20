@@ -203,6 +203,9 @@
   "hideSidebarContentLabel": {
     "message": "サイドバーコンテンツを非表示にする"
   },
+  "hideSpacesNavLabel": {
+    "message": "スペースを作成"
+  },
   "hideSubscriptionsLabel": {
     "message": "サブスクリプションを非表示"
   },

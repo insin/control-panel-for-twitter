@@ -37,6 +37,7 @@ export type Config = {
   hideRetweetMetrics: boolean
   hideSeeNewTweets: boolean
   hideShareTweetButton: boolean
+  hideSpacesNav: boolean
   hideSubscriptions: boolean
   hideTimelineTweetBox: boolean
   hideTotalTweetsMetrics: boolean
