@@ -2887,6 +2887,14 @@ const configureCss = (() => {
           }
         }
       `)
+      // Hide upsell on the Likes tab in your own profile
+      cssRules.push(`
+        @supports selector(:has(*)) {
+          body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"]) {
+            display: none;
+          }
+        }
+      `)
       // Allow Pin and Cancel buttons go to max-width on the pin modal
       cssRules.push(`
         .PinModal [data-testid="sheetDialog"] > div > div:last-child > div > div {
