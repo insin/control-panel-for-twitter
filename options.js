@@ -41,6 +41,7 @@ for (let translationId of [
   'fullWidthContentLabel',
   'fullWidthMediaLabel',
   'hideAccountSwitcherLabel',
+  'hideNotificationsNavLabel',
   'hideAdsNavLabel',
   'hideAllMetricsLabel',
   'hideBlueReplyFollowedByLabel',
