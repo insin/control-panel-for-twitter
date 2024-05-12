@@ -53,8 +53,11 @@ const config = {
   hideBlueReplyFollowing: false,
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
+  hideNotificationsNav: true,
+  hideMessagesNav: true,
   hideBookmarksNav: false,
   hideCommunitiesNav: false,
+  hideCommunityNotesNav: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
@@ -3178,11 +3181,20 @@ const configureCss = (() => {
         let bodySelector = `${config.hideExploreNavWithSidebar ? `body.Sidebar${config.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
         hideCssSelectors.push(`${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
       }
+      if (config.hideNotificationsNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/notifications"]`)
+      }
+      if (config.hideMessagesNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/messages"]`)
+      }
       if (config.hideBookmarksNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`)
       }
       if (config.hideCommunitiesNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/communities"]`)
+      }
+      if (config.hideCommunityNotesNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/communitynotes"]`)
       }
       if (config.hideMessagesDrawer) {
         cssRules.push(`${Selectors.MESSAGES_DRAWER} { visibility: hidden; }`)
