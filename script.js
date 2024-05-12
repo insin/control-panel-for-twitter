@@ -1490,7 +1490,7 @@ let tweetInteractionsTab = null
 let wasForYouTabSelected = false
 
 function isOnBookmarksPage() {
-  return currentPath == PagePaths.BOOKMARKS
+  return currentPath.startsWith(PagePaths.BOOKMARKS)
 }
 
 function isOnCommunitiesPage() {
@@ -2776,8 +2776,8 @@ const configureCss = (() => {
       // avoid hiding the wrong button.
       hideCssSelectors.push(
         // Under timeline tweets
-        '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(5)',
-        '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(6)',
+        'body:not(.Bookmarks) [data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(5)',
+        'body:not(.Bookmarks) [data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(6)',
       )
       if (!config.showBookmarkButtonUnderFocusedTweets) {
         hideCssSelectors.push(
@@ -4409,6 +4409,7 @@ function processCurrentPage() {
   }
 
   // Hooks for styling pages
+  $body.classList.toggle('Bookmarks', isOnBookmarksPage())
   $body.classList.toggle('Community', isOnCommunityPage())
   $body.classList.toggle('Explore', isOnExplorePage())
   $body.classList.toggle('HideSidebar', shouldHideSidebar())
