@@ -3195,7 +3195,7 @@ const configureCss = (() => {
           '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(4)',
           '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(5)',
           // In media modal
-          '[aria-modal="true"] > div > div:first-of-type [role="group"] > div:nth-child(4)',
+          '[aria-modal="true"] > div > div:first-of-type [role="group"] > div:nth-child(4):not([role="button"])',
         )
       }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
