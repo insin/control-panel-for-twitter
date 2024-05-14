@@ -1754,16 +1754,17 @@ function getElement(selector, {
 }
 
 function getStateEntities() {
-  let reactRootContainer = ($reactRoot?.wrappedJSObject ? $reactRoot.wrappedJSObject : $reactRoot)?._reactRootContainer
-  if (reactRootContainer) {
-    let entities = reactRootContainer.current?.memoizedState?.element?.props?.children?.props?.store?.getState()?.entities
+  let wrapped = $reactRoot.firstElementChild.wrappedJSObject || $reactRoot.firstElementChild
+  let reactPropsKey = Object.keys(wrapped).find(key => key.startsWith('__reactProps'))
+  if (reactPropsKey) {
+    let entities = wrapped[reactPropsKey].children?.props?.children?.props?.store?.getState()?.entities
     if (entities) {
       return entities
     } else {
-      warn('state entities not found')
+      warn('React state entities not found')
     }
   } else {
-    warn('React root container not found')
+    warn('React state props not found')
   }
 }
 
