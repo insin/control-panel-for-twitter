@@ -5,6 +5,8 @@
 // @namespace   https://github.com/insin/control-panel-for-twitter/
 // @match       https://twitter.com/*
 // @match       https://mobile.twitter.com/*
+// @match       https://x.com/*
+// @match       https://mobile.x.com/*
 // @run-at      document-start
 // @version     152
 // ==/UserScript==
@@ -2848,7 +2850,7 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} a[href$="/settings/monetization"]`)
     }
     if (config.hideAdsNav) {
-      hideCssSelectors.push(`${menuRole} a[href*="ads.twitter.com"]`)
+      hideCssSelectors.push(`${menuRole} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
     }
     if (config.hideJobsNav) {
       hideCssSelectors.push(
@@ -3134,7 +3136,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
       }
       if (config.hideProNav) {
-        hideCssSelectors.push(`${menuRole} a:is([href*="tweetdeck.twitter.com"], [href*="pro.twitter.com"])`)
+        hideCssSelectors.push(`${menuRole} a:is([href*="pro.twitter.com"], [href*="pro.x.com"])`)
       }
       if (config.hideSpacesNav) {
         hideCssSelectors.push(`${menuRole} a[href="/i/spaces/start"]`)
