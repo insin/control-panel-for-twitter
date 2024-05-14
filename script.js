@@ -3317,12 +3317,12 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
     config.hideReplyMetrics   && '[data-testid="reply"]',
     config.hideRetweetMetrics && '[data-testid$="retweet"]',
     config.hideLikeMetrics    && '[data-testid$="like"]',
-    config.hideBookmarkMetrics && '[data-testid$="bookmark"]',
+    config.hideBookmarkMetrics && '[data-testid$="bookmark"], [data-testid$="removeBookmark"]',
   ].filter(Boolean).join(', ')
 
   if (timelineMetricSelectors) {
     cssRules.push(
-      `[role="group"] div:is(${timelineMetricSelectors}) span { visibility: hidden; }`
+      `[role="group"] :is(${timelineMetricSelectors}) span { visibility: hidden; }`
     )
   }
 
