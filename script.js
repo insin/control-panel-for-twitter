@@ -1325,8 +1325,8 @@ const PagePaths = {
 const Selectors = {
   BLOCK_MENU_ITEM: '[data-testid="block"]',
   DESKTOP_TIMELINE_HEADER: 'div[data-testid="primaryColumn"] > div > div:first-of-type',
-  DISPLAY_DONE_BUTTON_DESKTOP: '#layers div[role="button"]:not([aria-label])',
-  DISPLAY_DONE_BUTTON_MOBILE: 'main div[role="button"]:not([aria-label])',
+  DISPLAY_DONE_BUTTON_DESKTOP: '#layers button[role="button"]:not([aria-label])',
+  DISPLAY_DONE_BUTTON_MOBILE: 'main button[role="button"]:not([aria-label])',
   MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
   MODAL_TIMELINE: 'section > h1 + div[aria-label] > div',
   MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
@@ -2874,7 +2874,7 @@ const configureCss = (() => {
         // "Highlight your best content instead" on the pin modal
         '.PinModal [data-testid="sheetDialog"] > div > div:last-child > div > div > div:first-child',
         // Highlight button on the pin modal
-        '.PinModal [data-testid="sheetDialog"] div[role="button"]:first-child:nth-last-child(3)',
+        '.PinModal [data-testid="sheetDialog"] [role="button"]:first-child:nth-last-child(3)',
       )
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
@@ -4174,7 +4174,7 @@ function onIndividualTweetTimelineChange($timeline, options) {
     } else {
       // We need to identify "Show more replies" so it doesn't get hidden if the
       // item immediately before it was hidden.
-      let $button = $item.querySelector('div[role="button"]')
+      let $button = $item.querySelector('button[role="button"]')
       if ($button) {
         if ($button?.textContent == getString('SHOW_MORE_REPLIES')) {
           itemType = 'SHOW_MORE'
