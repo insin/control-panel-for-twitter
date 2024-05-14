@@ -2099,7 +2099,7 @@ async function observeDesktopComposeTweetModal($popup) {
     if (waitingForTweetButton) return
 
     waitingForTweetButton = true
-    let $tweetButtonText = await getElement('div[data-testid="tweetButton"] span > span', {
+    let $tweetButtonText = await getElement('button[data-testid="tweetButton"] span > span', {
       context: $modalDialog,
       name: 'tweet button',
       timeout: 500,
@@ -2117,7 +2117,7 @@ async function observeDesktopComposeTweetModal($popup) {
     tweetButtonObserver = observeElement($modalDialog, (mutations) => {
       for (let mutation of mutations) {
         for (let $addedNode of mutation.addedNodes) {
-          let $tweetButtonText = $addedNode.querySelector?.('div[data-testid="tweetButton"] span > span')
+          let $tweetButtonText = $addedNode.querySelector?.('button[data-testid="tweetButton"] span > span')
           if ($tweetButtonText) {
             setTweetButtonText($tweetButtonText)
           }
@@ -3323,7 +3323,7 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
 
   if (timelineMetricSelectors) {
     cssRules.push(
-      `[role="group"] :is(${timelineMetricSelectors}) span { visibility: hidden; }`
+      `[role="group"] button:is(${timelineMetricSelectors}) span { visibility: hidden; }`
     )
   }
 
@@ -4910,7 +4910,7 @@ async function tweakHomeIcon() {
 async function tweakTweetBox() {
   // Observe username typeahead dropdowns to replace Blue checks
   if (config.twitterBlueChecks != 'ignore') {
-    let $tweetTextarea = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} label[data-testid^="tweetTextarea"]`, {
+    let $tweetTextarea = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} [data-testid^="tweetTextarea"]`, {
       name: 'tweet textarea',
       stopIf: pageIsNot(currentPage),
     })
@@ -4947,7 +4947,7 @@ async function tweakTweetBox() {
 }
 
 async function tweakTweetButton() {
-  let $tweetButton = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} div[data-testid^="tweetButton"]`, {
+  let $tweetButton = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} button[data-testid^="tweetButton"]`, {
     name: 'tweet button',
     stopIf: pageIsNot(currentPage),
   })
