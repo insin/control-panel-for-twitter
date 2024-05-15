@@ -18,8 +18,11 @@ export type Config = {
   hideBlueReplyFollowing: boolean
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
+  hideNotificationsNav: boolean
+  hideMessagesNav: boolean
   hideBookmarksNav: boolean
   hideCommunitiesNav: boolean
+  hideCommunityNotesNav: boolean
   hideExplorePageContents: boolean
   hideFollowingMetrics: boolean
   hideForYouTimeline: boolean

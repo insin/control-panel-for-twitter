@@ -123,11 +123,20 @@
   "hideBookmarkMetricsLabel": {
     "message": "Bookmarks"
   },
+  "hideNotificationsNavLabel": {
+    "message": "Notifications"
+  },
+  "hideMessagesNavLabel": {
+    "message": "Messages"
+  },
   "hideBookmarksNavLabel": {
     "message": "Bookmarks"
   },
   "hideCommunitiesNavLabel": {
     "message": "Communities"
+  },
+  "hideCommunityNotesNavLabel": {
+    "message": "Community Notes"
   },
   "hideExploreNavLabel": {
     "message": "Explore"
