@@ -4573,14 +4573,15 @@ function restoreTweetInteractionsLinks($focusedTweet) {
         ${tweetInfo.quote_count > 0 ? `<a id="tntQuoteTweetsLink" class="quoteTweets" href="${tweetLink}/quotes" dir="auto" role="link">
           <span id="tntQuoteTweetCount">
             ${Intl.NumberFormat(lang, {notation: tweetInfo.quote_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)}
-          </span>
+            ${tweetInfo.quote_count}
+            </span>
           <span>${getString(tweetInfo.quote_count == 1 ? 'QUOTE_TWEET' :'QUOTE_TWEETS')}</span>
         </a>` : ''}
         ${tweetInfo.retweet_count > 0 ? `<a id="tntRetweetsLink" data-tab="2" href="${tweetLink}/retweets" dir="auto" role="link">
-          <span>${getString('RETWEETS')}</span>
+          <span>${getString('RETWEETS')}${tweetInfo.retweet_count}</span>
         </a>` : ''}
         ${tweetInfo.favorite_count > 0 ? `<a id="tntLikesLink" data-tab="3" href="${tweetLink}/likes" dir="auto" role="link">
-          <span>${getString('LIKES')}</span>
+          <span>${getString('LIKES')}${tweetInfo.favorite_count}</span>
         </a>` : ''}
       </div>
     </div>
