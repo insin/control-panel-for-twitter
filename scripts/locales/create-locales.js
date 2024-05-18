@@ -11,6 +11,7 @@ let template = {
   MUTE_THIS_CONVERSATION: 'e2d6c17e',
   POST_ALL: 'ge8e4a38',
   QUOTE: 'bb5c5864',
+  QUOTES: 'j45978a8',
   REPOST: 'g062295e',
   REPOSTS: 'ja42739e',
   SHOW: 'a0e81a2e',
@@ -48,6 +49,7 @@ for (let file of fs.readdirSync('./js')) {
       delete locale.MUTE_THIS_CONVERSATION
     if (locale.POST_ALL == 'Post all') delete locale.POST_ALL
     if (locale.QUOTE == 'Quote') delete locale.QUOTE
+    if (locale.QUOTES == 'Quotes') delete locale.QUOTES
     if (locale.REPOST == 'Repost') delete locale.REPOST
     if (locale.REPOSTS == 'Reposts') delete locale.REPOSTS
     if (locale.SHOW == 'Show') delete locale.SHOW
