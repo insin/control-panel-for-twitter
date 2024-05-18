@@ -5104,11 +5104,14 @@ function tweakNotificationsPage() {
 }
 
 async function tweakProfilePage() {
+  let $initialContent = await getElement(desktop ? Selectors.PRIMARY_COLUMN : Selectors.MOBILE_TIMELINE_HEADER, {
+    name: 'initial profile content',
+    stopIf: pageIsNot(currentPage),
+  })
+  if (!$initialContent) return
+
   if (config.twitterBlueChecks != 'ignore') {
-    if (mobile) {
-      processBlueChecks(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER))
-    }
-    processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
+    processBlueChecks($initialContent)
   }
 
   let tab = currentPath.match(URL_PROFILE_RE)?.[2] || 'tweets'
@@ -5151,6 +5154,7 @@ async function tweakProfilePage() {
             context: $profileTabs,
             name: 'Subscriptions tab link',
             stopIf: pageIsNot(currentPage),
+            timeout: 1000,
           })
           if ($subscriptionsTabLink) {
             $subscriptionsTabLink.parentElement.classList.add('SubsTab')
