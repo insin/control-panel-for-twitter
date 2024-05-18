@@ -3236,6 +3236,9 @@ const configureCss = (() => {
           `${menuRole} a[href$="/i/grok"]`,
         )
       }
+      if (config.hideCommunitiesNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href$="/communities"]`)
+      }
       if (config.hideMessagesBottomNavItem) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
       }
