@@ -4538,10 +4538,11 @@ function restoreTweetInteractionsLinks($focusedTweet) {
  * @param {string} page
  */
 function setTitle(page) {
+  let name = config.replaceLogo ? getString('TWITTER') : 'X'
   document.title = ltr ? (
-    `${currentNotificationCount}${page} / ${getString('TWITTER')}`
+    `${currentNotificationCount}${page} / ${name}`
   ) : (
-    `${currentNotificationCount}${getString('TWITTER')} \\ ${page}`
+    `${currentNotificationCount}${name} \\ ${page}`
   )
 }
 
