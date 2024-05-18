@@ -1315,7 +1315,7 @@ const PagePaths = {
   COMPOSE_MESSAGE: '/messages/compose',
   COMPOSE_TWEET: '/compose/post',
   CONNECT: '/i/connect',
-  CUSTOMIZE_YOUR_VIEW: '/i/display',
+  DISPLAY_SETTINGS: '/settings/display',
   HOME: '/home',
   NOTIFICATION_TIMELINE: '/i/timeline',
   PROFILE_SETTINGS: '/settings/profile',
@@ -1367,13 +1367,13 @@ const Images = {
 }
 
 const THEME_BLUE = 'rgb(29, 155, 240)'
-const THEME_COLORS = new Set([
-  THEME_BLUE,
-  'rgb(255, 212, 0)',  // yellow
-  'rgb(244, 33, 46)',  // pink
-  'rgb(120, 86, 255)', // purple
-  'rgb(255, 122, 0)',  // orange
-  'rgb(0, 186, 124)',  // green
+const THEME_COLORS = new Map([
+  ['blue500', THEME_BLUE],
+  ['yellow500', 'rgb(255, 212, 0)'],
+  ['magenta500', 'rgb(249, 24, 128)'],
+  ['purple500', 'rgb(120, 86, 255)'],
+  ['orange500', 'rgb(255, 122, 0)'],
+  ['green500', 'rgb(0, 186, 124)'],
 ])
 // <body> pseudo-selector for pages the full-width content feature works on
 const FULL_WIDTH_BODY_PSEUDO = ':is(.Community, .List, .MainTimeline)'
@@ -1475,10 +1475,10 @@ let selectedHomeTabIndex = -1
 let separatedTweetsTimelineTitle = null
 
 /**
- * The current "Color" setting, which can be changed in "Customize your view".
+ * The current "Color" setting.
  * @type {string}
  */
-let themeColor = localStorage.lastThemeColor
+let themeColor = THEME_BLUE
 
 /**
  * Tab to switch to after navigating to the Tweet interactions page.
@@ -1511,6 +1511,10 @@ function isOnDiscoverCommunitiesPage() {
   return URL_DISCOVER_COMMUNITIES_RE.test(currentPath)
 }
 
+function isOnDisplaySettingsPage() {
+  return currentPath == PagePaths.DISPLAY_SETTINGS
+}
+
 function isOnExplorePage() {
   return currentPath.startsWith('/explore')
 }
@@ -1532,11 +1536,7 @@ function isOnListPage() {
 }
 
 function isOnMainTimelinePage() {
-  return currentPath == PagePaths.HOME || (
-    currentPath == PagePaths.CUSTOMIZE_YOUR_VIEW &&
-    isOnHomeTimeline() ||
-    isOnSeparatedTweetsTimeline()
-  )
+  return currentPath == PagePaths.HOME
 }
 
 function isOnMessagesPage() {
@@ -1755,18 +1755,33 @@ function getElement(selector, {
   })
 }
 
-function getStateEntities() {
+function getState() {
   let wrapped = $reactRoot.firstElementChild.wrappedJSObject || $reactRoot.firstElementChild
   let reactPropsKey = Object.keys(wrapped).find(key => key.startsWith('__reactProps'))
   if (reactPropsKey) {
-    let entities = wrapped[reactPropsKey].children?.props?.children?.props?.store?.getState()?.entities
-    if (entities) {
-      return entities
-    } else {
-      warn('React state entities not found')
-    }
+    let state = wrapped[reactPropsKey].children?.props?.children?.props?.store?.getState()
+    if (state) return state
+    warn('React state not found')
   } else {
-    warn('React state props not found')
+    warn('React prop key not found')
+  }
+}
+
+function getStateEntities() {
+  let state = getState()
+  if (state) {
+    if (state.entities) return state.entities
+    warn('React state entities not found')
+  }
+}
+
+function getThemeColorFromState() {
+  let color = getState()?.settings?.local?.themeColor
+  if (color) {
+    if (THEME_COLORS.has(color)) return THEME_COLORS.get(color)
+    warn(color, 'not found in THEME_COLORS')
+  } else {
+    warn('could not get settings.local.themeColor from React state')
   }
 }
 
@@ -1939,15 +1954,6 @@ const checkReactNativeStylesheet = (() => {
         log('found Chirp fontFamily CSS rule in React Native stylesheet')
         configureFont()
       }
-
-      if (themeColor == null &&
-          rule.style.backgroundColor &&
-          THEME_COLORS.has(rule.style.backgroundColor)) {
-        themeColor = rule.style.backgroundColor
-        localStorage.lastThemeColor = themeColor
-        log(`found initial theme color in React Native stylesheet: ${themeColor}`)
-        configureThemeCss()
-      }
     }
 
     let elapsedTime = Date.now() - startTime
@@ -1964,9 +1970,8 @@ const checkReactNativeStylesheet = (() => {
 })()
 
 /**
- * When the "Background" setting is changed in "Customize your view", <body>'s
- * backgroundColor is changed and the app is re-rendered, so we need to
- * re-process the current page.
+ * When the "Background" setting is changed, <body>'s backgroundColor is changed
+ * and the app is re-rendered, so we need to re-process the current page.
  */
 function observeBodyBackgroundColor() {
   let lastBackgroundColor = null
@@ -1991,89 +1996,6 @@ function observeBodyBackgroundColor() {
     attributeFilter: ['style']
   })
 }
-
-/**
- * When the "Color" setting is changed in "Customize your view", the app
- * re-renders from a certain point, so we need to re-process the current page.
- */
-async function observeColor() {
-  let $colorRerenderBoundary = await getElement('#react-root > div > div')
-
-  observeElement($colorRerenderBoundary, async () => {
-    if (location.pathname != PagePaths.CUSTOMIZE_YOUR_VIEW) return
-
-    let $doneButton = await getElement(desktop ? Selectors.DISPLAY_DONE_BUTTON_DESKTOP : Selectors.DISPLAY_DONE_BUTTON_MOBILE, {
-      name: 'Done button',
-      stopIf: not(() => location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW),
-    })
-    if (!$doneButton) return
-
-    let color = getComputedStyle($doneButton).backgroundColor
-    if (color == themeColor) return
-
-    log('Color setting changed - re-processing current page')
-    themeColor = color
-    localStorage.lastThemeColor = color
-    configureThemeCss()
-    observePopups()
-    observeSideNavTweetButton()
-    processCurrentPage()
-  }, 'Color change re-render boundary')
-}
-
-/**
- * When the "Font size" setting is changed in "Customize your view" on desktop,
- * `<html>`'s fontSize is changed and the app is re-rendered.
- */
-const observeHtmlFontSize = (() => {
-  /** @type {MutationObserver} */
-  let fontSizeObserver
-
-  return function observeHtmlFontSize() {
-    if (fontSizeObserver) {
-      fontSizeObserver.disconnect()
-      fontSizeObserver = null
-    }
-
-    if (mobile) return
-
-    let lastOverflow = ''
-
-    fontSizeObserver = observeElement($html, () => {
-      if (!$html.style.fontSize) return
-
-      let hasFontSizeChanged = fontSize != null && $html.style.fontSize != fontSize
-
-      if ($html.style.fontSize != fontSize) {
-        fontSize = $html.style.fontSize
-        log(`<html> fontSize has changed to ${fontSize}`)
-        configureNavFontSizeCss()
-      }
-
-      // Ignore overflow changes, which happen when a dialog is shown or hidden
-      let hasOverflowChanged = $html.style.overflow != lastOverflow
-      lastOverflow = $html.style.overflow
-      if (!hasFontSizeChanged && hasOverflowChanged) {
-        log('ignoring <html> style overflow change')
-        return
-      }
-
-      // When you switch between the smallest "Font size" options, <html>'s
-      // style is updated but the font size is kept the same - re-process just
-      // in case.
-      if (hasFontSizeChanged ||
-          location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW && fontSize == '14px') {
-        log('<html> style attribute changed, re-processing current page')
-        observePopups()
-        observeSideNavTweetButton()
-        processCurrentPage()
-      }
-    }, '<html> style attribute for font size changes', {
-      attributes: true,
-      attributeFilter: ['style']
-    })
-  }
-})()
 
 async function observeDesktopComposeTweetModal($popup) {
  let $modalDialog = await getElement('div[role="dialog"][aria-labelledby]', {
@@ -4299,9 +4221,7 @@ function onTitleChange(title) {
     newPage = title.slice(...ltr ? [0, title.lastIndexOf('/') - 1] : [title.indexOf('\\') + 2])
   }
 
-  // Only allow the same page to re-process after a title change on desktop if
-  // the "Customize your view" dialog is currently open.
-  if (newPage == currentPage && !(desktop && location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW)) {
+  if (newPage == currentPage) {
     log('ignoring duplicate title change')
     currentNotificationCount = notificationCount
     return
@@ -4329,10 +4249,6 @@ function onTitleChange(title) {
         URL_MEDIA_RE.test(location.pathname) ||
         // …the user stopped viewing media.
         URL_MEDIA_RE.test(currentPath) ||
-        // …the user opened or used the "Customize your view" dialog.
-        location.pathname == PagePaths.CUSTOMIZE_YOUR_VIEW ||
-        // …the user closed the "Customize your view" dialog.
-        currentPath == PagePaths.CUSTOMIZE_YOUR_VIEW ||
         // …the user opened the "Send via Direct Message" dialog.
         location.pathname == PagePaths.COMPOSE_MESSAGE ||
         // …the user closed the "Send via Direct Message" dialog.
@@ -4505,6 +4421,9 @@ function processCurrentPage() {
   }
   else if (isOnCommunityMembersPage()) {
     tweakCommunityMembersPage()
+  }
+  else if (isOnDisplaySettingsPage()) {
+    tweakDisplaySettingsPage()
   }
 
   // On mobile, these are pages instead of modals
@@ -4813,6 +4732,44 @@ function tweakCommunityMembersPage() {
       isTabbed: true,
       timelineSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
     })
+  }
+}
+
+function tweakDisplaySettingsPage() {
+  (async () => {
+    let $colorRerenderBoundary = await getElement('#react-root > div > div')
+
+    pageObservers.push(
+      observeElement($colorRerenderBoundary, () => {
+        let newThemeColor = getThemeColorFromState()
+        if (newThemeColor == themeColor) return
+
+        log('Color setting changed')
+        themeColor = newThemeColor
+        configureThemeCss()
+        observePopups()
+        observeSideNavTweetButton()
+      }, 'Color change re-render boundary')
+    )
+  })()
+
+  if (desktop) {
+    pageObservers.push(
+      observeElement($html, () => {
+        if (!$html.style.fontSize) return
+
+        if ($html.style.fontSize != fontSize) {
+          fontSize = $html.style.fontSize
+          log(`<html> fontSize has changed to ${fontSize}`)
+          configureNavFontSizeCss()
+          observePopups()
+          observeSideNavTweetButton()
+        }
+      }, '<html> style attribute for font size changes', {
+        attributes: true,
+        attributeFilter: ['style']
+      })
+    )
   }
 }
 
@@ -5388,13 +5345,22 @@ async function main() {
       // One-time setup
       checkReactNativeStylesheet()
       observeBodyBackgroundColor()
-      observeColor()
+      let initialThemeColor = getThemeColorFromState()
+      if (initialThemeColor) {
+        themeColor = initialThemeColor
+      }
+      if (desktop) {
+        fontSize = $html.style.fontSize
+        if (!fontSize) {
+          warn('initial fontSize not set on <html>')
+        }
+      }
 
       // Repeatable configuration setup
       configureSeparatedTweetsTimelineTitle()
       configureCss()
+      configureNavFontSizeCss()
       configureThemeCss()
-      observeHtmlFontSize()
       observePopups()
       observeSideNavTweetButton()
 
@@ -5407,7 +5373,6 @@ async function main() {
       }
     }
     else if (flexDirection != lastFlexDirection) {
-      observeHtmlFontSize()
       configChanged({version})
     }
 
@@ -5426,6 +5391,10 @@ async function main() {
  */
 function configChanged(changes) {
   log('config changed', changes)
+
+  if ('version' in changes) {
+    fontSize = desktop ? $html.style.fontSize : null
+  }
 
   configureCss()
   configureFont()
