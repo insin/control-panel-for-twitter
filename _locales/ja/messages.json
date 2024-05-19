@@ -352,6 +352,9 @@
   "uiTweaksOptionsLabel": {
     "message": "UIを微調整"
   },
+  "unblurSensitiveContentLabel": {
+    "message": "機密性の高いコンテンツのぼかしを解除する"
+  },
   "uninvertFollowButtonsLabel": {
     "message": "フォロー／フォロワーボタンの反転表示を解除"
   },

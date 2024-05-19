@@ -352,6 +352,9 @@
   "uiTweaksOptionsLabel": {
     "message": "Cambios de interfaz"
   },
+  "unblurSensitiveContentLabel": {
+    "message": "Quitar el desenfoque de contenido sensible"
+  },
   "uninvertFollowButtonsLabel": {
     "message": "No invertir botones de Seguir/Siguiendo"
   },

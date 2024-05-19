@@ -106,6 +106,7 @@ for (let translationId of [
   'twitterBlueChecksOption_replace',
   'uiImprovementsOptionsLabel',
   'uiTweaksOptionsLabel',
+  'unblurSensitiveContentLabel',
   'uninvertFollowButtonsLabel',
 ]) {
   document.getElementById(translationId).textContent = chrome.i18n.getMessage(translationId)
@@ -209,6 +210,7 @@ const defaultConfig = {
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
+  unblurSensitiveContent: false,
   // Experiments
   // none currently
   // Desktop only

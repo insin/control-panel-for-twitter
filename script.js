@@ -100,6 +100,7 @@ const config = {
   showBookmarkButtonUnderFocusedTweets: true,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
+  unblurSensitiveContent: false,
   uninvertFollowButtons: true,
   // Experiments
   // none currently
@@ -1512,8 +1513,13 @@ let currentPage = ''
 let currentPath = ''
 
 /**
- * CSS rule in the React Native stylesheet which defines the Chirp font-family
- * and fallbacks for the whole app.
+ * React Native stylesheet rule for the blur filter for sensitive content.
+ * @type {CSSStyleRule}
+ */
+let filterBlurRule = null
+
+/**
+ * React Native stylesheett rule for the Chirp font-family.
  * @type {CSSStyleRule}
  */
 let fontFamilyRule = null
@@ -2027,9 +2033,7 @@ const checkReactNativeStylesheet = (() => {
   let startTime
 
   return function checkReactNativeStylesheet() {
-    if (startTime == null) {
-      startTime = Date.now()
-    }
+    startTime ??= Date.now()
 
     let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
     if (!$style) {
@@ -2041,16 +2045,22 @@ const checkReactNativeStylesheet = (() => {
       if (!(rule instanceof CSSStyleRule)) continue
 
       if (fontFamilyRule == null &&
-          rule.style.fontFamily &&
-          rule.style.fontFamily.includes('TwitterChirp') && !rule.style.fontFamily.includes('TwitterChirpExtendedHeavy')) {
+          rule.style.fontFamily?.includes('TwitterChirp') &&
+          !rule.style.fontFamily.includes('TwitterChirpExtendedHeavy')) {
         fontFamilyRule = rule
         log('found Chirp fontFamily CSS rule in React Native stylesheet')
         configureFont()
       }
+
+      if (filterBlurRule == null && rule.style.filter?.includes('blur(30px)')) {
+        filterBlurRule = rule
+        log('found filter: blur(30px) rule in React Native stylesheet', filterBlurRule)
+        configureDynamicCss()
+      }
     }
 
     let elapsedTime = Date.now() - startTime
-    if (fontFamilyRule == null || themeColor == null) {
+    if (fontFamilyRule == null || filterBlurRule == null) {
       if (elapsedTime < 3000) {
         setTimeout(checkReactNativeStylesheet, 100)
       } else {
@@ -2245,9 +2255,7 @@ const observeFavicon = (() => {
   let shortcutIconObserver
 
   async function observeFavicon() {
-    if ($shortcutIcon == null) {
-      $shortcutIcon = await getElement('link[rel="shortcut icon"]', {name: 'shortcut icon'})
-    }
+    $shortcutIcon ??= await getElement('link[rel="shortcut icon"]', {name: 'shortcut icon'})
 
     if (!config.replaceLogo) {
       if (shortcutIconObserver != null) {
@@ -2723,9 +2731,7 @@ const configureCss = (() => {
   let $style
 
   return function configureCss() {
-    if ($style == null) {
-      $style = addStyle('features')
-    }
+    $style ??= addStyle('features')
     let cssRules = []
     let hideCssSelectors = []
     let menuRole = `[role="${desktop ? 'menu' : 'dialog'}"]`
@@ -3352,19 +3358,31 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   }
 }
 
-const configureNavFontSizeCss = (() => {
+/**
+ * CSS which depends on anything we need to get from the page.
+ */
+const configureDynamicCss = (() => {
   let $style
 
-  return function configureNavFontSizeCss() {
-    if ($style == null) {
-      $style = addStyle('nav-font-size')
-    }
+  return function configureDynamicCss() {
+    $style ??= addStyle('dynamic')
     let cssRules = []
 
     if (fontSize != null && config.navBaseFontSize) {
       cssRules.push(`
         ${Selectors.PRIMARY_NAV_DESKTOP} div[dir] span { font-size: ${fontSize}; font-weight: normal; }
         ${Selectors.PRIMARY_NAV_DESKTOP} div[dir] { margin-top: -4px; }
+      `)
+    }
+
+    if (filterBlurRule != null && config.unblurSensitiveContent) {
+      cssRules.push(`
+        ${filterBlurRule.selectorText} {
+          filter: none !important;
+        }
+        ${filterBlurRule.selectorText} + div {
+          display: none !important;
+        }
       `)
     }
 
@@ -3421,9 +3439,7 @@ const configureThemeCss = (() => {
   let $style
 
   return function configureThemeCss() {
-    if ($style == null) {
-      $style = addStyle('theme')
-    }
+    $style ??= addStyle('theme')
     let cssRules = []
 
     if (debug) {
@@ -4855,7 +4871,7 @@ function tweakDisplaySettingsPage() {
         if ($html.style.fontSize != fontSize) {
           fontSize = $html.style.fontSize
           log(`<html> fontSize has changed to ${fontSize}`)
-          configureNavFontSizeCss()
+          configureDynamicCss()
           observePopups()
           observeSideNavTweetButton()
         }
@@ -5457,7 +5473,7 @@ async function main() {
       // Repeatable configuration setup
       configureSeparatedTweetsTimelineTitle()
       configureCss()
-      configureNavFontSizeCss()
+      configureDynamicCss()
       configureThemeCss()
       observePopups()
       observeSideNavTweetButton()
@@ -5496,7 +5512,7 @@ function configChanged(changes) {
 
   configureCss()
   configureFont()
-  configureNavFontSizeCss()
+  configureDynamicCss()
   configureThemeCss()
   observeFavicon()
   observePopups()

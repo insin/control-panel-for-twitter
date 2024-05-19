@@ -361,6 +361,9 @@
   "uiTweaksOptionsLabel": {
     "message": "UI tweaks"
   },
+  "unblurSensitiveContentLabel": {
+    "message": "Unblur sensitive content"
+  },
   "uninvertFollowButtonsLabel": {
     "message": "Uninvert Follow / Following buttons"
   },

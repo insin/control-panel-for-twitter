@@ -66,6 +66,7 @@ export type Config = {
   showBookmarkButtonUnderFocusedTweets: boolean
   tweakQuoteTweetsPage: boolean
   twitterBlueChecks: 'ignore' | 'replace' | 'hide'
+  unblurSensitiveContent: boolean
   uninvertFollowButtons: boolean
   // Experiments
   // none currently

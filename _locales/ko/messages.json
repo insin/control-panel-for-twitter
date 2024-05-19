@@ -352,6 +352,9 @@
   "uiTweaksOptionsLabel": {
     "message": "UI 조정"
   },
+  "unblurSensitiveContentLabel": {
+    "message": "민감한 콘텐츠 흐리게 처리 해제"
+  },
   "uninvertFollowButtonsLabel": {
     "message": "팔로우/팔로잉 버튼 색상 반전 해제"
   },

@@ -352,6 +352,9 @@
   "uiTweaksOptionsLabel": {
     "message": "用户界面调整"
   },
+  "unblurSensitiveContentLabel": {
+    "message": "消除敏感内容的模糊"
+  },
   "uninvertFollowButtonsLabel": {
     "message": "取消 关注着/正在关注 按钮"
   },

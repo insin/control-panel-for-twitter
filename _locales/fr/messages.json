@@ -352,6 +352,9 @@
   "uiTweaksOptionsLabel": {
     "message": "Ajustements de l'interface utilisateur"
   },
+  "unblurSensitiveContentLabel": {
+    "message": "Supprimer le flou du contenu sensible"
+  },
   "uninvertFollowButtonsLabel": {
     "message": "Inverser les boutons Suivre / Se désabonner"
   },
