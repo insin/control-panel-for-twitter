@@ -2712,12 +2712,17 @@ async function addToggleListRetweetsMenuItem($switchMenuItem) {
  * @returns {boolean} `true` if redirected as a result of this call
  */
 function checkforDisabledHomeTimeline() {
-  if (config.disableHomeTimeline && location.pathname == '/home') {
+  if (config.disableHomeTimeline && location.pathname == PagePaths.HOME) {
     log(`Home timeline disabled, redirecting to /${config.disabledHomeTimelineRedirect}`)
     let primaryNavSelector = desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE
-    ;/** @type {HTMLElement} */ (
-      document.querySelector(`${primaryNavSelector} a[href="/${config.disabledHomeTimelineRedirect}"]`)
-    ).click()
+    void (async () => {
+      let $navLink = await getElement(`${primaryNavSelector} a[href="/${config.disabledHomeTimelineRedirect}"]`, {
+        name: `${config.disabledHomeTimelineRedirect} nav link`,
+        stopIf: () => location.pathname != PagePaths.HOME,
+      })
+      if (!$navLink) return
+      $navLink.click()
+    })()
     return true
   }
 }
