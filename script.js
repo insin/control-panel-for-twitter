@@ -2518,7 +2518,7 @@ async function observeTimeline(page, options = {}) {
         }, 'tabbed timeline container')
       )
     } else {
-      warn('tabbed timeline container not found')
+      warn('tabbed timeline container not found', tabbedTimelineContainerSelector)
     }
   }
 }
@@ -5098,7 +5098,7 @@ function tweakHomeTimelinePage() {
       updateSelectedHomeTabIndex()
       wasForYouTabSelected = selectedHomeTabIndex == 0
     },
-    tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
+    tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
   })
 }
 
