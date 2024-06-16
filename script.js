@@ -2733,7 +2733,11 @@ const configureCss = (() => {
 
   return function configureCss() {
     $style ??= addStyle('features')
-    let cssRules = []
+    let cssRules = [`
+      .tnt_font_family {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+    `]
     let hideCssSelectors = []
     let menuRole = `[role="${desktop ? 'menu' : 'dialog'}"]`
 
@@ -4579,7 +4583,7 @@ function restoreLinkHeadline($tweet) {
     let [site, ...rest] = $link.getAttribute('aria-label').split(' ')
     let headline = rest.join(' ')
     $link.lastElementChild?.classList.add('tnt_overlay_headline')
-    $link.insertAdjacentHTML('beforeend', `<div class="tnt_link_headline ${fontFamilyRule?.selectorText?.replace('.', '')}" style="border-top: 1px solid var(--border-color); padding: 14px;">
+    $link.insertAdjacentHTML('beforeend', `<div class="tnt_link_headline ${fontFamilyRule?.selectorText?.replace('.', '') || 'tnt_font_family'}" style="border-top: 1px solid var(--border-color); padding: 14px;">
       <div style="color: var(--color); margin-bottom: 2px;">${site}</div>
       <div style="color: var(--color-emphasis)">${headline}</div>
     </div>`)
@@ -4613,7 +4617,7 @@ function restoreTweetInteractionsLinks($focusedTweet) {
 
   $group.parentElement.insertAdjacentHTML('beforebegin', `
     <div id="tntInteractionLinks">
-      <div class="${fontFamilyRule?.selectorText?.replace('.', '')}" style="padding: 16px 4px; border-top: 1px solid var(--border-color); display: flex; gap: 20px;">
+      <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'tnt_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--border-color); display: flex; gap: 20px;">
         ${tweetInfo.quote_count > 0 ? `<a id="tntQuoteTweetsLink" class="quoteTweets" href="${tweetLink}/quotes" dir="auto" role="link">
           <span id="tntQuoteTweetCount">
             ${Intl.NumberFormat(lang, {notation: tweetInfo.quote_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)}
