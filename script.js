@@ -2801,12 +2801,13 @@ const configureCss = (() => {
       `)
     }
     if (config.hideBookmarkButton) {
-      // The Buffer extension adds a new button in position 2 - use their buffer-inserted class to
+      // The Buffer extension adds a new button in position 2 - use its buffer-inserted class to
       // avoid hiding the wrong button.
       hideCssSelectors.push(
         // Under timeline tweets
-        'body:not(.Bookmarks) [data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(5)',
-        'body:not(.Bookmarks) [data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(6)',
+        'body:not(.Bookmarks) [data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(5):not(.yeah-button-container)',
+        'body:not(.Bookmarks) [data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(6):not(.yeah-button-container)',
+        'body:not(.Bookmarks) [data-testid="tweet"][tabindex="0"] [role="group"] > .yeah-button-container + div',
       )
       if (!config.showBookmarkButtonUnderFocusedTweets) {
         hideCssSelectors.push(
@@ -3218,8 +3219,8 @@ const configureCss = (() => {
       if (config.hideViews) {
         hideCssSelectors.push(
           // Under timeline tweets
-          // The Buffer extension adds a new button in position 2 - use their added class to avoid
-          // hiding the wrong button (#209)
+          // The Buffer extension adds a new button in position 2 - use its buffer-inserted class to
+          // avoid hiding the wrong button.
           '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(4)',
           '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(5)',
           // In media modal
