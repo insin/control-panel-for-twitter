@@ -37,6 +37,7 @@
       "jsconfig.json",
       "manifest.mv2.json",
       "manifest.mv3.json",
+      "package-lock.json",
       "package.json",
       "promo/",
       "safari/",
