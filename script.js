@@ -2915,6 +2915,9 @@ const configureCss = (() => {
           ${profileTabsList} > div > ${upsellTabLinks} {
             display: none;
           }
+          .OwnProfile [data-testid="UserName"] > div:has(> div > a[href^="/i/premium"]) {
+            display: none;
+          }
         }
       `)
       // Hide upsell on the Likes tab in your own profile
