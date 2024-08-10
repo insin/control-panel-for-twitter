@@ -281,6 +281,15 @@
   "option_ignore": {
     "message": "No cambiar"
   },
+  "option_liked": {
+    "message": "Más Me gusta"
+  },
+  "option_recent": {
+    "message": "Más recientes"
+  },
+  "option_relevant": {
+    "message": "Más relevantes"
+  },
   "option_separate": {
     "message": "Mostrar en pestaña aparte"
   },
@@ -336,6 +345,9 @@
   },
   "showRelevantPeopleLabel": {
     "message": "Mostrar \"Personas relevantes\" al ver un tweet"
+  },
+  "sortRepliesLabel": {
+    "message": "Predeterminado para Organizar respuestas"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "Ocultar el tweet citado en la página de citados"

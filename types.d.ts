@@ -64,6 +64,7 @@ export type Config = {
   showBlueReplyFollowersCount: boolean
   showBlueReplyVerifiedAccounts: boolean
   showBookmarkButtonUnderFocusedTweets: boolean
+  sortReplies: 'relevant' | 'recent' | 'liked'
   tweakQuoteTweetsPage: boolean
   twitterBlueChecks: 'ignore' | 'replace' | 'hide'
   unblurSensitiveContent: boolean
@@ -94,6 +95,7 @@ export type LocaleKey =
   | 'ADD_MUTED_WORD'
   | 'HOME'
   | 'LIKES'
+  | 'MOST_RELEVANT'
   | 'MUTE_THIS_CONVERSATION'
   | 'POST_ALL'
   | 'QUOTE'
@@ -109,6 +111,7 @@ export type LocaleKey =
   | 'SHARED_TWEETS'
   | 'SHOW'
   | 'SHOW_MORE_REPLIES'
+  | 'SORT_REPLIES'
   | 'TURN_OFF_RETWEETS'
   | 'TURN_ON_RETWEETS'
   | 'TWEET'

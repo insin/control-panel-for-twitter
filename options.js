@@ -6,6 +6,9 @@ for (let optionValue of [
   'default',
   'hide',
   'ignore',
+  'liked',
+  'recent',
+  'relevant',
   'separate',
 ]) {
   let label = chrome.i18n.getMessage(`option_${optionValue}`)
@@ -101,6 +104,7 @@ for (let translationId of [
   'showBlueReplyVerifiedAccountsLabel',
   'showBookmarkButtonUnderFocusedTweetsLabel',
   'showRelevantPeopleLabel',
+  'sortRepliesLabel',
   'tweakQuoteTweetsPageLabel',
   'twitterBlueChecksLabel',
   'twitterBlueChecksOption_replace',
@@ -207,6 +211,7 @@ const defaultConfig = {
   showBlueReplyFollowersCount: false,
   showBlueReplyVerifiedAccounts: false,
   showBookmarkButtonUnderFocusedTweets: true,
+  sortReplies: 'relevant',
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,

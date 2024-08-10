@@ -281,6 +281,15 @@
   "option_ignore": {
     "message": "Ne rien faire"
   },
+  "option_liked": {
+    "message": "Les plus aimés"
+  },
+  "option_recent": {
+    "message": "Les plus récents"
+  },
+  "option_relevant": {
+    "message": "Les plus pertinentes"
+  },
   "option_separate": {
     "message": "Afficher dans un onglet séparé"
   },
@@ -336,6 +345,9 @@
   },
   "showRelevantPeopleLabel": {
     "message": "Afficher \"Personnes pertinentes\" lors de l'affichage d'un tweet"
+  },
+  "sortRepliesLabel": {
+    "message": "Par défaut pour Trier les réponses"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "Masquer le tweet cité lors de l'affichage des citations de tweets"

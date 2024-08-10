@@ -288,6 +288,15 @@
     "message": "Do nothing",
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
   },
+  "option_liked": {
+    "message": "Most liked"
+  },
+  "option_recent": {
+    "message": "Most recent"
+  },
+  "option_relevant": {
+    "message": "Most relevant"
+  },
   "option_separate": {
     "message": "Show in separate tab",
     "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
@@ -345,6 +354,9 @@
   },
   "showRelevantPeopleLabel": {
     "message": "Show \"Relevant people\" when viewing a tweet"
+  },
+  "sortRepliesLabel": {
+    "message": "Default for Sort replies"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "Hide the quoted tweet when viewing Quote Tweets"

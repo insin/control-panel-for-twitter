@@ -281,6 +281,15 @@
   "option_ignore": {
     "message": "아무것도 하지 않음"
   },
+  "option_liked": {
+    "message": "마음에 들어요 순서"
+  },
+  "option_recent": {
+    "message": "최신 순서"
+  },
+  "option_relevant": {
+    "message": "관련도 순서"
+  },
   "option_separate": {
     "message": "별도의 탭에 표시"
   },
@@ -336,6 +345,9 @@
   },
   "showRelevantPeopleLabel": {
     "message": "트윗 보기 시 \"연관된 사람\" 표시"
+  },
+  "sortRepliesLabel": {
+    "message": "답글 정렬하기의 기본값"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "인용 트윗을 볼 때 인용된 트윗 숨기기"

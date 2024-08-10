@@ -281,6 +281,15 @@
   "option_ignore": {
     "message": "そのまま"
   },
+  "option_liked": {
+    "message": "いいねが多い"
+  },
+  "option_recent": {
+    "message": "新しい順"
+  },
+  "option_relevant": {
+    "message": "関連性が高い"
+  },
   "option_separate": {
     "message": "別タブで開く"
   },
@@ -336,6 +345,9 @@
   },
   "showRelevantPeopleLabel": {
     "message": "ツイート閲覧時に「おすすめユーザー」を表示する"
+  },
+  "sortRepliesLabel": {
+    "message": "返信を並べ替えのデフォルト"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"

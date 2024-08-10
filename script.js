@@ -98,6 +98,7 @@ const config = {
   showBlueReplyFollowersCount: false,
   showBlueReplyVerifiedAccounts: false,
   showBookmarkButtonUnderFocusedTweets: true,
+  sortReplies: 'relevant',
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   unblurSensitiveContent: false,
@@ -131,6 +132,7 @@ const locales = {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     HOME: 'الرئيسيّة',
     LIKES: 'الإعجابات',
+    MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
     QUOTE_TWEET: 'اقتباس التغريدة',
@@ -144,6 +146,7 @@ const locales = {
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
+    SORT_REPLIES: 'فرز الردود',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
     TWEET: 'غرّدي',
@@ -158,6 +161,7 @@ const locales = {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     HOME: 'الرئيسيّة',
     LIKES: 'الإعجابات',
+    MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
     QUOTE: 'اقتباس',
@@ -173,6 +177,7 @@ const locales = {
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
+    SORT_REPLIES: 'فرز الردود',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
     TWEET: 'تغريد',
@@ -186,6 +191,7 @@ const locales = {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
     HOME: 'Начало',
     LIKES: 'Харесвания',
+    MOST_RELEVANT: 'Най-подходящи',
     MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
     POST_ALL: 'Публикуване на всичко',
     QUOTE: 'Цитат',
@@ -201,6 +207,7 @@ const locales = {
     SHARED_TWEETS: 'Споделени туитове',
     SHOW: 'Показване',
     SHOW_MORE_REPLIES: 'Показване на още отговори',
+    SORT_REPLIES: 'Сортиране на отговорите',
     TURN_OFF_RETWEETS: 'Изключване на ретуитовете',
     TURN_ON_RETWEETS: 'Включване на ретуитовете',
     TWEET: 'Туит',
@@ -214,6 +221,7 @@ const locales = {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
     HOME: 'হোম',
     LIKES: 'পছন্দ',
+    MOST_RELEVANT: 'সবচেয়ে প্রাসঙ্গিক',
     MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
     POST_ALL: 'সবকটি পোস্ট করুন',
     QUOTE: 'উদ্ধৃতি',
@@ -229,6 +237,7 @@ const locales = {
     SHARED_TWEETS: 'ভাগ করা টুইটগুলি',
     SHOW: 'দেখান',
     SHOW_MORE_REPLIES: 'আরও উত্তর দেখান',
+    SORT_REPLIES: 'উত্তরগুলো বাছুন',
     TURN_OFF_RETWEETS: 'পুনঃ টুইটগুলি বন্ধ করুন',
     TURN_ON_RETWEETS: 'পুনঃ টুইটগুলি চালু করুন',
     TWEET: 'টুইট',
@@ -243,6 +252,7 @@ const locales = {
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
     HOME: 'Inici',
     LIKES: 'Agradaments',
+    MOST_RELEVANT: 'El més rellevant',
     MUTE_THIS_CONVERSATION: 'Silencia la conversa',
     POST_ALL: 'Publica-ho tot',
     QUOTE: 'Cita',
@@ -258,6 +268,7 @@ const locales = {
     SHARED_TWEETS: 'Tuits compartits',
     SHOW: 'Mostra',
     SHOW_MORE_REPLIES: 'Mostra més respostes',
+    SORT_REPLIES: 'Ordena les respostes',
     TURN_OFF_RETWEETS: 'Desactiva els retuits',
     TURN_ON_RETWEETS: 'Activa els retuits',
     TWEET: 'Tuita',
@@ -271,6 +282,7 @@ const locales = {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
     HOME: 'Hlavní stránka',
     LIKES: 'Lajky',
+    MOST_RELEVANT: 'Nejvíce související',
     MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
     POST_ALL: 'Postovat vše',
     QUOTE: 'Citace',
@@ -285,6 +297,7 @@ const locales = {
     SHARED_TWEETS: 'Sdílené tweety',
     SHOW: 'Zobrazit',
     SHOW_MORE_REPLIES: 'Zobrazit další odpovědi',
+    SORT_REPLIES: 'Seřadit odpovědi',
     TURN_OFF_RETWEETS: 'Vypnout retweety',
     TURN_ON_RETWEETS: 'Zapnout retweety',
     TWEET: 'Tweetovat',
@@ -298,6 +311,7 @@ const locales = {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
     HOME: 'Forside',
     LIKES: 'Likes',
+    MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
     POST_ALL: 'Post alle',
     QUOTE: 'Citat',
@@ -309,6 +323,7 @@ const locales = {
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
+    SORT_REPLIES: 'Sortér svar',
     TURN_OFF_RETWEETS: 'Slå Retweets fra',
     TURN_ON_RETWEETS: 'Slå Retweets til',
     TWEET_ALL: 'Tweet alt',
@@ -320,6 +335,7 @@ const locales = {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
     HOME: 'Startseite',
     LIKES: 'Gefällt mir',
+    MOST_RELEVANT: 'Besonders relevant',
     MUTE_THIS_CONVERSATION: 'Diese Konversation stummschalten',
     POST_ALL: 'Alle posten',
     QUOTE: 'Zitat',
@@ -333,6 +349,7 @@ const locales = {
     SHARED_TWEETS: 'Geteilte Tweets',
     SHOW: 'Anzeigen',
     SHOW_MORE_REPLIES: 'Mehr Antworten anzeigen',
+    SORT_REPLIES: 'Antworten sortieren',
     TURN_OFF_RETWEETS: 'Retweets ausschalten',
     TURN_ON_RETWEETS: 'Retweets einschalten',
     TWEET: 'Twittern',
@@ -345,6 +362,7 @@ const locales = {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
     HOME: 'Αρχική σελίδα',
     LIKES: '"Μου αρέσει"',
+    MOST_RELEVANT: 'Πιο σχετική',
     MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
     POST_ALL: 'Δημοσίευση όλων',
     QUOTE: 'Παράθεση',
@@ -359,6 +377,7 @@ const locales = {
     SHARED_TWEETS: 'Κοινόχρηστα Tweets',
     SHOW: 'Εμφάνιση',
     SHOW_MORE_REPLIES: 'Εμφάνιση περισσότερων απαντήσεων',
+    SORT_REPLIES: 'Ταξινόμηση απαντήσεων',
     TURN_OFF_RETWEETS: 'Απενεργοποίηση των Retweet',
     TURN_ON_RETWEETS: 'Ενεργοποίηση των Retweet',
     TWEETS: 'Tweet',
@@ -371,6 +390,7 @@ const locales = {
     ADD_MUTED_WORD: 'Add muted word',
     HOME: 'Home',
     LIKES: 'Likes',
+    MOST_RELEVANT: 'Most relevant',
     MUTE_THIS_CONVERSATION: 'Mute this conversation',
     POST_ALL: 'Post all',
     QUOTE: 'Quote',
@@ -386,6 +406,7 @@ const locales = {
     SHARED_TWEETS: 'Shared Tweets',
     SHOW: 'Show',
     SHOW_MORE_REPLIES: 'Show more replies',
+    SORT_REPLIES: 'Sort replies',
     TURN_OFF_RETWEETS: 'Turn off Retweets',
     TURN_ON_RETWEETS: 'Turn on Retweets',
     TWEET: 'Tweet',
@@ -400,6 +421,7 @@ const locales = {
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
     HOME: 'Inicio',
     LIKES: 'Me gusta',
+    MOST_RELEVANT: 'Más relevantes',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
     POST_ALL: 'Postear todo',
     QUOTE: 'Cita',
@@ -413,6 +435,7 @@ const locales = {
     SHARED_TWEETS: 'Tweets compartidos',
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar más respuestas',
+    SORT_REPLIES: 'Organizar respuestas',
     TURN_OFF_RETWEETS: 'Desactivar Retweets',
     TURN_ON_RETWEETS: 'Activar Retweets',
     TWEET: 'Twittear',
@@ -449,6 +472,7 @@ const locales = {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
     HOME: 'خانه',
     LIKES: 'پسندها',
+    MOST_RELEVANT: 'مرتبط‌ترین',
     MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
     POST_ALL: 'پست کردن همه',
     QUOTE: 'نقل‌قول',
@@ -464,6 +488,7 @@ const locales = {
     SHARED_TWEETS: 'توییتهای مشترک',
     SHOW: 'نمایش',
     SHOW_MORE_REPLIES: 'نمایش پاسخ‌های بیشتر',
+    SORT_REPLIES: 'مرتب‌سازی پاسخ‌ها',
     TURN_OFF_RETWEETS: 'غیرفعال‌سازی بازتوییت‌ها',
     TURN_ON_RETWEETS: 'فعال سازی بازتوییت‌ها',
     TWEET: 'توییت',
@@ -478,6 +503,7 @@ const locales = {
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
     HOME: 'Etusivu',
     LIKES: 'Tykkäykset',
+    MOST_RELEVANT: 'Relevanteimmat',
     MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
     POST_ALL: 'Julkaise kaikki',
     QUOTE: 'Lainaa',
@@ -493,6 +519,7 @@ const locales = {
     SHARED_TWEETS: 'Jaetut twiitit',
     SHOW: 'Näytä',
     SHOW_MORE_REPLIES: 'Näytä lisää vastauksia',
+    SORT_REPLIES: 'Lajittele vastaukset',
     TURN_OFF_RETWEETS: 'Poista uudelleentwiittaukset käytöstä',
     TURN_ON_RETWEETS: 'Ota uudelleentwiittaukset käyttöön',
     TWEET: 'Twiittaa',
@@ -505,6 +532,7 @@ const locales = {
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
     LIKES: 'Mga Gusto',
+    MOST_RELEVANT: 'Pinakanauugnay',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
     POST_ALL: 'I-post lahat',
     QUOTES: 'Mga Quote',
@@ -519,6 +547,7 @@ const locales = {
     SHARED_TWEETS: 'Mga Ibinahaging Tweet',
     SHOW: 'Ipakita',
     SHOW_MORE_REPLIES: 'Magpakita pa ng mga sagot',
+    SORT_REPLIES: 'I-sort ang mga reply',
     TURN_OFF_RETWEETS: 'I-off ang Retweets',
     TURN_ON_RETWEETS: 'I-on ang Retweets',
     TWEET: 'Mag-tweet',
@@ -532,6 +561,7 @@ const locales = {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
     HOME: 'Accueil',
     LIKES: "J'aime",
+    MOST_RELEVANT: 'Les plus pertinentes',
     MUTE_THIS_CONVERSATION: 'Masquer cette conversation',
     POST_ALL: 'Tout poster',
     QUOTE: 'Citation',
@@ -544,6 +574,7 @@ const locales = {
     SHARED_TWEETS: 'Tweets partagés',
     SHOW: 'Afficher',
     SHOW_MORE_REPLIES: 'Voir plus de réponses',
+    SORT_REPLIES: 'Trier les réponses',
     TURN_OFF_RETWEETS: 'Désactiver les Retweets',
     TURN_ON_RETWEETS: 'Activer les Retweets',
     TWEET: 'Tweeter',
@@ -603,6 +634,7 @@ const locales = {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
     HOME: 'હોમ',
     LIKES: 'લાઈક્સ',
+    MOST_RELEVANT: 'સૌથી વધુ સુસંગત',
     MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
     POST_ALL: 'બધા પોસ્ટ કરો',
     QUOTE: 'અવતરણ',
@@ -618,6 +650,7 @@ const locales = {
     SHARED_TWEETS: 'શેર કરેલી ટ્વીટ્સ',
     SHOW: 'બતાવો',
     SHOW_MORE_REPLIES: 'વધુ પ્રત્યુતરો દર્શાવો',
+    SORT_REPLIES: 'પ્રત્યુત્તરોને સૉર્ટ કરો',
     TURN_OFF_RETWEETS: 'પુનટ્વીટ્સ બંધ કરો',
     TURN_ON_RETWEETS: 'પુનટ્વીટ્સ ચાલુ કરો',
     TWEET: 'ટ્વીટ',
@@ -631,6 +664,7 @@ const locales = {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
     HOME: 'דף הבית',
     LIKES: 'הערות "אהבתי"',
+    MOST_RELEVANT: 'הכי רלוונטי',
     MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
     POST_ALL: 'פרסום הכל',
     QUOTE: 'ציטוט',
@@ -646,6 +680,7 @@ const locales = {
     SHARED_TWEETS: 'ציוצים משותפים',
     SHOW: 'הצג',
     SHOW_MORE_REPLIES: 'הצג תשובות נוספות',
+    SORT_REPLIES: 'מיון תשובות',
     TURN_OFF_RETWEETS: 'כבה ציוצים מחדש',
     TURN_ON_RETWEETS: 'הפעל ציוצים מחדש',
     TWEET: 'צייץ',
@@ -660,6 +695,7 @@ const locales = {
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
     HOME: 'होम',
     LIKES: 'पसंद',
+    MOST_RELEVANT: 'सर्वाधिक प्रासंगिक',
     MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
     POST_ALL: 'सभी पोस्ट करें',
     QUOTE: 'कोट',
@@ -675,6 +711,7 @@ const locales = {
     SHARED_TWEETS: 'साझा किए गए ट्वीट',
     SHOW: 'दिखाएं',
     SHOW_MORE_REPLIES: 'और अधिक जवाब दिखाएँ',
+    SORT_REPLIES: 'जवाब सॉर्ट करें',
     TURN_OFF_RETWEETS: 'रीट्वीट बंद करें',
     TURN_ON_RETWEETS: 'रीट्वीट चालू करें',
     TWEET: 'ट्वीट करें',
@@ -688,6 +725,7 @@ const locales = {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
     HOME: 'Naslovnica',
     LIKES: 'Oznake „sviđa mi se”',
+    MOST_RELEVANT: 'Najrelevantnije',
     MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
     POST_ALL: 'Objavi sve',
     QUOTE: 'Citat',
@@ -703,6 +741,7 @@ const locales = {
     SHARED_TWEETS: 'Dijeljeni tweetovi',
     SHOW: 'Prikaži',
     SHOW_MORE_REPLIES: 'Prikaži još odgovora',
+    SORT_REPLIES: 'Sortiraj odgovore',
     TURN_OFF_RETWEETS: 'Isključi proslijeđene tweetove',
     TURN_ON_RETWEETS: 'Uključi proslijeđene tweetove',
     TWEETS: 'Tweetovi',
@@ -715,6 +754,7 @@ const locales = {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
     HOME: 'Kezdőlap',
     LIKES: 'Kedvelések',
+    MOST_RELEVANT: 'Legmegfelelőbb',
     MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
     POST_ALL: 'Az összes közzététele',
     QUOTE: 'Idézés',
@@ -729,6 +769,7 @@ const locales = {
     SHARED_TWEETS: 'Megosztott tweetek',
     SHOW: 'Megjelenítés',
     SHOW_MORE_REPLIES: 'Több válasz megjelenítése',
+    SORT_REPLIES: 'Válaszok rendezése',
     TURN_OFF_RETWEETS: 'Retweetek kikapcsolása',
     TURN_ON_RETWEETS: 'Retweetek bekapcsolása',
     TWEET: 'Tweetelj',
@@ -742,6 +783,7 @@ const locales = {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
     HOME: 'Beranda',
     LIKES: 'Suka',
+    MOST_RELEVANT: 'Paling relevan',
     MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
     POST_ALL: 'Posting semua',
     QUOTE: 'Kutipan',
@@ -756,6 +798,7 @@ const locales = {
     SHARED_TWEETS: 'Tweet yang Dibagikan',
     SHOW: 'Tampilkan',
     SHOW_MORE_REPLIES: 'Tampilkan balasan lainnya',
+    SORT_REPLIES: 'Urutkan balasan',
     TURN_OFF_RETWEETS: 'Matikan Retweet',
     TURN_ON_RETWEETS: 'Nyalakan Retweet',
     TWEETS: 'Tweet',
@@ -767,6 +810,7 @@ const locales = {
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
     LIKES: 'Mi piace',
+    MOST_RELEVANT: 'Più pertinenti',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
     POST_ALL: 'Pubblica tutto',
     QUOTE: 'Citazione',
@@ -781,6 +825,7 @@ const locales = {
     SHARED_TWEETS: 'Tweet condivisi',
     SHOW: 'Mostra',
     SHOW_MORE_REPLIES: 'Mostra altre risposte',
+    SORT_REPLIES: 'Ordina risposte',
     TURN_OFF_RETWEETS: 'Disattiva Retweet',
     TURN_ON_RETWEETS: 'Attiva Retweet',
     TWEET: 'Twitta',
@@ -794,6 +839,7 @@ const locales = {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
     HOME: 'ホーム',
     LIKES: 'いいね',
+    MOST_RELEVANT: '関連性が高い',
     MUTE_THIS_CONVERSATION: 'この会話をミュート',
     POST_ALL: 'すべてポスト',
     QUOTE: '引用',
@@ -809,6 +855,7 @@ const locales = {
     SHARED_TWEETS: '共有ツイート',
     SHOW: '表示',
     SHOW_MORE_REPLIES: '返信をさらに表示',
+    SORT_REPLIES: '返信を並べ替え',
     TURN_OFF_RETWEETS: 'リツイートをオフにする',
     TURN_ON_RETWEETS: 'リツイートをオンにする',
     TWEET: 'ツイートする',
@@ -822,6 +869,7 @@ const locales = {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
     HOME: 'ಹೋಮ್',
     LIKES: 'ಇಷ್ಟಗಳು',
+    MOST_RELEVANT: 'ಅತ್ಯಂತ ಸಂಬಂಧಿತ',
     MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
     POST_ALL: 'ಎಲ್ಲವನ್ನೂ ಪೋಸ್ಟ್ ಮಾಡಿ',
     QUOTE: 'ಕೋಟ್‌',
@@ -837,6 +885,7 @@ const locales = {
     SHARED_TWEETS: 'ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು',
     SHOW: 'ತೋರಿಸಿ',
     SHOW_MORE_REPLIES: 'ಇನ್ನಷ್ಟು ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ತೋರಿಸಿ',
+    SORT_REPLIES: 'ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ಆಯೋಜಿಸಿ',
     TURN_OFF_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
     TURN_ON_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆನ್ ಮಾಡಿ',
     TWEET: 'ಟ್ವೀಟ್',
@@ -850,6 +899,7 @@ const locales = {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
     HOME: '홈',
     LIKES: '마음에 들어요',
+    MOST_RELEVANT: '관련도 순서',
     MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
     POST_ALL: '모두 게시하기',
     QUOTE: '인용',
@@ -865,6 +915,7 @@ const locales = {
     SHARED_TWEETS: '공유 트윗',
     SHOW: '표시',
     SHOW_MORE_REPLIES: '더 많은 답글 보기',
+    SORT_REPLIES: '답글 정렬하기',
     TURN_OFF_RETWEETS: '리트윗 끄기',
     TURN_ON_RETWEETS: '리트윗 켜기',
     TWEET: '트윗',
@@ -879,6 +930,7 @@ const locales = {
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
     HOME: 'होम',
     LIKES: 'पसंती',
+    MOST_RELEVANT: 'सर्वात महत्वाचे',
     MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
     POST_ALL: 'सर्व पोस्ट करा',
     QUOTE: 'भाष्य',
@@ -894,6 +946,7 @@ const locales = {
     SHARED_TWEETS: 'सामायिक ट्विट',
     SHOW: 'दाखवा',
     SHOW_MORE_REPLIES: 'अधिक प्रत्युत्तरे दाखवा',
+    SORT_REPLIES: 'प्रत्युत्तरांची क्रमवारी करा',
     TURN_OFF_RETWEETS: 'पुनर्ट्विट्स बंद करा',
     TURN_ON_RETWEETS: 'पुनर्ट्विट्स चालू करा',
     TWEET: 'ट्विट',
@@ -907,6 +960,7 @@ const locales = {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
     HOME: 'Laman Utama',
     LIKES: 'Suka',
+    MOST_RELEVANT: 'Paling berkaitan',
     MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
     POST_ALL: 'Siarkan semua',
     QUOTE: 'Petikan',
@@ -922,6 +976,7 @@ const locales = {
     SHARED_TWEETS: 'Tweet Berkongsi',
     SHOW: 'Tunjukkan',
     SHOW_MORE_REPLIES: 'Tunjukkan lagi balasan',
+    SORT_REPLIES: 'Isih balasan',
     TURN_OFF_RETWEETS: 'Matikan Tweet semula',
     TURN_ON_RETWEETS: 'Hidupkan Tweet semula',
     TWEETS: 'Tweet',
@@ -934,6 +989,7 @@ const locales = {
     ADD_MUTED_WORD: 'Skjul nytt ord',
     HOME: 'Hjem',
     LIKES: 'Liker',
+    MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtalen',
     POST_ALL: 'Publiser alle',
     QUOTE: 'Sitat',
@@ -947,6 +1003,7 @@ const locales = {
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
+    SORT_REPLIES: 'Sorter svar',
     TURN_OFF_RETWEETS: 'Slå av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
     TWEET_ALL: 'Tweet alle',
@@ -958,6 +1015,7 @@ const locales = {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
     HOME: 'Startpagina',
     LIKES: 'Vind-ik-leuks',
+    MOST_RELEVANT: 'Meest relevant',
     MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
     POST_ALL: 'Alles plaatsen',
     QUOTE: 'Geciteerd',
@@ -970,6 +1028,7 @@ const locales = {
     SHARED_TWEETS: 'Gedeelde Tweets',
     SHOW: 'Weergeven',
     SHOW_MORE_REPLIES: 'Meer antwoorden tonen',
+    SORT_REPLIES: 'Antwoorden sorteren',
     TURN_OFF_RETWEETS: 'Retweets uitschakelen',
     TURN_ON_RETWEETS: 'Retweets inschakelen',
     TWEET: 'Tweeten',
@@ -982,6 +1041,7 @@ const locales = {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
     HOME: 'Główna',
     LIKES: 'Polubienia',
+    MOST_RELEVANT: 'Najtrafniejsze',
     MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
     POST_ALL: 'Opublikuj wszystko',
     QUOTE: 'Cytuj',
@@ -997,6 +1057,7 @@ const locales = {
     SHARED_TWEETS: 'Udostępnione Tweety',
     SHOW: 'Pokaż',
     SHOW_MORE_REPLIES: 'Pokaż więcej odpowiedzi',
+    SORT_REPLIES: 'Sortuj odpowiedzi',
     TURN_OFF_RETWEETS: 'Wyłącz Tweety podane dalej',
     TURN_ON_RETWEETS: 'Włącz Tweety podane dalej',
     TWEETS: 'Tweety',
@@ -1009,6 +1070,7 @@ const locales = {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
     HOME: 'Página Inicial',
     LIKES: 'Curtidas',
+    MOST_RELEVANT: 'Mais relevante',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     POST_ALL: 'Postar tudo',
     QUOTE: 'Comentar',
@@ -1022,6 +1084,7 @@ const locales = {
     SHARED_TWEETS: 'Tweets Compartilhados',
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar mais respostas',
+    SORT_REPLIES: 'Ordenar respostas',
     TURN_OFF_RETWEETS: 'Desativar Retweets',
     TURN_ON_RETWEETS: 'Ativar Retweets',
     TWEET: 'Tweetar',
@@ -1034,6 +1097,7 @@ const locales = {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
     HOME: 'Pagina principală',
     LIKES: 'Aprecieri',
+    MOST_RELEVANT: 'Cele mai relevante',
     MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
     POST_ALL: 'Postează tot',
     QUOTE: 'Citat',
@@ -1049,6 +1113,7 @@ const locales = {
     SHARED_TWEETS: 'Tweeturi partajate',
     SHOW: 'Afișează',
     SHOW_MORE_REPLIES: 'Afișează mai multe răspunsuri',
+    SORT_REPLIES: 'Sortare răspunsuri',
     TURN_OFF_RETWEETS: 'Dezactivează Retweeturile',
     TURN_ON_RETWEETS: 'Activează Retweeturile',
     TWEETS: 'Tweeturi',
@@ -1061,6 +1126,7 @@ const locales = {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
     HOME: 'Главная',
     LIKES: 'Нравится',
+    MOST_RELEVANT: 'Наиболее актуальные',
     MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
     POST_ALL: 'Опубликовать все',
     QUOTE: 'Цитата',
@@ -1076,6 +1142,7 @@ const locales = {
     SHARED_TWEETS: 'Общие твиты',
     SHOW: 'Показать',
     SHOW_MORE_REPLIES: 'Показать ещё ответы',
+    SORT_REPLIES: 'Упорядочить ответы',
     TURN_OFF_RETWEETS: 'Отключить ретвиты',
     TURN_ON_RETWEETS: 'Включить ретвиты',
     TWEET: 'Твитнуть',
@@ -1090,6 +1157,7 @@ const locales = {
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
     HOME: 'Domov',
     LIKES: 'Páči sa',
+    MOST_RELEVANT: 'Najrelevantnejšie',
     MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
     POST_ALL: 'Uverejniť všetko',
     QUOTE: 'Citát',
@@ -1105,6 +1173,7 @@ const locales = {
     SHARED_TWEETS: 'Zdieľané Tweety',
     SHOW: 'Zobraziť',
     SHOW_MORE_REPLIES: 'Zobraziť viac odpovedí',
+    SORT_REPLIES: 'Zoradiť odpovede',
     TURN_OFF_RETWEETS: 'Vypnúť retweety',
     TURN_ON_RETWEETS: 'Zapnúť retweety',
     TWEET: 'Tweetnuť',
@@ -1118,6 +1187,7 @@ const locales = {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
     HOME: 'Почетна',
     LIKES: 'Свиђања',
+    MOST_RELEVANT: 'Најважније',
     MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
     POST_ALL: 'Објави све',
     QUOTE: 'Цитат',
@@ -1133,6 +1203,7 @@ const locales = {
     SHARED_TWEETS: 'Дељени твитови',
     SHOW: 'Прикажи',
     SHOW_MORE_REPLIES: 'Прикажи још одговора',
+    SORT_REPLIES: 'Сортирање одговора',
     TURN_OFF_RETWEETS: 'Искључи ретвитове',
     TURN_ON_RETWEETS: 'Укључи ретвитове',
     TWEET: 'Твитуј',
@@ -1147,6 +1218,7 @@ const locales = {
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
     HOME: 'Hem',
     LIKES: 'Gilla-markeringar',
+    MOST_RELEVANT: 'Mest relevant',
     MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
     POST_ALL: 'Lägg upp allt',
     QUOTE: 'Citat',
@@ -1161,6 +1233,7 @@ const locales = {
     SHARED_TWEETS: 'Delade tweetsen',
     SHOW: 'Visa',
     SHOW_MORE_REPLIES: 'Visa fler svar',
+    SORT_REPLIES: 'Sortera svar',
     TURN_OFF_RETWEETS: 'Stäng av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
     TWEET: 'Tweeta',
@@ -1173,6 +1246,7 @@ const locales = {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
     HOME: 'முகப்பு',
     LIKES: 'விருப்பங்கள்',
+    MOST_RELEVANT: 'மிகவும் தொடர்புடையவை',
     MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
     POST_ALL: 'எல்லாம் இடுகையிடு',
     QUOTE: 'மேற்கோள்',
@@ -1188,6 +1262,7 @@ const locales = {
     SHARED_TWEETS: 'பகிரப்பட்ட ட்வீட்டுகள்',
     SHOW: 'காண்பி',
     SHOW_MORE_REPLIES: 'மேலும் பதில்களைக் காண்பி',
+    SORT_REPLIES: 'பதில்களை வகைப்படுத்து',
     TURN_OFF_RETWEETS: 'மறுகீச்சுகளை அணை',
     TURN_ON_RETWEETS: 'மறுகீச்சுகளை இயக்கு',
     TWEET: 'ட்விட் செய்',
@@ -1201,6 +1276,7 @@ const locales = {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
     HOME: 'หน้าแรก',
     LIKES: 'ความชอบ',
+    MOST_RELEVANT: 'เกี่ยวข้องที่สุด',
     MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
     POST_ALL: 'โพสต์ทั้งหมด',
     QUOTE: 'การอ้างอิง',
@@ -1216,6 +1292,7 @@ const locales = {
     SHARED_TWEETS: 'ทวีตที่แชร์',
     SHOW: 'แสดง',
     SHOW_MORE_REPLIES: 'แสดงการตอบกลับเพิ่มเติม',
+    SORT_REPLIES: 'จัดเรียงการตอบกลับ',
     TURN_OFF_RETWEETS: 'ปิดรีทวีต',
     TURN_ON_RETWEETS: 'เปิดรีทวีต',
     TWEET: 'ทวีต',
@@ -1230,6 +1307,7 @@ const locales = {
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
     HOME: 'Anasayfa',
     LIKES: 'Beğeni',
+    MOST_RELEVANT: 'En alakalı',
     MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
     POST_ALL: 'Tümünü gönder',
     QUOTE: 'Alıntı',
@@ -1244,6 +1322,7 @@ const locales = {
     SHARED_TWEETS: 'Paylaşılan Tweetler',
     SHOW: 'Göster',
     SHOW_MORE_REPLIES: 'Daha fazla yanıt göster',
+    SORT_REPLIES: 'Yanıtları sırala',
     TURN_OFF_RETWEETS: 'Retweetleri kapat',
     TURN_ON_RETWEETS: 'Retweetleri aç',
     TWEET: 'Tweetle',
@@ -1257,6 +1336,7 @@ const locales = {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
     HOME: 'Головна',
     LIKES: 'Вподобання',
+    MOST_RELEVANT: 'Найактуальніші',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
     POST_ALL: 'Опублікувати все',
     QUOTE: 'Цитата',
@@ -1272,6 +1352,7 @@ const locales = {
     SHARED_TWEETS: 'Спільні твіти',
     SHOW: 'Показати',
     SHOW_MORE_REPLIES: 'Показати більше відповідей',
+    SORT_REPLIES: 'Сортувати відповіді',
     TURN_OFF_RETWEETS: 'Вимкнути ретвіти',
     TURN_ON_RETWEETS: 'Увімкнути ретвіти',
     TWEET: 'Твіт',
@@ -1311,6 +1392,7 @@ const locales = {
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
     HOME: 'Trang chủ',
     LIKES: 'Lượt thích',
+    MOST_RELEVANT: 'Liên quan nhất',
     MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
     POST_ALL: 'Đăng tất cả',
     QUOTE: 'Trích dẫn',
@@ -1326,6 +1408,7 @@ const locales = {
     SHARED_TWEETS: 'Tweet được chia sẻ',
     SHOW: 'Hiện',
     SHOW_MORE_REPLIES: 'Hiển thị thêm trả lời',
+    SORT_REPLIES: 'Sắp xếp câu trả lời',
     TURN_OFF_RETWEETS: 'Tắt Tweet lại',
     TURN_ON_RETWEETS: 'Bật Tweet lại',
     TWEETS: 'Tweet',
@@ -1338,6 +1421,7 @@ const locales = {
     ADD_MUTED_WORD: '加入靜音文字',
     HOME: '首頁',
     LIKES: '喜歡的內容',
+    MOST_RELEVANT: '最相關',
     MUTE_THIS_CONVERSATION: '將此對話靜音',
     POST_ALL: '全部發佈',
     QUOTE: '引用',
@@ -1353,6 +1437,7 @@ const locales = {
     SHARED_TWEETS: '分享的推文',
     SHOW: '顯示',
     SHOW_MORE_REPLIES: '顯示更多回覆',
+    SORT_REPLIES: '將回覆排序',
     TURN_OFF_RETWEETS: '關閉轉推',
     TURN_ON_RETWEETS: '開啟轉推',
     TWEET: '推文',
@@ -1366,6 +1451,7 @@ const locales = {
     ADD_MUTED_WORD: '添加要隐藏的字词',
     HOME: '主页',
     LIKES: '喜欢',
+    MOST_RELEVANT: '最相关',
     MUTE_THIS_CONVERSATION: '隐藏此对话',
     POST_ALL: '全部发帖',
     QUOTE: '引用',
@@ -1381,6 +1467,7 @@ const locales = {
     SHARED_TWEETS: '分享的推文',
     SHOW: '显示',
     SHOW_MORE_REPLIES: '显示更多回复',
+    SORT_REPLIES: '对回复排序',
     TURN_OFF_RETWEETS: '关闭转推',
     TURN_ON_RETWEETS: '开启转推',
     TWEET: '推文',
@@ -1433,6 +1520,7 @@ const Selectors = {
   PROMOTED_TWEET_CONTAINER: '[data-testid="placementTracking"]',
   SIDEBAR: 'div[data-testid="sidebarColumn"]',
   SIDEBAR_WRAPPERS: 'div[data-testid="sidebarColumn"] > div > div > div > div > div',
+  SORT_REPLIES_PATH: 'svg path[d="M14 6V3h2v8h-2V8H3V6h11zm7 2h-3.5V6H21v2zM8 16v-3h2v8H8v-3H3v-2h5zm13 2h-9.5v-2H21v2z"]',
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: '[data-testid="tweet"]',
@@ -1451,7 +1539,6 @@ const Svgs = {
   TWITTER_LOGO_PATH: 'M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z',
   X_HOME_ACTIVE_PATH: 'M21.591 7.146L12.52 1.157c-.316-.21-.724-.21-1.04 0l-9.071 5.99c-.26.173-.409.456-.409.757v13.183c0 .502.418.913.929.913H9.14c.51 0 .929-.41.929-.913v-7.075h3.909v7.075c0 .502.417.913.928.913h6.165c.511 0 .929-.41.929-.913V7.904c0-.301-.158-.584-.408-.758z',
   X_HOME_INACTIVE_PATH: 'M21.591 7.146L12.52 1.157c-.316-.21-.724-.21-1.04 0l-9.071 5.99c-.26.173-.409.456-.409.757v13.183c0 .502.418.913.929.913h6.638c.511 0 .929-.41.929-.913v-7.075h3.008v7.075c0 .502.418.913.929.913h6.639c.51 0 .928-.41.928-.913V7.904c0-.301-.158-.584-.408-.758zM20 20l-4.5.01.011-7.097c0-.502-.418-.913-.928-.913H9.44c-.511 0-.929.41-.929.913L8.5 20H4V8.773l8.011-5.342L20 8.764z',
-
 }
 
 /** @enum {string} */
@@ -1502,6 +1589,9 @@ let quotedTweet = null
 
 /** `true` when a 'Block @${user}' menu item was seen in the last popup. */
 let blockMenuItemSeen = false
+
+/** `true` if we're opening the Sort replies menu to change settings. */
+let changingSortReplies = false
 
 /** Notification count in the title (including trailing space), e.g. `'(1) '`. */
 let currentNotificationCount = ''
@@ -3685,6 +3775,25 @@ function getVerifiedProps($svg) {
 function handlePopup($popup) {
   let result = {tookAction: false, onPopupClosed: null}
 
+  if (changingSortReplies) {
+    let $dialog = /** @type {HTMLElement} */ ($popup.querySelector(`[data-testid="${desktop ? 'HoverCard' : 'sheetDialog'}"]`))
+    if ($dialog) {
+      let $menuItems =  /** @type {NodeListOf<HTMLElement>} */ ($dialog.querySelectorAll('div[role="menuitem"]'))
+      if ($menuItems[0].previousElementSibling?.textContent == getString('SORT_REPLIES')) {
+        log('changing Sort replies to', config.sortReplies)
+        $menuItems[{recent: 1, liked: 2}[config.sortReplies]]?.click()
+      } else {
+        warn('dialog does not contain Sort replies heading')
+      }
+      result.tookAction = true
+      changingSortReplies = false
+      return result
+    } else {
+      warn('could not find Sort replies dialog')
+      changingSortReplies = false
+    }
+  }
+
   if (desktop && !isDesktopComposeTweetModalOpen && location.pathname.startsWith(PagePaths.COMPOSE_TWEET)) {
     log('compose tweet modal opened')
     isDesktopComposeTweetModalOpen = true
@@ -4970,13 +5079,35 @@ async function tweakIndividualTweetPage() {
   observeIndividualTweetTimeline(currentPage)
 
   if (config.replaceLogo) {
-    let $headingText = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`, {
-      name: 'tweet thread heading',
-      stopIf: pageIsNot(currentPage)
-    })
-    if ($headingText && $headingText.textContent != getString('TWEET')) {
-      $headingText.textContent = getString('TWEET')
-    }
+    (async () => {
+      let $headingText = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`, {
+        name: 'tweet thread heading',
+        stopIf: pageIsNot(currentPage)
+      })
+      if ($headingText && $headingText.textContent != getString('TWEET')) {
+        $headingText.textContent = getString('TWEET')
+      }
+    })()
+  }
+
+  if (config.sortReplies != 'relevant') {
+    (async () => {
+      let $sortRepliesIconPath = await getElement(Selectors.SORT_REPLIES_PATH, {
+        name: 'sort replies icon',
+        stopIf: pageIsNot(currentPage),
+        timeout: 3000,
+      })
+      if ($sortRepliesIconPath) {
+        let $svg = $sortRepliesIconPath.parentElement.parentElement
+        let currentSort = $svg.nextElementSibling?.textContent
+        log('replies are sorted by', currentSort)
+        if (currentSort == getString('MOST_RELEVANT')) {
+          changingSortReplies = true
+          log('clicking Sort replies dropdown', $svg.parentElement.parentElement)
+          setTimeout(() => $svg.parentElement.parentElement.click(), 100)
+        }
+      }
+    })()
   }
 }
 

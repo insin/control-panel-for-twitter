@@ -1,5 +1,6 @@
 {
   "ar-x-fm": {
+    "MOST_RELEVANT": "الأكثر ملائمة",
     "QUOTE_TWEET": "اقتباس التغريدة",
     "QUOTE_TWEETS": "تغريدات اقتباس",
     "RETWEET": "إعادة التغريد",
@@ -7,6 +8,7 @@
     "RETWEETS": "إعادات التغريد",
     "SHARED": "مشترك",
     "SHARED_TWEETS": "التغريدات المشتركة",
+    "SORT_REPLIES": "فرز الردود",
     "TURN_OFF_RETWEETS": "تعطيل إعادة التغريد",
     "TURN_ON_RETWEETS": "تفعيل إعادة التغريد",
     "TWEET": "غرّدي",
@@ -18,6 +20,7 @@
     "UNDO_RETWEET": "التراجع عن التغريدة"
   },
   "ar": {
+    "MOST_RELEVANT": "الأكثر ملائمة",
     "QUOTE_TWEET": "اقتباس التغريدة",
     "QUOTE_TWEETS": "تغريدات اقتباس",
     "RETWEET": "إعادة التغريد",
@@ -25,6 +28,7 @@
     "RETWEETS": "إعادات التغريد",
     "SHARED": "مشترك",
     "SHARED_TWEETS": "التغريدات المشتركة",
+    "SORT_REPLIES": "فرز الردود",
     "TURN_OFF_RETWEETS": "تعطيل إعادة التغريد",
     "TURN_ON_RETWEETS": "تفعيل إعادة التغريد",
     "TWEET": "تغريد",
@@ -35,6 +39,7 @@
     "UNDO_RETWEET": "التراجع عن التغريدة"
   },
   "bg": {
+    "MOST_RELEVANT": "Най-подходящи",
     "QUOTE_TWEET": "Цитиране на туита",
     "QUOTE_TWEETS": "Туитове с цитат",
     "RETWEET": "Ретуитване",
@@ -42,6 +47,7 @@
     "RETWEETS": "Ретуитове",
     "SHARED": "Споделен",
     "SHARED_TWEETS": "Споделени туитове",
+    "SORT_REPLIES": "Сортиране на отговорите",
     "TURN_OFF_RETWEETS": "Изключване на ретуитовете",
     "TURN_ON_RETWEETS": "Включване на ретуитовете",
     "TWEET": "Туит",
@@ -52,6 +58,7 @@
     "UNDO_RETWEET": "Отмяна на ретуитването"
   },
   "bn": {
+    "MOST_RELEVANT": "সবচেয়ে প্রাসঙ্গিক",
     "QUOTE_TWEET": "টুইট উদ্ধৃত করুন",
     "QUOTE_TWEETS": "টুইট উদ্ধৃতিগুলো",
     "RETWEET": "পুনঃটুইট",
@@ -59,6 +66,7 @@
     "RETWEETS": "পুনঃটুইটগুলো",
     "SHARED": "ভাগ করা",
     "SHARED_TWEETS": "ভাগ করা টুইটগুলি",
+    "SORT_REPLIES": "উত্তরগুলো বাছুন",
     "TURN_OFF_RETWEETS": "পুনঃ টুইটগুলি বন্ধ করুন",
     "TURN_ON_RETWEETS": "পুনঃ টুইটগুলি চালু করুন",
     "TWEET": "টুইট",
@@ -70,6 +78,7 @@
     "UNDO_RETWEET": "পুনঃ টুইট পুর্বাবস্থায় ফেরান"
   },
   "ca": {
+    "MOST_RELEVANT": "El més rellevant",
     "QUOTE_TWEET": "Cita el tuit",
     "QUOTE_TWEETS": "Tuits amb cita",
     "RETWEET": "Retuit",
@@ -77,6 +86,7 @@
     "RETWEETS": "Retuits",
     "SHARED": "Compartit",
     "SHARED_TWEETS": "Tuits compartits",
+    "SORT_REPLIES": "Ordena les respostes",
     "TURN_OFF_RETWEETS": "Desactiva els retuits",
     "TURN_ON_RETWEETS": "Activa els retuits",
     "TWEET": "Tuita",
@@ -87,6 +97,7 @@
     "UNDO_RETWEET": "Desfés el retuit"
   },
   "cs": {
+    "MOST_RELEVANT": "Nejvíce související",
     "QUOTE_TWEET": "Citovat Tweet",
     "QUOTE_TWEETS": "Tweety s citací",
     "RETWEET": "Retweetnout",
@@ -94,6 +105,7 @@
     "RETWEETS": "Retweety",
     "SHARED": "Sdílený",
     "SHARED_TWEETS": "Sdílené tweety",
+    "SORT_REPLIES": "Seřadit odpovědi",
     "TURN_OFF_RETWEETS": "Vypnout retweety",
     "TURN_ON_RETWEETS": "Zapnout retweety",
     "TWEET": "Tweetovat",
@@ -104,11 +116,13 @@
     "UNDO_RETWEET": "Zrušit Retweet"
   },
   "da": {
+    "MOST_RELEVANT": "Mest relevante",
     "QUOTE_TWEET": "Citér Tweet",
     "QUOTE_TWEETS": "Citat-Tweets",
     "RETWEETED_BY": "Retweetet af",
     "SHARED": "Delt",
     "SHARED_TWEETS": "Delte tweets",
+    "SORT_REPLIES": "Sortér svar",
     "TURN_OFF_RETWEETS": "Slå Retweets fra",
     "TURN_ON_RETWEETS": "Slå Retweets til",
     "TWEET_ALL": "Tweet alt",
@@ -117,12 +131,14 @@
     "UNDO_RETWEET": "Fortryd Retweet"
   },
   "de": {
+    "MOST_RELEVANT": "Besonders relevant",
     "QUOTE_TWEET": "Tweet zitieren",
     "QUOTE_TWEETS": "Zitierte Tweets",
     "RETWEET": "Retweeten",
     "RETWEETED_BY": "Retweetet von",
     "SHARED": "Geteilt",
     "SHARED_TWEETS": "Geteilte Tweets",
+    "SORT_REPLIES": "Antworten sortieren",
     "TURN_OFF_RETWEETS": "Retweets ausschalten",
     "TURN_ON_RETWEETS": "Retweets einschalten",
     "TWEET": "Twittern",
@@ -132,12 +148,14 @@
     "UNDO_RETWEET": "Retweet rückgängig machen"
   },
   "el": {
+    "MOST_RELEVANT": "Πιο σχετική",
     "QUOTE_TWEET": "Παράθεση Tweet",
     "QUOTE_TWEETS": "Tweet με παράθεση",
     "RETWEETED_BY": "Έγινε Retweet από",
     "RETWEETS": "Retweet",
     "SHARED": "Κοινόχρηστο",
     "SHARED_TWEETS": "Κοινόχρηστα Tweets",
+    "SORT_REPLIES": "Ταξινόμηση απαντήσεων",
     "TURN_OFF_RETWEETS": "Απενεργοποίηση των Retweet",
     "TURN_ON_RETWEETS": "Ενεργοποίηση των Retweet",
     "TWEETS": "Tweet",
@@ -147,6 +165,7 @@
     "UNDO_RETWEET": "Αναίρεση Retweet"
   },
   "en": {
+    "MOST_RELEVANT": "Most relevant",
     "QUOTE_TWEET": "Quote Tweet",
     "QUOTE_TWEETS": "Quote Tweets",
     "RETWEET": "Retweet",
@@ -154,6 +173,7 @@
     "RETWEETS": "Retweets",
     "SHARED": "Shared",
     "SHARED_TWEETS": "Shared Tweets",
+    "SORT_REPLIES": "Sort replies",
     "TURN_OFF_RETWEETS": "Turn off Retweets",
     "TURN_ON_RETWEETS": "Turn on Retweets",
     "TWEET": "Tweet",
@@ -165,12 +185,14 @@
     "UNDO_RETWEET": "Undo Retweet"
   },
   "es": {
+    "MOST_RELEVANT": "Más relevantes",
     "QUOTE_TWEET": "Citar Tweet",
     "QUOTE_TWEETS": "Tweets citados",
     "RETWEET": "Retwittear",
     "RETWEETED_BY": "Retwitteado por",
     "SHARED": "Compartido",
     "SHARED_TWEETS": "Tweets compartidos",
+    "SORT_REPLIES": "Organizar respuestas",
     "TURN_OFF_RETWEETS": "Desactivar Retweets",
     "TURN_ON_RETWEETS": "Activar Retweets",
     "TWEET": "Twittear",
@@ -196,6 +218,7 @@
     "UNDO_RETWEET": "Desegin birtxiokatzea"
   },
   "fa": {
+    "MOST_RELEVANT": "مرتبط‌ترین",
     "QUOTE_TWEET": "نقل‌توییت",
     "QUOTE_TWEETS": "نقل‌توییت‌ها",
     "RETWEET": "بازتوییت",
@@ -203,6 +226,7 @@
     "RETWEETS": "بازتوییت‌ها",
     "SHARED": "مشترک",
     "SHARED_TWEETS": "توییتهای مشترک",
+    "SORT_REPLIES": "مرتب‌سازی پاسخ‌ها",
     "TURN_OFF_RETWEETS": "غیرفعال‌سازی بازتوییت‌ها",
     "TURN_ON_RETWEETS": "فعال سازی بازتوییت‌ها",
     "TWEET": "توییت",
@@ -214,6 +238,7 @@
     "UNDO_RETWEET": "لغو بازتوییت"
   },
   "fi": {
+    "MOST_RELEVANT": "Relevanteimmat",
     "QUOTE_TWEET": "Twiitin lainaus",
     "QUOTE_TWEETS": "Twiitin lainaukset",
     "RETWEET": "Uudelleentwiittaa",
@@ -221,6 +246,7 @@
     "RETWEETS": "Uudelleentwiittaukset",
     "SHARED": "Jaettu",
     "SHARED_TWEETS": "Jaetut twiitit",
+    "SORT_REPLIES": "Lajittele vastaukset",
     "TURN_OFF_RETWEETS": "Poista uudelleentwiittaukset käytöstä",
     "TURN_ON_RETWEETS": "Ota uudelleentwiittaukset käyttöön",
     "TWEET": "Twiittaa",
@@ -231,6 +257,7 @@
     "UNDO_RETWEET": "Kumoa uudelleentwiittaus"
   },
   "fil": {
+    "MOST_RELEVANT": "Pinakanauugnay",
     "QUOTE_TWEET": "Quote na Tweet",
     "QUOTE_TWEETS": "Mga Quote na Tweet",
     "RETWEET": "I-retweet",
@@ -238,6 +265,7 @@
     "RETWEETS": "Mga Retweet",
     "SHARED": "Ibinahagi",
     "SHARED_TWEETS": "Mga Ibinahaging Tweet",
+    "SORT_REPLIES": "I-sort ang mga reply",
     "TURN_OFF_RETWEETS": "I-off ang Retweets",
     "TURN_ON_RETWEETS": "I-on ang Retweets",
     "TWEET": "Mag-tweet",
@@ -248,12 +276,14 @@
     "UNDO_RETWEET": "Huwag nang I-retweet"
   },
   "fr": {
+    "MOST_RELEVANT": "Les plus pertinentes",
     "QUOTE_TWEET": "Citer le Tweet",
     "QUOTE_TWEETS": "Tweets cités",
     "RETWEET": "Retweeter",
     "RETWEETED_BY": "Retweeté par",
     "SHARED": "Partagé",
     "SHARED_TWEETS": "Tweets partagés",
+    "SORT_REPLIES": "Trier les réponses",
     "TURN_OFF_RETWEETS": "Désactiver les Retweets",
     "TURN_ON_RETWEETS": "Activer les Retweets",
     "TWEET": "Tweeter",
@@ -294,6 +324,7 @@
     "UNDO_RETWEET": "Desfacer rechouchío"
   },
   "gu": {
+    "MOST_RELEVANT": "સૌથી વધુ સુસંગત",
     "QUOTE_TWEET": "અવતરણની સાથે ટ્વીટ કરો",
     "QUOTE_TWEETS": "અવતરણની સાથે ટ્વીટ્સ",
     "RETWEET": "પુનટ્વીટ",
@@ -301,6 +332,7 @@
     "RETWEETS": "પુનટ્વીટ્સ",
     "SHARED": "સાંજેડેલું",
     "SHARED_TWEETS": "શેર કરેલી ટ્વીટ્સ",
+    "SORT_REPLIES": "પ્રત્યુત્તરોને સૉર્ટ કરો",
     "TURN_OFF_RETWEETS": "પુનટ્વીટ્સ બંધ કરો",
     "TURN_ON_RETWEETS": "પુનટ્વીટ્સ ચાલુ કરો",
     "TWEET": "ટ્વીટ",
@@ -311,6 +343,7 @@
     "UNDO_RETWEET": "પુનટ્વીટને પૂર્વવત કરો"
   },
   "he": {
+    "MOST_RELEVANT": "הכי רלוונטי",
     "QUOTE_TWEET": "ציטוט ציוץ",
     "QUOTE_TWEETS": "ציוצי ציטוט",
     "RETWEET": "צייץ מחדש",
@@ -318,6 +351,7 @@
     "RETWEETS": "ציוצים מחדש",
     "SHARED": "משותף",
     "SHARED_TWEETS": "ציוצים משותפים",
+    "SORT_REPLIES": "מיון תשובות",
     "TURN_OFF_RETWEETS": "כבה ציוצים מחדש",
     "TURN_ON_RETWEETS": "הפעל ציוצים מחדש",
     "TWEET": "צייץ",
@@ -329,6 +363,7 @@
     "UNDO_RETWEET": "ביטול ציוץ מחדש"
   },
   "hi": {
+    "MOST_RELEVANT": "सर्वाधिक प्रासंगिक",
     "QUOTE_TWEET": "ट्वीट क्वोट करें",
     "QUOTE_TWEETS": "कोट ट्वीट्स",
     "RETWEET": "रीट्वीट करें",
@@ -336,6 +371,7 @@
     "RETWEETS": "रीट्वीट्स",
     "SHARED": "साझा किया हुआ",
     "SHARED_TWEETS": "साझा किए गए ट्वीट",
+    "SORT_REPLIES": "जवाब सॉर्ट करें",
     "TURN_OFF_RETWEETS": "रीट्वीट बंद करें",
     "TURN_ON_RETWEETS": "रीट्वीट चालू करें",
     "TWEET": "ट्वीट करें",
@@ -346,6 +382,7 @@
     "UNDO_RETWEET": "रीट्वीट को पूर्ववत करें"
   },
   "hr": {
+    "MOST_RELEVANT": "Najrelevantnije",
     "QUOTE_TWEET": "Citiraj Tweet",
     "QUOTE_TWEETS": "Citirani tweetovi",
     "RETWEET": "Proslijedi tweet",
@@ -353,6 +390,7 @@
     "RETWEETS": "Proslijeđeni tweetovi",
     "SHARED": "Podijeljeno",
     "SHARED_TWEETS": "Dijeljeni tweetovi",
+    "SORT_REPLIES": "Sortiraj odgovore",
     "TURN_OFF_RETWEETS": "Isključi proslijeđene tweetove",
     "TURN_ON_RETWEETS": "Uključi proslijeđene tweetove",
     "TWEETS": "Tweetovi",
@@ -362,12 +400,14 @@
     "UNDO_RETWEET": "Poništi prosljeđivanje tweeta"
   },
   "hu": {
+    "MOST_RELEVANT": "Legmegfelelőbb",
     "QUOTE_TWEET": "Tweet idézése",
     "QUOTE_TWEETS": "Tweet-idézések",
     "RETWEETED_BY": "Retweetelte",
     "RETWEETS": "Retweetek",
     "SHARED": "Megosztott",
     "SHARED_TWEETS": "Megosztott tweetek",
+    "SORT_REPLIES": "Válaszok rendezése",
     "TURN_OFF_RETWEETS": "Retweetek kikapcsolása",
     "TURN_ON_RETWEETS": "Retweetek bekapcsolása",
     "TWEET": "Tweetelj",
@@ -378,12 +418,14 @@
     "UNDO_RETWEET": "Retweet visszavonása"
   },
   "id": {
+    "MOST_RELEVANT": "Paling relevan",
     "QUOTE_TWEET": "Kutip Tweet",
     "QUOTE_TWEETS": "Tweet Kutipan",
     "RETWEETED_BY": "Di-retweet oleh",
     "RETWEETS": "Retweet",
     "SHARED": "Dibagikan",
     "SHARED_TWEETS": "Tweet yang Dibagikan",
+    "SORT_REPLIES": "Urutkan balasan",
     "TURN_OFF_RETWEETS": "Matikan Retweet",
     "TURN_ON_RETWEETS": "Nyalakan Retweet",
     "TWEETS": "Tweet",
@@ -393,6 +435,7 @@
     "UNDO_RETWEET": "Batalkan Retweet"
   },
   "it": {
+    "MOST_RELEVANT": "Più pertinenti",
     "QUOTE_TWEET": "Cita Tweet",
     "QUOTE_TWEETS": "Tweet di citazione",
     "RETWEET": "Ritwitta",
@@ -400,6 +443,7 @@
     "RETWEETS": "Retweet",
     "SHARED": "Condiviso",
     "SHARED_TWEETS": "Tweet condivisi",
+    "SORT_REPLIES": "Ordina risposte",
     "TURN_OFF_RETWEETS": "Disattiva Retweet",
     "TURN_ON_RETWEETS": "Attiva Retweet",
     "TWEET": "Twitta",
@@ -410,6 +454,7 @@
     "UNDO_RETWEET": "Annulla Retweet"
   },
   "ja": {
+    "MOST_RELEVANT": "関連性が高い",
     "QUOTE_TWEET": "引用ツイート",
     "QUOTE_TWEETS": "引用ツイート",
     "RETWEET": "リツイート",
@@ -417,6 +462,7 @@
     "RETWEETS": "リツイート",
     "SHARED": "共有",
     "SHARED_TWEETS": "共有ツイート",
+    "SORT_REPLIES": "返信を並べ替え",
     "TURN_OFF_RETWEETS": "リツイートをオフにする",
     "TURN_ON_RETWEETS": "リツイートをオンにする",
     "TWEET": "ツイートする",
@@ -427,6 +473,7 @@
     "UNDO_RETWEET": "リツイートを取り消す"
   },
   "kn": {
+    "MOST_RELEVANT": "ಅತ್ಯಂತ ಸಂಬಂಧಿತ",
     "QUOTE_TWEET": "ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ",
     "QUOTE_TWEETS": "ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು",
     "RETWEET": "ಮರುಟ್ವೀಟಿಸಿ",
@@ -434,6 +481,7 @@
     "RETWEETS": "ಮರುಟ್ವೀಟ್‌ಗಳು",
     "SHARED": "ಹಂಚಲಾಗಿದೆ",
     "SHARED_TWEETS": "ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು",
+    "SORT_REPLIES": "ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ಆಯೋಜಿಸಿ",
     "TURN_OFF_RETWEETS": "ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ",
     "TURN_ON_RETWEETS": "ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆನ್ ಮಾಡಿ",
     "TWEET": "ಟ್ವೀಟ್",
@@ -444,6 +492,7 @@
     "UNDO_RETWEET": "ಮರುಟ್ವೀಟಿಸುವುದನ್ನು ರದ್ದುಮಾಡಿ"
   },
   "ko": {
+    "MOST_RELEVANT": "관련도 순서",
     "QUOTE_TWEET": "트윗 인용하기",
     "QUOTE_TWEETS": "트윗 인용하기",
     "RETWEET": "리트윗",
@@ -451,6 +500,7 @@
     "RETWEETS": "리트윗",
     "SHARED": "공유된",
     "SHARED_TWEETS": "공유 트윗",
+    "SORT_REPLIES": "답글 정렬하기",
     "TURN_OFF_RETWEETS": "리트윗 끄기",
     "TURN_ON_RETWEETS": "리트윗 켜기",
     "TWEET": "트윗",
@@ -462,6 +512,7 @@
     "UNDO_RETWEET": "리트윗 취소"
   },
   "mr": {
+    "MOST_RELEVANT": "सर्वात महत्वाचे",
     "QUOTE_TWEET": "ट्विट वर भाष्य करा",
     "QUOTE_TWEETS": "भाष्य ट्विट्स",
     "RETWEET": "पुन्हा ट्विट",
@@ -469,6 +520,7 @@
     "RETWEETS": "पुनर्ट्विट्स",
     "SHARED": "सामायिक",
     "SHARED_TWEETS": "सामायिक ट्विट",
+    "SORT_REPLIES": "प्रत्युत्तरांची क्रमवारी करा",
     "TURN_OFF_RETWEETS": "पुनर्ट्विट्स बंद करा",
     "TURN_ON_RETWEETS": "पुनर्ट्विट्स चालू करा",
     "TWEET": "ट्विट",
@@ -479,6 +531,7 @@
     "UNDO_RETWEET": "पुनर्ट्विट पूर्ववत करा"
   },
   "ms": {
+    "MOST_RELEVANT": "Paling berkaitan",
     "QUOTE_TWEET": "Petik Tweet",
     "QUOTE_TWEETS": "Tweet Petikan",
     "RETWEET": "Tweet semula",
@@ -486,6 +539,7 @@
     "RETWEETS": "Tweet semula",
     "SHARED": "Dikongsi",
     "SHARED_TWEETS": "Tweet Berkongsi",
+    "SORT_REPLIES": "Isih balasan",
     "TURN_OFF_RETWEETS": "Matikan Tweet semula",
     "TURN_ON_RETWEETS": "Hidupkan Tweet semula",
     "TWEETS": "Tweet",
@@ -495,11 +549,13 @@
     "UNDO_RETWEET": "Buat asal Tweet semula"
   },
   "nb": {
+    "MOST_RELEVANT": "Mest relevante",
     "QUOTE_TWEET": "Sitat-Tweet",
     "QUOTE_TWEETS": "Sitat-Tweets",
     "RETWEETED_BY": "Retweetet av",
     "SHARED": "Delt",
     "SHARED_TWEETS": "Delte tweets",
+    "SORT_REPLIES": "Sorter svar",
     "TURN_OFF_RETWEETS": "Slå av Retweets",
     "TURN_ON_RETWEETS": "Slå på Retweets",
     "TWEET_ALL": "Tweet alle",
@@ -508,12 +564,14 @@
     "UNDO_RETWEET": "Angre Retweet"
   },
   "nl": {
+    "MOST_RELEVANT": "Meest relevant",
     "QUOTE_TWEET": "Citeer Tweet",
     "QUOTE_TWEETS": "Geciteerde Tweets",
     "RETWEET": "Retweeten",
     "RETWEETED_BY": "Geretweet door",
     "SHARED": "Gedeeld",
     "SHARED_TWEETS": "Gedeelde Tweets",
+    "SORT_REPLIES": "Antwoorden sorteren",
     "TURN_OFF_RETWEETS": "Retweets uitschakelen",
     "TURN_ON_RETWEETS": "Retweets inschakelen",
     "TWEET": "Tweeten",
@@ -523,6 +581,7 @@
     "UNDO_RETWEET": "Retweet ongedaan maken"
   },
   "pl": {
+    "MOST_RELEVANT": "Najtrafniejsze",
     "QUOTE_TWEET": "Cytuj Tweeta",
     "QUOTE_TWEETS": "Cytaty z Tweeta",
     "RETWEET": "Podaj dalej",
@@ -530,6 +589,7 @@
     "RETWEETS": "Tweety podane dalej",
     "SHARED": "Udostępniony",
     "SHARED_TWEETS": "Udostępnione Tweety",
+    "SORT_REPLIES": "Sortuj odpowiedzi",
     "TURN_OFF_RETWEETS": "Wyłącz Tweety podane dalej",
     "TURN_ON_RETWEETS": "Włącz Tweety podane dalej",
     "TWEETS": "Tweety",
@@ -539,12 +599,14 @@
     "UNDO_RETWEET": "Cofnij podanie dalej"
   },
   "pt": {
+    "MOST_RELEVANT": "Mais relevante",
     "QUOTE_TWEET": "Comentar o Tweet",
     "QUOTE_TWEETS": "Tweets com comentário",
     "RETWEET": "Retweetar",
     "RETWEETED_BY": "Retweetado por",
     "SHARED": "Compartilhado",
     "SHARED_TWEETS": "Tweets Compartilhados",
+    "SORT_REPLIES": "Ordenar respostas",
     "TURN_OFF_RETWEETS": "Desativar Retweets",
     "TURN_ON_RETWEETS": "Ativar Retweets",
     "TWEET": "Tweetar",
@@ -554,6 +616,7 @@
     "UNDO_RETWEET": "Desfazer Retweet"
   },
   "ro": {
+    "MOST_RELEVANT": "Cele mai relevante",
     "QUOTE_TWEET": "Citează Tweetul",
     "QUOTE_TWEETS": "Tweeturi cu citat",
     "RETWEET": "Redistribuie",
@@ -561,6 +624,7 @@
     "RETWEETS": "Retweeturi",
     "SHARED": "Partajat",
     "SHARED_TWEETS": "Tweeturi partajate",
+    "SORT_REPLIES": "Sortare răspunsuri",
     "TURN_OFF_RETWEETS": "Dezactivează Retweeturile",
     "TURN_ON_RETWEETS": "Activează Retweeturile",
     "TWEETS": "Tweeturi",
@@ -570,6 +634,7 @@
     "UNDO_RETWEET": "Anulează Retweetul"
   },
   "ru": {
+    "MOST_RELEVANT": "Наиболее актуальные",
     "QUOTE_TWEET": "Цитировать",
     "QUOTE_TWEETS": "Твиты с цитатами",
     "RETWEET": "Ретвитнуть",
@@ -577,6 +642,7 @@
     "RETWEETS": "Ретвиты",
     "SHARED": "Общий",
     "SHARED_TWEETS": "Общие твиты",
+    "SORT_REPLIES": "Упорядочить ответы",
     "TURN_OFF_RETWEETS": "Отключить ретвиты",
     "TURN_ON_RETWEETS": "Включить ретвиты",
     "TWEET": "Твитнуть",
@@ -588,6 +654,7 @@
     "UNDO_RETWEET": "Отменить ретвит"
   },
   "sk": {
+    "MOST_RELEVANT": "Najrelevantnejšie",
     "QUOTE_TWEET": "Tweet s citátom",
     "QUOTE_TWEETS": "Tweety s citátom",
     "RETWEET": "Retweetnuť",
@@ -595,6 +662,7 @@
     "RETWEETS": "Retweety",
     "SHARED": "Zdieľaný",
     "SHARED_TWEETS": "Zdieľané Tweety",
+    "SORT_REPLIES": "Zoradiť odpovede",
     "TURN_OFF_RETWEETS": "Vypnúť retweety",
     "TURN_ON_RETWEETS": "Zapnúť retweety",
     "TWEET": "Tweetnuť",
@@ -605,6 +673,7 @@
     "UNDO_RETWEET": "Zrušiť retweet"
   },
   "sr": {
+    "MOST_RELEVANT": "Најважније",
     "QUOTE_TWEET": "твит са цитатом",
     "QUOTE_TWEETS": "твит(ов)а са цитатом",
     "RETWEET": "Ретвитуј",
@@ -612,6 +681,7 @@
     "RETWEETS": "Ретвитови",
     "SHARED": "Подељено",
     "SHARED_TWEETS": "Дељени твитови",
+    "SORT_REPLIES": "Сортирање одговора",
     "TURN_OFF_RETWEETS": "Искључи ретвитове",
     "TURN_ON_RETWEETS": "Укључи ретвитове",
     "TWEET": "Твитуј",
@@ -623,12 +693,14 @@
     "UNDO_RETWEET": "Опозови ретвит"
   },
   "sv": {
+    "MOST_RELEVANT": "Mest relevant",
     "QUOTE_TWEET": "Citera Tweet",
     "QUOTE_TWEETS": "Citat-tweets",
     "RETWEET": "Retweeta",
     "RETWEETED_BY": "Retweetad av",
     "SHARED": "Delad",
     "SHARED_TWEETS": "Delade tweetsen",
+    "SORT_REPLIES": "Sortera svar",
     "TURN_OFF_RETWEETS": "Stäng av Retweets",
     "TURN_ON_RETWEETS": "Slå på Retweets",
     "TWEET": "Tweeta",
@@ -638,6 +710,7 @@
     "UNDO_RETWEET": "Ångra retweeten"
   },
   "ta": {
+    "MOST_RELEVANT": "மிகவும் தொடர்புடையவை",
     "QUOTE_TWEET": "ட்விட்டை மேற்கோள் காட்டு",
     "QUOTE_TWEETS": "மேற்கோள் கீச்சுகள்",
     "RETWEET": "மறுட்விட் செய்",
@@ -645,6 +718,7 @@
     "RETWEETS": "மறுகீச்சுகள்",
     "SHARED": "பகிரப்பட்டது",
     "SHARED_TWEETS": "பகிரப்பட்ட ட்வீட்டுகள்",
+    "SORT_REPLIES": "பதில்களை வகைப்படுத்து",
     "TURN_OFF_RETWEETS": "மறுகீச்சுகளை அணை",
     "TURN_ON_RETWEETS": "மறுகீச்சுகளை இயக்கு",
     "TWEET": "ட்விட் செய்",
@@ -655,6 +729,7 @@
     "UNDO_RETWEET": "மறுகீச்சை செயல்தவிர்"
   },
   "th": {
+    "MOST_RELEVANT": "เกี่ยวข้องที่สุด",
     "QUOTE_TWEET": "อ้างอิงทวีต",
     "QUOTE_TWEETS": "ทวีตและคำพูด",
     "RETWEET": "รีทวีต",
@@ -662,6 +737,7 @@
     "RETWEETS": "รีทวีต",
     "SHARED": "แบ่งปัน",
     "SHARED_TWEETS": "ทวีตที่แชร์",
+    "SORT_REPLIES": "จัดเรียงการตอบกลับ",
     "TURN_OFF_RETWEETS": "ปิดรีทวีต",
     "TURN_ON_RETWEETS": "เปิดรีทวีต",
     "TWEET": "ทวีต",
@@ -673,12 +749,14 @@
     "UNDO_RETWEET": "ยกเลิกการรีทวีต"
   },
   "tr": {
+    "MOST_RELEVANT": "En alakalı",
     "QUOTE_TWEET": "Tweeti Alıntıla",
     "QUOTE_TWEETS": "Alıntı Tweetler",
     "RETWEETED_BY": "Retweetleyen(ler):",
     "RETWEETS": "Retweetler",
     "SHARED": "Paylaşılan",
     "SHARED_TWEETS": "Paylaşılan Tweetler",
+    "SORT_REPLIES": "Yanıtları sırala",
     "TURN_OFF_RETWEETS": "Retweetleri kapat",
     "TURN_ON_RETWEETS": "Retweetleri aç",
     "TWEET": "Tweetle",
@@ -689,6 +767,7 @@
     "UNDO_RETWEET": "Retweeti Geri Al"
   },
   "uk": {
+    "MOST_RELEVANT": "Найактуальніші",
     "QUOTE_TWEET": "Цитувати твіт",
     "QUOTE_TWEETS": "Цитовані твіти",
     "RETWEET": "Ретвітнути",
@@ -696,6 +775,7 @@
     "RETWEETS": "Ретвіти",
     "SHARED": "Спільний",
     "SHARED_TWEETS": "Спільні твіти",
+    "SORT_REPLIES": "Сортувати відповіді",
     "TURN_OFF_RETWEETS": "Вимкнути ретвіти",
     "TURN_ON_RETWEETS": "Увімкнути ретвіти",
     "TWEET": "Твіт",
@@ -724,6 +804,7 @@
     "UNDO_RETWEET": "ری ٹویٹ کو کالعدم کریں"
   },
   "vi": {
+    "MOST_RELEVANT": "Liên quan nhất",
     "QUOTE_TWEET": "Trích dẫn Tweet",
     "QUOTE_TWEETS": "Tweet trích dẫn",
     "RETWEET": "Tweet lại",
@@ -731,6 +812,7 @@
     "RETWEETS": "Các Tweet lại",
     "SHARED": "Đã chia sẻ",
     "SHARED_TWEETS": "Tweet được chia sẻ",
+    "SORT_REPLIES": "Sắp xếp câu trả lời",
     "TURN_OFF_RETWEETS": "Tắt Tweet lại",
     "TURN_ON_RETWEETS": "Bật Tweet lại",
     "TWEETS": "Tweet",
@@ -740,6 +822,7 @@
     "UNDO_RETWEET": "Hoàn tác Tweet lại"
   },
   "zh-Hant": {
+    "MOST_RELEVANT": "最相關",
     "QUOTE_TWEET": "引用推文",
     "QUOTE_TWEETS": "引用的推文",
     "RETWEET": "轉推",
@@ -747,6 +830,7 @@
     "RETWEETS": "轉推",
     "SHARED": "共享",
     "SHARED_TWEETS": "分享的推文",
+    "SORT_REPLIES": "將回覆排序",
     "TURN_OFF_RETWEETS": "關閉轉推",
     "TURN_ON_RETWEETS": "開啟轉推",
     "TWEET": "推文",
@@ -757,6 +841,7 @@
     "UNDO_RETWEET": "取消轉推"
   },
   "zh": {
+    "MOST_RELEVANT": "最相关",
     "QUOTE_TWEET": "引用推文",
     "QUOTE_TWEETS": "引用推文",
     "RETWEET": "转推",
@@ -764,6 +849,7 @@
     "RETWEETS": "转推",
     "SHARED": "共享",
     "SHARED_TWEETS": "分享的推文",
+    "SORT_REPLIES": "对回复排序",
     "TURN_OFF_RETWEETS": "关闭转推",
     "TURN_ON_RETWEETS": "开启转推",
     "TWEET": "推文",
