@@ -3673,6 +3673,46 @@ const configureThemeCss = (() => {
   }
 })()
 
+async function setDefaultSortReplies() {
+  let $sortRepliesIconPath = await getElement(Selectors.SORT_REPLIES_PATH, {
+    name: 'sort replies icon',
+    stopIf: pageIsNot(currentPage),
+    timeout: 3000,
+  })
+  if (!$sortRepliesIconPath) return
+
+  let $svg = $sortRepliesIconPath.parentElement.parentElement
+  let currentSort = $svg.nextElementSibling?.textContent
+  log('sortReplies: replies are sorted by', currentSort)
+  if (currentSort != getString('MOST_RELEVANT')) return
+
+  function changeSort() {
+    if (changingSortReplies) {
+      warn('sortReplies: ignoring additonal changeSort() call')
+      return
+    }
+    changingSortReplies = true
+    log('sortReplies: clicking Sort replies dropdown', $svg.parentElement.parentElement)
+    setTimeout(() => $svg.parentElement.parentElement.click(), 100)
+  }
+
+  let $focusedTweet = $svg.closest('div[data-testid="cellInnerDiv"]')
+  if ($focusedTweet.parentElement.childElementCount > 1) {
+    changeSort()
+    return
+  }
+
+  pageObservers.push(
+    observeElement($focusedTweet.parentElement, () => {
+      if ($focusedTweet.parentElement.childElementCount > 2) {
+        log('sortReplies: timeline elements added')
+        disconnectPageObserver('sortReplies: individual tweet timeline')
+        changeSort()
+      }
+    }, 'sortReplies: individual tweet timeline')
+  )
+}
+
 /**
  * @param {HTMLElement} $tweet
  * @param {?{getText?: boolean}} options
@@ -3780,16 +3820,16 @@ function handlePopup($popup) {
     if ($dialog) {
       let $menuItems =  /** @type {NodeListOf<HTMLElement>} */ ($dialog.querySelectorAll('div[role="menuitem"]'))
       if ($menuItems[0].previousElementSibling?.textContent == getString('SORT_REPLIES')) {
-        log('changing Sort replies to', config.sortReplies)
+        log('sortReplies: changing Sort replies to', config.sortReplies)
         $menuItems[{recent: 1, liked: 2}[config.sortReplies]]?.click()
       } else {
-        warn('dialog does not contain Sort replies heading')
+        warn('sortReplies: dialog does not contain "Sort replies" heading')
       }
       result.tookAction = true
       changingSortReplies = false
       return result
     } else {
-      warn('could not find Sort replies dialog')
+      warn('sortReplies: could not find Sort replies dialog')
       changingSortReplies = false
     }
   }
@@ -5091,23 +5131,7 @@ async function tweakIndividualTweetPage() {
   }
 
   if (config.sortReplies != 'relevant') {
-    (async () => {
-      let $sortRepliesIconPath = await getElement(Selectors.SORT_REPLIES_PATH, {
-        name: 'sort replies icon',
-        stopIf: pageIsNot(currentPage),
-        timeout: 3000,
-      })
-      if ($sortRepliesIconPath) {
-        let $svg = $sortRepliesIconPath.parentElement.parentElement
-        let currentSort = $svg.nextElementSibling?.textContent
-        log('replies are sorted by', currentSort)
-        if (currentSort == getString('MOST_RELEVANT')) {
-          changingSortReplies = true
-          log('clicking Sort replies dropdown', $svg.parentElement.parentElement)
-          setTimeout(() => $svg.parentElement.parentElement.click(), 100)
-        }
-      }
-    })()
+    setDefaultSortReplies()
   }
 }
 
