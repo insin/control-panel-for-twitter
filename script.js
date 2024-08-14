@@ -3362,7 +3362,10 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
       }
       if (config.hideTwitterBlueUpsells) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href^="/i/premium"]`)
+        hideCssSelectors.push(
+          `${Selectors.PRIMARY_NAV_MOBILE} a[href^="/i/premium"]`,
+          `${Selectors.MOBILE_TIMELINE_HEADER} a[href^="/i/premium"]`,
+        )
       }
       if (config.hideShareTweetButton) {
         hideCssSelectors.push(
