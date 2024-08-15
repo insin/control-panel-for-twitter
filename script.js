@@ -3682,6 +3682,8 @@ const configureThemeCss = (() => {
 })()
 
 async function setDefaultSortReplies() {
+  if (config.sortReplies == 'relevant') return
+
   let $sortRepliesIconPath = await getElement(Selectors.SORT_REPLIES_PATH, {
     name: 'sort replies icon',
     stopIf: pageIsNot(currentPage),
@@ -5138,9 +5140,7 @@ async function tweakIndividualTweetPage() {
     })()
   }
 
-  if (config.sortReplies != 'relevant') {
-    setDefaultSortReplies()
-  }
+  setDefaultSortReplies()
 }
 
 function tweakListPage() {
