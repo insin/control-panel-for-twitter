@@ -2264,6 +2264,7 @@ async function observeDesktopModalTimeline($popup) {
     modalObservers.push(
       observeElement($timeline, () => onIndividualTweetTimelineChange($timeline, {observers: modalObservers}), 'modal timeline')
     )
+    setDefaultSortReplies()
 
     // If other media in the modal is clicked, the timeline is replaced.
     disconnectModalObserver('modal timeline parent')
@@ -2276,6 +2277,7 @@ async function observeDesktopModalTimeline($popup) {
             modalObservers.push(
               observeElement($newTimeline, () => onIndividualTweetTimelineChange($newTimeline, {observers: modalObservers}), 'modal timeline')
             )
+            setDefaultSortReplies()
           })
         })
       }, 'modal timeline parent')
