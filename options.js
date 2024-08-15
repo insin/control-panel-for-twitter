@@ -56,7 +56,6 @@ for (let translationId of [
   'hideFollowingMetricsLabel',
   'hideForYouTimelineLabel',
   'hideInlinePrompts',
-  'hideJobsNavLabel',
   'hideLikeMetricsLabel',
   'hideMessagesBottomNavItemLabel',
   'hideMessagesDrawerLabel',
@@ -120,6 +119,7 @@ for (let translationClass of [
   'hideBookmarksNavLabel',
   'hideCommunitiesNavLabel',
   'hideGrokNavLabel',
+  'hideJobsNavLabel',
   'hideListsNavLabel',
   'hideProNavLabel',
 ]) {

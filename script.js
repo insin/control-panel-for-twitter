@@ -2907,6 +2907,9 @@ const configureCss = (() => {
         )
       }
     }
+    if (config.hideListsNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/lists"]`)
+    }
     if (config.hideBookmarksNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/bookmarks"]`)
     }
@@ -3251,6 +3254,9 @@ const configureCss = (() => {
       if (config.hideGrokNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`)
       }
+      if (config.hideJobsNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`)
+      }
       if (config.hideListsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
       }
@@ -3343,9 +3349,6 @@ const configureCss = (() => {
           // Content
           `body.Explore ${Selectors.TIMELINE}`,
         )
-      }
-      if (config.hideListsNav) {
-        hideCssSelectors.push(`${menuRole} a[href$="/lists"]`)
       }
       if (config.hideGrokNav) {
         hideCssSelectors.push(
