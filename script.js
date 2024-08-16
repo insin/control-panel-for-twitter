@@ -1705,7 +1705,7 @@ function isOnDisplaySettingsPage() {
 }
 
 function isOnExplorePage() {
-  return currentPath.startsWith('/explore')
+  return currentPath == '/explore' || currentPath.startsWith('/explore/')
 }
 
 function isOnFollowListPage() {
