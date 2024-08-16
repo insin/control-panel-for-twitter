@@ -2967,6 +2967,12 @@ const configureCss = (() => {
     if (config.hideMetrics) {
       configureHideMetricsCss(cssRules, hideCssSelectors)
     }
+    if (config.hideCommunitiesNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
+    }
+    if (config.hideGrokNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/i/grok"]`)
+    }
     if (config.hideMonetizationNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/settings/monetization"]`)
     }
@@ -3353,18 +3359,16 @@ const configureCss = (() => {
         )
       }
       if (config.hideGrokNav) {
-        hideCssSelectors.push(
-          // Grok is currently in the bottom nav on mobile
-          `${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/grok"]`,
-          // In case they ever move it to the slide-out menu
-          `${menuRole} a[href$="/i/grok"]`,
-        )
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/grok"]`)
       }
       if (config.hideCommunitiesNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href$="/communities"]`)
       }
       if (config.hideMessagesBottomNavItem) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
+      }
+      if (config.hideJobsNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/jobs"]`)
       }
       if (config.hideTwitterBlueUpsells) {
         hideCssSelectors.push(
