@@ -3,7 +3,7 @@
   "default_locale": "en",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "homepage_url": "https://github.com/insin/control-panel-for-twitter/",
+  "homepage_url": "https://jbscript.dev/control-panel-for-twitter",
   "version": "4.2.5",
   "icons": {
     "16": "icons/icon16.png",
