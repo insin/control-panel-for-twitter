@@ -143,14 +143,14 @@
   "hideGrok": {
     "message": "隐藏 Grok"
   },
-  "hideGrokNavLabel": {
-    "message": "Grok"
+  "hideGrokLabel": {
+    "message": "隐藏 Grok"
   },
   "hideInlinePrompts": {
     "message": "隐藏时间线中的内联提示"
   },
-  "hideJobsNavlabel": {
-    "message": "工作"
+  "hideJobsLabel": {
+    "message": "隐藏工作"
   },
   "hideLikeMetricsLabel": {
     "message": "喜欢"
@@ -225,7 +225,7 @@
     "message": "隐藏Premium强制销售"
   },
   "hideUnavailableQuoteTweetsLabel": {
-    "message": "隐藏引用你已经屏蔽或隐藏的账户的推文"
+    "message": "隐藏对已屏蔽和已静音账号的引用和回复"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "隐藏你不使用的用户界面项目"
@@ -384,5 +384,8 @@
   },
   "unmuteButtonText": {
     "message": "取消隐藏"
+  },
+  "xFixesLabel": {
+    "message": "X 修复"
   }
 }

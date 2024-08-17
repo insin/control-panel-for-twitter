@@ -29,7 +29,6 @@ New versions can take anything from minutes to days to be approved for publishin
 - Move Retweets to a separate tab (default setting), or hide them entirely
 - Move Quote Tweets and replies to them to a separate tab in the Home timeline, or hide them entirely
 - Hide Retweets in pinned Lists
-- Hide tweets quoting accounts you've blocked or muted
 - Mute quoting of specific tweets - adds a "Mute this conversation" menu item to Quote Tweets in the Home and List timelines
 - Hide the floating "See new Tweets" button
 - Hide "Who to follow", "Follow some Topics" etc. in the Home timeline and elsewhere
@@ -38,22 +37,27 @@ New versions can take anything from minutes to days to be approved for publishin
 
 ### UI improvements
 
+- Add "Add muted word" to the "More" menu (desktop) or slide-out menu (mobile)
+- Fast blocking - skips the confirm dialog when you try to block an account
+- Hide quotes of and replies to blocked and muted accounts
+- Hide Retweets in user profiles
+- Default to "Latest" tab in Search
+- When viewing a tweet's Quote Tweets, hide the quoted tweet to make more room for quotes
+
+### X fixes
+
 - Replace X branding changes
 - Hide Views under tweets
 - Hide the "Verified" tab in Notifications and the "Verified Followers" tab in Followers/Following
 - Restore headlines under external links
 - Restore the Quote Tweets link under tweets, and other interaction links
+- Default sorting replies to most recent or most liked
 - Replace Premium blue checks with the Twitter Blue logo, or hide them altogether
 - Hide Premium blue check replies in threads
 - Hide Premium upsells throughout the app
 - Hide Grok
-- Hide Subscriptions
 - Hide Jobs
-- Add "Add muted word" to the "More" menu (desktop) or slide-out menu (mobile)
-- Fast blocking - skips the confirm dialog when you try to block an account
-- Hide Retweets in user profiles
-- Default to "Latest" tab in Search
-- When viewing a tweet's Quote Tweets, hide the quoted tweet to make more room for quotes
+- Hide Subscriptions
 
 ### UI tweaks
 

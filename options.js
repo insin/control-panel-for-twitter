@@ -55,7 +55,9 @@ for (let translationId of [
   'hideExplorePageContentsLabel',
   'hideFollowingMetricsLabel',
   'hideForYouTimelineLabel',
+  'hideGrokLabel',
   'hideInlinePrompts',
+  'hideJobsLabel',
   'hideLikeMetricsLabel',
   'hideMessagesBottomNavItemLabel',
   'hideMessagesDrawerLabel',
@@ -111,6 +113,7 @@ for (let translationId of [
   'uiTweaksOptionsLabel',
   'unblurSensitiveContentLabel',
   'uninvertFollowButtonsLabel',
+  'xFixesLabel',
 ]) {
   document.getElementById(translationId).textContent = chrome.i18n.getMessage(translationId)
 }
@@ -118,10 +121,7 @@ for (let translationId of [
 for (let translationClass of [
   'hideBookmarksNavLabel',
   'hideCommunitiesNavLabel',
-  'hideGrokNavLabel',
-  'hideJobsNavLabel',
   'hideListsNavLabel',
-  'hideProNavLabel',
 ]) {
   let translation = chrome.i18n.getMessage(translationClass)
   for (let $el of document.querySelectorAll(`.${translationClass}`)) {

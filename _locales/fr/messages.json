@@ -143,14 +143,14 @@
   "hideGrok": {
     "message": "Masquer Grok"
   },
-  "hideGrokNavLabel": {
-    "message": "Grok"
+  "hideGrokLabel": {
+    "message": "Masquer Grok"
   },
   "hideInlinePrompts": {
     "message": "Masquer les invites en ligne dans la fil"
   },
-  "hideJobsNavlabel": {
-    "message": "Tâche"
+  "hideJobsLabel": {
+    "message": "Masquer Emplois"
   },
   "hideLikeMetricsLabel": {
     "message": "J'aime"
@@ -225,7 +225,7 @@
     "message": "Masquer les promotions Premium"
   },
   "hideUnavailableQuoteTweetsLabel": {
-    "message": "Masquer les tweets citant des comptes que vous avez bloqués ou masqués"
+    "message": "Masquer les citations et les réponses aux comptes bloqués et muets"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Masquer les éléments de l'interface utilisateur que vous n'utilisez pas"
@@ -372,5 +372,8 @@
   },
   "unmuteButtonText": {
     "message": "Restaurer"
+  },
+  "xFixesLabel": {
+    "message": "Correctifs de X"
   }
 }

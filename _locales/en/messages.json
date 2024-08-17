@@ -147,14 +147,14 @@
   "hideGrok": {
     "message": "Hide Grok"
   },
-  "hideGrokNavLabel": {
-    "message": "Grok"
+  "hideGrokLabel": {
+    "message": "Hide Grok"
   },
   "hideInlinePrompts": {
     "message": "Hide inline prompts in the timeline"
   },
-  "hideJobsNavlabel": {
-    "message": "Jobs"
+  "hideJobsLabel": {
+    "message": "Hide Jobs"
   },
   "hideLikeMetricsLabel": {
     "message": "Likes"
@@ -229,7 +229,7 @@
     "message": "Hide Premium upsells"
   },
   "hideUnavailableQuoteTweetsLabel": {
-    "message": "Hide tweets quoting accounts you've blocked or muted"
+    "message": "Hide quotes and replies to blocked and muted accounts"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Hide UI items you don't use"
@@ -382,5 +382,8 @@
   "unmuteButtonText": {
     "message": "Unmute",
     "description": "Button used in the options page to unmute a muted Quote Tweet"
+  },
+  "xFixesLabel": {
+    "message": "X fixes"
   }
 }

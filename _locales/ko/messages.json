@@ -143,14 +143,14 @@
   "hideGrok": {
     "message": "Grok 숨기기"
   },
-  "hideGrokNavLabel": {
-    "message": "Grok"
+  "hideGrokLabel": {
+    "message": "Grok 숨기기"
   },
   "hideInlinePrompts": {
     "message": "타임라인에서 인라인 프롬프트 숨기기"
   },
-  "hideJobsNavlabel": {
-    "message": "채용"
+  "hideJobsLabel": {
+    "message": "채용을 숨긴다"
   },
   "hideLikeMetricsLabel": {
     "message": "좋아요"
@@ -225,7 +225,7 @@
     "message": "Premium 업셀 숨기기"
   },
   "hideUnavailableQuoteTweetsLabel": {
-    "message": "차단하거나 음소거한 계정을 인용하는 트윗 숨기기"
+    "message": "차단 및 음소거된 계정에 대한 인용 및 답글 숨기기"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "사용하지 않는 UI 항목 숨기기"
@@ -372,5 +372,8 @@
   },
   "unmuteButtonText": {
     "message": "음소거 해제"
+  },
+  "xFixesLabel": {
+    "message": "X 수정 사항"
   }
 }

@@ -143,14 +143,14 @@
   "hideGrok": {
     "message": "Grok を非表示にする"
   },
-  "hideGrokNavLabel": {
-    "message": "Grok"
+  "hideGrokLabel": {
+    "message": "Grok を非表示にする"
   },
   "hideInlinePrompts": {
     "message": "タイムライン内のインラインプロンプトを非表示にする"
   },
-  "hideJobsNavlabel": {
-    "message": "求人"
+  "hideJobsLabel": {
+    "message": "募集を隠す"
   },
   "hideLikeMetricsLabel": {
     "message": "いいね件数"
@@ -225,7 +225,7 @@
     "message": "プレミアムのアップセルを非表示にする"
   },
   "hideUnavailableQuoteTweetsLabel": {
-    "message": "ミュートやブロックしたアカウントが含まれる引用ツイートを非表示"
+    "message": "ブロックまたはミュートしたアカウントへの引用や返信を非表示にする"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "使用しないUI項目を非表示"
@@ -372,5 +372,8 @@
   },
   "unmuteButtonText": {
     "message": "ミュート解除"
+  },
+  "xFixesLabel": {
+    "message": "X の修正"
   }
 }

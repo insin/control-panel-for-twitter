@@ -23,7 +23,6 @@ ${messages.homeTimelineOptionsLabel}
   • ${messages.hideForYouTimelineLabel}
 • ${messages.retweetsLabel}
   • ${messages.option_separate}
-• ${messages.hideUnavailableQuoteTweetsLabel}
 • ${messages.mutableQuoteTweetsLabel}
   • ${messages.mutableQuoteTweetsInfo}
 • ${messages.hideSeeNewTweetsLabel}
@@ -34,22 +33,29 @@ ${messages.homeTimelineOptionsLabel}
 
 ${messages.uiImprovementsOptionsLabel}
 
+• ${messages.addAddMutedWordMenuItemLabel_desktop}
+• ${messages.fastBlockLabel}
+• ${messages.hideUnavailableQuoteTweetsLabel}
+• ${messages.hideProfileRetweetsLabel}
+• ${messages.listRetweetsLabel}
+• ${messages.defaultToLatestSearchLabel}
+• ${messages.tweakQuoteTweetsPageLabel}
+
+${messages.xFixesLabel}
+
 • ${messages.replaceLogoLabel}
 • ${messages.hideViewsLabel}
 • ${messages.hideVerifiedNotificationsTabLabel}
 • ${messages.restoreLinkHeadlinesLabel}
 • ${messages.restoreQuoteTweetsLinkLabel}
+• ${messages.sortRepliesLabel}
 • ${messages.twitterBlueChecksLabel}
   • ${messages.twitterBlueChecksOption_replace}
 • ${messages.hideTwitterBlueRepliesLabel}
 • ${messages.hideTwitterBlueUpsellsLabel}
-• ${messages.hideGrok}
+• ${messages.hideGrokLabel}
+• ${messages.hideJobsLabel}
 • ${messages.hideSubscriptionsLabel}
-• ${messages.addAddMutedWordMenuItemLabel_desktop}
-• ${messages.fastBlockLabel}
-• ${messages.hideProfileRetweetsLabel}
-• ${messages.defaultToLatestSearchLabel}
-• ${messages.tweakQuoteTweetsPageLabel}
 
 ${messages.uiTweaksOptionsLabel}
 
@@ -80,6 +86,8 @@ ${messages.hideUnusedUiItemsOptionsLabel}
 
 • ${messages.hideBookmarkButtonLabel}
 • ${messages.hideShareTweetButtonLabel}
+• ${messages.hideTimelineTweetBoxLabel}
+• ${messages.hideTimelineTweetBoxLabel}
 • ${messages.hideAccountSwitcherLabel}
 • ${messages.hideMessagesDrawerLabel}
 • ${messages.hideMoreSlideOutMenuItemsOptionsLabel_desktop}
