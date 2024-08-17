@@ -98,6 +98,7 @@ export type LocaleKey =
   | 'MOST_RELEVANT'
   | 'MUTE_THIS_CONVERSATION'
   | 'POST_ALL'
+  | 'POST_UNAVAILABLE'
   | 'QUOTE'
   | 'QUOTES'
   | 'QUOTE_TWEET'
@@ -121,6 +122,7 @@ export type LocaleKey =
   | 'TWEET_YOUR_REPLY'
   | 'TWITTER'
   | 'UNDO_RETWEET'
+  | 'VIEW'
 
 export type NamedMutationObserver = MutationObserver & {name?: string}
 

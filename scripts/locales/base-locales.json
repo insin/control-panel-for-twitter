@@ -1,6 +1,7 @@
 {
   "ar-x-fm": {
     "MOST_RELEVANT": "الأكثر ملائمة",
+    "POST_UNAVAILABLE": "هذا المنشور غير متاح.",
     "QUOTE_TWEET": "اقتباس التغريدة",
     "QUOTE_TWEETS": "تغريدات اقتباس",
     "RETWEET": "إعادة التغريد",
@@ -17,10 +18,12 @@
     "TWEET_INTERACTIONS": "تفاعلات التغريدة",
     "TWEET_YOUR_REPLY": "التغريد بردك!",
     "TWITTER": "تويتر",
-    "UNDO_RETWEET": "التراجع عن التغريدة"
+    "UNDO_RETWEET": "التراجع عن التغريدة",
+    "VIEW": "عرض"
   },
   "ar": {
     "MOST_RELEVANT": "الأكثر ملائمة",
+    "POST_UNAVAILABLE": "هذا المنشور غير متاح.",
     "QUOTE_TWEET": "اقتباس التغريدة",
     "QUOTE_TWEETS": "تغريدات اقتباس",
     "RETWEET": "إعادة التغريد",
@@ -36,10 +39,12 @@
     "TWEET_ALL": "تغريد الكل",
     "TWEET_INTERACTIONS": "تفاعلات التغريدة",
     "TWEET_YOUR_REPLY": "التغريد بردك!",
-    "UNDO_RETWEET": "التراجع عن التغريدة"
+    "UNDO_RETWEET": "التراجع عن التغريدة",
+    "VIEW": "عرض"
   },
   "bg": {
     "MOST_RELEVANT": "Най-подходящи",
+    "POST_UNAVAILABLE": "Тази публикация не е налична.",
     "QUOTE_TWEET": "Цитиране на туита",
     "QUOTE_TWEETS": "Туитове с цитат",
     "RETWEET": "Ретуитване",
@@ -55,10 +60,12 @@
     "TWEET_ALL": "Туитване на всички",
     "TWEET_INTERACTIONS": "Интеракции с туит",
     "TWEET_YOUR_REPLY": "Отговори с туит!",
-    "UNDO_RETWEET": "Отмяна на ретуитването"
+    "UNDO_RETWEET": "Отмяна на ретуитването",
+    "VIEW": "Преглед"
   },
   "bn": {
     "MOST_RELEVANT": "সবচেয়ে প্রাসঙ্গিক",
+    "POST_UNAVAILABLE": "এই পোস্টটি অনুপলভ্য।",
     "QUOTE_TWEET": "টুইট উদ্ধৃত করুন",
     "QUOTE_TWEETS": "টুইট উদ্ধৃতিগুলো",
     "RETWEET": "পুনঃটুইট",
@@ -75,10 +82,12 @@
     "TWEET_INTERACTIONS": "টুইট ইন্টারেকশন",
     "TWEET_YOUR_REPLY": "আপনার উত্তর টুইট করুন!",
     "TWITTER": "টুইটার",
-    "UNDO_RETWEET": "পুনঃ টুইট পুর্বাবস্থায় ফেরান"
+    "UNDO_RETWEET": "পুনঃ টুইট পুর্বাবস্থায় ফেরান",
+    "VIEW": "দেখুন"
   },
   "ca": {
     "MOST_RELEVANT": "El més rellevant",
+    "POST_UNAVAILABLE": "Aquesta publicació no està disponible.",
     "QUOTE_TWEET": "Cita el tuit",
     "QUOTE_TWEETS": "Tuits amb cita",
     "RETWEET": "Retuit",
@@ -94,10 +103,12 @@
     "TWEET_ALL": "Tuita-ho tot",
     "TWEET_INTERACTIONS": "Interaccions amb tuits",
     "TWEET_YOUR_REPLY": "Tuita la teva resposta",
-    "UNDO_RETWEET": "Desfés el retuit"
+    "UNDO_RETWEET": "Desfés el retuit",
+    "VIEW": "Mostra"
   },
   "cs": {
     "MOST_RELEVANT": "Nejvíce související",
+    "POST_UNAVAILABLE": "Tento post není dostupný.",
     "QUOTE_TWEET": "Citovat Tweet",
     "QUOTE_TWEETS": "Tweety s citací",
     "RETWEET": "Retweetnout",
@@ -113,10 +124,12 @@
     "TWEET_ALL": "Tweetnout vše",
     "TWEET_INTERACTIONS": "Tweetovat interakce",
     "TWEET_YOUR_REPLY": "Tweetujte svou odpověď!",
-    "UNDO_RETWEET": "Zrušit Retweet"
+    "UNDO_RETWEET": "Zrušit Retweet",
+    "VIEW": "Zobrazit"
   },
   "da": {
     "MOST_RELEVANT": "Mest relevante",
+    "POST_UNAVAILABLE": "Denne post er ikke tilgængelig.",
     "QUOTE_TWEET": "Citér Tweet",
     "QUOTE_TWEETS": "Citat-Tweets",
     "RETWEETED_BY": "Retweetet af",
@@ -128,10 +141,12 @@
     "TWEET_ALL": "Tweet alt",
     "TWEET_INTERACTIONS": "Tweet-interaktioner",
     "TWEET_YOUR_REPLY": "Tweet dit svar!",
-    "UNDO_RETWEET": "Fortryd Retweet"
+    "UNDO_RETWEET": "Fortryd Retweet",
+    "VIEW": "Vis"
   },
   "de": {
     "MOST_RELEVANT": "Besonders relevant",
+    "POST_UNAVAILABLE": "Dieser Post ist nicht verfügbar.",
     "QUOTE_TWEET": "Tweet zitieren",
     "QUOTE_TWEETS": "Zitierte Tweets",
     "RETWEET": "Retweeten",
@@ -145,10 +160,12 @@
     "TWEET_ALL": "Alle twittern",
     "TWEET_INTERACTIONS": "Tweet-Interaktionen",
     "TWEET_YOUR_REPLY": "Twittere deine Antwort!",
-    "UNDO_RETWEET": "Retweet rückgängig machen"
+    "UNDO_RETWEET": "Retweet rückgängig machen",
+    "VIEW": "Anzeigen"
   },
   "el": {
     "MOST_RELEVANT": "Πιο σχετική",
+    "POST_UNAVAILABLE": "Αυτή η ανάρτηση δεν είναι διαθέσιμη.",
     "QUOTE_TWEET": "Παράθεση Tweet",
     "QUOTE_TWEETS": "Tweet με παράθεση",
     "RETWEETED_BY": "Έγινε Retweet από",
@@ -162,10 +179,12 @@
     "TWEET_ALL": "Δημοσίευση όλων ως Tweet",
     "TWEET_INTERACTIONS": "Αλληλεπιδράσεις με tweet",
     "TWEET_YOUR_REPLY": "Στείλτε την απάντησή σας!",
-    "UNDO_RETWEET": "Αναίρεση Retweet"
+    "UNDO_RETWEET": "Αναίρεση Retweet",
+    "VIEW": "Προβολή"
   },
   "en": {
     "MOST_RELEVANT": "Most relevant",
+    "POST_UNAVAILABLE": "This post is unavailable.",
     "QUOTE_TWEET": "Quote Tweet",
     "QUOTE_TWEETS": "Quote Tweets",
     "RETWEET": "Retweet",
@@ -182,10 +201,12 @@
     "TWEET_INTERACTIONS": "Tweet interactions",
     "TWEET_YOUR_REPLY": "Tweet your reply!",
     "TWITTER": "Twitter",
-    "UNDO_RETWEET": "Undo Retweet"
+    "UNDO_RETWEET": "Undo Retweet",
+    "VIEW": "View"
   },
   "es": {
     "MOST_RELEVANT": "Más relevantes",
+    "POST_UNAVAILABLE": "Este post no está disponible.",
     "QUOTE_TWEET": "Citar Tweet",
     "QUOTE_TWEETS": "Tweets citados",
     "RETWEET": "Retwittear",
@@ -199,7 +220,8 @@
     "TWEET_ALL": "Twittear todo",
     "TWEET_INTERACTIONS": "Interacciones con Tweet",
     "TWEET_YOUR_REPLY": "¡Twittea tu respuesta!",
-    "UNDO_RETWEET": "Deshacer Retweet"
+    "UNDO_RETWEET": "Deshacer Retweet",
+    "VIEW": "Ver"
   },
   "eu": {
     "QUOTE_TWEET": "Txioa apaitu",
@@ -215,10 +237,12 @@
     "TWEETS": "Txioak",
     "TWEET_ALL": "Txiotu guztiak",
     "TWEET_INTERACTIONS": "Txio elkarrekintzak",
-    "UNDO_RETWEET": "Desegin birtxiokatzea"
+    "UNDO_RETWEET": "Desegin birtxiokatzea",
+    "VIEW": "Ikusi"
   },
   "fa": {
     "MOST_RELEVANT": "مرتبط‌ترین",
+    "POST_UNAVAILABLE": "این پست دردسترس نیست.",
     "QUOTE_TWEET": "نقل‌توییت",
     "QUOTE_TWEETS": "نقل‌توییت‌ها",
     "RETWEET": "بازتوییت",
@@ -235,10 +259,12 @@
     "TWEET_INTERACTIONS": "تعاملات توییت",
     "TWEET_YOUR_REPLY": "پاسختان را توییت کنید!",
     "TWITTER": "توییتر",
-    "UNDO_RETWEET": "لغو بازتوییت"
+    "UNDO_RETWEET": "لغو بازتوییت",
+    "VIEW": "مشاهده"
   },
   "fi": {
     "MOST_RELEVANT": "Relevanteimmat",
+    "POST_UNAVAILABLE": "Tämä julkaisu ei ole saatavilla.",
     "QUOTE_TWEET": "Twiitin lainaus",
     "QUOTE_TWEETS": "Twiitin lainaukset",
     "RETWEET": "Uudelleentwiittaa",
@@ -254,10 +280,12 @@
     "TWEET_ALL": "Twiittaa kaikki",
     "TWEET_INTERACTIONS": "Twiitin vuorovaikutukset",
     "TWEET_YOUR_REPLY": "Twiittaa vastauksesi",
-    "UNDO_RETWEET": "Kumoa uudelleentwiittaus"
+    "UNDO_RETWEET": "Kumoa uudelleentwiittaus",
+    "VIEW": "Näytä"
   },
   "fil": {
     "MOST_RELEVANT": "Pinakanauugnay",
+    "POST_UNAVAILABLE": "Hindi available ang post na Ito.",
     "QUOTE_TWEET": "Quote na Tweet",
     "QUOTE_TWEETS": "Mga Quote na Tweet",
     "RETWEET": "I-retweet",
@@ -273,10 +301,12 @@
     "TWEET_ALL": "I-tweet lahat",
     "TWEET_INTERACTIONS": "Interaksyon sa Tweet",
     "TWEET_YOUR_REPLY": "I-Tweet ang sagot mo!",
-    "UNDO_RETWEET": "Huwag nang I-retweet"
+    "UNDO_RETWEET": "Huwag nang I-retweet",
+    "VIEW": "Tingnan"
   },
   "fr": {
     "MOST_RELEVANT": "Les plus pertinentes",
+    "POST_UNAVAILABLE": "Ce post n'est pas disponible.",
     "QUOTE_TWEET": "Citer le Tweet",
     "QUOTE_TWEETS": "Tweets cités",
     "RETWEET": "Retweeter",
@@ -290,7 +320,8 @@
     "TWEET_ALL": "Tout tweeter",
     "TWEET_INTERACTIONS": "Interactions avec Tweet",
     "TWEET_YOUR_REPLY": "Tweetez votre réponse!",
-    "UNDO_RETWEET": "Annuler le Retweet"
+    "UNDO_RETWEET": "Annuler le Retweet",
+    "VIEW": "Voir"
   },
   "ga": {
     "QUOTE_TWEET": "Cuir Ráiteas Leis",
@@ -305,7 +336,8 @@
     "TWEETS": "Tweetanna",
     "TWEET_ALL": "Tweetáil gach rud",
     "TWEET_INTERACTIONS": "Idirghníomhaíochtaí le Tweet",
-    "UNDO_RETWEET": "Cuir an Atweet ar ceal"
+    "UNDO_RETWEET": "Cuir an Atweet ar ceal",
+    "VIEW": "Breathnaigh"
   },
   "gl": {
     "QUOTE_TWEET": "Citar chío",
@@ -321,10 +353,12 @@
     "TWEETS": "Chíos",
     "TWEET_ALL": "Chiar todo",
     "TWEET_INTERACTIONS": "Interaccións chío",
-    "UNDO_RETWEET": "Desfacer rechouchío"
+    "UNDO_RETWEET": "Desfacer rechouchío",
+    "VIEW": "Ver"
   },
   "gu": {
     "MOST_RELEVANT": "સૌથી વધુ સુસંગત",
+    "POST_UNAVAILABLE": "આ પોસ્ટ અનુપલબ્ધ છે.",
     "QUOTE_TWEET": "અવતરણની સાથે ટ્વીટ કરો",
     "QUOTE_TWEETS": "અવતરણની સાથે ટ્વીટ્સ",
     "RETWEET": "પુનટ્વીટ",
@@ -340,10 +374,12 @@
     "TWEET_ALL": "બધાને ટ્વીટ કરો",
     "TWEET_INTERACTIONS": "ટ્વીટ ક્રિયાપ્રતિક્રિયાઓ",
     "TWEET_YOUR_REPLY": "તમારા પ્રત્યુત્તરને ટ્વીટ કરો!",
-    "UNDO_RETWEET": "પુનટ્વીટને પૂર્વવત કરો"
+    "UNDO_RETWEET": "પુનટ્વીટને પૂર્વવત કરો",
+    "VIEW": "જુઓ"
   },
   "he": {
     "MOST_RELEVANT": "הכי רלוונטי",
+    "POST_UNAVAILABLE": "פוסט זה אינו זמין.",
     "QUOTE_TWEET": "ציטוט ציוץ",
     "QUOTE_TWEETS": "ציוצי ציטוט",
     "RETWEET": "צייץ מחדש",
@@ -360,10 +396,12 @@
     "TWEET_INTERACTIONS": "אינטראקציות צייץ",
     "TWEET_YOUR_REPLY": "צייץ את התשובה!",
     "TWITTER": "טוויטר",
-    "UNDO_RETWEET": "ביטול ציוץ מחדש"
+    "UNDO_RETWEET": "ביטול ציוץ מחדש",
+    "VIEW": "הצג"
   },
   "hi": {
     "MOST_RELEVANT": "सर्वाधिक प्रासंगिक",
+    "POST_UNAVAILABLE": "यह पोस्ट उपलब्ध नहीं है.",
     "QUOTE_TWEET": "ट्वीट क्वोट करें",
     "QUOTE_TWEETS": "कोट ट्वीट्स",
     "RETWEET": "रीट्वीट करें",
@@ -379,10 +417,12 @@
     "TWEET_ALL": "सभी ट्वीट करें",
     "TWEET_INTERACTIONS": "ट्वीट इंटरैक्शन",
     "TWEET_YOUR_REPLY": "अपना जवाब ट्वीट करें!",
-    "UNDO_RETWEET": "रीट्वीट को पूर्ववत करें"
+    "UNDO_RETWEET": "रीट्वीट को पूर्ववत करें",
+    "VIEW": "देखें"
   },
   "hr": {
     "MOST_RELEVANT": "Najrelevantnije",
+    "POST_UNAVAILABLE": "Ta objava nije dostupna.",
     "QUOTE_TWEET": "Citiraj Tweet",
     "QUOTE_TWEETS": "Citirani tweetovi",
     "RETWEET": "Proslijedi tweet",
@@ -397,10 +437,12 @@
     "TWEET_ALL": "Tweetaj sve",
     "TWEET_INTERACTIONS": "Interakcije s Tweet",
     "TWEET_YOUR_REPLY": "Pošaljite Tweet s odgovorom!",
-    "UNDO_RETWEET": "Poništi prosljeđivanje tweeta"
+    "UNDO_RETWEET": "Poništi prosljeđivanje tweeta",
+    "VIEW": "Prikaz"
   },
   "hu": {
     "MOST_RELEVANT": "Legmegfelelőbb",
+    "POST_UNAVAILABLE": "Ez a bejegyzés nem elérhető.",
     "QUOTE_TWEET": "Tweet idézése",
     "QUOTE_TWEETS": "Tweet-idézések",
     "RETWEETED_BY": "Retweetelte",
@@ -415,10 +457,12 @@
     "TWEET_ALL": "Tweet küldése mindenkinek",
     "TWEET_INTERACTIONS": "Tweet interakciók",
     "TWEET_YOUR_REPLY": "Tweeteld válaszodat",
-    "UNDO_RETWEET": "Retweet visszavonása"
+    "UNDO_RETWEET": "Retweet visszavonása",
+    "VIEW": "Megtekintés"
   },
   "id": {
     "MOST_RELEVANT": "Paling relevan",
+    "POST_UNAVAILABLE": "Postingan ini tidak tersedia.",
     "QUOTE_TWEET": "Kutip Tweet",
     "QUOTE_TWEETS": "Tweet Kutipan",
     "RETWEETED_BY": "Di-retweet oleh",
@@ -432,10 +476,12 @@
     "TWEET_ALL": "Tweet semua",
     "TWEET_INTERACTIONS": "Interaksi Tweet",
     "TWEET_YOUR_REPLY": "Tweet balasan Anda!",
-    "UNDO_RETWEET": "Batalkan Retweet"
+    "UNDO_RETWEET": "Batalkan Retweet",
+    "VIEW": "Lihat"
   },
   "it": {
     "MOST_RELEVANT": "Più pertinenti",
+    "POST_UNAVAILABLE": "Questo post non è disponibile.",
     "QUOTE_TWEET": "Cita Tweet",
     "QUOTE_TWEETS": "Tweet di citazione",
     "RETWEET": "Ritwitta",
@@ -451,10 +497,12 @@
     "TWEET_ALL": "Twitta tutto",
     "TWEET_INTERACTIONS": "Interazioni con Tweet",
     "TWEET_YOUR_REPLY": "Twitta la tua risposta.",
-    "UNDO_RETWEET": "Annulla Retweet"
+    "UNDO_RETWEET": "Annulla Retweet",
+    "VIEW": "Visualizza"
   },
   "ja": {
     "MOST_RELEVANT": "関連性が高い",
+    "POST_UNAVAILABLE": "このポストは表示できません。",
     "QUOTE_TWEET": "引用ツイート",
     "QUOTE_TWEETS": "引用ツイート",
     "RETWEET": "リツイート",
@@ -470,10 +518,12 @@
     "TWEET_ALL": "すべてツイート",
     "TWEET_INTERACTIONS": "ツイートの相互作用",
     "TWEET_YOUR_REPLY": "返信をツイートしましょう。",
-    "UNDO_RETWEET": "リツイートを取り消す"
+    "UNDO_RETWEET": "リツイートを取り消す",
+    "VIEW": "表示"
   },
   "kn": {
     "MOST_RELEVANT": "ಅತ್ಯಂತ ಸಂಬಂಧಿತ",
+    "POST_UNAVAILABLE": "ಈ ಪೋಸ್ಟ್ ಲಭ್ಯವಿಲ್ಲ.",
     "QUOTE_TWEET": "ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ",
     "QUOTE_TWEETS": "ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು",
     "RETWEET": "ಮರುಟ್ವೀಟಿಸಿ",
@@ -489,10 +539,12 @@
     "TWEET_ALL": "ಎಲ್ಲಾ ಟ್ವೀಟ್ ಮಾಡಿ",
     "TWEET_INTERACTIONS": "ಟ್ವೀಟ್ ಸಂವಾದಗಳು",
     "TWEET_YOUR_REPLY": "ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ!",
-    "UNDO_RETWEET": "ಮರುಟ್ವೀಟಿಸುವುದನ್ನು ರದ್ದುಮಾಡಿ"
+    "UNDO_RETWEET": "ಮರುಟ್ವೀಟಿಸುವುದನ್ನು ರದ್ದುಮಾಡಿ",
+    "VIEW": "ವೀಕ್ಷಿಸಿ"
   },
   "ko": {
     "MOST_RELEVANT": "관련도 순서",
+    "POST_UNAVAILABLE": "이 게시물을 볼 수 없습니다.",
     "QUOTE_TWEET": "트윗 인용하기",
     "QUOTE_TWEETS": "트윗 인용하기",
     "RETWEET": "리트윗",
@@ -509,10 +561,12 @@
     "TWEET_INTERACTIONS": "트윗 상호작용",
     "TWEET_YOUR_REPLY": "내 답글을 트윗하세요",
     "TWITTER": "트위터",
-    "UNDO_RETWEET": "리트윗 취소"
+    "UNDO_RETWEET": "리트윗 취소",
+    "VIEW": "보기"
   },
   "mr": {
     "MOST_RELEVANT": "सर्वात महत्वाचे",
+    "POST_UNAVAILABLE": "हे पोस्ट अनुपलब्ध आहे.",
     "QUOTE_TWEET": "ट्विट वर भाष्य करा",
     "QUOTE_TWEETS": "भाष्य ट्विट्स",
     "RETWEET": "पुन्हा ट्विट",
@@ -528,10 +582,12 @@
     "TWEET_ALL": "सर्व ट्विट करा",
     "TWEET_INTERACTIONS": "ट्वीट इंटरऍक्शन्स",
     "TWEET_YOUR_REPLY": "आपल्या प्रत्युत्तरावर ट्विट करा!",
-    "UNDO_RETWEET": "पुनर्ट्विट पूर्ववत करा"
+    "UNDO_RETWEET": "पुनर्ट्विट पूर्ववत करा",
+    "VIEW": "पहा"
   },
   "ms": {
     "MOST_RELEVANT": "Paling berkaitan",
+    "POST_UNAVAILABLE": "Siaran ini tidak tersedia.",
     "QUOTE_TWEET": "Petik Tweet",
     "QUOTE_TWEETS": "Tweet Petikan",
     "RETWEET": "Tweet semula",
@@ -546,10 +602,12 @@
     "TWEET_ALL": "Tweet semua",
     "TWEET_INTERACTIONS": "Interaksi Tweet",
     "TWEET_YOUR_REPLY": "Tweet balasan anda!",
-    "UNDO_RETWEET": "Buat asal Tweet semula"
+    "UNDO_RETWEET": "Buat asal Tweet semula",
+    "VIEW": "Lihat"
   },
   "nb": {
     "MOST_RELEVANT": "Mest relevante",
+    "POST_UNAVAILABLE": "Dette innlegget er utilgjengelig.",
     "QUOTE_TWEET": "Sitat-Tweet",
     "QUOTE_TWEETS": "Sitat-Tweets",
     "RETWEETED_BY": "Retweetet av",
@@ -561,10 +619,12 @@
     "TWEET_ALL": "Tweet alle",
     "TWEET_INTERACTIONS": "Tweet-interaksjoner",
     "TWEET_YOUR_REPLY": "Tweet svaret ditt!",
-    "UNDO_RETWEET": "Angre Retweet"
+    "UNDO_RETWEET": "Angre Retweet",
+    "VIEW": "Vis"
   },
   "nl": {
     "MOST_RELEVANT": "Meest relevant",
+    "POST_UNAVAILABLE": "Deze post is niet beschikbaar.",
     "QUOTE_TWEET": "Citeer Tweet",
     "QUOTE_TWEETS": "Geciteerde Tweets",
     "RETWEET": "Retweeten",
@@ -578,10 +638,12 @@
     "TWEET_ALL": "Alles tweeten",
     "TWEET_INTERACTIONS": "Tweet-interacties",
     "TWEET_YOUR_REPLY": "Tweet je antwoord!",
-    "UNDO_RETWEET": "Retweet ongedaan maken"
+    "UNDO_RETWEET": "Retweet ongedaan maken",
+    "VIEW": "Bekijken"
   },
   "pl": {
     "MOST_RELEVANT": "Najtrafniejsze",
+    "POST_UNAVAILABLE": "Ten wpis jest niedostępny.",
     "QUOTE_TWEET": "Cytuj Tweeta",
     "QUOTE_TWEETS": "Cytaty z Tweeta",
     "RETWEET": "Podaj dalej",
@@ -596,10 +658,12 @@
     "TWEET_ALL": "Tweetnij wszystko",
     "TWEET_INTERACTIONS": "Interakcje na Tweeta",
     "TWEET_YOUR_REPLY": "Wyślij Tweeta z odpowiedzią!",
-    "UNDO_RETWEET": "Cofnij podanie dalej"
+    "UNDO_RETWEET": "Cofnij podanie dalej",
+    "VIEW": "Wyświetl"
   },
   "pt": {
     "MOST_RELEVANT": "Mais relevante",
+    "POST_UNAVAILABLE": "Este post está indisponível.",
     "QUOTE_TWEET": "Comentar o Tweet",
     "QUOTE_TWEETS": "Tweets com comentário",
     "RETWEET": "Retweetar",
@@ -613,10 +677,12 @@
     "TWEET_ALL": "Tweetar tudo",
     "TWEET_INTERACTIONS": "Interações com Tweet",
     "TWEET_YOUR_REPLY": "Tweetar sua resposta!",
-    "UNDO_RETWEET": "Desfazer Retweet"
+    "UNDO_RETWEET": "Desfazer Retweet",
+    "VIEW": "Ver"
   },
   "ro": {
     "MOST_RELEVANT": "Cele mai relevante",
+    "POST_UNAVAILABLE": "Această postare este indisponibilă.",
     "QUOTE_TWEET": "Citează Tweetul",
     "QUOTE_TWEETS": "Tweeturi cu citat",
     "RETWEET": "Redistribuie",
@@ -631,10 +697,12 @@
     "TWEET_ALL": "Dă Tweeturi cu tot",
     "TWEET_INTERACTIONS": "Interacțiuni cu Tweetul",
     "TWEET_YOUR_REPLY": "Dă Tweet cu răspunsul!",
-    "UNDO_RETWEET": "Anulează Retweetul"
+    "UNDO_RETWEET": "Anulează Retweetul",
+    "VIEW": "Vezi"
   },
   "ru": {
     "MOST_RELEVANT": "Наиболее актуальные",
+    "POST_UNAVAILABLE": "Этот пост недоступен.",
     "QUOTE_TWEET": "Цитировать",
     "QUOTE_TWEETS": "Твиты с цитатами",
     "RETWEET": "Ретвитнуть",
@@ -651,10 +719,12 @@
     "TWEET_INTERACTIONS": "Взаимодействие в Твитнуть",
     "TWEET_YOUR_REPLY": "Твитните свой ответ!",
     "TWITTER": "Твиттер",
-    "UNDO_RETWEET": "Отменить ретвит"
+    "UNDO_RETWEET": "Отменить ретвит",
+    "VIEW": "Посмотреть"
   },
   "sk": {
     "MOST_RELEVANT": "Najrelevantnejšie",
+    "POST_UNAVAILABLE": "Tento príspevok je nedostupný.",
     "QUOTE_TWEET": "Tweet s citátom",
     "QUOTE_TWEETS": "Tweety s citátom",
     "RETWEET": "Retweetnuť",
@@ -670,10 +740,12 @@
     "TWEET_ALL": "Tweetnuť všetko",
     "TWEET_INTERACTIONS": "Interakcie s Tweet",
     "TWEET_YOUR_REPLY": "Tweetnite odpoveď!",
-    "UNDO_RETWEET": "Zrušiť retweet"
+    "UNDO_RETWEET": "Zrušiť retweet",
+    "VIEW": "Zobraziť"
   },
   "sr": {
     "MOST_RELEVANT": "Најважније",
+    "POST_UNAVAILABLE": "Ова објава није доступна.",
     "QUOTE_TWEET": "твит са цитатом",
     "QUOTE_TWEETS": "твит(ов)а са цитатом",
     "RETWEET": "Ретвитуј",
@@ -690,10 +762,12 @@
     "TWEET_INTERACTIONS": "Интеракције са Твитуј",
     "TWEET_YOUR_REPLY": "Твитуј свој одговор!",
     "TWITTER": "Твитер",
-    "UNDO_RETWEET": "Опозови ретвит"
+    "UNDO_RETWEET": "Опозови ретвит",
+    "VIEW": "Погледај"
   },
   "sv": {
     "MOST_RELEVANT": "Mest relevant",
+    "POST_UNAVAILABLE": "Detta inlägg är inte tillgängligt.",
     "QUOTE_TWEET": "Citera Tweet",
     "QUOTE_TWEETS": "Citat-tweets",
     "RETWEET": "Retweeta",
@@ -707,10 +781,12 @@
     "TWEET_ALL": "Tweeta allt",
     "TWEET_INTERACTIONS": "Interaktioner med Tweet",
     "TWEET_YOUR_REPLY": "Tweeta ditt svar!",
-    "UNDO_RETWEET": "Ångra retweeten"
+    "UNDO_RETWEET": "Ångra retweeten",
+    "VIEW": "Visa"
   },
   "ta": {
     "MOST_RELEVANT": "மிகவும் தொடர்புடையவை",
+    "POST_UNAVAILABLE": "இந்த இடுகை கிடைக்கவில்லை.",
     "QUOTE_TWEET": "ட்விட்டை மேற்கோள் காட்டு",
     "QUOTE_TWEETS": "மேற்கோள் கீச்சுகள்",
     "RETWEET": "மறுட்விட் செய்",
@@ -726,10 +802,12 @@
     "TWEET_ALL": "அனைத்தையும் ட்விட் செய்",
     "TWEET_INTERACTIONS": "ட்விட் செய் ஊடாடல்களைக்",
     "TWEET_YOUR_REPLY": "உங்கள் பதிலை ட்விட் செய்யவும்!",
-    "UNDO_RETWEET": "மறுகீச்சை செயல்தவிர்"
+    "UNDO_RETWEET": "மறுகீச்சை செயல்தவிர்",
+    "VIEW": "காண்பி"
   },
   "th": {
     "MOST_RELEVANT": "เกี่ยวข้องที่สุด",
+    "POST_UNAVAILABLE": "โพสต์นี้ไม่สามารถใช้งานได้",
     "QUOTE_TWEET": "อ้างอิงทวีต",
     "QUOTE_TWEETS": "ทวีตและคำพูด",
     "RETWEET": "รีทวีต",
@@ -746,10 +824,12 @@
     "TWEET_INTERACTIONS": "การโต้ตอบของทวีต",
     "TWEET_YOUR_REPLY": "ทวีตการตอบกลับของคุณ",
     "TWITTER": "ทวิตเตอร์",
-    "UNDO_RETWEET": "ยกเลิกการรีทวีต"
+    "UNDO_RETWEET": "ยกเลิกการรีทวีต",
+    "VIEW": "ดู"
   },
   "tr": {
     "MOST_RELEVANT": "En alakalı",
+    "POST_UNAVAILABLE": "Bu gönderi kullanılamıyor.",
     "QUOTE_TWEET": "Tweeti Alıntıla",
     "QUOTE_TWEETS": "Alıntı Tweetler",
     "RETWEETED_BY": "Retweetleyen(ler):",
@@ -764,10 +844,12 @@
     "TWEET_ALL": "Hepsini Tweetle",
     "TWEET_INTERACTIONS": "Tweet etkileşimleri",
     "TWEET_YOUR_REPLY": "Yanıtını Tweetle.",
-    "UNDO_RETWEET": "Retweeti Geri Al"
+    "UNDO_RETWEET": "Retweeti Geri Al",
+    "VIEW": "Görüntüle"
   },
   "uk": {
     "MOST_RELEVANT": "Найактуальніші",
+    "POST_UNAVAILABLE": "Цей пост недоступний.",
     "QUOTE_TWEET": "Цитувати твіт",
     "QUOTE_TWEETS": "Цитовані твіти",
     "RETWEET": "Ретвітнути",
@@ -784,7 +866,8 @@
     "TWEET_INTERACTIONS": "Взаємодія твітів",
     "TWEET_YOUR_REPLY": "Твітніть свою відповідь!",
     "TWITTER": "Твіттер",
-    "UNDO_RETWEET": "Скасувати ретвіт"
+    "UNDO_RETWEET": "Скасувати ретвіт",
+    "VIEW": "Переглянути"
   },
   "ur": {
     "QUOTE_TWEET": "ٹویٹ کا حوالہ دیں",
@@ -801,10 +884,12 @@
     "TWEET_ALL": "سب کو ٹویٹ کریں",
     "TWEET_INTERACTIONS": "ٹویٹ تعاملات",
     "TWITTER": "ٹوئٹر",
-    "UNDO_RETWEET": "ری ٹویٹ کو کالعدم کریں"
+    "UNDO_RETWEET": "ری ٹویٹ کو کالعدم کریں",
+    "VIEW": "دیکھیں"
   },
   "vi": {
     "MOST_RELEVANT": "Liên quan nhất",
+    "POST_UNAVAILABLE": "Không có bài đăng này.",
     "QUOTE_TWEET": "Trích dẫn Tweet",
     "QUOTE_TWEETS": "Tweet trích dẫn",
     "RETWEET": "Tweet lại",
@@ -819,10 +904,12 @@
     "TWEET_ALL": "Đăng Tweet tất cả",
     "TWEET_INTERACTIONS": "Tương tác Tweet",
     "TWEET_YOUR_REPLY": "Đăng Tweet câu trả lời của bạn!",
-    "UNDO_RETWEET": "Hoàn tác Tweet lại"
+    "UNDO_RETWEET": "Hoàn tác Tweet lại",
+    "VIEW": "Xem"
   },
   "zh-Hant": {
     "MOST_RELEVANT": "最相關",
+    "POST_UNAVAILABLE": "此貼文無法查看。",
     "QUOTE_TWEET": "引用推文",
     "QUOTE_TWEETS": "引用的推文",
     "RETWEET": "轉推",
@@ -838,10 +925,12 @@
     "TWEET_ALL": "推全部內容",
     "TWEET_INTERACTIONS": "推文互動",
     "TWEET_YOUR_REPLY": "推你的回覆！",
-    "UNDO_RETWEET": "取消轉推"
+    "UNDO_RETWEET": "取消轉推",
+    "VIEW": "查看"
   },
   "zh": {
     "MOST_RELEVANT": "最相关",
+    "POST_UNAVAILABLE": "这个帖子不可用。",
     "QUOTE_TWEET": "引用推文",
     "QUOTE_TWEETS": "引用推文",
     "RETWEET": "转推",
@@ -857,6 +946,7 @@
     "TWEET_ALL": "全部发推",
     "TWEET_INTERACTIONS": "推文互动",
     "TWEET_YOUR_REPLY": "发布你的回复！",
-    "UNDO_RETWEET": "撤销转推"
+    "UNDO_RETWEET": "撤销转推",
+    "VIEW": "查看"
   }
 }

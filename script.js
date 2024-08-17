@@ -135,6 +135,7 @@ const locales = {
     MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
+    POST_UNAVAILABLE: 'هذا المنشور غير متاح.',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
     REPOST: 'إعادة النشر',
@@ -156,6 +157,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'التغريد بردك!',
     TWITTER: 'تويتر',
     UNDO_RETWEET: 'التراجع عن التغريدة',
+    VIEW: 'عرض',
   },
   ar: {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
@@ -164,6 +166,7 @@ const locales = {
     MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
+    POST_UNAVAILABLE: 'هذا المنشور غير متاح.',
     QUOTE: 'اقتباس',
     QUOTES: 'اقتباسات',
     QUOTE_TWEET: 'اقتباس التغريدة',
@@ -186,6 +189,7 @@ const locales = {
     TWEET_INTERACTIONS: 'تفاعلات التغريدة',
     TWEET_YOUR_REPLY: 'التغريد بردك!',
     UNDO_RETWEET: 'التراجع عن التغريدة',
+    VIEW: 'عرض',
   },
   bg: {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
@@ -194,6 +198,7 @@ const locales = {
     MOST_RELEVANT: 'Най-подходящи',
     MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
     POST_ALL: 'Публикуване на всичко',
+    POST_UNAVAILABLE: 'Тази публикация не е налична.',
     QUOTE: 'Цитат',
     QUOTES: 'Цитати',
     QUOTE_TWEET: 'Цитиране на туита',
@@ -216,6 +221,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Интеракции с туит',
     TWEET_YOUR_REPLY: 'Отговори с туит!',
     UNDO_RETWEET: 'Отмяна на ретуитването',
+    VIEW: 'Преглед',
   },
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
@@ -224,6 +230,7 @@ const locales = {
     MOST_RELEVANT: 'সবচেয়ে প্রাসঙ্গিক',
     MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
     POST_ALL: 'সবকটি পোস্ট করুন',
+    POST_UNAVAILABLE: 'এই পোস্টটি অনুপলভ্য।',
     QUOTE: 'উদ্ধৃতি',
     QUOTES: 'উদ্ধৃতিগুলো',
     QUOTE_TWEET: 'টুইট উদ্ধৃত করুন',
@@ -247,6 +254,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'আপনার উত্তর টুইট করুন!',
     TWITTER: 'টুইটার',
     UNDO_RETWEET: 'পুনঃ টুইট পুর্বাবস্থায় ফেরান',
+    VIEW: 'দেখুন',
   },
   ca: {
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
@@ -255,6 +263,7 @@ const locales = {
     MOST_RELEVANT: 'El més rellevant',
     MUTE_THIS_CONVERSATION: 'Silencia la conversa',
     POST_ALL: 'Publica-ho tot',
+    POST_UNAVAILABLE: 'Aquesta publicació no està disponible.',
     QUOTE: 'Cita',
     QUOTES: 'Cites',
     QUOTE_TWEET: 'Cita el tuit',
@@ -277,6 +286,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interaccions amb tuits',
     TWEET_YOUR_REPLY: 'Tuita la teva resposta',
     UNDO_RETWEET: 'Desfés el retuit',
+    VIEW: 'Mostra',
   },
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
@@ -285,6 +295,7 @@ const locales = {
     MOST_RELEVANT: 'Nejvíce související',
     MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
     POST_ALL: 'Postovat vše',
+    POST_UNAVAILABLE: 'Tento post není dostupný.',
     QUOTE: 'Citace',
     QUOTES: 'Citace',
     QUOTE_TWEET: 'Citovat Tweet',
@@ -306,6 +317,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Tweetovat interakce',
     TWEET_YOUR_REPLY: 'Tweetujte svou odpověď!',
     UNDO_RETWEET: 'Zrušit Retweet',
+    VIEW: 'Zobrazit',
   },
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
@@ -314,6 +326,7 @@ const locales = {
     MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
     POST_ALL: 'Post alle',
+    POST_UNAVAILABLE: 'Denne post er ikke tilgængelig.',
     QUOTE: 'Citat',
     QUOTES: 'Citater',
     QUOTE_TWEET: 'Citér Tweet',
@@ -330,6 +343,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Tweet-interaktioner',
     TWEET_YOUR_REPLY: 'Tweet dit svar!',
     UNDO_RETWEET: 'Fortryd Retweet',
+    VIEW: 'Vis',
   },
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
@@ -338,6 +352,7 @@ const locales = {
     MOST_RELEVANT: 'Besonders relevant',
     MUTE_THIS_CONVERSATION: 'Diese Konversation stummschalten',
     POST_ALL: 'Alle posten',
+    POST_UNAVAILABLE: 'Dieser Post ist nicht verfügbar.',
     QUOTE: 'Zitat',
     QUOTES: 'Zitate',
     QUOTE_TWEET: 'Tweet zitieren',
@@ -357,6 +372,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Tweet-Interaktionen',
     TWEET_YOUR_REPLY: 'Twittere deine Antwort!',
     UNDO_RETWEET: 'Retweet rückgängig machen',
+    VIEW: 'Anzeigen',
   },
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
@@ -365,6 +381,7 @@ const locales = {
     MOST_RELEVANT: 'Πιο σχετική',
     MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
     POST_ALL: 'Δημοσίευση όλων',
+    POST_UNAVAILABLE: 'Αυτή η ανάρτηση δεν είναι διαθέσιμη.',
     QUOTE: 'Παράθεση',
     QUOTES: 'Παραθέσεις',
     QUOTE_TWEET: 'Παράθεση Tweet',
@@ -385,6 +402,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Αλληλεπιδράσεις με tweet',
     TWEET_YOUR_REPLY: 'Στείλτε την απάντησή σας!',
     UNDO_RETWEET: 'Αναίρεση Retweet',
+    VIEW: 'Προβολή',
   },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
@@ -393,6 +411,7 @@ const locales = {
     MOST_RELEVANT: 'Most relevant',
     MUTE_THIS_CONVERSATION: 'Mute this conversation',
     POST_ALL: 'Post all',
+    POST_UNAVAILABLE: 'This post is unavailable.',
     QUOTE: 'Quote',
     QUOTES: 'Quotes',
     QUOTE_TWEET: 'Quote Tweet',
@@ -416,6 +435,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet your reply!',
     TWITTER: 'Twitter',
     UNDO_RETWEET: 'Undo Retweet',
+    VIEW: 'View',
   },
   es: {
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
@@ -424,6 +444,7 @@ const locales = {
     MOST_RELEVANT: 'Más relevantes',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
     POST_ALL: 'Postear todo',
+    POST_UNAVAILABLE: 'Este post no está disponible.',
     QUOTE: 'Cita',
     QUOTES: 'Citas',
     QUOTE_TWEET: 'Citar Tweet',
@@ -443,6 +464,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interacciones con Tweet',
     TWEET_YOUR_REPLY: '¡Twittea tu respuesta!',
     UNDO_RETWEET: 'Deshacer Retweet',
+    VIEW: 'Ver',
   },
   eu: {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
@@ -467,6 +489,7 @@ const locales = {
     TWEET_ALL: 'Txiotu guztiak',
     TWEET_INTERACTIONS: 'Txio elkarrekintzak',
     UNDO_RETWEET: 'Desegin birtxiokatzea',
+    VIEW: 'Ikusi',
   },
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
@@ -475,6 +498,7 @@ const locales = {
     MOST_RELEVANT: 'مرتبط‌ترین',
     MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
     POST_ALL: 'پست کردن همه',
+    POST_UNAVAILABLE: 'این پست دردسترس نیست.',
     QUOTE: 'نقل‌قول',
     QUOTES: 'نقل‌قول‌ها',
     QUOTE_TWEET: 'نقل‌توییت',
@@ -498,6 +522,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'پاسختان را توییت کنید!',
     TWITTER: 'توییتر',
     UNDO_RETWEET: 'لغو بازتوییت',
+    VIEW: 'مشاهده',
   },
   fi: {
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
@@ -506,6 +531,7 @@ const locales = {
     MOST_RELEVANT: 'Relevanteimmat',
     MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
     POST_ALL: 'Julkaise kaikki',
+    POST_UNAVAILABLE: 'Tämä julkaisu ei ole saatavilla.',
     QUOTE: 'Lainaa',
     QUOTES: 'Lainaukset',
     QUOTE_TWEET: 'Twiitin lainaus',
@@ -528,6 +554,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Twiitin vuorovaikutukset',
     TWEET_YOUR_REPLY: 'Twiittaa vastauksesi',
     UNDO_RETWEET: 'Kumoa uudelleentwiittaus',
+    VIEW: 'Näytä',
   },
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
@@ -535,6 +562,7 @@ const locales = {
     MOST_RELEVANT: 'Pinakanauugnay',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
     POST_ALL: 'I-post lahat',
+    POST_UNAVAILABLE: 'Hindi available ang post na Ito.',
     QUOTES: 'Mga Quote',
     QUOTE_TWEET: 'Quote na Tweet',
     QUOTE_TWEETS: 'Mga Quote na Tweet',
@@ -556,6 +584,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interaksyon sa Tweet',
     TWEET_YOUR_REPLY: 'I-Tweet ang sagot mo!',
     UNDO_RETWEET: 'Huwag nang I-retweet',
+    VIEW: 'Tingnan',
   },
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
@@ -564,6 +593,7 @@ const locales = {
     MOST_RELEVANT: 'Les plus pertinentes',
     MUTE_THIS_CONVERSATION: 'Masquer cette conversation',
     POST_ALL: 'Tout poster',
+    POST_UNAVAILABLE: "Ce post n'est pas disponible.",
     QUOTE: 'Citation',
     QUOTES: 'Citations',
     QUOTE_TWEET: 'Citer le Tweet',
@@ -582,6 +612,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interactions avec Tweet',
     TWEET_YOUR_REPLY: 'Tweetez votre réponse!',
     UNDO_RETWEET: 'Annuler le Retweet',
+    VIEW: 'Voir',
   },
   ga: {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
@@ -605,6 +636,7 @@ const locales = {
     TWEET_ALL: 'Tweetáil gach rud',
     TWEET_INTERACTIONS: 'Idirghníomhaíochtaí le Tweet',
     UNDO_RETWEET: 'Cuir an Atweet ar ceal',
+    VIEW: 'Breathnaigh',
   },
   gl: {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
@@ -629,6 +661,7 @@ const locales = {
     TWEET_ALL: 'Chiar todo',
     TWEET_INTERACTIONS: 'Interaccións chío',
     UNDO_RETWEET: 'Desfacer rechouchío',
+    VIEW: 'Ver',
   },
   gu: {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
@@ -637,6 +670,7 @@ const locales = {
     MOST_RELEVANT: 'સૌથી વધુ સુસંગત',
     MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
     POST_ALL: 'બધા પોસ્ટ કરો',
+    POST_UNAVAILABLE: 'આ પોસ્ટ અનુપલબ્ધ છે.',
     QUOTE: 'અવતરણ',
     QUOTES: 'અવતરણો',
     QUOTE_TWEET: 'અવતરણની સાથે ટ્વીટ કરો',
@@ -659,6 +693,7 @@ const locales = {
     TWEET_INTERACTIONS: 'ટ્વીટ ક્રિયાપ્રતિક્રિયાઓ',
     TWEET_YOUR_REPLY: 'તમારા પ્રત્યુત્તરને ટ્વીટ કરો!',
     UNDO_RETWEET: 'પુનટ્વીટને પૂર્વવત કરો',
+    VIEW: 'જુઓ',
   },
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
@@ -667,6 +702,7 @@ const locales = {
     MOST_RELEVANT: 'הכי רלוונטי',
     MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
     POST_ALL: 'פרסום הכל',
+    POST_UNAVAILABLE: 'פוסט זה אינו זמין.',
     QUOTE: 'ציטוט',
     QUOTES: 'ציטוטים',
     QUOTE_TWEET: 'ציטוט ציוץ',
@@ -690,6 +726,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'צייץ את התשובה!',
     TWITTER: 'טוויטר',
     UNDO_RETWEET: 'ביטול ציוץ מחדש',
+    VIEW: 'הצג',
   },
   hi: {
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
@@ -698,6 +735,7 @@ const locales = {
     MOST_RELEVANT: 'सर्वाधिक प्रासंगिक',
     MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
     POST_ALL: 'सभी पोस्ट करें',
+    POST_UNAVAILABLE: 'यह पोस्ट उपलब्ध नहीं है.',
     QUOTE: 'कोट',
     QUOTES: 'कोट',
     QUOTE_TWEET: 'ट्वीट क्वोट करें',
@@ -720,6 +758,7 @@ const locales = {
     TWEET_INTERACTIONS: 'ट्वीट इंटरैक्शन',
     TWEET_YOUR_REPLY: 'अपना जवाब ट्वीट करें!',
     UNDO_RETWEET: 'रीट्वीट को पूर्ववत करें',
+    VIEW: 'देखें',
   },
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
@@ -728,6 +767,7 @@ const locales = {
     MOST_RELEVANT: 'Najrelevantnije',
     MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
     POST_ALL: 'Objavi sve',
+    POST_UNAVAILABLE: 'Ta objava nije dostupna.',
     QUOTE: 'Citat',
     QUOTES: 'citata',
     QUOTE_TWEET: 'Citiraj Tweet',
@@ -749,6 +789,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interakcije s Tweet',
     TWEET_YOUR_REPLY: 'Pošaljite Tweet s odgovorom!',
     UNDO_RETWEET: 'Poništi prosljeđivanje tweeta',
+    VIEW: 'Prikaz',
   },
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
@@ -757,6 +798,7 @@ const locales = {
     MOST_RELEVANT: 'Legmegfelelőbb',
     MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
     POST_ALL: 'Az összes közzététele',
+    POST_UNAVAILABLE: 'Ez a bejegyzés nem elérhető.',
     QUOTE: 'Idézés',
     QUOTES: 'Idézések',
     QUOTE_TWEET: 'Tweet idézése',
@@ -778,6 +820,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Tweet interakciók',
     TWEET_YOUR_REPLY: 'Tweeteld válaszodat',
     UNDO_RETWEET: 'Retweet visszavonása',
+    VIEW: 'Megtekintés',
   },
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
@@ -786,6 +829,7 @@ const locales = {
     MOST_RELEVANT: 'Paling relevan',
     MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
     POST_ALL: 'Posting semua',
+    POST_UNAVAILABLE: 'Postingan ini tidak tersedia.',
     QUOTE: 'Kutipan',
     QUOTES: 'Kutipan',
     QUOTE_TWEET: 'Kutip Tweet',
@@ -806,6 +850,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interaksi Tweet',
     TWEET_YOUR_REPLY: 'Tweet balasan Anda!',
     UNDO_RETWEET: 'Batalkan Retweet',
+    VIEW: 'Lihat',
   },
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
@@ -813,6 +858,7 @@ const locales = {
     MOST_RELEVANT: 'Più pertinenti',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
     POST_ALL: 'Pubblica tutto',
+    POST_UNAVAILABLE: 'Questo post non è disponibile.',
     QUOTE: 'Citazione',
     QUOTES: 'Citazioni',
     QUOTE_TWEET: 'Cita Tweet',
@@ -834,6 +880,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interazioni con Tweet',
     TWEET_YOUR_REPLY: 'Twitta la tua risposta.',
     UNDO_RETWEET: 'Annulla Retweet',
+    VIEW: 'Visualizza',
   },
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
@@ -842,6 +889,7 @@ const locales = {
     MOST_RELEVANT: '関連性が高い',
     MUTE_THIS_CONVERSATION: 'この会話をミュート',
     POST_ALL: 'すべてポスト',
+    POST_UNAVAILABLE: 'このポストは表示できません。',
     QUOTE: '引用',
     QUOTES: '引用',
     QUOTE_TWEET: '引用ツイート',
@@ -864,6 +912,7 @@ const locales = {
     TWEET_INTERACTIONS: 'ツイートの相互作用',
     TWEET_YOUR_REPLY: '返信をツイートしましょう。',
     UNDO_RETWEET: 'リツイートを取り消す',
+    VIEW: '表示',
   },
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
@@ -872,6 +921,7 @@ const locales = {
     MOST_RELEVANT: 'ಅತ್ಯಂತ ಸಂಬಂಧಿತ',
     MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
     POST_ALL: 'ಎಲ್ಲವನ್ನೂ ಪೋಸ್ಟ್ ಮಾಡಿ',
+    POST_UNAVAILABLE: 'ಈ ಪೋಸ್ಟ್ ಲಭ್ಯವಿಲ್ಲ.',
     QUOTE: 'ಕೋಟ್‌',
     QUOTES: 'ಉಲ್ಲೇಖಗಳು',
     QUOTE_TWEET: 'ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ',
@@ -894,6 +944,7 @@ const locales = {
     TWEET_INTERACTIONS: 'ಟ್ವೀಟ್ ಸಂವಾದಗಳು',
     TWEET_YOUR_REPLY: 'ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ!',
     UNDO_RETWEET: 'ಮರುಟ್ವೀಟಿಸುವುದನ್ನು ರದ್ದುಮಾಡಿ',
+    VIEW: 'ವೀಕ್ಷಿಸಿ',
   },
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
@@ -902,6 +953,7 @@ const locales = {
     MOST_RELEVANT: '관련도 순서',
     MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
     POST_ALL: '모두 게시하기',
+    POST_UNAVAILABLE: '이 게시물을 볼 수 없습니다.',
     QUOTE: '인용',
     QUOTES: '인용',
     QUOTE_TWEET: '트윗 인용하기',
@@ -925,6 +977,7 @@ const locales = {
     TWEET_YOUR_REPLY: '내 답글을 트윗하세요',
     TWITTER: '트위터',
     UNDO_RETWEET: '리트윗 취소',
+    VIEW: '보기',
   },
   mr: {
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
@@ -933,6 +986,7 @@ const locales = {
     MOST_RELEVANT: 'सर्वात महत्वाचे',
     MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
     POST_ALL: 'सर्व पोस्ट करा',
+    POST_UNAVAILABLE: 'हे पोस्ट अनुपलब्ध आहे.',
     QUOTE: 'भाष्य',
     QUOTES: 'भाष्य',
     QUOTE_TWEET: 'ट्विट वर भाष्य करा',
@@ -955,6 +1009,7 @@ const locales = {
     TWEET_INTERACTIONS: 'ट्वीट इंटरऍक्शन्स',
     TWEET_YOUR_REPLY: 'आपल्या प्रत्युत्तरावर ट्विट करा!',
     UNDO_RETWEET: 'पुनर्ट्विट पूर्ववत करा',
+    VIEW: 'पहा',
   },
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
@@ -963,6 +1018,7 @@ const locales = {
     MOST_RELEVANT: 'Paling berkaitan',
     MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
     POST_ALL: 'Siarkan semua',
+    POST_UNAVAILABLE: 'Siaran ini tidak tersedia.',
     QUOTE: 'Petikan',
     QUOTES: 'Petikan',
     QUOTE_TWEET: 'Petik Tweet',
@@ -984,6 +1040,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interaksi Tweet',
     TWEET_YOUR_REPLY: 'Tweet balasan anda!',
     UNDO_RETWEET: 'Buat asal Tweet semula',
+    VIEW: 'Lihat',
   },
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
@@ -992,6 +1049,7 @@ const locales = {
     MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtalen',
     POST_ALL: 'Publiser alle',
+    POST_UNAVAILABLE: 'Dette innlegget er utilgjengelig.',
     QUOTE: 'Sitat',
     QUOTES: 'Sitater',
     QUOTE_TWEET: 'Sitat-Tweet',
@@ -1010,6 +1068,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Tweet-interaksjoner',
     TWEET_YOUR_REPLY: 'Tweet svaret ditt!',
     UNDO_RETWEET: 'Angre Retweet',
+    VIEW: 'Vis',
   },
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
@@ -1018,6 +1077,7 @@ const locales = {
     MOST_RELEVANT: 'Meest relevant',
     MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
     POST_ALL: 'Alles plaatsen',
+    POST_UNAVAILABLE: 'Deze post is niet beschikbaar.',
     QUOTE: 'Geciteerd',
     QUOTES: 'Geciteerd',
     QUOTE_TWEET: 'Citeer Tweet',
@@ -1036,6 +1096,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Tweet-interacties',
     TWEET_YOUR_REPLY: 'Tweet je antwoord!',
     UNDO_RETWEET: 'Retweet ongedaan maken',
+    VIEW: 'Bekijken',
   },
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
@@ -1044,6 +1105,7 @@ const locales = {
     MOST_RELEVANT: 'Najtrafniejsze',
     MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
     POST_ALL: 'Opublikuj wszystko',
+    POST_UNAVAILABLE: 'Ten wpis jest niedostępny.',
     QUOTE: 'Cytuj',
     QUOTES: 'Cytaty',
     QUOTE_TWEET: 'Cytuj Tweeta',
@@ -1065,6 +1127,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interakcje na Tweeta',
     TWEET_YOUR_REPLY: 'Wyślij Tweeta z odpowiedzią!',
     UNDO_RETWEET: 'Cofnij podanie dalej',
+    VIEW: 'Wyświetl',
   },
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
@@ -1073,6 +1136,7 @@ const locales = {
     MOST_RELEVANT: 'Mais relevante',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     POST_ALL: 'Postar tudo',
+    POST_UNAVAILABLE: 'Este post está indisponível.',
     QUOTE: 'Comentar',
     QUOTES: 'Comentários',
     QUOTE_TWEET: 'Comentar o Tweet',
@@ -1092,6 +1156,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interações com Tweet',
     TWEET_YOUR_REPLY: 'Tweetar sua resposta!',
     UNDO_RETWEET: 'Desfazer Retweet',
+    VIEW: 'Ver',
   },
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
@@ -1100,6 +1165,7 @@ const locales = {
     MOST_RELEVANT: 'Cele mai relevante',
     MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
     POST_ALL: 'Postează tot',
+    POST_UNAVAILABLE: 'Această postare este indisponibilă.',
     QUOTE: 'Citat',
     QUOTES: 'Citate',
     QUOTE_TWEET: 'Citează Tweetul',
@@ -1121,6 +1187,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interacțiuni cu Tweetul',
     TWEET_YOUR_REPLY: 'Dă Tweet cu răspunsul!',
     UNDO_RETWEET: 'Anulează Retweetul',
+    VIEW: 'Vezi',
   },
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
@@ -1129,6 +1196,7 @@ const locales = {
     MOST_RELEVANT: 'Наиболее актуальные',
     MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
     POST_ALL: 'Опубликовать все',
+    POST_UNAVAILABLE: 'Этот пост недоступен.',
     QUOTE: 'Цитата',
     QUOTES: 'Цитаты',
     QUOTE_TWEET: 'Цитировать',
@@ -1152,6 +1220,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Твитните свой ответ!',
     TWITTER: 'Твиттер',
     UNDO_RETWEET: 'Отменить ретвит',
+    VIEW: 'Посмотреть',
   },
   sk: {
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
@@ -1160,6 +1229,7 @@ const locales = {
     MOST_RELEVANT: 'Najrelevantnejšie',
     MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
     POST_ALL: 'Uverejniť všetko',
+    POST_UNAVAILABLE: 'Tento príspevok je nedostupný.',
     QUOTE: 'Citát',
     QUOTES: 'Citáty',
     QUOTE_TWEET: 'Tweet s citátom',
@@ -1182,6 +1252,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interakcie s Tweet',
     TWEET_YOUR_REPLY: 'Tweetnite odpoveď!',
     UNDO_RETWEET: 'Zrušiť retweet',
+    VIEW: 'Zobraziť',
   },
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
@@ -1190,6 +1261,7 @@ const locales = {
     MOST_RELEVANT: 'Најважније',
     MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
     POST_ALL: 'Објави све',
+    POST_UNAVAILABLE: 'Ова објава није доступна.',
     QUOTE: 'Цитат',
     QUOTES: 'Цитати',
     QUOTE_TWEET: 'твит са цитатом',
@@ -1213,6 +1285,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Твитуј свој одговор!',
     TWITTER: 'Твитер',
     UNDO_RETWEET: 'Опозови ретвит',
+    VIEW: 'Погледај',
   },
   sv: {
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
@@ -1221,6 +1294,7 @@ const locales = {
     MOST_RELEVANT: 'Mest relevant',
     MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
     POST_ALL: 'Lägg upp allt',
+    POST_UNAVAILABLE: 'Detta inlägg är inte tillgängligt.',
     QUOTE: 'Citat',
     QUOTES: 'Citat',
     QUOTE_TWEET: 'Citera Tweet',
@@ -1241,6 +1315,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interaktioner med Tweet',
     TWEET_YOUR_REPLY: 'Tweeta ditt svar!',
     UNDO_RETWEET: 'Ångra retweeten',
+    VIEW: 'Visa',
   },
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
@@ -1249,6 +1324,7 @@ const locales = {
     MOST_RELEVANT: 'மிகவும் தொடர்புடையவை',
     MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
     POST_ALL: 'எல்லாம் இடுகையிடு',
+    POST_UNAVAILABLE: 'இந்த இடுகை கிடைக்கவில்லை.',
     QUOTE: 'மேற்கோள்',
     QUOTES: 'மேற்கோள்கள்',
     QUOTE_TWEET: 'ட்விட்டை மேற்கோள் காட்டு',
@@ -1271,6 +1347,7 @@ const locales = {
     TWEET_INTERACTIONS: 'ட்விட் செய் ஊடாடல்களைக்',
     TWEET_YOUR_REPLY: 'உங்கள் பதிலை ட்விட் செய்யவும்!',
     UNDO_RETWEET: 'மறுகீச்சை செயல்தவிர்',
+    VIEW: 'காண்பி',
   },
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
@@ -1279,6 +1356,7 @@ const locales = {
     MOST_RELEVANT: 'เกี่ยวข้องที่สุด',
     MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
     POST_ALL: 'โพสต์ทั้งหมด',
+    POST_UNAVAILABLE: 'โพสต์นี้ไม่สามารถใช้งานได้',
     QUOTE: 'การอ้างอิง',
     QUOTES: 'คำพูด',
     QUOTE_TWEET: 'อ้างอิงทวีต',
@@ -1302,6 +1380,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'ทวีตการตอบกลับของคุณ',
     TWITTER: 'ทวิตเตอร์',
     UNDO_RETWEET: 'ยกเลิกการรีทวีต',
+    VIEW: 'ดู',
   },
   tr: {
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
@@ -1310,6 +1389,7 @@ const locales = {
     MOST_RELEVANT: 'En alakalı',
     MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
     POST_ALL: 'Tümünü gönder',
+    POST_UNAVAILABLE: 'Bu gönderi kullanılamıyor.',
     QUOTE: 'Alıntı',
     QUOTES: 'Alıntılar',
     QUOTE_TWEET: 'Tweeti Alıntıla',
@@ -1331,6 +1411,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Tweet etkileşimleri',
     TWEET_YOUR_REPLY: 'Yanıtını Tweetle.',
     UNDO_RETWEET: 'Retweeti Geri Al',
+    VIEW: 'Görüntüle',
   },
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
@@ -1339,6 +1420,7 @@ const locales = {
     MOST_RELEVANT: 'Найактуальніші',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
     POST_ALL: 'Опублікувати все',
+    POST_UNAVAILABLE: 'Цей пост недоступний.',
     QUOTE: 'Цитата',
     QUOTES: 'Цитати',
     QUOTE_TWEET: 'Цитувати твіт',
@@ -1362,6 +1444,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Твітніть свою відповідь!',
     TWITTER: 'Твіттер',
     UNDO_RETWEET: 'Скасувати ретвіт',
+    VIEW: 'Переглянути',
   },
   ur: {
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
@@ -1387,6 +1470,7 @@ const locales = {
     TWEET_INTERACTIONS: 'ٹویٹ تعاملات',
     TWITTER: 'ٹوئٹر',
     UNDO_RETWEET: 'ری ٹویٹ کو کالعدم کریں',
+    VIEW: 'دیکھیں',
   },
   vi: {
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
@@ -1395,6 +1479,7 @@ const locales = {
     MOST_RELEVANT: 'Liên quan nhất',
     MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
     POST_ALL: 'Đăng tất cả',
+    POST_UNAVAILABLE: 'Không có bài đăng này.',
     QUOTE: 'Trích dẫn',
     QUOTES: 'Trích dẫn',
     QUOTE_TWEET: 'Trích dẫn Tweet',
@@ -1416,6 +1501,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Tương tác Tweet',
     TWEET_YOUR_REPLY: 'Đăng Tweet câu trả lời của bạn!',
     UNDO_RETWEET: 'Hoàn tác Tweet lại',
+    VIEW: 'Xem',
   },
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
@@ -1424,6 +1510,7 @@ const locales = {
     MOST_RELEVANT: '最相關',
     MUTE_THIS_CONVERSATION: '將此對話靜音',
     POST_ALL: '全部發佈',
+    POST_UNAVAILABLE: '此貼文無法查看。',
     QUOTE: '引用',
     QUOTES: '引用',
     QUOTE_TWEET: '引用推文',
@@ -1446,6 +1533,7 @@ const locales = {
     TWEET_INTERACTIONS: '推文互動',
     TWEET_YOUR_REPLY: '推你的回覆！',
     UNDO_RETWEET: '取消轉推',
+    VIEW: '查看',
   },
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
@@ -1454,6 +1542,7 @@ const locales = {
     MOST_RELEVANT: '最相关',
     MUTE_THIS_CONVERSATION: '隐藏此对话',
     POST_ALL: '全部发帖',
+    POST_UNAVAILABLE: '这个帖子不可用。',
     QUOTE: '引用',
     QUOTES: '引用',
     QUOTE_TWEET: '引用推文',
@@ -1476,6 +1565,7 @@ const locales = {
     TWEET_INTERACTIONS: '推文互动',
     TWEET_YOUR_REPLY: '发布你的回复！',
     UNDO_RETWEET: '撤销转推',
+    VIEW: '查看',
   },
 }
 
@@ -4371,33 +4461,46 @@ function onIndividualTweetTimelineChange($timeline, options) {
         }
       }
     }
-    else if ($item.querySelector('article')) {
-      if ($item.querySelector('[role="button"]')?.textContent == getString('SHOW')) {
-        itemType = 'SHOW_MORE'
-      } else {
+    else {
+      let $article = $item.querySelector('article')
+      if ($article) {
+        // Deleted or private, unless…
         itemType = 'UNAVAILABLE'
-        hideItem = config.hideUnavailableQuoteTweets
-      }
-    } else {
-      // We need to identify "Show more replies" so it doesn't get hidden if the
-      // item immediately before it was hidden.
-      let $button = $item.querySelector('button[role="button"]')
-      if ($button) {
-        if ($button?.textContent == getString('SHOW_MORE_REPLIES')) {
-          itemType = 'SHOW_MORE'
+        let $button = $article.querySelector('[role="button"]')
+        if ($button) {
+          if ($button.textContent == getString('SHOW')) {
+            itemType = 'SHOW_MORE'
+          }
+          else if ($button.textContent == getString('VIEW')) {
+            // "This Tweet is from an account you (blocked|muted)." with a View button
+            hideItem = config.hideUnavailableQuoteTweets
+          }
+        }
+        else if ($article.textContent == getString('POST_UNAVAILABLE')) {
+          // Likely blocked or muted
+          hideItem = config.hideUnavailableQuoteTweets
         }
       } else {
-        let $heading = $item.querySelector(Selectors.TIMELINE_HEADING)
-        if ($heading) {
-          // Discover More headings have a description next to them
-          if ($heading.nextElementSibling &&
-              $heading.nextElementSibling.tagName == 'DIV' &&
-              $heading.nextElementSibling.getAttribute('dir') != null) {
-            itemType = 'DISCOVER_MORE_HEADING'
-            hideItem = config.hideMoreTweets
-            hideAllSubsequentItems = config.hideMoreTweets
-          } else {
-            itemType = 'HEADING'
+        // We need to identify "Show more replies" so it doesn't get hidden if the
+        // item immediately before it was hidden.
+        let $button = $item.querySelector('button[role="button"]')
+        if ($button) {
+          if ($button?.textContent == getString('SHOW_MORE_REPLIES')) {
+            itemType = 'SHOW_MORE'
+          }
+        } else {
+          let $heading = $item.querySelector(Selectors.TIMELINE_HEADING)
+          if ($heading) {
+            // Discover More headings have a description next to them
+            if ($heading.nextElementSibling &&
+                $heading.nextElementSibling.tagName == 'DIV' &&
+                $heading.nextElementSibling.getAttribute('dir') != null) {
+              itemType = 'DISCOVER_MORE_HEADING'
+              hideItem = config.hideMoreTweets
+              hideAllSubsequentItems = config.hideMoreTweets
+            } else {
+              itemType = 'HEADING'
+            }
           }
         }
       }
