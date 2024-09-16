@@ -3990,7 +3990,7 @@ function handlePopup($popup) {
   }
 
   if (isOnListPage()) {
-    let $switchSvg = $popup.querySelector(`svg path[d^="M12 3.75c-4.56 0-8.25 3.69-8.25 8.25s"]`)
+    let $switchSvg = $popup.querySelector(`svg path[d="M3 2h18.61l-3.5 7 3.5 7H5v6H3V2zm2 12h13.38l-2.5-5 2.5-5H5v10z"]`)
     if ($switchSvg) {
       addToggleListRetweetsMenuItem($popup.querySelector(`[role="menuitem"]`))
       return {tookAction: true}
