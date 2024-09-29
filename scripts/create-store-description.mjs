@@ -24,7 +24,6 @@ ${messages.homeTimelineOptionsLabel}
 • ${messages.retweetsLabel}
   • ${messages.option_separate}
 • ${messages.mutableQuoteTweetsLabel}
-  • ${messages.mutableQuoteTweetsInfo}
 • ${messages.hideSeeNewTweetsLabel}
 • ${messages.hideWhoToFollowEtcLabel}
 • ${messages.hideInlinePrompts}

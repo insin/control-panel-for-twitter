@@ -33,6 +33,7 @@ export type Config = {
   hideMoreTweets: boolean
   hideProfileRetweets: boolean
   hideQuoteTweetMetrics: boolean
+  hideQuotesFrom: string[]
   hideReplyMetrics: boolean
   hideRetweetMetrics: boolean
   hideSeeNewTweets: boolean
@@ -113,6 +114,7 @@ export type LocaleKey =
   | 'SHOW'
   | 'SHOW_MORE_REPLIES'
   | 'SORT_REPLIES'
+  | 'TURN_OFF_QUOTE_TWEETS'
   | 'TURN_OFF_RETWEETS'
   | 'TURN_ON_RETWEETS'
   | 'TWEET'
@@ -129,6 +131,7 @@ export type NamedMutationObserver = MutationObserver & {name?: string}
 export type Disconnectable = NamedMutationObserver|{disconnect(): void}
 
 export type QuotedTweet = {
+  quotedBy: string
   user: string
   time: string
   text?: string

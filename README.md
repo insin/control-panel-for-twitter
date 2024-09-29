@@ -29,7 +29,7 @@ New versions can take anything from minutes to days to be approved for publishin
 - Move Retweets to a separate tab (default setting), or hide them entirely
 - Move Quote Tweets and replies to them to a separate tab in the Home timeline, or hide them entirely
 - Hide Retweets in pinned Lists
-- Mute quoting of specific tweets - adds a "Mute this conversation" menu item to Quote Tweets in the Home and List timelines
+- Enable muting of Quote Tweets
 - Hide the floating "See new Tweets" button
 - Hide "Who to follow", "Follow some Topics" etc. in the Home timeline and elsewhere
 - Hide inline prompts in the timeline

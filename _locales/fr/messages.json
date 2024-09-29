@@ -188,6 +188,15 @@
   "hideQuoteTweetMetricsLabel": {
     "message": "Citations des tweets"
   },
+  "hideQuotesFromLabel": {
+    "message": "Utilisateurs en sourdine ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
   "hideReplyMetricsLabel": {
     "message": "Réponses"
   },
@@ -245,11 +254,8 @@
   "listRetweetsLabel": {
     "message": "Retweets dans les Listes"
   },
-  "mutableQuoteTweetsInfo": {
-    "message": "Ajoute un élément de menu \"Mettre cette conversation en sourdine\" pour les citations de Tweets"
-  },
   "mutableQuoteTweetsLabel": {
-    "message": "Désactiver la citation de certains tweets"
+    "message": "Activer la désactivation des tweets de citation"
   },
   "mutedTweetsLabel": {
     "message": "Tweets masqués ($COUNT$)",

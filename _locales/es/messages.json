@@ -188,6 +188,15 @@
   "hideQuoteTweetMetricsLabel": {
     "message": "Citados"
   },
+  "hideQuotesFromLabel": {
+    "message": "Usuarios silenciados ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
   "hideReplyMetricsLabel": {
     "message": "Respuestas"
   },
@@ -245,11 +254,8 @@
   "listRetweetsLabel": {
     "message": "Retuits en Listas"
   },
-  "mutableQuoteTweetsInfo": {
-    "message": "Añade la opción \"Silenciar esta conversación\" en el menú de los citados"
-  },
   "mutableQuoteTweetsLabel": {
-    "message": "Ocultar citados de determinados tweets"
+    "message": "Habilitar el silenciado de Tweets citados"
   },
   "mutedTweetsLabel": {
     "message": "Tweets silenciados ($COUNT$)",

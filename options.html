@@ -48,12 +48,15 @@
       </section>
       <section class="checkbox">
         <label>
-          <span id="mutableQuoteTweetsLabel">Mute quoting of specific tweets</span>
+          <span id="mutableQuoteTweetsLabel">Enable muting of Quote Tweets</span>
           <input type="checkbox" name="mutableQuoteTweets">
           <span class="toggle"></span>
         </label>
-        <p id="mutableQuoteTweetsInfo">Adds a "Mute this conversation" menu item to Quote Tweets</p>
-        <details class="mutedQuotes" id="mutedQuotesDetails">
+        <details id="hideQuotesFromDetails">
+          <summary><span id="hideQuotesFromLabel"></span></summary>
+          <div id="hideQuotesFrom"></div>
+        </details>
+        <details id="mutedQuotesDetails">
           <summary><span id="mutedQuotesLabel"></span></summary>
           <div id="mutedQuotes"></div>
         </details>

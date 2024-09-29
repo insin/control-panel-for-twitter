@@ -192,6 +192,15 @@
   "hideQuoteTweetMetricsLabel": {
     "message": "Quote tweets"
   },
+  "hideQuotesFromLabel": {
+    "message": "Muted users ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
   "hideReplyMetricsLabel": {
     "message": "Replies"
   },
@@ -249,12 +258,8 @@
   "listRetweetsLabel": {
     "message": "Retweets in Lists"
   },
-  "mutableQuoteTweetsInfo": {
-    "message": "Adds a \"Mute this conversation\" menu item to Quote Tweets",
-    "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
-  },
   "mutableQuoteTweetsLabel": {
-    "message": "Mute quoting of specific tweets"
+    "message": "Enable muting of Quote Tweets"
   },
   "mutedTweetsLabel": {
     "message": "Muted tweets ($COUNT$)",

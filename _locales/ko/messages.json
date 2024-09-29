@@ -188,6 +188,15 @@
   "hideQuoteTweetMetricsLabel": {
     "message": "인용 트윗"
   },
+  "hideQuotesFromLabel": {
+    "message": "음소거된 사용자 ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
   "hideReplyMetricsLabel": {
     "message": "답글"
   },
@@ -245,11 +254,8 @@
   "listRetweetsLabel": {
     "message": "리스트에 포함된 리트윗"
   },
-  "mutableQuoteTweetsInfo": {
-    "message": "인용 트윗에 \"이 대화 뮤트하기\" 메뉴 항목 추가"
-  },
   "mutableQuoteTweetsLabel": {
-    "message": "특정 트윗의 인용 트윗 음소거"
+    "message": "인용 트윗 음소거 활성화"
   },
   "mutedTweetsLabel": {
     "message": "음소거된 트윗 ($COUNT$개)",

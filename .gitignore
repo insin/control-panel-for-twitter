@@ -4,6 +4,7 @@ manifest.json
 node_modules/
 promo/*.png
 !promo/app-store.png
+scripts/locales/base-translations.json
 scripts/locales/html/*.html
 scripts/locales/js/*.js
 scripts/locales/js/_files.txt

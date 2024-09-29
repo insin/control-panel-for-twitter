@@ -188,6 +188,15 @@
   "hideQuoteTweetMetricsLabel": {
     "message": "引用ツイート件数"
   },
+  "hideQuotesFromLabel": {
+    "message": "ミュートしたユーザー ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
   "hideReplyMetricsLabel": {
     "message": "返信件数"
   },
@@ -245,11 +254,8 @@
   "listRetweetsLabel": {
     "message": "リスト内のリツイート"
   },
-  "mutableQuoteTweetsInfo": {
-    "message": "「この会話をミュートする\"」メニューを引用ツイートに追加"
-  },
   "mutableQuoteTweetsLabel": {
-    "message": "ラベルのついたツイートをミュートする"
+    "message": "引用ツイートのミュートを有効にする"
   },
   "mutedTweetsLabel": {
     "message": "ミュートされたツイート（$COUNT$）",

@@ -87,7 +87,6 @@ for (let translationId of [
   'hideWhoToFollowEtcLabel',
   'homeTimelineOptionsLabel',
   'listRetweetsLabel',
-  'mutableQuoteTweetsInfo',
   'mutableQuoteTweetsLabel',
   'navBaseFontSizeLabel',
   'navDensityLabel',
@@ -183,6 +182,7 @@ const defaultConfig = {
   hideMoreTweets: true,
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
+  hideQuotesFrom: [],
   hideReplyMetrics: true,
   hideRetweetMetrics: true,
   hideSeeNewTweets: false,
@@ -253,6 +253,9 @@ let checkboxGroups
 let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('details#experiments'))
 let $exportConfig = document.querySelector('#export-config')
 let $form = document.querySelector('form')
+let $hideQuotesFrom =  /** @type {HTMLDivElement} */ (document.querySelector('#hideQuotesFrom'))
+let $hideQuotesFromDetails = /** @type {HTMLDetailsElement} */ (document.querySelector('details#hideQuotesFromDetails'))
+let $hideQuotesFromLabel = /** @type {HTMLElement} */ (document.querySelector('#hideQuotesFromLabel'))
 let $mutedQuotes =  /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
 let $mutedQuotesDetails =  /** @type {HTMLDetailsElement} */ (document.querySelector('details#mutedQuotesDetails'))
 let $mutedQuotesLabel = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesLabel'))
@@ -393,6 +396,10 @@ function onStorageChanged(changes) {
   applyConfig()
 }
 
+function shouldDisplayHideQuotesFrom() {
+  return optionsConfig.mutableQuoteTweets && optionsConfig.hideQuotesFrom.length > 0
+}
+
 function shouldDisplayMutedQuotes() {
   return optionsConfig.mutableQuoteTweets && optionsConfig.mutedQuotes.length > 0
 }
@@ -422,16 +429,46 @@ function updateDisplay() {
   $body.classList.toggle('hidingBookmarkButton', optionsConfig.hideBookmarkButton)
   $body.classList.toggle('hidingExploreNav', optionsConfig.hideExploreNav)
   $body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
+  $body.classList.toggle('hidingQuotesFrom', shouldDisplayHideQuotesFrom())
   $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
   $body.classList.toggle('hidingTwitterBlueReplies', optionsConfig.hideTwitterBlueReplies)
-  $body.classList.toggle('mutedQuotes', shouldDisplayMutedQuotes())
+  $body.classList.toggle('mutingQuotes', shouldDisplayMutedQuotes())
   $body.classList.toggle('showingBlueReplyFollowersCount', optionsConfig.showBlueReplyFollowersCount)
   $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
   $showBlueReplyFollowersCountLabel.textContent = chrome.i18n.getMessage(
     'showBlueReplyFollowersCountLabel',
     formatFollowerCount(Number(optionsConfig.showBlueReplyFollowersCountAmount))
   )
+  updateHideQuotesFromDisplay()
   updateMutedQuotesDisplay()
+}
+
+
+function updateHideQuotesFromDisplay() {
+  if (!shouldDisplayHideQuotesFrom()) return
+
+  $hideQuotesFromLabel.textContent = chrome.i18n.getMessage('hideQuotesFromLabel', String(optionsConfig.hideQuotesFrom.length))
+
+  if (!$hideQuotesFromDetails.open) return
+
+  while ($hideQuotesFrom.hasChildNodes()) $hideQuotesFrom.firstChild.remove()
+  for (let user of optionsConfig.hideQuotesFrom) {
+    $hideQuotesFrom.appendChild(
+      h('section', null,
+        h('label', {className: 'button'},
+          h('span', null, `@${user}`),
+          h('button', {
+            type: 'button',
+            onclick() {
+              optionsConfig.hideQuotesFrom = optionsConfig.hideQuotesFrom.filter(u => u != user)
+              storeConfigChanges({hideQuotesFrom: optionsConfig.hideQuotesFrom})
+              updateDisplay()
+            }
+          }, chrome.i18n.getMessage('unmuteButtonText'))
+        )
+      )
+    )
+  }
 }
 
 function updateMutedQuotesDisplay() {
@@ -501,6 +538,7 @@ function main() {
     // $experiments.open = (...)
     $exportConfig.addEventListener('click', exportConfig)
     $form.addEventListener('change', onFormChanged)
+    $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
     chrome.storage.onChanged.addListener(onStorageChanged)
 

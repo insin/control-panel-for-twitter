@@ -188,6 +188,15 @@
   "hideQuoteTweetMetricsLabel": {
     "message": "引用推文"
   },
+  "hideQuotesFromLabel": {
+    "message": "已静音用户 ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
   "hideReplyMetricsLabel": {
     "message": "回复"
   },
@@ -253,9 +262,6 @@
   },
   "mostRelevant": {
     "message": "最相关"
-  },
-  "mutableQuoteTweetsInfo": {
-    "message": "在引用推文中增加了一个\"将此对话隐藏\"的菜单项"
   },
   "mutableQuoteTweetsLabel": {
     "message": "对特定推文进行隐藏引用"
