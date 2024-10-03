@@ -3168,6 +3168,8 @@ const configureCss = (() => {
         '.PinModal [data-testid="sheetDialog"] > div > div:last-child > div > div > div:first-child',
         // Highlight button on the pin modal
         '.PinModal [data-testid="sheetDialog"] [role="button"]:first-child:nth-last-child(3)',
+        // Unlock Analytics button in your own profile
+        '.Profile [data-testid="analytics-preview"]',
       )
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
