@@ -3138,7 +3138,7 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} a[href$="/i/grok"]`)
     }
     if (config.hideMonetizationNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/settings/monetization"]`)
+      hideCssSelectors.push(`${menuRole} a[href$="/i/monetization"]`)
     }
     if (config.hideAdsNav) {
       hideCssSelectors.push(`${menuRole} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
