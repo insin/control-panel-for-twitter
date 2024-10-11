@@ -158,6 +158,7 @@ export type TimelineItemType =
   | 'DISCOVER_MORE_TWEET'
   | 'FOCUSED_TWEET'
   | 'HEADING'
+  | 'INLINE_PROMPT'
   | 'SHOW_MORE'
   | 'SUBSEQUENT_ITEM'
   | 'UNAVAILABLE'

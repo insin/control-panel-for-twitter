@@ -3082,15 +3082,6 @@ const configureCss = (() => {
     if (config.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
     }
-    if (config.hideInlinePrompts) {
-      cssRules.push(`
-        @supports selector(:has(*)) {
-          div[data-testid="inlinePrompt"] {
-            display: none !important;
-          }
-        }
-      `)
-    }
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(
         // Under timeline tweets
@@ -3204,16 +3195,6 @@ const configureCss = (() => {
           padding-right: 32px;
         }
       `)
-      if (!config.hideInlinePrompts) {
-        // Hide Subscribe prompts in the timeline
-        cssRules.push(`
-          @supports selector(:has(*)) {
-            div[data-testid="inlinePrompt"]:has(a[href^="/i/premium"]) {
-              display: none !important;
-            }
-          }
-        `)
-      }
     }
     if (config.hideVerifiedNotificationsTab) {
       cssRules.push(`
@@ -4402,8 +4383,15 @@ function onTimelineChange($timeline, page, options = {}) {
       }
     }
 
+    // Special handling for non-Tweet timeline items
     if (itemType == null) {
-      if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
+      if ($item.querySelector('[data-testid="inlinePrompt"]')) {
+        itemType = 'INLINE_PROMPT'
+        hideItem = config.hideInlinePrompts || (
+          config.hideTwitterBlueUpsells && Boolean($item.querySelector('a[href^="/i/premium"]')) ||
+          config.hideMonetizationNav && Boolean($item.querySelector('a[href="/settings/monetization"]'))
+        )
+      } else if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
         itemType = 'HEADING'
         hideItem = hideHeadings && config.hideWhoToFollowEtc
       }
