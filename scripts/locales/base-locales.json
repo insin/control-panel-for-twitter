@@ -202,10 +202,8 @@
     "SHARED": "Shared",
     "SHARED_TWEETS": "Shared Tweets",
     "SORT_REPLIES": "Sort replies",
-    "TURN_OFF_QUOTES": "Turn off Quotes",
     "TURN_OFF_QUOTE_TWEETS": "Turn off Quote Tweets",
     "TURN_OFF_RETWEETS": "Turn off Retweets",
-    "TURN_ON_QUOTES": "Turn on Quotes",
     "TURN_ON_RETWEETS": "Turn on Retweets",
     "TWEET": "Tweet",
     "TWEETS": "Tweets",
@@ -547,7 +545,7 @@
     "TWEET_INTERACTIONS": "ツイートの相互作用",
     "TWEET_YOUR_REPLY": "返信をツイートしましょう。",
     "UNDO_RETWEET": "リツイートを取り消す",
-    "VIEW": "表示"
+    "VIEW": "表示する"
   },
   "kn": {
     "MOST_RELEVANT": "ಅತ್ಯಂತ ಸಂಬಂಧಿತ",

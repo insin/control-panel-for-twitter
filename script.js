@@ -939,7 +939,7 @@ const locales = {
     TWEET_INTERACTIONS: 'ツイートの相互作用',
     TWEET_YOUR_REPLY: '返信をツイートしましょう。',
     UNDO_RETWEET: 'リツイートを取り消す',
-    VIEW: '表示',
+    VIEW: '表示する',
   },
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
