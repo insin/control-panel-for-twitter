@@ -3149,6 +3149,8 @@ const configureCss = (() => {
       hideCssSelectors.push(
         // Premium/Verified menu items
         `${menuRole} a:is([href^="/i/premium"], [href^="/i/verified"])`,
+        // Analytics menu item
+        `${menuRole} a[href="/i/account_analytics"]`,
         // "Highlight on your profile" on your tweets
         '[role="menuitem"][data-testid="highlightUpsell"]',
         // "Edit with Premium" on recent tweets
