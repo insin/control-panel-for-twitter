@@ -3211,31 +3211,26 @@ const configureCss = (() => {
         '.PinModal [data-testid="sheetDialog"] > div > div:last-child > div > div > div:first-child',
         // Highlight button on the pin modal
         '.PinModal [data-testid="sheetDialog"] [role="button"]:first-child:nth-last-child(3)',
+        // Misc upsells in your own profile
+        `.OwnProfile ${Selectors.PRIMARY_COLUMN} a[href^="/i/premium"]`,
         // Unlock Analytics button in your own profile
-        '.Profile [data-testid="analytics-preview"]',
+        '.OwnProfile [data-testid="analytics-preview"]',
       )
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
       let upsellTabLinks = 'a:is([href$="/highlights"], [href$="/articles"])'
       cssRules.push(`
-        @supports selector(:has(*)) {
-          ${profileTabsList} > div:has(> ${upsellTabLinks}) {
-            flex: 0;
-          }
-          ${profileTabsList} > div > ${upsellTabLinks} {
-            display: none;
-          }
-          .OwnProfile [data-testid="UserName"] > div:has(> div > a[href^="/i/premium"]) {
-            display: none;
-          }
+        ${profileTabsList} > div:has(> ${upsellTabLinks}) {
+          flex: 0;
+        }
+        ${profileTabsList} > div > ${upsellTabLinks} {
+          display: none;
         }
       `)
       // Hide upsell on the Likes tab in your own profile
       cssRules.push(`
-        @supports selector(:has(*)) {
-          body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"]) {
-            display: none;
-          }
+        body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"]) {
+          display: none;
         }
       `)
       // Allow Pin and Cancel buttons go to max-width on the pin modal
