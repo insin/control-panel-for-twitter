@@ -4717,6 +4717,9 @@ function onTitleChange(title) {
     else if (desktop && location.pathname == '/settings' && currentPath != '/settings') {
       log('viewing root Settings page')
     }
+    else if (location.pathname.startsWith(PagePaths.BOOKMARKS) && !currentPath.startsWith(PagePaths.BOOKMARKS)) {
+      log('viewing Bookmarks page')
+    }
     // Ignore Flash of Uninitialised Title when navigating to a page for the
     // first time.
     else {
