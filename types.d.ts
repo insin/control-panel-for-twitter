@@ -94,6 +94,7 @@ export type Locale = {
 
 export type LocaleKey =
   | 'ADD_MUTED_WORD'
+  | 'GROK_ACTIONS'
   | 'HOME'
   | 'LIKES'
   | 'MOST_RELEVANT'

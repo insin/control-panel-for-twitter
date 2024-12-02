@@ -131,12 +131,14 @@ const config = {
 const locales = {
   'ar-x-fm': {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
+    GROK_ACTIONS: 'إجراءات Grok',
     HOME: 'الرئيسيّة',
     LIKES: 'الإعجابات',
     MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
     POST_UNAVAILABLE: 'هذا المنشور غير متاح.',
+    QUOTES: 'اقتباسات',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
     REPOST: 'إعادة النشر',
@@ -163,6 +165,7 @@ const locales = {
   },
   ar: {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
+    GROK_ACTIONS: 'إجراءات Grok',
     HOME: 'الرئيسيّة',
     LIKES: 'الإعجابات',
     MOST_RELEVANT: 'الأكثر ملائمة',
@@ -196,6 +199,7 @@ const locales = {
   },
   bg: {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
+    GROK_ACTIONS: 'Действия, свързани с Grok',
     HOME: 'Начало',
     LIKES: 'Харесвания',
     MOST_RELEVANT: 'Най-подходящи',
@@ -229,6 +233,7 @@ const locales = {
   },
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
+    GROK_ACTIONS: 'Grok কার্যকলাপ',
     HOME: 'হোম',
     LIKES: 'পছন্দ',
     MOST_RELEVANT: 'সবচেয়ে প্রাসঙ্গিক',
@@ -263,6 +268,7 @@ const locales = {
   },
   ca: {
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
+    GROK_ACTIONS: 'Accions de Grok',
     HOME: 'Inici',
     LIKES: 'Agradaments',
     MOST_RELEVANT: 'El més rellevant',
@@ -296,6 +302,7 @@ const locales = {
   },
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
+    GROK_ACTIONS: 'Akce funkce Grok',
     HOME: 'Hlavní stránka',
     LIKES: 'Lajky',
     MOST_RELEVANT: 'Nejvíce související',
@@ -328,6 +335,7 @@ const locales = {
   },
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
+    GROK_ACTIONS: 'Grok-handlinger',
     HOME: 'Forside',
     LIKES: 'Likes',
     MOST_RELEVANT: 'Mest relevante',
@@ -355,6 +363,7 @@ const locales = {
   },
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
+    GROK_ACTIONS: 'Grok-Aktionen',
     HOME: 'Startseite',
     LIKES: 'Gefällt mir',
     MOST_RELEVANT: 'Besonders relevant',
@@ -385,6 +394,7 @@ const locales = {
   },
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
+    GROK_ACTIONS: 'Δράσεις Grok',
     HOME: 'Αρχική σελίδα',
     LIKES: '"Μου αρέσει"',
     MOST_RELEVANT: 'Πιο σχετική',
@@ -416,6 +426,7 @@ const locales = {
   },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
+    GROK_ACTIONS: 'Grok actions',
     HOME: 'Home',
     LIKES: 'Likes',
     MOST_RELEVANT: 'Most relevant',
@@ -450,6 +461,7 @@ const locales = {
   },
   es: {
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
+    GROK_ACTIONS: 'Acciones de Grok',
     HOME: 'Inicio',
     LIKES: 'Me gusta',
     MOST_RELEVANT: 'Más relevantes',
@@ -480,6 +492,7 @@ const locales = {
   },
   eu: {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
+    GROK_ACTIONS: 'Grok actions',
     HOME: 'Hasiera',
     LIKES: 'Atsegiteak',
     MUTE_THIS_CONVERSATION: 'Isilarazi elkarrizketa hau',
@@ -506,6 +519,7 @@ const locales = {
   },
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
+    GROK_ACTIONS: 'کنش‌های Grok',
     HOME: 'خانه',
     LIKES: 'پسندها',
     MOST_RELEVANT: 'مرتبط‌ترین',
@@ -540,6 +554,7 @@ const locales = {
   },
   fi: {
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
+    GROK_ACTIONS: 'Grok-toiminnat',
     HOME: 'Etusivu',
     LIKES: 'Tykkäykset',
     MOST_RELEVANT: 'Relevanteimmat',
@@ -573,6 +588,7 @@ const locales = {
   },
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
+    GROK_ACTIONS: 'Mga aksyon ni Grok',
     LIKES: 'Mga Gusto',
     MOST_RELEVANT: 'Pinakanauugnay',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
@@ -604,6 +620,7 @@ const locales = {
   },
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
+    GROK_ACTIONS: 'Actions Grok',
     HOME: 'Accueil',
     LIKES: "J'aime",
     MOST_RELEVANT: 'Les plus pertinentes',
@@ -633,6 +650,7 @@ const locales = {
   },
   ga: {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
+    GROK_ACTIONS: 'Grok actions',
     HOME: 'Baile',
     LIKES: 'Thaitin siad seo le',
     MUTE_THIS_CONVERSATION: 'Balbhaigh an comhrá seo',
@@ -658,6 +676,7 @@ const locales = {
   },
   gl: {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
+    GROK_ACTIONS: 'Grok actions',
     HOME: 'Inicio',
     LIKES: 'Gústames',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
@@ -684,6 +703,7 @@ const locales = {
   },
   gu: {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
+    GROK_ACTIONS: 'Grok પગલાં',
     HOME: 'હોમ',
     LIKES: 'લાઈક્સ',
     MOST_RELEVANT: 'સૌથી વધુ સુસંગત',
@@ -717,6 +737,7 @@ const locales = {
   },
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
+    GROK_ACTIONS: 'פעולות של Grok',
     HOME: 'דף הבית',
     LIKES: 'הערות "אהבתי"',
     MOST_RELEVANT: 'הכי רלוונטי',
@@ -751,6 +772,7 @@ const locales = {
   },
   hi: {
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
+    GROK_ACTIONS: 'Grok कार्रवाई',
     HOME: 'होम',
     LIKES: 'पसंद',
     MOST_RELEVANT: 'सर्वाधिक प्रासंगिक',
@@ -784,6 +806,7 @@ const locales = {
   },
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
+    GROK_ACTIONS: 'Grokove radnje',
     HOME: 'Naslovnica',
     LIKES: 'Oznake „sviđa mi se”',
     MOST_RELEVANT: 'Najrelevantnije',
@@ -791,7 +814,7 @@ const locales = {
     POST_ALL: 'Objavi sve',
     POST_UNAVAILABLE: 'Ta objava nije dostupna.',
     QUOTE: 'Citat',
-    QUOTES: 'citata',
+    QUOTES: 'Citati',
     QUOTE_TWEET: 'Citiraj Tweet',
     QUOTE_TWEETS: 'Citirani tweetovi',
     REPOST: 'Proslijedi objavu',
@@ -816,6 +839,7 @@ const locales = {
   },
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
+    GROK_ACTIONS: 'Grok-műveletek',
     HOME: 'Kezdőlap',
     LIKES: 'Kedvelések',
     MOST_RELEVANT: 'Legmegfelelőbb',
@@ -848,6 +872,7 @@ const locales = {
   },
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
+    GROK_ACTIONS: 'Tindakan Grok',
     HOME: 'Beranda',
     LIKES: 'Suka',
     MOST_RELEVANT: 'Paling relevan',
@@ -879,10 +904,11 @@ const locales = {
   },
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
+    GROK_ACTIONS: 'Azioni di Grok',
     LIKES: 'Mi piace',
     MOST_RELEVANT: 'Più pertinenti',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
-    POST_ALL: 'Pubblica tutto',
+    POST_ALL: 'Posta tutto',
     POST_UNAVAILABLE: 'Questo post non è disponibile.',
     QUOTE: 'Citazione',
     QUOTES: 'Citazioni',
@@ -910,6 +936,7 @@ const locales = {
   },
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
+    GROK_ACTIONS: 'Grokのアクション',
     HOME: 'ホーム',
     LIKES: 'いいね',
     MOST_RELEVANT: '関連性が高い',
@@ -943,6 +970,7 @@ const locales = {
   },
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
+    GROK_ACTIONS: 'Grok ಕ್ರಮಗಳು',
     HOME: 'ಹೋಮ್',
     LIKES: 'ಇಷ್ಟಗಳು',
     MOST_RELEVANT: 'ಅತ್ಯಂತ ಸಂಬಂಧಿತ',
@@ -976,6 +1004,7 @@ const locales = {
   },
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
+    GROK_ACTIONS: 'Grok 작업',
     HOME: '홈',
     LIKES: '마음에 들어요',
     MOST_RELEVANT: '관련도 순서',
@@ -1010,6 +1039,7 @@ const locales = {
   },
   mr: {
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
+    GROK_ACTIONS: 'Grok कृती',
     HOME: 'होम',
     LIKES: 'पसंती',
     MOST_RELEVANT: 'सर्वात महत्वाचे',
@@ -1043,6 +1073,7 @@ const locales = {
   },
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
+    GROK_ACTIONS: 'Tindakan Grok',
     HOME: 'Laman Utama',
     LIKES: 'Suka',
     MOST_RELEVANT: 'Paling berkaitan',
@@ -1075,6 +1106,7 @@ const locales = {
   },
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
+    GROK_ACTIONS: 'Grok-handlinger',
     HOME: 'Hjem',
     LIKES: 'Liker',
     MOST_RELEVANT: 'Mest relevante',
@@ -1104,6 +1136,7 @@ const locales = {
   },
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
+    GROK_ACTIONS: 'Grok-acties',
     HOME: 'Startpagina',
     LIKES: 'Vind-ik-leuks',
     MOST_RELEVANT: 'Meest relevant',
@@ -1133,6 +1166,7 @@ const locales = {
   },
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
+    GROK_ACTIONS: 'Akcje Groka',
     HOME: 'Główna',
     LIKES: 'Polubienia',
     MOST_RELEVANT: 'Najtrafniejsze',
@@ -1165,6 +1199,7 @@ const locales = {
   },
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
+    GROK_ACTIONS: 'Ações do Grok',
     HOME: 'Página Inicial',
     LIKES: 'Curtidas',
     MOST_RELEVANT: 'Mais relevante',
@@ -1195,6 +1230,7 @@ const locales = {
   },
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
+    GROK_ACTIONS: 'Acțiuni Grok',
     HOME: 'Pagina principală',
     LIKES: 'Aprecieri',
     MOST_RELEVANT: 'Cele mai relevante',
@@ -1227,6 +1263,7 @@ const locales = {
   },
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
+    GROK_ACTIONS: 'Действия Grok',
     HOME: 'Главная',
     LIKES: 'Нравится',
     MOST_RELEVANT: 'Наиболее актуальные',
@@ -1261,6 +1298,7 @@ const locales = {
   },
   sk: {
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
+    GROK_ACTIONS: 'Akcie Groka',
     HOME: 'Domov',
     LIKES: 'Páči sa',
     MOST_RELEVANT: 'Najrelevantnejšie',
@@ -1294,6 +1332,7 @@ const locales = {
   },
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
+    GROK_ACTIONS: 'Grok радње',
     HOME: 'Почетна',
     LIKES: 'Свиђања',
     MOST_RELEVANT: 'Најважније',
@@ -1328,6 +1367,7 @@ const locales = {
   },
   sv: {
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
+    GROK_ACTIONS: 'Grok-åtgärder',
     HOME: 'Hem',
     LIKES: 'Gilla-markeringar',
     MOST_RELEVANT: 'Mest relevant',
@@ -1359,6 +1399,7 @@ const locales = {
   },
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
+    GROK_ACTIONS: 'Grok செயல்கள்',
     HOME: 'முகப்பு',
     LIKES: 'விருப்பங்கள்',
     MOST_RELEVANT: 'மிகவும் தொடர்புடையவை',
@@ -1392,6 +1433,7 @@ const locales = {
   },
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
+    GROK_ACTIONS: 'การดำเนินการของ Grok',
     HOME: 'หน้าแรก',
     LIKES: 'ความชอบ',
     MOST_RELEVANT: 'เกี่ยวข้องที่สุด',
@@ -1426,6 +1468,7 @@ const locales = {
   },
   tr: {
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
+    GROK_ACTIONS: 'Grok işlemleri',
     HOME: 'Anasayfa',
     LIKES: 'Beğeni',
     MOST_RELEVANT: 'En alakalı',
@@ -1458,6 +1501,7 @@ const locales = {
   },
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
+    GROK_ACTIONS: 'Дії Grok',
     HOME: 'Головна',
     LIKES: 'Вподобання',
     MOST_RELEVANT: 'Найактуальніші',
@@ -1492,6 +1536,7 @@ const locales = {
   },
   ur: {
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
+    GROK_ACTIONS: 'Grok actions',
     HOME: 'ہوم',
     LIKES: 'لائک',
     MUTE_THIS_CONVERSATION: 'اس گفتگو کو میوٹ کریں',
@@ -1519,6 +1564,7 @@ const locales = {
   },
   vi: {
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
+    GROK_ACTIONS: 'Hành động của Grok',
     HOME: 'Trang chủ',
     LIKES: 'Lượt thích',
     MOST_RELEVANT: 'Liên quan nhất',
@@ -1551,6 +1597,7 @@ const locales = {
   },
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
+    GROK_ACTIONS: 'Grok 動作',
     HOME: '首頁',
     LIKES: '喜歡的內容',
     MOST_RELEVANT: '最相關',
@@ -1584,6 +1631,7 @@ const locales = {
   },
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
+    GROK_ACTIONS: 'Grok 操作',
     HOME: '主页',
     LIKES: '喜欢',
     MOST_RELEVANT: '最相关',
@@ -3126,7 +3174,14 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
     }
     if (config.hideGrokNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/i/grok"]`)
+      hideCssSelectors.push(
+        // In menus
+        `${menuRole} a[href$="/i/grok"]`,
+        // Under timeline tweets
+        `[data-testid="tweet"][tabindex="0"] [role="group"] > div:has(> button[aria-label="${getString('GROK_ACTIONS')}"])`,
+        // Under the focused tweet
+        `[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"] > div:has(> button[aria-label="${getString('GROK_ACTIONS')}"])`,
+      )
     }
     if (config.hideMonetizationNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/i/monetization"]`)
