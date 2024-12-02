@@ -3105,19 +3105,14 @@ const configureCss = (() => {
       `)
     }
     if (config.hideBookmarkButton) {
-      // The Buffer extension adds a new button in position 2 - use its buffer-inserted class to
-      // avoid hiding the wrong button.
+      // Under timeline tweets
       hideCssSelectors.push(
-        // Under timeline tweets
-        'body:not(.Bookmarks) [data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(5):not(.yeah-button-container)',
-        'body:not(.Bookmarks) [data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(6):not(.yeah-button-container)',
-        'body:not(.Bookmarks) [data-testid="tweet"][tabindex="0"] [role="group"] > .yeah-button-container + div',
+        'body:not(.Bookmarks) [data-testid="tweet"][tabindex="0"] [role="group"] > div:has(> button[data-testid$="ookmark"])',
       )
       if (!config.showBookmarkButtonUnderFocusedTweets) {
+        // Under the focused tweet
         hideCssSelectors.push(
-          // Under the focused tweet
-          '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"]:not(.buffer-inserted) > div:nth-child(4)',
-          '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"].buffer-inserted > div:nth-child(5)',
+          '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"] > div:has(> button[data-testid$="ookmark"])',
         )
       }
     }
