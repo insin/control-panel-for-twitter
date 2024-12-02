@@ -3520,12 +3520,9 @@ const configureCss = (() => {
       if (config.hideViews) {
         hideCssSelectors.push(
           // Under timeline tweets
-          // The Buffer extension adds a new button in position 2 - use its buffer-inserted class to
-          // avoid hiding the wrong button.
-          '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-of-type(4)',
-          '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-of-type(5)',
+          '[data-testid="tweet"][tabindex="0"] [role="group"] > div:has(> a[href$="/analytics"])',
           // In media modal
-          '[aria-modal="true"] > div > div:first-of-type [role="group"] > div:nth-child(4):not([role="button"])',
+          '[aria-modal="true"] > div > div:first-of-type [role="group"] > div:has(> a[href$="/analytics"])',
         )
       }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
@@ -3578,15 +3575,10 @@ const configureCss = (() => {
       }
       if (config.hideViews) {
         hideCssSelectors.push(
-          // Under timeline tweets - views only display on mobile at larger widths on mobile
-          // When only the Share button is also displayed - 4th of 5
-          '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-child(4):nth-last-child(2)',
-          '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-child(5):nth-last-child(2)',
-          // When the Bookmark and Share buttons are also displayed - 4th of 6
-          '[data-testid="tweet"][tabindex="0"] [role="group"]:not(.buffer-inserted) > div:nth-child(4):nth-last-child(3)',
-          '[data-testid="tweet"][tabindex="0"] [role="group"].buffer-inserted > div:nth-child(5):nth-last-child(3)',
+          // Under timeline tweets
+          '[data-testid="tweet"][tabindex="0"] [role="group"] > div:has(> a[href$="/analytics"])',
           // In media modal
-          'body.MobileMedia [role="group"] > div:nth-child(4)',
+          'body.MobileMedia [role="group"] > div:has(> a[href$="/analytics"])',
         )
       }
       //#endregion
