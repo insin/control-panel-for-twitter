@@ -3782,6 +3782,27 @@ const configureThemeCss = (() => {
           d: path("${Svgs.TWITTER_HOME_INACTIVE_PATH}");
         }
       `)
+      if (desktop) {
+        // Revert the Tweet buttons being made monochrome
+        cssRules.push(`
+          [data-testid="SideNav_NewTweet_Button"],
+          [data-testid="tweetButtonInline"],
+          [data-testid="tweetButton"] {
+            background-color: ${themeColor} !important;
+          }
+          [data-testid="SideNav_NewTweet_Button"]:hover,
+          [data-testid="tweetButtonInline"]:hover:not(:disabled),
+          [data-testid="tweetButton"]:hover:not(:disabled) {
+            background-color: ${themeColor.replace(')', ', 80%)')} !important;
+          }
+          body:is(.Dim, .LightsOut) [data-testid="SideNav_NewTweet_Button"] > div,
+          body:is(.Dim, .LightsOut) [data-testid="tweetButtonInline"] > div,
+          body:is(.Dim, .LightsOut) [data-testid="tweetButton"] > div {
+            color: rgb(255, 255, 255) !important;
+          }
+        `)
+      }
+
     }
 
     if (config.uninvertFollowButtons) {
