@@ -1677,6 +1677,7 @@ function getString(code) {
 //#region Constants
 /** @enum {string} */
 const PagePaths = {
+  ACCESSIBILITY_SETTINGS: '/settings/accessibility',
   ADD_MUTED_WORD: '/settings/add_muted_keyword',
   BOOKMARKS: '/i/bookmarks',
   COMPOSE_MESSAGE: '/messages/compose',
@@ -1741,6 +1742,22 @@ const THEME_COLORS = new Map([
   ['purple500', 'rgb(120, 86, 255)'],
   ['orange500', 'rgb(255, 122, 0)'],
   ['green500', 'rgb(0, 186, 124)'],
+])
+const HIGH_CONTRAST_LIGHT = new Map([
+  ['blue500', 'rgb(0, 56, 134)'],
+  ['yellow500', 'rgb(111, 62, 0)'],
+  ['magenta500', 'rgb(137, 10, 70)'],
+  ['purple500', 'rgb(82, 52, 183)'],
+  ['orange500', 'rgb(137, 43, 0)'],
+  ['green500', 'rgb(0, 97, 61)'],
+])
+const HIGH_CONTRAST_DARK = new Map([
+  ['blue500', 'rgb(107, 201, 251)'],
+  ['yellow500', 'rgb(255, 235, 107)'],
+  ['magenta500', 'rgb(255, 235, 107)'],
+  ['purple500', 'rgb(172, 151, 255)'],
+  ['orange500', 'rgb(255, 173, 97)'],
+  ['green500', 'rgb(97, 214, 163)'],
 ])
 // <body> pseudo-selector for pages the full-width content feature works on
 const FULL_WIDTH_BODY_PSEUDO = ':is(.Community, .List, .HomeTimeline)'
@@ -1865,6 +1882,10 @@ let tweetInteractionsTab = null
  * `true` when "For you" was the last tab selected on the Home timeline.
  */
 let wasForYouTabSelected = false
+
+function isOnAccessibilitySettingsPage() {
+  return currentPath == PagePaths.ACCESSIBILITY_SETTINGS
+}
 
 function isOnBookmarksPage() {
   return currentPath.startsWith(PagePaths.BOOKMARKS)
@@ -2147,9 +2168,16 @@ function getStateEntities() {
 }
 
 function getThemeColorFromState() {
-  let color = getState()?.settings?.local?.themeColor
+  let localState = getState().settings?.local
+  let color = localState?.themeColor
+  let highContrast = localState?.highContrastEnabled
+  $body.classList.toggle('HighContrast', highContrast)
   if (color) {
-    if (THEME_COLORS.has(color)) return THEME_COLORS.get(color)
+    if (THEME_COLORS.has(color)) {
+      let colors = THEME_COLORS
+      if (highContrast) colors = getColorScheme() == 'Default' ? HIGH_CONTRAST_LIGHT : HIGH_CONTRAST_DARK
+      return colors.get(color)
+    }
     warn(color, 'not found in THEME_COLORS')
   } else {
     warn('could not get settings.local.themeColor from React state')
@@ -3795,9 +3823,10 @@ const configureThemeCss = (() => {
           [data-testid="tweetButton"]:hover:not(:disabled) {
             background-color: ${themeColor.replace(')', ', 80%)')} !important;
           }
-          body:is(.Dim, .LightsOut) [data-testid="SideNav_NewTweet_Button"] > div,
-          body:is(.Dim, .LightsOut) [data-testid="tweetButtonInline"] > div,
-          body:is(.Dim, .LightsOut) [data-testid="tweetButton"] > div {
+          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div,
+          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="tweetButtonInline"] > div,
+          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="tweetButton"] > div,
+          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div > svg,{
             color: rgb(255, 255, 255) !important;
           }
         `)
@@ -3932,6 +3961,14 @@ async function setDefaultSortReplies() {
       }
     }, 'sortReplies: individual tweet timeline')
   )
+}
+
+function getColorScheme() {
+  return {
+    'rgb(255, 255, 255)': 'Default',
+    'rgb(21, 32, 43)': 'Dim',
+    'rgb(0, 0, 0)': 'LightsOut',
+  }[$body.style.backgroundColor]
 }
 
 /**
@@ -4956,7 +4993,7 @@ function processCurrentPage() {
   else if (isOnCommunityMembersPage()) {
     tweakCommunityMembersPage()
   }
-  else if (isOnDisplaySettingsPage()) {
+  else if (isOnDisplaySettingsPage() || isOnAccessibilitySettingsPage()) {
     tweakDisplaySettingsPage()
   }
 
