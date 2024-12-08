@@ -3826,12 +3826,11 @@ const configureThemeCss = (() => {
           body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div,
           body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="tweetButtonInline"] > div,
           body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="tweetButton"] > div,
-          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div > svg,{
+          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div > svg {
             color: rgb(255, 255, 255) !important;
           }
         `)
       }
-
     }
 
     if (config.uninvertFollowButtons) {
