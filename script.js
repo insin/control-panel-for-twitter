@@ -1754,7 +1754,7 @@ const HIGH_CONTRAST_LIGHT = new Map([
 const HIGH_CONTRAST_DARK = new Map([
   ['blue500', 'rgb(107, 201, 251)'],
   ['yellow500', 'rgb(255, 235, 107)'],
-  ['magenta500', 'rgb(255, 235, 107)'],
+  ['magenta500', 'rgb(251, 112, 176)'],
   ['purple500', 'rgb(172, 151, 255)'],
   ['orange500', 'rgb(255, 173, 97)'],
   ['green500', 'rgb(97, 214, 163)'],
