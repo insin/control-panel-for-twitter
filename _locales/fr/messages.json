@@ -143,14 +143,14 @@
   "hideGrok": {
     "message": "Masquer Grok"
   },
-  "hideGrokNavLabel": {
-    "message": "Grok"
+  "hideGrokLabel": {
+    "message": "Masquer Grok"
   },
   "hideInlinePrompts": {
     "message": "Masquer les invites en ligne dans la fil"
   },
-  "hideJobsNavlabel": {
-    "message": "Tâche"
+  "hideJobsLabel": {
+    "message": "Masquer Emplois"
   },
   "hideLikeMetricsLabel": {
     "message": "J'aime"
@@ -187,6 +187,15 @@
   },
   "hideQuoteTweetMetricsLabel": {
     "message": "Citations des tweets"
+  },
+  "hideQuotesFromLabel": {
+    "message": "Utilisateurs en sourdine ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "hideReplyMetricsLabel": {
     "message": "Réponses"
@@ -225,7 +234,7 @@
     "message": "Masquer les promotions Premium"
   },
   "hideUnavailableQuoteTweetsLabel": {
-    "message": "Masquer les tweets citant des comptes que vous avez bloqués ou masqués"
+    "message": "Masquer les citations et les réponses aux comptes bloqués et muets"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Masquer les éléments de l'interface utilisateur que vous n'utilisez pas"
@@ -245,11 +254,8 @@
   "listRetweetsLabel": {
     "message": "Retweets dans les Listes"
   },
-  "mutableQuoteTweetsInfo": {
-    "message": "Ajoute un élément de menu \"Mettre cette conversation en sourdine\" pour les citations de Tweets"
-  },
   "mutableQuoteTweetsLabel": {
-    "message": "Désactiver la citation de certains tweets"
+    "message": "Activer la désactivation des tweets de citation"
   },
   "mutedTweetsLabel": {
     "message": "Tweets masqués ($COUNT$)",
@@ -280,6 +286,15 @@
   },
   "option_ignore": {
     "message": "Ne rien faire"
+  },
+  "option_liked": {
+    "message": "Les plus aimés"
+  },
+  "option_recent": {
+    "message": "Les plus récents"
+  },
+  "option_relevant": {
+    "message": "Les plus pertinentes"
   },
   "option_separate": {
     "message": "Afficher dans un onglet séparé"
@@ -337,6 +352,9 @@
   "showRelevantPeopleLabel": {
     "message": "Afficher \"Personnes pertinentes\" lors de l'affichage d'un tweet"
   },
+  "sortRepliesLabel": {
+    "message": "Par défaut pour Trier les réponses"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "Masquer le tweet cité lors de l'affichage des citations de tweets"
   },
@@ -352,10 +370,16 @@
   "uiTweaksOptionsLabel": {
     "message": "Ajustements de l'interface utilisateur"
   },
+  "unblurSensitiveContentLabel": {
+    "message": "Supprimer le flou du contenu sensible"
+  },
   "uninvertFollowButtonsLabel": {
     "message": "Inverser les boutons Suivre / Se désabonner"
   },
   "unmuteButtonText": {
     "message": "Restaurer"
+  },
+  "xFixesLabel": {
+    "message": "Correctifs de X"
   }
 }

@@ -36,6 +36,7 @@ export type Config = {
   hideMoreTweets: boolean
   hideProfileRetweets: boolean
   hideQuoteTweetMetrics: boolean
+  hideQuotesFrom: string[]
   hideReplyMetrics: boolean
   hideRetweetMetrics: boolean
   hideSeeNewTweets: boolean
@@ -67,8 +68,10 @@ export type Config = {
   showBlueReplyFollowersCount: boolean
   showBlueReplyVerifiedAccounts: boolean
   showBookmarkButtonUnderFocusedTweets: boolean
+  sortReplies: 'relevant' | 'recent' | 'liked'
   tweakQuoteTweetsPage: boolean
   twitterBlueChecks: 'ignore' | 'replace' | 'hide'
+  unblurSensitiveContent: boolean
   uninvertFollowButtons: boolean
   // Experiments
   // none currently
@@ -94,11 +97,15 @@ export type Locale = {
 
 export type LocaleKey =
   | 'ADD_MUTED_WORD'
+  | 'GROK_ACTIONS'
   | 'HOME'
   | 'LIKES'
+  | 'MOST_RELEVANT'
   | 'MUTE_THIS_CONVERSATION'
   | 'POST_ALL'
+  | 'POST_UNAVAILABLE'
   | 'QUOTE'
+  | 'QUOTES'
   | 'QUOTE_TWEET'
   | 'QUOTE_TWEETS'
   | 'REPOST'
@@ -106,9 +113,12 @@ export type LocaleKey =
   | 'RETWEET'
   | 'RETWEETED_BY'
   | 'RETWEETS'
+  | 'SHARED'
   | 'SHARED_TWEETS'
   | 'SHOW'
   | 'SHOW_MORE_REPLIES'
+  | 'SORT_REPLIES'
+  | 'TURN_OFF_QUOTE_TWEETS'
   | 'TURN_OFF_RETWEETS'
   | 'TURN_ON_RETWEETS'
   | 'TWEET'
@@ -118,12 +128,14 @@ export type LocaleKey =
   | 'TWEET_YOUR_REPLY'
   | 'TWITTER'
   | 'UNDO_RETWEET'
+  | 'VIEW'
 
 export type NamedMutationObserver = MutationObserver & {name?: string}
 
 export type Disconnectable = NamedMutationObserver|{disconnect(): void}
 
 export type QuotedTweet = {
+  quotedBy: string
   user: string
   time: string
   text?: string
@@ -150,6 +162,7 @@ export type TimelineItemType =
   | 'DISCOVER_MORE_TWEET'
   | 'FOCUSED_TWEET'
   | 'HEADING'
+  | 'INLINE_PROMPT'
   | 'SHOW_MORE'
   | 'SUBSEQUENT_ITEM'
   | 'UNAVAILABLE'

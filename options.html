@@ -46,30 +46,17 @@
           </select>
         </label>
       </section>
-      <section class="select">
-        <label>
-          <span id="listRetweetsLabel">Retweets in Lists</span>
-          <select name="listRetweets">
-            <option value="ignore">Do nothing</option>
-            <option value="hide">Hide</option>
-          </select>
-        </label>
-      </section>
       <section class="checkbox">
         <label>
-          <span id="hideUnavailableQuoteTweetsLabel">Hide tweets quoting accounts you've blocked or muted</span>
-          <input type="checkbox" name="hideUnavailableQuoteTweets">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="mutableQuoteTweetsLabel">Mute quoting of specific tweets</span>
+          <span id="mutableQuoteTweetsLabel">Enable muting of Quote Tweets</span>
           <input type="checkbox" name="mutableQuoteTweets">
           <span class="toggle"></span>
         </label>
-        <p id="mutableQuoteTweetsInfo">Adds a "Mute this conversation" menu item to Quote Tweets</p>
-        <details class="mutedQuotes" id="mutedQuotesDetails">
+        <details id="hideQuotesFromDetails">
+          <summary><span id="hideQuotesFromLabel"></span></summary>
+          <div id="hideQuotesFrom"></div>
+        </details>
+        <details id="mutedQuotesDetails">
           <summary><span id="mutedQuotesLabel"></span></summary>
           <div id="mutedQuotes"></div>
         </details>
@@ -118,6 +105,62 @@
       <label id="uiImprovementsOptionsLabel">UI improvements</label>
       <section class="checkbox">
         <label>
+          <span id="addAddMutedWordMenuItemLabel_desktop" class="desktop">Add "Add muted word" to the "More" menu</span>
+          <span id="addAddMutedWordMenuItemLabel_mobile" class="mobile">Add "Add muted word" to the slide-out menu</span>
+          <input type="checkbox" name="addAddMutedWordMenuItem">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="fastBlockLabel">Fast blocking (skips confirm dialog)</span>
+          <input type="checkbox" name="fastBlock">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="hideUnavailableQuoteTweetsLabel">Hide quotes and replies to blocked and muted accounts</span>
+          <input type="checkbox" name="hideUnavailableQuoteTweets">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="hideProfileRetweetsLabel">Hide Retweets in user profiles</span>
+          <input type="checkbox" name="hideProfileRetweets">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="select">
+        <label>
+          <span id="listRetweetsLabel">Retweets in Lists</span>
+          <select name="listRetweets">
+            <option value="ignore">Do nothing</option>
+            <option value="hide">Hide</option>
+          </select>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="defaultToLatestSearchLabel">Default to "Latest" tab in Search</span>
+          <input type="checkbox" name="defaultToLatestSearch">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="tweakQuoteTweetsPageLabel">Hide the quoted tweet when viewing Quote Tweets</span>
+          <input type="checkbox" name="tweakQuoteTweetsPage">
+          <span class="toggle"></span>
+        </label>
+      </section>
+    </section>
+
+    <section class="group labelled">
+      <label id="xFixesLabel">X fixes</label>
+      <section class="checkbox">
+        <label>
           <span id="replaceLogoLabel">Replace X branding changes</span>
           <input type="checkbox" name="replaceLogo">
           <span class="toggle"></span>
@@ -156,6 +199,16 @@
           <span id="restoreOtherInteractionLinksLabel">Restore other links under Tweets</span>
           <input type="checkbox" name="restoreOtherInteractionLinks">
           <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="select">
+        <label>
+          <span id="sortRepliesLabel">Default for Sort replies</span>
+          <select name="sortReplies">
+            <option value="relevant">Most relevent</option>
+            <option value="recent">Most recent</option>
+            <option value="liked">Most liked</option>
+          </select>
         </label>
       </section>
       <section class="select">
@@ -223,44 +276,22 @@
       </section>
       <section class="checkbox">
         <label>
+          <span id="hideGrokLabel">Hide Grok</span>
+          <input type="checkbox" name="hideGrokNav">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="hideJobsLabel">Hide Jobs</span>
+          <input type="checkbox" name="hideJobsNav">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
           <span id="hideSubscriptionsLabel">Hide Subscriptions</span>
           <input type="checkbox" name="hideSubscriptions">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="addAddMutedWordMenuItemLabel_desktop" class="desktop">Add "Add muted word" to the "More" menu</span>
-          <span id="addAddMutedWordMenuItemLabel_mobile" class="mobile">Add "Add muted word" to the slide-out menu</span>
-          <input type="checkbox" name="addAddMutedWordMenuItem">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="fastBlockLabel">Fast blocking (skips confirm dialog)</span>
-          <input type="checkbox" name="fastBlock">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="hideProfileRetweetsLabel">Hide Retweets in user profiles</span>
-          <input type="checkbox" name="hideProfileRetweets">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="defaultToLatestSearchLabel">Default to "Latest" tab in Search</span>
-          <input type="checkbox" name="defaultToLatestSearch">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="tweakQuoteTweetsPageLabel">Hide the quoted tweet when viewing Quote Tweets</span>
-          <input type="checkbox" name="tweakQuoteTweetsPage">
           <span class="toggle"></span>
         </label>
       </section>
@@ -323,6 +354,13 @@
             </select>
           </label>
         </section>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="unblurSensitiveContentLabel">Unblur sensitive content</span>
+          <input type="checkbox" name="unblurSensitiveContent">
+          <span class="toggle"></span>
+        </label>
       </section>
     </section>
 
@@ -527,13 +565,6 @@
       </section>
       <section class="checkbox desktop">
         <label>
-          <span class="hideGrokNavLabel">Grok</span>
-          <input type="checkbox" name="hideGrokNav">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox desktop">
-        <label>
           <span class="hideListsNavLabel">Lists</span>
           <input type="checkbox" name="hideListsNav">
           <span class="toggle"></span>
@@ -576,15 +607,15 @@
       </section>
       <section class="checkbox mobile">
         <label>
-          <span class="hideGrokNavLabel">Grok</span>
-          <input type="checkbox" name="hideGrokNav">
+          <span id="hideMessagesBottomNavItemLabel">Messages</span>
+          <input type="checkbox" name="hideMessagesBottomNavItem">
           <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox mobile">
         <label>
-          <span id="hideMessagesBottomNavItemLabel">Messages</span>
-          <input type="checkbox" name="hideMessagesBottomNavItem">
+          <span class="hideCommunitiesNavLabel">Communities</span>
+          <input type="checkbox" name="hideCommunitiesNav">
           <span class="toggle"></span>
         </label>
       </section>
@@ -624,20 +655,6 @@
           <span class="toggle"></span>
         </label>
       </section>
-      <section class="checkbox mobile">
-        <label>
-          <span class="hideCommunitiesNavLabel">Communities</span>
-          <input type="checkbox" name="hideCommunitiesNav">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox mobile">
-        <label>
-          <span class="hideCommunityNotesNavLabel">Community Notes</span>
-          <input type="checkbox" name="hideCommunityNotesNav">
-          <span class="toggle"></span>
-        </label>
-      </section>
       <section class="checkbox">
         <label>
           <span id="hideMonetizationNavLabel">Monetization</span>
@@ -645,24 +662,10 @@
           <span class="toggle"></span>
         </label>
       </section>
-      <section class="checkbox desktop">
-        <label>
-          <span class="hideProNavLabel">Pro</span>
-          <input type="checkbox" name="hideProNav">
-          <span class="toggle"></span>
-        </label>
-      </section>
       <section class="checkbox">
         <label>
           <span id="hideAdsNavLabel">Ads</span>
           <input type="checkbox" name="hideAdsNav">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="hideJobsNavLabel">Jobs</span>
-          <input type="checkbox" name="hideJobsNav">
           <span class="toggle"></span>
         </label>
       </section>

@@ -3,8 +3,8 @@
   "default_locale": "en",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescription__",
-  "homepage_url": "https://github.com/insin/control-panel-for-twitter/",
-  "version": "3.24.0",
+  "homepage_url": "https://jbscript.dev/control-panel-for-twitter",
+  "version": "4.4.3",
   "icons": {
     "16": "icons/icon16.png",
     "32": "icons/icon32.png",
@@ -17,7 +17,9 @@
     {
       "matches": [
         "https://twitter.com/*",
-        "https://mobile.twitter.com/*"
+        "https://mobile.twitter.com/*",
+        "https://x.com/*",
+        "https://mobile.x.com/*"
       ],
       "js": [
         "content.js"
@@ -30,7 +32,6 @@
   ],
   "options_ui": {
     "browser_style": true,
-    "chrome_style": false,
     "page": "options.html"
   },
   "browser_action": {
@@ -40,5 +41,13 @@
   },
   "permissions": [
     "storage"
-  ]
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "strict_min_version": "121.0"
+    },
+    "gecko_android": {
+      "strict_min_version": "121.0"
+    }
+  }
 }

@@ -2,8 +2,7 @@ const fs = require('fs')
 
 const semver = require('semver')
 
-const manifestV2Path = './manifest.json'
-const manifestV3Path = './Safari/Shared (Extension)/Resources/manifest.json'
+const manifestPaths = ['./manifest.mv2.json', './manifest.mv3.json', './Safari/Shared (Extension)/Resources/manifest.json']
 const optionsPath = './options.js'
 const safariProjectPath = './Safari/Control Panel for Twitter.xcodeproj/project.pbxproj'
 const scriptPath = './script.js'
@@ -18,10 +17,10 @@ Usage:
   process.exit(1)
 }
 
-let currentVersion = JSON.parse(fs.readFileSync(manifestV2Path, {encoding: 'utf8'})).version
+let currentVersion = JSON.parse(fs.readFileSync(manifestPaths[0], {encoding: 'utf8'})).version
 let nextVersion = semver.inc(currentVersion, releaseType)
 
-for (let manifestPath of [manifestV2Path, manifestV3Path]) {
+for (let manifestPath of manifestPaths) {
   fs.writeFileSync(
     manifestPath,
     fs.readFileSync(manifestPath, {encoding: 'utf8'})

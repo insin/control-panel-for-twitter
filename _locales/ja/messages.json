@@ -143,14 +143,14 @@
   "hideGrok": {
     "message": "Grok を非表示にする"
   },
-  "hideGrokNavLabel": {
-    "message": "Grok"
+  "hideGrokLabel": {
+    "message": "Grok を非表示にする"
   },
   "hideInlinePrompts": {
     "message": "タイムライン内のインラインプロンプトを非表示にする"
   },
-  "hideJobsNavlabel": {
-    "message": "求人"
+  "hideJobsLabel": {
+    "message": "募集を隠す"
   },
   "hideLikeMetricsLabel": {
     "message": "いいね件数"
@@ -187,6 +187,15 @@
   },
   "hideQuoteTweetMetricsLabel": {
     "message": "引用ツイート件数"
+  },
+  "hideQuotesFromLabel": {
+    "message": "ミュートしたユーザー ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "hideReplyMetricsLabel": {
     "message": "返信件数"
@@ -225,7 +234,7 @@
     "message": "プレミアムのアップセルを非表示にする"
   },
   "hideUnavailableQuoteTweetsLabel": {
-    "message": "ミュートやブロックしたアカウントが含まれる引用ツイートを非表示"
+    "message": "ブロックまたはミュートしたアカウントへの引用や返信を非表示にする"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "使用しないUI項目を非表示"
@@ -245,11 +254,8 @@
   "listRetweetsLabel": {
     "message": "リスト内のリツイート"
   },
-  "mutableQuoteTweetsInfo": {
-    "message": "「この会話をミュートする\"」メニューを引用ツイートに追加"
-  },
   "mutableQuoteTweetsLabel": {
-    "message": "ラベルのついたツイートをミュートする"
+    "message": "引用ツイートのミュートを有効にする"
   },
   "mutedTweetsLabel": {
     "message": "ミュートされたツイート（$COUNT$）",
@@ -280,6 +286,15 @@
   },
   "option_ignore": {
     "message": "そのまま"
+  },
+  "option_liked": {
+    "message": "いいねが多い"
+  },
+  "option_recent": {
+    "message": "新しい順"
+  },
+  "option_relevant": {
+    "message": "関連性が高い"
   },
   "option_separate": {
     "message": "別タブで開く"
@@ -337,6 +352,9 @@
   "showRelevantPeopleLabel": {
     "message": "ツイート閲覧時に「おすすめユーザー」を表示する"
   },
+  "sortRepliesLabel": {
+    "message": "返信を並べ替えのデフォルト"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"
   },
@@ -352,10 +370,16 @@
   "uiTweaksOptionsLabel": {
     "message": "UIを微調整"
   },
+  "unblurSensitiveContentLabel": {
+    "message": "機密性の高いコンテンツのぼかしを解除する"
+  },
   "uninvertFollowButtonsLabel": {
     "message": "フォロー／フォロワーボタンの反転表示を解除"
   },
   "unmuteButtonText": {
     "message": "ミュート解除"
+  },
+  "xFixesLabel": {
+    "message": "X の修正"
   }
 }

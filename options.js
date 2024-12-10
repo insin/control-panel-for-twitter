@@ -6,6 +6,9 @@ for (let optionValue of [
   'default',
   'hide',
   'ignore',
+  'liked',
+  'recent',
+  'relevant',
   'separate',
 ]) {
   let label = chrome.i18n.getMessage(`option_${optionValue}`)
@@ -52,8 +55,9 @@ for (let translationId of [
   'hideExplorePageContentsLabel',
   'hideFollowingMetricsLabel',
   'hideForYouTimelineLabel',
+  'hideGrokLabel',
   'hideInlinePrompts',
-  'hideJobsNavLabel',
+  'hideJobsLabel',
   'hideLikeMetricsLabel',
   'hideMessagesBottomNavItemLabel',
   'hideMessagesDrawerLabel',
@@ -83,7 +87,6 @@ for (let translationId of [
   'hideWhoToFollowEtcLabel',
   'homeTimelineOptionsLabel',
   'listRetweetsLabel',
-  'mutableQuoteTweetsInfo',
   'mutableQuoteTweetsLabel',
   'navBaseFontSizeLabel',
   'navDensityLabel',
@@ -101,12 +104,15 @@ for (let translationId of [
   'showBlueReplyVerifiedAccountsLabel',
   'showBookmarkButtonUnderFocusedTweetsLabel',
   'showRelevantPeopleLabel',
+  'sortRepliesLabel',
   'tweakQuoteTweetsPageLabel',
   'twitterBlueChecksLabel',
   'twitterBlueChecksOption_replace',
   'uiImprovementsOptionsLabel',
   'uiTweaksOptionsLabel',
+  'unblurSensitiveContentLabel',
   'uninvertFollowButtonsLabel',
+  'xFixesLabel',
 ]) {
   document.getElementById(translationId).textContent = chrome.i18n.getMessage(translationId)
 }
@@ -119,7 +125,6 @@ for (let translationClass of [
   'hideCommunityNotesNavLabel',
   'hideGrokNavLabel',
   'hideListsNavLabel',
-  'hideProNavLabel',
 ]) {
   let translation = chrome.i18n.getMessage(translationClass)
   for (let $el of document.querySelectorAll(`.${translationClass}`)) {
@@ -184,6 +189,7 @@ const defaultConfig = {
   hideMoreTweets: true,
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
+  hideQuotesFrom: [],
   hideReplyMetrics: true,
   hideRetweetMetrics: true,
   hideSeeNewTweets: false,
@@ -212,9 +218,11 @@ const defaultConfig = {
   showBlueReplyFollowersCount: false,
   showBlueReplyVerifiedAccounts: false,
   showBookmarkButtonUnderFocusedTweets: true,
+  sortReplies: 'relevant',
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
+  unblurSensitiveContent: false,
   // Experiments
   // none currently
   // Desktop only
@@ -252,6 +260,9 @@ let checkboxGroups
 let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('details#experiments'))
 let $exportConfig = document.querySelector('#export-config')
 let $form = document.querySelector('form')
+let $hideQuotesFrom =  /** @type {HTMLDivElement} */ (document.querySelector('#hideQuotesFrom'))
+let $hideQuotesFromDetails = /** @type {HTMLDetailsElement} */ (document.querySelector('details#hideQuotesFromDetails'))
+let $hideQuotesFromLabel = /** @type {HTMLElement} */ (document.querySelector('#hideQuotesFromLabel'))
 let $mutedQuotes =  /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
 let $mutedQuotesDetails =  /** @type {HTMLDetailsElement} */ (document.querySelector('details#mutedQuotesDetails'))
 let $mutedQuotesLabel = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesLabel'))
@@ -261,7 +272,7 @@ let $showBlueReplyFollowersCountLabel = /** @type {HTMLElement} */ (document.que
 //#region Utility functions
 function exportConfig() {
   let $a = document.createElement('a')
-  $a.download = 'control-panel-for-twitter-v3.24.0.config.txt'
+  $a.download = 'control-panel-for-twitter-v4.4.3.config.txt'
   $a.href = URL.createObjectURL(new Blob([
     JSON.stringify(optionsConfig, null, 2)
   ], {type: 'text/plain'}))
@@ -398,6 +409,10 @@ function onStorageChanged(changes) {
   applyConfig()
 }
 
+function shouldDisplayHideQuotesFrom() {
+  return optionsConfig.mutableQuoteTweets && optionsConfig.hideQuotesFrom.length > 0
+}
+
 function shouldDisplayMutedQuotes() {
   return optionsConfig.mutableQuoteTweets && optionsConfig.mutedQuotes.length > 0
 }
@@ -427,16 +442,46 @@ function updateDisplay() {
   $body.classList.toggle('hidingBookmarkButton', optionsConfig.hideBookmarkButton)
   $body.classList.toggle('hidingExploreNav', optionsConfig.hideExploreNav)
   $body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
+  $body.classList.toggle('hidingQuotesFrom', shouldDisplayHideQuotesFrom())
   $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
   $body.classList.toggle('hidingTwitterBlueReplies', optionsConfig.hideTwitterBlueReplies)
-  $body.classList.toggle('mutedQuotes', shouldDisplayMutedQuotes())
+  $body.classList.toggle('mutingQuotes', shouldDisplayMutedQuotes())
   $body.classList.toggle('showingBlueReplyFollowersCount', optionsConfig.showBlueReplyFollowersCount)
   $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
   $showBlueReplyFollowersCountLabel.textContent = chrome.i18n.getMessage(
     'showBlueReplyFollowersCountLabel',
     formatFollowerCount(Number(optionsConfig.showBlueReplyFollowersCountAmount))
   )
+  updateHideQuotesFromDisplay()
   updateMutedQuotesDisplay()
+}
+
+
+function updateHideQuotesFromDisplay() {
+  if (!shouldDisplayHideQuotesFrom()) return
+
+  $hideQuotesFromLabel.textContent = chrome.i18n.getMessage('hideQuotesFromLabel', String(optionsConfig.hideQuotesFrom.length))
+
+  if (!$hideQuotesFromDetails.open) return
+
+  while ($hideQuotesFrom.hasChildNodes()) $hideQuotesFrom.firstChild.remove()
+  for (let user of optionsConfig.hideQuotesFrom) {
+    $hideQuotesFrom.appendChild(
+      h('section', null,
+        h('label', {className: 'button'},
+          h('span', null, `@${user}`),
+          h('button', {
+            type: 'button',
+            onclick() {
+              optionsConfig.hideQuotesFrom = optionsConfig.hideQuotesFrom.filter(u => u != user)
+              storeConfigChanges({hideQuotesFrom: optionsConfig.hideQuotesFrom})
+              updateDisplay()
+            }
+          }, chrome.i18n.getMessage('unmuteButtonText'))
+        )
+      )
+    )
+  }
 }
 
 function updateMutedQuotesDisplay() {
@@ -506,6 +551,7 @@ function main() {
     // $experiments.open = (...)
     $exportConfig.addEventListener('click', exportConfig)
     $form.addEventListener('change', onFormChanged)
+    $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
     chrome.storage.onChanged.addListener(onStorageChanged)
 

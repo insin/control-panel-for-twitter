@@ -143,14 +143,14 @@
   "hideGrok": {
     "message": "Ocultar Grok"
   },
-  "hideGrokNavLabel": {
-    "message": "Grok"
+  "hideGrokLabel": {
+    "message": "Ocultar Grok"
   },
   "hideInlinePrompts": {
     "message": "Ocultar indicaciones en línea en la timeline"
   },
-  "hideJobsNavlabel": {
-    "message": "Trabajos"
+  "hideJobsLabel": {
+    "message": "Ocultar Trabajos"
   },
   "hideLikeMetricsLabel": {
     "message": "Me gustas"
@@ -187,6 +187,15 @@
   },
   "hideQuoteTweetMetricsLabel": {
     "message": "Citados"
+  },
+  "hideQuotesFromLabel": {
+    "message": "Usuarios silenciados ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "hideReplyMetricsLabel": {
     "message": "Respuestas"
@@ -225,7 +234,7 @@
     "message": "Ocultar promociones de Premium"
   },
   "hideUnavailableQuoteTweetsLabel": {
-    "message": "Ocultar tweets que citan cuentas bloqueadas o silenciadas"
+    "message": "Ocultar citas y respuestas a cuentas bloqueadas y silenciadas"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Ocultar elementos de interfaz no utilizados"
@@ -245,11 +254,8 @@
   "listRetweetsLabel": {
     "message": "Retuits en Listas"
   },
-  "mutableQuoteTweetsInfo": {
-    "message": "Añade la opción \"Silenciar esta conversación\" en el menú de los citados"
-  },
   "mutableQuoteTweetsLabel": {
-    "message": "Ocultar citados de determinados tweets"
+    "message": "Habilitar el silenciado de Tweets citados"
   },
   "mutedTweetsLabel": {
     "message": "Tweets silenciados ($COUNT$)",
@@ -280,6 +286,15 @@
   },
   "option_ignore": {
     "message": "No cambiar"
+  },
+  "option_liked": {
+    "message": "Más Me gusta"
+  },
+  "option_recent": {
+    "message": "Más recientes"
+  },
+  "option_relevant": {
+    "message": "Más relevantes"
   },
   "option_separate": {
     "message": "Mostrar en pestaña aparte"
@@ -337,6 +352,9 @@
   "showRelevantPeopleLabel": {
     "message": "Mostrar \"Personas relevantes\" al ver un tweet"
   },
+  "sortRepliesLabel": {
+    "message": "Predeterminado para Organizar respuestas"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "Ocultar el tweet citado en la página de citados"
   },
@@ -352,10 +370,16 @@
   "uiTweaksOptionsLabel": {
     "message": "Cambios de interfaz"
   },
+  "unblurSensitiveContentLabel": {
+    "message": "Quitar el desenfoque de contenido sensible"
+  },
   "uninvertFollowButtonsLabel": {
     "message": "No invertir botones de Seguir/Siguiendo"
   },
   "unmuteButtonText": {
     "message": "Dejar de silenciar"
+  },
+  "xFixesLabel": {
+    "message": "Correcciones de X"
   }
 }

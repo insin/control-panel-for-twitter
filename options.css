@@ -27,10 +27,11 @@ body:not(.fullWidthContent) .fullWidthContent,
 body:not(.hidingBookmarkButton) .hidingBookmarkButton,
 body:not(.hidingExploreNav) .hidingExploreNav,
 body:not(.hidingMetrics) .hidingMetrics,
+body:not(.hidingQuotesFrom) #hideQuotesFromDetails,
 body:not(.hidingSidebarContent) .hidingSidebarContent,
 body:not(.hidingTwitterBlueReplies) .hidingTwitterBlueReplies,
 body:not(.iOS.safari) .toggle,
-body:not(.mutedQuotes) .mutedQuotes,
+body:not(.mutingQuotes) #mutedQuotesDetails,
 body:not(.showingBlueReplyFollowersCount) .showingBlueReplyFollowersCount,
 body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   display: none;

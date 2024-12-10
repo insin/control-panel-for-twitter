@@ -156,14 +156,14 @@
   "hideGrok": {
     "message": "Hide Grok"
   },
-  "hideGrokNavLabel": {
-    "message": "Grok"
+  "hideGrokLabel": {
+    "message": "Hide Grok"
   },
   "hideInlinePrompts": {
     "message": "Hide inline prompts in the timeline"
   },
-  "hideJobsNavlabel": {
-    "message": "Jobs"
+  "hideJobsLabel": {
+    "message": "Hide Jobs"
   },
   "hideLikeMetricsLabel": {
     "message": "Likes"
@@ -200,6 +200,15 @@
   },
   "hideQuoteTweetMetricsLabel": {
     "message": "Quote tweets"
+  },
+  "hideQuotesFromLabel": {
+    "message": "Muted users ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "hideReplyMetricsLabel": {
     "message": "Replies"
@@ -238,7 +247,7 @@
     "message": "Hide Premium upsells"
   },
   "hideUnavailableQuoteTweetsLabel": {
-    "message": "Hide tweets quoting accounts you've blocked or muted"
+    "message": "Hide quotes and replies to blocked and muted accounts"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Hide UI items you don't use"
@@ -258,12 +267,8 @@
   "listRetweetsLabel": {
     "message": "Retweets in Lists"
   },
-  "mutableQuoteTweetsInfo": {
-    "message": "Adds a \"Mute this conversation\" menu item to Quote Tweets",
-    "description": "The translations for 'Mute this conversation' in script.js are from Twitter's own locale data"
-  },
   "mutableQuoteTweetsLabel": {
-    "message": "Mute quoting of specific tweets"
+    "message": "Enable muting of Quote Tweets"
   },
   "mutedTweetsLabel": {
     "message": "Muted tweets ($COUNT$)",
@@ -296,6 +301,15 @@
   "option_ignore": {
     "message": "Do nothing",
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
+  },
+  "option_liked": {
+    "message": "Most liked"
+  },
+  "option_recent": {
+    "message": "Most recent"
+  },
+  "option_relevant": {
+    "message": "Most relevant"
   },
   "option_separate": {
     "message": "Show in separate tab",
@@ -355,6 +369,9 @@
   "showRelevantPeopleLabel": {
     "message": "Show \"Relevant people\" when viewing a tweet"
   },
+  "sortRepliesLabel": {
+    "message": "Default for Sort replies"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "Hide the quoted tweet when viewing Quote Tweets"
   },
@@ -370,11 +387,17 @@
   "uiTweaksOptionsLabel": {
     "message": "UI tweaks"
   },
+  "unblurSensitiveContentLabel": {
+    "message": "Unblur sensitive content"
+  },
   "uninvertFollowButtonsLabel": {
     "message": "Uninvert Follow / Following buttons"
   },
   "unmuteButtonText": {
     "message": "Unmute",
     "description": "Button used in the options page to unmute a muted Quote Tweet"
+  },
+  "xFixesLabel": {
+    "message": "X fixes"
   }
 }

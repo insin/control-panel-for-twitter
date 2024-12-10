@@ -143,14 +143,14 @@
   "hideGrok": {
     "message": "Grok 숨기기"
   },
-  "hideGrokNavLabel": {
-    "message": "Grok"
+  "hideGrokLabel": {
+    "message": "Grok 숨기기"
   },
   "hideInlinePrompts": {
     "message": "타임라인에서 인라인 프롬프트 숨기기"
   },
-  "hideJobsNavlabel": {
-    "message": "채용"
+  "hideJobsLabel": {
+    "message": "채용을 숨긴다"
   },
   "hideLikeMetricsLabel": {
     "message": "좋아요"
@@ -187,6 +187,15 @@
   },
   "hideQuoteTweetMetricsLabel": {
     "message": "인용 트윗"
+  },
+  "hideQuotesFromLabel": {
+    "message": "음소거된 사용자 ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "hideReplyMetricsLabel": {
     "message": "답글"
@@ -225,7 +234,7 @@
     "message": "Premium 업셀 숨기기"
   },
   "hideUnavailableQuoteTweetsLabel": {
-    "message": "차단하거나 음소거한 계정을 인용하는 트윗 숨기기"
+    "message": "차단 및 음소거된 계정에 대한 인용 및 답글 숨기기"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "사용하지 않는 UI 항목 숨기기"
@@ -245,11 +254,8 @@
   "listRetweetsLabel": {
     "message": "리스트에 포함된 리트윗"
   },
-  "mutableQuoteTweetsInfo": {
-    "message": "인용 트윗에 \"이 대화 뮤트하기\" 메뉴 항목 추가"
-  },
   "mutableQuoteTweetsLabel": {
-    "message": "특정 트윗의 인용 트윗 음소거"
+    "message": "인용 트윗 음소거 활성화"
   },
   "mutedTweetsLabel": {
     "message": "음소거된 트윗 ($COUNT$개)",
@@ -280,6 +286,15 @@
   },
   "option_ignore": {
     "message": "아무것도 하지 않음"
+  },
+  "option_liked": {
+    "message": "마음에 들어요 순서"
+  },
+  "option_recent": {
+    "message": "최신 순서"
+  },
+  "option_relevant": {
+    "message": "관련도 순서"
   },
   "option_separate": {
     "message": "별도의 탭에 표시"
@@ -337,6 +352,9 @@
   "showRelevantPeopleLabel": {
     "message": "트윗 보기 시 \"연관된 사람\" 표시"
   },
+  "sortRepliesLabel": {
+    "message": "답글 정렬하기의 기본값"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "인용 트윗을 볼 때 인용된 트윗 숨기기"
   },
@@ -352,10 +370,16 @@
   "uiTweaksOptionsLabel": {
     "message": "UI 조정"
   },
+  "unblurSensitiveContentLabel": {
+    "message": "민감한 콘텐츠 흐리게 처리 해제"
+  },
   "uninvertFollowButtonsLabel": {
     "message": "팔로우/팔로잉 버튼 색상 반전 해제"
   },
   "unmuteButtonText": {
     "message": "음소거 해제"
+  },
+  "xFixesLabel": {
+    "message": "X 수정 사항"
   }
 }

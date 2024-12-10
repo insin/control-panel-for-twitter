@@ -143,14 +143,14 @@
   "hideGrok": {
     "message": "隐藏 Grok"
   },
-  "hideGrokNavLabel": {
-    "message": "Grok"
+  "hideGrokLabel": {
+    "message": "隐藏 Grok"
   },
   "hideInlinePrompts": {
     "message": "隐藏时间线中的内联提示"
   },
-  "hideJobsNavlabel": {
-    "message": "工作"
+  "hideJobsLabel": {
+    "message": "隐藏工作"
   },
   "hideLikeMetricsLabel": {
     "message": "喜欢"
@@ -187,6 +187,15 @@
   },
   "hideQuoteTweetMetricsLabel": {
     "message": "引用推文"
+  },
+  "hideQuotesFromLabel": {
+    "message": "已静音用户 ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
   },
   "hideReplyMetricsLabel": {
     "message": "回复"
@@ -225,7 +234,7 @@
     "message": "隐藏Premium强制销售"
   },
   "hideUnavailableQuoteTweetsLabel": {
-    "message": "隐藏引用你已经屏蔽或隐藏的账户的推文"
+    "message": "隐藏对已屏蔽和已静音账号的引用和回复"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "隐藏你不使用的用户界面项目"
@@ -245,8 +254,14 @@
   "listRetweetsLabel": {
     "message": "转推列表"
   },
-  "mutableQuoteTweetsInfo": {
-    "message": "在引用推文中增加了一个\"将此对话隐藏\"的菜单项"
+  "mostLiked": {
+    "message": "最多点赞"
+  },
+  "mostRecent": {
+    "message": "最近"
+  },
+  "mostRelevant": {
+    "message": "最相关"
   },
   "mutableQuoteTweetsLabel": {
     "message": "对特定推文进行隐藏引用"
@@ -280,6 +295,15 @@
   },
   "option_ignore": {
     "message": "什么都不做"
+  },
+  "option_liked": {
+    "message": "最多点赞"
+  },
+  "option_recent": {
+    "message": "最近"
+  },
+  "option_relevant": {
+    "message": "最相关"
   },
   "option_separate": {
     "message": "在单独的标签中显示"
@@ -337,6 +361,12 @@
   "showRelevantPeopleLabel": {
     "message": "查看推文时显示\"相关人员\""
   },
+  "sortReplies": {
+    "message": "对回复排序"
+  },
+  "sortRepliesLabel": {
+    "message": "对回复排序的默认设置"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "查看引用推文时隐藏被引用的推文"
   },
@@ -352,10 +382,16 @@
   "uiTweaksOptionsLabel": {
     "message": "用户界面调整"
   },
+  "unblurSensitiveContentLabel": {
+    "message": "消除敏感内容的模糊"
+  },
   "uninvertFollowButtonsLabel": {
     "message": "取消 关注着/正在关注 按钮"
   },
   "unmuteButtonText": {
     "message": "取消隐藏"
+  },
+  "xFixesLabel": {
+    "message": "X 修复"
   }
 }
