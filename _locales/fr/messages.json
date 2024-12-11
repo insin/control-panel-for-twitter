@@ -1,6 +1,6 @@
 {
   "addAddMutedWordMenuItemLabel_desktop": {
-    "message": "Ajouter \"Ajouter un mot masqué\" au menu \"More\""
+    "message": "Ajouter \"Ajouter un mot masqué\" au menu \"Plus\""
   },
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Ajouter \"Ajouter un mot masqué\" au menu déroulant"
@@ -57,10 +57,10 @@
     "message": "Utiliser une taille de police normale dans les menus déroulants"
   },
   "experimentalNote": {
-    "message": "Il n'y a pas d'expériences dans cette version"
+    "message": "Il n'y a pas de fonctionnalités expérimentales dans cette version"
   },
   "experimentsOptionsLabel": {
-    "message": "Expériences"
+    "message": "Fonctionnalités expérimentales"
   },
   "exportConfigLabel": {
     "message": "Exporter la configuration pour un rapport de bug"
@@ -228,7 +228,7 @@
     "message": "\"Voir les engagements avec le post\" sous vos tweets"
   },
   "hideTwitterBlueRepliesLabel": {
-    "message": "Masquer les réponses aux chèques bleus Premium"
+    "message": "Masquer les réponses des coches bleus Premium"
   },
   "hideTwitterBlueUpsellsLabel": {
     "message": "Masquer les promotions Premium"
@@ -255,7 +255,7 @@
     "message": "Retweets dans les Listes"
   },
   "mutableQuoteTweetsLabel": {
-    "message": "Activer la désactivation des tweets de citation"
+    "message": "Activer la mise en sourdine des Tweets de citation"
   },
   "mutedTweetsLabel": {
     "message": "Tweets masqués ($COUNT$)",
