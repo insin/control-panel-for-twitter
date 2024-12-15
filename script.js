@@ -3200,10 +3200,8 @@ const configureCss = (() => {
       hideCssSelectors.push(
         // In menus
         `${menuRole} a[href$="/i/grok"]`,
-        // Under timeline tweets
-        `[data-testid="tweet"][tabindex="0"] [role="group"] > div:has(> button[aria-label="${getString('GROK_ACTIONS')}"])`,
-        // Under the focused tweet
-        `[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"] > div:has(> button[aria-label="${getString('GROK_ACTIONS')}"])`,
+        // Grok Actions button
+        `button[aria-label="${getString('GROK_ACTIONS')}"]`,
       )
     }
     if (config.hideMonetizationNav) {
