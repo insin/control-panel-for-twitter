@@ -3202,6 +3202,8 @@ const configureCss = (() => {
         `${menuRole} a[href$="/i/grok"]`,
         // Grok Actions button
         `button[aria-label="${getString('GROK_ACTIONS')}"]`,
+        // "Generate image" button in the Tweet editor
+        'button[data-testid="grokImgGen"]',
       )
     }
     if (config.hideMonetizationNav) {
