@@ -3482,7 +3482,11 @@ const configureCss = (() => {
         )
       }
       if (config.hideGrokNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`)
+        hideCssSelectors.push(
+          `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
+          // "Profile Summary" button in user hover cards
+          '[data-testid="HoverCard"] > div > div > div:last-child:has(> button)',
+        )
       }
       if (config.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`)
