@@ -3204,6 +3204,8 @@ const configureCss = (() => {
         `button[aria-label="${getString('GROK_ACTIONS')}"]`,
         // "Generate image" button in the Tweet editor
         'button[data-testid="grokImgGen"]',
+        // Any Grok buttons we manually tag
+        '.GrokButton',
       )
     }
     if (config.hideMonetizationNav) {
@@ -3482,11 +3484,7 @@ const configureCss = (() => {
         )
       }
       if (config.hideGrokNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
-          // "Profile Summary" button in user hover cards
-          '[data-testid="HoverCard"] > div > div > div:last-child:has(> button)',
-        )
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`)
       }
       if (config.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`)
@@ -4241,7 +4239,13 @@ function handlePopup($popup) {
         name: 'user hovercard contents',
         timeout: 500,
       }).then(($contents) => {
-        if ($contents) processBlueChecks($popup)
+        if (!$contents) return
+        // Grok "Profile Summary" button
+        let $grokButton = $popup.querySelector('[data-testid="HoverCard"] > div > div > div:last-child:has(> button)')
+        if ($grokButton) {
+          $grokButton.classList.add('GrokButton')
+        }
+        processBlueChecks($popup)
       })
     }
   }
