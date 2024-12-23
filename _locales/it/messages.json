@@ -1,0 +1,386 @@
+{
+  "addAddMutedWordMenuItemLabel_desktop": {
+    "message": "Aggiungi \"Aggiungi parola o frase silenziata\" al menu \"Altro\""
+  },
+  "addAddMutedWordMenuItemLabel_mobile": {
+    "message": "Aggiungi \"Aggiungi parola o frase silenziata\" al menu ad hamburger"
+  },
+  "alwaysUseLatestTweetsLabel": {
+    "message": "Usa la timeline \"Seguiti\" (cronologica) di default"
+  },
+  "appStoreSubtitle": {
+    "message": "La tua timeline, come vuoi tu"
+  },
+  "debugCountdownLabel": {
+    "message": " (Opzioni di debug: fai clic su $DEBUG_COUNTDOWN$ più volte per attivare)",
+    "placeholders": {
+      "debug_countdown": {
+        "content": "$1",
+        "example": "3"
+      }
+    }
+  },
+  "debugInfo": {
+    "message": "Attiva il logging di debug e mostra le info di debug sui tweet nella timeline"
+  },
+  "debugLabel": {
+    "message": "Modalità debug"
+  },
+  "debugOptionsLabel": {
+    "message": "Opzioni di debug"
+  },
+  "defaultToLatestSearchLabel": {
+    "message": "Usa \"Recenti\" come sezione di default in Cerca"
+  },
+  "disableHomeTimelineInfo": {
+    "message": "Sprechi troppo tempo su Twitter? Prova a rimuovere la Home"
+  },
+  "disableHomeTimelineLabel": {
+    "message": "Disabilita la Home"
+  },
+  "disableTweetTextFormattingLabel": {
+    "message": "Disabilita il testo in grassetto e corsivo nei tweet"
+  },
+  "disabledHomeTimelineRedirectLabel": {
+    "message": "Reindirizza la Home a"
+  },
+  "disabledHomeTimelineRedirectOption_messages": {
+    "message": "Messaggi"
+  },
+  "disabledHomeTimelineRedirectOption_notifications": {
+    "message": "Notifiche"
+  },
+  "dontUseChirpFontLabel": {
+    "message": "Non usare il font Chirp"
+  },
+  "dropdownMenuFontWeightLabel": {
+    "message": "Usa il peso normale per il font dei menu a tendina"
+  },
+  "experimentalNote": {
+    "message": "Non ci sono esperimenti in questa versione"
+  },
+  "experimentsOptionsLabel": {
+    "message": "Esperimenti"
+  },
+  "exportConfigLabel": {
+    "message": "Esporta configurazione per segnalare errori"
+  },
+  "extensionDescription": {
+    "message": "Ti dà più controllo su Twitter, aggiunge fuznioni mancanti e migliora l'interfaccia"
+  },
+  "extensionDescriptionShort": {
+    "message": "Ti dà più controllo su Twitter, aggiunge fuznioni mancanti e migliora l'interfaccia"
+  },
+  "extensionName": {
+    "message": "Control Panel for Twitter"
+  },
+  "fastBlockLabel": {
+    "message": "Blocco rapido (salta la conferma)"
+  },
+  "features": {
+    "message": "Funzionalità"
+  },
+  "followButtonStyleLabel": {
+    "message": "Stile tasti"
+  },
+  "followButtonStyleOption_monochrome": {
+    "message": "Monocromo"
+  },
+  "followButtonStyleOption_themed": {
+    "message": "Colorati"
+  },
+  "fullWidthContentInfo": {
+    "message": "Nascondi la barra laterale e consenti ai contenuti nella timeline di espandersi in larghezza"
+  },
+  "fullWidthContentLabel": {
+    "message": "Timeline a larghezza intera"
+  },
+  "fullWidthMediaLabel": {
+    "message": "Media e schede a larghezza intera"
+  },
+  "hideAccountSwitcherLabel": {
+    "message": "Selettore account"
+  },
+  "hideAdsNavLabel": {
+    "message": "Annunci"
+  },
+  "hideAllMetricsLabel": {
+    "message": "Nascondi tutte"
+  },
+  "hideBlueReplyFollowedByLabel": {
+    "message": "Nascondi i miei seguaci"
+  },
+  "hideBlueReplyFollowingLabel": {
+    "message": "Nascondi i miei seguiti"
+  },
+  "hideBookmarkButtonLabel": {
+    "message": "Tasto segnalibro sotto i tweet"
+  },
+  "hideBookmarkMetricsLabel": {
+    "message": "Segnalibri"
+  },
+  "hideBookmarksNavLabel": {
+    "message": "segnalibri"
+  },
+  "hideCommunitiesNavLabel": {
+    "message": "Community"
+  },
+  "hideExploreNavLabel": {
+    "message": "Esplora"
+  },
+  "hideExploreNavWithSidebarLabel": {
+    "message": "Mostra quando la barra laterale è nascosta"
+  },
+  "hideExplorePageContentsLabel": {
+    "message": "Nascondi i contenuti della pagina Esplora e usala solo per cercare"
+  },
+  "hideFollowingMetricsLabel": {
+    "message": "Seguiti / seguaci"
+  },
+  "hideForYouTimelineLabel": {
+    "message": "Nascondi la timeline \"Per te\" (algoritmica)"
+  },
+  "hideGrok": {
+    "message": "Nascondi Grok"
+  },
+  "hideGrokLabel": {
+    "message": "Nascondi Grok"
+  },
+  "hideInlinePrompts": {
+    "message": "Nascondi i suggerimenti nella timeline"
+  },
+  "hideJobsLabel": {
+    "message": "Nascondi Offerte di lavoro"
+  },
+  "hideLikeMetricsLabel": {
+    "message": "Mi piace"
+  },
+  "hideListsNavLabel": {
+    "message": "Liste"
+  },
+  "hideMessagesBottomNavItemLabel": {
+    "message": "Messaggi"
+  },
+  "hideMessagesDrawerLabel": {
+    "message": "Cassetto messaggi"
+  },
+  "hideMetricsLabel": {
+    "message": "Nascondi statistiche"
+  },
+  "hideMonetizationNavLabel": {
+    "message": "Monetizzazione"
+  },
+  "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
+    "message": "Nascondi elementi del menu \"Altro\" che non usi"
+  },
+  "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
+    "message": "Nascondi elementi del menu ad hamburger che non usi"
+  },
+  "hideMoreTweetsLabel": {
+    "message": "Nascondi i tweet \"Scopri di più\""
+  },
+  "hideProNavLabel": {
+    "message": "Pro"
+  },
+  "hideProfileRetweetsLabel": {
+    "message": "Nascondi i retweet nei profili"
+  },
+  "hideQuoteTweetMetricsLabel": {
+    "message": "Tweet di citazione"
+  },
+  "hideQuotesFromLabel": {
+    "message": "Utenti silenziati ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "hideReplyMetricsLabel": {
+    "message": "Risposte"
+  },
+  "hideRetweetMetricsLabel": {
+    "message": "Retweet"
+  },
+  "hideSeeNewTweetsLabel": {
+    "message": "Nascondi \"Mostra nuovi tweet\""
+  },
+  "hideShareTweetButtonLabel": {
+    "message": "Tasto condividi sotto ai tweet"
+  },
+  "hideSidebarContentLabel": {
+    "message": "Nascondi contenuti della barra laterale"
+  },
+  "hideSpacesNavLabel": {
+    "message": "Crea il tuo spazio"
+  },
+  "hideSubscriptionsLabel": {
+    "message": "Nascondi Iscrizioni"
+  },
+  "hideTimelineTweetBoxLabel": {
+    "message": "Compositore tweet nella timeline"
+  },
+  "hideTotalTweetsMetricsLabel": {
+    "message": "Tweet totali"
+  },
+  "hideTweetAnalyticsLinksLabel": {
+    "message": "\"Visualizza interazioni tweet\" sotto ai tuoi tweet"
+  },
+  "hideTwitterBlueRepliesLabel": {
+    "message": "Nascondi risposte degli utenti verificati Premium"
+  },
+  "hideTwitterBlueUpsellsLabel": {
+    "message": "Nascondi promozioni Premium"
+  },
+  "hideUnavailableQuoteTweetsLabel": {
+    "message": "Nascondi tweet citati e risposte di account bloccati o silenziati"
+  },
+  "hideUnusedUiItemsOptionsLabel": {
+    "message": "Nascondi elementi di interfaccia che non usi"
+  },
+  "hideVerifiedNotificationsTabLabel": {
+    "message": "Nascondi la sezione verificata dalle notifiche e dai seguaci"
+  },
+  "hideViewsLabel": {
+    "message": "Nascondi le visualizzazioni sotto ai tweet"
+  },
+  "hideWhoToFollowEtcLabel": {
+    "message": "Nascondi \"Chi seguire\", \"Segui dei topic\" ecc. nella timeline"
+  },
+  "homeTimelineOptionsLabel": {
+    "message": "Home"
+  },
+  "listRetweetsLabel": {
+    "message": "Retweet nelle liste"
+  },
+  "mutableQuoteTweetsLabel": {
+    "message": "Abilita silenziamento dei tweet di citazione"
+  },
+  "mutedTweetsLabel": {
+    "message": "Tweet silenziati ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "navBaseFontSizeLabel": {
+    "message": "Usa lo stile normale per il font della barra di navigazione"
+  },
+  "navDensityLabel": {
+    "message": "Densità navigazione"
+  },
+  "option_comfortable": {
+    "message": "Rilassata"
+  },
+  "option_compact": {
+    "message": "Compatta"
+  },
+  "option_default": {
+    "message": "Default"
+  },
+  "option_hide": {
+    "message": "Nascondi"
+  },
+  "option_ignore": {
+    "message": "Non fare nulla"
+  },
+  "option_liked": {
+    "message": "Mi piace"
+  },
+  "option_recent": {
+    "message": "Recenti"
+  },
+  "option_relevant": {
+    "message": "Pertinenza"
+  },
+  "option_separate": {
+    "message": "Mostra in scheda separata"
+  },
+  "quoteTweetsLabel": {
+    "message": "Tweet di citazione"
+  },
+  "reduceAlgorithmicContentOptionsLabel": {
+    "message": "Rimuovi contenuti algoritmici"
+  },
+  "reduceEngagementOptionsLabel": {
+    "message": "Riduci \"interazioni\""
+  },
+  "reducedInteractionModeInfo": {
+    "message": "Nascondi la barra di azione sotto ai tweet: le risposte sono ora l'unico modo per interagire"
+  },
+  "reducedInteractionModeLabel": {
+    "message": "Modalità a interazione ridotta"
+  },
+  "replaceLogoLabel": {
+    "message": "Sostituisci modifiche relative al marchio X"
+  },
+  "restoreLinkHeadlinesLabel": {
+    "message": "Ripristina titoli sotto ai link esterni"
+  },
+  "restoreOtherInteractionLinksLabel": {
+    "message": "Ripristina altri link sotto ai tweet"
+  },
+  "restoreQuoteTweetsLinkLabel": {
+    "message": "Ripristina link dei tweet di citazione sotto ai tweet"
+  },
+  "retweetsLabel": {
+    "message": "Retweet"
+  },
+  "sharedTweetsOptionsLabel": {
+    "message": "Tweet condivisi da altri utenti"
+  },
+  "showBlueReplyFollowersCountAmountLabel": {
+    "message": "Numero di seguaci"
+  },
+  "showBlueReplyFollowersCountLabel": {
+    "message": "Mostra persone con più di $AMOUNT$ seguaci",
+    "placeholders": {
+      "amount": {
+        "content": "$1",
+        "example": "1 milione"
+      }
+    }
+  },
+  "showBlueReplyVerifiedAccountsLabel": {
+    "message": "Mostra account \"verificati\""
+  },
+  "showBookmarkButtonUnderFocusedTweetsLabel": {
+    "message": "Mostra sotto ai tweet selezionati"
+  },
+  "showRelevantPeopleLabel": {
+    "message": "Mostra \"Persone rilevanti\" quando visualizzi un tweet"
+  },
+  "sortRepliesLabel": {
+    "message": "Ordine risposte di default"
+  },
+  "tweakQuoteTweetsPageLabel": {
+    "message": "Nascondi il tweet citato quando visualizzi i tweet di citazione"
+  },
+  "twitterBlueChecksLabel": {
+    "message": "Spunta blu Premium"
+  },
+  "twitterBlueChecksOption_replace": {
+    "message": "Sostituisci con logo di Twitter Blue"
+  },
+  "uiImprovementsOptionsLabel": {
+    "message": "Miglioramenti interfaccia"
+  },
+  "uiTweaksOptionsLabel": {
+    "message": "Aggiustamenti interfaccia"
+  },
+  "unblurSensitiveContentLabel": {
+    "message": "Togli censura dai contenuti sensibili"
+  },
+  "uninvertFollowButtonsLabel": {
+    "message": "Annulla inversione tasi Segui / Segui già"
+  },
+  "unmuteButtonText": {
+    "message": "Riattiva"
+  },
+  "xFixesLabel": {
+    "message": "Anti-X"
+  }
+}
