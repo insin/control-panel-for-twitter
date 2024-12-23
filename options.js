@@ -118,8 +118,12 @@ for (let translationId of [
 }
 
 for (let translationClass of [
+  'hideNotificationsNavLabel',
+  'hideMessagesNavLabel',
   'hideBookmarksNavLabel',
   'hideCommunitiesNavLabel',
+  'hideCommunityNotesNavLabel',
+  'hideGrokNavLabel',
   'hideListsNavLabel',
 ]) {
   let translation = chrome.i18n.getMessage(translationClass)
@@ -167,8 +171,11 @@ const defaultConfig = {
   hideBlueReplyFollowing: false,
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
+  hideNotificationsNav: false,
+  hideMessagesNav: false,
   hideBookmarksNav: false,
   hideCommunitiesNav: false,
+  hideCommunityNotesNav: false,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
@@ -326,8 +333,11 @@ function applyConfig() {
       'hideShareTweetButton',
       'hideTweetAnalyticsLinks',
       desktop && 'hideAccountSwitcher',
+      desktop && 'hideNotificationsNav',
+      desktop && 'hideMessagesNav',
       desktop && 'hideBookmarksNav',
       desktop && 'hideCommunitiesNav',
+      desktop && 'hideCommunityNotesNav',
       desktop && 'hideExploreNav',
       desktop && 'hideListsNav',
       desktop && 'hideMessagesDrawer',
@@ -338,8 +348,11 @@ function applyConfig() {
       'hideAdsNav',
       'hideMonetizationNav',
       desktop && 'hideProNav',
+      mobile && 'hideNotificationsNav',
+      mobile && 'hideMessagesNav',
       mobile && 'hideBookmarksNav',
       mobile && 'hideCommunitiesNav',
+      mobile && 'hideCommunityNotesNav',
       mobile && 'hideListsNav',
     ].filter(Boolean),
     hideAllMetrics: [
