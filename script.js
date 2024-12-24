@@ -1713,6 +1713,7 @@ const Selectors = {
   TWEET: '[data-testid="tweet"]',
   VERIFIED_TICK: 'svg[data-testid="icon-verified"]',
   X_LOGO_PATH: 'svg path[d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"]',
+  X_DARUMA_LOGO_PATH: 'svg path[d="M18.436 1.92h3.403l-7.433 8.495 8.745 11.563h-6.849l-5.363-7.012-6.136 7.012H1.4l7.951-9.088L.96 1.92h7.02l4.848 6.41 5.608-6.41zm-1.194 18.021h1.886L6.958 3.851H4.933l12.308 16.09z"]',
 }
 
 /** @enum {string} */
@@ -2008,7 +2009,7 @@ function twitterLogo($svgPath) {
   // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
   // we have to manually patch the path in it.
   $svgPath.setAttribute('d', Svgs.TWITTER_LOGO_PATH)
-  $svgPath.parentElement.classList.add('tnt_logo')
+  $svgPath.classList.add('tnt_logo')
 }
 
 /**
@@ -3798,7 +3799,7 @@ const configureThemeCss = (() => {
 
     if (config.replaceLogo) {
       cssRules.push(`
-        ${Selectors.X_LOGO_PATH} {
+        ${Selectors.X_LOGO_PATH}, ${Selectors.X_DARUMA_LOGO_PATH} {
           fill: ${THEME_BLUE};
           d: path("${Svgs.TWITTER_LOGO_PATH}");
         }
@@ -5439,7 +5440,10 @@ function tweakListPage() {
 }
 
 async function tweakDesktopLogo() {
-  let $logoPath = await getElement(`h1 ${Selectors.X_LOGO_PATH}`, {name: 'desktop nav logo', timeout: 5000})
+  let $logoPath = await getElement(`h1 ${Selectors.X_LOGO_PATH}, h1 ${Selectors.X_DARUMA_LOGO_PATH}`, {
+    name: 'desktop nav logo',
+    timeout: 5000,
+  })
   if ($logoPath) {
     twitterLogo($logoPath)
   }
