@@ -6,7 +6,7 @@ const locales = JSON.parse(fs.readFileSync('./base-locales.json', 'utf-8'))
 // These codes are from Twitter's locale files
 let template = {
   ADD_MUTED_WORD: 'd768049c',
-  GROK_ACTIONS: 'jd304a34',
+  GROK_ACTIONS: 'e3eceda6',
   HOME: 'ha8209bc',
   LIKES: 'd7b8ebaa',
   MUTE_THIS_CONVERSATION: 'e2d6c17e',
