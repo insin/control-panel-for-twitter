@@ -3207,6 +3207,9 @@ const configureCss = (() => {
         'button[data-testid="grokImgGen"]',
         // Any Grok buttons we manually tag
         '.GrokButton',
+        // Grok suggested prompts in Tweets
+        '[data-testid="tweet"] [data-testid^="followups_"]',
+        '[data-testid="tweet"] [data-testid^="followups_"] + nav',
       )
     }
     if (config.hideMonetizationNav) {
