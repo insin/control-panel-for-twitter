@@ -3071,7 +3071,7 @@ const configureCss = (() => {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
     `]
-    let hideCssSelectors = []
+    let hideCssSelectors = ['.HiddenTweet', '.HiddenTweet + [role="separator"]']
     let menuRole = `[role="${desktop ? 'menu' : 'dialog'}"]`
 
     // Theme colours for custom UI items
@@ -4527,7 +4527,8 @@ function onTimelineChange($timeline, page, options = {}) {
     }
 
     if (hideItem != null && $item.firstElementChild) {
-      if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display != (hideItem ? 'none' : '')) {
+      let hidden = $item.firstElementChild.classList.contains('HiddenTweet')
+      if (hidden != hideItem) {
         changes.push({$item, hideItem})
       }
     }
@@ -4536,7 +4537,7 @@ function onTimelineChange($timeline, page, options = {}) {
   }
 
   for (let change of changes) {
-    /** @type {HTMLElement} */ (change.$item.firstElementChild).style.display = change.hideItem ? 'none' : ''
+    change.$item.firstElementChild.classList.toggle('HiddenTweet', change.hideItem)
   }
 
   log(
@@ -4717,7 +4718,8 @@ function onIndividualTweetTimelineChange($timeline, options) {
       hiddenItemTypes = {}
     }
     else if (hideItem != null && $item.firstElementChild) {
-      if (/** @type {HTMLElement} */ ($item.firstElementChild).style.display != (hideItem ? 'none' : '')) {
+      let hidden = $item.firstElementChild.classList.contains('HiddenTweet')
+      if (hidden != hideItem) {
         changes.push({$item, hideItem})
       }
     }
@@ -4726,7 +4728,7 @@ function onIndividualTweetTimelineChange($timeline, options) {
   }
 
   for (let change of changes) {
-    /** @type {HTMLElement} */ (change.$item.firstElementChild).style.display = change.hideItem ? 'none' : ''
+    change.$item.firstElementChild.classList.toggle('HiddenTweet', change.hideItem)
   }
 
   tweakFocusedTweet($focusedTweet, options)
