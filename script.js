@@ -3100,23 +3100,15 @@ const configureCss = (() => {
     if (config.alwaysUseLatestTweets && config.hideForYouTimeline) {
       cssRules.push(`
         /* Prevent the For you tab container taking up space */
-        body.HomeTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child {
+        body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child {
           flex-grow: 0;
           flex-shrink: 1;
         }
         /* Hide the For you tab link */
-        body.HomeTimeline ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:first-child > a {
+        body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child > a {
           display: none;
         }
       `)
-      if (desktop) {
-        // Don't accidentally hide the Media button in the Tweet box toolbar
-        cssRules.push(`
-          body.HomeTimeline ${Selectors.PRIMARY_COLUMN} div[data-testid="toolBar"] nav div[role="tablist"] > div:first-child {
-            flex-shrink: 0;
-          }
-        `)
-      }
     }
     if (config.disableTweetTextFormatting) {
       cssRules.push(`
@@ -5596,6 +5588,7 @@ function tweakMobileMediaViewerPage() {
 }
 
 async function tweakTimelineTabs($timelineTabs) {
+  $timelineTabs.classList.add('TimelineTabs')
   let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a'))
 
   if (config.alwaysUseLatestTweets && !document.title.startsWith(separatedTweetsTimelineTitle)) {
