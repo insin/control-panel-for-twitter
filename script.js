@@ -3507,6 +3507,12 @@ const configureCss = (() => {
           body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:nth-of-type(2) {
             display: block;
           }
+          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:first-of-type {
+            display: none;
+          }
+          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:nth-of-type(3) {
+            display: block;
+          }
         `)
         if (config.showRelevantPeople) {
           cssRules.push(`
