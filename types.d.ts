@@ -101,6 +101,7 @@ export type LocaleKey =
   | 'MUTE_THIS_CONVERSATION'
   | 'POST_ALL'
   | 'POST_UNAVAILABLE'
+  | 'PROFILE_SUMMARY'
   | 'QUOTE'
   | 'QUOTES'
   | 'QUOTE_TWEET'
