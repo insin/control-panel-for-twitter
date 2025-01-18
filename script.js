@@ -1697,7 +1697,6 @@ const Selectors = {
   DESKTOP_TIMELINE_HEADER: 'div[data-testid="primaryColumn"] > div > div:first-of-type',
   DISPLAY_DONE_BUTTON_DESKTOP: '#layers button[role="button"]:not([aria-label])',
   DISPLAY_DONE_BUTTON_MOBILE: 'main button[role="button"]:not([aria-label])',
-  MESSAGES_DRAWER: 'div[data-testid="DMDrawer"]',
   MODAL_TIMELINE: 'section > h1 + div[aria-label] > div',
   MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
@@ -3481,6 +3480,7 @@ const configureCss = (() => {
       }
       if (config.hideGrokNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`)
+        cssRules.push(`div[data-testid="GrokDrawer"] { visibility: hidden; }`)
       }
       if (config.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`)
@@ -3541,7 +3541,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
       }
       if (config.hideMessagesDrawer) {
-        cssRules.push(`${Selectors.MESSAGES_DRAWER} { visibility: hidden; }`)
+        cssRules.push(`div[data-testid="DMDrawer"] { visibility: hidden; }`)
       }
       if (config.hideViews) {
         hideCssSelectors.push(
