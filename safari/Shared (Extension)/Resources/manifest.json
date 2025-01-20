@@ -4,7 +4,7 @@
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescriptionShort__",
   "homepage_url": "https://jbscript.dev/control-panel-for-twitter",
-  "version": "4.5.4",
+  "version": "4.5.5",
   "icons": {
     "48": "icon48.png",
     "96": "icon96.png",
