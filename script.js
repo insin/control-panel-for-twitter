@@ -3246,6 +3246,8 @@ const configureCss = (() => {
         '[data-testid="tweet"] [data-testid^="followups_"] + nav',
         // Profile Summary button
         `button[aria-label="${getString('PROFILE_SUMMARY')}"]`,
+        // Grok summary at the top of search results
+        'body.Search [data-testid="primaryColumn"] > div > div:has(> [data-testid="followups_search"])',
       )
     }
     if (config.hideMonetizationNav) {
