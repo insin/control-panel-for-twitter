@@ -3527,7 +3527,7 @@ const configureCss = (() => {
       }
       if (config.hideGrokNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`)
-        cssRules.push(`div[data-testid="GrokDrawer"] { visibility: hidden; }`)
+        hideCssSelectors.push(`div[data-testid="GrokDrawer"]`)
       }
       if (config.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`)
