@@ -119,6 +119,7 @@ const config = {
   navBaseFontSize: true,
   navDensity: 'default',
   showRelevantPeople: false,
+  tweakNewLayout: false,
   // Mobile only
   hideMessagesBottomNavItem: false,
 }
@@ -163,6 +164,7 @@ const locales = {
     TWITTER: 'تويتر',
     UNDO_RETWEET: 'التراجع عن التغريدة',
     VIEW: 'عرض',
+    WHATS_HAPPENING: 'ما الذي يحدث؟',
   },
   ar: {
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
@@ -198,6 +200,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'التغريد بردك!',
     UNDO_RETWEET: 'التراجع عن التغريدة',
     VIEW: 'عرض',
+    WHATS_HAPPENING: 'ما الذي يحدث؟',
   },
   bg: {
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
@@ -233,6 +236,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Отговори с туит!',
     UNDO_RETWEET: 'Отмяна на ретуитването',
     VIEW: 'Преглед',
+    WHATS_HAPPENING: 'Какво се случва?',
   },
   bn: {
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
@@ -269,6 +273,7 @@ const locales = {
     TWITTER: 'টুইটার',
     UNDO_RETWEET: 'পুনঃ টুইট পুর্বাবস্থায় ফেরান',
     VIEW: 'দেখুন',
+    WHATS_HAPPENING: 'কি ঘটছে?',
   },
   ca: {
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
@@ -304,6 +309,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tuita la teva resposta',
     UNDO_RETWEET: 'Desfés el retuit',
     VIEW: 'Mostra',
+    WHATS_HAPPENING: 'Què està passant?',
   },
   cs: {
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
@@ -338,6 +344,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetujte svou odpověď!',
     UNDO_RETWEET: 'Zrušit Retweet',
     VIEW: 'Zobrazit',
+    WHATS_HAPPENING: 'Co se děje?',
   },
   da: {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
@@ -367,6 +374,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet dit svar!',
     UNDO_RETWEET: 'Fortryd Retweet',
     VIEW: 'Vis',
+    WHATS_HAPPENING: 'Hvad sker der?',
   },
   de: {
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
@@ -399,6 +407,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Twittere deine Antwort!',
     UNDO_RETWEET: 'Retweet rückgängig machen',
     VIEW: 'Anzeigen',
+    WHATS_HAPPENING: 'Was passiert?',
   },
   el: {
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
@@ -432,6 +441,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Στείλτε την απάντησή σας!',
     UNDO_RETWEET: 'Αναίρεση Retweet',
     VIEW: 'Προβολή',
+    WHATS_HAPPENING: 'Τι συμβαίνει;',
   },
   en: {
     ADD_MUTED_WORD: 'Add muted word',
@@ -468,6 +478,7 @@ const locales = {
     TWITTER: 'Twitter',
     UNDO_RETWEET: 'Undo Retweet',
     VIEW: 'View',
+    WHATS_HAPPENING: "What's happening?",
   },
   es: {
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
@@ -500,6 +511,7 @@ const locales = {
     TWEET_YOUR_REPLY: '¡Twittea tu respuesta!',
     UNDO_RETWEET: 'Deshacer Retweet',
     VIEW: 'Ver',
+    WHATS_HAPPENING: '¿Qué está pasando?',
   },
   eu: {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
@@ -527,6 +539,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Txio elkarrekintzak',
     UNDO_RETWEET: 'Desegin birtxiokatzea',
     VIEW: 'Ikusi',
+    WHATS_HAPPENING: 'Zer gertatzen ari da?',
   },
   fa: {
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
@@ -563,6 +576,7 @@ const locales = {
     TWITTER: 'توییتر',
     UNDO_RETWEET: 'لغو بازتوییت',
     VIEW: 'مشاهده',
+    WHATS_HAPPENING: 'چه خبر؟',
   },
   fi: {
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
@@ -598,6 +612,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Twiittaa vastauksesi',
     UNDO_RETWEET: 'Kumoa uudelleentwiittaus',
     VIEW: 'Näytä',
+    WHATS_HAPPENING: 'Mitä tapahtuu?',
   },
   fil: {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
@@ -631,6 +646,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'I-Tweet ang sagot mo!',
     UNDO_RETWEET: 'Huwag nang I-retweet',
     VIEW: 'Tingnan',
+    WHATS_HAPPENING: 'Anong nangyayari?',
   },
   fr: {
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
@@ -662,6 +678,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetez votre réponse!',
     UNDO_RETWEET: 'Annuler le Retweet',
     VIEW: 'Voir',
+    WHATS_HAPPENING: 'Quoi de neuf ?',
   },
   ga: {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
@@ -688,6 +705,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Idirghníomhaíochtaí le Tweet',
     UNDO_RETWEET: 'Cuir an Atweet ar ceal',
     VIEW: 'Breathnaigh',
+    WHATS_HAPPENING: 'Cad atá ag tarlú?',
   },
   gl: {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
@@ -715,6 +733,7 @@ const locales = {
     TWEET_INTERACTIONS: 'Interaccións chío',
     UNDO_RETWEET: 'Desfacer rechouchío',
     VIEW: 'Ver',
+    WHATS_HAPPENING: 'Que está pasando?',
   },
   gu: {
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
@@ -750,6 +769,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'તમારા પ્રત્યુત્તરને ટ્વીટ કરો!',
     UNDO_RETWEET: 'પુનટ્વીટને પૂર્વવત કરો',
     VIEW: 'જુઓ',
+    WHATS_HAPPENING: 'શું થઈ રહ્યું છે?',
   },
   he: {
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
@@ -786,6 +806,7 @@ const locales = {
     TWITTER: 'טוויטר',
     UNDO_RETWEET: 'ביטול ציוץ מחדש',
     VIEW: 'הצג',
+    WHATS_HAPPENING: 'מה קורה?',
   },
   hi: {
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
@@ -821,6 +842,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'अपना जवाब ट्वीट करें!',
     UNDO_RETWEET: 'रीट्वीट को पूर्ववत करें',
     VIEW: 'देखें',
+    WHATS_HAPPENING: 'क्या हो रहा है?',
   },
   hr: {
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
@@ -855,6 +877,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Pošaljite Tweet s odgovorom!',
     UNDO_RETWEET: 'Poništi prosljeđivanje tweeta',
     VIEW: 'Prikaz',
+    WHATS_HAPPENING: 'Što se događa?',
   },
   hu: {
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
@@ -889,6 +912,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweeteld válaszodat',
     UNDO_RETWEET: 'Retweet visszavonása',
     VIEW: 'Megtekintés',
+    WHATS_HAPPENING: 'Mi történik?',
   },
   id: {
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
@@ -922,6 +946,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet balasan Anda!',
     UNDO_RETWEET: 'Batalkan Retweet',
     VIEW: 'Lihat',
+    WHATS_HAPPENING: 'Apa yang terjadi?',
   },
   it: {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
@@ -955,6 +980,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Twitta la tua risposta.',
     UNDO_RETWEET: 'Annulla Retweet',
     VIEW: 'Visualizza',
+    WHATS_HAPPENING: 'Cosa sta succedendo?',
   },
   ja: {
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
@@ -990,6 +1016,7 @@ const locales = {
     TWEET_YOUR_REPLY: '返信をツイートしましょう。',
     UNDO_RETWEET: 'リツイートを取り消す',
     VIEW: '表示する',
+    WHATS_HAPPENING: '何が起こっているの？',
   },
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
@@ -1025,6 +1052,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ!',
     UNDO_RETWEET: 'ಮರುಟ್ವೀಟಿಸುವುದನ್ನು ರದ್ದುಮಾಡಿ',
     VIEW: 'ವೀಕ್ಷಿಸಿ',
+    WHATS_HAPPENING: 'ಏನು ನಡೆಯುತ್ತಿದೆ?',
   },
   ko: {
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
@@ -1061,6 +1089,7 @@ const locales = {
     TWITTER: '트위터',
     UNDO_RETWEET: '리트윗 취소',
     VIEW: '보기',
+    WHATS_HAPPENING: '무슨 일이야?',
   },
   mr: {
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
@@ -1096,6 +1125,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'आपल्या प्रत्युत्तरावर ट्विट करा!',
     UNDO_RETWEET: 'पुनर्ट्विट पूर्ववत करा',
     VIEW: 'पहा',
+    WHATS_HAPPENING: 'काय होत आहे?',
   },
   ms: {
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
@@ -1130,6 +1160,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet balasan anda!',
     UNDO_RETWEET: 'Buat asal Tweet semula',
     VIEW: 'Lihat',
+    WHATS_HAPPENING: 'Apa yang sedang berlaku?',
   },
   nb: {
     ADD_MUTED_WORD: 'Skjul nytt ord',
@@ -1161,6 +1192,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet svaret ditt!',
     UNDO_RETWEET: 'Angre Retweet',
     VIEW: 'Vis',
+    WHATS_HAPPENING: 'Hva skjer?',
   },
   nl: {
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
@@ -1192,6 +1224,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet je antwoord!',
     UNDO_RETWEET: 'Retweet ongedaan maken',
     VIEW: 'Bekijken',
+    WHATS_HAPPENING: 'Wat gebeurt er?',
   },
   pl: {
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
@@ -1226,6 +1259,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Wyślij Tweeta z odpowiedzią!',
     UNDO_RETWEET: 'Cofnij podanie dalej',
     VIEW: 'Wyświetl',
+    WHATS_HAPPENING: 'Co się dzieje?',
   },
   pt: {
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
@@ -1258,6 +1292,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetar sua resposta!',
     UNDO_RETWEET: 'Desfazer Retweet',
     VIEW: 'Ver',
+    WHATS_HAPPENING: 'O que está acontecendo?',
   },
   ro: {
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
@@ -1292,6 +1327,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Dă Tweet cu răspunsul!',
     UNDO_RETWEET: 'Anulează Retweetul',
     VIEW: 'Vezi',
+    WHATS_HAPPENING: 'Ce se întâmplă?',
   },
   ru: {
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
@@ -1328,6 +1364,7 @@ const locales = {
     TWITTER: 'Твиттер',
     UNDO_RETWEET: 'Отменить ретвит',
     VIEW: 'Посмотреть',
+    WHATS_HAPPENING: 'Что происходит?',
   },
   sk: {
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
@@ -1363,6 +1400,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetnite odpoveď!',
     UNDO_RETWEET: 'Zrušiť retweet',
     VIEW: 'Zobraziť',
+    WHATS_HAPPENING: 'Čo sa deje?',
   },
   sr: {
     ADD_MUTED_WORD: 'Додај игнорисану реч',
@@ -1399,6 +1437,7 @@ const locales = {
     TWITTER: 'Твитер',
     UNDO_RETWEET: 'Опозови ретвит',
     VIEW: 'Погледај',
+    WHATS_HAPPENING: 'Шта се дешава?',
   },
   sv: {
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
@@ -1432,6 +1471,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweeta ditt svar!',
     UNDO_RETWEET: 'Ångra retweeten',
     VIEW: 'Visa',
+    WHATS_HAPPENING: 'Vad händer?',
   },
   ta: {
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
@@ -1467,6 +1507,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'உங்கள் பதிலை ட்விட் செய்யவும்!',
     UNDO_RETWEET: 'மறுகீச்சை செயல்தவிர்',
     VIEW: 'காண்பி',
+    WHATS_HAPPENING: 'என்ன நடக்கிறது?',
   },
   th: {
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
@@ -1503,6 +1544,7 @@ const locales = {
     TWITTER: 'ทวิตเตอร์',
     UNDO_RETWEET: 'ยกเลิกการรีทวีต',
     VIEW: 'ดู',
+    WHATS_HAPPENING: 'เกิดอะไรขึ้น?',
   },
   tr: {
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
@@ -1537,6 +1579,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Yanıtını Tweetle.',
     UNDO_RETWEET: 'Retweeti Geri Al',
     VIEW: 'Görüntüle',
+    WHATS_HAPPENING: 'Ne oluyor?',
   },
   uk: {
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
@@ -1573,6 +1616,7 @@ const locales = {
     TWITTER: 'Твіттер',
     UNDO_RETWEET: 'Скасувати ретвіт',
     VIEW: 'Переглянути',
+    WHATS_HAPPENING: 'Що відбувається?',
   },
   ur: {
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
@@ -1601,6 +1645,7 @@ const locales = {
     TWITTER: 'ٹوئٹر',
     UNDO_RETWEET: 'ری ٹویٹ کو کالعدم کریں',
     VIEW: 'دیکھیں',
+    WHATS_HAPPENING: 'کیا ہو رہا ہے؟',
   },
   vi: {
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
@@ -1635,6 +1680,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Đăng Tweet câu trả lời của bạn!',
     UNDO_RETWEET: 'Hoàn tác Tweet lại',
     VIEW: 'Xem',
+    WHATS_HAPPENING: 'Chuyện gì đang xảy ra?',
   },
   'zh-Hant': {
     ADD_MUTED_WORD: '加入靜音文字',
@@ -1670,6 +1716,7 @@ const locales = {
     TWEET_YOUR_REPLY: '推你的回覆！',
     UNDO_RETWEET: '取消轉推',
     VIEW: '查看',
+    WHATS_HAPPENING: '發生什麼事？',
   },
   zh: {
     ADD_MUTED_WORD: '添加要隐藏的字词',
@@ -1705,6 +1752,7 @@ const locales = {
     TWEET_YOUR_REPLY: '发布你的回复！',
     UNDO_RETWEET: '撤销转推',
     VIEW: '查看',
+    WHATS_HAPPENING: '发生了什么？',
   },
 }
 
@@ -1742,6 +1790,7 @@ const Selectors = {
   DISPLAY_DONE_BUTTON_MOBILE: 'main button[role="button"]:not([aria-label])',
   MODAL_TIMELINE: 'section > h1 + div[aria-label] > div',
   MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
+  MORE_DIALOG: 'div[aria-labelledby="modal-header"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV_DESKTOP: 'header nav',
@@ -1764,11 +1813,13 @@ const Svgs = {
   MUTE: '<g><path d="M18 6.59V1.2L8.71 7H5.5C4.12 7 3 8.12 3 9.5v5C3 15.88 4.12 17 5.5 17h2.09l-2.3 2.29 1.42 1.42 15.5-15.5-1.42-1.42L18 6.59zm-8 8V8.55l6-3.75v3.79l-6 6zM5 9.5c0-.28.22-.5.5-.5H8v6H5.5c-.28 0-.5-.22-.5-.5v-5zm6.5 9.24l1.45-1.45L16 19.2V14l2 .02v8.78l-6.5-4.06z"></path></g>',
   RETWEET: '<g><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"></path></g>',
   RETWEETS_OFF: '<g><path d="M3.707 21.707l18-18-1.414-1.414-2.088 2.088C17.688 4.137 17.11 4 16.5 4H11v2h5.5c.028 0 .056 0 .084.002l-10.88 10.88c-.131-.266-.204-.565-.204-.882V7.551l2.068 1.93 1.365-1.462L4.5 3.882.068 8.019l1.365 1.462 2.068-1.93V16c0 .871.278 1.677.751 2.334l-1.959 1.959 1.414 1.414zM18.5 9h2v7.449l2.068-1.93 1.365 1.462-4.433 4.137-4.432-4.137 1.365-1.462 2.067 1.93V9zm-8.964 9l-2 2H13v-2H9.536z"></path></g>',
+  TWITTER_FEATHER_PLUS_PATH: 'M23 3c-6.62-.1-10.38 2.421-13.05 6.03C7.29 12.61 6 17.331 6 22h2c0-1.007.07-2.012.19-3H12c4.1 0 7.48-3.082 7.94-7.054C22.79 10.147 23.17 6.359 23 3zm-7 8h-1.5v2H16c.63-.016 1.2-.08 1.72-.188C16.95 15.24 14.68 17 12 17H8.55c.57-2.512 1.57-4.851 3-6.78 2.16-2.912 5.29-4.911 9.45-5.187C20.95 8.079 19.9 11 16 11zM4 9V6H1V4h3V1h2v3h3v2H6v3H4z',
   TWITTER_HOME_ACTIVE_PATH: 'M12 1.696L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM12 16.5c-1.933 0-3.5-1.567-3.5-3.5s1.567-3.5 3.5-3.5 3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5z',
   TWITTER_HOME_INACTIVE_PATH: 'M12 9c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4zm0 6c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm0-13.304L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM19 19.5c0 .276-.224.5-.5.5h-13c-.276 0-.5-.224-.5-.5V8.429l7-4.375 7 4.375V19.5z',
   TWITTER_LOGO_PATH: 'M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z',
   X_HOME_ACTIVE_PATH: 'M21.591 7.146L12.52 1.157c-.316-.21-.724-.21-1.04 0l-9.071 5.99c-.26.173-.409.456-.409.757v13.183c0 .502.418.913.929.913H9.14c.51 0 .929-.41.929-.913v-7.075h3.909v7.075c0 .502.417.913.928.913h6.165c.511 0 .929-.41.929-.913V7.904c0-.301-.158-.584-.408-.758z',
   X_HOME_INACTIVE_PATH: 'M21.591 7.146L12.52 1.157c-.316-.21-.724-.21-1.04 0l-9.071 5.99c-.26.173-.409.456-.409.757v13.183c0 .502.418.913.929.913h6.638c.511 0 .929-.41.929-.913v-7.075h3.008v7.075c0 .502.418.913.929.913h6.639c.51 0 .928-.41.928-.913V7.904c0-.301-.158-.584-.408-.758zM20 20l-4.5.01.011-7.097c0-.502-.418-.913-.928-.913H9.44c-.511 0-.929.41-.929.913L8.5 20H4V8.773l8.011-5.342L20 8.764z',
+  PLUS_PATH: 'M11 11V4h2v7h7v2h-7v7h-2v-7H4v-2h7z',
 }
 
 /** @enum {string} */
@@ -2202,6 +2253,10 @@ function getState() {
   }
 }
 
+function hasNewLayout() {
+  return getState()?.featureSwitch?.user?.config?.rweb_sourcemap_migration?.value
+}
+
 function getStateEntities() {
   let state = getState()
   if (state) {
@@ -2443,6 +2498,7 @@ function observeBodyBackgroundColor() {
   })
 }
 
+// TODO Restore "What's happening?" in the first Tweet's placeholder
 async function observeDesktopComposeTweetModal($popup) {
  let $modalDialog = await getElement('div[role="dialog"][aria-labelledby]', {
   context: $popup,
@@ -3145,6 +3201,8 @@ const configureCss = (() => {
         body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child {
           flex-grow: 0;
           flex-shrink: 1;
+          /* New layout has margin-right on tabs */
+          margin-right: 0;
         }
         /* Hide the For you tab link */
         body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child > a {
@@ -3222,6 +3280,8 @@ const configureCss = (() => {
       cssRules.push(`
         body.ProfileFollows.Subscriptions ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:last-child {
           flex: 0;
+          /* New layout has margin-right on tabs */
+          margin-right: 0;
         }
       `)
     }
@@ -3271,6 +3331,8 @@ const configureCss = (() => {
       hideCssSelectors.push(
         // Premium/Verified menu items
         `${menuRole} a:is([href^="/i/premium"], [href^="/i/verified"])`,
+        // In new More dialog
+        `${Selectors.MORE_DIALOG} a:is([href^="/i/premium"], [href^="/i/verified"])`,
         // Analytics menu item
         `${menuRole} a[href="/i/account_analytics"]`,
         // "Highlight on your profile" on your tweets
@@ -3294,6 +3356,8 @@ const configureCss = (() => {
       cssRules.push(`
         ${profileTabsList} > div:has(> ${upsellTabLinks}) {
           flex: 0;
+          /* New layout has margin-right on tabs */
+          margin-right: 0;
         }
         ${profileTabsList} > div > ${upsellTabLinks} {
           display: none;
@@ -3320,6 +3384,8 @@ const configureCss = (() => {
         body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2),
         body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) {
           flex: 0;
+          /* New layout has margin-right on tabs */
+          margin-right: 0;
         }
         body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > a,
         body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) > a {
@@ -3397,49 +3463,151 @@ const configureCss = (() => {
     }
 
     if (shouldShowSeparatedTweetsTab()) {
-      cssRules.push(`
-        body.Default {
-          --tab-hover: rgba(15, 20, 25, 0.1);
-        }
-        body.Dim {
-          --tab-hover: rgba(247, 249, 249, 0.1);
-        }
-        body.LightsOut {
-          --tab-hover: rgba(231, 233, 234, 0.1);
-        }
-
-        /* Tabbed timeline */
-        body.Desktop #tnt_separated_tweets_tab:hover,
-        body.Mobile:not(.SeparatedTweets) #tnt_separated_tweets_tab:hover,
-        body.Mobile #tnt_separated_tweets_tab:active {
-          background-color: var(--tab-hover);
-        }
-        body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div,
-        body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div {
-          font-weight: normal !important;
-          color: var(--color) !important;
-        }
-        body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div {
-          font-weight: bold;
-          color: var(--color-emphasis); !important;
-        }
-        body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div > div,
-        body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div > div {
-          height: 0 !important;
-        }
-        body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div > div {
-          height: 4px !important;
-          min-width: 56px;
-          width: 100%;
-          position: absolute;
-          bottom: 0;
-          border-radius: 9999px;
-        }
-      `)
+      if (hasNewLayout() || config.tweakNewLayout) {
+        cssRules.push(`
+          body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div,
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div {
+            color: var(--color) !important;
+          }
+          body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div {
+            color: var(--color-emphasis) !important;
+          }
+          body.Desktop #tnt_separated_tweets_tab:hover > a > div > div {
+            color: var(--color-emphasis) !important;
+          }
+        `)
+      } else {
+        cssRules.push(`
+          body.Default {
+            --tab-hover: rgba(15, 20, 25, 0.1);
+          }
+          body.Dim {
+            --tab-hover: rgba(247, 249, 249, 0.1);
+          }
+          body.LightsOut {
+            --tab-hover: rgba(231, 233, 234, 0.1);
+          }
+          body.Desktop #tnt_separated_tweets_tab:hover,
+          body.Mobile:not(.SeparatedTweets) #tnt_separated_tweets_tab:hover,
+          body.Mobile #tnt_separated_tweets_tab:active {
+            background-color: var(--tab-hover);
+          }
+          body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div,
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div {
+            font-weight: normal !important;
+            color: var(--color) !important;
+          }
+          body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div {
+            font-weight: bold;
+            color: var(--color-emphasis); !important;
+          }
+          body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div > div,
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div > div {
+            height: 0 !important;
+          }
+          body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div > div {
+            height: 4px !important;
+            min-width: 56px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            border-radius: 9999px;
+          }
+        `)
+      }
     }
 
     //#region Desktop-only
     if (desktop) {
+      if (config.tweakNewLayout) {
+        cssRules.push(`
+          /* Restore primary column borders */
+          ${Selectors.PRIMARY_COLUMN} {
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+          }
+          /* Realign nav items to the top */
+          header[role="banner"] > div > div > div {
+            justify-content: flex-start;
+          }
+          /* Restore size and contrast of nav icons */
+          ${Selectors.PRIMARY_NAV_DESKTOP} > a svg {
+            width: 1.75rem !important;
+            height: 1.75rem !important;
+            fill: var(--color-emphasis) !important;
+          }
+          /* Give the More button more contrast too */
+          ${Selectors.PRIMARY_NAV_DESKTOP} > button svg {
+            fill: var(--color-emphasis) !important;
+          }
+          /* Restore the themed navigation pip with count */
+          ${Selectors.PRIMARY_NAV_DESKTOP} > a[href="/notifications"] > div > div > div > div > div {
+            align-items: center;
+            background-color: var(--theme-color);
+            border-width: 1px;
+            box-sizing: content-box;
+            color: #fff;
+            font-size: 11px;
+            height: 16px;
+            margin-top: -4px;
+            min-width: 16px;
+            right: -4px;
+            top: -6px;
+          }
+          ${Selectors.PRIMARY_NAV_DESKTOP} > a[href="/notifications"] > div > div > div > div > div::after {
+            content: var(--notification-count);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+          }
+          /* Make the Tweet button larger */
+          [data-testid="SideNav_NewTweet_Button"] {
+            min-width: 49px;
+            min-height: 49px;
+          }
+          /* Move the account switcher back to the bottom */
+          header[role="banner"] > div > div > div > div:last-child {
+            flex: 1;
+            justify-content: space-between;
+          }
+          /* Left-align main contents and stop it taking up all available space */
+          main {
+            align-items: flex-start !important;
+            flex-grow: 0 !important;
+          }
+          /* Remove the gap between main contents and sidebar */
+          main > div > div > div {
+            justify-content: normal !important;
+          }
+          /* Restore the sidebar to its old width */
+          ${Selectors.SIDEBAR},
+          ${Selectors.SIDEBAR} > div > div,
+          ${Selectors.SIDEBAR_WRAPPERS} > div:first-child {
+            width: 350px !important;
+          }
+          /* Center content */
+          div[data-at-shortcutkeys] {
+            justify-content: center;
+          }
+          /* Make the image button first in the Tweet editor toolbar again */
+          [data-testid="toolBar"] [role="tablist"] > [role="presentation"] {
+            order: 1;
+          }
+          [data-testid="toolBar"] [role="tablist"] > [role="presentation"]:has(input[data-testid="fileInput"]) {
+            order: 0;
+          }
+          /* Add theme colour back to Tweet editor toolbar buttons */
+          [data-testid="toolBar"] [role="tablist"] > [role="presentation"] svg {
+            fill: var(--theme-color);
+          }
+        `)
+        if (config.replaceLogo) {
+          // TODO Manually patch this in Safari
+          cssRules.push(`
+            [data-testid="SideNav_NewTweet_Button"] path[d="${Svgs.PLUS_PATH}"] {
+              d: path("${Svgs.TWITTER_FEATHER_PLUS_PATH}");
+            }
+          `)
+        }
+      }
       if (config.navDensity == 'comfortable' || config.navDensity == 'compact') {
         cssRules.push(`
           header nav > a,
@@ -3525,21 +3693,45 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
+      if (config.hideAdsNav) {
+        // In new More dialog
+        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
+      }
       if (config.hideGrokNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`)
+        hideCssSelectors.push(
+          `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
+          // In new More dialog
+          `${Selectors.MORE_DIALOG} a[href$="/i/grok"]`,
+        )
         cssRules.push(`div[data-testid="GrokDrawer"] { visibility: hidden; }`)
       }
       if (config.hideJobsNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`)
+        hideCssSelectors.push(
+          `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`,
+          // In new More dialog
+          `${Selectors.MORE_DIALOG} a[href="/jobs"]`,
+        )
       }
       if (config.hideListsNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
+        hideCssSelectors.push(
+          `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`,
+          // In new More dialog
+          `${Selectors.MORE_DIALOG} a[href$="/lists"]`,
+        )
+      }
+      if (config.hideMonetizationNav) {
+        // In new More dialog
+        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/i/monetization"]`)
       }
       if (config.hideProNav) {
         hideCssSelectors.push(`${menuRole} a:is([href*="pro.twitter.com"], [href*="pro.x.com"])`)
       }
       if (config.hideSpacesNav) {
-        hideCssSelectors.push(`${menuRole} a[href="/i/spaces/start"]`)
+        hideCssSelectors.push(
+          `${menuRole} a[href="/i/spaces/start"]`,
+          // In new More dialog
+          `${Selectors.MORE_DIALOG} a[href="/i/spaces/start"]`,
+        )
       }
       if (config.hideTwitterBlueUpsells) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a:is([href^="/i/premium"], [href^="/i/verified"])`)
@@ -3585,13 +3777,25 @@ const configureCss = (() => {
         // When configured, hide Explore only when the sidebar is showing, or
         // when on a page full-width content is enabled on.
         let bodySelector = `${config.hideExploreNavWithSidebar ? `body.Sidebar${config.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
-        hideCssSelectors.push(`${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
+        hideCssSelectors.push(
+          `${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`,
+          // In new More dialog
+          `${Selectors.MORE_DIALOG} a[href="/explore"]`,
+        )
       }
       if (config.hideBookmarksNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`)
+        hideCssSelectors.push(
+          `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`,
+          // In new More dialog
+          `${Selectors.MORE_DIALOG} a[href="/i/bookmarks"]`,
+        )
       }
       if (config.hideCommunitiesNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
+        hideCssSelectors.push(
+          `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`,
+          // In new More dialog
+          `${Selectors.MORE_DIALOG} a[href$="/communities"]`,
+        )
       }
       if (config.hideMessagesDrawer) {
         cssRules.push(`div[data-testid="DMDrawer"] { visibility: hidden; }`)
@@ -3816,6 +4020,14 @@ const configureThemeCss = (() => {
   return function configureThemeCss() {
     $style ??= addStyle('theme')
     let cssRules = []
+
+    if (themeColor != null) {
+      cssRules.push(`
+        body {
+          --theme-color: ${themeColor};
+        }
+      `)
+    }
 
     if (debug) {
       cssRules.push(`
@@ -4797,10 +5009,14 @@ function onTitleChange(title) {
 
   // Ignore leading notification counts in titles
   let notificationCount = ''
+  let notificationCountNumber = ''
   if (TITLE_NOTIFICATION_RE.test(title)) {
-    notificationCount = TITLE_NOTIFICATION_RE.exec(title)[0]
+    let match = TITLE_NOTIFICATION_RE.exec(title)[0]
+    notificationCount = match[0]
+    notificationCountNumber = match[1]
     title = title.replace(TITLE_NOTIFICATION_RE, '')
   }
+  document.body.style.setProperty('--notification-count', `"${notificationCountNumber}"`)
 
   if (config.replaceLogo && Boolean(notificationCount) != Boolean(currentNotificationCount)) {
     observeFavicon.updatePip(Boolean(notificationCount))
@@ -5507,6 +5723,26 @@ async function tweakHomeIcon() {
 }
 
 async function tweakTweetBox() {
+  // Restore "What's happening?" placeholder
+  if (config.replaceLogo && !isObserving(pageObservers, 'tweet editor')) {
+    let $editorRoot = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} .DraftEditor-root`, {
+      name: 'tweet editor',
+      stopIf: pageIsNot(currentPage),
+    })
+    if ($editorRoot && !isObserving(pageObservers, 'tweet editor')) {
+      pageObservers.unshift(
+        observeElement($editorRoot, () => {
+          if ($editorRoot.firstElementChild.classList.contains('public-DraftEditorPlaceholder-root')) {
+            let $placeholder = $editorRoot.querySelector('.public-DraftEditorPlaceholder-inner')
+            if ($placeholder) {
+              $placeholder.textContent = getString('WHATS_HAPPENING')
+            }
+          }
+        }, 'tweet editor')
+      )
+    }
+  }
+
   // Observe username typeahead dropdowns to replace Blue checks
   if (config.twitterBlueChecks != 'ignore') {
     let $tweetTextarea = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} [data-testid^="tweetTextarea"]`, {

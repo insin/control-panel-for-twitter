@@ -355,6 +355,12 @@
   "sortRepliesLabel": {
     "message": "Predeterminado para Organizar respuestas"
   },
+  "tweakNewLayoutInfo": {
+    "message": "Experimental - solo activar si tienes el nuevo diseño"
+  },
+  "tweakNewLayoutLabel": {
+    "message": "Ajustar nuevo diseño"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "Ocultar el tweet citado en la página de citados"
   },

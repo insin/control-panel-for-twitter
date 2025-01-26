@@ -355,6 +355,12 @@
   "sortRepliesLabel": {
     "message": "Par défaut pour Trier les réponses"
   },
+  "tweakNewLayoutInfo": {
+    "message": "Expérimental - n'activez que si vous avez la nouvelle mise en page"
+  },
+  "tweakNewLayoutLabel": {
+    "message": "Ajuster la nouvelle mise en page"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "Masquer le tweet cité lors de l'affichage des citations de tweets"
   },

@@ -355,6 +355,12 @@
   "sortRepliesLabel": {
     "message": "返信を並べ替えのデフォルト"
   },
+  "tweakNewLayoutInfo": {
+    "message": "実験的機能 - 新しいレイアウトがある場合にのみ有効にしてください"
+  },
+  "tweakNewLayoutLabel": {
+    "message": "新しいレイアウトを調整"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"
   },

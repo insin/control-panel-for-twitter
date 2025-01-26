@@ -20,7 +20,8 @@
     "TWEET_YOUR_REPLY": "التغريد بردك!",
     "TWITTER": "تويتر",
     "UNDO_RETWEET": "التراجع عن التغريدة",
-    "VIEW": "عرض"
+    "VIEW": "عرض",
+    "WHATS_HAPPENING": "ما الذي يحدث؟"
   },
   "ar": {
     "MOST_RELEVANT": "الأكثر ملائمة",
@@ -42,7 +43,8 @@
     "TWEET_INTERACTIONS": "تفاعلات التغريدة",
     "TWEET_YOUR_REPLY": "التغريد بردك!",
     "UNDO_RETWEET": "التراجع عن التغريدة",
-    "VIEW": "عرض"
+    "VIEW": "عرض",
+    "WHATS_HAPPENING": "ما الذي يحدث؟"
   },
   "bg": {
     "MOST_RELEVANT": "Най-подходящи",
@@ -64,7 +66,8 @@
     "TWEET_INTERACTIONS": "Интеракции с туит",
     "TWEET_YOUR_REPLY": "Отговори с туит!",
     "UNDO_RETWEET": "Отмяна на ретуитването",
-    "VIEW": "Преглед"
+    "VIEW": "Преглед",
+    "WHATS_HAPPENING": "Какво се случва?"
   },
   "bn": {
     "MOST_RELEVANT": "সবচেয়ে প্রাসঙ্গিক",
@@ -87,7 +90,8 @@
     "TWEET_YOUR_REPLY": "আপনার উত্তর টুইট করুন!",
     "TWITTER": "টুইটার",
     "UNDO_RETWEET": "পুনঃ টুইট পুর্বাবস্থায় ফেরান",
-    "VIEW": "দেখুন"
+    "VIEW": "দেখুন",
+    "WHATS_HAPPENING": "কি ঘটছে?"
   },
   "ca": {
     "MOST_RELEVANT": "El més rellevant",
@@ -109,7 +113,8 @@
     "TWEET_INTERACTIONS": "Interaccions amb tuits",
     "TWEET_YOUR_REPLY": "Tuita la teva resposta",
     "UNDO_RETWEET": "Desfés el retuit",
-    "VIEW": "Mostra"
+    "VIEW": "Mostra",
+    "WHATS_HAPPENING": "Què està passant?"
   },
   "cs": {
     "MOST_RELEVANT": "Nejvíce související",
@@ -131,7 +136,8 @@
     "TWEET_INTERACTIONS": "Tweetovat interakce",
     "TWEET_YOUR_REPLY": "Tweetujte svou odpověď!",
     "UNDO_RETWEET": "Zrušit Retweet",
-    "VIEW": "Zobrazit"
+    "VIEW": "Zobrazit",
+    "WHATS_HAPPENING": "Co se děje?"
   },
   "da": {
     "MOST_RELEVANT": "Mest relevante",
@@ -149,7 +155,8 @@
     "TWEET_INTERACTIONS": "Tweet-interaktioner",
     "TWEET_YOUR_REPLY": "Tweet dit svar!",
     "UNDO_RETWEET": "Fortryd Retweet",
-    "VIEW": "Vis"
+    "VIEW": "Vis",
+    "WHATS_HAPPENING": "Hvad sker der?"
   },
   "de": {
     "MOST_RELEVANT": "Besonders relevant",
@@ -169,7 +176,8 @@
     "TWEET_INTERACTIONS": "Tweet-Interaktionen",
     "TWEET_YOUR_REPLY": "Twittere deine Antwort!",
     "UNDO_RETWEET": "Retweet rückgängig machen",
-    "VIEW": "Anzeigen"
+    "VIEW": "Anzeigen",
+    "WHATS_HAPPENING": "Was passiert?"
   },
   "el": {
     "MOST_RELEVANT": "Πιο σχετική",
@@ -189,7 +197,8 @@
     "TWEET_INTERACTIONS": "Αλληλεπιδράσεις με tweet",
     "TWEET_YOUR_REPLY": "Στείλτε την απάντησή σας!",
     "UNDO_RETWEET": "Αναίρεση Retweet",
-    "VIEW": "Προβολή"
+    "VIEW": "Προβολή",
+    "WHATS_HAPPENING": "Τι συμβαίνει;"
   },
   "en": {
     "MOST_RELEVANT": "Most relevant",
@@ -212,7 +221,8 @@
     "TWEET_YOUR_REPLY": "Tweet your reply!",
     "TWITTER": "Twitter",
     "UNDO_RETWEET": "Undo Retweet",
-    "VIEW": "View"
+    "VIEW": "View",
+    "WHATS_HAPPENING": "What's happening?"
   },
   "es": {
     "MOST_RELEVANT": "Más relevantes",
@@ -232,7 +242,8 @@
     "TWEET_INTERACTIONS": "Interacciones con Tweet",
     "TWEET_YOUR_REPLY": "¡Twittea tu respuesta!",
     "UNDO_RETWEET": "Deshacer Retweet",
-    "VIEW": "Ver"
+    "VIEW": "Ver",
+    "WHATS_HAPPENING": "¿Qué está pasando?"
   },
   "eu": {
     "QUOTE_TWEET": "Txioa apaitu",
@@ -250,7 +261,8 @@
     "TWEET_ALL": "Txiotu guztiak",
     "TWEET_INTERACTIONS": "Txio elkarrekintzak",
     "UNDO_RETWEET": "Desegin birtxiokatzea",
-    "VIEW": "Ikusi"
+    "VIEW": "Ikusi",
+    "WHATS_HAPPENING": "Zer gertatzen ari da?"
   },
   "fa": {
     "MOST_RELEVANT": "مرتبط‌ترین",
@@ -273,7 +285,8 @@
     "TWEET_YOUR_REPLY": "پاسختان را توییت کنید!",
     "TWITTER": "توییتر",
     "UNDO_RETWEET": "لغو بازتوییت",
-    "VIEW": "مشاهده"
+    "VIEW": "مشاهده",
+    "WHATS_HAPPENING": "چه خبر؟"
   },
   "fi": {
     "MOST_RELEVANT": "Relevanteimmat",
@@ -295,7 +308,8 @@
     "TWEET_INTERACTIONS": "Twiitin vuorovaikutukset",
     "TWEET_YOUR_REPLY": "Twiittaa vastauksesi",
     "UNDO_RETWEET": "Kumoa uudelleentwiittaus",
-    "VIEW": "Näytä"
+    "VIEW": "Näytä",
+    "WHATS_HAPPENING": "Mitä tapahtuu?"
   },
   "fil": {
     "MOST_RELEVANT": "Pinakanauugnay",
@@ -317,7 +331,8 @@
     "TWEET_INTERACTIONS": "Interaksyon sa Tweet",
     "TWEET_YOUR_REPLY": "I-Tweet ang sagot mo!",
     "UNDO_RETWEET": "Huwag nang I-retweet",
-    "VIEW": "Tingnan"
+    "VIEW": "Tingnan",
+    "WHATS_HAPPENING": "Anong nangyayari?"
   },
   "fr": {
     "MOST_RELEVANT": "Les plus pertinentes",
@@ -337,7 +352,8 @@
     "TWEET_INTERACTIONS": "Interactions avec Tweet",
     "TWEET_YOUR_REPLY": "Tweetez votre réponse!",
     "UNDO_RETWEET": "Annuler le Retweet",
-    "VIEW": "Voir"
+    "VIEW": "Voir",
+    "WHATS_HAPPENING": "Quoi de neuf ?"
   },
   "ga": {
     "QUOTE_TWEET": "Cuir Ráiteas Leis",
@@ -354,7 +370,8 @@
     "TWEET_ALL": "Tweetáil gach rud",
     "TWEET_INTERACTIONS": "Idirghníomhaíochtaí le Tweet",
     "UNDO_RETWEET": "Cuir an Atweet ar ceal",
-    "VIEW": "Breathnaigh"
+    "VIEW": "Breathnaigh",
+    "WHATS_HAPPENING": "Cad atá ag tarlú?"
   },
   "gl": {
     "QUOTE_TWEET": "Citar chío",
@@ -372,7 +389,8 @@
     "TWEET_ALL": "Chiar todo",
     "TWEET_INTERACTIONS": "Interaccións chío",
     "UNDO_RETWEET": "Desfacer rechouchío",
-    "VIEW": "Ver"
+    "VIEW": "Ver",
+    "WHATS_HAPPENING": "Que está pasando?"
   },
   "gu": {
     "MOST_RELEVANT": "સૌથી વધુ સુસંગત",
@@ -394,7 +412,8 @@
     "TWEET_INTERACTIONS": "ટ્વીટ ક્રિયાપ્રતિક્રિયાઓ",
     "TWEET_YOUR_REPLY": "તમારા પ્રત્યુત્તરને ટ્વીટ કરો!",
     "UNDO_RETWEET": "પુનટ્વીટને પૂર્વવત કરો",
-    "VIEW": "જુઓ"
+    "VIEW": "જુઓ",
+    "WHATS_HAPPENING": "શું થઈ રહ્યું છે?"
   },
   "he": {
     "MOST_RELEVANT": "הכי רלוונטי",
@@ -417,7 +436,8 @@
     "TWEET_YOUR_REPLY": "צייץ את התשובה!",
     "TWITTER": "טוויטר",
     "UNDO_RETWEET": "ביטול ציוץ מחדש",
-    "VIEW": "הצג"
+    "VIEW": "הצג",
+    "WHATS_HAPPENING": "מה קורה?"
   },
   "hi": {
     "MOST_RELEVANT": "सर्वाधिक प्रासंगिक",
@@ -439,7 +459,8 @@
     "TWEET_INTERACTIONS": "ट्वीट इंटरैक्शन",
     "TWEET_YOUR_REPLY": "अपना जवाब ट्वीट करें!",
     "UNDO_RETWEET": "रीट्वीट को पूर्ववत करें",
-    "VIEW": "देखें"
+    "VIEW": "देखें",
+    "WHATS_HAPPENING": "क्या हो रहा है?"
   },
   "hr": {
     "MOST_RELEVANT": "Najrelevantnije",
@@ -460,7 +481,8 @@
     "TWEET_INTERACTIONS": "Interakcije s Tweet",
     "TWEET_YOUR_REPLY": "Pošaljite Tweet s odgovorom!",
     "UNDO_RETWEET": "Poništi prosljeđivanje tweeta",
-    "VIEW": "Prikaz"
+    "VIEW": "Prikaz",
+    "WHATS_HAPPENING": "Što se događa?"
   },
   "hu": {
     "MOST_RELEVANT": "Legmegfelelőbb",
@@ -481,7 +503,8 @@
     "TWEET_INTERACTIONS": "Tweet interakciók",
     "TWEET_YOUR_REPLY": "Tweeteld válaszodat",
     "UNDO_RETWEET": "Retweet visszavonása",
-    "VIEW": "Megtekintés"
+    "VIEW": "Megtekintés",
+    "WHATS_HAPPENING": "Mi történik?"
   },
   "id": {
     "MOST_RELEVANT": "Paling relevan",
@@ -501,7 +524,8 @@
     "TWEET_INTERACTIONS": "Interaksi Tweet",
     "TWEET_YOUR_REPLY": "Tweet balasan Anda!",
     "UNDO_RETWEET": "Batalkan Retweet",
-    "VIEW": "Lihat"
+    "VIEW": "Lihat",
+    "WHATS_HAPPENING": "Apa yang terjadi?"
   },
   "it": {
     "MOST_RELEVANT": "Più pertinenti",
@@ -523,7 +547,8 @@
     "TWEET_INTERACTIONS": "Interazioni con Tweet",
     "TWEET_YOUR_REPLY": "Twitta la tua risposta.",
     "UNDO_RETWEET": "Annulla Retweet",
-    "VIEW": "Visualizza"
+    "VIEW": "Visualizza",
+    "WHATS_HAPPENING": "Cosa sta succedendo?"
   },
   "ja": {
     "MOST_RELEVANT": "関連性が高い",
@@ -545,7 +570,8 @@
     "TWEET_INTERACTIONS": "ツイートの相互作用",
     "TWEET_YOUR_REPLY": "返信をツイートしましょう。",
     "UNDO_RETWEET": "リツイートを取り消す",
-    "VIEW": "表示する"
+    "VIEW": "表示する",
+    "WHATS_HAPPENING": "何が起こっているの？"
   },
   "kn": {
     "MOST_RELEVANT": "ಅತ್ಯಂತ ಸಂಬಂಧಿತ",
@@ -567,7 +593,8 @@
     "TWEET_INTERACTIONS": "ಟ್ವೀಟ್ ಸಂವಾದಗಳು",
     "TWEET_YOUR_REPLY": "ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ!",
     "UNDO_RETWEET": "ಮರುಟ್ವೀಟಿಸುವುದನ್ನು ರದ್ದುಮಾಡಿ",
-    "VIEW": "ವೀಕ್ಷಿಸಿ"
+    "VIEW": "ವೀಕ್ಷಿಸಿ",
+    "WHATS_HAPPENING": "ಏನು ನಡೆಯುತ್ತಿದೆ?"
   },
   "ko": {
     "MOST_RELEVANT": "관련도 순서",
@@ -590,7 +617,8 @@
     "TWEET_YOUR_REPLY": "내 답글을 트윗하세요",
     "TWITTER": "트위터",
     "UNDO_RETWEET": "리트윗 취소",
-    "VIEW": "보기"
+    "VIEW": "보기",
+    "WHATS_HAPPENING": "무슨 일이야?"
   },
   "mr": {
     "MOST_RELEVANT": "सर्वात महत्वाचे",
@@ -612,7 +640,8 @@
     "TWEET_INTERACTIONS": "ट्वीट इंटरऍक्शन्स",
     "TWEET_YOUR_REPLY": "आपल्या प्रत्युत्तरावर ट्विट करा!",
     "UNDO_RETWEET": "पुनर्ट्विट पूर्ववत करा",
-    "VIEW": "पहा"
+    "VIEW": "पहा",
+    "WHATS_HAPPENING": "काय होत आहे?"
   },
   "ms": {
     "MOST_RELEVANT": "Paling berkaitan",
@@ -633,7 +662,8 @@
     "TWEET_INTERACTIONS": "Interaksi Tweet",
     "TWEET_YOUR_REPLY": "Tweet balasan anda!",
     "UNDO_RETWEET": "Buat asal Tweet semula",
-    "VIEW": "Lihat"
+    "VIEW": "Lihat",
+    "WHATS_HAPPENING": "Apa yang sedang berlaku?"
   },
   "nb": {
     "MOST_RELEVANT": "Mest relevante",
@@ -651,7 +681,8 @@
     "TWEET_INTERACTIONS": "Tweet-interaksjoner",
     "TWEET_YOUR_REPLY": "Tweet svaret ditt!",
     "UNDO_RETWEET": "Angre Retweet",
-    "VIEW": "Vis"
+    "VIEW": "Vis",
+    "WHATS_HAPPENING": "Hva skjer?"
   },
   "nl": {
     "MOST_RELEVANT": "Meest relevant",
@@ -671,7 +702,8 @@
     "TWEET_INTERACTIONS": "Tweet-interacties",
     "TWEET_YOUR_REPLY": "Tweet je antwoord!",
     "UNDO_RETWEET": "Retweet ongedaan maken",
-    "VIEW": "Bekijken"
+    "VIEW": "Bekijken",
+    "WHATS_HAPPENING": "Wat gebeurt er?"
   },
   "pl": {
     "MOST_RELEVANT": "Najtrafniejsze",
@@ -692,7 +724,8 @@
     "TWEET_INTERACTIONS": "Interakcje na Tweeta",
     "TWEET_YOUR_REPLY": "Wyślij Tweeta z odpowiedzią!",
     "UNDO_RETWEET": "Cofnij podanie dalej",
-    "VIEW": "Wyświetl"
+    "VIEW": "Wyświetl",
+    "WHATS_HAPPENING": "Co się dzieje?"
   },
   "pt": {
     "MOST_RELEVANT": "Mais relevante",
@@ -712,7 +745,8 @@
     "TWEET_INTERACTIONS": "Interações com Tweet",
     "TWEET_YOUR_REPLY": "Tweetar sua resposta!",
     "UNDO_RETWEET": "Desfazer Retweet",
-    "VIEW": "Ver"
+    "VIEW": "Ver",
+    "WHATS_HAPPENING": "O que está acontecendo?"
   },
   "ro": {
     "MOST_RELEVANT": "Cele mai relevante",
@@ -733,7 +767,8 @@
     "TWEET_INTERACTIONS": "Interacțiuni cu Tweetul",
     "TWEET_YOUR_REPLY": "Dă Tweet cu răspunsul!",
     "UNDO_RETWEET": "Anulează Retweetul",
-    "VIEW": "Vezi"
+    "VIEW": "Vezi",
+    "WHATS_HAPPENING": "Ce se întâmplă?"
   },
   "ru": {
     "MOST_RELEVANT": "Наиболее актуальные",
@@ -756,7 +791,8 @@
     "TWEET_YOUR_REPLY": "Твитните свой ответ!",
     "TWITTER": "Твиттер",
     "UNDO_RETWEET": "Отменить ретвит",
-    "VIEW": "Посмотреть"
+    "VIEW": "Посмотреть",
+    "WHATS_HAPPENING": "Что происходит?"
   },
   "sk": {
     "MOST_RELEVANT": "Najrelevantnejšie",
@@ -778,7 +814,8 @@
     "TWEET_INTERACTIONS": "Interakcie s Tweet",
     "TWEET_YOUR_REPLY": "Tweetnite odpoveď!",
     "UNDO_RETWEET": "Zrušiť retweet",
-    "VIEW": "Zobraziť"
+    "VIEW": "Zobraziť",
+    "WHATS_HAPPENING": "Čo sa deje?"
   },
   "sr": {
     "MOST_RELEVANT": "Најважније",
@@ -801,7 +838,8 @@
     "TWEET_YOUR_REPLY": "Твитуј свој одговор!",
     "TWITTER": "Твитер",
     "UNDO_RETWEET": "Опозови ретвит",
-    "VIEW": "Погледај"
+    "VIEW": "Погледај",
+    "WHATS_HAPPENING": "Шта се дешава?"
   },
   "sv": {
     "MOST_RELEVANT": "Mest relevant",
@@ -821,7 +859,8 @@
     "TWEET_INTERACTIONS": "Interaktioner med Tweet",
     "TWEET_YOUR_REPLY": "Tweeta ditt svar!",
     "UNDO_RETWEET": "Ångra retweeten",
-    "VIEW": "Visa"
+    "VIEW": "Visa",
+    "WHATS_HAPPENING": "Vad händer?"
   },
   "ta": {
     "MOST_RELEVANT": "மிகவும் தொடர்புடையவை",
@@ -843,7 +882,8 @@
     "TWEET_INTERACTIONS": "ட்விட் செய் ஊடாடல்களைக்",
     "TWEET_YOUR_REPLY": "உங்கள் பதிலை ட்விட் செய்யவும்!",
     "UNDO_RETWEET": "மறுகீச்சை செயல்தவிர்",
-    "VIEW": "காண்பி"
+    "VIEW": "காண்பி",
+    "WHATS_HAPPENING": "என்ன நடக்கிறது?"
   },
   "th": {
     "MOST_RELEVANT": "เกี่ยวข้องที่สุด",
@@ -866,7 +906,8 @@
     "TWEET_YOUR_REPLY": "ทวีตการตอบกลับของคุณ",
     "TWITTER": "ทวิตเตอร์",
     "UNDO_RETWEET": "ยกเลิกการรีทวีต",
-    "VIEW": "ดู"
+    "VIEW": "ดู",
+    "WHATS_HAPPENING": "เกิดอะไรขึ้น?"
   },
   "tr": {
     "MOST_RELEVANT": "En alakalı",
@@ -887,7 +928,8 @@
     "TWEET_INTERACTIONS": "Tweet etkileşimleri",
     "TWEET_YOUR_REPLY": "Yanıtını Tweetle.",
     "UNDO_RETWEET": "Retweeti Geri Al",
-    "VIEW": "Görüntüle"
+    "VIEW": "Görüntüle",
+    "WHATS_HAPPENING": "Ne oluyor?"
   },
   "uk": {
     "MOST_RELEVANT": "Найактуальніші",
@@ -910,7 +952,8 @@
     "TWEET_YOUR_REPLY": "Твітніть свою відповідь!",
     "TWITTER": "Твіттер",
     "UNDO_RETWEET": "Скасувати ретвіт",
-    "VIEW": "Переглянути"
+    "VIEW": "Переглянути",
+    "WHATS_HAPPENING": "Що відбувається?"
   },
   "ur": {
     "QUOTE_TWEET": "ٹویٹ کا حوالہ دیں",
@@ -929,7 +972,8 @@
     "TWEET_INTERACTIONS": "ٹویٹ تعاملات",
     "TWITTER": "ٹوئٹر",
     "UNDO_RETWEET": "ری ٹویٹ کو کالعدم کریں",
-    "VIEW": "دیکھیں"
+    "VIEW": "دیکھیں",
+    "WHATS_HAPPENING": "کیا ہو رہا ہے؟"
   },
   "vi": {
     "MOST_RELEVANT": "Liên quan nhất",
@@ -950,7 +994,8 @@
     "TWEET_INTERACTIONS": "Tương tác Tweet",
     "TWEET_YOUR_REPLY": "Đăng Tweet câu trả lời của bạn!",
     "UNDO_RETWEET": "Hoàn tác Tweet lại",
-    "VIEW": "Xem"
+    "VIEW": "Xem",
+    "WHATS_HAPPENING": "Chuyện gì đang xảy ra?"
   },
   "zh-Hant": {
     "MOST_RELEVANT": "最相關",
@@ -972,7 +1017,8 @@
     "TWEET_INTERACTIONS": "推文互動",
     "TWEET_YOUR_REPLY": "推你的回覆！",
     "UNDO_RETWEET": "取消轉推",
-    "VIEW": "查看"
+    "VIEW": "查看",
+    "WHATS_HAPPENING": "發生什麼事？"
   },
   "zh": {
     "MOST_RELEVANT": "最相关",
@@ -994,6 +1040,7 @@
     "TWEET_INTERACTIONS": "推文互动",
     "TWEET_YOUR_REPLY": "发布你的回复！",
     "UNDO_RETWEET": "撤销转推",
-    "VIEW": "查看"
+    "VIEW": "查看",
+    "WHATS_HAPPENING": "发生了什么？"
   }
 }

@@ -356,6 +356,12 @@
   "sortRepliesLabel": {
     "message": "Ordine risposte di default"
   },
+  "tweakNewLayoutInfo": {
+    "message": "Sperimentale - abilita solo se hai il nuovo layout"
+  },
+  "tweakNewLayoutLabel": {
+    "message": "Modifica nuovo layout"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "Nascondi il tweet citato quando visualizzi i tweet di citazione"
   },

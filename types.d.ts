@@ -84,6 +84,7 @@ export type Config = {
   navBaseFontSize: boolean
   navDensity: 'default' | 'comfortable' | 'compact'
   showRelevantPeople: boolean
+  tweakNewLayout: boolean
   // Mobile only
   hideMessagesBottomNavItem: boolean
 }
@@ -127,6 +128,7 @@ export type LocaleKey =
   | 'TWITTER'
   | 'UNDO_RETWEET'
   | 'VIEW'
+  | 'WHATS_HAPPENING'
 
 export type NamedMutationObserver = MutationObserver & {name?: string}
 

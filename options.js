@@ -105,6 +105,8 @@ for (let translationId of [
   'showBookmarkButtonUnderFocusedTweetsLabel',
   'showRelevantPeopleLabel',
   'sortRepliesLabel',
+  'tweakNewLayoutInfo',
+  'tweakNewLayoutLabel',
   'tweakQuoteTweetsPageLabel',
   'twitterBlueChecksLabel',
   'twitterBlueChecksOption_replace',
@@ -231,6 +233,7 @@ const defaultConfig = {
   navBaseFontSize: true,
   navDensity: 'default',
   showRelevantPeople: false,
+  tweakNewLayout: false,
   // Mobile only
   hideMessagesBottomNavItem: false,
 }

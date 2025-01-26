@@ -363,6 +363,12 @@
   "sortRepliesLabel": {
     "message": "Default for Sort replies"
   },
+  "tweakNewLayoutInfo": {
+    "message": "Experimental - only enable if you have the new layout"
+  },
+  "tweakNewLayoutLabel": {
+    "message": "Tweak new layout"
+  },
   "tweakQuoteTweetsPageLabel": {
     "message": "Hide the quoted tweet when viewing Quote Tweets"
   },
