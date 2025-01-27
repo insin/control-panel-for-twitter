@@ -3702,8 +3702,9 @@ const configureCss = (() => {
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
           // In new More dialog
           `${Selectors.MORE_DIALOG} a[href$="/i/grok"]`,
+          // Grok drawer
+          'div[data-testid="GrokDrawer"]',
         )
-        cssRules.push(`div[data-testid="GrokDrawer"] { visibility: hidden; }`)
       }
       if (config.hideJobsNav) {
         hideCssSelectors.push(
