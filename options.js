@@ -1,6 +1,7 @@
 document.title = chrome.i18n.getMessage(`extensionName`)
 
 for (let optionValue of [
+  'badges',
   'comfortable',
   'compact',
   'default',
@@ -30,7 +31,6 @@ for (let translationId of [
   'disableTweetTextFormattingLabel',
   'disabledHomeTimelineRedirectLabel',
   'disabledHomeTimelineRedirectOption_messages',
-  'disabledHomeTimelineRedirectOption_notifications',
   'dontUseChirpFontLabel',
   'dropdownMenuFontWeightLabel',
   'experimentalNote',
@@ -123,6 +123,7 @@ for (let translationClass of [
   'hideBookmarksNavLabel',
   'hideCommunitiesNavLabel',
   'hideListsNavLabel',
+  'notificationsLabel',
 ]) {
   let translation = chrome.i18n.getMessage(translationClass)
   for (let $el of document.querySelectorAll(`.${translationClass}`)) {
@@ -182,6 +183,7 @@ const defaultConfig = {
   hideMetrics: false,
   hideMonetizationNav: true,
   hideMoreTweets: true,
+  hideNotifications: 'ignore',
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
   hideQuotesFrom: [],
@@ -377,6 +379,14 @@ function onFormChanged(e) {
       $el.indeterminate = false
     } else {
       optionsConfig[$el.name] = changedConfig[$el.name] = $el.checked
+      // Don't try to redirect the Home timeline to Notifications if both are disabled
+      if ($el.name == 'hideNotifications' &&
+          $el.checked &&
+          optionsConfig.disabledHomeTimelineRedirect == 'notifications') {
+        $form.elements['disabledHomeTimelineRedirect'].value = 'messages'
+        optionsConfig.disabledHomeTimelineRedirect = 'messages'
+        changedConfig.disabledHomeTimelineRedirect = 'messages'
+      }
       updateCheckboxGroups()
     }
   } else {
@@ -432,6 +442,7 @@ function updateDisplay() {
   $body.classList.toggle('hidingBookmarkButton', optionsConfig.hideBookmarkButton)
   $body.classList.toggle('hidingExploreNav', optionsConfig.hideExploreNav)
   $body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
+  $body.classList.toggle('hidingNotifications', optionsConfig.hideNotifications == 'hide')
   $body.classList.toggle('hidingQuotesFrom', shouldDisplayHideQuotesFrom())
   $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
   $body.classList.toggle('hidingTwitterBlueReplies', optionsConfig.hideTwitterBlueReplies)

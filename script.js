@@ -68,6 +68,7 @@ const config = {
   hideMetrics: false,
   hideMonetizationNav: true,
   hideMoreTweets: true,
+  hideNotifications: 'ignore',
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
   hideQuotesFrom: [],
@@ -1893,6 +1894,9 @@ let changingSortReplies = false
 /** Notification count in the title (including trailing space), e.g. `'(1) '`. */
 let currentNotificationCount = ''
 
+/** The last notification count we hid from the title. */
+let hiddenNotificationCount = ''
+
 /** Title of the current page, without the `' / Twitter'` suffix. */
 let currentPage = ''
 
@@ -2255,6 +2259,15 @@ function getState() {
 
 function hasNewLayout() {
   return getState()?.featureSwitch?.user?.config?.rweb_sourcemap_migration?.value
+}
+
+function getNotificationCount() {
+  let state = getState()
+  if (!state || !state.badgeCount) {
+    warn('could not get notification count from state')
+    return 0
+  }
+  return state.badgeCount.unreadDMCount + state.badgeCount.unreadNTabCount;
 }
 
 function getStateEntities() {
@@ -2650,40 +2663,55 @@ async function observeDesktopModalTimeline($popup) {
 }
 
 const observeFavicon = (() => {
-  /** @type {HTMLElement} */
+  /** @type {HTMLLinkElement} */
   let $shortcutIcon
-  /** @type {MutationObserver} */
-  let shortcutIconObserver
 
   async function observeFavicon() {
-    $shortcutIcon ??= await getElement('link[rel="shortcut icon"]', {name: 'shortcut icon'})
+    $shortcutIcon = /** @type {HTMLLinkElement} */ (await getElement('link[rel="shortcut icon"]', {
+      name: 'shortcut icon'
+    }))
 
-    if (!config.replaceLogo) {
-      if (shortcutIconObserver != null) {
-        shortcutIconObserver.disconnect()
-        shortcutIconObserver = null
-        if ($shortcutIcon.getAttribute('href').startsWith('data:')) {
-          $shortcutIcon.setAttribute('href', `//abs.twimg.com/favicons/twitter${currentNotificationCount ? '-pip' : ''}.3.ico`)
+    observeElement($shortcutIcon, (mutations) => {
+      let href = $shortcutIcon.href
+      if (config.replaceLogo) {
+        // Once we replace the favicon, Twitter stops updating it when
+        // notification status changes, so this only handles initial switchover
+        // to the Twitter version of the icon.
+        if (href.startsWith('data:')) return
+        let icon = config.hideNotifications != 'ignore' && href.includes('-pip') ? (
+          Images.TWITTER_PIP_FAVICON
+        ) : (
+          Images.TWITTER_FAVICON
+        )
+        $shortcutIcon.href = icon
+      } else {
+        // If we're hiding notifications, detect when Twitter tries to use the
+        // pip version and switch back.
+        if (config.hideNotifications != 'ignore' && href.includes('-pip')) {
+          $shortcutIcon.href = href.replace('-pip', '')
         }
       }
-      return
-    }
-
-    shortcutIconObserver = observeElement($shortcutIcon, () => {
-      let href = $shortcutIcon.getAttribute('href')
-      if (href.startsWith('data:')) return
-      $shortcutIcon.setAttribute('href', href.includes('pip') ? Images.TWITTER_PIP_FAVICON : Images.TWITTER_FAVICON)
     }, 'shortcut icon href', {
       attributes: true,
       attributeFilter: ['href']
     })
   }
 
-  observeFavicon.updatePip = function(showPip) {
-    if (!$shortcutIcon) return
-    let icon = showPip ? Images.TWITTER_PIP_FAVICON : Images.TWITTER_FAVICON
-    if ($shortcutIcon.getAttribute('href') != icon) {
-      $shortcutIcon.setAttribute('href', icon)
+  observeFavicon.forceUpdate = function(showPip) {
+    let href = $shortcutIcon.href
+    if (config.replaceLogo) {
+      href = config.hideNotifications == 'ignore' && showPip ? (
+        Images.TWITTER_PIP_FAVICON
+      ) : (
+        Images.TWITTER_FAVICON
+      )
+    } else {
+      href = `//abs.twimg.com/favicons/twitter${
+        config.hideNotifications == 'ignore' && showPip ? '-pip' : ''
+      }.3.ico`
+    }
+    if (href != $shortcutIcon.href) {
+      $shortcutIcon.href = href
     }
   }
 
@@ -2745,13 +2773,19 @@ async function observeTitle() {
   observeElement($title, () => {
     let title = $title.textContent
     if (config.replaceLogo && (ltr ? /X$/ : /^(?:\(\d+\+?\) )?X/).test(title)) {
-      let newTitle = title.replace(ltr ? /X$/ : 'X', getString('TWITTER'))
-      document.title = newTitle
+      title = title.replace(ltr ? /X$/ : 'X', getString('TWITTER'))
+    }
+    if (config.hideNotifications != 'ignore' && TITLE_NOTIFICATION_RE.test(title)) {
+      hiddenNotificationCount = TITLE_NOTIFICATION_RE.exec(title)[0]
+      title = title.replace(TITLE_NOTIFICATION_RE, '')
+    }
+    if (title != $title.textContent) {
+      document.title = title
       // If Twitter is opened in the background, changing the title might not
       // re-fire the title MutationObserver, preventing the initial page from
       // being processed.
       if (!currentPage) {
-        onTitleChange(newTitle)
+        onTitleChange(title)
       }
       return
     }
@@ -3603,8 +3637,8 @@ const configureCss = (() => {
           // TODO Manually patch Tweet button SVG in Safari
           cssRules.push(`
             /* Restore theme colour in nav item pips */
-            ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href="/notifications"], a[href="/messages"]) div[aria-live],
-            ${Selectors.MORE_DIALOG} :is(a[href="/notifications"], a[href="/messages"]) div[aria-live],
+            ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live],
+            ${Selectors.MORE_DIALOG} :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live],
             /* Restore theme colour in profile switcher other accounts have notifications pip */
             button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label],
             /* Restore theme colour in account switcher notifications pips */
@@ -3644,6 +3678,23 @@ const configureCss = (() => {
       }
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
+      }
+      if (config.hideNotifications != 'ignore') {
+        // Notification badges
+        hideCssSelectors.push(
+          `${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live]`,
+          `${Selectors.MORE_DIALOG} :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live]`,
+          'button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label]',
+          '[data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live]'
+        )
+        if (config.hideNotifications == 'hide') {
+          hideCssSelectors.push(
+            // Nav item
+            `${Selectors.PRIMARY_NAV_DESKTOP} a[href^="/notifications"]`,
+            // More dialog item
+            `${Selectors.MORE_DIALOG} a[href^="/notifications"]`,
+          )
+        }
       }
       if (config.fullWidthContent) {
         cssRules.push(`
@@ -3859,6 +3910,20 @@ const configureCss = (() => {
       }
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
+      }
+      if (config.hideNotifications != 'ignore') {
+        // Notification badges
+        hideCssSelectors.push(
+          `${Selectors.PRIMARY_NAV_MOBILE} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-label]`,
+          `button[data-testid="DashButton_ProfileIcon_Link"] div[aria-label]`,
+          '[role="dialog"] [data-testid^="UserAvatar-Container"] div[dir]',
+        )
+        if (config.hideNotifications == 'hide') {
+          hideCssSelectors.push(
+            // Nav item
+            `${Selectors.PRIMARY_NAV_MOBILE} a[href^="/notifications"]`
+          )
+        }
       }
       if (config.hideSeeNewTweets) {
         hideCssSelectors.push(`body.HomeTimeline ${Selectors.MOBILE_TIMELINE_HEADER} ~ div[style^="transform"]:last-child`)
@@ -5061,8 +5126,10 @@ function onTitleChange(title) {
     title = title.replace(TITLE_NOTIFICATION_RE, '')
   }
 
+  // After we replace the shortcut icon, Twitter stops updating it to add/remove
+  // the notifications pip, so we need to manage the pip ourselves.
   if (config.replaceLogo && Boolean(notificationCount) != Boolean(currentNotificationCount)) {
-    observeFavicon.updatePip(Boolean(notificationCount))
+    observeFavicon.forceUpdate(Boolean(notificationCount))
   }
 
   let homeNavigationWasUsed = homeNavigationIsBeingUsed
@@ -5427,10 +5494,15 @@ function restoreTweetInteractionsLinks($focusedTweet) {
  */
 function setTitle(page) {
   let name = config.replaceLogo ? getString('TWITTER') : 'X'
-  document.title = ltr ? (
-    `${currentNotificationCount}${page} / ${name}`
+  let notificationCount = config.hideNotifications != 'ignore' ? (
+    ''
   ) : (
-    `${currentNotificationCount}${name} \\ ${page}`
+    hiddenNotificationCount || currentNotificationCount
+  )
+  document.title = ltr ? (
+    `${notificationCount}${page} / ${name}`
+  ) : (
+    `${notificationCount}${name} \\ ${page}`
   )
 }
 
@@ -6208,6 +6280,7 @@ async function main() {
   }
 
   observeTitle()
+  observeFavicon()
 
   let $loadingStyle
   if (config.replaceLogo) {
@@ -6234,8 +6307,6 @@ async function main() {
         }
       })
     }
-
-    observeFavicon()
   }
 
   let $appWrapper = await getElement('#layers + div', {name: 'app wrapper'})
@@ -6325,16 +6396,37 @@ function configChanged(changes) {
   configureFont()
   configureDynamicCss()
   configureThemeCss()
-  observeFavicon()
   observePopups()
   observeSideNavTweetButton()
 
-  // Only re-process the current page if navigation wasn't already triggered
-  // while applying the following config changes (if there were any).
+  if ('replaceLogo' in changes || 'hideNotifications' in changes) {
+    observeFavicon.forceUpdate(getNotificationCount() > 0)
+  }
+  // Store the current notification count if hiding notifications was enabled
+  if ('hideNotifications' in changes && config.hideNotifications != 'ignore') {
+    hiddenNotificationCount = currentNotificationCount
+  }
+
   let navigationTriggered = (
     configureSeparatedTweetsTimelineTitle() ||
     checkforDisabledHomeTimeline()
   )
+
+  if ('hideNotifications' in changes) {
+    // Hide or show the notification count in the title. The title will already
+    // have been updated if other navigation was triggered.
+    if (!navigationTriggered) {
+      setTitle(currentPage)
+      navigationTriggered = true
+    }
+    // Clear the stored notification count if hiding notifications was disabled
+    if (config.hideNotifications == 'ignore') {
+      hiddenNotificationCount = ''
+    }
+  }
+
+  // Only re-process the current page if navigation wasn't already triggered
+  // while applying config changes.
   if (!navigationTriggered) {
     processCurrentPage()
   }

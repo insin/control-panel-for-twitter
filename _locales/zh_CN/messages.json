@@ -47,9 +47,6 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "私信"
   },
-  "disabledHomeTimelineRedirectOption_notifications": {
-    "message": "通知"
-  },
   "dontUseChirpFontLabel": {
     "message": "不要使用Chirp字体"
   },
@@ -179,6 +176,9 @@
   "hideMoreTweetsLabel": {
     "message": "隐藏\"发现更多\"推文"
   },
+  "hideNotificationsLabel": {
+    "message": "隐藏通知"
+  },
   "hideProNavLabel": {
     "message": "专业版"
   },
@@ -280,6 +280,12 @@
   },
   "navDensityLabel": {
     "message": "导航密度"
+  },
+  "notificationsLabel": {
+    "message": "通知"
+  },
+  "option_badges": {
+    "message": "仅隐藏徽章"
   },
   "option_comfortable": {
     "message": "舒适"

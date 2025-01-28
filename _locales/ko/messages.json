@@ -47,9 +47,6 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "쪽지"
   },
-  "disabledHomeTimelineRedirectOption_notifications": {
-    "message": "알림"
-  },
   "dontUseChirpFontLabel": {
     "message": "Chirp 글꼴 사용 안 함"
   },
@@ -179,6 +176,9 @@
   "hideMoreTweetsLabel": {
     "message": "\"더 알아보기\" 트윗 숨기기"
   },
+  "hideNotificationsLabel": {
+    "message": "알림 숨기기"
+  },
   "hideProNavLabel": {
     "message": "Pro"
   },
@@ -271,6 +271,12 @@
   },
   "navDensityLabel": {
     "message": "네비게이션 밀도"
+  },
+  "notificationsLabel": {
+    "message": "알림"
+  },
+  "option_badges": {
+    "message": "배지만 숨기기"
   },
   "option_comfortable": {
     "message": "편안한"

@@ -80,6 +80,7 @@ ${messages.reduceEngagementOptionsLabel}
   • ${messages.reducedInteractionModeInfo}
 • ${messages.disableHomeTimelineLabel}
   • ${messages.disableHomeTimelineInfo}
+• ${messages.hideNotifications}
 
 ${messages.hideUnusedUiItemsOptionsLabel}
 

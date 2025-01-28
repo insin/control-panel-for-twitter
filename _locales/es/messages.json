@@ -47,9 +47,6 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "Mensajes"
   },
-  "disabledHomeTimelineRedirectOption_notifications": {
-    "message": "Notificaciones"
-  },
   "dontUseChirpFontLabel": {
     "message": "No usar la fuente Chirp"
   },
@@ -179,6 +176,9 @@
   "hideMoreTweetsLabel": {
     "message": "Ocultar tweets de \"Descubrir más\""
   },
+  "hideNotificationsLabel": {
+    "message": "Ocultar notificaciones"
+  },
   "hideProNavLabel": {
     "message": "Pro"
   },
@@ -271,6 +271,12 @@
   },
   "navDensityLabel": {
     "message": "Densidad de navegación"
+  },
+  "notificationsLabel": {
+    "message": "Notificaciones"
+  },
+  "option_badges": {
+    "message": "Ocultar solo las insignias"
   },
   "option_comfortable": {
     "message": "Cómodo"

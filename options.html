@@ -496,11 +496,21 @@
           <label>
             <span id="disabledHomeTimelineRedirectLabel">Redirect home timeline to</span>
             <select name="disabledHomeTimelineRedirect">
-              <option value="notifications" id="disabledHomeTimelineRedirectOption_notifications">Notifications</option>
+              <option value="notifications" class="notificationsLabel" id="disabledHomeTimelineRedirectOption_notifications">Notifications</option>
               <option value="messages" id="disabledHomeTimelineRedirectOption_messages">Messages</option>
             </select>
           </label>
         </section>
+      </section>
+      <section class="select">
+        <label>
+          <span class="notificationsLabel">Notifications</span>
+          <select name="hideNotifications">
+            <option value="ignore">Do nothing</option>
+            <option value="badges">Hide badges only</option>
+            <option value="hide">Hide</option>
+          </select>
+        </label>
       </section>
     </section>
 

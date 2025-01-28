@@ -47,9 +47,6 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "メッセージ"
   },
-  "disabledHomeTimelineRedirectOption_notifications": {
-    "message": "通知"
-  },
   "dontUseChirpFontLabel": {
     "message": "Chirpフォントを使用しない"
   },
@@ -179,6 +176,9 @@
   "hideMoreTweetsLabel": {
     "message": "「もっと見つける」を非表示"
   },
+  "hideNotificationsLabel": {
+    "message": "通知を非表示"
+  },
   "hideProNavLabel": {
     "message": "Pro"
   },
@@ -271,6 +271,12 @@
   },
   "navDensityLabel": {
     "message": "ナビゲーションの密度"
+  },
+  "notificationsLabel": {
+    "message": "通知"
+  },
+  "option_badges": {
+    "message": "バッジのみ非表示"
   },
   "option_comfortable": {
     "message": "快適"

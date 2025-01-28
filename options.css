@@ -20,6 +20,7 @@ body.iOS.browserAction {
 
 body.mobile .desktop,
 body.desktop .mobile,
+body.hidingNotifications #disabledHomeTimelineRedirectOption_notifications,
 body:not(.chronological) .chronological,
 body:not(.debug) .debug,
 body:not(.disabledHomeTimeline) .disabledHomeTimeline,
