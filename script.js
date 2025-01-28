@@ -3550,14 +3550,14 @@ const configureCss = (() => {
           header[role="banner"] > div > div > div {
             justify-content: flex-start;
           }
-          /* Restore size and contrast of nav icons */
+          /* Restore size and contrast of nav link icons */
           ${Selectors.PRIMARY_NAV_DESKTOP} > a svg {
             width: 1.75rem !important;
             height: 1.75rem !important;
             fill: var(--color-emphasis) !important;
           }
-          /* Give the More button more contrast too */
-          ${Selectors.PRIMARY_NAV_DESKTOP} > button svg {
+          /* Give nav button icons more contrast too */
+          ${Selectors.PRIMARY_NAV_DESKTOP} button svg {
             fill: var(--color-emphasis) !important;
           }
           /* Make the Tweet button larger */
@@ -3593,8 +3593,12 @@ const configureCss = (() => {
         if (config.replaceLogo) {
           // TODO Manually patch Tweet button SVG in Safari
           cssRules.push(`
-            /* Restore the theme colour to the notifications pip */
-            ${Selectors.PRIMARY_NAV_DESKTOP} > a[href="/notifications"] > div > div > div > div > div {
+            /* Restore theme colour in notifications nav item pip */
+            ${Selectors.PRIMARY_NAV_DESKTOP} > a[href="/notifications"] div[aria-live],
+            /* Restore theme colour in profile switcher other accounts have notifications pip */
+            button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label],
+            /* Restore theme colour in account switcher notifications pips */
+            [data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live] {
               background-color: var(--theme-color);
             }
             /* Replace the plus icon in the Tweet button with the feather */
