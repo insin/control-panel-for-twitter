@@ -100,6 +100,7 @@ const config = {
   showBlueReplyVerifiedAccounts: false,
   showBookmarkButtonUnderFocusedTweets: true,
   sortReplies: 'relevant',
+  tweakNewLayout: false,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   unblurSensitiveContent: false,
@@ -119,7 +120,6 @@ const config = {
   navBaseFontSize: true,
   navDensity: 'default',
   showRelevantPeople: false,
-  tweakNewLayout: false,
   // Mobile only
   hideMessagesBottomNavItem: false,
 }
@@ -3517,6 +3517,26 @@ const configureCss = (() => {
       }
     }
 
+    if (config.tweakNewLayout) {
+      cssRules.push(`
+        /* Make the image button first in the Tweet editor toolbar again */
+        [data-testid="toolBar"] [role="tablist"] > [role="presentation"] {
+          order: 1;
+        }
+        [data-testid="toolBar"] [role="tablist"] > [role="presentation"]:has(input[data-testid="fileInput"]) {
+          order: 0;
+        }
+      `)
+      if (config.replaceLogo) {
+        cssRules.push(`
+          /* Add theme colour back to Tweet editor toolbar buttons */
+          [data-testid="toolBar"] [role="tablist"] > [role="presentation"] svg {
+            fill: var(--theme-color);
+          }
+        `)
+      }
+    }
+
     //#region Desktop-only
     if (desktop) {
       if (config.tweakNewLayout) {
@@ -3539,10 +3559,6 @@ const configureCss = (() => {
           /* Give the More button more contrast too */
           ${Selectors.PRIMARY_NAV_DESKTOP} > button svg {
             fill: var(--color-emphasis) !important;
-          }
-          /* Restore the theme colour to the notifications pip */
-          ${Selectors.PRIMARY_NAV_DESKTOP} > a[href="/notifications"] > div > div > div > div > div {
-            background-color: var(--theme-color);
           }
           /* Make the Tweet button larger */
           [data-testid="SideNav_NewTweet_Button"] {
@@ -3573,21 +3589,15 @@ const configureCss = (() => {
           div[data-at-shortcutkeys] {
             justify-content: center;
           }
-          /* Make the image button first in the Tweet editor toolbar again */
-          [data-testid="toolBar"] [role="tablist"] > [role="presentation"] {
-            order: 1;
-          }
-          [data-testid="toolBar"] [role="tablist"] > [role="presentation"]:has(input[data-testid="fileInput"]) {
-            order: 0;
-          }
-          /* Add theme colour back to Tweet editor toolbar buttons */
-          [data-testid="toolBar"] [role="tablist"] > [role="presentation"] svg {
-            fill: var(--theme-color);
-          }
         `)
         if (config.replaceLogo) {
-          // TODO Manually patch this in Safari
+          // TODO Manually patch Tweet button SVG in Safari
           cssRules.push(`
+            /* Restore the theme colour to the notifications pip */
+            ${Selectors.PRIMARY_NAV_DESKTOP} > a[href="/notifications"] > div > div > div > div > div {
+              background-color: var(--theme-color);
+            }
+            /* Replace the plus icon in the Tweet button with the feather */
             [data-testid="SideNav_NewTweet_Button"] path[d="${Svgs.PLUS_PATH}"] {
               d: path("${Svgs.TWITTER_FEATHER_PLUS_PATH}");
             }
@@ -3721,7 +3731,13 @@ const configureCss = (() => {
         )
       }
       if (config.hideTwitterBlueUpsells) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a:is([href^="/i/premium"], [href^="/i/verified"])`)
+        hideCssSelectors.push(
+          // Nav items
+          `${Selectors.PRIMARY_NAV_DESKTOP} a:is([href^="/i/premium"], [href^="/i/verified"])`,
+          // Search sidebar Radar upsell
+          `body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:first-child:has(a[href="/i/radar"])`,
+          `body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:first-child:has(a[href="/i/radar"]) + div:empty`,
+        )
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
@@ -3733,10 +3749,13 @@ const configureCss = (() => {
           body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:nth-of-type(2) {
             display: block;
           }
-          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:first-of-type {
+          /* Radar upsell in Search uses the first item and adds a second one for spacing */
+          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:first-of-type,
+          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:nth-of-type(2):empty {
             display: none;
           }
-          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:nth-of-type(3) {
+          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:nth-of-type(3),
+          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:nth-of-type(4) {
             display: block;
           }
         `)
@@ -3803,6 +3822,27 @@ const configureCss = (() => {
 
     //#region Mobile only
     if (mobile) {
+      if (config.tweakNewLayout) {
+        cssRules.push(`
+          /* Remove new padding from profile details and the tab bar (this has to be accidental) */
+          body.Profile ${Selectors.PRIMARY_COLUMN} > div > div > div > div > div > div > div > div {
+            padding-left: 0;
+            padding-right: 0;
+          }
+        `)
+        if (config.replaceLogo) {
+          cssRules.push(`
+            /* Restore theme colour in notifications nav item pip */
+            ${Selectors.PRIMARY_NAV_MOBILE} > a[href^="/notifications"] div[aria-label],
+            /* Restore theme colour in profile button other accounts have notifications pip */
+            button[data-testid="DashButton_ProfileIcon_Link"] div[aria-label],
+            /* Restore theme colour in account switcher notifications pips */
+            [role="dialog"] [data-testid^="UserAvatar-Container"] div[dir] {
+              background-color: var(--theme-color);
+            }
+          `)
+        }
+      }
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
       }

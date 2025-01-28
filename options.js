@@ -214,6 +214,7 @@ const defaultConfig = {
   showBlueReplyVerifiedAccounts: false,
   showBookmarkButtonUnderFocusedTweets: true,
   sortReplies: 'relevant',
+  tweakNewLayout: false,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
@@ -233,7 +234,6 @@ const defaultConfig = {
   navBaseFontSize: true,
   navDensity: 'default',
   showRelevantPeople: false,
-  tweakNewLayout: false,
   // Mobile only
   hideMessagesBottomNavItem: false,
 }

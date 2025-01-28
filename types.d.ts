@@ -66,6 +66,7 @@ export type Config = {
   showBlueReplyVerifiedAccounts: boolean
   showBookmarkButtonUnderFocusedTweets: boolean
   sortReplies: 'relevant' | 'recent' | 'liked'
+  tweakNewLayout: boolean
   tweakQuoteTweetsPage: boolean
   twitterBlueChecks: 'ignore' | 'replace' | 'hide'
   unblurSensitiveContent: boolean
@@ -84,7 +85,6 @@ export type Config = {
   navBaseFontSize: boolean
   navDensity: 'default' | 'comfortable' | 'compact'
   showRelevantPeople: boolean
-  tweakNewLayout: boolean
   // Mobile only
   hideMessagesBottomNavItem: boolean
 }
