@@ -3540,23 +3540,9 @@ const configureCss = (() => {
           ${Selectors.PRIMARY_NAV_DESKTOP} > button svg {
             fill: var(--color-emphasis) !important;
           }
-          /* Restore the themed navigation pip with count */
+          /* Restore the theme colour to the notifications pip */
           ${Selectors.PRIMARY_NAV_DESKTOP} > a[href="/notifications"] > div > div > div > div > div {
-            align-items: center;
             background-color: var(--theme-color);
-            border-width: 1px;
-            box-sizing: content-box;
-            color: #fff;
-            font-size: 11px;
-            height: 16px;
-            margin-top: -4px;
-            min-width: 16px;
-            right: -4px;
-            top: -6px;
-          }
-          ${Selectors.PRIMARY_NAV_DESKTOP} > a[href="/notifications"] > div > div > div > div > div::after {
-            content: var(--notification-count);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
           }
           /* Make the Tweet button larger */
           [data-testid="SideNav_NewTweet_Button"] {
@@ -5010,14 +4996,10 @@ function onTitleChange(title) {
 
   // Ignore leading notification counts in titles
   let notificationCount = ''
-  let notificationCountNumber = ''
   if (TITLE_NOTIFICATION_RE.test(title)) {
-    let match = TITLE_NOTIFICATION_RE.exec(title)[0]
-    notificationCount = match[0]
-    notificationCountNumber = match[1]
+    notificationCount = TITLE_NOTIFICATION_RE.exec(title)[0]
     title = title.replace(TITLE_NOTIFICATION_RE, '')
   }
-  document.body.style.setProperty('--notification-count', `"${notificationCountNumber}"`)
 
   if (config.replaceLogo && Boolean(notificationCount) != Boolean(currentNotificationCount)) {
     observeFavicon.updatePip(Boolean(notificationCount))
