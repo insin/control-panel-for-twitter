@@ -5976,9 +5976,14 @@ async function tweakProfilePage() {
     isUserTimeline: tab == 'affiliates'
   })
 
-  let $editProfileButton = document.querySelector('a[href="/settings/profile"]')
+  getElement('a[href="/settings/profile"]', {
+    name: 'edit profile button',
+    stopIf: pageIsNot(currentPage),
+    timeout: 500,
+  }).then($editProfileButton => {
+    $body.classList.toggle('OwnProfile', Boolean($editProfileButton))
+  })
   let $headerVerifiedIcon = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.TIMELINE_HEADING} [data-testid="icon-verified"]`)
-  $body.classList.toggle('OwnProfile', Boolean($editProfileButton))
   $body.classList.toggle('PremiumProfile', Boolean($headerVerifiedIcon))
 
   if (config.replaceLogo || config.hideSubscriptions) {
