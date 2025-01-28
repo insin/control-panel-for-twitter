@@ -4521,7 +4521,9 @@ function handlePopup($popup) {
         }
       }
     }
+  }
 
+  if (config.hideGrokNav || config.twitterBlueChecks != 'ignore') {
     // User hovercard popup
     let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
     if ($hoverCard) {
@@ -4532,12 +4534,16 @@ function handlePopup($popup) {
         timeout: 500,
       }).then(($contents) => {
         if (!$contents) return
-        // Grok "Profile Summary" button
-        let $grokButton = $popup.querySelector('[data-testid="HoverCard"] > div > div > div:last-child:has(> button)')
-        if ($grokButton) {
-          $grokButton.classList.add('GrokButton')
+        if (config.hideGrokNav) {
+          // Tag Grok "Profile Summary" button
+          let $grokButton = $popup.querySelector('[data-testid="HoverCard"] > div > div > div:last-child:has(> button)')
+          if ($grokButton) {
+            $grokButton.classList.add('GrokButton')
+          }
         }
-        processBlueChecks($popup)
+        if (config.twitterBlueChecks != 'ignore') {
+          processBlueChecks($popup)
+        }
       })
     }
   }
