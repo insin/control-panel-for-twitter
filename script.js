@@ -8,7 +8,7 @@
 // @match       https://x.com/*
 // @match       https://mobile.x.com/*
 // @run-at      document-start
-// @version     182
+// @version     183
 // ==/UserScript==
 void function() {
 
@@ -3597,7 +3597,7 @@ const configureCss = (() => {
           // TODO Manually patch Tweet button SVG in Safari
           cssRules.push(`
             /* Restore theme colour in nav item pips */
-            ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live],
+            ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href="/notifications"], a[href="/messages"]) div[aria-live],
             ${Selectors.MORE_DIALOG} :is(a[href="/notifications"], a[href="/messages"]) div[aria-live],
             /* Restore theme colour in profile switcher other accounts have notifications pip */
             button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label],
