@@ -3596,8 +3596,8 @@ const configureCss = (() => {
         if (config.replaceLogo) {
           // TODO Manually patch Tweet button SVG in Safari
           cssRules.push(`
-            /* Restore theme colour in notifications nav item pip */
-            ${Selectors.PRIMARY_NAV_DESKTOP} > a[href="/notifications"] div[aria-live],
+            /* Restore theme colour in nav item pips */
+            ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live],
             /* Restore theme colour in profile switcher other accounts have notifications pip */
             button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label],
             /* Restore theme colour in account switcher notifications pips */
@@ -3839,8 +3839,8 @@ const configureCss = (() => {
         `)
         if (config.replaceLogo) {
           cssRules.push(`
-            /* Restore theme colour in notifications nav item pip */
-            ${Selectors.PRIMARY_NAV_MOBILE} > a[href^="/notifications"] div[aria-label],
+            /* Restore theme colour in nav item pips */
+            ${Selectors.PRIMARY_NAV_MOBILE} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-label],
             /* Restore theme colour in profile button other accounts have notifications pip */
             button[data-testid="DashButton_ProfileIcon_Link"] div[aria-label],
             /* Restore theme colour in account switcher notifications pips */
