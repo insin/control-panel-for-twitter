@@ -221,6 +221,9 @@
   "hideTimelineTweetBoxLabel": {
     "message": "タイムラインのツイートボックス"
   },
+  "hideToggleNavigationLabel": {
+    "message": "ナビゲーション切り替えを非表示"
+  },
   "hideTotalTweetsMetricsLabel": {
     "message": "総ツイート数"
   },

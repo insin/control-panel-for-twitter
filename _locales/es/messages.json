@@ -221,6 +221,9 @@
   "hideTimelineTweetBoxLabel": {
     "message": "Cuadro de tweet en timeline"
   },
+  "hideToggleNavigationLabel": {
+    "message": "Ocultar activar/desactivar navegación"
+  },
   "hideTotalTweetsMetricsLabel": {
     "message": "Tweets totales"
   },

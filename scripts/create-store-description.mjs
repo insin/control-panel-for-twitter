@@ -42,6 +42,8 @@ ${messages.uiImprovementsOptionsLabel}
 
 ${messages.xFixesLabel}
 
+• ${messages.tweakNewLayoutLabel}
+  • ${messages.hideToggleNavigationLabel}
 • ${messages.replaceLogoLabel}
 • ${messages.hideViewsLabel}
 • ${messages.hideVerifiedNotificationsTabLabel}

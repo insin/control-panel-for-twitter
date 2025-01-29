@@ -15,7 +15,7 @@ Usage:
   process.exit(1)
 }
 
-const srcLocales = ['en', 'es', 'fr', 'ja', 'ko', 'zh']
+const srcLocales = ['en', 'es', 'fr', 'it', 'ja', 'ko', 'zh']
 // Maps from Twitter locale code to web extension locale code where they differ
 const destLocales = {zh: 'zh_CN'}
 const translations = JSON.parse(

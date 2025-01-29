@@ -221,6 +221,9 @@
   "hideTimelineTweetBoxLabel": {
     "message": "Zone de tweet dans le fil"
   },
+  "hideToggleNavigationLabel": {
+    "message": "Masquer activer/désactiver la navigation"
+  },
   "hideTotalTweetsMetricsLabel": {
     "message": "Total des tweets"
   },

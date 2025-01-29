@@ -76,6 +76,7 @@ for (let translationId of [
   'hideSpacesNavLabel',
   'hideSubscriptionsLabel',
   'hideTimelineTweetBoxLabel',
+  'hideToggleNavigationLabel',
   'hideTotalTweetsMetricsLabel',
   'hideTweetAnalyticsLinksLabel',
   'hideTwitterBlueRepliesLabel',
@@ -233,6 +234,7 @@ const defaultConfig = {
   hideProNav: true,
   hideSidebarContent: true,
   hideSpacesNav: false,
+  hideToggleNavigation: false,
   navBaseFontSize: true,
   navDensity: 'default',
   showRelevantPeople: false,
@@ -448,6 +450,7 @@ function updateDisplay() {
   $body.classList.toggle('hidingTwitterBlueReplies', optionsConfig.hideTwitterBlueReplies)
   $body.classList.toggle('mutingQuotes', shouldDisplayMutedQuotes())
   $body.classList.toggle('showingBlueReplyFollowersCount', optionsConfig.showBlueReplyFollowersCount)
+  $body.classList.toggle('tweakingNewLayout', optionsConfig.tweakNewLayout)
   $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
   $showBlueReplyFollowersCountLabel.textContent = chrome.i18n.getMessage(
     'showBlueReplyFollowersCountLabel',

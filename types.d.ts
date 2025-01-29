@@ -83,6 +83,7 @@ export type Config = {
   hideMessagesDrawer: boolean
   hideProNav: boolean
   hideSidebarContent: boolean
+  hideToggleNavigation: boolean
   navBaseFontSize: boolean
   navDensity: 'default' | 'comfortable' | 'compact'
   showRelevantPeople: boolean

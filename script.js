@@ -118,6 +118,7 @@ const config = {
   hideProNav: true,
   hideSidebarContent: true,
   hideSpacesNav: false,
+  hideToggleNavigation: false,
   navBaseFontSize: true,
   navDensity: 'default',
   showRelevantPeople: false,
@@ -3651,6 +3652,9 @@ const configureCss = (() => {
               d: path("${Svgs.TWITTER_FEATHER_PLUS_PATH}");
             }
           `)
+        }
+        if (config.hideToggleNavigation) {
+          hideCssSelectors.push('header[role="banner"] > div > div > div > div:first-child > button')
         }
       }
       if (config.navDensity == 'comfortable' || config.navDensity == 'compact') {

@@ -221,6 +221,9 @@
   "hideTimelineTweetBoxLabel": {
     "message": "时间线推文框"
   },
+  "hideToggleNavigationLabel": {
+    "message": "隐藏切换导航"
+  },
   "hideTotalTweetsMetricsLabel": {
     "message": "推文总数"
   },

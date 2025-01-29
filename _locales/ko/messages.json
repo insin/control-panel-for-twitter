@@ -221,6 +221,9 @@
   "hideTimelineTweetBoxLabel": {
     "message": "타임라인 트윗 상자"
   },
+  "hideToggleNavigationLabel": {
+    "message": "탐색 전환 숨기기"
+  },
   "hideTotalTweetsMetricsLabel": {
     "message": "총 트윗 수"
   },
