@@ -3598,6 +3598,7 @@ const configureCss = (() => {
           cssRules.push(`
             /* Restore theme colour in nav item pips */
             ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live],
+            ${Selectors.MORE_DIALOG} :is(a[href="/notifications"], a[href="/messages"]) div[aria-live],
             /* Restore theme colour in profile switcher other accounts have notifications pip */
             button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label],
             /* Restore theme colour in account switcher notifications pips */
