@@ -3541,11 +3541,6 @@ const configureCss = (() => {
     if (desktop) {
       if (config.tweakNewLayout) {
         cssRules.push(`
-          /* Restore primary column borders */
-          ${Selectors.PRIMARY_COLUMN} {
-            border-left: 1px solid var(--border-color);
-            border-right: 1px solid var(--border-color);
-          }
           /* Realign nav items to the top */
           header[role="banner"] > div > div > div {
             justify-content: flex-start;
@@ -3557,6 +3552,7 @@ const configureCss = (() => {
             fill: var(--color-emphasis) !important;
           }
           /* Give nav button icons more contrast too */
+          header[role="banner"] button svg,
           ${Selectors.PRIMARY_NAV_DESKTOP} button svg {
             fill: var(--color-emphasis) !important;
           }
@@ -3569,6 +3565,13 @@ const configureCss = (() => {
           header[role="banner"] > div > div > div > div:last-child {
             flex: 1;
             justify-content: space-between;
+          }
+          /* Restore primary column borders */
+          header[role="banner"] > div > div > div  {
+            border-right: 1px solid var(--border-color);
+          }
+          ${Selectors.PRIMARY_COLUMN} {
+            border-right: 1px solid var(--border-color);
           }
           /* Left-align main contents and stop it taking up all available space */
           main {
