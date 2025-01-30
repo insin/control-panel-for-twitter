@@ -3545,16 +3545,22 @@ const configureCss = (() => {
           header[role="banner"] > div > div > div {
             justify-content: flex-start;
           }
-          /* Restore size and contrast of nav link icons */
+          /* Restore size and contrast of main nav icons and text */
           ${Selectors.PRIMARY_NAV_DESKTOP} > a svg {
             width: 1.75rem !important;
             height: 1.75rem !important;
             fill: var(--color-emphasis) !important;
           }
-          /* Give nav button icons more contrast too */
+          ${Selectors.PRIMARY_NAV_DESKTOP} > a div[dir] {
+            color: var(--color-emphasis) !important;
+          }
+          /* Give nav button icons and text more contrast too */
           header[role="banner"] button svg,
           ${Selectors.PRIMARY_NAV_DESKTOP} button svg {
             fill: var(--color-emphasis) !important;
+          }
+          ${Selectors.PRIMARY_NAV_DESKTOP} button div[dir] {
+            color: var(--color-emphasis) !important;
           }
           /* Make the Tweet button larger */
           [data-testid="SideNav_NewTweet_Button"] {
