@@ -3585,7 +3585,7 @@ const configureCss = (() => {
             height: 1.75rem !important;
             fill: var(--color-emphasis) !important;
           }
-          ${Selectors.PRIMARY_NAV_DESKTOP} > a div[dir] {
+          ${Selectors.PRIMARY_NAV_DESKTOP} > a div[dir]:not([aria-live]) {
             color: var(--color-emphasis) !important;
           }
           /* Give nav button icons and text more contrast too */
@@ -3593,7 +3593,7 @@ const configureCss = (() => {
           ${Selectors.PRIMARY_NAV_DESKTOP} button svg {
             fill: var(--color-emphasis) !important;
           }
-          ${Selectors.PRIMARY_NAV_DESKTOP} button div[dir] {
+          ${Selectors.PRIMARY_NAV_DESKTOP} button div[dir]:not([aria-live]) {
             color: var(--color-emphasis) !important;
           }
           /* Make the Tweet button larger */
