@@ -3497,7 +3497,8 @@ const configureCss = (() => {
     }
 
     if (shouldShowSeparatedTweetsTab()) {
-      if (hasNewLayout() || config.tweakNewLayout) {
+      if (hasNewLayout()) {
+        // The new layout only has colour to distinguish the active tab
         cssRules.push(`
           body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div,
           body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div {
@@ -3551,7 +3552,7 @@ const configureCss = (() => {
       }
     }
 
-    if (config.tweakNewLayout) {
+    if (hasNewLayout() && config.tweakNewLayout) {
       cssRules.push(`
         /* Make the image button first in the Tweet editor toolbar again */
         [data-testid="toolBar"] [role="tablist"] > [role="presentation"] {
@@ -3573,7 +3574,7 @@ const configureCss = (() => {
 
     //#region Desktop-only
     if (desktop) {
-      if (config.tweakNewLayout) {
+      if (hasNewLayout() && config.tweakNewLayout) {
         cssRules.push(`
           /* Realign nav items to the top */
           header[role="banner"] > div > div > div {
@@ -3887,7 +3888,7 @@ const configureCss = (() => {
 
     //#region Mobile only
     if (mobile) {
-      if (config.tweakNewLayout) {
+      if (hasNewLayout() && config.tweakNewLayout) {
         cssRules.push(`
           /* Remove new padding from profile details and the tab bar (this has to be accidental) */
           body.Profile ${Selectors.PRIMARY_COLUMN} > div > div > div > div > div > div > div > div {
