@@ -3681,12 +3681,18 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
       }
       if (config.hideNotifications != 'ignore') {
-        // Notification badges
+        // Hide notification badges and indicators
         hideCssSelectors.push(
+          // Notifications & Messages in primary nav
           `${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live]`,
+          // Notifications & Messages in the More dialog in the new layout
           `${Selectors.MORE_DIALOG} :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live]`,
+          // Account switcher
           'button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label]',
-          '[data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live]'
+          // Account switcher accounts
+          '[data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live]',
+          // Messages drawer title
+          '[data-testid="DMDrawerHeader"] h2 svg[role="img"]'
         )
         if (config.hideNotifications == 'hide') {
           hideCssSelectors.push(
@@ -3913,10 +3919,13 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
       }
       if (config.hideNotifications != 'ignore') {
-        // Notification badges
+        // Hide notification badges and indicators
         hideCssSelectors.push(
+          // Notifications & Messages in primary nav
           `${Selectors.PRIMARY_NAV_MOBILE} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-label]`,
+          // Account switcher
           `button[data-testid="DashButton_ProfileIcon_Link"] div[aria-label]`,
+          // Account switcher accounts
           '[role="dialog"] [data-testid^="UserAvatar-Container"] div[dir]',
         )
         if (config.hideNotifications == 'hide') {
