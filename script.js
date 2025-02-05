@@ -2672,7 +2672,7 @@ const observeFavicon = (() => {
       name: 'shortcut icon'
     }))
 
-    observeElement($shortcutIcon, (mutations) => {
+    observeElement($shortcutIcon, () => {
       let href = $shortcutIcon.href
       if (config.replaceLogo) {
         // Once we replace the favicon, Twitter stops updating it when
