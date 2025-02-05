@@ -2668,7 +2668,7 @@ const observeFavicon = (() => {
   let $shortcutIcon
 
   async function observeFavicon() {
-    $shortcutIcon = /** @type {HTMLLinkElement} */ (await getElement('link[rel="shortcut icon"]', {
+    $shortcutIcon = /** @type {HTMLLinkElement} */ (await getElement('link[rel~="icon"]', {
       name: 'shortcut icon'
     }))
 
@@ -2773,6 +2773,10 @@ async function observeTitle() {
   let $title = await getElement('title', {name: '<title>'})
   observeElement($title, () => {
     let title = $title.textContent
+    if (title.match(/^Intervention for (X|Twitter)$/)) {
+      log('Ignoring one sec extension title')
+      return
+    }
     if (config.replaceLogo && (ltr ? /X$/ : /^(?:\(\d+\+?\) )?X/).test(title)) {
       title = title.replace(ltr ? /X$/ : 'X', getString('TWITTER'))
     }
