@@ -3467,7 +3467,7 @@ const configureCss = (() => {
         #tntInteractionLinks a:hover span:last-child {
           text-decoration: underline;
         }
-        #tntQuoteTweetCount {
+        #tntQuoteTweetCount, #tntRetweetCount {
           margin-right: 2px;
           font-weight: 700;
           color: var(--color-emphasis);
@@ -3484,7 +3484,7 @@ const configureCss = (() => {
       hideCssSelectors.push('#tntQuoteTweetsLink')
     }
     if (!config.restoreOtherInteractionLinks) {
-      hideCssSelectors.push('#tntRetweetsLink', '#tntLikesLink')
+      hideCssSelectors.push('#tntRetweetsLink')
     }
     if (config.tweakQuoteTweetsPage) {
       // Hide the quoted tweet, which is repeated in every quote tweet
@@ -4058,6 +4058,9 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
 
   if (config.hideQuoteTweetMetrics) {
     hideCssSelectors.push('#tntQuoteTweetCount')
+  }
+  if (config.hideRetweetMetrics) {
+    hideCssSelectors.push('#tntRetweetCount')
   }
 }
 
@@ -5472,10 +5475,10 @@ function restoreTweetInteractionsLinks($focusedTweet) {
           <span>${getString(tweetInfo.quote_count == 1 ? (config.replaceLogo ? 'QUOTE_TWEET' : 'QUOTE') : (config.replaceLogo ? 'QUOTE_TWEETS' : 'QUOTES'))}</span>
         </a>` : ''}
         ${tweetInfo.retweet_count > 0 ? `<a id="tntRetweetsLink" data-tab="2" href="${tweetLink}/retweets" dir="auto" role="link">
+          <span id="tntRetweetCount">
+            ${Intl.NumberFormat(lang, {notation: tweetInfo.retweet_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.retweet_count)}
+          </span>
           <span>${getString(config.replaceLogo ? 'RETWEETS' : 'REPOSTS')}</span>
-        </a>` : ''}
-        ${tweetInfo.favorite_count > 0 ? `<a id="tntLikesLink" data-tab="3" href="${tweetLink}/likes" dir="auto" role="link">
-          <span>${getString('LIKES')}</span>
         </a>` : ''}
       </div>
     </div>
