@@ -3467,7 +3467,7 @@ const configureCss = (() => {
         #tntInteractionLinks a:hover span:last-child {
           text-decoration: underline;
         }
-        #tntQuoteTweetCount, #tntRetweetCount {
+        #tntQuoteTweetCount, #tntRetweetCount, #tntLikeCount {
           margin-right: 2px;
           font-weight: 700;
           color: var(--color-emphasis);
@@ -3484,7 +3484,7 @@ const configureCss = (() => {
       hideCssSelectors.push('#tntQuoteTweetsLink')
     }
     if (!config.restoreOtherInteractionLinks) {
-      hideCssSelectors.push('#tntRetweetsLink')
+      hideCssSelectors.push('#tntRetweetsLink', '#tntLikesLink')
     }
     if (config.tweakQuoteTweetsPage) {
       // Hide the quoted tweet, which is repeated in every quote tweet
@@ -4059,6 +4059,9 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   }
   if (config.hideRetweetMetrics) {
     hideCssSelectors.push('#tntRetweetCount')
+  }
+  if (config.hideLikeMetrics) {
+    hideCssSelectors.push('#tntLikeCount')
   }
 }
 
@@ -5450,9 +5453,10 @@ function restoreTweetInteractionsLinks($focusedTweet) {
   log('focused tweet', {tweetLink, tweetId, tweetInfo})
   if (!tweetInfo) return
 
+  let isOwnTweet = Boolean($focusedTweet.querySelector('a[data-testid="analyticsButton"]'))
   let shouldDisplayLinks = (
     (config.restoreQuoteTweetsLink && tweetInfo.quote_count > 0) ||
-    (config.restoreOtherInteractionLinks && (tweetInfo.retweet_count > 0 || tweetInfo.favorite_count > 0))
+    (config.restoreOtherInteractionLinks && (tweetInfo.retweet_count > 0 || isOwnTweet && tweetInfo.favorite_count > 0))
   )
   let $existingLinks = $focusedTweet.querySelector('#tntInteractionLinks')
   if (!shouldDisplayLinks || $existingLinks) {
@@ -5477,6 +5481,12 @@ function restoreTweetInteractionsLinks($focusedTweet) {
             ${Intl.NumberFormat(lang, {notation: tweetInfo.retweet_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.retweet_count)}
           </span>
           <span>${getString(config.replaceLogo ? 'RETWEETS' : 'REPOSTS')}</span>
+        </a>` : ''}
+        ${isOwnTweet && tweetInfo.favorite_count > 0 ? `<a id="tntLikesLink" data-tab="3" href="${tweetLink}/likes" dir="auto" role="link">
+          <span id="tntLikeCount">
+            ${Intl.NumberFormat(lang, {notation: tweetInfo.favorite_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.favorite_count)}
+          </span>
+          <span>${getString('LIKES')}</span>
         </a>` : ''}
       </div>
     </div>
