@@ -3364,10 +3364,12 @@ const configureCss = (() => {
       )
     }
     if (config.hideTweetAnalyticsLinks) {
-      hideCssSelectors.push('a[data-testid="analyticsButton"]')
+      hideCssSelectors.push('.AnalyticsButton')
     }
     if (config.hideTwitterBlueUpsells) {
       hideCssSelectors.push(
+        // Manually-tagged upsells
+        '.PremiumUpsell',
         // Premium/Verified menu items
         `${menuRole} a:is([href^="/i/premium"], [href^="/i/verified"])`,
         // In new More dialog
@@ -3473,7 +3475,7 @@ const configureCss = (() => {
           color: var(--color-emphasis);
         }
         /* Replaces the "View post engagements" link under your own tweets */
-        a[data-testid="analyticsButton"] {
+        .AnalyticsButton {
           display: none;
         }
       `)
@@ -5763,22 +5765,44 @@ function tweakDisplaySettingsPage() {
   }
 }
 
-/**
- * @param {HTMLElement} $focusedTweet
- * @param {import("./types").IndividualTweetTimelineOptions} options
- */
-async function tweakFocusedTweet($focusedTweet, options) {
-  let {observers} = options
-  if ($focusedTweet) {
+const tweakFocusedTweet = (() => {
+  let waitingForFocusedTweetEditor = false
+
+  /**
+   * @param {HTMLElement} $focusedTweet
+   * @param {import("./types").IndividualTweetTimelineOptions} options
+   */
+  return async function tweakFocusedTweet($focusedTweet, options) {
+    let {observers} = options
+
+    if (!$focusedTweet) {
+      if (desktop) {
+        waitingForFocusedTweetEditor = false
+        disconnectObserver('tweet editor', observers)
+      }
+      return
+    }
+
+    tweakOwnFocusedTweet($focusedTweet)
     restoreTweetInteractionsLinks($focusedTweet)
 
-    if (desktop && config.replaceLogo && !isObserving(observers, 'tweet editor')) {
-      let $editorRoot = await getElement('.DraftEditor-root', {
-        context: $focusedTweet.parentElement,
-        name: 'tweet editor in focused tweet',
-        timeout: 500,
-      })
-      if ($editorRoot && !isObserving(observers, 'tweet editor')) {
+    if (desktop && config.replaceLogo &&
+        !waitingForFocusedTweetEditor &&
+        !isObserving(observers, 'tweet editor')) {
+      waitingForFocusedTweetEditor = true
+      /** @type {HTMLElement} */
+      let $editorRoot
+      try {
+        $editorRoot = await getElement('.DraftEditor-root', {
+          context: $focusedTweet.parentElement,
+          name: 'tweet editor in focused tweet',
+          timeout: 500,
+          stopIf: () => !waitingForFocusedTweetEditor
+        })
+      } finally {
+        waitingForFocusedTweetEditor = false
+      }
+      if ($editorRoot) {
         observers.unshift(
           observeElement($editorRoot, () => {
             if ($editorRoot.firstElementChild.classList.contains('public-DraftEditorPlaceholder-root')) {
@@ -5792,10 +5816,7 @@ async function tweakFocusedTweet($focusedTweet, options) {
       }
     }
   }
-  else {
-    disconnectObserver('tweet editor', observers)
-  }
-}
+})()
 
 async function tweakFollowListPage() {
   // These tabs are dynamic as "Followers you know" only appears when applicable
@@ -5865,6 +5886,36 @@ async function tweakHomeIcon() {
     homeIcon($homeIconPath)
   }
 }
+
+const tweakOwnFocusedTweet = (() => {
+  let waitingForAnalyticsUpsell = false
+
+  return async function tweakOwnFocusedTweet($focusedTweet) {
+    // Only your own focused Tweets have an analytics button
+    let $analyticsButton = $focusedTweet.querySelector('a[data-testid="analyticsButton"]')
+    if (!$analyticsButton) return
+
+    $analyticsButton.parentElement.classList.add('AnalyticsButton')
+
+    if (!config.hideTwitterBlueUpsells ||
+        waitingForAnalyticsUpsell ||
+        $focusedTweet.getAttribute('data-upselltagged')) return
+    waitingForAnalyticsUpsell = true
+    try {
+      let $accountAnalyticsUpsell = await getElement(':scope > div > div > div > div:has(a[href="/i/account_analytics"])', {
+        context: $focusedTweet,
+        name: 'account analytics upsell',
+        timeout: 200,
+      })
+      if ($accountAnalyticsUpsell) {
+        $accountAnalyticsUpsell.classList.add('PremiumUpsell')
+        $focusedTweet.setAttribute('data-upselltagged', 'true')
+      }
+    } finally {
+      waitingForAnalyticsUpsell = false
+    }
+  }
+})()
 
 async function tweakTweetBox() {
   // Restore "What's happening?" placeholder
