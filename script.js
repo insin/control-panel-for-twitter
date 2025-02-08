@@ -3657,9 +3657,9 @@ const configureCss = (() => {
             }
           `)
         }
-        if (config.hideToggleNavigation) {
-          hideCssSelectors.push('header[role="banner"] > div > div > div > div:first-child > button')
-        }
+      }
+      if (hasNewLayout() && config.hideToggleNavigation) {
+        hideCssSelectors.push('header[role="banner"] > div > div > div > div:first-child > button')
       }
       if (config.navDensity == 'comfortable' || config.navDensity == 'compact') {
         cssRules.push(`
