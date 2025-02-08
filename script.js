@@ -8,7 +8,7 @@
 // @match       https://x.com/*
 // @match       https://mobile.x.com/*
 // @run-at      document-start
-// @version     183
+// @version     184
 // ==/UserScript==
 void function() {
 
@@ -3588,8 +3588,7 @@ const configureCss = (() => {
             justify-content: flex-start;
           }
           /* Restore size and constrast of main nav icons and More button */
-          ${Selectors.PRIMARY_NAV_DESKTOP} > a svg,
-          ${Selectors.PRIMARY_NAV_DESKTOP} > button svg {
+          ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) svg {
             width: 1.75rem !important;
             height: 1.75rem !important;
             fill: var(--color-emphasis) !important;
