@@ -3585,22 +3585,20 @@ const configureCss = (() => {
           header[role="banner"] > div > div > div {
             justify-content: flex-start;
           }
-          /* Restore size and contrast of main nav icons and text */
-          ${Selectors.PRIMARY_NAV_DESKTOP} > a svg {
+          /* Restore size and constrast of main nav icons and More button */
+          ${Selectors.PRIMARY_NAV_DESKTOP} > a svg,
+          ${Selectors.PRIMARY_NAV_DESKTOP} > button svg {
             width: 1.75rem !important;
             height: 1.75rem !important;
             fill: var(--color-emphasis) !important;
           }
-          ${Selectors.PRIMARY_NAV_DESKTOP} > a div[dir]:not([aria-live]) {
+          /* Restore contrast of main nav text when expanded */
+          ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) div[dir]:not([aria-live]) {
             color: var(--color-emphasis) !important;
           }
-          /* Give nav button icons and text more contrast too */
-          header[role="banner"] button svg,
-          ${Selectors.PRIMARY_NAV_DESKTOP} button svg {
+          /* Give other nav button icons more contrast too */
+          header[role="banner"] button svg {
             fill: var(--color-emphasis) !important;
-          }
-          ${Selectors.PRIMARY_NAV_DESKTOP} button div[dir]:not([aria-live]) {
-            color: var(--color-emphasis) !important;
           }
           /* Make the Tweet button larger */
           [data-testid="SideNav_NewTweet_Button"] {
