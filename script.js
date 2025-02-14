@@ -1953,9 +1953,6 @@ let observingPageChanges = false
  */
 let pageObservers = []
 
-/** `true` when a 'Pin to your profile' menu item was seen in the last popup. */
-let pinMenuItemSeen = false
-
 /** @type {number} */
 let selectedHomeTabIndex = -1
 
@@ -3382,10 +3379,6 @@ const configureCss = (() => {
         '[role="menuitem"][data-testid="editWithTwitterBlue"]',
         // Premium item in Settings
         'body.Settings a[href^="/i/premium"]',
-        // "Highlight your best content instead" on the pin modal
-        '.PinModal [data-testid="sheetDialog"] > div > div:last-child > div > div > div:first-child',
-        // Highlight button on the pin modal
-        '.PinModal [data-testid="sheetDialog"] [role="button"]:first-child:nth-last-child(3)',
         // Misc upsells in your own profile
         `.OwnProfile ${Selectors.PRIMARY_COLUMN} a[href^="/i/premium"]`,
         // Unlock Analytics button in your own profile
@@ -3408,15 +3401,6 @@ const configureCss = (() => {
       cssRules.push(`
         body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"]) {
           display: none;
-        }
-      `)
-      // Allow Pin and Cancel buttons go to max-width on the pin modal
-      cssRules.push(`
-        .PinModal [data-testid="sheetDialog"] > div > div:last-child > div > div {
-          width: 100%;
-          margin-top: 0;
-          padding-left: 32px;
-          padding-right: 32px;
         }
       `)
     }
@@ -4577,24 +4561,6 @@ function handlePopup($popup) {
       result.tookAction = !mobile
     } else {
       blockMenuItemSeen = false
-    }
-  }
-
-  if (config.hideTwitterBlueUpsells) {
-    // The "Pin to your profile" menu item is currently the only one which opens
-    // a sheet dialog.
-    if (pinMenuItemSeen && $popup.querySelector('[data-testid="sheetDialog"]')) {
-      log('pin to your profile modal opened')
-      $popup.classList.add('PinModal')
-      result.tookAction = true
-    }
-    else if ($popup.querySelector('[data-testid="highlighOnPin"]')) {
-      log('preparing to hide Twitter Blue upsell when pinning a tweet')
-      pinMenuItemSeen = true
-      // Create a nested observer for mobile, as it reuses the popup element
-      result.tookAction = !mobile
-    } else {
-      pinMenuItemSeen = false
     }
   }
 
