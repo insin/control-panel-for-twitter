@@ -107,6 +107,7 @@ const config = {
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
+  redirectToTwitter: false,
   reducedInteractionMode: false,
   restoreLinkHeadlines: true,
   replaceLogo: true,
@@ -3405,7 +3406,7 @@ const configureCss = (() => {
       )
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
-      let upsellTabLinks = 'a:is([href$="/highlights"], [href$="/articles"])'
+      let upsellTabLinks = 'a:is([href$="/highlights"], [href$="/articles"], [href$="/highlights?mx=1"], [href$="/articles?mx=1"])'
       cssRules.push(`
         ${profileTabsList} > div:has(> ${upsellTabLinks}) {
           flex: 0;
@@ -5371,6 +5372,21 @@ function processCurrentPage() {
 }
 
 /**
+ * @returns {boolean} `true` if this call replaces the current location
+ */
+function redirectToTwitter() {
+  if (config.redirectToTwitter && location.hostname.endsWith('x.com')) {
+    // If we got a logout redirect from twitter.com, redirect back to the login page
+    let pathname = location.search.includes('logout=') ? '/i/flow/login' : location.pathname || '/home'
+    let redirectUrl = `https://twitter.com${pathname}?mx=1`
+    log('redirectToTwitter: redirecting from', location.href, 'to', redirectUrl)
+    location.replace(redirectUrl)
+    return true
+  }
+  return false
+}
+
+/**
  * The mobile version of Twitter reuses heading elements between screens, so we
  * always remove any elements which could be there from the previous page and
  * re-add them later when needed.
@@ -6312,6 +6328,10 @@ async function main() {
     debug = true
   }
 
+  if (redirectToTwitter()) {
+    return
+  }
+
   observeTitle()
   observeFavicon()
 
@@ -6420,6 +6440,10 @@ async function main() {
  */
 function configChanged(changes) {
   log('config changed', changes)
+
+  if ('redirectToTwitter' in changes && redirectToTwitter()) {
+    return
+  }
 
   if ('version' in changes) {
     fontSize = desktop ? $html.style.fontSize : null

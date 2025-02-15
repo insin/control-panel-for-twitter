@@ -311,6 +311,9 @@
   "quoteTweetsLabel": {
     "message": "Citados"
   },
+  "redirectToTwitterLabel": {
+    "message": "Redirigir a twitter.com"
+  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "Eliminar contenido algorítmico"
   },

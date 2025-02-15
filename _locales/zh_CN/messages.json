@@ -320,6 +320,9 @@
   "quoteTweetsLabel": {
     "message": "引用推文"
   },
+  "redirectToTwitterLabel": {
+    "message": "重定向到 twitter.com"
+  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "删除算法性内容"
   },

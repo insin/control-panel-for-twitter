@@ -311,6 +311,9 @@
   "quoteTweetsLabel": {
     "message": "인용 트윗"
   },
+  "redirectToTwitterLabel": {
+    "message": "twitter.com으로 리디렉션"
+  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "알고리즘 컨텐츠 제거"
   },

@@ -311,6 +311,9 @@
   "quoteTweetsLabel": {
     "message": "引用ツイート"
   },
+  "redirectToTwitterLabel": {
+    "message": "twitter.com にリダイレクト"
+  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "アルゴリズムコンテンツを取り除く"
   },
