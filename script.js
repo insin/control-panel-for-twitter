@@ -2093,7 +2093,7 @@ function shouldShowSeparatedTweetsTab() {
 //#region Utility functions
 /**
  * @param {string} role
- * @return {HTMLStyleElement}
+ * @returns {HTMLStyleElement}
  */
 function addStyle(role) {
   let $style = document.createElement('style')
@@ -2146,7 +2146,7 @@ function homeIcon($svgPath) {
 
 /**
  * @param {string} str
- * @return {string}
+ * @returns {string}
  */
 function dedent(str) {
   str = str.replace(/^[ \t]*\r?\n/, '')
@@ -2266,7 +2266,7 @@ function getElement(selector, {
 }
 
 function getState() {
-  let wrapped = $reactRoot.firstElementChild.wrappedJSObject || $reactRoot.firstElementChild
+  let wrapped = $reactRoot.firstElementChild['wrappedJSObject'] || $reactRoot.firstElementChild
   let reactPropsKey = Object.keys(wrapped).find(key => key.startsWith('__reactProps'))
   if (reactPropsKey) {
     let state = wrapped[reactPropsKey].children?.props?.children?.props?.store?.getState()
@@ -2396,7 +2396,7 @@ function error(...args) {
  * @param {MutationCallback} callback
  * @param {string} name
  * @param {MutationObserverInit} options
- * @return {import("./types").NamedMutationObserver}
+ * @returns {import("./types").NamedMutationObserver}
  */
 function observeElement($element, callback, name, options = {childList: true}) {
   if (name) {
@@ -2576,6 +2576,7 @@ async function observeDesktopComposeTweetModal($popup) {
     tweetButtonObserver = observeElement($modalDialog, (mutations) => {
       for (let mutation of mutations) {
         for (let $addedNode of mutation.addedNodes) {
+          if (!($addedNode instanceof HTMLElement)) continue
           let $tweetButtonText = $addedNode.querySelector?.('button[data-testid="tweetButton"] span > span')
           if ($tweetButtonText) {
             setTweetButtonText($tweetButtonText)
@@ -4347,7 +4348,7 @@ function getColorScheme() {
   let $qtText = $heading?.nextElementSibling?.querySelector('[lang]')
   let text = $qtText && Array.from($qtText.childNodes, node => {
     if (node.nodeType == 1) {
-      if (node.nodeName == 'IMG') return node.alt
+      if (node.nodeName == 'IMG') return /** @type {HTMLImageElement} */ (node).alt
       return node.textContent
     }
     return node.nodeValue
@@ -4866,7 +4867,7 @@ function onTimelineChange($timeline, page, options = {}) {
     }
 
     if (debug && itemType != null) {
-      $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet ? ' / BLUE' : ''}`
+      $item.firstElementChild.setAttribute('data-item-type', `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet ? ' / BLUE' : ''}`)
     }
 
     // Assume a non-identified item following an identified item is related
@@ -5051,7 +5052,7 @@ function onIndividualTweetTimelineChange($timeline, options) {
     }
 
     if (debug && itemType != null) {
-      $item.firstElementChild.dataset.itemType = `${itemType}${isReply ? ' / REPLY' : ''}`
+      $item.firstElementChild.setAttribute('data-item-type', `${itemType}${isReply ? ' / REPLY' : ''}`)
     }
 
     // Assume a non-identified item following an identified item is related
@@ -5817,7 +5818,10 @@ async function tweakFollowListPage() {
     let isVerifiedTabSelected = Boolean($tabs.querySelector('div[role="tablist"] > div:nth-child(1) > a[aria-selected="true"]'))
     if (isVerifiedTabSelected) {
       log('switching to Following tab')
-      $tabs.querySelector(`div[role="tablist"] > div:nth-last-child(${$subscriptionsTabLink ? 3 : 2}) > a`)?.click()
+      let $followingTab = /** @type {HTMLAnchorElement} */ (
+        $tabs.querySelector(`div[role="tablist"] > div:nth-last-child(${$subscriptionsTabLink ? 3 : 2}) > a`)
+      )
+      $followingTab?.click()
     }
   }
 
@@ -6044,7 +6048,8 @@ function tweakMobileMediaViewerPage() {
     for (let mutation of mutations) {
       if (!mutation.addedNodes) continue
       for (let $addedNode of mutation.addedNodes) {
-        if ($addedNode.querySelector?.('div[data-testid^="immersive-tweet-ui-content-container"]')) {
+        if (!($addedNode instanceof HTMLElement)) continue
+        if ($addedNode.querySelector('div[data-testid^="immersive-tweet-ui-content-container"]')) {
           processBlueChecks($addedNode)
         }
       }
@@ -6140,7 +6145,10 @@ function tweakNotificationsPage() {
     let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
     if (isVerifiedTabSelected) {
       log('switching to All tab')
-      $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a')?.click()
+      let $allTab = /** @type {HTMLAnchorElement} */ (
+        $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a')
+      )
+      $allTab?.click()
     }
   }
 
@@ -6251,7 +6259,10 @@ function tweakSearchPage() {
       let isTopTabSelected = Boolean($searchTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a[aria-selected="true"]'))
       if (isTopTabSelected) {
         log('switching to Latest tab')
-        $searchTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a')?.click()
+        let $latestTab = /** @type {HTMLAnchorElement} */ (
+          $searchTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a')
+        )
+        $latestTab?.click()
       }
     }
   } else {
@@ -6285,7 +6296,10 @@ function tweakTweetEngagementPage() {
 
   if (tweetInteractionsTab) {
     log('switching to tab', tweetInteractionsTab)
-    $tabs.querySelector(`div[role="tablist"] > div:nth-child(${tweetInteractionsTab}) > a`)?.click()
+    let $tab = /** @type {HTMLAnchorElement} */ (
+      $tabs.querySelector(`div[role="tablist"] > div:nth-child(${tweetInteractionsTab}) > a`)
+    )
+    $tab?.click()
     tweetInteractionsTab = null
   }
 

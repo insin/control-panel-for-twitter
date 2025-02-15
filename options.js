@@ -532,7 +532,7 @@ function updateFormControls() {
 function updateFormControl($control, value) {
   if ($control instanceof RadioNodeList) {
     // If a checkbox displays in multiple sections, update them all
-    $control.forEach(input => input.checked = value)
+    $control.forEach(input => /** @type {HTMLInputElement} */ (input).checked = value)
   }
   else if ($control.type == 'checkbox') {
     $control.checked = value
