@@ -12,6 +12,23 @@
 // ==/UserScript==
 void function() {
 
+// Patch XMLHttpRequest to modify requests
+const XMLHttpRequest_open = XMLHttpRequest.prototype.open
+XMLHttpRequest.prototype.open = function(method, url) {
+  if (config.sortReplies != 'relevant' && !userSortedReplies && url.includes('/TweetDetail?')) {
+    let request = new URL(url)
+    let params = new URLSearchParams(request.search)
+    let variables = JSON.parse(decodeURIComponent(params.get('variables')))
+    variables.rankingMode = {
+      liked: 'Likes',
+      recent: 'Recency',
+    }[config.sortReplies]
+    params.set('variables', JSON.stringify(variables))
+    url = `${request.origin}${request.pathname}?${params.toString()}`
+  }
+  return XMLHttpRequest_open.apply(this, [method, url])
+}
+
 let debug = false
 
 /** @type {boolean} */
@@ -154,7 +171,7 @@ const locales = {
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
-    SORT_REPLIES: 'فرز الردود',
+    SORT_REPLIES_BY: 'فرز الردود حسب',
     TURN_OFF_QUOTE_TWEETS: 'تعطيل تغريدات اقتباس',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
@@ -191,7 +208,7 @@ const locales = {
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
-    SORT_REPLIES: 'فرز الردود',
+    SORT_REPLIES_BY: 'فرز الردود حسب',
     TURN_OFF_QUOTE_TWEETS: 'تعطيل تغريدات اقتباس',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
@@ -227,7 +244,7 @@ const locales = {
     SHARED_TWEETS: 'Споделени туитове',
     SHOW: 'Показване',
     SHOW_MORE_REPLIES: 'Показване на още отговори',
-    SORT_REPLIES: 'Сортиране на отговорите',
+    SORT_REPLIES_BY: 'Сортиране на отговорите',
     TURN_OFF_QUOTE_TWEETS: 'Изключване на туитове с цитат',
     TURN_OFF_RETWEETS: 'Изключване на ретуитовете',
     TURN_ON_RETWEETS: 'Включване на ретуитовете',
@@ -263,7 +280,7 @@ const locales = {
     SHARED_TWEETS: 'ভাগ করা টুইটগুলি',
     SHOW: 'দেখান',
     SHOW_MORE_REPLIES: 'আরও উত্তর দেখান',
-    SORT_REPLIES: 'উত্তরগুলো বাছুন',
+    SORT_REPLIES_BY: 'উত্তরগুলো এই হিসাবে বাছুন',
     TURN_OFF_QUOTE_TWEETS: 'উদ্ধৃতি টুইটগুলি বন্ধ করুন',
     TURN_OFF_RETWEETS: 'পুনঃ টুইটগুলি বন্ধ করুন',
     TURN_ON_RETWEETS: 'পুনঃ টুইটগুলি চালু করুন',
@@ -300,7 +317,7 @@ const locales = {
     SHARED_TWEETS: 'Tuits compartits',
     SHOW: 'Mostra',
     SHOW_MORE_REPLIES: 'Mostra més respostes',
-    SORT_REPLIES: 'Ordena les respostes',
+    SORT_REPLIES_BY: 'Ordena les respostes per',
     TURN_OFF_QUOTE_TWEETS: 'Desactiva els tuits amb cita',
     TURN_OFF_RETWEETS: 'Desactiva els retuits',
     TURN_ON_RETWEETS: 'Activa els retuits',
@@ -335,7 +352,7 @@ const locales = {
     SHARED_TWEETS: 'Sdílené tweety',
     SHOW: 'Zobrazit',
     SHOW_MORE_REPLIES: 'Zobrazit další odpovědi',
-    SORT_REPLIES: 'Seřadit odpovědi',
+    SORT_REPLIES_BY: 'Odpovědi roztřiďte podle',
     TURN_OFF_QUOTE_TWEETS: 'Vypnout tweety s citací',
     TURN_OFF_RETWEETS: 'Vypnout retweety',
     TURN_ON_RETWEETS: 'Zapnout retweety',
@@ -367,7 +384,7 @@ const locales = {
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
-    SORT_REPLIES: 'Sortér svar',
+    SORT_REPLIES_BY: 'Sortér svar efter',
     TURN_OFF_QUOTE_TWEETS: 'Slå Citat-Tweets fra',
     TURN_OFF_RETWEETS: 'Slå Retweets fra',
     TURN_ON_RETWEETS: 'Slå Retweets til',
@@ -399,7 +416,7 @@ const locales = {
     SHARED_TWEETS: 'Geteilte Tweets',
     SHOW: 'Anzeigen',
     SHOW_MORE_REPLIES: 'Mehr Antworten anzeigen',
-    SORT_REPLIES: 'Antworten sortieren',
+    SORT_REPLIES_BY: 'Antworten sortieren nach',
     TURN_OFF_QUOTE_TWEETS: 'Zitierte Tweets ausschalten',
     TURN_OFF_RETWEETS: 'Retweets ausschalten',
     TURN_ON_RETWEETS: 'Retweets einschalten',
@@ -433,7 +450,7 @@ const locales = {
     SHARED_TWEETS: 'Κοινόχρηστα Tweets',
     SHOW: 'Εμφάνιση',
     SHOW_MORE_REPLIES: 'Εμφάνιση περισσότερων απαντήσεων',
-    SORT_REPLIES: 'Ταξινόμηση απαντήσεων',
+    SORT_REPLIES_BY: 'Ταξινόμηση απαντήσεων κατά',
     TURN_OFF_QUOTE_TWEETS: 'Απενεργοποίηση των tweet με παράθεση',
     TURN_OFF_RETWEETS: 'Απενεργοποίηση των Retweet',
     TURN_ON_RETWEETS: 'Ενεργοποίηση των Retweet',
@@ -468,7 +485,7 @@ const locales = {
     SHARED_TWEETS: 'Shared Tweets',
     SHOW: 'Show',
     SHOW_MORE_REPLIES: 'Show more replies',
-    SORT_REPLIES: 'Sort replies',
+    SORT_REPLIES_BY: 'Sort replies by',
     TURN_OFF_QUOTE_TWEETS: 'Turn off Quote Tweets',
     TURN_OFF_RETWEETS: 'Turn off Retweets',
     TURN_ON_RETWEETS: 'Turn on Retweets',
@@ -503,7 +520,7 @@ const locales = {
     SHARED_TWEETS: 'Tweets compartidos',
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar más respuestas',
-    SORT_REPLIES: 'Organizar respuestas',
+    SORT_REPLIES_BY: 'Ordenar respuestas por',
     TURN_OFF_QUOTE_TWEETS: 'Desactivar tweets citados',
     TURN_OFF_RETWEETS: 'Desactivar Retweets',
     TURN_ON_RETWEETS: 'Activar Retweets',
@@ -532,6 +549,7 @@ const locales = {
     SHARED_TWEETS: 'Partekatutako',
     SHOW: 'Erakutsi',
     SHOW_MORE_REPLIES: 'Erakutsi erantzun gehiago',
+    SORT_REPLIES_BY: 'Sort replies by',
     TURN_OFF_QUOTE_TWEETS: 'Desaktibatu aipatu txioak',
     TURN_OFF_RETWEETS: 'Desaktibatu birtxioak',
     TURN_ON_RETWEETS: 'Aktibatu birtxioak',
@@ -566,7 +584,7 @@ const locales = {
     SHARED_TWEETS: 'توییتهای مشترک',
     SHOW: 'نمایش',
     SHOW_MORE_REPLIES: 'نمایش پاسخ‌های بیشتر',
-    SORT_REPLIES: 'مرتب‌سازی پاسخ‌ها',
+    SORT_REPLIES_BY: 'مرتب‌سازی پاسخ‌ها براساس',
     TURN_OFF_QUOTE_TWEETS: 'غیرفعال‌سازی نقل‌توییت‌ها',
     TURN_OFF_RETWEETS: 'غیرفعال‌سازی بازتوییت‌ها',
     TURN_ON_RETWEETS: 'فعال سازی بازتوییت‌ها',
@@ -603,7 +621,7 @@ const locales = {
     SHARED_TWEETS: 'Jaetut twiitit',
     SHOW: 'Näytä',
     SHOW_MORE_REPLIES: 'Näytä lisää vastauksia',
-    SORT_REPLIES: 'Lajittele vastaukset',
+    SORT_REPLIES_BY: 'Vastausten lajittelutapa',
     TURN_OFF_QUOTE_TWEETS: 'Poista twiitin lainaukset käytöstä',
     TURN_OFF_RETWEETS: 'Poista uudelleentwiittaukset käytöstä',
     TURN_ON_RETWEETS: 'Ota uudelleentwiittaukset käyttöön',
@@ -637,7 +655,7 @@ const locales = {
     SHARED_TWEETS: 'Mga Ibinahaging Tweet',
     SHOW: 'Ipakita',
     SHOW_MORE_REPLIES: 'Magpakita pa ng mga sagot',
-    SORT_REPLIES: 'I-sort ang mga reply',
+    SORT_REPLIES_BY: 'I-sort ang mga reply batay sa',
     TURN_OFF_QUOTE_TWEETS: 'I-off ang mga Quote na Tweet',
     TURN_OFF_RETWEETS: 'I-off ang Retweets',
     TURN_ON_RETWEETS: 'I-on ang Retweets',
@@ -670,7 +688,7 @@ const locales = {
     SHARED_TWEETS: 'Tweets partagés',
     SHOW: 'Afficher',
     SHOW_MORE_REPLIES: 'Voir plus de réponses',
-    SORT_REPLIES: 'Trier les réponses',
+    SORT_REPLIES_BY: 'Trier les réponses par',
     TURN_OFF_QUOTE_TWEETS: 'Désactiver les Tweets cités',
     TURN_OFF_RETWEETS: 'Désactiver les Retweets',
     TURN_ON_RETWEETS: 'Activer les Retweets',
@@ -699,6 +717,7 @@ const locales = {
     SHARED_TWEETS: 'Tweetanna Roinnte',
     SHOW: 'Taispeáin',
     SHOW_MORE_REPLIES: 'Taispeáin tuilleadh freagraí',
+    SORT_REPLIES_BY: 'Sort replies by',
     TURN_OFF_QUOTE_TWEETS: 'Cas as Luaigh Tvuíteanna',
     TURN_OFF_RETWEETS: 'Cas as Atweetanna',
     TURN_ON_RETWEETS: 'Cas Atweetanna air',
@@ -726,6 +745,7 @@ const locales = {
     SHARED_TWEETS: 'Chíos compartidos',
     SHOW: 'Amosar',
     SHOW_MORE_REPLIES: 'Amosar máis respostas',
+    SORT_REPLIES_BY: 'Sort replies by',
     TURN_OFF_QUOTE_TWEETS: 'Desactivar os chíos citados',
     TURN_OFF_RETWEETS: 'Desactivar os rechouchíos',
     TURN_ON_RETWEETS: 'Activar os rechouchíos',
@@ -760,7 +780,7 @@ const locales = {
     SHARED_TWEETS: 'શેર કરેલી ટ્વીટ્સ',
     SHOW: 'બતાવો',
     SHOW_MORE_REPLIES: 'વધુ પ્રત્યુતરો દર્શાવો',
-    SORT_REPLIES: 'પ્રત્યુત્તરોને સૉર્ટ કરો',
+    SORT_REPLIES_BY: 'દ્વારા પ્રત્યુત્તરોને સૉર્ટ કરો',
     TURN_OFF_QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ બંધ કરો',
     TURN_OFF_RETWEETS: 'પુનટ્વીટ્સ બંધ કરો',
     TURN_ON_RETWEETS: 'પુનટ્વીટ્સ ચાલુ કરો',
@@ -796,7 +816,7 @@ const locales = {
     SHARED_TWEETS: 'ציוצים משותפים',
     SHOW: 'הצג',
     SHOW_MORE_REPLIES: 'הצג תשובות נוספות',
-    SORT_REPLIES: 'מיון תשובות',
+    SORT_REPLIES_BY: 'מיון תשובות לפי',
     TURN_OFF_QUOTE_TWEETS: 'כבה ציוצי ציטוט',
     TURN_OFF_RETWEETS: 'כבה ציוצים מחדש',
     TURN_ON_RETWEETS: 'הפעל ציוצים מחדש',
@@ -833,7 +853,7 @@ const locales = {
     SHARED_TWEETS: 'साझा किए गए ट्वीट',
     SHOW: 'दिखाएं',
     SHOW_MORE_REPLIES: 'और अधिक जवाब दिखाएँ',
-    SORT_REPLIES: 'जवाब सॉर्ट करें',
+    SORT_REPLIES_BY: 'से जवाब सॉर्ट करें',
     TURN_OFF_QUOTE_TWEETS: 'कोट ट्वीट्स बंद करें',
     TURN_OFF_RETWEETS: 'रीट्वीट बंद करें',
     TURN_ON_RETWEETS: 'रीट्वीट चालू करें',
@@ -869,7 +889,7 @@ const locales = {
     SHARED_TWEETS: 'Dijeljeni tweetovi',
     SHOW: 'Prikaži',
     SHOW_MORE_REPLIES: 'Prikaži još odgovora',
-    SORT_REPLIES: 'Sortiraj odgovore',
+    SORT_REPLIES_BY: 'Sortiraj odgovore',
     TURN_OFF_QUOTE_TWEETS: 'Isključi citirane tweetove',
     TURN_OFF_RETWEETS: 'Isključi proslijeđene tweetove',
     TURN_ON_RETWEETS: 'Uključi proslijeđene tweetove',
@@ -903,7 +923,7 @@ const locales = {
     SHARED_TWEETS: 'Megosztott tweetek',
     SHOW: 'Megjelenítés',
     SHOW_MORE_REPLIES: 'Több válasz megjelenítése',
-    SORT_REPLIES: 'Válaszok rendezése',
+    SORT_REPLIES_BY: 'Válaszok rendezése a következő szerint',
     TURN_OFF_QUOTE_TWEETS: 'Tweet-idézések kikapcsolása',
     TURN_OFF_RETWEETS: 'Retweetek kikapcsolása',
     TURN_ON_RETWEETS: 'Retweetek bekapcsolása',
@@ -938,7 +958,7 @@ const locales = {
     SHARED_TWEETS: 'Tweet yang Dibagikan',
     SHOW: 'Tampilkan',
     SHOW_MORE_REPLIES: 'Tampilkan balasan lainnya',
-    SORT_REPLIES: 'Urutkan balasan',
+    SORT_REPLIES_BY: 'Urutkan balasan berdasarkan',
     TURN_OFF_QUOTE_TWEETS: 'Matikan Tweet Kutipan',
     TURN_OFF_RETWEETS: 'Matikan Retweet',
     TURN_ON_RETWEETS: 'Nyalakan Retweet',
@@ -971,7 +991,7 @@ const locales = {
     SHARED_TWEETS: 'Tweet condivisi',
     SHOW: 'Mostra',
     SHOW_MORE_REPLIES: 'Mostra altre risposte',
-    SORT_REPLIES: 'Ordina risposte',
+    SORT_REPLIES_BY: 'Ordina risposte per',
     TURN_OFF_QUOTE_TWEETS: 'Disattiva i Tweet di citazione',
     TURN_OFF_RETWEETS: 'Disattiva Retweet',
     TURN_ON_RETWEETS: 'Attiva Retweet',
@@ -1007,7 +1027,7 @@ const locales = {
     SHARED_TWEETS: '共有ツイート',
     SHOW: '表示',
     SHOW_MORE_REPLIES: '返信をさらに表示',
-    SORT_REPLIES: '返信を並べ替え',
+    SORT_REPLIES_BY: '返信の並べ替え基準',
     TURN_OFF_QUOTE_TWEETS: '引用ツイートをオフにする',
     TURN_OFF_RETWEETS: 'リツイートをオフにする',
     TURN_ON_RETWEETS: 'リツイートをオンにする',
@@ -1018,7 +1038,7 @@ const locales = {
     TWEET_YOUR_REPLY: '返信をツイートしましょう。',
     UNDO_RETWEET: 'リツイートを取り消す',
     VIEW: '表示する',
-    WHATS_HAPPENING: 'いまどうしてる？',
+    WHATS_HAPPENING: '何が起こっているの？',
   },
   kn: {
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
@@ -1043,7 +1063,7 @@ const locales = {
     SHARED_TWEETS: 'ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು',
     SHOW: 'ತೋರಿಸಿ',
     SHOW_MORE_REPLIES: 'ಇನ್ನಷ್ಟು ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ತೋರಿಸಿ',
-    SORT_REPLIES: 'ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ಆಯೋಜಿಸಿ',
+    SORT_REPLIES_BY: 'ಇದರ ಮೂಲಕ ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ಆಯೋಜಿಸಿ',
     TURN_OFF_QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
     TURN_OFF_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
     TURN_ON_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆನ್ ಮಾಡಿ',
@@ -1079,7 +1099,7 @@ const locales = {
     SHARED_TWEETS: '공유 트윗',
     SHOW: '표시',
     SHOW_MORE_REPLIES: '더 많은 답글 보기',
-    SORT_REPLIES: '답글 정렬하기',
+    SORT_REPLIES_BY: '답글 정렬하기',
     TURN_OFF_QUOTE_TWEETS: '인용 트윗 끄기',
     TURN_OFF_RETWEETS: '리트윗 끄기',
     TURN_ON_RETWEETS: '리트윗 켜기',
@@ -1116,7 +1136,7 @@ const locales = {
     SHARED_TWEETS: 'सामायिक ट्विट',
     SHOW: 'दाखवा',
     SHOW_MORE_REPLIES: 'अधिक प्रत्युत्तरे दाखवा',
-    SORT_REPLIES: 'प्रत्युत्तरांची क्रमवारी करा',
+    SORT_REPLIES_BY: 'द्वारे प्रत्युत्तरांची क्रमवारी करा',
     TURN_OFF_QUOTE_TWEETS: 'भाष्य ट्विट्स बंद करा',
     TURN_OFF_RETWEETS: 'पुनर्ट्विट्स बंद करा',
     TURN_ON_RETWEETS: 'पुनर्ट्विट्स चालू करा',
@@ -1152,7 +1172,7 @@ const locales = {
     SHARED_TWEETS: 'Tweet Berkongsi',
     SHOW: 'Tunjukkan',
     SHOW_MORE_REPLIES: 'Tunjukkan lagi balasan',
-    SORT_REPLIES: 'Isih balasan',
+    SORT_REPLIES_BY: 'Isih balasan mengikut',
     TURN_OFF_QUOTE_TWEETS: 'Matikan Tweet Petikan',
     TURN_OFF_RETWEETS: 'Matikan Tweet semula',
     TURN_ON_RETWEETS: 'Hidupkan Tweet semula',
@@ -1185,7 +1205,7 @@ const locales = {
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
-    SORT_REPLIES: 'Sorter svar',
+    SORT_REPLIES_BY: 'Sorter svar etter',
     TURN_OFF_QUOTE_TWEETS: 'Slå av sitat-tweets',
     TURN_OFF_RETWEETS: 'Slå av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
@@ -1216,7 +1236,7 @@ const locales = {
     SHARED_TWEETS: 'Gedeelde Tweets',
     SHOW: 'Weergeven',
     SHOW_MORE_REPLIES: 'Meer antwoorden tonen',
-    SORT_REPLIES: 'Antwoorden sorteren',
+    SORT_REPLIES_BY: 'Antwoorden sorteren op',
     TURN_OFF_QUOTE_TWEETS: 'Geciteerde Tweets uitschakelen',
     TURN_OFF_RETWEETS: 'Retweets uitschakelen',
     TURN_ON_RETWEETS: 'Retweets inschakelen',
@@ -1251,7 +1271,7 @@ const locales = {
     SHARED_TWEETS: 'Udostępnione Tweety',
     SHOW: 'Pokaż',
     SHOW_MORE_REPLIES: 'Pokaż więcej odpowiedzi',
-    SORT_REPLIES: 'Sortuj odpowiedzi',
+    SORT_REPLIES_BY: 'Sortuj odpowiedzi wg',
     TURN_OFF_QUOTE_TWEETS: 'Wyłącz tweety z cytatem',
     TURN_OFF_RETWEETS: 'Wyłącz Tweety podane dalej',
     TURN_ON_RETWEETS: 'Włącz Tweety podane dalej',
@@ -1284,7 +1304,7 @@ const locales = {
     SHARED_TWEETS: 'Tweets Compartilhados',
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar mais respostas',
-    SORT_REPLIES: 'Ordenar respostas',
+    SORT_REPLIES_BY: 'Ordenar respostas por',
     TURN_OFF_QUOTE_TWEETS: 'Desativar Tweets com comentário',
     TURN_OFF_RETWEETS: 'Desativar Retweets',
     TURN_ON_RETWEETS: 'Ativar Retweets',
@@ -1319,7 +1339,7 @@ const locales = {
     SHARED_TWEETS: 'Tweeturi partajate',
     SHOW: 'Afișează',
     SHOW_MORE_REPLIES: 'Afișează mai multe răspunsuri',
-    SORT_REPLIES: 'Sortare răspunsuri',
+    SORT_REPLIES_BY: 'Sortare răspunsuri după',
     TURN_OFF_QUOTE_TWEETS: 'Dezactivează tweeturile cu citat',
     TURN_OFF_RETWEETS: 'Dezactivează Retweeturile',
     TURN_ON_RETWEETS: 'Activează Retweeturile',
@@ -1354,7 +1374,7 @@ const locales = {
     SHARED_TWEETS: 'Общие твиты',
     SHOW: 'Показать',
     SHOW_MORE_REPLIES: 'Показать ещё ответы',
-    SORT_REPLIES: 'Упорядочить ответы',
+    SORT_REPLIES_BY: 'Упорядочить ответы по',
     TURN_OFF_QUOTE_TWEETS: 'Отключить твиты с цитатами',
     TURN_OFF_RETWEETS: 'Отключить ретвиты',
     TURN_ON_RETWEETS: 'Включить ретвиты',
@@ -1391,7 +1411,7 @@ const locales = {
     SHARED_TWEETS: 'Zdieľané Tweety',
     SHOW: 'Zobraziť',
     SHOW_MORE_REPLIES: 'Zobraziť viac odpovedí',
-    SORT_REPLIES: 'Zoradiť odpovede',
+    SORT_REPLIES_BY: 'Zoradiť odpovede podľa',
     TURN_OFF_QUOTE_TWEETS: 'Vypnúť tweety s citátom',
     TURN_OFF_RETWEETS: 'Vypnúť retweety',
     TURN_ON_RETWEETS: 'Zapnúť retweety',
@@ -1427,7 +1447,7 @@ const locales = {
     SHARED_TWEETS: 'Дељени твитови',
     SHOW: 'Прикажи',
     SHOW_MORE_REPLIES: 'Прикажи још одговора',
-    SORT_REPLIES: 'Сортирање одговора',
+    SORT_REPLIES_BY: 'Сортирај одговоре по',
     TURN_OFF_QUOTE_TWEETS: 'Искључи твит(ов)е са цитатом',
     TURN_OFF_RETWEETS: 'Искључи ретвитове',
     TURN_ON_RETWEETS: 'Укључи ретвитове',
@@ -1463,7 +1483,7 @@ const locales = {
     SHARED_TWEETS: 'Delade tweetsen',
     SHOW: 'Visa',
     SHOW_MORE_REPLIES: 'Visa fler svar',
-    SORT_REPLIES: 'Sortera svar',
+    SORT_REPLIES_BY: 'Sortera svar på',
     TURN_OFF_QUOTE_TWEETS: 'Stäng av citat-tweets',
     TURN_OFF_RETWEETS: 'Stäng av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
@@ -1498,7 +1518,7 @@ const locales = {
     SHARED_TWEETS: 'பகிரப்பட்ட ட்வீட்டுகள்',
     SHOW: 'காண்பி',
     SHOW_MORE_REPLIES: 'மேலும் பதில்களைக் காண்பி',
-    SORT_REPLIES: 'பதில்களை வகைப்படுத்து',
+    SORT_REPLIES_BY: 'இதன்படி பதில்களை வகைப்படுத்து',
     TURN_OFF_QUOTE_TWEETS: 'மேற்கோள் கீச்சுகளை அணை',
     TURN_OFF_RETWEETS: 'மறுகீச்சுகளை அணை',
     TURN_ON_RETWEETS: 'மறுகீச்சுகளை இயக்கு',
@@ -1534,7 +1554,7 @@ const locales = {
     SHARED_TWEETS: 'ทวีตที่แชร์',
     SHOW: 'แสดง',
     SHOW_MORE_REPLIES: 'แสดงการตอบกลับเพิ่มเติม',
-    SORT_REPLIES: 'จัดเรียงการตอบกลับ',
+    SORT_REPLIES_BY: 'จัดเรียงการตอบกลับโดย',
     TURN_OFF_QUOTE_TWEETS: 'ปิดทวีตและคำพูด',
     TURN_OFF_RETWEETS: 'ปิดรีทวีต',
     TURN_ON_RETWEETS: 'เปิดรีทวีต',
@@ -1570,7 +1590,7 @@ const locales = {
     SHARED_TWEETS: 'Paylaşılan Tweetler',
     SHOW: 'Göster',
     SHOW_MORE_REPLIES: 'Daha fazla yanıt göster',
-    SORT_REPLIES: 'Yanıtları sırala',
+    SORT_REPLIES_BY: 'Yanıtları sıralama ölçütü',
     TURN_OFF_QUOTE_TWEETS: 'Alıntı Tweetleri kapat',
     TURN_OFF_RETWEETS: 'Retweetleri kapat',
     TURN_ON_RETWEETS: 'Retweetleri aç',
@@ -1606,7 +1626,7 @@ const locales = {
     SHARED_TWEETS: 'Спільні твіти',
     SHOW: 'Показати',
     SHOW_MORE_REPLIES: 'Показати більше відповідей',
-    SORT_REPLIES: 'Сортувати відповіді',
+    SORT_REPLIES_BY: 'Сортувати відповіді за',
     TURN_OFF_QUOTE_TWEETS: 'Вимкнути цитовані твіти',
     TURN_OFF_RETWEETS: 'Вимкнути ретвіти',
     TURN_ON_RETWEETS: 'Увімкнути ретвіти',
@@ -1637,6 +1657,7 @@ const locales = {
     SHARED_TWEETS: 'مشترکہ ٹویٹس',
     SHOW: 'دکھائیں',
     SHOW_MORE_REPLIES: 'مزید جوابات دکھائیں',
+    SORT_REPLIES_BY: 'Sort replies by',
     TURN_OFF_QUOTE_TWEETS: 'ٹویٹ کو نقل کرنا بند کریں',
     TURN_OFF_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
     TURN_ON_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
@@ -1672,7 +1693,7 @@ const locales = {
     SHARED_TWEETS: 'Tweet được chia sẻ',
     SHOW: 'Hiện',
     SHOW_MORE_REPLIES: 'Hiển thị thêm trả lời',
-    SORT_REPLIES: 'Sắp xếp câu trả lời',
+    SORT_REPLIES_BY: 'Sắp xếp câu trả lời theo',
     TURN_OFF_QUOTE_TWEETS: 'Tắt Tweet trích dẫn',
     TURN_OFF_RETWEETS: 'Tắt Tweet lại',
     TURN_ON_RETWEETS: 'Bật Tweet lại',
@@ -1707,7 +1728,7 @@ const locales = {
     SHARED_TWEETS: '分享的推文',
     SHOW: '顯示',
     SHOW_MORE_REPLIES: '顯示更多回覆',
-    SORT_REPLIES: '將回覆排序',
+    SORT_REPLIES_BY: '回覆排序方式',
     TURN_OFF_QUOTE_TWEETS: '關閉引用的推文',
     TURN_OFF_RETWEETS: '關閉轉推',
     TURN_ON_RETWEETS: '開啟轉推',
@@ -1743,7 +1764,7 @@ const locales = {
     SHARED_TWEETS: '分享的推文',
     SHOW: '显示',
     SHOW_MORE_REPLIES: '显示更多回复',
-    SORT_REPLIES: '对回复排序',
+    SORT_REPLIES_BY: '回复排序依据',
     TURN_OFF_QUOTE_TWEETS: '关闭引用推文',
     TURN_OFF_RETWEETS: '关闭转推',
     TURN_ON_RETWEETS: '开启转推',
@@ -1889,8 +1910,8 @@ let quotedTweet = null
 /** `true` when a 'Block @${user}' menu item was seen in the last popup. */
 let blockMenuItemSeen = false
 
-/** `true` if we're opening the Sort replies menu to change settings. */
-let changingSortReplies = false
+/** `true` if the user has used the "Sort replies by" menu */
+let userSortedReplies = false
 
 /** Notification count in the title (including trailing space), e.g. `'(1) '`. */
 let currentNotificationCount = ''
@@ -2588,7 +2609,6 @@ async function observeDesktopModalTimeline($popup) {
     modalObservers.push(
       observeElement($timeline, () => onIndividualTweetTimelineChange($timeline, {observers: modalObservers}), 'modal timeline')
     )
-    setDefaultSortReplies()
 
     // If other media in the modal is clicked, the timeline is replaced.
     disconnectModalObserver('modal timeline parent')
@@ -2601,7 +2621,6 @@ async function observeDesktopModalTimeline($popup) {
             modalObservers.push(
               observeElement($newTimeline, () => onIndividualTweetTimelineChange($newTimeline, {observers: modalObservers}), 'modal timeline')
             )
-            setDefaultSortReplies()
           })
         })
       }, 'modal timeline parent')
@@ -4300,48 +4319,6 @@ const configureThemeCss = (() => {
   }
 })()
 
-async function setDefaultSortReplies() {
-  if (config.sortReplies == 'relevant') return
-
-  let $sortRepliesIconPath = await getElement(Selectors.SORT_REPLIES_PATH, {
-    name: 'sort replies icon',
-    stopIf: pageIsNot(currentPage),
-    timeout: 3000,
-  })
-  if (!$sortRepliesIconPath) return
-
-  let $svg = $sortRepliesIconPath.parentElement.parentElement
-  let currentSort = $svg.nextElementSibling?.textContent
-  log('sortReplies: replies are sorted by', currentSort)
-  if (currentSort != getString('MOST_RELEVANT')) return
-
-  function changeSort() {
-    if (changingSortReplies) {
-      warn('sortReplies: ignoring additonal changeSort() call')
-      return
-    }
-    changingSortReplies = true
-    log('sortReplies: clicking Sort replies dropdown', $svg.parentElement.parentElement)
-    setTimeout(() => $svg.parentElement.parentElement.click(), 100)
-  }
-
-  let $focusedTweet = $svg.closest('div[data-testid="cellInnerDiv"]')
-  if ($focusedTweet.parentElement.childElementCount > 1) {
-    changeSort()
-    return
-  }
-
-  pageObservers.push(
-    observeElement($focusedTweet.parentElement, () => {
-      if ($focusedTweet.parentElement.childElementCount > 2) {
-        log('sortReplies: timeline elements added')
-        disconnectPageObserver('sortReplies: individual tweet timeline')
-        changeSort()
-      }
-    }, 'sortReplies: individual tweet timeline')
-  )
-}
-
 function getColorScheme() {
   return {
     'rgb(255, 255, 255)': 'Default',
@@ -4454,23 +4431,31 @@ function getVerifiedProps($svg) {
 function handlePopup($popup) {
   let result = {tookAction: false, onPopupClosed: null}
 
-  if (changingSortReplies) {
-    let $dialog = /** @type {HTMLElement} */ ($popup.querySelector(`[data-testid="${desktop ? 'HoverCard' : 'sheetDialog'}"]`))
-    if ($dialog) {
-      let $menuItems =  /** @type {NodeListOf<HTMLElement>} */ ($dialog.querySelectorAll('div[role="menuitem"]'))
-      if ($menuItems[0].previousElementSibling?.textContent == getString('SORT_REPLIES')) {
-        log('sortReplies: changing Sort replies to', config.sortReplies)
-        $menuItems[{recent: 1, liked: 2}[config.sortReplies]]?.click()
-      } else {
-        warn('sortReplies: dialog does not contain "Sort replies" heading')
+  // The Sort replies by menu is hydrated asynchronously
+  if (isOnIndividualTweetPage() &&
+      config.sortReplies != 'relevant' &&
+      !userSortedReplies &&
+      $popup.innerHTML.includes(`>${getString('SORT_REPLIES_BY')}<`)) {
+    log('sortReplies: Sort replies by menu opened')
+    void (async () => {
+      let $dropdown = await getElement('[role="menu"] [data-testid="Dropdown"]', {
+        name: 'Rendered Sort replies by dropdown'
+      })
+      let $menuItems =  /** @type {NodeListOf<HTMLElement>} */ ($dropdown.querySelectorAll('div[role="menuitem"]'))
+      let $selectedSvg = $popup.querySelector('div[role="menuitem"] svg')
+      for (let [index, $menuItem] of $menuItems.entries()) {
+        let shouldBeSelected = index == {recent: 1, liked: 2}[config.sortReplies]
+        log({index, $menuItem, shouldBeSelected})
+        if (shouldBeSelected) {
+          $menuItem.lastElementChild.append($selectedSvg)
+        }
+        $menuItem.addEventListener('click', () => {
+          userSortedReplies = true
+        })
       }
-      result.tookAction = true
-      changingSortReplies = false
-      return result
-    } else {
-      warn('sortReplies: could not find Sort replies dialog')
-      changingSortReplies = false
-    }
+    })()
+    result.tookAction = true
+    return result
   }
 
   if (desktop && !isDesktopComposeTweetModalOpen && location.pathname.startsWith(PagePaths.COMPOSE_TWEET)) {
@@ -5816,6 +5801,7 @@ async function tweakFollowListPage() {
 }
 
 async function tweakIndividualTweetPage() {
+  userSortedReplies = false
   observeIndividualTweetTimeline(currentPage)
 
   if (config.replaceLogo) {
@@ -5829,8 +5815,6 @@ async function tweakIndividualTweetPage() {
       }
     })()
   }
-
-  setDefaultSortReplies()
 }
 
 function tweakListPage() {
