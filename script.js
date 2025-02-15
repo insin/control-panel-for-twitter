@@ -4432,6 +4432,18 @@ function getVerifiedProps($svg) {
 function handlePopup($popup) {
   let result = {tookAction: false, onPopupClosed: null}
 
+  // Automatically close any sheet dialog which contains a Premium link
+  if (desktop && config.hideTwitterBlueUpsells &&
+      $popup.querySelector('[data-testid="mask"]') &&
+      $popup.querySelector('[data-testid="sheetDialog"]') &&
+      $popup.querySelector('a[href^="/i/premium"]')) {
+    log('hidePremiumUpsells: automatically closing Premium upsell dialog')
+    let mask = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="mask"]'))
+    mask.click()
+    result.tookAction = true
+    return result
+  }
+
   // The Sort replies by menu is hydrated asynchronously
   if (isOnIndividualTweetPage() &&
       config.sortReplies != 'relevant' &&
