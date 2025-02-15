@@ -22,6 +22,7 @@ for (let translationId of [
   'addAddMutedWordMenuItemLabel_desktop',
   'addAddMutedWordMenuItemLabel_mobile',
   'alwaysUseLatestTweetsLabel',
+  'customCssLabel',
   'debugInfo',
   'debugLabel',
   'debugOptionsLabel',
@@ -33,7 +34,6 @@ for (let translationId of [
   'disabledHomeTimelineRedirectOption_messages',
   'dontUseChirpFontLabel',
   'dropdownMenuFontWeightLabel',
-  'experimentalNote',
   'experimentsOptionsLabel',
   'exportConfigLabel',
   'fastBlockLabel',
@@ -127,6 +127,7 @@ for (let translationClass of [
   'hideCommunitiesNavLabel',
   'hideListsNavLabel',
   'notificationsLabel',
+  'saveAndApplyButton',
 ]) {
   let translation = chrome.i18n.getMessage(translationClass)
   for (let $el of document.querySelectorAll(`.${translationClass}`)) {
@@ -227,7 +228,7 @@ const defaultConfig = {
   uninvertFollowButtons: true,
   unblurSensitiveContent: false,
   // Experiments
-  // none currently
+  customCss: '',
   // Desktop only
   fullWidthContent: false,
   fullWidthMedia: true,
@@ -270,6 +271,7 @@ let $hideQuotesFromLabel = /** @type {HTMLElement} */ (document.querySelector('#
 let $mutedQuotes =  /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
 let $mutedQuotesDetails =  /** @type {HTMLDetailsElement} */ (document.querySelector('details#mutedQuotesDetails'))
 let $mutedQuotesLabel = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesLabel'))
+let $saveCustomCssButton = document.querySelector('button#saveCustomCss')
 let $showBlueReplyFollowersCountLabel = /** @type {HTMLElement} */ (document.querySelector('#showBlueReplyFollowersCountLabel'))
 //#endregion
 
@@ -372,6 +374,8 @@ function applyConfig() {
  * @param {Event} e
  */
 function onFormChanged(e) {
+  if (e.target instanceof HTMLTextAreaElement) return
+
   /** @type {Partial<import("./types").Config>} */
   let changedConfig = {}
 
@@ -413,6 +417,15 @@ function onStorageChanged(changes) {
   )
   Object.assign(optionsConfig, configChanges)
   applyConfig()
+}
+
+function saveCustomCss() {
+  if (optionsConfig.customCss == $form.elements['customCss'].value) return
+
+  /** @type {Partial<import("./types").Config>} */
+  let changedConfig = {}
+  optionsConfig['customCss'] = changedConfig['customCss'] = $form.elements['customCss'].value
+  storeConfigChanges(changedConfig)
 }
 
 function shouldDisplayHideQuotesFrom() {
@@ -556,11 +569,12 @@ function main() {
     optionsConfig = {...defaultConfig, ...storedConfig}
 
     $body.classList.toggle('debug', optionsConfig.debug === true)
-    // $experiments.open = (...)
+    $experiments.open = Boolean(optionsConfig.customCss)
     $exportConfig.addEventListener('click', exportConfig)
     $form.addEventListener('change', onFormChanged)
     $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
+    $saveCustomCssButton.addEventListener('click', saveCustomCss)
     chrome.storage.onChanged.addListener(onStorageChanged)
 
     if (!optionsConfig.debug) {

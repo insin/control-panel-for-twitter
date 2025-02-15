@@ -39,7 +39,7 @@ body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   display: none;
 }
 
-label {
+label:not([for]) {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -100,6 +100,24 @@ section.group > p {
 section.group > section > p {
   margin: 0 60px 12px 0;
   font-size: 12px;
+}
+
+section.textarea {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 12px 4px 0;
+  margin: 8px 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+
+section.textarea button {
+  text-align: center;
+}
+
+textarea {
+  resize: vertical;
 }
 
 #mutedQuotes p {

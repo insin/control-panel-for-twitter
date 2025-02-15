@@ -11,6 +11,9 @@
   "appStoreSubtitle": {
     "message": "타임라인을 통제하세요"
   },
+  "customCssLabel": {
+    "message": "사용자 정의 CSS"
+  },
   "debugInfo": {
     "message": "디버그 로깅을 활성화하고 타임라인에서 트윗 디버그 정보를 표시합니다"
   },
@@ -43,9 +46,6 @@
   },
   "dropdownMenuFontWeightLabel": {
     "message": "드롭다운 메뉴에서 일반 글꼴 두께 사용"
-  },
-  "experimentalNote": {
-    "message": "이 버전에서는 실험이 없습니다"
   },
   "experimentsOptionsLabel": {
     "message": "실험"
@@ -334,6 +334,9 @@
   },
   "retweetsLabel": {
     "message": "리트윗"
+  },
+  "saveAndApplyButton": {
+    "message": "저장하고 적용"
   },
   "sharedTweetsOptionsLabel": {
     "message": "다른 사용자가 공유한 트윗"

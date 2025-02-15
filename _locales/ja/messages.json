@@ -11,6 +11,9 @@
   "appStoreSubtitle": {
     "message": "タイムラインを制御せよ"
   },
+  "customCssLabel": {
+    "message": "カスタムCSS"
+  },
   "debugInfo": {
     "message": "デバッグログを有効化し、ツイートデバッグ情報をタイムラインに表示"
   },
@@ -43,9 +46,6 @@
   },
   "dropdownMenuFontWeightLabel": {
     "message": "ドロップダウンメニューを通常のフォントの太さにする"
-  },
-  "experimentalNote": {
-    "message": "このバージョンには実験はありません"
   },
   "experimentsOptionsLabel": {
     "message": "実験的機能"
@@ -334,6 +334,9 @@
   },
   "retweetsLabel": {
     "message": "リツイート"
+  },
+  "saveAndApplyButton": {
+    "message": "保存して適用"
   },
   "sharedTweetsOptionsLabel": {
     "message": "他のユーザーが共有したツイート"

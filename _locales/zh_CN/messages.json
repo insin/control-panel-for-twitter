@@ -11,6 +11,9 @@
   "appStoreSubtitle": {
     "message": "掌控你的时间线"
   },
+  "customCssLabel": {
+    "message": "自定义 CSS"
+  },
   "debugInfo": {
     "message": "启用调试日志并在时间线上显示推文调试信息"
   },
@@ -43,9 +46,6 @@
   },
   "dropdownMenuFontWeightLabel": {
     "message": "在下拉菜单中使用正常的字体大小"
-  },
-  "experimentalNote": {
-    "message": "这个版本中没有实验"
   },
   "experimentsOptionsLabel": {
     "message": "试验"
@@ -343,6 +343,9 @@
   },
   "retweetsLabel": {
     "message": "转发"
+  },
+  "saveAndApplyButton": {
+    "message": "保存并应用"
   },
   "sharedTweetsOptionsLabel": {
     "message": "其他用户分享的推文"

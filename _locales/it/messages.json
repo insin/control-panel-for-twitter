@@ -11,6 +11,9 @@
   "appStoreSubtitle": {
     "message": "La tua timeline, come vuoi tu"
   },
+  "customCssLabel": {
+    "message": "CSS personalizzato"
+  },
   "debugInfo": {
     "message": "Attiva il logging di debug e mostra le info di debug sui tweet nella timeline"
   },
@@ -43,9 +46,6 @@
   },
   "dropdownMenuFontWeightLabel": {
     "message": "Usa il peso normale per il font dei menu a tendina"
-  },
-  "experimentalNote": {
-    "message": "Non ci sono esperimenti in questa versione"
   },
   "experimentsOptionsLabel": {
     "message": "Esperimenti"
@@ -334,6 +334,9 @@
   },
   "retweetsLabel": {
     "message": "Retweet"
+  },
+  "saveAndApplyButton": {
+    "message": "Salva e applica"
   },
   "sharedTweetsOptionsLabel": {
     "message": "Tweet condivisi da altri utenti"

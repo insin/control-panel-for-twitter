@@ -11,6 +11,9 @@
   "appStoreSubtitle": {
     "message": "Controla tu línea de tiempo"
   },
+  "customCssLabel": {
+    "message": "CSS personalizado"
+  },
   "debugInfo": {
     "message": "Activa los registros de debug y muestra estadísticas de debug en los tweets del Inicio"
   },
@@ -43,9 +46,6 @@
   },
   "dropdownMenuFontWeightLabel": {
     "message": "Usar grosor normal de fuentes en desplegables"
-  },
-  "experimentalNote": {
-    "message": "No hay experimentos en esta versión"
   },
   "experimentsOptionsLabel": {
     "message": "Experimentos"
@@ -334,6 +334,9 @@
   },
   "retweetsLabel": {
     "message": "Retweets"
+  },
+  "saveAndApplyButton": {
+    "message": "Guardar y aplicar"
   },
   "sharedTweetsOptionsLabel": {
     "message": "Tweets compartidos por otros usuarios"

@@ -126,7 +126,7 @@ const config = {
   unblurSensitiveContent: false,
   uninvertFollowButtons: true,
   // Experiments
-  // none currently
+  customCss: '',
   // Desktop only
   fullWidthContent: false,
   fullWidthMedia: true,
@@ -4082,6 +4082,19 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   }
 }
 
+const configureCustomCss = (() => {
+  let $style
+
+  return function configureCustomCss() {
+    if (config.customCss) {
+      $style ??= addStyle('custom')
+      $style.textContent = config.customCss
+    } else {
+      $style?.remove()
+    }
+  }
+})()
+
 /**
  * CSS which depends on anything we need to get from the page.
  */
@@ -6443,6 +6456,7 @@ async function main() {
       configureCss()
       configureDynamicCss()
       configureThemeCss()
+      configureCustomCss()
       observePopups()
       observeSideNavTweetButton()
 
@@ -6486,6 +6500,7 @@ function configChanged(changes) {
   configureFont()
   configureDynamicCss()
   configureThemeCss()
+  configureCustomCss()
   observePopups()
   observeSideNavTweetButton()
 

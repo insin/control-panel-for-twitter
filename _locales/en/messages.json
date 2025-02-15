@@ -12,6 +12,9 @@
     "message": "Take control of your timeline",
     "description": "<= 30 characters"
   },
+  "customCssLabel": {
+    "message": "Custom CSS"
+  },
   "debugInfo": {
     "message": "Enables debug logging and displays tweet debug info in the timeline"
   },
@@ -44,9 +47,6 @@
   },
   "dropdownMenuFontWeightLabel": {
     "message": "Use normal font weight in dropdown menus"
-  },
-  "experimentalNote": {
-    "message": "There are no experiments in this version"
   },
   "experimentsOptionsLabel": {
     "message": "Experiments"
@@ -340,6 +340,9 @@
   },
   "retweetsLabel": {
     "message": "Retweets"
+  },
+  "saveAndApplyButton": {
+    "message": "Save and apply"
   },
   "sharedTweetsOptionsLabel": {
     "message": "Tweets shared by other users"

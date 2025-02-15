@@ -75,7 +75,7 @@ export type Config = {
   unblurSensitiveContent: boolean
   uninvertFollowButtons: boolean
   // Experiments
-  // none currently
+  customCss: string
   // Desktop only
   fullWidthContent: boolean
   fullWidthMedia: boolean
