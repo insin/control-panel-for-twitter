@@ -3394,8 +3394,8 @@ const configureCss = (() => {
         `${menuRole} a[href="/i/account_analytics"]`,
         // "Highlight on your profile" on your tweets
         '[role="menuitem"][data-testid="highlightUpsell"]',
-        // "Edit with Premium" on recent tweets
-        '[role="menuitem"][data-testid="editWithTwitterBlue"]',
+        // "Edit" upsell on recent tweets
+        '[role="menuitem"][data-testid="editWithPremium"]',
         // Premium item in Settings
         'body.Settings a[href^="/i/premium"]',
         // Misc upsells in your own profile
