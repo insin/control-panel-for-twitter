@@ -122,6 +122,9 @@
   "hideCommunitiesNavLabel": {
     "message": "커뮤니티"
   },
+  "hideComposeTweetLabel": {
+    "message": "트윗 작성 버튼 숨기기"
+  },
   "hideExploreNavLabel": {
     "message": "탐색"
   },

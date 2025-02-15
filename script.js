@@ -74,6 +74,7 @@ const config = {
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
   hideCommunitiesNav: false,
+  hideComposeTweet: false,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
@@ -3778,6 +3779,9 @@ const configureCss = (() => {
         // In new More dialog
         hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
       }
+      if (config.hideComposeTweet) {
+        hideCssSelectors.push('[data-testid="SideNav_NewTweet_Button"]')
+      }
       if (config.hideGrokNav) {
         hideCssSelectors.push(
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
@@ -3933,6 +3937,9 @@ const configureCss = (() => {
       }
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
+      }
+      if (config.hideComposeTweet) {
+        hideCssSelectors.push('[data-testid="FloatingActionButtons_Tweet_Button"]')
       }
       if (config.hideNotifications != 'ignore') {
         // Hide notification badges and indicators

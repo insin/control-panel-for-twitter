@@ -20,6 +20,7 @@ export type Config = {
   hideBookmarkMetrics: boolean
   hideBookmarksNav: boolean
   hideCommunitiesNav: boolean
+  hideComposeTweet: boolean
   hideExplorePageContents: boolean
   hideFollowingMetrics: boolean
   hideForYouTimeline: boolean

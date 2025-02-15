@@ -126,6 +126,9 @@
   "hideCommunitiesNavLabel": {
     "message": "Communities"
   },
+  "hideComposeTweetLabel": {
+    "message": "Hide the Compose Tweet button"
+  },
   "hideExploreNavLabel": {
     "message": "Explore"
   },

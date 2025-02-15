@@ -122,6 +122,9 @@
   "hideCommunitiesNavLabel": {
     "message": "コミュニティ"
   },
+  "hideComposeTweetLabel": {
+    "message": "ツイート作成ボタンを非表示"
+  },
   "hideExploreNavLabel": {
     "message": "「話題を検索」"
   },

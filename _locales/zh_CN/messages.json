@@ -122,6 +122,9 @@
   "hideCommunitiesNavLabel": {
     "message": "社区"
   },
+  "hideComposeTweetLabel": {
+    "message": "隐藏撰写推文按钮"
+  },
   "hideExploreNavLabel": {
     "message": "探索"
   },

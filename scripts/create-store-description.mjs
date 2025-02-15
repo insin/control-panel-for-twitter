@@ -42,6 +42,7 @@ ${messages.uiImprovementsOptionsLabel}
 
 ${messages.xFixesLabel}
 
+• ${messages.redirectToTwitterLabel}
 • ${messages.tweakNewLayoutLabel}
   • ${messages.hideToggleNavigationLabel}
 • ${messages.replaceLogoLabel}
@@ -80,6 +81,7 @@ ${messages.reduceEngagementOptionsLabel}
 • ${messages.hideMetricsLabel}
 • ${messages.reducedInteractionModeLabel}
   • ${messages.reducedInteractionModeInfo}
+• ${hideComposeTweetLabel}
 • ${messages.disableHomeTimelineLabel}
   • ${messages.disableHomeTimelineInfo}
 • ${messages.notificationsLabel}
