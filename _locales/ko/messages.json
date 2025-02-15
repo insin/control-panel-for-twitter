@@ -11,15 +11,6 @@
   "appStoreSubtitle": {
     "message": "타임라인을 통제하세요"
   },
-  "debugCountdownLabel": {
-    "message": " (디버그 옵션: $DEBUG_COUNTDOWN$번 더 클릭하여 활성화)",
-    "placeholders": {
-      "debug_countdown": {
-        "content": "$1",
-        "example": "3"
-      }
-    }
-  },
   "debugInfo": {
     "message": "디버그 로깅을 활성화하고 타임라인에서 트윗 디버그 정보를 표시합니다"
   },

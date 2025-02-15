@@ -11,15 +11,6 @@
   "appStoreSubtitle": {
     "message": "タイムラインを制御せよ"
   },
-  "debugCountdownLabel": {
-    "message": " (デバッグオプション: 有効にするには $DEBUG_COUNTDOWN$ を複数回クリック)",
-    "placeholders": {
-      "DEBUG_COUNTDOWN": {
-        "content": "$1",
-        "example": "3"
-      }
-    }
-  },
   "debugInfo": {
     "message": "デバッグログを有効化し、ツイートデバッグ情報をタイムラインに表示"
   },

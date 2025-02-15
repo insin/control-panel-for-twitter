@@ -11,15 +11,6 @@
   "appStoreSubtitle": {
     "message": "Controla tu línea de tiempo"
   },
-  "debugCountdownLabel": {
-    "message": " (Opciones de desarrollo: haz click $DEBUG_COUNTDOWN$ veces más para activar)",
-    "placeholders": {
-      "debug_countdown": {
-        "content": "$1",
-        "example": "3"
-      }
-    }
-  },
   "debugInfo": {
     "message": "Activa los registros de debug y muestra estadísticas de debug en los tweets del Inicio"
   },

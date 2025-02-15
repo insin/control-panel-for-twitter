@@ -11,15 +11,6 @@
   "appStoreSubtitle": {
     "message": "掌控你的时间线"
   },
-  "debugCountdownLabel": {
-    "message": " (调试选项：多次点击 $DEBUG_COUNTDOWN$ 来启用)",
-    "placeholders": {
-      "debug_countdown": {
-        "content": "$1",
-        "example": "3"
-      }
-    }
-  },
   "debugInfo": {
     "message": "启用调试日志并在时间线上显示推文调试信息"
   },

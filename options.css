@@ -39,11 +39,6 @@ body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   display: none;
 }
 
-#showDebugOptions.clickable {
-  cursor: pointer;
-  user-select: none;
-}
-
 label {
   display: flex;
   justify-content: space-between;
@@ -109,6 +104,16 @@ section.group > section > p {
 
 #mutedQuotes p {
   white-space: pre-line;
+}
+
+#version {
+  text-align: center;
+  font-size: 75%;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+body.disabled #version {
+  display: none;
 }
 
 /* Firefox overrides */

@@ -564,12 +564,12 @@ function main() {
     chrome.storage.onChanged.addListener(onStorageChanged)
 
     if (!optionsConfig.debug) {
-      let $showDebugOptions = document.querySelector('#showDebugOptions')
+      let $version = document.querySelector('#version')
       let $debugCountdown = document.querySelector('#debugCountdown')
       let debugCountdown = 5
 
       function onClick(e) {
-        if (e.target === $showDebugOptions || $showDebugOptions.contains(/** @type {Node} */ (e.target))) {
+        if (e.target === $version || $version.contains(/** @type {Node} */ (e.target))) {
           debugCountdown--
         } else {
           debugCountdown = 5
@@ -579,15 +579,13 @@ function main() {
           $body.classList.add('debug')
           $debugCountdown.textContent = ''
           $form.removeEventListener('click', onClick)
-          $showDebugOptions.classList.remove('clickable')
         }
         else if (debugCountdown <= 3) {
-          $debugCountdown.textContent = chrome.i18n.getMessage('debugCountdownLabel', String(debugCountdown))
+          $debugCountdown.textContent = ` (${debugCountdown})`
         }
       }
 
       $form.addEventListener('click', onClick)
-      $showDebugOptions.classList.add('clickable')
     }
 
     applyConfig()

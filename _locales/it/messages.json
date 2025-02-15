@@ -11,15 +11,6 @@
   "appStoreSubtitle": {
     "message": "La tua timeline, come vuoi tu"
   },
-  "debugCountdownLabel": {
-    "message": " (Opzioni di debug: fai clic su $DEBUG_COUNTDOWN$ più volte per attivare)",
-    "placeholders": {
-      "debug_countdown": {
-        "content": "$1",
-        "example": "3"
-      }
-    }
-  },
   "debugInfo": {
     "message": "Attiva il logging di debug e mostra le info di debug sui tweet nella timeline"
   },

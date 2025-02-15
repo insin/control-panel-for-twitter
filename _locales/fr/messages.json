@@ -11,15 +11,6 @@
   "appStoreSubtitle": {
     "message": "Contrôlez votre fil"
   },
-  "debugCountdownLabel": {
-    "message": " (Options de débogage : cliquez sur $DEBUG_COUNTDOWN$ plusieurs fois pour activer)",
-    "placeholders": {
-      "debug_countdown": {
-        "content": "$1",
-        "exemple": "3"
-      }
-    }
-  },
   "debugInfo": {
     "message": "Active la journalisation du débogage et affiche les informations de débogage du tweet dans la ligne de temps"
   },

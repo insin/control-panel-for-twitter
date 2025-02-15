@@ -12,16 +12,6 @@
     "message": "Take control of your timeline",
     "description": "<= 30 characters"
   },
-  "debugCountdownLabel": {
-    "message": " (Debug options: click $DEBUG_COUNTDOWN$ more times to enable)",
-    "description": "Displayed when the user clicks multiple times on the info text at the end of the Experiments section to enable debug mode",
-    "placeholders": {
-      "debug_countdown": {
-        "content": "$1",
-        "example": "3"
-      }
-    }
-  },
   "debugInfo": {
     "message": "Enables debug logging and displays tweet debug info in the timeline"
   },
