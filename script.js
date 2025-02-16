@@ -5408,7 +5408,10 @@ function processCurrentPage() {
  * @returns {boolean} `true` if this call replaces the current location
  */
 function redirectToTwitter() {
-  if (config.redirectToTwitter && location.hostname.endsWith('x.com')) {
+  if (config.redirectToTwitter &&
+      location.hostname.endsWith('x.com') &&
+      // Don't redirect the path used by the OldTweetDeck extension
+      location.pathname != '/i/tweetdeck') {
     // If we got a logout redirect from twitter.com, redirect back to the login page
     let pathname = location.search.includes('logout=') ? '/i/flow/login' : location.pathname || '/home'
     let redirectUrl = `https://twitter.com${pathname}?mx=1`
