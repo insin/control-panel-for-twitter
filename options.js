@@ -25,6 +25,7 @@ for (let translationId of [
   'customCssLabel',
   'debugInfo',
   'debugLabel',
+  'debugLogTimelineStatsLabel',
   'debugOptionsLabel',
   'defaultToLatestSearchLabel',
   'disableHomeTimelineInfo',
@@ -156,6 +157,7 @@ if (navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.
 /** @type {import("./types").Config} */
 const defaultConfig = {
   debug: false,
+  debugLogTimelineStats: false,
   // Default based on the platform if the main script hasn't run on Twitter yet
   version: /(Android|iP(ad|hone))/.test(navigator.userAgent) ? 'mobile' : 'desktop',
   // Shared
@@ -455,6 +457,7 @@ function updateCheckboxGroups() {
 }
 
 function updateDisplay() {
+  $body.classList.toggle('debugging', optionsConfig.debug)
   $body.classList.toggle('chronological', optionsConfig.alwaysUseLatestTweets)
   $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
   $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)

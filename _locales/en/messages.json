@@ -21,6 +21,9 @@
   "debugLabel": {
     "message": "Debug mode"
   },
+  "debugLogTimelineStatsLabel": {
+    "message": "Log timeline stats"
+  },
   "debugOptionsLabel": {
     "message": "Debug options"
   },

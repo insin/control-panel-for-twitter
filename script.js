@@ -56,6 +56,7 @@ let ltr
  */
 const config = {
   debug: false,
+  debugLogTimelineStats: false,
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
@@ -4921,10 +4922,12 @@ function onTimelineChange($timeline, page, options = {}) {
     change.$item.firstElementChild.classList.toggle('HiddenTweet', change.hideItem)
   }
 
-  log(
-    `processed ${$timeline.children.length} timeline item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
-    itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
-  )
+  if (debug && config.debugLogTimelineStats) {
+    log(
+      `processed ${$timeline.children.length} timeline item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
+      itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
+    )
+  }
 }
 
 /**
@@ -5114,10 +5117,12 @@ function onIndividualTweetTimelineChange($timeline, options) {
 
   tweakFocusedTweet($focusedTweet, options)
 
-  log(
-    `processed ${$timeline.children.length} thread item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
-    itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
-  )
+  if (debug && config.debugLogTimelineStats) {
+    log(
+      `processed ${$timeline.children.length} thread item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
+      itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
+    )
+  }
 }
 
 /**

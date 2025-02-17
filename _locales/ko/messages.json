@@ -20,6 +20,9 @@
   "debugLabel": {
     "message": "디버그 모드"
   },
+  "debugLogTimelineStatsLabel": {
+    "message": "타임라인 통계 로깅"
+  },
   "debugOptionsLabel": {
     "message": "디버그 옵션"
   },

@@ -20,6 +20,9 @@
   "debugLabel": {
     "message": "Modo de desarrollo (debug)"
   },
+  "debugLogTimelineStatsLabel": {
+    "message": "Registrar stats de timeline"
+  },
   "debugOptionsLabel": {
     "message": "Opciones de desarrollo (debug)"
   },

@@ -20,6 +20,9 @@
   "debugLabel": {
     "message": "Mode de débogage (debug)"
   },
+  "debugLogTimelineStatsLabel": {
+    "message": "Logger stats chronologie"
+  },
   "debugOptionsLabel": {
     "message": "Options de débogage (debug)"
   },

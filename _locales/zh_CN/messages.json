@@ -20,6 +20,9 @@
   "debugLabel": {
     "message": "调试模式"
   },
+  "debugLogTimelineStatsLabel": {
+    "message": "日志时间轴统计"
+  },
   "debugOptionsLabel": {
     "message": "调试选项"
   },

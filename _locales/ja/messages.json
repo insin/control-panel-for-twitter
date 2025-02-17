@@ -20,6 +20,9 @@
   "debugLabel": {
     "message": "デバッグモード"
   },
+  "debugLogTimelineStatsLabel": {
+    "message": "タイムライン統計をログ"
+  },
   "debugOptionsLabel": {
     "message": "デバッグオプション"
   },

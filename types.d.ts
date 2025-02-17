@@ -1,5 +1,6 @@
 export type Config = {
   debug: boolean
+  debugLogTimelineStats: boolean
   version?: 'desktop' | 'mobile'
   // Shared
   addAddMutedWordMenuItem: boolean
