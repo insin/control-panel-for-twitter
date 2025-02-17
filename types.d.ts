@@ -99,6 +99,7 @@ export type Locale = {
 }
 
 export type LocaleKey =
+  | 'ADD_ANOTHER_TWEET'
   | 'ADD_MUTED_WORD'
   | 'GROK_ACTIONS'
   | 'HOME'

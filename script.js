@@ -153,6 +153,7 @@ const config = {
  */
 const locales = {
   'ar-x-fm': {
+    ADD_ANOTHER_TWEET: 'إضافة تغريدة أخرى',
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     GROK_ACTIONS: 'إجراءات Grok',
     HOME: 'الرئيسيّة',
@@ -182,13 +183,14 @@ const locales = {
     TWEETS: 'التغريدات',
     TWEET_ALL: 'تغريد الكل',
     TWEET_INTERACTIONS: 'تفاعلات التغريدة',
-    TWEET_YOUR_REPLY: 'التغريد بردك!',
+    TWEET_YOUR_REPLY: 'التغريد بردك',
     TWITTER: 'تويتر',
     UNDO_RETWEET: 'التراجع عن التغريدة',
     VIEW: 'عرض',
     WHATS_HAPPENING: 'ما الذي يحدث؟',
   },
   ar: {
+    ADD_ANOTHER_TWEET: 'إضافة تغريدة أخرى',
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     GROK_ACTIONS: 'إجراءات Grok',
     HOME: 'الرئيسيّة',
@@ -219,12 +221,13 @@ const locales = {
     TWEETS: 'التغريدات',
     TWEET_ALL: 'تغريد الكل',
     TWEET_INTERACTIONS: 'تفاعلات التغريدة',
-    TWEET_YOUR_REPLY: 'التغريد بردك!',
+    TWEET_YOUR_REPLY: 'التغريد بردك',
     UNDO_RETWEET: 'التراجع عن التغريدة',
     VIEW: 'عرض',
     WHATS_HAPPENING: 'ما الذي يحدث؟',
   },
   bg: {
+    ADD_ANOTHER_TWEET: 'Добавяне на друг туит',
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
     GROK_ACTIONS: 'Действия, свързани с Grok',
     HOME: 'Начало',
@@ -255,12 +258,13 @@ const locales = {
     TWEETS: 'Туитове',
     TWEET_ALL: 'Туитване на всички',
     TWEET_INTERACTIONS: 'Интеракции с туит',
-    TWEET_YOUR_REPLY: 'Отговори с туит!',
+    TWEET_YOUR_REPLY: 'Отговори с туит',
     UNDO_RETWEET: 'Отмяна на ретуитването',
     VIEW: 'Преглед',
     WHATS_HAPPENING: 'Какво се случва?',
   },
   bn: {
+    ADD_ANOTHER_TWEET: 'অন্য টুইট যোগ করুন',
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
     GROK_ACTIONS: 'Grok কার্যকলাপ',
     HOME: 'হোম',
@@ -291,13 +295,14 @@ const locales = {
     TWEETS: 'টুইটগুলি',
     TWEET_ALL: 'সব টুইট করুন',
     TWEET_INTERACTIONS: 'টুইট ইন্টারেকশন',
-    TWEET_YOUR_REPLY: 'আপনার উত্তর টুইট করুন!',
+    TWEET_YOUR_REPLY: 'আপনার উত্তর টুইট করুন',
     TWITTER: 'টুইটার',
     UNDO_RETWEET: 'পুনঃ টুইট পুর্বাবস্থায় ফেরান',
     VIEW: 'দেখুন',
     WHATS_HAPPENING: 'কি ঘটছে?',
   },
   ca: {
+    ADD_ANOTHER_TWEET: 'Afegeix un altre tuit',
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
     GROK_ACTIONS: 'Accions de Grok',
     HOME: 'Inici',
@@ -334,6 +339,7 @@ const locales = {
     WHATS_HAPPENING: 'Què està passant?',
   },
   cs: {
+    ADD_ANOTHER_TWEET: 'Přidat další Tweet',
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
     GROK_ACTIONS: 'Akce funkce Grok',
     HOME: 'Hlavní stránka',
@@ -363,12 +369,13 @@ const locales = {
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnout vše',
     TWEET_INTERACTIONS: 'Tweetovat interakce',
-    TWEET_YOUR_REPLY: 'Tweetujte svou odpověď!',
+    TWEET_YOUR_REPLY: 'Tweetujte svou odpověď',
     UNDO_RETWEET: 'Zrušit Retweet',
     VIEW: 'Zobrazit',
     WHATS_HAPPENING: 'Co se děje?',
   },
   da: {
+    ADD_ANOTHER_TWEET: 'Tilføj endnu et Tweet',
     ADD_MUTED_WORD: 'Tilføj skjult ord',
     GROK_ACTIONS: 'Grok-handlinger',
     HOME: 'Forside',
@@ -393,12 +400,13 @@ const locales = {
     TURN_ON_RETWEETS: 'Slå Retweets til',
     TWEET_ALL: 'Tweet alt',
     TWEET_INTERACTIONS: 'Tweet-interaktioner',
-    TWEET_YOUR_REPLY: 'Tweet dit svar!',
+    TWEET_YOUR_REPLY: 'Tweet dit svar',
     UNDO_RETWEET: 'Fortryd Retweet',
     VIEW: 'Vis',
     WHATS_HAPPENING: 'Hvad sker der?',
   },
   de: {
+    ADD_ANOTHER_TWEET: 'Weiteren Tweet hinzufügen',
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
     GROK_ACTIONS: 'Grok-Aktionen',
     HOME: 'Startseite',
@@ -426,12 +434,13 @@ const locales = {
     TWEET: 'Twittern',
     TWEET_ALL: 'Alle twittern',
     TWEET_INTERACTIONS: 'Tweet-Interaktionen',
-    TWEET_YOUR_REPLY: 'Twittere deine Antwort!',
+    TWEET_YOUR_REPLY: 'Twittere deine Antwort',
     UNDO_RETWEET: 'Retweet rückgängig machen',
     VIEW: 'Anzeigen',
     WHATS_HAPPENING: 'Was passiert?',
   },
   el: {
+    ADD_ANOTHER_TWEET: 'Προσθήκη άλλου Tweet',
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
     GROK_ACTIONS: 'Δράσεις Grok',
     HOME: 'Αρχική σελίδα',
@@ -460,12 +469,13 @@ const locales = {
     TWEETS: 'Tweet',
     TWEET_ALL: 'Δημοσίευση όλων ως Tweet',
     TWEET_INTERACTIONS: 'Αλληλεπιδράσεις με tweet',
-    TWEET_YOUR_REPLY: 'Στείλτε την απάντησή σας!',
+    TWEET_YOUR_REPLY: 'Στείλτε την απάντησή σας',
     UNDO_RETWEET: 'Αναίρεση Retweet',
     VIEW: 'Προβολή',
     WHATS_HAPPENING: 'Τι συμβαίνει;',
   },
   en: {
+    ADD_ANOTHER_TWEET: 'Add another Tweet',
     ADD_MUTED_WORD: 'Add muted word',
     GROK_ACTIONS: 'Grok actions',
     HOME: 'Home',
@@ -496,13 +506,14 @@ const locales = {
     TWEETS: 'Tweets',
     TWEET_ALL: 'Tweet all',
     TWEET_INTERACTIONS: 'Tweet interactions',
-    TWEET_YOUR_REPLY: 'Tweet your reply!',
+    TWEET_YOUR_REPLY: 'Tweet your reply',
     TWITTER: 'Twitter',
     UNDO_RETWEET: 'Undo Retweet',
     VIEW: 'View',
     WHATS_HAPPENING: "What's happening?",
   },
   es: {
+    ADD_ANOTHER_TWEET: 'Agregar otro Tweet',
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
     GROK_ACTIONS: 'Acciones de Grok',
     HOME: 'Inicio',
@@ -530,12 +541,13 @@ const locales = {
     TWEET: 'Twittear',
     TWEET_ALL: 'Twittear todo',
     TWEET_INTERACTIONS: 'Interacciones con Tweet',
-    TWEET_YOUR_REPLY: '¡Twittea tu respuesta!',
+    TWEET_YOUR_REPLY: 'Twittea tu respuesta',
     UNDO_RETWEET: 'Deshacer Retweet',
     VIEW: 'Ver',
     WHATS_HAPPENING: '¿Qué está pasando?',
   },
   eu: {
+    ADD_ANOTHER_TWEET: 'Gehitu beste txio bat',
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
     GROK_ACTIONS: 'Grok actions',
     HOME: 'Hasiera',
@@ -565,6 +577,7 @@ const locales = {
     WHATS_HAPPENING: 'Zer gertatzen ari da?',
   },
   fa: {
+    ADD_ANOTHER_TWEET: 'افزودن توییت دیگر',
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
     GROK_ACTIONS: 'کنش‌های Grok',
     HOME: 'خانه',
@@ -595,13 +608,14 @@ const locales = {
     TWEETS: 'توييت‌ها',
     TWEET_ALL: 'توییت به همه',
     TWEET_INTERACTIONS: 'تعاملات توییت',
-    TWEET_YOUR_REPLY: 'پاسختان را توییت کنید!',
+    TWEET_YOUR_REPLY: 'پاسختان را توییت کنید',
     TWITTER: 'توییتر',
     UNDO_RETWEET: 'لغو بازتوییت',
     VIEW: 'مشاهده',
     WHATS_HAPPENING: 'چه خبر؟',
   },
   fi: {
+    ADD_ANOTHER_TWEET: 'Lisää vielä twiitti',
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
     GROK_ACTIONS: 'Grok-toiminnat',
     HOME: 'Etusivu',
@@ -638,6 +652,7 @@ const locales = {
     WHATS_HAPPENING: 'Mitä tapahtuu?',
   },
   fil: {
+    ADD_ANOTHER_TWEET: 'Magdagdag ng isa pang Tweet',
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
     GROK_ACTIONS: 'Mga aksyon ni Grok',
     LIKES: 'Mga Gusto',
@@ -666,12 +681,13 @@ const locales = {
     TWEETS: 'Mga Tweet',
     TWEET_ALL: 'I-tweet lahat',
     TWEET_INTERACTIONS: 'Interaksyon sa Tweet',
-    TWEET_YOUR_REPLY: 'I-Tweet ang sagot mo!',
+    TWEET_YOUR_REPLY: 'I-Tweet ang sagot mo',
     UNDO_RETWEET: 'Huwag nang I-retweet',
     VIEW: 'Tingnan',
     WHATS_HAPPENING: 'Anong nangyayari?',
   },
   fr: {
+    ADD_ANOTHER_TWEET: 'Ajouter un autre Tweet',
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
     GROK_ACTIONS: 'Actions Grok',
     HOME: 'Accueil',
@@ -698,12 +714,13 @@ const locales = {
     TWEET: 'Tweeter',
     TWEET_ALL: 'Tout tweeter',
     TWEET_INTERACTIONS: 'Interactions avec Tweet',
-    TWEET_YOUR_REPLY: 'Tweetez votre réponse!',
+    TWEET_YOUR_REPLY: 'Tweetez votre réponse',
     UNDO_RETWEET: 'Annuler le Retweet',
     VIEW: 'Voir',
     WHATS_HAPPENING: 'Quoi de neuf ?',
   },
   ga: {
+    ADD_ANOTHER_TWEET: 'Cuir Tweet eile leis',
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
     GROK_ACTIONS: 'Grok actions',
     HOME: 'Baile',
@@ -732,6 +749,7 @@ const locales = {
     WHATS_HAPPENING: 'Cad atá ag tarlú?',
   },
   gl: {
+    ADD_ANOTHER_TWEET: 'Engadir outro chío',
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
     GROK_ACTIONS: 'Grok actions',
     HOME: 'Inicio',
@@ -761,6 +779,7 @@ const locales = {
     WHATS_HAPPENING: 'Que está pasando?',
   },
   gu: {
+    ADD_ANOTHER_TWEET: 'અન્ય ટ્વીટ ઉમેરો',
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
     GROK_ACTIONS: 'Grok પગલાં',
     HOME: 'હોમ',
@@ -791,12 +810,13 @@ const locales = {
     TWEETS: 'ટ્વીટ્સ',
     TWEET_ALL: 'બધાને ટ્વીટ કરો',
     TWEET_INTERACTIONS: 'ટ્વીટ ક્રિયાપ્રતિક્રિયાઓ',
-    TWEET_YOUR_REPLY: 'તમારા પ્રત્યુત્તરને ટ્વીટ કરો!',
+    TWEET_YOUR_REPLY: 'તમારા પ્રત્યુત્તરને ટ્વીટ કરો',
     UNDO_RETWEET: 'પુનટ્વીટને પૂર્વવત કરો',
     VIEW: 'જુઓ',
     WHATS_HAPPENING: 'શું થઈ રહ્યું છે?',
   },
   he: {
+    ADD_ANOTHER_TWEET: 'הוסף ציוץ נוסף',
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
     GROK_ACTIONS: 'פעולות של Grok',
     HOME: 'דף הבית',
@@ -827,13 +847,14 @@ const locales = {
     TWEETS: 'ציוצים',
     TWEET_ALL: 'צייץ הכול',
     TWEET_INTERACTIONS: 'אינטראקציות צייץ',
-    TWEET_YOUR_REPLY: 'צייץ את התשובה!',
+    TWEET_YOUR_REPLY: 'צייץ את התשובה',
     TWITTER: 'טוויטר',
     UNDO_RETWEET: 'ביטול ציוץ מחדש',
     VIEW: 'הצג',
     WHATS_HAPPENING: 'מה קורה?',
   },
   hi: {
+    ADD_ANOTHER_TWEET: 'एक और ट्वीट जोड़ें',
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
     GROK_ACTIONS: 'Grok कार्रवाई',
     HOME: 'होम',
@@ -864,12 +885,13 @@ const locales = {
     TWEETS: 'ट्वीट',
     TWEET_ALL: 'सभी ट्वीट करें',
     TWEET_INTERACTIONS: 'ट्वीट इंटरैक्शन',
-    TWEET_YOUR_REPLY: 'अपना जवाब ट्वीट करें!',
+    TWEET_YOUR_REPLY: 'अपना जवाब ट्वीट करें',
     UNDO_RETWEET: 'रीट्वीट को पूर्ववत करें',
     VIEW: 'देखें',
     WHATS_HAPPENING: 'क्या हो रहा है?',
   },
   hr: {
+    ADD_ANOTHER_TWEET: 'Dodaj drugi Tweet',
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
     GROK_ACTIONS: 'Grokove radnje',
     HOME: 'Naslovnica',
@@ -899,12 +921,13 @@ const locales = {
     TWEETS: 'Tweetovi',
     TWEET_ALL: 'Tweetaj sve',
     TWEET_INTERACTIONS: 'Interakcije s Tweet',
-    TWEET_YOUR_REPLY: 'Pošaljite Tweet s odgovorom!',
+    TWEET_YOUR_REPLY: 'Pošaljite Tweet s odgovorom',
     UNDO_RETWEET: 'Poništi prosljeđivanje tweeta',
     VIEW: 'Prikaz',
     WHATS_HAPPENING: 'Što se događa?',
   },
   hu: {
+    ADD_ANOTHER_TWEET: 'Másik Tweet hozzáadása',
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
     GROK_ACTIONS: 'Grok-műveletek',
     HOME: 'Kezdőlap',
@@ -940,6 +963,7 @@ const locales = {
     WHATS_HAPPENING: 'Mi történik?',
   },
   id: {
+    ADD_ANOTHER_TWEET: 'Tambahkan Tweet lain',
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
     GROK_ACTIONS: 'Tindakan Grok',
     HOME: 'Beranda',
@@ -968,12 +992,13 @@ const locales = {
     TWEETS: 'Tweet',
     TWEET_ALL: 'Tweet semua',
     TWEET_INTERACTIONS: 'Interaksi Tweet',
-    TWEET_YOUR_REPLY: 'Tweet balasan Anda!',
+    TWEET_YOUR_REPLY: 'Tweet balasan Anda',
     UNDO_RETWEET: 'Batalkan Retweet',
     VIEW: 'Lihat',
     WHATS_HAPPENING: 'Apa yang terjadi?',
   },
   it: {
+    ADD_ANOTHER_TWEET: 'Aggiungi altro Tweet',
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
     GROK_ACTIONS: 'Azioni di Grok',
     LIKES: 'Mi piace',
@@ -1008,6 +1033,7 @@ const locales = {
     WHATS_HAPPENING: 'Cosa sta succedendo?',
   },
   ja: {
+    ADD_ANOTHER_TWEET: '別のツイートを追加する',
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
     GROK_ACTIONS: 'Grokのアクション',
     HOME: 'ホーム',
@@ -1044,6 +1070,7 @@ const locales = {
     WHATS_HAPPENING: '何が起こっているの？',
   },
   kn: {
+    ADD_ANOTHER_TWEET: 'ಮತ್ತೊಂದು ಟ್ವೀಟ್ ಸೇರಿಸಿ',
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
     GROK_ACTIONS: 'Grok ಕ್ರಮಗಳು',
     HOME: 'ಹೋಮ್',
@@ -1074,12 +1101,13 @@ const locales = {
     TWEETS: 'ಟ್ವೀಟ್‌ಗಳು',
     TWEET_ALL: 'ಎಲ್ಲಾ ಟ್ವೀಟ್ ಮಾಡಿ',
     TWEET_INTERACTIONS: 'ಟ್ವೀಟ್ ಸಂವಾದಗಳು',
-    TWEET_YOUR_REPLY: 'ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ!',
+    TWEET_YOUR_REPLY: 'ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ',
     UNDO_RETWEET: 'ಮರುಟ್ವೀಟಿಸುವುದನ್ನು ರದ್ದುಮಾಡಿ',
     VIEW: 'ವೀಕ್ಷಿಸಿ',
     WHATS_HAPPENING: 'ಏನು ನಡೆಯುತ್ತಿದೆ?',
   },
   ko: {
+    ADD_ANOTHER_TWEET: '다른 트윗 추가하기',
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
     GROK_ACTIONS: 'Grok 작업',
     HOME: '홈',
@@ -1117,6 +1145,7 @@ const locales = {
     WHATS_HAPPENING: '무슨 일이야?',
   },
   mr: {
+    ADD_ANOTHER_TWEET: 'दुसरे ट्विट सामील करा',
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
     GROK_ACTIONS: 'Grok कृती',
     HOME: 'होम',
@@ -1147,12 +1176,13 @@ const locales = {
     TWEETS: 'ट्विट्स',
     TWEET_ALL: 'सर्व ट्विट करा',
     TWEET_INTERACTIONS: 'ट्वीट इंटरऍक्शन्स',
-    TWEET_YOUR_REPLY: 'आपल्या प्रत्युत्तरावर ट्विट करा!',
+    TWEET_YOUR_REPLY: 'आपल्या प्रत्युत्तरावर ट्विट करा',
     UNDO_RETWEET: 'पुनर्ट्विट पूर्ववत करा',
     VIEW: 'पहा',
     WHATS_HAPPENING: 'काय होत आहे?',
   },
   ms: {
+    ADD_ANOTHER_TWEET: 'Tambahkan Tweet lain',
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
     GROK_ACTIONS: 'Tindakan Grok',
     HOME: 'Laman Utama',
@@ -1182,12 +1212,13 @@ const locales = {
     TWEETS: 'Tweet',
     TWEET_ALL: 'Tweet semua',
     TWEET_INTERACTIONS: 'Interaksi Tweet',
-    TWEET_YOUR_REPLY: 'Tweet balasan anda!',
+    TWEET_YOUR_REPLY: 'Tweet balasan anda',
     UNDO_RETWEET: 'Buat asal Tweet semula',
     VIEW: 'Lihat',
     WHATS_HAPPENING: 'Apa yang sedang berlaku?',
   },
   nb: {
+    ADD_ANOTHER_TWEET: 'Legg til en annen Tweet',
     ADD_MUTED_WORD: 'Skjul nytt ord',
     GROK_ACTIONS: 'Grok-handlinger',
     HOME: 'Hjem',
@@ -1214,12 +1245,13 @@ const locales = {
     TURN_ON_RETWEETS: 'Slå på Retweets',
     TWEET_ALL: 'Tweet alle',
     TWEET_INTERACTIONS: 'Tweet-interaksjoner',
-    TWEET_YOUR_REPLY: 'Tweet svaret ditt!',
+    TWEET_YOUR_REPLY: 'Tweet svaret ditt',
     UNDO_RETWEET: 'Angre Retweet',
     VIEW: 'Vis',
     WHATS_HAPPENING: 'Hva skjer?',
   },
   nl: {
+    ADD_ANOTHER_TWEET: 'Nog een Tweet toevoegen',
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
     GROK_ACTIONS: 'Grok-acties',
     HOME: 'Startpagina',
@@ -1246,12 +1278,13 @@ const locales = {
     TWEET: 'Tweeten',
     TWEET_ALL: 'Alles tweeten',
     TWEET_INTERACTIONS: 'Tweet-interacties',
-    TWEET_YOUR_REPLY: 'Tweet je antwoord!',
+    TWEET_YOUR_REPLY: 'Tweet je antwoord',
     UNDO_RETWEET: 'Retweet ongedaan maken',
     VIEW: 'Bekijken',
     WHATS_HAPPENING: 'Wat gebeurt er?',
   },
   pl: {
+    ADD_ANOTHER_TWEET: 'Dodaj kolejnego Tweeta',
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
     GROK_ACTIONS: 'Akcje Groka',
     HOME: 'Główna',
@@ -1281,12 +1314,13 @@ const locales = {
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnij wszystko',
     TWEET_INTERACTIONS: 'Interakcje na Tweeta',
-    TWEET_YOUR_REPLY: 'Wyślij Tweeta z odpowiedzią!',
+    TWEET_YOUR_REPLY: 'Wyślij Tweeta z odpowiedzią',
     UNDO_RETWEET: 'Cofnij podanie dalej',
     VIEW: 'Wyświetl',
     WHATS_HAPPENING: 'Co się dzieje?',
   },
   pt: {
+    ADD_ANOTHER_TWEET: 'Adicionar outro Tweet',
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
     GROK_ACTIONS: 'Ações do Grok',
     HOME: 'Página Inicial',
@@ -1314,12 +1348,13 @@ const locales = {
     TWEET: 'Tweetar',
     TWEET_ALL: 'Tweetar tudo',
     TWEET_INTERACTIONS: 'Interações com Tweet',
-    TWEET_YOUR_REPLY: 'Tweetar sua resposta!',
+    TWEET_YOUR_REPLY: 'Tweetar sua resposta',
     UNDO_RETWEET: 'Desfazer Retweet',
     VIEW: 'Ver',
     WHATS_HAPPENING: 'O que está acontecendo?',
   },
   ro: {
+    ADD_ANOTHER_TWEET: 'Adaugă alt Tweet',
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
     GROK_ACTIONS: 'Acțiuni Grok',
     HOME: 'Pagina principală',
@@ -1349,12 +1384,13 @@ const locales = {
     TWEETS: 'Tweeturi',
     TWEET_ALL: 'Dă Tweeturi cu tot',
     TWEET_INTERACTIONS: 'Interacțiuni cu Tweetul',
-    TWEET_YOUR_REPLY: 'Dă Tweet cu răspunsul!',
+    TWEET_YOUR_REPLY: 'Dă Tweet cu răspunsul',
     UNDO_RETWEET: 'Anulează Retweetul',
     VIEW: 'Vezi',
     WHATS_HAPPENING: 'Ce se întâmplă?',
   },
   ru: {
+    ADD_ANOTHER_TWEET: 'Добавить еще один твит',
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
     GROK_ACTIONS: 'Действия Grok',
     HOME: 'Главная',
@@ -1385,13 +1421,14 @@ const locales = {
     TWEETS: 'Твиты',
     TWEET_ALL: 'Твитнуть все',
     TWEET_INTERACTIONS: 'Взаимодействие в Твитнуть',
-    TWEET_YOUR_REPLY: 'Твитните свой ответ!',
+    TWEET_YOUR_REPLY: 'Твитните свой ответ',
     TWITTER: 'Твиттер',
     UNDO_RETWEET: 'Отменить ретвит',
     VIEW: 'Посмотреть',
     WHATS_HAPPENING: 'Что происходит?',
   },
   sk: {
+    ADD_ANOTHER_TWEET: 'Pridať ďalší Tweet',
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
     GROK_ACTIONS: 'Akcie Groka',
     HOME: 'Domov',
@@ -1422,12 +1459,13 @@ const locales = {
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnuť všetko',
     TWEET_INTERACTIONS: 'Interakcie s Tweet',
-    TWEET_YOUR_REPLY: 'Tweetnite odpoveď!',
+    TWEET_YOUR_REPLY: 'Tweetnite odpoveď',
     UNDO_RETWEET: 'Zrušiť retweet',
     VIEW: 'Zobraziť',
     WHATS_HAPPENING: 'Čo sa deje?',
   },
   sr: {
+    ADD_ANOTHER_TWEET: 'Додај још један твит',
     ADD_MUTED_WORD: 'Додај игнорисану реч',
     GROK_ACTIONS: 'Grok радње',
     HOME: 'Почетна',
@@ -1458,13 +1496,14 @@ const locales = {
     TWEETS: 'Твитови',
     TWEET_ALL: 'Твитуј све',
     TWEET_INTERACTIONS: 'Интеракције са Твитуј',
-    TWEET_YOUR_REPLY: 'Твитуј свој одговор!',
+    TWEET_YOUR_REPLY: 'Твитуј свој одговор',
     TWITTER: 'Твитер',
     UNDO_RETWEET: 'Опозови ретвит',
     VIEW: 'Погледај',
     WHATS_HAPPENING: 'Шта се дешава?',
   },
   sv: {
+    ADD_ANOTHER_TWEET: 'Lägg till en Tweet till',
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
     GROK_ACTIONS: 'Grok-åtgärder',
     HOME: 'Hem',
@@ -1493,12 +1532,13 @@ const locales = {
     TWEET: 'Tweeta',
     TWEET_ALL: 'Tweeta allt',
     TWEET_INTERACTIONS: 'Interaktioner med Tweet',
-    TWEET_YOUR_REPLY: 'Tweeta ditt svar!',
+    TWEET_YOUR_REPLY: 'Tweeta ditt svar',
     UNDO_RETWEET: 'Ångra retweeten',
     VIEW: 'Visa',
     WHATS_HAPPENING: 'Vad händer?',
   },
   ta: {
+    ADD_ANOTHER_TWEET: 'வேறொரு கீச்சைச் சேர்',
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
     GROK_ACTIONS: 'Grok செயல்கள்',
     HOME: 'முகப்பு',
@@ -1529,12 +1569,13 @@ const locales = {
     TWEETS: 'கீச்சுகள்',
     TWEET_ALL: 'அனைத்தையும் ட்விட் செய்',
     TWEET_INTERACTIONS: 'ட்விட் செய் ஊடாடல்களைக்',
-    TWEET_YOUR_REPLY: 'உங்கள் பதிலை ட்விட் செய்யவும்!',
+    TWEET_YOUR_REPLY: 'உங்கள் பதிலை ட்விட் செய்யவும்',
     UNDO_RETWEET: 'மறுகீச்சை செயல்தவிர்',
     VIEW: 'காண்பி',
     WHATS_HAPPENING: 'என்ன நடக்கிறது?',
   },
   th: {
+    ADD_ANOTHER_TWEET: 'เพิ่มอีกทวีต',
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
     GROK_ACTIONS: 'การดำเนินการของ Grok',
     HOME: 'หน้าแรก',
@@ -1572,6 +1613,7 @@ const locales = {
     WHATS_HAPPENING: 'เกิดอะไรขึ้น?',
   },
   tr: {
+    ADD_ANOTHER_TWEET: 'Başka bir Tweet ekle',
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
     GROK_ACTIONS: 'Grok işlemleri',
     HOME: 'Anasayfa',
@@ -1607,6 +1649,7 @@ const locales = {
     WHATS_HAPPENING: 'Ne oluyor?',
   },
   uk: {
+    ADD_ANOTHER_TWEET: 'Додати ще один твіт',
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
     GROK_ACTIONS: 'Дії Grok',
     HOME: 'Головна',
@@ -1637,13 +1680,14 @@ const locales = {
     TWEETS: 'Твіти',
     TWEET_ALL: 'Твітнути все',
     TWEET_INTERACTIONS: 'Взаємодія твітів',
-    TWEET_YOUR_REPLY: 'Твітніть свою відповідь!',
+    TWEET_YOUR_REPLY: 'Твітніть свою відповідь',
     TWITTER: 'Твіттер',
     UNDO_RETWEET: 'Скасувати ретвіт',
     VIEW: 'Переглянути',
     WHATS_HAPPENING: 'Що відбувається?',
   },
   ur: {
+    ADD_ANOTHER_TWEET: 'ایک اور ٹویٹ شامل کریں',
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
     GROK_ACTIONS: 'Grok actions',
     HOME: 'ہوم',
@@ -1674,6 +1718,7 @@ const locales = {
     WHATS_HAPPENING: 'کیا ہو رہا ہے؟',
   },
   vi: {
+    ADD_ANOTHER_TWEET: 'Thêm Tweet khác',
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
     GROK_ACTIONS: 'Hành động của Grok',
     HOME: 'Trang chủ',
@@ -1703,12 +1748,13 @@ const locales = {
     TWEETS: 'Tweet',
     TWEET_ALL: 'Đăng Tweet tất cả',
     TWEET_INTERACTIONS: 'Tương tác Tweet',
-    TWEET_YOUR_REPLY: 'Đăng Tweet câu trả lời của bạn!',
+    TWEET_YOUR_REPLY: 'Đăng Tweet câu trả lời của bạn',
     UNDO_RETWEET: 'Hoàn tác Tweet lại',
     VIEW: 'Xem',
     WHATS_HAPPENING: 'Chuyện gì đang xảy ra?',
   },
   'zh-Hant': {
+    ADD_ANOTHER_TWEET: '加入另一則推文',
     ADD_MUTED_WORD: '加入靜音文字',
     GROK_ACTIONS: 'Grok 動作',
     HOME: '首頁',
@@ -1745,6 +1791,7 @@ const locales = {
     WHATS_HAPPENING: '發生什麼事？',
   },
   zh: {
+    ADD_ANOTHER_TWEET: '添加另一条推文',
     ADD_MUTED_WORD: '添加要隐藏的字词',
     GROK_ACTIONS: 'Grok 操作',
     HOME: '主页',
@@ -2533,62 +2580,117 @@ function observeBodyBackgroundColor() {
   })
 }
 
-// TODO Restore "What's happening?" in the first Tweet's placeholder
+/**
+ * @param {HTMLElement} $popup
+ */
 async function observeDesktopComposeTweetModal($popup) {
- let $modalDialog = await getElement('div[role="dialog"][aria-labelledby]', {
-  context: $popup,
-  stopIf: () => !isDesktopComposeTweetModalOpen
- })
- if (!$modalDialog) return
+  let $mask = await getElement('[data-testid="twc-cc-mask"]', {
+    context: $popup,
+    name: 'Compose Tweet modal mask',
+    stopIf: () => !isDesktopComposeTweetModalOpen
+  })
+  if (!$mask) return
 
- /** @type {import("./types").Disconnectable} */
- let tweetButtonObserver
-
- function disconnectTweetButtonObserver() {
-   if (tweetButtonObserver) {
-     log('disconnecting tweet button dialog observer')
-     tweetButtonObserver.disconnect()
-     modalObservers.splice(modalObservers.indexOf(tweetButtonObserver), 1)
-     tweetButtonObserver = null
-   }
- }
-
- let waitingForTweetButton = false
-
- modalObservers.push(
-  observeElement($modalDialog, async () => {
-    if (waitingForTweetButton) return
-
-    waitingForTweetButton = true
-    let $tweetButtonText = await getElement('button[data-testid="tweetButton"] span > span', {
-      context: $modalDialog,
-      name: 'tweet button',
-      timeout: 500,
-    })
-    waitingForTweetButton = false
-
-    if (!$tweetButtonText) {
-      disconnectTweetButtonObserver()
-      return
-    }
-
+  let $tweetButtonText = $popup.querySelector('button[data-testid="tweetButton"] span > span')
+  if ($tweetButtonText) {
     setTweetButtonText($tweetButtonText)
+  }
 
-    // The button will be moved around when multiple Tweets are being edited
-    tweetButtonObserver = observeElement($modalDialog, (mutations) => {
+  modalObservers.push(
+    observeElement($mask.nextElementSibling, () => {
+      disconnectModalObserver('Modal Tweet editor root (for placeholder)')
+      let $editorRoots = $popup.querySelectorAll('.DraftEditor-root')
+      $editorRoots.forEach((/** @type {HTMLElement} */ $editorRoot, index) => {
+        $editorRoot.setAttribute('data-placeholder', getString(index == 0 ? 'WHATS_HAPPENING' : 'ADD_ANOTHER_TWEET'))
+        observeDesktopTweetEditorPlaceholder($editorRoot, {
+          name: 'Modal Tweet editor root (for placeholder)',
+          observers: modalObservers,
+        })
+      })
+    }, 'Compose Tweet modal Tweets container (for Tweets being added or removed)')
+  )
+
+  // The Tweet button gets moved around when Tweets are added or removed
+  modalObservers.push(
+    observeElement($mask.nextElementSibling, (mutations) => {
       for (let mutation of mutations) {
         for (let $addedNode of mutation.addedNodes) {
-          if (!($addedNode instanceof HTMLElement)) continue
-          let $tweetButtonText = $addedNode.querySelector?.('button[data-testid="tweetButton"] span > span')
+          if (!($addedNode instanceof HTMLElement) || $addedNode.nodeName != 'DIV') continue
+          let $tweetButtonText = $addedNode.querySelector('button[data-testid="tweetButton"] span > span')
           if ($tweetButtonText) {
             setTweetButtonText($tweetButtonText)
           }
         }
       }
-    }, 'tweet button dialog', {childList: true, subtree: true})
-    modalObservers.push(tweetButtonObserver)
-  }, 'compose tweet modal dialog')
- )
+    }, 'Compose Tweet modal contents (for Tweet button moving)', {
+      childList: true,
+      subtree: true,
+    })
+  )
+}
+
+/**
+ * The timeline Tweet box is removed when you navigate to a pinned Communities
+ * tab and re-added when you navigate to another Home timeline tab.
+ */
+async function observeDesktopHomeTimelineTweetBox() {
+  let $container = await getElement('div[data-testid="primaryColumn"] > div', {
+    name: 'Home timeline Tweet box container',
+    stopIf: pageIsNot(currentPage),
+  })
+  if (!$container) return
+
+  /**
+   * @param {HTMLElement} $tweetBox
+   */
+  async function observeTweetBox($tweetBox) {
+    $tweetBox.classList.add('TweetBox')
+
+    if (config.replaceLogo) {
+      // Restore "What's happening?" placeholder
+      let $editorRoot = await getElement('.DraftEditor-root', {
+        context: $tweetBox,
+        name: 'Tweet box editor root',
+        stopIf: pageIsNot(currentPage),
+      })
+      if (!$editorRoot) return
+      observeDesktopTweetEditorPlaceholder($editorRoot, {
+        observers: pageObservers,
+        placeholder: getString('WHATS_HAPPENING'),
+      })
+      tweakTweetButton()
+    }
+  }
+
+  /** @type {HTMLElement} */
+  let $timelineTweetBox = $container.querySelector(':scope > div:has([data-testid^="tweetTextarea"]')
+  if ($timelineTweetBox) {
+    log('Home timeline Tweet box present')
+    observeTweetBox($timelineTweetBox)
+  }
+
+  pageObservers.push(
+    observeElement($container, (mutations) => {
+      for (let mutation of mutations) {
+        for (let $addedNode of mutation.addedNodes) {
+          if (!($addedNode instanceof HTMLElement)) continue
+          if ($addedNode.querySelector('[data-testid^="tweetTextarea"]')) {
+            log('Home timeline Tweet box appeared')
+            $timelineTweetBox = $addedNode
+            observeTweetBox($timelineTweetBox)
+          }
+        }
+        for (let $removedNode of mutation.removedNodes) {
+          if (!($removedNode instanceof HTMLElement)) continue
+          if ($removedNode === $timelineTweetBox) {
+            log('Home timeline Tweet box removed')
+            $timelineTweetBox = null
+            disconnectPageObserver('Tweet box editor root')
+          }
+        }
+      }
+    }, 'Home timeline Tweet box container')
+  )
 }
 
 /**
@@ -2985,6 +3087,32 @@ async function observeTimeline(page, options = {}) {
       warn('tabbed timeline container not found', tabbedTimelineContainerSelector)
     }
   }
+}
+
+/**
+ * @param {HTMLElement} $editorRoot
+ * @param {{
+ *   name?: string
+ *   observers: import("./types").Disconnectable[]
+ *   placeholder?: string
+ * }} options
+ */
+function observeDesktopTweetEditorPlaceholder($editorRoot, {
+  name = 'Tweet editor root (for placeholder)',
+  observers,
+  placeholder = '',
+}) {
+  observers.push(
+    observeElement($editorRoot, () => {
+      if ($editorRoot.firstElementChild.classList.contains('public-DraftEditorPlaceholder-root')) {
+        let $placeholder = $editorRoot.querySelector('.public-DraftEditorPlaceholder-inner')
+        placeholder = $editorRoot.getAttribute('data-placeholder') || placeholder
+        if ($placeholder && $placeholder.textContent != placeholder) {
+          $placeholder.textContent = placeholder
+        }
+      }
+    }, name)
+  )
 }
 
 /**
@@ -3690,7 +3818,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`body.HomeTimeline ${Selectors.PRIMARY_COLUMN} > div > div:first-child > div[style^="transform"]`)
       }
       if (config.hideTimelineTweetBox) {
-        hideCssSelectors.push(`body.HomeTimeline ${Selectors.PRIMARY_COLUMN} > div > div:nth-child(3)`)
+        hideCssSelectors.push(`body.HomeTimeline ${Selectors.PRIMARY_COLUMN} .TweetBox`)
       }
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
@@ -4494,13 +4622,16 @@ function handlePopup($popup) {
   }
 
   if (desktop && !isDesktopComposeTweetModalOpen && location.pathname.startsWith(PagePaths.COMPOSE_TWEET)) {
-    log('compose tweet modal opened')
+    log('Compose Tweet modal opened')
     isDesktopComposeTweetModalOpen = true
-    observeDesktopComposeTweetModal($popup)
+    if (config.replaceLogo) {
+      observeDesktopComposeTweetModal($popup)
+    }
     return {
       tookAction: true,
       onPopupClosed() {
-        log('compose tweet modal closed')
+        log('Compose Tweet modal closed')
+        disconnectAllModalObservers()
         isDesktopComposeTweetModalOpen = false
         // The Tweet button will re-render if the modal was opened to edit
         // multiple Tweets on the Home timeline.
@@ -5814,16 +5945,11 @@ const tweakFocusedTweet = (() => {
         waitingForFocusedTweetEditor = false
       }
       if ($editorRoot) {
-        observers.unshift(
-          observeElement($editorRoot, () => {
-            if ($editorRoot.firstElementChild.classList.contains('public-DraftEditorPlaceholder-root')) {
-              let $placeholder = $editorRoot.querySelector('.public-DraftEditorPlaceholder-inner')
-              if ($placeholder) {
-                $placeholder.textContent = getString('TWEET_YOUR_REPLY')
-              }
-            }
-          }, 'tweet editor')
-        )
+        observeDesktopTweetEditorPlaceholder($editorRoot, {
+          name: 'tweet editor',
+          placeholder: getString('TWEET_YOUR_REPLY'),
+          observers,
+        })
       }
     }
   }
@@ -5930,65 +6056,9 @@ const tweakOwnFocusedTweet = (() => {
   }
 })()
 
-async function tweakTweetBox() {
-  // Restore "What's happening?" placeholder
-  if (config.replaceLogo && !isObserving(pageObservers, 'tweet editor')) {
-    let $editorRoot = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} .DraftEditor-root`, {
-      name: 'tweet editor',
-      stopIf: pageIsNot(currentPage),
-    })
-    if ($editorRoot && !isObserving(pageObservers, 'tweet editor')) {
-      pageObservers.unshift(
-        observeElement($editorRoot, () => {
-          if ($editorRoot.firstElementChild.classList.contains('public-DraftEditorPlaceholder-root')) {
-            let $placeholder = $editorRoot.querySelector('.public-DraftEditorPlaceholder-inner')
-            if ($placeholder) {
-              $placeholder.textContent = getString('WHATS_HAPPENING')
-            }
-          }
-        }, 'tweet editor')
-      )
-    }
-  }
-
-  // Observe username typeahead dropdowns to replace Blue checks
-  if (config.twitterBlueChecks != 'ignore') {
-    let $tweetTextarea = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} [data-testid^="tweetTextarea"]`, {
-      name: 'tweet textarea',
-      stopIf: pageIsNot(currentPage),
-    })
-    if (!$tweetTextarea) return
-
-    /** @type {HTMLElement} */
-    let $typeaheadDropdown
-
-    pageObservers.push(
-      observeElement($tweetTextarea.parentElement.parentElement.parentElement.parentElement, (mutations) => {
-        for (let mutation of mutations) {
-          if ($typeaheadDropdown && mutations.some(mutation => Array.from(mutation.removedNodes).includes($typeaheadDropdown))) {
-            disconnectPageObserver('tweet textarea typeahead dropdown')
-            $typeaheadDropdown = null
-          }
-          for (let $addedNode of mutation.addedNodes) {
-            if ($addedNode instanceof HTMLElement && $addedNode.getAttribute('id')?.startsWith('typeaheadDropdown')) {
-              $typeaheadDropdown = $addedNode
-              pageObservers.push(
-                observeElement($typeaheadDropdown, () => {
-                  processBlueChecks($typeaheadDropdown)
-                }, 'tweet textarea typeahead dropdown')
-              )
-            }
-          }
-        }
-      }, 'tweet textarea typeahead dropdown container')
-    )
-  }
-
-  if (config.replaceLogo) {
-    tweakTweetButton()
-  }
-}
-
+/**
+ * Restores "Tweet" button text.
+ */
 async function tweakTweetButton() {
   let $tweetButton = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} button[data-testid^="tweetButton"]`, {
     name: 'tweet button',
@@ -5999,23 +6069,19 @@ async function tweakTweetButton() {
     if ($text) {
       setTweetButtonText($text)
     } else {
-      warn('could not find tweet button text')
+      warn('could not find Tweet button text')
     }
   }
 }
 
 function tweakHomeTimelinePage() {
-  if (desktop) {
-    tweakTweetBox()
-  }
-
   let $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
 
   // Hook for styling when on the separated tweets tab
   $body.classList.toggle('SeparatedTweets', isOnSeparatedTweetsTimeline())
 
   if ($timelineTabs == null) {
-    warn('could not find timeline tabs')
+    warn('could not find Home timeline tabs')
     return
   }
 
@@ -6042,11 +6108,11 @@ function tweakHomeTimelinePage() {
     observeElement($timelineTabs.parentElement, (mutations) => {
       let timelineTabsReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($timelineTabs))
       if (timelineTabsReplaced) {
-        log('timeline tabs replaced')
+        log('Home timeline tabs replaced')
         $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
         tweakTimelineTabs($timelineTabs)
       }
-    }, 'timeline tabs nav container')
+    }, 'Home timeline tabs nav container')
   )
 
   observeTimeline(currentPage, {
@@ -6057,10 +6123,103 @@ function tweakHomeTimelinePage() {
     },
     tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
   })
+
+  if (desktop) {
+    observeDesktopHomeTimelineTweetBox()
+  }
 }
 
-function tweakMobileComposeTweetPage() {
-  tweakTweetBox()
+async function tweakMobileComposeTweetPage() {
+  if (!config.replaceLogo && config.twitterBlueChecks == 'ignore') return
+
+  function observeUserTypeaheadDropdown($tweetTextareaContainer) {
+    if (!$tweetTextareaContainer) {
+      warn('could not find Tweet textarea container to observe user dropdown')
+      return
+    }
+
+    disconnectPageObserver('Tweet box typeahead dropdown container')
+    disconnectPageObserver('Tweet box typeahead dropdown')
+    let $dropdownContainer = $tweetTextareaContainer.parentElement.parentElement.parentElement.parentElement
+    /** @type {HTMLElement} */
+    let $typeaheadDropdown = $dropdownContainer.querySelector(':scope > [id^="typeaheadDropdown"]')
+    function observeDropdown() {
+      pageObservers.push(
+        observeElement($typeaheadDropdown, () => {
+          processBlueChecks($typeaheadDropdown)
+        }, 'Tweet box typeahead dropdown')
+      )
+    }
+    // If the list was re-rendered to display a dropdown for an additional
+    // Tweet, it will already be in the DOM.
+    if ($typeaheadDropdown) {
+      observeDropdown()
+    }
+    pageObservers.push(
+      observeElement($dropdownContainer, (mutations) => {
+        for (let mutation of mutations) {
+          if ($typeaheadDropdown &&
+              mutations.some(mutation => Array.from(mutation.removedNodes).includes($typeaheadDropdown))) {
+            disconnectPageObserver('Tweet box typeahead dropdown')
+            $typeaheadDropdown = null
+          }
+          for (let $addedNode of mutation.addedNodes) {
+            if ($addedNode instanceof HTMLElement &&
+                $addedNode.getAttribute('id')?.startsWith('typeaheadDropdown')) {
+              $typeaheadDropdown = $addedNode
+              observeDropdown()
+            }
+          }
+        }
+      }, 'Tweet box typeahead dropdown container')
+    )
+  }
+
+  let isReply = Boolean(document.querySelector('article[data-testid="tweet"]'))
+  if (isReply) {
+    // Restore old placeholder in Tweet textarea
+    if (config.replaceLogo) {
+      let $textarea = /** @type {HTMLTextAreaElement} */ (
+        document.querySelector('main div[data-testid^="tweetTextarea"] textarea')
+      )
+      if ($textarea) {
+        $textarea.placeholder = getString('TWEET_YOUR_REPLY')
+      } else {
+        warn('could not find Tweet textarea')
+      }
+    }
+    // Observe username typeahead dropdown in Tweet box
+    if (config.twitterBlueChecks != 'ignore') {
+      observeUserTypeaheadDropdown(document.querySelector('main div[data-testid^="tweetTextarea"]'))
+    }
+  } else {
+    let $mask = document.querySelector('[data-testid="twc-cc-mask"]')
+    let $tweetButtonText = document.querySelector('main button[data-testid^="tweetButton"] span > span')
+    if ($mask && $tweetButtonText) {
+      // We need to re-apply tweaks every time the child list changes. When
+      // you use the username typeahead dropdown in any Tweet box, the list
+      // re-renders so it's the only Tweet while the dropdown is open.
+      observeElement($mask.nextElementSibling, () => {
+        let $containers = document.querySelectorAll('main div[data-testid^="tweetTextarea"]')
+        $containers.forEach(($container, index) => {
+          if (config.replaceLogo) {
+            let $textarea = $container.querySelector('textarea')
+            $textarea.placeholder = getString(index == 0 ? 'WHATS_HAPPENING' : 'ADD_ANOTHER_TWEET')
+          }
+          if (index == 0 && config.twitterBlueChecks) {
+            observeUserTypeaheadDropdown($container)
+          }
+        })
+        // Don't update the Tweet button if the list was re-rendered to display
+        // a user dropdown, in which case it will already be in the DOM.
+        if (config.replaceLogo && !document.querySelector('main [id^="typeaheadDropdown"]')) {
+          $tweetButtonText.textContent = getString($containers.length == 1 ? 'TWEET' : 'TWEET_ALL')
+        }
+      }, 'Tweets container')
+    } else {
+      warn('could not find all elements needed to tweak the Compose Tweet page', {$mask, $tweetButtonText})
+    }
+  }
 }
 
 function tweakMobileMediaViewerPage() {
