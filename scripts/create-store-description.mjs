@@ -22,7 +22,9 @@ ${messages.homeTimelineOptionsLabel}
 • ${messages.alwaysUseLatestTweetsLabel}
   • ${messages.hideForYouTimelineLabel}
 • ${messages.retweetsLabel}
-  • ${messages.option_separate}
+  • ${messages.option_separate} / ${messages.option_hide}
+• ${messages.quoteTweetsLabel}
+  • ${messages.option_separate} / ${messages.option_hide}
 • ${messages.mutableQuoteTweetsLabel}
 • ${messages.hideSeeNewTweetsLabel}
 • ${messages.hideWhoToFollowEtcLabel}
@@ -50,9 +52,11 @@ ${messages.xFixesLabel}
 • ${messages.hideVerifiedNotificationsTabLabel}
 • ${messages.restoreLinkHeadlinesLabel}
 • ${messages.restoreQuoteTweetsLinkLabel}
+• ${messages.restoreOtherInteractionLinksLabel}
 • ${messages.sortRepliesLabel}
+  • ${messages.option_recent} / ${messages.option_liked}
 • ${messages.twitterBlueChecksLabel}
-  • ${messages.twitterBlueChecksOption_replace}
+  • ${messages.twitterBlueChecksOption_replace} / ${messages.option_hide}
 • ${messages.hideTwitterBlueRepliesLabel}
 • ${messages.hideTwitterBlueUpsellsLabel}
 • ${messages.hideGrokLabel}
@@ -69,6 +73,7 @@ ${messages.uiTweaksOptionsLabel}
 • ${messages.dropdownMenuFontWeightLabel}
 • ${messages.uninvertFollowButtonsLabel}
   • ${messages.followButtonStyleOption_monochrome} / ${messages.followButtonStyleOption_themed}
+• ${messages.unblurSensitiveContentLabel}
 
 ${messages.reduceAlgorithmicContentOptionsLabel}
 
@@ -81,20 +86,22 @@ ${messages.reduceEngagementOptionsLabel}
 • ${messages.hideMetricsLabel}
 • ${messages.reducedInteractionModeLabel}
   • ${messages.reducedInteractionModeInfo}
-• ${hideComposeTweetLabel}
+• ${messages.hideComposeTweetLabel}
 • ${messages.disableHomeTimelineLabel}
   • ${messages.disableHomeTimelineInfo}
 • ${messages.notificationsLabel}
-  • ${messages.option_hide} / ${messages.option_badges}
+  • ${messages.option_badges} / ${messages.option_hide}
 
 ${messages.hideUnusedUiItemsOptionsLabel}
 
 • ${messages.hideBookmarkButtonLabel}
 • ${messages.hideShareTweetButtonLabel}
-• ${messages.hideTimelineTweetBoxLabel}
+• ${messages.hideTweetAnalyticsLinksLabel}
 • ${messages.hideTimelineTweetBoxLabel}
 • ${messages.hideAccountSwitcherLabel}
 • ${messages.hideMessagesDrawerLabel}
+• ${messages.hideExploreNavLabel}
+• ${messages.hideCommunitiesNavLabel}
 • ${messages.hideMoreSlideOutMenuItemsOptionsLabel_desktop}
 `.trim()
 
