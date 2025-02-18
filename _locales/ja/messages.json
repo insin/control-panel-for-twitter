@@ -294,13 +294,13 @@
     "message": "そのまま"
   },
   "option_liked": {
-    "message": "いいねが多い"
+    "message": "いいね"
   },
   "option_recent": {
-    "message": "新しい順"
+    "message": "最新"
   },
   "option_relevant": {
-    "message": "関連性が高い"
+    "message": "関連性"
   },
   "option_separate": {
     "message": "別タブで開く"
@@ -365,7 +365,7 @@
     "message": "ツイート閲覧時に「おすすめユーザー」を表示する"
   },
   "sortRepliesLabel": {
-    "message": "返信を並べ替えのデフォルト"
+    "message": "返信のデフォルトの並べ替え"
   },
   "tweakNewLayoutInfo": {
     "message": "実験的機能 - 新しいレイアウトがある場合にのみ有効にしてください"

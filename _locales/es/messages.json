@@ -294,13 +294,13 @@
     "message": "No cambiar"
   },
   "option_liked": {
-    "message": "Más Me gusta"
+    "message": "Me gusta"
   },
   "option_recent": {
-    "message": "Más recientes"
+    "message": "Más reciente"
   },
   "option_relevant": {
-    "message": "Más relevantes"
+    "message": "Relevancia"
   },
   "option_separate": {
     "message": "Mostrar en pestaña aparte"
@@ -365,7 +365,7 @@
     "message": "Mostrar \"Personas relevantes\" al ver un tweet"
   },
   "sortRepliesLabel": {
-    "message": "Predeterminado para Organizar respuestas"
+    "message": "Orden predeterminado de las respuestas"
   },
   "tweakNewLayoutInfo": {
     "message": "Experimental - solo activar si tienes el nuevo diseño"

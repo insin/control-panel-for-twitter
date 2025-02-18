@@ -299,13 +299,13 @@
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
   },
   "option_liked": {
-    "message": "Most liked"
+    "message": "Likes"
   },
   "option_recent": {
-    "message": "Most recent"
+    "message": "Latest"
   },
   "option_relevant": {
-    "message": "Most relevant"
+    "message": "Relevancy"
   },
   "option_separate": {
     "message": "Show in separate tab",
@@ -372,7 +372,7 @@
     "message": "Show \"Relevant people\" when viewing a tweet"
   },
   "sortRepliesLabel": {
-    "message": "Default for Sort replies"
+    "message": "Default sorting of replies"
   },
   "tweakNewLayoutInfo": {
     "message": "Experimental - only enable if you have the new layout"

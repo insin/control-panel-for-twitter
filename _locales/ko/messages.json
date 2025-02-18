@@ -294,13 +294,13 @@
     "message": "아무것도 하지 않음"
   },
   "option_liked": {
-    "message": "마음에 들어요 순서"
+    "message": "마음에 들어요"
   },
   "option_recent": {
-    "message": "최신 순서"
+    "message": "최신"
   },
   "option_relevant": {
-    "message": "관련도 순서"
+    "message": "관련성"
   },
   "option_separate": {
     "message": "별도의 탭에 표시"
@@ -365,7 +365,7 @@
     "message": "트윗 보기 시 \"연관된 사람\" 표시"
   },
   "sortRepliesLabel": {
-    "message": "답글 정렬하기의 기본값"
+    "message": "답글의 기본 정렬"
   },
   "tweakNewLayoutInfo": {
     "message": "실험적 기능 - 새 레이아웃이 있는 경우에만 활성화하세요"

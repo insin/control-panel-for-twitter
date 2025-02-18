@@ -294,13 +294,13 @@
     "message": "Ne rien faire"
   },
   "option_liked": {
-    "message": "Les plus aimés"
+    "message": "J'aime"
   },
   "option_recent": {
-    "message": "Les plus récents"
+    "message": "Récent"
   },
   "option_relevant": {
-    "message": "Les plus pertinentes"
+    "message": "Pertinence"
   },
   "option_separate": {
     "message": "Afficher dans un onglet séparé"
@@ -365,7 +365,7 @@
     "message": "Afficher \"Personnes pertinentes\" lors de l'affichage d'un tweet"
   },
   "sortRepliesLabel": {
-    "message": "Par défaut pour Trier les réponses"
+    "message": "Tri par défaut des réponses"
   },
   "tweakNewLayoutInfo": {
     "message": "Expérimental - n'activez que si vous avez la nouvelle mise en page"

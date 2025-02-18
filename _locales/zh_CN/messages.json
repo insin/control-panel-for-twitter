@@ -303,13 +303,13 @@
     "message": "什么都不做"
   },
   "option_liked": {
-    "message": "最多点赞"
+    "message": "喜欢"
   },
   "option_recent": {
-    "message": "最近"
+    "message": "最新"
   },
   "option_relevant": {
-    "message": "最相关"
+    "message": "相关性"
   },
   "option_separate": {
     "message": "在单独的标签中显示"
@@ -377,7 +377,7 @@
     "message": "对回复排序"
   },
   "sortRepliesLabel": {
-    "message": "对回复排序的默认设置"
+    "message": "回复的默认排序"
   },
   "tweakNewLayoutInfo": {
     "message": "实验性功能 - 仅在您拥有新布局时启用"
