@@ -187,7 +187,7 @@ const locales = {
     TWITTER: 'تويتر',
     UNDO_RETWEET: 'التراجع عن التغريدة',
     VIEW: 'عرض',
-    WHATS_HAPPENING: 'ما الذي يحدث؟',
+    WHATS_HAPPENING: 'ماذا يحدث؟',
   },
   ar: {
     ADD_ANOTHER_TWEET: 'إضافة تغريدة أخرى',
@@ -224,7 +224,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'التغريد بردك',
     UNDO_RETWEET: 'التراجع عن التغريدة',
     VIEW: 'عرض',
-    WHATS_HAPPENING: 'ما الذي يحدث؟',
+    WHATS_HAPPENING: 'ماذا يحدث؟',
   },
   bg: {
     ADD_ANOTHER_TWEET: 'Добавяне на друг туит',
@@ -299,7 +299,7 @@ const locales = {
     TWITTER: 'টুইটার',
     UNDO_RETWEET: 'পুনঃ টুইট পুর্বাবস্থায় ফেরান',
     VIEW: 'দেখুন',
-    WHATS_HAPPENING: 'কি ঘটছে?',
+    WHATS_HAPPENING: 'কি খবর?',
   },
   ca: {
     ADD_ANOTHER_TWEET: 'Afegeix un altre tuit',
@@ -336,7 +336,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tuita la teva resposta',
     UNDO_RETWEET: 'Desfés el retuit',
     VIEW: 'Mostra',
-    WHATS_HAPPENING: 'Què està passant?',
+    WHATS_HAPPENING: 'Què passa?',
   },
   cs: {
     ADD_ANOTHER_TWEET: 'Přidat další Tweet',
@@ -437,7 +437,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Twittere deine Antwort',
     UNDO_RETWEET: 'Retweet rückgängig machen',
     VIEW: 'Anzeigen',
-    WHATS_HAPPENING: 'Was passiert?',
+    WHATS_HAPPENING: 'Was gibt’s Neues?',
   },
   el: {
     ADD_ANOTHER_TWEET: 'Προσθήκη άλλου Tweet',
@@ -572,6 +572,7 @@ const locales = {
     TWEETS: 'Txioak',
     TWEET_ALL: 'Txiotu guztiak',
     TWEET_INTERACTIONS: 'Txio elkarrekintzak',
+    TWEET_YOUR_REPLY: 'Txiotu zure erantzuna',
     UNDO_RETWEET: 'Desegin birtxiokatzea',
     VIEW: 'Ikusi',
     WHATS_HAPPENING: 'Zer gertatzen ari da?',
@@ -649,7 +650,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Twiittaa vastauksesi',
     UNDO_RETWEET: 'Kumoa uudelleentwiittaus',
     VIEW: 'Näytä',
-    WHATS_HAPPENING: 'Mitä tapahtuu?',
+    WHATS_HAPPENING: 'Missä mennään?',
   },
   fil: {
     ADD_ANOTHER_TWEET: 'Magdagdag ng isa pang Tweet',
@@ -684,7 +685,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'I-Tweet ang sagot mo',
     UNDO_RETWEET: 'Huwag nang I-retweet',
     VIEW: 'Tingnan',
-    WHATS_HAPPENING: 'Anong nangyayari?',
+    WHATS_HAPPENING: 'Ano ang nangyayari?',
   },
   fr: {
     ADD_ANOTHER_TWEET: 'Ajouter un autre Tweet',
@@ -717,7 +718,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetez votre réponse',
     UNDO_RETWEET: 'Annuler le Retweet',
     VIEW: 'Voir',
-    WHATS_HAPPENING: 'Quoi de neuf ?',
+    WHATS_HAPPENING: 'Quoi de neuf !',
   },
   ga: {
     ADD_ANOTHER_TWEET: 'Cuir Tweet eile leis',
@@ -744,6 +745,7 @@ const locales = {
     TWEETS: 'Tweetanna',
     TWEET_ALL: 'Tweetáil gach rud',
     TWEET_INTERACTIONS: 'Idirghníomhaíochtaí le Tweet',
+    TWEET_YOUR_REPLY: 'Tweetáil do fhreagra',
     UNDO_RETWEET: 'Cuir an Atweet ar ceal',
     VIEW: 'Breathnaigh',
     WHATS_HAPPENING: 'Cad atá ag tarlú?',
@@ -774,6 +776,7 @@ const locales = {
     TWEETS: 'Chíos',
     TWEET_ALL: 'Chiar todo',
     TWEET_INTERACTIONS: 'Interaccións chío',
+    TWEET_YOUR_REPLY: 'Chío a túa responder',
     UNDO_RETWEET: 'Desfacer rechouchío',
     VIEW: 'Ver',
     WHATS_HAPPENING: 'Que está pasando?',
@@ -960,7 +963,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweeteld válaszodat',
     UNDO_RETWEET: 'Retweet visszavonása',
     VIEW: 'Megtekintés',
-    WHATS_HAPPENING: 'Mi történik?',
+    WHATS_HAPPENING: 'Mi történik éppen most?',
   },
   id: {
     ADD_ANOTHER_TWEET: 'Tambahkan Tweet lain',
@@ -995,7 +998,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet balasan Anda',
     UNDO_RETWEET: 'Batalkan Retweet',
     VIEW: 'Lihat',
-    WHATS_HAPPENING: 'Apa yang terjadi?',
+    WHATS_HAPPENING: 'Apa yang sedang hangat dibicarakan?',
   },
   it: {
     ADD_ANOTHER_TWEET: 'Aggiungi altro Tweet',
@@ -1027,10 +1030,10 @@ const locales = {
     TWEETS: 'Tweet',
     TWEET_ALL: 'Twitta tutto',
     TWEET_INTERACTIONS: 'Interazioni con Tweet',
-    TWEET_YOUR_REPLY: 'Twitta la tua risposta.',
+    TWEET_YOUR_REPLY: 'Twitta la tua risposta',
     UNDO_RETWEET: 'Annulla Retweet',
     VIEW: 'Visualizza',
-    WHATS_HAPPENING: 'Cosa sta succedendo?',
+    WHATS_HAPPENING: "Che c'è di nuovo?",
   },
   ja: {
     ADD_ANOTHER_TWEET: '別のツイートを追加する',
@@ -1064,10 +1067,10 @@ const locales = {
     TWEETS: 'ツイート',
     TWEET_ALL: 'すべてツイート',
     TWEET_INTERACTIONS: 'ツイートの相互作用',
-    TWEET_YOUR_REPLY: '返信をツイートしましょう。',
+    TWEET_YOUR_REPLY: '返信をツイートしましょう',
     UNDO_RETWEET: 'リツイートを取り消す',
     VIEW: '表示する',
-    WHATS_HAPPENING: '何が起こっているの？',
+    WHATS_HAPPENING: 'いまどうしてる？',
   },
   kn: {
     ADD_ANOTHER_TWEET: 'ಮತ್ತೊಂದು ಟ್ವೀಟ್ ಸೇರಿಸಿ',
@@ -1142,7 +1145,7 @@ const locales = {
     TWITTER: '트위터',
     UNDO_RETWEET: '리트윗 취소',
     VIEW: '보기',
-    WHATS_HAPPENING: '무슨 일이야?',
+    WHATS_HAPPENING: '무슨 일이 일어나고 있나요?',
   },
   mr: {
     ADD_ANOTHER_TWEET: 'दुसरे ट्विट सामील करा',
@@ -1179,7 +1182,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'आपल्या प्रत्युत्तरावर ट्विट करा',
     UNDO_RETWEET: 'पुनर्ट्विट पूर्ववत करा',
     VIEW: 'पहा',
-    WHATS_HAPPENING: 'काय होत आहे?',
+    WHATS_HAPPENING: 'ताज्या घडामोडी?',
   },
   ms: {
     ADD_ANOTHER_TWEET: 'Tambahkan Tweet lain',
@@ -1215,7 +1218,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet balasan anda',
     UNDO_RETWEET: 'Buat asal Tweet semula',
     VIEW: 'Lihat',
-    WHATS_HAPPENING: 'Apa yang sedang berlaku?',
+    WHATS_HAPPENING: 'Apakah yang sedang berlaku?',
   },
   nb: {
     ADD_ANOTHER_TWEET: 'Legg til en annen Tweet',
@@ -1535,7 +1538,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweeta ditt svar',
     UNDO_RETWEET: 'Ångra retweeten',
     VIEW: 'Visa',
-    WHATS_HAPPENING: 'Vad händer?',
+    WHATS_HAPPENING: 'Vad är det som händer?',
   },
   ta: {
     ADD_ANOTHER_TWEET: 'வேறொரு கீச்சைச் சேர்',
@@ -1572,7 +1575,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'உங்கள் பதிலை ட்விட் செய்யவும்',
     UNDO_RETWEET: 'மறுகீச்சை செயல்தவிர்',
     VIEW: 'காண்பி',
-    WHATS_HAPPENING: 'என்ன நடக்கிறது?',
+    WHATS_HAPPENING: 'என்ன நிகழ்கிறது?',
   },
   th: {
     ADD_ANOTHER_TWEET: 'เพิ่มอีกทวีต',
@@ -1610,7 +1613,7 @@ const locales = {
     TWITTER: 'ทวิตเตอร์',
     UNDO_RETWEET: 'ยกเลิกการรีทวีต',
     VIEW: 'ดู',
-    WHATS_HAPPENING: 'เกิดอะไรขึ้น?',
+    WHATS_HAPPENING: 'มีอะไรเกิดขึ้นบ้าง',
   },
   tr: {
     ADD_ANOTHER_TWEET: 'Başka bir Tweet ekle',
@@ -1643,10 +1646,10 @@ const locales = {
     TWEETS: 'Tweetler',
     TWEET_ALL: 'Hepsini Tweetle',
     TWEET_INTERACTIONS: 'Tweet etkileşimleri',
-    TWEET_YOUR_REPLY: 'Yanıtını Tweetle.',
+    TWEET_YOUR_REPLY: 'Yanıtını Tweetle',
     UNDO_RETWEET: 'Retweeti Geri Al',
     VIEW: 'Görüntüle',
-    WHATS_HAPPENING: 'Ne oluyor?',
+    WHATS_HAPPENING: 'Neler oluyor?',
   },
   uk: {
     ADD_ANOTHER_TWEET: 'Додати ще один твіт',
@@ -1712,6 +1715,7 @@ const locales = {
     TWEETS: 'ٹویٹس',
     TWEET_ALL: 'سب کو ٹویٹ کریں',
     TWEET_INTERACTIONS: 'ٹویٹ تعاملات',
+    TWEET_YOUR_REPLY: 'اپنا جواب ٹویٹ کریں',
     TWITTER: 'ٹوئٹر',
     UNDO_RETWEET: 'ری ٹویٹ کو کالعدم کریں',
     VIEW: 'دیکھیں',
@@ -1785,10 +1789,10 @@ const locales = {
     TWEETS: '推文',
     TWEET_ALL: '推全部內容',
     TWEET_INTERACTIONS: '推文互動',
-    TWEET_YOUR_REPLY: '推你的回覆！',
+    TWEET_YOUR_REPLY: '推你的回覆',
     UNDO_RETWEET: '取消轉推',
     VIEW: '查看',
-    WHATS_HAPPENING: '發生什麼事？',
+    WHATS_HAPPENING: '有什麼新鮮事？',
   },
   zh: {
     ADD_ANOTHER_TWEET: '添加另一条推文',
@@ -1822,10 +1826,10 @@ const locales = {
     TWEETS: '推文',
     TWEET_ALL: '全部发推',
     TWEET_INTERACTIONS: '推文互动',
-    TWEET_YOUR_REPLY: '发布你的回复！',
+    TWEET_YOUR_REPLY: '发布你的回复',
     UNDO_RETWEET: '撤销转推',
     VIEW: '查看',
-    WHATS_HAPPENING: '发生了什么？',
+    WHATS_HAPPENING: '有什么新鲜事？',
   },
 }
 
@@ -2601,6 +2605,7 @@ async function observeDesktopComposeTweetModal($popup) {
       disconnectModalObserver('Modal Tweet editor root (for placeholder)')
       let $editorRoots = $popup.querySelectorAll('.DraftEditor-root')
       $editorRoots.forEach((/** @type {HTMLElement} */ $editorRoot, index) => {
+        if (index == 0 && !hasTranslation('WHATS_HAPPENING')) return
         $editorRoot.setAttribute('data-placeholder', getString(index == 0 ? 'WHATS_HAPPENING' : 'ADD_ANOTHER_TWEET'))
         observeDesktopTweetEditorPlaceholder($editorRoot, {
           name: 'Modal Tweet editor root (for placeholder)',
