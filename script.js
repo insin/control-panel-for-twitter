@@ -1067,7 +1067,7 @@ const locales = {
     TWEET_YOUR_REPLY: '返信をツイートしましょう。',
     UNDO_RETWEET: 'リツイートを取り消す',
     VIEW: '表示する',
-    WHATS_HAPPENING: '何が起こっているの？',
+    WHATS_HAPPENING: 'いまどうしてる？',
   },
   kn: {
     ADD_ANOTHER_TWEET: 'ಮತ್ತೊಂದು ಟ್ವೀಟ್ ಸೇರಿಸಿ',
