@@ -1069,7 +1069,7 @@ const locales = {
     TWEETS: 'ツイート',
     TWEET_ALL: 'すべてツイート',
     TWEET_INTERACTIONS: 'ツイートの相互作用',
-    TWEET_YOUR_REPLY: '返信をツイートしましょう',
+    TWEET_YOUR_REPLY: '返信をツイート',
     UNDO_RETWEET: 'リツイートを取り消す',
     VIEW: '表示する',
     WHATS_HAPPENING: 'いまどうしてる？',
