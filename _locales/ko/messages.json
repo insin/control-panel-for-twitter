@@ -119,6 +119,9 @@
   "hideComposeTweetLabel": {
     "message": "트윗 작성 버튼 숨기기"
   },
+  "hideDiscoverSuggestionsLabel": {
+    "message": "\"발견\" 제안 숨기기"
+  },
   "hideExploreNavLabel": {
     "message": "탐색"
   },
@@ -169,9 +172,6 @@
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "사용하지 않는 \"더 보기\" 메뉴 항목 숨기기 (모바일)"
-  },
-  "hideMoreTweetsLabel": {
-    "message": "\"더 알아보기\" 트윗 숨기기"
   },
   "hideNotificationsLabel": {
     "message": "알림 숨기기"

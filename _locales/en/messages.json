@@ -122,6 +122,9 @@
   "hideComposeTweetLabel": {
     "message": "Hide the Compose Tweet button"
   },
+  "hideDiscoverSuggestionsLabel": {
+    "message": "Hide \"Discover\" suggestions"
+  },
   "hideExploreNavLabel": {
     "message": "Explore"
   },
@@ -172,9 +175,6 @@
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Hide slide-out menu items you don't use"
-  },
-  "hideMoreTweetsLabel": {
-    "message": "Hide \"Discover more\" tweets"
   },
   "hideNotificationsLabel": {
     "message": "Hide notifications"

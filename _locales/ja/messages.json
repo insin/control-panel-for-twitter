@@ -119,6 +119,9 @@
   "hideComposeTweetLabel": {
     "message": "ツイート作成ボタンを非表示"
   },
+  "hideDiscoverSuggestionsLabel": {
+    "message": "「発見」の提案を非表示"
+  },
   "hideExploreNavLabel": {
     "message": "「話題を検索」"
   },
@@ -169,9 +172,6 @@
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "使用しないスライドアウトメニューの項目を非表示"
-  },
-  "hideMoreTweetsLabel": {
-    "message": "「もっと見つける」を非表示"
   },
   "hideNotificationsLabel": {
     "message": "通知を非表示"

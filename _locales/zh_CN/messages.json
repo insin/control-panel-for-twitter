@@ -119,6 +119,9 @@
   "hideComposeTweetLabel": {
     "message": "隐藏撰写推文按钮"
   },
+  "hideDiscoverSuggestionsLabel": {
+    "message": "隐藏\"发现\"建议"
+  },
   "hideExploreNavLabel": {
     "message": "探索"
   },
@@ -169,9 +172,6 @@
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "隐藏你不使用的滑出式菜单项"
-  },
-  "hideMoreTweetsLabel": {
-    "message": "隐藏\"发现更多\"推文"
   },
   "hideNotificationsLabel": {
     "message": "隐藏通知"

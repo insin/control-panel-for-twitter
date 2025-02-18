@@ -119,6 +119,9 @@
   "hideComposeTweetLabel": {
     "message": "Nascondi il pulsante Componi Tweet"
   },
+  "hideDiscoverSuggestionsLabel": {
+    "message": "Nascondi i suggerimenti \"Scopri\""
+  },
   "hideExploreNavLabel": {
     "message": "Esplora"
   },
@@ -169,9 +172,6 @@
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Nascondi elementi del menu ad hamburger che non usi"
-  },
-  "hideMoreTweetsLabel": {
-    "message": "Nascondi i tweet \"Scopri di più\""
   },
   "hideNotificationsLabel": {
     "message": "Nascondi notifiche"

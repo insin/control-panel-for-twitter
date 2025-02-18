@@ -119,6 +119,9 @@
   "hideComposeTweetLabel": {
     "message": "Ocultar el botón de Redactar Tweet"
   },
+  "hideDiscoverSuggestionsLabel": {
+    "message": "Ocultar sugerencias de \"Descubrir\""
+  },
   "hideExploreNavLabel": {
     "message": "Explorar"
   },
@@ -169,9 +172,6 @@
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Ocultar elementos no usados en el menú hamburguesa"
-  },
-  "hideMoreTweetsLabel": {
-    "message": "Ocultar tweets de \"Descubrir más\""
   },
   "hideNotificationsLabel": {
     "message": "Ocultar notificaciones"

@@ -79,7 +79,7 @@ ${messages.reduceAlgorithmicContentOptionsLabel}
 
 • ${messages.hideSidebarContentLabel}
 • ${messages.hideExplorePageContentsLabel}
-• ${messages.hideMoreTweetsLabel}
+• ${messages.hideDiscoverSuggestionsLabel}
 
 ${messages.reduceEngagementOptionsLabel}
 

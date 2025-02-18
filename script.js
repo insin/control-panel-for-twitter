@@ -1940,6 +1940,7 @@ const URL_COMMUNITY_RE = /^\/i\/communities\/\d+(?:\/about)?\/?$/
 const URL_COMMUNITY_MEMBERS_RE = /^\/i\/communities\/\d+\/(?:members|moderators)\/?$/
 const URL_DISCOVER_COMMUNITIES_RE = /^\/i\/communities\/suggested\/?/
 const URL_LIST_RE = /\/i\/lists\/\d+\/?$/
+const URL_LISTS_RE = /^\/[a-zA-Z\d_]{1,20}\/lists\/?$/
 const URL_MEDIA_RE = /\/(?:photo|video)\/\d\/?$/
 const URL_MEDIAVIEWER_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/mediaviewer$/i
 // Matches URLs which show one of the tabs on a user profile page
@@ -2096,6 +2097,10 @@ function isOnIndividualTweetPage() {
 
 function isOnListPage() {
   return URL_LIST_RE.test(currentPath)
+}
+
+function isOnListsPage() {
+  return URL_LISTS_RE.test(currentPath)
 }
 
 function isOnHomeTimelinePage() {
@@ -2605,7 +2610,6 @@ async function observeDesktopComposeTweetModal($popup) {
       disconnectModalObserver('Modal Tweet editor root (for placeholder)')
       let $editorRoots = $popup.querySelectorAll('.DraftEditor-root')
       $editorRoots.forEach((/** @type {HTMLElement} */ $editorRoot, index) => {
-        if (index == 0 && !hasTranslation('WHATS_HAPPENING')) return
         $editorRoot.setAttribute('data-placeholder', getString(index == 0 ? 'WHATS_HAPPENING' : 'ADD_ANOTHER_TWEET'))
         observeDesktopTweetEditorPlaceholder($editorRoot, {
           name: 'Modal Tweet editor root (for placeholder)',
@@ -3479,6 +3483,9 @@ const configureCss = (() => {
     }
     if (config.hideMetrics) {
       configureHideMetricsCss(cssRules, hideCssSelectors)
+    }
+    if (config.hideMoreTweets) {
+      hideCssSelectors.push('.SuggestedContent')
     }
     if (config.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
@@ -5518,6 +5525,9 @@ function processCurrentPage() {
   else if (isOnListPage()) {
     tweakListPage()
   }
+  else if (isOnListsPage()) {
+    tweakListsPage()
+  }
   else if (isOnExplorePage()) {
     tweakExplorePage()
   }
@@ -6015,6 +6025,27 @@ function tweakListPage() {
   observeTimeline(currentPage, {
     hideHeadings: false,
   })
+}
+
+async function tweakListsPage() {
+  if (config.hideMoreTweets) {
+    // Hide Discover new Lists
+    let $showMoreLink = await getElement('a[href="/i/lists/suggested"]', {
+      name: 'Show more link',
+      stopIf: pageIsNot(currentPage),
+    })
+    if (!$showMoreLink) return
+    let $timelineItem = $showMoreLink.closest('[data-testid="cellInnerDiv"]')
+    if (!$timelineItem) {
+      warn('could not find timeline item containing Show more link')
+      return
+    }
+    let $timelineItems = $timelineItem.parentElement.children
+    let showMoreIndex = Array.prototype.indexOf.call($timelineItems, $timelineItem)
+    for (let i = 1; i <= showMoreIndex + 2; i++) {
+      $timelineItems[i].classList.add('SuggestedContent')
+    }
+  }
 }
 
 async function tweakDesktopLogo() {
