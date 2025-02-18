@@ -6466,6 +6466,14 @@ function tweakSearchPage() {
     isTabbed: true,
     tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
   })
+
+  if (desktop) {
+    let $emptyFirstSidebarItem = document.querySelector(`${Selectors.SIDEBAR_WRAPPERS} > div:first-child:empty`)
+    if ($emptyFirstSidebarItem) {
+      log('removing empty first sidebar item from Search sidebar')
+      $emptyFirstSidebarItem.remove()
+    }
+  }
 }
 
 function tweakTweetEngagementPage() {
