@@ -179,6 +179,9 @@
   "hideProNavLabel": {
     "message": "Pro"
   },
+  "hideProfileHeaderMetricsLabel": {
+    "message": "프로필 헤더 메트릭"
+  },
   "hideProfileRetweetsLabel": {
     "message": "사용자 프로필에서 리트윗 숨기기"
   },
@@ -220,9 +223,6 @@
   },
   "hideToggleNavigationLabel": {
     "message": "탐색 전환 숨기기"
-  },
-  "hideTotalTweetsMetricsLabel": {
-    "message": "총 트윗 수"
   },
   "hideTweetAnalyticsLinksLabel": {
     "message": "내 트윗 아래에 \"게시 참여수 조회\""

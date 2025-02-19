@@ -179,6 +179,9 @@
   "hideProNavLabel": {
     "message": "Pro"
   },
+  "hideProfileHeaderMetricsLabel": {
+    "message": "プロフィールヘッダーのメトリクス"
+  },
   "hideProfileRetweetsLabel": {
     "message": "ユーザープロフィールでのリツイートを非表示にする"
   },
@@ -220,9 +223,6 @@
   },
   "hideToggleNavigationLabel": {
     "message": "ナビゲーション切り替えを非表示"
-  },
-  "hideTotalTweetsMetricsLabel": {
-    "message": "総ツイート数"
   },
   "hideTweetAnalyticsLinksLabel": {
     "message": "自分のツイートの下に「ポストのエンゲージメントを表示」"

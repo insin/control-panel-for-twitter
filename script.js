@@ -4195,7 +4195,7 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   }
 
   if (config.hideTotalTweetsMetrics) {
-    // Tweet count under username header on profile pages
+    // Metrics under username header on profile pages
     hideCssSelectors.push(`
       body.Profile ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 + div[dir]
     `)

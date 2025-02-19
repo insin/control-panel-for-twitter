@@ -179,6 +179,9 @@
   "hideProNavLabel": {
     "message": "Pro"
   },
+  "hideProfileHeaderMetricsLabel": {
+    "message": "Metriche dell'intestazione del profilo"
+  },
   "hideProfileRetweetsLabel": {
     "message": "Nascondi i retweet nei profili"
   },
@@ -220,9 +223,6 @@
   },
   "hideToggleNavigationLabel": {
     "message": "Nascondi attiva/disattiva navigazione"
-  },
-  "hideTotalTweetsMetricsLabel": {
-    "message": "Tweet totali"
   },
   "hideTweetAnalyticsLinksLabel": {
     "message": "\"Visualizza interazioni tweet\" sotto ai tuoi tweet"

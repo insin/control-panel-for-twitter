@@ -182,6 +182,9 @@
   "hideProNavLabel": {
     "message": "Pro"
   },
+  "hideProfileHeaderMetricsLabel": {
+    "message": "Profile header metrics"
+  },
   "hideProfileRetweetsLabel": {
     "message": "Hide Retweets in user profiles"
   },
@@ -223,9 +226,6 @@
   },
   "hideToggleNavigationLabel": {
     "message": "Hide Toggle navigation"
-  },
-  "hideTotalTweetsMetricsLabel": {
-    "message": "Total tweets"
   },
   "hideTweetAnalyticsLinksLabel": {
     "message": "\"View post engagements\" under your tweets"

@@ -179,6 +179,9 @@
   "hideProNavLabel": {
     "message": "专业版"
   },
+  "hideProfileHeaderMetricsLabel": {
+    "message": "个人资料页眉指标"
+  },
   "hideProfileRetweetsLabel": {
     "message": "在用户个人资料中隐藏转发"
   },
@@ -220,9 +223,6 @@
   },
   "hideToggleNavigationLabel": {
     "message": "隐藏切换导航"
-  },
-  "hideTotalTweetsMetricsLabel": {
-    "message": "推文总数"
   },
   "hideTweetAnalyticsLinksLabel": {
     "message": "您自己的推文下的\"查看 帖子 互动量\""
