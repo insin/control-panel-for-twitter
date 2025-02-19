@@ -305,6 +305,12 @@
   "option_separate": {
     "message": "Afficher dans un onglet séparé"
   },
+  "preventNextVideoAutoplayInfo": {
+    "message": "Les vidéos seront lues en boucle à la place"
+  },
+  "preventNextVideoAutoplayLabel": {
+    "message": "Empêcher la lecture automatique de la vidéo suivante"
+  },
   "quoteTweetsLabel": {
     "message": "Tweets de citation"
   },

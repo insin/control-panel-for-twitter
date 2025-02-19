@@ -93,6 +93,8 @@ for (let translationId of [
   'mutableQuoteTweetsLabel',
   'navBaseFontSizeLabel',
   'navDensityLabel',
+  'preventNextVideoAutoplayInfo',
+  'preventNextVideoAutoplayLabel',
   'quoteTweetsLabel',
   'redirectToTwitterLabel',
   'reduceAlgorithmicContentOptionsLabel',
@@ -199,7 +201,6 @@ const defaultConfig = {
   hideSeeNewTweets: false,
   hideShareTweetButton: false,
   hideSubscriptions: true,
-  hideTimelineTweetBox: false,
   hideTotalTweetsMetrics: true,
   hideTweetAnalyticsLinks: false,
   hideTwitterBlueReplies: false,
@@ -241,11 +242,13 @@ const defaultConfig = {
   hideProNav: true,
   hideSidebarContent: true,
   hideSpacesNav: false,
+  hideTimelineTweetBox: false,
   hideToggleNavigation: false,
   navBaseFontSize: true,
   navDensity: 'default',
   showRelevantPeople: false,
   // Mobile only
+  preventNextVideoAutoplay: true,
   hideMessagesBottomNavItem: false,
 }
 //#endregion

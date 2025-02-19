@@ -311,6 +311,12 @@
     "message": "Show in separate tab",
     "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
   },
+  "preventNextVideoAutoplayInfo": {
+    "message": "Videos will loop instead"
+  },
+  "preventNextVideoAutoplayLabel": {
+    "message": "Prevent next video autoplaying"
+  },
   "quoteTweetsLabel": {
     "message": "Quote Tweets"
   },

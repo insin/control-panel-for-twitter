@@ -305,6 +305,12 @@
   "option_separate": {
     "message": "別タブで開く"
   },
+  "preventNextVideoAutoplayInfo": {
+    "message": "動画はループ再生されます"
+  },
+  "preventNextVideoAutoplayLabel": {
+    "message": "次の動画の自動再生を防ぐ"
+  },
   "quoteTweetsLabel": {
     "message": "引用ツイート"
   },

@@ -44,7 +44,6 @@ export type Config = {
   hideShareTweetButton: boolean
   hideSpacesNav: boolean
   hideSubscriptions: boolean
-  hideTimelineTweetBox: boolean
   // XXX This now controls hiding profile header metrics
   hideTotalTweetsMetrics: boolean
   hideTweetAnalyticsLinks: boolean
@@ -88,11 +87,13 @@ export type Config = {
   hideMessagesDrawer: boolean
   hideProNav: boolean
   hideSidebarContent: boolean
+  hideTimelineTweetBox: boolean
   hideToggleNavigation: boolean
   navBaseFontSize: boolean
   navDensity: 'default' | 'comfortable' | 'compact'
   showRelevantPeople: boolean
   // Mobile only
+  preventNextVideoAutoplay: boolean
   hideMessagesBottomNavItem: boolean
 }
 

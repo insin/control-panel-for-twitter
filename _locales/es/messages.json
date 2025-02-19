@@ -305,6 +305,12 @@
   "option_separate": {
     "message": "Mostrar en pestaña aparte"
   },
+  "preventNextVideoAutoplayInfo": {
+    "message": "Los videos se repetirán en su lugar"
+  },
+  "preventNextVideoAutoplayLabel": {
+    "message": "Evitar la reproducción automática del siguiente video"
+  },
   "quoteTweetsLabel": {
     "message": "Citados"
   },

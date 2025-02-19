@@ -314,6 +314,12 @@
   "option_separate": {
     "message": "在单独的标签中显示"
   },
+  "preventNextVideoAutoplayInfo": {
+    "message": "视频将循环播放"
+  },
+  "preventNextVideoAutoplayLabel": {
+    "message": "防止下一个视频自动播放"
+  },
   "quoteTweetsLabel": {
     "message": "引用推文"
   },

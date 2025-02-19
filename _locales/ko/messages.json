@@ -305,6 +305,12 @@
   "option_separate": {
     "message": "별도의 탭에 표시"
   },
+  "preventNextVideoAutoplayInfo": {
+    "message": "비디오는 반복 재생됩니다"
+  },
+  "preventNextVideoAutoplayLabel": {
+    "message": "다음 비디오 자동 재생 방지"
+  },
   "quoteTweetsLabel": {
     "message": "인용 트윗"
   },

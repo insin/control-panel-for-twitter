@@ -96,7 +96,6 @@ const config = {
   hideSeeNewTweets: false,
   hideShareTweetButton: false,
   hideSubscriptions: true,
-  hideTimelineTweetBox: false,
   hideTotalTweetsMetrics: true,
   hideTweetAnalyticsLinks: false,
   hideTwitterBlueReplies: false,
@@ -138,11 +137,13 @@ const config = {
   hideProNav: true,
   hideSidebarContent: true,
   hideSpacesNav: false,
+  hideTimelineTweetBox: false,
   hideToggleNavigation: false,
   navBaseFontSize: true,
   navDensity: 'default',
   showRelevantPeople: false,
   // Mobile only
+  preventNextVideoAutoplay: true,
   hideMessagesBottomNavItem: false,
 }
 //#endregion
@@ -4134,16 +4135,16 @@ const configureCss = (() => {
       }
       if (config.hideShareTweetButton) {
         hideCssSelectors.push(
-          // In media modal
-          `body.MobileMedia [role="group"] > div[style]:not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
+          // In media viewer and media modal
+          `body:is(.MediaViewer, .MobileMedia) [role="group"] > div[style]:not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
         )
       }
       if (config.hideViews) {
         hideCssSelectors.push(
           // Under timeline tweets
           '[data-testid="tweet"][tabindex="0"] [role="group"] > div:has(> a[href$="/analytics"])',
-          // In media modal
-          'body.MobileMedia [role="group"] > div:has(> a[href$="/analytics"])',
+          // In media viewer and media modal
+          'body:is(.MediaViewer, .MobileMedia) [role="group"] > div:has(> a[href$="/analytics"])',
         )
       }
       //#endregion
@@ -4447,20 +4448,20 @@ const configureThemeCss = (() => {
         cssRules.push(`
           /* Following button */
           [role="button"][data-testid$="-unfollow"]:not(:hover) {
-            background-color: ${themeColor} !important;
+            background-color: var(--theme-color) !important;
           }
           [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
             color: rgb(255, 255, 255) !important;
           }
           /* Follow button */
           [role="button"][data-testid$="-follow"] {
-            border-color: ${themeColor} !important;
+            border-color: var(--theme-color) !important;
           }
           [role="button"][data-testid$="-follow"] > :is(div, span) {
-            color: ${themeColor} !important;
+            color: var(--theme-color) !important;
           }
           [role="button"][data-testid$="-follow"]:hover {
-            background-color: ${themeColor} !important;
+            background-color: var(--theme-color) !important;
           }
           [role="button"][data-testid$="-follow"]:hover > :is(div, span) {
             color: rgb(255, 255, 255) !important;
@@ -4469,12 +4470,12 @@ const configureThemeCss = (() => {
       }
       if (mobile) {
         cssRules.push(`
-          body.MediaViewer [role="button"][data-testid$="follow"]:not(:hover) {
-            border: revert !important;
-            background-color: transparent !important;
+          body.MediaViewer [role="button"][data-testid$="follow"] {
+            border: none !important;
+            background: transparent !important;
           }
-          body.MediaViewer [role="button"][data-testid$="follow"]:not(:hover) > div {
-            color: ${themeColor} !important;
+          body.MediaViewer [role="button"][data-testid$="follow"] > div {
+            color: var(--theme-color) !important;
           }
         `)
       }
@@ -5345,18 +5346,9 @@ function onTitleChange(title) {
   )
 
   if (newPage == currentPage) {
-    // XXX After initial migration to x.com, Twitter has a bug where viewing a
-    //     user profile makes the title sticky, so we also check the pathname.
-    //     Remove this when we can, as unexpected modals on desktop will cause
-    //     the underlying page to be reprocessed incorrectly.
-    if (location.pathname != currentPath && !hasDesktopModalBeenOpenedOrClosed) {
-      warn('Twitter bug: title is the same but path has changed', {from: currentPath, to: location.pathname})
-    }
-    else {
-      log(`ignoring duplicate title change`)
-      currentNotificationCount = notificationCount
-      return
-    }
+    log(`ignoring duplicate title change`)
+    currentNotificationCount = notificationCount
+    return
   }
 
   // Search terms are shown in the title
@@ -6261,26 +6253,47 @@ async function tweakMobileComposeTweetPage() {
   }
 }
 
-function tweakMobileMediaViewerPage() {
-  if (config.twitterBlueChecks == 'ignore') return
+async function tweakMobileMediaViewerPage() {
+  let $timeline = await getElement('[data-testid="vss-scroll-view"] > div', {
+    name: 'media viewer timeline',
+    stopIf: () => !URL_MEDIAVIEWER_RE.test(location.pathname),
+  })
+  if (!$timeline) return
 
-  let $timeline = /** @type {HTMLElement} */ (document.querySelector('[data-testid="vss-scroll-view"] > div'))
-  if (!$timeline) {
-    warn('media viewer timeline not found')
-    return
+  /** @param {HTMLVideoElement} $video */
+  function processVideo($video) {
+    if ($video.loop != config.preventNextVideoAutoplay) {
+      $video.loop = config.preventNextVideoAutoplay
+    }
   }
 
-  observeElement($timeline, (mutations) => {
-    for (let mutation of mutations) {
-      if (!mutation.addedNodes) continue
-      for (let $addedNode of mutation.addedNodes) {
-        if (!($addedNode instanceof HTMLElement)) continue
-        if ($addedNode.querySelector('div[data-testid^="immersive-tweet-ui-content-container"]')) {
-          processBlueChecks($addedNode)
+  // Process initial contents
+  let $videos = $timeline.querySelectorAll('video')
+  log($videos.length, `initial video${s($videos.length)}`)
+  $videos.forEach(processVideo)
+  if (config.twitterBlueChecks != 'ignore') {
+    processBlueChecks($timeline)
+  }
+
+  pageObservers.push(
+    observeElement($timeline, (mutations) => {
+      for (let mutation of mutations) {
+        for (let $addedNode of mutation.addedNodes) {
+          if (!($addedNode instanceof HTMLElement) || $addedNode.nodeName != 'DIV') continue
+          let $video = $addedNode.querySelector('video')
+          if ($video) {
+            processVideo($video)
+          }
+          if (config.twitterBlueChecks != 'ignore') {
+            let $videoInfo = $addedNode.querySelector('[data-testid^="immersive-tweet-ui-content-container"]')
+            if ($videoInfo) {
+              processBlueChecks($addedNode)
+            }
+          }
         }
       }
-    }
-  }, 'media viewer timeline', {childList: true, subtree: true})
+    }, 'media viewer timeline', {childList: true, subtree: true})
+  )
 }
 
 async function tweakTimelineTabs($timelineTabs) {
