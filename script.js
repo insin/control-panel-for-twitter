@@ -6409,6 +6409,18 @@ async function tweakProfilePage() {
     timeout: 500,
   }).then($editProfileButton => {
     $body.classList.toggle('OwnProfile', Boolean($editProfileButton))
+    if (config.hideTwitterBlueUpsells) {
+      // This selector is _extremely_ specific to try to avoid false positives
+      getElement('[data-testid="primaryColumn"] > div > div > div > div > div > div:has(> div > div > div > a[href^="/i/premium"])', {
+        name: "you aren't verified yet premium upsell",
+        stopIf: pageIsNot(currentPage),
+        timeout: 200,
+      }).then($upsell => {
+        if ($upsell) {
+          $upsell.classList.add('PremiumUpsell')
+        }
+      })
+    }
   })
   let $headerVerifiedIcon = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.TIMELINE_HEADING} [data-testid="icon-verified"]`)
   $body.classList.toggle('PremiumProfile', Boolean($headerVerifiedIcon))
