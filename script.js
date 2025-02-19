@@ -1931,7 +1931,7 @@ const HIGH_CONTRAST_DARK = new Map([
   ['green500', 'rgb(97, 214, 163)'],
 ])
 // <body> pseudo-selector for pages the full-width content feature works on
-const FULL_WIDTH_BODY_PSEUDO = ':is(.Community, .List, .HomeTimeline)'
+const FULL_WIDTH_BODY_PSEUDO = ':is(.Community, .List, .HomeTimeline, .Profile, .Tweet)'
 // Matches any notification count at the start of the title
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 // The Communities nav item takes you to /yourusername/communities
@@ -3867,6 +3867,10 @@ const configureCss = (() => {
           body.Sidebar${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:last-child {
             max-width: 990px;
           }
+          /* Force full width on Profiles when sidebar is visible */
+          body.Sidebar.Profile ${Selectors.PRIMARY_COLUMN} > div:first-child > div:last-child > div:first-child > div:first-child {
+            max-width: unset;
+          }
           /* Make the "What's happening" input keep its original width */
           body.HomeTimeline ${Selectors.PRIMARY_COLUMN} > div:first-child > div:nth-of-type(3) div[role="progressbar"] + div {
             max-width: 598px;
@@ -3884,6 +3888,10 @@ const configureCss = (() => {
           }
           body:not(.Sidebar)${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:first-child div,
           body:not(.Sidebar)${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:last-child {
+            max-width: unset;
+          }
+          /* Force full width on Profiles when sidebar is not visible */
+          body.not(.Sidebar).Profile ${Selectors.PRIMARY_COLUMN} > div:first-child > div:last-child > div:first-child > div:first-child {
             max-width: unset;
           }
         `)
