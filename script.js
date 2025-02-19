@@ -6411,7 +6411,11 @@ async function tweakProfilePage() {
     $body.classList.toggle('OwnProfile', Boolean($editProfileButton))
     if (config.hideTwitterBlueUpsells) {
       // This selector is _extremely_ specific to try to avoid false positives
-      getElement('[data-testid="primaryColumn"] > div > div > div > div > div > div:has(> div > div > div > a[href^="/i/premium"])', {
+      getElement(mobile ? (
+        '[data-testid="primaryColumn"] > div > div > div > div > div > div > div > div > div:has(> div > div > div > a[href^="/i/premium"])'
+      ) : (
+        '[data-testid="primaryColumn"] > div > div > div > div > div > div:has(> div > div > div > a[href^="/i/premium"])'
+      ), {
         name: "you aren't verified yet premium upsell",
         stopIf: pageIsNot(currentPage),
         timeout: 200,
