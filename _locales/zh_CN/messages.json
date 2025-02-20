@@ -143,6 +143,9 @@
   "hideGrokLabel": {
     "message": "隐藏 Grok"
   },
+  "hideGrokTweetsLabel": {
+    "message": "隐藏 Grok 推文"
+  },
   "hideInlinePrompts": {
     "message": "隐藏时间线中的内联提示"
   },

@@ -143,6 +143,9 @@
   "hideGrokLabel": {
     "message": "Grok 숨기기"
   },
+  "hideGrokTweetsLabel": {
+    "message": "Grok 트윗 숨기기"
+  },
   "hideInlinePrompts": {
     "message": "타임라인에서 인라인 프롬프트 숨기기"
   },

@@ -80,6 +80,7 @@ const config = {
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
   hideGrokNav: true,
+  hideGrokTweets: false,
   hideInlinePrompts: true,
   hideJobsNav: true,
   hideLikeMetrics: true,
@@ -4977,6 +4978,10 @@ function onTimelineChange($timeline, page, options = {}) {
           }
         }
 
+        if (!hideItem && config.hideGrokTweets && $tweet.querySelector('a[href^="/i/grok/share/"]')) {
+          hideItem = true
+        }
+
         if (!hideItem && config.mutableQuoteTweets && (itemType == 'QUOTE_TWEET' || itemType == 'RETWEETED_QUOTE_TWEET')) {
           if (config.mutedQuotes.length > 0) {
             let quotedTweet = getQuotedTweetDetails($tweet)
@@ -5136,8 +5141,8 @@ function onIndividualTweetTimelineChange($timeline, options) {
         }
       }
 
-      if (!hideItem && config.restoreLinkHeadlines) {
-        restoreLinkHeadline($tweet)
+      if (!hideItem && config.hideGrokTweets && $tweet.querySelector('a[href^="/i/grok/share/"]')) {
+        hideItem = true
       }
 
       if (!hideItem && (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies)) {
@@ -5173,6 +5178,10 @@ function onIndividualTweetTimelineChange($timeline, options) {
             ))
           }
         }
+      }
+
+      if (!hideItem && config.restoreLinkHeadlines) {
+        restoreLinkHeadline($tweet)
       }
     }
     else {

@@ -26,6 +26,7 @@ export type Config = {
   hideFollowingMetrics: boolean
   hideForYouTimeline: boolean
   hideGrokNav: boolean
+  hideGrokTweets: boolean
   hideInlinePrompts: boolean
   hideJobsNav: boolean
   hideLikeMetrics: boolean

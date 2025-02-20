@@ -84,6 +84,7 @@ ${messages.xFixesLabel}
 • ${messages.hideTwitterBlueRepliesLabel}
 • ${messages.hideTwitterBlueUpsellsLabel}
 • ${messages.hideGrokLabel}
+• ${messages.hideGrokTweetsLabel}
 • ${messages.hideJobsLabel}
 • ${messages.hideSubscriptionsLabel}
 

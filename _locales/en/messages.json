@@ -146,6 +146,9 @@
   "hideGrokLabel": {
     "message": "Hide Grok"
   },
+  "hideGrokTweetsLabel": {
+    "message": "Hide Grok tweets"
+  },
   "hideInlinePrompts": {
     "message": "Hide inline prompts in the timeline"
   },

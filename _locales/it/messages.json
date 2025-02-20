@@ -143,6 +143,9 @@
   "hideGrokLabel": {
     "message": "Nascondi Grok"
   },
+  "hideGrokTweetsLabel": {
+    "message": "Nascondi i tweet di Grok"
+  },
   "hideInlinePrompts": {
     "message": "Nascondi i suggerimenti nella timeline"
   },

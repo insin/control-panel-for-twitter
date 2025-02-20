@@ -143,6 +143,9 @@
   "hideGrokLabel": {
     "message": "Masquer Grok"
   },
+  "hideGrokTweetsLabel": {
+    "message": "Masquer les tweets de Grok"
+  },
   "hideInlinePrompts": {
     "message": "Masquer les invites en ligne dans la fil"
   },
