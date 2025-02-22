@@ -1,6 +1,6 @@
 {
   "ar-x-fm": {
-    "ADD_ANOTHER_TWEET": "إضافة تغريدة أخرى",
+    "ADD_ANOTHER_TWEET": "ضافة تغريدة أخرى",
     "MOST_RELEVANT": "الأكثر ملائمة",
     "POST_UNAVAILABLE": "هذا المنشور غير متاح.",
     "QUOTE_TWEET": "اقتباس التغريدة",
@@ -24,7 +24,7 @@
     "WHATS_HAPPENING": "ماذا يحدث؟"
   },
   "ar": {
-    "ADD_ANOTHER_TWEET": "إضافة تغريدة أخرى",
+    "ADD_ANOTHER_TWEET": "ضافة تغريدة أخرى",
     "MOST_RELEVANT": "الأكثر ملائمة",
     "POST_UNAVAILABLE": "هذا المنشور غير متاح.",
     "QUOTE_TWEET": "اقتباس التغريدة",
@@ -64,7 +64,7 @@
     "TWEETS": "Туитове",
     "TWEET_ALL": "Туитване на всички",
     "TWEET_INTERACTIONS": "Интеракции с туит",
-    "TWEET_YOUR_REPLY": "Отговори с туит",
+    "TWEET_YOUR_REPLY": "туит своя отговор",
     "UNDO_RETWEET": "Отмяна на ретуитването",
     "VIEW": "Преглед",
     "WHATS_HAPPENING": "Какво се случва?"
@@ -331,7 +331,7 @@
     "TWEETS": "Mga Tweet",
     "TWEET_ALL": "I-tweet lahat",
     "TWEET_INTERACTIONS": "Interaksyon sa Tweet",
-    "TWEET_YOUR_REPLY": "I-Tweet ang sagot mo",
+    "TWEET_YOUR_REPLY": "I-Tweet ang reply mo",
     "UNDO_RETWEET": "Huwag nang I-retweet",
     "VIEW": "Tingnan",
     "WHATS_HAPPENING": "Ano ang nangyayari?"
@@ -439,7 +439,7 @@
     "TWEETS": "ציוצים",
     "TWEET_ALL": "צייץ הכול",
     "TWEET_INTERACTIONS": "אינטראקציות צייץ",
-    "TWEET_YOUR_REPLY": "צייץ את התשובה",
+    "TWEET_YOUR_REPLY": "צייץ התשובה",
     "TWITTER": "טוויטר",
     "UNDO_RETWEET": "ביטול ציוץ מחדש",
     "VIEW": "הצג",
@@ -485,7 +485,7 @@
     "TWEETS": "Tweetovi",
     "TWEET_ALL": "Tweetaj sve",
     "TWEET_INTERACTIONS": "Interakcije s Tweet",
-    "TWEET_YOUR_REPLY": "Pošaljite Tweet s odgovorom",
+    "TWEET_YOUR_REPLY": "Tweetajte odgovor",
     "UNDO_RETWEET": "Poništi prosljeđivanje tweeta",
     "VIEW": "Prikaz",
     "WHATS_HAPPENING": "Što se događa?"
@@ -620,7 +620,7 @@
     "TWEETS": "트윗",
     "TWEET_ALL": "모두 트윗하기",
     "TWEET_INTERACTIONS": "트윗 상호작용",
-    "TWEET_YOUR_REPLY": "내 답글을 트윗하세요",
+    "TWEET_YOUR_REPLY": "답글을 트윗하세요",
     "TWITTER": "트위터",
     "UNDO_RETWEET": "리트윗 취소",
     "VIEW": "보기",
@@ -644,7 +644,7 @@
     "TWEETS": "ट्विट्स",
     "TWEET_ALL": "सर्व ट्विट करा",
     "TWEET_INTERACTIONS": "ट्वीट इंटरऍक्शन्स",
-    "TWEET_YOUR_REPLY": "आपल्या प्रत्युत्तरावर ट्विट करा",
+    "TWEET_YOUR_REPLY": "आपले प्रत्युत्तर ट्विट करा",
     "UNDO_RETWEET": "पुनर्ट्विट पूर्ववत करा",
     "VIEW": "पहा",
     "WHATS_HAPPENING": "ताज्या घडामोडी?"
@@ -728,7 +728,7 @@
     "TWEETS": "Tweety",
     "TWEET_ALL": "Tweetnij wszystko",
     "TWEET_INTERACTIONS": "Interakcje na Tweeta",
-    "TWEET_YOUR_REPLY": "Wyślij Tweeta z odpowiedzią",
+    "TWEET_YOUR_REPLY": "Tweeta swoją odpowiedź",
     "UNDO_RETWEET": "Cofnij podanie dalej",
     "VIEW": "Wyświetl",
     "WHATS_HAPPENING": "Co się dzieje?"
@@ -955,7 +955,7 @@
     "TWEETS": "Твіти",
     "TWEET_ALL": "Твітнути все",
     "TWEET_INTERACTIONS": "Взаємодія твітів",
-    "TWEET_YOUR_REPLY": "Твітніть свою відповідь",
+    "TWEET_YOUR_REPLY": "Твітніть відповідь",
     "TWITTER": "Твіттер",
     "UNDO_RETWEET": "Скасувати ретвіт",
     "VIEW": "Переглянути",
