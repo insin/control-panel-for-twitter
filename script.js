@@ -1850,7 +1850,6 @@ const PagePaths = {
   ACCESSIBILITY_SETTINGS: '/settings/accessibility',
   ADD_MUTED_WORD: '/settings/add_muted_keyword',
   BOOKMARKS: '/i/bookmarks',
-  COMPOSE_MESSAGE: '/messages/compose',
   COMPOSE_TWEET: '/compose/post',
   CONNECT: '/i/connect',
   DISPLAY_SETTINGS: '/settings/display',
@@ -1859,6 +1858,16 @@ const PagePaths = {
   PROFILE_SETTINGS: '/settings/profile',
   SEARCH: '/search',
   TIMELINE_SETTINGS: '/home/pinned/edit',
+}
+
+/** @enum {string} */
+const ModalPaths = {
+  COMPOSE_DRAFTS: '/compose/post/unsent/drafts',
+  COMPOSE_MEDIA: '/compose/post/media',
+  COMPOSE_MESSAGE: '/messages/compose',
+  COMPOSE_SCHEDULE: '/compose/post/schedule',
+  COMPOSE_TWEET: '/compose/post',
+  GIF_SEARCH: '/i/foundmedia/search',
 }
 
 /** @enum {string} */
@@ -1931,6 +1940,12 @@ const HIGH_CONTRAST_DARK = new Map([
   ['purple500', 'rgb(172, 151, 255)'],
   ['orange500', 'rgb(255, 173, 97)'],
   ['green500', 'rgb(97, 214, 163)'],
+])
+const COMPOSE_TWEET_MODAL_PAGES = new Set([
+  ModalPaths.COMPOSE_DRAFTS,
+  ModalPaths.COMPOSE_MEDIA,
+  ModalPaths.COMPOSE_SCHEDULE,
+  ModalPaths.GIF_SEARCH,
 ])
 // <body> pseudo-selector for pages the full-width content feature works on
 const FULL_WIDTH_BODY_PSEUDO = ':is(.Community, .List, .HomeTimeline)'
@@ -2005,6 +2020,9 @@ let isDesktopMediaModalOpen = false
 
 /** Set to `true` when the compose tweet modal is open on desktop. */
 let isDesktopComposeTweetModalOpen = false
+
+/** @type {HTMLElement} */
+let $desktopComposeTweetModalPopup = null
 
 /**
  * Cache for the last page title which was used for the Home timeline.
@@ -2595,6 +2613,8 @@ function observeBodyBackgroundColor() {
  * @param {HTMLElement} $popup
  */
 async function observeDesktopComposeTweetModal($popup) {
+  if (!config.replaceLogo) return
+
   let $mask = await getElement('[data-testid="twc-cc-mask"]', {
     context: $popup,
     name: 'Compose Tweet modal mask',
@@ -4637,18 +4657,19 @@ function handlePopup($popup) {
     return result
   }
 
-  if (desktop && !isDesktopComposeTweetModalOpen && location.pathname.startsWith(PagePaths.COMPOSE_TWEET)) {
+  if (desktop && !isDesktopComposeTweetModalOpen &&
+      location.pathname.startsWith(ModalPaths.COMPOSE_TWEET)) {
     log('Compose Tweet modal opened')
     isDesktopComposeTweetModalOpen = true
-    if (config.replaceLogo) {
-      observeDesktopComposeTweetModal($popup)
-    }
+    $desktopComposeTweetModalPopup = $popup
+    observeDesktopComposeTweetModal($popup)
     return {
       tookAction: true,
       onPopupClosed() {
         log('Compose Tweet modal closed')
-        disconnectAllModalObservers()
         isDesktopComposeTweetModalOpen = false
+        $desktopComposeTweetModalPopup = null
+        disconnectAllModalObservers()
         // The Tweet button will re-render if the modal was opened to edit
         // multiple Tweets on the Home timeline.
         if (config.replaceLogo && isOnHomeTimelinePage()) {
@@ -4658,7 +4679,9 @@ function handlePopup($popup) {
     }
   }
 
-  if (desktop && !isDesktopMediaModalOpen && URL_MEDIA_RE.test(location.pathname) && currentPath != location.pathname) {
+  if (desktop && !isDesktopMediaModalOpen &&
+      URL_MEDIA_RE.test(location.pathname) &&
+      currentPath != location.pathname) {
     log('media modal opened')
     isDesktopMediaModalOpen = true
     observeDesktopModalTimeline($popup)
@@ -5345,18 +5368,30 @@ function onTitleChange(title) {
     // Media modal closed
     URL_MEDIA_RE.test(currentPath) ||
     // "Send via Direct Message" dialog opened
-    location.pathname == PagePaths.COMPOSE_MESSAGE ||
+    location.pathname == ModalPaths.COMPOSE_MESSAGE ||
     // "Send via Direct Message" dialog closed
-    currentPath == PagePaths.COMPOSE_MESSAGE ||
+    currentPath == ModalPaths.COMPOSE_MESSAGE ||
     // Compose Tweet dialog opened
-    location.pathname == PagePaths.COMPOSE_TWEET ||
+    location.pathname == ModalPaths.COMPOSE_TWEET ||
     // Compose Tweet dialog closed
-    currentPath == PagePaths.COMPOSE_TWEET
+    currentPath == ModalPaths.COMPOSE_TWEET
   )
 
   if (newPage == currentPage) {
     log(`ignoring duplicate title change`)
+    // Navigation within the Compose Tweet modal triggers duplcate title changes
+    if (isDesktopComposeTweetModalOpen) {
+      if (currentPath == ModalPaths.COMPOSE_TWEET && COMPOSE_TWEET_MODAL_PAGES.has(location.pathname)) {
+        log('navigated away from Compose Tweet editor')
+        disconnectAllModalObservers()
+      }
+      else if (COMPOSE_TWEET_MODAL_PAGES.has(currentPath) && location.pathname == ModalPaths.COMPOSE_TWEET) {
+        log('navigated back to Compose Tweet editor')
+        observeDesktopComposeTweetModal($desktopComposeTweetModalPopup)
+      }
+    }
     currentNotificationCount = notificationCount
+    currentPath = location.pathname
     return
   }
 
