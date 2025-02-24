@@ -1,6 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 
+const {sortProperties} = require('../utils')
+
+/** @type Record<string,Record<string, string>> */
 const locales = JSON.parse(fs.readFileSync('./base-locales.json', 'utf-8'))
 
 // These codes are from Twitter's locale files
@@ -21,16 +24,6 @@ let template = {
   SORT_REPLIES_BY: 'ad6e11ac',
 }
 
-function sortProperties(locale) {
-  let entries = Object.entries(locale)
-  entries.sort(([a], [b]) => {
-    if (a < b) return -1
-    if (a > b) return 1
-    return 0
-  })
-  return Object.fromEntries(entries)
-}
-
 for (let file of fs.readdirSync('./js')) {
   if (!file.endsWith('.js')) continue
   let localeCode = file.split('.')[0]
@@ -45,23 +38,18 @@ for (let file of fs.readdirSync('./js')) {
       console.log('no match', {file, key, code})
     }
   }
-  if (localeCode != 'en') {
-    if (locale.ADD_MUTED_WORD == 'Add muted word') delete locale.ADD_MUTED_WORD
-    if (locale.HOME == 'Home') delete locale.HOME
-    if (locale.MUTE_THIS_CONVERSATION == 'Mute this conversation')
-      delete locale.MUTE_THIS_CONVERSATION
-    if (locale.POST_ALL == 'Post all') delete locale.POST_ALL
-    if (locale.PROFILE_SUMMARY == 'Profile Summary')
-      delete locale.PROFILE_SUMMARY
-    if (locale.QUOTE == 'Quote') delete locale.QUOTE
-    if (locale.QUOTES == 'Quotes') delete locale.QUOTES
-    if (locale.REPOST == 'Repost') delete locale.REPOST
-    if (locale.REPOSTS == 'Reposts') delete locale.REPOSTS
-    if (locale.SHOW == 'Show') delete locale.SHOW
-    if (locale.SHOW_MORE_REPLIES == 'Show more replies')
-      delete locale.SHOW_MORE_REPLIES
-  }
   locales[localeCode] = sortProperties(locale)
+}
+
+// Delete translations which duplicate English (the fallback locale)
+for (let localeCode in locales) {
+  if (localeCode == 'en') continue
+  let locale = locales[localeCode]
+  for (let translationKey in locale) {
+    if (locale[translationKey] == locales['en'][translationKey]) {
+      delete locale[translationKey]
+    }
+  }
 }
 
 fs.writeFileSync(
