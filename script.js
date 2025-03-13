@@ -5321,22 +5321,26 @@ function onTitleChange(title) {
   let homeNavigationWasUsed = homeNavigationIsBeingUsed
   homeNavigationIsBeingUsed = false
 
+  // Ignore Flash of Uninitialised Title when navigating to a page for the first
+  // time, except in scenarios where we know an empty title is being set.
   if (title == 'X' || title == getString('TWITTER')) {
-    // Mobile uses "Twitter" when viewing media - we need to let these process
-    // so the next page will be re-processed when the media is closed.
+    // On mobile, the media viewer sets an empty title
     if (mobile && (URL_MEDIA_RE.test(location.pathname) || URL_MEDIAVIEWER_RE.test(location.pathname))) {
       log('viewing media on mobile')
     }
-    // Going to the root Settings page on desktop when the sidebar is hidden
-    // sets an empty title.
+    // On desktop, the root Settings page sets an empty title when the sidebar
+    // is hidden.
     else if (desktop && location.pathname == '/settings' && currentPath != '/settings') {
       log('viewing root Settings page')
     }
+    // On desktop, the root Messages page sometimes sets an empty title
+    else if (desktop && location.pathname == '/messages' && currentPath != '/messages') {
+      log('viewing root Messages page')
+    }
+    // The Bookmarks page sets an empty title
     else if (location.pathname.startsWith(PagePaths.BOOKMARKS) && !currentPath.startsWith(PagePaths.BOOKMARKS)) {
       log('viewing Bookmarks page')
     }
-    // Ignore Flash of Uninitialised Title when navigating to a page for the
-    // first time.
     else {
       log('ignoring Flash of Uninitialised Title')
       return
