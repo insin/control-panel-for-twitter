@@ -3566,6 +3566,8 @@ const configureCss = (() => {
         '.OwnProfile [data-testid="analytics-preview"]',
         // Button in Communities header
         `body.Communities ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} a:is([href^="/i/premium"], [href^="/i/verified"])`,
+        // "This profile is verified" upsell
+        '[data-testid="verified_profile_upsell"]',
       )
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
