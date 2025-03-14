@@ -4023,7 +4023,7 @@ const configureCss = (() => {
       } else if (config.hideTwitterBlueUpsells) {
         // Hide "Subscribe to premium" individually
         hideCssSelectors.push(
-          `body.HomeTimeline ${Selectors.SIDEBAR_WRAPPERS} > div:nth-of-type(3)`
+          `body.HomeTimeline ${Selectors.SIDEBAR_WRAPPERS} > div > div:nth-of-type(3)`
         )
       }
       if (config.hideShareTweetButton) {
