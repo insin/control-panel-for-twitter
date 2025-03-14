@@ -2367,6 +2367,11 @@ function getStateEntities() {
   }
 }
 
+function getUserScreenName() {
+  let state = getState()
+  return state?.entities?.users?.entities?.[state?.session?.user_id]?.screen_name
+}
+
 function getThemeColorFromState() {
   let localState = getState().settings?.local
   let color = localState?.themeColor
@@ -5112,6 +5117,8 @@ function onIndividualTweetTimelineChange($timeline, options) {
   let hideAllSubsequentItems = false
   /** @type {string} */
   let opScreenName = /^\/([a-zA-Z\d_]{1,20})\//.exec(location.pathname)[1].toLowerCase()
+  /** @type {string} */
+  let userScreenName = getUserScreenName()
   /** @type {{$item: Element, hideItem?: boolean}[]} */
   let changes = []
   /** @type {import("./types").UserInfoObject} */
@@ -5134,6 +5141,10 @@ function onIndividualTweetTimelineChange($timeline, options) {
     let tweetVerifiedType = null
     /** @type {?string} */
     let screenName = null
+    /** @type {boolean} */
+    let isOp = false
+    /** @type {boolean} */
+    let isUser = false
 
     if (hideAllSubsequentItems) {
       hideItem = true
@@ -5174,10 +5185,19 @@ function onIndividualTweetTimelineChange($timeline, options) {
 
           tweetVerifiedType = verifiedType
           screenName = $userProfileLink.href.split('/').pop()
+          isOp = screenName.toLowerCase() == opScreenName
+          isUser = screenName == userScreenName
         }
 
-        // Replies to the focused tweet don't have the reply indicator
-        if (tweetVerifiedType && !isFocusedTweet && !isReply && screenName.toLowerCase() != opScreenName) {
+        if (tweetVerifiedType &&
+            // Don't hide the focused tweet
+            !isFocusedTweet &&
+            // Replies to the focused tweet don't have the reply indicator
+            !isReply &&
+            // Don't hide replies by the OP, as it's their thread
+            !isOp &&
+            // Don't hide replies by the user if they have Premium
+            !isUser) {
           itemType = `${tweetVerifiedType}_REPLY`
           if (!hideItem) {
             let user = userInfo[screenName]
@@ -5244,7 +5264,7 @@ function onIndividualTweetTimelineChange($timeline, options) {
     }
 
     if (debug && itemType != null) {
-      $item.firstElementChild.setAttribute('data-item-type', `${itemType}${isReply ? ' / REPLY' : ''}`)
+      $item.firstElementChild.setAttribute('data-item-type', `${itemType}${isReply ? ' / REPLY' : ''}${isOp ? ' / OP' : ''}`)
     }
 
     // Assume a non-identified item following an identified item is related
