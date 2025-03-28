@@ -251,6 +251,9 @@
   "hideWhoToFollowEtcLabel": {
     "message": "在时间线中隐藏\"关注谁\", \"关注一些话题\"等"
   },
+  "hideYourAnalyticsLabel": {
+    "message": "你的分析"
+  },
   "homeTimelineOptionsLabel": {
     "message": "主页时间线"
   },

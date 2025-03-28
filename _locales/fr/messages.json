@@ -251,6 +251,9 @@
   "hideWhoToFollowEtcLabel": {
     "message": "Masquer \"Qui suivre\", \"Suivre certains sujets\", etc. dans le fil"
   },
+  "hideYourAnalyticsLabel": {
+    "message": "Vos statistiques"
+  },
   "homeTimelineOptionsLabel": {
     "message": "Fil d'actualités"
   },

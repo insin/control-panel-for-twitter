@@ -251,6 +251,9 @@
   "hideWhoToFollowEtcLabel": {
     "message": "タイムラインの「おすすめユーザー」「おすすめトピック」を非表示"
   },
+  "hideYourAnalyticsLabel": {
+    "message": "アナリティクス"
+  },
   "homeTimelineOptionsLabel": {
     "message": "ホームタイムライン"
   },

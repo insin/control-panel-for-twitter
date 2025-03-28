@@ -251,6 +251,9 @@
   "hideWhoToFollowEtcLabel": {
     "message": "Ocultar \"A quién seguir\", \"Seguir temas\" etc. en la timeline"
   },
+  "hideYourAnalyticsLabel": {
+    "message": "Tus estadísticas"
+  },
   "homeTimelineOptionsLabel": {
     "message": "Cronología de inicio"
   },

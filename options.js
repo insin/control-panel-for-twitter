@@ -130,6 +130,7 @@ for (let translationClass of [
   'hideBookmarksNavLabel',
   'hideCommunitiesNavLabel',
   'hideListsNavLabel',
+  'hideYourAnalyticsLabel',
   'notificationsLabel',
   'saveAndApplyButton',
 ]) {
@@ -211,6 +212,7 @@ const defaultConfig = {
   hideVerifiedNotificationsTab: true,
   hideViews: true,
   hideWhoToFollowEtc: true,
+  hideYourAnalytics: true,
   listRetweets: 'ignore',
   mutableQuoteTweets: true,
   mutedQuotes: [],

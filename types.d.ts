@@ -55,6 +55,7 @@ export type Config = {
   hideVerifiedNotificationsTab: boolean
   hideViews: boolean
   hideWhoToFollowEtc: boolean
+  hideYourAnalytics: boolean
   listRetweets: 'ignore' | 'hide'
   mutableQuoteTweets: boolean
   mutedQuotes: QuotedTweet[]

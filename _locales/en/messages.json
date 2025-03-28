@@ -254,6 +254,9 @@
   "hideWhoToFollowEtcLabel": {
     "message": "Hide \"Who to follow\", \"Follow some Topics\" etc. in the timeline"
   },
+  "hideYourAnalyticsLabel": {
+    "message": "Your Analytics"
+  },
   "homeTimelineOptionsLabel": {
     "message": "Home timeline"
   },
