@@ -191,6 +191,7 @@ export type TimelineOptions = {
 
 export type IndividualTweetTimelineOptions = {
   observers: Disconnectable[]
+  seen?: WeakSet<Element>
 }
 
 export type UserInfo = {

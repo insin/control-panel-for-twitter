@@ -3154,12 +3154,18 @@ async function observeIndividualTweetTimeline(page) {
 
   if ($timeline == null) return
 
+  /** @type {WeakSet<Element>} */
+  let seen = new WeakSet()
+
   /**
    * @param {HTMLElement} $timeline
    */
   function observeTimelineItems($timeline) {
     pageObservers.push(
-      observeElement($timeline, () => onIndividualTweetTimelineChange($timeline, {observers: pageObservers}), 'individual tweet timeline')
+      observeElement($timeline, () => onIndividualTweetTimelineChange($timeline, {
+        observers: pageObservers,
+        seen,
+      }), 'individual tweet timeline')
     )
   }
 
@@ -5124,6 +5130,7 @@ function onIndividualTweetTimelineChange($timeline, options) {
   let itemTypes = {}
   let hiddenItemCount = 0
   let hiddenItemTypes = {}
+  let processedCount = 0
 
   /** @type {?boolean} */
   let hidPreviousItem = null
@@ -5141,6 +5148,8 @@ function onIndividualTweetTimelineChange($timeline, options) {
   let $focusedTweet
 
   for (let $item of $timeline.children) {
+    if (options.seen?.has($item)) continue
+
     /** @type {?import("./types").TimelineItemType} */
     let itemType = null
     /** @type {?boolean} */
@@ -5312,17 +5321,21 @@ function onIndividualTweetTimelineChange($timeline, options) {
     }
 
     hidPreviousItem = hideItem
+    processedCount++
+    options.seen?.add($item)
   }
 
   for (let change of changes) {
     change.$item.firstElementChild.classList.toggle('HiddenTweet', change.hideItem)
   }
 
-  tweakFocusedTweet($focusedTweet, options)
+  if (!options.seen?.has($focusedTweet)) {
+    tweakFocusedTweet($focusedTweet, options)
+  }
 
   if (debug && config.debugLogTimelineStats) {
     log(
-      `processed ${$timeline.children.length} thread item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
+      `processed ${processedCount} new thread item${s(processedCount)} in ${Date.now() - startTime}ms`,
       itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
     )
   }
