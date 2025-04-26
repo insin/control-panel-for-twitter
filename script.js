@@ -2959,11 +2959,26 @@ async function observeSidebar() {
   let $sidebarContainer = $primaryColumn.parentElement
   pageObservers.push(
     observeElement($sidebarContainer, () => {
-      let $sidebar = $sidebarContainer.querySelector(Selectors.SIDEBAR)
+      let $sidebar = /** @type {HTMLElement} */ ($sidebarContainer.querySelector(Selectors.SIDEBAR))
       log(`sidebar ${$sidebar ? 'appeared' : 'disappeared'}`)
       $body.classList.toggle('Sidebar', Boolean($sidebar))
       if ($sidebar && config.twitterBlueChecks != 'ignore' && !isOnSearchPage() && !isOnExplorePage()) {
         observeSearchForm()
+      }
+      // Hide the ad in What's happening if we're not hiding sidebar content
+      if ($sidebar && !config.hideSidebarContent) {
+        void async function() {
+          let $firstTrend = await getElement('section > div[aria-label] > div > div:has([data-testid="trend"])', {
+            name: 'first trend in sidebar',
+            context: $sidebar,
+            stopIf: pageIsNot(currentPage),
+            timeout: 3000,
+          })
+          if ($firstTrend && !$firstTrend.previousElementSibling.querySelector('h2')) {
+            log("hiding sidebar What's happening ad")
+            $firstTrend.previousElementSibling.classList.add('HiddenAd')
+          }
+        }()
       }
     }, 'sidebar container')
   )
@@ -3384,7 +3399,7 @@ const configureCss = (() => {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
     `]
-    let hideCssSelectors = ['.HiddenTweet', '.HiddenTweet + [role="separator"]']
+    let hideCssSelectors = ['.HiddenTweet', '.HiddenTweet + [role="separator"]', '.HiddenAd']
     let menuRole = `[role="${desktop ? 'menu' : 'dialog'}"]`
 
     // Theme colours for custom UI items
