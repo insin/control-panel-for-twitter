@@ -2968,16 +2968,24 @@ async function observeSidebar() {
       // Hide the ad in What's happening if we're not hiding sidebar content
       if ($sidebar && !config.hideSidebarContent) {
         void async function() {
-          let $firstTrend = await getElement('section > div[aria-label] > div > div:has([data-testid="trend"])', {
-            name: 'first trend in sidebar',
+          let $sidebarTimeline = await getElement('section > div[aria-label] > div', {
+            name: 'hideSidebarWhatsHappeningAd: sidebar timeline',
             context: $sidebar,
             stopIf: pageIsNot(currentPage),
-            timeout: 3000,
+            timeout: 2000,
           })
-          if ($firstTrend && !$firstTrend.previousElementSibling.querySelector('h2')) {
-            log("hiding sidebar What's happening ad")
-            $firstTrend.previousElementSibling.classList.add('HiddenAd')
-          }
+          if (!$sidebarTimeline) return
+          // The sidebar timeline loads asynchronously and refreshes every time
+          // the page regains refocus.
+          pageObservers.push(
+            observeElement($sidebarTimeline, () => {
+              let $firstTrend = $sidebarTimeline.querySelector(':scope > div:has([data-testid="trend"])')
+              if ($firstTrend && !$firstTrend.previousElementSibling.querySelector('h2')) {
+                log('hideSidebarWhatsHappeningAd: hiding ad')
+                $firstTrend.previousElementSibling.classList.add('HiddenAd')
+              }
+            }, 'sidebar timeline')
+          )
         }()
       }
     }, 'sidebar container')
