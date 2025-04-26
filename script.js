@@ -2965,8 +2965,15 @@ async function observeSidebar() {
       if ($sidebar && config.twitterBlueChecks != 'ignore' && !isOnSearchPage() && !isOnExplorePage()) {
         observeSearchForm()
       }
-      // Hide the ad in What's happening if we're not hiding sidebar content
       if ($sidebar && !config.hideSidebarContent) {
+        // The Explore page has a different sidebar implementation
+        if (isOnExplorePage()) {
+          if (config.twitterBlueChecks != 'ignore') {
+            processBlueChecks($sidebar)
+          }
+          return
+        }
+        // Hide the ad in What's happening if we're not hiding sidebar content
         void async function() {
           let $sidebarTimeline = await getElement('section > div[aria-label] > div', {
             name: 'hideSidebarWhatsHappeningAd: sidebar timeline',
@@ -2983,6 +2990,9 @@ async function observeSidebar() {
               if ($firstTrend && !$firstTrend.previousElementSibling.querySelector('h2')) {
                 log('hideSidebarWhatsHappeningAd: hiding ad')
                 $firstTrend.previousElementSibling.classList.add('HiddenAd')
+              }
+              if (config.twitterBlueChecks != 'ignore') {
+                processBlueChecks($sidebar)
               }
             }, 'sidebar timeline')
           )
