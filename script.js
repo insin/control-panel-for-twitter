@@ -3452,6 +3452,14 @@ const configureCss = (() => {
         )
       }
     }
+    if (!config.hideExplorePageContents) {
+      hideCssSelectors.push(
+        // Hide the ad at the top of Explore…
+        'body.Explore [data-testid="eventHero"]',
+        // …and its floating button
+        'body.Explore [data-testid="eventHero"] + div',
+      )
+    }
     if (config.hideListsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/lists"]`)
     }
