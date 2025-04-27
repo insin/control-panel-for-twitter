@@ -1,63 +1,87 @@
 {
-  "addAddMutedWordMenuItemLabel_desktop": {
+  "addAddMutedWordMenuItem_desktop": {
     "message": "もっと見るに「ミュートするキーワードを追加」を追加"
   },
-  "addAddMutedWordMenuItemLabel_mobile": {
+  "addAddMutedWordMenuItem_mobile": {
     "message": "スライドアウトメニューに「ミュートするキーワードを追加」を追加"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "常にタイムラインを「フォロー中」（時系列順）にする"
+  "addFocusedTweetAccountLocation": {
+    "message": "ツイートの詳細表示にアカウントの場所を表示"
+  },
+  "addUserHoverCardAccountLocation": {
+    "message": "ユーザーのプロフィールカードにアカウントの場所を表示"
   },
   "appStoreSubtitle": {
     "message": "タイムラインを制御せよ"
   },
-  "customCssLabel": {
+  "backupAndRestoreOptions": {
+    "message": "バックアップと復元"
+  },
+  "bypassAgeVerification": {
+    "message": "年齢確認をバイパス"
+  },
+  "customCss": {
     "message": "カスタムCSS"
+  },
+  "darkModeTheme": {
+    "message": "ダークモードのテーマ"
+  },
+  "debug": {
+    "message": "デバッグモード"
   },
   "debugInfo": {
     "message": "デバッグログを有効化し、ツイートデバッグ情報をタイムラインに表示"
   },
-  "debugLabel": {
-    "message": "デバッグモード"
+  "debugLogGetElementStats": {
+    "message": "getElement() の統計をログに出力"
   },
-  "debugLogTimelineStatsLabel": {
+  "debugLogTimelineStats": {
     "message": "タイムライン統計をログ"
   },
-  "debugOptionsLabel": {
-    "message": "デバッグオプション"
+  "defaultFollowingToRecent": {
+    "message": "フォロー中をデフォルトで「最新」に並べ替え"
   },
-  "defaultToLatestSearchLabel": {
+  "defaultToFollowing": {
+    "message": "デフォルトで「フォロー中」タイムラインを使用"
+  },
+  "defaultToLatestSearch": {
     "message": "検索のデフォルトは「最新」タブ"
+  },
+  "developerOptions": {
+    "message": "開発者"
+  },
+  "disableHomeTimeline": {
+    "message": "「ホーム」タイムラインを無効化"
   },
   "disableHomeTimelineInfo": {
     "message": "Twitterに時間を盗まれていませんか？「ホーム」タイムラインの利用を控えてみる"
   },
-  "disableHomeTimelineLabel": {
-    "message": "「ホーム」タイムラインを無効化"
-  },
-  "disableTweetTextFormattingLabel": {
+  "disableTweetTextFormatting": {
     "message": "ツイートの太字と斜体を無効にする"
   },
-  "disabledHomeTimelineRedirectLabel": {
+  "disabledHomeTimelineRedirect": {
     "message": "「ホーム」タイムラインをリダイレクト"
   },
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "メッセージ"
   },
-  "dontUseChirpFontLabel": {
+  "dontUseChirpFont": {
     "message": "Chirpフォントを使用しない"
   },
-  "dropdownMenuFontWeightLabel": {
+  "dropdownMenuFontWeight": {
     "message": "ドロップダウンメニューを通常のフォントの太さにする"
   },
   "enabled": {
     "message": "有効"
   },
-  "experimentsOptionsLabel": {
+  "experimentsOptions": {
     "message": "実験的機能"
   },
-  "exportConfigLabel": {
-    "message": "バグレポートの設定をエクスポート"
+  "export": {
+    "message": "エクスポート"
+  },
+  "exportSettings": {
+    "message": "設定をエクスポート"
   },
   "extensionDescription": {
     "message": "Twitter をより細かく制御し、不足している機能を追加して UI を改善します"
@@ -71,13 +95,13 @@
   "extensionNameDisabled": {
     "message": "Control Panel for Twitter (無効)"
   },
-  "fastBlockLabel": {
+  "fastBlock": {
     "message": "即ブロック（確認画面をスキップする）"
   },
   "features": {
-    "message": "特徴"
+    "message": "機能"
   },
-  "followButtonStyleLabel": {
+  "followButtonStyle": {
     "message": "ボタンのスタイル"
   },
   "followButtonStyleOption_monochrome": {
@@ -86,206 +110,264 @@
   "followButtonStyleOption_themed": {
     "message": "テーマ"
   },
+  "fullWidthContent": {
+    "message": "タイムラインのコンテンツを全幅表示"
+  },
   "fullWidthContentInfo": {
     "message": "サイドバーを非表示にして、タイムラインコンテンツを全幅表示にする"
   },
-  "fullWidthContentLabel": {
-    "message": "タイムラインのコンテンツを全幅表示"
-  },
-  "fullWidthMediaLabel": {
+  "fullWidthMedia": {
     "message": "メディア＆カードを全幅表示"
   },
-  "hideAccountSwitcherLabel": {
+  "hideAccountSwitcher": {
     "message": "アカウントの切り替え"
   },
-  "hideAdsNavLabel": {
+  "hideAdsNav": {
     "message": "広告"
   },
-  "hideAllMetricsLabel": {
+  "hideAllMetrics": {
     "message": "すべて非表示"
   },
-  "hideBookmarkButtonLabel": {
+  "hideBookmarkButton": {
     "message": "ツイート下部のブックマークボタン"
   },
-  "hideBookmarkMetricsLabel": {
+  "hideBookmarkMetrics": {
     "message": "ブックマーク"
   },
-  "hideBookmarksNavLabel": {
+  "hideBookmarksNav": {
     "message": "ブックマーク"
   },
-  "hideCommunitiesNavLabel": {
+  "hideBusinessNav": {
+    "message": "ビジネス"
+  },
+  "hideChatNav": {
+    "message": "チャット"
+  },
+  "hideCommunitiesNav": {
     "message": "コミュニティ"
   },
-  "hideComposeTweetLabel": {
+  "hideComposeTweet": {
     "message": "ツイート作成ボタンを非表示"
   },
-  "hideDiscoverSuggestionsLabel": {
+  "hideConnectNav": {
+    "message": "フォロー"
+  },
+  "hideCreatorStudioNav": {
+    "message": "Creator Studio"
+  },
+  "hideDiscoverSuggestions": {
     "message": "「発見」の提案を非表示"
   },
-  "hideExploreNavLabel": {
+  "hideEditImage": {
+    "message": "「画像を編集」を非表示"
+  },
+  "hideExploreNav": {
     "message": "「話題を検索」"
   },
-  "hideExploreNavWithSidebarLabel": {
+  "hideExploreNavWithSidebar": {
     "message": "サイドバーが非表示の場合に表示"
   },
-  "hideExplorePageContentsLabel": {
+  "hideExplorePageContents": {
     "message": "「話題を検索」ページの内容を非表示（検索のみに使用する）"
   },
-  "hideFollowingMetricsLabel": {
+  "hideFollowingMenu": {
+    "message": "フォロー中の「並べ替え」メニューを非表示"
+  },
+  "hideFollowingMetrics": {
     "message": "フォロー／フォロワー"
   },
-  "hideForYouTimelineLabel": {
-    "message": "アルゴリズムによる「おすすめ」を非表示"
+  "hideForYouTimeline": {
+    "message": "「おすすめ」タイムラインを非表示"
   },
   "hideGrok": {
     "message": "Grok を非表示にする"
   },
-  "hideGrokLabel": {
-    "message": "Grok を非表示にする"
-  },
-  "hideGrokTweetsLabel": {
+  "hideGrokTweets": {
     "message": "Grokのツイートを非表示"
   },
   "hideInlinePrompts": {
     "message": "タイムライン内のインラインプロンプトを非表示にする"
   },
-  "hideJobsLabel": {
+  "hideJobs": {
     "message": "募集を非表示にする"
   },
-  "hideLikeMetricsLabel": {
+  "hideLikeMetrics": {
     "message": "いいね件数"
   },
-  "hideListsNavLabel": {
+  "hideListRetweets": {
+    "message": "リスト内のリツイートを非表示"
+  },
+  "hideListsNav": {
     "message": "リスト"
   },
-  "hideLiveBroadcastBarLabel": {
+  "hideLiveBroadcastBar": {
     "message": "ライブ放送バーを非表示"
   },
-  "hideLiveBroadcastsLabel": {
+  "hideLiveBroadcasts": {
     "message": "ライブ放送を非表示"
   },
-  "hideMessagesBottomNavItemLabel": {
+  "hideMessagesBottomNavItem": {
     "message": "メッセージ"
   },
-  "hideMessagesDrawerLabel": {
-    "message": "メッセージドロワー"
+  "hideMessagesDrawer": {
+    "message": "チャットドロワー"
   },
-  "hideMetricsLabel": {
+  "hideMetrics": {
     "message": "メトリクスを非表示"
   },
-  "hideMonetizationNavLabel": {
-    "message": "収益化"
-  },
-  "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
+  "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "使用しない「もっと見る」メニューの項目を非表示"
   },
-  "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
+  "hideMoreSlideOutMenuItemsOptions_mobile": {
     "message": "使用しないスライドアウトメニューの項目を非表示"
   },
-  "hideNotificationsLabel": {
+  "hideNotificationLikes": {
+    "message": "通知内の「いいね！」を非表示"
+  },
+  "hideNotificationRetweets": {
+    "message": "通知内のリツイートを非表示"
+  },
+  "hideNotifications": {
     "message": "通知を非表示"
   },
-  "hideProfileHeaderMetricsLabel": {
-    "message": "プロフィールヘッダーのメトリクス"
-  },
-  "hideProfileRetweetsLabel": {
-    "message": "ユーザープロフィールでのリツイートを非表示にする"
-  },
-  "hideQuoteTweetMetricsLabel": {
-    "message": "引用ツイート件数"
-  },
-  "hideQuotesFromLabel": {
-    "message": "ミュートしたユーザー ($COUNT$)",
-    "placeholders": {
-      "count": {
-        "content": "$1",
-        "example": "1"
-      }
-    }
-  },
-  "hideReplyMetricsLabel": {
-    "message": "返信件数"
-  },
-  "hideRetweetMetricsLabel": {
-    "message": "リツイート件数"
-  },
-  "hideSeeNewTweetsLabel": {
-    "message": "「新しいツイートを表示」を非表示"
-  },
-  "hideShareTweetButtonLabel": {
-    "message": "ツイート下部のシェアボタン"
-  },
-  "hideSidebarContentLabel": {
-    "message": "サイドバーコンテンツを非表示にする"
-  },
-  "hideSpacesNavLabel": {
-    "message": "スペースを作成"
-  },
-  "hideSubscriptionsLabel": {
-    "message": "サブスクリプションを非表示にする"
-  },
-  "hideSuggestedFollowsLabel": {
-    "message": "おすすめのフォローを非表示"
-  },
-  "hideTimelineTweetBoxLabel": {
-    "message": "タイムラインのツイートボックス"
-  },
-  "hideToggleNavigationLabel": {
-    "message": "ナビゲーション切り替えを非表示"
-  },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "自分のツイートの下に「ポストのエンゲージメントを表示」"
-  },
-  "hideTwitterBlueRepliesLabel": {
+  "hidePremiumReplies": {
     "message": "プレミアム ブルー チェックの返信を非表示にする"
   },
-  "hideTwitterBlueUpsellsLabel": {
+  "hidePremiumUpsells": {
     "message": "プレミアムのアップセルを非表示にする"
   },
-  "hideUnavailableQuoteTweetsLabel": {
-    "message": "ブロックまたはミュートしたアカウントへの引用や返信を非表示にする"
+  "hideProfileHeaderMetrics": {
+    "message": "プロフィールヘッダーのメトリクス"
   },
-  "hideUnusedUiItemsOptionsLabel": {
-    "message": "使用しないUI項目を非表示"
+  "hideProfileRetweets": {
+    "message": "ユーザープロフィールでのリツイートを非表示にする"
   },
-  "hideVerifiedNotificationsTabLabel": {
-    "message": "通知とフォロワーの「認証済み」タブを非表示"
+  "hideQuoteTweetMetrics": {
+    "message": "引用ツイート件数"
   },
-  "hideViewsLabel": {
-    "message": "ツイート下部のアナリティクスのリンクを非表示"
-  },
-  "hideWhatsHappeningLabel": {
-    "message": "「いまどうしてる？」を非表示"
-  },
-  "hideWhoToFollowEtcLabel": {
-    "message": "タイムラインの「おすすめユーザー」「おすすめトピック」を非表示"
-  },
-  "homeTimelineOptionsLabel": {
-    "message": "ホームタイムライン"
-  },
-  "listRetweetsLabel": {
-    "message": "リスト内のリツイート"
-  },
-  "mutableQuoteTweetsLabel": {
-    "message": "引用ツイートのミュートを有効にする"
-  },
-  "mutedTweetsLabel": {
-    "message": "ミュートされたツイート（$COUNT$）",
+  "hideQuotesFromCount": {
+    "message": "ミュートしたユーザー ($COUNT$)",
     "placeholders": {
-      "count": {
+      "COUNT": {
         "content": "$1",
         "example": "1"
       }
     }
   },
-  "navBaseFontSizeLabel": {
+  "hideReplyMetrics": {
+    "message": "返信件数"
+  },
+  "hideRetweetMetrics": {
+    "message": "リツイート件数"
+  },
+  "hideSeeNewTweets": {
+    "message": "「新しいツイートを表示」を非表示"
+  },
+  "hideShareTweetButton": {
+    "message": "ツイート下部のシェアボタン"
+  },
+  "hideSidebarContent": {
+    "message": "サイドバーコンテンツを非表示にする"
+  },
+  "hideSortRepliesMenu": {
+    "message": "「返信を並べ替え」メニューを非表示"
+  },
+  "hideSpacesNav": {
+    "message": "スペースを作成"
+  },
+  "hideSubscriptions": {
+    "message": "サブスクリプションを非表示にする"
+  },
+  "hideSuggestedContentSearch": {
+    "message": "検索のおすすめコンテンツを非表示"
+  },
+  "hideSuggestedContentTimeline": {
+    "message": "タイムラインのおすすめコンテンツを非表示"
+  },
+  "hideSuggestedFollows": {
+    "message": "おすすめのフォローを非表示"
+  },
+  "hideTimelineTweetBox": {
+    "message": "タイムラインのツイートボックス"
+  },
+  "hideTodaysNews": {
+    "message": "「本日のニュース」を非表示"
+  },
+  "hideToggleNavigation": {
+    "message": "ナビゲーション切り替えを非表示"
+  },
+  "hideUnavailableQuoteTweets": {
+    "message": "ブロックまたはミュートしたアカウントへの引用や返信を非表示にする"
+  },
+  "hideUnusedUiItemsOptions": {
+    "message": "使用しないUI項目を非表示"
+  },
+  "hideVerifiedTabs": {
+    "message": "フォロワーの「認証済み」タブを非表示"
+  },
+  "hideViewActivityLinks": {
+    "message": "「アクティビティを表示」リンク"
+  },
+  "hideViews": {
+    "message": "ツイート下部のアナリティクスのリンクを非表示"
+  },
+  "hideWhatsHappening": {
+    "message": "「いまどうしてる？」を非表示"
+  },
+  "homeTimelineOptions": {
+    "message": "ホームタイムライン"
+  },
+  "import": {
+    "message": "インポート"
+  },
+  "importSettings": {
+    "message": "設定をインポート"
+  },
+  "invalidJsonFile": {
+    "message": "無効なJSONファイル: $ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1"
+      }
+    }
+  },
+  "invalidSettings": {
+    "message": "無効な設定: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
+  },
+  "mutableQuoteTweets": {
+    "message": "引用ツイートのミュートを有効にする"
+  },
+  "mutedTweetsCount": {
+    "message": "ミュートされたツイート（$COUNT$）",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "navBaseFontSize": {
     "message": "ナビゲーションバーを通常のフォントサイズにする"
   },
-  "navDensityLabel": {
+  "navDensity": {
     "message": "ナビゲーションの密度"
   },
-  "notificationsLabel": {
+  "noFileSelected": {
+    "message": "ファイルが選択されていません"
+  },
+  "noSettingsObject": {
+    "message": "JSONファイルに設定オブジェクトが見つかりません"
+  },
+  "notifications": {
     "message": "通知"
+  },
+  "openOptionsPage": {
+    "message": "設定ページを開く"
   },
   "option_badges": {
     "message": "バッジのみ非表示"
@@ -299,138 +381,176 @@
   "option_default": {
     "message": "デフォルト"
   },
+  "option_dim": {
+    "message": "ダークブルー"
+  },
   "option_hide": {
     "message": "非表示"
   },
   "option_ignore": {
     "message": "そのまま"
   },
+  "option_lightsOut": {
+    "message": "ブラック"
+  },
   "option_liked": {
     "message": "いいね"
+  },
+  "option_mostRecent": {
+    "message": "新しい順"
+  },
+  "option_popular": {
+    "message": "人気"
   },
   "option_recent": {
     "message": "最新"
   },
   "option_relevant": {
-    "message": "関連性"
+    "message": "関連性が高い"
   },
   "option_separate": {
     "message": "別タブで開く"
   },
+  "optionsPageImportSettingsNote": {
+    "message": "設定ページを使用して設定をインポートします"
+  },
+  "premiumBlueChecks": {
+    "message": "プレミアムブルーチェック"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "Twitter Blueロゴに変更"
+  },
+  "preventNextVideoAutoplay": {
+    "message": "次の動画の自動再生を防ぐ"
+  },
   "preventNextVideoAutoplayInfo": {
     "message": "動画はループ再生されます"
   },
-  "preventNextVideoAutoplayLabel": {
-    "message": "次の動画の自動再生を防ぐ"
-  },
-  "quoteTweetsLabel": {
+  "quoteTweets": {
     "message": "引用ツイート"
   },
-  "redirectToTwitterLabel": {
+  "redirectChatNav": {
+    "message": "チャットナビをメッセージにリダイレクト"
+  },
+  "redirectToTwitter": {
     "message": "twitter.com にリダイレクト"
   },
-  "reduceAlgorithmicContentOptionsLabel": {
+  "reduceAlgorithmicContentOptions": {
     "message": "アルゴリズムコンテンツを取り除く"
   },
-  "reduceEngagementOptionsLabel": {
+  "reduceEngagementOptions": {
     "message": "「エンゲージメント」を減らす"
+  },
+  "reducedInteractionMode": {
+    "message": "インタラクションモードを減らす"
   },
   "reducedInteractionModeInfo": {
     "message": "ツイートの下にあるアクションバーを非表示（リプライのみで交流する）"
   },
-  "reducedInteractionModeLabel": {
-    "message": "インタラクションモードを減らす"
-  },
-  "replaceLogoLabel": {
-    "message": "X のブランド変更を置き換える"
-  },
-  "restoreLinkHeadlinesLabel": {
+  "restoreLinkHeadlines": {
     "message": "外部リンクの下に見出しを復元する"
   },
-  "restoreOtherInteractionLinksLabel": {
+  "restoreOtherInteractionLinks": {
     "message": "ツイートの下の他のリンクを復元する"
   },
-  "restoreQuoteTweetsLinkLabel": {
+  "restoreQuoteTweetsLink": {
     "message": "ツイートの下にある「引用ツイート」リンクを復元する"
   },
-  "restoreTweetSourceLabel": {
+  "restoreTweetSource": {
     "message": "ツイートのソースラベルを復元"
   },
-  "retweetsLabel": {
+  "retweets": {
     "message": "リツイート"
   },
-  "saveAndApplyButton": {
+  "revertXBranding": {
+    "message": "Xのブランディング変更を元に戻す"
+  },
+  "saveAndApply": {
     "message": "保存して適用"
   },
-  "sharedTweetsOptionsLabel": {
+  "settings": {
+    "message": "設定"
+  },
+  "settingsImported": {
+    "message": "設定がインポートされました"
+  },
+  "settingsNotImported": {
+    "message": "設定はインポートされませんでした"
+  },
+  "sharedTweetsOptions": {
     "message": "他のユーザーが共有したツイート"
   },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "フォロワー数"
+  "showBookmarkButtonUnderFocusedTweets": {
+    "message": "フォーカスされたツイートの下に表示"
   },
-  "showBlueReplyFollowersCountLabel": {
+  "showPremiumReplyBusiness": {
+    "message": "認証済みビジネスアカウントを表示"
+  },
+  "showPremiumReplyFollowedBy": {
+    "message": "自分をフォローしているアカウントを表示"
+  },
+  "showPremiumReplyFollowersCount": {
     "message": "フォロワー数が$AMOUNT$人を超えるアカウントを表示",
     "placeholders": {
-      "amount": {
+      "AMOUNT": {
         "content": "$1"
       }
     }
   },
-  "showBookmarkButtonUnderFocusedTweetsLabel": {
-    "message": "フォーカスされたツイートの下に表示"
+  "showPremiumReplyFollowersCountAmount": {
+    "message": "フォロワー数"
   },
-  "showPremiumReplyBusinessLabel": {
-    "message": "認証済みビジネスアカウントを表示"
-  },
-  "showPremiumReplyFollowedByLabel": {
-    "message": "自分をフォローしているアカウントを表示"
-  },
-  "showPremiumReplyFollowingLabel": {
+  "showPremiumReplyFollowing": {
     "message": "フォロー中のアカウントを表示"
   },
-  "showPremiumReplyGovernmentLabel": {
+  "showPremiumReplyGovernment": {
     "message": "認証済み政府機関アカウントを表示"
   },
-  "showRelevantPeopleLabel": {
+  "showRelevantPeople": {
     "message": "ツイート閲覧時に「おすすめユーザー」を表示する"
   },
-  "sidebarLabel": {
+  "sidebar": {
     "message": "サイドバー"
   },
-  "sortRepliesLabel": {
+  "sortReplies": {
     "message": "返信のデフォルトの並べ替え"
+  },
+  "sortRepliesInfo": {
+    "message": "Xのバグにより、「いいね」順で並び替えると返信の順序が崩れます"
+  },
+  "tweakNewLayout": {
+    "message": "新しいレイアウトを調整"
   },
   "tweakNewLayoutInfo": {
     "message": "実験的機能 - 新しいレイアウトがある場合にのみ有効にしてください"
   },
-  "tweakNewLayoutLabel": {
-    "message": "新しいレイアウトを調整"
-  },
-  "tweakQuoteTweetsPageLabel": {
+  "tweakQuoteTweetsPage": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"
   },
-  "twitterBlueChecksLabel": {
-    "message": "プレミアムブルーチェック"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Twitter Blueロゴに変更"
-  },
-  "uiImprovementsOptionsLabel": {
+  "uiImprovementsOptions": {
     "message": "UIの改善"
   },
-  "uiTweaksOptionsLabel": {
+  "uiTweaksOptions": {
     "message": "UIを微調整"
   },
-  "unblurSensitiveContentLabel": {
+  "unblurSensitiveContent": {
     "message": "機密性の高いコンテンツのぼかしを解除する"
   },
-  "uninvertFollowButtonsLabel": {
+  "uninvertFollowButtons": {
     "message": "フォロー／フォロワーボタンの反転表示を解除"
+  },
+  "unknownSettings": {
+    "message": "不明な設定: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
   },
   "unmuteButtonText": {
     "message": "ミュート解除"
   },
-  "xFixesLabel": {
+  "xFixesOptions": {
     "message": "X の修正"
   }
 }

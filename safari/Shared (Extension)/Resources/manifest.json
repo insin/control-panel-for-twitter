@@ -4,7 +4,7 @@
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescriptionShort__",
   "homepage_url": "https://soitis.dev/control-panel-for-twitter",
-  "version": "4.12.1",
+  "version": "4.99.9",
   "icons": {
     "48": "icon48.png",
     "96": "icon96.png",
@@ -28,19 +28,19 @@
         "content.js"
       ],
       "run_at": "document_start"
-    }
-  ],
-  "web_accessible_resources": [
+    },
     {
+      "world": "MAIN",
       "matches": [
         "https://twitter.com/*",
         "https://mobile.twitter.com/*",
         "https://x.com/*",
         "https://mobile.x.com/*"
       ],
-      "resources": [
+      "js": [
         "script.js"
-      ]
+      ],
+      "run_at": "document_start"
     }
   ],
   "options_ui": {

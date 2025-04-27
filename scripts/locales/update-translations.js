@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const {sortProperties} = require('../utils')
+const {sortProperties} = require('../lib')
 
 const [translationKey, code, localesDir = 'js'] = process.argv.slice(2)
 if (!translationKey || !code) {
