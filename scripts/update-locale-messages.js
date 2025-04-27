@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const {sortProperties} = require('./utils')
+const {sortProperties} = require('./lib')
 
 if (process.argv.some(arg => /^-h|--help$/.test(arg))) {
   console.log(`

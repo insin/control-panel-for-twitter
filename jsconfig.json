@@ -8,6 +8,6 @@
   },
   "exclude": [
     "node_modules",
-    "scripts/"
+    "scripts/locales/*/**"
   ]
 }

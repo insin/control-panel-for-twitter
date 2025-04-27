@@ -5,9 +5,6 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Ajouter \"Ajouter un mot masqué\" au menu déroulant"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "Utiliser le fil \"Abonnements\" (chronologique) par défaut"
-  },
   "appStoreSubtitle": {
     "message": "Contrôlez votre fil"
   },
@@ -25,6 +22,9 @@
   },
   "debugOptionsLabel": {
     "message": "Options de débogage (debug)"
+  },
+  "defaultToFollowingLabel": {
+    "message": "Utiliser le fil \"Abonnements\" (chronologique) par défaut"
   },
   "defaultToLatestSearchLabel": {
     "message": "Utiliser l'onglet \"Récent\" par défaut dans la recherche"
@@ -185,6 +185,12 @@
   "hideNotificationsLabel": {
     "message": "Masquer les notifications"
   },
+  "hidePremiumRepliesLabel": {
+    "message": "Masquer les réponses des coches bleus Premium"
+  },
+  "hidePremiumUpsellsLabel": {
+    "message": "Masquer les promotions Premium"
+  },
   "hideProfileHeaderMetricsLabel": {
     "message": "Métriques de l'en-tête du profil"
   },
@@ -236,19 +242,13 @@
   "hideTweetAnalyticsLinksLabel": {
     "message": "\"Voir les engagements avec le post\" sous vos tweets"
   },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "Masquer les réponses des coches bleus Premium"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "Masquer les promotions Premium"
-  },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "Masquer les citations et les réponses aux comptes bloqués et muets"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Masquer les éléments de l'interface utilisateur que vous n'utilisez pas"
   },
-  "hideVerifiedNotificationsTabLabel": {
+  "hideVerifiedTabsLabel": {
     "message": "Masquer les onglets \"Certifié\" dans Notifications et Abonnés"
   },
   "hideViewsLabel": {
@@ -317,6 +317,12 @@
   "option_separate": {
     "message": "Afficher dans un onglet séparé"
   },
+  "premiumBlueChecksLabel": {
+    "message": "Coches bleues Premium"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "Remplacer par le logo Twitter Blue"
+  },
   "preventNextVideoAutoplayInfo": {
     "message": "Les vidéos seront lues en boucle à la place"
   },
@@ -341,9 +347,6 @@
   "reducedInteractionModeLabel": {
     "message": "Mode d'interaction réduit"
   },
-  "replaceLogoLabel": {
-    "message": "Remplacer les changements de marque X"
-  },
   "restoreLinkHeadlinesLabel": {
     "message": "Restaurer les titres sous les liens externes"
   },
@@ -359,22 +362,14 @@
   "retweetsLabel": {
     "message": "Retweets"
   },
+  "revertXBrandingLabel": {
+    "message": "Remplacer les changements de marque X"
+  },
   "saveAndApplyButton": {
     "message": "Enregistrer et appliquer"
   },
   "sharedTweetsOptionsLabel": {
     "message": "Tweets partagés par d'autres utilisateurs"
-  },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "Nombre d'abonnés"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "Afficher les comptes ayant plus de $AMOUNT$ abonnés",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
   },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "Afficher sous les tweets mis en avant"
@@ -384,6 +379,17 @@
   },
   "showPremiumReplyFollowedByLabel": {
     "message": "Afficher les comptes qui me suivent"
+  },
+  "showPremiumReplyFollowersCountAmountLabel": {
+    "message": "Nombre d'abonnés"
+  },
+  "showPremiumReplyFollowersCountLabel": {
+    "message": "Afficher les comptes ayant plus de $AMOUNT$ abonnés",
+    "placeholders": {
+      "amount": {
+        "content": "$1"
+      }
+    }
   },
   "showPremiumReplyFollowingLabel": {
     "message": "Afficher les comptes que je suis"
@@ -408,12 +414,6 @@
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "Masquer le tweet cité lors de l'affichage des citations de tweets"
-  },
-  "twitterBlueChecksLabel": {
-    "message": "Coches bleues Premium"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Remplacer par le logo Twitter Blue"
   },
   "uiImprovementsOptionsLabel": {
     "message": "Améliorations de l'interface utilisateur"

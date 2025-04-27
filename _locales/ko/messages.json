@@ -5,9 +5,6 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "슬라이드 메뉴에 \"뮤트할 단어 추가하기\" 추가"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "기본적으로 \"팔로잉\" (시간순) 타임라인 사용"
-  },
   "appStoreSubtitle": {
     "message": "타임라인을 통제하세요"
   },
@@ -25,6 +22,9 @@
   },
   "debugOptionsLabel": {
     "message": "디버그 옵션"
+  },
+  "defaultToFollowingLabel": {
+    "message": "기본적으로 \"팔로잉\" (시간순) 타임라인 사용"
   },
   "defaultToLatestSearchLabel": {
     "message": "검색 시 기본적으로 \"최신\" 탭 사용"
@@ -185,6 +185,12 @@
   "hideNotificationsLabel": {
     "message": "알림 숨기기"
   },
+  "hidePremiumRepliesLabel": {
+    "message": "Premium 파란색 체크 답장 숨기기"
+  },
+  "hidePremiumUpsellsLabel": {
+    "message": "Premium 업셀 숨기기"
+  },
   "hideProfileHeaderMetricsLabel": {
     "message": "프로필 헤더 메트릭"
   },
@@ -236,19 +242,13 @@
   "hideTweetAnalyticsLinksLabel": {
     "message": "내 트윗 아래에 \"게시 참여수 조회\""
   },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "Premium 파란색 체크 답장 숨기기"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "Premium 업셀 숨기기"
-  },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "차단 및 음소거된 계정에 대한 인용 및 답글 숨기기"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "사용하지 않는 UI 항목 숨기기"
   },
-  "hideVerifiedNotificationsTabLabel": {
+  "hideVerifiedTabsLabel": {
     "message": "알림 및 팔로어에 \"인증된\" 탭 숨기기"
   },
   "hideViewsLabel": {
@@ -317,6 +317,12 @@
   "option_separate": {
     "message": "별도의 탭에 표시"
   },
+  "premiumBlueChecksLabel": {
+    "message": "Premium 파란색 체크"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "Twitter Blue 로고로 교체"
+  },
   "preventNextVideoAutoplayInfo": {
     "message": "비디오는 반복 재생됩니다"
   },
@@ -341,9 +347,6 @@
   "reducedInteractionModeLabel": {
     "message": "상호작용 줄임 모드"
   },
-  "replaceLogoLabel": {
-    "message": "X 브랜딩 변경 사항 바꾸기"
-  },
   "restoreLinkHeadlinesLabel": {
     "message": "외부 링크 아래의 제목 복원"
   },
@@ -359,22 +362,14 @@
   "retweetsLabel": {
     "message": "리트윗"
   },
+  "revertXBrandingLabel": {
+    "message": "X 브랜딩 변경 사항 바꾸기"
+  },
   "saveAndApplyButton": {
     "message": "저장하고 적용"
   },
   "sharedTweetsOptionsLabel": {
     "message": "다른 사용자가 공유한 트윗"
-  },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "팔로워 수"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "팔로워 수가 $AMOUNT$명을 초과하는 계정 표시",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
   },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "집중된 트윗 아래에 표시"
@@ -384,6 +379,17 @@
   },
   "showPremiumReplyFollowedByLabel": {
     "message": "나를 팔로우하는 계정 표시"
+  },
+  "showPremiumReplyFollowersCountAmountLabel": {
+    "message": "팔로워 수"
+  },
+  "showPremiumReplyFollowersCountLabel": {
+    "message": "팔로워 수가 $AMOUNT$명을 초과하는 계정 표시",
+    "placeholders": {
+      "amount": {
+        "content": "$1"
+      }
+    }
   },
   "showPremiumReplyFollowingLabel": {
     "message": "내가 팔로우하는 계정 표시"
@@ -408,12 +414,6 @@
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "인용 트윗을 볼 때 인용된 트윗 숨기기"
-  },
-  "twitterBlueChecksLabel": {
-    "message": "Premium 파란색 체크"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Twitter Blue 로고로 교체"
   },
   "uiImprovementsOptionsLabel": {
     "message": "UI 개선"

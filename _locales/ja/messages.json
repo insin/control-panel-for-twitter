@@ -5,9 +5,6 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "スライドアウトメニューに「ミュートするキーワードを追加」を追加"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "常にタイムラインを「フォロー中」（時系列順）にする"
-  },
   "appStoreSubtitle": {
     "message": "タイムラインを制御せよ"
   },
@@ -25,6 +22,9 @@
   },
   "debugOptionsLabel": {
     "message": "デバッグオプション"
+  },
+  "defaultToFollowingLabel": {
+    "message": "常にタイムラインを「フォロー中」（時系列順）にする"
   },
   "defaultToLatestSearchLabel": {
     "message": "検索のデフォルトは「最新」タブ"
@@ -185,6 +185,12 @@
   "hideNotificationsLabel": {
     "message": "通知を非表示"
   },
+  "hidePremiumRepliesLabel": {
+    "message": "プレミアム ブルー チェックの返信を非表示にする"
+  },
+  "hidePremiumUpsellsLabel": {
+    "message": "プレミアムのアップセルを非表示にする"
+  },
   "hideProfileHeaderMetricsLabel": {
     "message": "プロフィールヘッダーのメトリクス"
   },
@@ -236,19 +242,13 @@
   "hideTweetAnalyticsLinksLabel": {
     "message": "自分のツイートの下に「ポストのエンゲージメントを表示」"
   },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "プレミアム ブルー チェックの返信を非表示にする"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "プレミアムのアップセルを非表示にする"
-  },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "ブロックまたはミュートしたアカウントへの引用や返信を非表示にする"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "使用しないUI項目を非表示"
   },
-  "hideVerifiedNotificationsTabLabel": {
+  "hideVerifiedTabsLabel": {
     "message": "通知とフォロワーの「認証済み」タブを非表示"
   },
   "hideViewsLabel": {
@@ -317,6 +317,12 @@
   "option_separate": {
     "message": "別タブで開く"
   },
+  "premiumBlueChecksLabel": {
+    "message": "プレミアムブルーチェック"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "Twitter Blueロゴに変更"
+  },
   "preventNextVideoAutoplayInfo": {
     "message": "動画はループ再生されます"
   },
@@ -341,9 +347,6 @@
   "reducedInteractionModeLabel": {
     "message": "インタラクションモードを減らす"
   },
-  "replaceLogoLabel": {
-    "message": "X のブランド変更を置き換える"
-  },
   "restoreLinkHeadlinesLabel": {
     "message": "外部リンクの下に見出しを復元する"
   },
@@ -359,22 +362,14 @@
   "retweetsLabel": {
     "message": "リツイート"
   },
+  "revertXBrandingLabel": {
+    "message": "X のブランド変更を置き換える"
+  },
   "saveAndApplyButton": {
     "message": "保存して適用"
   },
   "sharedTweetsOptionsLabel": {
     "message": "他のユーザーが共有したツイート"
-  },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "フォロワー数"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "フォロワー数が$AMOUNT$人を超えるアカウントを表示",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
   },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "フォーカスされたツイートの下に表示"
@@ -384,6 +379,17 @@
   },
   "showPremiumReplyFollowedByLabel": {
     "message": "自分をフォローしているアカウントを表示"
+  },
+  "showPremiumReplyFollowersCountAmountLabel": {
+    "message": "フォロワー数"
+  },
+  "showPremiumReplyFollowersCountLabel": {
+    "message": "フォロワー数が$AMOUNT$人を超えるアカウントを表示",
+    "placeholders": {
+      "amount": {
+        "content": "$1"
+      }
+    }
   },
   "showPremiumReplyFollowingLabel": {
     "message": "フォロー中のアカウントを表示"
@@ -408,12 +414,6 @@
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"
-  },
-  "twitterBlueChecksLabel": {
-    "message": "プレミアムブルーチェック"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Twitter Blueロゴに変更"
   },
   "uiImprovementsOptionsLabel": {
     "message": "UIの改善"

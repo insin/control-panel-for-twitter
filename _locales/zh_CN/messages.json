@@ -5,9 +5,6 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "在滑出式菜单中添加\"增加隐藏词\""
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "默认使用 \"正在关注\"（按时间顺序）的时间线"
-  },
   "appStoreSubtitle": {
     "message": "掌控你的时间线"
   },
@@ -25,6 +22,9 @@
   },
   "debugOptionsLabel": {
     "message": "调试选项"
+  },
+  "defaultToFollowingLabel": {
+    "message": "默认使用 \"正在关注\"（按时间顺序）的时间线"
   },
   "defaultToLatestSearchLabel": {
     "message": "在搜索中默认为\"最新\"选项卡"
@@ -185,6 +185,12 @@
   "hideNotificationsLabel": {
     "message": "隐藏通知"
   },
+  "hidePremiumRepliesLabel": {
+    "message": "隐藏Premium蓝色勾号回复"
+  },
+  "hidePremiumUpsellsLabel": {
+    "message": "隐藏Premium强制销售"
+  },
   "hideProfileHeaderMetricsLabel": {
     "message": "个人资料页眉指标"
   },
@@ -236,19 +242,13 @@
   "hideTweetAnalyticsLinksLabel": {
     "message": "您自己的推文下的\"查看 帖子 互动量\""
   },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "隐藏Premium蓝色勾号回复"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "隐藏Premium强制销售"
-  },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "隐藏对已屏蔽和已静音账号的引用和回复"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "隐藏你不使用的用户界面项目"
   },
-  "hideVerifiedNotificationsTabLabel": {
+  "hideVerifiedTabsLabel": {
     "message": "隐藏通知和关注者中的\"认证\"选项卡"
   },
   "hideViewsLabel": {
@@ -326,6 +326,12 @@
   "option_separate": {
     "message": "在单独的标签中显示"
   },
+  "premiumBlueChecksLabel": {
+    "message": "Premium蓝色支票"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "替换为Twitter Blue标识"
+  },
   "preventNextVideoAutoplayInfo": {
     "message": "视频将循环播放"
   },
@@ -350,9 +356,6 @@
   "reducedInteractionModeLabel": {
     "message": "减少互动模式"
   },
-  "replaceLogoLabel": {
-    "message": "更换 X 品牌变更"
-  },
   "restoreLinkHeadlinesLabel": {
     "message": "恢复外部链接下的标题"
   },
@@ -368,22 +371,14 @@
   "retweetsLabel": {
     "message": "转发"
   },
+  "revertXBrandingLabel": {
+    "message": "更换 X 品牌变更"
+  },
   "saveAndApplyButton": {
     "message": "保存并应用"
   },
   "sharedTweetsOptionsLabel": {
     "message": "其他用户分享的推文"
-  },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "粉丝数"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "显示粉丝数超过$AMOUNT$的账户",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
   },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "在焦点推文下显示"
@@ -393,6 +388,17 @@
   },
   "showPremiumReplyFollowedByLabel": {
     "message": "显示关注我的账户"
+  },
+  "showPremiumReplyFollowersCountAmountLabel": {
+    "message": "粉丝数"
+  },
+  "showPremiumReplyFollowersCountLabel": {
+    "message": "显示粉丝数超过$AMOUNT$的账户",
+    "placeholders": {
+      "amount": {
+        "content": "$1"
+      }
+    }
   },
   "showPremiumReplyFollowingLabel": {
     "message": "显示我关注的账户"
@@ -420,12 +426,6 @@
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "查看引用推文时隐藏被引用的推文"
-  },
-  "twitterBlueChecksLabel": {
-    "message": "Premium蓝色支票"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "替换为Twitter Blue标识"
   },
   "uiImprovementsOptionsLabel": {
     "message": "用户界面改进"

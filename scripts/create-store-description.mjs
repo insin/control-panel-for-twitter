@@ -42,7 +42,7 @@ Object.assign(messages, Object.fromEntries(Object.entries(extraTranslations).map
 let storeDescription = `
 ${messages.homeTimelineOptionsLabel}
 
-• ${messages.alwaysUseLatestTweetsLabel}
+• ${messages.defaultToFollowingLabel}
   • ${messages.hideForYouTimelineLabel}
 • ${messages.retweetsLabel}
   • ${messages.option_separate} / ${messages.option_hide}
@@ -71,19 +71,19 @@ ${messages.xFixesLabel}
 • ${messages.redirectToTwitterLabel}
 • ${messages.tweakNewLayoutLabel}
   • ${messages.hideToggleNavigationLabel}
-• ${messages.replaceLogoLabel}
+• ${messages.revertXBrandingLabel}
 • ${messages.hideViewsLabel}
-• ${messages.hideVerifiedNotificationsTabLabel}
+• ${messages.hideVerifiedTabsLabel}
 • ${messages.restoreTweetSourceLabel}
 • ${messages.restoreLinkHeadlinesLabel}
 • ${messages.restoreQuoteTweetsLinkLabel}
 • ${messages.restoreOtherInteractionLinksLabel}
 • ${messages.sortRepliesLabel}
   • ${messages.option_recent} / ${messages.option_liked}
-• ${messages.twitterBlueChecksLabel}
-  • ${messages.twitterBlueChecksOption_replace} / ${messages.option_hide}
-• ${messages.hideTwitterBlueRepliesLabel}
-• ${messages.hideTwitterBlueUpsellsLabel}
+• ${messages.premiumBlueChecksLabel}
+  • ${messages.premiumBlueChecksOption_replace} / ${messages.option_hide}
+• ${messages.hidePremiumRepliesLabel}
+• ${messages.hidePremiumUpsellsLabel}
 • ${messages.hideGrokLabel}
 • ${messages.hideGrokTweetsLabel}
 • ${messages.hideJobsLabel}

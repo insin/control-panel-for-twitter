@@ -65,13 +65,17 @@ body.disabled:not(.safari) form > section {
   border-bottom: 1px solid var(--border-color);
 }
 
+label {
+  padding: 4px 12px 4px 0;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
 label:not([for]) {
+  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 4px 12px;
-  margin: 8px 0;
-  cursor: pointer;
 }
 
 label.button button {
@@ -85,6 +89,10 @@ summary {
   margin-top: 8px;
   margin-bottom: 8px;
   cursor: pointer;
+}
+
+section.labelled > label {
+  padding-left: 12px;
 }
 
 input[type=checkbox],
@@ -105,8 +113,14 @@ section:not(:first-of-type) {
   border-top: 1px solid #f0f0f0;
 }
 
+/* Indent from top level section to its contents */
 section.group > section {
   margin-left: 40px;
+}
+
+/* Indent for sections within sections */
+section:not(.group) > section {
+  margin-left: 12px;
 }
 
 section.group > label {
@@ -118,14 +132,18 @@ section.group > section > * {
   padding-left: 0;
 }
 
-section.group > p {
-  margin: 0 0 12px 40px;
+p {
+  margin-top: 0;
+  margin-bottom: 0;
   font-size: 12px;
 }
 
+section.group > p {
+  margin-left: 40px;
+}
+
 section.group > section > p {
-  margin: 0 60px 12px 0;
-  font-size: 12px;
+  margin-right: 60px;
 }
 
 section.textarea {
@@ -206,7 +224,6 @@ body.edge section.group > section > * {
 /* Safari overrides */
 body.safari {
   font-family: system-ui;
-  -webkit-user-select: none;
 }
 
 /* Safari overrides (macOS) */

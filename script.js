@@ -1,35 +1,25 @@
-// ==UserScript==
-// @name        Control Panel for Twitter
-// @description Gives you more control over Twitter and adds missing features and UI improvements
-// @icon        https://raw.githubusercontent.com/insin/control-panel-for-twitter/master/icons/icon32.png
-// @namespace   https://github.com/insin/control-panel-for-twitter/
-// @match       https://twitter.com/*
-// @match       https://mobile.twitter.com/*
-// @match       https://x.com/*
-// @match       https://mobile.x.com/*
-// @run-at      document-start
-// @version     195
-// ==/UserScript==
 void function() {
 
 // Patch XMLHttpRequest to modify requests
 const XMLHttpRequest_open = XMLHttpRequest.prototype.open
 XMLHttpRequest.prototype.open = function(method, url) {
-  if (config.sortReplies != 'relevant' && !userSortedReplies && url.includes('/TweetDetail?')) {
+  if (settings.sortReplies != 'relevant' && !userSortedReplies && url.includes('/TweetDetail?')) {
     let request = new URL(url)
     let params = new URLSearchParams(request.search)
     let variables = JSON.parse(decodeURIComponent(params.get('variables')))
     variables.rankingMode = {
       liked: 'Likes',
       recent: 'Recency',
-    }[config.sortReplies]
+    }[settings.sortReplies]
     params.set('variables', JSON.stringify(variables))
     url = `${request.origin}${request.pathname}?${params.toString()}`
   }
   return XMLHttpRequest_open.apply(this, [method, url])
 }
 
+let enabled = true
 let debug = false
+let debugLogTimelineStats = false
 
 /** @type {boolean} */
 let desktop
@@ -50,17 +40,14 @@ let dir
 /** @type {boolean} */
 let ltr
 
-//#region Default config
+//#region Default settings
 /**
- * @type {import("./types").Config}
+ * @type {import("./types").UserSettings}
  */
-const config = {
-  enabled: true,
-  debug: false,
-  debugLogTimelineStats: false,
+const defaultSettings = {
   // Shared
   addAddMutedWordMenuItem: true,
-  alwaysUseLatestTweets: true,
+  defaultToFollowing: true,
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
@@ -86,7 +73,7 @@ const config = {
   hideListsNav: false,
   hideMetrics: false,
   hideMonetizationNav: true,
-  hideMoreTweets: true,
+  hideDiscoverSuggestions: true,
   hideNotifications: 'ignore',
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
@@ -96,12 +83,12 @@ const config = {
   hideSeeNewTweets: false,
   hideShareTweetButton: false,
   hideSubscriptions: true,
-  hideTotalTweetsMetrics: true,
+  hideProfileHeaderMetrics: true,
   hideTweetAnalyticsLinks: false,
-  hideTwitterBlueReplies: false,
-  hideTwitterBlueUpsells: true,
+  hidePremiumReplies: false,
+  hidePremiumUpsells: true,
   hideUnavailableQuoteTweets: true,
-  hideVerifiedNotificationsTab: true,
+  hideVerifiedTabs: true,
   hideViews: true,
   hideWhoToFollowEtc: true,
   listRetweets: 'ignore',
@@ -110,14 +97,14 @@ const config = {
   quoteTweets: 'ignore',
   redirectToTwitter: false,
   reducedInteractionMode: false,
-  replaceLogo: true,
+  revertXBranding: true,
   restoreLinkHeadlines: true,
   restoreOtherInteractionLinks: false,
   restoreQuoteTweetsLink: true,
   restoreTweetSource: true,
   retweets: 'separate',
-  showBlueReplyFollowersCount: false,
-  showBlueReplyFollowersCountAmount: '1000000',
+  showPremiumReplyFollowersCount: false,
+  showPremiumReplyFollowersCountAmount: '1000000',
   showBookmarkButtonUnderFocusedTweets: true,
   showPremiumReplyBusiness: true,
   showPremiumReplyFollowedBy: true,
@@ -126,7 +113,7 @@ const config = {
   sortReplies: 'relevant',
   tweakNewLayout: false,
   tweakQuoteTweetsPage: true,
-  twitterBlueChecks: 'replace',
+  premiumBlueChecks: 'replace',
   unblurSensitiveContent: false,
   uninvertFollowButtons: true,
   // Experiments
@@ -153,6 +140,9 @@ const config = {
   hideMessagesBottomNavItem: false,
   preventNextVideoAutoplay: true,
 }
+
+/** @type {import("./types").UserSettings} */
+let settings
 //#endregion
 
 //#region Locales
@@ -1937,7 +1927,7 @@ const Selectors = {
 
 /** @enum {string} */
 const Svgs = {
-  BLUE_LOGO_PATH: 'M16.5 3H2v18h15c3.038 0 5.5-2.46 5.5-5.5 0-1.4-.524-2.68-1.385-3.65-.08-.09-.089-.22-.023-.32.574-.87.908-1.91.908-3.03C22 5.46 19.538 3 16.5 3zm-.796 5.99c.457-.05.892-.17 1.296-.35-.302.45-.684.84-1.125 1.15.004.1.006.19.006.29 0 2.94-2.269 6.32-6.421 6.32-1.274 0-2.46-.37-3.459-1 .177.02.357.03.539.03 1.057 0 2.03-.35 2.803-.95-.988-.02-1.821-.66-2.109-1.54.138.03.28.04.425.04.206 0 .405-.03.595-.08-1.033-.2-1.811-1.1-1.811-2.18v-.03c.305.17.652.27 1.023.28-.606-.4-1.004-1.08-1.004-1.85 0-.4.111-.78.305-1.11 1.113 1.34 2.775 2.22 4.652 2.32-.038-.17-.058-.33-.058-.51 0-1.23 1.01-2.22 2.256-2.22.649 0 1.235.27 1.647.7.514-.1.997-.28 1.433-.54-.168.52-.526.96-.992 1.23z',
+  TWITTER_BLUE_LOGO_PATH: 'M16.5 3H2v18h15c3.038 0 5.5-2.46 5.5-5.5 0-1.4-.524-2.68-1.385-3.65-.08-.09-.089-.22-.023-.32.574-.87.908-1.91.908-3.03C22 5.46 19.538 3 16.5 3zm-.796 5.99c.457-.05.892-.17 1.296-.35-.302.45-.684.84-1.125 1.15.004.1.006.19.006.29 0 2.94-2.269 6.32-6.421 6.32-1.274 0-2.46-.37-3.459-1 .177.02.357.03.539.03 1.057 0 2.03-.35 2.803-.95-.988-.02-1.821-.66-2.109-1.54.138.03.28.04.425.04.206 0 .405-.03.595-.08-1.033-.2-1.811-1.1-1.811-2.18v-.03c.305.17.652.27 1.023.28-.606-.4-1.004-1.08-1.004-1.85 0-.4.111-.78.305-1.11 1.113 1.34 2.775 2.22 4.652 2.32-.038-.17-.058-.33-.058-.51 0-1.23 1.01-2.22 2.256-2.22.649 0 1.235.27 1.647.7.514-.1.997-.28 1.433-.54-.168.52-.526.96-.992 1.23z',
   MUTE: '<g><path d="M18 6.59V1.2L8.71 7H5.5C4.12 7 3 8.12 3 9.5v5C3 15.88 4.12 17 5.5 17h2.09l-2.3 2.29 1.42 1.42 15.5-15.5-1.42-1.42L18 6.59zm-8 8V8.55l6-3.75v3.79l-6 6zM5 9.5c0-.28.22-.5.5-.5H8v6H5.5c-.28 0-.5-.22-.5-.5v-5zm6.5 9.24l1.45-1.45L16 19.2V14l2 .02v8.78l-6.5-4.06z"></path></g>',
   PROMOTED_PATH: 'M19.498 3h-15c-1.381 0-2.5 1.12-2.5 2.5v13c0 1.38 1.119 2.5 2.5 2.5h15c1.381 0 2.5-1.12 2.5-2.5v-13c0-1.38-1.119-2.5-2.5-2.5zm-3.502 12h-2v-3.59l-5.293 5.3-1.414-1.42L12.581 10H8.996V8h7v7z',
   RETWEET: '<g><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"></path></g>',
@@ -1966,6 +1956,14 @@ const THEME_COLORS = new Map([
   ['orange500', 'rgb(255, 122, 0)'],
   ['green500', 'rgb(0, 186, 124)'],
 ])
+const THEME_COLOR_ACCENTS = new Map([
+  ['blue500', 'rgb(142, 205, 248)'],
+  ['yellow500', 'rgb(255, 234, 128)'],
+  ['magenta500', 'rgb(252, 140, 192)'],
+  ['purple500', 'rgb(188, 171, 255)'],
+  ['orange500', 'rgb(255, 189, 128)'],
+  ['green500', 'rgb(128, 221, 190)'],
+])
 const HIGH_CONTRAST_LIGHT = new Map([
   ['blue500', 'rgb(0, 56, 134)'],
   ['yellow500', 'rgb(111, 62, 0)'],
@@ -1974,6 +1972,14 @@ const HIGH_CONTRAST_LIGHT = new Map([
   ['orange500', 'rgb(137, 43, 0)'],
   ['green500', 'rgb(0, 97, 61)'],
 ])
+const HIGH_CONTRAST_LIGHT_ACCENTS = new Map([
+  ['blue500', 'rgb(128, 156, 195)'],
+  ['yellow500', 'rgb(183, 159, 128)'],
+  ['magenta500', 'rgb(196, 133, 163)'],
+  ['purple500', 'rgb(169, 154, 219)'],
+  ['orange500', 'rgb(196, 149, 128)'],
+  ['green500', 'rgb(128, 176, 158)'],
+])
 const HIGH_CONTRAST_DARK = new Map([
   ['blue500', 'rgb(107, 201, 251)'],
   ['yellow500', 'rgb(255, 235, 107)'],
@@ -1981,6 +1987,14 @@ const HIGH_CONTRAST_DARK = new Map([
   ['purple500', 'rgb(172, 151, 255)'],
   ['orange500', 'rgb(255, 173, 97)'],
   ['green500', 'rgb(97, 214, 163)'],
+])
+const HIGH_CONTRAST_DARK_ACCENTS = new Map([
+  ['blue500', 'rgb(181, 228, 253)'],
+  ['yellow500', 'rgb(255, 245, 181)'],
+  ['magenta500', 'rgb(253, 184, 216)'],
+  ['purple500', 'rgb(214, 203, 255)'],
+  ['orange500', 'rgb(255, 214, 176)'],
+  ['green500', 'rgb(176, 235, 209)'],
 ])
 const COMPOSE_TWEET_MODAL_PAGES = new Set([
   ModalPaths.COMPOSE_DRAFTS,
@@ -2116,7 +2130,19 @@ let separatedTweetsTimelineTitle = null
  * The current "Color" setting.
  * @type {string}
  */
-let themeColor = THEME_BLUE
+let nativeThemeColor = THEME_COLORS.get('blue500')
+
+/**
+ * Accent for the current "Color" setting.
+ * @type {string}
+ */
+let nativeThemeColorAccent = THEME_COLOR_ACCENTS.get('blue500')
+
+/**
+ * The active theme colour, native or customTheme.
+ * @type {string}
+ */
+let themeColor = nativeThemeColor
 
 /**
  * Tab to switch to after navigating to the Tweet interactions page.
@@ -2221,7 +2247,7 @@ function shouldHideSidebar() {
 }
 
 function shouldShowSeparatedTweetsTab() {
-  return config.retweets == 'separate' || config.quoteTweets == 'separate'
+  return settings.retweets == 'separate' || settings.quoteTweets == 'separate'
 }
 //#endregion
 
@@ -2246,8 +2272,8 @@ function blueCheck($svg) {
   $svg.classList.add('cpft_blue_check')
   // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
   // we have to manually patch the path in it.
-  if (isSafari && config.twitterBlueChecks == 'replace') {
-    $svg.firstElementChild.firstElementChild.setAttribute('d', Svgs.BLUE_LOGO_PATH)
+  if (isSafari && settings.premiumBlueChecks == 'replace') {
+    $svg.firstElementChild.firstElementChild.setAttribute('d', Svgs.TWITTER_BLUE_LOGO_PATH)
   }
 }
 
@@ -2424,13 +2450,19 @@ function getThemeColorFromState() {
   if (color) {
     if (THEME_COLORS.has(color)) {
       let colors = THEME_COLORS
-      if (highContrast) colors = getColorScheme() == 'Default' ? HIGH_CONTRAST_LIGHT : HIGH_CONTRAST_DARK
-      return colors.get(color)
+      let accents = THEME_COLOR_ACCENTS
+      if (highContrast) {
+        let colorScheme = getColorScheme()
+        colors = colorScheme == 'Default' ? HIGH_CONTRAST_LIGHT : HIGH_CONTRAST_DARK
+        accents = colorScheme == 'Default' ? HIGH_CONTRAST_LIGHT_ACCENTS : HIGH_CONTRAST_DARK_ACCENTS
+      }
+      return [colors.get(color), accents.get(color)]
     }
     warn(color, 'not found in THEME_COLORS')
   } else {
     warn('could not get settings.local.themeColor from React state')
   }
+  return []
 }
 
 /**
@@ -2600,8 +2632,9 @@ function setTweetButtonText($tweetButtonText) {
   $tweetButtonText.textContent = currentText == getString('POST_ALL') ? getString('TWEET_ALL') : getString('TWEET')
 }
 
+/** @param {Partial<import("./types").StoredConfig>} changes */
 function storeConfigChanges(changes) {
-  window.postMessage({type: 'cpftConfigChange', changes})
+  window.postMessage({type: 'cpft_config_change', changes})
 }
 //#endregion
 
@@ -2643,7 +2676,7 @@ function observeBodyBackgroundColor() {
  */
 async function observeDesktopComposeTweetModal($popup) {
   $popup.classList.add('ComposeTweetModal')
-  if (!config.replaceLogo) return
+  if (!settings.revertXBranding) return
 
   let $mask = await getElement('[data-testid="twc-cc-mask"]', {
     context: $popup,
@@ -2708,7 +2741,7 @@ async function observeDesktopHomeTimelineTweetBox() {
   async function observeTweetBox($tweetBox) {
     $tweetBox.classList.add('TweetBox')
 
-    if (config.replaceLogo) {
+    if (settings.revertXBranding) {
       // Restore "What's happening?" placeholder
       let $editorRoot = await getElement('.DraftEditor-root', {
         context: $tweetBox,
@@ -2870,12 +2903,12 @@ const observeFavicon = (() => {
 
     observeElement($shortcutIcon, () => {
       let href = $shortcutIcon.href
-      if (config.replaceLogo) {
+      if (settings.revertXBranding) {
         // Once we replace the favicon, Twitter stops updating it when
         // notification status changes, so this only handles initial switchover
         // to the Twitter version of the icon.
         if (href.startsWith('data:')) return
-        let icon = config.hideNotifications != 'ignore' && href.includes('-pip') ? (
+        let icon = settings.hideNotifications != 'ignore' && href.includes('-pip') ? (
           Images.TWITTER_PIP_FAVICON
         ) : (
           Images.TWITTER_FAVICON
@@ -2884,7 +2917,7 @@ const observeFavicon = (() => {
       } else {
         // If we're hiding notifications, detect when Twitter tries to use the
         // pip version and switch back.
-        if (config.hideNotifications != 'ignore' && href.includes('-pip')) {
+        if (settings.hideNotifications != 'ignore' && href.includes('-pip')) {
           $shortcutIcon.href = href.replace('-pip', '')
         }
       }
@@ -2900,15 +2933,15 @@ const observeFavicon = (() => {
 
   observeFavicon.forceUpdate = function(showPip) {
     let href = $shortcutIcon.href
-    if (config.replaceLogo) {
-      href = config.hideNotifications == 'ignore' && showPip ? (
+    if (settings.revertXBranding) {
+      href = settings.hideNotifications == 'ignore' && showPip ? (
         Images.TWITTER_PIP_FAVICON
       ) : (
         Images.TWITTER_FAVICON
       )
     } else {
       href = `//abs.twimg.com/favicons/twitter${
-        config.hideNotifications == 'ignore' && showPip ? '-pip' : ''
+        settings.hideNotifications == 'ignore' && showPip ? '-pip' : ''
       }.3.ico`
     }
     if (href != $shortcutIcon.href) {
@@ -2972,10 +3005,10 @@ async function observeTitle() {
       log('Ignoring one sec extension title')
       return
     }
-    if (config.replaceLogo && (ltr ? /X$/ : /^(?:\(\d+\+?\) )?X/).test(title)) {
+    if (settings.revertXBranding && (ltr ? /X$/ : /^(?:\(\d+\+?\) )?X/).test(title)) {
       title = title.replace(ltr ? /X$/ : 'X', getString('TWITTER'))
     }
-    if (config.hideNotifications != 'ignore' && TITLE_NOTIFICATION_RE.test(title)) {
+    if (settings.hideNotifications != 'ignore' && TITLE_NOTIFICATION_RE.test(title)) {
       hiddenNotificationCount = TITLE_NOTIFICATION_RE.exec(title)[0]
       title = title.replace(TITLE_NOTIFICATION_RE, '')
     }
@@ -3009,18 +3042,18 @@ async function observeSidebar() {
     log(`sidebar ${$sidebar ? 'appeared' : 'disappeared'}`)
     $body.classList.toggle('Sidebar', Boolean($sidebar))
     if (!$sidebar) {
-      if (!config.hideSidebarContent) {
+      if (!settings.hideSidebarContent) {
         pageObservers.get('sidebar contents (for Live on X loading)')?.disconnect()
         pageObservers.get("sidebar What's happening timeline")?.disconnect()
       }
       return
     }
     // Process blue checks in the sidebar search dropdown
-    if (config.twitterBlueChecks != 'ignore' && !isOnSearchPage() && !isOnExplorePage()) {
+    if (settings.premiumBlueChecks != 'ignore' && !isOnSearchPage() && !isOnExplorePage()) {
       observeSearchForm()
     }
     // Process blue checks in the sidebar user box
-    if (!config.hideSidebarContent) {
+    if (!settings.hideSidebarContent) {
       void async function() {
         // Avoid false positive from Premium upsells in the sidebar
         let $aside = await getElement('aside[role="complementary"]:not(:has(a[href^="/i/premium"]))', {
@@ -3030,16 +3063,16 @@ async function observeSidebar() {
           timeout: 2000,
         })
         if (!$aside) return
-        if (config.twitterBlueChecks != 'ignore') processBlueChecks($aside)
+        if (settings.premiumBlueChecks != 'ignore') processBlueChecks($aside)
         let $container = $aside.parentElement
         while (!$container.nextElementSibling) $container = $container.parentElement
         $container.classList.toggle(
           'SuggestedFollows',
-          config.hideSuggestedFollows && !(config.showRelevantPeople && isOnIndividualTweetPage())
+          settings.hideSuggestedFollows && !(settings.showRelevantPeople && isOnIndividualTweetPage())
         )
       }()
     }
-    if (!config.hideSidebarContent && !isOnExplorePage()) {
+    if (!settings.hideSidebarContent && !isOnExplorePage()) {
       // Hide the ad in sidebar What's happening
       void async function() {
         // What's happening has a unique DOM structure we can look for
@@ -3061,10 +3094,10 @@ async function observeSidebar() {
           name: "sidebar What's happening timeline",
           observers: pageObservers,
         }, {childList: true, subtree: true})
-        if (config.hideWhatsHappening) $whatsHappeningTimeline.closest('section').parentElement.classList.add('WhatsHappening')
+        if (settings.hideWhatsHappening) $whatsHappeningTimeline.closest('section').parentElement.classList.add('WhatsHappening')
       }()
     }
-    if (!config.hideSidebarContent) {
+    if (!settings.hideSidebarContent) {
       // Observe the Live on X section
       void async function() {
         /**
@@ -3073,12 +3106,12 @@ async function observeSidebar() {
          */
         function handleLiveOnX($liveOnX, $heading) {
           $liveOnX.classList.add('LiveBroadcasts')
-          if (config.twitterBlueChecks != 'ignore') {
+          if (settings.premiumBlueChecks != 'ignore') {
             // XXX This is sometimes too early, observe changes for them appearing?
             processBlueChecks($liveOnX)
           }
           let branding = $heading.getAttribute('data-branding') || 'x'
-          if (config.replaceLogo ? branding == 'x' : branding == 'twitter') {
+          if (settings.revertXBranding ? branding == 'x' : branding == 'twitter') {
             let $span = $heading.querySelector('span')
             if ($span) {
               $span.textContent = branding == 'x' ? $span.textContent.replace('X', getString('TWITTER')) : getString('TWITTER')
@@ -3133,7 +3166,7 @@ const observeSideNavTweetButton = (() => {
       observer = null
     }
 
-    if (!desktop || !config.replaceLogo) return
+    if (!desktop || !settings.revertXBranding) return
 
     // This element is updated when text is added or removed on resize
     let $buttonTextContainer = await getElement('a[data-testid="SideNav_NewTweet_Button"] > div > span', {
@@ -3430,8 +3463,8 @@ async function addMuteQuotesMenuItems($blockMenuItem) {
   $muteQuotes.addEventListener('click', (e) => {
     e.preventDefault()
     log('mutableQuoteTweets: muting quotes of a tweet', quotedTweet)
-    config.mutedQuotes = config.mutedQuotes.concat(quotedTweet)
-    storeConfigChanges({mutedQuotes: config.mutedQuotes})
+    settings.mutedQuotes = settings.mutedQuotes.concat(quotedTweet)
+    storeConfigChanges({settings: {mutedQuotes: settings.mutedQuotes}})
     processCurrentPage()
     // Dismiss the menu
     let $menuLayer = /** @type {HTMLElement} */ ($blockMenuItem.closest('[role="group"]')?.firstElementChild?.firstElementChild)
@@ -3449,12 +3482,12 @@ async function addMuteQuotesMenuItems($blockMenuItem) {
     $toggleQuotes.addEventListener('click', (e) => {
       e.preventDefault()
       log('mutableQuoteTweets: toggling quotes from', quotedTweet.quotedBy)
-      if (config.hideQuotesFrom.includes(quotedTweet.quotedBy)) {
-        config.hideQuotesFrom = config.hideQuotesFrom.filter(user => user != quotedTweet.quotedBy)
+      if (settings.hideQuotesFrom.includes(quotedTweet.quotedBy)) {
+        settings.hideQuotesFrom = settings.hideQuotesFrom.filter(user => user != quotedTweet.quotedBy)
       } else {
-        config.hideQuotesFrom = config.hideQuotesFrom.concat(quotedTweet.quotedBy)
+        settings.hideQuotesFrom = settings.hideQuotesFrom.concat(quotedTweet.quotedBy)
       }
-      storeConfigChanges({hideQuotesFrom: config.hideQuotesFrom})
+      storeConfigChanges({settings: {hideQuotesFrom: settings.hideQuotesFrom}})
       processCurrentPage()
       // Dismiss the menu
       let $menuLayer = /** @type {HTMLElement} */ ($blockMenuItem.closest('[role="group"]')?.firstElementChild?.firstElementChild)
@@ -3511,15 +3544,15 @@ async function addToggleListRetweetsMenuItem($switchMenuItem) {
 
   let $toggleRetweets = /** @type {HTMLElement} */ ($switchMenuItem.cloneNode(true))
   $toggleRetweets.classList.add('cpft_menu_item')
-  $toggleRetweets.querySelector('span').textContent = getString(`TURN_${config.listRetweets == 'ignore' ? 'OFF' : 'ON'}_RETWEETS`)
-  $toggleRetweets.querySelector('svg').innerHTML = config.listRetweets == 'ignore' ? Svgs.RETWEETS_OFF : Svgs.RETWEET
+  $toggleRetweets.querySelector('span').textContent = getString(`TURN_${settings.listRetweets == 'ignore' ? 'OFF' : 'ON'}_RETWEETS`)
+  $toggleRetweets.querySelector('svg').innerHTML = settings.listRetweets == 'ignore' ? Svgs.RETWEETS_OFF : Svgs.RETWEET
   // Remove subtitle if the cloned menu item has one
   $toggleRetweets.querySelector('div[dir] + div[dir]')?.remove()
   $toggleRetweets.addEventListener('click', (e) => {
     e.preventDefault()
     log('toggling list retweets')
-    config.listRetweets = config.listRetweets == 'ignore' ? 'hide' : 'ignore'
-    storeConfigChanges({listRetweets: config.listRetweets})
+    settings.listRetweets = settings.listRetweets == 'ignore' ? 'hide' : 'ignore'
+    storeConfigChanges({settings: {listRetweets: settings.listRetweets}})
     processCurrentPage()
     // Dismiss the menu
     let $menuLayer = /** @type {HTMLElement} */ ($switchMenuItem.closest('[role="group"]')?.firstElementChild?.firstElementChild)
@@ -3537,12 +3570,12 @@ async function addToggleListRetweetsMenuItem($switchMenuItem) {
  * @returns {boolean} `true` if redirected as a result of this call
  */
 function checkforDisabledHomeTimeline() {
-  if (config.disableHomeTimeline && location.pathname == PagePaths.HOME) {
-    log(`Home timeline disabled, redirecting to /${config.disabledHomeTimelineRedirect}`)
+  if (settings.disableHomeTimeline && location.pathname == PagePaths.HOME) {
+    log(`Home timeline disabled, redirecting to /${settings.disabledHomeTimelineRedirect}`)
     let primaryNavSelector = desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE
     void (async () => {
-      let $navLink = await getElement(`${primaryNavSelector} a[href="/${config.disabledHomeTimelineRedirect}"]`, {
-        name: `${config.disabledHomeTimelineRedirect} nav link`,
+      let $navLink = await getElement(`${primaryNavSelector} a[href="/${settings.disabledHomeTimelineRedirect}"]`, {
+        name: `${settings.disabledHomeTimelineRedirect} nav link`,
         stopIf: () => location.pathname != PagePaths.HOME,
       })
       if (!$navLink) return
@@ -3604,7 +3637,7 @@ const configureCss = (() => {
   let $style
 
   return function configureCss() {
-    if (!config.enabled) {
+    if (!enabled) {
       log('removing main stylesheet')
       $style?.remove()
       $style = null
@@ -3654,7 +3687,7 @@ const configureCss = (() => {
       .cpft_menu_item:hover { background-color: var(--hover-bg-color) !important; }
     `)
 
-    if (config.alwaysUseLatestTweets && config.hideForYouTimeline) {
+    if (settings.defaultToFollowing && settings.hideForYouTimeline) {
       cssRules.push(`
         /* Prevent the For you tab container taking up space */
         body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child {
@@ -3669,7 +3702,7 @@ const configureCss = (() => {
         }
       `)
     }
-    if (config.disableTweetTextFormatting) {
+    if (settings.disableTweetTextFormatting) {
       cssRules.push(`
         div[data-testid="tweetText"] span {
           font-style: normal;
@@ -3677,26 +3710,26 @@ const configureCss = (() => {
         }
       `)
     }
-    if (config.dropdownMenuFontWeight) {
+    if (settings.dropdownMenuFontWeight) {
       cssRules.push(`
         [data-testid="${desktop ? 'Dropdown' : 'sheetDialog'}"] [role="menuitem"] [dir] {
           font-weight: normal;
         }
       `)
     }
-    if (config.hideBookmarkButton) {
+    if (settings.hideBookmarkButton) {
       // Under timeline tweets
       hideCssSelectors.push(
         'body:not(.Bookmarks) [data-testid="tweet"][tabindex="0"] [role="group"] > div:has(> button[data-testid$="ookmark"])',
       )
-      if (!config.showBookmarkButtonUnderFocusedTweets) {
+      if (!settings.showBookmarkButtonUnderFocusedTweets) {
         // Under the focused tweet
         hideCssSelectors.push(
           '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"] > div:has(> button[data-testid$="ookmark"])',
         )
       }
     }
-    if (!config.hideExplorePageContents) {
+    if (!settings.hideExplorePageContents) {
       hideCssSelectors.push(
         // Hide the ad at the top of Explore…
         'body.Explore [data-testid="eventHero"]',
@@ -3704,16 +3737,16 @@ const configureCss = (() => {
         'body.Explore [data-testid="eventHero"] + div',
       )
     }
-    if (config.hideListsNav) {
+    if (settings.hideListsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/lists"]`)
     }
-    if (config.hideBookmarksNav) {
+    if (settings.hideBookmarksNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/bookmarks"]`)
     }
-    if (config.hideCommunitiesNav) {
+    if (settings.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
     }
-    if (config.hideShareTweetButton) {
+    if (settings.hideShareTweetButton) {
       hideCssSelectors.push(
         // Under timeline tweets
         `[data-testid="tweet"][tabindex="0"] [role="group"] > div[style]:not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
@@ -3721,7 +3754,7 @@ const configureCss = (() => {
         `[data-testid="tweet"][tabindex="-1"] [role="group"] > div[style]:not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
       )
     }
-    if (config.hideSubscriptions) {
+    if (settings.hideSubscriptions) {
       hideCssSelectors.push(
         // Subscribe buttons in profile (multiple locations)
         'body.Profile [role="button"][style*="border-color: rgb(201, 54, 204)"]',
@@ -3752,16 +3785,16 @@ const configureCss = (() => {
         }
       `)
     }
-    if (config.hideMetrics) {
+    if (settings.hideMetrics) {
       configureHideMetricsCss(cssRules, hideCssSelectors)
     }
-    if (config.hideMoreTweets) {
+    if (settings.hideDiscoverSuggestions) {
       hideCssSelectors.push('.SuggestedContent')
     }
-    if (config.hideCommunitiesNav) {
+    if (settings.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
     }
-    if (config.hideGrokNav) {
+    if (settings.hideGrokNav) {
       hideCssSelectors.push(
         // In menus
         `${menuRole} a[href="/i/grok"]`,
@@ -3784,13 +3817,13 @@ const configureCss = (() => {
         '[data-testid="card.wrapper"]:has(> div > a[href="https://itunes.apple.com/app/id6670324846"])',
       )
     }
-    if (config.hideMonetizationNav) {
+    if (settings.hideMonetizationNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/i/monetization"]`)
     }
-    if (config.hideAdsNav) {
+    if (settings.hideAdsNav) {
       hideCssSelectors.push(`${menuRole} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
     }
-    if (config.hideJobsNav) {
+    if (settings.hideJobsNav) {
       hideCssSelectors.push(
         // Jobs navigation item
         `${menuRole} a[href="/jobs"]`,
@@ -3798,10 +3831,10 @@ const configureCss = (() => {
         '.Profile [data-testid="jobs"]',
       )
     }
-    if (config.hideTweetAnalyticsLinks) {
+    if (settings.hideTweetAnalyticsLinks) {
       hideCssSelectors.push('.AnalyticsButton')
     }
-    if (config.hideTwitterBlueUpsells) {
+    if (settings.hidePremiumUpsells) {
       hideCssSelectors.push(
         // Manually-tagged upsells
         '.PremiumUpsell',
@@ -3854,7 +3887,7 @@ const configureCss = (() => {
         }
       `)
     }
-    if (config.hideVerifiedNotificationsTab) {
+    if (settings.hideVerifiedTabs) {
       cssRules.push(`
         body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2),
         body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) {
@@ -3868,20 +3901,20 @@ const configureCss = (() => {
         }
       `)
     }
-    if (config.hideViews) {
+    if (settings.hideViews) {
       // "Views" under the focused tweet
       hideCssSelectors.push('.Views')
     }
-    if (config.hideWhoToFollowEtc) {
+    if (settings.hideWhoToFollowEtc) {
       hideCssSelectors.push(`body.Profile ${Selectors.PRIMARY_COLUMN} aside[role="complementary"]`)
     }
-    if (config.reducedInteractionMode) {
+    if (settings.reducedInteractionMode) {
       hideCssSelectors.push(
         '[data-testid="tweet"] [role="group"]',
         'body.Tweet [data-testid="tweet"] + div > div [role="group"]',
       )
     }
-    if (config.restoreLinkHeadlines) {
+    if (settings.restoreLinkHeadlines) {
       cssRules.push(`
         .cpft_link_headline[hidden] {
           display: block;
@@ -3896,7 +3929,7 @@ const configureCss = (() => {
         'div[data-testid="card.wrapper"] + a',
       )
     }
-    if (config.restoreQuoteTweetsLink || config.restoreOtherInteractionLinks) {
+    if (settings.restoreQuoteTweetsLink || settings.restoreOtherInteractionLinks) {
       cssRules.push(`
         #cpftInteractionLinks[hidden] {
           display: block;
@@ -3919,26 +3952,26 @@ const configureCss = (() => {
         }
       `)
     }
-    if (!config.restoreQuoteTweetsLink) {
+    if (!settings.restoreQuoteTweetsLink) {
       hideCssSelectors.push('#cpftQuoteTweetsLink')
     }
-    if (!config.restoreOtherInteractionLinks) {
+    if (!settings.restoreOtherInteractionLinks) {
       hideCssSelectors.push('#cpftRetweetsLink', '#cpftLikesLink')
     }
-    if (config.restoreTweetSource) {
+    if (settings.restoreTweetSource) {
       cssRules.push('.TweetSource[hidden] { display: inline; }')
     }
-    if (config.tweakQuoteTweetsPage) {
+    if (settings.tweakQuoteTweetsPage) {
       // Hide the quoted tweet, which is repeated in every quote tweet
       hideCssSelectors.push('body.QuoteTweets [data-testid="tweet"] [aria-labelledby] > div:last-child')
     }
-    if (config.twitterBlueChecks == 'hide') {
+    if (settings.premiumBlueChecks == 'hide') {
       hideCssSelectors.push('.cpft_blue_check')
     }
-    if (config.twitterBlueChecks == 'replace') {
+    if (settings.premiumBlueChecks == 'replace') {
       cssRules.push(`
         :is(${Selectors.VERIFIED_TICK}, svg[data-testid="verificationBadge"]).cpft_blue_check path {
-          d: path("${Svgs.BLUE_LOGO_PATH}");
+          d: path("${Svgs.TWITTER_BLUE_LOGO_PATH}");
         }
       `)
     }
@@ -3999,7 +4032,7 @@ const configureCss = (() => {
       }
     }
 
-    if (hasNewLayout() && config.tweakNewLayout) {
+    if (hasNewLayout() && settings.tweakNewLayout) {
       cssRules.push(`
         /* Make the image button first in the Tweet editor toolbar again */
         [data-testid="toolBar"] [role="tablist"] > [role="presentation"] {
@@ -4009,7 +4042,7 @@ const configureCss = (() => {
           order: 0;
         }
       `)
-      if (config.replaceLogo) {
+      if (settings.revertXBranding) {
         cssRules.push(`
           /* Add theme colour back to Tweet editor toolbar buttons */
           [data-testid="toolBar"] [role="tablist"] > [role="presentation"] svg {
@@ -4021,7 +4054,7 @@ const configureCss = (() => {
 
     //#region Desktop-only
     if (desktop) {
-      if (hasNewLayout() && config.tweakNewLayout) {
+      if (hasNewLayout() && settings.tweakNewLayout) {
         cssRules.push(`
           /* Realign nav items to the top */
           header[role="banner"] > div > div > div {
@@ -4079,7 +4112,7 @@ const configureCss = (() => {
             justify-content: center;
           }
         `)
-        if (config.replaceLogo) {
+        if (settings.revertXBranding) {
           // TODO Manually patch Tweet button SVG in Safari
           cssRules.push(`
             /* Restore theme colour in nav item pips */
@@ -4098,10 +4131,10 @@ const configureCss = (() => {
           `)
         }
       }
-      if (hasNewLayout() && config.hideToggleNavigation) {
+      if (hasNewLayout() && settings.hideToggleNavigation) {
         hideCssSelectors.push('header[role="banner"] > div > div > div > div:first-child > button')
       }
-      if (config.navDensity == 'comfortable' || config.navDensity == 'compact') {
+      if (settings.navDensity == 'comfortable' || settings.navDensity == 'compact') {
         cssRules.push(`
           header nav > a,
           header nav > div[data-testid="AppTabBar_More_Menu"] {
@@ -4110,7 +4143,7 @@ const configureCss = (() => {
           }
         `)
       }
-      if (config.navDensity == 'compact') {
+      if (settings.navDensity == 'compact') {
         cssRules.push(`
           header nav > a > div,
           header nav > div[data-testid="AppTabBar_More_Menu"] > div {
@@ -4119,16 +4152,16 @@ const configureCss = (() => {
           }
         `)
       }
-      if (config.hideSeeNewTweets) {
+      if (settings.hideSeeNewTweets) {
         hideCssSelectors.push(`body.HomeTimeline ${Selectors.PRIMARY_COLUMN} > div > div:first-child > div[style^="transform"]`)
       }
-      if (config.hideTimelineTweetBox) {
+      if (settings.hideTimelineTweetBox) {
         hideCssSelectors.push(`body.HomeTimeline ${Selectors.PRIMARY_COLUMN} .TweetBox`)
       }
-      if (config.disableHomeTimeline) {
+      if (settings.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
       }
-      if (config.hideNotifications != 'ignore') {
+      if (settings.hideNotifications != 'ignore') {
         // Hide notification badges and indicators
         hideCssSelectors.push(
           // Notifications & Messages in primary nav
@@ -4142,7 +4175,7 @@ const configureCss = (() => {
           // Messages drawer title
           '[data-testid="DMDrawerHeader"] h2 svg[role="img"]'
         )
-        if (config.hideNotifications == 'hide') {
+        if (settings.hideNotifications == 'hide') {
           hideCssSelectors.push(
             // Nav item
             `${Selectors.PRIMARY_NAV_DESKTOP} a[href^="/notifications"]`,
@@ -4151,7 +4184,7 @@ const configureCss = (() => {
           )
         }
       }
-      if (config.fullWidthContent) {
+      if (settings.fullWidthContent) {
         cssRules.push(`
           /* Use full width when the sidebar is visible */
           body.Sidebar${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN},
@@ -4178,7 +4211,7 @@ const configureCss = (() => {
             max-width: unset;
           }
         `)
-        if (!config.fullWidthMedia) {
+        if (!settings.fullWidthMedia) {
           // Make media & cards keep their original width
           cssRules.push(`
             body${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} ${Selectors.TWEET} > div > div > div:nth-of-type(2) > div:nth-of-type(2) > div[id][aria-labelledby]:not(:empty) {
@@ -4189,7 +4222,7 @@ const configureCss = (() => {
         // Hide the sidebar when present
         hideCssSelectors.push(`body.Sidebar${FULL_WIDTH_BODY_PSEUDO} ${Selectors.SIDEBAR}`)
       }
-      if (config.hideAccountSwitcher) {
+      if (settings.hideAccountSwitcher) {
         cssRules.push(`
           header[role="banner"] > div > div > div > div:last-child {
             flex-shrink: 1 !important;
@@ -4201,7 +4234,7 @@ const configureCss = (() => {
           '[data-testid="SideNav_AccountSwitcher_Button"] > div:first-child + div',
         )
       }
-      if (config.hideExplorePageContents) {
+      if (settings.hideExplorePageContents) {
         hideCssSelectors.push(
           // Tabs
           `body.Explore ${Selectors.DESKTOP_TIMELINE_HEADER} nav`,
@@ -4209,14 +4242,14 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
-      if (config.hideAdsNav) {
+      if (settings.hideAdsNav) {
         // In new More dialog
         hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
       }
-      if (config.hideComposeTweet) {
+      if (settings.hideComposeTweet) {
         hideCssSelectors.push('[data-testid="SideNav_NewTweet_Button"]')
       }
-      if (config.hideGrokNav) {
+      if (settings.hideGrokNav) {
         hideCssSelectors.push(
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
           // In new More dialog
@@ -4225,32 +4258,32 @@ const configureCss = (() => {
           'div[data-testid="GrokDrawer"]',
         )
       }
-      if (config.hideJobsNav) {
+      if (settings.hideJobsNav) {
         hideCssSelectors.push(
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`,
           // In new More dialog
           `${Selectors.MORE_DIALOG} a[href="/jobs"]`,
         )
       }
-      if (config.hideListsNav) {
+      if (settings.hideListsNav) {
         hideCssSelectors.push(
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`,
           // In new More dialog
           `${Selectors.MORE_DIALOG} a[href$="/lists"]`,
         )
       }
-      if (config.hideMonetizationNav) {
+      if (settings.hideMonetizationNav) {
         // In new More dialog
         hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/i/monetization"]`)
       }
-      if (config.hideSpacesNav) {
+      if (settings.hideSpacesNav) {
         hideCssSelectors.push(
           `${menuRole} a[href="/i/spaces/start"]`,
           // In new More dialog
           `${Selectors.MORE_DIALOG} a[href="/i/spaces/start"]`,
         )
       }
-      if (config.hideTwitterBlueUpsells) {
+      if (settings.hidePremiumUpsells) {
         hideCssSelectors.push(
           // Nav items
           `${Selectors.PRIMARY_NAV_DESKTOP} a:is([href^="/i/premium"], [href^="/i/verified"])`,
@@ -4261,7 +4294,7 @@ const configureCss = (() => {
           '[data-testid="HoverCard"] a[href^="/i/premium"]',
         )
       }
-      if (config.hideSidebarContent) {
+      if (settings.hideSidebarContent) {
         // Only show the first sidebar item by default
         // Re-show subsequent non-algorithmic sections on specific pages
         cssRules.push(`
@@ -4284,7 +4317,7 @@ const configureCss = (() => {
             display: block;
           }
         `)
-        if (config.showRelevantPeople) {
+        if (settings.showRelevantPeople) {
           cssRules.push(`
             body.Tweet ${Selectors.SIDEBAR_WRAPPERS} > div:is(:nth-of-type(2), :nth-of-type(3)) {
               display: block;
@@ -4293,56 +4326,56 @@ const configureCss = (() => {
         }
         hideCssSelectors.push(`body.HideSidebar ${Selectors.SIDEBAR}`)
       } else {
-        if (config.hideLiveBroadcasts) {
+        if (settings.hideLiveBroadcasts) {
           hideCssSelectors.push('.LiveBroadcasts')
         }
-        if (config.hideWhatsHappening) {
+        if (settings.hideWhatsHappening) {
           hideCssSelectors.push('.WhatsHappening')
         }
-        if (config.hideSuggestedFollows) {
+        if (settings.hideSuggestedFollows) {
           hideCssSelectors.push('.SuggestedFollows')
         }
-        if (config.hideTwitterBlueUpsells) {
+        if (settings.hidePremiumUpsells) {
           // Hide "Subscribe to premium" individually
           hideCssSelectors.push(
             `body.HomeTimeline ${Selectors.SIDEBAR_WRAPPERS} > div > div:nth-of-type(3)`
           )
         }
       }
-      if (config.hideShareTweetButton) {
+      if (settings.hideShareTweetButton) {
         hideCssSelectors.push(
           // In media modal
           `[aria-modal="true"] div > div:first-of-type [role="group"] > div[style]:not([role]):not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
         )
       }
-      if (config.hideExploreNav) {
+      if (settings.hideExploreNav) {
         // When configured, hide Explore only when the sidebar is showing, or
         // when on a page full-width content is enabled on.
-        let bodySelector = `${config.hideExploreNavWithSidebar ? `body.Sidebar${config.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
+        let bodySelector = `${settings.hideExploreNavWithSidebar ? `body.Sidebar${settings.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
         hideCssSelectors.push(
           `${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`,
           // In new More dialog
           `${Selectors.MORE_DIALOG} a[href="/explore"]`,
         )
       }
-      if (config.hideBookmarksNav) {
+      if (settings.hideBookmarksNav) {
         hideCssSelectors.push(
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`,
           // In new More dialog
           `${Selectors.MORE_DIALOG} a[href="/i/bookmarks"]`,
         )
       }
-      if (config.hideCommunitiesNav) {
+      if (settings.hideCommunitiesNav) {
         hideCssSelectors.push(
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`,
           // In new More dialog
           `${Selectors.MORE_DIALOG} a[href$="/communities"]`,
         )
       }
-      if (config.hideMessagesDrawer) {
+      if (settings.hideMessagesDrawer) {
         cssRules.push(`div[data-testid="DMDrawer"] { visibility: hidden; }`)
       }
-      if (config.hideViews) {
+      if (settings.hideViews) {
         hideCssSelectors.push(
           // Under timeline tweets
           '[data-testid="tweet"][tabindex="0"] [role="group"] > div:has(> a[href$="/analytics"])',
@@ -4350,7 +4383,7 @@ const configureCss = (() => {
           '[aria-modal="true"] > div > div:first-of-type [role="group"] > div:has(> a[href$="/analytics"])',
         )
       }
-      if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
+      if (settings.retweets != 'separate' && settings.quoteTweets != 'separate') {
         hideCssSelectors.push('#cpftSeparatedTweetsTab')
       }
     }
@@ -4358,7 +4391,7 @@ const configureCss = (() => {
 
     //#region Mobile only
     if (mobile) {
-      if (hasNewLayout() && config.tweakNewLayout) {
+      if (hasNewLayout() && settings.tweakNewLayout) {
         cssRules.push(`
           /* Remove new padding from profile details and the tab bar (this has to be accidental) */
           body.Profile ${Selectors.PRIMARY_COLUMN} > div > div > div > div > div > div > div > div {
@@ -4366,7 +4399,7 @@ const configureCss = (() => {
             padding-right: 0;
           }
         `)
-        if (config.replaceLogo) {
+        if (settings.revertXBranding) {
           cssRules.push(`
             /* Restore theme colour in nav item pips */
             ${Selectors.PRIMARY_NAV_MOBILE} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-label],
@@ -4379,13 +4412,13 @@ const configureCss = (() => {
           `)
         }
       }
-      if (config.disableHomeTimeline) {
+      if (settings.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
       }
-      if (config.hideComposeTweet) {
+      if (settings.hideComposeTweet) {
         hideCssSelectors.push('[data-testid="FloatingActionButtons_Tweet_Button"]')
       }
-      if (config.hideNotifications != 'ignore') {
+      if (settings.hideNotifications != 'ignore') {
         // Hide notification badges and indicators
         hideCssSelectors.push(
           // Notifications & Messages in primary nav
@@ -4395,14 +4428,14 @@ const configureCss = (() => {
           // Account switcher accounts
           '[role="dialog"] [data-testid^="UserAvatar-Container"] div[dir]',
         )
-        if (config.hideNotifications == 'hide') {
+        if (settings.hideNotifications == 'hide') {
           hideCssSelectors.push(
             // Nav item
             `${Selectors.PRIMARY_NAV_MOBILE} a[href^="/notifications"]`
           )
         }
       }
-      if (config.hideLiveBroadcastBar) {
+      if (settings.hideLiveBroadcastBar) {
         hideCssSelectors.push(`body.HomeTimeline ${Selectors.MOBILE_TIMELINE_HEADER} + div[style^="transform"]`)
         // Reclaim the height reserved for the bar
         cssRules.push(`
@@ -4411,10 +4444,10 @@ const configureCss = (() => {
           }
         `)
       }
-      if (config.hideSeeNewTweets) {
+      if (settings.hideSeeNewTweets) {
         hideCssSelectors.push(`body.HomeTimeline ${Selectors.MOBILE_TIMELINE_HEADER} ~ div[style^="transform"]:last-child`)
       }
-      if (config.hideExplorePageContents) {
+      if (settings.hideExplorePageContents) {
         // Hide explore page contents so we don't get a brief flash of them
         // before automatically switching the page to search mode.
         hideCssSelectors.push(
@@ -4424,31 +4457,31 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
-      if (config.hideGrokNav) {
+      if (settings.hideGrokNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/grok"]`)
       }
-      if (config.hideCommunitiesNav) {
+      if (settings.hideCommunitiesNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href$="/communities"]`)
       }
-      if (config.hideMessagesBottomNavItem) {
+      if (settings.hideMessagesBottomNavItem) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
       }
-      if (config.hideJobsNav) {
+      if (settings.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/jobs"]`)
       }
-      if (config.hideTwitterBlueUpsells) {
+      if (settings.hidePremiumUpsells) {
         hideCssSelectors.push(
           `${Selectors.PRIMARY_NAV_MOBILE} a[href^="/i/premium"]`,
           `${Selectors.MOBILE_TIMELINE_HEADER} a[href^="/i/premium"]`,
         )
       }
-      if (config.hideShareTweetButton) {
+      if (settings.hideShareTweetButton) {
         hideCssSelectors.push(
           // In media viewer and media modal
           `body:is(.MediaViewer, .MobileMedia) [role="group"] > div[style]:not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
         )
       }
-      if (config.hideViews) {
+      if (settings.hideViews) {
         hideCssSelectors.push(
           // Under timeline tweets
           '[data-testid="tweet"][tabindex="0"] [role="group"] > div:has(> a[href$="/analytics"])',
@@ -4483,8 +4516,8 @@ function configureFont() {
   }
 
   let hasChirp = fontFamilyRule.style.fontFamily.includes('TwitterChirp')
-  if (config.enabled) {
-    if (config.dontUseChirpFont) {
+  if (enabled) {
+    if (settings.dontUseChirpFont) {
       if (hasChirp) {
         fontFamilyRule.style.fontFamily = fontFamilyRule.style.fontFamily.replace(/"?TwitterChirp"?, ?/, '')
         log('dontUseChirpFont: disabled Chirp font')
@@ -4506,7 +4539,7 @@ function configureFont() {
  * @param {string[]} hideCssSelectors
  */
 function configureHideMetricsCss(cssRules, hideCssSelectors) {
-  if (config.hideFollowingMetrics) {
+  if (settings.hideFollowingMetrics) {
     // User profile hover card and page metrics
     hideCssSelectors.push(
       ':is(#layers, body.Profile) a:is([href$="/following"], [href$="/verified_followers"]) > span:first-child'
@@ -4517,7 +4550,7 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
     )
   }
 
-  if (config.hideTotalTweetsMetrics) {
+  if (settings.hideProfileHeaderMetrics) {
     // Metrics under username header on profile pages
     hideCssSelectors.push(`
       body.Profile ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 + div[dir]
@@ -4525,10 +4558,10 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   }
 
   let timelineMetricSelectors = [
-    config.hideReplyMetrics   && '[data-testid="reply"]',
-    config.hideRetweetMetrics && '[data-testid$="retweet"]',
-    config.hideLikeMetrics    && '[data-testid$="like"]',
-    config.hideBookmarkMetrics && '[data-testid$="bookmark"], [data-testid$="removeBookmark"]',
+    settings.hideReplyMetrics   && '[data-testid="reply"]',
+    settings.hideRetweetMetrics && '[data-testid$="retweet"]',
+    settings.hideLikeMetrics    && '[data-testid$="like"]',
+    settings.hideBookmarkMetrics && '[data-testid$="bookmark"], [data-testid$="removeBookmark"]',
   ].filter(Boolean).join(', ')
 
   if (timelineMetricSelectors) {
@@ -4537,13 +4570,13 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
     )
   }
 
-  if (config.hideQuoteTweetMetrics) {
+  if (settings.hideQuoteTweetMetrics) {
     hideCssSelectors.push('#cpftQuoteTweetCount')
   }
-  if (config.hideRetweetMetrics) {
+  if (settings.hideRetweetMetrics) {
     hideCssSelectors.push('#cpftRetweetCount')
   }
-  if (config.hideLikeMetrics) {
+  if (settings.hideLikeMetrics) {
     hideCssSelectors.push('#cpftLikeCount')
   }
 }
@@ -4552,9 +4585,9 @@ const configureCustomCss = (() => {
   let $style
 
   return function configureCustomCss() {
-    if (config.customCss) {
+    if (settings.customCss) {
       $style ??= addStyle('custom')
-      $style.textContent = config.customCss
+      $style.textContent = settings.customCss
     } else {
       $style?.remove()
     }
@@ -4568,7 +4601,7 @@ const configureDynamicCss = (() => {
   let $style
 
   return function configureDynamicCss() {
-    if (!config.enabled) {
+    if (!enabled) {
       log('removing nav font size stylesheet')
       $style?.remove()
       $style = null
@@ -4577,14 +4610,14 @@ const configureDynamicCss = (() => {
 
     let cssRules = []
 
-    if (fontSize != null && config.navBaseFontSize) {
+    if (fontSize != null && settings.navBaseFontSize) {
       cssRules.push(`
         ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) span { font-size: ${fontSize}; font-weight: normal; }
         ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) { margin-top: -4px; }
       `)
     }
 
-    if (filterBlurRule != null && config.unblurSensitiveContent) {
+    if (filterBlurRule != null && settings.unblurSensitiveContent) {
       cssRules.push(`
         ${filterBlurRule.selectorText} {
           filter: none !important;
@@ -4619,12 +4652,12 @@ function configureSeparatedTweetsTimelineTitle() {
   let wasOnSeparatedTweetsTimeline = isOnSeparatedTweetsTimeline()
   let previousTitle = separatedTweetsTimelineTitle
 
-  if (config.retweets == 'separate' && config.quoteTweets == 'separate') {
-    separatedTweetsTimelineTitle = getString(config.replaceLogo ? 'SHARED_TWEETS' : 'SHARED')
-  } else if (config.retweets == 'separate') {
-    separatedTweetsTimelineTitle = getString(config.replaceLogo ? 'RETWEETS' : 'REPOSTS')
-  } else if (config.quoteTweets == 'separate') {
-    separatedTweetsTimelineTitle = getString(config.replaceLogo ? 'QUOTE_TWEETS' : 'QUOTES')
+  if (settings.retweets == 'separate' && settings.quoteTweets == 'separate') {
+    separatedTweetsTimelineTitle = getString(settings.revertXBranding ? 'SHARED_TWEETS' : 'SHARED')
+  } else if (settings.retweets == 'separate') {
+    separatedTweetsTimelineTitle = getString(settings.revertXBranding ? 'RETWEETS' : 'REPOSTS')
+  } else if (settings.quoteTweets == 'separate') {
+    separatedTweetsTimelineTitle = getString(settings.revertXBranding ? 'QUOTE_TWEETS' : 'QUOTES')
   } else {
     separatedTweetsTimelineTitle = null
   }
@@ -4653,7 +4686,7 @@ const configureThemeCss = (() => {
   let $style
 
   return function configureThemeCss() {
-    if (!config.enabled) {
+    if (!enabled) {
       log('removing theme stylesheet')
       $style?.remove()
       $style = null
@@ -4662,13 +4695,11 @@ const configureThemeCss = (() => {
 
     let cssRules = []
 
-    if (themeColor != null) {
-      cssRules.push(`
-        body {
-          --theme-color: ${themeColor};
-        }
-      `)
-    }
+    cssRules.push(`
+      body {
+        --theme-color: ${themeColor};
+      }
+    `)
 
     if (debug) {
       cssRules.push(`
@@ -4690,15 +4721,15 @@ const configureThemeCss = (() => {
     }
 
     // Active tab colour for custom tabs
-    if (themeColor != null && shouldShowSeparatedTweetsTab()) {
+    if (shouldShowSeparatedTweetsTab()) {
       cssRules.push(`
         body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div > div {
-          background-color: ${themeColor} !important;
+          background-color: var(--theme-color) !important;
         }
       `)
     }
 
-    if (config.replaceLogo) {
+    if (settings.revertXBranding) {
       cssRules.push(`
         ${Selectors.X_LOGO_PATH}, ${Selectors.X_DARUMA_LOGO_PATH} {
           fill: ${THEME_BLUE};
@@ -4720,12 +4751,12 @@ const configureThemeCss = (() => {
           [data-testid="SideNav_NewTweet_Button"],
           [data-testid="tweetButtonInline"],
           [data-testid="tweetButton"] {
-            background-color: ${themeColor} !important;
+            background-color: var(--theme-color) !important;
           }
           [data-testid="SideNav_NewTweet_Button"]:hover,
           [data-testid="tweetButtonInline"]:hover:not(:disabled),
           [data-testid="tweetButton"]:hover:not(:disabled) {
-            background-color: ${themeColor.replace(')', ', 80%)')} !important;
+            background-color: rgb(from var(--theme-color) r g b / 0.8) !important;
           }
           body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div,
           body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="tweetButtonInline"] > div,
@@ -4737,7 +4768,7 @@ const configureThemeCss = (() => {
       }
     }
 
-    if (config.uninvertFollowButtons) {
+    if (settings.uninvertFollowButtons) {
       // Shared styles for Following and Follow buttons
       cssRules.push(`
         [role="button"][data-testid$="-unfollow"]:not(:hover) {
@@ -4747,7 +4778,7 @@ const configureThemeCss = (() => {
           background-color: rgba(0, 0, 0, 0) !important;
         }
       `)
-      if (config.followButtonStyle == 'monochrome' || themeColor == null) {
+      if (settings.followButtonStyle == 'monochrome') {
         cssRules.push(`
           /* Following button */
           body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) {
@@ -4783,7 +4814,7 @@ const configureThemeCss = (() => {
           }
         `)
       }
-      if (config.followButtonStyle == 'themed' && themeColor != null) {
+      if (settings.followButtonStyle == 'themed') {
         cssRules.push(`
           /* Following button */
           [role="button"][data-testid$="-unfollow"]:not(:hover) {
@@ -4942,7 +4973,7 @@ function handlePopup($popup) {
   let result = {tookAction: false, onPopupClosed: null}
 
   // Automatically close any sheet dialog which contains a Premium link
-  if (desktop && config.hideTwitterBlueUpsells &&
+  if (desktop && settings.hidePremiumUpsells &&
       $popup.querySelector('[data-testid="mask"]') &&
       $popup.querySelector('[data-testid="sheetDialog"]') &&
       $popup.querySelector('a[href^="/i/premium"]')) {
@@ -4955,7 +4986,7 @@ function handlePopup($popup) {
 
   // The Sort replies by menu is hydrated asynchronously
   if (isOnIndividualTweetPage() &&
-      config.sortReplies != 'relevant' &&
+      settings.sortReplies != 'relevant' &&
       !userSortedReplies &&
       $popup.innerHTML.includes(`>${getString('SORT_REPLIES_BY')}<`)) {
     log('sortReplies: Sort replies by menu opened')
@@ -4966,7 +4997,7 @@ function handlePopup($popup) {
       let $menuItems =  /** @type {NodeListOf<HTMLElement>} */ ($dropdown.querySelectorAll('div[role="menuitem"]'))
       let $selectedSvg = $popup.querySelector('div[role="menuitem"] svg')
       for (let [index, $menuItem] of $menuItems.entries()) {
-        let shouldBeSelected = index == {recent: 1, liked: 2}[config.sortReplies]
+        let shouldBeSelected = index == {recent: 1, liked: 2}[settings.sortReplies]
         log({index, $menuItem, shouldBeSelected})
         if (shouldBeSelected) {
           $menuItem.lastElementChild.append($selectedSvg)
@@ -4995,7 +5026,7 @@ function handlePopup($popup) {
         disconnectObservers(modalObservers, 'modal')
         // The Tweet button will re-render if the modal was opened to edit
         // multiple Tweets on the Home timeline.
-        if (config.replaceLogo && isOnHomeTimelinePage()) {
+        if (settings.revertXBranding && isOnHomeTimelinePage()) {
           tweakTweetButton()
         }
       }
@@ -5018,7 +5049,7 @@ function handlePopup($popup) {
     }
   }
 
-  if (config.replaceLogo) {
+  if (settings.revertXBranding) {
     let $retweetDropdownItem = $popup.querySelector('div:is([data-testid="retweetConfirm"], [data-testid="repostConfirm"])')
     if ($retweetDropdownItem) {
       tweakRetweetDropdown($retweetDropdownItem, 'div:is([data-testid="retweetConfirm"], [data-testid="repostConfirm"])', 'RETWEET')
@@ -5045,7 +5076,7 @@ function handlePopup($popup) {
     }
   }
 
-  if (config.mutableQuoteTweets) {
+  if (settings.mutableQuoteTweets) {
     if (quotedTweet) {
       let $blockMenuItem = /** @type {HTMLElement} */ ($popup.querySelector(Selectors.BLOCK_MENU_ITEM))
       if ($blockMenuItem) {
@@ -5061,7 +5092,7 @@ function handlePopup($popup) {
     }
   }
 
-  if (config.fastBlock) {
+  if (settings.fastBlock) {
     if (blockMenuItemSeen && $popup.querySelector('[data-testid="confirmationSheetConfirm"]')) {
       log('fast blocking')
       ;/** @type {HTMLElement} */ ($popup.querySelector('[data-testid="confirmationSheetConfirm"]')).click()
@@ -5077,7 +5108,7 @@ function handlePopup($popup) {
     }
   }
 
-  if (config.addAddMutedWordMenuItem) {
+  if (settings.addAddMutedWordMenuItem) {
     let linkSelector = 'a[href$="/settings"]'
     let $link = /** @type {HTMLElement} */ ($popup.querySelector(linkSelector))
     if ($link) {
@@ -5086,7 +5117,7 @@ function handlePopup($popup) {
     }
   }
 
-  if (config.twitterBlueChecks != 'ignore') {
+  if (settings.premiumBlueChecks != 'ignore') {
     // User typeahead dropdown
     let $typeaheadDropdown = /** @type {HTMLElement} */ ($popup.querySelector('div[id^="typeaheadDropdown"]'))
     if ($typeaheadDropdown) {
@@ -5104,7 +5135,7 @@ function handlePopup($popup) {
     }
   }
 
-  if (config.hideGrokNav || config.twitterBlueChecks != 'ignore') {
+  if (settings.hideGrokNav || settings.premiumBlueChecks != 'ignore') {
     // User hovercard popup
     let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
     if ($hoverCard) {
@@ -5115,14 +5146,14 @@ function handlePopup($popup) {
         timeout: 500,
       }).then(($contents) => {
         if (!$contents) return
-        if (config.hideGrokNav) {
+        if (settings.hideGrokNav) {
           // Tag Grok "Profile Summary" button
           let $grokButton = $popup.querySelector('[data-testid="HoverCard"] > div > div > div:last-child:has(> button)')
           if ($grokButton) {
             $grokButton.classList.add('GrokButton')
           }
         }
-        if (config.twitterBlueChecks != 'ignore') {
+        if (settings.premiumBlueChecks != 'ignore') {
           processBlueChecks($popup)
         }
       })
@@ -5130,7 +5161,7 @@ function handlePopup($popup) {
   }
 
   // Verified account popup when you press the check button on a profile page
-  if (config.twitterBlueChecks == 'replace' && isOnProfilePage()) {
+  if (settings.premiumBlueChecks == 'replace' && isOnProfilePage()) {
     if (mobile) {
       let $verificationBadge = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="sheetDialog"] [data-testid="verificationBadge"]'))
       if ($verificationBadge) {
@@ -5275,11 +5306,11 @@ function onTimelineChange($timeline, page, options = {}) {
   let isOnProfileTimeline = isOnProfilePage()
   let timelineHasSpecificHandling = isOnHomeTimeline || isOnListTimeline || isOnProfileTimeline
 
-  if (config.twitterBlueChecks != 'ignore' && (isUserTimeline || !timelineHasSpecificHandling)) {
+  if (settings.premiumBlueChecks != 'ignore' && (isUserTimeline || !timelineHasSpecificHandling)) {
     processBlueChecks($timeline)
   }
 
-  if (isSafari && config.replaceLogo && isOnNotificationsPage()) {
+  if (isSafari && settings.revertXBranding && isOnNotificationsPage()) {
     processTwitterLogos($timeline)
   }
 
@@ -5315,11 +5346,11 @@ function onTimelineChange($timeline, page, options = {}) {
         } else {
           if (isOnHomeTimeline) {
             hideItem = shouldHideHomeTimelineItem(itemType, page)
-            if (config.mutableQuoteTweets && !hideItem && itemType == 'QUOTE_TWEET' && config.hideQuotesFrom.length > 0) {
+            if (settings.mutableQuoteTweets && !hideItem && itemType == 'QUOTE_TWEET' && settings.hideQuotesFrom.length > 0) {
               let $quotedByLink = /** @type {HTMLAnchorElement} */ ($tweet.querySelector('[data-testid="User-Name"] a'))
               let quotedBy = $quotedByLink?.pathname.substring(1)
               if (quotedBy) {
-                hideItem = config.hideQuotesFrom.includes(quotedBy)
+                hideItem = settings.hideQuotesFrom.includes(quotedBy)
               } else {
                 warn('hideQuotesFrom: unable to get quote tweet user')
               }
@@ -5333,21 +5364,21 @@ function onTimelineChange($timeline, page, options = {}) {
           }
         }
 
-        if (!hideItem && config.hideGrokTweets && $tweet.querySelector('a[href^="/i/grok/share/"]')) {
+        if (!hideItem && settings.hideGrokTweets && $tweet.querySelector('a[href^="/i/grok/share/"]')) {
           hideItem = true
         }
 
-        if (!hideItem && config.mutableQuoteTweets && (itemType == 'QUOTE_TWEET' || itemType == 'RETWEETED_QUOTE_TWEET')) {
-          if (config.mutedQuotes.length > 0) {
+        if (!hideItem && settings.mutableQuoteTweets && (itemType == 'QUOTE_TWEET' || itemType == 'RETWEETED_QUOTE_TWEET')) {
+          if (settings.mutedQuotes.length > 0) {
             let quotedTweet = getQuotedTweetDetails($tweet)
-            hideItem = config.mutedQuotes.some(muted => muted.user == quotedTweet.user && muted.time == quotedTweet.time)
+            hideItem = settings.mutedQuotes.some(muted => muted.user == quotedTweet.user && muted.time == quotedTweet.time)
           }
           if (!hideItem) {
             addCaretMenuListenerForQuoteTweet($tweet)
           }
         }
 
-        if (config.twitterBlueChecks != 'ignore') {
+        if (settings.premiumBlueChecks != 'ignore') {
           for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
             let isBlueCheck = isBlueVerified($svg)
             if (!isBlueCheck) continue
@@ -5363,7 +5394,7 @@ function onTimelineChange($timeline, page, options = {}) {
         }
       }
 
-      if (!hideItem && config.restoreLinkHeadlines) {
+      if (!hideItem && settings.restoreLinkHeadlines) {
         restoreLinkHeadline($tweet)
       }
     }
@@ -5383,13 +5414,13 @@ function onTimelineChange($timeline, page, options = {}) {
     if (itemType == null) {
       if ($item.querySelector('[data-testid="inlinePrompt"]')) {
         itemType = 'INLINE_PROMPT'
-        hideItem = config.hideInlinePrompts || (
-          config.hideTwitterBlueUpsells && Boolean($item.querySelector('a[href^="/i/premium"]')) ||
-          config.hideMonetizationNav && Boolean($item.querySelector('a[href="/settings/monetization"]'))
+        hideItem = settings.hideInlinePrompts || (
+          settings.hidePremiumUpsells && Boolean($item.querySelector('a[href^="/i/premium"]')) ||
+          settings.hideMonetizationNav && Boolean($item.querySelector('a[href="/settings/monetization"]'))
         )
       } else if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
         itemType = 'HEADING'
-        hideItem = hideHeadings && config.hideWhoToFollowEtc
+        hideItem = hideHeadings && settings.hideWhoToFollowEtc
       }
     }
 
@@ -5428,7 +5459,7 @@ function onTimelineChange($timeline, page, options = {}) {
     change.$item.firstElementChild.classList.toggle('HiddenTweet', change.hideItem)
   }
 
-  if (debug && config.debugLogTimelineStats) {
+  if (debug && debugLogTimelineStats) {
     log(
       `processed ${$timeline.children.length} timeline item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
       itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
@@ -5512,16 +5543,16 @@ function onIndividualTweetTimelineChange($timeline, options) {
         }
       }
 
-      if (!hideItem && config.hideGrokTweets && $tweet.querySelector('a[href^="/i/grok/share/"]')) {
+      if (!hideItem && settings.hideGrokTweets && $tweet.querySelector('a[href^="/i/grok/share/"]')) {
         hideItem = true
       }
 
-      if (!hideItem && (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies)) {
+      if (!hideItem && (settings.premiumBlueChecks != 'ignore' || settings.hidePremiumReplies)) {
         for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
           let verifiedType = getVerifiedType($svg)
           if (!verifiedType) continue
 
-          if (config.twitterBlueChecks != 'ignore' && verifiedType == 'BLUE') {
+          if (settings.premiumBlueChecks != 'ignore' && verifiedType == 'BLUE') {
             blueCheck($svg)
           }
 
@@ -5545,25 +5576,25 @@ function onIndividualTweetTimelineChange($timeline, options) {
             // Don't hide replies by the user if they have Premium
             !isUser) {
           itemType = `${tweetVerifiedType}_REPLY`
-          if (config.hideTwitterBlueReplies) {
+          if (settings.hidePremiumReplies) {
             let user = userInfo[screenName]
-            if (!user && config.debugLogTimelineStats) {
-              log('hideTwitterBlueReplies: user info not found for', screenName)
+            if (!user && debugLogTimelineStats) {
+              log('hidePremiumReplies: user info not found for', screenName)
             }
             hideItem = !(
-              config.showPremiumReplyBusiness && tweetVerifiedType == 'BUSINESS' ||
-              config.showPremiumReplyGovernment && tweetVerifiedType == 'GOVERNMENT' ||
+              settings.showPremiumReplyBusiness && tweetVerifiedType == 'BUSINESS' ||
+              settings.showPremiumReplyGovernment && tweetVerifiedType == 'GOVERNMENT' ||
               (user != null && (
-                config.showPremiumReplyFollowing && user.following ||
-                config.showPremiumReplyFollowedBy && user.followedBy ||
-                config.showBlueReplyFollowersCount && user.followersCount >= Number(config.showBlueReplyFollowersCountAmount)
+                settings.showPremiumReplyFollowing && user.following ||
+                settings.showPremiumReplyFollowedBy && user.followedBy ||
+                settings.showPremiumReplyFollowersCount && user.followersCount >= Number(settings.showPremiumReplyFollowersCountAmount)
               ))
             )
           }
         }
       }
 
-      if (!hideItem && config.restoreLinkHeadlines) {
+      if (!hideItem && settings.restoreLinkHeadlines) {
         restoreLinkHeadline($tweet)
       }
     }
@@ -5579,12 +5610,12 @@ function onIndividualTweetTimelineChange($timeline, options) {
           }
           else if ($button.textContent == getString('VIEW')) {
             // "This Tweet is from an account you (blocked|muted)." with a View button
-            hideItem = config.hideUnavailableQuoteTweets
+            hideItem = settings.hideUnavailableQuoteTweets
           }
         }
         else if ($article.textContent == getString('POST_UNAVAILABLE')) {
           // Likely blocked or muted
-          hideItem = config.hideUnavailableQuoteTweets
+          hideItem = settings.hideUnavailableQuoteTweets
         }
       } else {
         // We need to identify "Show more replies" so it doesn't get hidden if the
@@ -5602,8 +5633,8 @@ function onIndividualTweetTimelineChange($timeline, options) {
                 $heading.nextElementSibling.tagName == 'DIV' &&
                 $heading.nextElementSibling.getAttribute('dir') != null) {
               itemType = 'DISCOVER_MORE_HEADING'
-              hideItem = config.hideMoreTweets
-              hideAllSubsequentItems = config.hideMoreTweets
+              hideItem = settings.hideDiscoverSuggestions
+              hideAllSubsequentItems = settings.hideDiscoverSuggestions
             } else {
               itemType = 'HEADING'
             }
@@ -5646,7 +5677,7 @@ function onIndividualTweetTimelineChange($timeline, options) {
       }
     }
 
-    if (debug && config.debugLogTimelineStats && (itemType == null || hideItem == null)) {
+    if (debug && debugLogTimelineStats && (itemType == null || hideItem == null)) {
       warn('unhandled timeline item', {$item, itemType, hideItem})
     }
 
@@ -5665,7 +5696,7 @@ function onIndividualTweetTimelineChange($timeline, options) {
     seen.set($focusedTweet, {itemType: 'FOCUSED_TWEET', hidden: false})
   }
 
-  if (debug && config.debugLogTimelineStats) {
+  if (debug && debugLogTimelineStats) {
     log(
       `processed ${processedCount} new thread item${s(processedCount)} in ${Date.now() - startTime}ms`,
       itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
@@ -5693,7 +5724,7 @@ function onTitleChange(title) {
 
   // After we replace the shortcut icon, Twitter stops updating it to add/remove
   // the notifications pip, so we need to manage the pip ourselves.
-  if (config.replaceLogo && Boolean(notificationCount) != Boolean(currentNotificationCount)) {
+  if (settings.revertXBranding && Boolean(notificationCount) != Boolean(currentNotificationCount)) {
     observeFavicon.forceUpdate(Boolean(notificationCount))
   }
 
@@ -5828,7 +5859,7 @@ function onTitleChange(title) {
 }
 
 /**
- * Processes all Twitter Blue checks inside an element.
+ * Processes all Premium Blue checks inside an element.
  * @param {HTMLElement} $el
  */
 function processBlueChecks($el) {
@@ -5885,16 +5916,16 @@ function processCurrentPage() {
     } else {
       $body.classList.remove('Sidebar')
     }
-    if (isSafari && config.replaceLogo) {
+    if (isSafari && settings.revertXBranding) {
       tweakDesktopLogo()
     }
   }
 
-  if (isSafari && config.replaceLogo) {
+  if (isSafari && settings.revertXBranding) {
     tweakHomeIcon()
   }
 
-  if (config.twitterBlueChecks != 'ignore' && (isOnSearchPage() || isOnExplorePage())) {
+  if (settings.premiumBlueChecks != 'ignore' && (isOnSearchPage() || isOnExplorePage())) {
     observeSearchForm()
   }
 
@@ -5963,7 +5994,7 @@ function processCurrentPage() {
  * @returns {boolean} `true` if this call replaces the current location
  */
 function redirectToTwitter() {
-  if (config.redirectToTwitter &&
+  if (settings.redirectToTwitter &&
       location.hostname.endsWith('x.com') &&
       // Don't redirect the path used by the OldTweetDeck extension
       location.pathname != '/i/tweetdeck') {
@@ -6012,7 +6043,7 @@ function restoreLinkHeadline($tweet) {
  * @param {HTMLElement} $focusedTweet
  */
 function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
-  if (!config.restoreQuoteTweetsLink && !config.restoreOtherInteractionLinks) return
+  if (!settings.restoreQuoteTweetsLink && !settings.restoreOtherInteractionLinks) return
 
   if (!tweetInfo) {
     warn('restoreTweetInteractionsLinks: focused tweet info not available')
@@ -6021,8 +6052,8 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
 
   let isOwnTweet = Boolean($focusedTweet.querySelector('a[data-testid="analyticsButton"]'))
   let shouldDisplayLinks = (
-    (config.restoreQuoteTweetsLink && tweetInfo.quote_count > 0) ||
-    (config.restoreOtherInteractionLinks && (tweetInfo.retweet_count > 0 || isOwnTweet && tweetInfo.favorite_count > 0))
+    (settings.restoreQuoteTweetsLink && tweetInfo.quote_count > 0) ||
+    (settings.restoreOtherInteractionLinks && (tweetInfo.retweet_count > 0 || isOwnTweet && tweetInfo.favorite_count > 0))
   )
   let $existingLinks = $focusedTweet.querySelector('#cpftInteractionLinks')
   if (!shouldDisplayLinks || $existingLinks) {
@@ -6041,13 +6072,13 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
           <span id="cpftQuoteTweetCount">
             ${Intl.NumberFormat(lang, {notation: tweetInfo.quote_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)}
           </span>
-          <span>${getString(tweetInfo.quote_count == 1 ? (config.replaceLogo ? 'QUOTE_TWEET' : 'QUOTE') : (config.replaceLogo ? 'QUOTE_TWEETS' : 'QUOTES'))}</span>
+          <span>${getString(tweetInfo.quote_count == 1 ? (settings.revertXBranding ? 'QUOTE_TWEET' : 'QUOTE') : (settings.revertXBranding ? 'QUOTE_TWEETS' : 'QUOTES'))}</span>
         </a>` : ''}
         ${tweetInfo.retweet_count > 0 ? `<a id="cpftRetweetsLink" data-tab="2" href="${tweetLink}/retweets" dir="auto" role="link">
           <span id="cpftRetweetCount">
             ${Intl.NumberFormat(lang, {notation: tweetInfo.retweet_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.retweet_count)}
           </span>
-          <span>${getString(config.replaceLogo ? 'RETWEETS' : 'REPOSTS')}</span>
+          <span>${getString(settings.revertXBranding ? 'RETWEETS' : 'REPOSTS')}</span>
         </a>` : ''}
         ${isOwnTweet && tweetInfo.favorite_count > 0 ? `<a id="cpftLikesLink" data-tab="3" href="${tweetLink}/likes" dir="auto" role="link">
           <span id="cpftLikeCount">
@@ -6089,8 +6120,8 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
  * @param {string} page
  */
 function setTitle(page) {
-  let name = config.replaceLogo ? getString('TWITTER') : 'X'
-  let notificationCount = config.hideNotifications != 'ignore' ? (
+  let name = settings.revertXBranding ? getString('TWITTER') : 'X'
+  let notificationCount = settings.hideNotifications != 'ignore' ? (
     ''
   ) : (
     hiddenNotificationCount || currentNotificationCount
@@ -6115,7 +6146,7 @@ function setTitle(page) {
       return false
     case 'UNAVAILABLE_QUOTE_TWEET':
     case 'UNAVAILABLE_RETWEET':
-      return config.hideUnavailableQuoteTweets
+      return settings.hideUnavailableQuoteTweets
     default:
       return true
   }
@@ -6129,11 +6160,11 @@ function shouldHideListTimelineItem(type) {
   switch (type) {
     case 'RETWEET':
     case 'RETWEETED_QUOTE_TWEET':
-      return config.listRetweets == 'hide'
+      return settings.listRetweets == 'hide'
     case 'UNAVAILABLE_QUOTE_TWEET':
-      return config.hideUnavailableQuoteTweets
+      return settings.hideUnavailableQuoteTweets
     case 'UNAVAILABLE_RETWEET':
-      return config.hideUnavailableQuoteTweets || config.listRetweets == 'hide'
+      return settings.hideUnavailableQuoteTweets || settings.listRetweets == 'hide'
     default:
       return false
   }
@@ -6147,21 +6178,21 @@ function shouldHideListTimelineItem(type) {
 function shouldHideHomeTimelineItem(type, page) {
   switch (type) {
     case 'QUOTE_TWEET':
-      return shouldHideSharedTweet(config.quoteTweets, page)
+      return shouldHideSharedTweet(settings.quoteTweets, page)
     case 'RETWEET':
-      return selectedHomeTabIndex >= 2 ? config.listRetweets == 'hide' : shouldHideSharedTweet(config.retweets, page)
+      return selectedHomeTabIndex >= 2 ? settings.listRetweets == 'hide' : shouldHideSharedTweet(settings.retweets, page)
     case 'RETWEETED_QUOTE_TWEET':
       return selectedHomeTabIndex >= 2 ? (
-          config.listRetweets == 'hide'
+          settings.listRetweets == 'hide'
         ) : (
-          shouldHideSharedTweet(config.retweets, page) || shouldHideSharedTweet(config.quoteTweets, page)
+          shouldHideSharedTweet(settings.retweets, page) || shouldHideSharedTweet(settings.quoteTweets, page)
         )
     case 'TWEET':
       return page == separatedTweetsTimelineTitle
     case 'UNAVAILABLE_QUOTE_TWEET':
-      return config.hideUnavailableQuoteTweets || shouldHideSharedTweet(config.quoteTweets, page)
+      return settings.hideUnavailableQuoteTweets || shouldHideSharedTweet(settings.quoteTweets, page)
     case 'UNAVAILABLE_RETWEET':
-      return config.hideUnavailableQuoteTweets || selectedHomeTabIndex >= 2 ? config.listRetweets == 'hide' : shouldHideSharedTweet(config.retweets, page)
+      return settings.hideUnavailableQuoteTweets || selectedHomeTabIndex >= 2 ? settings.listRetweets == 'hide' : shouldHideSharedTweet(settings.retweets, page)
     default:
       return true
   }
@@ -6179,9 +6210,9 @@ function shouldHideProfileTimelineItem(type) {
       return false
     case 'RETWEET':
     case 'RETWEETED_QUOTE_TWEET':
-      return config.hideProfileRetweets
+      return settings.hideProfileRetweets
     case 'UNAVAILABLE_QUOTE_TWEET':
-      return config.hideUnavailableQuoteTweets
+      return settings.hideUnavailableQuoteTweets
     default:
       return true
   }
@@ -6220,14 +6251,14 @@ function shouldHideSharedTweet(config, page) {
 }
 
 async function tweakBookmarksPage() {
-  if (config.twitterBlueChecks != 'ignore' || config.restoreLinkHeadlines) {
+  if (settings.premiumBlueChecks != 'ignore' || settings.restoreLinkHeadlines) {
     observeTimeline(currentPage)
   }
 }
 
 async function tweakExplorePage() {
-  if (!config.hideExplorePageContents) {
-    if (config.twitterBlueChecks != 'ignore') {
+  if (!settings.hideExplorePageContents) {
+    if (settings.premiumBlueChecks != 'ignore') {
       observeTimeline(currentPage, {
         classifyTweets: false,
         isTabbed: true,
@@ -6279,7 +6310,7 @@ function tweakCommunitiesPage() {
 }
 
 function tweakCommunityPage() {
-  if (config.twitterBlueChecks != 'ignore') {
+  if (settings.premiumBlueChecks != 'ignore') {
     observeTimeline(currentPage, {
       classifyTweets: false,
       isTabbed: true,
@@ -6295,7 +6326,7 @@ function tweakCommunityPage() {
 }
 
 function tweakCommunityMembersPage() {
-  if (config.twitterBlueChecks != 'ignore') {
+  if (settings.premiumBlueChecks != 'ignore') {
     observeTimeline(currentPage, {
       classifyTweets: false,
       isTabbed: true,
@@ -6309,11 +6340,13 @@ function tweakDisplaySettingsPage() {
     let $colorRerenderBoundary = await getElement('#react-root > div > div')
 
     observeElement($colorRerenderBoundary, () => {
-      let newThemeColor = getThemeColorFromState()
+      let [newThemeColor, newAccent] = getThemeColorFromState()
       if (newThemeColor == themeColor) return
 
       log('Color setting changed')
-      themeColor = newThemeColor
+      nativeThemeColor = newThemeColor
+      nativeThemeColorAccent = newAccent
+      themeColor = nativeThemeColor
       configureThemeCss()
       observePopups()
       observeSideNavTweetButton()
@@ -6345,10 +6378,10 @@ function tweakDisplaySettingsPage() {
 }
 
 function restoreTweetSource($permalinkBar, tweetInfo) {
-  if (!config.restoreTweetSource) return
+  if (!settings.restoreTweetSource) return
   if ($permalinkBar.hasAttribute('cpft-tweet-source-restored')) return
   if (!tweetInfo?.source_name) {
-    warn('source_name not available in focused tweet info', tweetInfo)
+    warn('restoreTweetSource: source_name not available in focused tweet info', tweetInfo)
     return
   }
   let $separator = document.createElement('span')
@@ -6377,8 +6410,8 @@ async function tweakFocusedTweet($focusedTweet, options) {
   // Tag View elements and restore Tweet source
   let $permalinkBar = $focusedTweet.querySelector('div:has(> div > a > time)')
   if ($permalinkBar) {
-    $permalinkBar.children[1].classList.toggle('Views', config.hideViews)
-    $permalinkBar.children[2].classList.toggle('Views', config.hideViews)
+    $permalinkBar.children[1].classList.toggle('Views', settings.hideViews)
+    $permalinkBar.children[2].classList.toggle('Views', settings.hideViews)
     restoreTweetSource($permalinkBar, tweetInfo)
   } else {
     warn('focused tweet permalink bar not found')
@@ -6387,7 +6420,7 @@ async function tweakFocusedTweet($focusedTweet, options) {
   tweakOwnFocusedTweet($focusedTweet)
   restoreTweetInteractionsLinks($focusedTweet, tweetInfo)
 
-  if (desktop && config.replaceLogo) {
+  if (desktop && settings.revertXBranding) {
     void async function() {
       let $editorRoot = await getElement('.DraftEditor-root', {
         context: $focusedTweet.parentElement,
@@ -6418,7 +6451,7 @@ async function tweakFollowListPage() {
     $body.classList.add('Subscriptions')
   }
 
-  if (config.hideVerifiedNotificationsTab) {
+  if (settings.hideVerifiedTabs) {
     let isVerifiedTabSelected = Boolean($tabs.querySelector('div[role="tablist"] > div:nth-child(1) > a[aria-selected="true"]'))
     if (isVerifiedTabSelected) {
       log('switching to Following tab')
@@ -6429,7 +6462,7 @@ async function tweakFollowListPage() {
     }
   }
 
-  if (config.twitterBlueChecks != 'ignore') {
+  if (settings.premiumBlueChecks != 'ignore') {
     observeTimeline(currentPage, {
       classifyTweets: false,
     })
@@ -6440,7 +6473,7 @@ async function tweakIndividualTweetPage() {
   userSortedReplies = false
   observeIndividualTweetTimeline(currentPage)
 
-  if (config.replaceLogo) {
+  if (settings.revertXBranding) {
     (async () => {
       let $headingText = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`, {
         name: 'tweet thread heading',
@@ -6460,7 +6493,7 @@ function tweakListPage() {
 }
 
 async function tweakListsPage() {
-  if (config.hideMoreTweets) {
+  if (settings.hideDiscoverSuggestions) {
     // Hide Discover new Lists
     let $showMoreLink = await getElement('a[href="/i/lists/suggested"]', {
       name: 'Show more link',
@@ -6498,7 +6531,7 @@ async function tweakHomeIcon() {
 }
 
 async function tweakOwnFocusedTweet($focusedTweet) {
-  if (!config.hideTwitterBlueUpsells || $focusedTweet.hasAttribute('cpft-analytics-upsell-tagged')) return
+  if (!settings.hidePremiumUpsells || $focusedTweet.hasAttribute('cpft-analytics-upsell-tagged')) return
 
   // Only your own focused Tweets have an analytics button
   let $analyticsButton = $focusedTweet.querySelector('a[data-testid="analyticsButton"]')
@@ -6546,7 +6579,7 @@ function tweakHomeTimelinePage() {
   }
 
   tweakTimelineTabs($timelineTabs)
-  if (mobile && isSafari && config.replaceLogo) {
+  if (mobile && isSafari && settings.revertXBranding) {
     processTwitterLogos(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER))
   }
 
@@ -6591,7 +6624,7 @@ function tweakHomeTimelinePage() {
 }
 
 async function tweakMobileComposeTweetPage() {
-  if (!config.replaceLogo && config.twitterBlueChecks == 'ignore') return
+  if (!settings.revertXBranding && settings.premiumBlueChecks == 'ignore') return
 
   function observeUserTypeaheadDropdown($tweetTextareaContainer) {
     if (!$tweetTextareaContainer) {
@@ -6639,7 +6672,7 @@ async function tweakMobileComposeTweetPage() {
   let isReply = Boolean(document.querySelector('article[data-testid="tweet"]'))
   if (isReply) {
     // Restore old placeholder in Tweet textarea
-    if (config.replaceLogo) {
+    if (settings.revertXBranding) {
       let $textarea = /** @type {HTMLTextAreaElement} */ (
         document.querySelector('main div[data-testid^="tweetTextarea"] textarea')
       )
@@ -6650,7 +6683,7 @@ async function tweakMobileComposeTweetPage() {
       }
     }
     // Observe username typeahead dropdown in Tweet box
-    if (config.twitterBlueChecks != 'ignore') {
+    if (settings.premiumBlueChecks != 'ignore') {
       observeUserTypeaheadDropdown(document.querySelector('main div[data-testid^="tweetTextarea"]'))
     }
   } else {
@@ -6663,17 +6696,17 @@ async function tweakMobileComposeTweetPage() {
       observeElement($mask.nextElementSibling, () => {
         let $containers = document.querySelectorAll('main div[data-testid^="tweetTextarea"]')
         $containers.forEach(($container, index) => {
-          if (config.replaceLogo) {
+          if (settings.revertXBranding) {
             let $textarea = $container.querySelector('textarea')
             $textarea.placeholder = getString(index == 0 ? 'WHATS_HAPPENING' : 'ADD_ANOTHER_TWEET')
           }
-          if (index == 0 && config.twitterBlueChecks) {
+          if (index == 0 && settings.premiumBlueChecks) {
             observeUserTypeaheadDropdown($container)
           }
         })
         // Don't update the Tweet button if the list was re-rendered to display
         // a user dropdown, in which case it will already be in the DOM.
-        if (config.replaceLogo && !document.querySelector('main [id^="typeaheadDropdown"]')) {
+        if (settings.revertXBranding && !document.querySelector('main [id^="typeaheadDropdown"]')) {
           $tweetButtonText.textContent = getString($containers.length == 1 ? 'TWEET' : 'TWEET_ALL')
         }
       }, {
@@ -6695,8 +6728,8 @@ async function tweakMobileMediaViewerPage() {
 
   /** @param {HTMLVideoElement} $video */
   function processVideo($video) {
-    if ($video.loop != config.preventNextVideoAutoplay) {
-      $video.loop = config.preventNextVideoAutoplay
+    if ($video.loop != settings.preventNextVideoAutoplay) {
+      $video.loop = settings.preventNextVideoAutoplay
     }
   }
 
@@ -6704,7 +6737,7 @@ async function tweakMobileMediaViewerPage() {
   let $videos = $timeline.querySelectorAll('video')
   log($videos.length, `initial video${s($videos.length)}`)
   $videos.forEach(processVideo)
-  if (config.twitterBlueChecks != 'ignore') {
+  if (settings.premiumBlueChecks != 'ignore') {
     processBlueChecks($timeline)
   }
 
@@ -6716,7 +6749,7 @@ async function tweakMobileMediaViewerPage() {
         if ($video) {
           processVideo($video)
         }
-        if (config.twitterBlueChecks != 'ignore') {
+        if (settings.premiumBlueChecks != 'ignore') {
           let $videoInfo = $addedNode.querySelector('[data-testid^="immersive-tweet-ui-content-container"]')
           if ($videoInfo) {
             processBlueChecks($addedNode)
@@ -6734,9 +6767,9 @@ async function tweakTimelineTabs($timelineTabs) {
   $timelineTabs.classList.add('TimelineTabs')
   let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a'))
 
-  if (config.alwaysUseLatestTweets && !document.title.startsWith(separatedTweetsTimelineTitle)) {
+  if (settings.defaultToFollowing && !document.title.startsWith(separatedTweetsTimelineTitle)) {
     let isForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]'))
-    if (isForYouTabSelected && (!wasForYouTabSelected || config.hideForYouTimeline)) {
+    if (isForYouTabSelected && (!wasForYouTabSelected || settings.hideForYouTimeline)) {
       log('switching to Following timeline')
       $followingTabLink.click()
       wasForYouTabSelected = false
@@ -6814,7 +6847,7 @@ function tweakNotificationsPage() {
     return
   }
 
-  if (config.hideVerifiedNotificationsTab) {
+  if (settings.hideVerifiedTabs) {
     let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
     if (isVerifiedTabSelected) {
       log('switching to All tab')
@@ -6825,7 +6858,7 @@ function tweakNotificationsPage() {
     }
   }
 
-  if (config.twitterBlueChecks != 'ignore' || config.restoreLinkHeadlines) {
+  if (settings.premiumBlueChecks != 'ignore' || settings.restoreLinkHeadlines) {
     observeTimeline(currentPage, {
       isTabbed: true,
       tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
@@ -6840,7 +6873,7 @@ async function tweakProfilePage() {
   })
   if (!$initialContent) return
 
-  if (config.twitterBlueChecks != 'ignore') {
+  if (settings.premiumBlueChecks != 'ignore') {
     processBlueChecks($initialContent)
   }
 
@@ -6856,7 +6889,7 @@ async function tweakProfilePage() {
     timeout: 500,
   }).then($editProfileButton => {
     $body.classList.toggle('OwnProfile', Boolean($editProfileButton))
-    if (config.hideTwitterBlueUpsells) {
+    if (settings.hidePremiumUpsells) {
       // This selector is _extremely_ specific to try to avoid false positives
       getElement(mobile ? (
         '[data-testid="primaryColumn"] > div > div > div > div > div > div > div > div > div:has(> div > div > div > a[href^="/i/premium"])'
@@ -6876,7 +6909,7 @@ async function tweakProfilePage() {
   let $headerVerifiedIcon = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.TIMELINE_HEADING} [data-testid="icon-verified"]`)
   $body.classList.toggle('PremiumProfile', Boolean($headerVerifiedIcon))
 
-  if (config.replaceLogo || config.hideSubscriptions) {
+  if (settings.revertXBranding || settings.hideSubscriptions) {
     let $profileTabs = await getElement(`${Selectors.PRIMARY_COLUMN} nav`, {
       name: 'profile tabs',
       stopIf: pageIsNot(currentPage),
@@ -6889,7 +6922,7 @@ async function tweakProfilePage() {
         if ($newProfileTabs == null) return
         $profileTabs = /** @type {HTMLElement} */ ($newProfileTabs)
       }
-      if (config.replaceLogo) {
+      if (settings.revertXBranding) {
         let $tweetsTabText = await getElement('[data-testid="ScrollSnap-List"] > [role="presentation"]:first-child div[dir] > span:first-child', {
           context: $profileTabs,
           name: 'Tweets tab text',
@@ -6899,7 +6932,7 @@ async function tweakProfilePage() {
           $tweetsTabText.textContent = getString('TWEETS')
         }
       }
-      if (config.hideSubscriptions) {
+      if (settings.hideSubscriptions) {
         let $subscriptionsTabLink = await getElement('a[href$="/superfollows"]', {
           context: $profileTabs,
           name: 'Subscriptions tab link',
@@ -6946,7 +6979,7 @@ async function tweakRetweetDropdown($dropdownItem, dropdownItemSelector, localeK
 function tweakSearchPage() {
   let $searchTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
   if ($searchTabs != null) {
-    if (config.defaultToLatestSearch) {
+    if (settings.defaultToLatestSearch) {
       let isTopTabSelected = Boolean($searchTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a[aria-selected="true"]'))
       if (isTopTabSelected) {
         log('switching to Latest tab')
@@ -6976,7 +7009,7 @@ function tweakSearchPage() {
 }
 
 function tweakTweetEngagementPage() {
-  if (config.replaceLogo) {
+  if (settings.revertXBranding) {
     let $headingText = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`)
     if ($headingText) {
       if ($headingText.textContent != getString('TWEET_INTERACTIONS')) {
@@ -7002,14 +7035,14 @@ function tweakTweetEngagementPage() {
     tweetInteractionsTab = null
   }
 
-  if (config.replaceLogo) {
+  if (settings.revertXBranding) {
     let $quoteTweetsTabText = $tabs.querySelector('div[role="tablist"] > div:nth-child(1) div[dir] > span')
     if ($quoteTweetsTabText) $quoteTweetsTabText.textContent = getString('QUOTE_TWEETS')
     let $retweetsTabText = $tabs.querySelector('div[role="tablist"] > div:nth-child(2) div[dir] > span')
     if ($retweetsTabText) $retweetsTabText.textContent = getString('RETWEETS')
   }
 
-  if (config.twitterBlueChecks != 'ignore') {
+  if (settings.premiumBlueChecks != 'ignore') {
     observeTimeline(currentPage, {classifyTweets: false})
   }
 }
@@ -7024,7 +7057,7 @@ async function main() {
     return
   }
 
-  if (!config.enabled) return
+  if (!enabled) return
 
   // Reset state so initial setup runs again when re-enabled
   currentPage = ''
@@ -7059,23 +7092,20 @@ async function main() {
 
     /** @type {'mobile' | 'desktop'} */
     let version = mobile ? 'mobile' : 'desktop'
-
-    if (version != config.version) {
-      log('setting version to', version)
-      config.version = version
-      // Let the options page know which version is being used
-      storeConfigChanges({version})
-    }
+    // Let the options page know the last version which was active
+    storeConfigChanges({version})
 
     if (lastFlexDirection == null) {
-      log('initial config', {config, lang, version})
+      log('initial config', {config: settings, lang, version})
 
       // One-time setup
       checkReactNativeStylesheet()
       observeBodyBackgroundColor()
-      let initialThemeColor = getThemeColorFromState()
+      let [initialThemeColor, initialAccent] = getThemeColorFromState()
       if (initialThemeColor) {
-        themeColor = initialThemeColor
+        nativeThemeColor = initialThemeColor
+        nativeThemeColorAccent = initialAccent
+        themeColor = nativeThemeColor
       }
       if (desktop) {
         fontSize = $html.style.fontSize
@@ -7103,7 +7133,10 @@ async function main() {
       }
     }
     else if (flexDirection != lastFlexDirection) {
-      configChanged({version})
+      log('version changed', {version})
+      fontSize = desktop ? $html.style.fontSize : null
+      // Reconfigure for the new version
+      onSettingsChanged()
     }
 
     $body.classList.toggle('Mobile', mobile)
@@ -7121,43 +7154,13 @@ async function main() {
 }
 
 /**
- * @param {Partial<import("./types").Config>} changes
+ * @param {Set<import("./types").UserSettingsKey>} changedSettings
  */
-function configChanged(changes) {
-  log('config changed', changes)
-
-  if ('enabled' in changes) {
-    log(`${changes.enabled ? 'en' : 'dis'}abling extension functionality`)
-    if (changes.enabled) {
-      // Process the current page if we've just been enabled on it
-      observingPageChanges = true
-      main()
-    } else {
-      // These functions have teardowns when disabled
-      configureCss()
-      configureFont()
-      configureDynamicCss()
-      configureThemeCss()
-      // Manually remove custom UI elements which clone existing elements, as
-      // adding a hidden attribute won't hide them by default.
-      document.querySelector('#cpftSeparatedTweetsTab')?.remove()
-      document.querySelectorAll('.cpft_menu_item').forEach(el => el.remove())
-      disconnectObservers(modalObservers, 'modal')
-      disconnectObservers(pageObservers, 'page')
-      disconnectObservers(globalObservers, 'global')
-    }
+function onSettingsChanged(changedSettings = new Set()) {
+  if (changedSettings.has('redirectToTwitter') && redirectToTwitter()) {
     return
   }
 
-  if ('redirectToTwitter' in changes && redirectToTwitter()) {
-    return
-  }
-
-  if ('version' in changes) {
-    fontSize = desktop ? $html.style.fontSize : null
-  }
-
-  // Apply configuration changes
   configureCss()
   configureFont()
   configureDynamicCss()
@@ -7166,11 +7169,11 @@ function configChanged(changes) {
   observePopups()
   observeSideNavTweetButton()
 
-  if ('replaceLogo' in changes || 'hideNotifications' in changes) {
+  if (changedSettings.has('revertXBranding') || changedSettings.has('hideNotifications')) {
     observeFavicon.forceUpdate(getNotificationCount() > 0)
   }
   // Store the current notification count if hiding notifications was enabled
-  if ('hideNotifications' in changes && config.hideNotifications != 'ignore') {
+  if (changedSettings.has('hideNotifications') && settings.hideNotifications != 'ignore') {
     hiddenNotificationCount = currentNotificationCount
   }
 
@@ -7179,7 +7182,7 @@ function configChanged(changes) {
     checkforDisabledHomeTimeline()
   )
 
-  if ('hideNotifications' in changes) {
+  if (changedSettings.has('hideNotifications')) {
     // Hide or show the notification count in the title. The title will already
     // have been updated if other navigation was triggered.
     if (!navigationTriggered) {
@@ -7187,7 +7190,7 @@ function configChanged(changes) {
       navigationTriggered = true
     }
     // Clear the stored notification count if hiding notifications was disabled
-    if (config.hideNotifications == 'ignore') {
+    if (settings.hideNotifications == 'ignore') {
       hiddenNotificationCount = ''
     }
   }
@@ -7201,15 +7204,29 @@ function configChanged(changes) {
 
 // Initial config and config changes are injected into a <script> element
 let $settings = /** @type {HTMLScriptElement} */ (document.querySelector('script#cpftSettings'))
+/** @type {import("./types").StoredConfig} */
+let storedConfig = {}
 if ($settings) {
+  $settings.removeAttribute('id')
   try {
-    Object.assign(config, JSON.parse($settings.innerText))
+    storedConfig = JSON.parse($settings.innerText)
   } catch(e) {
     error('error parsing initial settings', e)
   }
 
+  if (Object.hasOwn(storedConfig, 'enabled')) {
+    enabled = storedConfig.enabled
+  }
+  if (Object.hasOwn(storedConfig, 'debug')) {
+    debug = storedConfig.debug
+  }
+  if (Object.hasOwn(storedConfig, 'debugLogTimelineStats')) {
+    debugLogTimelineStats = storedConfig.debugLogTimelineStats
+  }
+  settings = {...defaultSettings, ...storedConfig.settings}
+
   let settingsChangeObserver = new MutationObserver(() => {
-    /** @type {Partial<import("./types").Config>} */
+    /** @type {Partial<import("./types").StoredConfig>} */
     let configChanges
     try {
       configChanges = JSON.parse($settings.innerText)
@@ -7218,7 +7235,31 @@ if ($settings) {
       return
     }
 
-    if ('debug' in configChanges) {
+    if (Object.hasOwn(configChanges, 'enabled')) {
+      enabled = configChanges.enabled
+      log(`${enabled ? 'en' : 'dis'}abling extension functionality`)
+      if (enabled) {
+        // Process the current page if we've just been enabled on it
+        observingPageChanges = true
+        main()
+      } else {
+        // These functions have teardowns when disabled
+        configureCss()
+        configureFont()
+        configureDynamicCss()
+        configureThemeCss()
+        // Manually remove custom UI elements which clone existing elements, as
+        // adding a hidden attribute won't hide them by default.
+        document.querySelector('#cpftSeparatedTweetsTab')?.remove()
+        document.querySelectorAll('.cpft_menu_item').forEach(el => el.remove())
+        disconnectObservers(modalObservers, 'modal')
+        disconnectObservers(pageObservers, 'page')
+        disconnectObservers(globalObservers, 'global')
+      }
+      return
+    }
+
+    if (Object.hasOwn(configChanges, 'debug')) {
       log('disabling debug mode')
       debug = configChanges.debug
       log('enabled debug mode')
@@ -7226,13 +7267,30 @@ if ($settings) {
       return
     }
 
-    Object.assign(config, configChanges)
-    configChanged(configChanges)
+    if (Object.hasOwn(configChanges, 'debugLogTimelineStats')) {
+      debugLogTimelineStats = configChanges.debugLogTimelineStats
+      return
+    }
+
+    /** @type {Set<import("./types").UserSettingsKey>} */
+    let changedSettings
+    if (Object.hasOwn(configChanges, 'settings')) {
+      /** @type {import("./types").UserSettingsKey[]} */
+      let settingsWithSpecialHandling = [
+        'hideNotifications',
+        'redirectToTwitter',
+        'revertXBranding',
+      ]
+      changedSettings = new Set(settingsWithSpecialHandling.filter(
+        (key) => Object.hasOwn(configChanges.settings, key) && configChanges.settings[key] != settings[key]
+      ))
+      Object.assign(settings, configChanges.settings)
+    }
+
+    onSettingsChanged(changedSettings)
   })
   settingsChangeObserver.observe($settings, {childList: true})
 }
-
-debug = config.debug
 
 main()
 //#endregion

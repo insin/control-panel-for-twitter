@@ -1,16 +1,29 @@
-export type Config = {
-  enabled: boolean
-  debug: boolean
-  debugLogTimelineStats: boolean
+export type StoredConfig = {
+  // Log and display debug info
+  debug?: boolean
+  // Log stats on each timeline change
+  debugLogTimelineStats?: boolean
+  // Disable extension functionality without disabling the extension itself
+  enabled?: boolean
+  // We only store settings the user has actually interacted with
+  settings?: Partial<UserSettings>
+  // The last version of Twitter which was active when a content script ran -
+  // determines which options the options page displays. Not applicable to most
+  // users, but useful for checking mobile options via a desktop browser in
+  // Responsive Design / Device Mode.
   version?: 'desktop' | 'mobile'
+}
+
+export type StoredConfigKey = keyof StoredConfig
+
+export type UserSettings = {
   // Shared
   addAddMutedWordMenuItem: boolean
-  // XXX This is now more like "use the Following tab by default"
-  alwaysUseLatestTweets: boolean
+  defaultToFollowing: boolean
   defaultToLatestSearch: boolean
   disableHomeTimeline: boolean
-  disabledHomeTimelineRedirect: 'notifications' | 'messages'
   disableTweetTextFormatting: boolean
+  disabledHomeTimelineRedirect: 'notifications' | 'messages'
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
   fastBlock: boolean
@@ -21,6 +34,7 @@ export type Config = {
   hideBookmarksNav: boolean
   hideCommunitiesNav: boolean
   hideComposeTweet: boolean
+  hideDiscoverSuggestions: boolean
   hideExplorePageContents: boolean
   hideFollowingMetrics: boolean
   hideForYouTimeline: boolean
@@ -32,9 +46,10 @@ export type Config = {
   hideListsNav: boolean
   hideMetrics: boolean
   hideMonetizationNav: boolean
-  // XXX This now controls hiding all "Discover" suggestions
-  hideMoreTweets: boolean
   hideNotifications: 'ignore' | 'badges' | 'hide'
+  hidePremiumReplies: boolean
+  hidePremiumUpsells: boolean
+  hideProfileHeaderMetrics: boolean
   hideProfileRetweets: boolean
   hideQuoteTweetMetrics: boolean
   hideQuotesFrom: string[]
@@ -44,40 +59,34 @@ export type Config = {
   hideShareTweetButton: boolean
   hideSpacesNav: boolean
   hideSubscriptions: boolean
-  // XXX This now controls hiding profile header metrics
-  hideTotalTweetsMetrics: boolean
   hideTweetAnalyticsLinks: boolean
-  hideTwitterBlueReplies: boolean
-  hideTwitterBlueUpsells: boolean
   hideUnavailableQuoteTweets: boolean
-  // XXX This now also controls hiding Verified Followers
-  hideVerifiedNotificationsTab: boolean
+  hideVerifiedTabs: boolean
   hideViews: boolean
   hideWhoToFollowEtc: boolean
   listRetweets: 'ignore' | 'hide'
   mutableQuoteTweets: boolean
   mutedQuotes: QuotedTweet[]
+  premiumBlueChecks: 'ignore' | 'replace' | 'hide'
   quoteTweets: SharedTweetsConfig
   redirectToTwitter: boolean
   reducedInteractionMode: boolean
-  // XXX This now controls all replacement of X brand changes
-  replaceLogo: boolean
   restoreLinkHeadlines: boolean
-  restoreQuoteTweetsLink: boolean
   restoreOtherInteractionLinks: boolean
+  restoreQuoteTweetsLink: boolean
   restoreTweetSource: boolean
   retweets: SharedTweetsConfig
-  showBlueReplyFollowersCount: boolean
-  showBlueReplyFollowersCountAmount: string
+  revertXBranding: boolean
   showBookmarkButtonUnderFocusedTweets: boolean
   showPremiumReplyBusiness: boolean
   showPremiumReplyFollowedBy: boolean
+  showPremiumReplyFollowersCount: boolean
+  showPremiumReplyFollowersCountAmount: string
   showPremiumReplyFollowing: boolean
   showPremiumReplyGovernment: boolean
   sortReplies: 'relevant' | 'recent' | 'liked'
   tweakNewLayout: boolean
   tweakQuoteTweetsPage: boolean
-  twitterBlueChecks: 'ignore' | 'replace' | 'hide'
   unblurSensitiveContent: boolean
   uninvertFollowButtons: boolean
   // Experiments
@@ -103,6 +112,8 @@ export type Config = {
   hideMessagesBottomNavItem: boolean
   preventNextVideoAutoplay: boolean
 }
+
+export type UserSettingsKey = keyof UserSettings
 
 export type Locale = {
   [key in LocaleKey]?: string

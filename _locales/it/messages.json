@@ -5,9 +5,6 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Aggiungi \"Aggiungi parola o frase silenziata\" al menu ad hamburger"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "Usa la timeline \"Seguiti\" (cronologica) di default"
-  },
   "appStoreSubtitle": {
     "message": "La tua timeline, come vuoi tu"
   },
@@ -25,6 +22,9 @@
   },
   "debugOptionsLabel": {
     "message": "Opzioni di debug"
+  },
+  "defaultToFollowingLabel": {
+    "message": "Usa la timeline \"Seguiti\" (cronologica) di default"
   },
   "defaultToLatestSearchLabel": {
     "message": "Usa \"Recenti\" come sezione di default in Cerca"
@@ -185,6 +185,12 @@
   "hideNotificationsLabel": {
     "message": "Nascondi notifiche"
   },
+  "hidePremiumRepliesLabel": {
+    "message": "Nascondi risposte degli utenti verificati Premium"
+  },
+  "hidePremiumUpsellsLabel": {
+    "message": "Nascondi promozioni Premium"
+  },
   "hideProfileHeaderMetricsLabel": {
     "message": "Metriche dell'intestazione del profilo"
   },
@@ -236,19 +242,13 @@
   "hideTweetAnalyticsLinksLabel": {
     "message": "\"Visualizza interazioni tweet\" sotto ai tuoi tweet"
   },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "Nascondi risposte degli utenti verificati Premium"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "Nascondi promozioni Premium"
-  },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "Nascondi tweet citati e risposte di account bloccati o silenziati"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Nascondi elementi di interfaccia che non usi"
   },
-  "hideVerifiedNotificationsTabLabel": {
+  "hideVerifiedTabsLabel": {
     "message": "Nascondi la sezione verificata dalle notifiche e dai seguaci"
   },
   "hideViewsLabel": {
@@ -317,6 +317,12 @@
   "option_separate": {
     "message": "Mostra in scheda separata"
   },
+  "premiumBlueChecksLabel": {
+    "message": "Spunta blu Premium"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "Sostituisci con logo di Twitter Blue"
+  },
   "preventNextVideoAutoplayInfo": {
     "message": "I video verranno riprodotti in loop invece"
   },
@@ -341,9 +347,6 @@
   "reducedInteractionModeLabel": {
     "message": "Modalità a interazione ridotta"
   },
-  "replaceLogoLabel": {
-    "message": "Sostituisci modifiche relative al marchio X"
-  },
   "restoreLinkHeadlinesLabel": {
     "message": "Ripristina titoli sotto ai link esterni"
   },
@@ -359,23 +362,14 @@
   "retweetsLabel": {
     "message": "Retweet"
   },
+  "revertXBrandingLabel": {
+    "message": "Sostituisci modifiche relative al marchio X"
+  },
   "saveAndApplyButton": {
     "message": "Salva e applica"
   },
   "sharedTweetsOptionsLabel": {
     "message": "Tweet condivisi da altri utenti"
-  },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "Numero di seguaci"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "Mostra account con più di $AMOUNT$ follower",
-    "placeholders": {
-      "amount": {
-        "content": "$1",
-        "example": "1 milione"
-      }
-    }
   },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "Mostra sotto ai tweet selezionati"
@@ -385,6 +379,18 @@
   },
   "showPremiumReplyFollowedByLabel": {
     "message": "Mostra account che mi seguono"
+  },
+  "showPremiumReplyFollowersCountAmountLabel": {
+    "message": "Numero di seguaci"
+  },
+  "showPremiumReplyFollowersCountLabel": {
+    "message": "Mostra account con più di $AMOUNT$ follower",
+    "placeholders": {
+      "amount": {
+        "content": "$1",
+        "example": "1 milione"
+      }
+    }
   },
   "showPremiumReplyFollowingLabel": {
     "message": "Mostra account che seguo"
@@ -409,12 +415,6 @@
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "Nascondi il tweet citato quando visualizzi i tweet di citazione"
-  },
-  "twitterBlueChecksLabel": {
-    "message": "Spunta blu Premium"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Sostituisci con logo di Twitter Blue"
   },
   "uiImprovementsOptionsLabel": {
     "message": "Miglioramenti interfaccia"

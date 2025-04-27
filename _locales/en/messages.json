@@ -5,9 +5,6 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Add \"Add muted word\" to the slide-out menu"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "Use the \"Following\" (chronological) timeline by default"
-  },
   "appStoreSubtitle": {
     "message": "Take control of your timeline",
     "description": "<= 30 characters"
@@ -26,6 +23,9 @@
   },
   "debugOptionsLabel": {
     "message": "Debug options"
+  },
+  "defaultToFollowingLabel": {
+    "message": "Use the \"Following\" (chronological) timeline by default"
   },
   "defaultToLatestSearchLabel": {
     "message": "Default to \"Latest\" tab in Search"
@@ -188,6 +188,12 @@
   "hideNotificationsLabel": {
     "message": "Hide notifications"
   },
+  "hidePremiumRepliesLabel": {
+    "message": "Hide Premium blue check replies"
+  },
+  "hidePremiumUpsellsLabel": {
+    "message": "Hide Premium upsells"
+  },
   "hideProfileHeaderMetricsLabel": {
     "message": "Profile header metrics"
   },
@@ -239,19 +245,13 @@
   "hideTweetAnalyticsLinksLabel": {
     "message": "\"View post engagements\" under your tweets"
   },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "Hide Premium blue check replies"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "Hide Premium upsells"
-  },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "Hide quotes and replies to blocked and muted accounts"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Hide UI items you don't use"
   },
-  "hideVerifiedNotificationsTabLabel": {
+  "hideVerifiedTabsLabel": {
     "message": "Hide \"Verified\" Notifications and Followers tabs"
   },
   "hideViewsLabel": {
@@ -323,6 +323,12 @@
     "message": "Show in separate tab",
     "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
   },
+  "premiumBlueChecksLabel": {
+    "message": "Premium blue checks"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "Replace with Twitter Blue logo"
+  },
   "preventNextVideoAutoplayInfo": {
     "message": "Videos will loop instead"
   },
@@ -347,9 +353,6 @@
   "reducedInteractionModeLabel": {
     "message": "Reduced interaction mode"
   },
-  "replaceLogoLabel": {
-    "message": "Replace X branding changes"
-  },
   "restoreLinkHeadlinesLabel": {
     "message": "Restore headlines under external links"
   },
@@ -365,23 +368,14 @@
   "retweetsLabel": {
     "message": "Retweets"
   },
+  "revertXBrandingLabel": {
+    "message": "Replace X branding changes"
+  },
   "saveAndApplyButton": {
     "message": "Save and apply"
   },
   "sharedTweetsOptionsLabel": {
     "message": "Tweets shared by other users"
-  },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "Number of followers"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "Show accounts with over $AMOUNT$ followers",
-    "placeholders": {
-      "amount": {
-        "content": "$1",
-        "example": "1 million"
-      }
-    }
   },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "Show under focused tweets"
@@ -391,6 +385,18 @@
   },
   "showPremiumReplyFollowedByLabel": {
     "message": "Show accounts which follow me"
+  },
+  "showPremiumReplyFollowersCountAmountLabel": {
+    "message": "Number of followers"
+  },
+  "showPremiumReplyFollowersCountLabel": {
+    "message": "Show accounts with over $AMOUNT$ followers",
+    "placeholders": {
+      "amount": {
+        "content": "$1",
+        "example": "1 million"
+      }
+    }
   },
   "showPremiumReplyFollowingLabel": {
     "message": "Show accounts I follow"
@@ -415,12 +421,6 @@
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "Hide the quoted tweet when viewing Quote Tweets"
-  },
-  "twitterBlueChecksLabel": {
-    "message": "Premium blue checks"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Replace with Twitter Blue logo"
   },
   "uiImprovementsOptionsLabel": {
     "message": "UI improvements"

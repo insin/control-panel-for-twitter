@@ -5,9 +5,6 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Añade \"Añadir palabra silenciada\" al menú hamburguesa"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "Usar la timeline cronológica (Siguiendo) por defecto"
-  },
   "appStoreSubtitle": {
     "message": "Controla tu línea de tiempo"
   },
@@ -25,6 +22,9 @@
   },
   "debugOptionsLabel": {
     "message": "Opciones de desarrollo (debug)"
+  },
+  "defaultToFollowingLabel": {
+    "message": "Usar la timeline cronológica (Siguiendo) por defecto"
   },
   "defaultToLatestSearchLabel": {
     "message": "Por defecto a \"Más reciente\" en Buscar"
@@ -185,6 +185,12 @@
   "hideNotificationsLabel": {
     "message": "Ocultar notificaciones"
   },
+  "hidePremiumRepliesLabel": {
+    "message": "Ocultar respuestas de cheque azul Premium"
+  },
+  "hidePremiumUpsellsLabel": {
+    "message": "Ocultar promociones de Premium"
+  },
   "hideProfileHeaderMetricsLabel": {
     "message": "Métricas del encabezado del perfil"
   },
@@ -236,19 +242,13 @@
   "hideTweetAnalyticsLinksLabel": {
     "message": "\"Ver las interacciones de post\" debajo de tus tweets"
   },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "Ocultar respuestas de cheque azul Premium"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "Ocultar promociones de Premium"
-  },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "Ocultar citas y respuestas a cuentas bloqueadas y silenciadas"
   },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Ocultar elementos de interfaz no utilizados"
   },
-  "hideVerifiedNotificationsTabLabel": {
+  "hideVerifiedTabsLabel": {
     "message": "Ocultar pestañas \"Verificado\" en Notificaciones y Seguidores"
   },
   "hideViewsLabel": {
@@ -317,6 +317,12 @@
   "option_separate": {
     "message": "Mostrar en pestaña aparte"
   },
+  "premiumBlueChecksLabel": {
+    "message": "Marcas de verificación azules Premium"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "Cambiar por el logo de Twitter Blue"
+  },
   "preventNextVideoAutoplayInfo": {
     "message": "Los videos se repetirán en su lugar"
   },
@@ -341,9 +347,6 @@
   "reducedInteractionModeLabel": {
     "message": "Modo de interacción reducida"
   },
-  "replaceLogoLabel": {
-    "message": "Reemplazar X cambios de marca"
-  },
   "restoreLinkHeadlinesLabel": {
     "message": "Restaurar titulares bajo enlaces externos"
   },
@@ -359,22 +362,14 @@
   "retweetsLabel": {
     "message": "Retweets"
   },
+  "revertXBrandingLabel": {
+    "message": "Reemplazar X cambios de marca"
+  },
   "saveAndApplyButton": {
     "message": "Guardar y aplicar"
   },
   "sharedTweetsOptionsLabel": {
     "message": "Tweets compartidos por otros usuarios"
-  },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "Número de seguidores"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "Mostrar cuentas con más de $AMOUNT$ seguidores",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
   },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "Mostrar debajo de los tweets destacados"
@@ -384,6 +379,17 @@
   },
   "showPremiumReplyFollowedByLabel": {
     "message": "Mostrar cuentas que me siguen"
+  },
+  "showPremiumReplyFollowersCountAmountLabel": {
+    "message": "Número de seguidores"
+  },
+  "showPremiumReplyFollowersCountLabel": {
+    "message": "Mostrar cuentas con más de $AMOUNT$ seguidores",
+    "placeholders": {
+      "amount": {
+        "content": "$1"
+      }
+    }
   },
   "showPremiumReplyFollowingLabel": {
     "message": "Mostrar cuentas que sigo"
@@ -408,12 +414,6 @@
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "Ocultar el tweet citado en la página de citados"
-  },
-  "twitterBlueChecksLabel": {
-    "message": "Marcas de verificación azules Premium"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Cambiar por el logo de Twitter Blue"
   },
   "uiImprovementsOptionsLabel": {
     "message": "Mejoras de interfaz"

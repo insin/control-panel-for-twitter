@@ -9,7 +9,7 @@
 <body>
   <form>
     <section class="group">
-      <label class="checkbox" style="align-items: center;">
+      <label class="checkbox" style="align-items: center; padding-left: 12px;">
         <span style="display: flex; align-items: center; gap: .5em;">
           <img src="options-icon.png" class="icon">
           <span id="enabled">Enabled</span>
@@ -18,14 +18,17 @@
         <span class="toggle"></span>
       </label>
     </section>
+
+
+
     <section class="group labelled">
       <label id="homeTimelineOptionsLabel">
         Home timeline
       </label>
       <section class="checkbox">
         <label>
-          <span id="alwaysUseLatestTweetsLabel">Use the "Following" (chronological) timeline by default</span>
-          <input type="checkbox" name="alwaysUseLatestTweets">
+          <span id="defaultToFollowingLabel">Use the "Following" (chronological) timeline by default</span>
+          <input type="checkbox" name="defaultToFollowing">
           <span class="toggle"></span>
         </label>
         <section class="checkbox chronological">
@@ -212,8 +215,8 @@
       </section>
       <section class="checkbox">
         <label>
-          <span id="replaceLogoLabel">Replace X branding changes</span>
-          <input type="checkbox" name="replaceLogo">
+          <span id="revertXBrandingLabel">Replace X branding changes</span>
+          <input type="checkbox" name="revertXBranding">
           <span class="toggle"></span>
         </label>
       </section>
@@ -226,8 +229,8 @@
       </section>
       <section class="checkbox">
         <label>
-          <span id="hideVerifiedNotificationsTabLabel">Hide "Verified" Notifications and Followers tabs</span>
-          <input type="checkbox" name="hideVerifiedNotificationsTab">
+          <span id="hideVerifiedTabsLabel">Hide "Verified" Notifications and Followers tabs</span>
+          <input type="checkbox" name="hideVerifiedTabs">
           <span class="toggle"></span>
         </label>
       </section>
@@ -271,18 +274,18 @@
       </section>
       <section class="select">
         <label>
-          <span id="twitterBlueChecksLabel">Premium blue checks</span>
-          <select name="twitterBlueChecks">
+          <span id="premiumBlueChecksLabel">Premium blue checks</span>
+          <select name="premiumBlueChecks">
             <option value="ignore">Do nothing</option>
-            <option id="twitterBlueChecksOption_replace" value="replace">Replace with Twitter Blue logo</option>
+            <option id="premiumBlueChecksOption_replace" value="replace">Replace with Twitter Blue logo</option>
             <option value="hide">Hide</option>
           </select>
         </label>
       </section>
       <section class="checkbox">
         <label>
-          <span id="hideTwitterBlueRepliesLabel">Hide Premium blue check replies</span>
-          <input type="checkbox" name="hideTwitterBlueReplies">
+          <span id="hidePremiumRepliesLabel">Hide Premium blue check replies</span>
+          <input type="checkbox" name="hidePremiumReplies">
           <span class="toggle"></span>
         </label>
         <section class="checkbox hidingTwitterBlueReplies">
@@ -315,14 +318,14 @@
         </section>
         <section class="checkbox group hidingTwitterBlueReplies">
           <label>
-            <span id="showBlueReplyFollowersCountLabel">Show accounts with over 1 million followers</span>
-            <input type="checkbox" name="showBlueReplyFollowersCount">
+            <span id="showPremiumReplyFollowersCountLabel">Show accounts with over 1 million followers</span>
+            <input type="checkbox" name="showPremiumReplyFollowersCount">
             <span class="toggle"></span>
           </label>
           <section class="select showingBlueReplyFollowersCount">
             <label>
-              <span id="showBlueReplyFollowersCountAmountLabel">Number of followers</span>
-              <select name="showBlueReplyFollowersCountAmount">
+              <span id="showPremiumReplyFollowersCountAmountLabel">Number of followers</span>
+              <select name="showPremiumReplyFollowersCountAmount">
                 <option value="1000">1K</option>
                 <option value="10000">10K</option>
                 <option value="100000">100K</option>
@@ -334,8 +337,8 @@
       </section>
       <section class="checkbox">
         <label>
-          <span id="hideTwitterBlueUpsellsLabel">Hide Premium upsells</span>
-          <input type="checkbox" name="hideTwitterBlueUpsells">
+          <span id="hidePremiumUpsellsLabel">Hide Premium upsells</span>
+          <input type="checkbox" name="hidePremiumUpsells">
           <span class="toggle"></span>
         </label>
       </section>
@@ -487,7 +490,7 @@
       <section class="checkbox">
         <label>
           <span id="hideDiscoverSuggestionsLabel">Hide "Discover" suggestions</span>
-          <input type="checkbox" name="hideMoreTweets">
+          <input type="checkbox" name="hideDiscoverSuggestions">
           <span class="toggle"></span>
         </label>
       </section>
@@ -554,7 +557,7 @@
           <section class="checkbox">
             <label>
               <span id="hideProfileHeaderMetricsLabel">Profile header metrics</span>
-              <input type="checkbox" name="hideTotalTweetsMetrics">
+              <input type="checkbox" name="hideProfileHeaderMetrics">
               <span class="toggle"></span>
             </label>
           </section>
@@ -795,6 +798,6 @@
 
     <div id="version">v4.12.1<span id="debugCountdown"></span></div>
   </form>
-  <script src="options.js"></script>
+  <script src="options.js" type="module"></script>
 </body>
 </html>

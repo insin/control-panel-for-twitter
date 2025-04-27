@@ -1,9 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 
-const {sortProperties} = require('../utils')
+const {sortProperties} = require('../lib')
 
-/** @type Record<string,Record<string, string>> */
+/** @type {Record<string, Record<string, string>>} */
 const locales = JSON.parse(fs.readFileSync('./base-locales.json', 'utf-8'))
 
 // These codes are from Twitter's locale files
