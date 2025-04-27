@@ -4038,6 +4038,8 @@ const configureCss = (() => {
           // Search sidebar Radar upsell
           `body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:first-child:has(a[href="/i/radar"])`,
           `body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:first-child:has(a[href="/i/radar"]) + div:empty`,
+          // Premium link in hovercard
+          '[data-testid="HoverCard"] a[href^="/i/premium"]',
         )
       }
       if (config.hideSidebarContent) {
