@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const {sortProperties} = require('../utils')
+const {sortProperties} = require('../lib')
 
 const baseLocales = JSON.parse(fs.readFileSync('./base-locales.json', 'utf-8'))
 

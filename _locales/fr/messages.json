@@ -5,11 +5,17 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Ajouter \"Ajouter un mot masqué\" au menu déroulant"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "Utiliser le fil \"Abonnements\" (chronologique) par défaut"
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "Afficher le lieu du compte dans la vue détaillée du tweet"
+  },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "Afficher le lieu du compte dans les cartes de profil flottantes"
   },
   "appStoreSubtitle": {
     "message": "Contrôlez votre fil"
+  },
+  "bypassAgeVerificationLabel": {
+    "message": "Contourner la vérification de l'âge"
   },
   "customCssLabel": {
     "message": "CSS personnalisé"
@@ -20,11 +26,14 @@
   "debugLabel": {
     "message": "Mode de débogage (debug)"
   },
+  "debugLogGetElementStatsLabel": {
+    "message": "Journaliser les statistiques de getElement()"
+  },
   "debugLogTimelineStatsLabel": {
     "message": "Logger stats chronologie"
   },
-  "debugOptionsLabel": {
-    "message": "Options de débogage (debug)"
+  "defaultToFollowingLabel": {
+    "message": "Utiliser le fil Abonnements (chronologique) par défaut"
   },
   "defaultToLatestSearchLabel": {
     "message": "Utiliser l'onglet \"Récent\" par défaut dans la recherche"
@@ -56,8 +65,11 @@
   "experimentsOptionsLabel": {
     "message": "Fonctionnalités expérimentales"
   },
-  "exportConfigLabel": {
-    "message": "Exporter la configuration pour un rapport de bug"
+  "export": {
+    "message": "Exporter"
+  },
+  "exportSettingsLabel": {
+    "message": "Exporter les paramètres"
   },
   "extensionDescription": {
     "message": "Vous donne plus de contrôle sur Twitter et ajoute des fonctionnalités manquantes et des améliorations de l'interface utilisateur"
@@ -75,6 +87,9 @@
     "message": "Blocage rapide (ignore la boîte de dialogue de confirmation)"
   },
   "features": {
+    "message": "Fonctionnalités"
+  },
+  "featuresLabel": {
     "message": "Fonctionnalités"
   },
   "followButtonStyleLabel": {
@@ -113,14 +128,29 @@
   "hideBookmarksNavLabel": {
     "message": "Signets"
   },
+  "hideBusinessNavLabel": {
+    "message": "Entreprise"
+  },
+  "hideChatNavLabel": {
+    "message": "Chat"
+  },
   "hideCommunitiesNavLabel": {
     "message": "Communautés"
   },
   "hideComposeTweetLabel": {
     "message": "Masquer le bouton Rédiger un Tweet"
   },
+  "hideConnectNavLabel": {
+    "message": "Suivre"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "Creator Studio"
+  },
   "hideDiscoverSuggestionsLabel": {
     "message": "Masquer les suggestions \"Découvrir\""
+  },
+  "hideEditImageLabel": {
+    "message": "Masquer l'édition de l'image"
   },
   "hideExploreNavLabel": {
     "message": "Explorer"
@@ -168,13 +198,10 @@
     "message": "Messages"
   },
   "hideMessagesDrawerLabel": {
-    "message": "Tiroir des messages"
+    "message": "Tiroir de chat"
   },
   "hideMetricsLabel": {
     "message": "Masquer les métriques"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "Monétisation"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "Masquer les éléments de menu que vous n'utilisez pas"
@@ -182,8 +209,20 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Masquer les éléments inutilisés du menu latéral"
   },
+  "hideNotificationLikesLabel": {
+    "message": "Masquer les J'aime dans les notifications"
+  },
+  "hideNotificationRetweetsLabel": {
+    "message": "Masquer les Retweets dans les notifications"
+  },
   "hideNotificationsLabel": {
     "message": "Masquer les notifications"
+  },
+  "hidePremiumRepliesLabel": {
+    "message": "Masquer les réponses des coches bleus Premium"
+  },
+  "hidePremiumUpsellsLabel": {
+    "message": "Masquer les promotions Premium"
   },
   "hideProfileHeaderMetricsLabel": {
     "message": "Métriques de l'en-tête du profil"
@@ -197,7 +236,7 @@
   "hideQuotesFromLabel": {
     "message": "Utilisateurs en sourdine ($COUNT$)",
     "placeholders": {
-      "count": {
+      "COUNT": {
         "content": "$1",
         "example": "1"
       }
@@ -218,6 +257,9 @@
   "hideSidebarContentLabel": {
     "message": "Masquer le contenu de la barre latérale"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "Masquer le menu \"Trier les réponses\""
+  },
   "hideSpacesNavLabel": {
     "message": "Créer votre Espace"
   },
@@ -230,17 +272,11 @@
   "hideTimelineTweetBoxLabel": {
     "message": "Zone de tweet dans le fil"
   },
+  "hideTodaysNewsLabel": {
+    "message": "Masquer les Actualités du jour"
+  },
   "hideToggleNavigationLabel": {
     "message": "Masquer activer/désactiver la navigation"
-  },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "\"Voir les engagements avec le post\" sous vos tweets"
-  },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "Masquer les réponses des coches bleus Premium"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "Masquer les promotions Premium"
   },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "Masquer les citations et les réponses aux comptes bloqués et muets"
@@ -248,8 +284,11 @@
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Masquer les éléments de l'interface utilisateur que vous n'utilisez pas"
   },
-  "hideVerifiedNotificationsTabLabel": {
-    "message": "Masquer les onglets \"Certifié\" dans Notifications et Abonnés"
+  "hideVerifiedTabsLabel": {
+    "message": "Masquer l'onglet Certifié des Abonnés"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "Liens \"Voir l'activité\""
   },
   "hideViewsLabel": {
     "message": "Masquer les vues sous les tweets"
@@ -263,6 +302,28 @@
   "homeTimelineOptionsLabel": {
     "message": "Fil d'actualités"
   },
+  "import": {
+    "message": "Importer"
+  },
+  "importSettingsLabel": {
+    "message": "Importer les paramètres"
+  },
+  "invalidJsonFile": {
+    "message": "Fichier JSON non valide : $ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1"
+      }
+    }
+  },
+  "invalidSettings": {
+    "message": "Paramètres non valides : $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
+  },
   "listRetweetsLabel": {
     "message": "Retweets dans les Listes"
   },
@@ -272,7 +333,7 @@
   "mutedTweetsLabel": {
     "message": "Tweets masqués ($COUNT$)",
     "placeholders": {
-      "count": {
+      "COUNT": {
         "content": "$1",
         "example": "1"
       }
@@ -284,8 +345,17 @@
   "navDensityLabel": {
     "message": "Densité de navigation"
   },
+  "noFileSelected": {
+    "message": "Aucun fichier sélectionné"
+  },
+  "noSettingsObject": {
+    "message": "Aucun objet de paramètres trouvé dans le fichier JSON"
+  },
   "notificationsLabel": {
     "message": "Notifications"
+  },
+  "openOptionsPageLabel": {
+    "message": "Ouvrir la page des options"
   },
   "option_badges": {
     "message": "Masquer uniquement les badges"
@@ -308,14 +378,29 @@
   "option_liked": {
     "message": "J'aime"
   },
+  "option_mostRecent": {
+    "message": "Les plus récents"
+  },
+  "option_popular": {
+    "message": "Populaire"
+  },
   "option_recent": {
-    "message": "Récent"
+    "message": "Récents"
   },
   "option_relevant": {
     "message": "Pertinence"
   },
   "option_separate": {
     "message": "Afficher dans un onglet séparé"
+  },
+  "optionsPageImportSettingsNote": {
+    "message": "Utilisez la page des options pour importer les paramètres"
+  },
+  "premiumBlueChecksLabel": {
+    "message": "Coches bleues Premium"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "Remplacer par le logo Twitter Blue"
   },
   "preventNextVideoAutoplayInfo": {
     "message": "Les vidéos seront lues en boucle à la place"
@@ -325,6 +410,9 @@
   },
   "quoteTweetsLabel": {
     "message": "Tweets de citation"
+  },
+  "redirectChatNavLabel": {
+    "message": "Rediriger l'élément Chat vers Messages"
   },
   "redirectToTwitterLabel": {
     "message": "Rediriger vers twitter.com"
@@ -341,9 +429,6 @@
   "reducedInteractionModeLabel": {
     "message": "Mode d'interaction réduit"
   },
-  "replaceLogoLabel": {
-    "message": "Remplacer les changements de marque X"
-  },
   "restoreLinkHeadlinesLabel": {
     "message": "Restaurer les titres sous les liens externes"
   },
@@ -359,22 +444,23 @@
   "retweetsLabel": {
     "message": "Retweets"
   },
+  "revertXBrandingLabel": {
+    "message": "Rétablir les changements de marque X"
+  },
   "saveAndApplyButton": {
     "message": "Enregistrer et appliquer"
   },
+  "settingsImported": {
+    "message": "Paramètres importés"
+  },
+  "settingsLabel": {
+    "message": "Paramètres"
+  },
+  "settingsNotImported": {
+    "message": "Paramètres non importés"
+  },
   "sharedTweetsOptionsLabel": {
     "message": "Tweets partagés par d'autres utilisateurs"
-  },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "Nombre d'abonnés"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "Afficher les comptes ayant plus de $AMOUNT$ abonnés",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
   },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "Afficher sous les tweets mis en avant"
@@ -384,6 +470,17 @@
   },
   "showPremiumReplyFollowedByLabel": {
     "message": "Afficher les comptes qui me suivent"
+  },
+  "showPremiumReplyFollowersCountAmountLabel": {
+    "message": "Nombre d'abonnés"
+  },
+  "showPremiumReplyFollowersCountLabel": {
+    "message": "Afficher les comptes ayant plus de $AMOUNT$ abonnés",
+    "placeholders": {
+      "AMOUNT": {
+        "content": "$1"
+      }
+    }
   },
   "showPremiumReplyFollowingLabel": {
     "message": "Afficher les comptes que je suis"
@@ -397,6 +494,9 @@
   "sidebarLabel": {
     "message": "Barre latérale"
   },
+  "sortFollowingLabel": {
+    "message": "Trier les abonnements"
+  },
   "sortRepliesLabel": {
     "message": "Tri par défaut des réponses"
   },
@@ -409,12 +509,6 @@
   "tweakQuoteTweetsPageLabel": {
     "message": "Masquer le tweet cité lors de l'affichage des citations de tweets"
   },
-  "twitterBlueChecksLabel": {
-    "message": "Coches bleues Premium"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Remplacer par le logo Twitter Blue"
-  },
   "uiImprovementsOptionsLabel": {
     "message": "Améliorations de l'interface utilisateur"
   },
@@ -426,6 +520,14 @@
   },
   "uninvertFollowButtonsLabel": {
     "message": "Inverser les boutons Suivre / Se désabonner"
+  },
+  "unknownSettings": {
+    "message": "Paramètres inconnus : $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
   },
   "unmuteButtonText": {
     "message": "Restaurer"

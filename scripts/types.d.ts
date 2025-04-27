@@ -1,0 +1,1 @@
+export type ManifestVersion = 2 | 3

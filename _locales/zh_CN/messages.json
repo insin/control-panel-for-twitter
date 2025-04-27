@@ -5,11 +5,17 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "在滑出式菜单中添加\"增加隐藏词\""
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "默认使用 \"正在关注\"（按时间顺序）的时间线"
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "在推文详情中显示账户位置"
+  },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "在用户悬浮卡片中显示账户位置"
   },
   "appStoreSubtitle": {
     "message": "掌控你的时间线"
+  },
+  "bypassAgeVerificationLabel": {
+    "message": "绕过年龄验证"
   },
   "customCssLabel": {
     "message": "自定义 CSS"
@@ -20,11 +26,14 @@
   "debugLabel": {
     "message": "调试模式"
   },
+  "debugLogGetElementStatsLabel": {
+    "message": "记录 getElement() 的统计信息"
+  },
   "debugLogTimelineStatsLabel": {
     "message": "日志时间轴统计"
   },
-  "debugOptionsLabel": {
-    "message": "调试选项"
+  "defaultToFollowingLabel": {
+    "message": "默认使用 关注（按时间顺序）的时间线"
   },
   "defaultToLatestSearchLabel": {
     "message": "在搜索中默认为\"最新\"选项卡"
@@ -56,8 +65,11 @@
   "experimentsOptionsLabel": {
     "message": "试验"
   },
-  "exportConfigLabel": {
-    "message": "导出配置用于错误报告"
+  "export": {
+    "message": "导出"
+  },
+  "exportSettingsLabel": {
+    "message": "导出设置"
   },
   "extensionDescription": {
     "message": "让你对Twitter有更多的控制，并增加了缺失的功能和UI改进"
@@ -76,6 +88,9 @@
   },
   "features": {
     "message": "特征"
+  },
+  "featuresLabel": {
+    "message": "功能"
   },
   "followButtonStyleLabel": {
     "message": "按钮样式"
@@ -113,14 +128,29 @@
   "hideBookmarksNavLabel": {
     "message": "书签"
   },
+  "hideBusinessNavLabel": {
+    "message": "商业"
+  },
+  "hideChatNavLabel": {
+    "message": "聊天"
+  },
   "hideCommunitiesNavLabel": {
     "message": "社区"
   },
   "hideComposeTweetLabel": {
     "message": "隐藏撰写推文按钮"
   },
+  "hideConnectNavLabel": {
+    "message": "关注"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "创作者工作室"
+  },
   "hideDiscoverSuggestionsLabel": {
     "message": "隐藏\"发现\"建议"
+  },
+  "hideEditImageLabel": {
+    "message": "隐藏编辑图片"
   },
   "hideExploreNavLabel": {
     "message": "探索"
@@ -168,13 +198,10 @@
     "message": "私信"
   },
   "hideMessagesDrawerLabel": {
-    "message": "讯息抽屉"
+    "message": "聊天抽屉"
   },
   "hideMetricsLabel": {
     "message": "隐藏指标"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "盈利"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "隐藏你不使用的\"更多\"菜单项"
@@ -182,8 +209,20 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "隐藏你不使用的滑出式菜单项"
   },
+  "hideNotificationLikesLabel": {
+    "message": "在通知中隐藏喜欢"
+  },
+  "hideNotificationRetweetsLabel": {
+    "message": "在通知中隐藏转推"
+  },
   "hideNotificationsLabel": {
     "message": "隐藏通知"
+  },
+  "hidePremiumRepliesLabel": {
+    "message": "隐藏Premium蓝色勾号回复"
+  },
+  "hidePremiumUpsellsLabel": {
+    "message": "隐藏Premium强制销售"
   },
   "hideProfileHeaderMetricsLabel": {
     "message": "个人资料页眉指标"
@@ -197,7 +236,7 @@
   "hideQuotesFromLabel": {
     "message": "已静音用户 ($COUNT$)",
     "placeholders": {
-      "count": {
+      "COUNT": {
         "content": "$1",
         "example": "1"
       }
@@ -218,6 +257,9 @@
   "hideSidebarContentLabel": {
     "message": "隐藏侧边栏内容"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "隐藏“对回复排序”菜单"
+  },
   "hideSpacesNavLabel": {
     "message": "创建你的空间"
   },
@@ -230,17 +272,11 @@
   "hideTimelineTweetBoxLabel": {
     "message": "时间线推文框"
   },
+  "hideTodaysNewsLabel": {
+    "message": "隐藏今日新闻"
+  },
   "hideToggleNavigationLabel": {
     "message": "隐藏切换导航"
-  },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "您自己的推文下的\"查看 帖子 互动量\""
-  },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "隐藏Premium蓝色勾号回复"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "隐藏Premium强制销售"
   },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "隐藏对已屏蔽和已静音账号的引用和回复"
@@ -248,8 +284,11 @@
   "hideUnusedUiItemsOptionsLabel": {
     "message": "隐藏你不使用的用户界面项目"
   },
-  "hideVerifiedNotificationsTabLabel": {
-    "message": "隐藏通知和关注者中的\"认证\"选项卡"
+  "hideVerifiedTabsLabel": {
+    "message": "隐藏关注者中的“认证”选项卡"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "“查看活动”链接"
   },
   "hideViewsLabel": {
     "message": "隐藏推文下的观点"
@@ -262,6 +301,28 @@
   },
   "homeTimelineOptionsLabel": {
     "message": "主页时间线"
+  },
+  "import": {
+    "message": "导入"
+  },
+  "importSettingsLabel": {
+    "message": "导入设置"
+  },
+  "invalidJsonFile": {
+    "message": "无效的JSON文件: $ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1"
+      }
+    }
+  },
+  "invalidSettings": {
+    "message": "无效的设置: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
   },
   "listRetweetsLabel": {
     "message": "转推列表"
@@ -281,7 +342,7 @@
   "mutedTweetsLabel": {
     "message": "已隐藏推文 ($COUNT$)",
     "placeholders": {
-      "count": {
+      "COUNT": {
         "content": "$1",
         "example": "1"
       }
@@ -293,8 +354,17 @@
   "navDensityLabel": {
     "message": "导航密度"
   },
+  "noFileSelected": {
+    "message": "未选择任何文件"
+  },
+  "noSettingsObject": {
+    "message": "在JSON文件中找不到设置对象"
+  },
   "notificationsLabel": {
     "message": "通知"
+  },
+  "openOptionsPageLabel": {
+    "message": "打开选项页面"
   },
   "option_badges": {
     "message": "仅隐藏徽章"
@@ -317,14 +387,29 @@
   "option_liked": {
     "message": "喜欢"
   },
+  "option_mostRecent": {
+    "message": "最近"
+  },
+  "option_popular": {
+    "message": "热门"
+  },
   "option_recent": {
-    "message": "最新"
+    "message": "最近"
   },
   "option_relevant": {
-    "message": "相关性"
+    "message": "相关"
   },
   "option_separate": {
     "message": "在单独的标签中显示"
+  },
+  "optionsPageImportSettingsNote": {
+    "message": "使用选项页面导入设置"
+  },
+  "premiumBlueChecksLabel": {
+    "message": "Premium蓝色支票"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "替换为Twitter Blue标识"
   },
   "preventNextVideoAutoplayInfo": {
     "message": "视频将循环播放"
@@ -334,6 +419,9 @@
   },
   "quoteTweetsLabel": {
     "message": "引用推文"
+  },
+  "redirectChatNavLabel": {
+    "message": "将聊天导航项重定向至消息"
   },
   "redirectToTwitterLabel": {
     "message": "重定向到 twitter.com"
@@ -350,9 +438,6 @@
   "reducedInteractionModeLabel": {
     "message": "减少互动模式"
   },
-  "replaceLogoLabel": {
-    "message": "更换 X 品牌变更"
-  },
   "restoreLinkHeadlinesLabel": {
     "message": "恢复外部链接下的标题"
   },
@@ -368,22 +453,23 @@
   "retweetsLabel": {
     "message": "转发"
   },
+  "revertXBrandingLabel": {
+    "message": "还原 X 品牌变更"
+  },
   "saveAndApplyButton": {
     "message": "保存并应用"
   },
+  "settingsImported": {
+    "message": "设置已导入"
+  },
+  "settingsLabel": {
+    "message": "设置"
+  },
+  "settingsNotImported": {
+    "message": "设置未导入"
+  },
   "sharedTweetsOptionsLabel": {
     "message": "其他用户分享的推文"
-  },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "粉丝数"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "显示粉丝数超过$AMOUNT$的账户",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
   },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "在焦点推文下显示"
@@ -393,6 +479,17 @@
   },
   "showPremiumReplyFollowedByLabel": {
     "message": "显示关注我的账户"
+  },
+  "showPremiumReplyFollowersCountAmountLabel": {
+    "message": "粉丝数"
+  },
+  "showPremiumReplyFollowersCountLabel": {
+    "message": "显示粉丝数超过$AMOUNT$的账户",
+    "placeholders": {
+      "AMOUNT": {
+        "content": "$1"
+      }
+    }
   },
   "showPremiumReplyFollowingLabel": {
     "message": "显示我关注的账户"
@@ -405,6 +502,9 @@
   },
   "sidebarLabel": {
     "message": "侧边栏"
+  },
+  "sortFollowingLabel": {
+    "message": "排序“关注”"
   },
   "sortReplies": {
     "message": "对回复排序"
@@ -421,12 +521,6 @@
   "tweakQuoteTweetsPageLabel": {
     "message": "查看引用推文时隐藏被引用的推文"
   },
-  "twitterBlueChecksLabel": {
-    "message": "Premium蓝色支票"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "替换为Twitter Blue标识"
-  },
   "uiImprovementsOptionsLabel": {
     "message": "用户界面改进"
   },
@@ -438,6 +532,14 @@
   },
   "uninvertFollowButtonsLabel": {
     "message": "取消 关注着/正在关注 按钮"
+  },
+  "unknownSettings": {
+    "message": "未知的设置: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
   },
   "unmuteButtonText": {
     "message": "取消隐藏"

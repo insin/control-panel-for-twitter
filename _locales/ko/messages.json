@@ -5,11 +5,17 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "슬라이드 메뉴에 \"뮤트할 단어 추가하기\" 추가"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "기본적으로 \"팔로잉\" (시간순) 타임라인 사용"
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "개별 트윗에 계정 위치 표시"
+  },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "사용자 호버 카드에 계정 위치 표시"
   },
   "appStoreSubtitle": {
     "message": "타임라인을 통제하세요"
+  },
+  "bypassAgeVerificationLabel": {
+    "message": "성인 인증 우회하기"
   },
   "customCssLabel": {
     "message": "사용자 정의 CSS"
@@ -20,11 +26,14 @@
   "debugLabel": {
     "message": "디버그 모드"
   },
+  "debugLogGetElementStatsLabel": {
+    "message": "getElement() 통계 로그 기록"
+  },
   "debugLogTimelineStatsLabel": {
     "message": "타임라인 통계 로깅"
   },
-  "debugOptionsLabel": {
-    "message": "디버그 옵션"
+  "defaultToFollowingLabel": {
+    "message": "기본적으로 팔로잉 (시간순) 타임라인 사용"
   },
   "defaultToLatestSearchLabel": {
     "message": "검색 시 기본적으로 \"최신\" 탭 사용"
@@ -56,8 +65,11 @@
   "experimentsOptionsLabel": {
     "message": "실험"
   },
-  "exportConfigLabel": {
-    "message": "버그 보고서를 위한 설정 내보내기"
+  "export": {
+    "message": "내보내기"
+  },
+  "exportSettingsLabel": {
+    "message": "설정 내보내기"
   },
   "extensionDescription": {
     "message": "트위터에 대한 더 많은 제어권을 제공하고 기능을 보완하며 UI를 개선합니다"
@@ -75,6 +87,9 @@
     "message": "빠른 차단 (확인 대화상자 생략)"
   },
   "features": {
+    "message": "기능"
+  },
+  "featuresLabel": {
     "message": "기능"
   },
   "followButtonStyleLabel": {
@@ -113,14 +128,29 @@
   "hideBookmarksNavLabel": {
     "message": "북마크"
   },
+  "hideBusinessNavLabel": {
+    "message": "비즈니스"
+  },
+  "hideChatNavLabel": {
+    "message": "채팅"
+  },
   "hideCommunitiesNavLabel": {
     "message": "커뮤니티"
   },
   "hideComposeTweetLabel": {
     "message": "트윗 작성 버튼 숨기기"
   },
+  "hideConnectNavLabel": {
+    "message": "팔로우"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "크리에이터 스튜디오"
+  },
   "hideDiscoverSuggestionsLabel": {
     "message": "\"발견\" 제안 숨기기"
+  },
+  "hideEditImageLabel": {
+    "message": "이미지 수정하기 숨기기"
   },
   "hideExploreNavLabel": {
     "message": "탐색"
@@ -168,13 +198,10 @@
     "message": "메시지"
   },
   "hideMessagesDrawerLabel": {
-    "message": "메시지 드로어"
+    "message": "채팅 드로어"
   },
   "hideMetricsLabel": {
     "message": "지표 숨기기"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "수익 창출"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "사용하지 않는 \"더 보기\" 메뉴 항목숨기기 (데스크톱)"
@@ -182,8 +209,20 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "사용하지 않는 \"더 보기\" 메뉴 항목 숨기기 (모바일)"
   },
+  "hideNotificationLikesLabel": {
+    "message": "알림에서 좋아요 숨기기"
+  },
+  "hideNotificationRetweetsLabel": {
+    "message": "알림에서 리트윗 숨기기"
+  },
   "hideNotificationsLabel": {
     "message": "알림 숨기기"
+  },
+  "hidePremiumRepliesLabel": {
+    "message": "Premium 파란색 체크 답장 숨기기"
+  },
+  "hidePremiumUpsellsLabel": {
+    "message": "Premium 업셀 숨기기"
   },
   "hideProfileHeaderMetricsLabel": {
     "message": "프로필 헤더 메트릭"
@@ -197,7 +236,7 @@
   "hideQuotesFromLabel": {
     "message": "음소거된 사용자 ($COUNT$)",
     "placeholders": {
-      "count": {
+      "COUNT": {
         "content": "$1",
         "example": "1"
       }
@@ -218,6 +257,9 @@
   "hideSidebarContentLabel": {
     "message": "사이드바 내용 숨기기"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "\"답글 정렬하기\" 메뉴 숨기기"
+  },
   "hideSpacesNavLabel": {
     "message": "스페이스 만들기"
   },
@@ -230,17 +272,11 @@
   "hideTimelineTweetBoxLabel": {
     "message": "타임라인 트윗 상자"
   },
+  "hideTodaysNewsLabel": {
+    "message": "오늘의 뉴스 숨기기"
+  },
   "hideToggleNavigationLabel": {
     "message": "탐색 전환 숨기기"
-  },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "내 트윗 아래에 \"게시 참여수 조회\""
-  },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "Premium 파란색 체크 답장 숨기기"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "Premium 업셀 숨기기"
   },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "차단 및 음소거된 계정에 대한 인용 및 답글 숨기기"
@@ -248,8 +284,11 @@
   "hideUnusedUiItemsOptionsLabel": {
     "message": "사용하지 않는 UI 항목 숨기기"
   },
-  "hideVerifiedNotificationsTabLabel": {
-    "message": "알림 및 팔로어에 \"인증된\" 탭 숨기기"
+  "hideVerifiedTabsLabel": {
+    "message": "팔로워의 인증된 탭 숨기기"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "\"활동 보기\" 링크"
   },
   "hideViewsLabel": {
     "message": "트윗 아래의 조회수 숨기기"
@@ -263,6 +302,28 @@
   "homeTimelineOptionsLabel": {
     "message": "홈 타임라인"
   },
+  "import": {
+    "message": "가져오기"
+  },
+  "importSettingsLabel": {
+    "message": "설정 가져오기"
+  },
+  "invalidJsonFile": {
+    "message": "잘못된 JSON 파일: $ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1"
+      }
+    }
+  },
+  "invalidSettings": {
+    "message": "잘못된 설정: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
+  },
   "listRetweetsLabel": {
     "message": "리스트에 포함된 리트윗"
   },
@@ -272,7 +333,7 @@
   "mutedTweetsLabel": {
     "message": "음소거된 트윗 ($COUNT$개)",
     "placeholders": {
-      "count": {
+      "COUNT": {
         "content": "$1",
         "example": "1"
       }
@@ -284,8 +345,17 @@
   "navDensityLabel": {
     "message": "네비게이션 밀도"
   },
+  "noFileSelected": {
+    "message": "선택된 파일 없음"
+  },
+  "noSettingsObject": {
+    "message": "JSON 파일에서 설정 개체를 찾을 수 없습니다"
+  },
   "notificationsLabel": {
     "message": "알림"
+  },
+  "openOptionsPageLabel": {
+    "message": "옵션 페이지 열기"
   },
   "option_badges": {
     "message": "배지만 숨기기"
@@ -308,14 +378,29 @@
   "option_liked": {
     "message": "마음에 들어요"
   },
+  "option_mostRecent": {
+    "message": "최신 순서"
+  },
+  "option_popular": {
+    "message": "인기"
+  },
   "option_recent": {
-    "message": "최신"
+    "message": "최근"
   },
   "option_relevant": {
     "message": "관련성"
   },
   "option_separate": {
     "message": "별도의 탭에 표시"
+  },
+  "optionsPageImportSettingsNote": {
+    "message": "옵션 페이지를 사용하여 설정을 가져옵니다"
+  },
+  "premiumBlueChecksLabel": {
+    "message": "Premium 파란색 체크"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "Twitter Blue 로고로 교체"
   },
   "preventNextVideoAutoplayInfo": {
     "message": "비디오는 반복 재생됩니다"
@@ -325,6 +410,9 @@
   },
   "quoteTweetsLabel": {
     "message": "인용 트윗"
+  },
+  "redirectChatNavLabel": {
+    "message": "채팅 탐색 항목을 메시지로 리디렉션"
   },
   "redirectToTwitterLabel": {
     "message": "twitter.com으로 리디렉션"
@@ -341,9 +429,6 @@
   "reducedInteractionModeLabel": {
     "message": "상호작용 줄임 모드"
   },
-  "replaceLogoLabel": {
-    "message": "X 브랜딩 변경 사항 바꾸기"
-  },
   "restoreLinkHeadlinesLabel": {
     "message": "외부 링크 아래의 제목 복원"
   },
@@ -359,22 +444,23 @@
   "retweetsLabel": {
     "message": "리트윗"
   },
+  "revertXBrandingLabel": {
+    "message": "X 브랜딩 변경 되돌리기"
+  },
   "saveAndApplyButton": {
     "message": "저장하고 적용"
   },
+  "settingsImported": {
+    "message": "설정을 가져왔습니다"
+  },
+  "settingsLabel": {
+    "message": "설정"
+  },
+  "settingsNotImported": {
+    "message": "설정을 가져오지 못했습니다"
+  },
   "sharedTweetsOptionsLabel": {
     "message": "다른 사용자가 공유한 트윗"
-  },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "팔로워 수"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "팔로워 수가 $AMOUNT$명을 초과하는 계정 표시",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
   },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "집중된 트윗 아래에 표시"
@@ -384,6 +470,17 @@
   },
   "showPremiumReplyFollowedByLabel": {
     "message": "나를 팔로우하는 계정 표시"
+  },
+  "showPremiumReplyFollowersCountAmountLabel": {
+    "message": "팔로워 수"
+  },
+  "showPremiumReplyFollowersCountLabel": {
+    "message": "팔로워 수가 $AMOUNT$명을 초과하는 계정 표시",
+    "placeholders": {
+      "AMOUNT": {
+        "content": "$1"
+      }
+    }
   },
   "showPremiumReplyFollowingLabel": {
     "message": "내가 팔로우하는 계정 표시"
@@ -397,6 +494,9 @@
   "sidebarLabel": {
     "message": "사이드바"
   },
+  "sortFollowingLabel": {
+    "message": "팔로잉 정렬"
+  },
   "sortRepliesLabel": {
     "message": "답글의 기본 정렬"
   },
@@ -409,12 +509,6 @@
   "tweakQuoteTweetsPageLabel": {
     "message": "인용 트윗을 볼 때 인용된 트윗 숨기기"
   },
-  "twitterBlueChecksLabel": {
-    "message": "Premium 파란색 체크"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Twitter Blue 로고로 교체"
-  },
   "uiImprovementsOptionsLabel": {
     "message": "UI 개선"
   },
@@ -426,6 +520,14 @@
   },
   "uninvertFollowButtonsLabel": {
     "message": "팔로우/팔로잉 버튼 색상 반전 해제"
+  },
+  "unknownSettings": {
+    "message": "알 수 없는 설정: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
   },
   "unmuteButtonText": {
     "message": "음소거 해제"

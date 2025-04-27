@@ -5,12 +5,18 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Add \"Add muted word\" to the slide-out menu"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "Use the \"Following\" (chronological) timeline by default"
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "Show account location in focused tweets"
+  },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "Show account location in user hover cards"
   },
   "appStoreSubtitle": {
     "message": "Take control of your timeline",
     "description": "<= 30 characters"
+  },
+  "bypassAgeVerificationLabel": {
+    "message": "Bypass age verification"
   },
   "customCssLabel": {
     "message": "Custom CSS"
@@ -21,11 +27,14 @@
   "debugLabel": {
     "message": "Debug mode"
   },
+  "debugLogGetElementStatsLabel": {
+    "message": "Log getElement() stats"
+  },
   "debugLogTimelineStatsLabel": {
     "message": "Log timeline stats"
   },
-  "debugOptionsLabel": {
-    "message": "Debug options"
+  "defaultToFollowingLabel": {
+    "message": "Use the Following (chronological) timeline by default"
   },
   "defaultToLatestSearchLabel": {
     "message": "Default to \"Latest\" tab in Search"
@@ -57,8 +66,11 @@
   "experimentsOptionsLabel": {
     "message": "Experiments"
   },
-  "exportConfigLabel": {
-    "message": "Export configuration for bug report"
+  "export": {
+    "message": "Export"
+  },
+  "exportSettingsLabel": {
+    "message": "Export settings"
   },
   "extensionDescription": {
     "message": "Gives you more control over Twitter and adds missing features and UI improvements",
@@ -78,6 +90,9 @@
     "message": "Fast blocking (skips confirm dialog)"
   },
   "features": {
+    "message": "Features"
+  },
+  "featuresLabel": {
     "message": "Features"
   },
   "followButtonStyleLabel": {
@@ -116,14 +131,29 @@
   "hideBookmarksNavLabel": {
     "message": "Bookmarks"
   },
+  "hideBusinessNavLabel": {
+    "message": "Business"
+  },
+  "hideChatNavLabel": {
+    "message": "Chat"
+  },
   "hideCommunitiesNavLabel": {
     "message": "Communities"
   },
   "hideComposeTweetLabel": {
     "message": "Hide the Compose Tweet button"
   },
+  "hideConnectNavLabel": {
+    "message": "Follow"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "Creator Studio"
+  },
   "hideDiscoverSuggestionsLabel": {
     "message": "Hide \"Discover\" suggestions"
+  },
+  "hideEditImageLabel": {
+    "message": "Hide Edit image"
   },
   "hideExploreNavLabel": {
     "message": "Explore"
@@ -171,13 +201,10 @@
     "message": "Messages"
   },
   "hideMessagesDrawerLabel": {
-    "message": "Messages drawer"
+    "message": "Chat drawer"
   },
   "hideMetricsLabel": {
     "message": "Hide metrics"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "Monetization"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "Hide \"More\" menu items you don't use"
@@ -185,8 +212,20 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Hide slide-out menu items you don't use"
   },
+  "hideNotificationLikesLabel": {
+    "message": "Hide Likes in Notifications"
+  },
+  "hideNotificationRetweetsLabel": {
+    "message": "Hide Retweets in Notifications"
+  },
   "hideNotificationsLabel": {
     "message": "Hide notifications"
+  },
+  "hidePremiumRepliesLabel": {
+    "message": "Hide Premium blue check replies"
+  },
+  "hidePremiumUpsellsLabel": {
+    "message": "Hide Premium upsells"
   },
   "hideProfileHeaderMetricsLabel": {
     "message": "Profile header metrics"
@@ -200,7 +239,7 @@
   "hideQuotesFromLabel": {
     "message": "Muted users ($COUNT$)",
     "placeholders": {
-      "count": {
+      "COUNT": {
         "content": "$1",
         "example": "1"
       }
@@ -221,6 +260,9 @@
   "hideSidebarContentLabel": {
     "message": "Hide sidebar contents"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "Hide \"Sort replies\" menu"
+  },
   "hideSpacesNavLabel": {
     "message": "Create your Space"
   },
@@ -233,17 +275,11 @@
   "hideTimelineTweetBoxLabel": {
     "message": "Tweet box in timeline"
   },
+  "hideTodaysNewsLabel": {
+    "message": "Hide Today's News"
+  },
   "hideToggleNavigationLabel": {
     "message": "Hide Toggle navigation"
-  },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "\"View post engagements\" under your tweets"
-  },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "Hide Premium blue check replies"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "Hide Premium upsells"
   },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "Hide quotes and replies to blocked and muted accounts"
@@ -251,8 +287,11 @@
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Hide UI items you don't use"
   },
-  "hideVerifiedNotificationsTabLabel": {
-    "message": "Hide \"Verified\" Notifications and Followers tabs"
+  "hideVerifiedTabsLabel": {
+    "message": "Hide Verified Followers tab"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "\"View activity\" links"
   },
   "hideViewsLabel": {
     "message": "Hide Views under tweets"
@@ -266,6 +305,28 @@
   "homeTimelineOptionsLabel": {
     "message": "Home timeline"
   },
+  "import": {
+    "message": "Import"
+  },
+  "importSettingsLabel": {
+    "message": "Import settings"
+  },
+  "invalidJsonFile": {
+    "message": "Invalid JSON file: $ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1"
+      }
+    }
+  },
+  "invalidSettings": {
+    "message": "Invalid settings: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
+  },
   "listRetweetsLabel": {
     "message": "Retweets in Lists"
   },
@@ -275,7 +336,7 @@
   "mutedTweetsLabel": {
     "message": "Muted tweets ($COUNT$)",
     "placeholders": {
-      "count": {
+      "COUNT": {
         "content": "$1",
         "example": "1"
       }
@@ -287,8 +348,17 @@
   "navDensityLabel": {
     "message": "Navigation density"
   },
+  "noFileSelected": {
+    "message": "No file selected"
+  },
+  "noSettingsObject": {
+    "message": "No settings object found in JSON file"
+  },
   "notificationsLabel": {
     "message": "Notifications"
+  },
+  "openOptionsPageLabel": {
+    "message": "Open the options page"
   },
   "option_badges": {
     "message": "Hide badges only"
@@ -313,15 +383,30 @@
   "option_liked": {
     "message": "Likes"
   },
+  "option_mostRecent": {
+    "message": "Most recent"
+  },
+  "option_popular": {
+    "message": "Popular"
+  },
   "option_recent": {
-    "message": "Latest"
+    "message": "Recent"
   },
   "option_relevant": {
-    "message": "Relevancy"
+    "message": "Relevant"
   },
   "option_separate": {
     "message": "Show in separate tab",
     "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
+  },
+  "optionsPageImportSettingsNote": {
+    "message": "Use the options page to import settings"
+  },
+  "premiumBlueChecksLabel": {
+    "message": "Premium blue checks"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "Replace with Twitter Blue logo"
   },
   "preventNextVideoAutoplayInfo": {
     "message": "Videos will loop instead"
@@ -331,6 +416,9 @@
   },
   "quoteTweetsLabel": {
     "message": "Quote Tweets"
+  },
+  "redirectChatNavLabel": {
+    "message": "Redirect Chat nav item to Messages"
   },
   "redirectToTwitterLabel": {
     "message": "Redirect to twitter.com"
@@ -347,9 +435,6 @@
   "reducedInteractionModeLabel": {
     "message": "Reduced interaction mode"
   },
-  "replaceLogoLabel": {
-    "message": "Replace X branding changes"
-  },
   "restoreLinkHeadlinesLabel": {
     "message": "Restore headlines under external links"
   },
@@ -365,23 +450,23 @@
   "retweetsLabel": {
     "message": "Retweets"
   },
+  "revertXBrandingLabel": {
+    "message": "Revert X branding changes"
+  },
   "saveAndApplyButton": {
     "message": "Save and apply"
   },
+  "settingsImported": {
+    "message": "Settings imported"
+  },
+  "settingsLabel": {
+    "message": "Settings"
+  },
+  "settingsNotImported": {
+    "message": "Settings not imported"
+  },
   "sharedTweetsOptionsLabel": {
     "message": "Tweets shared by other users"
-  },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "Number of followers"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "Show accounts with over $AMOUNT$ followers",
-    "placeholders": {
-      "amount": {
-        "content": "$1",
-        "example": "1 million"
-      }
-    }
   },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "Show under focused tweets"
@@ -391,6 +476,18 @@
   },
   "showPremiumReplyFollowedByLabel": {
     "message": "Show accounts which follow me"
+  },
+  "showPremiumReplyFollowersCountAmountLabel": {
+    "message": "Number of followers"
+  },
+  "showPremiumReplyFollowersCountLabel": {
+    "message": "Show accounts with over $AMOUNT$ followers",
+    "placeholders": {
+      "AMOUNT": {
+        "content": "$1",
+        "example": "1 million"
+      }
+    }
   },
   "showPremiumReplyFollowingLabel": {
     "message": "Show accounts I follow"
@@ -404,6 +501,9 @@
   "sidebarLabel": {
     "message": "Sidebar"
   },
+  "sortFollowingLabel": {
+    "message": "Sort Following"
+  },
   "sortRepliesLabel": {
     "message": "Default sorting of replies"
   },
@@ -416,12 +516,6 @@
   "tweakQuoteTweetsPageLabel": {
     "message": "Hide the quoted tweet when viewing Quote Tweets"
   },
-  "twitterBlueChecksLabel": {
-    "message": "Premium blue checks"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Replace with Twitter Blue logo"
-  },
   "uiImprovementsOptionsLabel": {
     "message": "UI improvements"
   },
@@ -433,6 +527,14 @@
   },
   "uninvertFollowButtonsLabel": {
     "message": "Uninvert Follow / Following buttons"
+  },
+  "unknownSettings": {
+    "message": "Unknown settings: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
   },
   "unmuteButtonText": {
     "message": "Unmute",

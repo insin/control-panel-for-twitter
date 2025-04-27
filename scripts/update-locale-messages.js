@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const {sortProperties} = require('./utils')
+const {sortProperties} = require('./lib')
 
 if (process.argv.some(arg => /^-h|--help$/.test(arg))) {
   console.log(`
@@ -33,7 +33,8 @@ for (let [messageProp, translations] of Object.entries(translationsJson)) {
       )
     }
     let messagesJson = localeMessagesJson.get(localeCode)
-    messagesJson[messageProp] = {...messagesJson[messageProp], message}
+    let update = typeof message == 'string' ? {message} : message
+    messagesJson[messageProp] = {...messagesJson[messageProp], ...update}
   }
 }
 

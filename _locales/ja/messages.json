@@ -5,11 +5,17 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "スライドアウトメニューに「ミュートするキーワードを追加」を追加"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "常にタイムラインを「フォロー中」（時系列順）にする"
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "ツイートの詳細表示にアカウントの場所を表示"
+  },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "ユーザーのプロフィールカードにアカウントの場所を表示"
   },
   "appStoreSubtitle": {
     "message": "タイムラインを制御せよ"
+  },
+  "bypassAgeVerificationLabel": {
+    "message": "年齢確認をバイパス"
   },
   "customCssLabel": {
     "message": "カスタムCSS"
@@ -20,11 +26,14 @@
   "debugLabel": {
     "message": "デバッグモード"
   },
+  "debugLogGetElementStatsLabel": {
+    "message": "getElement() の統計をログに出力"
+  },
   "debugLogTimelineStatsLabel": {
     "message": "タイムライン統計をログ"
   },
-  "debugOptionsLabel": {
-    "message": "デバッグオプション"
+  "defaultToFollowingLabel": {
+    "message": "常にタイムラインをフォロー中（時系列順）にする"
   },
   "defaultToLatestSearchLabel": {
     "message": "検索のデフォルトは「最新」タブ"
@@ -56,8 +65,11 @@
   "experimentsOptionsLabel": {
     "message": "実験的機能"
   },
-  "exportConfigLabel": {
-    "message": "バグレポートの設定をエクスポート"
+  "export": {
+    "message": "エクスポート"
+  },
+  "exportSettingsLabel": {
+    "message": "設定をエクスポート"
   },
   "extensionDescription": {
     "message": "Twitter をより細かく制御し、不足している機能を追加して UI を改善します"
@@ -76,6 +88,9 @@
   },
   "features": {
     "message": "特徴"
+  },
+  "featuresLabel": {
+    "message": "機能"
   },
   "followButtonStyleLabel": {
     "message": "ボタンのスタイル"
@@ -113,14 +128,29 @@
   "hideBookmarksNavLabel": {
     "message": "ブックマーク"
   },
+  "hideBusinessNavLabel": {
+    "message": "ビジネス"
+  },
+  "hideChatNavLabel": {
+    "message": "チャット"
+  },
   "hideCommunitiesNavLabel": {
     "message": "コミュニティ"
   },
   "hideComposeTweetLabel": {
     "message": "ツイート作成ボタンを非表示"
   },
+  "hideConnectNavLabel": {
+    "message": "フォロー"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "Creator Studio"
+  },
   "hideDiscoverSuggestionsLabel": {
     "message": "「発見」の提案を非表示"
+  },
+  "hideEditImageLabel": {
+    "message": "「画像を編集」を非表示"
   },
   "hideExploreNavLabel": {
     "message": "「話題を検索」"
@@ -168,13 +198,10 @@
     "message": "メッセージ"
   },
   "hideMessagesDrawerLabel": {
-    "message": "メッセージドロワー"
+    "message": "チャットドロワー"
   },
   "hideMetricsLabel": {
     "message": "メトリクスを非表示"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "収益化"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "使用しない「もっと見る」メニューの項目を非表示"
@@ -182,8 +209,20 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "使用しないスライドアウトメニューの項目を非表示"
   },
+  "hideNotificationLikesLabel": {
+    "message": "通知内の「いいね！」を非表示"
+  },
+  "hideNotificationRetweetsLabel": {
+    "message": "通知内のリツイートを非表示"
+  },
   "hideNotificationsLabel": {
     "message": "通知を非表示"
+  },
+  "hidePremiumRepliesLabel": {
+    "message": "プレミアム ブルー チェックの返信を非表示にする"
+  },
+  "hidePremiumUpsellsLabel": {
+    "message": "プレミアムのアップセルを非表示にする"
   },
   "hideProfileHeaderMetricsLabel": {
     "message": "プロフィールヘッダーのメトリクス"
@@ -197,7 +236,7 @@
   "hideQuotesFromLabel": {
     "message": "ミュートしたユーザー ($COUNT$)",
     "placeholders": {
-      "count": {
+      "COUNT": {
         "content": "$1",
         "example": "1"
       }
@@ -218,6 +257,9 @@
   "hideSidebarContentLabel": {
     "message": "サイドバーコンテンツを非表示にする"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "「返信を並べ替え」メニューを非表示"
+  },
   "hideSpacesNavLabel": {
     "message": "スペースを作成"
   },
@@ -230,17 +272,11 @@
   "hideTimelineTweetBoxLabel": {
     "message": "タイムラインのツイートボックス"
   },
+  "hideTodaysNewsLabel": {
+    "message": "「本日のニュース」を非表示"
+  },
   "hideToggleNavigationLabel": {
     "message": "ナビゲーション切り替えを非表示"
-  },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "自分のツイートの下に「ポストのエンゲージメントを表示」"
-  },
-  "hideTwitterBlueRepliesLabel": {
-    "message": "プレミアム ブルー チェックの返信を非表示にする"
-  },
-  "hideTwitterBlueUpsellsLabel": {
-    "message": "プレミアムのアップセルを非表示にする"
   },
   "hideUnavailableQuoteTweetsLabel": {
     "message": "ブロックまたはミュートしたアカウントへの引用や返信を非表示にする"
@@ -248,8 +284,11 @@
   "hideUnusedUiItemsOptionsLabel": {
     "message": "使用しないUI項目を非表示"
   },
-  "hideVerifiedNotificationsTabLabel": {
-    "message": "通知とフォロワーの「認証済み」タブを非表示"
+  "hideVerifiedTabsLabel": {
+    "message": "フォロワーの「認証済み」タブを非表示"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "「アクティビティを表示」リンク"
   },
   "hideViewsLabel": {
     "message": "ツイート下部のアナリティクスのリンクを非表示"
@@ -263,6 +302,28 @@
   "homeTimelineOptionsLabel": {
     "message": "ホームタイムライン"
   },
+  "import": {
+    "message": "インポート"
+  },
+  "importSettingsLabel": {
+    "message": "設定をインポート"
+  },
+  "invalidJsonFile": {
+    "message": "無効なJSONファイル: $ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1"
+      }
+    }
+  },
+  "invalidSettings": {
+    "message": "無効な設定: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
+  },
   "listRetweetsLabel": {
     "message": "リスト内のリツイート"
   },
@@ -272,7 +333,7 @@
   "mutedTweetsLabel": {
     "message": "ミュートされたツイート（$COUNT$）",
     "placeholders": {
-      "count": {
+      "COUNT": {
         "content": "$1",
         "example": "1"
       }
@@ -284,8 +345,17 @@
   "navDensityLabel": {
     "message": "ナビゲーションの密度"
   },
+  "noFileSelected": {
+    "message": "ファイルが選択されていません"
+  },
+  "noSettingsObject": {
+    "message": "JSONファイルに設定オブジェクトが見つかりません"
+  },
   "notificationsLabel": {
     "message": "通知"
+  },
+  "openOptionsPageLabel": {
+    "message": "設定ページを開く"
   },
   "option_badges": {
     "message": "バッジのみ非表示"
@@ -308,14 +378,29 @@
   "option_liked": {
     "message": "いいね"
   },
+  "option_mostRecent": {
+    "message": "新しい順"
+  },
+  "option_popular": {
+    "message": "人気"
+  },
   "option_recent": {
     "message": "最新"
   },
   "option_relevant": {
-    "message": "関連性"
+    "message": "関連性が高い"
   },
   "option_separate": {
     "message": "別タブで開く"
+  },
+  "optionsPageImportSettingsNote": {
+    "message": "設定ページを使用して設定をインポートします"
+  },
+  "premiumBlueChecksLabel": {
+    "message": "プレミアムブルーチェック"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "Twitter Blueロゴに変更"
   },
   "preventNextVideoAutoplayInfo": {
     "message": "動画はループ再生されます"
@@ -325,6 +410,9 @@
   },
   "quoteTweetsLabel": {
     "message": "引用ツイート"
+  },
+  "redirectChatNavLabel": {
+    "message": "チャットナビをメッセージにリダイレクト"
   },
   "redirectToTwitterLabel": {
     "message": "twitter.com にリダイレクト"
@@ -341,9 +429,6 @@
   "reducedInteractionModeLabel": {
     "message": "インタラクションモードを減らす"
   },
-  "replaceLogoLabel": {
-    "message": "X のブランド変更を置き換える"
-  },
   "restoreLinkHeadlinesLabel": {
     "message": "外部リンクの下に見出しを復元する"
   },
@@ -359,22 +444,23 @@
   "retweetsLabel": {
     "message": "リツイート"
   },
+  "revertXBrandingLabel": {
+    "message": "Xのブランディング変更を元に戻す"
+  },
   "saveAndApplyButton": {
     "message": "保存して適用"
   },
+  "settingsImported": {
+    "message": "設定がインポートされました"
+  },
+  "settingsLabel": {
+    "message": "設定"
+  },
+  "settingsNotImported": {
+    "message": "設定はインポートされませんでした"
+  },
   "sharedTweetsOptionsLabel": {
     "message": "他のユーザーが共有したツイート"
-  },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "フォロワー数"
-  },
-  "showBlueReplyFollowersCountLabel": {
-    "message": "フォロワー数が$AMOUNT$人を超えるアカウントを表示",
-    "placeholders": {
-      "amount": {
-        "content": "$1"
-      }
-    }
   },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "フォーカスされたツイートの下に表示"
@@ -384,6 +470,17 @@
   },
   "showPremiumReplyFollowedByLabel": {
     "message": "自分をフォローしているアカウントを表示"
+  },
+  "showPremiumReplyFollowersCountAmountLabel": {
+    "message": "フォロワー数"
+  },
+  "showPremiumReplyFollowersCountLabel": {
+    "message": "フォロワー数が$AMOUNT$人を超えるアカウントを表示",
+    "placeholders": {
+      "AMOUNT": {
+        "content": "$1"
+      }
+    }
   },
   "showPremiumReplyFollowingLabel": {
     "message": "フォロー中のアカウントを表示"
@@ -397,6 +494,9 @@
   "sidebarLabel": {
     "message": "サイドバー"
   },
+  "sortFollowingLabel": {
+    "message": "フォロー中の並べ替え"
+  },
   "sortRepliesLabel": {
     "message": "返信のデフォルトの並べ替え"
   },
@@ -409,12 +509,6 @@
   "tweakQuoteTweetsPageLabel": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"
   },
-  "twitterBlueChecksLabel": {
-    "message": "プレミアムブルーチェック"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Twitter Blueロゴに変更"
-  },
   "uiImprovementsOptionsLabel": {
     "message": "UIの改善"
   },
@@ -426,6 +520,14 @@
   },
   "uninvertFollowButtonsLabel": {
     "message": "フォロー／フォロワーボタンの反転表示を解除"
+  },
+  "unknownSettings": {
+    "message": "不明な設定: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
   },
   "unmuteButtonText": {
     "message": "ミュート解除"

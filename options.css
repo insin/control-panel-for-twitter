@@ -1,28 +1,67 @@
 :root {
+  --bg-color: rgb(255, 255, 255);
+  --body-padding: 0;
+  --border-color: rgb(240, 240, 240);
+  --font-family: system-ui, sans-serif;
+  --font-size-primary: 13px;
+  --font-size-secondary: 13px;
+  --group-label-weight: 600;
+  --hover-bg-color: rgba(31, 31, 31, .08);
+  --option-padding-x: 12px;
+  --text-color-error: rgb(197, 57, 41);
+  --text-color-primary: rgb(31, 31, 31);
+  --text-color-secondary: rgb(95, 99, 104);
+  --text-color-success: rgb(24, 128, 56);
   color-scheme: light dark;
 }
 
+.font-bold {
+  font-weight: bold;
+}
+
+.text-error {
+  color: var(--text-color-error);
+}
+
+.text-success {
+  color: var(--text-color-success);
+}
+
+.whitespace-pre-line {
+  white-space: pre-line;
+}
+
 body {
-  user-select: none;
-  padding: 0;
+  background-color: var(--bg-color);
+  color: var(--text-color-primary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-primary);
   margin: 0;
-  /* XXX These are defaults for Chrome, do something else instead */
-  font-size: 13px;
-  font-family: Roboto, "Segoe UI", Tahoma, sans-serif;
+  padding: var(--body-padding);
+  user-select: none;
 }
 
 body.browserAction {
   min-width: 450px;
 }
-body.iOS.browserAction {
+body.browser-firefox.browserAction {
+  min-width: auto;
+  max-width: 450px;
+}
+body.browser-firefox.browserAction .firefoxSizer {
+  display: inline-block;
+  line-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+body.browser-ios.browserAction {
   min-width: 0;
 }
 
-body.mobile .desktop,
 body.desktop .mobile,
+body.mobile .desktop,
 body.hidingNotifications #disabledHomeTimelineRedirectOption_notifications,
 body:not(.chronological) .chronological,
-body:not(.debug) .debug,
 body:not(.debugging) .debugging,
 body:not(.disabledHomeTimeline) .disabledHomeTimeline,
 body:not(.fullWidthContent) .fullWidthContent,
@@ -31,60 +70,51 @@ body:not(.hidingExploreNav) .hidingExploreNav,
 body:not(.hidingMetrics) .hidingMetrics,
 body:not(.hidingQuotesFrom) #hideQuotesFromDetails,
 body:not(.hidingSuggestedFollows) .hidingSuggestedFollows,
-body:not(.hidingTwitterBlueReplies) .hidingTwitterBlueReplies,
-body:not(.iOS.safari) .toggle,
+body:not(.hidingPremiumReplies) .hidingPremiumReplies,
+body:not(.ios) .toggle,
 body:not(.mutingQuotes) #mutedQuotesDetails,
 body:not(.showingBlueReplyFollowersCount) .showingBlueReplyFollowersCount,
 body:not(.showingSidebarContent) .showingSidebarContent,
-body:not(.tweakingNewLayout) .tweakingNewLayout,
 body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   display: none;
 }
 
-.icon {
-  height: 1.25rem;
-}
-
-body.macOS.safari .icon {
-  display: none;
-}
-
-body.iOS.safari .icon {
-  height: 1.75rem;
-}
-
-body.disabled .icon {
-  filter: grayscale(100%);
-}
-
-body.disabled form > section ~ section {
+body.disabled .panel[data-tab="features"] > section ~ section {
   visibility: hidden;
 }
 
-body.disabled:not(.safari) form > section {
+body.disabled:not(.ios):not(.macos) .panel[data-tab="features"] > section {
   border-bottom: 1px solid var(--border-color);
 }
 
-label:not([for]) {
+.panel {
+  display: none;
+}
+
+label {
+  align-items: center;
+  color: var(--text-color-primary);
   display: flex;
+  gap: 12px;
   justify-content: space-between;
-  align-items: flex-start;
-  padding: 4px 12px;
   margin: 8px 0;
+  padding: 4px 12px;
+}
+
+section.labelled > label {
+  padding-bottom: 6px;
+  padding-top: 6px;
+}
+
+section.checkbox > label {
   cursor: pointer;
 }
 
-label.button button {
-  margin-left: 12px;
-}
-
-summary {
-  padding-left: 12px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  cursor: pointer;
+p {
+  color: var(--text-color-secondary);
+  font-size: var(--font-size-secondary);
+  margin: 0 0 12px 0;
+  padding: 0 36px 0 12px;
 }
 
 input[type=checkbox],
@@ -93,7 +123,6 @@ select {
 }
 
 input[type=checkbox] {
-  margin-left: 12px;
   flex-shrink: 0;
 }
 
@@ -101,41 +130,82 @@ section.group > label:not(.checkbox) {
   cursor: default;
 }
 
-section:not(:first-of-type) {
-  border-top: 1px solid #f0f0f0;
+section {
+  border-top: 1px solid var(--border-color);
 }
 
-section.group > section {
-  margin-left: 40px;
+section.group:first-of-type,
+section.group > section:first-of-type,
+.options > section:first-of-type {
+  border-top: none;
 }
 
-section.group > label {
+.group-label {
+  font-weight: var(--group-label-weight);
   margin-bottom: 12px;
 }
 
-section.group > section > * {
-  color: rgb(95, 99, 104);
+.options {
+  margin-left: 40px;
+}
+
+.sub-options {
+  margin-left: 20px;
+}
+
+/* section is currently a stand-in for .option */
+.options > section > :is(label, p),
+.sub-options > section > :is(label, p) {
   padding-left: 0;
 }
 
-section.group > p {
-  margin: 0 0 12px 40px;
-  font-size: 12px;
-}
+/* section.group > label {
+  font-weight: var(--group-label-weight);
+  margin-bottom: 12px;
+} */
 
-section.group > section > p {
-  margin: 0 60px 12px 0;
-  font-size: 12px;
+/* .panel > section.group:first-of-type > label {
+  margin-bottom: 8px;
+} */
+
+section.labelled.collapsible > label {
+  cursor: pointer;
+  position: relative;
+}
+/* Sticky headers for Firefox and Chrome // TODO Edge option groups */
+body:is(.firefox, .chrome, .edge) section.labelled.collapsible > label {
+  position: sticky;
+  top: 43px;
+  background: var(--bg-color);
+  padding: 12px 12px;
+  margin: 0;
+}
+section.labelled.collapsible > label > svg {
+  position: absolute;
+  right: 16px;
+}
+section.labelled.collapsible.collapsed label > svg {
+  transform: rotate(180deg);
+}
+section.labelled.collapsible.collapsed > :not(label) {
+  display: none;
 }
 
 section.textarea {
   display: flex;
-  justify-content: space-between;
-  padding: 4px 12px 4px 0;
-  margin: 8px 0;
   flex-direction: column;
-  align-items: stretch;
-  gap: 12px;
+}
+
+section.textarea > textarea {
+  margin: 8px 12px 12px 0;
+}
+
+section.textarea > button {
+  margin: 0 12px 12px 0;
+}
+
+section.textarea > p {
+  margin-right: 12px;
 }
 
 section.textarea button {
@@ -144,10 +214,40 @@ section.textarea button {
 
 textarea {
   resize: vertical;
+  padding: 4px;
 }
+
 /* Prevent zooming */
-body.iOS.safari textarea {
+body.browser-ios textarea {
   font-size: 16px;
+}
+
+details {
+  margin-left: 12px;
+}
+
+summary {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.icon {
+  height: 1.25rem;
+}
+
+body.macos .icon {
+  display: none;
+}
+
+body.ios .icon {
+  height: 1.75rem;
+}
+
+body.disabled .icon {
+  filter: grayscale(100%);
 }
 
 #mutedQuotes p {
@@ -164,212 +264,152 @@ body.disabled #version {
   display: none;
 }
 
-/* Firefox overrides */
-@-moz-document url-prefix() {
-  body {
-    font-family: inherit;
-    font-size: 15px;
-  }
-  body.browserAction {
-    min-width: auto;
-    max-width: 450px;
-  }
-  section:not(:first-of-type) {
-    border-color: #d7d7db;
-  }
-  section.group > p,
-  section.group > section > * {
-    color: rgb(91, 91, 102);
-  }
-  section.group > p,
-  section.group > section > p {
-    font-size: 14px;
+.firefoxSizer {
+  display: none;
+}
+
+/* #region Segmented buttons / Tabs */
+:root {
+  --macos-selected: rgba(0, 0, 0, .08);
+  --pill-bg: rgb(255, 255, 255);
+  --segment-bg: rgb(229, 229, 234);
+  --selected-shadow: rgba(0, 0, 0, .18);
+  --tab-focus-color: rgb(0, 122, 255);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --macos-selected: rgba(255, 255, 255, .12);
+    --pill-bg: rgb(44, 44, 46);
+    --segment-bg: rgb(28, 28, 30);
+    --selected-shadow: rgba(0, 0, 0, .7);
+    --tab-focus-color: rgb(10, 132, 255);
   }
 }
 
-/* Edge overrides */
-body.edge {
-  font-family: "system-ui", sans-serif;
-  font-size: 14px;
+.tabs {
+  --tab-count: 2;
+  background-color: inherit;
+  display: grid;
+  grid-template-columns: repeat(var(--tab-count), 1fr);
+  z-index: 10;
+  position: relative;
 }
-body.edge section:not(:first-of-type) {
-  border-color: #B6B6B6;
+
+.tabs button {
+  appearance: none;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 18px;
+  padding: 8px 0;
+  text-align: center;
+  z-index: 12;
 }
-body.edge section.group > label {
+
+.tabs button[aria-selected="true"] {
   font-weight: 600;
 }
-body.edge section.group > p,
-body.edge section.group > section > * {
-  color: #767676;
+
+.tabs button:focus-visible {
+  outline-offset: 2px;
+  outline: 2px solid var(--tab-focus-color);
 }
 
-/* Safari overrides */
-body.safari {
-  font-family: system-ui;
-  -webkit-user-select: none;
+.tabs .indicator {
+  display: none;
+  z-index: 11;
 }
 
-/* Safari overrides (macOS) */
-body.macOS.safari form {
-  padding: 4px 0;
-}
-/* Space option groups */
-body.macOS.safari form > section:not(:first-of-type) {
-  margin-top: 20px;
-}
-/* Add colons to option group labels */
-body.macOS.safari form > section.group > label:not(.checkbox)::after {
-  content: ":";
-}
-body.macOS.safari form > section.group > label {
-  margin-bottom: 0;
-}
-/* Indent options to align with the toggle all checkbox if there is one */
-body.macOS.safari section.group > section {
-  margin-left: 32px;
-}
-/* Align option group help text with options */
-body.macOS.safari form > section.group > p {
-  margin: 12px 12px 12px 32px;
-}
-/* Don't display dividing lines between option groups or options */
-body.macOS.safari section {
-  border-top: none;
-}
-/* Indent nested options to align with checkbox labels */
-body.macOS.safari section.group > section > section {
-  margin-left: 8px;
-}
-/* Put controls next to their labels... */
-body.macOS.safari label {
-  justify-content: start;
-  align-items: center;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-/* ...except for muted quotes' Unmute button */
-body.macOS.safari label.mutedQuote {
-  justify-content: space-between;
-}
-/* Put checkboxes before their labels */
-body.macOS.safari section.checkbox > label,
-body.macOS.safari label.checkbox {
-  flex-direction: row-reverse;
-}
-body.macOS.safari input[type=checkbox] {
-  margin-left: 0;
-  margin-right: 6px;
-}
-/* Put a period between labels and their buttons. */
-body.macOS.safari label.button :is(div, span) {
-  margin-right: 6px
-}
-body.macOS.safari label.button span::after {
-  content: ".";
-}
-/* Add colons to dropdown labels */
-body.macOS.safari section.select label {
-  display: block;
-}
-body.macOS.safari section.select span::after {
-  content: ": ";
-  display: inline-block
-}
-/* Align help text with checkbox labels */
-body.macOS.safari section.checkbox > p {
-  margin-left: 20px;
-  margin-right: 12px;
-}
-body.macOS.safari p {
-  color: rgb(123, 123, 123) !important;
-}
-body.macOS.safari section.group > section > * {
-  color: inherit;
+body.ios {
+  .tabs {
+    background: var(--segment-bg);
+    border-radius: 9px;
+    margin-bottom: 1rem;
+    padding: 2px;
+  }
+  .tabs .indicator {
+    background: var(--pill-bg);
+    border-radius: 7px;
+    box-shadow: 0 1px 2px var(--selected-shadow);
+    display: block;
+    inset: 2px;
+    position: absolute;
+    transform: translateX(calc(100% * var(--selected-tab-index)));
+    width: calc((100% - 4px) / var(--tab-count));
+  }
+  .tabs.animate .indicator {
+    transition: transform 250ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
 }
 
-/* Safari overrides (iOS) */
-body.iOS.safari {
-  background-color: rgb(240, 240, 245);
-  padding: 18px;
-  font-size: inherit;
-}
-body.iOS.safari label {
-  /* Prevent flash when labels are tapped */
-  -webkit-tap-highlight-color: transparent;
-  padding-left: 0;
-  padding-right: 18px;
-}
-/* Option groups should contain their options in a rounded box */
-body.iOS.safari form > section {
-  background-color: white;
-  border-radius: 10px;
-  padding-left: 18px;
-  padding-bottom: 1px;
-  padding-top: 1px;
-  border-top: none !important;
-}
-body.iOS.safari form > section:not(:first-of-type) {
-  margin-top: 34px;
-}
-/* All options should have a dividing line */
-body.iOS.safari section.group section {
-  border-top: 1px solid rgb(236, 236, 237);
-}
-/* Options should not be indented by default */
-body.iOS.safari section.group > section {
-  margin-left: 0;
-}
-/* Groups which have a toggle for all their options should indent their options */
-body.iOS.safari section.group > label.checkbox ~ section,
-/* Nested groups should indent their options */
-body.iOS.safari section.group > section.group > section {
-  margin-left: 18px;
-}
-/* Labelled option groups should display their label above the box */
-body.iOS.safari form > section.labelled {
-  position: relative;
-  margin-top: 46px;
-}
-body.iOS.safari form > section:first-child.labelled {
-  margin-top: 12px;
-}
-body.iOS.safari form > section.labelled > label {
-  position: absolute;
-  top: -32px;
-  text-transform: uppercase;
-  font-size: 75%;
-  color: rgb(133, 133, 135);
-}
-body.iOS.safari form > section.labelled > label + section,
-body.iOS.safari form > section.labelled > label + section.desktop + section {
-  border-top: none;
-}
-body.iOS.safari form > section.labelled > label + p {
-  margin-top: 12px;
-  margin-left: 0;
-}
-/* A checkbox options with nested options should indent their names */
-body.iOS.safari section.checkbox > section:not(.group) > label {
-  padding-left: 18px
-}
-/* A checkbox option with nested group should indent it */
-body.iOS.safari section.checkbox > section.group {
-  margin-left: 18px
-}
-body.iOS.safari summary {
-  padding-left: 0;
-}
-body.iOS.safari p {
-  font-size: inherit !important;
-  color: rgb(95, 99, 104) !important;
-  margin-right: 18px;
-}
-body.iOS.safari section.group > section > * {
-  color: inherit;
+body.macos .tabs {
+  background: var(--segment-bg);
+  padding: 2px;
+  border-radius: 6px;
+  margin: 8px;
+
+  button {
+    padding: 6px 0;
+    border-radius: 4px;
+  }
+
+  button[aria-selected="true"] {
+    background: var(--macos-selected);
+  }
 }
 
-/* iOS-style toggles */
-body.iOS.safari .checkbox input[type="checkbox"] {
+body:not(.ios):not(.macos) .tabs {
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-color);
+  position: sticky;
+  top: 0;
+
+  button {
+    padding: 0;
+    font-weight: 400;
+  }
+  button:hover {
+    background: var(--hover-bg-color);
+  }
+  .wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .label {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 12px;
+    padding-top: 12px;
+    position: relative;
+  }
+  .underline {
+    background: rgb(29, 155, 240);
+    border-radius: 9999px;
+    bottom: 0;
+    display: inline-flex;
+    height: 0;
+    min-width: 56px;
+    position: absolute;
+    width: 100%;
+  }
+  button[aria-selected="true"] .label {
+    font-weight: 700;
+  }
+  button[aria-selected="true"] .underline {
+    height: 4px;
+  }
+}
+/* #endregion */
+
+/* #region Toggles */
+body.ios .checkbox input[type="checkbox"] {
   position: absolute;
   overflow: hidden;
   clip: rect(0 0 0 0);
@@ -379,29 +419,28 @@ body.iOS.safari .checkbox input[type="checkbox"] {
   padding: 0;
   border: 0;
 }
-body.iOS.safari .checkbox .toggle {
+body.ios .checkbox .toggle {
   position: relative;
   display: inline-block;
   min-width: 46px;
   height: 26px;
-  background-color: #e6e6e6;
+  background-color: var(--toggle-bg);
   border-radius: 23px;
   vertical-align: text-bottom;
   transition: all 0.3s linear;
   margin-left: 8px;
 }
-body.iOS.safari .checkbox .toggle::before {
+body.ios .checkbox .toggle::before {
   content: "";
   position: absolute;
   left: 0;
   width: 42px;
   height: 22px;
-  background-color: #fff;
   border-radius: 11px;
   transform: translate3d(2px, 2px, 0) scale3d(1, 1, 1);
   transition: all 0.25s linear;
 }
-body.iOS.safari .checkbox .toggle::after {
+body.ios .checkbox .toggle::after {
   content: "";
   position: absolute;
   left: 0;
@@ -409,104 +448,313 @@ body.iOS.safari .checkbox .toggle::after {
   height: 22px;
   background-color: #fff;
   border-radius: 11px;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.12);
   transform: translate3d(2px, 2px, 0);
   transition: all 0.2s ease-in-out;
 }
-body.iOS.safari .checkbox label:active .toggle::after,
-body.iOS.safari label.checkbox:active .toggle:after {
+body.ios .checkbox label:active .toggle::after,
+body.ios label.checkbox:active .toggle:after {
   width: 28px;
   transform: translate3d(2px, 2px, 0);
 }
-body.iOS.safari .checkbox label:active input:checked + .toggle::after,
-body.iOS.safari label.checkbox:active input:checked + .toggle::after {
+body.ios .checkbox label:active input:checked + .toggle::after,
+body.ios label.checkbox:active input:checked + .toggle::after {
   transform: translate3d(16px, 2px, 0);
 }
-body.iOS.safari input:checked + .toggle {
-  background-color: #4BD763;
+body.ios input:checked + .toggle {
+  background-color: var(--active-toggle-bg);
 }
-body.iOS.safari input:checked + .toggle::before {
+body.ios input:checked + .toggle::before {
   transform: translate3d(18px, 2px, 0) scale3d(0, 0, 0);
 }
-body.iOS.safari input:checked + .toggle::after {
+body.ios input:checked + .toggle::after {
   transform: translate3d(22px, 2px, 0);
 }
-body.iOS.safari .checkbox input:focus + .toggle {
+body.ios .checkbox input:focus + .toggle {
   outline: 5px auto Highlight;
   outline: 5px auto -webkit-focus-ring-color;
 }
+/* #endregion */
 
-/* Dark mode overrides */
+/* #region Light mode overrides */
+/* #region Firefox */
+body.firefox {
+  --border-color: rgb(215, 215, 219);
+  --font-family: inherit;
+  --font-size-primary: 15px;
+  --font-size-secondary: 14px;
+  --hover-bg-color: color-mix(in srgb, currentColor 14%, transparent);
+  --text-color-secondary: rgb(91, 91, 102);
+}
+/* #endregion */
+
+/* #region Edge */
+body.edge {
+  --border-color: rgb(182, 182, 182);
+  --font-size-primary: 14px;
+  --font-size-secondary: 12px;
+  --hover-bg-color: rgba(0, 0, 0, 0.039);
+  --text-color-secondary: rgb(118, 118, 118);
+}
+/* #endregion */
+
+/* #region macOS Safari */
+body.macos {
+  --disclosure-triangle-color: rgb(154, 154, 154);
+  --group-label-weight: 400;
+}
+body.macos .panel {
+  padding: 4px 0;
+}
+/* Space option groups */
+body.macos .panel > section:not(:first-of-type) {
+  margin-top: 20px;
+}
+/* Add colons to option group labels */
+body.macos section.group > label:not(.checkbox)::after {
+  content: ":";
+}
+body.macos .panel > section.group > label {
+  margin-bottom: 0;
+}
+/* Indent options to align with the toggle all checkbox if there is one */
+body.macos section.group > section {
+  margin-left: 32px;
+}
+/* Align option group help text with options */
+body.macos .panel > section.group > p {
+  margin: 12px 12px 12px 32px;
+}
+/* Don't display dividing lines between option groups or options */
+body.macos section {
+  border-top: none;
+}
+/* Indent nested options to align with checkbox labels */
+body.macos section.group > section > section {
+  margin-left: 8px;
+}
+/* Put controls next to their labels... */
+body.macos label {
+  justify-content: start;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+/* ...except for muted quotes' Unmute button */
+body.macos label.mutedQuote {
+  justify-content: space-between;
+}
+/* Put checkboxes before their labels */
+body.macos section.checkbox > label,
+body.macos label.checkbox {
+  flex-direction: row-reverse;
+}
+body.macos input[type=checkbox] {
+  margin-left: 0;
+  margin-right: 6px;
+}
+/* Put a period between labels and their buttons. */
+body.macos label.button :is(div, span) {
+  margin-right: 6px
+}
+body.macos label.button span::after {
+  content: ".";
+}
+/* Add colons to dropdown labels */
+body.macos section.select label {
+  display: block;
+}
+body.macos section.select span::after {
+  content: ": ";
+  display: inline-block
+}
+/* Align help text with checkbox labels */
+body.macos section.checkbox > p {
+  margin-left: 20px;
+  margin-right: 12px;
+}
+body.macos p {
+  color: rgb(123, 123, 123) !important;
+}
+body.macos section.group > section > * {
+  color: inherit;
+}
+/* macos uses disclosure triangles for collapsible options */
+body.macos section.labelled.collapsible > label > svg:not(:active) {
+  color: var(--disclosure-triangle-color);
+}
+body.macos section.labelled.collapsible > label > svg {
+  position: static;
+  margin-right: 6px;
+}
+body.macos section.labelled.collapsible.collapsed > label > svg {
+  transform: rotate(-90deg);
+}
+/* #endregion */
+
+/* #region iOS Safari */
+body.ios {
+  --bg-color: rgb(242, 242, 247);
+  --body-padding: 18px;
+  --font-size-primary: inherit;
+  --font-size-secondary: inherit;
+  --group-label-weight: 400;
+  --text-color-secondary: rgb(95, 99, 104);
+  /* Toggles */
+  --toggle-bg: rgb(233, 233, 235);
+  --active-toggle-bg: rgb(52, 199, 89);
+  --outside-label-color: rgb(133, 133, 139);
+}
+body.ios label {
+  /* Prevent flash when labels are tapped */
+  -webkit-tap-highlight-color: transparent;
+  padding-left: 0;
+  padding-right: 18px;
+  margin: 5px 0;
+}
+/* Hide toggle indicator as sections aren't collapsible in iOS */
+body.ios section.labelled.collapsible > label > svg {
+  display: none;
+}
+/* Option groups should contain their options in a rounded box */
+body.ios .panel > section {
+  background-color: white;
+  border-radius: 10px;
+  padding-left: 18px;
+  padding-bottom: 1px;
+  padding-top: 1px;
+  border-top: none !important;
+}
+body.ios .panel > section:not(:first-of-type) {
+  margin-top: 34px;
+}
+/* All options should have a dividing line */
+body.ios section.group section {
+  border-top: 1px solid var(--border-color);
+}
+/* Options should not be indented by default */
+body.ios section.group > section {
+  margin-left: 0;
+}
+/* Groups which have a toggle for all their options should indent their options */
+body.ios section.group > label.checkbox ~ section,
+/* Nested groups should indent their options */
+body.ios section.group > section.group > section {
+  margin-left: 18px;
+}
+/* Labelled option groups should display their label above the box */
+body.ios .panel > section.labelled {
+  position: relative;
+  margin-top: 46px;
+}
+body.ios .panel > section:first-child.labelled {
+  margin-top: 12px;
+}
+body.ios .panel > section.labelled > label {
+  position: absolute;
+  top: -32px;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: var(--outside-label-color);
+}
+body.ios .panel > section.labelled > label + section,
+body.ios .panel > section.labelled > label + section.desktop + section {
+  border-top: none;
+}
+body.ios .panel > section.labelled > label + p {
+  margin-top: 12px;
+  margin-left: 0;
+}
+/* A checkbox options with nested options should indent their names */
+body.ios section.checkbox > section:not(.group) > label {
+  padding-left: 18px
+}
+/* A checkbox option with nested group should indent it */
+body.ios section.checkbox > section.group {
+  margin-left: 18px
+}
+body.ios summary {
+  padding-left: 0;
+}
+body.ios p {
+  margin-right: 18px;
+}
+body.ios section.group > section > * {
+  color: inherit;
+}
+/* Display footnote below section group */
+body.ios .footnote {
+  font-size: 12px !important;
+  position: absolute;
+  margin: 8px 0 0 0 !important;
+  color: var(--outside-label-color) !important;
+}
+body.ios .footnote::after {
+  content: ".";
+}
+body.ios .footnote.warning::before {
+  left: -14px;
+}
+
+/* Extra space for footnoted section followed */
+body.ios section.group.labelled:has(.footnote) + section.group.labelled {
+  margin-top: 68px;
+}
+/* #endregion */
+/* #endregion */
+
+/* #region Dark mode overrides */
 @media (prefers-color-scheme: dark) {
-  body {
-    background-color: #292a2d;
-    color: #e8eaed;
-  }
-  section:not(:first-of-type) {
-    border-color: #3f4042;
-  }
-  section.group > p,
-  section.group > section > * {
-    color: rgb(154, 160, 166);
+  :root {
+    --bg-color: rgb(41, 42, 45);
+    --border-color: rgb(63, 64, 66);
+    --hover-bg-color: rgba(227, 227, 227, .08);
+    --text-color-error: rgb(242, 139, 130);
+    --text-color-primary: rgb(227, 227, 227);
+    --text-color-secondary: rgb(196, 199, 197);
+    --text-color-success: rgb(129, 201, 149);
   }
 
-  /* Edge dark mode overrides */
+  /* #region Edge */
   body.edge {
-    background-color: #3B3B3B;
-    color: #A7A7A7;
+    --bg-color: rgb(59, 59, 59);
+    --border-color: rgb(115, 115, 115);
+    --hover-bg-color: rgba(255, 255, 255, 0.078);
+    --text-color-primary: rgb(255, 255, 255);
+    --text-color-secondary: rgb(167, 167, 167);
   }
-  body.edge section.group > label {
-    color: #fff;
-  }
-  body.edge section:not(:first-of-type) {
-    border-color: #737373;
-  }
-  body.edge section.group > p,
-  body.edge section.group > section > * {
-    color: #A7A7A7;
-  }
+  /* #endregion */
 
-  /* Firefox dark mode overrides */
-  @-moz-document url-prefix() {
-    body {
-      background-color: #23222b;
-    }
-    section:not(:first-of-type) {
-      border-color: #4e4d54;
-    }
-    section.group > p,
-    section.group > section > * {
-      color: rgb(191, 191, 201);
-    }
+  /* #region Firefox  */
+  body.firefox {
+    --bg-color: rgb(35, 34, 43);
+    --border-color: rgb(78, 77, 84);
+    --text-color-primary: rgb(251, 251, 254);
+    --text-color-secondary: rgb(191, 191, 201);
   }
+  /* #endregion */
 
-  /* Safari dark mode overrides */
-  body.macOS.safari p {
-    color: rgb(184, 184, 184) !important;
+  /* #region macOS Safari */
+  body.macos {
+    background-color: transparent;
+    --disclosure-triangle-color: rgb(154, 153, 154);
+    --text-color-secondary: rgb(184, 184, 184);
   }
-  body.iOS.safari {
-    background-color: rgb(0, 0, 0);
+  /* #endregion */
+
+  /* #region iOS Safari */
+  body.ios {
+    --bg-color: rgb(0, 0, 0);
+    --border-color: rgb(35, 35, 37);
+    --text-color-secondary: rgb(132, 132, 138);
+    /* Toggles */
+    --toggle-bg: rgb(57, 57, 61);
+    --active-toggle-bg: rgb(48, 209, 88);
+    --outside-label-color: rgb(141, 141, 147);
   }
-  body.iOS.safari form > section {
+  body.ios .panel > section {
     background-color: rgb(28, 28, 30);
   }
-  body.iOS.safari form > section.labelled > label {
-    color: rgb(115, 115, 121);
-  }
-  body.iOS.safari section.group section {
-    border-color: rgb(35, 35, 37);
-  }
-  body.iOS.safari p {
-    color: rgb(132, 132, 138) !important;
-  }
-  body.iOS.safari .checkbox .toggle {
-    background-color: rgb(57, 57, 61);
-  }
-  body.iOS.safari .checkbox .toggle::before {
-    background-color: rgb(57, 57, 61);
-  }
+  /* #endregion */
 }
-
-.mb-0 {
-  margin-bottom: 0 !important;
-}
+/* #endregion */
