@@ -2957,46 +2957,51 @@ async function observeSidebar() {
   })
   let $sidebarContainer = $primaryColumn.parentElement
   pageObservers.push(
-    observeElement($sidebarContainer, async () => {
+    observeElement($sidebarContainer, () => {
       let $sidebar = /** @type {HTMLElement} */ ($sidebarContainer.querySelector(Selectors.SIDEBAR))
       log(`sidebar ${$sidebar ? 'appeared' : 'disappeared'}`)
       $body.classList.toggle('Sidebar', Boolean($sidebar))
-      if ($sidebar && config.twitterBlueChecks != 'ignore' && !isOnSearchPage() && !isOnExplorePage()) {
+      if (!$sidebar) {
+        if (!config.hideSidebarContent && !isOnExplorePage()) disconnectPageObserver("sidebar What's happening timeline")
+        return
+      }
+      // Process blue checks in the sidebar search dropdown
+      if (config.twitterBlueChecks != 'ignore' && !isOnSearchPage() && !isOnExplorePage()) {
         observeSearchForm()
       }
-      if ($sidebar && !config.hideSidebarContent) {
-        // Process blue checks in the sidebar if we're not hiding content
-        if (config.twitterBlueChecks != 'ignore') {
-          void async function() {
-            let $aside = await getElement('aside[role="complementary"]', {
-              name: 'sidebar aside box',
-              context: $sidebar,
-              stopIf: pageIsNot(currentPage),
-              timeout: 2000,
-            })
-            if ($aside) processBlueChecks($aside)
-          }()
-        }
-        // Explore doesn't have What's happening
-        if (isOnExplorePage()) return
-        // Hide the ad in sidebar What's happening if we're not hiding content
-        let $whatsHappeningTimeline = await getElement('section > div[aria-label] > div', {
-          name: "hideSidebarWhatsHappeningAd: sidebar What's happening timeline",
-          context: $sidebar,
-          stopIf: pageIsNot(currentPage),
-          timeout: 2000,
-        })
-        if (!$whatsHappeningTimeline) return
-        // The sidebar What's happening timeline loads asynchronously and
-        // refreshes every time the page regains refocus.
-        pageObservers.push(
-          observeElement($whatsHappeningTimeline, () => {
-            let $firstTrend = $whatsHappeningTimeline.querySelector(':scope > div:has([data-testid="trend"])')
-            if ($firstTrend && !$firstTrend.previousElementSibling.classList.contains('HiddenAd')) {
-              $firstTrend.previousElementSibling.classList.toggle('HiddenAd', !$firstTrend.previousElementSibling.querySelector('h2'))
-            }
-          }, "sidebar What's happening timeline", {childList: true, subtree: true})
-        )
+      // Process blue checks in the sidebar user box
+      if (config.twitterBlueChecks != 'ignore' && (!config.hideSidebarContent || config.showRelevantPeople && isOnIndividualTweetPage())) {
+        void async function() {
+          let $aside = await getElement('aside[role="complementary"]', {
+            name: 'sidebar aside box',
+            context: $sidebar,
+            stopIf: pageIsNot(currentPage),
+            timeout: 2000,
+          })
+          if ($aside) processBlueChecks($aside)
+        }()
+      }
+      // Hide the ad in sidebar What's happening
+      if (!config.hideSidebarContent && !isOnExplorePage()) {
+        void async function() {
+          let $whatsHappeningTimeline = await getElement('section > div[aria-label] > div', {
+            name: "hideSidebarWhatsHappeningAd: sidebar What's happening timeline",
+            context: $sidebar,
+            stopIf: pageIsNot(currentPage),
+            timeout: 2000,
+          })
+          if (!$whatsHappeningTimeline) return
+          // The sidebar What's happening timeline loads asynchronously and
+          // refreshes every time the page regains refocus.
+          pageObservers.push(
+            observeElement($whatsHappeningTimeline, () => {
+              let $firstTrend = $whatsHappeningTimeline.querySelector(':scope > div:has([data-testid="trend"])')
+              if ($firstTrend && !$firstTrend.previousElementSibling.classList.contains('HiddenAd')) {
+                $firstTrend.previousElementSibling.classList.toggle('HiddenAd', !$firstTrend.previousElementSibling.querySelector('h2'))
+              }
+            }, "sidebar What's happening timeline", {childList: true, subtree: true})
+          )
+        }()
       }
     }, 'sidebar container')
   )
