@@ -5923,7 +5923,16 @@ async function tweakBookmarksPage() {
 }
 
 async function tweakExplorePage() {
-  if (!config.hideExplorePageContents) return
+  if (!config.hideExplorePageContents) {
+    if (config.twitterBlueChecks != 'ignore') {
+      observeTimeline(currentPage, {
+        classifyTweets: false,
+        isTabbed: true,
+        tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
+      })
+    }
+    return
+  }
 
   let $searchInput = await getElement('input[data-testid="SearchBox_Search_Input"]', {
     name: 'explore page search input',
