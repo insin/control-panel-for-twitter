@@ -5578,12 +5578,18 @@ function processCurrentPage() {
   $body.classList.remove('SeparatedTweets')
 
   if (desktop) {
-    let shouldObserveSidebarForConfig = (
+    // Observe the sidebar if we need to…
+    let shouldObserveSidebar = (
+      // …process blue checks
       config.twitterBlueChecks != 'ignore' ||
+      // …hide the ad in What's happening
+      !config.hideSidebarContent ||
+      // …track its presence for full-width styling
       config.fullWidthContent ||
+      // …track its presence for showing Explore nav item
       config.hideExploreNav && config.hideExploreNavWithSidebar
     )
-    if (shouldObserveSidebarForConfig && !isOnMessagesPage() && !isOnSettingsPage()) {
+    if (shouldObserveSidebar && !isOnMessagesPage() && !isOnSettingsPage()) {
       observeSidebar()
     } else {
       $body.classList.remove('Sidebar')
