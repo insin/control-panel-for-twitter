@@ -135,7 +135,6 @@ const config = {
   hideExploreNav: true,
   hideExploreNavWithSidebar: true,
   hideMessagesDrawer: true,
-  hideProNav: true,
   hideSidebarContent: true,
   hideSpacesNav: false,
   hideTimelineTweetBox: false,
@@ -4021,9 +4020,6 @@ const configureCss = (() => {
       if (config.hideMonetizationNav) {
         // In new More dialog
         hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/i/monetization"]`)
-      }
-      if (config.hideProNav) {
-        hideCssSelectors.push(`${menuRole} a:is([href*="pro.twitter.com"], [href*="pro.x.com"])`)
       }
       if (config.hideSpacesNav) {
         hideCssSelectors.push(
