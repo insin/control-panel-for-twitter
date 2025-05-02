@@ -3723,6 +3723,8 @@ const configureCss = (() => {
         '[data-testid="verified_profile_upsell"]',
         // Get Premium Analytics upsell
         '[data-testid="profileAnalyticsUpsell"]',
+        // Upsell in Lists sidebar
+        '[data-testid="super-upsell-UpsellCardRenderProperties"]',
       )
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
