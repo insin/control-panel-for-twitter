@@ -68,6 +68,13 @@
           <span class="toggle"></span>
         </label>
       </section>
+      <section class="checkbox mobile">
+        <label>
+          <span id="hideLiveBroadcastBarLabel">Hide live broadcast bar</span>
+          <input type="checkbox" name="hideLiveBroadcastBar">
+          <span class="toggle"></span>
+        </label>
+      </section>
       <section class="checkbox">
         <label>
           <span id="hideWhoToFollowEtcLabel">Hide "Who to follow", "Follow some Topics" etc. in the timeline</span>
@@ -405,11 +412,11 @@
       </section>
     </section>
 
-    <section class="group labelled">
-      <label id="reduceAlgorithmicContentOptionsLabel">Remove algorithmic content</label>
+    <section class="group labelled desktop">
+      <label id="sidebarLabel">Sidebar</label>
       <section class="checkbox desktop">
         <label>
-          <span id="hideSidebarContentLabel">Hide "What's happening", "You might like" etc. in the sidebar</span>
+          <span id="hideSidebarContentLabel">Hide sidebar contents</span>
           <input type="checkbox" name="hideSidebarContent">
           <span class="toggle"></span>
         </label>
@@ -420,7 +427,32 @@
             <span class="toggle"></span>
           </label>
         </section>
+        <section class="checkbox showingSidebarContent">
+          <label>
+            <span id="hideLiveBroadcastsLabel">Hide Live broadcasts</span>
+            <input type="checkbox" name="hideLiveBroadcasts">
+            <span class="toggle"></span>
+          </label>
+        </section>
+        <section class="checkbox showingSidebarContent">
+          <label>
+            <span id="hideWhatsHappeningLabel">Hide What's happening</span>
+            <input type="checkbox" name="hideWhatsHappening">
+            <span class="toggle"></span>
+          </label>
+        </section>
+        <section class="checkbox showingSidebarContent">
+          <label>
+            <span id="hideSuggestedFollowsLabel">Hide suggested follows</span>
+            <input type="checkbox" name="hideSuggestedFollows">
+            <span class="toggle"></span>
+          </label>
+        </section>
       </section>
+    </section>
+
+    <section class="group labelled">
+      <label id="reduceAlgorithmicContentOptionsLabel">Remove algorithmic content</label>
       <section class="checkbox">
         <label>
           <span id="hideExplorePageContentsLabel">Hide Explore page contents and use it only for searching</span>

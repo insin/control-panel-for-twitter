@@ -134,17 +134,21 @@ const config = {
   hideAccountSwitcher: false,
   hideExploreNav: true,
   hideExploreNavWithSidebar: true,
+  hideLiveBroadcasts: false,
   hideMessagesDrawer: true,
   hideSidebarContent: true,
   hideSpacesNav: false,
+  hideSuggestedFollows: false,
   hideTimelineTweetBox: false,
   hideToggleNavigation: false,
+  hideWhatsHappening: false,
   navBaseFontSize: true,
   navDensity: 'default',
   showRelevantPeople: false,
   // Mobile only
-  preventNextVideoAutoplay: true,
+  hideLiveBroadcastBar: false,
   hideMessagesBottomNavItem: false,
+  preventNextVideoAutoplay: true,
 }
 //#endregion
 
@@ -159,6 +163,7 @@ const locales = {
     GROK_ACTIONS: 'إجراءات Grok',
     HOME: 'الرئيسيّة',
     LIKES: 'الإعجابات',
+    LIVE_ON_X: 'بث مباشر على X',
     MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
@@ -196,6 +201,7 @@ const locales = {
     GROK_ACTIONS: 'إجراءات Grok',
     HOME: 'الرئيسيّة',
     LIKES: 'الإعجابات',
+    LIVE_ON_X: 'بث مباشر على X',
     MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
@@ -233,6 +239,7 @@ const locales = {
     GROK_ACTIONS: 'Действия, свързани с Grok',
     HOME: 'Начало',
     LIKES: 'Харесвания',
+    LIVE_ON_X: 'На живо в X',
     MOST_RELEVANT: 'Най-подходящи',
     MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
     POST_ALL: 'Публикуване на всичко',
@@ -270,6 +277,7 @@ const locales = {
     GROK_ACTIONS: 'Grok কার্যকলাপ',
     HOME: 'হোম',
     LIKES: 'পছন্দ',
+    LIVE_ON_X: 'X-এ লাইভ',
     MOST_RELEVANT: 'সবচেয়ে প্রাসঙ্গিক',
     MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
     POST_ALL: 'সবকটি পোস্ট করুন',
@@ -308,6 +316,7 @@ const locales = {
     GROK_ACTIONS: 'Accions de Grok',
     HOME: 'Inici',
     LIKES: 'Agradaments',
+    LIVE_ON_X: 'En directe a X',
     MOST_RELEVANT: 'El més rellevant',
     MUTE_THIS_CONVERSATION: 'Silencia la conversa',
     POST_ALL: 'Publica-ho tot',
@@ -345,6 +354,7 @@ const locales = {
     GROK_ACTIONS: 'Akce funkce Grok',
     HOME: 'Hlavní stránka',
     LIKES: 'Lajky',
+    LIVE_ON_X: 'Živě na platformě X',
     MOST_RELEVANT: 'Nejvíce související',
     MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
     POST_ALL: 'Postovat vše',
@@ -380,6 +390,7 @@ const locales = {
     ADD_MUTED_WORD: 'Tilføj skjult ord',
     GROK_ACTIONS: 'Grok-handlinger',
     HOME: 'Forside',
+    LIVE_ON_X: 'Direkte på X',
     MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
     POST_ALL: 'Post alle',
@@ -411,6 +422,7 @@ const locales = {
     GROK_ACTIONS: 'Grok-Aktionen',
     HOME: 'Startseite',
     LIKES: 'Gefällt mir',
+    LIVE_ON_X: 'Live auf X',
     MOST_RELEVANT: 'Besonders relevant',
     MUTE_THIS_CONVERSATION: 'Diese Konversation stummschalten',
     POST_ALL: 'Alle posten',
@@ -445,6 +457,7 @@ const locales = {
     GROK_ACTIONS: 'Δράσεις Grok',
     HOME: 'Αρχική σελίδα',
     LIKES: '"Μου αρέσει"',
+    LIVE_ON_X: 'Ζωντανά στο X',
     MOST_RELEVANT: 'Πιο σχετική',
     MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
     POST_ALL: 'Δημοσίευση όλων',
@@ -480,6 +493,7 @@ const locales = {
     GROK_ACTIONS: 'Grok actions',
     HOME: 'Home',
     LIKES: 'Likes',
+    LIVE_ON_X: 'Live on X',
     MOST_RELEVANT: 'Most relevant',
     MUTE_THIS_CONVERSATION: 'Mute this conversation',
     POST_ALL: 'Post all',
@@ -518,6 +532,7 @@ const locales = {
     GROK_ACTIONS: 'Acciones de Grok',
     HOME: 'Inicio',
     LIKES: 'Me gusta',
+    LIVE_ON_X: 'En directo en X',
     MOST_RELEVANT: 'Más relevantes',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
     POST_ALL: 'Postear todo',
@@ -581,6 +596,7 @@ const locales = {
     GROK_ACTIONS: 'کنش‌های Grok',
     HOME: 'خانه',
     LIKES: 'پسندها',
+    LIVE_ON_X: 'زنده در X',
     MOST_RELEVANT: 'مرتبط‌ترین',
     MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
     POST_ALL: 'پست کردن همه',
@@ -619,6 +635,7 @@ const locales = {
     GROK_ACTIONS: 'Grok-toiminnat',
     HOME: 'Etusivu',
     LIKES: 'Tykkäykset',
+    LIVE_ON_X: 'Livenä X:ssä',
     MOST_RELEVANT: 'Relevanteimmat',
     MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
     POST_ALL: 'Julkaise kaikki',
@@ -655,6 +672,7 @@ const locales = {
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
     GROK_ACTIONS: 'Mga aksyon ni Grok',
     LIKES: 'Mga Gusto',
+    LIVE_ON_X: 'Live sa X',
     MOST_RELEVANT: 'Pinakanauugnay',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
     POST_ALL: 'I-post lahat',
@@ -691,6 +709,7 @@ const locales = {
     GROK_ACTIONS: 'Actions Grok',
     HOME: 'Accueil',
     LIKES: "J'aime",
+    LIVE_ON_X: 'En direct sur X',
     MOST_RELEVANT: 'Les plus pertinentes',
     MUTE_THIS_CONVERSATION: 'Masquer cette conversation',
     POST_ALL: 'Tout poster',
@@ -781,6 +800,7 @@ const locales = {
     GROK_ACTIONS: 'Grok પગલાં',
     HOME: 'હોમ',
     LIKES: 'લાઈક્સ',
+    LIVE_ON_X: 'X પર લાઇવ',
     MOST_RELEVANT: 'સૌથી વધુ સુસંગત',
     MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
     POST_ALL: 'બધા પોસ્ટ કરો',
@@ -818,6 +838,7 @@ const locales = {
     GROK_ACTIONS: 'פעולות של Grok',
     HOME: 'דף הבית',
     LIKES: 'הערות "אהבתי"',
+    LIVE_ON_X: 'שידור חי ב-X',
     MOST_RELEVANT: 'הכי רלוונטי',
     MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
     POST_ALL: 'פרסום הכל',
@@ -856,6 +877,7 @@ const locales = {
     GROK_ACTIONS: 'Grok कार्रवाई',
     HOME: 'होम',
     LIKES: 'पसंद',
+    LIVE_ON_X: 'X पर लाइव',
     MOST_RELEVANT: 'सर्वाधिक प्रासंगिक',
     MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
     POST_ALL: 'सभी पोस्ट करें',
@@ -893,6 +915,7 @@ const locales = {
     GROK_ACTIONS: 'Grokove radnje',
     HOME: 'Naslovnica',
     LIKES: 'Oznake „sviđa mi se”',
+    LIVE_ON_X: 'Uživo na platformi X',
     MOST_RELEVANT: 'Najrelevantnije',
     MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
     POST_ALL: 'Objavi sve',
@@ -929,6 +952,7 @@ const locales = {
     GROK_ACTIONS: 'Grok-műveletek',
     HOME: 'Kezdőlap',
     LIKES: 'Kedvelések',
+    LIVE_ON_X: 'Élőben az X-en',
     MOST_RELEVANT: 'Legmegfelelőbb',
     MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
     POST_ALL: 'Az összes közzététele',
@@ -965,6 +989,7 @@ const locales = {
     GROK_ACTIONS: 'Tindakan Grok',
     HOME: 'Beranda',
     LIKES: 'Suka',
+    LIVE_ON_X: 'Langsung di X',
     MOST_RELEVANT: 'Paling relevan',
     MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
     POST_ALL: 'Posting semua',
@@ -999,6 +1024,7 @@ const locales = {
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
     GROK_ACTIONS: 'Azioni di Grok',
     LIKES: 'Mi piace',
+    LIVE_ON_X: 'In diretta su X',
     MOST_RELEVANT: 'Più pertinenti',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
     POST_ALL: 'Posta tutto',
@@ -1035,6 +1061,7 @@ const locales = {
     GROK_ACTIONS: 'Grokのアクション',
     HOME: 'ホーム',
     LIKES: 'いいね',
+    LIVE_ON_X: 'Xでライブ放送する',
     MOST_RELEVANT: '関連性が高い',
     MUTE_THIS_CONVERSATION: 'この会話をミュート',
     POST_ALL: 'すべてポスト',
@@ -1072,6 +1099,7 @@ const locales = {
     GROK_ACTIONS: 'Grok ಕ್ರಮಗಳು',
     HOME: 'ಹೋಮ್',
     LIKES: 'ಇಷ್ಟಗಳು',
+    LIVE_ON_X: 'X ನಲ್ಲಿ ಲೈವ್',
     MOST_RELEVANT: 'ಅತ್ಯಂತ ಸಂಬಂಧಿತ',
     MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
     POST_ALL: 'ಎಲ್ಲವನ್ನೂ ಪೋಸ್ಟ್ ಮಾಡಿ',
@@ -1109,6 +1137,7 @@ const locales = {
     GROK_ACTIONS: 'Grok 작업',
     HOME: '홈',
     LIKES: '마음에 들어요',
+    LIVE_ON_X: 'X 생방송',
     MOST_RELEVANT: '관련도 순서',
     MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
     POST_ALL: '모두 게시하기',
@@ -1147,6 +1176,7 @@ const locales = {
     GROK_ACTIONS: 'Grok कृती',
     HOME: 'होम',
     LIKES: 'पसंती',
+    LIVE_ON_X: 'X वर लाइव्ह',
     MOST_RELEVANT: 'सर्वात महत्वाचे',
     MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
     POST_ALL: 'सर्व पोस्ट करा',
@@ -1184,6 +1214,7 @@ const locales = {
     GROK_ACTIONS: 'Tindakan Grok',
     HOME: 'Laman Utama',
     LIKES: 'Suka',
+    LIVE_ON_X: 'Secara Langsung di X',
     MOST_RELEVANT: 'Paling berkaitan',
     MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
     POST_ALL: 'Siarkan semua',
@@ -1220,6 +1251,7 @@ const locales = {
     GROK_ACTIONS: 'Grok-handlinger',
     HOME: 'Hjem',
     LIKES: 'Liker',
+    LIVE_ON_X: 'Direkte på X',
     MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtalen',
     POST_ALL: 'Publiser alle',
@@ -1253,6 +1285,7 @@ const locales = {
     GROK_ACTIONS: 'Grok-acties',
     HOME: 'Startpagina',
     LIKES: 'Vind-ik-leuks',
+    LIVE_ON_X: 'Live op X',
     MOST_RELEVANT: 'Meest relevant',
     MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
     POST_ALL: 'Alles plaatsen',
@@ -1286,6 +1319,7 @@ const locales = {
     GROK_ACTIONS: 'Akcje Groka',
     HOME: 'Główna',
     LIKES: 'Polubienia',
+    LIVE_ON_X: 'Na żywo w serwisie X',
     MOST_RELEVANT: 'Najtrafniejsze',
     MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
     POST_ALL: 'Opublikuj wszystko',
@@ -1322,6 +1356,7 @@ const locales = {
     GROK_ACTIONS: 'Ações do Grok',
     HOME: 'Página Inicial',
     LIKES: 'Curtidas',
+    LIVE_ON_X: 'Ao vivo no X',
     MOST_RELEVANT: 'Mais relevante',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     POST_ALL: 'Postar tudo',
@@ -1356,6 +1391,7 @@ const locales = {
     GROK_ACTIONS: 'Acțiuni Grok',
     HOME: 'Pagina principală',
     LIKES: 'Aprecieri',
+    LIVE_ON_X: 'În direct pe X',
     MOST_RELEVANT: 'Cele mai relevante',
     MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
     POST_ALL: 'Postează tot',
@@ -1392,6 +1428,7 @@ const locales = {
     GROK_ACTIONS: 'Действия Grok',
     HOME: 'Главная',
     LIKES: 'Нравится',
+    LIVE_ON_X: 'Прямой эфир в X',
     MOST_RELEVANT: 'Наиболее актуальные',
     MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
     POST_ALL: 'Опубликовать все',
@@ -1430,6 +1467,7 @@ const locales = {
     GROK_ACTIONS: 'Akcie Groka',
     HOME: 'Domov',
     LIKES: 'Páči sa',
+    LIVE_ON_X: 'Naživo na X',
     MOST_RELEVANT: 'Najrelevantnejšie',
     MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
     POST_ALL: 'Uverejniť všetko',
@@ -1467,6 +1505,7 @@ const locales = {
     GROK_ACTIONS: 'Grok радње',
     HOME: 'Почетна',
     LIKES: 'Свиђања',
+    LIVE_ON_X: 'Уживо на мрежи X',
     MOST_RELEVANT: 'Најважније',
     MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
     POST_ALL: 'Објави све',
@@ -1505,6 +1544,7 @@ const locales = {
     GROK_ACTIONS: 'Grok-åtgärder',
     HOME: 'Hem',
     LIKES: 'Gilla-markeringar',
+    LIVE_ON_X: 'Live på X',
     MOST_RELEVANT: 'Mest relevant',
     MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
     POST_ALL: 'Lägg upp allt',
@@ -1540,6 +1580,7 @@ const locales = {
     GROK_ACTIONS: 'Grok செயல்கள்',
     HOME: 'முகப்பு',
     LIKES: 'விருப்பங்கள்',
+    LIVE_ON_X: 'X -இல் நேரலை',
     MOST_RELEVANT: 'மிகவும் தொடர்புடையவை',
     MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
     POST_ALL: 'எல்லாம் இடுகையிடு',
@@ -1577,6 +1618,7 @@ const locales = {
     GROK_ACTIONS: 'การดำเนินการของ Grok',
     HOME: 'หน้าแรก',
     LIKES: 'ความชอบ',
+    LIVE_ON_X: 'ถ่ายทอดสดบน X',
     MOST_RELEVANT: 'เกี่ยวข้องที่สุด',
     MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
     POST_ALL: 'โพสต์ทั้งหมด',
@@ -1615,6 +1657,7 @@ const locales = {
     GROK_ACTIONS: 'Grok işlemleri',
     HOME: 'Anasayfa',
     LIKES: 'Beğeni',
+    LIVE_ON_X: "X'te Canlı",
     MOST_RELEVANT: 'En alakalı',
     MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
     POST_ALL: 'Tümünü gönder',
@@ -1651,6 +1694,7 @@ const locales = {
     GROK_ACTIONS: 'Дії Grok',
     HOME: 'Головна',
     LIKES: 'Вподобання',
+    LIVE_ON_X: 'Прямий ефір в X',
     MOST_RELEVANT: 'Найактуальніші',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
     POST_ALL: 'Опублікувати все',
@@ -1719,6 +1763,7 @@ const locales = {
     GROK_ACTIONS: 'Hành động của Grok',
     HOME: 'Trang chủ',
     LIKES: 'Lượt thích',
+    LIVE_ON_X: 'Trực tuyến trên X',
     MOST_RELEVANT: 'Liên quan nhất',
     MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
     POST_ALL: 'Đăng tất cả',
@@ -1755,6 +1800,7 @@ const locales = {
     GROK_ACTIONS: 'Grok 動作',
     HOME: '首頁',
     LIKES: '喜歡的內容',
+    LIVE_ON_X: 'X 上的直播',
     MOST_RELEVANT: '最相關',
     MUTE_THIS_CONVERSATION: '將此對話靜音',
     POST_ALL: '全部發佈',
@@ -1792,6 +1838,7 @@ const locales = {
     GROK_ACTIONS: 'Grok 操作',
     HOME: '主页',
     LIKES: '喜欢',
+    LIVE_ON_X: 'X 上的直播',
     MOST_RELEVANT: '最相关',
     MUTE_THIS_CONVERSATION: '隐藏此对话',
     POST_ALL: '全部发帖',
@@ -2952,9 +2999,7 @@ async function observeTitle() {
 
 //#region Page observers
 async function observeSidebar() {
-  let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {
-    name: 'primary column'
-  })
+  let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {name: 'primary column'})
   let $sidebarContainer = $primaryColumn.parentElement
   pageObservers.push(
     observeElement($sidebarContainer, () => {
@@ -2962,7 +3007,10 @@ async function observeSidebar() {
       log(`sidebar ${$sidebar ? 'appeared' : 'disappeared'}`)
       $body.classList.toggle('Sidebar', Boolean($sidebar))
       if (!$sidebar) {
-        if (!config.hideSidebarContent && !isOnExplorePage()) disconnectPageObserver("sidebar What's happening timeline")
+        if (!config.hideSidebarContent) {
+          disconnectPageObserver('sidebar contents (for Live on X loading)')
+          disconnectPageObserver("sidebar What's happening timeline")
+        }
         return
       }
       // Process blue checks in the sidebar search dropdown
@@ -2978,21 +3026,24 @@ async function observeSidebar() {
             stopIf: pageIsNot(currentPage),
             timeout: 2000,
           })
-          if ($aside) processBlueChecks($aside)
+          if (!$aside) return
+          processBlueChecks($aside)
+          if (!isOnIndividualTweetPage()) $aside.parentElement.parentElement.classList.add('SuggestedFollows')
         }()
       }
-      // Hide the ad in sidebar What's happening
       if (!config.hideSidebarContent && !isOnExplorePage()) {
+        // Hide the ad in sidebar What's happening
         void async function() {
+          // What's happening has a unique DOM structure we can look for
           let $whatsHappeningTimeline = await getElement('section > div[aria-label] > div', {
-            name: "hideSidebarWhatsHappeningAd: sidebar What's happening timeline",
+            name: "sidebar What's happening timeline",
             context: $sidebar,
             stopIf: pageIsNot(currentPage),
             timeout: 2000,
           })
           if (!$whatsHappeningTimeline) return
-          // The sidebar What's happening timeline loads asynchronously and
-          // refreshes every time the page regains refocus.
+          // What's happening loads asynchronously and refreshes every time the
+          // page regains refocus.
           pageObservers.push(
             observeElement($whatsHappeningTimeline, () => {
               let $firstTrend = $whatsHappeningTimeline.querySelector(':scope > div:has([data-testid="trend"])')
@@ -3000,6 +3051,59 @@ async function observeSidebar() {
                 $firstTrend.previousElementSibling.classList.toggle('HiddenAd', !$firstTrend.previousElementSibling.querySelector('h2'))
               }
             }, "sidebar What's happening timeline", {childList: true, subtree: true})
+          )
+          $whatsHappeningTimeline.closest('section').parentElement.classList.add('WhatsHappening')
+        }()
+      }
+      if (!config.hideSidebarContent) {
+        // Observe the Live on X section
+        void async function() {
+          /**
+           * @param {HTMLElement} $liveOnX
+           * @param {HTMLElement} $heading
+           */
+          function handleLiveOnX($liveOnX, $heading) {
+            $liveOnX.classList.add('LiveBroadcasts')
+            if (config.twitterBlueChecks != 'ignore') {
+              // XXX This is sometimes too early, observe changes for them appearing?
+              processBlueChecks($liveOnX)
+            }
+            let branding = $heading.getAttribute('data-branding') || 'x'
+            if (config.replaceLogo ? branding == 'x' : branding == 'twitter') {
+              let $span = $heading.querySelector('span')
+              if ($span) {
+                $span.textContent = branding == 'x' ? $span.textContent.replace('X', getString('TWITTER')) : getString('TWITTER')
+                $heading.setAttribute('data-branding', branding == 'x' ? 'twitter' : 'x')
+              }
+            }
+          }
+          // The heading should be available if the component is already loaded
+          let $liveOnXHeading = Array.from($sidebar.querySelectorAll('h2')).find((h2) =>
+            h2.hasAttribute('data-branding') || h2.textContent == getString('LIVE_ON_X')
+          )
+          if ($liveOnXHeading) {
+            handleLiveOnX($liveOnXHeading.parentElement.parentElement, $liveOnXHeading)
+          }
+          // The Live on X box can pop in and out of  existence while you're
+          // sitting on a page, so always oveserve for it.
+          let $sidebarContents = await getElement(`div[aria-label] > div${isOnHomeTimelinePage() ? ' > div' : ''}`, {
+            context: $sidebar,
+            name: 'sidebar contents',
+          })
+          pageObservers.push(
+            observeElement($sidebarContents, (mutations) => {
+              for (let mutation of mutations) {
+                for (let $addedNode of mutation.addedNodes) {
+                  if (!($addedNode instanceof HTMLElement)) continue
+                  let $heading = $addedNode.querySelector('h2')
+                  if ($heading?.textContent == getString('LIVE_ON_X')) {
+                    log('Live on X appeared')
+                    handleLiveOnX($addedNode, $heading)
+                    return
+                  }
+                }
+              }
+            }, 'sidebar contents (for Live on X loading)')
           )
         }()
       }
@@ -4073,6 +4177,15 @@ const configureCss = (() => {
       } else {
         // Hide promoted trends in What's happening
         hideCssSelectors.push(`${Selectors.SIDEBAR} [data-testid="trend"]:has(path[d="${Svgs.PROMOTED_PATH}"])`)
+        if (config.hideLiveBroadcasts) {
+          hideCssSelectors.push('.LiveBroadcasts')
+        }
+        if (config.hideWhatsHappening) {
+          hideCssSelectors.push('.WhatsHappening')
+        }
+        if (config.hideSuggestedFollows) {
+          hideCssSelectors.push('.SuggestedFollows')
+        }
         if (config.hideTwitterBlueUpsells) {
           // Hide "Subscribe to premium" individually
           hideCssSelectors.push(
@@ -4172,6 +4285,15 @@ const configureCss = (() => {
             `${Selectors.PRIMARY_NAV_MOBILE} a[href^="/notifications"]`
           )
         }
+      }
+      if (config.hideLiveBroadcastBar) {
+        hideCssSelectors.push(`body.HomeTimeline ${Selectors.MOBILE_TIMELINE_HEADER} + div[style^="transform"]`)
+        // Reclaim the height reserved for the bar
+        cssRules.push(`
+          body.HomeTimeline header[role="banner"] > div[style="height: 162px;"] {
+            height: 102px !important;
+          }
+        `)
       }
       if (config.hideSeeNewTweets) {
         hideCssSelectors.push(`body.HomeTimeline ${Selectors.MOBILE_TIMELINE_HEADER} ~ div[style^="transform"]:last-child`)
@@ -5579,18 +5701,7 @@ function processCurrentPage() {
   $body.classList.remove('SeparatedTweets')
 
   if (desktop) {
-    // Observe the sidebar if we need to…
-    let shouldObserveSidebar = (
-      // …process blue checks
-      config.twitterBlueChecks != 'ignore' ||
-      // …hide the ad in What's happening
-      !config.hideSidebarContent ||
-      // …track its presence for full-width styling
-      config.fullWidthContent ||
-      // …track its presence for showing Explore nav item
-      config.hideExploreNav && config.hideExploreNavWithSidebar
-    )
-    if (shouldObserveSidebar && !isOnMessagesPage() && !isOnSettingsPage()) {
+    if (!isOnMessagesPage() && !isOnSettingsPage()) {
       observeSidebar()
     } else {
       $body.classList.remove('Sidebar')

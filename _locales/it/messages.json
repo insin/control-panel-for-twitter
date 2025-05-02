@@ -158,6 +158,12 @@
   "hideListsNavLabel": {
     "message": "Liste"
   },
+  "hideLiveBroadcastBarLabel": {
+    "message": "Nascondi la barra di trasmissione in diretta"
+  },
+  "hideLiveBroadcastsLabel": {
+    "message": "Nascondi le trasmissioni in diretta"
+  },
   "hideMessagesBottomNavItemLabel": {
     "message": "Messaggi"
   },
@@ -218,6 +224,9 @@
   "hideSubscriptionsLabel": {
     "message": "Nascondi Iscrizioni"
   },
+  "hideSuggestedFollowsLabel": {
+    "message": "Nascondi i suggerimenti di follow"
+  },
   "hideTimelineTweetBoxLabel": {
     "message": "Compositore tweet nella timeline"
   },
@@ -244,6 +253,9 @@
   },
   "hideViewsLabel": {
     "message": "Nascondi le visualizzazioni sotto ai tweet"
+  },
+  "hideWhatsHappeningLabel": {
+    "message": "Nascondi Cosa sta succedendo"
   },
   "hideWhoToFollowEtcLabel": {
     "message": "Nascondi \"Chi seguire\", \"Segui dei topic\" ecc. nella timeline"
@@ -370,6 +382,9 @@
   },
   "showRelevantPeopleLabel": {
     "message": "Mostra \"Persone rilevanti\" quando visualizzi un tweet"
+  },
+  "sidebarLabel": {
+    "message": "Barra laterale"
   },
   "sortRepliesLabel": {
     "message": "Ordinamento predefinito delle risposte"

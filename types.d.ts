@@ -85,16 +85,20 @@ export type Config = {
   hideAccountSwitcher: boolean
   hideExploreNav: boolean
   hideExploreNavWithSidebar: boolean
+  hideLiveBroadcasts: boolean
   hideMessagesDrawer: boolean
   hideSidebarContent: boolean
+  hideSuggestedFollows: boolean
   hideTimelineTweetBox: boolean
   hideToggleNavigation: boolean
+  hideWhatsHappening: boolean
   navBaseFontSize: boolean
   navDensity: 'default' | 'comfortable' | 'compact'
   showRelevantPeople: boolean
   // Mobile only
-  preventNextVideoAutoplay: boolean
+  hideLiveBroadcastBar: boolean
   hideMessagesBottomNavItem: boolean
+  preventNextVideoAutoplay: boolean
 }
 
 export type Locale = {
@@ -107,6 +111,7 @@ export type LocaleKey =
   | 'GROK_ACTIONS'
   | 'HOME'
   | 'LIKES'
+  | 'LIVE_ON_X'
   | 'MOST_RELEVANT'
   | 'MUTE_THIS_CONVERSATION'
   | 'POST_ALL'

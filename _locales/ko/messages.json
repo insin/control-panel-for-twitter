@@ -158,6 +158,12 @@
   "hideListsNavLabel": {
     "message": "리스트"
   },
+  "hideLiveBroadcastBarLabel": {
+    "message": "라이브 방송 표시줄 숨기기"
+  },
+  "hideLiveBroadcastsLabel": {
+    "message": "라이브 방송 숨기기"
+  },
   "hideMessagesBottomNavItemLabel": {
     "message": "메시지"
   },
@@ -218,6 +224,9 @@
   "hideSubscriptionsLabel": {
     "message": "구독 숨기기"
   },
+  "hideSuggestedFollowsLabel": {
+    "message": "추천 팔로우 숨기기"
+  },
   "hideTimelineTweetBoxLabel": {
     "message": "타임라인 트윗 상자"
   },
@@ -244,6 +253,9 @@
   },
   "hideViewsLabel": {
     "message": "트윗 아래의 조회수 숨기기"
+  },
+  "hideWhatsHappeningLabel": {
+    "message": "'지금 일어나는 일' 숨기기"
   },
   "hideWhoToFollowEtcLabel": {
     "message": "타임라인에서 \"팔로우 추천\" 등 숨기기"
@@ -369,6 +381,9 @@
   },
   "showRelevantPeopleLabel": {
     "message": "트윗 보기 시 \"연관된 사람\" 표시"
+  },
+  "sidebarLabel": {
+    "message": "사이드바"
   },
   "sortRepliesLabel": {
     "message": "답글의 기본 정렬"

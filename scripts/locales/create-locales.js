@@ -12,6 +12,7 @@ let template = {
   GROK_ACTIONS: 'e3eceda6',
   HOME: 'ha8209bc',
   LIKES: 'd7b8ebaa',
+  LIVE_ON_X: 'd961a4a0',
   MUTE_THIS_CONVERSATION: 'e2d6c17e',
   POST_ALL: 'ge8e4a38',
   PROFILE_SUMMARY: 'fc7db594',

@@ -63,6 +63,8 @@ for (let translationId of [
   'hideInlinePrompts',
   'hideJobsLabel',
   'hideLikeMetricsLabel',
+  'hideLiveBroadcastBarLabel',
+  'hideLiveBroadcastsLabel',
   'hideMessagesBottomNavItemLabel',
   'hideMessagesDrawerLabel',
   'hideMetricsLabel',
@@ -79,6 +81,7 @@ for (let translationId of [
   'hideSidebarContentLabel',
   'hideSpacesNavLabel',
   'hideSubscriptionsLabel',
+  'hideSuggestedFollowsLabel',
   'hideTimelineTweetBoxLabel',
   'hideToggleNavigationLabel',
   'hideTweetAnalyticsLinksLabel',
@@ -88,6 +91,7 @@ for (let translationId of [
   'hideUnusedUiItemsOptionsLabel',
   'hideVerifiedNotificationsTabLabel',
   'hideViewsLabel',
+  'hideWhatsHappeningLabel',
   'hideWhoToFollowEtcLabel',
   'homeTimelineOptionsLabel',
   'listRetweetsLabel',
@@ -107,6 +111,7 @@ for (let translationId of [
   'restoreOtherInteractionLinksLabel',
   'restoreQuoteTweetsLinkLabel',
   'retweetsLabel',
+  'sidebarLabel',
   'showBlueReplyFollowersCountAmountLabel',
   'showBlueReplyVerifiedAccountsLabel',
   'showBookmarkButtonUnderFocusedTweetsLabel',
@@ -240,17 +245,21 @@ const defaultConfig = {
   hideAccountSwitcher: false,
   hideExploreNav: true,
   hideExploreNavWithSidebar: true,
+  hideLiveBroadcasts: false,
   hideMessagesDrawer: true,
   hideSidebarContent: true,
   hideSpacesNav: false,
+  hideSuggestedFollows: false,
   hideTimelineTweetBox: false,
   hideToggleNavigation: false,
+  hideWhatsHappening: false,
   navBaseFontSize: true,
   navDensity: 'default',
   showRelevantPeople: false,
   // Mobile only
-  preventNextVideoAutoplay: true,
+  hideLiveBroadcastBar: false,
   hideMessagesBottomNavItem: false,
+  preventNextVideoAutoplay: true,
 }
 //#endregion
 
@@ -452,6 +461,7 @@ function updateDisplay() {
   $body.classList.toggle('hidingTwitterBlueReplies', optionsConfig.hideTwitterBlueReplies)
   $body.classList.toggle('mutingQuotes', shouldDisplayMutedQuotes())
   $body.classList.toggle('showingBlueReplyFollowersCount', optionsConfig.showBlueReplyFollowersCount)
+  $body.classList.toggle('showingSidebarContent', !optionsConfig.hideSidebarContent)
   $body.classList.toggle('tweakingNewLayout', optionsConfig.tweakNewLayout)
   $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
   $showBlueReplyFollowersCountLabel.textContent = chrome.i18n.getMessage(

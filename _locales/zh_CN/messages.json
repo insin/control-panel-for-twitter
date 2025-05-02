@@ -158,6 +158,12 @@
   "hideListsNavLabel": {
     "message": "列表"
   },
+  "hideLiveBroadcastBarLabel": {
+    "message": "隐藏直播栏"
+  },
+  "hideLiveBroadcastsLabel": {
+    "message": "隐藏直播"
+  },
   "hideMessagesBottomNavItemLabel": {
     "message": "私信"
   },
@@ -218,6 +224,9 @@
   "hideSubscriptionsLabel": {
     "message": "隐藏订阅服务"
   },
+  "hideSuggestedFollowsLabel": {
+    "message": "隐藏推荐关注"
+  },
   "hideTimelineTweetBoxLabel": {
     "message": "时间线推文框"
   },
@@ -244,6 +253,9 @@
   },
   "hideViewsLabel": {
     "message": "隐藏推文下的观点"
+  },
+  "hideWhatsHappeningLabel": {
+    "message": "隐藏“正在发生的事”"
   },
   "hideWhoToFollowEtcLabel": {
     "message": "在时间线中隐藏\"关注谁\", \"关注一些话题\"等"
@@ -378,6 +390,9 @@
   },
   "showRelevantPeopleLabel": {
     "message": "查看推文时显示\"相关人员\""
+  },
+  "sidebarLabel": {
+    "message": "侧边栏"
   },
   "sortReplies": {
     "message": "对回复排序"

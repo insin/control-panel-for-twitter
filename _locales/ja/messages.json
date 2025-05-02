@@ -158,6 +158,12 @@
   "hideListsNavLabel": {
     "message": "リスト"
   },
+  "hideLiveBroadcastBarLabel": {
+    "message": "ライブ放送バーを非表示"
+  },
+  "hideLiveBroadcastsLabel": {
+    "message": "ライブ放送を非表示"
+  },
   "hideMessagesBottomNavItemLabel": {
     "message": "メッセージ"
   },
@@ -218,6 +224,9 @@
   "hideSubscriptionsLabel": {
     "message": "サブスクリプションを非表示"
   },
+  "hideSuggestedFollowsLabel": {
+    "message": "おすすめのフォローを非表示"
+  },
   "hideTimelineTweetBoxLabel": {
     "message": "タイムラインのツイートボックス"
   },
@@ -244,6 +253,9 @@
   },
   "hideViewsLabel": {
     "message": "ツイート下部のアナリティクスのリンクを非表示"
+  },
+  "hideWhatsHappeningLabel": {
+    "message": "「いまどうしてる？」を非表示"
   },
   "hideWhoToFollowEtcLabel": {
     "message": "タイムラインの「おすすめユーザー」「おすすめトピック」を非表示"
@@ -369,6 +381,9 @@
   },
   "showRelevantPeopleLabel": {
     "message": "ツイート閲覧時に「おすすめユーザー」を表示する"
+  },
+  "sidebarLabel": {
+    "message": "サイドバー"
   },
   "sortRepliesLabel": {
     "message": "返信のデフォルトの並べ替え"
