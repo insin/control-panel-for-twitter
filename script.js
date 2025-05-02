@@ -3676,6 +3676,8 @@ const configureCss = (() => {
         `button[aria-label="${getString('PROFILE_SUMMARY')}"]`,
         // Grok summary at the top of search results
         'body.Search [data-testid="primaryColumn"] > div > div:has(> [data-testid="followups_search"])',
+        // Install button card in Grok tweets
+        '[data-testid="card.wrapper"]:has(> div > a[href="https://itunes.apple.com/app/id6670324846"])',
       )
     }
     if (config.hideMonetizationNav) {
@@ -5813,7 +5815,10 @@ function removeMobileTimelineHeaderElements() {
  * @param {HTMLElement} $tweet
  */
 function restoreLinkHeadline($tweet) {
-  let $link = /** @type {HTMLElement} */ ($tweet.querySelector('div[data-testid="card.layoutLarge.media"] > a[rel][aria-label]'))
+  let $link = /** @type {HTMLElement} */ ($tweet.querySelector(
+    // Exclude Install button cards in Grok tweets
+    'div[data-testid="card.layoutLarge.media"] > a[rel][aria-label]:not([href="https://itunes.apple.com/app/id6670324846"])'
+  ))
   if ($link && !$link.dataset.headlineRestored) {
     let [site, ...rest] = $link.getAttribute('aria-label').split(' ')
     let headline = rest.join(' ')
