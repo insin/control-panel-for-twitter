@@ -3662,7 +3662,7 @@ const configureCss = (() => {
     if (config.hideGrokNav) {
       hideCssSelectors.push(
         // In menus
-        `${menuRole} a[href$="/i/grok"]`,
+        `${menuRole} a[href="/i/grok"]`,
         // Grok Actions button
         `button[aria-label="${getString('GROK_ACTIONS')}"]`,
         // "Generate image" button in the Tweet editor
@@ -3672,6 +3672,8 @@ const configureCss = (() => {
         // Grok suggested prompts in Tweets
         '[data-testid="tweet"] [data-testid^="followups_"]',
         '[data-testid="tweet"] [data-testid^="followups_"] + nav',
+        // Ask Grok button in Tweets
+        '[data-testid="tweet"] a[href="/i/grok"]',
         // Profile Summary button
         `button[aria-label="${getString('PROFILE_SUMMARY')}"]`,
         // Grok summary at the top of search results
