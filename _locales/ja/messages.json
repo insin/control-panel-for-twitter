@@ -99,7 +99,7 @@
     "message": "すべて非表示"
   },
   "hideBlueReplyFollowedByLabel": {
-    "message": "私をフォローしている人を非表示にします"
+    "message": "私をフォローしている人を非表示にする"
   },
   "hideBlueReplyFollowingLabel": {
     "message": "フォローしている人を非表示にする"
@@ -150,7 +150,7 @@
     "message": "タイムライン内のインラインプロンプトを非表示にする"
   },
   "hideJobsLabel": {
-    "message": "募集を隠す"
+    "message": "募集を非表示にする"
   },
   "hideLikeMetricsLabel": {
     "message": "いいね件数"
@@ -222,7 +222,7 @@
     "message": "スペースを作成"
   },
   "hideSubscriptionsLabel": {
-    "message": "サブスクリプションを非表示"
+    "message": "サブスクリプションを非表示にする"
   },
   "hideSuggestedFollowsLabel": {
     "message": "おすすめのフォローを非表示"
@@ -345,13 +345,13 @@
     "message": "X のブランド変更を置き換える"
   },
   "restoreLinkHeadlinesLabel": {
-    "message": "外部リンクの下に見出しを復元"
+    "message": "外部リンクの下に見出しを復元する"
   },
   "restoreOtherInteractionLinksLabel": {
     "message": "ツイートの下の他のリンクを復元する"
   },
   "restoreQuoteTweetsLinkLabel": {
-    "message": "ツイートの下にある「引用ツイート」リンクを復元し"
+    "message": "ツイートの下にある「引用ツイート」リンクを復元する"
   },
   "retweetsLabel": {
     "message": "リツイート"
