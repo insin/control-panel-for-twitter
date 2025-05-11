@@ -3526,7 +3526,13 @@ const configureCss = (() => {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
     `]
-    let hideCssSelectors = ['.HiddenTweet', '.HiddenTweet + [role="separator"]', '.HiddenAd']
+    let hideCssSelectors = [
+      '.HiddenTweet',
+      '.HiddenTweet + [role="separator"]',
+      '.HiddenAd',
+      // Hide promoted trends
+      `[data-testid="trend"]:has(path[d="${Svgs.PROMOTED_PATH}"])`,
+    ]
     let menuRole = `[role="${desktop ? 'menu' : 'dialog'}"]`
 
     // Theme colours for custom UI items
@@ -4181,8 +4187,6 @@ const configureCss = (() => {
         }
         hideCssSelectors.push(`body.HideSidebar ${Selectors.SIDEBAR}`)
       } else {
-        // Hide promoted trends in What's happening
-        hideCssSelectors.push(`${Selectors.SIDEBAR} [data-testid="trend"]:has(path[d="${Svgs.PROMOTED_PATH}"])`)
         if (config.hideLiveBroadcasts) {
           hideCssSelectors.push('.LiveBroadcasts')
         }
