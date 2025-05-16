@@ -3018,17 +3018,23 @@ async function observeSidebar() {
         observeSearchForm()
       }
       // Process blue checks in the sidebar user box
-      if (config.twitterBlueChecks != 'ignore' && (!config.hideSidebarContent || config.showRelevantPeople && isOnIndividualTweetPage())) {
+      if (!config.hideSidebarContent) {
         void async function() {
-          let $aside = await getElement('aside[role="complementary"]', {
+          // Avoid false positive from Premium upsells in the sidebar
+          let $aside = await getElement('aside[role="complementary"]:not(:has(a[href^="/i/premium"]))', {
             name: 'sidebar aside box',
             context: $sidebar,
             stopIf: pageIsNot(currentPage),
             timeout: 2000,
           })
           if (!$aside) return
-          processBlueChecks($aside)
-          if (!isOnIndividualTweetPage()) $aside.parentElement.parentElement.classList.add('SuggestedFollows')
+          if (config.twitterBlueChecks != 'ignore') processBlueChecks($aside)
+          let $container = $aside.parentElement
+          while (!$container.nextElementSibling) $container = $container.parentElement
+          $container.classList.toggle(
+            'SuggestedFollows',
+            config.hideSuggestedFollows && !(config.showRelevantPeople && isOnIndividualTweetPage())
+          )
         }()
       }
       if (!config.hideSidebarContent && !isOnExplorePage()) {
@@ -3052,7 +3058,7 @@ async function observeSidebar() {
               }
             }, "sidebar What's happening timeline", {childList: true, subtree: true})
           )
-          $whatsHappeningTimeline.closest('section').parentElement.classList.add('WhatsHappening')
+          if (config.hideWhatsHappening) $whatsHappeningTimeline.closest('section').parentElement.classList.add('WhatsHappening')
         }()
       }
       if (!config.hideSidebarContent) {
