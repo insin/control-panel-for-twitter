@@ -5692,6 +5692,7 @@ function processCurrentPage() {
   }
 
   // Hooks for styling pages
+  if (!$body) $body = document.body
   $body.classList.toggle('Bookmarks', isOnBookmarksPage())
   $body.classList.toggle('Community', isOnCommunityPage())
   $body.classList.toggle('Communities', isOnCommunitiesPage())
