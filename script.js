@@ -6683,7 +6683,7 @@ async function tweakProfilePage() {
       ), {
         name: "you aren't verified yet premium upsell",
         stopIf: pageIsNot(currentPage),
-        timeout: 200,
+        timeout: 1000,
       }).then($upsell => {
         if ($upsell) {
           $upsell.classList.add('PremiumUpsell')
