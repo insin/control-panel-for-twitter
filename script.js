@@ -3739,6 +3739,8 @@ const configureCss = (() => {
         '[data-testid="profileAnalyticsUpsell"]',
         // Upsell in Lists sidebar
         '[data-testid="super-upsell-UpsellCardRenderProperties"]',
+        // "you aren't verified yet" in Premium user profile
+        '[data-testid="verified_profile_visitor_upsell"]',
       )
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
