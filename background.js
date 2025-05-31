@@ -26,9 +26,7 @@ function updateToolbarIcon(enabled) {
       chrome.browserAction.setIcon({path: enabled ? enabledIcons : disabledIcons})
     }
   } else {
-    chrome.action.setBadgeText({ text: !enabled ? 'OFF' : '' })
-    // Doesn't do anything yet https://bugs.webkit.org/show_bug.cgi?id=267662
-    chrome.action.setBadgeBackgroundColor({ color: '#808080' })
+    chrome.action.setBadgeText({ text: enabled ? '' : '⏻'})
   }
 }
 
