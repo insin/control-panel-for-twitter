@@ -5,7 +5,7 @@ const enabledIcons = {
   32: 'icons/icon32.png',
   48: 'icons/icon48.png',
   64: 'icons/icon64.png',
-  98: 'icons/icon98.png',
+  96: 'icons/icon96.png',
   128: 'icons/icon128.png',
 }
 
@@ -14,7 +14,7 @@ const disabledIcons = {
   32: 'icons/icon32-disabled.png',
   48: 'icons/icon48-disabled.png',
   64: 'icons/icon64-disabled.png',
-  98: 'icons/icon98-disabled.png',
+  96: 'icons/icon96-disabled.png',
   128: 'icons/icon128-disabled.png',
 }
 
