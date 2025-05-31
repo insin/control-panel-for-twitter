@@ -4579,8 +4579,8 @@ const configureDynamicCss = (() => {
 
     if (fontSize != null && config.navBaseFontSize) {
       cssRules.push(`
-        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir] span { font-size: ${fontSize}; font-weight: normal; }
-        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir] { margin-top: -4px; }
+        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) span { font-size: ${fontSize}; font-weight: normal; }
+        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) { margin-top: -4px; }
       `)
     }
 
