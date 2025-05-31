@@ -68,6 +68,9 @@
   "extensionName": {
     "message": "Control Panel for Twitter"
   },
+  "extensionNameDisabled": {
+    "message": "Control Panel for Twitter (deshabilitado)"
+  },
   "fastBlockLabel": {
     "message": "Bloqueo rápido (no muestra menú de confirmación)"
   },

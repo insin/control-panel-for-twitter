@@ -68,6 +68,9 @@
   "extensionName": {
     "message": "Control Panel for Twitter"
   },
+  "extensionNameDisabled": {
+    "message": "Control Panel for Twitter (無効)"
+  },
   "fastBlockLabel": {
     "message": "即ブロック（確認画面をスキップする）"
   },

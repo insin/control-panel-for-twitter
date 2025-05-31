@@ -68,6 +68,9 @@
   "extensionName": {
     "message": "Control Panel for Twitter"
   },
+  "extensionNameDisabled": {
+    "message": "Control Panel for Twitter (已禁用)"
+  },
   "fastBlockLabel": {
     "message": "快速屏蔽(跳过确认对话框)"
   },

@@ -19,14 +19,17 @@ const disabledIcons = {
 }
 
 function updateToolbarIcon(enabled) {
-  if (!isSafari) {
-    if (chrome.runtime.getManifest().manifest_version == 3) {
+  let title = chrome.i18n.getMessage(enabled ? 'extensionName' : 'extensionNameDisabled')
+  if (chrome.runtime.getManifest().manifest_version == 3) {
+    chrome.action.setTitle({title})
+    if (!isSafari) {
       chrome.action.setIcon({path: enabled ? enabledIcons : disabledIcons})
     } else {
-      chrome.browserAction.setIcon({path: enabled ? enabledIcons : disabledIcons})
+      chrome.action.setBadgeText({text: enabled ? '' : '⏻'})
     }
   } else {
-    chrome.action.setBadgeText({ text: enabled ? '' : '⏻'})
+    chrome.browserAction.setTitle({title})
+    chrome.browserAction.setIcon({path: enabled ? enabledIcons : disabledIcons})
   }
 }
 

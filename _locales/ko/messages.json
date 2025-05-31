@@ -68,6 +68,9 @@
   "extensionName": {
     "message": "Control Panel for Twitter"
   },
+  "extensionNameDisabled": {
+    "message": "Control Panel for Twitter (비활성화됨)"
+  },
   "fastBlockLabel": {
     "message": "빠른 차단 (확인 대화상자 생략)"
   },
