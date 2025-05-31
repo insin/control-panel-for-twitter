@@ -46,6 +46,7 @@ for (let translationId of [
   'disabledHomeTimelineRedirectOption_messages',
   'dontUseChirpFontLabel',
   'dropdownMenuFontWeightLabel',
+  'enabled',
   'experimentsOptionsLabel',
   'exportConfigLabel',
   'fastBlockLabel',

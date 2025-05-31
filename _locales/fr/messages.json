@@ -50,6 +50,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "Utiliser une taille de police normale dans les menus déroulants"
   },
+  "enabled": {
+    "message": "Activé"
+  },
   "experimentsOptionsLabel": {
     "message": "Fonctionnalités expérimentales"
   },

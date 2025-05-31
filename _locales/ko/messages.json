@@ -50,6 +50,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "드롭다운 메뉴에서 일반 글꼴 두께 사용"
   },
+  "enabled": {
+    "message": "활성화됨"
+  },
   "experimentsOptionsLabel": {
     "message": "실험"
   },

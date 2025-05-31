@@ -50,6 +50,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "Usar grosor normal de fuentes en desplegables"
   },
+  "enabled": {
+    "message": "Habilitado"
+  },
   "experimentsOptionsLabel": {
     "message": "Experimentos"
   },

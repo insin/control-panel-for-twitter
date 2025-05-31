@@ -50,6 +50,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "在下拉菜单中使用正常的字体大小"
   },
+  "enabled": {
+    "message": "已启用"
+  },
   "experimentsOptionsLabel": {
     "message": "试验"
   },

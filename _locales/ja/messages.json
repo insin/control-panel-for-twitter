@@ -50,6 +50,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "ドロップダウンメニューを通常のフォントの太さにする"
   },
+  "enabled": {
+    "message": "有効"
+  },
   "experimentsOptionsLabel": {
     "message": "実験的機能"
   },

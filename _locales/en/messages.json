@@ -51,6 +51,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "Use normal font weight in dropdown menus"
   },
+  "enabled": {
+    "message": "Enabled"
+  },
   "experimentsOptionsLabel": {
     "message": "Experiments"
   },

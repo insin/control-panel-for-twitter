@@ -50,6 +50,9 @@
   "dropdownMenuFontWeightLabel": {
     "message": "Usa il peso normale per il font dei menu a tendina"
   },
+  "enabled": {
+    "message": "Abilitato"
+  },
   "experimentsOptionsLabel": {
     "message": "Esperimenti"
   },
