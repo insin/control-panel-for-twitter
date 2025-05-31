@@ -18,19 +18,27 @@ const disabledIcons = {
   128: 'icons/icon128-disabled.png',
 }
 
-function updateBrowserActionIcon(enabled) {
-  chrome.browserAction.setIcon({path: enabled ? enabledIcons : disabledIcons})
+function updateToolbarIcon(enabled) {
+  if (!isSafari) {
+    if (chrome.runtime.getManifest().manifest_version == 3) {
+      chrome.action.setIcon({path: enabled ? enabledIcons : disabledIcons})
+    } else {
+      chrome.browserAction.setIcon({path: enabled ? enabledIcons : disabledIcons})
+    }
+  } else {
+    chrome.action.setBadgeText({ text: !enabled ? 'OFF' : '' })
+    // Doesn't do anything yet https://bugs.webkit.org/show_bug.cgi?id=267662
+    chrome.action.setBadgeBackgroundColor({ color: '#808080' })
+  }
 }
 
 // Update browser action icon to reflect enabled state
-if (!isSafari) {
-  chrome.storage.local.get({enabled: true}, ({enabled}) => {
-    updateBrowserActionIcon(enabled)
-  })
+chrome.storage.local.get({enabled: true}, ({enabled}) => {
+  updateToolbarIcon(enabled)
+})
 
-  chrome.storage.local.onChanged.addListener((changes) => {
-    if (changes.enabled) {
-      updateBrowserActionIcon(changes.enabled.newValue)
-    }
-  })
-}
+chrome.storage.local.onChanged.addListener((changes) => {
+  if (changes.enabled) {
+    updateToolbarIcon(changes.enabled.newValue)
+  }
+})

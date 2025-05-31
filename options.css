@@ -42,7 +42,15 @@ body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
 }
 
 .icon {
-  height: 1.25em;
+  height: 1.25rem;
+}
+
+body.macOS.safari .icon {
+  display: none;
+}
+
+body.iOS.safari .icon {
+  height: 1.75rem;
 }
 
 body.disabled .icon {

@@ -12,6 +12,10 @@
     "256": "icon256.png",
     "512": "icon512.png"
   },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
   "content_scripts": [
     {
       "matches": [
