@@ -7019,8 +7019,8 @@ async function main() {
     return
   }
 
-  observeTitle()
   observeFavicon()
+  observeTitle()
 
   let $appWrapper = await getElement('#layers + div', {name: 'app wrapper'})
 
@@ -7109,6 +7109,8 @@ function configChanged(changes) {
   if ('enabled' in changes) {
     log(`${changes.enabled ? 'en' : 'dis'}abling extension functionality`)
     if (changes.enabled) {
+      // Process the current page if we've just been enabled on it
+      observingPageChanges = true
       main()
     } else {
       // These functions have teardowns when disabled
