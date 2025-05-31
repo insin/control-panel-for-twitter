@@ -9,7 +9,7 @@ const xLogoPath = 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817
 if (localStorage.cpftEnabled != 'false' && localStorage.cpftReplaceLogo != 'false') {
   if (!isSafari) {
     let $style = document.createElement('style')
-    $style.id = 'cpft_loading'
+    $style.id = 'cpftLoading'
     $style.textContent = `
       svg path[d="${xLogoPath}"] {
         fill: ${twitterBlue};
@@ -37,7 +37,7 @@ chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ store
 
   $settings = document.createElement('script')
   $settings.type = 'text/json'
-  $settings.id = 'tnt_settings'
+  $settings.id = 'cpftSettings'
   document.documentElement.appendChild($settings)
   $settings.innerText = JSON.stringify(storedConfig)
 
@@ -64,7 +64,7 @@ function onConfigChange(changes) {
 // Store config changes sent from the injected script
 window.addEventListener('message', (event) => {
   if (event.source !== window) return
-  if (event.data.type === 'tntConfigChange' && event.data.changes) {
+  if (event.data.type === 'cpftConfigChange' && event.data.changes) {
     chrome.storage.onChanged.removeListener(onConfigChange)
     chrome.storage.local.set(event.data.changes, () => {
       chrome.storage.onChanged.addListener(onConfigChange)

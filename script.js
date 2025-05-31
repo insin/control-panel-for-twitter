@@ -2238,7 +2238,7 @@ function blueCheck($svg) {
     warn('blueCheck was given', $svg)
     return
   }
-  $svg.classList.add('tnt_blue_check')
+  $svg.classList.add('cpft_blue_check')
   // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
   // we have to manually patch the path in it.
   if (isSafari && config.twitterBlueChecks == 'replace') {
@@ -2253,7 +2253,7 @@ function twitterLogo($svgPath) {
   // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
   // we have to manually patch the path in it.
   $svgPath.setAttribute('d', Svgs.TWITTER_LOGO_PATH)
-  $svgPath.classList.add('tnt_logo')
+  $svgPath.classList.add('cpft_logo')
 }
 
 /**
@@ -2596,7 +2596,7 @@ function setTweetButtonText($tweetButtonText) {
 }
 
 function storeConfigChanges(changes) {
-  window.postMessage({type: 'tntConfigChange', changes})
+  window.postMessage({type: 'cpftConfigChange', changes})
 }
 //#endregion
 
@@ -3381,7 +3381,7 @@ async function addAddMutedWordMenuItem($link, linkSelector) {
   }
 
   let $addMutedWord = /** @type {HTMLElement} */ ($link.parentElement.cloneNode(true))
-  $addMutedWord.classList.add('tnt_menu_item')
+  $addMutedWord.classList.add('cpft_menu_item')
   $addMutedWord.querySelector('a').href = PagePaths.ADD_MUTED_WORD
   $addMutedWord.querySelector('span').textContent = getString('ADD_MUTED_WORD')
   $addMutedWord.querySelector('svg').innerHTML = Svgs.MUTE
@@ -3419,7 +3419,7 @@ async function addMuteQuotesMenuItems($blockMenuItem) {
   }
 
   let $muteQuotes = /** @type {HTMLElement} */ ($blockMenuItem.previousElementSibling.cloneNode(true))
-  $muteQuotes.classList.add('tnt_menu_item')
+  $muteQuotes.classList.add('cpft_menu_item')
   $muteQuotes.querySelector('span').textContent = getString('MUTE_THIS_CONVERSATION')
   $muteQuotes.addEventListener('click', (e) => {
     e.preventDefault()
@@ -3437,7 +3437,7 @@ async function addMuteQuotesMenuItems($blockMenuItem) {
 
   if (quotedTweet?.quotedBy) {
     let $toggleQuotes = /** @type {HTMLElement} */ ($blockMenuItem.previousElementSibling.cloneNode(true))
-    $toggleQuotes.classList.add('tnt_menu_item')
+    $toggleQuotes.classList.add('cpft_menu_item')
     $toggleQuotes.querySelector('span').textContent = getString(`TURN_OFF_QUOTE_TWEETS`)
     $toggleQuotes.querySelector('svg').innerHTML = Svgs.RETWEETS_OFF
     $toggleQuotes.addEventListener('click', (e) => {
@@ -3504,7 +3504,7 @@ async function addToggleListRetweetsMenuItem($switchMenuItem) {
   }
 
   let $toggleRetweets = /** @type {HTMLElement} */ ($switchMenuItem.cloneNode(true))
-  $toggleRetweets.classList.add('tnt_menu_item')
+  $toggleRetweets.classList.add('cpft_menu_item')
   $toggleRetweets.querySelector('span').textContent = getString(`TURN_${config.listRetweets == 'ignore' ? 'OFF' : 'ON'}_RETWEETS`)
   $toggleRetweets.querySelector('svg').innerHTML = config.listRetweets == 'ignore' ? Svgs.RETWEETS_OFF : Svgs.RETWEET
   // Remove subtitle if the cloned menu item has one
@@ -3606,7 +3606,7 @@ const configureCss = (() => {
     }
 
     let cssRules = [`
-      .tnt_font_family, .cpft_text {
+      .cpft_font_family, .cpft_text {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
       .cpft_separator {
@@ -3645,7 +3645,7 @@ const configureCss = (() => {
         --color-emphasis: rgb(247, 249, 249);
         --hover-bg-color: rgb(22, 24, 28);
       }
-      .tnt_menu_item:hover { background-color: var(--hover-bg-color) !important; }
+      .cpft_menu_item:hover { background-color: var(--hover-bg-color) !important; }
     `)
 
     if (config.alwaysUseLatestTweets && config.hideForYouTimeline) {
@@ -3875,7 +3875,7 @@ const configureCss = (() => {
     }
     if (config.restoreLinkHeadlines) {
       cssRules.push(`
-        .tnt_link_headline {
+        .cpft_link_headline {
           display: block
           border-top: 1px solid var(--border-color);
           padding: 14px;
@@ -3883,24 +3883,24 @@ const configureCss = (() => {
       `)
       hideCssSelectors.push(
         // Existing headline overlaid on the card
-        '.tnt_overlay_headline',
+        '.cpft_overlay_headline',
         // From <domain> link after the card
         'div[data-testid="card.wrapper"] + a',
       )
     }
     if (config.restoreQuoteTweetsLink || config.restoreOtherInteractionLinks) {
       cssRules.push(`
-        #tntInteractionLinks {
+        #cpftInteractionLinks {
           display: block;
         }
-        #tntInteractionLinks a {
+        #cpftInteractionLinks a {
           text-decoration: none;
           color: var(--color);
         }
-        #tntInteractionLinks a:hover span:last-child {
+        #cpftInteractionLinks a:hover span:last-child {
           text-decoration: underline;
         }
-        #tntQuoteTweetCount, #tntRetweetCount, #tntLikeCount {
+        #cpftQuoteTweetCount, #cpftRetweetCount, #cpftLikeCount {
           margin-right: 2px;
           font-weight: 700;
           color: var(--color-emphasis);
@@ -3912,10 +3912,10 @@ const configureCss = (() => {
       `)
     }
     if (!config.restoreQuoteTweetsLink) {
-      hideCssSelectors.push('#tntQuoteTweetsLink')
+      hideCssSelectors.push('#cpftQuoteTweetsLink')
     }
     if (!config.restoreOtherInteractionLinks) {
-      hideCssSelectors.push('#tntRetweetsLink', '#tntLikesLink')
+      hideCssSelectors.push('#cpftRetweetsLink', '#cpftLikesLink')
     }
     if (config.restoreTweetSource) {
       cssRules.push('.TweetSource { display: inline; }')
@@ -3925,11 +3925,11 @@ const configureCss = (() => {
       hideCssSelectors.push('body.QuoteTweets [data-testid="tweet"] [aria-labelledby] > div:last-child')
     }
     if (config.twitterBlueChecks == 'hide') {
-      hideCssSelectors.push('.tnt_blue_check')
+      hideCssSelectors.push('.cpft_blue_check')
     }
     if (config.twitterBlueChecks == 'replace') {
       cssRules.push(`
-        :is(${Selectors.VERIFIED_TICK}, svg[data-testid="verificationBadge"]).tnt_blue_check path {
+        :is(${Selectors.VERIFIED_TICK}, svg[data-testid="verificationBadge"]).cpft_blue_check path {
           d: path("${Svgs.BLUE_LOGO_PATH}");
         }
       `)
@@ -3939,14 +3939,14 @@ const configureCss = (() => {
       if (hasNewLayout()) {
         // The new layout only has colour to distinguish the active tab
         cssRules.push(`
-          body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div {
+          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > a > div > div,
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > a > div > div {
             color: var(--color) !important;
           }
-          body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div {
+          body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div {
             color: var(--color-emphasis) !important;
           }
-          body.Desktop #tnt_separated_tweets_tab:hover > a > div > div {
+          body.Desktop #cpftSeparatedTweetsTab:hover > a > div > div {
             color: var(--color-emphasis) !important;
           }
         `)
@@ -3961,25 +3961,25 @@ const configureCss = (() => {
           body.LightsOut {
             --tab-hover: rgba(231, 233, 234, 0.1);
           }
-          body.Desktop #tnt_separated_tweets_tab:hover,
-          body.Mobile:not(.SeparatedTweets) #tnt_separated_tweets_tab:hover,
-          body.Mobile #tnt_separated_tweets_tab:active {
+          body.Desktop #cpftSeparatedTweetsTab:hover,
+          body.Mobile:not(.SeparatedTweets) #cpftSeparatedTweetsTab:hover,
+          body.Mobile #cpftSeparatedTweetsTab:active {
             background-color: var(--tab-hover);
           }
-          body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div {
+          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > a > div > div,
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > a > div > div {
             font-weight: normal !important;
             color: var(--color) !important;
           }
-          body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div {
+          body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div {
             font-weight: bold;
             color: var(--color-emphasis); !important;
           }
-          body:not(.SeparatedTweets) #tnt_separated_tweets_tab > a > div > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#tnt_separated_tweets_tab) > a > div > div > div {
+          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > a > div > div > div,
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > a > div > div > div {
             height: 0 !important;
           }
-          body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div > div {
+          body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div > div {
             height: 4px !important;
             min-width: 56px;
             width: 100%;
@@ -4343,7 +4343,7 @@ const configureCss = (() => {
         )
       }
       if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
-        hideCssSelectors.push('#tnt_separated_tweets_tab')
+        hideCssSelectors.push('#cpftSeparatedTweetsTab')
       }
     }
     //#endregion
@@ -4530,13 +4530,13 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   }
 
   if (config.hideQuoteTweetMetrics) {
-    hideCssSelectors.push('#tntQuoteTweetCount')
+    hideCssSelectors.push('#cpftQuoteTweetCount')
   }
   if (config.hideRetweetMetrics) {
-    hideCssSelectors.push('#tntRetweetCount')
+    hideCssSelectors.push('#cpftRetweetCount')
   }
   if (config.hideLikeMetrics) {
-    hideCssSelectors.push('#tntLikeCount')
+    hideCssSelectors.push('#cpftLikeCount')
   }
 }
 
@@ -4684,7 +4684,7 @@ const configureThemeCss = (() => {
     // Active tab colour for custom tabs
     if (themeColor != null && shouldShowSeparatedTweetsTab()) {
       cssRules.push(`
-        body.SeparatedTweets #tnt_separated_tweets_tab > a > div > div > div {
+        body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div > div {
           background-color: ${themeColor} !important;
         }
       `)
@@ -4696,7 +4696,7 @@ const configureThemeCss = (() => {
           fill: ${THEME_BLUE};
           d: path("${Svgs.TWITTER_LOGO_PATH}");
         }
-        .tnt_logo {
+        .cpft_logo {
           fill: ${THEME_BLUE};
         }
         svg path[d="${Svgs.X_HOME_ACTIVE_PATH}"] {
@@ -5127,7 +5127,7 @@ function handlePopup($popup) {
       let $verificationBadge = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="sheetDialog"] [data-testid="verificationBadge"]'))
       if ($verificationBadge) {
         result.tookAction = true
-        let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.MOBILE_TIMELINE_HEADER} .tnt_blue_check`)
+        let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.MOBILE_TIMELINE_HEADER} .cpft_blue_check`)
         if ($headerBlueCheck) {
           blueCheck($verificationBadge)
         }
@@ -5143,7 +5143,7 @@ function handlePopup($popup) {
         }).then(($verificationBadge) => {
           if (!$verificationBadge) return
 
-          let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 .tnt_blue_check`)
+          let $headerBlueCheck = document.querySelector(`body.Profile ${Selectors.PRIMARY_COLUMN} > div > div:first-of-type h2 .cpft_blue_check`)
           if (!$headerBlueCheck) return
 
           // Wait for the hovercard to render its contents
@@ -5819,7 +5819,7 @@ function onTitleChange(title) {
  * @param {HTMLElement} $el
  */
 function processBlueChecks($el) {
-  for (let $svg of $el.querySelectorAll(`${Selectors.VERIFIED_TICK}:not(.tnt_blue_check)`)) {
+  for (let $svg of $el.querySelectorAll(`${Selectors.VERIFIED_TICK}:not(.cpft_blue_check)`)) {
     if (isBlueVerified($svg)) {
       blueCheck($svg)
     }
@@ -5969,7 +5969,7 @@ function redirectToTwitter() {
  */
 function removeMobileTimelineHeaderElements() {
   if (mobile) {
-    document.querySelector('#tnt_separated_tweets_tab')?.remove()
+    document.querySelector('#cpftSeparatedTweetsTab')?.remove()
   }
 }
 
@@ -5984,8 +5984,8 @@ function restoreLinkHeadline($tweet) {
   if ($link && !$link.dataset.headlineRestored) {
     let [site, ...rest] = $link.getAttribute('aria-label').split(' ')
     let headline = rest.join(' ')
-    $link.lastElementChild?.classList.add('tnt_overlay_headline')
-    $link.insertAdjacentHTML('beforeend', `<div class="tnt_link_headline ${fontFamilyRule?.selectorText?.replace('.', '') || 'tnt_font_family'}" hidden>
+    $link.lastElementChild?.classList.add('cpft_overlay_headline')
+    $link.insertAdjacentHTML('beforeend', `<div class="cpft_link_headline ${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" hidden>
       <div style="color: var(--color); margin-bottom: 2px;">${site}</div>
       <div style="color: var(--color-emphasis)">${headline}</div>
     </div>`)
@@ -6009,7 +6009,7 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
     (config.restoreQuoteTweetsLink && tweetInfo.quote_count > 0) ||
     (config.restoreOtherInteractionLinks && (tweetInfo.retweet_count > 0 || isOwnTweet && tweetInfo.favorite_count > 0))
   )
-  let $existingLinks = $focusedTweet.querySelector('#tntInteractionLinks')
+  let $existingLinks = $focusedTweet.querySelector('#cpftInteractionLinks')
   if (!shouldDisplayLinks || $existingLinks) {
     if (!shouldDisplayLinks) $existingLinks?.remove()
     return
@@ -6020,22 +6020,22 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
 
   let tweetLink = location.pathname.match(URL_TWEET_BASE_RE)?.[0]
   $group.parentElement.insertAdjacentHTML('beforebegin', `
-    <div id="tntInteractionLinks" hidden>
-      <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'tnt_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--border-color); display: flex; gap: 20px;">
-        ${tweetInfo.quote_count > 0 ? `<a id="tntQuoteTweetsLink" class="quoteTweets" href="${tweetLink}/quotes" dir="auto" role="link">
-          <span id="tntQuoteTweetCount">
+    <div id="cpftInteractionLinks" hidden>
+      <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--border-color); display: flex; gap: 20px;">
+        ${tweetInfo.quote_count > 0 ? `<a id="cpftQuoteTweetsLink" class="quoteTweets" href="${tweetLink}/quotes" dir="auto" role="link">
+          <span id="cpftQuoteTweetCount">
             ${Intl.NumberFormat(lang, {notation: tweetInfo.quote_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)}
           </span>
           <span>${getString(tweetInfo.quote_count == 1 ? (config.replaceLogo ? 'QUOTE_TWEET' : 'QUOTE') : (config.replaceLogo ? 'QUOTE_TWEETS' : 'QUOTES'))}</span>
         </a>` : ''}
-        ${tweetInfo.retweet_count > 0 ? `<a id="tntRetweetsLink" data-tab="2" href="${tweetLink}/retweets" dir="auto" role="link">
-          <span id="tntRetweetCount">
+        ${tweetInfo.retweet_count > 0 ? `<a id="cpftRetweetsLink" data-tab="2" href="${tweetLink}/retweets" dir="auto" role="link">
+          <span id="cpftRetweetCount">
             ${Intl.NumberFormat(lang, {notation: tweetInfo.retweet_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.retweet_count)}
           </span>
           <span>${getString(config.replaceLogo ? 'RETWEETS' : 'REPOSTS')}</span>
         </a>` : ''}
-        ${isOwnTweet && tweetInfo.favorite_count > 0 ? `<a id="tntLikesLink" data-tab="3" href="${tweetLink}/likes" dir="auto" role="link">
-          <span id="tntLikeCount">
+        ${isOwnTweet && tweetInfo.favorite_count > 0 ? `<a id="cpftLikesLink" data-tab="3" href="${tweetLink}/likes" dir="auto" role="link">
+          <span id="cpftLikeCount">
             ${Intl.NumberFormat(lang, {notation: tweetInfo.favorite_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.favorite_count)}
           </span>
           <span>${getString('LIKES')}</span>
@@ -6044,7 +6044,7 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
     </div>
   `)
 
-  let links = /** @type {NodeListOf<HTMLAnchorElement>} */ ($focusedTweet.querySelectorAll('#tntInteractionLinks a'))
+  let links = /** @type {NodeListOf<HTMLAnchorElement>} */ ($focusedTweet.querySelectorAll('#cpftInteractionLinks a'))
   links.forEach(($link) => {
     $link.addEventListener('click', async (e) => {
       let $caret = /** @type {HTMLElement} */ ($focusedTweet.querySelector('[data-testid="caret"]'))
@@ -6731,7 +6731,7 @@ async function tweakTimelineTabs($timelineTabs) {
   }
 
   if (shouldShowSeparatedTweetsTab()) {
-    let $newTab = /** @type {HTMLElement} */ ($timelineTabs.querySelector('#tnt_separated_tweets_tab'))
+    let $newTab = /** @type {HTMLElement} */ ($timelineTabs.querySelector('#cpftSeparatedTweetsTab'))
     if ($newTab) {
       log('separated tweets timeline tab already present')
       $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
@@ -6739,7 +6739,7 @@ async function tweakTimelineTabs($timelineTabs) {
     else {
       log('inserting separated tweets tab')
       $newTab = /** @type {HTMLElement} */ ($followingTabLink.parentElement.cloneNode(true))
-      $newTab.id = 'tnt_separated_tweets_tab'
+      $newTab.id = 'cpftSeparatedTweetsTab'
       $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
       let $link = $newTab.querySelector('a')
       $link.removeAttribute('aria-selected')
@@ -7082,7 +7082,7 @@ async function main() {
       observingPageChanges = true
 
       // Remove the loading stylesheet if the content script added one
-      let $loadingStylesheet = document.querySelector('style#cpft_loading')
+      let $loadingStylesheet = document.querySelector('style#cpftLoading')
       if ($loadingStylesheet) {
         requestAnimationFrame(() => $loadingStylesheet.remove())
       }
@@ -7125,8 +7125,8 @@ function configChanged(changes) {
       configureThemeCss()
       // Manually remove custom UI elements which clone existing elements, as
       // adding a hidden attribute won't hide them by default.
-      document.querySelector('#tnt_separated_tweets_tab')?.remove()
-      document.querySelectorAll('.tnt_menu_item').forEach(el => el.remove())
+      document.querySelector('#cpftSeparatedTweetsTab')?.remove()
+      document.querySelectorAll('.cpft_menu_item').forEach(el => el.remove())
       disconnectObservers(modalObservers, 'modal')
       disconnectObservers(pageObservers, 'page')
       disconnectObservers(globalObservers, 'global')
@@ -7185,7 +7185,7 @@ function configChanged(changes) {
 }
 
 // Initial config and config changes are injected into a <script> element
-let $settings = /** @type {HTMLScriptElement} */ (document.querySelector('script#tnt_settings'))
+let $settings = /** @type {HTMLScriptElement} */ (document.querySelector('script#cpftSettings'))
 if ($settings) {
   try {
     Object.assign(config, JSON.parse($settings.innerText))
