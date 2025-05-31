@@ -2185,6 +2185,10 @@ function isOnMessagesPage() {
   return currentPath.startsWith('/messages')
 }
 
+function isOnComposeTweetPage() {
+  return currentPath.startsWith(PagePaths.COMPOSE_TWEET)
+}
+
 function isOnNotificationsPage() {
   return currentPath.startsWith('/notifications')
 }
@@ -2638,6 +2642,7 @@ function observeBodyBackgroundColor() {
  * @param {HTMLElement} $popup
  */
 async function observeDesktopComposeTweetModal($popup) {
+  $popup.classList.add('ComposeTweetModal')
   if (!config.replaceLogo) return
 
   let $mask = await getElement('[data-testid="twc-cc-mask"]', {
@@ -3826,6 +3831,8 @@ const configureCss = (() => {
         '[data-testid="super-upsell-UpsellCardRenderProperties"]',
         // "you aren't verified yet" in Premium user profile
         '[data-testid="verified_profile_visitor_upsell"]',
+        // "Upgrade to Premium+ to write longer posts" in Tweet composer
+        `${mobile ? 'body.ComposeTweetPage' : ':is(.ComposeTweetModal, .TweetBox)'} [aria-live="polite"][role="status"]:has(a[href="/i/premium_sign_up?referring_page=post-composer"])`,
       )
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
@@ -5868,6 +5875,8 @@ function processCurrentPage() {
   $body.classList.toggle('Settings', isOnSettingsPage())
   $body.classList.toggle('MobileMedia', mobile && URL_MEDIA_RE.test(location.pathname))
   $body.classList.toggle('MediaViewer', mobile && URL_MEDIAVIEWER_RE.test(location.pathname))
+  $body.classList.toggle('ComposeTweetPage', mobile && isOnComposeTweetPage())
+  // Always remove this as it's a fake page
   $body.classList.remove('SeparatedTweets')
 
   if (desktop) {
@@ -5941,7 +5950,7 @@ function processCurrentPage() {
 
   // On mobile, these are pages instead of modals
   if (mobile) {
-    if (currentPath == PagePaths.COMPOSE_TWEET) {
+    if (isOnComposeTweetPage()) {
       tweakMobileComposeTweetPage()
     }
     else if (URL_MEDIAVIEWER_RE.test(currentPath)) {
