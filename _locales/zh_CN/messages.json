@@ -98,12 +98,6 @@
   "hideAllMetricsLabel": {
     "message": "全部隐藏"
   },
-  "hideBlueReplyFollowedByLabel": {
-    "message": "隐藏关注我的人"
-  },
-  "hideBlueReplyFollowingLabel": {
-    "message": "隐藏我关注的人"
-  },
   "hideBookmarkButtonLabel": {
     "message": "推文下方的书签按钮"
   },
@@ -378,18 +372,27 @@
     "message": "粉丝数"
   },
   "showBlueReplyFollowersCountLabel": {
-    "message": "显示拥有超过 $AMOUNT$ 个粉丝的人",
+    "message": "显示粉丝数超过$AMOUNT$的账户",
     "placeholders": {
       "amount": {
         "content": "$1"
       }
     }
   },
-  "showBlueReplyVerifiedAccountsLabel": {
-    "message": "显示\"已验证\"账号"
-  },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "在焦点推文下显示"
+  },
+  "showPremiumReplyBusinessLabel": {
+    "message": "显示已验证的企业账户"
+  },
+  "showPremiumReplyFollowedByLabel": {
+    "message": "显示关注我的账户"
+  },
+  "showPremiumReplyFollowingLabel": {
+    "message": "显示我关注的账户"
+  },
+  "showPremiumReplyGovernmentLabel": {
+    "message": "显示已验证的政府账户"
   },
   "showRelevantPeopleLabel": {
     "message": "查看推文时显示\"相关人员\""

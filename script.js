@@ -70,8 +70,6 @@ const config = {
   fastBlock: true,
   followButtonStyle: 'monochrome',
   hideAdsNav: true,
-  hideBlueReplyFollowedBy: false,
-  hideBlueReplyFollowing: false,
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
@@ -112,16 +110,19 @@ const config = {
   quoteTweets: 'ignore',
   redirectToTwitter: false,
   reducedInteractionMode: false,
-  restoreLinkHeadlines: true,
   replaceLogo: true,
+  restoreLinkHeadlines: true,
   restoreOtherInteractionLinks: false,
   restoreQuoteTweetsLink: true,
   restoreTweetSource: true,
   retweets: 'separate',
-  showBlueReplyFollowersCountAmount: '1000000',
   showBlueReplyFollowersCount: false,
-  showBlueReplyVerifiedAccounts: false,
+  showBlueReplyFollowersCountAmount: '1000000',
   showBookmarkButtonUnderFocusedTweets: true,
+  showPremiumReplyBusiness: true,
+  showPremiumReplyFollowedBy: true,
+  showPremiumReplyFollowing: true,
+  showPremiumReplyGovernment: true,
   sortReplies: 'relevant',
   tweakNewLayout: false,
   tweakQuoteTweetsPage: true,
@@ -5186,7 +5187,9 @@ function getVerifiedType($svg) {
       // Ignore Twitter associated checks
       return null
     if (props.verifiedType == 'Business')
-      return 'VERIFIED_ORG'
+      return 'BUSINESS'
+    if (props.verifiedType == 'Government')
+      return 'GOVERNMENT'
     if (props.isBlueVerified)
       return 'BLUE'
   }
@@ -5535,17 +5538,20 @@ function onIndividualTweetTimelineChange($timeline, options) {
             // Don't hide replies by the user if they have Premium
             !isUser) {
           itemType = `${tweetVerifiedType}_REPLY`
-          if (!hideItem) {
+          if (config.hideTwitterBlueReplies) {
             let user = userInfo[screenName]
-            let shouldHideBasedOnVerifiedType = config.hideTwitterBlueReplies && (
-              tweetVerifiedType == 'BLUE' ||
-              tweetVerifiedType == 'VERIFIED_ORG' && !config.showBlueReplyVerifiedAccounts
+            if (!user && config.debugLogTimelineStats) {
+              log('hideTwitterBlueReplies: user info not found for', screenName)
+            }
+            hideItem = !(
+              config.showPremiumReplyBusiness && tweetVerifiedType == 'BUSINESS' ||
+              config.showPremiumReplyGovernment && tweetVerifiedType == 'GOVERNMENT' ||
+              (user != null && (
+                config.showPremiumReplyFollowing && user.following ||
+                config.showPremiumReplyFollowedBy && user.followedBy ||
+                config.showBlueReplyFollowersCount && user.followersCount >= Number(config.showBlueReplyFollowersCountAmount)
+              ))
             )
-            hideItem = shouldHideBasedOnVerifiedType && (user == null || !(
-              user.following && !config.hideBlueReplyFollowing ||
-              user.followedBy && !config.hideBlueReplyFollowedBy ||
-              config.showBlueReplyFollowersCount && user.followersCount >= Number(config.showBlueReplyFollowersCountAmount)
-            ))
           }
         }
       }

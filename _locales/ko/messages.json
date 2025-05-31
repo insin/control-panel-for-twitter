@@ -98,12 +98,6 @@
   "hideAllMetricsLabel": {
     "message": "모두 숨기기"
   },
-  "hideBlueReplyFollowedByLabel": {
-    "message": "나를 팔로우하는 사람 숨기기"
-  },
-  "hideBlueReplyFollowingLabel": {
-    "message": "내가 팔로우한 사람 숨기기"
-  },
   "hideBookmarkButtonLabel": {
     "message": "트윗 아래 북마크 버튼 숨기기"
   },
@@ -369,18 +363,27 @@
     "message": "팔로워 수"
   },
   "showBlueReplyFollowersCountLabel": {
-    "message": "$AMOUNT$명 이상의 팔로워 보기",
+    "message": "팔로워 수가 $AMOUNT$명을 초과하는 계정 표시",
     "placeholders": {
       "amount": {
         "content": "$1"
       }
     }
   },
-  "showBlueReplyVerifiedAccountsLabel": {
-    "message": "\"인증됨\" 계정 표시"
-  },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "집중된 트윗 아래에 표시"
+  },
+  "showPremiumReplyBusinessLabel": {
+    "message": "인증된 비즈니스 계정 표시"
+  },
+  "showPremiumReplyFollowedByLabel": {
+    "message": "나를 팔로우하는 계정 표시"
+  },
+  "showPremiumReplyFollowingLabel": {
+    "message": "내가 팔로우하는 계정 표시"
+  },
+  "showPremiumReplyGovernmentLabel": {
+    "message": "인증된 정부 계정 표시"
   },
   "showRelevantPeopleLabel": {
     "message": "트윗 보기 시 \"연관된 사람\" 표시"

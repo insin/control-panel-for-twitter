@@ -98,12 +98,6 @@
   "hideAllMetricsLabel": {
     "message": "すべて非表示"
   },
-  "hideBlueReplyFollowedByLabel": {
-    "message": "私をフォローしている人を非表示にする"
-  },
-  "hideBlueReplyFollowingLabel": {
-    "message": "フォローしている人を非表示にする"
-  },
   "hideBookmarkButtonLabel": {
     "message": "ツイート下部のブックマークボタン"
   },
@@ -369,18 +363,27 @@
     "message": "フォロワー数"
   },
   "showBlueReplyFollowersCountLabel": {
-    "message": "$AMOUNT$ 人以上のフォロワーを表示する",
+    "message": "フォロワー数が$AMOUNT$人を超えるアカウントを表示",
     "placeholders": {
       "amount": {
         "content": "$1"
       }
     }
   },
-  "showBlueReplyVerifiedAccountsLabel": {
-    "message": "「認証済み」アカウントを表示"
-  },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "フォーカスされたツイートの下に表示"
+  },
+  "showPremiumReplyBusinessLabel": {
+    "message": "認証済みビジネスアカウントを表示"
+  },
+  "showPremiumReplyFollowedByLabel": {
+    "message": "自分をフォローしているアカウントを表示"
+  },
+  "showPremiumReplyFollowingLabel": {
+    "message": "フォロー中のアカウントを表示"
+  },
+  "showPremiumReplyGovernmentLabel": {
+    "message": "認証済み政府機関アカウントを表示"
   },
   "showRelevantPeopleLabel": {
     "message": "ツイート閲覧時に「おすすめユーザー」を表示する"

@@ -101,12 +101,6 @@
   "hideAllMetricsLabel": {
     "message": "Hide all"
   },
-  "hideBlueReplyFollowedByLabel": {
-    "message": "Hide people who follow me"
-  },
-  "hideBlueReplyFollowingLabel": {
-    "message": "Hide people I follow"
-  },
   "hideBookmarkButtonLabel": {
     "message": "Bookmark button under tweets"
   },
@@ -375,7 +369,7 @@
     "message": "Number of followers"
   },
   "showBlueReplyFollowersCountLabel": {
-    "message": "Show people with over $AMOUNT$ followers",
+    "message": "Show accounts with over $AMOUNT$ followers",
     "placeholders": {
       "amount": {
         "content": "$1",
@@ -383,11 +377,20 @@
       }
     }
   },
-  "showBlueReplyVerifiedAccountsLabel": {
-    "message": "Show \"verified\" accounts"
-  },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "Show under focused tweets"
+  },
+  "showPremiumReplyBusinessLabel": {
+    "message": "Show verified Business accounts"
+  },
+  "showPremiumReplyFollowedByLabel": {
+    "message": "Show accounts which follow me"
+  },
+  "showPremiumReplyFollowingLabel": {
+    "message": "Show accounts I follow"
+  },
+  "showPremiumReplyGovernmentLabel": {
+    "message": "Show verified Government accounts"
   },
   "showRelevantPeopleLabel": {
     "message": "Show \"Relevant people\" when viewing a tweet"

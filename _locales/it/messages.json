@@ -98,12 +98,6 @@
   "hideAllMetricsLabel": {
     "message": "Nascondi tutte"
   },
-  "hideBlueReplyFollowedByLabel": {
-    "message": "Nascondi i miei seguaci"
-  },
-  "hideBlueReplyFollowingLabel": {
-    "message": "Nascondi i miei seguiti"
-  },
   "hideBookmarkButtonLabel": {
     "message": "Tasto segnalibro sotto i tweet"
   },
@@ -369,7 +363,7 @@
     "message": "Numero di seguaci"
   },
   "showBlueReplyFollowersCountLabel": {
-    "message": "Mostra persone con più di $AMOUNT$ seguaci",
+    "message": "Mostra account con più di $AMOUNT$ follower",
     "placeholders": {
       "amount": {
         "content": "$1",
@@ -377,11 +371,20 @@
       }
     }
   },
-  "showBlueReplyVerifiedAccountsLabel": {
-    "message": "Mostra account \"verificati\""
-  },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "Mostra sotto ai tweet selezionati"
+  },
+  "showPremiumReplyBusinessLabel": {
+    "message": "Mostra account aziendali verificati"
+  },
+  "showPremiumReplyFollowedByLabel": {
+    "message": "Mostra account che mi seguono"
+  },
+  "showPremiumReplyFollowingLabel": {
+    "message": "Mostra account che seguo"
+  },
+  "showPremiumReplyGovernmentLabel": {
+    "message": "Mostra account governativi verificati"
   },
   "showRelevantPeopleLabel": {
     "message": "Mostra \"Persone rilevanti\" quando visualizzi un tweet"

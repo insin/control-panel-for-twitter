@@ -98,12 +98,6 @@
   "hideAllMetricsLabel": {
     "message": "Masquer tous les paramètres"
   },
-  "hideBlueReplyFollowedByLabel": {
-    "message": "Masquer les personnes qui me suivent"
-  },
-  "hideBlueReplyFollowingLabel": {
-    "message": "Masquer les personnes que je suis"
-  },
   "hideBookmarkButtonLabel": {
     "message": "Bouton de signet sous les tweets"
   },
@@ -369,18 +363,27 @@
     "message": "Nombre d'abonnés"
   },
   "showBlueReplyFollowersCountLabel": {
-    "message": "Afficher les personnes avec plus de $AMOUNT$ abonnés",
+    "message": "Afficher les comptes ayant plus de $AMOUNT$ abonnés",
     "placeholders": {
       "amount": {
         "content": "$1"
       }
     }
   },
-  "showBlueReplyVerifiedAccountsLabel": {
-    "message": "Afficher les comptes \"certifiés\""
-  },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "Afficher sous les tweets mis en avant"
+  },
+  "showPremiumReplyBusinessLabel": {
+    "message": "Afficher les comptes professionnels vérifiés"
+  },
+  "showPremiumReplyFollowedByLabel": {
+    "message": "Afficher les comptes qui me suivent"
+  },
+  "showPremiumReplyFollowingLabel": {
+    "message": "Afficher les comptes que je suis"
+  },
+  "showPremiumReplyGovernmentLabel": {
+    "message": "Afficher les comptes gouvernementaux vérifiés"
   },
   "showRelevantPeopleLabel": {
     "message": "Afficher \"Personnes pertinentes\" lors de l'affichage d'un tweet"
