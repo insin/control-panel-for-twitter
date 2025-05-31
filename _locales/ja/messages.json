@@ -353,6 +353,9 @@
   "restoreQuoteTweetsLinkLabel": {
     "message": "ツイートの下にある「引用ツイート」リンクを復元する"
   },
+  "restoreTweetSourceLabel": {
+    "message": "ツイートのソースラベルを復元"
+  },
   "retweetsLabel": {
     "message": "リツイート"
   },

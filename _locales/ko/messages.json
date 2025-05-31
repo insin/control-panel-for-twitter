@@ -353,6 +353,9 @@
   "restoreQuoteTweetsLinkLabel": {
     "message": "트윗 아래의 \"트윗 인용\" 링크 복원"
   },
+  "restoreTweetSourceLabel": {
+    "message": "트윗 출처 라벨 복원"
+  },
   "retweetsLabel": {
     "message": "리트윗"
   },

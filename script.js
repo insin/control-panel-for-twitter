@@ -116,6 +116,7 @@ const config = {
   replaceLogo: true,
   restoreOtherInteractionLinks: false,
   restoreQuoteTweetsLink: true,
+  restoreTweetSource: true,
   retweets: 'separate',
   showBlueReplyFollowersCountAmount: '1000000',
   showBlueReplyFollowersCount: false,
@@ -2003,8 +2004,12 @@ const URL_MEDIAVIEWER_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/mediaviewer$/i
 const URL_PROFILE_RE = /^\/([a-zA-Z\d_]{1,20})(?:\/(affiliates|with_replies|superfollows|highlights|articles|media|likes))?\/?$/
 // Matches URLs which show a user's Followers you know / Followers / Following tab
 const URL_PROFILE_FOLLOWS_RE = /^\/[a-zA-Z\d_]{1,20}\/(?:verified_followers|follow(?:ing|ers|ers_you_follow)|creator-subscriptions\/subscriptions)\/?$/
+/** Matches the start of any individual Tweet URL, capturing the user and id */
+const URL_TWEET_BASE_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)/
+/** Matches the entire URL when viewing an individual Tweet, including optional end slash */
 const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)\/?$/
-const URL_TWEET_ENGAGEMENT_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/(quotes|retweets|reposts|likes)\/?$/
+/** Matches Tweet interactions page URLs, capturing the path segment for the current tab */
+const URL_TWEET_INTERACTIONS_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/(quotes|retweets|reposts|likes)\/?$/
 
 // The Twitter Media Assist exension adds a new button at the end of the action
 // bar (#346)
@@ -2191,8 +2196,7 @@ function isOnProfilePage() {
 }
 
 function isOnQuoteTweetsPage() {
-  let match = currentPath.match(URL_TWEET_ENGAGEMENT_RE)
-  return match?.[1] == 'quotes'
+  return currentPath.match(URL_TWEET_INTERACTIONS_RE)?.[1] == 'quotes'
 }
 
 function isOnSearchPage() {
@@ -2427,16 +2431,16 @@ function getThemeColorFromState() {
 /**
  * Gets cached tweet info from React state.
  */
-function getTweetInfo(id) {
+function getTweetInfo(tweetId) {
   let tweetEntities = getStateEntities()?.tweets?.entities
   if (tweetEntities) {
-    let tweetInfo = tweetEntities[id]
+    let tweetInfo = tweetEntities[tweetId]
     if (!tweetInfo) {
-      warn('tweet info not found')
+      warn('tweet info not found', tweetId)
     }
     return tweetInfo
   } else {
-    warn('tweet entities not found')
+    warn('tweet entities not found', tweetId)
   }
 }
 
@@ -2765,8 +2769,9 @@ async function observeDesktopModalTimeline($popup) {
    * @param {HTMLElement} $timeline
    */
   function observeModalTimelineItems($timeline) {
+    let seen = new Map()
     observeElement($timeline, () => {
-      onIndividualTweetTimelineChange($timeline, {observers: modalObservers})
+      onIndividualTweetTimelineChange($timeline, {observers: modalObservers, seen})
     }, {
       name: 'modal timeline',
       observers: modalObservers,
@@ -2778,8 +2783,9 @@ async function observeDesktopModalTimeline($popup) {
         for (let $newTimeline of mutation.addedNodes) {
           if (!($newTimeline instanceof HTMLElement)) continue
           log('modal timeline replaced')
+          seen = new Map()
           observeElement($newTimeline, () => {
-            onIndividualTweetTimelineChange($newTimeline, {observers: modalObservers})
+            onIndividualTweetTimelineChange($newTimeline, {observers: modalObservers, seen})
           }, {
             name: 'modal timeline',
             observers: modalObservers,
@@ -3318,8 +3324,9 @@ async function observeIndividualTweetTimeline(page) {
    * @param {HTMLElement} $timeline
    */
   function observeTimelineItems($timeline) {
+    let seen = new WeakMap()
     observeElement($timeline, () => {
-      onIndividualTweetTimelineChange($timeline, {observers: pageObservers})
+      onIndividualTweetTimelineChange($timeline, {observers: pageObservers, seen})
     }, {
       leading: true,
       name: 'individual tweet timeline',
@@ -3599,8 +3606,14 @@ const configureCss = (() => {
     }
 
     let cssRules = [`
-      .tnt_font_family {
+      .tnt_font_family, .cpft_text {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+      .cpft_separator {
+        padding: 0 4px;
+      }
+      .cpft_text {
+        color: var(--color);
       }
     `]
     let hideCssSelectors = [
@@ -3848,11 +3861,8 @@ const configureCss = (() => {
       `)
     }
     if (config.hideViews) {
-      hideCssSelectors.push(
-        // "Views" under the focused tweet
-        '[data-testid="tweet"][tabindex="-1"] div[dir] + div[aria-hidden="true"]:nth-child(2):nth-last-child(2)',
-        '[data-testid="tweet"][tabindex="-1"] div[dir] + div[aria-hidden="true"]:nth-child(2):nth-last-child(2) + div[dir]:last-child'
-      )
+      // "Views" under the focused tweet
+      hideCssSelectors.push('.Views')
     }
     if (config.hideWhoToFollowEtc) {
       hideCssSelectors.push(`body.Profile ${Selectors.PRIMARY_COLUMN} aside[role="complementary"]`)
@@ -3875,6 +3885,9 @@ const configureCss = (() => {
     }
     if (config.restoreQuoteTweetsLink || config.restoreOtherInteractionLinks) {
       cssRules.push(`
+        #tntInteractionLinks {
+          display: block;
+        }
         #tntInteractionLinks a {
           text-decoration: none;
           color: var(--color);
@@ -3892,14 +3905,15 @@ const configureCss = (() => {
           display: none;
         }
       `)
-    } else {
-      hideCssSelectors.push('#tntInteractionLinks')
     }
     if (!config.restoreQuoteTweetsLink) {
       hideCssSelectors.push('#tntQuoteTweetsLink')
     }
     if (!config.restoreOtherInteractionLinks) {
       hideCssSelectors.push('#tntRetweetsLink', '#tntLikesLink')
+    }
+    if (config.restoreTweetSource) {
+      cssRules.push('.TweetSource { display: inline; }')
     }
     if (config.tweakQuoteTweetsPage) {
       // Hide the quoted tweet, which is repeated in every quote tweet
@@ -5414,12 +5428,16 @@ function onTimelineChange($timeline, page, options = {}) {
 function onIndividualTweetTimelineChange($timeline, options) {
   let startTime = Date.now()
 
+  let {seen} = options
   let itemTypes = {}
   let hiddenItemCount = 0
   let hiddenItemTypes = {}
+  let processedCount = 0
 
+  /** @type {Element} */
+  let $previousItem
   /** @type {?boolean} */
-  let hidPreviousItem = null
+  let hidPreviousItem
   /** @type {boolean} */
   let hideAllSubsequentItems = false
   /** @type {string} */
@@ -5434,6 +5452,12 @@ function onIndividualTweetTimelineChange($timeline, options) {
   let $focusedTweet
 
   for (let $item of $timeline.children) {
+    if (seen.has($item)) {
+      $previousItem = $item
+      hidPreviousItem = seen.get($previousItem).hidden
+      continue
+    }
+
     /** @type {?import("./types").TimelineItemType} */
     let itemType = null
     /** @type {?boolean} */
@@ -5604,18 +5628,28 @@ function onIndividualTweetTimelineChange($timeline, options) {
       }
     }
 
+    if (debug && config.debugLogTimelineStats && (itemType == null || hideItem == null)) {
+      warn('unhandled timeline item', {$item, itemType, hideItem})
+    }
+
+    $previousItem = $item
     hidPreviousItem = hideItem
+    seen.set($item, {itemType, hidden: hideItem})
+    processedCount++
   }
 
   for (let change of changes) {
     change.$item.firstElementChild.classList.toggle('HiddenTweet', change.hideItem)
   }
 
-  tweakFocusedTweet($focusedTweet, options)
+  if ($focusedTweet && !seen.has($focusedTweet)) {
+    tweakFocusedTweet($focusedTweet, options)
+    seen.set($focusedTweet, {itemType: 'FOCUSED_TWEET', hidden: false})
+  }
 
   if (debug && config.debugLogTimelineStats) {
     log(
-      `processed ${$timeline.children.length} thread item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
+      `processed ${processedCount} new thread item${s(processedCount)} in ${Date.now() - startTime}ms`,
       itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
     )
   }
@@ -5866,7 +5900,7 @@ function processCurrentPage() {
   else if (isOnSearchPage()) {
     tweakSearchPage()
   }
-  else if (URL_TWEET_ENGAGEMENT_RE.test(currentPath)) {
+  else if (URL_TWEET_INTERACTIONS_RE.test(currentPath)) {
     tweakTweetEngagementPage()
   }
   else if (isOnListPage()) {
@@ -5957,13 +5991,13 @@ function restoreLinkHeadline($tweet) {
 /**
  * @param {HTMLElement} $focusedTweet
  */
-function restoreTweetInteractionsLinks($focusedTweet) {
+function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
   if (!config.restoreQuoteTweetsLink && !config.restoreOtherInteractionLinks) return
 
-  let [tweetLink, tweetId] = location.pathname.match(/^\/[a-zA-Z\d_]{1,20}\/status\/(\d+)/) ?? []
-  let tweetInfo = getTweetInfo(tweetId)
-  log('focused tweet', {tweetLink, tweetId, tweetInfo})
-  if (!tweetInfo) return
+  if (!tweetInfo) {
+    warn('restoreTweetInteractionsLinks: focused tweet info not available')
+    return
+  }
 
   let isOwnTweet = Boolean($focusedTweet.querySelector('a[data-testid="analyticsButton"]'))
   let shouldDisplayLinks = (
@@ -5979,8 +6013,9 @@ function restoreTweetInteractionsLinks($focusedTweet) {
   let $group = $focusedTweet.querySelector('[role="group"][id^="id__"]')
   if (!$group) return warn('focused tweet action bar not found')
 
+  let tweetLink = location.pathname.match(URL_TWEET_BASE_RE)?.[0]
   $group.parentElement.insertAdjacentHTML('beforebegin', `
-    <div id="tntInteractionLinks">
+    <div id="tntInteractionLinks" hidden>
       <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'tnt_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--border-color); display: flex; gap: 20px;">
         ${tweetInfo.quote_count > 0 ? `<a id="tntQuoteTweetsLink" class="quoteTweets" href="${tweetLink}/quotes" dir="auto" role="link">
           <span id="tntQuoteTweetCount">
@@ -6289,55 +6324,66 @@ function tweakDisplaySettingsPage() {
   }
 }
 
-const tweakFocusedTweet = (() => {
-  let waitingForFocusedTweetEditor = false
-
-  /**
-   * @param {HTMLElement} $focusedTweet
-   * @param {import("./types").IndividualTweetTimelineOptions} options
-   */
-  return async function tweakFocusedTweet($focusedTweet, options) {
-    let {observers} = options
-
-    if (!$focusedTweet) {
-      if (desktop) {
-        waitingForFocusedTweetEditor = false
-        observers.get('tweet editor')?.disconnect()
-      }
-      return
-    }
-
-    tweakOwnFocusedTweet($focusedTweet)
-    restoreTweetInteractionsLinks($focusedTweet)
-
-    if (desktop && config.replaceLogo &&
-        !waitingForFocusedTweetEditor &&
-        !observers.has('tweet editor')) {
-      waitingForFocusedTweetEditor = true
-      /** @type {HTMLElement} */
-      let $editorRoot
-      try {
-        $editorRoot = await getElement('.DraftEditor-root', {
-          context: $focusedTweet.parentElement,
-          name: 'tweet editor in focused tweet',
-          timeout: 500,
-          stopIf: () => !waitingForFocusedTweetEditor
-        })
-      } finally {
-        waitingForFocusedTweetEditor = false
-      }
-      if ($editorRoot) {
-        observeDesktopTweetEditorPlaceholder($editorRoot, {
-          name: 'tweet editor',
-          placeholder: getString('TWEET_YOUR_REPLY'),
-          observers,
-        })
-      }
-    } else {
-      observers.get('tweet editor')?.disconnect()
-    }
+function restoreTweetSource($permalinkBar, tweetInfo) {
+  if (!config.restoreTweetSource) return
+  if ($permalinkBar.hasAttribute('cpft-tweet-source-restored')) return
+  if (!tweetInfo?.source_name) {
+    warn('source_name not available in focused tweet info', tweetInfo)
+    return
   }
-})()
+  let $separator = document.createElement('span')
+  $separator.className = 'TweetSource cpft_separator cpft_text'
+  $separator.setAttribute('aria-hidden', 'true')
+  $separator.setAttribute('hidden', '')
+  $separator.textContent = '·'
+  let $sourceLabel = document.createElement('span')
+  $sourceLabel.className = 'TweetSource cpft_text'
+  $sourceLabel.setAttribute('hidden', '')
+  $sourceLabel.textContent = tweetInfo.source_name
+  $permalinkBar.append($separator, $sourceLabel)
+  $permalinkBar.setAttribute('cpft-tweet-source-restored', '')
+}
+
+/**
+ * @param {HTMLElement} $focusedTweet
+ * @param {import("./types").IndividualTweetTimelineOptions} options
+ */
+async function tweakFocusedTweet($focusedTweet, options) {
+  log('tweaking focused tweet')
+  let {observers} = options
+  let tweetId = location.pathname.match(URL_TWEET_BASE_RE)?.[2]
+  let tweetInfo = getTweetInfo(tweetId)
+
+  // Tag View elements and restore Tweet source
+  let $permalinkBar = $focusedTweet.querySelector('div:has(> div > a > time)')
+  if ($permalinkBar) {
+    $permalinkBar.children[1].classList.toggle('Views', config.hideViews)
+    $permalinkBar.children[2].classList.toggle('Views', config.hideViews)
+    restoreTweetSource($permalinkBar, tweetInfo)
+  } else {
+    warn('focused tweet permalink bar not found')
+  }
+
+  tweakOwnFocusedTweet($focusedTweet)
+  restoreTweetInteractionsLinks($focusedTweet, tweetInfo)
+
+  if (desktop && config.replaceLogo) {
+    void async function() {
+      let $editorRoot = await getElement('.DraftEditor-root', {
+        context: $focusedTweet.parentElement,
+        name: 'tweet editor in focused tweet',
+        timeout: 1000,
+        stopIf: pageIsNot(currentPage)
+      })
+      if (!$editorRoot) return
+      observeDesktopTweetEditorPlaceholder($editorRoot, {
+        name: 'tweet editor',
+        placeholder: getString('TWEET_YOUR_REPLY'),
+        observers,
+      })
+    }()
+  }
+}
 
 async function tweakFollowListPage() {
   // These tabs are dynamic as "Followers you know" only appears when applicable
@@ -6431,35 +6477,24 @@ async function tweakHomeIcon() {
   }
 }
 
-const tweakOwnFocusedTweet = (() => {
-  let waitingForAnalyticsUpsell = false
+async function tweakOwnFocusedTweet($focusedTweet) {
+  if (!config.hideTwitterBlueUpsells || $focusedTweet.hasAttribute('cpft-analytics-upsell-tagged')) return
 
-  return async function tweakOwnFocusedTweet($focusedTweet) {
-    // Only your own focused Tweets have an analytics button
-    let $analyticsButton = $focusedTweet.querySelector('a[data-testid="analyticsButton"]')
-    if (!$analyticsButton) return
+  // Only your own focused Tweets have an analytics button
+  let $analyticsButton = $focusedTweet.querySelector('a[data-testid="analyticsButton"]')
+  if (!$analyticsButton) return
 
-    $analyticsButton.parentElement.classList.add('AnalyticsButton')
-
-    if (!config.hideTwitterBlueUpsells ||
-        waitingForAnalyticsUpsell ||
-        $focusedTweet.getAttribute('data-upselltagged')) return
-    waitingForAnalyticsUpsell = true
-    try {
-      let $accountAnalyticsUpsell = await getElement(':scope > div > div > div > div:has(a[href="/i/account_analytics"])', {
-        context: $focusedTweet,
-        name: 'account analytics upsell',
-        timeout: 200,
-      })
-      if ($accountAnalyticsUpsell) {
-        $accountAnalyticsUpsell.classList.add('PremiumUpsell')
-        $focusedTweet.setAttribute('data-upselltagged', 'true')
-      }
-    } finally {
-      waitingForAnalyticsUpsell = false
-    }
-  }
-})()
+  $analyticsButton.parentElement.classList.add('AnalyticsButton')
+  let $accountAnalyticsUpsell = await getElement(':scope > div > div > div > div:has(a[href="/i/account_analytics"])', {
+    context: $focusedTweet,
+    name: 'account analytics upsell',
+    timeout: 1000,
+    stopIf: pageIsNot(currentPage)
+  })
+  if (!$accountAnalyticsUpsell) return
+  $accountAnalyticsUpsell.classList.add('PremiumUpsell')
+  $focusedTweet.setAttribute('cpft-analytics-upsell-tagged', 'true')
+}
 
 /**
  * Restores "Tweet" button text.

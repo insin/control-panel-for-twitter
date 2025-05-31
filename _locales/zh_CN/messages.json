@@ -362,6 +362,9 @@
   "restoreQuoteTweetsLinkLabel": {
     "message": "恢复推文下的“引用推文”链接"
   },
+  "restoreTweetSourceLabel": {
+    "message": "恢复推文来源标签"
+  },
   "retweetsLabel": {
     "message": "转发"
   },

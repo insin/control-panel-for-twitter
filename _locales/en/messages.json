@@ -359,6 +359,9 @@
   "restoreQuoteTweetsLinkLabel": {
     "message": "Restore Quote Tweets link under Tweets"
   },
+  "restoreTweetSourceLabel": {
+    "message": "Restore Tweet source label"
+  },
   "retweetsLabel": {
     "message": "Retweets"
   },

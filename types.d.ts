@@ -67,6 +67,7 @@ export type Config = {
   restoreLinkHeadlines: boolean
   restoreQuoteTweetsLink: boolean
   restoreOtherInteractionLinks: boolean
+  restoreTweetSource: boolean
   retweets: SharedTweetsConfig
   showBlueReplyFollowersCountAmount: string
   showBlueReplyFollowersCount: boolean
@@ -195,6 +196,12 @@ export type TimelineOptions = {
 
 export type IndividualTweetTimelineOptions = {
   observers: Map<string, Disconnectable>
+  seen: WeakMap<Element, IndividualTweetDetails>
+}
+
+export type IndividualTweetDetails = {
+  itemType: TimelineItemType,
+  hidden: boolean | null,
 }
 
 export type UserInfo = {

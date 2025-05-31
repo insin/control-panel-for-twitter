@@ -353,6 +353,9 @@
   "restoreQuoteTweetsLinkLabel": {
     "message": "Ripristina link dei tweet di citazione sotto ai tweet"
   },
+  "restoreTweetSourceLabel": {
+    "message": "Ripristina etichetta della fonte del Tweet"
+  },
   "retweetsLabel": {
     "message": "Retweet"
   },

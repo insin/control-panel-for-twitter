@@ -74,6 +74,7 @@ ${messages.xFixesLabel}
 • ${messages.replaceLogoLabel}
 • ${messages.hideViewsLabel}
 • ${messages.hideVerifiedNotificationsTabLabel}
+• ${messages.restoreTweetSourceLabel}
 • ${messages.restoreLinkHeadlinesLabel}
 • ${messages.restoreQuoteTweetsLinkLabel}
 • ${messages.restoreOtherInteractionLinksLabel}
