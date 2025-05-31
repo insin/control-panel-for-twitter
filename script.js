@@ -3874,14 +3874,19 @@ const configureCss = (() => {
       )
     }
     if (config.restoreLinkHeadlines) {
+      cssRules.push(`
+        .tnt_link_headline {
+          display: block
+          border-top: 1px solid var(--border-color);
+          padding: 14px;
+        }
+      `)
       hideCssSelectors.push(
         // Existing headline overlaid on the card
         '.tnt_overlay_headline',
         // From <domain> link after the card
         'div[data-testid="card.wrapper"] + a',
       )
-    } else {
-      hideCssSelectors.push('.tnt_link_headline')
     }
     if (config.restoreQuoteTweetsLink || config.restoreOtherInteractionLinks) {
       cssRules.push(`
@@ -5980,7 +5985,7 @@ function restoreLinkHeadline($tweet) {
     let [site, ...rest] = $link.getAttribute('aria-label').split(' ')
     let headline = rest.join(' ')
     $link.lastElementChild?.classList.add('tnt_overlay_headline')
-    $link.insertAdjacentHTML('beforeend', `<div class="tnt_link_headline ${fontFamilyRule?.selectorText?.replace('.', '') || 'tnt_font_family'}" style="border-top: 1px solid var(--border-color); padding: 14px;">
+    $link.insertAdjacentHTML('beforeend', `<div class="tnt_link_headline ${fontFamilyRule?.selectorText?.replace('.', '') || 'tnt_font_family'}" hidden>
       <div style="color: var(--color); margin-bottom: 2px;">${site}</div>
       <div style="color: var(--color-emphasis)">${headline}</div>
     </div>`)
@@ -7118,8 +7123,10 @@ function configChanged(changes) {
       configureFont()
       configureDynamicCss()
       configureThemeCss()
+      // Manually remove custom UI elements which clone existing elements, as
+      // adding a hidden attribute won't hide them by default.
       document.querySelector('#tnt_separated_tweets_tab')?.remove()
-      // TODO Show all tweets if a timeline is visible
+      document.querySelectorAll('.tnt_menu_item').forEach(el => el.remove())
       disconnectObservers(modalObservers, 'modal')
       disconnectObservers(pageObservers, 'page')
       disconnectObservers(globalObservers, 'global')
