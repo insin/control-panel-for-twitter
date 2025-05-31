@@ -18,12 +18,18 @@ if (localStorage.cpftEnabled != 'false' && localStorage.cpftReplaceLogo != 'fals
     `
     document.documentElement.append($style)
   } else {
-    /** @type {SVGPathElement} */
-    let $logoPath = document.querySelector(`svg path[d="${xLogoPath}"]`)
-    if ($logoPath) {
-      $logoPath.setAttribute('d', twitterLogoPath)
-      $logoPath.setAttribute('fill', twitterBlue)
-    }
+    let startTime = Date.now()
+    new MutationObserver((_, observer) => {
+      let $logoPath = document.querySelector(`svg path[d="${xLogoPath}"]`)
+      if ($logoPath) {
+        $logoPath.setAttribute('d', twitterLogoPath)
+        $logoPath.setAttribute('fill', twitterBlue)
+        observer.disconnect()
+      }
+      else if (Date.now() - startTime > 1000) {
+        observer.disconnect()
+      }
+    }).observe(document.documentElement, {childList: true, subtree: true})
   }
 }
 
