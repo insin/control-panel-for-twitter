@@ -1,7 +1,7 @@
 //#region Constants
 const IS_SAFARI = navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.userAgent)
 /**
- * Config keys whose changes should be passed to the page script.
+ * Config keys which should be passed to the page script.
  * @type {import("./types").StoredConfigKey[]}
  */
 const PAGE_SCRIPT_CONFIG_KEYS = ['debug', 'debugLogTimelineStats', 'enabled', 'settings']
@@ -12,11 +12,17 @@ const TWITTER_LOGO_PATH = 'M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.
 const X_LOGO_PATH = 'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z'
 //#endregion
 
+//#region Variables
+/** @type {BroadcastChannel} */
+let channel
+//#endregion
+
 //#region Functions
 function error(...messages) {
-  console.error('[content]', ...messages)
+  console.error('❌ [content]', ...messages)
 }
 
+// Can't import this from storage.js in a content script
 function get(keys) {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(keys, (result) => {
@@ -29,6 +35,46 @@ function get(keys) {
   })
 }
 
+/**
+ * @param {chrome.storage.StorageChange} settingsChange
+ * @param {import("./types").UserSettingsKey} key
+ */
+function hasSettingChanged(settingsChange, key) {
+  return (
+    settingsChange.newValue &&
+    Object.hasOwn(settingsChange.newValue, key) && (
+    !settingsChange.oldValue ||
+    !Object.hasOwn(settingsChange.oldValue, key) ||
+    settingsChange.oldValue[key] != settingsChange.newValue[key]
+  ))
+}
+
+/**
+ * Pass relevant storage changes to the page script.
+ * @param {{[key: string]: chrome.storage.StorageChange}} storageChanges
+ */
+function onStorageChanged(storageChanges) {
+  if (storageChanges.enabled) {
+    localStorage.cpftEnabled = storageChanges.enabled.newValue
+  }
+  if (storageChanges.settings && hasSettingChanged(storageChanges.settings, 'revertXBranding')) {
+    localStorage.cpftRevertXBranding = storageChanges.settings.newValue.revertXBranding
+  }
+
+  /** @type {Partial<import("./types").StoredConfig>} */
+  let config = Object.fromEntries(
+    Object.entries(storageChanges)
+      .filter(([key]) => PAGE_SCRIPT_CONFIG_KEYSET.has(key))
+      .map(([key, {newValue}]) => [key, newValue])
+  )
+
+  // Ignore storage changes which aren't relevant to the page script
+  if (Object.keys(config).length == 0) return
+
+  channel.postMessage({type: 'change', config})
+}
+
+// Can't import this from storage.js in a content script
 function set(keys) {
   return new Promise((resolve, reject) => {
     chrome.storage.local.set(keys, () => {
@@ -40,8 +86,34 @@ function set(keys) {
     })
   })
 }
+
+/** @param {MessageEvent<Partial<import("./types").StoredConfig>>} message */
+async function storeConfigChangesFromPageScript({data: changes}) {
+  let configToStore = {}
+  if (changes.version) {
+    configToStore.version = changes.version
+  }
+  try {
+    if (changes.settings) {
+      let {settings} = await get({settings: {}})
+      configToStore.settings = {...settings, ...changes.settings}
+    }
+  } catch(e) {
+    error('error merging settings change from page script', e)
+  }
+
+  chrome.storage.local.onChanged.removeListener(onStorageChanged)
+  try {
+    await set(configToStore)
+  } catch(e) {
+    error('error storing settings change from page script', e)
+  } finally {
+    chrome.storage.local.onChanged.addListener(onStorageChanged)
+  }
+}
 //#endregion
 
+//#region Main
 // Replace the X logo on initial load before the page script runs
 if (localStorage.cpftEnabled != 'false' && localStorage.cpftRevertXBranding != 'false') {
   if (!IS_SAFARI) {
@@ -71,77 +143,17 @@ if (localStorage.cpftEnabled != 'false' && localStorage.cpftRevertXBranding != '
   }
 }
 
-// TODO Replace with BroadcastChannel
-/** @type {HTMLScriptElement} */
-let $settings
-
-// Get initial config and inject it and the page script
-get({
-  debug: false,
-  debugLogTimelineStats: false,
-  settings: {},
-}).then((storedConfig) => {
-  $settings = document.createElement('script')
-  $settings.type = 'text/json'
-  $settings.id = 'cpftSettings'
-  document.documentElement.appendChild($settings)
-  $settings.innerText = JSON.stringify(storedConfig)
-
-  let $pageScript = document.createElement('script')
-  $pageScript.src = chrome.runtime.getURL('script.js')
-  /** @this {HTMLScriptElement} */
-  $pageScript.onload = function() {
-    this.remove()
-  }
-  document.documentElement.appendChild($pageScript)
-  chrome.storage.onChanged.addListener(onStorageChanged)
-})
-
-
-/**
- * Pass relevant storage changes to the page script.
- * @param {{[key: string]: chrome.storage.StorageChange}} storageChanges
- */
-function onStorageChanged(storageChanges) {
-  if (storageChanges.enabled) localStorage.cpftEnabled = storageChanges.enabled.newValue
-  if (storageChanges.settings && storageChanges.settings.newValue?.revertXBranding)
-    localStorage.cpftRevertXBranding = storageChanges.settings.newValue.revertXBranding
-  let changes = Object.fromEntries(
-    Object.entries(storageChanges)
-      .filter(([key]) => PAGE_SCRIPT_CONFIG_KEYSET.has(key))
-      .map(([key, {newValue}]) => [key, newValue])
-  )
-  if (Object.keys(changes).length > 0) {
-    $settings.innerText = JSON.stringify(changes)
-  }
-}
-
-// Store settings changes from the page script
-window.addEventListener('message', async (event) => {
+window.addEventListener('message', (event) => {
   if (event.source !== window) return
-  if (event.data.type == 'cpft_config_change' && event.data.changes) {
-    /** @type {Partial<import("./types").StoredConfig>} */
-    let changes = event.data.changes
-    let configToStore = {}
-    if (changes.version) {
-      configToStore.version = changes.version
-    }
-    try {
-      if (changes.settings) {
-        let {settings} = await get({settings: {}})
-        configToStore.settings = {...settings, ...changes.settings}
-      }
-    } catch(e) {
-      error('error merging settings change from page script', e)
-    }
-
-    chrome.storage.onChanged.removeListener(onStorageChanged)
-    try {
-      await set(configToStore)
-    } catch(e) {
-      error('error storing settings change from page script', e)
-    } finally {
-      chrome.storage.onChanged.addListener(onStorageChanged)
-    }
-  }
+  if (event.data.type != 'init' || !event.data.channelName) return
+  channel = new BroadcastChannel(event.data.channelName)
+  channel.addEventListener('message', storeConfigChangesFromPageScript)
+  chrome.storage.local.get((storedConfig) => {
+    let config = Object.fromEntries(
+      Object.entries(storedConfig).filter(([key]) => PAGE_SCRIPT_CONFIG_KEYSET.has(key))
+    )
+    chrome.storage.local.onChanged.addListener(onStorageChanged)
+    channel.postMessage({type: 'initial', config})
+  })
 })
+//#endregion

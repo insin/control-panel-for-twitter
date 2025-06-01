@@ -16,6 +16,11 @@ export type StoredConfig = {
 
 export type StoredConfigKey = keyof StoredConfig
 
+export type StoredConfigMessage = {
+  type: 'initial' | 'change'
+  config: Partial<StoredConfig>
+}
+
 export type UserSettings = {
   // Shared
   addAddMutedWordMenuItem: boolean

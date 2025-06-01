@@ -7049,6 +7049,9 @@ function tweakTweetEngagementPage() {
 //#endregion
 
 //#region Main
+let channelName = crypto.randomUUID()
+let channel = new BroadcastChannel(channelName)
+
 async function main() {
   // Don't run on URLs used for OAuth
   if (location.pathname.startsWith('/i/oauth2/authorize') ||
@@ -7096,7 +7099,7 @@ async function main() {
     storeConfigChanges({version})
 
     if (lastFlexDirection == null) {
-      log('initial config', {config: settings, lang, version})
+      log('initial config', {enabled, config: settings, lang, version})
 
       // One-time setup
       checkReactNativeStylesheet()
@@ -7202,97 +7205,90 @@ function onSettingsChanged(changedSettings = new Set()) {
   }
 }
 
-// Initial config and config changes are injected into a <script> element
-let $settings = /** @type {HTMLScriptElement} */ (document.querySelector('script#cpftSettings'))
-/** @type {import("./types").StoredConfig} */
-let storedConfig = {}
-if ($settings) {
-  $settings.removeAttribute('id')
-  try {
-    storedConfig = JSON.parse($settings.innerText)
-  } catch(e) {
-    error('error parsing initial settings', e)
-  }
-
-  if (Object.hasOwn(storedConfig, 'enabled')) {
-    enabled = storedConfig.enabled
-  }
-  if (Object.hasOwn(storedConfig, 'debug')) {
-    debug = storedConfig.debug
-  }
-  if (Object.hasOwn(storedConfig, 'debugLogTimelineStats')) {
-    debugLogTimelineStats = storedConfig.debugLogTimelineStats
-  }
-  settings = {...defaultSettings, ...storedConfig.settings}
-
-  let settingsChangeObserver = new MutationObserver(() => {
-    /** @type {Partial<import("./types").StoredConfig>} */
-    let configChanges
-    try {
-      configChanges = JSON.parse($settings.innerText)
-    } catch(e) {
-      error('error parsing incoming settings change', e)
-      return
+/**
+ * @param {MessageEvent<import("./types").StoredConfigMessage>} message
+ */
+function receiveConfigFromContentScript({data: {type, config}}) {
+  if (type == 'initial') {
+    if (Object.hasOwn(config, 'enabled')) {
+      enabled = config.enabled
     }
-
-    if (Object.hasOwn(configChanges, 'enabled')) {
-      enabled = configChanges.enabled
-      log(`${enabled ? 'en' : 'dis'}abling extension functionality`)
-      if (enabled) {
-        // Process the current page if we've just been enabled on it
-        observingPageChanges = true
-        main()
-      } else {
-        // These functions have teardowns when disabled
-        configureCss()
-        configureFont()
-        configureDynamicCss()
-        configureThemeCss()
-        // Manually remove custom UI elements which clone existing elements, as
-        // adding a hidden attribute won't hide them by default.
-        document.querySelector('#cpftSeparatedTweetsTab')?.remove()
-        document.querySelectorAll('.cpft_menu_item').forEach(el => el.remove())
-        disconnectObservers(modalObservers, 'modal')
-        disconnectObservers(pageObservers, 'page')
-        disconnectObservers(globalObservers, 'global')
-      }
-      return
+    if (Object.hasOwn(config, 'debug')) {
+      debug = config.debug
     }
+    if (Object.hasOwn(config, 'debugLogTimelineStats')) {
+      debugLogTimelineStats = config.debugLogTimelineStats
+    }
+    settings = {...defaultSettings, ...config.settings}
 
-    if (Object.hasOwn(configChanges, 'debug')) {
-      log('disabling debug mode')
-      debug = configChanges.debug
-      log('enabled debug mode')
+    main()
+    return
+  }
+
+  if (Object.hasOwn(config, 'enabled')) {
+    enabled = config.enabled
+    log(`${enabled ? 'en' : 'dis'}abling extension functionality`)
+    if (enabled) {
+      // Process the current page if we've just been enabled on it
+      observingPageChanges = true
+      main()
+    } else {
+      // These functions have teardowns when disabled
+      configureCss()
+      configureFont()
+      configureDynamicCss()
       configureThemeCss()
-      return
+      configureCustomCss()
+      // Manually remove custom UI elements which clone existing elements, as
+      // adding a hidden attribute won't hide them by default.
+      document.querySelector('#cpftSeparatedTweetsTab')?.remove()
+      document.querySelectorAll('.cpft_menu_item').forEach(el => el.remove())
+      disconnectObservers(modalObservers, 'modal')
+      disconnectObservers(pageObservers, 'page')
+      disconnectObservers(globalObservers, 'global')
     }
+    return
+  }
 
-    if (Object.hasOwn(configChanges, 'debugLogTimelineStats')) {
-      debugLogTimelineStats = configChanges.debugLogTimelineStats
-      return
-    }
+  if (Object.hasOwn(config, 'debug')) {
+    log('disabling debug mode')
+    debug = config.debug
+    log('enabled debug mode')
+    // Reconfigure CSS to display debug annotations
+    configureThemeCss()
+    return
+  }
 
-    /** @type {Set<import("./types").UserSettingsKey>} */
-    let changedSettings
-    if (Object.hasOwn(configChanges, 'settings')) {
-      /** @type {import("./types").UserSettingsKey[]} */
-      let settingsWithSpecialHandling = [
-        'hideNotifications',
-        'redirectToTwitter',
-        'revertXBranding',
-      ]
-      changedSettings = new Set(settingsWithSpecialHandling.filter(
-        (key) => Object.hasOwn(configChanges.settings, key) && configChanges.settings[key] != settings[key]
-      ))
-      Object.assign(settings, configChanges.settings)
-    }
+  if (Object.hasOwn(config, 'debugLogTimelineStats')) {
+    debugLogTimelineStats = config.debugLogTimelineStats
+    log(`${debugLogTimelineStats ? 'en' : 'dis'}abled logging of timeline stats`)
+    return
+  }
 
-    onSettingsChanged(changedSettings)
-  })
-  settingsChangeObserver.observe($settings, {childList: true})
+  /** @type {Set<import("./types").UserSettingsKey>} */
+  let changedSettings
+  if (Object.hasOwn(config, 'settings')) {
+    /** @type {import("./types").UserSettingsKey[]} */
+    let settingsWithSpecialHandling = [
+      'hideNotifications',
+      'redirectToTwitter',
+      'revertXBranding',
+    ]
+    changedSettings = new Set(settingsWithSpecialHandling.filter(
+      (key) => Object.hasOwn(config.settings, key) && config.settings[key] != settings[key]
+    ))
+    Object.assign(settings, config.settings)
+  }
+  onSettingsChanged(changedSettings)
 }
 
-main()
+/** @param {Partial<import("./types").StoredConfig>} changes */
+function storeConfigChanges(changes) {
+  channel.postMessage(changes)
+}
+
+channel.addEventListener('message', receiveConfigFromContentScript)
+window.postMessage({type: 'init', channelName}, location.origin)
 //#endregion
 
 }()

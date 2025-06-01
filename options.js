@@ -360,14 +360,12 @@ function shouldDisplayMutedQuotes() {
  * @param {Partial<import("./types").StoredConfig>} changes
  */
 async function storeConfigChanges(changes) {
-  chrome.runtime.sendMessage({type: 'settings_change', changes})
   /** @type {Partial<import("./types").StoredConfig>} */
   let changesToStore = {}
-  if (Object.hasOwn(changes, 'debug')) {
-    changesToStore.debug = changes.debug
-  }
-  if (Object.hasOwn(changes, 'debugLogTimelineStats')) {
-    changesToStore.debugLogTimelineStats = changes.debugLogTimelineStats
+  for (let key of INTERNAL_CONFIG_OPTIONS) {
+    if (Object.hasOwn(changes, key)) {
+      changesToStore[key] = changes[key]
+    }
   }
   try {
     if (changes.settings) {

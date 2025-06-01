@@ -32,10 +32,20 @@
         "content.js"
       ],
       "run_at": "document_start"
+    },
+    {
+      "world": "MAIN",
+      "matches": [
+        "https://twitter.com/*",
+        "https://mobile.twitter.com/*",
+        "https://x.com/*",
+        "https://mobile.x.com/*"
+      ],
+      "js": [
+        "script.js"
+      ],
+      "run_at": "document_start"
     }
-  ],
-  "web_accessible_resources": [
-    "script.js"
   ],
   "options_ui": {
     "browser_style": true,
