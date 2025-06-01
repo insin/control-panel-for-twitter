@@ -3883,8 +3883,8 @@ const configureCss = (() => {
     }
     if (config.restoreLinkHeadlines) {
       cssRules.push(`
-        .cpft_link_headline {
-          display: block
+        .cpft_link_headline[hidden] {
+          display: block;
           border-top: 1px solid var(--border-color);
           padding: 14px;
         }
@@ -3898,7 +3898,7 @@ const configureCss = (() => {
     }
     if (config.restoreQuoteTweetsLink || config.restoreOtherInteractionLinks) {
       cssRules.push(`
-        #cpftInteractionLinks {
+        #cpftInteractionLinks[hidden] {
           display: block;
         }
         #cpftInteractionLinks a {
@@ -3926,7 +3926,7 @@ const configureCss = (() => {
       hideCssSelectors.push('#cpftRetweetsLink', '#cpftLikesLink')
     }
     if (config.restoreTweetSource) {
-      cssRules.push('.TweetSource { display: inline; }')
+      cssRules.push('.TweetSource[hidden] { display: inline; }')
     }
     if (config.tweakQuoteTweetsPage) {
       // Hide the quoted tweet, which is repeated in every quote tweet
