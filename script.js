@@ -1,45 +1,5 @@
 void function() {
 
-// Patch XMLHttpRequest to modify requests
-const XMLHttpRequest_open = XMLHttpRequest.prototype.open
-XMLHttpRequest.prototype.open = function(method, url) {
-  if (settings.sortReplies != 'relevant' && !userSortedReplies && url.includes('/TweetDetail?')) {
-    let request = new URL(url)
-    let params = new URLSearchParams(request.search)
-    let variables = JSON.parse(decodeURIComponent(params.get('variables')))
-    variables.rankingMode = {
-      liked: 'Likes',
-      recent: 'Recency',
-    }[settings.sortReplies]
-    params.set('variables', JSON.stringify(variables))
-    url = `${request.origin}${request.pathname}?${params.toString()}`
-  }
-  return XMLHttpRequest_open.apply(this, [method, url])
-}
-
-let enabled = true
-let debug = false
-let debugLogTimelineStats = false
-
-/** @type {boolean} */
-let desktop
-/** @type {boolean} */
-let mobile
-let isSafari = navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.userAgent)
-
-/** @type {HTMLHtmlElement} */
-let $html
-/** @type {HTMLElement} */
-let $body
-/** @type {HTMLElement} */
-let $reactRoot
-/** @type {string} */
-let lang
-/** @type {string} */
-let dir
-/** @type {boolean} */
-let ltr
-
 //#region Default settings
 /**
  * @type {import("./types").UserSettings}
@@ -140,9 +100,6 @@ const defaultSettings = {
   hideMessagesBottomNavItem: false,
   preventNextVideoAutoplay: true,
 }
-
-/** @type {import("./types").UserSettings} */
-let settings
 //#endregion
 
 //#region Locales
@@ -2031,30 +1988,46 @@ const URL_TWEET_INTERACTIONS_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/(quotes|re
 const TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR = '.tva-download-icon, .tva-modal-download-icon'
 //#endregion
 
-//#region Variables
-/**
- * The quoted Tweet associated with a caret menu that's just been opened.
- * @type {import("./types").QuotedTweet}
- */
-let quotedTweet = null
+//#region State
+let enabled = true
+let debug = false
+let debugLogTimelineStats = false
+/** @type {import("./types").UserSettings} */
+let settings
+
+/** @type {boolean} */
+let desktop
+/** @type {boolean} */
+let mobile
+let isSafari = navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.userAgent)
+
+/** @type {HTMLHtmlElement} */
+let $html
+/** @type {HTMLElement} */
+let $body
+/** @type {HTMLElement} */
+let $reactRoot
+/** @type {string} */
+let lang
+/** @type {string} */
+let dir
+/** @type {boolean} */
+let ltr
 
 /** `true` when a 'Block @${user}' menu item was seen in the last popup. */
 let blockMenuItemSeen = false
-
-/** `true` if the user has used the "Sort replies by" menu */
-let userSortedReplies = false
-
-/** Notification count in the title (including trailing space), e.g. `'(1) '`. */
-let currentNotificationCount = ''
-
-/** The last notification count we hid from the title. */
-let hiddenNotificationCount = ''
 
 /** Title of the current page, without the `' / Twitter'` suffix. */
 let currentPage = ''
 
 /** Current `location.pathname`. */
 let currentPath = ''
+
+/** Notification count in the title (including trailing space), e.g. `'(1) '`. */
+let currentNotificationCount = ''
+
+/** The last notification count we hid from the title. */
+let hiddenNotificationCount = ''
 
 /**
  * React Native stylesheet rule for the blur filter for sensitive content.
@@ -2077,14 +2050,11 @@ let globalObservers = new Map()
 /** Set to `true` when a Home/Following heading or Home nav link is used. */
 let homeNavigationIsBeingUsed = false
 
-/** Set to `true` when the media modal is open on desktop. */
-let isDesktopMediaModalOpen = false
-
 /** Set to `true` when the compose tweet modal is open on desktop. */
 let isDesktopComposeTweetModalOpen = false
 
-/** @type {HTMLElement} */
-let $desktopComposeTweetModalPopup = null
+/** Set to `true` when the media modal is open on desktop. */
+let isDesktopMediaModalOpen = false
 
 /**
  * flex-direction on the element wrapping the app is used to determine the
@@ -2105,6 +2075,18 @@ let lastHomeTimelineTitle = null
 let modalObservers = new Map()
 
 /**
+ * The current "Color" setting.
+ * @type {string}
+ */
+let nativeThemeColor = THEME_COLORS.get('blue500')
+
+/**
+ * Accent for the current "Color" setting.
+ * @type {string}
+ */
+let nativeThemeColorAccent = THEME_COLOR_ACCENTS.get('blue500')
+
+/**
  * `true` after the app has initialised.
  * @type {boolean}
  */
@@ -2117,6 +2099,12 @@ let observingPageChanges = false
  */
 let pageObservers = new Map()
 
+/**
+ * The quoted Tweet associated with a caret menu that's just been opened.
+ * @type {import("./types").QuotedTweet}
+ */
+let quotedTweet = null
+
 /** @type {number} */
 let selectedHomeTabIndex = -1
 
@@ -2125,18 +2113,6 @@ let selectedHomeTabIndex = -1
  * @type {string}
  */
 let separatedTweetsTimelineTitle = null
-
-/**
- * The current "Color" setting.
- * @type {string}
- */
-let nativeThemeColor = THEME_COLORS.get('blue500')
-
-/**
- * Accent for the current "Color" setting.
- * @type {string}
- */
-let nativeThemeColorAccent = THEME_COLOR_ACCENTS.get('blue500')
 
 /**
  * The active theme colour, native or customTheme.
@@ -2150,11 +2126,38 @@ let themeColor = nativeThemeColor
  */
 let tweetInteractionsTab = null
 
+/** `true` if the user has used the "Sort replies by" menu */
+let userSortedReplies = false
+
 /**
  * `true` when "For you" was the last tab selected on the Home timeline.
  */
 let wasForYouTabSelected = false
 
+/** @type {HTMLElement} */
+let $desktopComposeTweetModalPopup = null
+//#endregion
+
+function log(...args) {
+  if (debug) {
+    let page = currentPage?.replace(/(\r?\n)+/g, ' ')
+    console.log(`${page ? `(${
+      page.length < 42 ? page : page.slice(0, 42) + '…'
+    })` : ''}`, ...args)
+  }
+}
+
+function warn(...args) {
+  if (debug) {
+    console.log(`❗ ${currentPage ? `(${currentPage})` : ''}`, ...args)
+  }
+}
+
+function error(...args) {
+  console.log(`❌ ${currentPage ? `(${currentPage})` : ''}`, ...args)
+}
+
+//#region Location functions
 function isOnAccessibilitySettingsPage() {
   return currentPath == PagePaths.ACCESSIBILITY_SETTINGS
 }
@@ -2167,12 +2170,16 @@ function isOnCommunitiesPage() {
   return URL_COMMUNITIES_RE.test(currentPath)
 }
 
+function isOnCommunityMembersPage() {
+  return URL_COMMUNITY_MEMBERS_RE.test(currentPath)
+}
+
 function isOnCommunityPage() {
   return URL_COMMUNITY_RE.test(currentPath)
 }
 
-function isOnCommunityMembersPage() {
-  return URL_COMMUNITY_MEMBERS_RE.test(currentPath)
+function isOnComposeTweetPage() {
+  return currentPath.startsWith(PagePaths.COMPOSE_TWEET)
 }
 
 function isOnDiscoverCommunitiesPage() {
@@ -2191,6 +2198,10 @@ function isOnFollowListPage() {
   return URL_PROFILE_FOLLOWS_RE.test(currentPath)
 }
 
+function isOnHomeTimelinePage() {
+  return currentPath == PagePaths.HOME
+}
+
 function isOnIndividualTweetPage() {
   return URL_TWEET_RE.test(currentPath)
 }
@@ -2203,16 +2214,8 @@ function isOnListsPage() {
   return URL_LISTS_RE.test(currentPath)
 }
 
-function isOnHomeTimelinePage() {
-  return currentPath == PagePaths.HOME
-}
-
 function isOnMessagesPage() {
   return currentPath.startsWith('/messages')
-}
-
-function isOnComposeTweetPage() {
-  return currentPath.startsWith(PagePaths.COMPOSE_TWEET)
 }
 
 function isOnNotificationsPage() {
@@ -2259,47 +2262,6 @@ function addStyle(css = '') {
   }
   document.head.appendChild($style)
   return $style
-}
-
-/**
- * @param {Element} $svg
- */
-function blueCheck($svg) {
-  if (!$svg) {
-    warn('blueCheck was given', $svg)
-    return
-  }
-  $svg.classList.add('cpft_blue_check')
-  // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
-  // we have to manually patch the path in it.
-  if (isSafari && settings.premiumBlueChecks == 'replace') {
-    $svg.firstElementChild.firstElementChild.setAttribute('d', Svgs.TWITTER_BLUE_LOGO_PATH)
-  }
-}
-
-/**
- * @param {Element} $svgPath
- */
-function twitterLogo($svgPath) {
-  // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
-  // we have to manually patch the path in it.
-  $svgPath.setAttribute('d', Svgs.TWITTER_LOGO_PATH)
-  $svgPath.classList.add('cpft_logo')
-}
-
-/**
- * @param {Element} $svgPath
- */
-function homeIcon($svgPath) {
-  // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
-  // we have to manually patch the path in it.
-  let replacementPath = {
-    [Svgs.X_HOME_ACTIVE_PATH]: Svgs.TWITTER_HOME_ACTIVE_PATH,
-    [Svgs.X_HOME_INACTIVE_PATH]: Svgs.TWITTER_HOME_INACTIVE_PATH,
-  }[$svgPath.getAttribute('d')]
-  if (replacementPath) {
-    $svgPath.setAttribute('d', replacementPath)
-  }
 }
 
 /**
@@ -2404,130 +2366,12 @@ function getElement(selector, {
   })
 }
 
-function getState() {
-  let wrapped = $reactRoot.firstElementChild['wrappedJSObject'] || $reactRoot.firstElementChild
-  let reactPropsKey = Object.keys(wrapped).find(key => key.startsWith('__reactProps'))
-  if (reactPropsKey) {
-    let state = wrapped[reactPropsKey].children?.props?.children?.props?.store?.getState()
-    if (state) return state
-    warn('React state not found')
-  } else {
-    warn('React prop key not found')
-  }
-}
-
-function hasNewLayout() {
-  return getState()?.featureSwitch?.user?.config?.rweb_sourcemap_migration?.value
-}
-
-function getNotificationCount() {
-  let state = getState()
-  if (!state || !state.badgeCount) {
-    warn('could not get notification count from state')
-    return 0
-  }
-  return state.badgeCount.unreadDMCount + state.badgeCount.unreadNTabCount;
-}
-
-function getStateEntities() {
-  let state = getState()
-  if (state) {
-    if (state.entities) return state.entities
-    warn('React state entities not found')
-  }
-}
-
-function getUserScreenName() {
-  let state = getState()
-  return state?.entities?.users?.entities?.[state?.session?.user_id]?.screen_name
-}
-
-function getThemeColorFromState() {
-  let localState = getState().settings?.local
-  let color = localState?.themeColor
-  let highContrast = localState?.highContrastEnabled
-  $body.classList.toggle('HighContrast', highContrast)
-  if (color) {
-    if (THEME_COLORS.has(color)) {
-      let colors = THEME_COLORS
-      let accents = THEME_COLOR_ACCENTS
-      if (highContrast) {
-        let colorScheme = getColorScheme()
-        colors = colorScheme == 'Default' ? HIGH_CONTRAST_LIGHT : HIGH_CONTRAST_DARK
-        accents = colorScheme == 'Default' ? HIGH_CONTRAST_LIGHT_ACCENTS : HIGH_CONTRAST_DARK_ACCENTS
-      }
-      return [colors.get(color), accents.get(color)]
-    }
-    warn(color, 'not found in THEME_COLORS')
-  } else {
-    warn('could not get settings.local.themeColor from React state')
-  }
-  return []
-}
-
-/**
- * Gets cached tweet info from React state.
- */
-function getTweetInfo(tweetId) {
-  let tweetEntities = getStateEntities()?.tweets?.entities
-  if (tweetEntities) {
-    let tweetInfo = tweetEntities[tweetId]
-    if (!tweetInfo) {
-      warn('tweet info not found', tweetId)
-    }
-    return tweetInfo
-  } else {
-    warn('tweet entities not found', tweetId)
-  }
-}
-
-/**
- * Gets cached user info from React state.
- * @returns {import("./types").UserInfoObject}
- */
-function getUserInfo() {
-  /** @type {import("./types").UserInfoObject} */
-  let userInfo = {}
-  let userEntities = getStateEntities()?.users?.entities
-  if (userEntities) {
-    for (let user of Object.values(userEntities)) {
-      userInfo[user.screen_name] = {
-        following: user.following,
-        followedBy: user.followed_by,
-        followersCount: user.followers_count,
-      }
-    }
-  } else {
-    warn('user entities not found')
-  }
-  return userInfo
-}
-
 /**
  * @param {*} value
  * @returns {value is string}
  */
 function isString(value) {
   return Object.getPrototypeOf(value) === String.prototype
-}
-
-function log(...args) {
-  if (debug) {
-    let page = currentPage?.replace(/(\r?\n)+/g, ' ')
-    console.log(`${page ? `(${
-      page.length < 42 ? page : page.slice(0, 42) + '…'
-    })` : ''}`, ...args)
-  }
-}
-
-function warn(...args) {
-  if (debug) {
-    console.log(`❗ ${currentPage ? `(${currentPage})` : ''}`, ...args)
-  }
-}
-
-function error(...args) {
-  console.log(`❌ ${currentPage ? `(${currentPage})` : ''}`, ...args)
 }
 
 let logObserverDisconnects = true
@@ -2631,10 +2475,106 @@ function setTweetButtonText($tweetButtonText) {
   if (currentText == getString('TWEET') || currentText == getString('TWEET_ALL')) return
   $tweetButtonText.textContent = currentText == getString('POST_ALL') ? getString('TWEET_ALL') : getString('TWEET')
 }
+//#endregion
 
-/** @param {Partial<import("./types").StoredConfig>} changes */
-function storeConfigChanges(changes) {
-  window.postMessage({type: 'cpft_config_change', changes})
+//#region Twitter React state functions
+function getState() {
+  let wrapped = $reactRoot.firstElementChild['wrappedJSObject'] || $reactRoot.firstElementChild
+  let reactPropsKey = Object.keys(wrapped).find(key => key.startsWith('__reactProps'))
+  if (reactPropsKey) {
+    let state = wrapped[reactPropsKey].children?.props?.children?.props?.store?.getState()
+    if (state) return state
+    warn('React state not found')
+  } else {
+    warn('React prop key not found')
+  }
+}
+
+function getNotificationCount() {
+  let state = getState()
+  if (!state || !state.badgeCount) {
+    warn('could not get notification count from state')
+    return 0
+  }
+  return state.badgeCount.unreadDMCount + state.badgeCount.unreadNTabCount;
+}
+
+function getStateEntities() {
+  let state = getState()
+  if (state) {
+    if (state.entities) return state.entities
+    warn('React state entities not found')
+  }
+}
+
+function getThemeColorFromState() {
+  let localState = getState().settings?.local
+  let color = localState?.themeColor
+  let highContrast = localState?.highContrastEnabled
+  $body.classList.toggle('HighContrast', highContrast)
+  if (color) {
+    if (THEME_COLORS.has(color)) {
+      let colors = THEME_COLORS
+      let accents = THEME_COLOR_ACCENTS
+      if (highContrast) {
+        let colorScheme = getColorScheme()
+        colors = colorScheme == 'Default' ? HIGH_CONTRAST_LIGHT : HIGH_CONTRAST_DARK
+        accents = colorScheme == 'Default' ? HIGH_CONTRAST_LIGHT_ACCENTS : HIGH_CONTRAST_DARK_ACCENTS
+      }
+      return [colors.get(color), accents.get(color)]
+    }
+    warn(color, 'not found in THEME_COLORS')
+  } else {
+    warn('could not get settings.local.themeColor from React state')
+  }
+  return []
+}
+
+/**
+ * Gets cached tweet info from React state.
+ */
+function getTweetInfo(tweetId) {
+  let tweetEntities = getStateEntities()?.tweets?.entities
+  if (tweetEntities) {
+    let tweetInfo = tweetEntities[tweetId]
+    if (!tweetInfo) {
+      warn('tweet info not found', tweetId)
+    }
+    return tweetInfo
+  } else {
+    warn('tweet entities not found', tweetId)
+  }
+}
+
+/**
+ * Gets cached user info from React state.
+ * @returns {import("./types").UserInfoObject}
+ */
+function getUserInfo() {
+  /** @type {import("./types").UserInfoObject} */
+  let userInfo = {}
+  let userEntities = getStateEntities()?.users?.entities
+  if (userEntities) {
+    for (let user of Object.values(userEntities)) {
+      userInfo[user.screen_name] = {
+        following: user.following,
+        followedBy: user.followed_by,
+        followersCount: user.followers_count,
+      }
+    }
+  } else {
+    warn('user entities not found')
+  }
+  return userInfo
+}
+
+function getUserScreenName() {
+  let state = getState()
+  return state?.entities?.users?.entities?.[state?.session?.user_id]?.screen_name
+}
+
+function hasNewLayout() {
+  return getState()?.featureSwitch?.user?.config?.rweb_sourcemap_migration?.value
 }
 //#endregion
 
@@ -3034,6 +2974,101 @@ async function observeTitle() {
 //#endregion
 
 //#region Page observers
+/**
+ * @param {HTMLElement} $editorRoot
+ * @param {{
+ *   name: string
+ *   observers: Map<string, import("./types").Disconnectable>
+ *   placeholder?: string
+ * }} options
+ */
+function observeDesktopTweetEditorPlaceholder($editorRoot, {
+  name,
+  observers,
+  placeholder = '',
+}) {
+  observeElement($editorRoot, () => {
+    if ($editorRoot.firstElementChild.classList.contains('public-DraftEditorPlaceholder-root')) {
+      let $placeholder = $editorRoot.querySelector('.public-DraftEditorPlaceholder-inner')
+      placeholder = $editorRoot.getAttribute('data-placeholder') || placeholder
+      if ($placeholder && $placeholder.textContent != placeholder) {
+        $placeholder.textContent = placeholder
+      }
+    }
+  }, {leading: true, name, observers})
+}
+
+/**
+ * @param {string} page
+ */
+async function observeIndividualTweetTimeline(page) {
+  let $timeline = await getElement(Selectors.TIMELINE, {
+    name: 'initial individual tweet timeline',
+    stopIf: pageIsNot(page),
+  })
+
+  if ($timeline == null) return
+
+  /**
+   * @param {HTMLElement} $timeline
+   */
+  function observeTimelineItems($timeline) {
+    let seen = new WeakMap()
+    observeElement($timeline, () => {
+      onIndividualTweetTimelineChange($timeline, {observers: pageObservers, seen})
+    }, {
+      leading: true,
+      name: 'individual tweet timeline',
+      observers: pageObservers,
+    })
+  }
+
+  // If the inital timeline doesn't have a style attribute it's a placeholder
+  if ($timeline.hasAttribute('style')) {
+    observeTimelineItems($timeline)
+  }
+  else {
+    log('waiting for individual tweet timeline')
+    let startTime = Date.now()
+    observeElement($timeline.parentElement, (mutations, observer) => {
+      for (let mutation of mutations) {
+        for (let $addedNode of mutation.addedNodes) {
+          if (!($addedNode instanceof HTMLElement)) continue
+          if (Date.now() > startTime) {
+            log(`individual tweet timeline appeared after ${Date.now() - startTime}ms`, $addedNode)
+          }
+          observer.disconnect()
+          observeTimelineItems($addedNode)
+        }
+      }
+    }, {
+      name: 'individual tweet timeline parent',
+      observers: pageObservers,
+    })
+  }
+}
+
+async function observeSearchForm() {
+  let $searchForm = await getElement('form[role="search"]', {
+    name: 'search form',
+    stopIf: pageIsNot(currentPage),
+    // The sidebar on Profile pages can be really slow
+    timeout: 2000,
+  })
+  if (!$searchForm) return
+  let $results =  /** @type {HTMLElement} */ ($searchForm.lastElementChild)
+  observeElement($results, () => {
+    processBlueChecks($results)
+  }, {
+    leading: true,
+    name: 'search results',
+    observers: pageObservers,
+  }, {
+    childList: true,
+    subtree: true,
+  })
+}
+
 async function observeSidebar() {
   let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {name: 'primary column'})
   let $sidebarContainer = $primaryColumn.parentElement
@@ -3189,27 +3224,6 @@ const observeSideNavTweetButton = (() => {
   }
 })()
 
-async function observeSearchForm() {
-  let $searchForm = await getElement('form[role="search"]', {
-    name: 'search form',
-    stopIf: pageIsNot(currentPage),
-    // The sidebar on Profile pages can be really slow
-    timeout: 2000,
-  })
-  if (!$searchForm) return
-  let $results =  /** @type {HTMLElement} */ ($searchForm.lastElementChild)
-  observeElement($results, () => {
-    processBlueChecks($results)
-  }, {
-    leading: true,
-    name: 'search results',
-    observers: pageObservers,
-  }, {
-    childList: true,
-    subtree: true,
-  })
-}
-
 /**
  * @param {string} page
  * @param {import("./types").TimelineOptions?} options
@@ -3323,314 +3337,7 @@ async function observeTimeline(page, options = {}) {
     }
   }
 }
-
-/**
- * @param {HTMLElement} $editorRoot
- * @param {{
- *   name: string
- *   observers: Map<string, import("./types").Disconnectable>
- *   placeholder?: string
- * }} options
- */
-function observeDesktopTweetEditorPlaceholder($editorRoot, {
-  name,
-  observers,
-  placeholder = '',
-}) {
-  observeElement($editorRoot, () => {
-    if ($editorRoot.firstElementChild.classList.contains('public-DraftEditorPlaceholder-root')) {
-      let $placeholder = $editorRoot.querySelector('.public-DraftEditorPlaceholder-inner')
-      placeholder = $editorRoot.getAttribute('data-placeholder') || placeholder
-      if ($placeholder && $placeholder.textContent != placeholder) {
-        $placeholder.textContent = placeholder
-      }
-    }
-  }, {leading: true, name, observers})
-}
-
-/**
- * @param {string} page
- */
-async function observeIndividualTweetTimeline(page) {
-  let $timeline = await getElement(Selectors.TIMELINE, {
-    name: 'initial individual tweet timeline',
-    stopIf: pageIsNot(page),
-  })
-
-  if ($timeline == null) return
-
-  /**
-   * @param {HTMLElement} $timeline
-   */
-  function observeTimelineItems($timeline) {
-    let seen = new WeakMap()
-    observeElement($timeline, () => {
-      onIndividualTweetTimelineChange($timeline, {observers: pageObservers, seen})
-    }, {
-      leading: true,
-      name: 'individual tweet timeline',
-      observers: pageObservers,
-    })
-  }
-
-  // If the inital timeline doesn't have a style attribute it's a placeholder
-  if ($timeline.hasAttribute('style')) {
-    observeTimelineItems($timeline)
-  }
-  else {
-    log('waiting for individual tweet timeline')
-    let startTime = Date.now()
-    observeElement($timeline.parentElement, (mutations, observer) => {
-      for (let mutation of mutations) {
-        for (let $addedNode of mutation.addedNodes) {
-          if (!($addedNode instanceof HTMLElement)) continue
-          if (Date.now() > startTime) {
-            log(`individual tweet timeline appeared after ${Date.now() - startTime}ms`, $addedNode)
-          }
-          observer.disconnect()
-          observeTimelineItems($addedNode)
-        }
-      }
-    }, {
-      name: 'individual tweet timeline parent',
-      observers: pageObservers,
-    })
-  }
-}
 //#endregion
-
-//#region Tweak functions
-/**
- * Add an "Add muted word" menu item after the given link which takes you
- * straight to entering a new muted word (by clicking its way through all the
- * individual screens!).
- * @param {HTMLElement} $link
- * @param {string} linkSelector
- */
-async function addAddMutedWordMenuItem($link, linkSelector) {
-  log('adding "Add muted word" menu item')
-
-  // Wait for the dropdown to appear on desktop
-  if (desktop) {
-    $link = await getElement(`#layers div[data-testid="Dropdown"] ${linkSelector}`, {
-      name: 'rendered menu item',
-      timeout: 100,
-    })
-    if (!$link) return
-  }
-
-  let $addMutedWord = /** @type {HTMLElement} */ ($link.parentElement.cloneNode(true))
-  $addMutedWord.classList.add('cpft_menu_item')
-  $addMutedWord.querySelector('a').href = PagePaths.ADD_MUTED_WORD
-  $addMutedWord.querySelector('span').textContent = getString('ADD_MUTED_WORD')
-  $addMutedWord.querySelector('svg').innerHTML = Svgs.MUTE
-  $addMutedWord.addEventListener('click', (e) => {
-    e.preventDefault()
-    addMutedWord()
-  })
-  $link.parentElement.insertAdjacentElement('beforebegin', $addMutedWord)
-}
-
-function addCaretMenuListenerForQuoteTweet($tweet) {
-  let $caret = /** @type {HTMLElement} */ ($tweet.querySelector('[data-testid="caret"]'))
-  if ($caret && !$caret.dataset.tweakNewTwitterListener) {
-    $caret.addEventListener('click', () => {
-      quotedTweet = getQuotedTweetDetails($tweet, {getText: true})
-    })
-    $caret.dataset.tweakNewTwitterListener = 'true'
-  }
-}
-
-/**
- * @param {HTMLElement} $blockMenuItem
- */
-async function addMuteQuotesMenuItems($blockMenuItem) {
-  log('mutableQuoteTweets: adding "Mute this conversation" and "Turn off Quote Tweets" menu item')
-
-  // Wait for the menu to render properly on desktop
-  if (desktop) {
-    $blockMenuItem = await getElement(`:scope > div > div > div > ${Selectors.BLOCK_MENU_ITEM}`, {
-      context: $blockMenuItem.parentElement,
-      name: 'rendered block menu item',
-      timeout: 100,
-    })
-    if (!$blockMenuItem) return
-  }
-
-  let $muteQuotes = /** @type {HTMLElement} */ ($blockMenuItem.previousElementSibling.cloneNode(true))
-  $muteQuotes.classList.add('cpft_menu_item')
-  $muteQuotes.querySelector('span').textContent = getString('MUTE_THIS_CONVERSATION')
-  $muteQuotes.addEventListener('click', (e) => {
-    e.preventDefault()
-    log('mutableQuoteTweets: muting quotes of a tweet', quotedTweet)
-    settings.mutedQuotes = settings.mutedQuotes.concat(quotedTweet)
-    storeConfigChanges({settings: {mutedQuotes: settings.mutedQuotes}})
-    processCurrentPage()
-    // Dismiss the menu
-    let $menuLayer = /** @type {HTMLElement} */ ($blockMenuItem.closest('[role="group"]')?.firstElementChild?.firstElementChild)
-    if (!$menuLayer) {
-      warn('mutableQuoteTweets: could not find menu layer to dismiss menu')
-    }
-    $menuLayer?.click()
-  })
-
-  if (quotedTweet?.quotedBy) {
-    let $toggleQuotes = /** @type {HTMLElement} */ ($blockMenuItem.previousElementSibling.cloneNode(true))
-    $toggleQuotes.classList.add('cpft_menu_item')
-    $toggleQuotes.querySelector('span').textContent = getString(`TURN_OFF_QUOTE_TWEETS`)
-    $toggleQuotes.querySelector('svg').innerHTML = Svgs.RETWEETS_OFF
-    $toggleQuotes.addEventListener('click', (e) => {
-      e.preventDefault()
-      log('mutableQuoteTweets: toggling quotes from', quotedTweet.quotedBy)
-      if (settings.hideQuotesFrom.includes(quotedTweet.quotedBy)) {
-        settings.hideQuotesFrom = settings.hideQuotesFrom.filter(user => user != quotedTweet.quotedBy)
-      } else {
-        settings.hideQuotesFrom = settings.hideQuotesFrom.concat(quotedTweet.quotedBy)
-      }
-      storeConfigChanges({settings: {hideQuotesFrom: settings.hideQuotesFrom}})
-      processCurrentPage()
-      // Dismiss the menu
-      let $menuLayer = /** @type {HTMLElement} */ ($blockMenuItem.closest('[role="group"]')?.firstElementChild?.firstElementChild)
-      if (!$menuLayer) {
-        warn('mutableQuoteTweets: could not find menu layer to dismiss menu')
-      }
-      $menuLayer?.click()
-    })
-    $blockMenuItem.insertAdjacentElement('beforebegin', $toggleQuotes)
-  } else {
-    warn('mutableQuoteTweets: quotedBy not available when Tweet menu was opened')
-  }
-
-  $blockMenuItem.insertAdjacentElement('beforebegin', $muteQuotes)
-}
-
-async function addMutedWord() {
-  if (!document.querySelector('a[href="/settings')) {
-    let $settingsAndSupport = /** @type {HTMLElement} */ (document.querySelector('[data-testid="settingsAndSupport"]'))
-    $settingsAndSupport?.click()
-  }
-
-  for (let path of [
-    '/settings',
-    '/settings/privacy_and_safety',
-    '/settings/mute_and_block',
-    '/settings/muted_keywords',
-    '/settings/add_muted_keyword',
-  ]) {
-    let $link = await getElement(`a[href="${path}"]`, {timeout: 500})
-    if (!$link) return
-    $link.click()
-  }
-  let $input = await getElement('input[name="keyword"]')
-  setTimeout(() => $input.focus(), 100)
-}
-
-/**
- * Add a "Turn on/off Retweets" menu item to a List's menu.
- * @param {HTMLElement} $switchMenuItem
- */
-async function addToggleListRetweetsMenuItem($switchMenuItem) {
-  log('adding "Turn on/off Retweets" menu item')
-
-  // Wait for the menu to render properly on desktop
-  if (desktop) {
-    $switchMenuItem = await getElement(':scope > div > div > div > [role="menuitem"]', {
-      context: $switchMenuItem.parentElement,
-      name: 'rendered switch menu item',
-      timeout: 100,
-    })
-    if (!$switchMenuItem) return
-  }
-
-  let $toggleRetweets = /** @type {HTMLElement} */ ($switchMenuItem.cloneNode(true))
-  $toggleRetweets.classList.add('cpft_menu_item')
-  $toggleRetweets.querySelector('span').textContent = getString(`TURN_${settings.listRetweets == 'ignore' ? 'OFF' : 'ON'}_RETWEETS`)
-  $toggleRetweets.querySelector('svg').innerHTML = settings.listRetweets == 'ignore' ? Svgs.RETWEETS_OFF : Svgs.RETWEET
-  // Remove subtitle if the cloned menu item has one
-  $toggleRetweets.querySelector('div[dir] + div[dir]')?.remove()
-  $toggleRetweets.addEventListener('click', (e) => {
-    e.preventDefault()
-    log('toggling list retweets')
-    settings.listRetweets = settings.listRetweets == 'ignore' ? 'hide' : 'ignore'
-    storeConfigChanges({settings: {listRetweets: settings.listRetweets}})
-    processCurrentPage()
-    // Dismiss the menu
-    let $menuLayer = /** @type {HTMLElement} */ ($switchMenuItem.closest('[role="group"]')?.firstElementChild?.firstElementChild)
-    if (!$menuLayer) {
-      log('could not find menu layer to dismiss menu')
-    }
-    $menuLayer?.click()
-  })
-
-  $switchMenuItem.insertAdjacentElement('beforebegin', $toggleRetweets)
-}
-
-/**
- * Redirects away from the Home timeline if we're on it and it's been disabled.
- * @returns {boolean} `true` if redirected as a result of this call
- */
-function checkforDisabledHomeTimeline() {
-  if (settings.disableHomeTimeline && location.pathname == PagePaths.HOME) {
-    log(`Home timeline disabled, redirecting to /${settings.disabledHomeTimelineRedirect}`)
-    let primaryNavSelector = desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE
-    void (async () => {
-      let $navLink = await getElement(`${primaryNavSelector} a[href="/${settings.disabledHomeTimelineRedirect}"]`, {
-        name: `${settings.disabledHomeTimelineRedirect} nav link`,
-        stopIf: () => location.pathname != PagePaths.HOME,
-      })
-      if (!$navLink) return
-      $navLink.click()
-    })()
-    return true
-  }
-}
-
-function checkReactNativeStylesheet() {
-  let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
-  if (!$style) {
-    warn('React Native stylesheet not found')
-    return
-  }
-
-  let lastRulesCount = null
-  let startTime = Date.now()
-
-  function findRules() {
-    for (let rule of $style.sheet.cssRules) {
-      if (!(rule instanceof CSSStyleRule)) continue
-
-      if (fontFamilyRule == null &&
-          rule.style.fontFamily?.includes('TwitterChirp') &&
-          !rule.style.fontFamily.includes('TwitterChirpExtendedHeavy')) {
-        fontFamilyRule = rule
-        log('found Chirp fontFamily CSS rule in React Native stylesheet', fontFamilyRule)
-        configureFont()
-      }
-
-      if (filterBlurRule == null && rule.style.filter?.includes('blur(30px)')) {
-        filterBlurRule = rule
-        log('found filter: blur(30px) rule in React Native stylesheet', filterBlurRule)
-        configureDynamicCss()
-      }
-    }
-
-    let elapsedTime = new Intl.NumberFormat(undefined).format(Date.now() - startTime)
-    if (fontFamilyRule == null || filterBlurRule == null) {
-      // Stop checking when there are no new rules since the last check
-      if (lastRulesCount != $style.sheet.cssRules.length) {
-        lastRulesCount = $style.sheet.cssRules.length
-        log(`waiting for more React Native stylesheet rules (${lastRulesCount})`)
-        setTimeout(findRules, 100)
-      } else {
-        warn(`stopped waiting for new React Native stylesheet rules after ${elapsedTime}ms (${lastRulesCount} rules)`)
-      }
-    } else {
-      log(`finished checking React Native stylesheet in ${elapsedTime}ms (${lastRulesCount} rules)`)
-    }
-  }
-
-  findRules()
-}
 
 //#region CSS
 const configureCss = (() => {
@@ -4509,6 +4216,74 @@ const configureCss = (() => {
   }
 })()
 
+const configureCustomCss = (() => {
+  let $style
+
+  return function configureCustomCss() {
+    if (!enabled) {
+      if ($style) {
+        log('removing custom CSS')
+        $style.remove()
+        $style = null
+      }
+      return
+    }
+    if (settings.customCss) {
+      if ($style == null) {
+        $style = addStyle(settings.customCss)
+      } else {
+        $style.textContent = settings.customCss
+      }
+    } else if ($style) {
+      $style.remove()
+      $style = null
+    }
+  }
+})()
+
+/**
+ * CSS which depends on anything we need to get from the page.
+ */
+const configureDynamicCss = (() => {
+  let $style
+
+  return function configureDynamicCss() {
+    if (!enabled) {
+      log('removing dynamic CSS')
+      $style?.remove()
+      $style = null
+      return
+    }
+
+    let cssRules = []
+
+    if (fontSize != null && settings.navBaseFontSize) {
+      cssRules.push(`
+        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) span { font-size: ${fontSize}; font-weight: normal; }
+        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) { margin-top: -4px; }
+      `)
+    }
+
+    if (filterBlurRule != null && settings.unblurSensitiveContent) {
+      cssRules.push(`
+        ${filterBlurRule.selectorText} {
+          filter: none !important;
+        }
+        ${filterBlurRule.selectorText} + div {
+          display: none !important;
+        }
+      `)
+    }
+
+    let css = cssRules.map(dedent).join('\n')
+    if ($style == null) {
+      $style = addStyle(css)
+    } else {
+      $style.textContent = css
+    }
+  }
+})()
+
 function configureFont() {
   if (!fontFamilyRule) {
     warn('no fontFamilyRule found for configureFont to use')
@@ -4578,107 +4353,6 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
   }
   if (settings.hideLikeMetrics) {
     hideCssSelectors.push('#cpftLikeCount')
-  }
-}
-
-const configureCustomCss = (() => {
-  let $style
-
-  return function configureCustomCss() {
-    if (settings.customCss) {
-      $style ??= addStyle('custom')
-      $style.textContent = settings.customCss
-    } else {
-      $style?.remove()
-    }
-  }
-})()
-
-/**
- * CSS which depends on anything we need to get from the page.
- */
-const configureDynamicCss = (() => {
-  let $style
-
-  return function configureDynamicCss() {
-    if (!enabled) {
-      log('removing nav font size stylesheet')
-      $style?.remove()
-      $style = null
-      return
-    }
-
-    let cssRules = []
-
-    if (fontSize != null && settings.navBaseFontSize) {
-      cssRules.push(`
-        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) span { font-size: ${fontSize}; font-weight: normal; }
-        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) { margin-top: -4px; }
-      `)
-    }
-
-    if (filterBlurRule != null && settings.unblurSensitiveContent) {
-      cssRules.push(`
-        ${filterBlurRule.selectorText} {
-          filter: none !important;
-        }
-        ${filterBlurRule.selectorText} + div {
-          display: none !important;
-        }
-      `)
-    }
-
-    let css = cssRules.map(dedent).join('\n')
-    if ($style == null) {
-      $style = addStyle(css)
-    } else {
-      $style.textContent = css
-    }
-  }
-})()
-//#endregion
-
-/**
- * Configures – or re-configures – the separated tweets timeline title.
- *
- * If we're currently on the separated tweets timeline and…
- * - …its title has changed, the page title will be changed to "navigate" to it.
- * - …the separated tweets timeline is no longer needed, we'll change the page
- *   title to "navigate" back to the Home timeline.
- *
- * @returns {boolean} `true` if "navigation" was triggered by this call
- */
-function configureSeparatedTweetsTimelineTitle() {
-  let wasOnSeparatedTweetsTimeline = isOnSeparatedTweetsTimeline()
-  let previousTitle = separatedTweetsTimelineTitle
-
-  if (settings.retweets == 'separate' && settings.quoteTweets == 'separate') {
-    separatedTweetsTimelineTitle = getString(settings.revertXBranding ? 'SHARED_TWEETS' : 'SHARED')
-  } else if (settings.retweets == 'separate') {
-    separatedTweetsTimelineTitle = getString(settings.revertXBranding ? 'RETWEETS' : 'REPOSTS')
-  } else if (settings.quoteTweets == 'separate') {
-    separatedTweetsTimelineTitle = getString(settings.revertXBranding ? 'QUOTE_TWEETS' : 'QUOTES')
-  } else {
-    separatedTweetsTimelineTitle = null
-  }
-
-  let titleChanged = previousTitle != separatedTweetsTimelineTitle
-  if (wasOnSeparatedTweetsTimeline) {
-    if (separatedTweetsTimelineTitle == null) {
-      log('moving from separated tweets timeline to Home timeline after config change')
-      setTitle(getString('HOME'))
-      return true
-    }
-    if (titleChanged) {
-      log('applying new separated tweets timeline title after config change')
-      setTitle(separatedTweetsTimelineTitle)
-      return true
-    }
-  } else {
-    if (titleChanged && previousTitle != null && lastHomeTimelineTitle == previousTitle) {
-      log('updating lastHomeTimelineTitle with new separated tweets timeline title')
-      lastHomeTimelineTitle = separatedTweetsTimelineTitle
-    }
   }
 }
 
@@ -4859,6 +4533,284 @@ const configureThemeCss = (() => {
     }
   }
 })()
+//#endregion
+
+//#region Tweak functions
+function addCaretMenuListenerForQuoteTweet($tweet) {
+  let $caret = /** @type {HTMLElement} */ ($tweet.querySelector('[data-testid="caret"]'))
+  if ($caret && !$caret.dataset.tweakNewTwitterListener) {
+    $caret.addEventListener('click', () => {
+      quotedTweet = getQuotedTweetDetails($tweet, {getText: true})
+    })
+    $caret.dataset.tweakNewTwitterListener = 'true'
+  }
+}
+
+/**
+ * @param {HTMLElement} $blockMenuItem
+ */
+async function addMuteQuotesMenuItems($blockMenuItem) {
+  log('mutableQuoteTweets: adding "Mute this conversation" and "Turn off Quote Tweets" menu item')
+
+  // Wait for the menu to render properly on desktop
+  if (desktop) {
+    $blockMenuItem = await getElement(`:scope > div > div > div > ${Selectors.BLOCK_MENU_ITEM}`, {
+      context: $blockMenuItem.parentElement,
+      name: 'rendered block menu item',
+      timeout: 100,
+    })
+    if (!$blockMenuItem) return
+  }
+
+  let $muteQuotes = /** @type {HTMLElement} */ ($blockMenuItem.previousElementSibling.cloneNode(true))
+  $muteQuotes.classList.add('cpft_menu_item')
+  $muteQuotes.querySelector('span').textContent = getString('MUTE_THIS_CONVERSATION')
+  $muteQuotes.addEventListener('click', (e) => {
+    e.preventDefault()
+    log('mutableQuoteTweets: muting quotes of a tweet', quotedTweet)
+    settings.mutedQuotes = settings.mutedQuotes.concat(quotedTweet)
+    storeConfigChanges({settings: {mutedQuotes: settings.mutedQuotes}})
+    processCurrentPage()
+    // Dismiss the menu
+    let $menuLayer = /** @type {HTMLElement} */ ($blockMenuItem.closest('[role="group"]')?.firstElementChild?.firstElementChild)
+    if (!$menuLayer) {
+      warn('mutableQuoteTweets: could not find menu layer to dismiss menu')
+    }
+    $menuLayer?.click()
+  })
+
+  if (quotedTweet?.quotedBy) {
+    let $toggleQuotes = /** @type {HTMLElement} */ ($blockMenuItem.previousElementSibling.cloneNode(true))
+    $toggleQuotes.classList.add('cpft_menu_item')
+    $toggleQuotes.querySelector('span').textContent = getString(`TURN_OFF_QUOTE_TWEETS`)
+    $toggleQuotes.querySelector('svg').innerHTML = Svgs.RETWEETS_OFF
+    $toggleQuotes.addEventListener('click', (e) => {
+      e.preventDefault()
+      log('mutableQuoteTweets: toggling quotes from', quotedTweet.quotedBy)
+      if (settings.hideQuotesFrom.includes(quotedTweet.quotedBy)) {
+        settings.hideQuotesFrom = settings.hideQuotesFrom.filter(user => user != quotedTweet.quotedBy)
+      } else {
+        settings.hideQuotesFrom = settings.hideQuotesFrom.concat(quotedTweet.quotedBy)
+      }
+      storeConfigChanges({settings: {hideQuotesFrom: settings.hideQuotesFrom}})
+      processCurrentPage()
+      // Dismiss the menu
+      let $menuLayer = /** @type {HTMLElement} */ ($blockMenuItem.closest('[role="group"]')?.firstElementChild?.firstElementChild)
+      if (!$menuLayer) {
+        warn('mutableQuoteTweets: could not find menu layer to dismiss menu')
+      }
+      $menuLayer?.click()
+    })
+    $blockMenuItem.insertAdjacentElement('beforebegin', $toggleQuotes)
+  } else {
+    warn('mutableQuoteTweets: quotedBy not available when Tweet menu was opened')
+  }
+
+  $blockMenuItem.insertAdjacentElement('beforebegin', $muteQuotes)
+}
+
+async function addMutedWord() {
+  if (!document.querySelector('a[href="/settings')) {
+    let $settingsAndSupport = /** @type {HTMLElement} */ (document.querySelector('[data-testid="settingsAndSupport"]'))
+    $settingsAndSupport?.click()
+  }
+
+  for (let path of [
+    '/settings',
+    '/settings/privacy_and_safety',
+    '/settings/mute_and_block',
+    '/settings/muted_keywords',
+    '/settings/add_muted_keyword',
+  ]) {
+    let $link = await getElement(`a[href="${path}"]`, {timeout: 500})
+    if (!$link) return
+    $link.click()
+  }
+  let $input = await getElement('input[name="keyword"]')
+  setTimeout(() => $input.focus(), 100)
+}
+
+/**
+ * Add an "Add muted word" menu item after the given link which takes you
+ * straight to entering a new muted word (by clicking its way through all the
+ * individual screens!).
+ * @param {HTMLElement} $link
+ * @param {string} linkSelector
+ */
+async function addAddMutedWordMenuItem($link, linkSelector) {
+  log('adding "Add muted word" menu item')
+
+  // Wait for the dropdown to appear on desktop
+  if (desktop) {
+    $link = await getElement(`#layers div[data-testid="Dropdown"] ${linkSelector}`, {
+      name: 'rendered menu item',
+      timeout: 100,
+    })
+    if (!$link) return
+  }
+
+  let $addMutedWord = /** @type {HTMLElement} */ ($link.parentElement.cloneNode(true))
+  $addMutedWord.classList.add('cpft_menu_item')
+  $addMutedWord.querySelector('a').href = PagePaths.ADD_MUTED_WORD
+  $addMutedWord.querySelector('span').textContent = getString('ADD_MUTED_WORD')
+  $addMutedWord.querySelector('svg').innerHTML = Svgs.MUTE
+  $addMutedWord.addEventListener('click', (e) => {
+    e.preventDefault()
+    addMutedWord()
+  })
+  $link.parentElement.insertAdjacentElement('beforebegin', $addMutedWord)
+}
+
+/**
+ * Add a "Turn on/off Retweets" menu item to a List's menu.
+ * @param {HTMLElement} $switchMenuItem
+ */
+async function addToggleListRetweetsMenuItem($switchMenuItem) {
+  log('adding "Turn on/off Retweets" menu item')
+
+  // Wait for the menu to render properly on desktop
+  if (desktop) {
+    $switchMenuItem = await getElement(':scope > div > div > div > [role="menuitem"]', {
+      context: $switchMenuItem.parentElement,
+      name: 'rendered switch menu item',
+      timeout: 100,
+    })
+    if (!$switchMenuItem) return
+  }
+
+  let $toggleRetweets = /** @type {HTMLElement} */ ($switchMenuItem.cloneNode(true))
+  $toggleRetweets.classList.add('cpft_menu_item')
+  $toggleRetweets.querySelector('span').textContent = getString(`TURN_${settings.listRetweets == 'ignore' ? 'OFF' : 'ON'}_RETWEETS`)
+  $toggleRetweets.querySelector('svg').innerHTML = settings.listRetweets == 'ignore' ? Svgs.RETWEETS_OFF : Svgs.RETWEET
+  // Remove subtitle if the cloned menu item has one
+  $toggleRetweets.querySelector('div[dir] + div[dir]')?.remove()
+  $toggleRetweets.addEventListener('click', (e) => {
+    e.preventDefault()
+    log('toggling list retweets')
+    settings.listRetweets = settings.listRetweets == 'ignore' ? 'hide' : 'ignore'
+    storeConfigChanges({settings: {listRetweets: settings.listRetweets}})
+    processCurrentPage()
+    // Dismiss the menu
+    let $menuLayer = /** @type {HTMLElement} */ ($switchMenuItem.closest('[role="group"]')?.firstElementChild?.firstElementChild)
+    if (!$menuLayer) {
+      log('could not find menu layer to dismiss menu')
+    }
+    $menuLayer?.click()
+  })
+
+  $switchMenuItem.insertAdjacentElement('beforebegin', $toggleRetweets)
+}
+
+/**
+ * Redirects away from the Home timeline if we're on it and it's been disabled.
+ * @returns {boolean} `true` if redirected as a result of this call
+ */
+function checkForDisabledHomeTimeline() {
+  if (settings.disableHomeTimeline && location.pathname == PagePaths.HOME) {
+    log(`Home timeline disabled, redirecting to /${settings.disabledHomeTimelineRedirect}`)
+    let primaryNavSelector = desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE
+    void (async () => {
+      let $navLink = await getElement(`${primaryNavSelector} a[href="/${settings.disabledHomeTimelineRedirect}"]`, {
+        name: `${settings.disabledHomeTimelineRedirect} nav link`,
+        stopIf: () => location.pathname != PagePaths.HOME,
+      })
+      if (!$navLink) return
+      $navLink.click()
+    })()
+    return true
+  }
+}
+
+function checkReactNativeStylesheet() {
+  let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
+  if (!$style) {
+    warn('React Native stylesheet not found')
+    return
+  }
+
+  let lastRulesCount = null
+  let startTime = Date.now()
+
+  function findRules() {
+    for (let rule of $style.sheet.cssRules) {
+      if (!(rule instanceof CSSStyleRule)) continue
+
+      if (fontFamilyRule == null &&
+          rule.style.fontFamily?.includes('TwitterChirp') &&
+          !rule.style.fontFamily.includes('TwitterChirpExtendedHeavy')) {
+        fontFamilyRule = rule
+        log('found Chirp fontFamily CSS rule in React Native stylesheet', fontFamilyRule)
+        configureFont()
+      }
+
+      if (filterBlurRule == null && rule.style.filter?.includes('blur(30px)')) {
+        filterBlurRule = rule
+        log('found filter: blur(30px) rule in React Native stylesheet', filterBlurRule)
+        configureDynamicCss()
+      }
+    }
+
+    let elapsedTime = new Intl.NumberFormat(undefined).format(Date.now() - startTime)
+    if (fontFamilyRule == null || filterBlurRule == null) {
+      // Stop checking when there are no new rules since the last check
+      if (lastRulesCount != $style.sheet.cssRules.length) {
+        lastRulesCount = $style.sheet.cssRules.length
+        log(`waiting for more React Native stylesheet rules (${lastRulesCount})`)
+        setTimeout(findRules, 100)
+      } else {
+        warn(`stopped waiting for new React Native stylesheet rules after ${elapsedTime}ms (${lastRulesCount} rules)`)
+      }
+    } else {
+      log(`finished checking React Native stylesheet in ${elapsedTime}ms (${lastRulesCount} rules)`)
+    }
+  }
+
+  findRules()
+}
+
+/**
+ * Configures – or re-configures – the separated tweets timeline title.
+ *
+ * If we're currently on the separated tweets timeline and…
+ * - …its title has changed, the page title will be changed to "navigate" to it.
+ * - …the separated tweets timeline is no longer needed, we'll change the page
+ *   title to "navigate" back to the Home timeline.
+ *
+ * @returns {boolean} `true` if "navigation" was triggered by this call
+ */
+function configureSeparatedTweetsTimelineTitle() {
+  let wasOnSeparatedTweetsTimeline = isOnSeparatedTweetsTimeline()
+  let previousTitle = separatedTweetsTimelineTitle
+
+  if (settings.retweets == 'separate' && settings.quoteTweets == 'separate') {
+    separatedTweetsTimelineTitle = getString(settings.revertXBranding ? 'SHARED_TWEETS' : 'SHARED')
+  } else if (settings.retweets == 'separate') {
+    separatedTweetsTimelineTitle = getString(settings.revertXBranding ? 'RETWEETS' : 'REPOSTS')
+  } else if (settings.quoteTweets == 'separate') {
+    separatedTweetsTimelineTitle = getString(settings.revertXBranding ? 'QUOTE_TWEETS' : 'QUOTES')
+  } else {
+    separatedTweetsTimelineTitle = null
+  }
+
+  let titleChanged = previousTitle != separatedTweetsTimelineTitle
+  if (wasOnSeparatedTweetsTimeline) {
+    if (separatedTweetsTimelineTitle == null) {
+      log('moving from separated tweets timeline to Home timeline after config change')
+      setTitle(getString('HOME'))
+      return true
+    }
+    if (titleChanged) {
+      log('applying new separated tweets timeline title after config change')
+      setTitle(separatedTweetsTimelineTitle)
+      return true
+    }
+  } else {
+    if (titleChanged && previousTitle != null && lastHomeTimelineTitle == previousTitle) {
+      log('updating lastHomeTimelineTitle with new separated tweets timeline title')
+      lastHomeTimelineTitle = separatedTweetsTimelineTitle
+    }
+  }
+}
 
 function getColorScheme() {
   return {
@@ -4870,7 +4822,7 @@ function getColorScheme() {
 
 /**
  * @param {HTMLElement} $tweet
- * @param {?{getText?: boolean}} options
+ * @param {{getText?: boolean}} [options]
  * @returns {import("./types").QuotedTweet}
  */
  function getQuotedTweetDetails($tweet, options = {}) {
@@ -4900,7 +4852,7 @@ function getColorScheme() {
  * data-testid="tweet" on it, falling back to TWEET if it doesn't appear to be
  * one of the particular types we care about.
  * @param {HTMLElement} $tweet
- * @param {?boolean} checkSocialContext
+ * @param {boolean} [checkSocialContext]
  * @returns {import("./types").TweetType}
  */
 function getTweetType($tweet, checkSocialContext = false) {
@@ -4963,6 +4915,26 @@ function getVerifiedProps($svg) {
     warn('isBlueVerified not in React props for', $svg, {props})
   }
   return props
+}
+
+/**
+ * @returns {import("./types").VerifiedType}
+ */
+function getVerifiedType($svg) {
+  let props = getVerifiedProps($svg)
+  if (props) {
+    if (props.affiliateBadgeInfo?.userLabelType == 'BusinessLabel' &&
+        props.affiliateBadgeInfo?.description == 'X')
+      // Ignore Twitter associated checks
+      return null
+    if (props.verifiedType == 'Business')
+      return 'BUSINESS'
+    if (props.verifiedType == 'Government')
+      return 'GOVERNMENT'
+    if (props.isBlueVerified)
+      return 'BLUE'
+  }
+  return null
 }
 
 /**
@@ -5215,26 +5187,6 @@ function isBlueVerified($svg) {
 }
 
 /**
- * @returns {import("./types").VerifiedType}
- */
-function getVerifiedType($svg) {
-  let props = getVerifiedProps($svg)
-  if (props) {
-    if (props.affiliateBadgeInfo?.userLabelType == 'BusinessLabel' &&
-        props.affiliateBadgeInfo?.description == 'X')
-      // Ignore Twitter associated checks
-      return null
-    if (props.verifiedType == 'Business')
-      return 'BUSINESS'
-    if (props.verifiedType == 'Government')
-      return 'GOVERNMENT'
-    if (props.isBlueVerified)
-      return 'BLUE'
-  }
-  return null
-}
-
-/**
  * Checks if a tweet is preceded by an element creating a vertical reply line.
  * @param {HTMLElement} $tweet
  * @returns {boolean}
@@ -5243,227 +5195,6 @@ function isReplyToPreviousTweet($tweet) {
   let $replyLine = $tweet.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild
   if ($replyLine) {
     return getComputedStyle($replyLine).width == '2px'
-  }
-}
-
-/**
- * @returns {{disconnect()}}
- */
-function onPopup($popup) {
-  log('popup appeared', $popup, location.pathname)
-
-  // If handlePopup did something, we don't need to observe nested popups
-  let {tookAction, onPopupClosed} = handlePopup($popup)
-  if (tookAction) {
-    return onPopupClosed ? {disconnect: onPopupClosed} : null
-  }
-
-  /** @type {HTMLElement} */
-  let $nestedPopup
-
-  let nestedObserver = observeElement($popup, (mutations) => {
-    for (let mutation of mutations) {
-      for (let $addedNode of mutation.addedNodes) {
-        if (!($addedNode instanceof HTMLElement)) continue
-        log('nested popup appeared', $addedNode)
-        $nestedPopup = $addedNode
-        onPopupClosed = handlePopup($addedNode).onPopupClosed
-      }
-      for (let $removedNode of mutation.removedNodes) {
-        if (!($removedNode instanceof HTMLElement)) continue
-        if ($removedNode !== $nestedPopup) return
-        if (onPopupClosed) {
-          log('cleaning up after nested popup removed')
-          onPopupClosed()
-        }
-      }
-    }
-  }, 'nested popup observer')
-
-  let disconnect = nestedObserver.disconnect.bind(nestedObserver)
-  nestedObserver.disconnect = () => {
-    if (onPopupClosed) {
-      log('cleaning up after nested popup observer disconnected')
-      onPopupClosed()
-    }
-    disconnect()
-  }
-
-  return nestedObserver
-}
-
-/**
- * @param {HTMLElement} $timeline
- * @param {string} page
- * @param {import("./types").TimelineOptions?} options
- */
-function onTimelineChange($timeline, page, options = {}) {
-  let startTime = Date.now()
-  let {classifyTweets = true, hideHeadings = true, isUserTimeline = false} = options
-
-  let isOnHomeTimeline = isOnHomeTimelinePage()
-  let isOnListTimeline = isOnListPage()
-  let isOnProfileTimeline = isOnProfilePage()
-  let timelineHasSpecificHandling = isOnHomeTimeline || isOnListTimeline || isOnProfileTimeline
-
-  if (settings.premiumBlueChecks != 'ignore' && (isUserTimeline || !timelineHasSpecificHandling)) {
-    processBlueChecks($timeline)
-  }
-
-  if (isSafari && settings.revertXBranding && isOnNotificationsPage()) {
-    processTwitterLogos($timeline)
-  }
-
-  if (isUserTimeline || !classifyTweets) return
-
-  let itemTypes = {}
-  let hiddenItemCount = 0
-  let hiddenItemTypes = {}
-
-  /** @type {?boolean} */
-  let hidPreviousItem = null
-  /** @type {{$item: Element, hideItem?: boolean}[]} */
-  let changes = []
-
-  for (let $item of $timeline.children) {
-    /** @type {?import("./types").TimelineItemType} */
-    let itemType = null
-    /** @type {?boolean} */
-    let hideItem = null
-    /** @type {?HTMLElement} */
-    let $tweet = $item.querySelector(Selectors.TWEET)
-    /** @type {boolean} */
-    let isReply = false
-    /** @type {boolean} */
-    let isBlueTweet = false
-
-    if ($tweet != null) {
-      itemType = getTweetType($tweet, isOnProfileTimeline)
-      if (timelineHasSpecificHandling) {
-        isReply = isReplyToPreviousTweet($tweet)
-        if (isReply && hidPreviousItem != null) {
-          hideItem = hidPreviousItem
-        } else {
-          if (isOnHomeTimeline) {
-            hideItem = shouldHideHomeTimelineItem(itemType, page)
-            if (settings.mutableQuoteTweets && !hideItem && itemType == 'QUOTE_TWEET' && settings.hideQuotesFrom.length > 0) {
-              let $quotedByLink = /** @type {HTMLAnchorElement} */ ($tweet.querySelector('[data-testid="User-Name"] a'))
-              let quotedBy = $quotedByLink?.pathname.substring(1)
-              if (quotedBy) {
-                hideItem = settings.hideQuotesFrom.includes(quotedBy)
-              } else {
-                warn('hideQuotesFrom: unable to get quote tweet user')
-              }
-            }
-          }
-          else if (isOnListTimeline) {
-            hideItem = shouldHideListTimelineItem(itemType)
-          }
-          else if (isOnProfileTimeline) {
-            hideItem = shouldHideProfileTimelineItem(itemType)
-          }
-        }
-
-        if (!hideItem && settings.hideGrokTweets && $tweet.querySelector('a[href^="/i/grok/share/"]')) {
-          hideItem = true
-        }
-
-        if (!hideItem && settings.mutableQuoteTweets && (itemType == 'QUOTE_TWEET' || itemType == 'RETWEETED_QUOTE_TWEET')) {
-          if (settings.mutedQuotes.length > 0) {
-            let quotedTweet = getQuotedTweetDetails($tweet)
-            hideItem = settings.mutedQuotes.some(muted => muted.user == quotedTweet.user && muted.time == quotedTweet.time)
-          }
-          if (!hideItem) {
-            addCaretMenuListenerForQuoteTweet($tweet)
-          }
-        }
-
-        if (settings.premiumBlueChecks != 'ignore') {
-          for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
-            let isBlueCheck = isBlueVerified($svg)
-            if (!isBlueCheck) continue
-
-            blueCheck($svg)
-
-            // Don't count a tweet as blue if the check is in a quoted tweet
-            let userProfileLink = $svg.closest('a[role="link"]:not([href^="/i/status"])')
-            if (!userProfileLink) continue
-
-            isBlueTweet = true
-          }
-        }
-      }
-
-      if (!hideItem && settings.restoreLinkHeadlines) {
-        restoreLinkHeadline($tweet)
-      }
-    }
-    else if (!timelineHasSpecificHandling) {
-      if ($item.querySelector(':scope > div > div > div > article')) {
-        itemType = 'UNAVAILABLE'
-      }
-    }
-
-    if (!timelineHasSpecificHandling) {
-      if (itemType != null) {
-        hideItem = shouldHideOtherTimelineItem(itemType)
-      }
-    }
-
-    // Special handling for non-Tweet timeline items
-    if (itemType == null) {
-      if ($item.querySelector('[data-testid="inlinePrompt"]')) {
-        itemType = 'INLINE_PROMPT'
-        hideItem = settings.hideInlinePrompts || (
-          settings.hidePremiumUpsells && Boolean($item.querySelector('a[href^="/i/premium"]')) ||
-          settings.hideMonetizationNav && Boolean($item.querySelector('a[href="/settings/monetization"]'))
-        )
-      } else if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
-        itemType = 'HEADING'
-        hideItem = hideHeadings && settings.hideWhoToFollowEtc
-      }
-    }
-
-    if (debug && itemType != null) {
-      $item.firstElementChild.setAttribute('data-item-type', `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet ? ' / BLUE' : ''}`)
-    }
-
-    // Assume a non-identified item following an identified item is related
-    if (itemType == null && hidPreviousItem != null) {
-      hideItem = hidPreviousItem
-      itemType = 'SUBSEQUENT_ITEM'
-    }
-
-    if (itemType != null) {
-      itemTypes[itemType] ||= 0
-      itemTypes[itemType]++
-    }
-
-    if (hideItem) {
-      hiddenItemCount++
-      hiddenItemTypes[itemType] ||= 0
-      hiddenItemTypes[itemType]++
-    }
-
-    if (hideItem != null && $item.firstElementChild) {
-      let hidden = $item.firstElementChild.classList.contains('HiddenTweet')
-      if (hidden != hideItem) {
-        changes.push({$item, hideItem})
-      }
-    }
-
-    hidPreviousItem = hideItem
-  }
-
-  for (let change of changes) {
-    change.$item.firstElementChild.classList.toggle('HiddenTweet', change.hideItem)
-  }
-
-  if (debug && debugLogTimelineStats) {
-    log(
-      `processed ${$timeline.children.length} timeline item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
-      itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
-    )
   }
 }
 
@@ -5705,6 +5436,227 @@ function onIndividualTweetTimelineChange($timeline, options) {
 }
 
 /**
+ * @returns {{disconnect()}}
+ */
+function onPopup($popup) {
+  log('popup appeared', $popup, location.pathname)
+
+  // If handlePopup did something, we don't need to observe nested popups
+  let {tookAction, onPopupClosed} = handlePopup($popup)
+  if (tookAction) {
+    return onPopupClosed ? {disconnect: onPopupClosed} : null
+  }
+
+  /** @type {HTMLElement} */
+  let $nestedPopup
+
+  let nestedObserver = observeElement($popup, (mutations) => {
+    for (let mutation of mutations) {
+      for (let $addedNode of mutation.addedNodes) {
+        if (!($addedNode instanceof HTMLElement)) continue
+        log('nested popup appeared', $addedNode)
+        $nestedPopup = $addedNode
+        onPopupClosed = handlePopup($addedNode).onPopupClosed
+      }
+      for (let $removedNode of mutation.removedNodes) {
+        if (!($removedNode instanceof HTMLElement)) continue
+        if ($removedNode !== $nestedPopup) return
+        if (onPopupClosed) {
+          log('cleaning up after nested popup removed')
+          onPopupClosed()
+        }
+      }
+    }
+  }, 'nested popup observer')
+
+  let disconnect = nestedObserver.disconnect.bind(nestedObserver)
+  nestedObserver.disconnect = () => {
+    if (onPopupClosed) {
+      log('cleaning up after nested popup observer disconnected')
+      onPopupClosed()
+    }
+    disconnect()
+  }
+
+  return nestedObserver
+}
+
+/**
+ * @param {HTMLElement} $timeline
+ * @param {string} page
+ * @param {import("./types").TimelineOptions?} options
+ */
+function onTimelineChange($timeline, page, options = {}) {
+  let startTime = Date.now()
+  let {classifyTweets = true, hideHeadings = true, isUserTimeline = false} = options
+
+  let isOnHomeTimeline = isOnHomeTimelinePage()
+  let isOnListTimeline = isOnListPage()
+  let isOnProfileTimeline = isOnProfilePage()
+  let timelineHasSpecificHandling = isOnHomeTimeline || isOnListTimeline || isOnProfileTimeline
+
+  if (settings.premiumBlueChecks != 'ignore' && (isUserTimeline || !timelineHasSpecificHandling)) {
+    processBlueChecks($timeline)
+  }
+
+  if (isSafari && settings.revertXBranding && isOnNotificationsPage()) {
+    processTwitterLogos($timeline)
+  }
+
+  if (isUserTimeline || !classifyTweets) return
+
+  let itemTypes = {}
+  let hiddenItemCount = 0
+  let hiddenItemTypes = {}
+
+  /** @type {?boolean} */
+  let hidPreviousItem = null
+  /** @type {{$item: Element, hideItem?: boolean}[]} */
+  let changes = []
+
+  for (let $item of $timeline.children) {
+    /** @type {?import("./types").TimelineItemType} */
+    let itemType = null
+    /** @type {?boolean} */
+    let hideItem = null
+    /** @type {?HTMLElement} */
+    let $tweet = $item.querySelector(Selectors.TWEET)
+    /** @type {boolean} */
+    let isReply = false
+    /** @type {boolean} */
+    let isBlueTweet = false
+
+    if ($tweet != null) {
+      itemType = getTweetType($tweet, isOnProfileTimeline)
+      if (timelineHasSpecificHandling) {
+        isReply = isReplyToPreviousTweet($tweet)
+        if (isReply && hidPreviousItem != null) {
+          hideItem = hidPreviousItem
+        } else {
+          if (isOnHomeTimeline) {
+            hideItem = shouldHideHomeTimelineItem(itemType, page)
+            if (settings.mutableQuoteTweets && !hideItem && itemType == 'QUOTE_TWEET' && settings.hideQuotesFrom.length > 0) {
+              let $quotedByLink = /** @type {HTMLAnchorElement} */ ($tweet.querySelector('[data-testid="User-Name"] a'))
+              let quotedBy = $quotedByLink?.pathname.substring(1)
+              if (quotedBy) {
+                hideItem = settings.hideQuotesFrom.includes(quotedBy)
+              } else {
+                warn('hideQuotesFrom: unable to get quote tweet user')
+              }
+            }
+          }
+          else if (isOnListTimeline) {
+            hideItem = shouldHideListTimelineItem(itemType)
+          }
+          else if (isOnProfileTimeline) {
+            hideItem = shouldHideProfileTimelineItem(itemType)
+          }
+        }
+
+        if (!hideItem && settings.hideGrokTweets && $tweet.querySelector('a[href^="/i/grok/share/"]')) {
+          hideItem = true
+        }
+
+        if (!hideItem && settings.mutableQuoteTweets && (itemType == 'QUOTE_TWEET' || itemType == 'RETWEETED_QUOTE_TWEET')) {
+          if (settings.mutedQuotes.length > 0) {
+            let quotedTweet = getQuotedTweetDetails($tweet)
+            hideItem = settings.mutedQuotes.some(muted => muted.user == quotedTweet.user && muted.time == quotedTweet.time)
+          }
+          if (!hideItem) {
+            addCaretMenuListenerForQuoteTweet($tweet)
+          }
+        }
+
+        if (settings.premiumBlueChecks != 'ignore') {
+          for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
+            let isBlueCheck = isBlueVerified($svg)
+            if (!isBlueCheck) continue
+
+            blueCheck($svg)
+
+            // Don't count a tweet as blue if the check is in a quoted tweet
+            let userProfileLink = $svg.closest('a[role="link"]:not([href^="/i/status"])')
+            if (!userProfileLink) continue
+
+            isBlueTweet = true
+          }
+        }
+      }
+
+      if (!hideItem && settings.restoreLinkHeadlines) {
+        restoreLinkHeadline($tweet)
+      }
+    }
+    else if (!timelineHasSpecificHandling) {
+      if ($item.querySelector(':scope > div > div > div > article')) {
+        itemType = 'UNAVAILABLE'
+      }
+    }
+
+    if (!timelineHasSpecificHandling) {
+      if (itemType != null) {
+        hideItem = shouldHideOtherTimelineItem(itemType)
+      }
+    }
+
+    // Special handling for non-Tweet timeline items
+    if (itemType == null) {
+      if ($item.querySelector('[data-testid="inlinePrompt"]')) {
+        itemType = 'INLINE_PROMPT'
+        hideItem = settings.hideInlinePrompts || (
+          settings.hidePremiumUpsells && Boolean($item.querySelector('a[href^="/i/premium"]')) ||
+          settings.hideMonetizationNav && Boolean($item.querySelector('a[href="/settings/monetization"]'))
+        )
+      } else if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
+        itemType = 'HEADING'
+        hideItem = hideHeadings && settings.hideWhoToFollowEtc
+      }
+    }
+
+    if (debug && itemType != null) {
+      $item.firstElementChild.setAttribute('data-item-type', `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet ? ' / BLUE' : ''}`)
+    }
+
+    // Assume a non-identified item following an identified item is related
+    if (itemType == null && hidPreviousItem != null) {
+      hideItem = hidPreviousItem
+      itemType = 'SUBSEQUENT_ITEM'
+    }
+
+    if (itemType != null) {
+      itemTypes[itemType] ||= 0
+      itemTypes[itemType]++
+    }
+
+    if (hideItem) {
+      hiddenItemCount++
+      hiddenItemTypes[itemType] ||= 0
+      hiddenItemTypes[itemType]++
+    }
+
+    if (hideItem != null && $item.firstElementChild) {
+      let hidden = $item.firstElementChild.classList.contains('HiddenTweet')
+      if (hidden != hideItem) {
+        changes.push({$item, hideItem})
+      }
+    }
+
+    hidPreviousItem = hideItem
+  }
+
+  for (let change of changes) {
+    change.$item.firstElementChild.classList.toggle('HiddenTweet', change.hideItem)
+  }
+
+  if (debug && debugLogTimelineStats) {
+    log(
+      `processed ${$timeline.children.length} timeline item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
+      itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
+    )
+  }
+}
+
+/**
  * Title format (including notification count):
  * - LTR: (3) ${title} / X
  * - RTL: (3) X \ ${title}
@@ -5713,7 +5665,7 @@ function onIndividualTweetTimelineChange($timeline, options) {
 function onTitleChange(title) {
   log('title changed', {title, path: location.pathname})
 
-  if (checkforDisabledHomeTimeline()) return
+  if (checkForDisabledHomeTimeline()) return
 
   // Ignore leading notification counts in titles
   let notificationCount = ''
@@ -6115,6 +6067,26 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
   })
 }
 
+function restoreTweetSource($permalinkBar, tweetInfo) {
+  if (!settings.restoreTweetSource) return
+  if ($permalinkBar.hasAttribute('cpft-tweet-source-restored')) return
+  if (!tweetInfo?.source_name) {
+    warn('restoreTweetSource: source_name not available in focused tweet info', tweetInfo)
+    return
+  }
+  let $separator = document.createElement('span')
+  $separator.className = 'TweetSource cpft_separator cpft_text'
+  $separator.setAttribute('aria-hidden', 'true')
+  $separator.setAttribute('hidden', '')
+  $separator.textContent = '·'
+  let $sourceLabel = document.createElement('span')
+  $sourceLabel.className = 'TweetSource cpft_text'
+  $sourceLabel.setAttribute('hidden', '')
+  $sourceLabel.textContent = tweetInfo.source_name
+  $permalinkBar.append($separator, $sourceLabel)
+  $permalinkBar.setAttribute('cpft-tweet-source-restored', '')
+}
+
 /**
  * Sets the page name in <title>, retaining any current notification count.
  * @param {string} page
@@ -6154,24 +6126,6 @@ function setTitle(page) {
 
 /**
  * @param {import("./types").TimelineItemType} type
- * @returns {boolean}
- */
-function shouldHideListTimelineItem(type) {
-  switch (type) {
-    case 'RETWEET':
-    case 'RETWEETED_QUOTE_TWEET':
-      return settings.listRetweets == 'hide'
-    case 'UNAVAILABLE_QUOTE_TWEET':
-      return settings.hideUnavailableQuoteTweets
-    case 'UNAVAILABLE_RETWEET':
-      return settings.hideUnavailableQuoteTweets || settings.listRetweets == 'hide'
-    default:
-      return false
-  }
-}
-
-/**
- * @param {import("./types").TimelineItemType} type
  * @param {string} page
  * @returns {boolean}
  */
@@ -6202,19 +6156,17 @@ function shouldHideHomeTimelineItem(type, page) {
  * @param {import("./types").TimelineItemType} type
  * @returns {boolean}
  */
-function shouldHideProfileTimelineItem(type) {
+function shouldHideListTimelineItem(type) {
   switch (type) {
-    case 'PINNED_TWEET':
-    case 'QUOTE_TWEET':
-    case 'TWEET':
-      return false
     case 'RETWEET':
     case 'RETWEETED_QUOTE_TWEET':
-      return settings.hideProfileRetweets
+      return settings.listRetweets == 'hide'
     case 'UNAVAILABLE_QUOTE_TWEET':
       return settings.hideUnavailableQuoteTweets
+    case 'UNAVAILABLE_RETWEET':
+      return settings.hideUnavailableQuoteTweets || settings.listRetweets == 'hide'
     default:
-      return true
+      return false
   }
 }
 
@@ -6238,6 +6190,26 @@ function shouldHideProfileTimelineItem(type) {
 }
 
 /**
+ * @param {import("./types").TimelineItemType} type
+ * @returns {boolean}
+ */
+function shouldHideProfileTimelineItem(type) {
+  switch (type) {
+    case 'PINNED_TWEET':
+    case 'QUOTE_TWEET':
+    case 'TWEET':
+      return false
+    case 'RETWEET':
+    case 'RETWEETED_QUOTE_TWEET':
+      return settings.hideProfileRetweets
+    case 'UNAVAILABLE_QUOTE_TWEET':
+      return settings.hideUnavailableQuoteTweets
+    default:
+      return true
+  }
+}
+
+/**
  * @param {import("./types").SharedTweetsConfig} config
  * @param {string} page
  * @returns {boolean}
@@ -6253,6 +6225,88 @@ function shouldHideSharedTweet(config, page) {
 async function tweakBookmarksPage() {
   if (settings.premiumBlueChecks != 'ignore' || settings.restoreLinkHeadlines) {
     observeTimeline(currentPage)
+  }
+}
+
+function tweakCommunitiesPage() {
+  observeTimeline(currentPage)
+}
+
+function tweakCommunityPage() {
+  if (settings.premiumBlueChecks != 'ignore') {
+    observeTimeline(currentPage, {
+      classifyTweets: false,
+      isTabbed: true,
+      tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
+      onTimelineAppeared() {
+        // The About tab has static content at the top which can include a check
+        if (/\/about\/?$/.test(location.pathname)) {
+          processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
+        }
+      }
+    })
+  }
+}
+
+function tweakCommunityMembersPage() {
+  if (settings.premiumBlueChecks != 'ignore') {
+    observeTimeline(currentPage, {
+      classifyTweets: false,
+      isTabbed: true,
+      timelineSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
+    })
+  }
+}
+
+async function tweakDesktopLogo() {
+  let $logoPath = await getElement(`h1 ${Selectors.X_LOGO_PATH}, h1 ${Selectors.X_DARUMA_LOGO_PATH}`, {
+    name: 'desktop nav logo',
+    timeout: 5000,
+  })
+  if ($logoPath) {
+    twitterLogo($logoPath)
+  }
+}
+
+function tweakDisplaySettingsPage() {
+  (async () => {
+    let $colorRerenderBoundary = await getElement('#react-root > div > div')
+
+    observeElement($colorRerenderBoundary, () => {
+      let [newThemeColor, newAccent] = getThemeColorFromState()
+      if (newThemeColor == themeColor) return
+
+      log('Color setting changed')
+      nativeThemeColor = newThemeColor
+      nativeThemeColorAccent = newAccent
+      themeColor = nativeThemeColor
+      configureThemeCss()
+      observePopups()
+      observeSideNavTweetButton()
+    }, {
+      name: 'Color change re-render boundary',
+      observers: pageObservers,
+    })
+  })()
+
+  if (desktop) {
+    observeElement($html, () => {
+      if (!$html.style.fontSize) return
+
+      if ($html.style.fontSize != fontSize) {
+        fontSize = $html.style.fontSize
+        log(`<html> fontSize has changed to ${fontSize}`)
+        configureDynamicCss()
+        observePopups()
+        observeSideNavTweetButton()
+      }
+    }, {
+      name: '<html> style attribute for font size changes',
+      observers: pageObservers,
+    }, {
+      attributes: true,
+      attributeFilter: ['style']
+    })
   }
 }
 
@@ -6303,98 +6357,6 @@ async function tweakExplorePage() {
       observers: pageObservers,
     })
   }
-}
-
-function tweakCommunitiesPage() {
-  observeTimeline(currentPage)
-}
-
-function tweakCommunityPage() {
-  if (settings.premiumBlueChecks != 'ignore') {
-    observeTimeline(currentPage, {
-      classifyTweets: false,
-      isTabbed: true,
-      tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
-      onTimelineAppeared() {
-        // The About tab has static content at the top which can include a check
-        if (/\/about\/?$/.test(location.pathname)) {
-          processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
-        }
-      }
-    })
-  }
-}
-
-function tweakCommunityMembersPage() {
-  if (settings.premiumBlueChecks != 'ignore') {
-    observeTimeline(currentPage, {
-      classifyTweets: false,
-      isTabbed: true,
-      timelineSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
-    })
-  }
-}
-
-function tweakDisplaySettingsPage() {
-  (async () => {
-    let $colorRerenderBoundary = await getElement('#react-root > div > div')
-
-    observeElement($colorRerenderBoundary, () => {
-      let [newThemeColor, newAccent] = getThemeColorFromState()
-      if (newThemeColor == themeColor) return
-
-      log('Color setting changed')
-      nativeThemeColor = newThemeColor
-      nativeThemeColorAccent = newAccent
-      themeColor = nativeThemeColor
-      configureThemeCss()
-      observePopups()
-      observeSideNavTweetButton()
-    }, {
-      name: 'Color change re-render boundary',
-      observers: pageObservers,
-    })
-  })()
-
-  if (desktop) {
-    observeElement($html, () => {
-      if (!$html.style.fontSize) return
-
-      if ($html.style.fontSize != fontSize) {
-        fontSize = $html.style.fontSize
-        log(`<html> fontSize has changed to ${fontSize}`)
-        configureDynamicCss()
-        observePopups()
-        observeSideNavTweetButton()
-      }
-    }, {
-      name: '<html> style attribute for font size changes',
-      observers: pageObservers,
-    }, {
-      attributes: true,
-      attributeFilter: ['style']
-    })
-  }
-}
-
-function restoreTweetSource($permalinkBar, tweetInfo) {
-  if (!settings.restoreTweetSource) return
-  if ($permalinkBar.hasAttribute('cpft-tweet-source-restored')) return
-  if (!tweetInfo?.source_name) {
-    warn('restoreTweetSource: source_name not available in focused tweet info', tweetInfo)
-    return
-  }
-  let $separator = document.createElement('span')
-  $separator.className = 'TweetSource cpft_separator cpft_text'
-  $separator.setAttribute('aria-hidden', 'true')
-  $separator.setAttribute('hidden', '')
-  $separator.textContent = '·'
-  let $sourceLabel = document.createElement('span')
-  $sourceLabel.className = 'TweetSource cpft_text'
-  $sourceLabel.setAttribute('hidden', '')
-  $sourceLabel.textContent = tweetInfo.source_name
-  $permalinkBar.append($separator, $sourceLabel)
-  $permalinkBar.setAttribute('cpft-tweet-source-restored', '')
 }
 
 /**
@@ -6469,101 +6431,10 @@ async function tweakFollowListPage() {
   }
 }
 
-async function tweakIndividualTweetPage() {
-  userSortedReplies = false
-  observeIndividualTweetTimeline(currentPage)
-
-  if (settings.revertXBranding) {
-    (async () => {
-      let $headingText = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`, {
-        name: 'tweet thread heading',
-        stopIf: pageIsNot(currentPage)
-      })
-      if ($headingText && $headingText.textContent != getString('TWEET')) {
-        $headingText.textContent = getString('TWEET')
-      }
-    })()
-  }
-}
-
-function tweakListPage() {
-  observeTimeline(currentPage, {
-    hideHeadings: false,
-  })
-}
-
-async function tweakListsPage() {
-  if (settings.hideDiscoverSuggestions) {
-    // Hide Discover new Lists
-    let $showMoreLink = await getElement('a[href="/i/lists/suggested"]', {
-      name: 'Show more link',
-      stopIf: pageIsNot(currentPage),
-    })
-    if (!$showMoreLink) return
-    let $timelineItem = $showMoreLink.closest('[data-testid="cellInnerDiv"]')
-    if (!$timelineItem) {
-      warn('could not find timeline item containing Show more link')
-      return
-    }
-    let $timelineItems = $timelineItem.parentElement.children
-    let showMoreIndex = Array.prototype.indexOf.call($timelineItems, $timelineItem)
-    for (let i = 1; i <= showMoreIndex + 2; i++) {
-      $timelineItems[i].classList.add('SuggestedContent')
-    }
-  }
-}
-
-async function tweakDesktopLogo() {
-  let $logoPath = await getElement(`h1 ${Selectors.X_LOGO_PATH}, h1 ${Selectors.X_DARUMA_LOGO_PATH}`, {
-    name: 'desktop nav logo',
-    timeout: 5000,
-  })
-  if ($logoPath) {
-    twitterLogo($logoPath)
-  }
-}
-
 async function tweakHomeIcon() {
   let $homeIconPath = await getElement(`${Selectors.NAV_HOME_LINK} svg path`, {name: 'Home icon', stopIf: pageIsNot(currentPage)})
   if ($homeIconPath) {
     homeIcon($homeIconPath)
-  }
-}
-
-async function tweakOwnFocusedTweet($focusedTweet) {
-  if (!settings.hidePremiumUpsells || $focusedTweet.hasAttribute('cpft-analytics-upsell-tagged')) return
-
-  // Only your own focused Tweets have an analytics button
-  let $analyticsButton = $focusedTweet.querySelector('a[data-testid="analyticsButton"]')
-  if (!$analyticsButton) return
-
-  $analyticsButton.parentElement.classList.add('AnalyticsButton')
-  let $accountAnalyticsUpsell = await getElement(':scope > div > div > div > div:has(a[href="/i/account_analytics"])', {
-    context: $focusedTweet,
-    name: 'account analytics upsell',
-    timeout: 1000,
-    stopIf: pageIsNot(currentPage)
-  })
-  if (!$accountAnalyticsUpsell) return
-  $accountAnalyticsUpsell.classList.add('PremiumUpsell')
-  $focusedTweet.setAttribute('cpft-analytics-upsell-tagged', 'true')
-}
-
-/**
- * Restores "Tweet" button text.
- */
-async function tweakTweetButton() {
-  let $tweetButton = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} button[data-testid^="tweetButton"]`, {
-    name: 'tweet button',
-    stopIf: pageIsNot(currentPage),
-  })
-  if ($tweetButton) {
-    let $text = $tweetButton.querySelector('span > span')
-    if ($text) {
-      setTweetButtonText($text)
-    } else {
-      warn('could not find Tweet button text')
-    }
   }
 }
 
@@ -6620,6 +6491,50 @@ function tweakHomeTimelinePage() {
 
   if (desktop) {
     observeDesktopHomeTimelineTweetBox()
+  }
+}
+
+async function tweakIndividualTweetPage() {
+  userSortedReplies = false
+  observeIndividualTweetTimeline(currentPage)
+
+  if (settings.revertXBranding) {
+    (async () => {
+      let $headingText = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`, {
+        name: 'tweet thread heading',
+        stopIf: pageIsNot(currentPage)
+      })
+      if ($headingText && $headingText.textContent != getString('TWEET')) {
+        $headingText.textContent = getString('TWEET')
+      }
+    })()
+  }
+}
+
+function tweakListPage() {
+  observeTimeline(currentPage, {
+    hideHeadings: false,
+  })
+}
+
+async function tweakListsPage() {
+  if (settings.hideDiscoverSuggestions) {
+    // Hide Discover new Lists
+    let $showMoreLink = await getElement('a[href="/i/lists/suggested"]', {
+      name: 'Show more link',
+      stopIf: pageIsNot(currentPage),
+    })
+    if (!$showMoreLink) return
+    let $timelineItem = $showMoreLink.closest('[data-testid="cellInnerDiv"]')
+    if (!$timelineItem) {
+      warn('could not find timeline item containing Show more link')
+      return
+    }
+    let $timelineItems = $timelineItem.parentElement.children
+    let showMoreIndex = Array.prototype.indexOf.call($timelineItems, $timelineItem)
+    for (let i = 1; i <= showMoreIndex + 2; i++) {
+      $timelineItems[i].classList.add('SuggestedContent')
+    }
   }
 }
 
@@ -6763,83 +6678,6 @@ async function tweakMobileMediaViewerPage() {
   }, {childList: true, subtree: true})
 }
 
-async function tweakTimelineTabs($timelineTabs) {
-  $timelineTabs.classList.add('TimelineTabs')
-  let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a'))
-
-  if (settings.defaultToFollowing && !document.title.startsWith(separatedTweetsTimelineTitle)) {
-    let isForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]'))
-    if (isForYouTabSelected && (!wasForYouTabSelected || settings.hideForYouTimeline)) {
-      log('switching to Following timeline')
-      $followingTabLink.click()
-      wasForYouTabSelected = false
-    } else {
-      wasForYouTabSelected = isForYouTabSelected
-    }
-  }
-
-  if (shouldShowSeparatedTweetsTab()) {
-    let $newTab = /** @type {HTMLElement} */ ($timelineTabs.querySelector('#cpftSeparatedTweetsTab'))
-    if ($newTab) {
-      log('separated tweets timeline tab already present')
-      $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
-    }
-    else {
-      log('inserting separated tweets tab')
-      $newTab = /** @type {HTMLElement} */ ($followingTabLink.parentElement.cloneNode(true))
-      $newTab.id = 'cpftSeparatedTweetsTab'
-      $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
-      let $link = $newTab.querySelector('a')
-      $link.removeAttribute('aria-selected')
-
-      // This script assumes navigation has occurred when the document title
-      // changes, so by changing the title we fake navigation to a non-existent
-      // page representing the separated tweets timeline.
-      $link.addEventListener('click', (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
-          // The separated tweets tab belongs to the Following tab
-          let isFollowingTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
-          if (!isFollowingTabSelected) {
-            log('switching to the Following tab for separated tweets')
-            $followingTabLink.click()
-          }
-          setTitle(separatedTweetsTimelineTitle)
-        }
-        window.scrollTo({top: 0})
-      })
-      $followingTabLink.parentElement.insertAdjacentElement('afterend', $newTab)
-
-      // Return to the Home timeline when any other tab is clicked
-      $followingTabLink.parentElement.parentElement.addEventListener('click', () => {
-        if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
-          log('setting title to Home')
-          homeNavigationIsBeingUsed = true
-          setTitle(getString('HOME'))
-        }
-      })
-
-      // Return to the Home timeline when the Home nav link is clicked
-      let $homeNavLink = await getElement(Selectors.NAV_HOME_LINK, {
-        name: 'home nav link',
-        stopIf: pathIsNot(currentPath),
-      })
-      if ($homeNavLink && !$homeNavLink.dataset.tweakNewTwitterListener) {
-        $homeNavLink.addEventListener('click', () => {
-          homeNavigationIsBeingUsed = true
-          if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
-            setTitle(getString('HOME'))
-          }
-        })
-        $homeNavLink.dataset.tweakNewTwitterListener = 'true'
-      }
-    }
-  } else {
-    removeMobileTimelineHeaderElements()
-  }
-}
-
 function tweakNotificationsPage() {
   let $navigationTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
   if ($navigationTabs == null) {
@@ -6864,6 +6702,25 @@ function tweakNotificationsPage() {
       tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
     })
   }
+}
+
+async function tweakOwnFocusedTweet($focusedTweet) {
+  if (!settings.hidePremiumUpsells || $focusedTweet.hasAttribute('cpft-analytics-upsell-tagged')) return
+
+  // Only your own focused Tweets have an analytics button
+  let $analyticsButton = $focusedTweet.querySelector('a[data-testid="analyticsButton"]')
+  if (!$analyticsButton) return
+
+  $analyticsButton.parentElement.classList.add('AnalyticsButton')
+  let $accountAnalyticsUpsell = await getElement(':scope > div > div > div > div:has(a[href="/i/account_analytics"])', {
+    context: $focusedTweet,
+    name: 'account analytics upsell',
+    timeout: 1000,
+    stopIf: pageIsNot(currentPage)
+  })
+  if (!$accountAnalyticsUpsell) return
+  $accountAnalyticsUpsell.classList.add('PremiumUpsell')
+  $focusedTweet.setAttribute('cpft-analytics-upsell-tagged', 'true')
 }
 
 async function tweakProfilePage() {
@@ -7008,6 +6865,101 @@ function tweakSearchPage() {
   }
 }
 
+async function tweakTimelineTabs($timelineTabs) {
+  $timelineTabs.classList.add('TimelineTabs')
+  let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a'))
+
+  if (settings.defaultToFollowing && !document.title.startsWith(separatedTweetsTimelineTitle)) {
+    let isForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]'))
+    if (isForYouTabSelected && (!wasForYouTabSelected || settings.hideForYouTimeline)) {
+      log('switching to Following timeline')
+      $followingTabLink.click()
+      wasForYouTabSelected = false
+    } else {
+      wasForYouTabSelected = isForYouTabSelected
+    }
+  }
+
+  if (shouldShowSeparatedTweetsTab()) {
+    let $newTab = /** @type {HTMLElement} */ ($timelineTabs.querySelector('#cpftSeparatedTweetsTab'))
+    if ($newTab) {
+      log('separated tweets timeline tab already present')
+      $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
+    }
+    else {
+      log('inserting separated tweets tab')
+      $newTab = /** @type {HTMLElement} */ ($followingTabLink.parentElement.cloneNode(true))
+      $newTab.id = 'cpftSeparatedTweetsTab'
+      $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
+      let $link = $newTab.querySelector('a')
+      $link.removeAttribute('aria-selected')
+
+      // This script assumes navigation has occurred when the document title
+      // changes, so by changing the title we fake navigation to a non-existent
+      // page representing the separated tweets timeline.
+      $link.addEventListener('click', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
+          // The separated tweets tab belongs to the Following tab
+          let isFollowingTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
+          if (!isFollowingTabSelected) {
+            log('switching to the Following tab for separated tweets')
+            $followingTabLink.click()
+          }
+          setTitle(separatedTweetsTimelineTitle)
+        }
+        window.scrollTo({top: 0})
+      })
+      $followingTabLink.parentElement.insertAdjacentElement('afterend', $newTab)
+
+      // Return to the Home timeline when any other tab is clicked
+      $followingTabLink.parentElement.parentElement.addEventListener('click', () => {
+        if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
+          log('setting title to Home')
+          homeNavigationIsBeingUsed = true
+          setTitle(getString('HOME'))
+        }
+      })
+
+      // Return to the Home timeline when the Home nav link is clicked
+      let $homeNavLink = await getElement(Selectors.NAV_HOME_LINK, {
+        name: 'home nav link',
+        stopIf: pathIsNot(currentPath),
+      })
+      if ($homeNavLink && !$homeNavLink.dataset.tweakNewTwitterListener) {
+        $homeNavLink.addEventListener('click', () => {
+          homeNavigationIsBeingUsed = true
+          if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
+            setTitle(getString('HOME'))
+          }
+        })
+        $homeNavLink.dataset.tweakNewTwitterListener = 'true'
+      }
+    }
+  } else {
+    removeMobileTimelineHeaderElements()
+  }
+}
+
+/**
+ * Restores "Tweet" button text.
+ */
+async function tweakTweetButton() {
+  let $tweetButton = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} button[data-testid^="tweetButton"]`, {
+    name: 'tweet button',
+    stopIf: pageIsNot(currentPage),
+  })
+  if ($tweetButton) {
+    let $text = $tweetButton.querySelector('span > span')
+    if ($text) {
+      setTweetButtonText($text)
+    } else {
+      warn('could not find Tweet button text')
+    }
+  }
+}
+
 function tweakTweetEngagementPage() {
   if (settings.revertXBranding) {
     let $headingText = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`)
@@ -7046,9 +6998,65 @@ function tweakTweetEngagementPage() {
     observeTimeline(currentPage, {classifyTweets: false})
   }
 }
+
+//#region Safari icon patchers
+// Safari doesn't support using `d: path(…)` to replace paths in an SVG, so we
+// have to manually patch paths for it.
+/**
+ * @param {Element} $svg
+ */
+function blueCheck($svg) {
+  if (!$svg) {
+    warn('blueCheck was given', $svg)
+    return
+  }
+  $svg.classList.add('cpft_blue_check')
+  if (isSafari && settings.premiumBlueChecks == 'replace') {
+    $svg.firstElementChild.firstElementChild.setAttribute('d', Svgs.TWITTER_BLUE_LOGO_PATH)
+  }
+}
+
+/**
+ * @param {Element} $svgPath
+ */
+function twitterLogo($svgPath) {
+  $svgPath.setAttribute('d', Svgs.TWITTER_LOGO_PATH)
+  $svgPath.classList.add('cpft_logo')
+}
+
+/**
+ * @param {Element} $svgPath
+ */
+function homeIcon($svgPath) {
+  let replacementPath = {
+    [Svgs.X_HOME_ACTIVE_PATH]: Svgs.TWITTER_HOME_ACTIVE_PATH,
+    [Svgs.X_HOME_INACTIVE_PATH]: Svgs.TWITTER_HOME_INACTIVE_PATH,
+  }[$svgPath.getAttribute('d')]
+  if (replacementPath) {
+    $svgPath.setAttribute('d', replacementPath)
+  }
+}
+//#endregion
 //#endregion
 
 //#region Main
+// Patch XMLHttpRequest to modify requests
+const XMLHttpRequest_open = XMLHttpRequest.prototype.open
+XMLHttpRequest.prototype.open = function(method, url) {
+  if (enabled && settings?.sortReplies && settings.sortReplies != 'relevant' && !userSortedReplies && url.includes('/TweetDetail?')) {
+    let request = new URL(url)
+    let params = new URLSearchParams(request.search)
+    let variables = JSON.parse(decodeURIComponent(params.get('variables')))
+    variables.rankingMode = {
+      liked: 'Likes',
+      recent: 'Recency',
+    }[settings.sortReplies]
+    params.set('variables', JSON.stringify(variables))
+    url = `${request.origin}${request.pathname}?${params.toString()}`
+  }
+  return XMLHttpRequest_open.apply(this, [method, url])
+}
+
 let channelName = crypto.randomUUID()
 let channel = new BroadcastChannel(channelName)
 
@@ -7182,7 +7190,7 @@ function onSettingsChanged(changedSettings = new Set()) {
 
   let navigationTriggered = (
     configureSeparatedTweetsTimelineTitle() ||
-    checkforDisabledHomeTimeline()
+    checkForDisabledHomeTimeline()
   )
 
   if (changedSettings.has('hideNotifications')) {
