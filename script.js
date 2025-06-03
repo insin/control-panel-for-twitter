@@ -3186,6 +3186,7 @@ async function observeSidebar() {
       }()
     }
   }, {
+    leading: true,
     name:'sidebar container',
     observers: pageObservers,
   })
