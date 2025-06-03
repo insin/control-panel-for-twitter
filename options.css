@@ -134,7 +134,7 @@ section.group > section > * {
 
 p {
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 12px;
   font-size: 12px;
 }
 
@@ -201,7 +201,7 @@ body.disabled #version {
   }
   section.group > p,
   section.group > section > p {
-    font-size: 14px;
+    /* font-size: 14px; */
   }
 }
 

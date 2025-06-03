@@ -363,7 +363,7 @@
     "message": "Retweets"
   },
   "revertXBrandingLabel": {
-    "message": "Reemplazar X cambios de marca"
+    "message": "Revertir cambios de marca X"
   },
   "saveAndApplyButton": {
     "message": "Guardar y aplicar"

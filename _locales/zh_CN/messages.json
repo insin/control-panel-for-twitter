@@ -372,7 +372,7 @@
     "message": "转发"
   },
   "revertXBrandingLabel": {
-    "message": "更换 X 品牌变更"
+    "message": "还原 X 品牌变更"
   },
   "saveAndApplyButton": {
     "message": "保存并应用"

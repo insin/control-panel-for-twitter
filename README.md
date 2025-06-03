@@ -46,7 +46,7 @@ New versions can take anything from minutes to days to be approved for publishin
 
 ### X fixes
 
-- Replace X branding changes
+- Revert X branding changes
 - Hide Views under tweets
 - Hide the "Verified" tab in Notifications and the "Verified Followers" tab in Followers/Following
 - Restore headlines under external links

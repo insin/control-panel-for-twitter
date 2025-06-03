@@ -509,7 +509,7 @@ async function main() {
   }
 
   $body.classList.toggle('debug', config.debug === true)
-  $experiments.open = Boolean(config.settings.customCss)
+  $experiments.open = Boolean(config.settings.tweakNewLayout || config.settings.customCss)
   $exportConfig.addEventListener('click', exportConfig)
   $form.addEventListener('change', onFormChanged)
   $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
