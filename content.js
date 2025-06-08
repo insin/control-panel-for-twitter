@@ -18,10 +18,6 @@ let channel
 //#endregion
 
 //#region Functions
-function error(...messages) {
-  console.error('❌ [content]', ...messages)
-}
-
 // Can't import this from storage.js in a content script
 function get(keys) {
   return new Promise((resolve, reject) => {
@@ -99,14 +95,14 @@ async function storeConfigChangesFromPageScript({data: changes}) {
       configToStore.settings = {...settings, ...changes.settings}
     }
   } catch(e) {
-    error('error merging settings change from page script', e)
+    console.error('[content] error merging settings change from page script', e)
   }
 
   chrome.storage.local.onChanged.removeListener(onStorageChanged)
   try {
     await set(configToStore)
   } catch(e) {
-    error('error storing settings change from page script', e)
+    console.error('[content] error storing settings change from page script', e)
   } finally {
     chrome.storage.local.onChanged.addListener(onStorageChanged)
   }

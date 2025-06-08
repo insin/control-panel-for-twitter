@@ -25,12 +25,12 @@ for (let optionValue of [
 for (let translationId of [
   'addAddMutedWordMenuItemLabel_desktop',
   'addAddMutedWordMenuItemLabel_mobile',
-  'defaultToFollowingLabel',
   'customCssLabel',
   'debugInfo',
   'debugLabel',
   'debugLogTimelineStatsLabel',
   'debugOptionsLabel',
+  'defaultToFollowingLabel',
   'defaultToLatestSearchLabel',
   'disableHomeTimelineInfo',
   'disableHomeTimelineLabel',
@@ -74,6 +74,8 @@ for (let translationId of [
   'hideMonetizationNavLabel',
   'hideMoreSlideOutMenuItemsOptionsLabel_desktop',
   'hideMoreSlideOutMenuItemsOptionsLabel_mobile',
+  'hidePremiumRepliesLabel',
+  'hidePremiumUpsellsLabel',
   'hideProfileHeaderMetricsLabel',
   'hideProfileRetweetsLabel',
   'hideQuoteTweetMetricsLabel',
@@ -88,8 +90,6 @@ for (let translationId of [
   'hideTimelineTweetBoxLabel',
   'hideToggleNavigationLabel',
   'hideTweetAnalyticsLinksLabel',
-  'hidePremiumRepliesLabel',
-  'hidePremiumUpsellsLabel',
   'hideUnavailableQuoteTweetsLabel',
   'hideUnusedUiItemsOptionsLabel',
   'hideVerifiedTabsLabel',
@@ -101,6 +101,8 @@ for (let translationId of [
   'mutableQuoteTweetsLabel',
   'navBaseFontSizeLabel',
   'navDensityLabel',
+  'premiumBlueChecksLabel',
+  'premiumBlueChecksOption_replace',
   'preventNextVideoAutoplayInfo',
   'preventNextVideoAutoplayLabel',
   'quoteTweetsLabel',
@@ -109,16 +111,16 @@ for (let translationId of [
   'reduceEngagementOptionsLabel',
   'reducedInteractionModeInfo',
   'reducedInteractionModeLabel',
-  'revertXBrandingLabel',
   'restoreLinkHeadlinesLabel',
   'restoreOtherInteractionLinksLabel',
   'restoreQuoteTweetsLinkLabel',
   'restoreTweetSourceLabel',
   'retweetsLabel',
-  'showPremiumReplyFollowersCountAmountLabel',
+  'revertXBrandingLabel',
   'showBookmarkButtonUnderFocusedTweetsLabel',
   'showPremiumReplyBusinessLabel',
   'showPremiumReplyFollowedByLabel',
+  'showPremiumReplyFollowersCountAmountLabel',
   'showPremiumReplyFollowingLabel',
   'showPremiumReplyGovernmentLabel',
   'showRelevantPeopleLabel',
@@ -127,8 +129,6 @@ for (let translationId of [
   'tweakNewLayoutInfo',
   'tweakNewLayoutLabel',
   'tweakQuoteTweetsPageLabel',
-  'premiumBlueChecksLabel',
-  'premiumBlueChecksOption_replace',
   'uiImprovementsOptionsLabel',
   'uiTweaksOptionsLabel',
   'unblurSensitiveContentLabel',
@@ -156,7 +156,13 @@ for (let amount of [1_000, 10_000, 100_000, 1_000_000]) {
 }
 //#endregion
 
-const INTERNAL_CONFIG_OPTIONS = new Set(['enabled', 'debug', 'debugLogTimelineStats'])
+/**
+ * Internal options which map directly to a form element.
+ * @type {import('./types').StoredConfigKey[]}
+ */
+const INTERNAL_CONFIG_FORM_KEYS = ['enabled', 'debug', 'debugLogTimelineStats']
+/** @type {Set<string>} */
+const INTERNAL_CONFIG_FORM_KEYSET = new Set(INTERNAL_CONFIG_FORM_KEYS)
 
 /** @type {boolean} */
 let desktop
@@ -290,7 +296,7 @@ function onFormChanged(/** @type {Event} */ e) {
 
   let $el = /** @type {HTMLInputElement} */ (e.target)
   if ($el.type == 'checkbox') {
-    if (INTERNAL_CONFIG_OPTIONS.has($el.name)) {
+    if (INTERNAL_CONFIG_FORM_KEYSET.has($el.name)) {
       config[$el.name] = changedConfig[$el.name] = $el.checked
     }
     else if (checkboxGroups.has($el.name)) {
@@ -362,7 +368,7 @@ function shouldDisplayMutedQuotes() {
 async function storeConfigChanges(changes) {
   /** @type {Partial<import("./types").StoredConfig>} */
   let changesToStore = {}
-  for (let key of INTERNAL_CONFIG_OPTIONS) {
+  for (let key of Object.keys(defaultConfig)) {
     if (Object.hasOwn(changes, key)) {
       changesToStore[key] = changes[key]
     }
@@ -372,9 +378,13 @@ async function storeConfigChanges(changes) {
       let {settings: storedSettings} = await get({settings: {}})
       changesToStore.settings = {...storedSettings, ...changes.settings}
     }
+  } catch(e) {
+    console.error('[options] error merging settings change', e)
+  }
+  try {
     await set(changesToStore)
-  } catch(error) {
-    console.error('error storing settings changes from options page', String(error))
+  } catch(e) {
+    console.error('[options] error storing config change', e)
   }
 }
 
@@ -474,7 +484,7 @@ function updateMutedQuotesDisplay() {
 }
 
 function updateFormControls() {
-  for (let key of INTERNAL_CONFIG_OPTIONS) {
+  for (let key of INTERNAL_CONFIG_FORM_KEYSET) {
     updateFormControl($form.elements[key], config[key])
   }
   for (let key of Object.keys(config.settings)) {

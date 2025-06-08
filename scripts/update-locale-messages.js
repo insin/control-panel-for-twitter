@@ -33,7 +33,8 @@ for (let [messageProp, translations] of Object.entries(translationsJson)) {
       )
     }
     let messagesJson = localeMessagesJson.get(localeCode)
-    messagesJson[messageProp] = {...messagesJson[messageProp], message}
+    let update = typeof message == 'string' ? {message} : message
+    messagesJson[messageProp] = {...messagesJson[messageProp], ...update}
   }
 }
 
