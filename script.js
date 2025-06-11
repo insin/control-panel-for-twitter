@@ -2111,6 +2111,12 @@ let nativeThemeColor = THEME_COLORS.get('blue500')
 let nativeThemeColorAccent = THEME_COLOR_ACCENTS.get('blue500')
 
 /**
+ * Hover for the current "Color" setting.
+ * @type {string}
+ */
+let nativeThemeColorHover = THEME_COLOR_HOVERS.get('blue500')
+
+/**
  * `true` after the app has initialised.
  * @type {boolean}
  */
@@ -2996,6 +3002,60 @@ async function observeTitle() {
     name: '<title>',
     observers: globalObservers,
   })
+}
+
+function observeReactNativeStylesheet() {
+  let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
+  if (!$style) {
+    warn('React Native stylesheet not found')
+    return
+  }
+
+  let insertRule = $style.sheet.insertRule
+  let timeout
+  let cleanup = {
+    name: 'React Native stylesheet (for rules being added)',
+    disconnect() {
+      clearTimeout(timeout)
+      $style.sheet.insertRule = insertRule
+      globalObservers.delete(cleanup.name)
+      log(`disconnected ${cleanup.name} observer`)
+    }
+  }
+  globalObservers.get(cleanup.name)?.disconnect()
+  globalObservers.set(cleanup.name, cleanup)
+
+  // @ts-ignore
+  $style.sheet.insertRule = function(...args) {
+    clearTimeout(timeout)
+    timeout = setTimeout(checkRules, 100)
+    insertRule.apply(this, args)
+  }
+
+  function checkRules() {
+    for (let rule of $style.sheet.cssRules) {
+      if (!(rule instanceof CSSStyleRule)) continue
+
+      if (fontFamilyRule == null &&
+          rule.style.fontFamily?.includes('TwitterChirp') &&
+          !rule.style.fontFamily.includes('TwitterChirpExtendedHeavy')) {
+        fontFamilyRule = rule
+        log('found Chirp fontFamily CSS rule in React Native stylesheet', fontFamilyRule)
+        configureFont()
+      }
+
+      if (filterBlurRule == null && rule.style.filter?.includes('blur(30px)')) {
+        filterBlurRule = rule
+        log('found filter: blur(30px) rule in React Native stylesheet', filterBlurRule)
+        configureDynamicCss()
+      }
+    }
+    if (fontFamilyRule != null && filterBlurRule != null) {
+      cleanup.disconnect()
+    }
+  }
+
+  checkRules()
 }
 //#endregion
 
@@ -4748,53 +4808,6 @@ function checkForDisabledHomeTimeline() {
     })()
     return true
   }
-}
-
-function checkReactNativeStylesheet() {
-  let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
-  if (!$style) {
-    warn('React Native stylesheet not found')
-    return
-  }
-
-  let lastRulesCount = null
-  let startTime = Date.now()
-
-  function findRules() {
-    for (let rule of $style.sheet.cssRules) {
-      if (!(rule instanceof CSSStyleRule)) continue
-
-      if (fontFamilyRule == null &&
-          rule.style.fontFamily?.includes('TwitterChirp') &&
-          !rule.style.fontFamily.includes('TwitterChirpExtendedHeavy')) {
-        fontFamilyRule = rule
-        log('found Chirp fontFamily CSS rule in React Native stylesheet', fontFamilyRule)
-        configureFont()
-      }
-
-      if (filterBlurRule == null && rule.style.filter?.includes('blur(30px)')) {
-        filterBlurRule = rule
-        log('found filter: blur(30px) rule in React Native stylesheet', filterBlurRule)
-        configureDynamicCss()
-      }
-    }
-
-    let elapsedTime = new Intl.NumberFormat(undefined).format(Date.now() - startTime)
-    if (fontFamilyRule == null || filterBlurRule == null) {
-      // Stop checking when there are no new rules since the last check
-      if (lastRulesCount != $style.sheet.cssRules.length) {
-        lastRulesCount = $style.sheet.cssRules.length
-        log(`waiting for more React Native stylesheet rules (${lastRulesCount})`)
-        setTimeout(findRules, 100)
-      } else {
-        warn(`stopped waiting for new React Native stylesheet rules after ${elapsedTime}ms (${lastRulesCount} rules)`)
-      }
-    } else {
-      log(`finished checking React Native stylesheet in ${elapsedTime}ms (${lastRulesCount} rules)`)
-    }
-  }
-
-  findRules()
 }
 
 /**
@@ -7140,8 +7153,6 @@ async function main() {
       log('initial config', {enabled, config: settings, lang, version})
 
       // One-time setup
-      checkReactNativeStylesheet()
-      observeBodyBackgroundColor()
       let [initialThemeColor, initialAccent, initialHover] = getThemeColorFromState()
       if (initialThemeColor) {
         nativeThemeColor = initialThemeColor
@@ -7149,6 +7160,8 @@ async function main() {
         nativeThemeColorHover = initialHover
         themeColor = nativeThemeColor
       }
+      observeBodyBackgroundColor()
+      observeReactNativeStylesheet()
       if (desktop) {
         fontSize = $html.style.fontSize
         if (!fontSize) {
