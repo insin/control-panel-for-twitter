@@ -1913,6 +1913,14 @@ const THEME_COLORS = new Map([
   ['orange500', 'rgb(255, 122, 0)'],
   ['green500', 'rgb(0, 186, 124)'],
 ])
+const THEME_COLOR_HOVERS = new Map([
+  ['blue500', 'rgb(26, 140, 216)'],
+  ['yellow500', 'rgb(230, 191, 0)'],
+  ['magenta500', 'rgb(224, 22, 115)'],
+  ['purple500', 'rgb(108, 77, 230)'],
+  ['orange500', 'rgb(230, 110, 0)'],
+  ['green500', 'rgb(0, 167, 122)'],
+])
 const THEME_COLOR_ACCENTS = new Map([
   ['blue500', 'rgb(142, 205, 248)'],
   ['yellow500', 'rgb(255, 234, 128)'],
@@ -1937,6 +1945,14 @@ const HIGH_CONTRAST_LIGHT_ACCENTS = new Map([
   ['orange500', 'rgb(196, 149, 128)'],
   ['green500', 'rgb(128, 176, 158)'],
 ])
+const HIGH_CONTRAST_LIGHT_HOVERS = new Map([
+  ['blue500', 'rgb(26, 76, 146)'],
+  ['yellow500', 'rgb(125, 81, 26)'],
+  ['magenta500', 'rgb(149, 35, 89)'],
+  ['purple500', 'rgb(99, 72, 190)'],
+  ['orange500', 'rgb(149, 64, 26)'],
+  ['green500', 'rgb(26, 113, 80)'],
+])
 const HIGH_CONTRAST_DARK = new Map([
   ['blue500', 'rgb(107, 201, 251)'],
   ['yellow500', 'rgb(255, 235, 107)'],
@@ -1952,6 +1968,14 @@ const HIGH_CONTRAST_DARK_ACCENTS = new Map([
   ['purple500', 'rgb(214, 203, 255)'],
   ['orange500', 'rgb(255, 214, 176)'],
   ['green500', 'rgb(176, 235, 209)'],
+])
+const HIGH_CONTRAST_DARK_HOVERS = new Map([
+  ['blue500', 'rgb(96, 181, 226)'],
+  ['yellow500', 'rgb(230, 212, 96)'],
+  ['magenta500', 'rgb(226, 101, 158)'],
+  ['purple500', 'rgb(155, 136, 230)'],
+  ['orange500', 'rgb(230, 156, 87)'],
+  ['green500', 'rgb(87, 193, 147)'],
 ])
 const COMPOSE_TWEET_MODAL_PAGES = new Set([
   ModalPaths.COMPOSE_DRAFTS,
@@ -2516,12 +2540,14 @@ function getThemeColorFromState() {
     if (THEME_COLORS.has(color)) {
       let colors = THEME_COLORS
       let accents = THEME_COLOR_ACCENTS
+      let hovers = THEME_COLOR_HOVERS
       if (highContrast) {
         let colorScheme = getColorScheme()
         colors = colorScheme == 'Default' ? HIGH_CONTRAST_LIGHT : HIGH_CONTRAST_DARK
         accents = colorScheme == 'Default' ? HIGH_CONTRAST_LIGHT_ACCENTS : HIGH_CONTRAST_DARK_ACCENTS
+        hovers = colorScheme == 'Default' ? HIGH_CONTRAST_LIGHT_HOVERS : HIGH_CONTRAST_DARK_HOVERS
       }
-      return [colors.get(color), accents.get(color)]
+      return [colors.get(color), accents.get(color), hovers.get(color)]
     }
     warn(color, 'not found in THEME_COLORS')
   } else {
@@ -4373,6 +4399,8 @@ const configureThemeCss = (() => {
     cssRules.push(`
       body {
         --theme-color: ${themeColor};
+        --theme-color-accent: ${nativeThemeColorAccent};
+        --theme-color-hover: ${nativeThemeColorHover};
       }
     `)
 
@@ -4431,7 +4459,7 @@ const configureThemeCss = (() => {
           [data-testid="SideNav_NewTweet_Button"]:hover,
           [data-testid="tweetButtonInline"]:hover:not(:disabled),
           [data-testid="tweetButton"]:hover:not(:disabled) {
-            background-color: rgb(from var(--theme-color) r g b / 0.8) !important;
+            background-color: var(--theme-color-hover) !important;
           }
           body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div,
           body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="tweetButtonInline"] > div,
@@ -6270,16 +6298,17 @@ async function tweakDesktopLogo() {
 }
 
 function tweakDisplaySettingsPage() {
-  (async () => {
+  void async function() {
     let $colorRerenderBoundary = await getElement('#react-root > div > div')
 
     observeElement($colorRerenderBoundary, () => {
-      let [newThemeColor, newAccent] = getThemeColorFromState()
+      let [newThemeColor, newAccent, newHover] = getThemeColorFromState()
       if (newThemeColor == themeColor) return
 
       log('Color setting changed')
       nativeThemeColor = newThemeColor
       nativeThemeColorAccent = newAccent
+      nativeThemeColorHover = newHover
       themeColor = nativeThemeColor
       configureThemeCss()
       observePopups()
@@ -6288,7 +6317,7 @@ function tweakDisplaySettingsPage() {
       name: 'Color change re-render boundary',
       observers: pageObservers,
     })
-  })()
+  }()
 
   if (desktop) {
     observeElement($html, () => {
@@ -7113,10 +7142,11 @@ async function main() {
       // One-time setup
       checkReactNativeStylesheet()
       observeBodyBackgroundColor()
-      let [initialThemeColor, initialAccent] = getThemeColorFromState()
+      let [initialThemeColor, initialAccent, initialHover] = getThemeColorFromState()
       if (initialThemeColor) {
         nativeThemeColor = initialThemeColor
         nativeThemeColorAccent = initialAccent
+        nativeThemeColorHover = initialHover
         themeColor = nativeThemeColor
       }
       if (desktop) {
