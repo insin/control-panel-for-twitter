@@ -3174,7 +3174,7 @@ async function observeSidebar() {
       observeSearchForm()
     }
     // Process blue checks in the sidebar user box
-    if (!settings.hideSidebarContent) {
+    if (!settings.hideSidebarContent || settings.showRelevantPeople && isOnIndividualTweetPage()) {
       void async function() {
         // Avoid false positive from Premium upsells in the sidebar
         let $aside = await getElement('aside[role="complementary"]:not(:has(a[href^="/i/premium"]))', {
@@ -5253,8 +5253,6 @@ function onIndividualTweetTimelineChange($timeline, options) {
   let hiddenItemTypes = {}
   let processedCount = 0
 
-  /** @type {Element} */
-  let $previousItem
   /** @type {?boolean} */
   let hidPreviousItem
   /** @type {boolean} */
@@ -5271,9 +5269,21 @@ function onIndividualTweetTimelineChange($timeline, options) {
   let $focusedTweet
 
   for (let $item of $timeline.children) {
-    if (seen.has($item)) {
-      $previousItem = $item
-      hidPreviousItem = seen.get($previousItem).hidden
+    if (seen.has($item) &&
+        // Reprocess Discover More Tweets if they were processed before the Discover More heading
+        !(hideAllSubsequentItems && seen.get($item).hidden != settings.hideDiscoverSuggestions)) {
+      let details = seen.get($item)
+      hidPreviousItem = details.hidden
+      // The focused Tweet renders before any Tweets it was a reply to
+      if (details.itemType == 'FOCUSED_TWEET') {
+        changes = []
+        hiddenItemCount = 0
+        hiddenItemTypes = {}
+      }
+      // The Discover More heading renders after Discover more Tweets(?)
+      else if (details.itemType == 'DISCOVER_MORE_HEADING') {
+        hideAllSubsequentItems = settings.hideDiscoverSuggestions
+      }
       continue
     }
 
@@ -5454,7 +5464,6 @@ function onIndividualTweetTimelineChange($timeline, options) {
       warn('unhandled timeline item', {$item, itemType, hideItem})
     }
 
-    $previousItem = $item
     hidPreviousItem = hideItem
     seen.set($item, {itemType, hidden: hideItem})
     processedCount++
