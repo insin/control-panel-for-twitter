@@ -2782,7 +2782,7 @@ async function observeDesktopModalTimeline($popup) {
   function observeModalTimelineItems($timeline) {
     let seen = new Map()
     observeElement($timeline, () => {
-      onIndividualTweetTimelineChange($timeline, {observers: modalObservers, seen})
+      onIndividualTweetTimelineChange($timeline, seen, {observers: modalObservers})
     }, {
       name: 'modal timeline',
       observers: modalObservers,
@@ -2796,7 +2796,7 @@ async function observeDesktopModalTimeline($popup) {
           log('modal timeline replaced')
           seen = new Map()
           observeElement($newTimeline, () => {
-            onIndividualTweetTimelineChange($newTimeline, {observers: modalObservers, seen})
+            onIndividualTweetTimelineChange($newTimeline, seen, {observers: modalObservers})
           }, {
             name: 'modal timeline',
             observers: modalObservers,
@@ -3101,7 +3101,7 @@ async function observeIndividualTweetTimeline(page) {
   function observeTimelineItems($timeline) {
     let seen = new WeakMap()
     observeElement($timeline, () => {
-      onIndividualTweetTimelineChange($timeline, {observers: pageObservers, seen})
+      onIndividualTweetTimelineChange($timeline, seen, {observers: pageObservers})
     }, {
       leading: true,
       name: 'individual tweet timeline',
@@ -3335,8 +3335,9 @@ async function observeTimeline(page, options = {}) {
    * @param {HTMLElement} $timeline
    */
   function observeTimelineItems($timeline) {
+    let seen = new WeakMap()
     observeElement($timeline, () => {
-      onTimelineChange($timeline, page, options)
+      onTimelineChange($timeline, page, seen, options)
     }, {
       leading: true,
       name: 'timeline',
@@ -3353,8 +3354,9 @@ async function observeTimeline(page, options = {}) {
             let $newTimeline = $addedNode
             log('tab changed')
             onTabChanged?.()
+            seen = new WeakMap()
             observeElement($newTimeline, () => {
-              onTimelineChange($newTimeline, page, options)
+              onTimelineChange($newTimeline, page, seen, options)
             }, {
               leading: true,
               name: 'timeline',
@@ -5242,12 +5244,12 @@ function isReplyToPreviousTweet($tweet) {
 
 /**
  * @param {HTMLElement} $timeline
+ * @param {WeakMap<Element, import("./types").SeenTweetDetails>} seen
  * @param {import("./types").IndividualTweetTimelineOptions} options
  */
-function onIndividualTweetTimelineChange($timeline, options) {
+function onIndividualTweetTimelineChange($timeline, seen, options) {
   let startTime = Date.now()
 
-  let {seen} = options
   let itemTypes = {}
   let hiddenItemCount = 0
   let hiddenItemTypes = {}
@@ -5535,9 +5537,10 @@ function onPopup($popup) {
 /**
  * @param {HTMLElement} $timeline
  * @param {string} page
+ * @param {WeakMap<Element, import("./types").SeenTweetDetails>} seen
  * @param {import("./types").TimelineOptions?} options
  */
-function onTimelineChange($timeline, page, options = {}) {
+function onTimelineChange($timeline, page, seen, options = {}) {
   let startTime = Date.now()
   let {classifyTweets = true, hideHeadings = true, isUserTimeline = false} = options
 
@@ -5559,6 +5562,7 @@ function onTimelineChange($timeline, page, options = {}) {
   let itemTypes = {}
   let hiddenItemCount = 0
   let hiddenItemTypes = {}
+  let processedCount = 0
 
   /** @type {?boolean} */
   let hidPreviousItem = null
@@ -5566,6 +5570,11 @@ function onTimelineChange($timeline, page, options = {}) {
   let changes = []
 
   for (let $item of $timeline.children) {
+    if (seen.has($item)) {
+      hidPreviousItem = seen.get($item).hidden
+      continue
+    }
+
     /** @type {?import("./types").TimelineItemType} */
     let itemType = null
     /** @type {?boolean} */
@@ -5693,6 +5702,8 @@ function onTimelineChange($timeline, page, options = {}) {
     }
 
     hidPreviousItem = hideItem
+    seen.set($item, {itemType, hidden: hideItem})
+    processedCount++
   }
 
   for (let change of changes) {
@@ -5701,7 +5712,7 @@ function onTimelineChange($timeline, page, options = {}) {
 
   if (debug && debugLogTimelineStats) {
     log(
-      `processed ${$timeline.children.length} timeline item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
+      `processed ${processedCount} new timeline item${s(processedCount)} in ${Date.now() - startTime}ms`,
       itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
     )
   }

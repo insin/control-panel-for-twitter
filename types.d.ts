@@ -214,10 +214,9 @@ export type TimelineOptions = {
 
 export type IndividualTweetTimelineOptions = {
   observers: Map<string, Disconnectable>
-  seen: WeakMap<Element, IndividualTweetDetails>
 }
 
-export type IndividualTweetDetails = {
+export type SeenTweetDetails = {
   itemType: TimelineItemType,
   hidden: boolean | null,
 }
