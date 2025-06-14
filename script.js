@@ -6190,7 +6190,11 @@ function shouldHideHomeTimelineItem(type, page) {
       return selectedHomeTabIndex >= 2 ? (
           settings.listRetweets == 'hide'
         ) : (
-          shouldHideSharedTweet(settings.retweets, page) || shouldHideSharedTweet(settings.quoteTweets, page)
+          page != separatedTweetsTimelineTitle ? (
+            shouldHideSharedTweet(settings.retweets, page) || shouldHideSharedTweet(settings.quoteTweets, page)
+          ) : (
+            shouldHideSharedTweet(settings.retweets, page) && shouldHideSharedTweet(settings.quoteTweets, page)
+          )
         )
     case 'TWEET':
       return page == separatedTweetsTimelineTitle
