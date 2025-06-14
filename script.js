@@ -3020,7 +3020,7 @@ async function observeSidebar() {
       observeSearchForm()
     }
     // Process blue checks in the sidebar user box
-    if (!config.hideSidebarContent) {
+    if (!config.hideSidebarContent || config.showRelevantPeople && isOnIndividualTweetPage()) {
       void async function() {
         // Avoid false positive from Premium upsells in the sidebar
         let $aside = await getElement('aside[role="complementary"]:not(:has(a[href^="/i/premium"]))', {
@@ -3118,6 +3118,7 @@ async function observeSidebar() {
       }()
     }
   }, {
+    leading: true,
     name:'sidebar container',
     observers: pageObservers,
   })
