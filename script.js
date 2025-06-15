@@ -2701,7 +2701,7 @@ async function observeDesktopComposeTweetModal($popup) {
  * tab and re-added when you navigate to another Home timeline tab.
  */
 async function observeDesktopHomeTimelineTweetBox() {
-  let $container = await getElement('div[data-testid="primaryColumn"] > div', {
+  let $container = await getElement(`${Selectors.PRIMARY_COLUMN} > div`, {
     name: 'Home timeline Tweet box container',
     stopIf: pageIsNot(currentPage),
   })
@@ -4903,10 +4903,11 @@ function getTweetType($tweet, checkSocialContext = false) {
   if ($tweet.closest(Selectors.PROMOTED_TWEET_CONTAINER)) {
     return 'PROMOTED_TWEET'
   }
-  // Assume social context tweets are Retweets
   if ($tweet.querySelector('[data-testid="socialContext"]')) {
+    // Assume social context tweets are Retweets if we're not checking
     if (checkSocialContext) {
       let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
+      if (svgPath.startsWith('M7.471 21H.472l.029-1.027c.184')) return 'COMMUNITY_TWEET'
       if (svgPath.startsWith('M7 4.5C7 3.12 8.12 2 9.5 2h5C1')) return 'PINNED_TWEET'
     }
     // Quoted tweets from accounts you blocked or muted are displayed as an
@@ -5542,7 +5543,12 @@ function onPopup($popup) {
  */
 function onTimelineChange($timeline, page, seen, options = {}) {
   let startTime = Date.now()
-  let {classifyTweets = true, hideHeadings = true, isUserTimeline = false} = options
+  let {
+    checkSocialContext = false,
+    classifyTweets = true,
+    hideHeadings = true,
+    isUserTimeline = false
+  } = options
 
   let isOnHomeTimeline = isOnHomeTimelinePage()
   let isOnListTimeline = isOnListPage()
@@ -5587,7 +5593,7 @@ function onTimelineChange($timeline, page, seen, options = {}) {
     let isBlueTweet = false
 
     if ($tweet != null) {
-      itemType = getTweetType($tweet, isOnProfileTimeline)
+      itemType = getTweetType($tweet, checkSocialContext)
       if (timelineHasSpecificHandling) {
         isReply = isReplyToPreviousTweet($tweet)
         if (isReply && hidPreviousItem != null) {
@@ -5654,7 +5660,7 @@ function onTimelineChange($timeline, page, seen, options = {}) {
     }
 
     if (!timelineHasSpecificHandling) {
-      if (itemType != null) {
+      if (!hideItem && itemType != null) {
         hideItem = shouldHideOtherTimelineItem(itemType)
       }
     }
@@ -5797,21 +5803,27 @@ function onTitleChange(title) {
   )
 
   if (newPage == currentPage) {
-    log(`ignoring duplicate title change`)
-    // Navigation within the Compose Tweet modal triggers duplcate title changes
-    if (isDesktopComposeTweetModalOpen) {
-      if (currentPath == ModalPaths.COMPOSE_TWEET && COMPOSE_TWEET_MODAL_PAGES.has(location.pathname)) {
-        log('navigated away from Compose Tweet editor')
-        disconnectObservers(modalObservers, 'modal')
+    if (isOnCommunitiesPage() &&
+        URL_COMMUNITIES_RE.test(location.pathname) &&
+        currentPath != location.pathname) {
+      log('navigated between Communities tabs (no title change)')
+    } else {
+      log(`ignoring duplicate title change`)
+      // Navigation within the Compose Tweet modal triggers duplcate title changes
+      if (isDesktopComposeTweetModalOpen) {
+        if (currentPath == ModalPaths.COMPOSE_TWEET && COMPOSE_TWEET_MODAL_PAGES.has(location.pathname)) {
+          log('navigated away from Compose Tweet editor')
+          disconnectObservers(modalObservers, 'modal')
+        }
+        else if (COMPOSE_TWEET_MODAL_PAGES.has(currentPath) && location.pathname == ModalPaths.COMPOSE_TWEET) {
+          log('navigated back to Compose Tweet editor')
+          observeDesktopComposeTweetModal($desktopComposeTweetModalPopup)
+        }
       }
-      else if (COMPOSE_TWEET_MODAL_PAGES.has(currentPath) && location.pathname == ModalPaths.COMPOSE_TWEET) {
-        log('navigated back to Compose Tweet editor')
-        observeDesktopComposeTweetModal($desktopComposeTweetModalPopup)
-      }
+      currentNotificationCount = notificationCount
+      currentPath = location.pathname
+      return
     }
-    currentNotificationCount = notificationCount
-    currentPath = location.pathname
-    return
   }
 
   // Search terms are shown in the title
@@ -6242,6 +6254,8 @@ function shouldHideListTimelineItem(type) {
  */
  function shouldHideOtherTimelineItem(type) {
   switch (type) {
+    case 'COMMUNITY_TWEET':
+    case 'PINNED_TWEET':
     case 'QUOTE_TWEET':
     case 'RETWEET':
     case 'RETWEETED_QUOTE_TWEET':
@@ -6295,23 +6309,26 @@ async function tweakBookmarksPage() {
 }
 
 function tweakCommunitiesPage() {
-  observeTimeline(currentPage)
+  observeTimeline(currentPage, {
+    checkSocialContext: true,
+    isTabbed: true,
+    tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
+  })
 }
 
 function tweakCommunityPage() {
-  if (settings.premiumBlueChecks != 'ignore') {
-    observeTimeline(currentPage, {
-      classifyTweets: false,
-      isTabbed: true,
-      tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
-      onTimelineAppeared() {
-        // The About tab has static content at the top which can include a check
-        if (/\/about\/?$/.test(location.pathname)) {
-          processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
-        }
+  observeTimeline(currentPage, {
+    checkSocialContext: true,
+    hideHeadings: false,
+    isTabbed: true,
+    tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
+    onTimelineAppeared() {
+      // The About tab has static content at the top which can include a check
+      if (/\/about\/?$/.test(location.pathname)) {
+        processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
       }
-    })
-  }
+    }
+  })
 }
 
 function tweakCommunityMembersPage() {
@@ -6319,7 +6336,7 @@ function tweakCommunityMembersPage() {
     observeTimeline(currentPage, {
       classifyTweets: false,
       isTabbed: true,
-      timelineSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
+      timelineSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
     })
   }
 }
@@ -6383,7 +6400,7 @@ async function tweakExplorePage() {
       observeTimeline(currentPage, {
         classifyTweets: false,
         isTabbed: true,
-        tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child > div',
+        tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child > div`,
       })
     }
     return
@@ -6553,7 +6570,7 @@ function tweakHomeTimelinePage() {
       updateSelectedHomeTabIndex()
       wasForYouTabSelected = selectedHomeTabIndex == 0
     },
-    tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
+    tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
   })
 
   if (desktop) {
@@ -6763,12 +6780,10 @@ function tweakNotificationsPage() {
     }
   }
 
-  if (settings.premiumBlueChecks != 'ignore' || settings.restoreLinkHeadlines) {
-    observeTimeline(currentPage, {
-      isTabbed: true,
-      tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
-    })
-  }
+  observeTimeline(currentPage, {
+    isTabbed: true,
+    tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
+  })
 }
 
 async function tweakOwnFocusedTweet($focusedTweet) {
@@ -6787,7 +6802,7 @@ async function tweakOwnFocusedTweet($focusedTweet) {
   })
   if (!$accountAnalyticsUpsell) return
   $accountAnalyticsUpsell.classList.add('PremiumUpsell')
-  $focusedTweet.setAttribute('cpft-analytics-upsell-tagged', 'true')
+  $focusedTweet.setAttribute('cpft-analytics-upsell-tagged', '')
 }
 
 async function tweakProfilePage() {
@@ -6804,6 +6819,7 @@ async function tweakProfilePage() {
   let tab = currentPath.match(URL_PROFILE_RE)?.[2] || 'tweets'
   log(`on ${tab} tab`)
   observeTimeline(currentPage, {
+    checkSocialContext: tab == 'tweets' || tab == 'with_replies',
     isUserTimeline: tab == 'affiliates'
   })
 
@@ -6920,7 +6936,7 @@ function tweakSearchPage() {
   observeTimeline(currentPage, {
     hideHeadings: false,
     isTabbed: true,
-    tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
+    tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
   })
 
   if (desktop) {
@@ -7013,7 +7029,7 @@ async function tweakTimelineTabs($timelineTabs) {
  * Restores "Tweet" button text.
  */
 async function tweakTweetButton() {
-  let $tweetButton = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} button[data-testid^="tweetButton"]`, {
+  let $tweetButton = await getElement(`${desktop ? Selectors.PRIMARY_COLUMN: 'main'} button[data-testid^="tweetButton"]`, {
     name: 'tweet button',
     stopIf: pageIsNot(currentPage),
   })

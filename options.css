@@ -129,7 +129,6 @@ section.group > label {
 
 section.group > section > * {
   color: rgb(95, 99, 104);
-  padding-left: 0;
 }
 
 p {
@@ -148,12 +147,19 @@ section.group > section > p {
 
 section.textarea {
   display: flex;
-  justify-content: space-between;
-  padding: 4px 12px 4px 0;
-  margin: 8px 0;
   flex-direction: column;
-  align-items: stretch;
-  gap: 12px;
+}
+
+section.textarea > textarea {
+  margin: 8px 12px 12px 0;
+}
+
+section.textarea > button {
+  margin: 0 12px 12px 0;
+}
+
+section.textarea > p {
+  margin-right: 12px;
 }
 
 section.textarea button {
@@ -162,7 +168,9 @@ section.textarea button {
 
 textarea {
   resize: vertical;
+  padding: 4px;
 }
+
 /* Prevent zooming */
 body.iOS.safari textarea {
   font-size: 16px;
@@ -498,6 +506,9 @@ body.iOS.safari .checkbox input:focus + .toggle {
   }
 
   /* Safari dark mode overrides */
+  body.macOS.safari {
+    background-color: transparent;
+  }
   body.macOS.safari p {
     color: rgb(184, 184, 184) !important;
   }

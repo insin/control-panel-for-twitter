@@ -186,6 +186,7 @@ const defaultConfig = {
   // Default based on the platform if the main script hasn't run on Twitter yet
   version: /(Android|iP(ad|hone))/.test(navigator.userAgent) ? 'mobile' : 'desktop',
 }
+//#endregion
 
 //#region Config & variables
 /**
@@ -290,15 +291,18 @@ function onFormChanged(/** @type {Event} */ e) {
   if (e.target instanceof HTMLTextAreaElement) return
 
   /** @type {import("./types").StoredConfig} */
-  let changedConfig = {}
+  let changedConfig = Object.create(null)
   /** @type {Partial<import("./types").UserSettings>} */
-  let changedSettings = {}
+  let changedSettings = Object.create(null)
 
+  // Handle input
   let $el = /** @type {HTMLInputElement} */ (e.target)
   if ($el.type == 'checkbox') {
+    // All internal config is currently checkbox toggles
     if (INTERNAL_CONFIG_FORM_KEYSET.has($el.name)) {
       config[$el.name] = changedConfig[$el.name] = $el.checked
     }
+    // Checkbox group toggle
     else if (checkboxGroups.has($el.name)) {
       checkboxGroups.get($el.name).forEach(checkboxName => {
         config.settings[checkboxName] = changedSettings[checkboxName] = $el.checked
@@ -306,22 +310,21 @@ function onFormChanged(/** @type {Event} */ e) {
       })
       $el.indeterminate = false
     }
+    // Individual checkbox toggle
     else {
-      // Individual checkbox change
       config.settings[$el.name] = changedSettings[$el.name] = $el.checked
-
-      // Don't try to redirect the Home timeline to Notifications if both are disabled
-      if ($el.name == 'hideNotifications' &&
-          $el.checked &&
-          config.settings.disabledHomeTimelineRedirect == 'notifications') {
-        let key = 'disabledHomeTimelineRedirect'
-        $form.elements[key].value = config.settings[key] = changedSettings[key] = 'messages'
-      }
-
       updateCheckboxGroups()
     }
   } else {
     config.settings[$el.name] = changedSettings[$el.name] = $el.value
+  }
+
+  // Apply other settings changes based on input
+  // Don't try to redirect the Home timeline to Notifications if both are disabled
+  if (changedSettings.hideNotifications &&
+      config.settings.disabledHomeTimelineRedirect == 'notifications') {
+    let key = 'disabledHomeTimelineRedirect'
+    $form.elements[key].value = config.settings[key] = changedSettings[key] = 'messages'
   }
 
   updateDisplay()

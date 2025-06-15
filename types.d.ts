@@ -177,6 +177,7 @@ export type QuotedTweet = {
 export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
 
 export type TweetType =
+  | 'COMMUNITY_TWEET'
   | 'PINNED_TWEET'
   | 'PROMOTED_TWEET'
   | 'QUOTE_TWEET'
@@ -202,6 +203,7 @@ export type TimelineItemType =
   | 'UNAVAILABLE'
 
 export type TimelineOptions = {
+  checkSocialContext?: boolean
   classifyTweets?: boolean
   hideHeadings?: boolean
   isTabbed?: boolean
