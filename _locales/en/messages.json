@@ -185,6 +185,9 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Hide slide-out menu items you don't use"
   },
+  "hideNotificationLikesLabel": {
+    "message": "Hide Likes in Notifications"
+  },
   "hideNotificationsLabel": {
     "message": "Hide notifications"
   },

@@ -182,6 +182,9 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "隐藏你不使用的滑出式菜单项"
   },
+  "hideNotificationLikesLabel": {
+    "message": "在通知中隐藏喜欢"
+  },
   "hideNotificationsLabel": {
     "message": "隐藏通知"
   },

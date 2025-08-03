@@ -182,6 +182,9 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Ocultar elementos no usados en el menú hamburguesa"
   },
+  "hideNotificationLikesLabel": {
+    "message": "Ocultar Me gusta en las notificaciones"
+  },
   "hideNotificationsLabel": {
     "message": "Ocultar notificaciones"
   },

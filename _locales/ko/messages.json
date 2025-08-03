@@ -182,6 +182,9 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "사용하지 않는 \"더 보기\" 메뉴 항목 숨기기 (모바일)"
   },
+  "hideNotificationLikesLabel": {
+    "message": "알림에서 좋아요 숨기기"
+  },
   "hideNotificationsLabel": {
     "message": "알림 숨기기"
   },

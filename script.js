@@ -87,6 +87,7 @@ const config = {
   hideMetrics: false,
   hideMonetizationNav: true,
   hideMoreTweets: true,
+  hideNotificationLikes: false,
   hideNotifications: 'ignore',
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
@@ -5380,6 +5381,7 @@ function onTimelineChange($timeline, page, options = {}) {
         }
         else if ($iconPath.startsWith('M20.884 13.19c-1.351 2.48-4.00')) {
           notificationType = 'LIKE'
+          hideItem = config.hideNotificationLikes
         }
         else if ($iconPath.startsWith('M17.863 13.44c1.477 1.58 2.366')) {
           notificationType = 'FOLLOW'
