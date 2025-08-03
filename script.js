@@ -2879,7 +2879,8 @@ const observeFavicon = (() => {
         let icon = config.hideNotifications != 'ignore' && href.includes('-pip') ? (
           Images.TWITTER_PIP_FAVICON
         ) : (
-          Images.TWITTER_FAVICON
+          // Make ths initial icon URL different so forceUpdate() replaces it
+          Images.TWITTER_FAVICON + '?init'
         )
         $shortcutIcon.href = icon
       } else {
@@ -5729,7 +5730,7 @@ function onTitleChange(title) {
 
   // After we replace the shortcut icon, Twitter stops updating it to add/remove
   // the notifications pip, so we need to manage the pip ourselves.
-  if (config.replaceLogo && Boolean(notificationCount) != Boolean(currentNotificationCount)) {
+  if (config.replaceLogo) {
     observeFavicon.forceUpdate(Boolean(notificationCount))
   }
 
