@@ -182,6 +182,9 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Masquer les éléments inutilisés du menu latéral"
   },
+  "hideNotificationLikesLabel": {
+    "message": "Masquer les J'aime dans les notifications"
+  },
   "hideNotificationsLabel": {
     "message": "Masquer les notifications"
   },

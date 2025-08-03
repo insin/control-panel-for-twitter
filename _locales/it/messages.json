@@ -182,6 +182,9 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Nascondi elementi del menu ad hamburger che non usi"
   },
+  "hideNotificationLikesLabel": {
+    "message": "Nascondi Mi piace nelle notifiche"
+  },
   "hideNotificationsLabel": {
     "message": "Nascondi notifiche"
   },

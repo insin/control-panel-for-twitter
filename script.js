@@ -34,6 +34,7 @@ const defaultSettings = {
   hideMetrics: false,
   hideMonetizationNav: true,
   hideDiscoverSuggestions: true,
+  hideNotificationLikes: false,
   hideNotifications: 'ignore',
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
@@ -2883,7 +2884,8 @@ const observeFavicon = (() => {
         let icon = settings.hideNotifications != 'ignore' && href.includes('-pip') ? (
           Images.TWITTER_PIP_FAVICON
         ) : (
-          Images.TWITTER_FAVICON
+          // Make ths initial icon URL different so forceUpdate() replaces it
+          Images.TWITTER_FAVICON + '?init'
         )
         $shortcutIcon.href = icon
       } else {
@@ -5553,13 +5555,14 @@ function onTimelineChange($timeline, page, seen, options = {}) {
   let isOnHomeTimeline = isOnHomeTimelinePage()
   let isOnListTimeline = isOnListPage()
   let isOnProfileTimeline = isOnProfilePage()
-  let timelineHasSpecificHandling = isOnHomeTimeline || isOnListTimeline || isOnProfileTimeline
+  let isOnNotificationsTimeline = isOnNotificationsPage()
+  let timelineHasSpecificTweetHandling = isOnHomeTimeline || isOnListTimeline || isOnProfileTimeline
 
-  if (settings.premiumBlueChecks != 'ignore' && (isUserTimeline || !timelineHasSpecificHandling)) {
+  if (settings.premiumBlueChecks != 'ignore' && (isUserTimeline || !timelineHasSpecificTweetHandling)) {
     processBlueChecks($timeline)
   }
 
-  if (isSafari && settings.revertXBranding && isOnNotificationsPage()) {
+  if (isSafari && settings.revertXBranding && isOnNotificationsTimeline) {
     processTwitterLogos($timeline)
   }
 
@@ -5594,7 +5597,7 @@ function onTimelineChange($timeline, page, seen, options = {}) {
 
     if ($tweet != null) {
       itemType = getTweetType($tweet, checkSocialContext)
-      if (timelineHasSpecificHandling) {
+      if (timelineHasSpecificTweetHandling) {
         isReply = isReplyToPreviousTweet($tweet)
         if (isReply && hidPreviousItem != null) {
           hideItem = hidPreviousItem
@@ -5653,13 +5656,37 @@ function onTimelineChange($timeline, page, seen, options = {}) {
         restoreLinkHeadline($tweet)
       }
     }
-    else if (!timelineHasSpecificHandling) {
+    else if (isOnNotificationsTimeline) {
+      /** @type {?import("./types").NotificationType} */
+      let notificationType = null
+      let $iconPath = $item.querySelector('[data-testid="notification"] svg path')?.getAttribute('d')
+      if ($iconPath) {
+        if ($iconPath.startsWith('M18.766 2H7.323l-4.8 12h5.324l')) {
+          notificationType = 'AD'
+          hideItem = true
+        }
+        else if ($iconPath.startsWith('M20.884 13.19c-1.351 2.48-4.00')) {
+          notificationType = 'LIKE'
+          hideItem = settings.hideNotificationLikes
+        }
+        else if ($iconPath.startsWith('M17.863 13.44c1.477 1.58 2.366')) {
+          notificationType = 'FOLLOW'
+        }
+        else if ($iconPath.startsWith('M4.75 3.79l4.603 4.3-1.706 1.8')) {
+          notificationType = 'RETWEET'
+        }
+      }
+      if (notificationType) {
+        itemType = `NOTIFICATION_${notificationType}`
+      }
+    }
+    else if (!timelineHasSpecificTweetHandling) {
       if ($item.querySelector(':scope > div > div > div > article')) {
         itemType = 'UNAVAILABLE'
       }
     }
 
-    if (!timelineHasSpecificHandling) {
+    if (!timelineHasSpecificTweetHandling && !isOnNotificationsTimeline) {
       if (!hideItem && itemType != null) {
         hideItem = shouldHideOtherTimelineItem(itemType)
       }
@@ -5684,7 +5711,7 @@ function onTimelineChange($timeline, page, seen, options = {}) {
     }
 
     // Assume a non-identified item following an identified item is related
-    if (itemType == null && hidPreviousItem != null) {
+    if (itemType == null && hidPreviousItem != null && !isOnNotificationsTimeline) {
       hideItem = hidPreviousItem
       itemType = 'SUBSEQUENT_ITEM'
     }
@@ -5744,7 +5771,7 @@ function onTitleChange(title) {
 
   // After we replace the shortcut icon, Twitter stops updating it to add/remove
   // the notifications pip, so we need to manage the pip ourselves.
-  if (settings.revertXBranding && Boolean(notificationCount) != Boolean(currentNotificationCount)) {
+  if (settings.revertXBranding) {
     observeFavicon.forceUpdate(Boolean(notificationCount))
   }
 
@@ -6764,20 +6791,19 @@ async function tweakMobileMediaViewerPage() {
 
 function tweakNotificationsPage() {
   let $navigationTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
-  if ($navigationTabs == null) {
-    warn('could not find Notifications tabs')
-    return
-  }
-
-  if (settings.hideVerifiedTabs) {
-    let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
-    if (isVerifiedTabSelected) {
-      log('switching to All tab')
-      let $allTab = /** @type {HTMLAnchorElement} */ (
-        $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a')
-      )
-      $allTab?.click()
+  if ($navigationTabs != null) {
+    if (settings.hideVerifiedTabs) {
+      let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
+      if (isVerifiedTabSelected) {
+        log('switching to All tab')
+        let $allTab = /** @type {HTMLAnchorElement} */ (
+          $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a')
+        )
+        $allTab?.click()
+      }
     }
+  } else {
+    warn('could not find Notifications tabs')
   }
 
   observeTimeline(currentPage, {

@@ -182,6 +182,9 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "使用しないスライドアウトメニューの項目を非表示"
   },
+  "hideNotificationLikesLabel": {
+    "message": "通知ないでいいねを非表示"
+  },
   "hideNotificationsLabel": {
     "message": "通知を非表示"
   },

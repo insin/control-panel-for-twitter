@@ -74,6 +74,7 @@ for (let translationId of [
   'hideMonetizationNavLabel',
   'hideMoreSlideOutMenuItemsOptionsLabel_desktop',
   'hideMoreSlideOutMenuItemsOptionsLabel_mobile',
+  'hideNotificationLikesLabel',
   'hidePremiumRepliesLabel',
   'hidePremiumUpsellsLabel',
   'hideProfileHeaderMetricsLabel',

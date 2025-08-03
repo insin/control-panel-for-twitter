@@ -29,6 +29,7 @@ export const defaultSettings = {
   hideMetrics: false,
   hideMonetizationNav: true,
   hideDiscoverSuggestions: true,
+  hideNotificationLikes: false,
   hideNotifications: 'ignore',
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
