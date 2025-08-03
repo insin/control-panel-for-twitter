@@ -184,6 +184,9 @@ export type TimelineItemType =
   | 'SHOW_MORE'
   | 'SUBSEQUENT_ITEM'
   | 'UNAVAILABLE'
+  | `NOTIFICATION_${NotificationType}`
+
+export type NotificationType = 'AD' | 'FOLLOW' | 'LIKE' | 'RETWEET'
 
 export type TimelineOptions = {
   classifyTweets?: boolean

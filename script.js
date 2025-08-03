@@ -5274,13 +5274,14 @@ function onTimelineChange($timeline, page, options = {}) {
   let isOnHomeTimeline = isOnHomeTimelinePage()
   let isOnListTimeline = isOnListPage()
   let isOnProfileTimeline = isOnProfilePage()
-  let timelineHasSpecificHandling = isOnHomeTimeline || isOnListTimeline || isOnProfileTimeline
+  let isOnNotificationsTimeline = isOnNotificationsPage()
+  let timelineHasSpecificTweetHandling = isOnHomeTimeline || isOnListTimeline || isOnProfileTimeline
 
-  if (config.twitterBlueChecks != 'ignore' && (isUserTimeline || !timelineHasSpecificHandling)) {
+  if (config.twitterBlueChecks != 'ignore' && (isUserTimeline || !timelineHasSpecificTweetHandling)) {
     processBlueChecks($timeline)
   }
 
-  if (isSafari && config.replaceLogo && isOnNotificationsPage()) {
+  if (isSafari && config.replaceLogo && isOnNotificationsTimeline) {
     processTwitterLogos($timeline)
   }
 
@@ -5309,7 +5310,7 @@ function onTimelineChange($timeline, page, options = {}) {
 
     if ($tweet != null) {
       itemType = getTweetType($tweet, isOnProfileTimeline)
-      if (timelineHasSpecificHandling) {
+      if (timelineHasSpecificTweetHandling) {
         isReply = isReplyToPreviousTweet($tweet)
         if (isReply && hidPreviousItem != null) {
           hideItem = hidPreviousItem
@@ -5368,13 +5369,36 @@ function onTimelineChange($timeline, page, options = {}) {
         restoreLinkHeadline($tweet)
       }
     }
-    else if (!timelineHasSpecificHandling) {
+    else if (isOnNotificationsTimeline) {
+      /** @type {?import("./types").NotificationType} */
+      let notificationType = null
+      let $iconPath = $item.querySelector('[data-testid="notification"] svg path')?.getAttribute('d')
+      if ($iconPath) {
+        if ($iconPath.startsWith('M18.766 2H7.323l-4.8 12h5.324l')) {
+          notificationType = 'AD'
+          hideItem = true
+        }
+        else if ($iconPath.startsWith('M20.884 13.19c-1.351 2.48-4.00')) {
+          notificationType = 'LIKE'
+        }
+        else if ($iconPath.startsWith('M17.863 13.44c1.477 1.58 2.366')) {
+          notificationType = 'FOLLOW'
+        }
+        else if ($iconPath.startsWith('M4.75 3.79l4.603 4.3-1.706 1.8')) {
+          notificationType = 'RETWEET'
+        }
+      }
+      if (notificationType) {
+        itemType = `NOTIFICATION_${notificationType}`
+      }
+    }
+    else if (!timelineHasSpecificTweetHandling) {
       if ($item.querySelector(':scope > div > div > div > article')) {
         itemType = 'UNAVAILABLE'
       }
     }
 
-    if (!timelineHasSpecificHandling) {
+    if (!timelineHasSpecificTweetHandling && !isOnNotificationsTimeline) {
       if (itemType != null) {
         hideItem = shouldHideOtherTimelineItem(itemType)
       }
@@ -5399,7 +5423,7 @@ function onTimelineChange($timeline, page, options = {}) {
     }
 
     // Assume a non-identified item following an identified item is related
-    if (itemType == null && hidPreviousItem != null) {
+    if (itemType == null && hidPreviousItem != null && !isOnNotificationsTimeline) {
       hideItem = hidPreviousItem
       itemType = 'SUBSEQUENT_ITEM'
     }
@@ -6819,28 +6843,25 @@ async function tweakTimelineTabs($timelineTabs) {
 
 function tweakNotificationsPage() {
   let $navigationTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
-  if ($navigationTabs == null) {
-    warn('could not find Notifications tabs')
-    return
-  }
-
-  if (config.hideVerifiedNotificationsTab) {
-    let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
-    if (isVerifiedTabSelected) {
-      log('switching to All tab')
-      let $allTab = /** @type {HTMLAnchorElement} */ (
-        $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a')
-      )
-      $allTab?.click()
+  if ($navigationTabs != null) {
+    if (config.hideVerifiedNotificationsTab) {
+      let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
+      if (isVerifiedTabSelected) {
+        log('switching to All tab')
+        let $allTab = /** @type {HTMLAnchorElement} */ (
+          $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a')
+        )
+        $allTab?.click()
+      }
     }
+  } else {
+    warn('could not find Notifications tabs')
   }
 
-  if (config.twitterBlueChecks != 'ignore' || config.restoreLinkHeadlines) {
-    observeTimeline(currentPage, {
-      isTabbed: true,
-      tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
-    })
-  }
+  observeTimeline(currentPage, {
+    isTabbed: true,
+    tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
+  })
 }
 
 async function tweakProfilePage() {
