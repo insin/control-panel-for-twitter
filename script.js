@@ -2585,6 +2585,14 @@ function pathIsNot(path) {
 }
 
 /**
+ * @template T
+ * @param {() => T} fn
+ */
+function run(fn) {
+  return fn()
+}
+
+/**
  * @param {number} n
  * @returns {string}
  */
@@ -6535,22 +6543,37 @@ async function tweakHomeIcon() {
 }
 
 async function tweakOwnFocusedTweet($focusedTweet) {
-  if (!config.hideTwitterBlueUpsells || $focusedTweet.hasAttribute('cpft-analytics-upsell-tagged')) return
+  if (!config.hideTwitterBlueUpsells || $focusedTweet.hasAttribute('cpft-premium-upsells-tagged')) return
 
   // Only your own focused Tweets have an analytics button
   let $analyticsButton = $focusedTweet.querySelector('a[data-testid="analyticsButton"]')
   if (!$analyticsButton) return
 
   $analyticsButton.parentElement.classList.add('AnalyticsButton')
-  let $accountAnalyticsUpsell = await getElement(':scope > div > div > div > div:has(a[href="/i/account_analytics"])', {
-    context: $focusedTweet,
-    name: 'account analytics upsell',
-    timeout: 1000,
-    stopIf: pageIsNot(currentPage)
+
+  run(async () => {
+    let $accountAnalyticsUpsell = await getElement(':scope > div > div > div > div:has(a[href="/i/account_analytics"])', {
+      context: $focusedTweet,
+      name: 'own focused Tweet analytics upsell',
+      timeout: 1000,
+      stopIf: pageIsNot(currentPage)
+    })
+    if (!$accountAnalyticsUpsell) return
+    $accountAnalyticsUpsell.classList.add('PremiumUpsell')
   })
-  if (!$accountAnalyticsUpsell) return
-  $accountAnalyticsUpsell.classList.add('PremiumUpsell')
-  $focusedTweet.setAttribute('cpft-analytics-upsell-tagged', 'true')
+
+  run(async () => {
+    let $premiumUpsell = await getElement('.AnalyticsButton + div:has(a[href^="/i/premium"])', {
+      context: $analyticsButton.parentElement.parentElement,
+      name: 'own focused Tweet Premium upsell',
+      timeout: 1000,
+      stopIf: pageIsNot(currentPage)
+    })
+    if (!$premiumUpsell) return
+    $premiumUpsell.classList.add('PremiumUpsell')
+  })
+
+  $focusedTweet.setAttribute('cpft-premium-upsells-tagged', 'true')
 }
 
 /**
