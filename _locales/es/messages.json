@@ -113,6 +113,9 @@
   "hideBookmarksNavLabel": {
     "message": "Guardados"
   },
+  "hideChatNavLabel": {
+    "message": "Chatear"
+  },
   "hideCommunitiesNavLabel": {
     "message": "Comunidades"
   },

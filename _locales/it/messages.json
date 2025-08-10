@@ -113,6 +113,9 @@
   "hideBookmarksNavLabel": {
     "message": "segnalibri"
   },
+  "hideChatNavLabel": {
+    "message": "Chat"
+  },
   "hideCommunitiesNavLabel": {
     "message": "Community"
   },

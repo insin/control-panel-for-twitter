@@ -129,6 +129,7 @@ ${messages.hideUnusedUiItemsOptionsLabel}
 • ${messages.hideMessagesDrawerLabel}${messages.desktopVersion}
 • ${messages.hideExploreNavLabel}${messages.desktopVersion}
 • ${messages.hideCommunitiesNavLabel}
+• ${messages.hideChatNavLabel}
 • ${messages.hideMoreSlideOutMenuItemsOptionsLabel_desktop}
 `.trim()
 

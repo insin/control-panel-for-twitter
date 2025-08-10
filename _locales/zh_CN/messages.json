@@ -113,6 +113,9 @@
   "hideBookmarksNavLabel": {
     "message": "书签"
   },
+  "hideChatNavLabel": {
+    "message": "聊天"
+  },
   "hideCommunitiesNavLabel": {
     "message": "社区"
   },

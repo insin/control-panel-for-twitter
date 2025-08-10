@@ -73,6 +73,7 @@ const config = {
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
+  hideChatNav: false,
   hideCommunitiesNav: false,
   hideComposeTweet: false,
   hideExplorePageContents: true,
@@ -3723,6 +3724,14 @@ const configureCss = (() => {
     }
     if (config.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
+    }
+    if (config.hideChatNav) {
+      hideCssSelectors.push(
+        // Nav item
+        `${menuRole} a[href$="/i/chat"]`,
+        // Link in Messages
+        'a[href$="/i/chat"][data-testid="pivot"]',
+      )
     }
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(

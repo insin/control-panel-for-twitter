@@ -113,6 +113,9 @@
   "hideBookmarksNavLabel": {
     "message": "북마크"
   },
+  "hideChatNavLabel": {
+    "message": "채팅"
+  },
   "hideCommunitiesNavLabel": {
     "message": "커뮤니티"
   },

@@ -113,6 +113,9 @@
   "hideBookmarksNavLabel": {
     "message": "ブックマーク"
   },
+  "hideChatNavLabel": {
+    "message": "チャット"
+  },
   "hideCommunitiesNavLabel": {
     "message": "コミュニティ"
   },
