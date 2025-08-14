@@ -7107,6 +7107,24 @@ function tweakTweetEngagementPage() {
 }
 //#endregion
 
+//#region Global patching
+let __INITIAL_STATE__
+
+Object.defineProperty(window, '__INITIAL_STATE__', {
+  configurable: true,
+  enumerable: true,
+  set(data) {
+    if (data?.featureSwitch?.customOverrides && (localStorage.cpftBypassAgeVerification != 'false' || config?.bypassAgeVerification)) {
+      data.featureSwitch.customOverrides.rweb_age_assurance_flow_enabled = false
+    }
+    __INITIAL_STATE__ = data
+  },
+  get() {
+    return __INITIAL_STATE__
+  },
+})
+//#endregion
+
 //#region Main
 async function main() {
   // Don't run on URLs used for OAuth

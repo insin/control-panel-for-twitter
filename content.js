@@ -59,6 +59,7 @@ chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ store
 
 // Inject config changes from options pages into the settings <script>
 function onConfigChange(changes) {
+  if (changes.bypassAgeVerification) localStorage.cpftBypassAgeVerification = changes.bypassAgeVerification.newValue
   if (changes.enabled) localStorage.cpftEnabled = changes.enabled.newValue
   if (changes.replaceLogo) localStorage.cpftReplaceLogo = changes.replaceLogo.newValue
   let configChanges = Object.fromEntries(
