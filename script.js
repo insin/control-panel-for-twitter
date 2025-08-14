@@ -6559,29 +6559,16 @@ async function tweakOwnFocusedTweet($focusedTweet) {
   if (!$analyticsButton) return
 
   $analyticsButton.parentElement.classList.add('AnalyticsButton')
-
   run(async () => {
-    let $accountAnalyticsUpsell = await getElement(':scope > div > div > div > div:has(a[href="/i/account_analytics"])', {
-      context: $focusedTweet,
-      name: 'own focused Tweet analytics upsell',
-      timeout: 1000,
-      stopIf: pageIsNot(currentPage)
-    })
-    if (!$accountAnalyticsUpsell) return
-    $accountAnalyticsUpsell.classList.add('PremiumUpsell')
-  })
-
-  run(async () => {
-    let $premiumUpsell = await getElement('.AnalyticsButton + div:has(a[href^="/i/premium"])', {
+    let $premiumUpsell = await getElement('.AnalyticsButton + div:has(a:is([href="/i/account_analytics"], [href^="/i/premium"]))', {
       context: $analyticsButton.parentElement.parentElement,
-      name: 'own focused Tweet Premium upsell',
-      timeout: 1000,
+      name: 'own focused Tweet premium upsell',
+      timeout: 2000,
       stopIf: pageIsNot(currentPage)
     })
     if (!$premiumUpsell) return
     $premiumUpsell.classList.add('PremiumUpsell')
   })
-
   $focusedTweet.setAttribute('cpft-premium-upsells-tagged', 'true')
 }
 
