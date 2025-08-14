@@ -11,6 +11,9 @@
   "appStoreSubtitle": {
     "message": "La tua timeline, come vuoi tu"
   },
+  "bypassAgeVerificationLabel": {
+    "message": "Aggira la verifica dell'età"
+  },
   "customCssLabel": {
     "message": "CSS personalizzato"
   },

@@ -11,6 +11,9 @@
   "appStoreSubtitle": {
     "message": "タイムラインを制御せよ"
   },
+  "bypassAgeVerificationLabel": {
+    "message": "年齢確認をバイパス"
+  },
   "customCssLabel": {
     "message": "カスタムCSS"
   },

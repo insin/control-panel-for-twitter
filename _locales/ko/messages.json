@@ -11,6 +11,9 @@
   "appStoreSubtitle": {
     "message": "타임라인을 통제하세요"
   },
+  "bypassAgeVerificationLabel": {
+    "message": "성인 인증 우회하기"
+  },
   "customCssLabel": {
     "message": "사용자 정의 CSS"
   },

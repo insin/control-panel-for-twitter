@@ -33,6 +33,7 @@ for (let translationId of [
   'addAddMutedWordMenuItemLabel_desktop',
   'addAddMutedWordMenuItemLabel_mobile',
   'alwaysUseLatestTweetsLabel',
+  'bypassAgeVerificationLabel',
   'customCssLabel',
   'debugInfo',
   'debugLabel',
@@ -188,6 +189,7 @@ const defaultConfig = {
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
+  bypassAgeVerification: true,
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',

@@ -61,6 +61,7 @@ const config = {
   // Shared
   addAddMutedWordMenuItem: true,
   alwaysUseLatestTweets: true,
+  bypassAgeVerification: true,
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
@@ -2380,15 +2381,22 @@ function getElement(selector, {
   })
 }
 
-function getState() {
+function getTopLevelProps() {
   let wrapped = $reactRoot.firstElementChild['wrappedJSObject'] || $reactRoot.firstElementChild
   let reactPropsKey = Object.keys(wrapped).find(key => key.startsWith('__reactProps'))
   if (reactPropsKey) {
-    let state = wrapped[reactPropsKey].children?.props?.children?.props?.store?.getState()
+    return wrapped[reactPropsKey].children?.props?.children?.props
+  } else {
+    warn('React props key not found')
+  }
+}
+
+function getState() {
+  let props = getTopLevelProps()
+  if (props) {
+    let state = props.store?.getState()
     if (state) return state
     warn('React state not found')
-  } else {
-    warn('React prop key not found')
   }
 }
 
@@ -4493,6 +4501,37 @@ const configureCss = (() => {
     } else {
       $style.textContent = css
     }
+  }
+})()
+
+const configureFeatureFlags = (() => {
+  let isTrue
+  return function configureFeatureFlags() {
+    let props = getTopLevelProps()
+    if (!props) return
+    let featureSwitches = props?.contextProviderProps?.featureSwitches
+    if (!featureSwitches) {
+      warn('featureSwitches not found')
+      return
+    }
+
+    if (!config.enabled) {
+      if (isTrue) {
+        log('restoring original featureSwitches')
+        featureSwitches.isTrue = isTrue
+        isTrue = null
+      }
+      return
+    }
+
+    if (isTrue) return
+
+    isTrue = featureSwitches.isTrue
+    featureSwitches.isTrue = (flag) => {
+      if (config.bypassAgeVerification && flag == 'rweb_age_assurance_flow_enabled') return false
+      return isTrue(flag)
+    }
+    log('featureSwitches patched')
   }
 })()
 
@@ -7141,6 +7180,7 @@ async function main() {
       configureSeparatedTweetsTimelineTitle()
       configureCss()
       configureDynamicCss()
+      configureFeatureFlags()
       configureThemeCss()
       configureCustomCss()
       observePopups()
@@ -7188,6 +7228,7 @@ function configChanged(changes) {
     } else {
       // These functions have teardowns when disabled
       configureCss()
+      configureFeatureFlags()
       configureFont()
       configureDynamicCss()
       configureThemeCss()

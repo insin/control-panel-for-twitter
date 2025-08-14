@@ -11,6 +11,9 @@
   "appStoreSubtitle": {
     "message": "掌控你的时间线"
   },
+  "bypassAgeVerificationLabel": {
+    "message": "绕过年龄验证"
+  },
   "customCssLabel": {
     "message": "自定义 CSS"
   },
