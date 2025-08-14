@@ -100,6 +100,7 @@ ${messages.uiTweaksOptionsLabel}
 • ${messages.dropdownMenuFontWeightLabel}
 • ${messages.uninvertFollowButtonsLabel}
   • ${messages.followButtonStyleOption_monochrome} / ${messages.followButtonStyleOption_themed}
+• ${messages.bypassAgeVerificationLabel}
 • ${messages.unblurSensitiveContentLabel}
 
 ${messages.reduceAlgorithmicContentOptionsLabel}
