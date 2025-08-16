@@ -2,6 +2,7 @@
 export const defaultSettings = {
   // Shared
   addAddMutedWordMenuItem: true,
+  bypassAgeVerification: true,
   defaultToFollowing: true,
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
@@ -15,6 +16,7 @@ export const defaultSettings = {
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
+  hideChatNav: false,
   hideCommunitiesNav: false,
   hideComposeTweet: false,
   hideExplorePageContents: true,

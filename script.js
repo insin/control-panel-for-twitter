@@ -7,6 +7,7 @@ void function() {
 const defaultSettings = {
   // Shared
   addAddMutedWordMenuItem: true,
+  bypassAgeVerification: true,
   defaultToFollowing: true,
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
@@ -20,6 +21,7 @@ const defaultSettings = {
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
+  hideChatNav: false,
   hideCommunitiesNav: false,
   hideComposeTweet: false,
   hideExplorePageContents: true,
@@ -2491,6 +2493,14 @@ function pathIsNot(path) {
 }
 
 /**
+ * @template T
+ * @param {() => T} fn
+ */
+function run(fn) {
+  return fn()
+}
+
+/**
  * @param {number} n
  * @returns {string}
  */
@@ -2509,15 +2519,22 @@ function setTweetButtonText($tweetButtonText) {
 //#endregion
 
 //#region Twitter React state functions
-function getState() {
+function getTopLevelProps() {
   let wrapped = $reactRoot.firstElementChild['wrappedJSObject'] || $reactRoot.firstElementChild
   let reactPropsKey = Object.keys(wrapped).find(key => key.startsWith('__reactProps'))
   if (reactPropsKey) {
-    let state = wrapped[reactPropsKey].children?.props?.children?.props?.store?.getState()
+    return wrapped[reactPropsKey].children?.props?.children?.props
+  } else {
+    warn('React props key not found')
+  }
+}
+
+function getState() {
+  let props = getTopLevelProps()
+  if (props) {
+    let state = props.store?.getState()
     if (state) return state
     warn('React state not found')
-  } else {
-    warn('React prop key not found')
   }
 }
 
@@ -3544,6 +3561,14 @@ const configureCss = (() => {
     if (settings.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
     }
+    if (settings.hideChatNav) {
+      hideCssSelectors.push(
+        // Nav item
+        `${menuRole} a[href$="/i/chat"]`,
+        // Link in Messages
+        'a[href$="/i/chat"][data-testid="pivot"]',
+      )
+    }
     if (settings.hideShareTweetButton) {
       hideCssSelectors.push(
         // Under timeline tweets
@@ -4372,6 +4397,37 @@ const configureDynamicCss = (() => {
     } else {
       $style.textContent = css
     }
+  }
+})()
+
+const configureFeatureFlags = (() => {
+  let isTrue
+  return function configureFeatureFlags() {
+    let props = getTopLevelProps()
+    if (!props) return
+    let featureSwitches = props?.contextProviderProps?.featureSwitches
+    if (!featureSwitches) {
+      warn('featureSwitches not found')
+      return
+    }
+
+    if (!enabled) {
+      if (isTrue) {
+        log('restoring original featureSwitches')
+        featureSwitches.isTrue = isTrue
+        isTrue = null
+      }
+      return
+    }
+
+    if (isTrue) return
+
+    isTrue = featureSwitches.isTrue
+    featureSwitches.isTrue = (flag) => {
+      if (settings.bypassAgeVerification && flag == 'rweb_age_assurance_flow_enabled') return false
+      return isTrue(flag)
+    }
+    log('featureSwitches patched')
   }
 })()
 
@@ -6813,22 +6869,24 @@ function tweakNotificationsPage() {
 }
 
 async function tweakOwnFocusedTweet($focusedTweet) {
-  if (!settings.hidePremiumUpsells || $focusedTweet.hasAttribute('cpft-analytics-upsell-tagged')) return
+  if (!settings.hidePremiumUpsells || $focusedTweet.hasAttribute('cpft-premium-upsells-tagged')) return
 
   // Only your own focused Tweets have an analytics button
   let $analyticsButton = $focusedTweet.querySelector('a[data-testid="analyticsButton"]')
   if (!$analyticsButton) return
 
   $analyticsButton.parentElement.classList.add('AnalyticsButton')
-  let $accountAnalyticsUpsell = await getElement(':scope > div > div > div > div:has(a[href="/i/account_analytics"])', {
-    context: $focusedTweet,
-    name: 'account analytics upsell',
-    timeout: 1000,
-    stopIf: pageIsNot(currentPage)
+  run(async () => {
+    let $premiumUpsell = await getElement('.AnalyticsButton + div:has(a:is([href="/i/account_analytics"], [href^="/i/premium"]))', {
+      context: $analyticsButton.parentElement.parentElement,
+      name: 'own focused Tweet premium upsell',
+      timeout: 2000,
+      stopIf: pageIsNot(currentPage)
+    })
+    if (!$premiumUpsell) return
+    $premiumUpsell.classList.add('PremiumUpsell')
   })
-  if (!$accountAnalyticsUpsell) return
-  $accountAnalyticsUpsell.classList.add('PremiumUpsell')
-  $focusedTweet.setAttribute('cpft-analytics-upsell-tagged', '')
+  $focusedTweet.setAttribute('cpft-premium-upsells-tagged', 'true')
 }
 
 async function tweakProfilePage() {
@@ -7239,6 +7297,7 @@ async function main() {
       configureSeparatedTweetsTimelineTitle()
       configureCss()
       configureDynamicCss()
+      configureFeatureFlags()
       configureThemeCss()
       configureCustomCss()
       observePopups()
@@ -7353,6 +7412,7 @@ function receiveConfigFromContentScript({data: {type, config}}) {
     } else {
       // These functions have teardowns when disabled
       configureCss()
+      configureFeatureFlags()
       configureFont()
       configureDynamicCss()
       configureThemeCss()

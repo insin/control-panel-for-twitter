@@ -9,6 +9,9 @@
     "message": "Take control of your timeline",
     "description": "<= 30 characters"
   },
+  "bypassAgeVerificationLabel": {
+    "message": "Bypass age verification"
+  },
   "customCssLabel": {
     "message": "Custom CSS"
   },
@@ -115,6 +118,9 @@
   },
   "hideBookmarksNavLabel": {
     "message": "Bookmarks"
+  },
+  "hideChatNavLabel": {
+    "message": "Chat"
   },
   "hideCommunitiesNavLabel": {
     "message": "Communities"

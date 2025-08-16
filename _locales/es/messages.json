@@ -8,6 +8,9 @@
   "appStoreSubtitle": {
     "message": "Controla tu línea de tiempo"
   },
+  "bypassAgeVerificationLabel": {
+    "message": "Omitir la verificación de edad"
+  },
   "customCssLabel": {
     "message": "CSS personalizado"
   },
@@ -112,6 +115,9 @@
   },
   "hideBookmarksNavLabel": {
     "message": "Guardados"
+  },
+  "hideChatNavLabel": {
+    "message": "Chatear"
   },
   "hideCommunitiesNavLabel": {
     "message": "Comunidades"

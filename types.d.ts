@@ -24,6 +24,7 @@ export type StoredConfigMessage = {
 export type UserSettings = {
   // Shared
   addAddMutedWordMenuItem: boolean
+  bypassAgeVerification: boolean
   defaultToFollowing: boolean
   defaultToLatestSearch: boolean
   disableHomeTimeline: boolean
@@ -37,6 +38,7 @@ export type UserSettings = {
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
   hideBookmarksNav: boolean
+  hideChatNav: boolean
   hideCommunitiesNav: boolean
   hideComposeTweet: boolean
   hideDiscoverSuggestions: boolean

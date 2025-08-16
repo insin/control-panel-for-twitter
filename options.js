@@ -25,6 +25,7 @@ for (let optionValue of [
 for (let translationId of [
   'addAddMutedWordMenuItemLabel_desktop',
   'addAddMutedWordMenuItemLabel_mobile',
+  'bypassAgeVerificationLabel',
   'customCssLabel',
   'debugInfo',
   'debugLabel',
@@ -54,6 +55,7 @@ for (let translationId of [
   'hideAllMetricsLabel',
   'hideBookmarkButtonLabel',
   'hideBookmarkMetricsLabel',
+  'hideChatNavLabel',
   'hideComposeTweetLabel',
   'hideDiscoverSuggestionsLabel',
   'hideExploreNavLabel',

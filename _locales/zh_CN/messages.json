@@ -8,6 +8,9 @@
   "appStoreSubtitle": {
     "message": "掌控你的时间线"
   },
+  "bypassAgeVerificationLabel": {
+    "message": "绕过年龄验证"
+  },
   "customCssLabel": {
     "message": "自定义 CSS"
   },
@@ -112,6 +115,9 @@
   },
   "hideBookmarksNavLabel": {
     "message": "书签"
+  },
+  "hideChatNavLabel": {
+    "message": "聊天"
   },
   "hideCommunitiesNavLabel": {
     "message": "社区"

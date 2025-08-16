@@ -8,6 +8,9 @@
   "appStoreSubtitle": {
     "message": "La tua timeline, come vuoi tu"
   },
+  "bypassAgeVerificationLabel": {
+    "message": "Aggira la verifica dell'età"
+  },
   "customCssLabel": {
     "message": "CSS personalizzato"
   },
@@ -112,6 +115,9 @@
   },
   "hideBookmarksNavLabel": {
     "message": "segnalibri"
+  },
+  "hideChatNavLabel": {
+    "message": "Chat"
   },
   "hideCommunitiesNavLabel": {
     "message": "Community"

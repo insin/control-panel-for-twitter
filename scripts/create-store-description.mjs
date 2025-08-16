@@ -100,6 +100,7 @@ ${messages.uiTweaksOptionsLabel}
 • ${messages.dropdownMenuFontWeightLabel}
 • ${messages.uninvertFollowButtonsLabel}
   • ${messages.followButtonStyleOption_monochrome} / ${messages.followButtonStyleOption_themed}
+• ${messages.bypassAgeVerificationLabel}
 • ${messages.unblurSensitiveContentLabel}
 
 ${messages.reduceAlgorithmicContentOptionsLabel}
@@ -129,6 +130,7 @@ ${messages.hideUnusedUiItemsOptionsLabel}
 • ${messages.hideMessagesDrawerLabel}${messages.desktopVersion}
 • ${messages.hideExploreNavLabel}${messages.desktopVersion}
 • ${messages.hideCommunitiesNavLabel}
+• ${messages.hideChatNavLabel}
 • ${messages.hideMoreSlideOutMenuItemsOptionsLabel_desktop}
 `.trim()
 

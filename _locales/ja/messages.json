@@ -8,6 +8,9 @@
   "appStoreSubtitle": {
     "message": "タイムラインを制御せよ"
   },
+  "bypassAgeVerificationLabel": {
+    "message": "年齢確認をバイパス"
+  },
   "customCssLabel": {
     "message": "カスタムCSS"
   },
@@ -113,6 +116,9 @@
   "hideBookmarksNavLabel": {
     "message": "ブックマーク"
   },
+  "hideChatNavLabel": {
+    "message": "チャット"
+  },
   "hideCommunitiesNavLabel": {
     "message": "コミュニティ"
   },
@@ -183,7 +189,7 @@
     "message": "使用しないスライドアウトメニューの項目を非表示"
   },
   "hideNotificationLikesLabel": {
-    "message": "通知ないでいいねを非表示"
+    "message": "通知内の「いいね！」を非表示"
   },
   "hideNotificationsLabel": {
     "message": "通知を非表示"

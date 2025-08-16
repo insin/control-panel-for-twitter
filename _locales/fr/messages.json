@@ -8,6 +8,9 @@
   "appStoreSubtitle": {
     "message": "Contrôlez votre fil"
   },
+  "bypassAgeVerificationLabel": {
+    "message": "Contourner la vérification de l'âge"
+  },
   "customCssLabel": {
     "message": "CSS personnalisé"
   },
@@ -112,6 +115,9 @@
   },
   "hideBookmarksNavLabel": {
     "message": "Signets"
+  },
+  "hideChatNavLabel": {
+    "message": "Chat"
   },
   "hideCommunitiesNavLabel": {
     "message": "Communautés"
