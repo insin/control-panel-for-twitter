@@ -1,6 +1,7 @@
 const {copy} = require('./lib')
 
 let dryRun = process.argv.includes('--dry-run')
+let local = process.argv.includes('--local')
 let manifestVersion = Number(process.argv[2])
 
 if (!manifestVersion || manifestVersion != 2 && manifestVersion != 3) {
@@ -11,4 +12,4 @@ Usage:
   process.exit(1)
 }
 
-copy(manifestVersion, {dryRun})
+copy(manifestVersion, {dryRun, local})

@@ -9,10 +9,9 @@ for (let file of fs.readdirSync('.', {withFileTypes: true})) {
 
   let copiedFile = file.name.replace(mvFileRegExp, '.')
   if (fs.existsSync(copiedFile)) {
-    if (dryRun) {
-      console.log(`rm ${copiedFile}`)
-    } else {
+    if (!dryRun) {
       fs.rmSync(copiedFile)
     }
+    console.log(`rm ${copiedFile}`)
   }
 }

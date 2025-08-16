@@ -12,18 +12,17 @@ function clean(options = {}) {
 
     let copiedFile = file.name.replace(mvFileRegExp, '.')
     if (fs.existsSync(copiedFile)) {
-      if (dryRun) {
-        console.log(`rm ${copiedFile}`)
-      } else {
+      if (!dryRun) {
         fs.rmSync(copiedFile)
       }
+      console.log(`deleted ${copiedFile}`)
     }
   }
 }
 
 /**
  * @param {import('./types').ManifestVersion} manifestVersion
- * @param {{dryRun?: boolean}} [options]
+ * @param {{dryRun?: boolean, local?: boolean}} [options]
  */
 function copy(manifestVersion, options = {}) {
   let {dryRun = false} = options
@@ -33,11 +32,10 @@ function copy(manifestVersion, options = {}) {
     if (file.isDirectory() || !mvFileRegExp.test(file.name)) continue
 
     let copyTo = file.name.replace(mvFileRegExp, '.')
-    if (dryRun) {
-      console.log(`copy ${file.name} → ${copyTo}`)
-    } else {
+    if (!dryRun) {
       fs.copyFileSync(file.name, copyTo)
     }
+    console.log(`copied ${file.name} → ${copyTo}`)
   }
 }
 
