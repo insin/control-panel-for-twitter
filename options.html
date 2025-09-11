@@ -21,9 +21,12 @@
 
 
 
-    <section class="group labelled">
-      <label id="homeTimelineOptionsLabel">
-        Home timeline
+    <section class="group labelled collapsible">
+      <label data-collapse-id="home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="homeTimelineOptionsLabel">Home timeline</span>
       </label>
       <section class="checkbox">
         <label>
@@ -121,8 +124,13 @@
       </section>
     </section>
 
-    <section class="group labelled">
-      <label id="uiImprovementsOptionsLabel">UI improvements</label>
+    <section class="group labelled collapsible">
+      <label data-collapse-id="uiImprovements">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="uiImprovementsOptionsLabel">UI improvements</span>
+      </label>
       <section class="checkbox mobile">
         <label>
           <span id="preventNextVideoAutoplayLabel">Prevent next video autoplaying</span>
@@ -194,8 +202,13 @@
       </section>
     </section>
 
-    <section class="group labelled">
-      <label id="xFixesLabel">X fixes</label>
+    <section class="group labelled collapsible">
+      <label data-collapse-id="xFixes">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="xFixesLabel">X fixes</span>
+      </label>
       <section class="checkbox">
         <label>
           <span id="revertXBrandingLabel">Revert X branding changes</span>
@@ -278,35 +291,35 @@
           <input type="checkbox" name="hidePremiumReplies">
           <span class="toggle"></span>
         </label>
-        <section class="checkbox hidingTwitterBlueReplies">
+        <section class="checkbox hidingPremiumReplies">
           <label>
             <span id="showPremiumReplyFollowingLabel">Show accounts I follow</span>
             <input type="checkbox" name="showPremiumReplyFollowing">
             <span class="toggle"></span>
           </label>
         </section>
-        <section class="checkbox hidingTwitterBlueReplies">
+        <section class="checkbox hidingPremiumReplies">
           <label>
             <span id="showPremiumReplyFollowedByLabel">Show accounts which follow me</span>
             <input type="checkbox" name="showPremiumReplyFollowedBy">
             <span class="toggle"></span>
           </label>
         </section>
-        <section class="checkbox hidingTwitterBlueReplies">
+        <section class="checkbox hidingPremiumReplies">
           <label>
             <span id="showPremiumReplyBusinessLabel">Show verified Business accounts</span>
             <input type="checkbox" name="showPremiumReplyBusiness">
             <span class="toggle"></span>
           </label>
         </section>
-        <section class="checkbox hidingTwitterBlueReplies">
+        <section class="checkbox hidingPremiumReplies">
           <label>
             <span id="showPremiumReplyGovernmentLabel">Show verified Government accounts</span>
             <input type="checkbox" name="showPremiumReplyGovernment">
             <span class="toggle"></span>
           </label>
         </section>
-        <section class="checkbox group hidingTwitterBlueReplies">
+        <section class="checkbox group hidingPremiumReplies">
           <label>
             <span id="showPremiumReplyFollowersCountLabel">Show accounts with over 1 million followers</span>
             <input type="checkbox" name="showPremiumReplyFollowersCount">
@@ -362,9 +375,12 @@
       </section>
     </section>
 
-    <section class="group labelled">
-      <label id="uiTweaksOptionsLabel">
-        UI tweaks
+    <section class="group labelled collapsible">
+      <label data-collapse-id="uiTweaks">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="uiTweaksOptionsLabel">UI tweaks</span>
       </label>
       <section class="checkbox">
         <label>
@@ -436,8 +452,13 @@
       </section>
     </section>
 
-    <section class="group labelled desktop">
-      <label id="sidebarLabel">Sidebar</label>
+    <section class="group labelled collapsible desktop">
+      <label data-collapse-id="sidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="sidebarLabel">Sidebar</span>
+      </label>
       <section class="checkbox desktop">
         <label>
           <span id="hideSidebarContentLabel">Hide sidebar contents</span>
@@ -475,8 +496,13 @@
       </section>
     </section>
 
-    <section class="group labelled">
-      <label id="reduceAlgorithmicContentOptionsLabel">Remove algorithmic content</label>
+    <section class="group labelled collapsible">
+      <label data-collapse-id="algorithmicContent">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="reduceAlgorithmicContentOptionsLabel">Remove algorithmic content</span>
+      </label>
       <section class="checkbox">
         <label>
           <span id="hideExplorePageContentsLabel">Hide Explore page contents and use it only for searching</span>
@@ -493,9 +519,12 @@
       </section>
     </section>
 
-    <section class="group labelled">
-      <label id="reduceEngagementOptionsLabel">
-        Reduce "engagement"
+    <section class="group labelled collapsible">
+      <label data-collapse-id="reduceEngagement">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="reduceEngagementOptionsLabel">Reduce "engagement"</span>
       </label>
       <section class="checkbox">
         <label>
@@ -608,9 +637,12 @@
       </section>
     </section>
 
-    <section class="group labelled">
-      <label id="hideUnusedUiItemsOptionsLabel">
-        Hide UI items you don't use
+    <section class="group labelled collapsible">
+      <label data-collapse-id="hideUiItems">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="hideUnusedUiItemsOptionsLabel">Hide UI items you don't use</span>
       </label>
       <section class="checkbox">
         <label>
@@ -718,8 +750,12 @@
         </label>
       </section>
     </section>
-    <section class="group labelled">
-      <label>
+
+    <section class="group labelled collapsible">
+      <label data-collapse-id="hideMenuItems">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
         <span id="hideMoreSlideOutMenuItemsOptionsLabel_desktop" class="desktop">Hide "More" menu items you don't use</span>
         <span id="hideMoreSlideOutMenuItemsOptionsLabel_mobile" class="mobile">Hide slide-out menu items you don't use</span>
       </label>
@@ -760,40 +796,44 @@
       </section>
     </section>
 
-    <section>
-      <details id="experiments">
-        <summary id="experimentsOptionsLabel">
-          Experiments
-        </summary>
-        <section class="group">
-          <section class="checkbox">
-            <label>
-              <span id="tweakNewLayoutLabel">Tweak new layout</span>
-              <input type="checkbox" name="tweakNewLayout">
-              <span class="toggle"></span>
-            </label>
-            <p id="tweakNewLayoutInfo">
-              Experimental - only enable if you have the new layout
-            </p>
-            <section class="checkbox desktop">
-              <label>
-                <span id="hideToggleNavigationLabel">Hide Toggle navigation</span>
-                <input type="checkbox" name="hideToggleNavigation">
-                <span class="toggle"></span>
-              </label>
-            </section>
-          </section>
-          <section class="textarea">
-            <label id="customCssLabel" for="customCss">Custom CSS</label>
-            <textarea id="customCss" rows="8"></textarea>
-            <button type="button" id="saveCustomCss" class="saveAndApplyButton">Save and apply</button>
-          </section>
+    <section class="group labelled collapsible">
+      <label data-collapse-id="experiments">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="experimentsOptionsLabel">Experiments</span>
+      </label>
+      <section class="checkbox">
+        <label>
+          <span id="tweakNewLayoutLabel">Tweak new layout</span>
+          <input type="checkbox" name="tweakNewLayout">
+          <span class="toggle"></span>
+        </label>
+        <p id="tweakNewLayoutInfo">
+          Experimental - only enable if you have the new layout
+        </p>
+        <section class="checkbox desktop">
+          <label>
+            <span id="hideToggleNavigationLabel">Hide Toggle navigation</span>
+            <input type="checkbox" name="hideToggleNavigation">
+            <span class="toggle"></span>
+          </label>
         </section>
-      </details>
+      </section>
+      <section class="textarea">
+        <label id="customCssLabel" for="customCss">Custom CSS</label>
+        <textarea id="customCss" rows="8"></textarea>
+        <button type="button" id="saveCustomCss" class="saveAndApplyButton">Save and apply</button>
+      </section>
     </section>
 
-    <section class="group labelled debug">
-      <label id="debugOptionsLabel">Debug options</label>
+    <section class="group labelled collapsible debug">
+      <label data-collapse-id="developer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="developerLabel">Developer</span>
+      </label>
       <section class="checkbox">
         <label>
           <span id="debugLabel">Debug mode</span>
@@ -820,5 +860,6 @@
     <div id="version">v4.999<span id="debugCountdown"></span></div>
   </form>
   <script src="options.js" type="module"></script>
+  <div class="firefoxSizer">Big long string to force Firefox to use the maximum available width</div>
 </body>
 </html>

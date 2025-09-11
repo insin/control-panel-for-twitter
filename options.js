@@ -30,9 +30,9 @@ for (let translationId of [
   'debugInfo',
   'debugLabel',
   'debugLogTimelineStatsLabel',
-  'debugOptionsLabel',
   'defaultToFollowingLabel',
   'defaultToLatestSearchLabel',
+  'developerLabel',
   'disableHomeTimelineInfo',
   'disableHomeTimelineLabel',
   'disableTweetTextFormattingLabel',
@@ -174,8 +174,10 @@ let mobile
 
 const $body = document.body
 
-if (navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.userAgent)) {
-  $body.classList.add('safari', /iP(ad|hone)/.test(navigator.userAgent) ? 'iOS' : 'macOS')
+let isSafari = navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.userAgent)
+let isIos = isSafari && /iP(ad|hone)/.test(navigator.userAgent)
+if (isSafari) {
+  $body.classList.add('safari', isIos ? 'iOS' : 'macOS')
 } else {
   $body.classList.toggle('edge', navigator.userAgent.includes('Edg/'))
 }
@@ -183,9 +185,10 @@ if (navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.
 //#region Default config
 /** @type {import("./types").StoredConfig} */
 const defaultConfig = {
-  enabled: true,
+  collapsedOptions: ['experiments'],
   debug: false,
   debugLogTimelineStats: false,
+  enabled: true,
   // Default based on the platform if the main script hasn't run on Twitter yet
   version: /(Android|iP(ad|hone))/.test(navigator.userAgent) ? 'mobile' : 'desktop',
 }
@@ -204,7 +207,7 @@ let config
 let checkboxGroups
 
 // Page elements
-let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('details#experiments'))
+let $collapsibleLabels = document.querySelectorAll('section.labelled.collapsible > label[data-collapse-id]')
 let $exportConfig = document.querySelector('#export-config')
 let $form = document.querySelector('form')
 let $hideQuotesFrom =  /** @type {HTMLDivElement} */ (document.querySelector('#hideQuotesFrom'))
@@ -353,6 +356,20 @@ function onStorageChanged(storageChanges) {
   applyConfig()
 }
 
+function onToggleCollapse(e) {
+  let collapsedOptions = config.collapsedOptions.slice()
+  let collapseId = e.currentTarget.getAttribute('data-collapse-id')
+  let index = collapsedOptions.indexOf(collapseId)
+  if (index == -1) {
+    collapsedOptions.push(collapseId)
+  } else {
+    collapsedOptions.splice(index, 1)
+  }
+  config.collapsedOptions = collapsedOptions
+  storeConfigChanges({collapsedOptions})
+  updateDisplay()
+}
+
 function saveCustomCss() {
   let customCss = $form.elements['customCss'].value
   if (config.settings.customCss == customCss) return
@@ -402,6 +419,12 @@ function updateCheckboxGroups() {
   }
 }
 
+function updateCollapsedOptionsDisplay() {
+  for (let $label of $collapsibleLabels) {
+    $label.parentElement.classList.toggle('collapsed', config.collapsedOptions.includes($label.getAttribute('data-collapse-id')))
+  }
+}
+
 function updateDisplay() {
   $body.classList.toggle('chronological', config.settings.defaultToFollowing)
   $body.classList.toggle('debugging', config.debug)
@@ -414,7 +437,7 @@ function updateDisplay() {
   $body.classList.toggle('hidingNotifications', config.settings.hideNotifications == 'hide')
   $body.classList.toggle('hidingQuotesFrom', shouldDisplayHideQuotesFrom())
   $body.classList.toggle('hidingSuggestedFollows', config.settings.hideSidebarContent || config.settings.hideSuggestedFollows)
-  $body.classList.toggle('hidingTwitterBlueReplies', config.settings.hidePremiumReplies)
+  $body.classList.toggle('hidingPremiumReplies', config.settings.hidePremiumReplies)
   $body.classList.toggle('mutingQuotes', shouldDisplayMutedQuotes())
   $body.classList.toggle('showingBlueReplyFollowersCount', config.settings.showPremiumReplyFollowersCount)
   $body.classList.toggle('showingSidebarContent', !config.settings.hideSidebarContent)
@@ -424,6 +447,7 @@ function updateDisplay() {
     'showPremiumReplyFollowersCountLabel',
     formatFollowerCount(Number(config.settings.showPremiumReplyFollowersCountAmount))
   )
+  updateCollapsedOptionsDisplay()
   updateHideQuotesFromDisplay()
   updateMutedQuotesDisplay()
 }
@@ -525,7 +549,12 @@ async function main() {
   }
 
   $body.classList.toggle('debug', config.debug === true)
-  $experiments.open = Boolean(config.settings.tweakNewLayout || config.settings.customCss)
+  // TODO Add iOS section groups in the Preact + htm rewrite instead
+  if (!isIos) {
+    for (let $label of $collapsibleLabels) {
+      $label.addEventListener('click', onToggleCollapse)
+    }
+  }
   $exportConfig.addEventListener('click', exportConfig)
   $form.addEventListener('change', onFormChanged)
   $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)

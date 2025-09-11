@@ -23,14 +23,14 @@
   "debugLogTimelineStatsLabel": {
     "message": "日志时间轴统计"
   },
-  "debugOptionsLabel": {
-    "message": "调试选项"
-  },
   "defaultToFollowingLabel": {
     "message": "默认使用 \"正在关注\"（按时间顺序）的时间线"
   },
   "defaultToLatestSearchLabel": {
     "message": "在搜索中默认为\"最新\"选项卡"
+  },
+  "developerLabel": {
+    "message": "开发者"
   },
   "disableHomeTimelineInfo": {
     "message": "发现自己在Twitter上浪费了太多的时间？试着防止使用主页时间线"

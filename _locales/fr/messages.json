@@ -23,14 +23,14 @@
   "debugLogTimelineStatsLabel": {
     "message": "Logger stats chronologie"
   },
-  "debugOptionsLabel": {
-    "message": "Options de débogage (debug)"
-  },
   "defaultToFollowingLabel": {
     "message": "Utiliser le fil \"Abonnements\" (chronologique) par défaut"
   },
   "defaultToLatestSearchLabel": {
     "message": "Utiliser l'onglet \"Récent\" par défaut dans la recherche"
+  },
+  "developerLabel": {
+    "message": "Développeur"
   },
   "disableHomeTimelineInfo": {
     "message": "Vous perdez trop de temps sur Twitter ? Essayez d'empêcher l'utilisation du fil Accueil"

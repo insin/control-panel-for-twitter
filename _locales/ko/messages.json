@@ -23,14 +23,14 @@
   "debugLogTimelineStatsLabel": {
     "message": "타임라인 통계 로깅"
   },
-  "debugOptionsLabel": {
-    "message": "디버그 옵션"
-  },
   "defaultToFollowingLabel": {
     "message": "기본적으로 \"팔로잉\" (시간순) 타임라인 사용"
   },
   "defaultToLatestSearchLabel": {
     "message": "검색 시 기본적으로 \"최신\" 탭 사용"
+  },
+  "developerLabel": {
+    "message": "개발자"
   },
   "disableHomeTimelineInfo": {
     "message": "트위터에 너무 많은 시간을 낭비하고 있나요? 홈 타임라인 사용을 방지해 보세요"

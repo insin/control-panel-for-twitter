@@ -23,14 +23,14 @@
   "debugLogTimelineStatsLabel": {
     "message": "Registrar stats de timeline"
   },
-  "debugOptionsLabel": {
-    "message": "Opciones de desarrollo (debug)"
-  },
   "defaultToFollowingLabel": {
     "message": "Usar la timeline cronológica (Siguiendo) por defecto"
   },
   "defaultToLatestSearchLabel": {
     "message": "Por defecto a \"Más reciente\" en Buscar"
+  },
+  "developerLabel": {
+    "message": "Desarrollador"
   },
   "disableHomeTimelineInfo": {
     "message": "¿Pasas demasiado tiempo en Twitter? Desactiva la página de inicio para que no puedas acceder a ella"

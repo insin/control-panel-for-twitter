@@ -24,14 +24,14 @@
   "debugLogTimelineStatsLabel": {
     "message": "Log timeline stats"
   },
-  "debugOptionsLabel": {
-    "message": "Debug options"
-  },
   "defaultToFollowingLabel": {
     "message": "Use the \"Following\" (chronological) timeline by default"
   },
   "defaultToLatestSearchLabel": {
     "message": "Default to \"Latest\" tab in Search"
+  },
+  "developerLabel": {
+    "message": "Developer"
   },
   "disableHomeTimelineInfo": {
     "message": "Find yourself wasting too much time on Twitter? Try preventing use of the home timeline"

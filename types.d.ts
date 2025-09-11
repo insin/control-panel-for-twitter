@@ -1,4 +1,5 @@
 export type StoredConfig = {
+  collapsedOptions?: string[]
   // Log and display debug info
   debug?: boolean
   // Log stats on each timeline change

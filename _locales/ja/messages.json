@@ -23,14 +23,14 @@
   "debugLogTimelineStatsLabel": {
     "message": "タイムライン統計をログ"
   },
-  "debugOptionsLabel": {
-    "message": "デバッグオプション"
-  },
   "defaultToFollowingLabel": {
     "message": "常にタイムラインを「フォロー中」（時系列順）にする"
   },
   "defaultToLatestSearchLabel": {
     "message": "検索のデフォルトは「最新」タブ"
+  },
+  "developerLabel": {
+    "message": "開発者"
   },
   "disableHomeTimelineInfo": {
     "message": "Twitterに時間を盗まれていませんか？「ホーム」タイムラインの利用を控えてみる"

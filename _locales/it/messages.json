@@ -23,14 +23,14 @@
   "debugLogTimelineStatsLabel": {
     "message": "Log stats timeline"
   },
-  "debugOptionsLabel": {
-    "message": "Opzioni di debug"
-  },
   "defaultToFollowingLabel": {
     "message": "Usa la timeline \"Seguiti\" (cronologica) di default"
   },
   "defaultToLatestSearchLabel": {
     "message": "Usa \"Recenti\" come sezione di default in Cerca"
+  },
+  "developerLabel": {
+    "message": "Sviluppatore"
   },
   "disableHomeTimelineInfo": {
     "message": "Sprechi troppo tempo su Twitter? Prova a rimuovere la Home"
