@@ -54,7 +54,7 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 12px;
+  padding: 4px 12px 4px 0;
   margin: 8px 0;
   cursor: pointer;
 }
@@ -107,9 +107,8 @@ form > section.group:first-of-type > label {
   margin-bottom: 8px;
 }
 
-section.group > section > * {
+section.group > section {
   color: rgb(95, 99, 104);
-  padding-left: 0;
 }
 
 p {
@@ -131,6 +130,7 @@ section.group > section > p {
 section.labelled.collapsible > label {
   cursor: pointer;
   position: relative;
+  padding-left: 12px;
 }
 section.labelled.collapsible > label > svg {
   position: absolute;
@@ -609,13 +609,6 @@ body.iOS.safari .checkbox input:focus + .toggle {
   }
   body.iOS.safari p {
     color: rgb(132, 132, 138) !important;
-  }
-  /* TODO CHeck */
-  body.iOS.safari .checkbox .toggle {
-    background-color: rgb(57, 57, 61);
-  }
-  body.iOS.safari .checkbox .toggle::before {
-    background-color: rgb(57, 57, 61);
   }
   /* #endregion */
 }
