@@ -39,6 +39,7 @@ export type Config = {
   hideNotificationLikes: boolean
   hideNotifications: 'ignore' | 'badges' | 'hide'
   hideProfileRetweets: boolean
+  showOwnRetweets: boolean
   hideQuoteTweetMetrics: boolean
   hideQuotesFrom: string[]
   hideReplyMetrics: boolean
@@ -169,6 +170,8 @@ export type TweetType =
   | 'QUOTE_TWEET'
   | 'RETWEET'
   | 'RETWEETED_QUOTE_TWEET'
+  | 'RETWEET_OF_MINE'
+  | 'RETWEETED_QUOTE_TWEET_OF_MINE'
   | 'TWEET'
   | 'UNAVAILABLE'
   | 'UNAVAILABLE_QUOTE_TWEET'

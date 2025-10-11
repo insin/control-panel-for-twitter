@@ -200,6 +200,9 @@
   "hideProfileRetweetsLabel": {
     "message": "在用户个人资料中隐藏转发"
   },
+  "showOwnRetweetsLabel": {
+    "message": "在用户个人资料中显示我自己帖子的转发"
+  },
   "hideQuoteTweetMetricsLabel": {
     "message": "引用推文"
   },
