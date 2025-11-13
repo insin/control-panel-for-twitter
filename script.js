@@ -15,7 +15,7 @@ void function() {
 // Patch XMLHttpRequest to modify requests
 const XMLHttpRequest_open = XMLHttpRequest.prototype.open
 XMLHttpRequest.prototype.open = function(method, url) {
-  if (config.sortReplies != 'relevant' && !userSortedReplies && url.includes('/TweetDetail?')) {
+  if (config.enabled && config.sortReplies != 'relevant' && !userSortedReplies && url.includes('/TweetDetail?')) {
     let request = new URL(url)
     let params = new URLSearchParams(request.search)
     let variables = JSON.parse(decodeURIComponent(params.get('variables')))
@@ -111,6 +111,7 @@ const config = {
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
+  redirectChatNav: false,
   redirectToTwitter: false,
   reducedInteractionMode: false,
   replaceLogo: true,
@@ -3630,6 +3631,26 @@ function checkReactNativeStylesheet() {
 
   findRules()
 }
+
+function patchHistory() {
+  let props = getTopLevelProps()
+  if (!props) return
+  if (!props.history) return warn('history not found')
+  let push = props.history.push
+  if (!push) return warn('history.push not found')
+  if (push.patched) return
+  props.history.push = function (args) {
+    if (config.enabled && config.redirectChatNav &&
+        args != null && typeof args == "object" && args.pathname == "/i/chat") {
+      log('redirecting Chat to Messages')
+      args.pathname = "/messages"
+    }
+    return push(args)
+  }
+  props.history.push.patched = true
+  log('history patched')
+}
+//#endregion
 
 //#region CSS
 const configureCss = (() => {
@@ -7180,6 +7201,7 @@ async function main() {
       checkReactNativeStylesheet()
       observeBodyBackgroundColor()
       observeReRenderBoundary()
+      patchHistory()
       let initialThemeColor = getThemeColorFromState()
       if (initialThemeColor) {
         themeColor = initialThemeColor

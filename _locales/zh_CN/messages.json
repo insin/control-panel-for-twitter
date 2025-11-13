@@ -344,6 +344,9 @@
   "quoteTweetsLabel": {
     "message": "引用推文"
   },
+  "redirectChatNavLabel": {
+    "message": "将聊天导航项重定向至消息"
+  },
   "redirectToTwitterLabel": {
     "message": "重定向到 twitter.com"
   },

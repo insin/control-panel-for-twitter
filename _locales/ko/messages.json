@@ -335,6 +335,9 @@
   "quoteTweetsLabel": {
     "message": "인용 트윗"
   },
+  "redirectChatNavLabel": {
+    "message": "채팅 탐색 항목을 메시지로 리디렉션"
+  },
   "redirectToTwitterLabel": {
     "message": "twitter.com으로 리디렉션"
   },

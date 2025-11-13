@@ -70,6 +70,7 @@ ${messages.uiImprovementsOptionsLabel}
 ${messages.xFixesLabel}
 
 • ${messages.redirectToTwitterLabel}
+• ${messages.redirectChatNavLabel}
 • ${messages.tweakNewLayoutLabel}
   • ${messages.hideToggleNavigationLabel}
 • ${messages.replaceLogoLabel}

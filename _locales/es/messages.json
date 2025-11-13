@@ -335,6 +335,9 @@
   "quoteTweetsLabel": {
     "message": "Citados"
   },
+  "redirectChatNavLabel": {
+    "message": "Redirigir el elemento Chat a Mensajes"
+  },
   "redirectToTwitterLabel": {
     "message": "Redirigir a twitter.com"
   },
