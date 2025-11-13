@@ -2983,6 +2983,18 @@ const observePopups = (() => {
   }
 })()
 
+async function observeReRenderBoundary() {
+  let $rerenderBoundary = await getElement('#react-root > div > div')
+  observeElement($rerenderBoundary, () => {
+    log('app re-rendered')
+    observePopups()
+    observeSideNavTweetButton()
+  }, {
+    name: 'app re-render boundary',
+    observers: globalObservers,
+  })
+}
+
 async function observeTitle() {
   let $title = await getElement('title', {name: '<title>'})
   observeElement($title, () => {
@@ -4368,7 +4380,7 @@ const configureCss = (() => {
         )
       }
       if (config.hideMessagesDrawer) {
-        cssRules.push(`div[data-testid="DMDrawer"] { visibility: hidden; }`)
+        cssRules.push(`div:is([data-testid="DMDrawer"], [data-testid="chat-drawer-root"]) { visibility: hidden; }`)
       }
       if (config.hideViews) {
         hideCssSelectors.push(
@@ -4459,7 +4471,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href$="/communities"]`)
       }
       if (config.hideMessagesBottomNavItem) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a:is([href="/messages"], [href="/i/chat"])`)
       }
       if (config.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/jobs"]`)
@@ -5809,6 +5821,10 @@ function onTitleChange(title) {
     else if (desktop && location.pathname == '/messages' && currentPath != '/messages') {
       log('viewing root Messages page')
     }
+    // On desktop, Chat always has an empty title
+    else if (desktop && location.pathname == '/i/chat' && currentPath != '/i/chat') {
+      log('viewing root Chat page')
+    }
     // The Bookmarks page sets an empty title
     else if (location.pathname.startsWith(PagePaths.BOOKMARKS) && !currentPath.startsWith(PagePaths.BOOKMARKS)) {
       log('viewing Bookmarks page')
@@ -6408,8 +6424,6 @@ function tweakDisplaySettingsPage() {
       log('Color setting changed')
       themeColor = newThemeColor
       configureThemeCss()
-      observePopups()
-      observeSideNavTweetButton()
     }, {
       name: 'Color change re-render boundary',
       observers: pageObservers,
@@ -7165,6 +7179,7 @@ async function main() {
       // One-time setup
       checkReactNativeStylesheet()
       observeBodyBackgroundColor()
+      observeReRenderBoundary()
       let initialThemeColor = getThemeColorFromState()
       if (initialThemeColor) {
         themeColor = initialThemeColor
