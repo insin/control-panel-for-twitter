@@ -3639,19 +3639,19 @@ function patchHistory() {
   let push = props.history.push
   if (!push) return warn('history.push not found')
   if (push.patched) return
-  props.history.push = function (arg) {
-    if (config.enabled && config.redirectChatNav && arg != null) {
-      if (typeof arg == 'object' && arg.pathname == '/i/chat') {
+  props.history.push = function (...args) {
+    if (config.enabled && config.redirectChatNav && args[0] != null) {
+      if (typeof args[0] == 'object' && args[0].pathname == '/i/chat') {
         log('Redirecting Chat to Messages')
-        arg.pathname = "/messages/home"
+        args[0].pathname = '/messages/home'
       }
       // Back button from Message requests
-      else if (arg === '/messages') {
+      else if (args[0] === '/messages') {
         log('Redirecting /messages to Messages')
-        arg = '/messages/home'
+        args[0] = '/messages/home'
       }
     }
-    return push(arg)
+    return push(...args)
   }
   props.history.push.patched = true
   log('history patched')
