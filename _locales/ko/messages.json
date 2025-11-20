@@ -200,6 +200,9 @@
   "hideProfileRetweetsLabel": {
     "message": "사용자 프로필에서 리트윗 숨기기"
   },
+  "showOwnRetweetsLabel": {
+    "message": "사용자 프로필에서 내 게시물의 리트윗 표시"
+  },
   "hideQuoteTweetMetricsLabel": {
     "message": "인용 트윗"
   },

@@ -200,6 +200,9 @@
   "hideProfileRetweetsLabel": {
     "message": "ユーザープロフィールでのリツイートを非表示にする"
   },
+  "showOwnRetweetsLabel": {
+    "message": "ユーザープロフィールで自分の投稿のリツイートを表示"
+  },
   "hideQuoteTweetMetricsLabel": {
     "message": "引用ツイート件数"
   },
