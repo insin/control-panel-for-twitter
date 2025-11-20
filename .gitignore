@@ -1,4 +1,5 @@
 .DS_Store
+package-lock.json
 browser_action.html
 manifest.json
 node_modules/
@@ -11,4 +12,4 @@ scripts/locales/js/_files.txt
 scripts/locales/locales.js
 scripts/locales/old/
 scripts/translations.json
-web-ext-artifacts/
+web-ext-artifacts/unpacked/
