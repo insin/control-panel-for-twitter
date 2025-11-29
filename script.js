@@ -3449,12 +3449,12 @@ async function addAccountLocationToFocusedTweet($permalinkBar, screenName) {
  * @param {string} linkSelector
  */
 async function addAddMutedWordMenuItem($link, linkSelector) {
-  log('adding "Add muted word" menu item')
+  log('addAddMutedWordMenuItem: adding "Add muted word" menu item')
 
   // Wait for the dropdown to appear on desktop
   if (desktop) {
     $link = await getElement(`#layers div[data-testid="Dropdown"] ${linkSelector}`, {
-      name: 'rendered menu item',
+      name: 'rendered menu item (addAddMutedWordMenuItem)',
       timeout: 100,
     })
     if (!$link) return
@@ -3467,7 +3467,20 @@ async function addAddMutedWordMenuItem($link, linkSelector) {
   $addMutedWord.querySelector('svg').innerHTML = Svgs.MUTE
   $addMutedWord.addEventListener('click', (e) => {
     e.preventDefault()
-    addMutedWord()
+    History_push?.({
+      pathname: '/settings/add_muted_keyword',
+      hash: '',
+      query: {},
+      search: '',
+    })
+    if (desktop) {
+      // Dismiss the menu
+      let $menuLayer = /** @type {HTMLElement} */ ($link.closest('[role="group"]')?.firstElementChild?.firstElementChild)
+      if (!$menuLayer) {
+        warn('addAddMutedWordMenuItem: could not find menu layer to dismiss menu')
+      }
+      $menuLayer?.click()
+    }
   })
   $link.parentElement.insertAdjacentElement('beforebegin', $addMutedWord)
 }
@@ -3543,37 +3556,6 @@ async function addMuteQuotesMenuItems($blockMenuItem) {
   }
 
   $blockMenuItem.insertAdjacentElement('beforebegin', $muteQuotes)
-}
-
-async function addMutedWord() {
-  if (typeof History_push == 'function') {
-    History_push({
-      pathname: '/settings/add_muted_keyword',
-      hash: '',
-      query: {},
-      search: '',
-    })
-    return
-  }
-
-  if (!document.querySelector('a[href="/settings')) {
-    let $settingsAndSupport = /** @type {HTMLElement} */ (document.querySelector('[data-testid="settingsAndSupport"]'))
-    $settingsAndSupport?.click()
-  }
-
-  for (let path of [
-    '/settings',
-    '/settings/privacy_and_safety',
-    '/settings/mute_and_block',
-    '/settings/muted_keywords',
-    '/settings/add_muted_keyword',
-  ]) {
-    let $link = await getElement(`a[href="${path}"]`, {timeout: 500})
-    if (!$link) return
-    $link.click()
-  }
-  let $input = await getElement('input[name="keyword"]')
-  setTimeout(() => $input.focus(), 100)
 }
 
 /**
@@ -3689,9 +3671,9 @@ function patchHistory() {
   let props = getTopLevelProps()
   if (!props) return
   if (!props.history) return warn('history not found')
+  if (!props.history.push) return warn('history.push not found')
+  if (props.history.push.patched) return
   History_push = props.history.push
-  if (!History_push) return warn('history.push not found')
-  if (History_push.patched) return
   props.history.push = function (...args) {
     if (config.enabled && args[0] != null) {
       if (config.hideVerifiedNotificationsTab && typeof args[0] == 'object' && typeof args[0].pathname == 'string') {
