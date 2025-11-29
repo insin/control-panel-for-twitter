@@ -3681,15 +3681,27 @@ function patchHistory() {
   if (!push) return warn('history.push not found')
   if (push.patched) return
   props.history.push = function (...args) {
-    if (config.enabled && config.redirectChatNav && args[0] != null) {
-      if (typeof args[0] == 'object' && args[0].pathname == '/i/chat') {
-        log('Redirecting Chat to Messages')
-        args[0].pathname = desktop ? '/messages/home' : '/messages'
+    if (config.enabled && args[0] != null) {
+      if (config.hideVerifiedNotificationsTab && typeof args[0] == 'object' && typeof args[0].pathname == 'string') {
+        if (args[0].pathname == '/notifications/verified') {
+          log('Redirecting /notifications/verified to /notifications')
+          args[0].pathname = '/notifications'
+        }
+        else if (args[0].pathname.endsWith('/verified_followers')) {
+          log('Redirecting /verified_followers to /followers')
+          args[0].pathname = args[0].pathname.replace(/verified_followers$/, 'followers')
+        }
       }
-      // Back button from Message requests
-      else if (desktop && args[0] === '/messages') {
-        log('Redirecting /messages to Messages')
-        args[0] = '/messages/home'
+      if (config.redirectChatNav) {
+        if (typeof args[0] == 'object' && args[0].pathname == '/i/chat') {
+          log('Redirecting Chat to Messages')
+          args[0].pathname = desktop ? '/messages/home' : '/messages'
+        }
+        // Back button from Message requests
+        else if (desktop && args[0] === '/messages') {
+          log('Redirecting /messages to Messages')
+          args[0] = '/messages/home'
+        }
       }
     }
     return push(...args)
