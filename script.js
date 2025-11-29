@@ -6856,9 +6856,10 @@ async function tweakMobileComposeTweetPage() {
         // Don't update the Tweet button if the list was re-rendered to display
         // a user dropdown, in which case it will already be in the DOM.
         if (config.replaceLogo && !document.querySelector('main [id^="typeaheadDropdown"]')) {
-          $tweetButtonText.textContent = getString($containers.length == 1 ? 'TWEET' : 'TWEET_ALL')
+          $tweetButtonText.textContent = getString($containers.length <= 1 ? 'TWEET' : 'TWEET_ALL')
         }
       }, {
+        leading: true,
         name: 'Tweets container',
         observers: pageObservers,
       })
