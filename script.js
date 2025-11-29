@@ -3546,6 +3546,16 @@ async function addMuteQuotesMenuItems($blockMenuItem) {
 }
 
 async function addMutedWord() {
+  if (typeof History_push == 'function') {
+    History_push({
+      pathname: '/settings/add_muted_keyword',
+      hash: '',
+      query: {},
+      search: '',
+    })
+    return
+  }
+
   if (!document.querySelector('a[href="/settings')) {
     let $settingsAndSupport = /** @type {HTMLElement} */ (document.querySelector('[data-testid="settingsAndSupport"]'))
     $settingsAndSupport?.click()
@@ -3673,13 +3683,15 @@ function checkReactNativeStylesheet() {
   findRules()
 }
 
+let History_push
+
 function patchHistory() {
   let props = getTopLevelProps()
   if (!props) return
   if (!props.history) return warn('history not found')
-  let push = props.history.push
-  if (!push) return warn('history.push not found')
-  if (push.patched) return
+  History_push = props.history.push
+  if (!History_push) return warn('history.push not found')
+  if (History_push.patched) return
   props.history.push = function (...args) {
     if (config.enabled && args[0] != null) {
       if (config.hideVerifiedNotificationsTab && typeof args[0] == 'object' && typeof args[0].pathname == 'string') {
@@ -3704,7 +3716,7 @@ function patchHistory() {
         }
       }
     }
-    return push(...args)
+    return History_push(...args)
   }
   props.history.push.patched = true
   log('history patched')
