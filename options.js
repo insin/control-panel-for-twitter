@@ -109,6 +109,7 @@ for (let translationId of [
   'preventNextVideoAutoplayInfo',
   'preventNextVideoAutoplayLabel',
   'quoteTweetsLabel',
+  'redirectChatNavLabel',
   'redirectToTwitterLabel',
   'reduceAlgorithmicContentOptionsLabel',
   'reduceEngagementOptionsLabel',

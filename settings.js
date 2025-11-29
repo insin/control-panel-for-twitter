@@ -53,6 +53,7 @@ export const defaultSettings = {
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
+  redirectChatNav: false,
   redirectToTwitter: false,
   reducedInteractionMode: false,
   revertXBranding: true,

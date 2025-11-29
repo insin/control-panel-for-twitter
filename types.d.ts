@@ -78,6 +78,7 @@ export type UserSettings = {
   mutedQuotes: QuotedTweet[]
   premiumBlueChecks: 'ignore' | 'replace' | 'hide'
   quoteTweets: SharedTweetsConfig
+  redirectChatNav: boolean
   redirectToTwitter: boolean
   reducedInteractionMode: boolean
   restoreLinkHeadlines: boolean

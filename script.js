@@ -58,6 +58,7 @@ const defaultSettings = {
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
+  redirectChatNav: false,
   redirectToTwitter: false,
   reducedInteractionMode: false,
   revertXBranding: true,
@@ -2988,6 +2989,18 @@ const observePopups = (() => {
   }
 })()
 
+async function observeReRenderBoundary() {
+  let $rerenderBoundary = await getElement('#react-root > div > div')
+  observeElement($rerenderBoundary, () => {
+    log('app re-rendered')
+    observePopups()
+    observeSideNavTweetButton()
+  }, {
+    name: 'app re-render boundary',
+    observers: globalObservers,
+  })
+}
+
 async function observeTitle() {
   let $title = await getElement('title', {name: '<title>'})
   observeElement($title, () => {
@@ -4196,7 +4209,7 @@ const configureCss = (() => {
         )
       }
       if (settings.hideMessagesDrawer) {
-        cssRules.push(`div[data-testid="DMDrawer"] { visibility: hidden; }`)
+        cssRules.push(`div:is([data-testid="DMDrawer"], [data-testid="chat-drawer-root"]) { visibility: hidden; }`)
       }
       if (settings.hideViews) {
         hideCssSelectors.push(
@@ -4287,7 +4300,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href$="/communities"]`)
       }
       if (settings.hideMessagesBottomNavItem) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a:is([href="/messages"], [href="/i/chat"])`)
       }
       if (settings.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/jobs"]`)
@@ -5850,6 +5863,10 @@ function onTitleChange(title) {
     else if (desktop && location.pathname == '/messages' && currentPath != '/messages') {
       log('viewing root Messages page')
     }
+    // On desktop, Chat always has an empty title
+    else if (desktop && location.pathname == '/i/chat' && currentPath != '/i/chat') {
+      log('viewing root Chat page')
+    }
     // The Bookmarks page sets an empty title
     else if (location.pathname.startsWith(PagePaths.BOOKMARKS) && !currentPath.startsWith(PagePaths.BOOKMARKS)) {
       log('viewing Bookmarks page')
@@ -5965,6 +5982,31 @@ function onTitleChange(title) {
   log('processing new page')
 
   processCurrentPage()
+}
+
+function patchHistory() {
+  let props = getTopLevelProps()
+  if (!props) return
+  if (!props.history) return warn('history not found')
+  let push = props.history.push
+  if (!push) return warn('history.push not found')
+  if (push.patched) return
+  props.history.push = function (...args) {
+    if (enabled && settings.redirectChatNav && args[0] != null) {
+      if (typeof args[0] == 'object' && args[0].pathname == '/i/chat') {
+        log('Redirecting Chat to Messages')
+        args[0].pathname = '/messages/home'
+      }
+      // Back button from Message requests
+      else if (args[0] === '/messages') {
+        log('Redirecting /messages to Messages')
+        args[0] = '/messages/home'
+      }
+    }
+    return push(...args)
+  }
+  props.history.push.patched = true
+  log('history patched')
 }
 
 /**
@@ -6448,8 +6490,6 @@ function tweakDisplaySettingsPage() {
       nativeThemeColorHover = newHover
       themeColor = nativeThemeColor
       configureThemeCss()
-      observePopups()
-      observeSideNavTweetButton()
     }, {
       name: 'Color change re-render boundary',
       observers: pageObservers,
@@ -6464,8 +6504,6 @@ function tweakDisplaySettingsPage() {
         fontSize = $html.style.fontSize
         log(`<html> fontSize has changed to ${fontSize}`)
         configureDynamicCss()
-        observePopups()
-        observeSideNavTweetButton()
       }
     }, {
       name: '<html> style attribute for font size changes',
@@ -7285,7 +7323,9 @@ async function main() {
         themeColor = nativeThemeColor
       }
       observeBodyBackgroundColor()
+      observeReRenderBoundary()
       observeReactNativeStylesheet()
+      patchHistory()
       if (desktop) {
         fontSize = $html.style.fontSize
         if (!fontSize) {
