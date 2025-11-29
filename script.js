@@ -5053,7 +5053,6 @@ function handlePopup($popup) {
       let $selectedSvg = $popup.querySelector('div[role="menuitem"] svg')
       for (let [index, $menuItem] of $menuItems.entries()) {
         let shouldBeSelected = index == {recent: 1, liked: 2}[config.sortReplies]
-        log({index, $menuItem, shouldBeSelected})
         if (shouldBeSelected) {
           $menuItem.lastElementChild.append($selectedSvg)
         }
