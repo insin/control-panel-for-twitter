@@ -3631,10 +3631,10 @@ function patchHistory() {
     if (config.enabled && config.redirectChatNav && args[0] != null) {
       if (typeof args[0] == 'object' && args[0].pathname == '/i/chat') {
         log('Redirecting Chat to Messages')
-        args[0].pathname = '/messages/home'
+        args[0].pathname = desktop ? '/messages/home' : '/messages'
       }
       // Back button from Message requests
-      else if (args[0] === '/messages') {
+      else if (desktop && args[0] === '/messages') {
         log('Redirecting /messages to Messages')
         args[0] = '/messages/home'
       }
