@@ -5,6 +5,9 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Ajouter \"Ajouter un mot masqué\" au menu déroulant"
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "Afficher le lieu du compte dans la vue détaillée du tweet"
+  },
   "alwaysUseLatestTweetsLabel": {
     "message": "Utiliser le fil \"Abonnements\" (chronologique) par défaut"
   },

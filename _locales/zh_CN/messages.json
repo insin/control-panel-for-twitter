@@ -5,6 +5,9 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "在滑出式菜单中添加\"增加隐藏词\""
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "在推文详情中显示账户位置"
+  },
   "alwaysUseLatestTweetsLabel": {
     "message": "默认使用 \"正在关注\"（按时间顺序）的时间线"
   },

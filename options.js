@@ -32,6 +32,7 @@ for (let optionValue of [
 for (let translationId of [
   'addAddMutedWordMenuItemLabel_desktop',
   'addAddMutedWordMenuItemLabel_mobile',
+  'addFocusedTweetAccountLocationLabel',
   'alwaysUseLatestTweetsLabel',
   'bypassAgeVerificationLabel',
   'customCssLabel',
@@ -146,7 +147,12 @@ for (let translationId of [
   'uninvertFollowButtonsLabel',
   'xFixesLabel',
 ]) {
-  document.getElementById(translationId).textContent = chrome.i18n.getMessage(translationId)
+  let $el = document.getElementById(translationId)
+  if ($el) {
+    $el.textContent = chrome.i18n.getMessage(translationId)
+  } else {
+    console.warn('could not find element for translationId', translationId)
+  }
 }
 
 for (let translationClass of [
@@ -189,6 +195,7 @@ const defaultConfig = {
   version: /(Android|iP(ad|hone))/.test(navigator.userAgent) ? 'mobile' : 'desktop',
   // Shared
   addAddMutedWordMenuItem: true,
+  addFocusedTweetAccountLocation: false,
   alwaysUseLatestTweets: true,
   bypassAgeVerification: true,
   defaultToLatestSearch: false,

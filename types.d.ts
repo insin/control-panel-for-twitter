@@ -5,6 +5,7 @@ export type Config = {
   version?: 'desktop' | 'mobile'
   // Shared
   addAddMutedWordMenuItem: boolean
+  addFocusedTweetAccountLocation: boolean
   // XXX This is now more like "use the Following tab by default"
   alwaysUseLatestTweets: boolean
   bypassAgeVerification: boolean

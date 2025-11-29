@@ -5,6 +5,9 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Añade \"Añadir palabra silenciada\" al menú hamburguesa"
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "Mostrar la ubicación de la cuenta en tweets individuales"
+  },
   "alwaysUseLatestTweetsLabel": {
     "message": "Usar la timeline cronológica (Siguiendo) por defecto"
   },

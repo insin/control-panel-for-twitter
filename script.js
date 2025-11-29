@@ -48,6 +48,7 @@ const config = {
   debugLogTimelineStats: false,
   // Shared
   addAddMutedWordMenuItem: true,
+  addFocusedTweetAccountLocation: false,
   alwaysUseLatestTweets: true,
   bypassAgeVerification: true,
   defaultToLatestSearch: false,
@@ -2402,6 +2403,39 @@ function getNotificationCount() {
   return state.badgeCount.unreadDMCount + state.badgeCount.unreadNTabCount;
 }
 
+let accountLocationCache = new Map()
+
+async function getAccountLocation(screenName) {
+  if (!accountLocationCache.has(screenName)) {
+    let csrfToken = document.cookie.split('; ').find(c => c.startsWith('ct0='))?.split('=')[1]
+    let response = await fetch(
+      `/i/api/graphql/XRqGa7EeokUU5kppkh13EA/AboutAccountQuery?variables=${encodeURIComponent(JSON.stringify({screenName}))}`,
+      {
+        credentials: 'include',
+        headers: {
+          'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA',
+          'content-type': 'application/json',
+          'x-twitter-active-user': 'yes',
+          'x-twitter-auth-type': 'OAuth2Session',
+          'x-twitter-client-language': lang,
+          ...(csrfToken && {'x-csrf-token': csrfToken}),
+        }
+      }
+    )
+    if (response.ok) {
+      try {
+        let body = await response.json()
+        accountLocationCache.set(screenName, body.data?.user_result_by_screen_name?.result?.about_profile)
+      } catch(e) {
+        error('error getting account location for', screenName, e)
+      }
+    } else {
+      error(response.status, 'response getting account location for', screenName)
+    }
+  }
+  return accountLocationCache.get(screenName)
+}
+
 function getStateEntities() {
   let state = getState()
   if (state) {
@@ -3388,6 +3422,25 @@ async function observeIndividualTweetTimeline(page) {
 //#endregion
 
 //#region Tweak functions
+async function addAccountLocationToFocusedTweet($permalinkBar, screenName) {
+  if (!config.addFocusedTweetAccountLocation) return
+  if ($permalinkBar.hasAttribute('cpft-account-location-added')) return
+  if (!screenName) return
+  let accountLocation = await getAccountLocation(screenName)
+  if (!accountLocation) return
+  let $separator = document.createElement('span')
+  $separator.className = 'AccountLocation cpft_separator cpft_text'
+  $separator.setAttribute('aria-hidden', 'true')
+  $separator.setAttribute('hidden', '')
+  $separator.textContent = '·'
+  let $locationLabel = document.createElement('span')
+  $locationLabel.className = 'AccountLocation cpft_text'
+  $locationLabel.setAttribute('hidden', '')
+  $locationLabel.textContent = `${accountLocation.account_based_in}${accountLocation.location_accurate ? '' : '?'}`
+  $permalinkBar.append($separator, $locationLabel)
+  $permalinkBar.setAttribute('cpft-account-location-added', '')
+}
+
 /**
  * Add an "Add muted word" menu item after the given link which takes you
  * straight to entering a new muted word (by clicking its way through all the
@@ -3701,6 +3754,9 @@ const configureCss = (() => {
       .cpft_menu_item:hover { background-color: var(--hover-bg-color) !important; }
     `)
 
+    if (config.addFocusedTweetAccountLocation) {
+      cssRules.push('.AccountLocation[hidden] { display: inline; }')
+    }
     if (config.alwaysUseLatestTweets && config.hideForYouTimeline) {
       cssRules.push(`
         /* Prevent the For you tab container taking up space */
@@ -6492,7 +6548,9 @@ function restoreTweetSource($permalinkBar, tweetInfo) {
 async function tweakFocusedTweet($focusedTweet, options) {
   log('tweaking focused tweet')
   let {observers} = options
-  let tweetId = location.pathname.match(URL_TWEET_BASE_RE)?.[2]
+  let focusedTweetUrlMatch = location.pathname.match(URL_TWEET_BASE_RE)
+  let screenName = focusedTweetUrlMatch?.[1]
+  let tweetId = focusedTweetUrlMatch?.[2]
   let tweetInfo = getTweetInfo(tweetId)
 
   // Tag View elements and restore Tweet source
@@ -6501,6 +6559,7 @@ async function tweakFocusedTweet($focusedTweet, options) {
     $permalinkBar.children[1]?.classList.toggle('Views', config.hideViews)
     $permalinkBar.children[2]?.classList.toggle('Views', config.hideViews)
     restoreTweetSource($permalinkBar, tweetInfo)
+    addAccountLocationToFocusedTweet($permalinkBar, screenName)
   } else {
     warn('focused tweet permalink bar not found')
   }

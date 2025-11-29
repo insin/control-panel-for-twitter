@@ -5,6 +5,9 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "슬라이드 메뉴에 \"뮤트할 단어 추가하기\" 추가"
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "개별 트윗에 계정 위치 표시"
+  },
   "alwaysUseLatestTweetsLabel": {
     "message": "기본적으로 \"팔로잉\" (시간순) 타임라인 사용"
   },
