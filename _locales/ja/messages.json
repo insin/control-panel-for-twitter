@@ -194,6 +194,9 @@
   "hideNotificationLikesLabel": {
     "message": "通知内の「いいね！」を非表示"
   },
+  "hideNotificationRetweetsLabel": {
+    "message": "通知内のリツイートを非表示"
+  },
   "hideNotificationsLabel": {
     "message": "通知を非表示"
   },

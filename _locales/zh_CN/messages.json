@@ -194,6 +194,9 @@
   "hideNotificationLikesLabel": {
     "message": "在通知中隐藏喜欢"
   },
+  "hideNotificationRetweetsLabel": {
+    "message": "在通知中隐藏转推"
+  },
   "hideNotificationsLabel": {
     "message": "隐藏通知"
   },

@@ -63,6 +63,7 @@ ${messages.uiImprovementsOptionsLabel}
 • ${messages.hideUnavailableQuoteTweetsLabel}
 • ${messages.hideProfileRetweetsLabel}
 • ${messages.hideNotificationLikesLabel}
+• ${messages.hideNotificationRetweetsLabel}
 • ${messages.listRetweetsLabel}
 • ${messages.defaultToLatestSearchLabel}
 • ${messages.tweakQuoteTweetsPageLabel}

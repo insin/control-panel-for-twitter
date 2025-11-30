@@ -38,6 +38,7 @@ export type Config = {
   // XXX This now controls hiding all "Discover" suggestions
   hideMoreTweets: boolean
   hideNotificationLikes: boolean
+  hideNotificationRetweets: boolean
   hideNotifications: 'ignore' | 'badges' | 'hide'
   hideProfileRetweets: boolean
   hideQuoteTweetMetrics: boolean

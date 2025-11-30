@@ -194,6 +194,9 @@
   "hideNotificationLikesLabel": {
     "message": "Nascondi Mi piace nelle notifiche"
   },
+  "hideNotificationRetweetsLabel": {
+    "message": "Nascondi i Retweet nelle notifiche"
+  },
   "hideNotificationsLabel": {
     "message": "Nascondi notifiche"
   },

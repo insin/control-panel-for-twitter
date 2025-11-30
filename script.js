@@ -79,6 +79,7 @@ const config = {
   hideMonetizationNav: true,
   hideMoreTweets: true,
   hideNotificationLikes: false,
+  hideNotificationRetweets: false,
   hideNotifications: 'ignore',
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
@@ -5533,6 +5534,7 @@ function onTimelineChange($timeline, page, options = {}) {
         }
         else if ($iconPath.startsWith('M4.75 3.79l4.603 4.3-1.706 1.8')) {
           notificationType = 'RETWEET'
+          hideItem = config.hideNotificationRetweets
         }
       }
       if (notificationType) {

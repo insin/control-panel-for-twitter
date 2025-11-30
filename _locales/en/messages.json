@@ -197,6 +197,9 @@
   "hideNotificationLikesLabel": {
     "message": "Hide Likes in Notifications"
   },
+  "hideNotificationRetweetsLabel": {
+    "message": "Hide Retweets in Notifications"
+  },
   "hideNotificationsLabel": {
     "message": "Hide notifications"
   },

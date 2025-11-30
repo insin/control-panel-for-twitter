@@ -194,6 +194,9 @@
   "hideNotificationLikesLabel": {
     "message": "알림에서 좋아요 숨기기"
   },
+  "hideNotificationRetweetsLabel": {
+    "message": "알림에서 리트윗 숨기기"
+  },
   "hideNotificationsLabel": {
     "message": "알림 숨기기"
   },
