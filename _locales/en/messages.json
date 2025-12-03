@@ -18,6 +18,9 @@
   "bypassAgeVerificationLabel": {
     "message": "Bypass age verification"
   },
+  "configurationLabel": {
+    "message": "Configuration"
+  },
   "customCssLabel": {
     "message": "Custom CSS"
   },
@@ -65,6 +68,9 @@
   },
   "exportConfigLabel": {
     "message": "Export configuration for bug report"
+  },
+  "importConfigLabel": {
+    "message": "Import configuration"
   },
   "extensionDescription": {
     "message": "Gives you more control over Twitter and adds missing features and UI improvements",

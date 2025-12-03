@@ -34,9 +34,10 @@ for (let translationId of [
   'addAddMutedWordMenuItemLabel_mobile',
   'addFocusedTweetAccountLocationLabel',
   'alwaysUseLatestTweetsLabel',
-  'bypassAgeVerificationLabel',
-  'customCssLabel',
-  'debugInfo',
+   'bypassAgeVerificationLabel',
+   'configurationLabel',
+   'customCssLabel',
+   'debugInfo',
   'debugLabel',
   'debugLogTimelineStatsLabel',
   'debugOptionsLabel',
@@ -49,9 +50,10 @@ for (let translationId of [
   'dontUseChirpFontLabel',
   'dropdownMenuFontWeightLabel',
   'enabled',
-  'experimentsOptionsLabel',
-  'exportConfigLabel',
-  'fastBlockLabel',
+   'experimentsOptionsLabel',
+   'exportConfigLabel',
+   'importConfigLabel',
+   'fastBlockLabel',
   'followButtonStyleLabel',
   'followButtonStyleOption_monochrome',
   'followButtonStyleOption_themed',
@@ -313,6 +315,7 @@ let checkboxGroups
 // Page elements
 let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('details#experiments'))
 let $exportConfig = document.querySelector('#export-config')
+let $importConfig = document.querySelector('#import-config')
 let $form = document.querySelector('form')
 let $hideQuotesFrom =  /** @type {HTMLDivElement} */ (document.querySelector('#hideQuotesFrom'))
 let $hideQuotesFromDetails = /** @type {HTMLDetailsElement} */ (document.querySelector('details#hideQuotesFromDetails'))
@@ -333,6 +336,45 @@ function exportConfig() {
   ], {type: 'text/plain'}))
   $a.click()
   URL.revokeObjectURL($a.href)
+}
+
+function importConfig() {
+  let $input = document.createElement('input')
+  $input.type = 'file'
+  $input.accept = '.txt,.json'
+  $input.onchange = (e) => {
+    let file = e.target.files[0]
+    if (!file) return
+
+    let reader = new FileReader()
+    reader.onload = (e) => {
+      try {
+        let importedConfig = JSON.parse(e.target.result)
+        // Basic validation - check if it has some expected properties
+        if (typeof importedConfig !== 'object' || !importedConfig.hasOwnProperty('enabled')) {
+          throw new Error('Invalid configuration file')
+        }
+
+        // Merge with default config to ensure all properties exist
+        let newConfig = {...defaultConfig, ...importedConfig}
+
+        // Store the imported config
+        chrome.storage.local.set(newConfig, () => {
+          if (chrome.runtime.lastError) {
+            alert('Error importing configuration: ' + chrome.runtime.lastError.message)
+          } else {
+            alert('Configuration imported successfully!')
+            // Reload the page to apply changes
+            location.reload()
+          }
+        })
+      } catch (error) {
+        alert('Error parsing configuration file: ' + error.message)
+      }
+    }
+    reader.readAsText(file)
+  }
+  $input.click()
 }
 
 function formatFollowerCount(num) {
@@ -601,6 +643,7 @@ function main() {
     $body.classList.toggle('debug', optionsConfig.debug === true)
     $experiments.open = Boolean(optionsConfig.customCss)
     $exportConfig.addEventListener('click', exportConfig)
+    $importConfig.addEventListener('click', importConfig)
     $form.addEventListener('change', onFormChanged)
     $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)

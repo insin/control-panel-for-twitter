@@ -17,8 +17,11 @@
   "bypassAgeVerificationLabel": {
     "message": "绕过年龄验证"
   },
+  "configurationLabel": {
+    "message": "配置"
+  },
   "customCssLabel": {
-    "message": "自定义 CSS"
+    "message": "自定义CSS"
   },
   "debugInfo": {
     "message": "启用调试日志并在时间线上显示推文调试信息"
@@ -64,6 +67,9 @@
   },
   "exportConfigLabel": {
     "message": "导出配置用于错误报告"
+  },
+  "importConfigLabel": {
+    "message": "导入配置"
   },
   "extensionDescription": {
     "message": "让你对Twitter有更多的控制，并增加了缺失的功能和UI改进"

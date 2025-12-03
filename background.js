@@ -1,5 +1,12 @@
 const isSafari = location.protocol.startsWith('safari-web-extension:')
 
+// DEV MODE: Clear storage on every extension reload for fresh testing
+// TODO: Remove this before production release
+console.log('[CPFT Background] Clearing storage for dev mode...')
+chrome.storage.local.clear(() => {
+  console.log('[CPFT Background] Storage cleared - fresh start')
+})
+
 const enabledIcons = {
   16: 'icons/icon16.png',
   32: 'icons/icon32.png',
