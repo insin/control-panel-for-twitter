@@ -1,0 +1,360 @@
+diff --git a/_locales/en/messages.json b/_locales/en/messages.json
+index 6f17e8c..d77b690 100644
+--- a/_locales/en/messages.json
++++ b/_locales/en/messages.json
+@@ -8,6 +8,15 @@
+   "alwaysUseLatestTweetsLabel": {
+     "message": "Use the \"Following\" (chronological) timeline by default"
+   },
++  "forkFeaturesLabel": {
++    "message": "Fork Features"
++  },
++  "hideMediaWithOverlayLabel": {
++    "message": "Hide media with gray overlay (reveal on hover/click)"
++  },
++  "hideAvatarsLabel": {
++    "message": "Hide avatars"
++  },
+   "appStoreSubtitle": {
+     "message": "Take control of your timeline",
+     "description": "<= 30 characters"
+@@ -64,7 +73,7 @@
+     "message": "Experiments"
+   },
+   "exportConfigLabel": {
+-    "message": "Export configuration for bug report"
++    "message": "Export configuration"
+   },
+   "importConfigLabel": {
+     "message": "Import configuration"
+diff --git a/options.html b/options.html
+index 3fc1e6b..eb21256 100644
+--- a/options.html
++++ b/options.html
+@@ -18,6 +18,39 @@
+          <span class="toggle"></span>
+        </label>
+      </section>
++
++     <div id="buildTimestamp" style="padding: 8px 0; text-align: center; font-size: 12px; color: #666; border-bottom: 1px solid #e1e8ed; margin-bottom: 8px;">
++       Build: <span id="buildTime">BUILDTIME_PLACEHOLDER</span>
++     </div>
++
++     <section class="group" style="display: flex; gap: 1em; padding: 12px 0;">
++       <label class="button" style="flex: 1;">
++         <input type="button" value="Import Config" id="import-config" style="width: 100%;">
++       </label>
++       <label class="button" style="flex: 1;">
++         <input type="button" value="Export Config" id="export-config" style="width: 100%;">
++       </label>
++     </section>
++
++    <section class="group labelled">
++      <label id="forkFeaturesLabel">
++        Fork Features
++      </label>
++      <section class="checkbox">
++        <label>
++          <span id="hideMediaWithOverlayLabel">Hide media with gray overlay (reveal on hover/click)</span>
++          <input type="checkbox" name="hideMediaWithOverlay">
++          <span class="toggle"></span>
++        </label>
++      </section>
++      <section class="checkbox">
++        <label>
++          <span id="hideAvatarsLabel">Hide avatars</span>
++          <input type="checkbox" name="hideAvatars">
++          <span class="toggle"></span>
++        </label>
++      </section>
++    </section>
+     <section class="group labelled">
+       <label id="homeTimelineOptionsLabel">
+         Home timeline
+@@ -789,22 +822,6 @@
+        </details>
+      </section>
+ 
+-     <section class="group">
+-       <label id="configurationLabel">Configuration</label>
+-       <section>
+-         <label class="button">
+-           <span id="exportConfigLabel">Export configuration</span>
+-           <input type="button" value="Export" id="export-config">
+-         </label>
+-       </section>
+-       <section>
+-         <label class="button">
+-           <span id="importConfigLabel">Import configuration</span>
+-           <input type="button" value="Import" id="import-config">
+-         </label>
+-       </section>
+-     </section>
+-
+      <section class="group labelled debug">
+       <label id="debugOptionsLabel">Debug options</label>
+       <section class="checkbox">
+@@ -822,18 +839,6 @@
+           </label>
+         </section>
+       </section>
+-       <section>
+-         <label class="button">
+-           <span id="exportConfigLabel">Export configuration for bug report</span>
+-           <input type="button" value="Export" id="export-config">
+-         </label>
+-       </section>
+-       <section>
+-         <label class="button">
+-           <span id="importConfigLabel">Import configuration</span>
+-           <input type="button" value="Import" id="import-config">
+-         </label>
+-       </section>
+     </section>
+ 
+     <div id="version">v4.14.1<span id="debugCountdown"></span></div>
+diff --git a/options.js b/options.js
+index d77d88f..9757712 100644
+--- a/options.js
++++ b/options.js
+@@ -56,12 +56,14 @@ for (let translationId of [
+   'followButtonStyleLabel',
+   'followButtonStyleOption_monochrome',
+   'followButtonStyleOption_themed',
++  'forkFeaturesLabel',
+   'fullWidthContentInfo',
+   'fullWidthContentLabel',
+   'fullWidthMediaLabel',
+   'hideAccountSwitcherLabel',
+   'hideAdsNavLabel',
+   'hideAllMetricsLabel',
++  'hideAvatarsLabel',
+   'hideBookmarkButtonLabel',
+   'hideBookmarkMetricsLabel',
+   'hideChatNavLabel',
+@@ -79,6 +81,7 @@ for (let translationId of [
+   'hideLikeMetricsLabel',
+   'hideLiveBroadcastBarLabel',
+   'hideLiveBroadcastsLabel',
++  'hideMediaWithOverlayLabel',
+   'hideMessagesBottomNavItemLabel',
+   'hideMessagesDrawerLabel',
+   'hideMetricsLabel',
+@@ -188,6 +191,9 @@ const defaultConfig = {
+   debugLogTimelineStats: false,
+   // Default based on the platform if the main script hasn't run on Twitter yet
+   version: /(Android|iP(ad|hone))/.test(navigator.userAgent) ? 'mobile' : 'desktop',
++  // Fork Features
++  hideMediaWithOverlay: true,
++  hideAvatars: true,
+   // Shared
+   addAddMutedWordMenuItem: true,
+   alwaysUseLatestTweets: true,
+@@ -306,6 +312,12 @@ let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('de
+ let $exportConfig = document.querySelector('#export-config')
+ let $importConfig = document.querySelector('#import-config')
+ let $form = document.querySelector('form')
++
++// Debug logging
++console.log('[CPFT Options] Script loaded')
++console.log('[CPFT Options] $exportConfig:', $exportConfig)
++console.log('[CPFT Options] $importConfig:', $importConfig)
++console.log('[CPFT Options] $form:', $form)
+ let $hideQuotesFrom =  /** @type {HTMLDivElement} */ (document.querySelector('#hideQuotesFrom'))
+ let $hideQuotesFromDetails = /** @type {HTMLDetailsElement} */ (document.querySelector('details#hideQuotesFromDetails'))
+ let $hideQuotesFromLabel = /** @type {HTMLElement} */ (document.querySelector('#hideQuotesFromLabel'))
+@@ -621,16 +633,22 @@ function updateFormControl($control, value) {
+ 
+ //#region Main
+ function main() {
++  console.log('[CPFT Options] main() called')
+   chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ storedConfig) => {
++    console.log('[CPFT Options] Storage loaded:', storedConfig)
+     // Update deprecated config values
+     // @ts-ignore
+     if (storedConfig.twitterBlueChecks == 'dim') {
+       storedConfig.twitterBlueChecks = 'replace'
+     }
+     optionsConfig = {...defaultConfig, ...storedConfig}
++    console.log('[CPFT Options] optionsConfig merged')
+ 
+     $body.classList.toggle('debug', optionsConfig.debug === true)
+     $experiments.open = Boolean(optionsConfig.customCss)
++    console.log('[CPFT Options] Adding event listeners...')
++    console.log('[CPFT Options] exportConfig function:', typeof exportConfig, exportConfig)
++    console.log('[CPFT Options] importConfig function:', typeof importConfig, importConfig)
+     $exportConfig.addEventListener('click', exportConfig)
+     $importConfig.addEventListener('click', importConfig)
+     $form.addEventListener('change', onFormChanged)
+diff --git a/script.js b/script.js
+index 26e8675..548c100 100644
+--- a/script.js
++++ b/script.js
+@@ -58,6 +58,9 @@ const config = {
+   enabled: true,
+   debug: false,
+   debugLogTimelineStats: false,
++  // Fork Features
++  hideMediaWithOverlay: true,
++  hideAvatars: true,
+   // Shared
+   addAddMutedWordMenuItem: true,
+   alwaysUseLatestTweets: true,
+@@ -3674,6 +3677,58 @@ const configureCss = (() => {
+       .cpft_menu_item:hover { background-color: var(--hover-bg-color) !important; }
+     `)
+ 
++    //#region Fork Features
++    // Media overlay configuration - adjust these values to customize appearance
++    const MEDIA_OVERLAY_COLOR = 'rgba(128, 128, 128, 0.9)' // Mid gray with 90% opacity
++    const MEDIA_OVERLAY_TRANSITION = '0.2s ease' // Smooth fade transition
++    const MEDIA_OVERLAY_BORDER_RADIUS = 'inherit' // Match Twitter's rounded corners
++
++    if (config.hideMediaWithOverlay) {
++      cssRules.push(`
++        /* Add wrapper div for overlay - added by JS */
++        .cpft_media_wrapper {
++          position: relative !important;
++          display: contents !important;
++        }
++
++        /* Gray overlay - real div element added by JS */
++        .cpft_media_overlay {
++          content: '' !important;
++          position: absolute !important;
++          top: 0 !important;
++          left: 0 !important;
++          right: 0 !important;
++          bottom: 0 !important;
++          background: ${MEDIA_OVERLAY_COLOR} !important;
++          transition: opacity ${MEDIA_OVERLAY_TRANSITION} !important;
++          z-index: 1 !important;
++          border-radius: ${MEDIA_OVERLAY_BORDER_RADIUS} !important;
++          cursor: pointer !important;
++        }
++
++        /* Temporarily reveal on hover */
++        .cpft_media_overlay:hover {
++          opacity: 0 !important;
++        }
++
++        /* Hidden state */
++        .cpft_media_overlay.cpft_hidden {
++          display: none !important;
++        }
++      `)
++    }
++
++    // Avatar hiding configuration
++    if (config.hideAvatars) {
++      hideCssSelectors.push(
++        '[data-testid="Tweet-User-Avatar"]',
++        '[data-testid^="UserAvatar-Container-"]',
++        // Also hide reply/quoted tweet avatars
++        '[data-testid="tweet"] [role="link"] img[src*="profile_images"]',
++      )
++    }
++    //#endregion
++
+     if (config.alwaysUseLatestTweets && config.hideForYouTimeline) {
+       cssRules.push(`
+         /* Prevent the For you tab container taking up space */
+@@ -5426,6 +5481,11 @@ function onTimelineChange($timeline, page, options = {}) {
+       if (!hideItem && config.restoreLinkHeadlines) {
+         restoreLinkHeadline($tweet)
+       }
++
++      // Fork Feature: Click-to-reveal media
++      if (!hideItem && config.hideMediaWithOverlay) {
++        setupMediaRevealHandlers($tweet)
++      }
+     }
+     else if (isOnNotificationsTimeline) {
+       /** @type {?import("./types").NotificationType} */
+@@ -6101,6 +6161,47 @@ function restoreLinkHeadline($tweet) {
+   }
+ }
+ 
++//#region Fork Features
++/**
++ * Setup click-to-reveal handlers for media elements
++ * @param {HTMLElement} $tweet
++ */
++function setupMediaRevealHandlers($tweet) {
++  let mediaSelectors = [
++    '[data-testid="tweetPhoto"]',
++    '[data-testid="videoPlayer"]',
++    '[data-testid="card.layoutLarge.media"]',
++    '[data-testid="card.layoutSmall.media"]',
++  ]
++
++  for (let selector of mediaSelectors) {
++    let $mediaElements = $tweet.querySelectorAll(selector)
++    for (let $media of $mediaElements) {
++      if (!$media.dataset.cpftOverlayAdded) {
++        $media.dataset.cpftOverlayAdded = 'true'
++
++        // Make media container relative for positioning
++        $media.style.position = 'relative'
++
++        // Create overlay div
++        let $overlay = document.createElement('div')
++        $overlay.className = 'cpft_media_overlay'
++
++        // Click to permanently hide overlay
++        $overlay.addEventListener('click', (e) => {
++          $overlay.classList.add('cpft_hidden')
++          e.stopPropagation()
++          e.preventDefault()
++        })
++
++        // Append overlay to media element
++        $media.appendChild($overlay)
++      }
++    }
++  }
++}
++//#endregion
++
+ /**
+  * @param {HTMLElement} $focusedTweet
+  */
+diff --git a/scripts/create-browser-action.js b/scripts/create-browser-action.js
+index 48d8751..5f0daba 100644
+--- a/scripts/create-browser-action.js
++++ b/scripts/create-browser-action.js
+@@ -4,6 +4,20 @@ const fs = require('fs')
+ 
+ let options = fs.readFileSync('./options.html', {encoding: 'utf8'})
+ 
++// Add build timestamp
++const buildTime = new Date().toLocaleString('en-US', {
++  timeZone: 'America/Los_Angeles',
++  year: 'numeric',
++  month: '2-digit',
++  day: '2-digit',
++  hour: '2-digit',
++  minute: '2-digit',
++  second: '2-digit',
++  hour12: false
++})
++
++options = options.replace('BUILDTIME_PLACEHOLDER', buildTime)
++
+ fs.writeFileSync(
+   './browser_action.html',
+   options.replace('<body>', '<body class="browserAction">'),
+diff --git a/types.d.ts b/types.d.ts
+index 2e02b04..354d758 100644
+--- a/types.d.ts
++++ b/types.d.ts
+@@ -3,6 +3,9 @@ export type Config = {
+   debug: boolean
+   debugLogTimelineStats: boolean
+   version?: 'desktop' | 'mobile'
++  // Fork Features
++  hideMediaWithOverlay: boolean
++  hideAvatars: boolean
+   // Shared
+   addAddMutedWordMenuItem: boolean
+   // XXX This is now more like "use the Following tab by default"

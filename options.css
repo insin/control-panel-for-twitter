@@ -18,6 +18,21 @@ body.iOS.browserAction {
   min-width: 0;
 }
 
+.buildDate {
+  font-size: 11px;
+  color: #666;
+  text-align: center;
+  padding: 4px 12px;
+  border-bottom: 1px solid var(--border-color, #e1e8ed);
+  font-family: monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  .buildDate {
+    color: #999;
+  }
+}
+
 body.mobile .desktop,
 body.desktop .mobile,
 body.hidingNotifications #disabledHomeTimelineRedirectOption_notifications,

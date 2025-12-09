@@ -1,0 +1,24 @@
+diff --git a/_locales/es/messages.json b/_locales/es/messages.json
+index 16b3c62..f943d61 100644
+--- a/_locales/es/messages.json
++++ b/_locales/es/messages.json
+@@ -14,6 +14,9 @@
+   "bypassAgeVerificationLabel": {
+     "message": "Omitir la verificación de edad"
+   },
++  "configurationLabel": {
++    "message": "Configuración"
++  },
+   "customCssLabel": {
+     "message": "CSS personalizado"
+   },
+@@ -62,6 +65,9 @@
+   "exportConfigLabel": {
+     "message": "Exportar configuración para informe de errores"
+   },
++  "importConfigLabel": {
++    "message": "Importar configuración"
++  },
+   "extensionDescription": {
+     "message": "Le brinda más control sobre Twitter y agrega funciones faltantes y mejoras en la interfaz"
+   },

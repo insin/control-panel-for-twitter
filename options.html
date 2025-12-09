@@ -19,6 +19,62 @@
       </label>
     </section>
     <section class="group labelled">
+      <label>Configuration</label>
+      <section>
+        <label class="button">
+          <span>Export configuration</span>
+          <input type="button" value="Export" id="export-config">
+        </label>
+      </section>
+      <section>
+        <label class="button">
+          <span>Import configuration</span>
+          <input type="button" value="Import" id="import-config">
+          <input type="file" id="import-config-file" accept=".txt,.json" style="display: none;">
+        </label>
+      </section>
+    </section>
+    <section class="group labelled">
+      <label id="forkOptionsLabel">
+        Fork
+      </label>
+      <section class="checkbox">
+        <label>
+          <span id="hideAvatarsLabel">Hide avatars</span>
+          <input type="checkbox" name="hideAvatars">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="hideMediaLabel">Hide media</span>
+          <input type="checkbox" name="hideMedia">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="hideEmojisLabel">Hide emojis</span>
+          <input type="checkbox" name="hideEmojis">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="grayLinksLabel">Gray links (instead of blue)</span>
+          <input type="checkbox" name="grayLinks">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="hashtagCheckmarksLabel"># instead of blue checkmarks</span>
+          <input type="checkbox" name="hashtagCheckmarks">
+          <span class="toggle"></span>
+        </label>
+      </section>
+    </section>
+    <section class="group labelled">
       <label id="homeTimelineOptionsLabel">
         Home timeline
       </label>

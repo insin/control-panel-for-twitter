@@ -1,0 +1,24 @@
+diff --git a/_locales/ja/messages.json b/_locales/ja/messages.json
+index cbd9acc..b23c03c 100644
+--- a/_locales/ja/messages.json
++++ b/_locales/ja/messages.json
+@@ -14,6 +14,9 @@
+   "bypassAgeVerificationLabel": {
+     "message": "年齢確認をバイパス"
+   },
++  "configurationLabel": {
++    "message": "設定"
++  },
+   "customCssLabel": {
+     "message": "カスタムCSS"
+   },
+@@ -62,6 +65,9 @@
+   "exportConfigLabel": {
+     "message": "バグレポートの設定をエクスポート"
+   },
++  "importConfigLabel": {
++    "message": "設定をインポート"
++  },
+   "extensionDescription": {
+     "message": "Twitter をより細かく制御し、不足している機能を追加して UI を改善します"
+   },
