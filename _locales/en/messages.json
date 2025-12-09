@@ -374,6 +374,12 @@
   "redirectToTwitterLabel": {
     "message": "Redirect to twitter.com"
   },
+  "redirectTwitterLinksLabel": {
+    "message": "Redirect Twitter/X links to"
+  },
+  "redirectTwitterLinksInfo": {
+    "message": "Rewrite twitter.com/x.com links to an alternative frontend (leave empty to disable)"
+  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "Remove algorithmic content"
   },
