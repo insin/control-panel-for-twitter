@@ -476,6 +476,12 @@
   "uninvertFollowButtonsLabel": {
     "message": "Uninvert Follow / Following buttons"
   },
+  "unwrapTcoLinksLabel": {
+    "message": "Unwrap t.co shortened links"
+  },
+  "unwrapTcoLinksInfo": {
+    "message": "Replace t.co links with the actual destination URL"
+  },
   "unmuteButtonText": {
     "message": "Unmute",
     "description": "Button used in the options page to unmute a muted Quote Tweet"
