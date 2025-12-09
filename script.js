@@ -185,6 +185,7 @@ const config = {
   replaceLogo: true,
   restoreLinkHeadlines: true,
   restoreOtherInteractionLinks: false,
+  unwrapTcoLinks: true,
   restoreQuoteTweetsLink: true,
   restoreTweetSource: true,
   retweets: 'separate',
@@ -5812,6 +5813,10 @@ function onTimelineChange($timeline, page, options = {}) {
       if (!hideItem && config.restoreLinkHeadlines) {
         restoreLinkHeadline($tweet)
       }
+
+      if (!hideItem) {
+        unwrapTcoLinks($tweet)
+      }
     }
     else if (isOnNotificationsTimeline) {
       /** @type {?import("./types").NotificationType} */
@@ -6045,6 +6050,10 @@ function onIndividualTweetTimelineChange($timeline, options) {
 
       if (!hideItem && config.restoreLinkHeadlines) {
         restoreLinkHeadline($tweet)
+      }
+
+      if (!hideItem) {
+        unwrapTcoLinks($tweet)
       }
     }
     else {
@@ -6510,6 +6519,41 @@ function restoreLinkHeadline($tweet) {
       <div style="color: var(--color-emphasis)">${headline}</div>
     </div>`)
     $link.dataset.headlineRestored = 'true'
+  }
+}
+
+/**
+ * Unwraps t.co shortened links to show/use the actual destination URL.
+ * @param {HTMLElement} $tweet
+ */
+function unwrapTcoLinks($tweet) {
+  if (!config.unwrapTcoLinks) return
+
+  let $links = $tweet.querySelectorAll('a[href^="https://t.co/"]')
+  for (let $link of $links) {
+    if ($link.dataset.tcoUnwrapped) continue
+
+    let expandedUrl = null
+    let textContent = $link.textContent?.trim()
+
+    if (textContent) {
+      // Remove ellipsis that Twitter adds for truncation
+      textContent = textContent.replace(/…$/, '').trim()
+
+      if (textContent.startsWith('http://') || textContent.startsWith('https://')) {
+        expandedUrl = textContent
+      } else if (textContent.includes('.') && !textContent.includes(' ')) {
+        expandedUrl = 'https://' + textContent
+      }
+    }
+
+    if (expandedUrl) {
+      $link.dataset.originalTco = $link.href
+      $link.href = expandedUrl
+      $link.dataset.tcoUnwrapped = 'true'
+    } else {
+      $link.dataset.tcoUnwrapped = 'attempted'
+    }
   }
 }
 

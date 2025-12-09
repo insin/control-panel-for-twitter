@@ -150,6 +150,8 @@ for (let translationId of [
   'uiTweaksOptionsLabel',
   'unblurSensitiveContentLabel',
   'uninvertFollowButtonsLabel',
+  'unwrapTcoLinksLabel',
+  'unwrapTcoLinksInfo',
   'xFixesLabel',
 ]) {
   let $el = document.getElementById(translationId)
@@ -267,6 +269,7 @@ const defaultConfig = {
   restoreOtherInteractionLinks: false,
   restoreQuoteTweetsLink: true,
   restoreTweetSource: true,
+  unwrapTcoLinks: true,
   retweets: 'separate',
   showBlueReplyFollowersCount: false,
   showBlueReplyFollowersCountAmount: '1000000',
