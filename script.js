@@ -2159,12 +2159,6 @@ let separatedTweetsTimelineTitle = null
 let themeColor = THEME_BLUE
 
 /**
- * Tab to switch to after navigating to the Tweet interactions page.
- * @type {string}
- */
-let tweetInteractionsTab = null
-
-/**
  * `true` when "For you" was the last tab selected on the Home timeline.
  */
 let wasForYouTabSelected = false
@@ -6330,29 +6324,18 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
     </div>
   `)
 
-  let links = /** @type {NodeListOf<HTMLAnchorElement>} */ ($focusedTweet.querySelectorAll('#cpftInteractionLinks a'))
-  links.forEach(($link) => {
-    $link.addEventListener('click', async (e) => {
-      let $caret = /** @type {HTMLElement} */ ($focusedTweet.querySelector('[data-testid="caret"]'))
-      if (!$caret) return warn('focused tweet menu caret not found')
-
-      log('clicking "View post engagements" menu item')
+  let $links = /** @type {NodeListOf<HTMLAnchorElement>} */ ($focusedTweet.querySelectorAll('#cpftInteractionLinks a'))
+  for (let $link of $links) {
+    $link.addEventListener('click', (e) => {
       e.preventDefault()
-      $caret.click()
-      let $tweetEngagements = await getElement('#layers a[data-testid="tweetEngagements"]', {
-        name: 'View post engagements menu item',
-        stopIf: pageIsNot(currentPage),
-        timeout: 500,
+      History_push?.({
+        pathname: $link.pathname,
+        hash: '',
+        query: {},
+        search: '',
       })
-      if ($tweetEngagements) {
-        tweetInteractionsTab = $link.dataset.tab || null
-        $tweetEngagements.click()
-      } else {
-        warn('falling back to full page refresh')
-        location.href = $link.href
-      }
     })
-  })
+  }
 }
 
 /**
@@ -7263,15 +7246,6 @@ function tweakTweetEngagementPage() {
   if ($tabs == null) {
     warn('could not find Post engagement tabs')
     return
-  }
-
-  if (tweetInteractionsTab) {
-    log('switching to tab', tweetInteractionsTab)
-    let $tab = /** @type {HTMLAnchorElement} */ (
-      $tabs.querySelector(`div[role="tablist"] > div:nth-child(${tweetInteractionsTab}) > a`)
-    )
-    $tab?.click()
-    tweetInteractionsTab = null
   }
 
   if (config.replaceLogo) {
