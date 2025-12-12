@@ -161,6 +161,7 @@ const locales = {
     HOME: 'الرئيسيّة',
     LIKES: 'الإعجابات',
     LIVE_ON_X: 'بث مباشر على X',
+    MESSAGES: 'الرسائل',
     MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
@@ -199,6 +200,7 @@ const locales = {
     HOME: 'الرئيسيّة',
     LIKES: 'الإعجابات',
     LIVE_ON_X: 'بث مباشر على X',
+    MESSAGES: 'الرسائل',
     MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
@@ -237,6 +239,7 @@ const locales = {
     HOME: 'Начало',
     LIKES: 'Харесвания',
     LIVE_ON_X: 'На живо в X',
+    MESSAGES: 'Съобщения',
     MOST_RELEVANT: 'Най-подходящи',
     MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
     POST_ALL: 'Публикуване на всичко',
@@ -275,6 +278,7 @@ const locales = {
     HOME: 'হোম',
     LIKES: 'পছন্দ',
     LIVE_ON_X: 'X-এ লাইভ',
+    MESSAGES: 'বার্তাগুলি',
     MOST_RELEVANT: 'সবচেয়ে প্রাসঙ্গিক',
     MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
     POST_ALL: 'সবকটি পোস্ট করুন',
@@ -314,6 +318,7 @@ const locales = {
     HOME: 'Inici',
     LIKES: 'Agradaments',
     LIVE_ON_X: 'En directe a X',
+    MESSAGES: 'Missatges',
     MOST_RELEVANT: 'El més rellevant',
     MUTE_THIS_CONVERSATION: 'Silencia la conversa',
     POST_ALL: 'Publica-ho tot',
@@ -352,6 +357,7 @@ const locales = {
     HOME: 'Hlavní stránka',
     LIKES: 'Lajky',
     LIVE_ON_X: 'Živě na platformě X',
+    MESSAGES: 'Zprávy',
     MOST_RELEVANT: 'Nejvíce související',
     MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
     POST_ALL: 'Postovat vše',
@@ -388,6 +394,7 @@ const locales = {
     GROK_ACTIONS: 'Grok-handlinger',
     HOME: 'Forside',
     LIVE_ON_X: 'Direkte på X',
+    MESSAGES: 'Beskeder',
     MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
     POST_ALL: 'Post alle',
@@ -420,6 +427,7 @@ const locales = {
     HOME: 'Startseite',
     LIKES: 'Gefällt mir',
     LIVE_ON_X: 'Live auf X',
+    MESSAGES: 'Nachrichten',
     MOST_RELEVANT: 'Besonders relevant',
     MUTE_THIS_CONVERSATION: 'Diese Konversation stummschalten',
     POST_ALL: 'Alle posten',
@@ -455,6 +463,7 @@ const locales = {
     HOME: 'Αρχική σελίδα',
     LIKES: '"Μου αρέσει"',
     LIVE_ON_X: 'Ζωντανά στο X',
+    MESSAGES: 'Μηνύματα',
     MOST_RELEVANT: 'Πιο σχετική',
     MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
     POST_ALL: 'Δημοσίευση όλων',
@@ -491,6 +500,7 @@ const locales = {
     HOME: 'Home',
     LIKES: 'Likes',
     LIVE_ON_X: 'Live on X',
+    MESSAGES: 'Messages',
     MOST_RELEVANT: 'Most relevant',
     MUTE_THIS_CONVERSATION: 'Mute this conversation',
     POST_ALL: 'Post all',
@@ -530,6 +540,7 @@ const locales = {
     HOME: 'Inicio',
     LIKES: 'Me gusta',
     LIVE_ON_X: 'En directo en X',
+    MESSAGES: 'Mensajes',
     MOST_RELEVANT: 'Más relevantes',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
     POST_ALL: 'Postear todo',
@@ -563,6 +574,7 @@ const locales = {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
     HOME: 'Hasiera',
     LIKES: 'Atsegiteak',
+    MESSAGES: 'Mezuak',
     MUTE_THIS_CONVERSATION: 'Isilarazi elkarrizketa hau',
     QUOTE: 'Aipamena',
     QUOTES: 'Aipamenak',
@@ -594,6 +606,7 @@ const locales = {
     HOME: 'خانه',
     LIKES: 'پسندها',
     LIVE_ON_X: 'زنده در X',
+    MESSAGES: 'پیام‌ها',
     MOST_RELEVANT: 'مرتبط‌ترین',
     MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
     POST_ALL: 'پست کردن همه',
@@ -633,6 +646,7 @@ const locales = {
     HOME: 'Etusivu',
     LIKES: 'Tykkäykset',
     LIVE_ON_X: 'Livenä X:ssä',
+    MESSAGES: 'Viestit',
     MOST_RELEVANT: 'Relevanteimmat',
     MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
     POST_ALL: 'Julkaise kaikki',
@@ -670,6 +684,7 @@ const locales = {
     GROK_ACTIONS: 'Mga aksyon ni Grok',
     LIKES: 'Mga Gusto',
     LIVE_ON_X: 'Live sa X',
+    MESSAGES: 'Mga Mensahe',
     MOST_RELEVANT: 'Pinakanauugnay',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
     POST_ALL: 'I-post lahat',
@@ -739,6 +754,7 @@ const locales = {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
     HOME: 'Baile',
     LIKES: 'Thaitin siad seo le',
+    MESSAGES: 'Teachtaireachtaí',
     MUTE_THIS_CONVERSATION: 'Balbhaigh an comhrá seo',
     QUOTE: 'Sliocht',
     QUOTES: 'Sleachta',
@@ -767,6 +783,7 @@ const locales = {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
     HOME: 'Inicio',
     LIKES: 'Gústames',
+    MESSAGES: 'Mensaxes',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     QUOTE: 'Cita',
     QUOTES: 'Citas',
@@ -798,6 +815,7 @@ const locales = {
     HOME: 'હોમ',
     LIKES: 'લાઈક્સ',
     LIVE_ON_X: 'X પર લાઇવ',
+    MESSAGES: 'સંદેશાઓ',
     MOST_RELEVANT: 'સૌથી વધુ સુસંગત',
     MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
     POST_ALL: 'બધા પોસ્ટ કરો',
@@ -836,6 +854,7 @@ const locales = {
     HOME: 'דף הבית',
     LIKES: 'הערות "אהבתי"',
     LIVE_ON_X: 'שידור חי ב-X',
+    MESSAGES: 'מסרים',
     MOST_RELEVANT: 'הכי רלוונטי',
     MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
     POST_ALL: 'פרסום הכל',
@@ -875,6 +894,7 @@ const locales = {
     HOME: 'होम',
     LIKES: 'पसंद',
     LIVE_ON_X: 'X पर लाइव',
+    MESSAGES: 'संदेश',
     MOST_RELEVANT: 'सर्वाधिक प्रासंगिक',
     MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
     POST_ALL: 'सभी पोस्ट करें',
@@ -913,6 +933,7 @@ const locales = {
     HOME: 'Naslovnica',
     LIKES: 'Oznake „sviđa mi se”',
     LIVE_ON_X: 'Uživo na platformi X',
+    MESSAGES: 'Poruke',
     MOST_RELEVANT: 'Najrelevantnije',
     MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
     POST_ALL: 'Objavi sve',
@@ -950,6 +971,7 @@ const locales = {
     HOME: 'Kezdőlap',
     LIKES: 'Kedvelések',
     LIVE_ON_X: 'Élőben az X-en',
+    MESSAGES: 'Üzenetek',
     MOST_RELEVANT: 'Legmegfelelőbb',
     MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
     POST_ALL: 'Az összes közzététele',
@@ -987,6 +1009,7 @@ const locales = {
     HOME: 'Beranda',
     LIKES: 'Suka',
     LIVE_ON_X: 'Langsung di X',
+    MESSAGES: 'Pesan',
     MOST_RELEVANT: 'Paling relevan',
     MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
     POST_ALL: 'Posting semua',
@@ -1022,6 +1045,7 @@ const locales = {
     GROK_ACTIONS: 'Azioni di Grok',
     LIKES: 'Mi piace',
     LIVE_ON_X: 'In diretta su X',
+    MESSAGES: 'Messaggi',
     MOST_RELEVANT: 'Più pertinenti',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
     POST_ALL: 'Posta tutto',
@@ -1059,6 +1083,7 @@ const locales = {
     HOME: 'ホーム',
     LIKES: 'いいね',
     LIVE_ON_X: 'Xでライブ放送する',
+    MESSAGES: 'メッセージ',
     MOST_RELEVANT: '関連性が高い',
     MUTE_THIS_CONVERSATION: 'この会話をミュート',
     POST_ALL: 'すべてポスト',
@@ -1097,6 +1122,7 @@ const locales = {
     HOME: 'ಹೋಮ್',
     LIKES: 'ಇಷ್ಟಗಳು',
     LIVE_ON_X: 'X ನಲ್ಲಿ ಲೈವ್',
+    MESSAGES: 'ಸಂದೇಶಗಳು',
     MOST_RELEVANT: 'ಅತ್ಯಂತ ಸಂಬಂಧಿತ',
     MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
     POST_ALL: 'ಎಲ್ಲವನ್ನೂ ಪೋಸ್ಟ್ ಮಾಡಿ',
@@ -1135,6 +1161,7 @@ const locales = {
     HOME: '홈',
     LIKES: '마음에 들어요',
     LIVE_ON_X: 'X 생방송',
+    MESSAGES: '쪽지',
     MOST_RELEVANT: '관련도 순서',
     MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
     POST_ALL: '모두 게시하기',
@@ -1174,6 +1201,7 @@ const locales = {
     HOME: 'होम',
     LIKES: 'पसंती',
     LIVE_ON_X: 'X वर लाइव्ह',
+    MESSAGES: 'संदेश',
     MOST_RELEVANT: 'सर्वात महत्वाचे',
     MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
     POST_ALL: 'सर्व पोस्ट करा',
@@ -1212,6 +1240,7 @@ const locales = {
     HOME: 'Laman Utama',
     LIKES: 'Suka',
     LIVE_ON_X: 'Secara Langsung di X',
+    MESSAGES: 'Mesej',
     MOST_RELEVANT: 'Paling berkaitan',
     MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
     POST_ALL: 'Siarkan semua',
@@ -1249,6 +1278,7 @@ const locales = {
     HOME: 'Hjem',
     LIKES: 'Liker',
     LIVE_ON_X: 'Direkte på X',
+    MESSAGES: 'Meldinger',
     MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtalen',
     POST_ALL: 'Publiser alle',
@@ -1283,6 +1313,7 @@ const locales = {
     HOME: 'Startpagina',
     LIKES: 'Vind-ik-leuks',
     LIVE_ON_X: 'Live op X',
+    MESSAGES: 'Berichten',
     MOST_RELEVANT: 'Meest relevant',
     MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
     POST_ALL: 'Alles plaatsen',
@@ -1317,6 +1348,7 @@ const locales = {
     HOME: 'Główna',
     LIKES: 'Polubienia',
     LIVE_ON_X: 'Na żywo w serwisie X',
+    MESSAGES: 'Wiadomości',
     MOST_RELEVANT: 'Najtrafniejsze',
     MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
     POST_ALL: 'Opublikuj wszystko',
@@ -1354,6 +1386,7 @@ const locales = {
     HOME: 'Página Inicial',
     LIKES: 'Curtidas',
     LIVE_ON_X: 'Ao vivo no X',
+    MESSAGES: 'Mensagens',
     MOST_RELEVANT: 'Mais relevante',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     POST_ALL: 'Postar tudo',
@@ -1389,6 +1422,7 @@ const locales = {
     HOME: 'Pagina principală',
     LIKES: 'Aprecieri',
     LIVE_ON_X: 'În direct pe X',
+    MESSAGES: 'Mesaje',
     MOST_RELEVANT: 'Cele mai relevante',
     MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
     POST_ALL: 'Postează tot',
@@ -1426,6 +1460,7 @@ const locales = {
     HOME: 'Главная',
     LIKES: 'Нравится',
     LIVE_ON_X: 'Прямой эфир в X',
+    MESSAGES: 'Сообщения',
     MOST_RELEVANT: 'Наиболее актуальные',
     MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
     POST_ALL: 'Опубликовать все',
@@ -1465,6 +1500,7 @@ const locales = {
     HOME: 'Domov',
     LIKES: 'Páči sa',
     LIVE_ON_X: 'Naživo na X',
+    MESSAGES: 'Správy',
     MOST_RELEVANT: 'Najrelevantnejšie',
     MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
     POST_ALL: 'Uverejniť všetko',
@@ -1503,6 +1539,7 @@ const locales = {
     HOME: 'Почетна',
     LIKES: 'Свиђања',
     LIVE_ON_X: 'Уживо на мрежи X',
+    MESSAGES: 'Поруке',
     MOST_RELEVANT: 'Најважније',
     MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
     POST_ALL: 'Објави све',
@@ -1542,6 +1579,7 @@ const locales = {
     HOME: 'Hem',
     LIKES: 'Gilla-markeringar',
     LIVE_ON_X: 'Live på X',
+    MESSAGES: 'Meddelanden',
     MOST_RELEVANT: 'Mest relevant',
     MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
     POST_ALL: 'Lägg upp allt',
@@ -1578,6 +1616,7 @@ const locales = {
     HOME: 'முகப்பு',
     LIKES: 'விருப்பங்கள்',
     LIVE_ON_X: 'X -இல் நேரலை',
+    MESSAGES: 'செய்திகள்',
     MOST_RELEVANT: 'மிகவும் தொடர்புடையவை',
     MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
     POST_ALL: 'எல்லாம் இடுகையிடு',
@@ -1616,6 +1655,7 @@ const locales = {
     HOME: 'หน้าแรก',
     LIKES: 'ความชอบ',
     LIVE_ON_X: 'ถ่ายทอดสดบน X',
+    MESSAGES: 'ข้อความ',
     MOST_RELEVANT: 'เกี่ยวข้องที่สุด',
     MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
     POST_ALL: 'โพสต์ทั้งหมด',
@@ -1655,6 +1695,7 @@ const locales = {
     HOME: 'Anasayfa',
     LIKES: 'Beğeni',
     LIVE_ON_X: "X'te Canlı",
+    MESSAGES: 'Mesajlar',
     MOST_RELEVANT: 'En alakalı',
     MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
     POST_ALL: 'Tümünü gönder',
@@ -1692,6 +1733,7 @@ const locales = {
     HOME: 'Головна',
     LIKES: 'Вподобання',
     LIVE_ON_X: 'Прямий ефір в X',
+    MESSAGES: 'Повідомлення',
     MOST_RELEVANT: 'Найактуальніші',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
     POST_ALL: 'Опублікувати все',
@@ -1729,6 +1771,7 @@ const locales = {
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
     HOME: 'ہوم',
     LIKES: 'لائک',
+    MESSAGES: 'پیغامات',
     MUTE_THIS_CONVERSATION: 'اس گفتگو کو میوٹ کریں',
     QUOTE: 'نقل کریں',
     QUOTES: 'منقول',
@@ -1761,6 +1804,7 @@ const locales = {
     HOME: 'Trang chủ',
     LIKES: 'Lượt thích',
     LIVE_ON_X: 'Trực tuyến trên X',
+    MESSAGES: 'Tin nhắn',
     MOST_RELEVANT: 'Liên quan nhất',
     MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
     POST_ALL: 'Đăng tất cả',
@@ -1798,6 +1842,7 @@ const locales = {
     HOME: '首頁',
     LIKES: '喜歡的內容',
     LIVE_ON_X: 'X 上的直播',
+    MESSAGES: '訊息',
     MOST_RELEVANT: '最相關',
     MUTE_THIS_CONVERSATION: '將此對話靜音',
     POST_ALL: '全部發佈',
@@ -1836,6 +1881,7 @@ const locales = {
     HOME: '主页',
     LIKES: '喜欢',
     LIVE_ON_X: 'X 上的直播',
+    MESSAGES: '私信',
     MOST_RELEVANT: '最相关',
     MUTE_THIS_CONVERSATION: '隐藏此对话',
     POST_ALL: '全部发帖',
@@ -2666,7 +2712,7 @@ function observeBodyBackgroundColor() {
     if (lastBackgroundColor != null) {
       log('Background setting changed - re-processing current page')
       observePopups()
-      observeSideNavTweetButton()
+      observeSideNavItems()
       processCurrentPage()
     }
     lastBackgroundColor = backgroundColor
@@ -3012,7 +3058,7 @@ async function observeReRenderBoundary() {
   observeElement($rerenderBoundary, () => {
     log('app re-rendered')
     observePopups()
-    observeSideNavTweetButton()
+    observeSideNavItems()
   }, {
     name: 'app re-render boundary',
     observers: globalObservers,
@@ -3177,6 +3223,44 @@ async function observeSidebar() {
     name:'sidebar container',
     observers: pageObservers,
   })
+}
+
+const observeSideNavChatLink = (() => {
+  /** @type {MutationObserver} */
+  let observer
+
+  return async function observeSideNavChatLink() {
+    if (observer) {
+      observer.disconnect()
+      observer = null
+    }
+
+    if (!desktop || !config.redirectChatNav) return
+
+    // This element is updated when text is added or removed on resize
+    let $linkTextContainer = await getElement('a[data-testid="AppTabBar_DirectMessage_Link"] > div', {
+      name: 'sidenav Chat link text container',
+    })
+    observer = observeElement($linkTextContainer, () => {
+      if ($linkTextContainer.childElementCount > 1) {
+        let $linkText = /** @type {HTMLElement} */ ($linkTextContainer.querySelector('div[dir] > span'))
+        if ($linkText) {
+          $linkText.textContent = getString('MESSAGES')
+        } else {
+          warn('could not find Chat link text')
+        }
+      }
+    }, {
+      leading: true,
+      name: 'sidenav Chat link',
+      observers: globalObservers,
+    })
+  }
+})()
+
+function observeSideNavItems() {
+  observeSideNavChatLink()
+  observeSideNavTweetButton()
 }
 
 const observeSideNavTweetButton = (() => {
@@ -6517,7 +6601,7 @@ function tweakDisplaySettingsPage() {
         log(`<html> fontSize has changed to ${fontSize}`)
         configureDynamicCss()
         observePopups()
-        observeSideNavTweetButton()
+        observeSideNavItems()
       }
     }, {
       name: '<html> style attribute for font size changes',
@@ -7282,7 +7366,7 @@ async function main() {
       configureThemeCss()
       configureCustomCss()
       observePopups()
-      observeSideNavTweetButton()
+      observeSideNavItems()
 
       // Start taking action on page changes
       observingPageChanges = true
@@ -7356,7 +7440,7 @@ function configChanged(changes) {
   configureThemeCss()
   configureCustomCss()
   observePopups()
-  observeSideNavTweetButton()
+  observeSideNavItems()
 
   if ('replaceLogo' in changes || 'hideNotifications' in changes) {
     observeFavicon.forceUpdate(getNotificationCount() > 0)

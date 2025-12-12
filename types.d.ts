@@ -121,6 +121,7 @@ export type LocaleKey =
   | 'HOME'
   | 'LIKES'
   | 'LIVE_ON_X'
+  | 'MESSAGES'
   | 'MOST_RELEVANT'
   | 'MUTE_THIS_CONVERSATION'
   | 'POST_ALL'
