@@ -131,6 +131,12 @@
   "hideComposeTweetLabel": {
     "message": "Hide the Compose Tweet button"
   },
+  "hideConnectNavLabel": {
+    "message": "Connect"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "Creator Studio"
+  },
   "hideDiscoverSuggestionsLabel": {
     "message": "Hide \"Discover\" suggestions"
   },

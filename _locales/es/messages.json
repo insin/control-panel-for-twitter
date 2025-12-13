@@ -128,6 +128,12 @@
   "hideComposeTweetLabel": {
     "message": "Ocultar el botón de Redactar Tweet"
   },
+  "hideConnectNavLabel": {
+    "message": "Conectar"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "Estudio para creadores"
+  },
   "hideDiscoverSuggestionsLabel": {
     "message": "Ocultar sugerencias de \"Descubrir\""
   },

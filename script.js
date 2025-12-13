@@ -66,6 +66,8 @@ const config = {
   hideChatNav: false,
   hideCommunitiesNav: false,
   hideComposeTweet: false,
+  hideConnectNav: true,
+  hideCreatorStudioNav: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
@@ -3884,6 +3886,12 @@ const configureCss = (() => {
         )
       }
     }
+    if (config.hideConnectNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/i/connect_people"]`)
+    }
+    if (config.hideCreatorStudioNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="/creators/studio"]`)
+    }
     if (!config.hideExplorePageContents) {
       hideCssSelectors.push(
         // Hide the ad at the top of Explore…
@@ -4411,6 +4419,9 @@ const configureCss = (() => {
       }
       if (config.hideComposeTweet) {
         hideCssSelectors.push('[data-testid="SideNav_NewTweet_Button"]')
+      }
+      if (config.hideConnectNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/connect_people"]`)
       }
       if (config.hideGrokNav) {
         hideCssSelectors.push(

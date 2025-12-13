@@ -128,6 +128,12 @@
   "hideComposeTweetLabel": {
     "message": "隐藏撰写推文按钮"
   },
+  "hideConnectNavLabel": {
+    "message": "连接"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "创作者工作室"
+  },
   "hideDiscoverSuggestionsLabel": {
     "message": "隐藏\"发现\"建议"
   },

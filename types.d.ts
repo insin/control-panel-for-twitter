@@ -24,6 +24,8 @@ export type Config = {
   hideChatNav: boolean
   hideCommunitiesNav: boolean
   hideComposeTweet: boolean
+  hideConnectNav: boolean
+  hideCreatorStudioNav: boolean
   hideExplorePageContents: boolean
   hideFollowingMetrics: boolean
   hideForYouTimeline: boolean

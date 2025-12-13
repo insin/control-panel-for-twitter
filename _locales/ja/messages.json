@@ -128,6 +128,12 @@
   "hideComposeTweetLabel": {
     "message": "ツイート作成ボタンを非表示"
   },
+  "hideConnectNavLabel": {
+    "message": "つながる"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "Creator Studio"
+  },
   "hideDiscoverSuggestionsLabel": {
     "message": "「発見」の提案を非表示"
   },
