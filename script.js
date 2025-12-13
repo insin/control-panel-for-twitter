@@ -2301,21 +2301,6 @@ function twitterLogo($svgPath) {
 }
 
 /**
- * @param {Element} $svgPath
- */
-function homeIcon($svgPath) {
-  // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
-  // we have to manually patch the path in it.
-  let replacementPath = {
-    [Svgs.X_HOME_ACTIVE_PATH]: Svgs.TWITTER_HOME_ACTIVE_PATH,
-    [Svgs.X_HOME_INACTIVE_PATH]: Svgs.TWITTER_HOME_INACTIVE_PATH,
-  }[$svgPath.getAttribute('d')]
-  if (replacementPath) {
-    $svgPath.setAttribute('d', replacementPath)
-  }
-}
-
-/**
  * @param {string} str
  * @returns {string}
  */
