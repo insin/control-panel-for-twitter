@@ -3842,7 +3842,7 @@ const configureCss = (() => {
           margin-right: 0;
         }
         /* Hide the For you tab link */
-        body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child > a {
+        body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child > [role="tab"] {
           display: none;
         }
       `)
@@ -3933,7 +3933,7 @@ const configureCss = (() => {
         'body.Settings a[href="/settings/monetization"]',
         'body.Settings a[href="/settings/manage_subscriptions"]',
         // Subscriptions tab link in Following/Follows
-        `body.ProfileFollows.Subscriptions ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:last-child > a`,
+        `body.ProfileFollows.Subscriptions ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:last-child > [role="tab"]`,
       )
       // Subscriptions tab in Following/Follows
       cssRules.push(`
@@ -4054,8 +4054,8 @@ const configureCss = (() => {
           /* New layout has margin-right on tabs */
           margin-right: 0;
         }
-        body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > a,
-        body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) > a {
+        body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"],
+        body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) > [role="tab"] {
           display: none;
         }
       `)
@@ -4139,14 +4139,14 @@ const configureCss = (() => {
       if (hasNewLayout()) {
         // The new layout only has colour to distinguish the active tab
         cssRules.push(`
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > a > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > a > div > div {
+          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
             color: var(--color) !important;
           }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div {
+          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
             color: var(--color-emphasis) !important;
           }
-          body.Desktop #cpftSeparatedTweetsTab:hover > a > div > div {
+          body.Desktop #cpftSeparatedTweetsTab:hover > [role="tab"] > div > div {
             color: var(--color-emphasis) !important;
           }
         `)
@@ -4166,20 +4166,20 @@ const configureCss = (() => {
           body.Mobile #cpftSeparatedTweetsTab:active {
             background-color: var(--tab-hover);
           }
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > a > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > a > div > div {
+          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
             font-weight: normal !important;
             color: var(--color) !important;
           }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div {
+          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
             font-weight: bold;
             color: var(--color-emphasis); !important;
           }
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > a > div > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > a > div > div > div {
+          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div > div,
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div > div {
             height: 0 !important;
           }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div > div {
+          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div > div {
             height: 4px !important;
             min-width: 56px;
             width: 100%;
@@ -4918,7 +4918,7 @@ const configureThemeCss = (() => {
     // Active tab colour for custom tabs
     if (themeColor != null && shouldShowSeparatedTweetsTab()) {
       cssRules.push(`
-        body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div > div {
+        body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div > div {
           background-color: ${themeColor} !important;
         }
       `)
@@ -6678,11 +6678,11 @@ async function tweakFollowListPage() {
   }
 
   if (config.hideVerifiedNotificationsTab) {
-    let isVerifiedTabSelected = Boolean($tabs.querySelector('div[role="tablist"] > div:nth-child(1) > a[aria-selected="true"]'))
+    let isVerifiedTabSelected = Boolean($tabs.querySelector('div[role="tablist"] > div:nth-child(1) > [role="tab"][aria-selected="true"]'))
     if (isVerifiedTabSelected) {
       log('switching to Following tab')
       let $followingTab = /** @type {HTMLAnchorElement} */ (
-        $tabs.querySelector(`div[role="tablist"] > div:nth-last-child(${$subscriptionsTabLink ? 3 : 2}) > a`)
+        $tabs.querySelector(`div[role="tablist"] > div:nth-last-child(${$subscriptionsTabLink ? 3 : 2}) > [role="tab"]`)
       )
       $followingTab?.click()
     }
@@ -6832,7 +6832,7 @@ function tweakHomeTimelinePage() {
   }
 
   function updateSelectedHomeTabIndex() {
-    let $selectedHomeTabLink = $timelineTabs.querySelector('div[role="tablist"] a[aria-selected="true"]')
+    let $selectedHomeTabLink = $timelineTabs.querySelector('div[role="tablist"] [aria-selected="true"]')
     if ($selectedHomeTabLink) {
       selectedHomeTabIndex = Array.from($selectedHomeTabLink.parentElement.parentElement.children).indexOf($selectedHomeTabLink.parentElement)
       log({selectedHomeTabIndex})
@@ -7014,10 +7014,14 @@ async function tweakMobileMediaViewerPage() {
 
 async function tweakTimelineTabs($timelineTabs) {
   $timelineTabs.classList.add('TimelineTabs')
-  let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a'))
+  let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > [role="tab"]'))
+  if (!$followingTabLink) {
+    warn('could not find Following tab link')
+    return
+  }
 
   if (config.alwaysUseLatestTweets && !document.title.startsWith(separatedTweetsTimelineTitle)) {
-    let isForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]'))
+    let isForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > [role="tab"][aria-selected="true"]'))
     if (isForYouTabSelected && (!wasForYouTabSelected || config.hideForYouTimeline)) {
       log('switching to Following timeline')
       $followingTabLink.click()
@@ -7038,7 +7042,11 @@ async function tweakTimelineTabs($timelineTabs) {
       $newTab = /** @type {HTMLElement} */ ($followingTabLink.parentElement.cloneNode(true))
       $newTab.id = 'cpftSeparatedTweetsTab'
       $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
-      let $link = $newTab.querySelector('a')
+      let $link = $newTab.querySelector('[role="tab"]')
+      if (!$link) {
+        warn('could not find tab link in separated tweets tab')
+        return
+      }
       $link.removeAttribute('aria-selected')
 
       // This script assumes navigation has occurred when the document title
@@ -7049,7 +7057,7 @@ async function tweakTimelineTabs($timelineTabs) {
         e.stopPropagation()
         if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
           // The separated tweets tab belongs to the Following tab
-          let isFollowingTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
+          let isFollowingTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > [role="tab"][aria-selected="true"]'))
           if (!isFollowingTabSelected) {
             log('switching to the Following tab for separated tweets')
             $followingTabLink.click()
@@ -7093,11 +7101,11 @@ function tweakNotificationsPage() {
   let $navigationTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
   if ($navigationTabs != null) {
     if (config.hideVerifiedNotificationsTab) {
-      let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
+      let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > [role="tab"][aria-selected="true"]'))
       if (isVerifiedTabSelected) {
         log('switching to All tab')
         let $allTab = /** @type {HTMLAnchorElement} */ (
-          $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a')
+          $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > [role="tab"]')
         )
         $allTab?.click()
       }
@@ -7226,11 +7234,11 @@ function tweakSearchPage() {
   let $searchTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
   if ($searchTabs != null) {
     if (config.defaultToLatestSearch) {
-      let isTopTabSelected = Boolean($searchTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a[aria-selected="true"]'))
+      let isTopTabSelected = Boolean($searchTabs.querySelector('div[role="tablist"] > div:nth-child(1) > [role="tab"][aria-selected="true"]'))
       if (isTopTabSelected) {
         log('switching to Latest tab')
         let $latestTab = /** @type {HTMLAnchorElement} */ (
-          $searchTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a')
+          $searchTabs.querySelector('div[role="tablist"] > div:nth-child(2) > [role="tab"]')
         )
         $latestTab?.click()
       }
