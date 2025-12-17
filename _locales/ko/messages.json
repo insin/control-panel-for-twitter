@@ -251,6 +251,9 @@
   "hideTimelineTweetBoxLabel": {
     "message": "타임라인 트윗 상자"
   },
+  "hideTodaysNewsLabel": {
+    "message": "오늘의 뉴스 숨기기"
+  },
   "hideToggleNavigationLabel": {
     "message": "탐색 전환 숨기기"
   },

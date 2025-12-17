@@ -251,6 +251,9 @@
   "hideTimelineTweetBoxLabel": {
     "message": "Compositore tweet nella timeline"
   },
+  "hideTodaysNewsLabel": {
+    "message": "Nascondi le Notizie del giorno"
+  },
   "hideToggleNavigationLabel": {
     "message": "Nascondi attiva/disattiva navigazione"
   },

@@ -254,6 +254,9 @@
   "hideTimelineTweetBoxLabel": {
     "message": "Tweet box in timeline"
   },
+  "hideTodaysNewsLabel": {
+    "message": "Hide Today's News"
+  },
   "hideToggleNavigationLabel": {
     "message": "Hide Toggle navigation"
   },

@@ -251,6 +251,9 @@
   "hideTimelineTweetBoxLabel": {
     "message": "Zone de tweet dans le fil"
   },
+  "hideTodaysNewsLabel": {
+    "message": "Masquer les Actualités du jour"
+  },
   "hideToggleNavigationLabel": {
     "message": "Masquer activer/désactiver la navigation"
   },

@@ -251,6 +251,9 @@
   "hideTimelineTweetBoxLabel": {
     "message": "时间线推文框"
   },
+  "hideTodaysNewsLabel": {
+    "message": "隐藏今日新闻"
+  },
   "hideToggleNavigationLabel": {
     "message": "隐藏切换导航"
   },

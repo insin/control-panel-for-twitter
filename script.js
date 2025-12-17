@@ -139,6 +139,7 @@ const config = {
   hideSpacesNav: false,
   hideSuggestedFollows: false,
   hideTimelineTweetBox: false,
+  hideTodaysNews: false,
   hideToggleNavigation: false,
   hideWhatsHappening: false,
   navBaseFontSize: true,
@@ -1968,7 +1969,6 @@ const Selectors = {
   PRIMARY_NAV_MOBILE: '#layers nav',
   PROMOTED_TWEET_CONTAINER: '[data-testid="placementTracking"]',
   SIDEBAR: 'div[data-testid="sidebarColumn"]',
-  SIDEBAR_WRAPPERS: 'div[data-testid="sidebarColumn"] > div > div > div > div > div',
   SORT_REPLIES_PATH: 'svg path[d="M14 6V3h2v8h-2V8H3V6h11zm7 2h-3.5V6H21v2zM8 16v-3h2v8H8v-3H3v-2h5zm13 2h-9.5v-2H21v2z"]',
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
@@ -2176,6 +2176,10 @@ function isOnBookmarksPage() {
   return currentPath.startsWith(PagePaths.BOOKMARKS)
 }
 
+function isOnChatPage() {
+  return currentPath.startsWith('/i/chat')
+}
+
 function isOnCommunitiesPage() {
   return URL_COMMUNITIES_RE.test(currentPath)
 }
@@ -2202,6 +2206,10 @@ function isOnExplorePage() {
 
 function isOnFollowListPage() {
   return URL_PROFILE_FOLLOWS_RE.test(currentPath)
+}
+
+function isOnGrokPage() {
+  return currentPath.startsWith('/i/grok')
 }
 
 function isOnIndividualTweetPage() {
@@ -3089,7 +3097,7 @@ async function observeTitle() {
 async function observeSidebar() {
   let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {name: 'primary column'})
   let $sidebarContainer = $primaryColumn.parentElement
-  observeElement($sidebarContainer, () => {
+  observeElement($sidebarContainer, async () => {
     let $sidebar = /** @type {HTMLElement} */ ($sidebarContainer.querySelector(Selectors.SIDEBAR))
     log(`sidebar ${$sidebar ? 'appeared' : 'disappeared'}`)
     $body.classList.toggle('Sidebar', Boolean($sidebar))
@@ -3100,6 +3108,12 @@ async function observeSidebar() {
       }
       return
     }
+    let $sidebarContents = await getElement('div[data-testid="sidebarColumn"] > div > div > div > div > div', {
+      name: 'sidebar contents',
+      context: $sidebarContainer,
+    })
+    $sidebarContents.classList.add('SidebarContents')
+
     // Process blue checks in the sidebar search dropdown
     if (config.twitterBlueChecks != 'ignore' && !isOnSearchPage() && !isOnExplorePage()) {
       observeSearchForm()
@@ -3180,10 +3194,6 @@ async function observeSidebar() {
         }
         // The Live on X box can pop in and out of  existence while you're
         // sitting on a page, so always oveserve for it.
-        let $sidebarContents = await getElement(`div[aria-label] > div${isOnHomeTimelinePage() ? ' > div' : ''}`, {
-          context: $sidebar,
-          name: 'sidebar contents',
-        })
         observeElement($sidebarContents, (mutations) => {
           for (let mutation of mutations) {
             for (let $addedNode of mutation.addedNodes) {
@@ -4019,8 +4029,8 @@ const configureCss = (() => {
         '[data-testid="verified_profile_upsell"]',
         // Get Premium Analytics upsell
         '[data-testid="profileAnalyticsUpsell"]',
-        // Upsell in Lists sidebar
-        '[data-testid="super-upsell-UpsellCardRenderProperties"]',
+        // Upsell in sidebar
+        '.SidebarContents > div:has(> div > div[data-testid="super-upsell-UpsellCardRenderProperties"])',
         // "you aren't verified yet" in Premium user profile
         '[data-testid="verified_profile_visitor_upsell"]',
         // "Upgrade to Premium+ to write longer posts" in Tweet composer
@@ -4262,8 +4272,7 @@ const configureCss = (() => {
           /* Restore the sidebar to its old width */
           ${Selectors.SIDEBAR},
           ${Selectors.SIDEBAR} > div > div,
-          body.HomeTimeline ${Selectors.SIDEBAR_WRAPPERS} > div > div:first-child,
-          ${Selectors.SIDEBAR_WRAPPERS} > div:first-child {
+          .SidebarContents > div:first-child {
             width: 350px !important;
           }
           /* Center content */
@@ -4449,9 +4458,6 @@ const configureCss = (() => {
         hideCssSelectors.push(
           // Nav items
           `${Selectors.PRIMARY_NAV_DESKTOP} a:is([href^="/i/premium"], [href^="/i/verified"])`,
-          // Search sidebar Radar upsell
-          `body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:first-child:has(a[href="/i/radar"])`,
-          `body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:first-child:has(a[href="/i/radar"]) + div:empty`,
           // Premium link in hovercard
           '[data-testid="HoverCard"] a[href^="/i/premium"]',
         )
@@ -4460,28 +4466,19 @@ const configureCss = (() => {
         // Only show the first sidebar item by default
         // Re-show subsequent non-algorithmic sections on specific pages
         cssRules.push(`
-          body.HomeTimeline ${Selectors.SIDEBAR_WRAPPERS} > div > div:not(:first-of-type) {
+          .SidebarContents > div:not(:first-of-type) {
             display: none;
           }
-          ${Selectors.SIDEBAR_WRAPPERS} > div:not(:first-of-type) {
-            display: none;
-          }
-          body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:nth-of-type(2) {
+          body.Search .SidebarContents > div:nth-of-type(2) {
             display: block;
           }
-          /* Radar upsell in Search uses the first item and adds a second one for spacing */
-          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:first-of-type,
-          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:nth-of-type(2):empty {
-            display: none;
-          }
-          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:nth-of-type(3),
-          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:nth-of-type(4) {
+          body.Community .SidebarContents > div:nth-of-type(3) {
             display: block;
           }
         `)
         if (config.showRelevantPeople) {
           cssRules.push(`
-            body.Tweet ${Selectors.SIDEBAR_WRAPPERS} > div:is(:nth-of-type(2), :nth-of-type(3)) {
+            body.Tweet .SidebarContents > div:is(:nth-of-type(2), :nth-of-type(3)) {
               display: block;
             }
           `)
@@ -4491,17 +4488,14 @@ const configureCss = (() => {
         if (config.hideLiveBroadcasts) {
           hideCssSelectors.push('.LiveBroadcasts')
         }
+        if (config.hideTodaysNews) {
+          hideCssSelectors.push('.SidebarContents > div:has(> [data-testid="news_sidebar"])')
+        }
         if (config.hideWhatsHappening) {
           hideCssSelectors.push('.WhatsHappening')
         }
         if (config.hideSuggestedFollows) {
           hideCssSelectors.push('.SuggestedFollows')
-        }
-        if (config.hideTwitterBlueUpsells) {
-          // Hide "Subscribe to premium" individually
-          hideCssSelectors.push(
-            `body.HomeTimeline ${Selectors.SIDEBAR_WRAPPERS} > div > div:nth-of-type(3)`
-          )
         }
       }
       if (config.hideShareTweetButton) {
@@ -6146,7 +6140,7 @@ function processCurrentPage() {
   $body.classList.remove('SeparatedTweets')
 
   if (desktop) {
-    if (!isOnMessagesPage() && !isOnSettingsPage()) {
+    if (!isOnChatPage() && !isOnGrokPage() && !isOnMessagesPage() && !isOnSettingsPage()) {
       observeSidebar()
     } else {
       $body.classList.remove('Sidebar')
@@ -7257,7 +7251,7 @@ function tweakSearchPage() {
   })
 
   if (desktop) {
-    let $emptyFirstSidebarItem = document.querySelector(`${Selectors.SIDEBAR_WRAPPERS} > div:first-child:empty`)
+    let $emptyFirstSidebarItem = document.querySelector(`.SidebarContents > div:first-child:empty`)
     if ($emptyFirstSidebarItem) {
       log('removing empty first sidebar item from Search sidebar')
       $emptyFirstSidebarItem.remove()

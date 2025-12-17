@@ -101,6 +101,7 @@ export type Config = {
   hideSidebarContent: boolean
   hideSuggestedFollows: boolean
   hideTimelineTweetBox: boolean
+  hideTodaysNews: boolean
   hideToggleNavigation: boolean
   hideWhatsHappening: boolean
   navBaseFontSize: boolean
