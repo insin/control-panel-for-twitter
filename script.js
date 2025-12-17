@@ -3885,7 +3885,7 @@ const configureCss = (() => {
       }
     }
     if (config.hideConnectNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/i/connect_people"]`)
+      hideCssSelectors.push(`${menuRole} a:is([href$="/i/connect_people"], [href$="/i/follow_people"])`)
     }
     if (config.hideCreatorStudioNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/creators/studio"]`)
