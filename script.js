@@ -4085,7 +4085,7 @@ const configureCss = (() => {
         // Existing headline overlaid on the card
         '.cpft_overlay_headline',
         // From <domain> link after the card
-        'div[data-testid="card.wrapper"] + a',
+        'div[data-testid="card.wrapper"] + div',
       )
     }
     if (config.restoreQuoteTweetsLink || config.restoreOtherInteractionLinks) {
