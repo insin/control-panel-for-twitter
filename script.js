@@ -6238,7 +6238,10 @@ function redirectToTwitter() {
       location.pathname != '/i/tweetdeck') {
     // If we got a logout redirect from twitter.com, redirect back to the login page
     let pathname = location.search.includes('logout=') ? '/i/flow/login' : location.pathname || '/home'
-    let redirectUrl = `https://twitter.com${pathname}?mx=1`
+    let searchParams = new URLSearchParams(location.search)
+    searchParams.delete('logout')
+    searchParams.set('mx', '1')
+    let redirectUrl = `https://twitter.com${pathname}?${searchParams}`
     log('redirectToTwitter: redirecting from', location.href, 'to', redirectUrl)
     location.replace(redirectUrl)
     return true
