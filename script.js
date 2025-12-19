@@ -5089,17 +5089,18 @@ function getColorScheme() {
  * data-testid="tweet" on it, falling back to TWEET if it doesn't appear to be
  * one of the particular types we care about.
  * @param {HTMLElement} $tweet
- * @param {?boolean} checkSocialContext
+ * @param {?boolean} [checkSocialContext]
  * @returns {import("./types").TweetType}
  */
 function getTweetType($tweet, checkSocialContext = false) {
   if ($tweet.closest(Selectors.PROMOTED_TWEET_CONTAINER)) {
     return 'PROMOTED_TWEET'
   }
-  // Assume social context tweets are Retweets
   if ($tweet.querySelector('[data-testid="socialContext"]')) {
     if (checkSocialContext) {
+      // Assume social context tweets are Retweets if we're not checking
       let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
+      if (svgPath.startsWith('M7.471 21H.472l.029-1.027c.184')) return 'COMMUNITY_TWEET'
       if (svgPath.startsWith('M7 4.5C7 3.12 8.12 2 9.5 2h5C1')) return 'PINNED_TWEET'
     }
     // Quoted tweets from accounts you blocked or muted are displayed as an
@@ -5487,7 +5488,12 @@ function onPopup($popup) {
  */
 function onTimelineChange($timeline, page, options = {}) {
   let startTime = Date.now()
-  let {classifyTweets = true, hideHeadings = true, isUserTimeline = false} = options
+  let {
+    checkSocialContext = false,
+    classifyTweets = true,
+    hideHeadings = true,
+    isUserTimeline = false,
+  } = options
 
   let isOnHomeTimeline = isOnHomeTimelinePage()
   let isOnListTimeline = isOnListPage()
@@ -5527,7 +5533,7 @@ function onTimelineChange($timeline, page, options = {}) {
     let isBlueTweet = false
 
     if ($tweet != null) {
-      itemType = getTweetType($tweet, isOnProfileTimeline)
+      itemType = getTweetType($tweet, checkSocialContext)
       if (timelineHasSpecificTweetHandling) {
         isReply = isReplyToPreviousTweet($tweet)
         if (isReply && hidPreviousItem != null) {
@@ -6411,6 +6417,7 @@ function shouldHideHomeTimelineItem(type, page) {
         ) : (
           shouldHideSharedTweet(config.retweets, page) || shouldHideSharedTweet(config.quoteTweets, page)
         )
+    case 'COMMUNITY_TWEET':
     case 'TWEET':
       return page == separatedTweetsTimelineTitle
     case 'UNAVAILABLE_QUOTE_TWEET':
@@ -6428,6 +6435,7 @@ function shouldHideHomeTimelineItem(type, page) {
  */
 function shouldHideProfileTimelineItem(type) {
   switch (type) {
+    case 'COMMUNITY_TWEET':
     case 'PINNED_TWEET':
     case 'QUOTE_TWEET':
     case 'TWEET':
@@ -6448,6 +6456,7 @@ function shouldHideProfileTimelineItem(type) {
  */
  function shouldHideOtherTimelineItem(type) {
   switch (type) {
+    case 'COMMUNITY_TWEET':
     case 'QUOTE_TWEET':
     case 'RETWEET':
     case 'RETWEETED_QUOTE_TWEET':
@@ -6711,6 +6720,7 @@ async function tweakIndividualTweetPage() {
 
 function tweakListPage() {
   observeTimeline(currentPage, {
+    checkSocialContext: true,
     hideHeadings: false,
   })
 }
@@ -6855,6 +6865,7 @@ function tweakHomeTimelinePage() {
   })
 
   observeTimeline(currentPage, {
+    checkSocialContext: true,
     isTabbed: true,
     onTabChanged: () => {
       updateSelectedHomeTabIndex()
@@ -7131,6 +7142,7 @@ async function tweakProfilePage() {
   let tab = currentPath.match(URL_PROFILE_RE)?.[2] || 'tweets'
   log(`on ${tab} tab`)
   observeTimeline(currentPage, {
+    checkSocialContext: tab == 'tweets' || tab == 'with_replies',
     isUserTimeline: tab == 'affiliates'
   })
 
