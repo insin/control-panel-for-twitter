@@ -84,6 +84,7 @@ const config = {
   hideNotificationRetweets: false,
   hideNotifications: 'ignore',
   hideProfileRetweets: false,
+  showOwnRetweets: true,
   hideQuoteTweetMetrics: true,
   hideQuotesFrom: [],
   hideReplyMetrics: true,
@@ -5109,7 +5110,15 @@ function getTweetType($tweet, checkSocialContext = false) {
     }
     // Quoted tweets are preceded by visually-hidden "Quote" text
     if ($tweet.querySelector('div[id^="id__"] > div[dir] > span')?.textContent.includes(getString('QUOTE'))) {
+      // Check if this is a retweet of your own quote tweet
+      if (isRetweetOfOwnContent($tweet)) {
+        return 'RETWEETED_QUOTE_TWEET_OF_MINE'
+      }
       return 'RETWEETED_QUOTE_TWEET'
+    }
+    // Check if this is a retweet of your own content
+    if (isRetweetOfOwnContent($tweet)) {
+      return 'RETWEET_OF_MINE'
     }
     return 'RETWEET'
   }
@@ -5123,6 +5132,43 @@ function getTweetType($tweet, checkSocialContext = false) {
     return 'UNAVAILABLE_QUOTE_TWEET'
   }
   return 'TWEET'
+}
+
+/**
+ * Determines if a retweet is of the current user's own content
+ * @param {HTMLElement} $tweet
+ * @returns {boolean}
+ */
+function isRetweetOfOwnContent($tweet) {
+  // Get the current user's screen name
+  let currentUserScreenName = getUserScreenName()
+  if (!currentUserScreenName) {
+    console.log('CPFT: Could not get current user screen name')
+    return false
+  }
+  
+  // Look for the original tweet author in the retweet
+  // The original tweet author is typically in a link with the user's screen name
+  let $originalTweetAuthor = $tweet.querySelector('[data-testid="User-Name"] a')
+  if (!$originalTweetAuthor) {
+    console.log('CPFT: Could not find original tweet author link')
+    return false
+  }
+  
+  // Extract the screen name from the href (e.g., "/username" -> "username")
+  let originalAuthorScreenName = $originalTweetAuthor.getAttribute('href')?.substring(1)
+  
+  let isOwnContent = originalAuthorScreenName?.toLowerCase() === currentUserScreenName.toLowerCase()
+  
+  if (isOwnContent) {
+    console.log('CPFT: Found retweet of own content:', {
+      currentUser: currentUserScreenName,
+      originalAuthor: originalAuthorScreenName,
+      showOwnRetweets: config.showOwnRetweets
+    })
+  }
+  
+  return isOwnContent
 }
 
 // Add 1 every time this gets broken: 6
@@ -6385,6 +6431,10 @@ function shouldHideListTimelineItem(type) {
     case 'RETWEET':
     case 'RETWEETED_QUOTE_TWEET':
       return config.listRetweets == 'hide'
+    case 'RETWEET_OF_MINE':
+    case 'RETWEETED_QUOTE_TWEET_OF_MINE':
+      // Show retweets of your own content only if showOwnRetweets is enabled
+      return !config.showOwnRetweets
     case 'UNAVAILABLE_QUOTE_TWEET':
       return config.hideUnavailableQuoteTweets
     case 'UNAVAILABLE_RETWEET':
@@ -6411,6 +6461,10 @@ function shouldHideHomeTimelineItem(type, page) {
         ) : (
           shouldHideSharedTweet(config.retweets, page) || shouldHideSharedTweet(config.quoteTweets, page)
         )
+    case 'RETWEET_OF_MINE':
+    case 'RETWEETED_QUOTE_TWEET_OF_MINE':
+      // Show retweets of your own content only if showOwnRetweets is enabled
+      return !config.showOwnRetweets
     case 'TWEET':
       return page == separatedTweetsTimelineTitle
     case 'UNAVAILABLE_QUOTE_TWEET':
@@ -6435,6 +6489,10 @@ function shouldHideProfileTimelineItem(type) {
     case 'RETWEET':
     case 'RETWEETED_QUOTE_TWEET':
       return config.hideProfileRetweets
+    case 'RETWEET_OF_MINE':
+    case 'RETWEETED_QUOTE_TWEET_OF_MINE':
+      // Show retweets of your own content only if showOwnRetweets is enabled
+      return !config.showOwnRetweets
     case 'UNAVAILABLE_QUOTE_TWEET':
       return config.hideUnavailableQuoteTweets
     default:
