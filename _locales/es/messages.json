@@ -332,6 +332,12 @@
   "option_liked": {
     "message": "Me gusta"
   },
+  "option_mostRecent": {
+    "message": "Más recientes"
+  },
+  "option_popular": {
+    "message": "Popular"
+  },
   "option_recent": {
     "message": "Más reciente"
   },
@@ -423,6 +429,9 @@
   },
   "sidebarLabel": {
     "message": "Barra lateral"
+  },
+  "sortFollowingLabel": {
+    "message": "Ordenar Siguiendo"
   },
   "sortRepliesLabel": {
     "message": "Orden predeterminado de las respuestas"

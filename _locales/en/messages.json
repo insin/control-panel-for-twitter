@@ -9,7 +9,7 @@
     "message": "Show account location in focused tweets"
   },
   "alwaysUseLatestTweetsLabel": {
-    "message": "Use the \"Following\" (chronological) timeline by default"
+    "message": "Use the Following (chronological) timeline by default"
   },
   "appStoreSubtitle": {
     "message": "Take control of your timeline",
@@ -337,6 +337,12 @@
   "option_liked": {
     "message": "Likes"
   },
+  "option_mostRecent": {
+    "message": "Most recent"
+  },
+  "option_popular": {
+    "message": "Popular"
+  },
   "option_recent": {
     "message": "Latest"
   },
@@ -430,6 +436,9 @@
   },
   "sidebarLabel": {
     "message": "Sidebar"
+  },
+  "sortFollowingLabel": {
+    "message": "Sort Following"
   },
   "sortRepliesLabel": {
     "message": "Default sorting of replies"

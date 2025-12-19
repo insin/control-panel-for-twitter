@@ -9,7 +9,7 @@
     "message": "在推文详情中显示账户位置"
   },
   "alwaysUseLatestTweetsLabel": {
-    "message": "默认使用 \"正在关注\"（按时间顺序）的时间线"
+    "message": "默认使用 关注（按时间顺序）的时间线"
   },
   "appStoreSubtitle": {
     "message": "掌控你的时间线"
@@ -341,6 +341,12 @@
   "option_liked": {
     "message": "喜欢"
   },
+  "option_mostRecent": {
+    "message": "最近"
+  },
+  "option_popular": {
+    "message": "热门"
+  },
   "option_recent": {
     "message": "最新"
   },
@@ -432,6 +438,9 @@
   },
   "sidebarLabel": {
     "message": "侧边栏"
+  },
+  "sortFollowingLabel": {
+    "message": "排序“关注”"
   },
   "sortReplies": {
     "message": "对回复排序"

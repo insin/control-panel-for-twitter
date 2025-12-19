@@ -9,7 +9,7 @@
     "message": "Mostra la località dell'account nei tweet in primo piano"
   },
   "alwaysUseLatestTweetsLabel": {
-    "message": "Usa la timeline \"Seguiti\" (cronologica) di default"
+    "message": "Usa la timeline Seguiti (cronologica) di default"
   },
   "appStoreSubtitle": {
     "message": "La tua timeline, come vuoi tu"
@@ -332,6 +332,12 @@
   "option_liked": {
     "message": "Mi piace"
   },
+  "option_mostRecent": {
+    "message": "Più recenti"
+  },
+  "option_popular": {
+    "message": "Popolare"
+  },
   "option_recent": {
     "message": "Recenti"
   },
@@ -424,6 +430,9 @@
   },
   "sidebarLabel": {
     "message": "Barra laterale"
+  },
+  "sortFollowingLabel": {
+    "message": "Ordina Following"
   },
   "sortRepliesLabel": {
     "message": "Ordinamento predefinito delle risposte"

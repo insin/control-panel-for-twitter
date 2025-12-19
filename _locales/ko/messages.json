@@ -9,7 +9,7 @@
     "message": "개별 트윗에 계정 위치 표시"
   },
   "alwaysUseLatestTweetsLabel": {
-    "message": "기본적으로 \"팔로잉\" (시간순) 타임라인 사용"
+    "message": "기본적으로 팔로잉 (시간순) 타임라인 사용"
   },
   "appStoreSubtitle": {
     "message": "타임라인을 통제하세요"
@@ -332,6 +332,12 @@
   "option_liked": {
     "message": "마음에 들어요"
   },
+  "option_mostRecent": {
+    "message": "최신 순서"
+  },
+  "option_popular": {
+    "message": "인기"
+  },
   "option_recent": {
     "message": "최신"
   },
@@ -423,6 +429,9 @@
   },
   "sidebarLabel": {
     "message": "사이드바"
+  },
+  "sortFollowingLabel": {
+    "message": "팔로잉 정렬"
   },
   "sortRepliesLabel": {
     "message": "답글의 기본 정렬"

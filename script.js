@@ -1,20 +1,95 @@
 void function() {
 
-// Patch XMLHttpRequest to modify requests
 const XMLHttpRequest_open = XMLHttpRequest.prototype.open
 XMLHttpRequest.prototype.open = function(method, url) {
-  if (config.enabled && config.sortReplies != 'relevant' && !userSortedReplies && url.includes('/TweetDetail?')) {
-    let request = new URL(url)
-    let params = new URLSearchParams(request.search)
-    let variables = JSON.parse(decodeURIComponent(params.get('variables')))
-    variables.rankingMode = {
-      liked: 'Likes',
-      recent: 'Recency',
-    }[config.sortReplies]
-    params.set('variables', JSON.stringify(variables))
-    url = `${request.origin}${request.pathname}?${params.toString()}`
+  if (!config.enabled) return XMLHttpRequest_open.apply(this, [method, url])
+
+  if (config.sortReplies != 'relevant' && !userSortedReplies && url.includes('/TweetDetail?')) {
+    try {
+      let request = new URL(url)
+      let params = new URLSearchParams(request.search)
+      let variables = JSON.parse(decodeURIComponent(params.get('variables')))
+      if (typeof variables?.rankingMode == 'string') {
+        let rankingMode = {
+          liked: 'Likes',
+          recent: 'Recency',
+        }[config.sortReplies]
+        if (variables.rankingMode != rankingMode) {
+          log('sortReplies: forcing sort by', config.sortReplies)
+          variables.rankingMode = variables.rankingMode
+          params.set('variables', JSON.stringify(variables))
+          url = `${request.origin}${request.pathname}?${params.toString()}`
+        }
+      } else {
+        warn('sortReplies: typeof variables.rankingMode is', typeof variables?.rankingMode)
+      }
+    } catch (e) {
+      error('sortReplies: error patching rankingMode', e)
+    }
   }
+  else if (!userSortedFollowing && url.includes('/HomeLatestTimeline')) {
+    if (method.toUpperCase() == 'GET') {
+      try {
+        let request = new URL(url)
+        let params = new URLSearchParams(request.search)
+        let variables = JSON.parse(decodeURIComponent(params.get('variables')))
+        if (typeof variables?.enableRanking == 'boolean') {
+          let enableRanking = config.sortFollowing == 'popular'
+          if (variables.enableRanking != enableRanking) {
+            log('sortFollowing: forcing sort by', config.sortFollowing)
+            variables.enableRanking = enableRanking
+            params.set('variables', JSON.stringify(variables))
+            url = `${request.origin}${request.pathname}?${params.toString()}`
+          }
+        } else {
+          warn('sortFollowing: typeof variables.enableRanking is', typeof variables?.enableRanking)
+        }
+      } catch (e) {
+        error('sortFollowing: error patching enableRanking', e)
+      }
+    } else {
+      // @ts-expect-error
+      this._method = method.toUpperCase()
+      // @ts-expect-error
+      this._url = url
+    }
+  }
+
   return XMLHttpRequest_open.apply(this, [method, url])
+}
+
+const XMLHttpRequest_send = XMLHttpRequest.prototype.send
+XMLHttpRequest.prototype.send = function(body) {
+  if (
+    !config.enabled || !body ||
+    // @ts-expect-error
+    this._method != 'POST' || !this._url
+  ) return XMLHttpRequest_send.apply(this, [body])
+
+  if (!userSortedFollowing &&
+      // @ts-expect-error
+      this._url?.includes('/HomeLatestTimeline')) {
+    try {
+      let data = JSON.parse(body)
+      if (data?.variables != null && typeof data.variables == 'object') {
+        let variables = data.variables
+        if (typeof variables?.enableRanking == 'boolean') {
+          let enableRanking = config.sortFollowing == 'popular'
+          if (variables.enableRanking != enableRanking) {
+            log('sortFollowing: forcing sort by', config.sortFollowing)
+            variables.enableRanking = enableRanking
+            body = JSON.stringify(data)
+          }
+        } else {
+          warn('sortFollowing: typeof variables.enableRanking is', typeof variables?.enableRanking)
+        }
+      }
+    } catch (e) {
+      error('sortFollowing: error patching enableRanking', e)
+    }
+  }
+
+  return XMLHttpRequest_send.apply(this, [body])
 }
 
 let debug = false
@@ -119,6 +194,7 @@ const config = {
   showPremiumReplyFollowedBy: true,
   showPremiumReplyFollowing: true,
   showPremiumReplyGovernment: true,
+  sortFollowing: 'mostRecent',
   sortReplies: 'relevant',
   tweakNewLayout: false,
   tweakQuoteTweetsPage: true,
@@ -2071,6 +2147,9 @@ let quotedTweet = null
 
 /** `true` when a 'Block @${user}' menu item was seen in the last popup. */
 let blockMenuItemSeen = false
+
+/** `true` if the user has used the "Sort following" menu */
+let userSortedFollowing = false
 
 /** `true` if the user has used the "Sort replies by" menu */
 let userSortedReplies = false

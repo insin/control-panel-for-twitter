@@ -9,7 +9,7 @@
     "message": "ツイートの詳細表示にアカウントの場所を表示"
   },
   "alwaysUseLatestTweetsLabel": {
-    "message": "常にタイムラインを「フォロー中」（時系列順）にする"
+    "message": "常にタイムラインをフォロー中（時系列順）にする"
   },
   "appStoreSubtitle": {
     "message": "タイムラインを制御せよ"
@@ -332,6 +332,12 @@
   "option_liked": {
     "message": "いいね"
   },
+  "option_mostRecent": {
+    "message": "新しい順"
+  },
+  "option_popular": {
+    "message": "人気"
+  },
   "option_recent": {
     "message": "最新"
   },
@@ -423,6 +429,9 @@
   },
   "sidebarLabel": {
     "message": "サイドバー"
+  },
+  "sortFollowingLabel": {
+    "message": "フォロー中の並べ替え"
   },
   "sortRepliesLabel": {
     "message": "返信のデフォルトの並べ替え"

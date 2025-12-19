@@ -9,7 +9,7 @@
     "message": "Afficher le lieu du compte dans la vue détaillée du tweet"
   },
   "alwaysUseLatestTweetsLabel": {
-    "message": "Utiliser le fil \"Abonnements\" (chronologique) par défaut"
+    "message": "Utiliser le fil Abonnements (chronologique) par défaut"
   },
   "appStoreSubtitle": {
     "message": "Contrôlez votre fil"
@@ -332,6 +332,12 @@
   "option_liked": {
     "message": "J'aime"
   },
+  "option_mostRecent": {
+    "message": "Les plus récents"
+  },
+  "option_popular": {
+    "message": "Populaire"
+  },
   "option_recent": {
     "message": "Récent"
   },
@@ -423,6 +429,9 @@
   },
   "sidebarLabel": {
     "message": "Barre latérale"
+  },
+  "sortFollowingLabel": {
+    "message": "Trier les abonnements"
   },
   "sortRepliesLabel": {
     "message": "Tri par défaut des réponses"
