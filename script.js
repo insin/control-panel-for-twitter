@@ -138,6 +138,7 @@ const config = {
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
+  hideBusinessNav: true,
   hideChatNav: false,
   hideCommunitiesNav: false,
   hideComposeTweet: false,
@@ -3967,7 +3968,12 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} a:is([href$="/i/connect_people"], [href$="/i/follow_people"])`)
     }
     if (config.hideCreatorStudioNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/creators/studio"]`)
+      hideCssSelectors.push(
+        `${menuRole} a[href$="/creators/studio"]`,
+        // Monetization and Subscriptions items in Settings
+        'body.Settings a[href="/settings/monetization"]',
+        'body.Settings a[href="/settings/manage_subscriptions"]',
+      )
     }
     if (!config.hideExplorePageContents) {
       hideCssSelectors.push(
@@ -4018,9 +4024,6 @@ const configureCss = (() => {
         '[data-testid="sheetDialog"] > [data-testid="subscribe"]',
         // "Subscriber" indicator in replies from subscribers
         '[data-testid="tweet"] [data-testid="icon-subscriber"]',
-        // Monetization and Subscriptions items in Settings
-        'body.Settings a[href="/settings/monetization"]',
-        'body.Settings a[href="/settings/manage_subscriptions"]',
         // Subscriptions tab link in Following/Follows
         `body.ProfileFollows.Subscriptions ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:last-child > [role="tab"]`,
       )
@@ -4066,7 +4069,13 @@ const configureCss = (() => {
       )
     }
     if (config.hideMonetizationNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/i/monetization"]`)
+      hideCssSelectors.push(`${menuRole} a[href^="/i/monetization"]`)
+    }
+    if (config.hideBusinessNav) {
+      hideCssSelectors.push(`${menuRole} a:is([href^="/i/premium-business"], [href^="/i/verified-orgs-signup"])`)
+      if (desktop) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a:is([href^="/i/premium-business"], [href^="/i/verified-orgs-signup"])`)
+      }
     }
     if (config.hideAdsNav) {
       hideCssSelectors.push(`${menuRole} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
@@ -4086,8 +4095,8 @@ const configureCss = (() => {
       hideCssSelectors.push(
         // Manually-tagged upsells
         '.PremiumUpsell',
-        // Premium/Verified menu items
-        `${menuRole} a:is([href^="/i/premium"], [href^="/i/verified"])`,
+        // Premium menu item
+        `${menuRole} a[href^="/i/premium_sign_up"]`,
         // In new More dialog
         `${Selectors.MORE_DIALOG} a:is([href^="/i/premium"], [href^="/i/verified"])`,
         // Analytics menu item
@@ -4097,9 +4106,9 @@ const configureCss = (() => {
         // "Edit" upsell on recent tweets
         '[role="menuitem"][data-testid="editWithPremium"]',
         // Premium item in Settings
-        'body.Settings a[href^="/i/premium"]',
+        'body.Settings a[href^="/i/premium_sign_up"]',
         // Misc upsells in your own profile
-        `.OwnProfile ${Selectors.PRIMARY_COLUMN} a[href^="/i/premium"]`,
+        `.OwnProfile ${Selectors.PRIMARY_COLUMN} a[href^="/i/premium_sign_up"]`,
         // Unlock Analytics button in your own profile
         '.OwnProfile [data-testid="analytics-preview"]',
         // Button in Communities header
@@ -4113,9 +4122,11 @@ const configureCss = (() => {
         // "you aren't verified yet" in Premium user profile
         '[data-testid="verified_profile_visitor_upsell"]',
         // "Upgrade to Premium+ to write longer posts" in Tweet composer
-        `${mobile ? 'body.ComposeTweetPage' : ':is(.ComposeTweetModal, .TweetBox)'} [aria-live="polite"][role="status"]:has(a[href="/i/premium_sign_up?referring_page=post-composer"])`,
+        `${mobile ? 'body.ComposeTweetPage' : ':is(.ComposeTweetModal, .TweetBox)'} [aria-live="polite"][role="status"]:has(a[href^="/i/premium_sign_up"])`,
         // Box in focused Tweet with "Upgrade to Premium+" / "Get Verified" upsell
-        '[data-testid="tweet"][tabindex="-1"] [aria-live="polite"][role="status"]:has(a[href^="/i/premium"])',
+        '[data-testid="tweet"][tabindex="-1"] [aria-live="polite"][role="status"]:has(a[href^="/i/premium_sign_up"])',
+        // Upsell on the Likes tab in your own profile
+        `body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"])`,
       )
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
@@ -4127,12 +4138,6 @@ const configureCss = (() => {
           margin-right: 0;
         }
         ${profileTabsList} > div > ${upsellTabLinks} {
-          display: none;
-        }
-      `)
-      // Hide upsell on the Likes tab in your own profile
-      cssRules.push(`
-        body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"]) {
           display: none;
         }
       `)
@@ -4264,7 +4269,7 @@ const configureCss = (() => {
           }
           body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
             font-weight: bold;
-            color: var(--color-emphasis); !important;
+            color: var(--color-emphasis) !important;
           }
           body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div > div,
           body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div > div {

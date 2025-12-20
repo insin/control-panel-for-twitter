@@ -119,6 +119,9 @@
   "hideBookmarksNavLabel": {
     "message": "segnalibri"
   },
+  "hideBusinessNavLabel": {
+    "message": "Per le attività"
+  },
   "hideChatNavLabel": {
     "message": "Chat"
   },

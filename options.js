@@ -163,6 +163,7 @@ for (let translationId of [
 
 for (let translationClass of [
   'hideBookmarksNavLabel',
+  'hideBusinessNavLabel',
   'hideCommunitiesNavLabel',
   'hideConnectNavLabel',
   'hideListsNavLabel',
@@ -217,6 +218,7 @@ const defaultConfig = {
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
+  hideBusinessNav: true,
   hideChatNav: false,
   hideCommunitiesNav: false,
   hideComposeTweet: false,

@@ -119,6 +119,9 @@
   "hideBookmarksNavLabel": {
     "message": "书签"
   },
+  "hideBusinessNavLabel": {
+    "message": "商业"
+  },
   "hideChatNavLabel": {
     "message": "聊天"
   },

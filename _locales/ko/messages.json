@@ -119,6 +119,9 @@
   "hideBookmarksNavLabel": {
     "message": "북마크"
   },
+  "hideBusinessNavLabel": {
+    "message": "비즈니스"
+  },
   "hideChatNavLabel": {
     "message": "채팅"
   },
