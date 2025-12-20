@@ -5,6 +5,9 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "スライドアウトメニューに「ミュートするキーワードを追加」を追加"
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "ツイートの詳細表示にアカウントの場所を表示"
+  },
   "appStoreSubtitle": {
     "message": "タイムラインを制御せよ"
   },
@@ -24,7 +27,7 @@
     "message": "タイムライン統計をログ"
   },
   "defaultToFollowingLabel": {
-    "message": "常にタイムラインを「フォロー中」（時系列順）にする"
+    "message": "常にタイムラインをフォロー中（時系列順）にする"
   },
   "defaultToLatestSearchLabel": {
     "message": "検索のデフォルトは「最新」タブ"
@@ -116,6 +119,9 @@
   "hideBookmarksNavLabel": {
     "message": "ブックマーク"
   },
+  "hideBusinessNavLabel": {
+    "message": "ビジネス"
+  },
   "hideChatNavLabel": {
     "message": "チャット"
   },
@@ -124,6 +130,12 @@
   },
   "hideComposeTweetLabel": {
     "message": "ツイート作成ボタンを非表示"
+  },
+  "hideConnectNavLabel": {
+    "message": "フォロー"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "Creator Studio"
   },
   "hideDiscoverSuggestionsLabel": {
     "message": "「発見」の提案を非表示"
@@ -174,13 +186,10 @@
     "message": "メッセージ"
   },
   "hideMessagesDrawerLabel": {
-    "message": "メッセージドロワー"
+    "message": "チャットドロワー"
   },
   "hideMetricsLabel": {
     "message": "メトリクスを非表示"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "収益化"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "使用しない「もっと見る」メニューの項目を非表示"
@@ -190,6 +199,9 @@
   },
   "hideNotificationLikesLabel": {
     "message": "通知内の「いいね！」を非表示"
+  },
+  "hideNotificationRetweetsLabel": {
+    "message": "通知内のリツイートを非表示"
   },
   "hideNotificationsLabel": {
     "message": "通知を非表示"
@@ -244,6 +256,9 @@
   },
   "hideTimelineTweetBoxLabel": {
     "message": "タイムラインのツイートボックス"
+  },
+  "hideTodaysNewsLabel": {
+    "message": "「本日のニュース」を非表示"
   },
   "hideToggleNavigationLabel": {
     "message": "ナビゲーション切り替えを非表示"
@@ -316,6 +331,12 @@
   },
   "option_liked": {
     "message": "いいね"
+  },
+  "option_mostRecent": {
+    "message": "新しい順"
+  },
+  "option_popular": {
+    "message": "人気"
   },
   "option_recent": {
     "message": "最新"
@@ -414,6 +435,9 @@
   },
   "sidebarLabel": {
     "message": "サイドバー"
+  },
+  "sortFollowingLabel": {
+    "message": "フォロー中の並べ替え"
   },
   "sortRepliesLabel": {
     "message": "返信のデフォルトの並べ替え"

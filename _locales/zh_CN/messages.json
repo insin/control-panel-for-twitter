@@ -5,6 +5,9 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "在滑出式菜单中添加\"增加隐藏词\""
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "在推文详情中显示账户位置"
+  },
   "appStoreSubtitle": {
     "message": "掌控你的时间线"
   },
@@ -24,7 +27,7 @@
     "message": "日志时间轴统计"
   },
   "defaultToFollowingLabel": {
-    "message": "默认使用 \"正在关注\"（按时间顺序）的时间线"
+    "message": "默认使用 关注（按时间顺序）的时间线"
   },
   "defaultToLatestSearchLabel": {
     "message": "在搜索中默认为\"最新\"选项卡"
@@ -116,6 +119,9 @@
   "hideBookmarksNavLabel": {
     "message": "书签"
   },
+  "hideBusinessNavLabel": {
+    "message": "商业"
+  },
   "hideChatNavLabel": {
     "message": "聊天"
   },
@@ -124,6 +130,12 @@
   },
   "hideComposeTweetLabel": {
     "message": "隐藏撰写推文按钮"
+  },
+  "hideConnectNavLabel": {
+    "message": "关注"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "创作者工作室"
   },
   "hideDiscoverSuggestionsLabel": {
     "message": "隐藏\"发现\"建议"
@@ -174,13 +186,10 @@
     "message": "私信"
   },
   "hideMessagesDrawerLabel": {
-    "message": "讯息抽屉"
+    "message": "聊天抽屉"
   },
   "hideMetricsLabel": {
     "message": "隐藏指标"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "盈利"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "隐藏你不使用的\"更多\"菜单项"
@@ -190,6 +199,9 @@
   },
   "hideNotificationLikesLabel": {
     "message": "在通知中隐藏喜欢"
+  },
+  "hideNotificationRetweetsLabel": {
+    "message": "在通知中隐藏转推"
   },
   "hideNotificationsLabel": {
     "message": "隐藏通知"
@@ -244,6 +256,9 @@
   },
   "hideTimelineTweetBoxLabel": {
     "message": "时间线推文框"
+  },
+  "hideTodaysNewsLabel": {
+    "message": "隐藏今日新闻"
   },
   "hideToggleNavigationLabel": {
     "message": "隐藏切换导航"
@@ -325,6 +340,12 @@
   },
   "option_liked": {
     "message": "喜欢"
+  },
+  "option_mostRecent": {
+    "message": "最近"
+  },
+  "option_popular": {
+    "message": "热门"
   },
   "option_recent": {
     "message": "最新"
@@ -423,6 +444,9 @@
   },
   "sidebarLabel": {
     "message": "侧边栏"
+  },
+  "sortFollowingLabel": {
+    "message": "排序“关注”"
   },
   "sortReplies": {
     "message": "对回复排序"

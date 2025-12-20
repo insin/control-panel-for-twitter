@@ -30,7 +30,7 @@
       </label>
       <section class="checkbox">
         <label>
-          <span id="defaultToFollowingLabel">Use the "Following" (chronological) timeline by default</span>
+          <span id="defaultToFollowingLabel">Use the Following (chronological) timeline by default</span>
           <input type="checkbox" name="defaultToFollowing">
           <span class="toggle"></span>
         </label>
@@ -41,6 +41,16 @@
             <span class="toggle"></span>
           </label>
         </section>
+      </section>
+      <section class="select">
+        <label>
+          <span id="sortFollowingLabel">Sort Following</span>
+          <select name="sortFollowing">
+            <option value="mostRecent">Most recent</option>
+            <option value="popular">Popular</option>
+            <option value="ignore">Do nothing</option>
+          </select>
+        </label>
       </section>
       <section class="select">
         <label>
@@ -177,6 +187,13 @@
           <span class="toggle"></span>
         </label>
       </section>
+      <section class="checkbox">
+        <label>
+          <span id="hideNotificationRetweetsLabel">Hide Retweets in Notifications</span>
+          <input type="checkbox" name="hideNotificationRetweets">
+          <span class="toggle"></span>
+        </label>
+      </section>
       <section class="select">
         <label>
           <span id="listRetweetsLabel">Retweets in Lists</span>
@@ -248,6 +265,13 @@
         <label>
           <span id="restoreTweetSourceLabel">Restore Tweet source label</span>
           <input type="checkbox" name="restoreTweetSource">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="addFocusedTweetAccountLocationLabel">Show account location in focused tweets</span>
+          <input type="checkbox" name="addFocusedTweetAccountLocation">
           <span class="toggle"></span>
         </label>
       </section>
@@ -481,6 +505,13 @@
         </section>
         <section class="checkbox showingSidebarContent">
           <label>
+            <span id="hideTodaysNewsLabel">Hide Today's News</span>
+            <input type="checkbox" name="hideTodaysNews">
+            <span class="toggle"></span>
+          </label>
+        </section>
+        <section class="checkbox showingSidebarContent">
+          <label>
             <span id="hideWhatsHappeningLabel">Hide What's happening</span>
             <input type="checkbox" name="hideWhatsHappening">
             <span class="toggle"></span>
@@ -695,7 +726,7 @@
       </section>
       <section class="checkbox desktop">
         <label>
-          <span id="hideMessagesDrawerLabel">Messages drawer</span>
+          <span id="hideMessagesDrawerLabel">Chat drawer</span>
           <input type="checkbox" name="hideMessagesDrawer">
           <span class="toggle"></span>
         </label>
@@ -716,6 +747,13 @@
       </section>
       <section class="checkbox desktop">
         <label>
+          <span class="hideConnectNavLabel">Follow</span>
+          <input type="checkbox" name="hideConnectNav">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox desktop">
+        <label>
           <span class="hideListsNavLabel">Lists</span>
           <input type="checkbox" name="hideListsNav">
           <span class="toggle"></span>
@@ -735,17 +773,17 @@
           <span class="toggle"></span>
         </label>
       </section>
-      <section class="checkbox mobile">
+      <section class="checkbox desktop">
         <label>
-          <span id="hideMessagesBottomNavItemLabel">Messages</span>
-          <input type="checkbox" name="hideMessagesBottomNavItem">
+          <span class="hideBusinessNavLabel">Business</span>
+          <input type="checkbox" name="hideBusinessNav">
           <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox mobile">
         <label>
-          <span class="hideCommunitiesNavLabel">Communities</span>
-          <input type="checkbox" name="hideCommunitiesNav">
+          <span id="hideMessagesBottomNavItemLabel">Messages</span>
+          <input type="checkbox" name="hideMessagesBottomNavItem">
           <span class="toggle"></span>
         </label>
       </section>
@@ -766,6 +804,27 @@
         <span id="hideMoreSlideOutMenuItemsOptionsLabel_desktop" class="desktop">Hide "More" menu items you don't use</span>
         <span id="hideMoreSlideOutMenuItemsOptionsLabel_mobile" class="mobile">Hide slide-out menu items you don't use</span>
       </label>
+      <section class="checkbox">
+        <label>
+          <span id="hideCreatorStudioNavLabel">Creator Studio</span>
+          <input type="checkbox" name="hideCreatorStudioNav">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox mobile">
+        <label>
+          <span class="hideConnectNavLabel">Follow</span>
+          <input type="checkbox" name="hideConnectNav">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox mobile">
+        <label>
+          <span class="hideCommunitiesNavLabel">Communities</span>
+          <input type="checkbox" name="hideCommunitiesNav">
+          <span class="toggle"></span>
+        </label>
+      </section>
       <section class="checkbox mobile">
         <label>
           <span class="hideListsNavLabel">Lists</span>
@@ -780,10 +839,10 @@
           <span class="toggle"></span>
         </label>
       </section>
-      <section class="checkbox">
+      <section class="checkbox mobile">
         <label>
-          <span id="hideMonetizationNavLabel">Monetization</span>
-          <input type="checkbox" name="hideMonetizationNav">
+          <span class="hideBusinessNavLabel">Business</span>
+          <input type="checkbox" name="hideBusinessNav">
           <span class="toggle"></span>
         </label>
       </section>

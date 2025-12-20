@@ -5,6 +5,9 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "슬라이드 메뉴에 \"뮤트할 단어 추가하기\" 추가"
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "개별 트윗에 계정 위치 표시"
+  },
   "appStoreSubtitle": {
     "message": "타임라인을 통제하세요"
   },
@@ -24,7 +27,7 @@
     "message": "타임라인 통계 로깅"
   },
   "defaultToFollowingLabel": {
-    "message": "기본적으로 \"팔로잉\" (시간순) 타임라인 사용"
+    "message": "기본적으로 팔로잉 (시간순) 타임라인 사용"
   },
   "defaultToLatestSearchLabel": {
     "message": "검색 시 기본적으로 \"최신\" 탭 사용"
@@ -116,6 +119,9 @@
   "hideBookmarksNavLabel": {
     "message": "북마크"
   },
+  "hideBusinessNavLabel": {
+    "message": "비즈니스"
+  },
   "hideChatNavLabel": {
     "message": "채팅"
   },
@@ -124,6 +130,12 @@
   },
   "hideComposeTweetLabel": {
     "message": "트윗 작성 버튼 숨기기"
+  },
+  "hideConnectNavLabel": {
+    "message": "팔로우"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "크리에이터 스튜디오"
   },
   "hideDiscoverSuggestionsLabel": {
     "message": "\"발견\" 제안 숨기기"
@@ -174,13 +186,10 @@
     "message": "메시지"
   },
   "hideMessagesDrawerLabel": {
-    "message": "메시지 드로어"
+    "message": "채팅 드로어"
   },
   "hideMetricsLabel": {
     "message": "지표 숨기기"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "수익 창출"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "사용하지 않는 \"더 보기\" 메뉴 항목숨기기 (데스크톱)"
@@ -190,6 +199,9 @@
   },
   "hideNotificationLikesLabel": {
     "message": "알림에서 좋아요 숨기기"
+  },
+  "hideNotificationRetweetsLabel": {
+    "message": "알림에서 리트윗 숨기기"
   },
   "hideNotificationsLabel": {
     "message": "알림 숨기기"
@@ -244,6 +256,9 @@
   },
   "hideTimelineTweetBoxLabel": {
     "message": "타임라인 트윗 상자"
+  },
+  "hideTodaysNewsLabel": {
+    "message": "오늘의 뉴스 숨기기"
   },
   "hideToggleNavigationLabel": {
     "message": "탐색 전환 숨기기"
@@ -316,6 +331,12 @@
   },
   "option_liked": {
     "message": "마음에 들어요"
+  },
+  "option_mostRecent": {
+    "message": "최신 순서"
+  },
+  "option_popular": {
+    "message": "인기"
   },
   "option_recent": {
     "message": "최신"
@@ -414,6 +435,9 @@
   },
   "sidebarLabel": {
     "message": "사이드바"
+  },
+  "sortFollowingLabel": {
+    "message": "팔로잉 정렬"
   },
   "sortRepliesLabel": {
     "message": "답글의 기본 정렬"

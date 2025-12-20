@@ -5,6 +5,9 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Ajouter \"Ajouter un mot masqué\" au menu déroulant"
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "Afficher le lieu du compte dans la vue détaillée du tweet"
+  },
   "appStoreSubtitle": {
     "message": "Contrôlez votre fil"
   },
@@ -24,7 +27,7 @@
     "message": "Logger stats chronologie"
   },
   "defaultToFollowingLabel": {
-    "message": "Utiliser le fil \"Abonnements\" (chronologique) par défaut"
+    "message": "Utiliser le fil Abonnements (chronologique) par défaut"
   },
   "defaultToLatestSearchLabel": {
     "message": "Utiliser l'onglet \"Récent\" par défaut dans la recherche"
@@ -116,6 +119,9 @@
   "hideBookmarksNavLabel": {
     "message": "Signets"
   },
+  "hideBusinessNavLabel": {
+    "message": "Entreprise"
+  },
   "hideChatNavLabel": {
     "message": "Chat"
   },
@@ -124,6 +130,12 @@
   },
   "hideComposeTweetLabel": {
     "message": "Masquer le bouton Rédiger un Tweet"
+  },
+  "hideConnectNavLabel": {
+    "message": "Suivre"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "Creator Studio"
   },
   "hideDiscoverSuggestionsLabel": {
     "message": "Masquer les suggestions \"Découvrir\""
@@ -174,13 +186,10 @@
     "message": "Messages"
   },
   "hideMessagesDrawerLabel": {
-    "message": "Tiroir des messages"
+    "message": "Tiroir de chat"
   },
   "hideMetricsLabel": {
     "message": "Masquer les métriques"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "Monétisation"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "Masquer les éléments de menu que vous n'utilisez pas"
@@ -190,6 +199,9 @@
   },
   "hideNotificationLikesLabel": {
     "message": "Masquer les J'aime dans les notifications"
+  },
+  "hideNotificationRetweetsLabel": {
+    "message": "Masquer les Retweets dans les notifications"
   },
   "hideNotificationsLabel": {
     "message": "Masquer les notifications"
@@ -244,6 +256,9 @@
   },
   "hideTimelineTweetBoxLabel": {
     "message": "Zone de tweet dans le fil"
+  },
+  "hideTodaysNewsLabel": {
+    "message": "Masquer les Actualités du jour"
   },
   "hideToggleNavigationLabel": {
     "message": "Masquer activer/désactiver la navigation"
@@ -316,6 +331,12 @@
   },
   "option_liked": {
     "message": "J'aime"
+  },
+  "option_mostRecent": {
+    "message": "Les plus récents"
+  },
+  "option_popular": {
+    "message": "Populaire"
   },
   "option_recent": {
     "message": "Récent"
@@ -414,6 +435,9 @@
   },
   "sidebarLabel": {
     "message": "Barre latérale"
+  },
+  "sortFollowingLabel": {
+    "message": "Trier les abonnements"
   },
   "sortRepliesLabel": {
     "message": "Tri par défaut des réponses"

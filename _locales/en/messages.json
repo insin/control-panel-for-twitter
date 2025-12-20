@@ -5,6 +5,9 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Add \"Add muted word\" to the slide-out menu"
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "Show account location in focused tweets"
+  },
   "appStoreSubtitle": {
     "message": "Take control of your timeline",
     "description": "<= 30 characters"
@@ -25,7 +28,7 @@
     "message": "Log timeline stats"
   },
   "defaultToFollowingLabel": {
-    "message": "Use the \"Following\" (chronological) timeline by default"
+    "message": "Use the Following (chronological) timeline by default"
   },
   "defaultToLatestSearchLabel": {
     "message": "Default to \"Latest\" tab in Search"
@@ -119,6 +122,9 @@
   "hideBookmarksNavLabel": {
     "message": "Bookmarks"
   },
+  "hideBusinessNavLabel": {
+    "message": "Business"
+  },
   "hideChatNavLabel": {
     "message": "Chat"
   },
@@ -127,6 +133,12 @@
   },
   "hideComposeTweetLabel": {
     "message": "Hide the Compose Tweet button"
+  },
+  "hideConnectNavLabel": {
+    "message": "Follow"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "Creator Studio"
   },
   "hideDiscoverSuggestionsLabel": {
     "message": "Hide \"Discover\" suggestions"
@@ -177,13 +189,10 @@
     "message": "Messages"
   },
   "hideMessagesDrawerLabel": {
-    "message": "Messages drawer"
+    "message": "Chat drawer"
   },
   "hideMetricsLabel": {
     "message": "Hide metrics"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "Monetization"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "Hide \"More\" menu items you don't use"
@@ -193,6 +202,9 @@
   },
   "hideNotificationLikesLabel": {
     "message": "Hide Likes in Notifications"
+  },
+  "hideNotificationRetweetsLabel": {
+    "message": "Hide Retweets in Notifications"
   },
   "hideNotificationsLabel": {
     "message": "Hide notifications"
@@ -247,6 +259,9 @@
   },
   "hideTimelineTweetBoxLabel": {
     "message": "Tweet box in timeline"
+  },
+  "hideTodaysNewsLabel": {
+    "message": "Hide Today's News"
   },
   "hideToggleNavigationLabel": {
     "message": "Hide Toggle navigation"
@@ -321,6 +336,12 @@
   },
   "option_liked": {
     "message": "Likes"
+  },
+  "option_mostRecent": {
+    "message": "Most recent"
+  },
+  "option_popular": {
+    "message": "Popular"
   },
   "option_recent": {
     "message": "Latest"
@@ -421,6 +442,9 @@
   },
   "sidebarLabel": {
     "message": "Sidebar"
+  },
+  "sortFollowingLabel": {
+    "message": "Sort Following"
   },
   "sortRepliesLabel": {
     "message": "Default sorting of replies"

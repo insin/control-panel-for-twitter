@@ -12,6 +12,8 @@ for (let optionValue of [
   'hide',
   'ignore',
   'liked',
+  'mostRecent',
+  'popular',
   'recent',
   'relevant',
   'separate',
@@ -25,6 +27,7 @@ for (let optionValue of [
 for (let translationId of [
   'addAddMutedWordMenuItemLabel_desktop',
   'addAddMutedWordMenuItemLabel_mobile',
+  'addFocusedTweetAccountLocationLabel',
   'bypassAgeVerificationLabel',
   'customCssLabel',
   'debugInfo',
@@ -57,6 +60,7 @@ for (let translationId of [
   'hideBookmarkMetricsLabel',
   'hideChatNavLabel',
   'hideComposeTweetLabel',
+  'hideCreatorStudioNavLabel',
   'hideDiscoverSuggestionsLabel',
   'hideExploreNavLabel',
   'hideExploreNavWithSidebarLabel',
@@ -73,10 +77,10 @@ for (let translationId of [
   'hideMessagesBottomNavItemLabel',
   'hideMessagesDrawerLabel',
   'hideMetricsLabel',
-  'hideMonetizationNavLabel',
   'hideMoreSlideOutMenuItemsOptionsLabel_desktop',
   'hideMoreSlideOutMenuItemsOptionsLabel_mobile',
   'hideNotificationLikesLabel',
+  'hideNotificationRetweetsLabel',
   'hidePremiumRepliesLabel',
   'hidePremiumUpsellsLabel',
   'hideProfileHeaderMetricsLabel',
@@ -91,6 +95,7 @@ for (let translationId of [
   'hideSubscriptionsLabel',
   'hideSuggestedFollowsLabel',
   'hideTimelineTweetBoxLabel',
+  'hideTodaysNewsLabel',
   'hideToggleNavigationLabel',
   'hideTweetAnalyticsLinksLabel',
   'hideUnavailableQuoteTweetsLabel',
@@ -129,6 +134,7 @@ for (let translationId of [
   'showPremiumReplyGovernmentLabel',
   'showRelevantPeopleLabel',
   'sidebarLabel',
+  'sortFollowingLabel',
   'sortRepliesLabel',
   'tweakNewLayoutInfo',
   'tweakNewLayoutLabel',
@@ -139,12 +145,19 @@ for (let translationId of [
   'uninvertFollowButtonsLabel',
   'xFixesLabel',
 ]) {
-  document.getElementById(translationId).textContent = chrome.i18n.getMessage(translationId)
+  let $el = document.getElementById(translationId)
+  if ($el) {
+    $el.textContent = chrome.i18n.getMessage(translationId)
+  } else {
+    console.warn('could not find element for translationId', translationId)
+  }
 }
 
 for (let translationClass of [
   'hideBookmarksNavLabel',
+  'hideBusinessNavLabel',
   'hideCommunitiesNavLabel',
+  'hideConnectNavLabel',
   'hideListsNavLabel',
   'notificationsLabel',
   'saveAndApplyButton',

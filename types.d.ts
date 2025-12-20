@@ -25,6 +25,7 @@ export type StoredConfigMessage = {
 export type UserSettings = {
   // Shared
   addAddMutedWordMenuItem: boolean
+  addFocusedTweetAccountLocation: boolean
   bypassAgeVerification: boolean
   defaultToFollowing: boolean
   defaultToLatestSearch: boolean
@@ -39,9 +40,12 @@ export type UserSettings = {
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
   hideBookmarksNav: boolean
+  hideBusinessNav: boolean
   hideChatNav: boolean
   hideCommunitiesNav: boolean
   hideComposeTweet: boolean
+  hideConnectNav: boolean
+  hideCreatorStudioNav: boolean
   hideDiscoverSuggestions: boolean
   hideExplorePageContents: boolean
   hideFollowingMetrics: boolean
@@ -53,8 +57,8 @@ export type UserSettings = {
   hideLikeMetrics: boolean
   hideListsNav: boolean
   hideMetrics: boolean
-  hideMonetizationNav: boolean
   hideNotificationLikes: boolean,
+  hideNotificationRetweets: boolean
   hideNotifications: 'ignore' | 'badges' | 'hide'
   hidePremiumReplies: boolean
   hidePremiumUpsells: boolean
@@ -94,6 +98,7 @@ export type UserSettings = {
   showPremiumReplyFollowersCountAmount: string
   showPremiumReplyFollowing: boolean
   showPremiumReplyGovernment: boolean
+  sortFollowing: 'mostRecent' | 'popular' | 'ignore'
   sortReplies: 'relevant' | 'recent' | 'liked'
   tweakNewLayout: boolean
   tweakQuoteTweetsPage: boolean
@@ -112,6 +117,7 @@ export type UserSettings = {
   hideSidebarContent: boolean
   hideSuggestedFollows: boolean
   hideTimelineTweetBox: boolean
+  hideTodaysNews: boolean
   hideToggleNavigation: boolean
   hideWhatsHappening: boolean
   navBaseFontSize: boolean
@@ -136,6 +142,7 @@ export type LocaleKey =
   | 'HOME'
   | 'LIKES'
   | 'LIVE_ON_X'
+  | 'MESSAGES'
   | 'MOST_RELEVANT'
   | 'MUTE_THIS_CONVERSATION'
   | 'POST_ALL'
