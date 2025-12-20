@@ -16,7 +16,7 @@ XMLHttpRequest.prototype.open = function(method, url) {
         }[config.sortReplies]
         if (variables.rankingMode != rankingMode) {
           log('sortReplies: forcing sort by', config.sortReplies)
-          variables.rankingMode = variables.rankingMode
+          variables.rankingMode = rankingMode
           params.set('variables', JSON.stringify(variables))
           url = `${request.origin}${request.pathname}?${params.toString()}`
         }
@@ -27,7 +27,7 @@ XMLHttpRequest.prototype.open = function(method, url) {
       error('sortReplies: error patching rankingMode', e)
     }
   }
-  else if (!userSortedFollowing && url.includes('/HomeLatestTimeline')) {
+  else if (config.sortFollowing != 'ignore' && !userSortedFollowing && url.includes('/HomeLatestTimeline')) {
     if (method.toUpperCase() == 'GET') {
       try {
         let request = new URL(url)
@@ -66,7 +66,7 @@ XMLHttpRequest.prototype.send = function(body) {
     this._method != 'POST' || !this._url
   ) return XMLHttpRequest_send.apply(this, [body])
 
-  if (!userSortedFollowing &&
+  if (config.sortFollowing != 'ignore' && !userSortedFollowing &&
       // @ts-expect-error
       this._url?.includes('/HomeLatestTimeline')) {
     try {

@@ -83,7 +83,7 @@ export type Config = {
   showPremiumReplyFollowedBy: boolean
   showPremiumReplyFollowing: boolean
   showPremiumReplyGovernment: boolean
-  sortFollowing: 'mostRecent' | 'popular'
+  sortFollowing: 'mostRecent' | 'popular' | 'ignore'
   sortReplies: 'relevant' | 'recent' | 'liked'
   tweakNewLayout: boolean
   tweakQuoteTweetsPage: boolean
