@@ -54,17 +54,9 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 12px 4px 0;
+  padding: 4px 12px;
   margin: 8px 0;
   cursor: pointer;
-}
-
-/* TODO Check */
-label:not([for]) {
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
 }
 
 label.button button {
@@ -130,7 +122,6 @@ section.group > section > p {
 section.labelled.collapsible > label {
   cursor: pointer;
   position: relative;
-  padding-left: 12px;
 }
 section.labelled.collapsible > label > svg {
   position: absolute;
