@@ -154,7 +154,6 @@ const config = {
   hideLikeMetrics: true,
   hideListsNav: false,
   hideMetrics: false,
-  hideMonetizationNav: true,
   hideMoreTweets: true,
   hideNotificationLikes: false,
   hideNotificationRetweets: false,
@@ -2491,10 +2490,13 @@ function getElement(selector, {
 }
 
 function getTopLevelProps() {
-  let wrapped = $reactRoot.firstElementChild['wrappedJSObject'] || $reactRoot.firstElementChild
-  let reactPropsKey = Object.keys(wrapped).find(key => key.startsWith('__reactProps'))
+  if (!$reactRoot?.firstElementChild) {
+    warn('React top level props element not available yet')
+    return
+  }
+  let reactPropsKey = Object.keys($reactRoot.firstElementChild).find(key => key.startsWith('__reactProps'))
   if (reactPropsKey) {
-    return wrapped[reactPropsKey].children?.props?.children?.props
+    return $reactRoot.firstElementChild[reactPropsKey].children?.props?.children?.props
   } else {
     warn('React props key not found')
   }
@@ -4068,9 +4070,6 @@ const configureCss = (() => {
         '[data-testid="card.wrapper"]:has(> div > a[href="https://itunes.apple.com/app/id6670324846"])',
       )
     }
-    if (config.hideMonetizationNav) {
-      hideCssSelectors.push(`${menuRole} a[href^="/i/monetization"]`)
-    }
     if (config.hideBusinessNav) {
       hideCssSelectors.push(`${menuRole} a:is([href^="/i/premium-business"], [href^="/i/verified-orgs-signup"])`)
       if (desktop) {
@@ -4528,10 +4527,6 @@ const configureCss = (() => {
           // In new More dialog
           `${Selectors.MORE_DIALOG} a[href$="/lists"]`,
         )
-      }
-      if (config.hideMonetizationNav) {
-        // In new More dialog
-        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/i/monetization"]`)
       }
       if (config.hideSpacesNav) {
         hideCssSelectors.push(
@@ -5721,8 +5716,7 @@ function onTimelineChange($timeline, page, options = {}) {
       if ($item.querySelector('[data-testid="inlinePrompt"]')) {
         itemType = 'INLINE_PROMPT'
         hideItem = config.hideInlinePrompts || (
-          config.hideTwitterBlueUpsells && Boolean($item.querySelector('a[href^="/i/premium"]')) ||
-          config.hideMonetizationNav && Boolean($item.querySelector('a[href="/settings/monetization"]'))
+          config.hideTwitterBlueUpsells && Boolean($item.querySelector('a[href^="/i/premium"]'))
         )
       } else if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
         itemType = 'HEADING'
