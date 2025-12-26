@@ -4116,8 +4116,6 @@ const configureCss = (() => {
         '[data-testid="verified_profile_upsell"]',
         // Get Premium Analytics upsell
         '[data-testid="profileAnalyticsUpsell"]',
-        // Upsell in sidebar
-        '.SidebarContents > div:has(> div > div[data-testid="super-upsell-UpsellCardRenderProperties"])',
         // "you aren't verified yet" in Premium user profile
         '[data-testid="verified_profile_visitor_upsell"]',
         // "Upgrade to Premium+ to write longer posts" in Tweet composer
@@ -4542,6 +4540,13 @@ const configureCss = (() => {
           // Premium link in hovercard
           '[data-testid="HoverCard"] a[href^="/i/premium"]',
         )
+        if (!config.hideSidebarContent) {
+          hideCssSelectors.push(
+            // Upsell in sidebar
+            '.SidebarContents > div:has(aside[role="complementary"] a[href^="/i/premium_sign_up"])',
+            '.SidebarContents > div:has(> div > div[data-testid="super-upsell-UpsellCardRenderProperties"])',
+          )
+        }
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
