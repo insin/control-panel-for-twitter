@@ -140,6 +140,9 @@
   "hideDiscoverSuggestionsLabel": {
     "message": "\"발견\" 제안 숨기기"
   },
+  "hideEditImageLabel": {
+    "message": "이미지 수정하기 숨기기"
+  },
   "hideExploreNavLabel": {
     "message": "탐색"
   },

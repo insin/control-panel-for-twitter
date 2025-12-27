@@ -144,6 +144,7 @@ const config = {
   hideComposeTweet: false,
   hideConnectNav: true,
   hideCreatorStudioNav: true,
+  hideEditImage: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
@@ -3977,6 +3978,16 @@ const configureCss = (() => {
         'body.Settings a[href="/settings/manage_subscriptions"]',
       )
     }
+    if (config.hideEditImage) {
+      hideCssSelectors.push(
+        // Manually-tagged
+        '.EditImage',
+        // On images in Tweets
+        '[data-testid="tweet"] div[aria-labelledby] a[href^="/i/imagine"]',
+        // In menus
+        '[role="menuitem"][href^="/i/imagine"]',
+      )
+    }
     if (!config.hideExplorePageContents) {
       hideCssSelectors.push(
         // Hide the ad at the top of Explore…
@@ -5260,6 +5271,13 @@ function handlePopup($popup) {
     return result
   }
 
+  if (desktop && config.hideEditImage && location.pathname == PagePaths.PROFILE_SETTINGS) {
+    log('hideEditImage: profile settings opened')
+    tweakProfileSettingsPage()
+    result.tookAction = true
+    return result
+  }
+
   // The Sort replies by menu is hydrated asynchronously
   if (isOnIndividualTweetPage() &&
       config.sortReplies != 'relevant' &&
@@ -6310,6 +6328,9 @@ function processCurrentPage() {
     else if (URL_MEDIAVIEWER_RE.test(currentPath)) {
       tweakMobileMediaViewerPage()
     }
+    else if (currentPath.startsWith(PagePaths.PROFILE_SETTINGS)) {
+      tweakProfileSettingsPage()
+    }
   }
 }
 
@@ -7246,7 +7267,7 @@ async function tweakProfilePage() {
       ), {
         name: "you aren't verified yet premium upsell",
         stopIf: pageIsNot(currentPage),
-        timeout: 1000,
+        timeout: 2000,
       }).then($upsell => {
         if ($upsell) {
           $upsell.classList.add('PremiumUpsell')
@@ -7296,6 +7317,19 @@ async function tweakProfilePage() {
       name: 'profile tabs',
       observers: pageObservers,
     }, {childList: true})
+  }
+}
+
+function tweakProfileSettingsPage() {
+  getElement('input[type="file"] + button:has(path[d^="M17.084 7.5c0-1.163 0-1.744-.14"])', {
+    name: 'profile header button (hideEditImage)',
+    timeout: 2000,
+  }).then($headerButton => $headerButton?.classList?.add('EditImage'))
+  if (desktop) {
+    getElement('div:has(> div + button path[d^="M17.084 7.5c0-1.163 0-1.744-.14"])', {
+      name: 'profile Edit Photo box (hideEditImage)',
+      timeout: 2000,
+    }).then($editPhotoBox => $editPhotoBox?.classList?.add('EditImage'))
   }
 }
 
