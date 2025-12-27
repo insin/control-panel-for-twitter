@@ -62,6 +62,7 @@ for (let translationId of [
   'hideComposeTweetLabel',
   'hideCreatorStudioNavLabel',
   'hideDiscoverSuggestionsLabel',
+  'hideEditImageLabel',
   'hideExploreNavLabel',
   'hideExploreNavWithSidebarLabel',
   'hideExplorePageContentsLabel',

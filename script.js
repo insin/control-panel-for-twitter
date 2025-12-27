@@ -28,6 +28,7 @@ const defaultSettings = {
   hideComposeTweet: false,
   hideConnectNav: true,
   hideCreatorStudioNav: true,
+  hideEditImage: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
@@ -3706,6 +3707,16 @@ const configureCss = (() => {
         'body.Settings a[href="/settings/manage_subscriptions"]',
       )
     }
+    if (settings.hideEditImage) {
+      hideCssSelectors.push(
+        // Manually-tagged
+        '.EditImage',
+        // On images in Tweets
+        '[data-testid="tweet"] div[aria-labelledby] a[href^="/i/imagine"]',
+        // In menus
+        '[role="menuitem"][href^="/i/imagine"]',
+      )
+    }
     if (!settings.hideExplorePageContents) {
       hideCssSelectors.push(
         // Hide the ad at the top of Explore…
@@ -3845,8 +3856,6 @@ const configureCss = (() => {
         '[data-testid="verified_profile_upsell"]',
         // Get Premium Analytics upsell
         '[data-testid="profileAnalyticsUpsell"]',
-        // Upsell in sidebar
-        '.SidebarContents > div:has(> div > div[data-testid="super-upsell-UpsellCardRenderProperties"])',
         // "you aren't verified yet" in Premium user profile
         '[data-testid="verified_profile_visitor_upsell"]',
         // "Upgrade to Premium+ to write longer posts" in Tweet composer
@@ -4271,6 +4280,13 @@ const configureCss = (() => {
           // Premium link in hovercard
           '[data-testid="HoverCard"] a[href^="/i/premium"]',
         )
+        if (!settings.hideSidebarContent) {
+          hideCssSelectors.push(
+            // Upsell in sidebar
+            '.SidebarContents > div:has(aside[role="complementary"] a[href^="/i/premium_sign_up"])',
+            '.SidebarContents > div:has(> div > div[data-testid="super-upsell-UpsellCardRenderProperties"])',
+          )
+        }
       }
       if (settings.hideSidebarContent) {
         // Only show the first sidebar item by default
@@ -5211,6 +5227,13 @@ function handlePopup($popup) {
     return result
   }
 
+  if (desktop && settings.hideEditImage && location.pathname == PagePaths.PROFILE_SETTINGS) {
+    log('hideEditImage: profile settings opened')
+    tweakProfileSettingsPage()
+    result.tookAction = true
+    return result
+  }
+
   // The Sort replies by menu is hydrated asynchronously
   if (isOnIndividualTweetPage() &&
       settings.sortReplies != 'relevant' &&
@@ -5331,6 +5354,17 @@ function handlePopup($popup) {
       result.tookAction = !mobile
     } else {
       blockMenuItemSeen = false
+    }
+  }
+
+  if (mobile) {
+    let $sidebarSettingsLink = $popup.querySelector('a[href$="/settings"]')
+    if ($sidebarSettingsLink) {
+      getElement('div:has(> a[href^="https://apps.apple.com/app/apple-store/id333903271"])', {
+        name: 'get the app link',
+        context: $popup,
+        timeout: 100,
+      }).then($appAd => $appAd?.classList?.add('HiddenAd'))
     }
   }
 
@@ -6295,6 +6329,9 @@ function processCurrentPage() {
     else if (URL_MEDIAVIEWER_RE.test(currentPath)) {
       tweakMobileMediaViewerPage()
     }
+    else if (currentPath.startsWith(PagePaths.PROFILE_SETTINGS)) {
+      tweakProfileSettingsPage()
+    }
   }
 }
 
@@ -7136,7 +7173,7 @@ async function tweakProfilePage() {
       ), {
         name: "you aren't verified yet premium upsell",
         stopIf: pageIsNot(currentPage),
-        timeout: 1000,
+        timeout: 2000,
       }).then($upsell => {
         if ($upsell) {
           $upsell.classList.add('PremiumUpsell')
@@ -7186,6 +7223,19 @@ async function tweakProfilePage() {
       name: 'profile tabs',
       observers: pageObservers,
     }, {childList: true})
+  }
+}
+
+function tweakProfileSettingsPage() {
+  getElement('input[type="file"] + button:has(path[d^="M17.084 7.5c0-1.163 0-1.744-.14"])', {
+    name: 'profile header button (hideEditImage)',
+    timeout: 2000,
+  }).then($headerButton => $headerButton?.classList?.add('EditImage'))
+  if (desktop) {
+    getElement('div:has(> div + button path[d^="M17.084 7.5c0-1.163 0-1.744-.14"])', {
+      name: 'profile Edit Photo box (hideEditImage)',
+      timeout: 2000,
+    }).then($editPhotoBox => $editPhotoBox?.classList?.add('EditImage'))
   }
 }
 

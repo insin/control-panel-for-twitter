@@ -23,6 +23,7 @@ export const defaultSettings = {
   hideComposeTweet: false,
   hideConnectNav: true,
   hideCreatorStudioNav: true,
+  hideEditImage: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,

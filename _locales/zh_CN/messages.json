@@ -140,6 +140,9 @@
   "hideDiscoverSuggestionsLabel": {
     "message": "隐藏\"发现\"建议"
   },
+  "hideEditImageLabel": {
+    "message": "隐藏编辑图片"
+  },
   "hideExploreNavLabel": {
     "message": "探索"
   },

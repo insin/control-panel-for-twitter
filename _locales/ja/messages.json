@@ -140,6 +140,9 @@
   "hideDiscoverSuggestionsLabel": {
     "message": "「発見」の提案を非表示"
   },
+  "hideEditImageLabel": {
+    "message": "「画像を編集」を非表示"
+  },
   "hideExploreNavLabel": {
     "message": "「話題を検索」"
   },

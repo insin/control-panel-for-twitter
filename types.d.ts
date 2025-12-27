@@ -47,6 +47,7 @@ export type UserSettings = {
   hideConnectNav: boolean
   hideCreatorStudioNav: boolean
   hideDiscoverSuggestions: boolean
+  hideEditImage: boolean
   hideExplorePageContents: boolean
   hideFollowingMetrics: boolean
   hideForYouTimeline: boolean

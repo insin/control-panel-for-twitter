@@ -44,7 +44,7 @@ ${messages.features}
 
 ${messages.homeTimelineOptionsLabel}:
 
-• ${messages.defaultToFollowingLabel}
+• ${messages.alwaysUseLatestTweetsLabel}
 • ${messages.hideForYouTimelineLabel}
 • ${messages.sortFollowingLabel} (${messages.option_recent} / ${messages.option_popular})
 • ${messages.retweetsLabel} (${messages.option_separate} / ${messages.option_hide})
@@ -72,19 +72,21 @@ ${messages.xFixesLabel}:
 
 • ${messages.redirectToTwitterLabel}
 • ${messages.redirectChatNavLabel}
-• ${messages.revertXBrandingLabel}
+• ${messages.replaceLogoLabel}
 • ${messages.hideViewsLabel}
-• ${messages.hideVerifiedTabsLabel}
+• ${messages.hideVerifiedNotificationsTabLabel}
 • ${messages.restoreTweetSourceLabel}
+• ${messages.addFocusedTweetAccountLocationLabel}
 • ${messages.restoreLinkHeadlinesLabel}
 • ${messages.restoreQuoteTweetsLinkLabel}
 • ${messages.restoreOtherInteractionLinksLabel}
 • ${messages.sortRepliesLabel} (${messages.option_recent} / ${messages.option_liked})
-• ${messages.premiumBlueChecksLabel} (${messages.premiumBlueChecksOption_replace} / ${messages.option_hide})
-• ${messages.hidePremiumRepliesLabel}
-• ${messages.hidePremiumUpsellsLabel}
+• ${messages.twitterBlueChecksLabel} (${messages.twitterBlueChecksOption_replace} / ${messages.option_hide})
+• ${messages.hideTwitterBlueRepliesLabel}
+• ${messages.hideTwitterBlueUpsellsLabel}
 • ${messages.hideGrokLabel}
 • ${messages.hideGrokTweetsLabel}
+• ${messages.hideEditImageLabel}
 • ${messages.hideJobsLabel}
 • ${messages.hideSubscriptionsLabel}
 
@@ -130,6 +132,7 @@ ${messages.hideUnusedUiItemsOptionsLabel}:
 
 if (process.argv[3] == 'md') {
   storeDescription = storeDescription
+    // Section titles
     .replace(/^([^:\n]+):$/gm, '**$1:**')
     // List items
     // .replace(/•/g, '-')

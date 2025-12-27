@@ -140,6 +140,9 @@
   "hideDiscoverSuggestionsLabel": {
     "message": "Masquer les suggestions \"Découvrir\""
   },
+  "hideEditImageLabel": {
+    "message": "Masquer l'édition de l'image"
+  },
   "hideExploreNavLabel": {
     "message": "Explorer"
   },
