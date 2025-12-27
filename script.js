@@ -5401,6 +5401,17 @@ function handlePopup($popup) {
     }
   }
 
+  if (mobile) {
+    let $sidebarSettingsLink = $popup.querySelector('a[href$="/settings"]')
+    if ($sidebarSettingsLink) {
+      getElement('div:has(> a[href^="https://apps.apple.com/app/apple-store/id333903271"])', {
+        name: 'get the app link',
+        context: $popup,
+        timeout: 100,
+      }).then($appAd => $appAd?.classList?.add('HiddenAd'))
+    }
+  }
+
   if (config.addAddMutedWordMenuItem) {
     let linkSelector = 'a[href$="/settings"]'
     let $link = /** @type {HTMLElement} */ ($popup.querySelector(linkSelector))
