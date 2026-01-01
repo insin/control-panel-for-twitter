@@ -3986,6 +3986,8 @@ const configureCss = (() => {
         '[data-testid="tweet"] div[aria-labelledby] a[href^="/i/imagine"]',
         // In menus
         '[role="menuitem"][href^="/i/imagine"]',
+        // In media modal
+        '[aria-modal="true"] > div > div:first-of-type a[href^="/i/imagine"]',
       )
     }
     if (!config.hideExplorePageContents) {
