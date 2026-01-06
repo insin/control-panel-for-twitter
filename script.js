@@ -4314,7 +4314,8 @@ const configureCss = (() => {
           body.LightsOut {
             --tab-hover: rgba(231, 233, 234, 0.1);
           }
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab {
+          /* Sometimes the cloned tab has a hover background color class */
+          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] {
             background-color: transparent !important;
           }
           body.Desktop #cpftSeparatedTweetsTab:hover,
@@ -4331,6 +4332,7 @@ const configureCss = (() => {
             font-weight: bold;
             color: var(--color-emphasis) !important;
           }
+          /* Active tab underline */
           body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div > div,
           body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div > div {
             height: 0 !important;
