@@ -145,6 +145,7 @@ export type LocaleKey =
   | 'SHARED_TWEETS'
   | 'SHOW'
   | 'SHOW_MORE_REPLIES'
+  | 'SORT_BY'
   | 'SORT_REPLIES_BY'
   | 'TURN_OFF_QUOTE_TWEETS'
   | 'TURN_OFF_RETWEETS'
