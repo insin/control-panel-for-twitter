@@ -3879,6 +3879,7 @@ function checkReactNativeStylesheet() {
 }
 
 let History_push
+let History_replace
 
 function patchHistory() {
   let props = getTopLevelProps()
@@ -3887,14 +3888,11 @@ function patchHistory() {
   if (!props.history.push) return warn('history.push not found')
   if (props.history.push.patched) return
   History_push = props.history.push
+  History_replace = props.history.replace
   props.history.push = function (...args) {
     if (config.enabled && args[0] != null) {
       if (config.hideVerifiedNotificationsTab && typeof args[0] == 'object' && typeof args[0].pathname == 'string') {
-        if (args[0].pathname == '/notifications/verified') {
-          log('Redirecting /notifications/verified to /notifications')
-          args[0].pathname = '/notifications'
-        }
-        else if (args[0].pathname.endsWith('/verified_followers')) {
+        if (args[0].pathname.endsWith('/verified_followers')) {
           log('Redirecting /verified_followers to /followers')
           args[0].pathname = args[0].pathname.replace(/verified_followers$/, 'followers')
         }
@@ -4094,11 +4092,11 @@ const configureCss = (() => {
         // "Subscriber" indicator in replies from subscribers
         '[data-testid="tweet"] [data-testid="icon-subscriber"]',
         // Subscriptions tab link in Following/Follows
-        `body.ProfileFollows.Subscriptions ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:last-child > [role="tab"]`,
+        `.SubscriptionsTab > [role="tab"]`,
       )
       // Subscriptions tab in Following/Follows
       cssRules.push(`
-        body.ProfileFollows.Subscriptions ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:last-child {
+        .SubscriptionsTab {
           flex: 0;
           /* New layout has margin-right on tabs */
           margin-right: 0;
@@ -4210,14 +4208,12 @@ const configureCss = (() => {
     }
     if (config.hideVerifiedNotificationsTab) {
       cssRules.push(`
-        body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2),
-        body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) {
+        .VerifiedFollowersTab {
           flex: 0;
           /* New layout has margin-right on tabs */
           margin-right: 0;
         }
-        body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"],
-        body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) > [role="tab"] {
+        .VerifiedFollowersTab > [role="tab"] {
           display: none;
         }
       `)
@@ -6358,7 +6354,6 @@ function processCurrentPage() {
   if (!isOnProfilePage()) {
     $body.classList.remove('OwnProfile', 'PremiumProfile')
   }
-  $body.classList.toggle('ProfileFollows', isOnFollowListPage())
   if (!isOnFollowListPage()) {
     $body.classList.remove('Subscriptions')
   }
@@ -6904,32 +6899,32 @@ async function tweakFocusedTweet($focusedTweet, options) {
 }
 
 async function tweakFollowListPage() {
-  // These tabs are dynamic as "Followers you know" only appears when applicable
-  let $tabs = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`, {
-    name: 'Following tabs',
-    stopIf: pageIsNot(currentPage),
-  })
-  if (!$tabs) return
-
-  let $subscriptionsTabLink = $tabs.querySelector('div[role="tablist"] a[href$="/subscriptions"]')
-  if ($subscriptionsTabLink) {
-    $body.classList.add('Subscriptions')
-  }
-
-  if (config.hideVerifiedNotificationsTab) {
-    let isVerifiedTabSelected = Boolean($tabs.querySelector('div[role="tablist"] > div:nth-child(1) > [role="tab"][aria-selected="true"]'))
-    if (isVerifiedTabSelected) {
-      log('switching to Following tab')
-      let $followingTab = /** @type {HTMLAnchorElement} */ (
-        $tabs.querySelector(`div[role="tablist"] > div:nth-last-child(${$subscriptionsTabLink ? 3 : 2}) > [role="tab"]`)
-      )
-      $followingTab?.click()
-    }
+  // Fallback for direct navigation
+  if (config.hideVerifiedNotificationsTab && currentPath.endsWith('/verified_followers')) {
+    History_replace?.(currentPath.replace(/verified_followers$/, 'followers'))
+    return
   }
 
   if (config.twitterBlueChecks != 'ignore') {
     observeTimeline(currentPage, {
       classifyTweets: false,
+    })
+  }
+
+  let $followListTabs = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`, {
+    name: 'Follow list tabs',
+    stopIf: () => !isOnFollowListPage(),
+  })
+  if ($followListTabs) {
+    let $tabsContainer = $followListTabs.parentElement
+    // Tabs <nav> will be replaced when dynamic tabs load
+    observeElement($tabsContainer, () => {
+      $tabsContainer.querySelector('div:has(> a[href$="/verified_followers"])')?.classList?.add('VerifiedFollowersTab')
+      $tabsContainer.querySelector('div:has(> a[href$="/subscriptions"])')?.classList?.add('SubscriptionsTab')
+    }, {
+      name: 'Follow list tabs container',
+      observers: pageObservers,
+      leading: true,
     })
   }
 }
@@ -7344,22 +7339,6 @@ async function tweakTimelineTabs($timelineTabs) {
 }
 
 function tweakNotificationsPage() {
-  let $navigationTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
-  if ($navigationTabs != null) {
-    if (config.hideVerifiedNotificationsTab) {
-      let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > [role="tab"][aria-selected="true"]'))
-      if (isVerifiedTabSelected) {
-        log('switching to All tab')
-        let $allTab = /** @type {HTMLAnchorElement} */ (
-          $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > [role="tab"]')
-        )
-        $allTab?.click()
-      }
-    }
-  } else {
-    warn('could not find Notifications tabs')
-  }
-
   observeTimeline(currentPage, {
     isTabbed: true,
     tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',

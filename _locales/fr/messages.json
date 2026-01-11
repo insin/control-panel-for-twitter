@@ -276,7 +276,7 @@
     "message": "Masquer les éléments de l'interface utilisateur que vous n'utilisez pas"
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "Masquer les onglets \"Certifié\" dans Notifications et Abonnés"
+    "message": "Masquer l'onglet Certifié des abonnés"
   },
   "hideViewsLabel": {
     "message": "Masquer les vues sous les tweets"

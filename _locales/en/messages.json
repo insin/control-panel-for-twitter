@@ -279,7 +279,7 @@
     "message": "Hide UI items you don't use"
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "Hide \"Verified\" Notifications and Followers tabs"
+    "message": "Hide Verified Followers tab"
   },
   "hideViewsLabel": {
     "message": "Hide Views under tweets"

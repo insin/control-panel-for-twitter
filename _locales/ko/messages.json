@@ -276,7 +276,7 @@
     "message": "사용하지 않는 UI 항목 숨기기"
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "알림 및 팔로어에 \"인증된\" 탭 숨기기"
+    "message": "팔로워의 인증된 탭 숨기기"
   },
   "hideViewsLabel": {
     "message": "트윗 아래의 조회수 숨기기"
