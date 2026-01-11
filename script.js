@@ -4159,8 +4159,6 @@ const configureCss = (() => {
         '.PremiumUpsell',
         // Premium menu item
         `${menuRole} a[href^="/i/premium_sign_up"]`,
-        // In new More dialog
-        `${Selectors.MORE_DIALOG} a:is([href^="/i/premium"], [href^="/i/verified"])`,
         // Analytics menu item
         `${menuRole} a[href="/i/account_analytics"]`,
         // "Highlight on your profile" on your tweets
@@ -4188,6 +4186,10 @@ const configureCss = (() => {
         // Upsell on the Likes tab in your own profile
         `body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"])`,
       )
+      if (desktop && config.tweakNewLayout) {
+        // In new More dialog
+        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href^="/i/premium"], [href^="/i/verified"])`)
+      }
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
       let upsellTabLinks = 'a:is([href$="/highlights"], [href$="/articles"], [href$="/highlights?mx=1"], [href$="/articles?mx=1"])'
@@ -4561,7 +4563,7 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
-      if (config.hideAdsNav) {
+      if (config.hideAdsNav && config.tweakNewLayout) {
         // In new More dialog
         hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
       }
@@ -4574,32 +4576,34 @@ const configureCss = (() => {
       if (config.hideGrokNav) {
         hideCssSelectors.push(
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
-          // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href$="/i/grok"]`,
           // Grok drawer
           'div[data-testid="GrokDrawer"]',
         )
+        if (config.tweakNewLayout) {
+          // In new More dialog
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/i/grok"]`)
+        }
       }
       if (config.hideJobsNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`,
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`)
+        if (config.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href="/jobs"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/jobs"]`)
+        }
       }
       if (config.hideListsNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`,
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
+        if (config.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href$="/lists"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/lists"]`)
+        }
       }
       if (config.hideSpacesNav) {
-        hideCssSelectors.push(
-          `${menuRole} a[href="/i/spaces/start"]`,
+        hideCssSelectors.push(`${menuRole} a[href="/i/spaces/start"]`)
+        if (config.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href="/i/spaces/start"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/i/spaces/start"]`)
+        }
       }
       if (config.hideTwitterBlueUpsells) {
         hideCssSelectors.push(
@@ -4662,25 +4666,25 @@ const configureCss = (() => {
         // When configured, hide Explore only when the sidebar is showing, or
         // when on a page full-width content is enabled on.
         let bodySelector = `${config.hideExploreNavWithSidebar ? `body.Sidebar${config.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
-        hideCssSelectors.push(
-          `${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`,
+        hideCssSelectors.push(`${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
+        if (config.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href="/explore"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/explore"]`)
+        }
       }
       if (config.hideBookmarksNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`,
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`)
+        if (config.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href="/i/bookmarks"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/i/bookmarks"]`)
+        }
       }
       if (config.hideCommunitiesNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`,
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
+        if (config.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href$="/communities"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/communities"]`)
+        }
       }
       if (config.hideMessagesDrawer) {
         cssRules.push(`div:is([data-testid="DMDrawer"], [data-testid="chat-drawer-root"]) { visibility: hidden; }`)
