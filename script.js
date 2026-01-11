@@ -4024,6 +4024,9 @@ const configureCss = (() => {
         'body.Settings a[href="/settings/monetization"]',
         'body.Settings a[href="/settings/manage_subscriptions"]',
       )
+      if (desktop) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/creators/studio"]`)
+      }
     }
     if (config.hideEditImage) {
       hideCssSelectors.push(
