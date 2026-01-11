@@ -2367,6 +2367,10 @@ function isOnNotificationsPage() {
   return currentPath.startsWith('/notifications')
 }
 
+function isOnPremiumSignupPage() {
+  return currentPath.startsWith('/i/premium_sign_up')
+}
+
 function isOnProfilePage() {
   let profilePathUsername = currentPath.match(URL_PROFILE_RE)?.[1]
   if (!profilePathUsername) return false
@@ -5320,6 +5324,13 @@ function getVerifiedProps($svg) {
 function handlePopup($popup) {
   let result = {tookAction: false, onPopupClosed: null}
 
+  // Automatically close the Premium sign up popup
+  if (desktop && config.hideTwitterBlueUpsells && location.pathname === '/i/premium_sign_up') {
+    tweakPremiumSignUpPage()
+    result.tookAction = true
+    return result
+  }
+
   // Automatically close any sheet dialog which contains a Premium link
   if (desktop && config.hideTwitterBlueUpsells &&
       $popup.querySelector('[data-testid="mask"]') &&
@@ -6174,6 +6185,10 @@ function onTitleChange(title) {
     if (mobile && (URL_MEDIA_RE.test(location.pathname) || URL_MEDIAVIEWER_RE.test(location.pathname))) {
       log('viewing media on mobile')
     }
+    // On mobile, the Premium sign up page sets an empty title
+    else if (mobile && location.pathname == '/i/premium_sign_up') {
+      log('viewing Premium sign up page on mobile')
+    }
     // On desktop, the root Settings page sets an empty title when the sidebar
     // is hidden.
     else if (desktop && location.pathname == '/settings' && currentPath != '/settings') {
@@ -6224,7 +6239,12 @@ function onTitleChange(title) {
     currentPath == ModalPaths.COMPOSE_TWEET
   )
 
-  if (newPage == currentPage) {
+  let hasDesktopInitialModalBeenClosed = desktop && (
+    // Premium sign up dialog closed
+    currentPath == '/i/premium_sign_up' && location.pathname == '/home'
+  )
+
+  if (newPage == currentPage && !hasDesktopInitialModalBeenClosed) {
     log(`ignoring duplicate title change`)
     // Navigation within the Compose Tweet modal triggers duplcate title changes
     if (isDesktopComposeTweetModalOpen) {
@@ -6422,6 +6442,9 @@ function processCurrentPage() {
   }
   else if (isOnDisplaySettingsPage() || isOnAccessibilitySettingsPage()) {
     tweakDisplaySettingsPage()
+  }
+  else if (isOnPremiumSignupPage()) {
+    tweakPremiumSignUpPage()
   }
 
   // On mobile, these are pages instead of modals
@@ -7341,6 +7364,18 @@ function tweakNotificationsPage() {
     isTabbed: true,
     tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
   })
+}
+
+async function tweakPremiumSignUpPage() {
+  if (!config.hideTwitterBlueUpsells) return
+  let $closeButton = await getElement('[data-testid="app-bar-close"]', {
+    name: 'Premium sign up close button',
+    stopIf: () => location.pathname != '/i/premium_sign_up',
+  })
+  if ($closeButton) {
+    log('Closing Premium sign up page')
+    $closeButton.click()
+  }
 }
 
 async function tweakProfilePage() {
