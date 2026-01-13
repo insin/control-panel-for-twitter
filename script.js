@@ -4036,6 +4036,7 @@ const configureCss = (() => {
         '.EditImage',
         // On images in Tweets
         '[data-testid="tweet"] div[aria-labelledby] a[href^="/i/imagine"]',
+        '[data-testid="tweet"] [data-testid="tweetText"] a[href^="/i/imagine"]',
         // In menus
         '[role="menuitem"][href^="/i/imagine"]',
         // In media modal
