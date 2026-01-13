@@ -5353,7 +5353,7 @@ function handlePopup($popup) {
       $popup.innerHTML.includes(`>${getString('SORT_BY')}<`)) {
     // Pinned Communities also have a Sort by menu, which we should ignore
     let isFollowingTabSelected = Boolean(document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"][aria-selected="true"]`))
-    if (!isFollowingTabSelected) return
+    if (!isFollowingTabSelected) return result
 
     log('sortFollowing: Following Sort by menu opened')
     void (async () => {
