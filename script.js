@@ -3700,11 +3700,11 @@ async function addAddMutedWordMenuItem($link, linkSelector) {
 
 function addCaretMenuListenerForQuoteTweet($tweet) {
   let $caret = /** @type {HTMLElement} */ ($tweet.querySelector('[data-testid="caret"]'))
-  if ($caret && !$caret.dataset.tweakNewTwitterListener) {
+  if ($caret && !$caret.dataset.cpftListener) {
     $caret.addEventListener('click', () => {
       quotedTweet = getQuotedTweetDetails($tweet, {getText: true})
     })
-    $caret.dataset.tweakNewTwitterListener = 'true'
+    $caret.dataset.cpftListener = 'true'
   }
 }
 
@@ -4350,6 +4350,10 @@ const configureCss = (() => {
             position: absolute;
             bottom: 0;
             border-radius: 9999px;
+          }
+          /* Following menu indicator */
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"] svg {
+            display: none;
           }
         `)
       }
@@ -7324,15 +7328,27 @@ async function tweakTimelineTabs($timelineTabs) {
         name: 'home nav link',
         stopIf: pathIsNot(currentPath),
       })
-      if ($homeNavLink && !$homeNavLink.dataset.tweakNewTwitterListener) {
+      if ($homeNavLink && !$homeNavLink.dataset.cpftListener) {
         $homeNavLink.addEventListener('click', () => {
           homeNavigationIsBeingUsed = true
           if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
             setTitle(getString('HOME'))
           }
         })
-        $homeNavLink.dataset.tweakNewTwitterListener = 'true'
+        $homeNavLink.dataset.cpftListener = 'true'
       }
+
+      // Click the Home nav link when the Following tab is clicked while on the
+      // separated Tweets timeline to switch back to Following without opening
+      // the menu.
+      $followingTabLink.parentElement.addEventListener('click', (e) => {
+        if (!document.title.startsWith(getString('HOME')) && $homeNavLink) {
+          e.preventDefault()
+          e.stopPropagation()
+          log('clicking the Home nav link to return to Following')
+          $homeNavLink.click()
+        }
+      })
     }
   } else {
     removeMobileTimelineHeaderElements()
