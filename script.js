@@ -3404,7 +3404,7 @@ const observeSideNavTweetButton = (() => {
     if (!desktop || !config.replaceLogo) return
 
     // This element is updated when text is added or removed on resize
-    let $buttonTextContainer = await getElement('a[data-testid="SideNav_NewTweet_Button"] > div > span', {
+    let $buttonTextContainer = await getElement('a[data-testid="SideNav_NewTweet_Button"] span', {
       name: 'sidenav tweet button text container',
     })
     observer = observeElement($buttonTextContainer, () => {
