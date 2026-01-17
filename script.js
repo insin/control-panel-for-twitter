@@ -7316,7 +7316,7 @@ async function tweakTimelineTabs($timelineTabs) {
 
       // Return to the Home timeline when any other tab is clicked
       $followingTabLink.parentElement.parentElement.addEventListener('click', () => {
-        if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
+        if (location.pathname == '/home' && currentPage != getString('HOME')) {
           log('setting title to Home')
           homeNavigationIsBeingUsed = true
           setTitle(getString('HOME'))
@@ -7331,7 +7331,7 @@ async function tweakTimelineTabs($timelineTabs) {
       if ($homeNavLink && !$homeNavLink.dataset.cpftListener) {
         $homeNavLink.addEventListener('click', () => {
           homeNavigationIsBeingUsed = true
-          if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
+          if (location.pathname == '/home' && currentPage != getString('HOME')) {
             setTitle(getString('HOME'))
           }
         })
@@ -7342,7 +7342,7 @@ async function tweakTimelineTabs($timelineTabs) {
       // separated Tweets timeline to switch back to Following without opening
       // the menu.
       $followingTabLink.parentElement.addEventListener('click', (e) => {
-        if (!document.title.startsWith(getString('HOME')) && $homeNavLink) {
+        if (currentPage != getString('HOME') && $homeNavLink) {
           e.preventDefault()
           e.stopPropagation()
           log('clicking the Home nav link to return to Following')
