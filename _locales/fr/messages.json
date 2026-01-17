@@ -275,11 +275,8 @@
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Masquer les éléments de l'interface utilisateur que vous n'utilisez pas"
   },
-  "hideVerifiedNotificationsTabLabel": {
-    "message": "Masquer l'onglet Certifié des abonnés"
-  },
   "hideVerifiedTabsLabel": {
-    "message": "Masquer les onglets \"Certifié\" dans Notifications et Abonnés"
+    "message": "Masquer l'onglet Certifié des Abonnés"
   },
   "hideViewsLabel": {
     "message": "Masquer les vues sous les tweets"

@@ -275,11 +275,8 @@
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Nascondi elementi di interfaccia che non usi"
   },
-  "hideVerifiedNotificationsTabLabel": {
-    "message": "Nascondi la scheda Verificati dei follower"
-  },
   "hideVerifiedTabsLabel": {
-    "message": "Nascondi la sezione verificata dalle notifiche e dai seguaci"
+    "message": "Nascondi la scheda Verificati dei follower"
   },
   "hideViewsLabel": {
     "message": "Nascondi le visualizzazioni sotto ai tweet"

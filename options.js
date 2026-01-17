@@ -1,4 +1,4 @@
-import {defaultSettings} from './settings.js'
+import {DEFAULT_SETTINGS} from './settings.js'
 import {get, set} from './storage.js'
 
 //#region Localisation
@@ -560,7 +560,7 @@ async function main() {
   config = {
     ...defaultConfig,
     ...storedConfig,
-    settings: {...defaultSettings, ...storedSettings}
+    settings: {...DEFAULT_SETTINGS, ...storedSettings}
   }
 
   $body.classList.toggle('debug', config.debug === true)

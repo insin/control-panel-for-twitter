@@ -275,11 +275,8 @@
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Ocultar elementos de interfaz no utilizados"
   },
-  "hideVerifiedNotificationsTabLabel": {
-    "message": "Ocultar la pestaña Verificado de Seguidores"
-  },
   "hideVerifiedTabsLabel": {
-    "message": "Ocultar pestañas \"Verificado\" en Notificaciones y Seguidores"
+    "message": "Ocultar la pestaña Verificado de Seguidores"
   },
   "hideViewsLabel": {
     "message": "Ocultar Reproducciones de tweets"

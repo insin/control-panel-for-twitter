@@ -12,6 +12,6 @@ for (let file of fs.readdirSync('.', {withFileTypes: true})) {
     if (!dryRun) {
       fs.rmSync(copiedFile)
     }
-    console.log(`rm ${copiedFile}`)
+    console.log(`deleted ${copiedFile}`)
   }
 }

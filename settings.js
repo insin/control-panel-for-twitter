@@ -1,5 +1,5 @@
 /** @type {import("./types").UserSettings} */
-export const defaultSettings = {
+export const DEFAULT_SETTINGS = {
   // Shared
   addAddMutedWordMenuItem: true,
   addFocusedTweetAccountLocation: false,
@@ -106,3 +106,5 @@ export const defaultSettings = {
   hideMessagesBottomNavItem: false,
   preventNextVideoAutoplay: true,
 }
+
+export const UI_ORIGIN = 'https://soitis.dev'

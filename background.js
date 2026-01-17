@@ -1,4 +1,4 @@
-import {defaultSettings} from './settings.js'
+import {DEFAULT_SETTINGS, UI_ORIGIN} from './settings.js'
 import {get, remove, set} from './storage.js'
 
 //#region Constants
@@ -53,7 +53,7 @@ async function migrateConfigFromV4ToV5() {
   for (let [key, value] of Object.entries(storedConfig)) {
     if (internalConfigKeys.has(key)) continue
     keysToRemove.push(key)
-    if (Object.hasOwn(defaultSettings, key)) {
+    if (Object.hasOwn(DEFAULT_SETTINGS, key)) {
       settings[key] = value
     }
     else if (V5_CONFIG_MIGRATION_RENAMES.has(key)) {
@@ -64,7 +64,7 @@ async function migrateConfigFromV4ToV5() {
   if (keysToRemove.length > 0) {
     await remove(keysToRemove)
   }
-  log('migrated page script settings')
+  log('migrated page script settings from V4 to V5')
 }
 
 function updateToolbarIcon(enabled) {
@@ -87,17 +87,17 @@ function updateToolbarIcon(enabled) {
 chrome.runtime.onInstalled.addListener(async (details) => {
   log('chrome.runtime.onInstalled', {details})
   if (details.reason == 'install') {
-    // chrome.tabs.create({
-    //   url: `${UI_ORIGIN}/control-pabel-for-twitter/welcome`,
-    // })
+    chrome.tabs.create({
+      url: `${UI_ORIGIN}/control-panel-for-twitter/welcome`,
+    })
   }
   else if (details.reason == 'update') {
     let version = chrome.runtime.getManifest().version
     if (details.previousVersion.startsWith('4') && !version.startsWith('4')) {
       await migrateConfigFromV4ToV5()
-      // chrome.tabs.create({
-      //   url: `${UI_ORIGIN}/control-panel-for-twitter/updated?from=${details.previousVersion}&to=${version}`,
-      // })
+      chrome.tabs.create({
+        url: `${UI_ORIGIN}/control-panel-for-twitter/updated?from=${details.previousVersion}&to=${version}`,
+      })
     }
   }
 })

@@ -275,11 +275,8 @@
   "hideUnusedUiItemsOptionsLabel": {
     "message": "使用しないUI項目を非表示"
   },
-  "hideVerifiedNotificationsTabLabel": {
-    "message": "フォロワーの「認証済み」タブを非表示"
-  },
   "hideVerifiedTabsLabel": {
-    "message": "通知とフォロワーの「認証済み」タブを非表示"
+    "message": "フォロワーの「認証済み」タブを非表示"
   },
   "hideViewsLabel": {
     "message": "ツイート下部のアナリティクスのリンクを非表示"
