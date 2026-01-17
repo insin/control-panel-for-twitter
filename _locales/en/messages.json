@@ -278,6 +278,9 @@
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Hide UI items you don't use"
   },
+  "hideVerifiedNotificationsTabLabel": {
+    "message": "Hide Verified Followers tab"
+  },
   "hideVerifiedTabsLabel": {
     "message": "Hide \"Verified\" Notifications and Followers tabs"
   },

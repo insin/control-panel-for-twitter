@@ -22,6 +22,7 @@ let template = {
   REPOSTS: 'ja42739e',
   SHOW: 'a0e81a2e',
   SHOW_MORE_REPLIES: 'c837fcaa',
+  SORT_BY: 'e2a098dc',
   SORT_REPLIES_BY: 'ad6e11ac',
 }
 

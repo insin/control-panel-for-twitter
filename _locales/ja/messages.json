@@ -275,6 +275,9 @@
   "hideUnusedUiItemsOptionsLabel": {
     "message": "使用しないUI項目を非表示"
   },
+  "hideVerifiedNotificationsTabLabel": {
+    "message": "フォロワーの「認証済み」タブを非表示"
+  },
   "hideVerifiedTabsLabel": {
     "message": "通知とフォロワーの「認証済み」タブを非表示"
   },

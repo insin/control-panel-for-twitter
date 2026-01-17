@@ -143,6 +143,7 @@ const locales = {
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
+    SORT_BY: 'فرز حسب',
     SORT_REPLIES_BY: 'فرز الردود حسب',
     TURN_OFF_QUOTE_TWEETS: 'تعطيل تغريدات اقتباس',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
@@ -183,6 +184,7 @@ const locales = {
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
+    SORT_BY: 'فرز حسب',
     SORT_REPLIES_BY: 'فرز الردود حسب',
     TURN_OFF_QUOTE_TWEETS: 'تعطيل تغريدات اقتباس',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
@@ -222,6 +224,7 @@ const locales = {
     SHARED_TWEETS: 'Споделени туитове',
     SHOW: 'Показване',
     SHOW_MORE_REPLIES: 'Показване на още отговори',
+    SORT_BY: 'Сортиране по',
     SORT_REPLIES_BY: 'Сортиране на отговорите',
     TURN_OFF_QUOTE_TWEETS: 'Изключване на туитове с цитат',
     TURN_OFF_RETWEETS: 'Изключване на ретуитовете',
@@ -261,6 +264,7 @@ const locales = {
     SHARED_TWEETS: 'ভাগ করা টুইটগুলি',
     SHOW: 'দেখান',
     SHOW_MORE_REPLIES: 'আরও উত্তর দেখান',
+    SORT_BY: 'ক্রমানুসার',
     SORT_REPLIES_BY: 'উত্তরগুলো এই হিসাবে বাছুন',
     TURN_OFF_QUOTE_TWEETS: 'উদ্ধৃতি টুইটগুলি বন্ধ করুন',
     TURN_OFF_RETWEETS: 'পুনঃ টুইটগুলি বন্ধ করুন',
@@ -301,6 +305,7 @@ const locales = {
     SHARED_TWEETS: 'Tuits compartits',
     SHOW: 'Mostra',
     SHOW_MORE_REPLIES: 'Mostra més respostes',
+    SORT_BY: 'Ordena per',
     SORT_REPLIES_BY: 'Ordena les respostes per',
     TURN_OFF_QUOTE_TWEETS: 'Desactiva els tuits amb cita',
     TURN_OFF_RETWEETS: 'Desactiva els retuits',
@@ -339,6 +344,7 @@ const locales = {
     SHARED_TWEETS: 'Sdílené tweety',
     SHOW: 'Zobrazit',
     SHOW_MORE_REPLIES: 'Zobrazit další odpovědi',
+    SORT_BY: 'Seřadit podle',
     SORT_REPLIES_BY: 'Odpovědi roztřiďte podle',
     TURN_OFF_QUOTE_TWEETS: 'Vypnout tweety s citací',
     TURN_OFF_RETWEETS: 'Vypnout retweety',
@@ -373,6 +379,7 @@ const locales = {
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
+    SORT_BY: 'Sorter efter',
     SORT_REPLIES_BY: 'Sortér svar efter',
     TURN_OFF_QUOTE_TWEETS: 'Slå Citat-Tweets fra',
     TURN_OFF_RETWEETS: 'Slå Retweets fra',
@@ -408,6 +415,7 @@ const locales = {
     SHARED_TWEETS: 'Geteilte Tweets',
     SHOW: 'Anzeigen',
     SHOW_MORE_REPLIES: 'Mehr Antworten anzeigen',
+    SORT_BY: 'Sortieren nach',
     SORT_REPLIES_BY: 'Antworten sortieren nach',
     TURN_OFF_QUOTE_TWEETS: 'Zitierte Tweets ausschalten',
     TURN_OFF_RETWEETS: 'Retweets ausschalten',
@@ -445,6 +453,7 @@ const locales = {
     SHARED_TWEETS: 'Κοινόχρηστα Tweets',
     SHOW: 'Εμφάνιση',
     SHOW_MORE_REPLIES: 'Εμφάνιση περισσότερων απαντήσεων',
+    SORT_BY: 'Ταξινόμηση κατά',
     SORT_REPLIES_BY: 'Ταξινόμηση απαντήσεων κατά',
     TURN_OFF_QUOTE_TWEETS: 'Απενεργοποίηση των tweet με παράθεση',
     TURN_OFF_RETWEETS: 'Απενεργοποίηση των Retweet',
@@ -483,6 +492,7 @@ const locales = {
     SHARED_TWEETS: 'Shared Tweets',
     SHOW: 'Show',
     SHOW_MORE_REPLIES: 'Show more replies',
+    SORT_BY: 'Sort by',
     SORT_REPLIES_BY: 'Sort replies by',
     TURN_OFF_QUOTE_TWEETS: 'Turn off Quote Tweets',
     TURN_OFF_RETWEETS: 'Turn off Retweets',
@@ -521,6 +531,7 @@ const locales = {
     SHARED_TWEETS: 'Tweets compartidos',
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar más respuestas',
+    SORT_BY: 'Ordenar por',
     SORT_REPLIES_BY: 'Ordenar respuestas por',
     TURN_OFF_QUOTE_TWEETS: 'Desactivar tweets citados',
     TURN_OFF_RETWEETS: 'Desactivar Retweets',
@@ -551,6 +562,7 @@ const locales = {
     SHARED_TWEETS: 'Partekatutako',
     SHOW: 'Erakutsi',
     SHOW_MORE_REPLIES: 'Erakutsi erantzun gehiago',
+    SORT_BY: 'Ordenatzeko irizpidea:',
     TURN_OFF_QUOTE_TWEETS: 'Desaktibatu aipatu txioak',
     TURN_OFF_RETWEETS: 'Desaktibatu birtxioak',
     TURN_ON_RETWEETS: 'Aktibatu birtxioak',
@@ -589,6 +601,7 @@ const locales = {
     SHARED_TWEETS: 'توییتهای مشترک',
     SHOW: 'نمایش',
     SHOW_MORE_REPLIES: 'نمایش پاسخ‌های بیشتر',
+    SORT_BY: 'مرتب‌سازی براساس',
     SORT_REPLIES_BY: 'مرتب‌سازی پاسخ‌ها براساس',
     TURN_OFF_QUOTE_TWEETS: 'غیرفعال‌سازی نقل‌توییت‌ها',
     TURN_OFF_RETWEETS: 'غیرفعال‌سازی بازتوییت‌ها',
@@ -629,6 +642,7 @@ const locales = {
     SHARED_TWEETS: 'Jaetut twiitit',
     SHOW: 'Näytä',
     SHOW_MORE_REPLIES: 'Näytä lisää vastauksia',
+    SORT_BY: 'Lajitteluperuste',
     SORT_REPLIES_BY: 'Vastausten lajittelutapa',
     TURN_OFF_QUOTE_TWEETS: 'Poista twiitin lainaukset käytöstä',
     TURN_OFF_RETWEETS: 'Poista uudelleentwiittaukset käytöstä',
@@ -666,6 +680,7 @@ const locales = {
     SHARED_TWEETS: 'Mga Ibinahaging Tweet',
     SHOW: 'Ipakita',
     SHOW_MORE_REPLIES: 'Magpakita pa ng mga sagot',
+    SORT_BY: 'Isaayos ayon sa',
     SORT_REPLIES_BY: 'I-sort ang mga reply batay sa',
     TURN_OFF_QUOTE_TWEETS: 'I-off ang mga Quote na Tweet',
     TURN_OFF_RETWEETS: 'I-off ang Retweets',
@@ -701,6 +716,7 @@ const locales = {
     SHARED_TWEETS: 'Tweets partagés',
     SHOW: 'Afficher',
     SHOW_MORE_REPLIES: 'Voir plus de réponses',
+    SORT_BY: 'Trier par',
     SORT_REPLIES_BY: 'Trier les réponses par',
     TURN_OFF_QUOTE_TWEETS: 'Désactiver les Tweets cités',
     TURN_OFF_RETWEETS: 'Désactiver les Retweets',
@@ -731,6 +747,7 @@ const locales = {
     SHARED_TWEETS: 'Tweetanna Roinnte',
     SHOW: 'Taispeáin',
     SHOW_MORE_REPLIES: 'Taispeáin tuilleadh freagraí',
+    SORT_BY: 'Sórtáil de réir',
     TURN_OFF_QUOTE_TWEETS: 'Cas as Luaigh Tvuíteanna',
     TURN_OFF_RETWEETS: 'Cas as Atweetanna',
     TURN_ON_RETWEETS: 'Cas Atweetanna air',
@@ -760,6 +777,7 @@ const locales = {
     SHARED_TWEETS: 'Chíos compartidos',
     SHOW: 'Amosar',
     SHOW_MORE_REPLIES: 'Amosar máis respostas',
+    SORT_BY: 'Ordenar por',
     TURN_OFF_QUOTE_TWEETS: 'Desactivar os chíos citados',
     TURN_OFF_RETWEETS: 'Desactivar os rechouchíos',
     TURN_ON_RETWEETS: 'Activar os rechouchíos',
@@ -798,6 +816,7 @@ const locales = {
     SHARED_TWEETS: 'શેર કરેલી ટ્વીટ્સ',
     SHOW: 'બતાવો',
     SHOW_MORE_REPLIES: 'વધુ પ્રત્યુતરો દર્શાવો',
+    SORT_BY: 'આની દ્વારા સૉર્ટ કરો',
     SORT_REPLIES_BY: 'દ્વારા પ્રત્યુત્તરોને સૉર્ટ કરો',
     TURN_OFF_QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ બંધ કરો',
     TURN_OFF_RETWEETS: 'પુનટ્વીટ્સ બંધ કરો',
@@ -837,6 +856,7 @@ const locales = {
     SHARED_TWEETS: 'ציוצים משותפים',
     SHOW: 'הצג',
     SHOW_MORE_REPLIES: 'הצג תשובות נוספות',
+    SORT_BY: 'סנן לפי',
     SORT_REPLIES_BY: 'מיון תשובות לפי',
     TURN_OFF_QUOTE_TWEETS: 'כבה ציוצי ציטוט',
     TURN_OFF_RETWEETS: 'כבה ציוצים מחדש',
@@ -877,6 +897,7 @@ const locales = {
     SHARED_TWEETS: 'साझा किए गए ट्वीट',
     SHOW: 'दिखाएं',
     SHOW_MORE_REPLIES: 'और अधिक जवाब दिखाएँ',
+    SORT_BY: 'इसके अनुसार सॉर्ट करें',
     SORT_REPLIES_BY: 'से जवाब सॉर्ट करें',
     TURN_OFF_QUOTE_TWEETS: 'कोट ट्वीट्स बंद करें',
     TURN_OFF_RETWEETS: 'रीट्वीट बंद करें',
@@ -916,6 +937,7 @@ const locales = {
     SHARED_TWEETS: 'Dijeljeni tweetovi',
     SHOW: 'Prikaži',
     SHOW_MORE_REPLIES: 'Prikaži još odgovora',
+    SORT_BY: 'Sortiraj prema',
     SORT_REPLIES_BY: 'Sortiraj odgovore',
     TURN_OFF_QUOTE_TWEETS: 'Isključi citirane tweetove',
     TURN_OFF_RETWEETS: 'Isključi proslijeđene tweetove',
@@ -953,6 +975,7 @@ const locales = {
     SHARED_TWEETS: 'Megosztott tweetek',
     SHOW: 'Megjelenítés',
     SHOW_MORE_REPLIES: 'Több válasz megjelenítése',
+    SORT_BY: 'Rendezési szempont',
     SORT_REPLIES_BY: 'Válaszok rendezése a következő szerint',
     TURN_OFF_QUOTE_TWEETS: 'Tweet-idézések kikapcsolása',
     TURN_OFF_RETWEETS: 'Retweetek kikapcsolása',
@@ -991,6 +1014,7 @@ const locales = {
     SHARED_TWEETS: 'Tweet yang Dibagikan',
     SHOW: 'Tampilkan',
     SHOW_MORE_REPLIES: 'Tampilkan balasan lainnya',
+    SORT_BY: 'Urutkan berdasarkan',
     SORT_REPLIES_BY: 'Urutkan balasan berdasarkan',
     TURN_OFF_QUOTE_TWEETS: 'Matikan Tweet Kutipan',
     TURN_OFF_RETWEETS: 'Matikan Retweet',
@@ -1027,6 +1051,7 @@ const locales = {
     SHARED_TWEETS: 'Tweet condivisi',
     SHOW: 'Mostra',
     SHOW_MORE_REPLIES: 'Mostra altre risposte',
+    SORT_BY: 'Ordina per',
     SORT_REPLIES_BY: 'Ordina risposte per',
     TURN_OFF_QUOTE_TWEETS: 'Disattiva i Tweet di citazione',
     TURN_OFF_RETWEETS: 'Disattiva Retweet',
@@ -1066,6 +1091,7 @@ const locales = {
     SHARED_TWEETS: '共有ツイート',
     SHOW: '表示',
     SHOW_MORE_REPLIES: '返信をさらに表示',
+    SORT_BY: '並べ替え',
     SORT_REPLIES_BY: '返信の並べ替え基準',
     TURN_OFF_QUOTE_TWEETS: '引用ツイートをオフにする',
     TURN_OFF_RETWEETS: 'リツイートをオフにする',
@@ -1105,6 +1131,7 @@ const locales = {
     SHARED_TWEETS: 'ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು',
     SHOW: 'ತೋರಿಸಿ',
     SHOW_MORE_REPLIES: 'ಇನ್ನಷ್ಟು ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ತೋರಿಸಿ',
+    SORT_BY: 'ಈ ರೀತಿ ಆಯೋಜಿಸಿ',
     SORT_REPLIES_BY: 'ಇದರ ಮೂಲಕ ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ಆಯೋಜಿಸಿ',
     TURN_OFF_QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
     TURN_OFF_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
@@ -1144,6 +1171,7 @@ const locales = {
     SHARED_TWEETS: '공유 트윗',
     SHOW: '표시',
     SHOW_MORE_REPLIES: '더 많은 답글 보기',
+    SORT_BY: '정렬 기준',
     SORT_REPLIES_BY: '답글 정렬하기',
     TURN_OFF_QUOTE_TWEETS: '인용 트윗 끄기',
     TURN_OFF_RETWEETS: '리트윗 끄기',
@@ -1184,6 +1212,7 @@ const locales = {
     SHARED_TWEETS: 'सामायिक ट्विट',
     SHOW: 'दाखवा',
     SHOW_MORE_REPLIES: 'अधिक प्रत्युत्तरे दाखवा',
+    SORT_BY: 'यानुसार विभागीत करा',
     SORT_REPLIES_BY: 'द्वारे प्रत्युत्तरांची क्रमवारी करा',
     TURN_OFF_QUOTE_TWEETS: 'भाष्य ट्विट्स बंद करा',
     TURN_OFF_RETWEETS: 'पुनर्ट्विट्स बंद करा',
@@ -1223,6 +1252,7 @@ const locales = {
     SHARED_TWEETS: 'Tweet Berkongsi',
     SHOW: 'Tunjukkan',
     SHOW_MORE_REPLIES: 'Tunjukkan lagi balasan',
+    SORT_BY: 'Isih Mengikut',
     SORT_REPLIES_BY: 'Isih balasan mengikut',
     TURN_OFF_QUOTE_TWEETS: 'Matikan Tweet Petikan',
     TURN_OFF_RETWEETS: 'Matikan Tweet semula',
@@ -1259,6 +1289,7 @@ const locales = {
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
+    SORT_BY: 'Sorter etter',
     SORT_REPLIES_BY: 'Sorter svar etter',
     TURN_OFF_QUOTE_TWEETS: 'Slå av sitat-tweets',
     TURN_OFF_RETWEETS: 'Slå av Retweets',
@@ -1293,6 +1324,7 @@ const locales = {
     SHARED_TWEETS: 'Gedeelde Tweets',
     SHOW: 'Weergeven',
     SHOW_MORE_REPLIES: 'Meer antwoorden tonen',
+    SORT_BY: 'Sorteren op',
     SORT_REPLIES_BY: 'Antwoorden sorteren op',
     TURN_OFF_QUOTE_TWEETS: 'Geciteerde Tweets uitschakelen',
     TURN_OFF_RETWEETS: 'Retweets uitschakelen',
@@ -1331,6 +1363,7 @@ const locales = {
     SHARED_TWEETS: 'Udostępnione Tweety',
     SHOW: 'Pokaż',
     SHOW_MORE_REPLIES: 'Pokaż więcej odpowiedzi',
+    SORT_BY: 'Sortuj według',
     SORT_REPLIES_BY: 'Sortuj odpowiedzi wg',
     TURN_OFF_QUOTE_TWEETS: 'Wyłącz tweety z cytatem',
     TURN_OFF_RETWEETS: 'Wyłącz Tweety podane dalej',
@@ -1367,6 +1400,7 @@ const locales = {
     SHARED_TWEETS: 'Tweets Compartilhados',
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar mais respostas',
+    SORT_BY: 'Classificar por',
     SORT_REPLIES_BY: 'Ordenar respostas por',
     TURN_OFF_QUOTE_TWEETS: 'Desativar Tweets com comentário',
     TURN_OFF_RETWEETS: 'Desativar Retweets',
@@ -1405,6 +1439,7 @@ const locales = {
     SHARED_TWEETS: 'Tweeturi partajate',
     SHOW: 'Afișează',
     SHOW_MORE_REPLIES: 'Afișează mai multe răspunsuri',
+    SORT_BY: 'Sortează după',
     SORT_REPLIES_BY: 'Sortare răspunsuri după',
     TURN_OFF_QUOTE_TWEETS: 'Dezactivează tweeturile cu citat',
     TURN_OFF_RETWEETS: 'Dezactivează Retweeturile',
@@ -1443,6 +1478,7 @@ const locales = {
     SHARED_TWEETS: 'Общие твиты',
     SHOW: 'Показать',
     SHOW_MORE_REPLIES: 'Показать ещё ответы',
+    SORT_BY: 'Сортировать по',
     SORT_REPLIES_BY: 'Упорядочить ответы по',
     TURN_OFF_QUOTE_TWEETS: 'Отключить твиты с цитатами',
     TURN_OFF_RETWEETS: 'Отключить ретвиты',
@@ -1483,6 +1519,7 @@ const locales = {
     SHARED_TWEETS: 'Zdieľané Tweety',
     SHOW: 'Zobraziť',
     SHOW_MORE_REPLIES: 'Zobraziť viac odpovedí',
+    SORT_BY: 'Spôsob zoradenia',
     SORT_REPLIES_BY: 'Zoradiť odpovede podľa',
     TURN_OFF_QUOTE_TWEETS: 'Vypnúť tweety s citátom',
     TURN_OFF_RETWEETS: 'Vypnúť retweety',
@@ -1522,6 +1559,7 @@ const locales = {
     SHARED_TWEETS: 'Дељени твитови',
     SHOW: 'Прикажи',
     SHOW_MORE_REPLIES: 'Прикажи још одговора',
+    SORT_BY: 'Сортирај по',
     SORT_REPLIES_BY: 'Сортирај одговоре по',
     TURN_OFF_QUOTE_TWEETS: 'Искључи твит(ов)е са цитатом',
     TURN_OFF_RETWEETS: 'Искључи ретвитове',
@@ -1561,6 +1599,7 @@ const locales = {
     SHARED_TWEETS: 'Delade tweetsen',
     SHOW: 'Visa',
     SHOW_MORE_REPLIES: 'Visa fler svar',
+    SORT_BY: 'Sortera efter',
     SORT_REPLIES_BY: 'Sortera svar på',
     TURN_OFF_QUOTE_TWEETS: 'Stäng av citat-tweets',
     TURN_OFF_RETWEETS: 'Stäng av Retweets',
@@ -1599,6 +1638,7 @@ const locales = {
     SHARED_TWEETS: 'பகிரப்பட்ட ட்வீட்டுகள்',
     SHOW: 'காண்பி',
     SHOW_MORE_REPLIES: 'மேலும் பதில்களைக் காண்பி',
+    SORT_BY: 'இதன்படி வரிசைப்படுத்து:',
     SORT_REPLIES_BY: 'இதன்படி பதில்களை வகைப்படுத்து',
     TURN_OFF_QUOTE_TWEETS: 'மேற்கோள் கீச்சுகளை அணை',
     TURN_OFF_RETWEETS: 'மறுகீச்சுகளை அணை',
@@ -1638,6 +1678,7 @@ const locales = {
     SHARED_TWEETS: 'ทวีตที่แชร์',
     SHOW: 'แสดง',
     SHOW_MORE_REPLIES: 'แสดงการตอบกลับเพิ่มเติม',
+    SORT_BY: 'เรียงตาม',
     SORT_REPLIES_BY: 'จัดเรียงการตอบกลับโดย',
     TURN_OFF_QUOTE_TWEETS: 'ปิดทวีตและคำพูด',
     TURN_OFF_RETWEETS: 'ปิดรีทวีต',
@@ -1677,6 +1718,7 @@ const locales = {
     SHARED_TWEETS: 'Paylaşılan Tweetler',
     SHOW: 'Göster',
     SHOW_MORE_REPLIES: 'Daha fazla yanıt göster',
+    SORT_BY: 'Şuna göre sırala:',
     SORT_REPLIES_BY: 'Yanıtları sıralama ölçütü',
     TURN_OFF_QUOTE_TWEETS: 'Alıntı Tweetleri kapat',
     TURN_OFF_RETWEETS: 'Retweetleri kapat',
@@ -1716,6 +1758,7 @@ const locales = {
     SHARED_TWEETS: 'Спільні твіти',
     SHOW: 'Показати',
     SHOW_MORE_REPLIES: 'Показати більше відповідей',
+    SORT_BY: 'Сортування за',
     SORT_REPLIES_BY: 'Сортувати відповіді за',
     TURN_OFF_QUOTE_TWEETS: 'Вимкнути цитовані твіти',
     TURN_OFF_RETWEETS: 'Вимкнути ретвіти',
@@ -1748,6 +1791,7 @@ const locales = {
     SHARED_TWEETS: 'مشترکہ ٹویٹس',
     SHOW: 'دکھائیں',
     SHOW_MORE_REPLIES: 'مزید جوابات دکھائیں',
+    SORT_BY: 'چھانٹیں بلحاظ',
     TURN_OFF_QUOTE_TWEETS: 'ٹویٹ کو نقل کرنا بند کریں',
     TURN_OFF_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
     TURN_ON_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
@@ -1787,6 +1831,7 @@ const locales = {
     SHARED_TWEETS: 'Tweet được chia sẻ',
     SHOW: 'Hiện',
     SHOW_MORE_REPLIES: 'Hiển thị thêm trả lời',
+    SORT_BY: 'Sắp xếp theo',
     SORT_REPLIES_BY: 'Sắp xếp câu trả lời theo',
     TURN_OFF_QUOTE_TWEETS: 'Tắt Tweet trích dẫn',
     TURN_OFF_RETWEETS: 'Tắt Tweet lại',
@@ -1825,6 +1870,7 @@ const locales = {
     SHARED_TWEETS: '分享的推文',
     SHOW: '顯示',
     SHOW_MORE_REPLIES: '顯示更多回覆',
+    SORT_BY: '排序方式',
     SORT_REPLIES_BY: '回覆排序方式',
     TURN_OFF_QUOTE_TWEETS: '關閉引用的推文',
     TURN_OFF_RETWEETS: '關閉轉推',
@@ -1864,6 +1910,7 @@ const locales = {
     SHARED_TWEETS: '分享的推文',
     SHOW: '显示',
     SHOW_MORE_REPLIES: '显示更多回复',
+    SORT_BY: '排序方式',
     SORT_REPLIES_BY: '回复排序依据',
     TURN_OFF_QUOTE_TWEETS: '关闭引用推文',
     TURN_OFF_RETWEETS: '关闭转推',
@@ -2213,7 +2260,7 @@ let separatedTweetsTimelineTitle = null
  */
 let themeColor = nativeThemeColor
 
-/** `true` if the user has used the "Sort following" menu */
+/** `true` if the user has used the Following "Sort by" menu */
 let userSortedFollowing = false
 
 /** `true` if the user has used the "Sort replies by" menu */
@@ -2318,6 +2365,10 @@ function isOnMessagesPage() {
 
 function isOnNotificationsPage() {
   return currentPath.startsWith('/notifications')
+}
+
+function isOnPremiumSignupPage() {
+  return currentPath.startsWith('/i/premium_sign_up')
 }
 
 function isOnProfilePage() {
@@ -3459,7 +3510,7 @@ const observeSideNavTweetButton = (() => {
     if (!desktop || !settings.revertXBranding) return
 
     // This element is updated when text is added or removed on resize
-    let $buttonTextContainer = await getElement('a[data-testid="SideNav_NewTweet_Button"] > div > span', {
+    let $buttonTextContainer = await getElement('a[data-testid="SideNav_NewTweet_Button"] span', {
       name: 'sidenav tweet button text container',
     })
     observer = observeElement($buttonTextContainer, () => {
@@ -3706,15 +3757,20 @@ const configureCss = (() => {
         'body.Settings a[href="/settings/monetization"]',
         'body.Settings a[href="/settings/manage_subscriptions"]',
       )
+      if (desktop) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/creators/studio"]`)
+      }
     }
     if (settings.hideEditImage) {
       hideCssSelectors.push(
         // Manually-tagged
         '.EditImage',
         // On images in Tweets
-        '[data-testid="tweet"] div[aria-labelledby] a[href^="/i/imagine"]',
+        '[data-testid="tweet"] a[href^="/i/imagine"]',
         // In menus
         '[role="menuitem"][href^="/i/imagine"]',
+        // In media modal
+        '[aria-modal="true"] > div > div:first-of-type a[href^="/i/imagine"]',
       )
     }
     if (!settings.hideExplorePageContents) {
@@ -3767,11 +3823,11 @@ const configureCss = (() => {
         // "Subscriber" indicator in replies from subscribers
         '[data-testid="tweet"] [data-testid="icon-subscriber"]',
         // Subscriptions tab link in Following/Follows
-        `body.ProfileFollows.Subscriptions ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:last-child > [role="tab"]`,
+        `.SubscriptionsTab > [role="tab"]`,
       )
       // Subscriptions tab in Following/Follows
       cssRules.push(`
-        body.ProfileFollows.Subscriptions ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:last-child {
+        .SubscriptionsTab {
           flex: 0;
           /* New layout has margin-right on tabs */
           margin-right: 0;
@@ -3836,8 +3892,6 @@ const configureCss = (() => {
         '.PremiumUpsell',
         // Premium menu item
         `${menuRole} a[href^="/i/premium_sign_up"]`,
-        // In new More dialog
-        `${Selectors.MORE_DIALOG} a:is([href^="/i/premium"], [href^="/i/verified"])`,
         // Analytics menu item
         `${menuRole} a[href="/i/account_analytics"]`,
         // "Highlight on your profile" on your tweets
@@ -3865,6 +3919,10 @@ const configureCss = (() => {
         // Upsell on the Likes tab in your own profile
         `body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"])`,
       )
+      if (desktop && settings.tweakNewLayout) {
+        // In new More dialog
+        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href^="/i/premium"], [href^="/i/verified"])`)
+      }
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
       let upsellTabLinks = 'a:is([href$="/highlights"], [href$="/articles"], [href$="/highlights?mx=1"], [href$="/articles?mx=1"])'
@@ -3881,14 +3939,12 @@ const configureCss = (() => {
     }
     if (settings.hideVerifiedTabs) {
       cssRules.push(`
-        body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2),
-        body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) {
+        .VerifiedFollowersTab {
           flex: 0;
           /* New layout has margin-right on tabs */
           margin-right: 0;
         }
-        body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"],
-        body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) > [role="tab"] {
+        .VerifiedFollowersTab > [role="tab"] {
           display: none;
         }
       `)
@@ -3994,10 +4050,14 @@ const configureCss = (() => {
           body.LightsOut {
             --tab-hover: rgba(231, 233, 234, 0.1);
           }
+          /* Sometimes the cloned tab has a hover background color class */
+          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] {
+            background-color: transparent !important;
+          }
           body.Desktop #cpftSeparatedTweetsTab:hover,
           body.Mobile:not(.SeparatedTweets) #cpftSeparatedTweetsTab:hover,
           body.Mobile #cpftSeparatedTweetsTab:active {
-            background-color: var(--tab-hover);
+            background-color: var(--tab-hover) !important;
           }
           body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
           body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
@@ -4008,6 +4068,7 @@ const configureCss = (() => {
             font-weight: bold;
             color: var(--color-emphasis) !important;
           }
+          /* Active tab underline */
           body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div > div,
           body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div > div {
             height: 0 !important;
@@ -4019,6 +4080,10 @@ const configureCss = (() => {
             position: absolute;
             bottom: 0;
             border-radius: 9999px;
+          }
+          /* Following menu indicator */
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"] svg {
+            display: none;
           }
         `)
       }
@@ -4233,7 +4298,7 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
-      if (settings.hideAdsNav) {
+      if (settings.hideAdsNav && settings.tweakNewLayout) {
         // In new More dialog
         hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
       }
@@ -4246,32 +4311,34 @@ const configureCss = (() => {
       if (settings.hideGrokNav) {
         hideCssSelectors.push(
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
-          // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href$="/i/grok"]`,
           // Grok drawer
           'div[data-testid="GrokDrawer"]',
         )
+        if (settings.tweakNewLayout) {
+          // In new More dialog
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/i/grok"]`)
+        }
       }
       if (settings.hideJobsNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`,
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`)
+        if (settings.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href="/jobs"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/jobs"]`)
+        }
       }
       if (settings.hideListsNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`,
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
+        if (settings.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href$="/lists"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/lists"]`)
+        }
       }
       if (settings.hideSpacesNav) {
-        hideCssSelectors.push(
-          `${menuRole} a[href="/i/spaces/start"]`,
+        hideCssSelectors.push(`${menuRole} a[href="/i/spaces/start"]`)
+        if (settings.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href="/i/spaces/start"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/i/spaces/start"]`)
+        }
       }
       if (settings.hidePremiumUpsells) {
         hideCssSelectors.push(
@@ -4332,25 +4399,25 @@ const configureCss = (() => {
         // When configured, hide Explore only when the sidebar is showing, or
         // when on a page full-width content is enabled on.
         let bodySelector = `${settings.hideExploreNavWithSidebar ? `body.Sidebar${settings.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
-        hideCssSelectors.push(
-          `${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`,
+        hideCssSelectors.push(`${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
+        if (settings.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href="/explore"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/explore"]`)
+        }
       }
       if (settings.hideBookmarksNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`,
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`)
+        if (settings.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href="/i/bookmarks"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/i/bookmarks"]`)
+        }
       }
       if (settings.hideCommunitiesNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`,
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
+        if (settings.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href$="/communities"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/communities"]`)
+        }
       }
       if (settings.hideMessagesDrawer) {
         cssRules.push(`div:is([data-testid="DMDrawer"], [data-testid="chat-drawer-root"]) { visibility: hidden; }`)
@@ -4863,11 +4930,11 @@ async function addAccountLocationToFocusedTweet($permalinkBar, screenName) {
 
 function addCaretMenuListenerForQuoteTweet($tweet) {
   let $caret = /** @type {HTMLElement} */ ($tweet.querySelector('[data-testid="caret"]'))
-  if ($caret && !$caret.dataset.tweakNewTwitterListener) {
+  if ($caret && !$caret.dataset.cpftListener) {
     $caret.addEventListener('click', () => {
       quotedTweet = getQuotedTweetDetails($tweet, {getText: true})
     })
-    $caret.dataset.tweakNewTwitterListener = 'true'
+    $caret.dataset.cpftListener = 'true'
   }
 }
 
@@ -5215,6 +5282,13 @@ function getVerifiedType($svg) {
 function handlePopup($popup) {
   let result = {tookAction: false, onPopupClosed: null}
 
+  // Automatically close the Premium sign up popup
+  if (desktop && settings.hidePremiumUpsells && location.pathname === '/i/premium_sign_up') {
+    tweakPremiumSignUpPage()
+    result.tookAction = true
+    return result
+  }
+
   // Automatically close any sheet dialog which contains a Premium link
   if (desktop && settings.hidePremiumUpsells &&
       $popup.querySelector('[data-testid="mask"]') &&
@@ -5234,15 +5308,47 @@ function handlePopup($popup) {
     return result
   }
 
-  // The Sort replies by menu is hydrated asynchronously
+  if (isOnHomeTimelinePage() &&
+      settings.sortFollowing != 'ignore' &&
+      !userSortedFollowing &&
+      $popup.innerHTML.includes(`>${getString('SORT_BY')}<`)) {
+    // Pinned Communities also have a Sort by menu, which we should ignore
+    let isFollowingTabSelected = Boolean(document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"][aria-selected="true"]`))
+    if (!isFollowingTabSelected) return result
+
+    log('sortFollowing: Following Sort by menu opened')
+    void (async () => {
+      // The Following Sort by menu is hydrated asynchronously on desktop
+      let $dropdown = await getElement(mobile ? '[data-testid="sheetDialog"]' : '[role="menu"] [data-testid="Dropdown"]', {
+        name: 'Rendered Following Sort by dropdown',
+        context: $popup,
+      })
+      let $menuItems =  /** @type {NodeListOf<HTMLElement>} */ ($dropdown.querySelectorAll('div[role="menuitem"]'))
+      let $selectedSvg = $popup.querySelector('div[role="menuitem"] svg')
+      for (let [index, $menuItem] of $menuItems.entries()) {
+        let shouldBeSelected = index == {popular: 0, mostRecent: 1}[settings.sortFollowing]
+        if (shouldBeSelected) {
+          $menuItem.lastElementChild.append($selectedSvg)
+        }
+        $menuItem.addEventListener('click', () => {
+          userSortedFollowing = true
+        })
+      }
+    })()
+    result.tookAction = true
+    return result
+  }
+
   if (isOnIndividualTweetPage() &&
       settings.sortReplies != 'relevant' &&
       !userSortedReplies &&
       $popup.innerHTML.includes(`>${getString('SORT_REPLIES_BY')}<`)) {
     log('sortReplies: Sort replies by menu opened')
     void (async () => {
+      // The Sort replies by menu is hydrated asynchronously
       let $dropdown = await getElement('[role="menu"] [data-testid="Dropdown"]', {
-        name: 'Rendered Sort replies by dropdown'
+        name: 'Rendered Sort replies by dropdown',
+        context: $popup,
       })
       let $menuItems =  /** @type {NodeListOf<HTMLElement>} */ ($dropdown.querySelectorAll('div[role="menuitem"]'))
       let $selectedSvg = $popup.querySelector('div[role="menuitem"] svg')
@@ -6026,6 +6132,10 @@ function onTitleChange(title) {
     if (mobile && (URL_MEDIA_RE.test(location.pathname) || URL_MEDIAVIEWER_RE.test(location.pathname))) {
       log('viewing media on mobile')
     }
+    // On mobile, the Premium sign up page sets an empty title
+    else if (mobile && location.pathname == '/i/premium_sign_up') {
+      log('viewing Premium sign up page on mobile')
+    }
     // On desktop, the root Settings page sets an empty title when the sidebar
     // is hidden.
     else if (desktop && location.pathname == '/settings' && currentPath != '/settings') {
@@ -6076,7 +6186,12 @@ function onTitleChange(title) {
     currentPath == ModalPaths.COMPOSE_TWEET
   )
 
-  if (newPage == currentPage) {
+  let hasDesktopInitialModalBeenClosed = desktop && (
+    // Premium sign up dialog closed
+    currentPath == '/i/premium_sign_up' && location.pathname == '/home'
+  )
+
+  if (newPage == currentPage && !hasDesktopInitialModalBeenClosed) {
     if (isOnCommunitiesPage() &&
         URL_COMMUNITIES_RE.test(location.pathname) &&
         currentPath != location.pathname) {
@@ -6159,6 +6274,7 @@ function onTitleChange(title) {
 }
 
 let History_push
+let History_replace
 
 function patchHistory() {
   let props = getTopLevelProps()
@@ -6167,14 +6283,11 @@ function patchHistory() {
   if (!props.history.push) return warn('history.push not found')
   if (props.history.push.patched) return
   History_push = props.history.push
+  History_replace = props.history.replace
   props.history.push = function (...args) {
     if (enabled && args[0] != null) {
       if (settings.hideVerifiedTabs && typeof args[0] == 'object' && typeof args[0].pathname == 'string') {
-        if (args[0].pathname == '/notifications/verified') {
-          log('Redirecting /notifications/verified to /notifications')
-          args[0].pathname = '/notifications'
-        }
-        else if (args[0].pathname.endsWith('/verified_followers')) {
+        if (args[0].pathname.endsWith('/verified_followers')) {
           log('Redirecting /verified_followers to /followers')
           args[0].pathname = args[0].pathname.replace(/verified_followers$/, 'followers')
         }
@@ -6235,7 +6348,6 @@ function processCurrentPage() {
   if (!isOnProfilePage()) {
     $body.classList.remove('OwnProfile', 'PremiumProfile')
   }
-  $body.classList.toggle('ProfileFollows', isOnFollowListPage())
   if (!isOnFollowListPage()) {
     $body.classList.remove('Subscriptions')
   }
@@ -6319,6 +6431,9 @@ function processCurrentPage() {
   }
   else if (isOnDisplaySettingsPage() || isOnAccessibilitySettingsPage()) {
     tweakDisplaySettingsPage()
+  }
+  else if (isOnPremiumSignupPage()) {
+    tweakPremiumSignUpPage()
   }
 
   // On mobile, these are pages instead of modals
@@ -6797,32 +6912,32 @@ async function tweakFocusedTweet($focusedTweet, options) {
 }
 
 async function tweakFollowListPage() {
-  // These tabs are dynamic as "Followers you know" only appears when applicable
-  let $tabs = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`, {
-    name: 'Following tabs',
-    stopIf: pageIsNot(currentPage),
-  })
-  if (!$tabs) return
-
-  let $subscriptionsTabLink = $tabs.querySelector('div[role="tablist"] a[href$="/subscriptions"]')
-  if ($subscriptionsTabLink) {
-    $body.classList.add('Subscriptions')
-  }
-
-  if (settings.hideVerifiedTabs) {
-    let isVerifiedTabSelected = Boolean($tabs.querySelector('div[role="tablist"] > div:nth-child(1) > [role="tab"][aria-selected="true"]'))
-    if (isVerifiedTabSelected) {
-      log('switching to Following tab')
-      let $followingTab = /** @type {HTMLAnchorElement} */ (
-        $tabs.querySelector(`div[role="tablist"] > div:nth-last-child(${$subscriptionsTabLink ? 3 : 2}) > [role="tab"]`)
-      )
-      $followingTab?.click()
-    }
+  // Fallback for direct navigation
+  if (settings.hideVerifiedTabs && currentPath.endsWith('/verified_followers')) {
+    History_replace?.(currentPath.replace(/verified_followers$/, 'followers'))
+    return
   }
 
   if (settings.premiumBlueChecks != 'ignore') {
     observeTimeline(currentPage, {
       classifyTweets: false,
+    })
+  }
+
+  let $followListTabs = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`, {
+    name: 'Follow list tabs',
+    stopIf: () => !isOnFollowListPage(),
+  })
+  if ($followListTabs) {
+    let $tabsContainer = $followListTabs.parentElement
+    // Tabs <nav> will be replaced when dynamic tabs load
+    observeElement($tabsContainer, () => {
+      $tabsContainer.querySelector('div:has(> a[href$="/verified_followers"])')?.classList?.add('VerifiedFollowersTab')
+      $tabsContainer.querySelector('div:has(> a[href$="/subscriptions"])')?.classList?.add('SubscriptionsTab')
+    }, {
+      name: 'Follow list tabs container',
+      observers: pageObservers,
+      leading: true,
     })
   }
 }
@@ -7097,22 +7212,6 @@ async function tweakMobileMediaViewerPage() {
 }
 
 function tweakNotificationsPage() {
-  let $navigationTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
-  if ($navigationTabs != null) {
-    if (settings.hideVerifiedTabs) {
-      let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > [role="tab"][aria-selected="true"]'))
-      if (isVerifiedTabSelected) {
-        log('switching to All tab')
-        let $allTab = /** @type {HTMLAnchorElement} */ (
-          $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > [role="tab"]')
-        )
-        $allTab?.click()
-      }
-    }
-  } else {
-    warn('could not find Notifications tabs')
-  }
-
   observeTimeline(currentPage, {
     isTabbed: true,
     tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
@@ -7138,6 +7237,18 @@ async function tweakOwnFocusedTweet($focusedTweet) {
     $premiumUpsell.classList.add('PremiumUpsell')
   })
   $focusedTweet.setAttribute('cpft-premium-upsells-tagged', 'true')
+}
+
+async function tweakPremiumSignUpPage() {
+  if (!settings.hidePremiumUpsells) return
+  let $closeButton = await getElement('[data-testid="app-bar-close"]', {
+    name: 'Premium sign up close button',
+    stopIf: () => location.pathname != '/i/premium_sign_up',
+  })
+  if ($closeButton) {
+    log('Closing Premium sign up page')
+    $closeButton.click()
+  }
 }
 
 async function tweakProfilePage() {
@@ -7322,8 +7433,13 @@ async function tweakTimelineTabs($timelineTabs) {
       $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
     }
     else {
+      let $forYouTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:first-child > [role="tab"]'))
+      if (!$forYouTabLink) {
+        warn('could not find For you tab to clone for separated tweets tab')
+        return
+      }
       log('inserting separated tweets tab')
-      $newTab = /** @type {HTMLElement} */ ($followingTabLink.parentElement.cloneNode(true))
+      $newTab = /** @type {HTMLElement} */ ($forYouTabLink.parentElement.cloneNode(true))
       $newTab.id = 'cpftSeparatedTweetsTab'
       $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
       let $link = $newTab.querySelector('[role="tab"]')
@@ -7354,7 +7470,7 @@ async function tweakTimelineTabs($timelineTabs) {
 
       // Return to the Home timeline when any other tab is clicked
       $followingTabLink.parentElement.parentElement.addEventListener('click', () => {
-        if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
+        if (location.pathname == '/home' && currentPage != getString('HOME')) {
           log('setting title to Home')
           homeNavigationIsBeingUsed = true
           setTitle(getString('HOME'))
@@ -7366,15 +7482,27 @@ async function tweakTimelineTabs($timelineTabs) {
         name: 'home nav link',
         stopIf: pathIsNot(currentPath),
       })
-      if ($homeNavLink && !$homeNavLink.dataset.tweakNewTwitterListener) {
+      if ($homeNavLink && !$homeNavLink.dataset.cpftListener) {
         $homeNavLink.addEventListener('click', () => {
           homeNavigationIsBeingUsed = true
-          if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
+          if (location.pathname == '/home' && currentPage != getString('HOME')) {
             setTitle(getString('HOME'))
           }
         })
-        $homeNavLink.dataset.tweakNewTwitterListener = 'true'
+        $homeNavLink.dataset.cpftListener = 'true'
       }
+
+      // Click the Home nav link when the Following tab is clicked while on the
+      // separated Tweets timeline to switch back to Following without opening
+      // the menu.
+      $followingTabLink.parentElement.addEventListener('click', (e) => {
+        if (currentPage != getString('HOME') && $homeNavLink) {
+          e.preventDefault()
+          e.stopPropagation()
+          log('clicking the Home nav link to return to Following')
+          $homeNavLink.click()
+        }
+      })
     }
   } else {
     removeMobileTimelineHeaderElements()
