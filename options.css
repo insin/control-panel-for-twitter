@@ -142,6 +142,19 @@ section.textarea button {
   text-align: center;
 }
 
+section.text label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+section.text input[type="text"] {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: inherit;
+}
+
 textarea {
   resize: vertical;
 }
@@ -448,6 +461,11 @@ body.iOS.safari .checkbox input:focus + .toggle {
   section.group > p,
   section.group > section > * {
     color: rgb(154, 160, 166);
+  }
+  section.text input[type="text"] {
+    background-color: #3f4042;
+    border-color: #5f6368;
+    color: #e8eaed;
   }
 
   /* Edge dark mode overrides */
