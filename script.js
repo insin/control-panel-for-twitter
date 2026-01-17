@@ -3641,6 +3641,7 @@ async function addAccountLocationToFocusedTweet($permalinkBar, screenName) {
   if (!screenName) return
   let accountLocation = await getAccountLocation(screenName)
   if (!accountLocation) return
+  if (accountLocation.account_based_in === undefined) return;
   let $separator = document.createElement('span')
   $separator.className = 'AccountLocation cpft_separator cpft_text'
   $separator.setAttribute('aria-hidden', 'true')
