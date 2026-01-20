@@ -209,6 +209,12 @@ const defaultConfig = {
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
+  homeTimelineLimit: 'unlimited',
+  homeTimelineLimitData: {
+    date: new Date().toISOString().split('T')[0],
+    usedMs: 0,
+    lastActiveTime: null
+  },
   disableTweetTextFormatting: false,
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
@@ -334,6 +340,7 @@ let $mutedQuotesDetails =  /** @type {HTMLDetailsElement} */ (document.querySele
 let $mutedQuotesLabel = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesLabel'))
 let $saveCustomCssButton = document.querySelector('button#saveCustomCss')
 let $showBlueReplyFollowersCountLabel = /** @type {HTMLElement} */ (document.querySelector('#showBlueReplyFollowersCountLabel'))
+let $homeTimelineLimitUsageLabel = /** @type {HTMLElement} */ (document.querySelector('#homeTimelineLimitUsageLabel'))
 //#endregion
 
 //#region Utility functions
@@ -498,6 +505,7 @@ function updateDisplay() {
   $body.classList.toggle('chronological', optionsConfig.alwaysUseLatestTweets)
   $body.classList.toggle('disabled', !optionsConfig.enabled)
   $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
+  $body.classList.toggle('homeTimelineLimit', optionsConfig.disableHomeTimeline && optionsConfig.homeTimelineLimit !== 'unlimited')
   $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
   $body.classList.toggle('hidingBookmarkButton', optionsConfig.hideBookmarkButton)
   $body.classList.toggle('hidingExploreNav', optionsConfig.hideExploreNav)
@@ -517,6 +525,7 @@ function updateDisplay() {
   )
   updateHideQuotesFromDisplay()
   updateMutedQuotesDisplay()
+  updateHomeTimelineLimitUsage()
 }
 
 
@@ -578,6 +587,24 @@ function updateMutedQuotesDisplay() {
       )
     )
   })
+}
+
+function updateHomeTimelineLimitUsage() {
+  if (!$homeTimelineLimitUsageLabel) {
+    return
+  }
+
+  if (optionsConfig.homeTimelineLimit === 'unlimited') {
+    $homeTimelineLimitUsageLabel.textContent = ''
+    return
+  }
+
+  let usedMinutes = Math.floor(optionsConfig.homeTimelineLimitData.usedMs / 60000)
+  let limitMinutes = parseInt(optionsConfig.homeTimelineLimit)
+  let remainingMinutes = Math.max(0, limitMinutes - usedMinutes)
+
+  $homeTimelineLimitUsageLabel.textContent =
+    `Used ${usedMinutes} of ${limitMinutes} minutes today (${remainingMinutes} remaining)`
 }
 
 function updateFormControls() {
