@@ -4031,16 +4031,17 @@ const configureCss = (() => {
       }
     }
     if (config.hideEditImage) {
+      let isImagineSelector = ':is([href^="/i/imagine"], [href^="https://grok.com/imagine"])'
       hideCssSelectors.push(
         // Manually-tagged
         '.EditImage',
         // On images in Tweets
-        '[data-testid="tweet"] div[aria-labelledby] a[href^="/i/imagine"]',
-        '[data-testid="tweet"] [data-testid="tweetText"] a[href^="/i/imagine"]',
+        `[data-testid="tweet"] div[aria-labelledby] a${isImagineSelector}`,
+        `[data-testid="tweet"] [data-testid="tweetText"] a${isImagineSelector}`,
         // In menus
-        '[role="menuitem"][href^="/i/imagine"]',
+        `[role="menuitem"]${isImagineSelector}`,
         // In media modal
-        '[aria-modal="true"] > div > div:first-of-type a[href^="/i/imagine"]',
+        `[aria-modal="true"] > div > div:first-of-type a${isImagineSelector}`,
       )
     }
     if (!config.hideExplorePageContents) {
