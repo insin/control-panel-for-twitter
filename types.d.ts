@@ -93,6 +93,7 @@ export type Config = {
   // Experiments
   customCss: string
   // Desktop only
+  addUserHoverCardAccountLocation: boolean
   fullWidthContent: boolean
   fullWidthMedia: boolean
   hideAccountSwitcher: boolean
@@ -116,10 +117,13 @@ export type Config = {
 }
 
 export type Locale = {
-  [key in LocaleKey]?: string
+  [K in LocaleKey]?: K extends `${string}_FN` ? (arg: any) => string : string
 }
 
+export type LocaleFunctionKey = Extract<LocaleKey, `${string}_FN`>
+
 export type LocaleKey =
+  | 'ACCOUNT_BASED_IN_FN'
   | 'ADD_ANOTHER_TWEET'
   | 'ADD_MUTED_WORD'
   | 'GROK_ACTIONS'
@@ -159,6 +163,8 @@ export type LocaleKey =
   | 'UNDO_RETWEET'
   | 'VIEW'
   | 'WHATS_HAPPENING'
+
+export type LocaleStringKey = Exclude<LocaleKey, `${string}_FN`>
 
 export type NamedMutationObserver = MutationObserver & {name: string}
 

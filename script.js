@@ -184,7 +184,7 @@ const config = {
   reducedInteractionMode: false,
   replaceLogo: true,
   restoreLinkHeadlines: true,
-  restoreOtherInteractionLinks: false,
+  restoreOtherInteractionLinks: true,
   restoreQuoteTweetsLink: true,
   restoreTweetSource: true,
   retweets: 'separate',
@@ -205,6 +205,7 @@ const config = {
   // Experiments
   customCss: '',
   // Desktop only
+  addUserHoverCardAccountLocation: true,
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,
@@ -235,6 +236,9 @@ const config = {
  */
 const locales = {
   'ar-x-fm': {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'الحساب موجود في ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'ضافة تغريدة أخرى',
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     GROK_ACTIONS: 'إجراءات Grok',
@@ -275,6 +279,9 @@ const locales = {
     WHATS_HAPPENING: 'ماذا يحدث؟',
   },
   ar: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'الحساب موجود في ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'ضافة تغريدة أخرى',
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     GROK_ACTIONS: 'إجراءات Grok',
@@ -315,6 +322,9 @@ const locales = {
     WHATS_HAPPENING: 'ماذا يحدث؟',
   },
   bg: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Профил, базиран в/ъв ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Добавяне на друг туит',
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
     GROK_ACTIONS: 'Действия, свързани с Grok',
@@ -355,6 +365,9 @@ const locales = {
     WHATS_HAPPENING: 'Какво се случва?',
   },
   bn: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return e.country + '-এর ওপর ভিত্তি করে অ্যাকাউন্ট'
+    },
     ADD_ANOTHER_TWEET: 'অন্য টুইট যোগ করুন',
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
     GROK_ACTIONS: 'Grok কার্যকলাপ',
@@ -396,6 +409,9 @@ const locales = {
     WHATS_HAPPENING: 'কি খবর?',
   },
   ca: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Compte ubicat a ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Afegeix un altre tuit',
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
     GROK_ACTIONS: 'Accions de Grok',
@@ -436,6 +452,9 @@ const locales = {
     WHATS_HAPPENING: 'Què passa?',
   },
   cs: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Účet založen v ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Přidat další Tweet',
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
     GROK_ACTIONS: 'Akce funkce Grok',
@@ -475,6 +494,9 @@ const locales = {
     WHATS_HAPPENING: 'Co se děje?',
   },
   da: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Konto baseret i ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Tilføj endnu et Tweet',
     ADD_MUTED_WORD: 'Tilføj skjult ord',
     GROK_ACTIONS: 'Grok-handlinger',
@@ -508,6 +530,9 @@ const locales = {
     WHATS_HAPPENING: 'Hvad sker der?',
   },
   de: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Account befindet sich in ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Weiteren Tweet hinzufügen',
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
     GROK_ACTIONS: 'Grok-Aktionen',
@@ -545,6 +570,9 @@ const locales = {
     WHATS_HAPPENING: 'Was gibt’s Neues?',
   },
   el: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Λογαριασμός με βάση σε ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Προσθήκη άλλου Tweet',
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
     GROK_ACTIONS: 'Δράσεις Grok',
@@ -583,6 +611,9 @@ const locales = {
     WHATS_HAPPENING: 'Τι συμβαίνει;',
   },
   en: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Account based in ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Add another Tweet',
     ADD_MUTED_WORD: 'Add muted word',
     GROK_ACTIONS: 'Grok actions',
@@ -624,6 +655,9 @@ const locales = {
     WHATS_HAPPENING: "What's happening?",
   },
   es: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Cuenta con sede en ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Agregar otro Tweet',
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
     GROK_ACTIONS: 'Acciones de Grok',
@@ -692,6 +726,9 @@ const locales = {
     WHATS_HAPPENING: 'Zer gertatzen ari da?',
   },
   fa: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'حساب کاربری واقع در ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'افزودن توییت دیگر',
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
     GROK_ACTIONS: 'کنش‌های Grok',
@@ -733,6 +770,9 @@ const locales = {
     WHATS_HAPPENING: 'چه خبر؟',
   },
   fi: {
+    ACCOUNT_BASED_IN_FN: function (a) {
+      return 'Tilin kotimaa on ' + a.country
+    },
     ADD_ANOTHER_TWEET: 'Lisää vielä twiitti',
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
     GROK_ACTIONS: 'Grok-toiminnat',
@@ -773,6 +813,9 @@ const locales = {
     WHATS_HAPPENING: 'Missä mennään?',
   },
   fil: {
+    ACCOUNT_BASED_IN_FN: function (a) {
+      return 'Account na naka-base sa ' + a.country
+    },
     ADD_ANOTHER_TWEET: 'Magdagdag ng isa pang Tweet',
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
     GROK_ACTIONS: 'Mga aksyon ni Grok',
@@ -811,6 +854,9 @@ const locales = {
     WHATS_HAPPENING: 'Ano ang nangyayari?',
   },
   fr: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Compte basé dans le pays suivant : ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Ajouter un autre Tweet',
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
     GROK_ACTIONS: 'Actions Grok',
@@ -907,6 +953,9 @@ const locales = {
     WHATS_HAPPENING: 'Que está pasando?',
   },
   gu: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'એકાઉન્ટ સ્થિત હોવાનું સ્થાન ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'અન્ય ટ્વીટ ઉમેરો',
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
     GROK_ACTIONS: 'Grok પગલાં',
@@ -947,6 +996,9 @@ const locales = {
     WHATS_HAPPENING: 'શું થઈ રહ્યું છે?',
   },
   he: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'החשבון נמצא ב-' + e.country
+    },
     ADD_ANOTHER_TWEET: 'הוסף ציוץ נוסף',
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
     GROK_ACTIONS: 'פעולות של Grok',
@@ -988,6 +1040,9 @@ const locales = {
     WHATS_HAPPENING: 'מה קורה?',
   },
   hi: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return e.country + ' में स्थित खाता'
+    },
     ADD_ANOTHER_TWEET: 'एक और ट्वीट जोड़ें',
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
     GROK_ACTIONS: 'Grok कार्रवाई',
@@ -1028,6 +1083,9 @@ const locales = {
     WHATS_HAPPENING: 'क्या हो रहा है?',
   },
   hr: {
+    ACCOUNT_BASED_IN_FN: function (a) {
+      return 'Država računa ' + a.country
+    },
     ADD_ANOTHER_TWEET: 'Dodaj drugi Tweet',
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
     GROK_ACTIONS: 'Grokove radnje',
@@ -1067,6 +1125,9 @@ const locales = {
     WHATS_HAPPENING: 'Što se događa?',
   },
   hu: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'A felhasználói fiók tartózkodási helye: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Másik Tweet hozzáadása',
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
     GROK_ACTIONS: 'Grok-műveletek',
@@ -1106,6 +1167,9 @@ const locales = {
     WHATS_HAPPENING: 'Mi történik éppen most?',
   },
   id: {
+    ACCOUNT_BASED_IN_FN: function (a) {
+      return 'Akun berbasis di ' + a.country
+    },
     ADD_ANOTHER_TWEET: 'Tambahkan Tweet lain',
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
     GROK_ACTIONS: 'Tindakan Grok',
@@ -1144,6 +1208,9 @@ const locales = {
     WHATS_HAPPENING: 'Apa yang sedang hangat dibicarakan?',
   },
   it: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Posizione account: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Aggiungi altro Tweet',
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
     GROK_ACTIONS: 'Azioni di Grok',
@@ -1182,6 +1249,9 @@ const locales = {
     WHATS_HAPPENING: "Che c'è di nuovo?",
   },
   ja: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'アカウントの所在地: ' + e.country
+    },
     ADD_ANOTHER_TWEET: '別のツイートを追加する',
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
     GROK_ACTIONS: 'Grokのアクション',
@@ -1222,6 +1292,9 @@ const locales = {
     WHATS_HAPPENING: 'いまどうしてる？',
   },
   kn: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return e.country + ' ನಲ್ಲಿ ಆಧಾರಿತ ಖಾತೆ'
+    },
     ADD_ANOTHER_TWEET: 'ಮತ್ತೊಂದು ಟ್ವೀಟ್ ಸೇರಿಸಿ',
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
     GROK_ACTIONS: 'Grok ಕ್ರಮಗಳು',
@@ -1262,6 +1335,9 @@ const locales = {
     WHATS_HAPPENING: 'ಏನು ನಡೆಯುತ್ತಿದೆ?',
   },
   ko: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return '계정 사용자 거주 국가: ' + e.country
+    },
     ADD_ANOTHER_TWEET: '다른 트윗 추가하기',
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
     GROK_ACTIONS: 'Grok 작업',
@@ -1303,6 +1379,9 @@ const locales = {
     WHATS_HAPPENING: '무슨 일이 일어나고 있나요?',
   },
   mr: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return e.country + ' मध्ये नोंदणीकृत खाते'
+    },
     ADD_ANOTHER_TWEET: 'दुसरे ट्विट सामील करा',
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
     GROK_ACTIONS: 'Grok कृती',
@@ -1343,6 +1422,9 @@ const locales = {
     WHATS_HAPPENING: 'ताज्या घडामोडी?',
   },
   ms: {
+    ACCOUNT_BASED_IN_FN: function (a) {
+      return 'Akaun berpangkalan di ' + a.country
+    },
     ADD_ANOTHER_TWEET: 'Tambahkan Tweet lain',
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
     GROK_ACTIONS: 'Tindakan Grok',
@@ -1382,6 +1464,9 @@ const locales = {
     WHATS_HAPPENING: 'Apakah yang sedang berlaku?',
   },
   nb: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Konto basert i ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Legg til en annen Tweet',
     ADD_MUTED_WORD: 'Skjul nytt ord',
     GROK_ACTIONS: 'Grok-handlinger',
@@ -1418,6 +1503,9 @@ const locales = {
     WHATS_HAPPENING: 'Hva skjer?',
   },
   nl: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Account bevindt zich in ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Nog een Tweet toevoegen',
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
     GROK_ACTIONS: 'Grok-acties',
@@ -1454,6 +1542,9 @@ const locales = {
     WHATS_HAPPENING: 'Wat gebeurt er?',
   },
   pl: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Kraj konta: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Dodaj kolejnego Tweeta',
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
     GROK_ACTIONS: 'Akcje Groka',
@@ -1493,6 +1584,9 @@ const locales = {
     WHATS_HAPPENING: 'Co się dzieje?',
   },
   pt: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Conta com base em ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Adicionar outro Tweet',
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
     GROK_ACTIONS: 'Ações do Grok',
@@ -1530,6 +1624,9 @@ const locales = {
     WHATS_HAPPENING: 'O que está acontecendo?',
   },
   ro: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Cont din ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Adaugă alt Tweet',
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
     GROK_ACTIONS: 'Acțiuni Grok',
@@ -1569,6 +1666,9 @@ const locales = {
     WHATS_HAPPENING: 'Ce se întâmplă?',
   },
   ru: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Страна или регион: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Добавить еще один твит',
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
     GROK_ACTIONS: 'Действия Grok',
@@ -1610,6 +1710,9 @@ const locales = {
     WHATS_HAPPENING: 'Что происходит?',
   },
   sk: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Účet sa používa z krajiny ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Pridať ďalší Tweet',
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
     GROK_ACTIONS: 'Akcie Groka',
@@ -1650,6 +1753,9 @@ const locales = {
     WHATS_HAPPENING: 'Čo sa deje?',
   },
   sr: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Земља у којој је налог основан: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Додај још један твит',
     ADD_MUTED_WORD: 'Додај игнорисану реч',
     GROK_ACTIONS: 'Grok радње',
@@ -1691,6 +1797,9 @@ const locales = {
     WHATS_HAPPENING: 'Шта се дешава?',
   },
   sv: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Konto med bas i ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Lägg till en Tweet till',
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
     GROK_ACTIONS: 'Grok-åtgärder',
@@ -1729,6 +1838,9 @@ const locales = {
     WHATS_HAPPENING: 'Vad är det som händer?',
   },
   ta: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return e.country + ' -இல் உள்ள கணக்கு'
+    },
     ADD_ANOTHER_TWEET: 'வேறொரு கீச்சைச் சேர்',
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
     GROK_ACTIONS: 'Grok செயல்கள்',
@@ -1769,6 +1881,9 @@ const locales = {
     WHATS_HAPPENING: 'என்ன நிகழ்கிறது?',
   },
   th: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'บัญชีตั้งอยู่ใน ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'เพิ่มอีกทวีต',
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
     GROK_ACTIONS: 'การดำเนินการของ Grok',
@@ -1810,6 +1925,9 @@ const locales = {
     WHATS_HAPPENING: 'มีอะไรเกิดขึ้นบ้าง',
   },
   tr: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Hesabın bulunduğu ülke/bölge: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Başka bir Tweet ekle',
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
     GROK_ACTIONS: 'Grok işlemleri',
@@ -1849,6 +1967,9 @@ const locales = {
     WHATS_HAPPENING: 'Neler oluyor?',
   },
   uk: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Країна чи регіон: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Додати ще один твіт',
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
     GROK_ACTIONS: 'Дії Grok',
@@ -1922,6 +2043,9 @@ const locales = {
     WHATS_HAPPENING: 'کیا ہو رہا ہے؟',
   },
   vi: {
+    ACCOUNT_BASED_IN_FN: function (n) {
+      return 'Tài khoản ở ' + n.country
+    },
     ADD_ANOTHER_TWEET: 'Thêm Tweet khác',
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
     GROK_ACTIONS: 'Hành động của Grok',
@@ -1961,6 +2085,9 @@ const locales = {
     WHATS_HAPPENING: 'Chuyện gì đang xảy ra?',
   },
   'zh-Hant': {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return '帳戶所在地 ' + e.country
+    },
     ADD_ANOTHER_TWEET: '加入另一則推文',
     ADD_MUTED_WORD: '加入靜音文字',
     GROK_ACTIONS: 'Grok 動作',
@@ -2001,6 +2128,9 @@ const locales = {
     WHATS_HAPPENING: '有什麼新鮮事？',
   },
   zh: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return '账号所在地 ' + e.country
+    },
     ADD_ANOTHER_TWEET: '添加另一条推文',
     ADD_MUTED_WORD: '添加要隐藏的字词',
     GROK_ACTIONS: 'Grok 操作',
@@ -2043,11 +2173,17 @@ const locales = {
 }
 
 /**
- * @param {import("./types").LocaleKey} code
- * @returns {string}
+ * @param {import("./types").LocaleFunctionKey} key
  */
-function getString(code) {
-  return (locales[lang] || locales['en'])[code] || locales['en'][code];
+function getFn(key) {
+  return (locales[lang] || locales['en'])[key] || locales['en'][key];
+}
+
+/**
+ * @param {import("./types").LocaleStringKey} key
+ */
+function getString(key) {
+  return (locales[lang] || locales['en'])[key] || locales['en'][key];
 }
 //#endregion
 
@@ -2404,6 +2540,11 @@ function shouldShowSeparatedTweetsTab() {
 //#endregion
 
 //#region Utility functions
+function addQuestionMark(text, add) {
+  if (!add) return text
+  return ltr ? `${text}?` : `؟${text}`
+}
+
 function addStyle(css = '') {
   let $style = document.createElement('style')
   if (css) {
@@ -3640,7 +3781,7 @@ async function addAccountLocationToFocusedTweet($permalinkBar, screenName) {
   if ($permalinkBar.hasAttribute('cpft-account-location-added')) return
   if (!screenName) return
   let accountLocation = await getAccountLocation(screenName)
-  if (!accountLocation) return
+  if (!accountLocation || !accountLocation.account_based_in) return
   let $separator = document.createElement('span')
   $separator.className = 'AccountLocation cpft_separator cpft_text'
   $separator.setAttribute('aria-hidden', 'true')
@@ -3649,7 +3790,7 @@ async function addAccountLocationToFocusedTweet($permalinkBar, screenName) {
   let $locationLabel = document.createElement('span')
   $locationLabel.className = 'AccountLocation cpft_text'
   $locationLabel.setAttribute('hidden', '')
-  $locationLabel.textContent = `${accountLocation.account_based_in}${accountLocation.location_accurate ? '' : '?'}`
+  $locationLabel.textContent = addQuestionMark(accountLocation.account_based_in, !accountLocation.location_accurate)
   $permalinkBar.append($separator, $locationLabel)
   $permalinkBar.setAttribute('cpft-account-location-added', '')
 }
@@ -5545,7 +5686,7 @@ function handlePopup($popup) {
     }
   }
 
-  if (config.hideGrokNav || config.twitterBlueChecks != 'ignore') {
+  if (config.hideGrokNav || config.twitterBlueChecks != 'ignore' || config.addUserHoverCardAccountLocation) {
     // User hovercard popup
     let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
     if ($hoverCard) {
@@ -5565,6 +5706,20 @@ function handlePopup($popup) {
         }
         if (config.twitterBlueChecks != 'ignore') {
           processBlueChecks($popup)
+        }
+        if (config.addUserHoverCardAccountLocation) {
+          let $followingLink = /** @type {HTMLAnchorElement} */ ($popup.querySelector('[href$="/following"]'))
+          if (!$followingLink) return
+          let screenName = $followingLink.pathname.split('/')[1]
+          if (!screenName) return
+          getAccountLocation(screenName).then((accountLocation) => {
+            if (!accountLocation || !accountLocation.account_based_in) return
+            let $insertionPoint = $followingLink.parentElement.parentElement.parentElement
+            let fontSizeNum = parseInt(fontSize)
+            $insertionPoint?.insertAdjacentHTML('afterend', `<div class="cpft_text" style="margin-top: ${fontSizeNum - 4}px; line-height: ${fontSizeNum + 1}px; font-size: ${fontSizeNum - 1}px;">
+  ${addQuestionMark(getFn('ACCOUNT_BASED_IN_FN')({country: accountLocation.account_based_in}), !accountLocation.location_accurate)}
+            </div>`)
+          })
         }
       })
     }
@@ -7477,7 +7632,7 @@ function tweakProfileSettingsPage() {
 /**
  * @param {Element} $dropdownItem
  * @param {string} dropdownItemSelector
- * @param {import("./types").LocaleKey} localeKey
+ * @param {import("./types").LocaleStringKey} localeKey
  */
 async function tweakRetweetDropdown($dropdownItem, dropdownItemSelector, localeKey) {
   log('tweaking Retweet/Quote Tweet dropdown')

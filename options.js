@@ -34,6 +34,7 @@ for (let optionValue of [
 for (let translationId of [
   'addAddMutedWordMenuItemLabel_desktop',
   'addAddMutedWordMenuItemLabel_mobile',
+  'addUserHoverCardAccountLocationLabel',
   'addFocusedTweetAccountLocationLabel',
   'alwaysUseLatestTweetsLabel',
   'bypassAgeVerificationLabel',
@@ -264,7 +265,7 @@ const defaultConfig = {
   reducedInteractionMode: false,
   replaceLogo: true,
   restoreLinkHeadlines: true,
-  restoreOtherInteractionLinks: false,
+  restoreOtherInteractionLinks: true,
   restoreQuoteTweetsLink: true,
   restoreTweetSource: true,
   retweets: 'separate',
@@ -285,6 +286,7 @@ const defaultConfig = {
   // Experiments
   customCss: '',
   // Desktop only
+  addUserHoverCardAccountLocation: true,
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,

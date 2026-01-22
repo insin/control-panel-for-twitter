@@ -8,6 +8,9 @@
   "addFocusedTweetAccountLocationLabel": {
     "message": "ツイートの詳細表示にアカウントの場所を表示"
   },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "ユーザーのプロフィールカードにアカウントの場所を表示"
+  },
   "alwaysUseLatestTweetsLabel": {
     "message": "常にタイムラインをフォロー中（時系列順）にする"
   },

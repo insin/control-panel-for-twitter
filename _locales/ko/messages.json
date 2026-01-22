@@ -8,6 +8,9 @@
   "addFocusedTweetAccountLocationLabel": {
     "message": "개별 트윗에 계정 위치 표시"
   },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "사용자 호버 카드에 계정 위치 표시"
+  },
   "alwaysUseLatestTweetsLabel": {
     "message": "기본적으로 팔로잉 (시간순) 타임라인 사용"
   },

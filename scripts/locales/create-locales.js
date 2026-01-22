@@ -8,6 +8,7 @@ const locales = JSON.parse(fs.readFileSync('./base-locales.json', 'utf-8'))
 
 // These codes are from Twitter's locale files
 let template = {
+  ACCOUNT_BASED_IN_FN: 'a570931f',
   ADD_MUTED_WORD: 'd768049c',
   GROK_ACTIONS: 'e3eceda6',
   HOME: 'ha8209bc',
@@ -32,12 +33,23 @@ for (let file of fs.readdirSync('./js')) {
   let locale = locales[localeCode]
   let src = fs.readFileSync(path.join('js', file), {encoding: 'utf8'})
   for (let [key, code] of Object.entries(template)) {
-    let match = src.match(new RegExp(`"${code}","([^"]+)"`))
-    if (!match) match = src.match(new RegExp(`"${code}",'([^']+)'`))
-    if (match) {
-      locale[key] = match[1]
+    if (key.endsWith('_FN')) {
+      let match = src.match(
+        new RegExp(`"${code}",\\((function\\([a-z]\\)[^)]+)\\)`),
+      )
+      if (match) {
+        locale[key] = match[1]
+      } else {
+        console.log('no function match', {file, key, code})
+      }
     } else {
-      console.log('no match', {file, key, code})
+      let match = src.match(new RegExp(`"${code}","([^"]+)"`))
+      if (!match) match = src.match(new RegExp(`"${code}",'([^']+)'`))
+      if (match) {
+        locale[key] = match[1]
+      } else {
+        console.log('no string match', {file, key, code})
+      }
     }
   }
   locales[localeCode] = sortProperties(locale)
@@ -56,6 +68,13 @@ for (let localeCode in locales) {
 
 fs.writeFileSync(
   'locales.js',
-  `const locales = ${JSON.stringify(locales, null, 2)}`,
-  'utf8'
+  // prettier-ignore
+  `const locales = {
+${Object.entries(locales).map(
+  ([lang, locale]) => `  "${lang}": {\n${Object.entries(locale).map(
+    ([k, v]) => `    ${k}: ${k.endsWith('_FN') ? v : JSON.stringify(v)}`
+  ).join(',\n')}\n  }`
+).join(',\n')}
+}`,
+  'utf8',
 )

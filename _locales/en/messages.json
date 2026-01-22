@@ -8,6 +8,9 @@
   "addFocusedTweetAccountLocationLabel": {
     "message": "Show account location in focused tweets"
   },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "Show account location in user hover cards"
+  },
   "alwaysUseLatestTweetsLabel": {
     "message": "Use the Following (chronological) timeline by default"
   },

@@ -8,6 +8,9 @@
   "addFocusedTweetAccountLocationLabel": {
     "message": "在推文详情中显示账户位置"
   },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "在用户悬浮卡片中显示账户位置"
+  },
   "alwaysUseLatestTweetsLabel": {
     "message": "默认使用 关注（按时间顺序）的时间线"
   },

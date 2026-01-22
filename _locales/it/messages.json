@@ -8,6 +8,9 @@
   "addFocusedTweetAccountLocationLabel": {
     "message": "Mostra la località dell'account nei tweet in primo piano"
   },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "Mostra la località dell'account nelle schede profilo a comparsa"
+  },
   "alwaysUseLatestTweetsLabel": {
     "message": "Usa la timeline Seguiti (cronologica) di default"
   },

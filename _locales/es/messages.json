@@ -8,6 +8,9 @@
   "addFocusedTweetAccountLocationLabel": {
     "message": "Mostrar la ubicación de la cuenta en tweets individuales"
   },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "Mostrar la ubicación de la cuenta en las tarjetas flotantes de usuario"
+  },
   "alwaysUseLatestTweetsLabel": {
     "message": "Usar la timeline cronológica (Siguiendo) por defecto"
   },

@@ -8,6 +8,9 @@
   "addFocusedTweetAccountLocationLabel": {
     "message": "Afficher le lieu du compte dans la vue détaillée du tweet"
   },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "Afficher le lieu du compte dans les cartes de profil flottantes"
+  },
   "alwaysUseLatestTweetsLabel": {
     "message": "Utiliser le fil Abonnements (chronologique) par défaut"
   },
