@@ -3371,7 +3371,7 @@ const observeSideNavChatLink = (() => {
     })
     observer = observeElement($linkTextContainer, () => {
       if ($linkTextContainer.childElementCount > 1) {
-        let $linkText = /** @type {HTMLElement} */ ($linkTextContainer.querySelector('div[dir] > span'))
+        let $linkText = /** @type {HTMLElement} */ ($linkTextContainer.querySelector('div[dir]:not([aria-live]) > span'))
         if ($linkText) {
           $linkText.textContent = getString('MESSAGES')
         } else {
