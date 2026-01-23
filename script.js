@@ -6694,25 +6694,36 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
   let $group = $focusedTweet.querySelector('[role="group"][id^="id__"]')
   if (!$group) return warn('focused tweet action bar not found')
 
+  function formatInteractionCount(count) {
+    if (count < 10000) {
+      return Intl.NumberFormat(lang, {notation: 'standard'}).format(count)
+    }
+    let formattedCount = count
+    if (count < 1000000) {
+      formattedCount -= formattedCount % 1000
+    }
+    return Intl.NumberFormat(lang, {notation: 'compact', compactDisplay: 'short'}).format(formattedCount)
+  }
+
   let tweetLink = location.pathname.match(URL_TWEET_BASE_RE)?.[0]
   $group.parentElement.insertAdjacentHTML('beforebegin', `
     <div id="cpftInteractionLinks" hidden>
       <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--border-color); display: flex; gap: 20px;">
         ${tweetInfo.quote_count > 0 ? `<a id="cpftQuoteTweetsLink" class="quoteTweets" href="${tweetLink}/quotes" dir="auto" role="link">
           <span id="cpftQuoteTweetCount">
-            ${Intl.NumberFormat(lang, {notation: tweetInfo.quote_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)}
+            ${formatInteractionCount(tweetInfo.quote_count)}
           </span>
           <span>${getString(tweetInfo.quote_count == 1 ? (config.replaceLogo ? 'QUOTE_TWEET' : 'QUOTE') : (config.replaceLogo ? 'QUOTE_TWEETS' : 'QUOTES'))}</span>
         </a>` : ''}
         ${tweetInfo.retweet_count > 0 ? `<a id="cpftRetweetsLink" data-tab="2" href="${tweetLink}/retweets" dir="auto" role="link">
           <span id="cpftRetweetCount">
-            ${Intl.NumberFormat(lang, {notation: tweetInfo.retweet_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.retweet_count)}
+            ${formatInteractionCount(tweetInfo.retweet_count)}
           </span>
           <span>${getString(config.replaceLogo ? 'RETWEETS' : 'REPOSTS')}</span>
         </a>` : ''}
         ${isOwnTweet && tweetInfo.favorite_count > 0 ? `<a id="cpftLikesLink" data-tab="3" href="${tweetLink}/likes" dir="auto" role="link">
           <span id="cpftLikeCount">
-            ${Intl.NumberFormat(lang, {notation: tweetInfo.favorite_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.favorite_count)}
+            ${formatInteractionCount(tweetInfo.favorite_count)}
           </span>
           <span>${getString('LIKES')}</span>
         </a>` : ''}
