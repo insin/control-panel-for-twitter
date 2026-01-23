@@ -292,6 +292,25 @@
       </section>
       <section class="checkbox">
         <label>
+          <span id="unwrapTcoLinksLabel">Unwrap t.co shortened links</span>
+          <input type="checkbox" name="unwrapTcoLinks">
+          <span class="toggle"></span>
+        </label>
+        <p id="unwrapTcoLinksInfo">
+          Replace t.co links with the actual destination URL
+        </p>
+      </section>
+      <section class="text">
+        <label>
+          <span id="redirectTwitterLinksLabel">Redirect Twitter/X links to</span>
+          <input type="text" name="redirectTwitterLinks" placeholder="e.g., nitter.net">
+        </label>
+        <p id="redirectTwitterLinksInfo">
+          Rewrite twitter.com/x.com links to an alternative frontend (leave empty to disable)
+        </p>
+      </section>
+      <section class="checkbox">
+        <label>
           <span id="restoreQuoteTweetsLinkLabel">Restore Quote Tweets link under Tweets</span>
           <input type="checkbox" name="restoreQuoteTweetsLink">
           <span class="toggle"></span>

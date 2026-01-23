@@ -374,6 +374,12 @@
   "redirectToTwitterLabel": {
     "message": "Redirect to twitter.com"
   },
+  "redirectTwitterLinksLabel": {
+    "message": "Redirect Twitter/X links to"
+  },
+  "redirectTwitterLinksInfo": {
+    "message": "Rewrite twitter.com/x.com links to an alternative frontend (leave empty to disable)"
+  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "Remove algorithmic content"
   },
@@ -475,6 +481,12 @@
   },
   "uninvertFollowButtonsLabel": {
     "message": "Uninvert Follow / Following buttons"
+  },
+  "unwrapTcoLinksLabel": {
+    "message": "Unwrap t.co shortened links"
+  },
+  "unwrapTcoLinksInfo": {
+    "message": "Replace t.co links with the actual destination URL"
   },
   "unmuteButtonText": {
     "message": "Unmute",

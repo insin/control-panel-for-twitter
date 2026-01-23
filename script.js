@@ -92,6 +92,42 @@ XMLHttpRequest.prototype.send = function(body) {
   return XMLHttpRequest_send.apply(this, [body])
 }
 
+/** Tracking parameters to strip from Twitter/X URLs */
+const TRACKING_PARAMS = ['s', 't', 'ref_src', 'ref_url', 'src', 'cxt', 'vertical', 'mx']
+
+/**
+ * Strip tracking params from a URL, optionally redirect to a custom domain
+ */
+function cleanTwitterUrl(urlString, targetDomain) {
+  try {
+    let url = new URL(urlString)
+    TRACKING_PARAMS.forEach(param => url.searchParams.delete(param))
+    let search = url.searchParams.toString()
+    let domain = targetDomain || url.hostname
+    return `https://${domain}${url.pathname}${search ? '?' + search : ''}${url.hash}`
+  } catch (e) {
+    return urlString
+  }
+}
+
+// Intercept copy events to strip tracking params and optionally redirect
+document.addEventListener('copy', function(e) {
+  if (!config.enabled) return
+
+  let selection = window.getSelection()?.toString() || ''
+  let urlPattern = /https?:\/\/(www\.)?(twitter\.com|x\.com|mobile\.twitter\.com|mobile\.x\.com)(\/[^\s]*)?/gi
+
+  if (urlPattern.test(selection)) {
+    urlPattern.lastIndex = 0
+    let targetDomain = config.redirectTwitterLinks?.trim().replace(/^https?:\/\//, '') || null
+    let newText = selection.replace(urlPattern, (match) => cleanTwitterUrl(match, targetDomain))
+    if (newText !== selection) {
+      e.preventDefault()
+      e.clipboardData?.setData('text/plain', newText)
+    }
+  }
+}, true)
+
 let debug = false
 
 /** @type {boolean} */
@@ -181,10 +217,12 @@ const config = {
   quoteTweets: 'ignore',
   redirectChatNav: false,
   redirectToTwitter: false,
+  redirectTwitterLinks: '',
   reducedInteractionMode: false,
   replaceLogo: true,
   restoreLinkHeadlines: true,
   restoreOtherInteractionLinks: true,
+  unwrapTcoLinks: true,
   restoreQuoteTweetsLink: true,
   restoreTweetSource: true,
   retweets: 'separate',
@@ -5968,6 +6006,10 @@ function onTimelineChange($timeline, page, options = {}) {
       if (!hideItem && config.restoreLinkHeadlines) {
         restoreLinkHeadline($tweet)
       }
+
+      if (!hideItem) {
+        unwrapTcoLinks($tweet)
+      }
     }
     else if (isOnNotificationsTimeline) {
       /** @type {?import("./types").NotificationType} */
@@ -6201,6 +6243,10 @@ function onIndividualTweetTimelineChange($timeline, options) {
 
       if (!hideItem && config.restoreLinkHeadlines) {
         restoreLinkHeadline($tweet)
+      }
+
+      if (!hideItem) {
+        unwrapTcoLinks($tweet)
       }
     }
     else {
@@ -6666,6 +6712,41 @@ function restoreLinkHeadline($tweet) {
       <div style="color: var(--color-emphasis)">${headline}</div>
     </div>`)
     $link.dataset.headlineRestored = 'true'
+  }
+}
+
+/**
+ * Unwraps t.co shortened links to show/use the actual destination URL.
+ * @param {HTMLElement} $tweet
+ */
+function unwrapTcoLinks($tweet) {
+  if (!config.unwrapTcoLinks) return
+
+  let $links = $tweet.querySelectorAll('a[href^="https://t.co/"]')
+  for (let $link of $links) {
+    if ($link.dataset.tcoUnwrapped) continue
+
+    let expandedUrl = null
+    let textContent = $link.textContent?.trim()
+
+    if (textContent) {
+      // Remove ellipsis that Twitter adds for truncation
+      textContent = textContent.replace(/…$/, '').trim()
+
+      if (textContent.startsWith('http://') || textContent.startsWith('https://')) {
+        expandedUrl = textContent
+      } else if (textContent.includes('.') && !textContent.includes(' ')) {
+        expandedUrl = 'https://' + textContent
+      }
+    }
+
+    if (expandedUrl) {
+      $link.dataset.originalTco = $link.href
+      $link.href = expandedUrl
+      $link.dataset.tcoUnwrapped = 'true'
+    } else {
+      $link.dataset.tcoUnwrapped = 'attempted'
+    }
   }
 }
 

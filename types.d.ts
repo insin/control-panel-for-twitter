@@ -68,12 +68,14 @@ export type Config = {
   quoteTweets: SharedTweetsConfig
   redirectChatNav: boolean
   redirectToTwitter: boolean
+  redirectTwitterLinks: string
   reducedInteractionMode: boolean
   // XXX This now controls all replacement of X brand changes
   replaceLogo: boolean
   restoreLinkHeadlines: boolean
   restoreQuoteTweetsLink: boolean
   restoreOtherInteractionLinks: boolean
+  unwrapTcoLinks: boolean
   restoreTweetSource: boolean
   retweets: SharedTweetsConfig
   showBlueReplyFollowersCount: boolean
