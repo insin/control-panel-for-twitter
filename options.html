@@ -306,12 +306,19 @@
       </section>
       <section class="select">
         <label>
-          <span id="sortRepliesLabel">Default for Sort replies</span>
+          <span id="sortRepliesLabel">Default sorting of replies</span>
           <select name="sortReplies">
-            <option value="relevant">Most relevent</option>
-            <option value="recent">Most recent</option>
-            <option value="liked">Most liked</option>
+            <option value="relevant">Relevant</option>
+            <option value="recent">Recent</option>
+            <option value="liked">Likes</option>
           </select>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="hideSortRepliesMenuLabel">Hide "Sort replies" menu</span>
+          <input type="checkbox" name="hideSortRepliesMenu">
+          <span class="toggle"></span>
         </label>
       </section>
       <section class="select">
@@ -701,8 +708,8 @@
       </section>
       <section class="checkbox">
         <label>
-          <span id="hideTweetAnalyticsLinksLabel">Analytics links under your own tweets</span>
-          <input type="checkbox" name="hideTweetAnalyticsLinks">
+          <span id="hideViewActivityLinksLabel">"View activity" links</span>
+          <input type="checkbox" name="hideViewActivityLinks">
           <span class="toggle"></span>
         </label>
       </section>

@@ -19,12 +19,14 @@ let template = {
   PROFILE_SUMMARY: 'fc7db594',
   QUOTE: 'bb5c5864',
   QUOTES: 'j45978a8',
+  RECENT: 'a8d68f62',
+  RELEVANT: 'h67428e2',
   REPOST: 'g062295e',
   REPOSTS: 'ja42739e',
   SHOW: 'a0e81a2e',
   SHOW_MORE_REPLIES: 'c837fcaa',
   SORT_BY: 'e2a098dc',
-  SORT_REPLIES_BY: 'ad6e11ac',
+  SORT_REPLIES: 'j9a4bb28',
 }
 
 for (let file of fs.readdirSync('./js')) {

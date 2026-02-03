@@ -245,6 +245,9 @@
   "hideSidebarContentLabel": {
     "message": "サイドバーコンテンツを非表示にする"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "「返信を並べ替え」メニューを非表示"
+  },
   "hideSpacesNavLabel": {
     "message": "スペースを作成"
   },
@@ -263,9 +266,6 @@
   "hideToggleNavigationLabel": {
     "message": "ナビゲーション切り替えを非表示"
   },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "自分のツイートの下に「ポストのエンゲージメントを表示」"
-  },
   "hideTwitterBlueRepliesLabel": {
     "message": "プレミアム ブルー チェックの返信を非表示にする"
   },
@@ -280,6 +280,9 @@
   },
   "hideVerifiedNotificationsTabLabel": {
     "message": "フォロワーの「認証済み」タブを非表示"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "「アクティビティを表示」リンク"
   },
   "hideViewsLabel": {
     "message": "ツイート下部のアナリティクスのリンクを非表示"
@@ -348,7 +351,7 @@
     "message": "最新"
   },
   "option_relevant": {
-    "message": "関連性"
+    "message": "関連性が高い"
   },
   "option_separate": {
     "message": "別タブで開く"

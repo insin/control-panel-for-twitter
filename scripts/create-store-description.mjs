@@ -82,6 +82,7 @@ ${messages.xFixesLabel}:
 • ${messages.restoreQuoteTweetsLinkLabel}
 • ${messages.restoreOtherInteractionLinksLabel}
 • ${messages.sortRepliesLabel} (${messages.option_recent} / ${messages.option_liked})
+• ${messages.hideSortRepliesMenuLabel}
 • ${messages.twitterBlueChecksLabel} (${messages.twitterBlueChecksOption_replace} / ${messages.option_hide})
 • ${messages.hideTwitterBlueRepliesLabel}
 • ${messages.hideTwitterBlueUpsellsLabel}
@@ -120,7 +121,7 @@ ${messages.hideUnusedUiItemsOptionsLabel}:
 
 • ${messages.hideBookmarkButtonLabel}
 • ${messages.hideShareTweetButtonLabel}
-• ${messages.hideTweetAnalyticsLinksLabel}
+• ${messages.hideViewActivityLinksLabel}
 • ${messages.hideTimelineTweetBoxLabel}${messages.desktopVersion}
 • ${messages.hideAccountSwitcherLabel}${messages.desktopVersion}
 • ${messages.hideMessagesDrawerLabel}${messages.desktopVersion}

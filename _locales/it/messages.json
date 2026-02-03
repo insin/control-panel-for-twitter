@@ -245,6 +245,9 @@
   "hideSidebarContentLabel": {
     "message": "Nascondi contenuti della barra laterale"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "Nascondi il menu \"Ordina risposte\""
+  },
   "hideSpacesNavLabel": {
     "message": "Crea il tuo spazio"
   },
@@ -263,9 +266,6 @@
   "hideToggleNavigationLabel": {
     "message": "Nascondi attiva/disattiva navigazione"
   },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "\"Visualizza interazioni tweet\" sotto ai tuoi tweet"
-  },
   "hideTwitterBlueRepliesLabel": {
     "message": "Nascondi risposte degli utenti verificati Premium"
   },
@@ -280,6 +280,9 @@
   },
   "hideVerifiedNotificationsTabLabel": {
     "message": "Nascondi la scheda Verificati dei follower"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "Link \"Visualizza attività\""
   },
   "hideViewsLabel": {
     "message": "Nascondi le visualizzazioni sotto ai tweet"
@@ -348,7 +351,7 @@
     "message": "Recenti"
   },
   "option_relevant": {
-    "message": "Pertinenza"
+    "message": "Rilevante"
   },
   "option_separate": {
     "message": "Mostra in scheda separata"

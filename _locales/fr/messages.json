@@ -245,6 +245,9 @@
   "hideSidebarContentLabel": {
     "message": "Masquer le contenu de la barre latérale"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "Masquer le menu \"Trier les réponses\""
+  },
   "hideSpacesNavLabel": {
     "message": "Créer votre Espace"
   },
@@ -263,9 +266,6 @@
   "hideToggleNavigationLabel": {
     "message": "Masquer activer/désactiver la navigation"
   },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "\"Voir les engagements avec le post\" sous vos tweets"
-  },
   "hideTwitterBlueRepliesLabel": {
     "message": "Masquer les réponses des coches bleus Premium"
   },
@@ -280,6 +280,9 @@
   },
   "hideVerifiedNotificationsTabLabel": {
     "message": "Masquer l'onglet Certifié des abonnés"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "Liens \"Voir l'activité\""
   },
   "hideViewsLabel": {
     "message": "Masquer les vues sous les tweets"
@@ -345,7 +348,7 @@
     "message": "Populaire"
   },
   "option_recent": {
-    "message": "Récent"
+    "message": "Récents"
   },
   "option_relevant": {
     "message": "Pertinence"

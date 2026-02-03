@@ -50,16 +50,17 @@ export type Config = {
   hideRetweetMetrics: boolean
   hideSeeNewTweets: boolean
   hideShareTweetButton: boolean
+  hideSortRepliesMenu: boolean
   hideSpacesNav: boolean
   hideSubscriptions: boolean
   // XXX This now controls hiding profile header metrics
   hideTotalTweetsMetrics: boolean
-  hideTweetAnalyticsLinks: boolean
   hideTwitterBlueReplies: boolean
   hideTwitterBlueUpsells: boolean
   hideUnavailableQuoteTweets: boolean
   // XXX This now also controls hiding Verified Followers
   hideVerifiedNotificationsTab: boolean
+  hideViewActivityLinks: boolean
   hideViews: boolean
   hideWhoToFollowEtc: boolean
   listRetweets: 'ignore' | 'hide'
@@ -140,6 +141,8 @@ export type LocaleKey =
   | 'QUOTES'
   | 'QUOTE_TWEET'
   | 'QUOTE_TWEETS'
+  | 'RECENT'
+  | 'RELEVANT'
   | 'REPOST'
   | 'REPOSTS'
   | 'RETWEET'
@@ -150,7 +153,7 @@ export type LocaleKey =
   | 'SHOW'
   | 'SHOW_MORE_REPLIES'
   | 'SORT_BY'
-  | 'SORT_REPLIES_BY'
+  | 'SORT_REPLIES'
   | 'TURN_OFF_QUOTE_TWEETS'
   | 'TURN_OFF_RETWEETS'
   | 'TURN_ON_RETWEETS'

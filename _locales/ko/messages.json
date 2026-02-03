@@ -245,6 +245,9 @@
   "hideSidebarContentLabel": {
     "message": "사이드바 내용 숨기기"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "\"답글 정렬하기\" 메뉴 숨기기"
+  },
   "hideSpacesNavLabel": {
     "message": "스페이스 만들기"
   },
@@ -263,9 +266,6 @@
   "hideToggleNavigationLabel": {
     "message": "탐색 전환 숨기기"
   },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "내 트윗 아래에 \"게시 참여수 조회\""
-  },
   "hideTwitterBlueRepliesLabel": {
     "message": "Premium 파란색 체크 답장 숨기기"
   },
@@ -280,6 +280,9 @@
   },
   "hideVerifiedNotificationsTabLabel": {
     "message": "팔로워의 인증된 탭 숨기기"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "\"활동 보기\" 링크"
   },
   "hideViewsLabel": {
     "message": "트윗 아래의 조회수 숨기기"
@@ -345,7 +348,7 @@
     "message": "인기"
   },
   "option_recent": {
-    "message": "최신"
+    "message": "최근"
   },
   "option_relevant": {
     "message": "관련성"

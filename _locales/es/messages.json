@@ -245,6 +245,9 @@
   "hideSidebarContentLabel": {
     "message": "Ocultar contenido de la barra lateral"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "Ocultar el menú \"Organizar respuestas\""
+  },
   "hideSpacesNavLabel": {
     "message": "Crear tu Espacio"
   },
@@ -263,9 +266,6 @@
   "hideToggleNavigationLabel": {
     "message": "Ocultar activar/desactivar navegación"
   },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "\"Ver las interacciones de post\" debajo de tus tweets"
-  },
   "hideTwitterBlueRepliesLabel": {
     "message": "Ocultar respuestas de cheque azul Premium"
   },
@@ -280,6 +280,9 @@
   },
   "hideVerifiedNotificationsTabLabel": {
     "message": "Ocultar la pestaña Verificado de Seguidores"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "Enlaces \"Ver actividad\""
   },
   "hideViewsLabel": {
     "message": "Ocultar Reproducciones de tweets"
@@ -345,10 +348,10 @@
     "message": "Popular"
   },
   "option_recent": {
-    "message": "Más reciente"
+    "message": "Recientes"
   },
   "option_relevant": {
-    "message": "Relevancia"
+    "message": "Relevante"
   },
   "option_separate": {
     "message": "Mostrar en pestaña aparte"

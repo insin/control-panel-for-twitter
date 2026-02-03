@@ -245,6 +245,9 @@
   "hideSidebarContentLabel": {
     "message": "隐藏侧边栏内容"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "隐藏“对回复排序”菜单"
+  },
   "hideSpacesNavLabel": {
     "message": "创建你的空间"
   },
@@ -263,9 +266,6 @@
   "hideToggleNavigationLabel": {
     "message": "隐藏切换导航"
   },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "您自己的推文下的\"查看 帖子 互动量\""
-  },
   "hideTwitterBlueRepliesLabel": {
     "message": "隐藏Premium蓝色勾号回复"
   },
@@ -280,6 +280,9 @@
   },
   "hideVerifiedNotificationsTabLabel": {
     "message": "隐藏关注者中的“认证”选项卡"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "“查看活动”链接"
   },
   "hideViewsLabel": {
     "message": "隐藏推文下的观点"
@@ -354,10 +357,10 @@
     "message": "热门"
   },
   "option_recent": {
-    "message": "最新"
+    "message": "最近"
   },
   "option_relevant": {
-    "message": "相关性"
+    "message": "相关"
   },
   "option_separate": {
     "message": "在单独的标签中显示"

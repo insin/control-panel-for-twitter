@@ -248,6 +248,9 @@
   "hideSidebarContentLabel": {
     "message": "Hide sidebar contents"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "Hide \"Sort replies\" menu"
+  },
   "hideSpacesNavLabel": {
     "message": "Create your Space"
   },
@@ -266,9 +269,6 @@
   "hideToggleNavigationLabel": {
     "message": "Hide Toggle navigation"
   },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "\"View post engagements\" under your tweets"
-  },
   "hideTwitterBlueRepliesLabel": {
     "message": "Hide Premium blue check replies"
   },
@@ -283,6 +283,9 @@
   },
   "hideVerifiedNotificationsTabLabel": {
     "message": "Hide Verified Followers tab"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "\"View activity\" links"
   },
   "hideViewsLabel": {
     "message": "Hide Views under tweets"
@@ -350,10 +353,10 @@
     "message": "Popular"
   },
   "option_recent": {
-    "message": "Latest"
+    "message": "Recent"
   },
   "option_relevant": {
-    "message": "Relevancy"
+    "message": "Relevant"
   },
   "option_separate": {
     "message": "Show in separate tab",

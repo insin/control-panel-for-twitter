@@ -166,13 +166,14 @@ const config = {
   hideRetweetMetrics: true,
   hideSeeNewTweets: false,
   hideShareTweetButton: false,
+  hideSortRepliesMenu: false,
   hideSubscriptions: true,
   hideTotalTweetsMetrics: true,
-  hideTweetAnalyticsLinks: false,
   hideTwitterBlueReplies: false,
   hideTwitterBlueUpsells: true,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
+  hideViewActivityLinks: true,
   hideViews: true,
   hideWhoToFollowEtc: true,
   listRetweets: 'ignore',
@@ -254,6 +255,7 @@ const locales = {
     QUOTES: 'اقتباسات',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
+    RECENT: 'الحديثة',
     REPOST: 'إعادة النشر',
     REPOSTS: 'المنشورات المُعاد نشرها',
     RETWEET: 'إعادة التغريد',
@@ -264,7 +266,7 @@ const locales = {
     SHOW: 'إظهار',
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
     SORT_BY: 'فرز حسب',
-    SORT_REPLIES_BY: 'فرز الردود حسب',
+    SORT_REPLIES: 'فرز الردود',
     TURN_OFF_QUOTE_TWEETS: 'تعطيل تغريدات اقتباس',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
@@ -298,6 +300,8 @@ const locales = {
     QUOTES: 'اقتباسات',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
+    RECENT: 'الحديثة',
+    RELEVANT: 'ذو صلة',
     REPOST: 'إعادة النشر',
     REPOSTS: 'المنشورات المُعاد نشرها',
     RETWEET: 'إعادة التغريد',
@@ -308,7 +312,7 @@ const locales = {
     SHOW: 'إظهار',
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
     SORT_BY: 'فرز حسب',
-    SORT_REPLIES_BY: 'فرز الردود حسب',
+    SORT_REPLIES: 'فرز الردود',
     TURN_OFF_QUOTE_TWEETS: 'تعطيل تغريدات اقتباس',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
@@ -341,6 +345,8 @@ const locales = {
     QUOTES: 'Цитати',
     QUOTE_TWEET: 'Цитиране на туита',
     QUOTE_TWEETS: 'Туитове с цитат',
+    RECENT: 'Скорошни',
+    RELEVANT: 'Уместно',
     REPOST: 'Препубликуване',
     REPOSTS: 'Препубликувания',
     RETWEET: 'Ретуитване',
@@ -351,7 +357,7 @@ const locales = {
     SHOW: 'Показване',
     SHOW_MORE_REPLIES: 'Показване на още отговори',
     SORT_BY: 'Сортиране по',
-    SORT_REPLIES_BY: 'Сортиране на отговорите',
+    SORT_REPLIES: 'Сортиране на отговорите',
     TURN_OFF_QUOTE_TWEETS: 'Изключване на туитове с цитат',
     TURN_OFF_RETWEETS: 'Изключване на ретуитовете',
     TURN_ON_RETWEETS: 'Включване на ретуитовете',
@@ -384,6 +390,8 @@ const locales = {
     QUOTES: 'উদ্ধৃতিগুলো',
     QUOTE_TWEET: 'টুইট উদ্ধৃত করুন',
     QUOTE_TWEETS: 'টুইট উদ্ধৃতিগুলো',
+    RECENT: 'সাম্প্রতিক',
+    RELEVANT: 'প্রাসঙ্গিক',
     REPOST: 'রিপোস্ট',
     REPOSTS: 'রিপোস্ট',
     RETWEET: 'পুনঃটুইট',
@@ -394,7 +402,7 @@ const locales = {
     SHOW: 'দেখান',
     SHOW_MORE_REPLIES: 'আরও উত্তর দেখান',
     SORT_BY: 'ক্রমানুসার',
-    SORT_REPLIES_BY: 'উত্তরগুলো এই হিসাবে বাছুন',
+    SORT_REPLIES: 'উত্তরগুলো বাছুন',
     TURN_OFF_QUOTE_TWEETS: 'উদ্ধৃতি টুইটগুলি বন্ধ করুন',
     TURN_OFF_RETWEETS: 'পুনঃ টুইটগুলি বন্ধ করুন',
     TURN_ON_RETWEETS: 'পুনঃ টুইটগুলি চালু করুন',
@@ -428,6 +436,8 @@ const locales = {
     QUOTES: 'Cites',
     QUOTE_TWEET: 'Cita el tuit',
     QUOTE_TWEETS: 'Tuits amb cita',
+    RECENT: 'Recents',
+    RELEVANT: 'Rellevant',
     REPOST: 'Republicació',
     REPOSTS: 'Republicacions',
     RETWEET: 'Retuit',
@@ -438,7 +448,7 @@ const locales = {
     SHOW: 'Mostra',
     SHOW_MORE_REPLIES: 'Mostra més respostes',
     SORT_BY: 'Ordena per',
-    SORT_REPLIES_BY: 'Ordena les respostes per',
+    SORT_REPLIES: 'Ordena les respostes',
     TURN_OFF_QUOTE_TWEETS: 'Desactiva els tuits amb cita',
     TURN_OFF_RETWEETS: 'Desactiva els retuits',
     TURN_ON_RETWEETS: 'Activa els retuits',
@@ -471,6 +481,8 @@ const locales = {
     QUOTES: 'Citace',
     QUOTE_TWEET: 'Citovat Tweet',
     QUOTE_TWEETS: 'Tweety s citací',
+    RECENT: 'Poslední',
+    RELEVANT: 'Související',
     REPOSTS: 'Reposty',
     RETWEET: 'Retweetnout',
     RETWEETED_BY: 'Retweetnuto uživateli',
@@ -480,7 +492,7 @@ const locales = {
     SHOW: 'Zobrazit',
     SHOW_MORE_REPLIES: 'Zobrazit další odpovědi',
     SORT_BY: 'Seřadit podle',
-    SORT_REPLIES_BY: 'Odpovědi roztřiďte podle',
+    SORT_REPLIES: 'Seřadit odpovědi',
     TURN_OFF_QUOTE_TWEETS: 'Vypnout tweety s citací',
     TURN_OFF_RETWEETS: 'Vypnout retweety',
     TURN_ON_RETWEETS: 'Zapnout retweety',
@@ -512,13 +524,14 @@ const locales = {
     QUOTES: 'Citater',
     QUOTE_TWEET: 'Citér Tweet',
     QUOTE_TWEETS: 'Citat-Tweets',
+    RECENT: 'Nye',
     RETWEETED_BY: 'Retweetet af',
     SHARED: 'Delt',
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
     SORT_BY: 'Sorter efter',
-    SORT_REPLIES_BY: 'Sortér svar efter',
+    SORT_REPLIES: 'Sortér svar',
     TURN_OFF_QUOTE_TWEETS: 'Slå Citat-Tweets fra',
     TURN_OFF_RETWEETS: 'Slå Retweets fra',
     TURN_ON_RETWEETS: 'Slå Retweets til',
@@ -549,6 +562,7 @@ const locales = {
     QUOTES: 'Zitate',
     QUOTE_TWEET: 'Tweet zitieren',
     QUOTE_TWEETS: 'Zitierte Tweets',
+    RECENT: 'Neueste',
     REPOST: 'Reposten',
     RETWEET: 'Retweeten',
     RETWEETED_BY: 'Retweetet von',
@@ -557,7 +571,7 @@ const locales = {
     SHOW: 'Anzeigen',
     SHOW_MORE_REPLIES: 'Mehr Antworten anzeigen',
     SORT_BY: 'Sortieren nach',
-    SORT_REPLIES_BY: 'Antworten sortieren nach',
+    SORT_REPLIES: 'Antworten sortieren',
     TURN_OFF_QUOTE_TWEETS: 'Zitierte Tweets ausschalten',
     TURN_OFF_RETWEETS: 'Retweets ausschalten',
     TURN_ON_RETWEETS: 'Retweets einschalten',
@@ -589,6 +603,7 @@ const locales = {
     QUOTES: 'Παραθέσεις',
     QUOTE_TWEET: 'Παράθεση Tweet',
     QUOTE_TWEETS: 'Tweet με παράθεση',
+    RECENT: 'Πρόσφατα',
     REPOST: 'Αναδημοσίευση',
     REPOSTS: 'Αναδημοσιεύσεις',
     RETWEETED_BY: 'Έγινε Retweet από',
@@ -598,7 +613,7 @@ const locales = {
     SHOW: 'Εμφάνιση',
     SHOW_MORE_REPLIES: 'Εμφάνιση περισσότερων απαντήσεων',
     SORT_BY: 'Ταξινόμηση κατά',
-    SORT_REPLIES_BY: 'Ταξινόμηση απαντήσεων κατά',
+    SORT_REPLIES: 'Ταξινόμηση απαντήσεων',
     TURN_OFF_QUOTE_TWEETS: 'Απενεργοποίηση των tweet με παράθεση',
     TURN_OFF_RETWEETS: 'Απενεργοποίηση των Retweet',
     TURN_ON_RETWEETS: 'Ενεργοποίηση των Retweet',
@@ -630,6 +645,8 @@ const locales = {
     QUOTES: 'Quotes',
     QUOTE_TWEET: 'Quote Tweet',
     QUOTE_TWEETS: 'Quote Tweets',
+    RECENT: 'Recent',
+    RELEVANT: 'Relevant',
     REPOST: 'Repost',
     REPOSTS: 'Reposts',
     RETWEET: 'Retweet',
@@ -640,7 +657,7 @@ const locales = {
     SHOW: 'Show',
     SHOW_MORE_REPLIES: 'Show more replies',
     SORT_BY: 'Sort by',
-    SORT_REPLIES_BY: 'Sort replies by',
+    SORT_REPLIES: 'Sort replies',
     TURN_OFF_QUOTE_TWEETS: 'Turn off Quote Tweets',
     TURN_OFF_RETWEETS: 'Turn off Retweets',
     TURN_ON_RETWEETS: 'Turn on Retweets',
@@ -674,6 +691,8 @@ const locales = {
     QUOTES: 'Citas',
     QUOTE_TWEET: 'Citar Tweet',
     QUOTE_TWEETS: 'Tweets citados',
+    RECENT: 'Recientes',
+    RELEVANT: 'Relevante',
     REPOST: 'Repostear',
     RETWEET: 'Retwittear',
     RETWEETED_BY: 'Retwitteado por',
@@ -682,7 +701,7 @@ const locales = {
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar más respuestas',
     SORT_BY: 'Ordenar por',
-    SORT_REPLIES_BY: 'Ordenar respuestas por',
+    SORT_REPLIES: 'Organizar respuestas',
     TURN_OFF_QUOTE_TWEETS: 'Desactivar tweets citados',
     TURN_OFF_RETWEETS: 'Desactivar Retweets',
     TURN_ON_RETWEETS: 'Activar Retweets',
@@ -705,6 +724,8 @@ const locales = {
     QUOTES: 'Aipamenak',
     QUOTE_TWEET: 'Txioa apaitu',
     QUOTE_TWEETS: 'Aipatu txioak',
+    RECENT: 'Azkenak',
+    RELEVANT: 'Aipagarria',
     RETWEET: 'Bertxiotu',
     RETWEETED_BY: 'Bertxiotua:',
     RETWEETS: 'Bertxioak',
@@ -745,6 +766,7 @@ const locales = {
     QUOTES: 'نقل‌قول‌ها',
     QUOTE_TWEET: 'نقل‌توییت',
     QUOTE_TWEETS: 'نقل‌توییت‌ها',
+    RECENT: 'اخیر',
     REPOST: 'بازپست',
     REPOSTS: 'بازپست',
     RETWEET: 'بازتوییت',
@@ -755,7 +777,7 @@ const locales = {
     SHOW: 'نمایش',
     SHOW_MORE_REPLIES: 'نمایش پاسخ‌های بیشتر',
     SORT_BY: 'مرتب‌سازی براساس',
-    SORT_REPLIES_BY: 'مرتب‌سازی پاسخ‌ها براساس',
+    SORT_REPLIES: 'مرتب‌سازی پاسخ‌ها',
     TURN_OFF_QUOTE_TWEETS: 'غیرفعال‌سازی نقل‌توییت‌ها',
     TURN_OFF_RETWEETS: 'غیرفعال‌سازی بازتوییت‌ها',
     TURN_ON_RETWEETS: 'فعال سازی بازتوییت‌ها',
@@ -789,6 +811,8 @@ const locales = {
     QUOTES: 'Lainaukset',
     QUOTE_TWEET: 'Twiitin lainaus',
     QUOTE_TWEETS: 'Twiitin lainaukset',
+    RECENT: 'Uusimmat',
+    RELEVANT: 'Relevantti',
     REPOST: 'Uudelleenjulkaise',
     REPOSTS: 'Uudelleenjulkaisut',
     RETWEET: 'Uudelleentwiittaa',
@@ -799,7 +823,7 @@ const locales = {
     SHOW: 'Näytä',
     SHOW_MORE_REPLIES: 'Näytä lisää vastauksia',
     SORT_BY: 'Lajitteluperuste',
-    SORT_REPLIES_BY: 'Vastausten lajittelutapa',
+    SORT_REPLIES: 'Lajittele vastaukset',
     TURN_OFF_QUOTE_TWEETS: 'Poista twiitin lainaukset käytöstä',
     TURN_OFF_RETWEETS: 'Poista uudelleentwiittaukset käytöstä',
     TURN_ON_RETWEETS: 'Ota uudelleentwiittaukset käyttöön',
@@ -830,6 +854,7 @@ const locales = {
     QUOTES: 'Mga Quote',
     QUOTE_TWEET: 'Quote na Tweet',
     QUOTE_TWEETS: 'Mga Quote na Tweet',
+    RECENT: 'Kamakailan',
     REPOST: 'I-repost',
     REPOSTS: '(na) Repost',
     RETWEET: 'I-retweet',
@@ -840,7 +865,7 @@ const locales = {
     SHOW: 'Ipakita',
     SHOW_MORE_REPLIES: 'Magpakita pa ng mga sagot',
     SORT_BY: 'Isaayos ayon sa',
-    SORT_REPLIES_BY: 'I-sort ang mga reply batay sa',
+    SORT_REPLIES: 'I-sort ang mga reply',
     TURN_OFF_QUOTE_TWEETS: 'I-off ang mga Quote na Tweet',
     TURN_OFF_RETWEETS: 'I-off ang Retweets',
     TURN_ON_RETWEETS: 'I-on ang Retweets',
@@ -872,6 +897,8 @@ const locales = {
     QUOTES: 'Citations',
     QUOTE_TWEET: 'Citer le Tweet',
     QUOTE_TWEETS: 'Tweets cités',
+    RECENT: 'Récents',
+    RELEVANT: 'Pertinence',
     RETWEET: 'Retweeter',
     RETWEETED_BY: 'Retweeté par',
     SHARED: 'Partagé',
@@ -879,7 +906,7 @@ const locales = {
     SHOW: 'Afficher',
     SHOW_MORE_REPLIES: 'Voir plus de réponses',
     SORT_BY: 'Trier par',
-    SORT_REPLIES_BY: 'Trier les réponses par',
+    SORT_REPLIES: 'Trier les réponses',
     TURN_OFF_QUOTE_TWEETS: 'Désactiver les Tweets cités',
     TURN_OFF_RETWEETS: 'Désactiver les Retweets',
     TURN_ON_RETWEETS: 'Activer les Retweets',
@@ -902,6 +929,7 @@ const locales = {
     QUOTES: 'Sleachta',
     QUOTE_TWEET: 'Cuir Ráiteas Leis',
     QUOTE_TWEETS: 'Luaigh Tvuíteanna',
+    RECENT: 'Le déanaí',
     RETWEET: 'Atweetáil',
     RETWEETED_BY: 'Atweetáilte ag',
     RETWEETS: 'Atweetanna',
@@ -932,6 +960,7 @@ const locales = {
     QUOTES: 'Citas',
     QUOTE_TWEET: 'Citar chío',
     QUOTE_TWEETS: 'Chíos citados',
+    RECENT: 'Recentes',
     RETWEET: 'Rechouchiar',
     RETWEETED_BY: 'Rechouchiado por',
     RETWEETS: 'Rechouchíos',
@@ -972,6 +1001,8 @@ const locales = {
     QUOTES: 'અવતરણો',
     QUOTE_TWEET: 'અવતરણની સાથે ટ્વીટ કરો',
     QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ',
+    RECENT: 'તાજેતરનું',
+    RELEVANT: 'સંબંધિત છે',
     REPOST: 'રીપોસ્ટ કરો',
     REPOSTS: 'ફરીથી કરવામાં આવેલી પોસ્ટ',
     RETWEET: 'પુનટ્વીટ',
@@ -982,7 +1013,7 @@ const locales = {
     SHOW: 'બતાવો',
     SHOW_MORE_REPLIES: 'વધુ પ્રત્યુતરો દર્શાવો',
     SORT_BY: 'આની દ્વારા સૉર્ટ કરો',
-    SORT_REPLIES_BY: 'દ્વારા પ્રત્યુત્તરોને સૉર્ટ કરો',
+    SORT_REPLIES: 'પ્રત્યુત્તરોને સૉર્ટ કરો',
     TURN_OFF_QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ બંધ કરો',
     TURN_OFF_RETWEETS: 'પુનટ્વીટ્સ બંધ કરો',
     TURN_ON_RETWEETS: 'પુનટ્વીટ્સ ચાલુ કરો',
@@ -1015,6 +1046,8 @@ const locales = {
     QUOTES: 'ציטוטים',
     QUOTE_TWEET: 'ציטוט ציוץ',
     QUOTE_TWEETS: 'ציוצי ציטוט',
+    RECENT: 'אחרונים',
+    RELEVANT: 'רלוונטי',
     REPOST: 'לפרסם מחדש',
     REPOSTS: 'פרסומים מחדש',
     RETWEET: 'צייץ מחדש',
@@ -1025,7 +1058,7 @@ const locales = {
     SHOW: 'הצג',
     SHOW_MORE_REPLIES: 'הצג תשובות נוספות',
     SORT_BY: 'סנן לפי',
-    SORT_REPLIES_BY: 'מיון תשובות לפי',
+    SORT_REPLIES: 'מיון תשובות',
     TURN_OFF_QUOTE_TWEETS: 'כבה ציוצי ציטוט',
     TURN_OFF_RETWEETS: 'כבה ציוצים מחדש',
     TURN_ON_RETWEETS: 'הפעל ציוצים מחדש',
@@ -1059,6 +1092,8 @@ const locales = {
     QUOTES: 'कोट',
     QUOTE_TWEET: 'ट्वीट क्वोट करें',
     QUOTE_TWEETS: 'कोट ट्वीट्स',
+    RECENT: 'हाल ही के',
+    RELEVANT: 'प्रासंगिक',
     REPOST: 'रीपोस्ट',
     REPOSTS: 'रीपोस्ट्स',
     RETWEET: 'रीट्वीट करें',
@@ -1069,7 +1104,7 @@ const locales = {
     SHOW: 'दिखाएं',
     SHOW_MORE_REPLIES: 'और अधिक जवाब दिखाएँ',
     SORT_BY: 'इसके अनुसार सॉर्ट करें',
-    SORT_REPLIES_BY: 'से जवाब सॉर्ट करें',
+    SORT_REPLIES: 'जवाब सॉर्ट करें',
     TURN_OFF_QUOTE_TWEETS: 'कोट ट्वीट्स बंद करें',
     TURN_OFF_RETWEETS: 'रीट्वीट बंद करें',
     TURN_ON_RETWEETS: 'रीट्वीट चालू करें',
@@ -1102,6 +1137,8 @@ const locales = {
     QUOTES: 'Citati',
     QUOTE_TWEET: 'Citiraj Tweet',
     QUOTE_TWEETS: 'Citirani tweetovi',
+    RECENT: 'Nedavno',
+    RELEVANT: 'Relevantno',
     REPOST: 'Proslijedi objavu',
     REPOSTS: 'Proslijeđene objave',
     RETWEET: 'Proslijedi tweet',
@@ -1112,7 +1149,7 @@ const locales = {
     SHOW: 'Prikaži',
     SHOW_MORE_REPLIES: 'Prikaži još odgovora',
     SORT_BY: 'Sortiraj prema',
-    SORT_REPLIES_BY: 'Sortiraj odgovore',
+    SORT_REPLIES: 'Sortiraj odgovore',
     TURN_OFF_QUOTE_TWEETS: 'Isključi citirane tweetove',
     TURN_OFF_RETWEETS: 'Isključi proslijeđene tweetove',
     TURN_ON_RETWEETS: 'Uključi proslijeđene tweetove',
@@ -1144,6 +1181,8 @@ const locales = {
     QUOTES: 'Idézések',
     QUOTE_TWEET: 'Tweet idézése',
     QUOTE_TWEETS: 'Tweet-idézések',
+    RECENT: 'Legutóbbi',
+    RELEVANT: 'Releváns',
     REPOST: 'Újraposztolás',
     REPOSTS: 'Újraposztolások',
     RETWEETED_BY: 'Retweetelte',
@@ -1153,7 +1192,7 @@ const locales = {
     SHOW: 'Megjelenítés',
     SHOW_MORE_REPLIES: 'Több válasz megjelenítése',
     SORT_BY: 'Rendezési szempont',
-    SORT_REPLIES_BY: 'Válaszok rendezése a következő szerint',
+    SORT_REPLIES: 'Válaszok rendezése',
     TURN_OFF_QUOTE_TWEETS: 'Tweet-idézések kikapcsolása',
     TURN_OFF_RETWEETS: 'Retweetek kikapcsolása',
     TURN_ON_RETWEETS: 'Retweetek bekapcsolása',
@@ -1186,6 +1225,7 @@ const locales = {
     QUOTES: 'Kutipan',
     QUOTE_TWEET: 'Kutip Tweet',
     QUOTE_TWEETS: 'Tweet Kutipan',
+    RECENT: 'Terkini',
     REPOST: 'Posting ulang',
     REPOSTS: 'Posting ulang',
     RETWEETED_BY: 'Di-retweet oleh',
@@ -1195,7 +1235,7 @@ const locales = {
     SHOW: 'Tampilkan',
     SHOW_MORE_REPLIES: 'Tampilkan balasan lainnya',
     SORT_BY: 'Urutkan berdasarkan',
-    SORT_REPLIES_BY: 'Urutkan balasan berdasarkan',
+    SORT_REPLIES: 'Urutkan balasan',
     TURN_OFF_QUOTE_TWEETS: 'Matikan Tweet Kutipan',
     TURN_OFF_RETWEETS: 'Matikan Retweet',
     TURN_ON_RETWEETS: 'Nyalakan Retweet',
@@ -1226,6 +1266,7 @@ const locales = {
     QUOTES: 'Citazioni',
     QUOTE_TWEET: 'Cita Tweet',
     QUOTE_TWEETS: 'Tweet di citazione',
+    RECENT: 'Recenti',
     REPOSTS: 'Repost',
     RETWEET: 'Ritwitta',
     RETWEETED_BY: 'Ritwittato da',
@@ -1235,7 +1276,7 @@ const locales = {
     SHOW: 'Mostra',
     SHOW_MORE_REPLIES: 'Mostra altre risposte',
     SORT_BY: 'Ordina per',
-    SORT_REPLIES_BY: 'Ordina risposte per',
+    SORT_REPLIES: 'Ordina risposte',
     TURN_OFF_QUOTE_TWEETS: 'Disattiva i Tweet di citazione',
     TURN_OFF_RETWEETS: 'Disattiva Retweet',
     TURN_ON_RETWEETS: 'Attiva Retweet',
@@ -1268,6 +1309,8 @@ const locales = {
     QUOTES: '引用',
     QUOTE_TWEET: '引用ツイート',
     QUOTE_TWEETS: '引用ツイート',
+    RECENT: '最新',
+    RELEVANT: '関連性が高い',
     REPOST: 'リポスト',
     REPOSTS: 'リポスト',
     RETWEET: 'リツイート',
@@ -1278,7 +1321,7 @@ const locales = {
     SHOW: '表示',
     SHOW_MORE_REPLIES: '返信をさらに表示',
     SORT_BY: '並べ替え',
-    SORT_REPLIES_BY: '返信の並べ替え基準',
+    SORT_REPLIES: '返信を並べ替え',
     TURN_OFF_QUOTE_TWEETS: '引用ツイートをオフにする',
     TURN_OFF_RETWEETS: 'リツイートをオフにする',
     TURN_ON_RETWEETS: 'リツイートをオンにする',
@@ -1311,6 +1354,8 @@ const locales = {
     QUOTES: 'ಉಲ್ಲೇಖಗಳು',
     QUOTE_TWEET: 'ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ',
     QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು',
+    RECENT: 'ಇತ್ತೀಚಿನ',
+    RELEVANT: 'ಸಂಬಂಧಿತ',
     REPOST: 'ಮರುಪೋಸ್ಟ್ ಮಾಡಿ',
     REPOSTS: 'ಮರುಪೋಸ್ಟ್‌ಗಳು',
     RETWEET: 'ಮರುಟ್ವೀಟಿಸಿ',
@@ -1321,7 +1366,7 @@ const locales = {
     SHOW: 'ತೋರಿಸಿ',
     SHOW_MORE_REPLIES: 'ಇನ್ನಷ್ಟು ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ತೋರಿಸಿ',
     SORT_BY: 'ಈ ರೀತಿ ಆಯೋಜಿಸಿ',
-    SORT_REPLIES_BY: 'ಇದರ ಮೂಲಕ ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ಆಯೋಜಿಸಿ',
+    SORT_REPLIES: 'ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ಆಯೋಜಿಸಿ',
     TURN_OFF_QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
     TURN_OFF_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
     TURN_ON_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆನ್ ಮಾಡಿ',
@@ -1354,6 +1399,7 @@ const locales = {
     QUOTES: '인용',
     QUOTE_TWEET: '트윗 인용하기',
     QUOTE_TWEETS: '트윗 인용하기',
+    RECENT: '최근',
     REPOST: '재게시',
     REPOSTS: '재게시',
     RETWEET: '리트윗',
@@ -1364,7 +1410,7 @@ const locales = {
     SHOW: '표시',
     SHOW_MORE_REPLIES: '더 많은 답글 보기',
     SORT_BY: '정렬 기준',
-    SORT_REPLIES_BY: '답글 정렬하기',
+    SORT_REPLIES: '답글 정렬하기',
     TURN_OFF_QUOTE_TWEETS: '인용 트윗 끄기',
     TURN_OFF_RETWEETS: '리트윗 끄기',
     TURN_ON_RETWEETS: '리트윗 켜기',
@@ -1398,6 +1444,8 @@ const locales = {
     QUOTES: 'भाष्य',
     QUOTE_TWEET: 'ट्विट वर भाष्य करा',
     QUOTE_TWEETS: 'भाष्य ट्विट्स',
+    RECENT: 'अलीकडील',
+    RELEVANT: 'संबंधित आहे',
     REPOST: 'पुन्हा पोस्ट करा',
     REPOSTS: 'रिपोस्ट',
     RETWEET: 'पुन्हा ट्विट',
@@ -1408,7 +1456,7 @@ const locales = {
     SHOW: 'दाखवा',
     SHOW_MORE_REPLIES: 'अधिक प्रत्युत्तरे दाखवा',
     SORT_BY: 'यानुसार विभागीत करा',
-    SORT_REPLIES_BY: 'द्वारे प्रत्युत्तरांची क्रमवारी करा',
+    SORT_REPLIES: 'प्रत्युत्तरांची क्रमवारी करा',
     TURN_OFF_QUOTE_TWEETS: 'भाष्य ट्विट्स बंद करा',
     TURN_OFF_RETWEETS: 'पुनर्ट्विट्स बंद करा',
     TURN_ON_RETWEETS: 'पुनर्ट्विट्स चालू करा',
@@ -1441,6 +1489,8 @@ const locales = {
     QUOTES: 'Petikan',
     QUOTE_TWEET: 'Petik Tweet',
     QUOTE_TWEETS: 'Tweet Petikan',
+    RECENT: 'Terkini',
+    RELEVANT: 'Berkaitan',
     REPOST: 'Siaran semula',
     REPOSTS: 'Siaran semula',
     RETWEET: 'Tweet semula',
@@ -1451,7 +1501,7 @@ const locales = {
     SHOW: 'Tunjukkan',
     SHOW_MORE_REPLIES: 'Tunjukkan lagi balasan',
     SORT_BY: 'Isih Mengikut',
-    SORT_REPLIES_BY: 'Isih balasan mengikut',
+    SORT_REPLIES: 'Isih balasan',
     TURN_OFF_QUOTE_TWEETS: 'Matikan Tweet Petikan',
     TURN_OFF_RETWEETS: 'Matikan Tweet semula',
     TURN_ON_RETWEETS: 'Hidupkan Tweet semula',
@@ -1483,6 +1533,7 @@ const locales = {
     QUOTES: 'Sitater',
     QUOTE_TWEET: 'Sitat-Tweet',
     QUOTE_TWEETS: 'Sitat-Tweets',
+    RECENT: 'Nylig',
     REPOST: 'Republiser',
     REPOSTS: 'Republiseringer',
     RETWEETED_BY: 'Retweetet av',
@@ -1491,7 +1542,7 @@ const locales = {
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
     SORT_BY: 'Sorter etter',
-    SORT_REPLIES_BY: 'Sorter svar etter',
+    SORT_REPLIES: 'Sorter svar',
     TURN_OFF_QUOTE_TWEETS: 'Slå av sitat-tweets',
     TURN_OFF_RETWEETS: 'Slå av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
@@ -1529,7 +1580,7 @@ const locales = {
     SHOW: 'Weergeven',
     SHOW_MORE_REPLIES: 'Meer antwoorden tonen',
     SORT_BY: 'Sorteren op',
-    SORT_REPLIES_BY: 'Antwoorden sorteren op',
+    SORT_REPLIES: 'Antwoorden sorteren',
     TURN_OFF_QUOTE_TWEETS: 'Geciteerde Tweets uitschakelen',
     TURN_OFF_RETWEETS: 'Retweets uitschakelen',
     TURN_ON_RETWEETS: 'Retweets inschakelen',
@@ -1561,6 +1612,7 @@ const locales = {
     QUOTES: 'Cytaty',
     QUOTE_TWEET: 'Cytuj Tweeta',
     QUOTE_TWEETS: 'Cytaty z Tweeta',
+    RECENT: 'Najnowsze',
     REPOST: 'Podaj dalej wpis',
     REPOSTS: 'Wpisy podane dalej',
     RETWEET: 'Podaj dalej',
@@ -1571,7 +1623,7 @@ const locales = {
     SHOW: 'Pokaż',
     SHOW_MORE_REPLIES: 'Pokaż więcej odpowiedzi',
     SORT_BY: 'Sortuj według',
-    SORT_REPLIES_BY: 'Sortuj odpowiedzi wg',
+    SORT_REPLIES: 'Sortuj odpowiedzi',
     TURN_OFF_QUOTE_TWEETS: 'Wyłącz tweety z cytatem',
     TURN_OFF_RETWEETS: 'Wyłącz Tweety podane dalej',
     TURN_ON_RETWEETS: 'Włącz Tweety podane dalej',
@@ -1603,6 +1655,7 @@ const locales = {
     QUOTES: 'Comentários',
     QUOTE_TWEET: 'Comentar o Tweet',
     QUOTE_TWEETS: 'Tweets com comentário',
+    RECENT: 'Recente',
     REPOST: 'Repostar',
     RETWEET: 'Retweetar',
     RETWEETED_BY: 'Retweetado por',
@@ -1611,7 +1664,7 @@ const locales = {
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar mais respostas',
     SORT_BY: 'Classificar por',
-    SORT_REPLIES_BY: 'Ordenar respostas por',
+    SORT_REPLIES: 'Ordenar respostas',
     TURN_OFF_QUOTE_TWEETS: 'Desativar Tweets com comentário',
     TURN_OFF_RETWEETS: 'Desativar Retweets',
     TURN_ON_RETWEETS: 'Ativar Retweets',
@@ -1643,6 +1696,8 @@ const locales = {
     QUOTES: 'Citate',
     QUOTE_TWEET: 'Citează Tweetul',
     QUOTE_TWEETS: 'Tweeturi cu citat',
+    RECENT: 'Recente',
+    RELEVANT: 'Relevante',
     REPOST: 'Repostează',
     REPOSTS: 'Repostări',
     RETWEET: 'Redistribuie',
@@ -1653,7 +1708,7 @@ const locales = {
     SHOW: 'Afișează',
     SHOW_MORE_REPLIES: 'Afișează mai multe răspunsuri',
     SORT_BY: 'Sortează după',
-    SORT_REPLIES_BY: 'Sortare răspunsuri după',
+    SORT_REPLIES: 'Sortare răspunsuri',
     TURN_OFF_QUOTE_TWEETS: 'Dezactivează tweeturile cu citat',
     TURN_OFF_RETWEETS: 'Dezactivează Retweeturile',
     TURN_ON_RETWEETS: 'Activează Retweeturile',
@@ -1685,6 +1740,8 @@ const locales = {
     QUOTES: 'Цитаты',
     QUOTE_TWEET: 'Цитировать',
     QUOTE_TWEETS: 'Твиты с цитатами',
+    RECENT: 'Последние',
+    RELEVANT: 'Актуально',
     REPOST: 'Сделать репост',
     REPOSTS: 'Репосты',
     RETWEET: 'Ретвитнуть',
@@ -1695,7 +1752,7 @@ const locales = {
     SHOW: 'Показать',
     SHOW_MORE_REPLIES: 'Показать ещё ответы',
     SORT_BY: 'Сортировать по',
-    SORT_REPLIES_BY: 'Упорядочить ответы по',
+    SORT_REPLIES: 'Упорядочить ответы',
     TURN_OFF_QUOTE_TWEETS: 'Отключить твиты с цитатами',
     TURN_OFF_RETWEETS: 'Отключить ретвиты',
     TURN_ON_RETWEETS: 'Включить ретвиты',
@@ -1729,6 +1786,7 @@ const locales = {
     QUOTES: 'Citáty',
     QUOTE_TWEET: 'Tweet s citátom',
     QUOTE_TWEETS: 'Tweety s citátom',
+    RECENT: 'Nedávne',
     REPOST: 'Opätovné uverejnenie',
     REPOSTS: 'Opätovné uverejnenia',
     RETWEET: 'Retweetnuť',
@@ -1739,7 +1797,7 @@ const locales = {
     SHOW: 'Zobraziť',
     SHOW_MORE_REPLIES: 'Zobraziť viac odpovedí',
     SORT_BY: 'Spôsob zoradenia',
-    SORT_REPLIES_BY: 'Zoradiť odpovede podľa',
+    SORT_REPLIES: 'Zoradiť odpovede',
     TURN_OFF_QUOTE_TWEETS: 'Vypnúť tweety s citátom',
     TURN_OFF_RETWEETS: 'Vypnúť retweety',
     TURN_ON_RETWEETS: 'Zapnúť retweety',
@@ -1772,6 +1830,8 @@ const locales = {
     QUOTES: 'Цитати',
     QUOTE_TWEET: 'твит са цитатом',
     QUOTE_TWEETS: 'твит(ов)а са цитатом',
+    RECENT: 'Недавни',
+    RELEVANT: 'Релевантно',
     REPOST: 'Поново објави',
     REPOSTS: 'Понвне објаве',
     RETWEET: 'Ретвитуј',
@@ -1782,7 +1842,7 @@ const locales = {
     SHOW: 'Прикажи',
     SHOW_MORE_REPLIES: 'Прикажи још одговора',
     SORT_BY: 'Сортирај по',
-    SORT_REPLIES_BY: 'Сортирај одговоре по',
+    SORT_REPLIES: 'Сортирање одговора',
     TURN_OFF_QUOTE_TWEETS: 'Искључи твит(ов)е са цитатом',
     TURN_OFF_RETWEETS: 'Искључи ретвитове',
     TURN_ON_RETWEETS: 'Укључи ретвитове',
@@ -1816,6 +1876,7 @@ const locales = {
     QUOTES: 'Citat',
     QUOTE_TWEET: 'Citera Tweet',
     QUOTE_TWEETS: 'Citat-tweets',
+    RECENT: 'Senaste',
     REPOST: 'Återpublicera',
     REPOSTS: 'Återpubliceringar',
     RETWEET: 'Retweeta',
@@ -1825,7 +1886,7 @@ const locales = {
     SHOW: 'Visa',
     SHOW_MORE_REPLIES: 'Visa fler svar',
     SORT_BY: 'Sortera efter',
-    SORT_REPLIES_BY: 'Sortera svar på',
+    SORT_REPLIES: 'Sortera svar',
     TURN_OFF_QUOTE_TWEETS: 'Stäng av citat-tweets',
     TURN_OFF_RETWEETS: 'Stäng av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
@@ -1857,6 +1918,8 @@ const locales = {
     QUOTES: 'மேற்கோள்கள்',
     QUOTE_TWEET: 'ட்விட்டை மேற்கோள் காட்டு',
     QUOTE_TWEETS: 'மேற்கோள் கீச்சுகள்',
+    RECENT: 'சமீபத்தியவை',
+    RELEVANT: 'பொருத்தமானதாக உள்ளது',
     REPOST: 'மறுஇடுகை',
     REPOSTS: 'மறுஇடுகைகள்',
     RETWEET: 'மறுட்விட் செய்',
@@ -1867,7 +1930,7 @@ const locales = {
     SHOW: 'காண்பி',
     SHOW_MORE_REPLIES: 'மேலும் பதில்களைக் காண்பி',
     SORT_BY: 'இதன்படி வரிசைப்படுத்து:',
-    SORT_REPLIES_BY: 'இதன்படி பதில்களை வகைப்படுத்து',
+    SORT_REPLIES: 'பதில்களை வகைப்படுத்து',
     TURN_OFF_QUOTE_TWEETS: 'மேற்கோள் கீச்சுகளை அணை',
     TURN_OFF_RETWEETS: 'மறுகீச்சுகளை அணை',
     TURN_ON_RETWEETS: 'மறுகீச்சுகளை இயக்கு',
@@ -1900,6 +1963,8 @@ const locales = {
     QUOTES: 'คำพูด',
     QUOTE_TWEET: 'อ้างอิงทวีต',
     QUOTE_TWEETS: 'ทวีตและคำพูด',
+    RECENT: 'ล่าสุด',
+    RELEVANT: 'เกี่ยวข้อง',
     REPOST: 'รีโพสต์',
     REPOSTS: 'รีโพสต์',
     RETWEET: 'รีทวีต',
@@ -1910,7 +1975,7 @@ const locales = {
     SHOW: 'แสดง',
     SHOW_MORE_REPLIES: 'แสดงการตอบกลับเพิ่มเติม',
     SORT_BY: 'เรียงตาม',
-    SORT_REPLIES_BY: 'จัดเรียงการตอบกลับโดย',
+    SORT_REPLIES: 'จัดเรียงการตอบกลับ',
     TURN_OFF_QUOTE_TWEETS: 'ปิดทวีตและคำพูด',
     TURN_OFF_RETWEETS: 'ปิดรีทวีต',
     TURN_ON_RETWEETS: 'เปิดรีทวีต',
@@ -1944,6 +2009,8 @@ const locales = {
     QUOTES: 'Alıntılar',
     QUOTE_TWEET: 'Tweeti Alıntıla',
     QUOTE_TWEETS: 'Alıntı Tweetler',
+    RECENT: 'En yeni',
+    RELEVANT: 'Alakalı',
     REPOST: 'Yeniden gönder',
     REPOSTS: 'Yeniden gönderiler',
     RETWEETED_BY: 'Retweetleyen(ler):',
@@ -1953,7 +2020,7 @@ const locales = {
     SHOW: 'Göster',
     SHOW_MORE_REPLIES: 'Daha fazla yanıt göster',
     SORT_BY: 'Şuna göre sırala:',
-    SORT_REPLIES_BY: 'Yanıtları sıralama ölçütü',
+    SORT_REPLIES: 'Yanıtları sırala',
     TURN_OFF_QUOTE_TWEETS: 'Alıntı Tweetleri kapat',
     TURN_OFF_RETWEETS: 'Retweetleri kapat',
     TURN_ON_RETWEETS: 'Retweetleri aç',
@@ -1986,6 +2053,8 @@ const locales = {
     QUOTES: 'Цитати',
     QUOTE_TWEET: 'Цитувати твіт',
     QUOTE_TWEETS: 'Цитовані твіти',
+    RECENT: 'Нещодавні',
+    RELEVANT: 'Актуальні',
     REPOST: 'Зробити репост',
     REPOSTS: 'Репости',
     RETWEET: 'Ретвітнути',
@@ -1996,7 +2065,7 @@ const locales = {
     SHOW: 'Показати',
     SHOW_MORE_REPLIES: 'Показати більше відповідей',
     SORT_BY: 'Сортування за',
-    SORT_REPLIES_BY: 'Сортувати відповіді за',
+    SORT_REPLIES: 'Сортувати відповіді',
     TURN_OFF_QUOTE_TWEETS: 'Вимкнути цитовані твіти',
     TURN_OFF_RETWEETS: 'Вимкнути ретвіти',
     TURN_ON_RETWEETS: 'Увімкнути ретвіти',
@@ -2021,6 +2090,7 @@ const locales = {
     QUOTES: 'منقول',
     QUOTE_TWEET: 'ٹویٹ کا حوالہ دیں',
     QUOTE_TWEETS: 'ٹویٹ کو نقل کرو',
+    RECENT: 'حالیہ',
     RETWEET: 'ریٹویٹ',
     RETWEETED_BY: 'جنہوں نے ریٹویٹ کیا',
     RETWEETS: 'ریٹویٹس',
@@ -2062,6 +2132,8 @@ const locales = {
     QUOTES: 'Trích dẫn',
     QUOTE_TWEET: 'Trích dẫn Tweet',
     QUOTE_TWEETS: 'Tweet trích dẫn',
+    RECENT: 'Gần đây',
+    RELEVANT: 'Có liên quan',
     REPOST: 'Đăng lại',
     REPOSTS: 'Bài đăng lại',
     RETWEET: 'Tweet lại',
@@ -2072,7 +2144,7 @@ const locales = {
     SHOW: 'Hiện',
     SHOW_MORE_REPLIES: 'Hiển thị thêm trả lời',
     SORT_BY: 'Sắp xếp theo',
-    SORT_REPLIES_BY: 'Sắp xếp câu trả lời theo',
+    SORT_REPLIES: 'Sắp xếp câu trả lời',
     TURN_OFF_QUOTE_TWEETS: 'Tắt Tweet trích dẫn',
     TURN_OFF_RETWEETS: 'Tắt Tweet lại',
     TURN_ON_RETWEETS: 'Bật Tweet lại',
@@ -2104,6 +2176,7 @@ const locales = {
     QUOTES: '引用',
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用的推文',
+    RECENT: '最近',
     REPOST: '轉發',
     REPOSTS: '轉發',
     RETWEET: '轉推',
@@ -2114,7 +2187,7 @@ const locales = {
     SHOW: '顯示',
     SHOW_MORE_REPLIES: '顯示更多回覆',
     SORT_BY: '排序方式',
-    SORT_REPLIES_BY: '回覆排序方式',
+    SORT_REPLIES: '將回覆排序',
     TURN_OFF_QUOTE_TWEETS: '關閉引用的推文',
     TURN_OFF_RETWEETS: '關閉轉推',
     TURN_ON_RETWEETS: '開啟轉推',
@@ -2147,6 +2220,8 @@ const locales = {
     QUOTES: '引用',
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用推文',
+    RECENT: '最近',
+    RELEVANT: '相关',
     REPOST: '转帖',
     REPOSTS: '转帖',
     RETWEET: '转推',
@@ -2157,7 +2232,7 @@ const locales = {
     SHOW: '显示',
     SHOW_MORE_REPLIES: '显示更多回复',
     SORT_BY: '排序方式',
-    SORT_REPLIES_BY: '回复排序依据',
+    SORT_REPLIES: '对回复排序',
     TURN_OFF_QUOTE_TWEETS: '关闭引用推文',
     TURN_OFF_RETWEETS: '关闭转推',
     TURN_ON_RETWEETS: '开启转推',
@@ -2335,7 +2410,7 @@ let blockMenuItemSeen = false
 /** `true` if the user has used the Following "Sort by" menu */
 let userSortedFollowing = false
 
-/** `true` if the user has used the "Sort replies by" menu */
+/** `true` if the user has used the "Sort replies" menu */
 let userSortedReplies = false
 
 /** Notification count in the title (including trailing space), e.g. `'(1) '`. */
@@ -2477,6 +2552,11 @@ function isOnGrokPage() {
 
 function isOnIndividualTweetPage() {
   return URL_TWEET_RE.test(currentPath)
+}
+
+function isOnOwnTweetPage() {
+  let screenName = getUserScreenName()
+  return screenName != null && screenName == currentPath.match(URL_TWEET_BASE_RE)?.[1]
 }
 
 function isOnListPage() {
@@ -2622,6 +2702,18 @@ function findAddedNode(mutations, fn) {
     }
   }
   return null
+}
+
+/**
+ * @param {Element} $el
+ * @param {Element} $ancestor
+ */
+function getClosestChild($el, $ancestor) {
+  let $child = $el
+  while ($child && $child.parentElement !== $ancestor) {
+    $child = $child.parentElement
+  }
+  return $child
 }
 
 /**
@@ -4218,6 +4310,9 @@ const configureCss = (() => {
         `[data-testid="tweet"][tabindex="-1"] [role="group"] > div[style]:not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
       )
     }
+    if (config.hideSortRepliesMenu) {
+      hideCssSelectors.push('.SortRepliesMenu')
+    }
     if (config.hideSubscriptions) {
       hideCssSelectors.push(
         // Subscribe buttons in profile (multiple locations)
@@ -4295,8 +4390,13 @@ const configureCss = (() => {
         '.Profile [data-testid="jobs"]',
       )
     }
-    if (config.hideTweetAnalyticsLinks) {
-      hideCssSelectors.push('.AnalyticsButton')
+    if (config.hideViewActivityLinks) {
+      hideCssSelectors.push(
+        // Manually-tagged View activity link
+        '.ViewActivity',
+        // View post activity menu item
+        `${menuRole} a[href$="/quotes"]`,
+      )
     }
     if (config.hideTwitterBlueUpsells) {
       hideCssSelectors.push(
@@ -4406,8 +4506,8 @@ const configureCss = (() => {
           font-weight: 700;
           color: var(--color-emphasis);
         }
-        /* Replaces the "View post engagements" link under your own tweets */
-        .AnalyticsButton {
+        /* Replaces the "View activity" link under your own tweets */
+        .ViewActivity {
           display: none;
         }
       `)
@@ -5527,12 +5627,12 @@ function handlePopup($popup) {
   if (isOnIndividualTweetPage() &&
       config.sortReplies != 'relevant' &&
       !userSortedReplies &&
-      $popup.innerHTML.includes(`>${getString('SORT_REPLIES_BY')}<`)) {
-    log('sortReplies: Sort replies by menu opened')
+      $popup.innerHTML.includes(`>${getString('SORT_REPLIES')}<`)) {
+    log('sortReplies: Sort replies menu opened')
     void (async () => {
-      // The Sort replies by menu is hydrated asynchronously
+      // The Sort replies menu is hydrated asynchronously
       let $dropdown = await getElement('[role="menu"] [data-testid="Dropdown"]', {
-        name: 'Rendered Sort replies by dropdown',
+        name: 'Rendered Sort replies dropdown',
         context: $popup,
       })
       let $menuItems =  /** @type {NodeListOf<HTMLElement>} */ ($dropdown.querySelectorAll('div[role="menuitem"]'))
@@ -6670,9 +6770,14 @@ function restoreLinkHeadline($tweet) {
 }
 
 /**
- * @param {HTMLElement} $focusedTweet
+ * @param {{
+ *   $actionBar: HTMLElement
+ *   $focusedTweet: HTMLElement
+ *   tweetInfo: any
+ *   isOwnTweet: boolean
+ * }} options
  */
-function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
+function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet}) {
   if (!config.restoreQuoteTweetsLink && !config.restoreOtherInteractionLinks) return
 
   if (!tweetInfo) {
@@ -6680,7 +6785,6 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
     return
   }
 
-  let isOwnTweet = Boolean($focusedTweet.querySelector('a[data-testid="analyticsButton"]'))
   let shouldDisplayLinks = (
     (config.restoreQuoteTweetsLink && tweetInfo.quote_count > 0) ||
     (config.restoreOtherInteractionLinks && (tweetInfo.retweet_count > 0 || isOwnTweet && tweetInfo.favorite_count > 0))
@@ -6691,11 +6795,8 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
     return
   }
 
-  let $group = $focusedTweet.querySelector('[role="group"][id^="id__"]')
-  if (!$group) return warn('focused tweet action bar not found')
-
   let tweetLink = location.pathname.match(URL_TWEET_BASE_RE)?.[0]
-  $group.parentElement.insertAdjacentHTML('beforebegin', `
+  $actionBar.insertAdjacentHTML('beforebegin', `
     <div id="cpftInteractionLinks" hidden>
       <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--border-color); display: flex; gap: 20px;">
         ${tweetInfo.quote_count > 0 ? `<a id="cpftQuoteTweetsLink" class="quoteTweets" href="${tweetLink}/quotes" dir="auto" role="link">
@@ -7026,6 +7127,7 @@ async function tweakFocusedTweet($focusedTweet, options) {
   let screenName = focusedTweetUrlMatch?.[1]
   let tweetId = focusedTweetUrlMatch?.[2]
   let tweetInfo = getTweetInfo(tweetId)
+  let isOwnTweet = isOnOwnTweetPage()
 
   // Tag View elements and restore Tweet source
   let $permalinkBar = $focusedTweet.querySelector('div:has(> div > a > time)')
@@ -7038,8 +7140,52 @@ async function tweakFocusedTweet($focusedTweet, options) {
     warn('focused tweet permalink bar not found')
   }
 
-  tweakOwnFocusedTweet($focusedTweet)
-  restoreTweetInteractionsLinks($focusedTweet, tweetInfo)
+  let $actionBar = /** @type {HTMLElement} */ ($focusedTweet.querySelector('div:has(> [role="group"][id^="id__"])'))
+  let $underActionBar = $actionBar?.nextElementSibling
+  if ($actionBar) {
+    $actionBar.id = 'cpftFocusedTweetActionBar'
+    restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet})
+  } else {
+    warn('focused tweet action bar not found')
+  }
+
+  if ($underActionBar) {
+    let $sortRepliesButton = $underActionBar.querySelector('button[aria-haspopup="menu"]')
+    if ($sortRepliesButton) {
+      if (config.hideSortRepliesMenu) {
+        getClosestChild($sortRepliesButton, $underActionBar)?.classList.add('SortRepliesMenu')
+      }
+      // Replace the default Sort replies text with the sort we're applying
+      else if (config.sortReplies != 'relevant' && !userSortedReplies) {
+        let $buttonText = $sortRepliesButton.querySelector('span')
+        if ($buttonText) $buttonText.textContent = {
+          liked: getString('LIKES'),
+          recent: getString('RECENT'),
+        }[config.sortReplies]
+      }
+    }
+  }
+
+  if (isOwnTweet) {
+    if ($underActionBar) {
+      let $viewActivity = $underActionBar.querySelector('a[href$="/quotes"]')
+      getClosestChild($viewActivity, $underActionBar)?.classList.add('ViewActivity')
+    }
+
+    if (config.hideTwitterBlueUpsells && !$focusedTweet.hasAttribute('cpft-premium-upsells-tagged')) {
+      run(async () => {
+        let $premiumUpsell = await getElement('div:has(> div[style] > button ~ div a:is([href="/i/account_analytics"], [href^="/i/premium"]))', {
+          context: $focusedTweet,
+          name: 'own focused Tweet premium upsell',
+          timeout: 500,
+          stopIf: pageIsNot(currentPage)
+        })
+        if (!$premiumUpsell) return
+        $premiumUpsell.classList.add('PremiumUpsell')
+      })
+      $focusedTweet.setAttribute('cpft-premium-upsells-tagged', 'true')
+    }
+  }
 
   if (desktop && config.replaceLogo) {
     void async function() {
@@ -7170,27 +7316,6 @@ async function tweakMessagesIcon() {
       $messagesIconPath.setAttribute('d', targetPath)
     }
   }
-}
-
-async function tweakOwnFocusedTweet($focusedTweet) {
-  if (!config.hideTwitterBlueUpsells || $focusedTweet.hasAttribute('cpft-premium-upsells-tagged')) return
-
-  // Only your own focused Tweets have an analytics button
-  let $analyticsButton = $focusedTweet.querySelector('a[data-testid="analyticsButton"]')
-  if (!$analyticsButton) return
-
-  $analyticsButton.parentElement.classList.add('AnalyticsButton')
-  run(async () => {
-    let $premiumUpsell = await getElement('.AnalyticsButton + div:has(a:is([href="/i/account_analytics"], [href^="/i/premium"]))', {
-      context: $analyticsButton.parentElement.parentElement,
-      name: 'own focused Tweet premium upsell',
-      timeout: 2000,
-      stopIf: pageIsNot(currentPage)
-    })
-    if (!$premiumUpsell) return
-    $premiumUpsell.classList.add('PremiumUpsell')
-  })
-  $focusedTweet.setAttribute('cpft-premium-upsells-tagged', 'true')
 }
 
 /**
