@@ -7164,14 +7164,12 @@ async function tweakFocusedTweet($focusedTweet, options) {
         }[config.sortReplies]
       }
     }
+
+    let $viewActivity = $underActionBar.querySelector('a[href$="/quotes"]')
+    getClosestChild($viewActivity, $underActionBar)?.classList.add('ViewActivity')
   }
 
   if (isOwnTweet) {
-    if ($underActionBar) {
-      let $viewActivity = $underActionBar.querySelector('a[href$="/quotes"]')
-      getClosestChild($viewActivity, $underActionBar)?.classList.add('ViewActivity')
-    }
-
     if (config.hideTwitterBlueUpsells && !$focusedTweet.hasAttribute('cpft-premium-upsells-tagged')) {
       run(async () => {
         let $premiumUpsell = await getElement('div:has(> div[style] > button ~ div a:is([href="/i/account_analytics"], [href^="/i/premium"]))', {
