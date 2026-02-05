@@ -54,6 +54,9 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "Messages"
   },
+  "homeTimelineLimitLabel": {
+    "message": "Daily time limit"
+  },
   "dontUseChirpFontLabel": {
     "message": "Don't use the Chirp font"
   },
