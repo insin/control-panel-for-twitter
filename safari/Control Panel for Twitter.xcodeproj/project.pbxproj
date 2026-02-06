@@ -67,6 +67,10 @@
 		FB38F986298CF4DA00F9AA54 /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = FB38F984298CF4DA00F9AA54 /* script.js */; };
 		FB5703372983C50800E44D21 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = FB5703362983C50800E44D21 /* _locales */; };
 		FB5703382983C50800E44D21 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = FB5703362983C50800E44D21 /* _locales */; };
+		FBB23FE32DE93E27007886FC /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = FBB23FE22DE93E27007886FC /* background.js */; };
+		FBB23FE42DE93E27007886FC /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = FBB23FE22DE93E27007886FC /* background.js */; };
+		FBB23FE62DE96642007886FC /* options-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FBB23FE52DE96642007886FC /* options-icon.png */; };
+		FBB23FE72DE96642007886FC /* options-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FBB23FE52DE96642007886FC /* options-icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +157,8 @@
 		A598E1D8297B46C300BF2F25 /* options.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = options.css; path = ../../../options.css; sourceTree = "<group>"; };
 		FB38F984298CF4DA00F9AA54 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = script.js; path = ../../../script.js; sourceTree = "<group>"; };
 		FB5703362983C50800E44D21 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _locales; path = ../../../_locales; sourceTree = "<group>"; };
+		FBB23FE22DE93E27007886FC /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../../background.js; sourceTree = "<group>"; };
+		FBB23FE52DE96642007886FC /* options-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "options-icon.png"; path = "../../../options-icon.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +240,7 @@
 			isa = PBXGroup;
 			children = (
 				FB5703362983C50800E44D21 /* _locales */,
+				FBB23FE22DE93E27007886FC /* background.js */,
 				A598E1D5297B467D00BF2F25 /* browser_action.html */,
 				A598E1AA297B441300BF2F25 /* content.js */,
 				A598E1BB297B444700BF2F25 /* icon48.png */,
@@ -245,6 +252,7 @@
 				A598E1D8297B46C300BF2F25 /* options.css */,
 				A598E1A9297B441300BF2F25 /* options.html */,
 				A598E1AB297B441300BF2F25 /* options.js */,
+				FBB23FE52DE96642007886FC /* options-icon.png */,
 				FB38F984298CF4DA00F9AA54 /* script.js */,
 				A598E1BD297B444700BF2F25 /* toolbar-icon16.png */,
 				A598E1BA297B444700BF2F25 /* toolbar-icon19.png */,
@@ -389,7 +397,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1630;
 				TargetAttributes = {
 					A598E14A297B3E9300BF2F25 = {
 						CreatedOnToolsVersion = 14.2;
@@ -459,9 +467,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A598E1CB297B444700BF2F25 /* toolbar-icon19.png in Resources */,
+				FBB23FE72DE96642007886FC /* options-icon.png in Resources */,
 				A598E1C7297B444700BF2F25 /* icon256.png in Resources */,
 				A598E1D9297B46C300BF2F25 /* options.css in Resources */,
 				FB5703372983C50800E44D21 /* _locales in Resources */,
+				FBB23FE42DE93E27007886FC /* background.js in Resources */,
 				A598E1B0297B441300BF2F25 /* content.js in Resources */,
 				A598E1CF297B444700BF2F25 /* toolbar-icon32.png in Resources */,
 				FB38F985298CF4DA00F9AA54 /* script.js in Resources */,
@@ -485,9 +495,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A598E1CC297B444700BF2F25 /* toolbar-icon19.png in Resources */,
+				FBB23FE62DE96642007886FC /* options-icon.png in Resources */,
 				A598E1C8297B444700BF2F25 /* icon256.png in Resources */,
 				A598E1DA297B46C300BF2F25 /* options.css in Resources */,
 				FB5703382983C50800E44D21 /* _locales in Resources */,
+				FBB23FE32DE93E27007886FC /* background.js in Resources */,
 				A598E1B1297B441300BF2F25 /* content.js in Resources */,
 				A598E1D0297B444700BF2F25 /* toolbar-icon32.png in Resources */,
 				FB38F986298CF4DA00F9AA54 /* script.js in Resources */,
@@ -628,9 +640,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 73;
+				CURRENT_PROJECT_VERSION = 116;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2RDKJDLNY8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -648,7 +661,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 4.4.3;
+				MARKETING_VERSION = 4.21.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -690,9 +703,10 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 73;
+				CURRENT_PROJECT_VERSION = 116;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 2RDKJDLNY8;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -704,7 +718,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 4.4.3;
+				MARKETING_VERSION = 4.21.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -716,7 +730,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2RDKJDLNY8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter Extension";
@@ -745,7 +758,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2RDKJDLNY8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter Extension";
@@ -774,12 +786,10 @@
 		A598E19F297B3E9300BF2F25 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2RDKJDLNY8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter";
@@ -813,12 +823,10 @@
 		A598E1A0297B3E9300BF2F25 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2RDKJDLNY8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter";
@@ -856,7 +864,6 @@
 				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Tweak New Twitter.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 2RDKJDLNY8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
@@ -867,7 +874,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -887,7 +894,6 @@
 				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/Tweak New Twitter.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 2RDKJDLNY8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
@@ -898,7 +904,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -915,14 +921,12 @@
 		A598E1A6297B3E9300BF2F25 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Tweak New Twitter.entitlements";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 2RDKJDLNY8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter";
@@ -933,7 +937,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,
@@ -951,13 +955,12 @@
 		A598E1A7297B3E9300BF2F25 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "macOS (App)/Tweak New Twitter.entitlements";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_TEAM = 2RDKJDLNY8;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter";
@@ -968,7 +971,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				OTHER_LDFLAGS = (
 					"-framework",
 					SafariServices,

@@ -17,7 +17,7 @@ function show(platform, enabled, useSettingsInsteadOfPreferences) {
   }
 
   if (platform === 'ios') {
-    document.querySelector('.open-preferences').innerText = 'Open Safari Extensions Preferences…'
+    document.querySelector('.open-preferences').innerText = 'Open Safari Settings…'
   }
 }
 

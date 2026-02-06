@@ -5,26 +5,32 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "スライドアウトメニューに「ミュートするキーワードを追加」を追加"
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "ツイートの詳細表示にアカウントの場所を表示"
+  },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "ユーザーのプロフィールカードにアカウントの場所を表示"
+  },
   "alwaysUseLatestTweetsLabel": {
-    "message": "常にタイムラインを「フォロー中」（時系列順）にする"
+    "message": "常にタイムラインをフォロー中（時系列順）にする"
   },
   "appStoreSubtitle": {
     "message": "タイムラインを制御せよ"
   },
-  "debugCountdownLabel": {
-    "message": " (デバッグオプション: 有効にするには $DEBUG_COUNTDOWN$ を複数回クリック)",
-    "placeholders": {
-      "DEBUG_COUNTDOWN": {
-        "content": "$1",
-        "example": "3"
-      }
-    }
+  "bypassAgeVerificationLabel": {
+    "message": "年齢確認をバイパス"
+  },
+  "customCssLabel": {
+    "message": "カスタムCSS"
   },
   "debugInfo": {
     "message": "デバッグログを有効化し、ツイートデバッグ情報をタイムラインに表示"
   },
   "debugLabel": {
     "message": "デバッグモード"
+  },
+  "debugLogTimelineStatsLabel": {
+    "message": "タイムライン統計をログ"
   },
   "debugOptionsLabel": {
     "message": "デバッグオプション"
@@ -47,17 +53,14 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "メッセージ"
   },
-  "disabledHomeTimelineRedirectOption_notifications": {
-    "message": "通知"
-  },
   "dontUseChirpFontLabel": {
     "message": "Chirpフォントを使用しない"
   },
   "dropdownMenuFontWeightLabel": {
     "message": "ドロップダウンメニューを通常のフォントの太さにする"
   },
-  "experimentalNote": {
-    "message": "このバージョンには実験はありません"
+  "enabled": {
+    "message": "有効"
   },
   "experimentsOptionsLabel": {
     "message": "実験的機能"
@@ -73,6 +76,9 @@
   },
   "extensionName": {
     "message": "Control Panel for Twitter"
+  },
+  "extensionNameDisabled": {
+    "message": "Control Panel for Twitter (無効)"
   },
   "fastBlockLabel": {
     "message": "即ブロック（確認画面をスキップする）"
@@ -107,12 +113,6 @@
   "hideAllMetricsLabel": {
     "message": "すべて非表示"
   },
-  "hideBlueReplyFollowedByLabel": {
-    "message": "私をフォローしている人を非表示にします"
-  },
-  "hideBlueReplyFollowingLabel": {
-    "message": "フォローしている人を非表示にする"
-  },
   "hideBookmarkButtonLabel": {
     "message": "ツイート下部のブックマークボタン"
   },
@@ -122,8 +122,29 @@
   "hideBookmarksNavLabel": {
     "message": "ブックマーク"
   },
+  "hideBusinessNavLabel": {
+    "message": "ビジネス"
+  },
+  "hideChatNavLabel": {
+    "message": "チャット"
+  },
   "hideCommunitiesNavLabel": {
     "message": "コミュニティ"
+  },
+  "hideComposeTweetLabel": {
+    "message": "ツイート作成ボタンを非表示"
+  },
+  "hideConnectNavLabel": {
+    "message": "フォロー"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "Creator Studio"
+  },
+  "hideDiscoverSuggestionsLabel": {
+    "message": "「発見」の提案を非表示"
+  },
+  "hideEditImageLabel": {
+    "message": "「画像を編集」を非表示"
   },
   "hideExploreNavLabel": {
     "message": "「話題を検索」"
@@ -146,11 +167,14 @@
   "hideGrokLabel": {
     "message": "Grok を非表示にする"
   },
+  "hideGrokTweetsLabel": {
+    "message": "Grokのツイートを非表示"
+  },
   "hideInlinePrompts": {
     "message": "タイムライン内のインラインプロンプトを非表示にする"
   },
   "hideJobsLabel": {
-    "message": "募集を隠す"
+    "message": "募集を非表示にする"
   },
   "hideLikeMetricsLabel": {
     "message": "いいね件数"
@@ -158,17 +182,20 @@
   "hideListsNavLabel": {
     "message": "リスト"
   },
+  "hideLiveBroadcastBarLabel": {
+    "message": "ライブ放送バーを非表示"
+  },
+  "hideLiveBroadcastsLabel": {
+    "message": "ライブ放送を非表示"
+  },
   "hideMessagesBottomNavItemLabel": {
     "message": "メッセージ"
   },
   "hideMessagesDrawerLabel": {
-    "message": "メッセージドロワー"
+    "message": "チャットドロワー"
   },
   "hideMetricsLabel": {
     "message": "メトリクスを非表示"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "収益化"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "使用しない「もっと見る」メニューの項目を非表示"
@@ -176,11 +203,17 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "使用しないスライドアウトメニューの項目を非表示"
   },
-  "hideMoreTweetsLabel": {
-    "message": "「もっと見つける」を非表示"
+  "hideNotificationLikesLabel": {
+    "message": "通知内の「いいね！」を非表示"
   },
-  "hideProNavLabel": {
-    "message": "Pro"
+  "hideNotificationRetweetsLabel": {
+    "message": "通知内のリツイートを非表示"
+  },
+  "hideNotificationsLabel": {
+    "message": "通知を非表示"
+  },
+  "hideProfileHeaderMetricsLabel": {
+    "message": "プロフィールヘッダーのメトリクス"
   },
   "hideProfileRetweetsLabel": {
     "message": "ユーザープロフィールでのリツイートを非表示にする"
@@ -212,20 +245,26 @@
   "hideSidebarContentLabel": {
     "message": "サイドバーコンテンツを非表示にする"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "「返信を並べ替え」メニューを非表示"
+  },
   "hideSpacesNavLabel": {
     "message": "スペースを作成"
   },
   "hideSubscriptionsLabel": {
-    "message": "サブスクリプションを非表示"
+    "message": "サブスクリプションを非表示にする"
+  },
+  "hideSuggestedFollowsLabel": {
+    "message": "おすすめのフォローを非表示"
   },
   "hideTimelineTweetBoxLabel": {
     "message": "タイムラインのツイートボックス"
   },
-  "hideTotalTweetsMetricsLabel": {
-    "message": "総ツイート数"
+  "hideTodaysNewsLabel": {
+    "message": "「本日のニュース」を非表示"
   },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "自分のツイートの下に「ポストのエンゲージメントを表示」"
+  "hideToggleNavigationLabel": {
+    "message": "ナビゲーション切り替えを非表示"
   },
   "hideTwitterBlueRepliesLabel": {
     "message": "プレミアム ブルー チェックの返信を非表示にする"
@@ -240,10 +279,16 @@
     "message": "使用しないUI項目を非表示"
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "通知とフォロワーの「認証済み」タブを非表示"
+    "message": "フォロワーの「認証済み」タブを非表示"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "「アクティビティを表示」リンク"
   },
   "hideViewsLabel": {
     "message": "ツイート下部のアナリティクスのリンクを非表示"
+  },
+  "hideWhatsHappeningLabel": {
+    "message": "「いまどうしてる？」を非表示"
   },
   "hideWhoToFollowEtcLabel": {
     "message": "タイムラインの「おすすめユーザー」「おすすめトピック」を非表示"
@@ -272,6 +317,12 @@
   "navDensityLabel": {
     "message": "ナビゲーションの密度"
   },
+  "notificationsLabel": {
+    "message": "通知"
+  },
+  "option_badges": {
+    "message": "バッジのみ非表示"
+  },
   "option_comfortable": {
     "message": "快適"
   },
@@ -288,10 +339,16 @@
     "message": "そのまま"
   },
   "option_liked": {
-    "message": "いいねが多い"
+    "message": "いいね"
+  },
+  "option_mostRecent": {
+    "message": "新しい順"
+  },
+  "option_popular": {
+    "message": "人気"
   },
   "option_recent": {
-    "message": "新しい順"
+    "message": "最新"
   },
   "option_relevant": {
     "message": "関連性が高い"
@@ -299,8 +356,20 @@
   "option_separate": {
     "message": "別タブで開く"
   },
+  "preventNextVideoAutoplayInfo": {
+    "message": "動画はループ再生されます"
+  },
+  "preventNextVideoAutoplayLabel": {
+    "message": "次の動画の自動再生を防ぐ"
+  },
   "quoteTweetsLabel": {
     "message": "引用ツイート"
+  },
+  "redirectChatNavLabel": {
+    "message": "チャットナビをメッセージにリダイレクト"
+  },
+  "redirectToTwitterLabel": {
+    "message": "twitter.com にリダイレクト"
   },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "アルゴリズムコンテンツを取り除く"
@@ -318,16 +387,22 @@
     "message": "X のブランド変更を置き換える"
   },
   "restoreLinkHeadlinesLabel": {
-    "message": "外部リンクの下に見出しを復元"
+    "message": "外部リンクの下に見出しを復元する"
   },
   "restoreOtherInteractionLinksLabel": {
     "message": "ツイートの下の他のリンクを復元する"
   },
   "restoreQuoteTweetsLinkLabel": {
-    "message": "ツイートの下にある「引用ツイート」リンクを復元し"
+    "message": "ツイートの下にある「引用ツイート」リンクを復元する"
+  },
+  "restoreTweetSourceLabel": {
+    "message": "ツイートのソースラベルを復元"
   },
   "retweetsLabel": {
     "message": "リツイート"
+  },
+  "saveAndApplyButton": {
+    "message": "保存して適用"
   },
   "sharedTweetsOptionsLabel": {
     "message": "他のユーザーが共有したツイート"
@@ -336,24 +411,45 @@
     "message": "フォロワー数"
   },
   "showBlueReplyFollowersCountLabel": {
-    "message": "$AMOUNT$ 人以上のフォロワーを表示する",
+    "message": "フォロワー数が$AMOUNT$人を超えるアカウントを表示",
     "placeholders": {
       "amount": {
         "content": "$1"
       }
     }
   },
-  "showBlueReplyVerifiedAccountsLabel": {
-    "message": "「認証済み」アカウントを表示"
-  },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "フォーカスされたツイートの下に表示"
+  },
+  "showPremiumReplyBusinessLabel": {
+    "message": "認証済みビジネスアカウントを表示"
+  },
+  "showPremiumReplyFollowedByLabel": {
+    "message": "自分をフォローしているアカウントを表示"
+  },
+  "showPremiumReplyFollowingLabel": {
+    "message": "フォロー中のアカウントを表示"
+  },
+  "showPremiumReplyGovernmentLabel": {
+    "message": "認証済み政府機関アカウントを表示"
   },
   "showRelevantPeopleLabel": {
     "message": "ツイート閲覧時に「おすすめユーザー」を表示する"
   },
+  "sidebarLabel": {
+    "message": "サイドバー"
+  },
+  "sortFollowingLabel": {
+    "message": "フォロー中の並べ替え"
+  },
   "sortRepliesLabel": {
-    "message": "返信を並べ替えのデフォルト"
+    "message": "返信のデフォルトの並べ替え"
+  },
+  "tweakNewLayoutInfo": {
+    "message": "実験的機能 - 新しいレイアウトがある場合にのみ有効にしてください"
+  },
+  "tweakNewLayoutLabel": {
+    "message": "新しいレイアウトを調整"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"

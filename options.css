@@ -20,29 +20,52 @@ body.iOS.browserAction {
 
 body.mobile .desktop,
 body.desktop .mobile,
+body.hidingNotifications #disabledHomeTimelineRedirectOption_notifications,
 body:not(.chronological) .chronological,
 body:not(.debug) .debug,
+body:not(.debugging) .debugging,
 body:not(.disabledHomeTimeline) .disabledHomeTimeline,
 body:not(.fullWidthContent) .fullWidthContent,
 body:not(.hidingBookmarkButton) .hidingBookmarkButton,
 body:not(.hidingExploreNav) .hidingExploreNav,
 body:not(.hidingMetrics) .hidingMetrics,
 body:not(.hidingQuotesFrom) #hideQuotesFromDetails,
-body:not(.hidingSidebarContent) .hidingSidebarContent,
+body:not(.hidingSuggestedFollows) .hidingSuggestedFollows,
 body:not(.hidingTwitterBlueReplies) .hidingTwitterBlueReplies,
 body:not(.iOS.safari) .toggle,
 body:not(.mutingQuotes) #mutedQuotesDetails,
 body:not(.showingBlueReplyFollowersCount) .showingBlueReplyFollowersCount,
+body:not(.showingSidebarContent) .showingSidebarContent,
+body:not(.tweakingNewLayout) .tweakingNewLayout,
 body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   display: none;
 }
 
-#showDebugOptions.clickable {
-  cursor: pointer;
-  user-select: none;
+.icon {
+  height: 1.25rem;
 }
 
-label {
+body.macOS.safari .icon {
+  display: none;
+}
+
+body.iOS.safari .icon {
+  height: 1.75rem;
+}
+
+body.disabled .icon {
+  filter: grayscale(100%);
+}
+
+body.disabled form > section ~ section {
+  visibility: hidden;
+}
+
+body.disabled:not(.safari) form > section {
+  border-bottom: 1px solid var(--border-color);
+}
+
+label:not([for]) {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -105,8 +128,40 @@ section.group > section > p {
   font-size: 12px;
 }
 
+section.textarea {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 12px 4px 0;
+  margin: 8px 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+
+section.textarea button {
+  text-align: center;
+}
+
+textarea {
+  resize: vertical;
+}
+/* Prevent zooming */
+body.iOS.safari textarea {
+  font-size: 16px;
+}
+
 #mutedQuotes p {
   white-space: pre-line;
+}
+
+#version {
+  text-align: center;
+  font-size: 75%;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+body.disabled #version {
+  display: none;
 }
 
 /* Firefox overrides */
@@ -163,7 +218,7 @@ body.macOS.safari form > section:not(:first-of-type) {
   margin-top: 20px;
 }
 /* Add colons to option group labels */
-body.macOS.safari section.group > label:not(.checkbox)::after {
+body.macOS.safari form > section.group > label:not(.checkbox)::after {
   content: ":";
 }
 body.macOS.safari form > section.group > label {

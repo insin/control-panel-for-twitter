@@ -5,26 +5,32 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "在滑出式菜单中添加\"增加隐藏词\""
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "在推文详情中显示账户位置"
+  },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "在用户悬浮卡片中显示账户位置"
+  },
   "alwaysUseLatestTweetsLabel": {
-    "message": "默认使用 \"正在关注\"（按时间顺序）的时间线"
+    "message": "默认使用 关注（按时间顺序）的时间线"
   },
   "appStoreSubtitle": {
     "message": "掌控你的时间线"
   },
-  "debugCountdownLabel": {
-    "message": " (调试选项：多次点击 $DEBUG_COUNTDOWN$ 来启用)",
-    "placeholders": {
-      "debug_countdown": {
-        "content": "$1",
-        "example": "3"
-      }
-    }
+  "bypassAgeVerificationLabel": {
+    "message": "绕过年龄验证"
+  },
+  "customCssLabel": {
+    "message": "自定义 CSS"
   },
   "debugInfo": {
     "message": "启用调试日志并在时间线上显示推文调试信息"
   },
   "debugLabel": {
     "message": "调试模式"
+  },
+  "debugLogTimelineStatsLabel": {
+    "message": "日志时间轴统计"
   },
   "debugOptionsLabel": {
     "message": "调试选项"
@@ -47,17 +53,14 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "私信"
   },
-  "disabledHomeTimelineRedirectOption_notifications": {
-    "message": "通知"
-  },
   "dontUseChirpFontLabel": {
     "message": "不要使用Chirp字体"
   },
   "dropdownMenuFontWeightLabel": {
     "message": "在下拉菜单中使用正常的字体大小"
   },
-  "experimentalNote": {
-    "message": "这个版本中没有实验"
+  "enabled": {
+    "message": "已启用"
   },
   "experimentsOptionsLabel": {
     "message": "试验"
@@ -73,6 +76,9 @@
   },
   "extensionName": {
     "message": "Control Panel for Twitter"
+  },
+  "extensionNameDisabled": {
+    "message": "Control Panel for Twitter (已禁用)"
   },
   "fastBlockLabel": {
     "message": "快速屏蔽(跳过确认对话框)"
@@ -107,12 +113,6 @@
   "hideAllMetricsLabel": {
     "message": "全部隐藏"
   },
-  "hideBlueReplyFollowedByLabel": {
-    "message": "隐藏关注我的人"
-  },
-  "hideBlueReplyFollowingLabel": {
-    "message": "隐藏我关注的人"
-  },
   "hideBookmarkButtonLabel": {
     "message": "推文下方的书签按钮"
   },
@@ -122,8 +122,29 @@
   "hideBookmarksNavLabel": {
     "message": "书签"
   },
+  "hideBusinessNavLabel": {
+    "message": "商业"
+  },
+  "hideChatNavLabel": {
+    "message": "聊天"
+  },
   "hideCommunitiesNavLabel": {
     "message": "社区"
+  },
+  "hideComposeTweetLabel": {
+    "message": "隐藏撰写推文按钮"
+  },
+  "hideConnectNavLabel": {
+    "message": "关注"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "创作者工作室"
+  },
+  "hideDiscoverSuggestionsLabel": {
+    "message": "隐藏\"发现\"建议"
+  },
+  "hideEditImageLabel": {
+    "message": "隐藏编辑图片"
   },
   "hideExploreNavLabel": {
     "message": "探索"
@@ -146,6 +167,9 @@
   "hideGrokLabel": {
     "message": "隐藏 Grok"
   },
+  "hideGrokTweetsLabel": {
+    "message": "隐藏 Grok 推文"
+  },
   "hideInlinePrompts": {
     "message": "隐藏时间线中的内联提示"
   },
@@ -158,17 +182,20 @@
   "hideListsNavLabel": {
     "message": "列表"
   },
+  "hideLiveBroadcastBarLabel": {
+    "message": "隐藏直播栏"
+  },
+  "hideLiveBroadcastsLabel": {
+    "message": "隐藏直播"
+  },
   "hideMessagesBottomNavItemLabel": {
     "message": "私信"
   },
   "hideMessagesDrawerLabel": {
-    "message": "讯息抽屉"
+    "message": "聊天抽屉"
   },
   "hideMetricsLabel": {
     "message": "隐藏指标"
-  },
-  "hideMonetizationNavLabel": {
-    "message": "盈利"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "隐藏你不使用的\"更多\"菜单项"
@@ -176,11 +203,17 @@
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "隐藏你不使用的滑出式菜单项"
   },
-  "hideMoreTweetsLabel": {
-    "message": "隐藏\"发现更多\"推文"
+  "hideNotificationLikesLabel": {
+    "message": "在通知中隐藏喜欢"
   },
-  "hideProNavLabel": {
-    "message": "专业版"
+  "hideNotificationRetweetsLabel": {
+    "message": "在通知中隐藏转推"
+  },
+  "hideNotificationsLabel": {
+    "message": "隐藏通知"
+  },
+  "hideProfileHeaderMetricsLabel": {
+    "message": "个人资料页眉指标"
   },
   "hideProfileRetweetsLabel": {
     "message": "在用户个人资料中隐藏转发"
@@ -212,20 +245,26 @@
   "hideSidebarContentLabel": {
     "message": "隐藏侧边栏内容"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "隐藏“对回复排序”菜单"
+  },
   "hideSpacesNavLabel": {
     "message": "创建你的空间"
   },
   "hideSubscriptionsLabel": {
     "message": "隐藏订阅服务"
   },
+  "hideSuggestedFollowsLabel": {
+    "message": "隐藏推荐关注"
+  },
   "hideTimelineTweetBoxLabel": {
     "message": "时间线推文框"
   },
-  "hideTotalTweetsMetricsLabel": {
-    "message": "推文总数"
+  "hideTodaysNewsLabel": {
+    "message": "隐藏今日新闻"
   },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "您自己的推文下的\"查看 帖子 互动量\""
+  "hideToggleNavigationLabel": {
+    "message": "隐藏切换导航"
   },
   "hideTwitterBlueRepliesLabel": {
     "message": "隐藏Premium蓝色勾号回复"
@@ -240,10 +279,16 @@
     "message": "隐藏你不使用的用户界面项目"
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "隐藏通知和关注者中的\"认证\"选项卡"
+    "message": "隐藏关注者中的“认证”选项卡"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "“查看活动”链接"
   },
   "hideViewsLabel": {
     "message": "隐藏推文下的观点"
+  },
+  "hideWhatsHappeningLabel": {
+    "message": "隐藏“正在发生的事”"
   },
   "hideWhoToFollowEtcLabel": {
     "message": "在时间线中隐藏\"关注谁\", \"关注一些话题\"等"
@@ -281,6 +326,12 @@
   "navDensityLabel": {
     "message": "导航密度"
   },
+  "notificationsLabel": {
+    "message": "通知"
+  },
+  "option_badges": {
+    "message": "仅隐藏徽章"
+  },
   "option_comfortable": {
     "message": "舒适"
   },
@@ -297,19 +348,37 @@
     "message": "什么都不做"
   },
   "option_liked": {
-    "message": "最多点赞"
+    "message": "喜欢"
+  },
+  "option_mostRecent": {
+    "message": "最近"
+  },
+  "option_popular": {
+    "message": "热门"
   },
   "option_recent": {
     "message": "最近"
   },
   "option_relevant": {
-    "message": "最相关"
+    "message": "相关"
   },
   "option_separate": {
     "message": "在单独的标签中显示"
   },
+  "preventNextVideoAutoplayInfo": {
+    "message": "视频将循环播放"
+  },
+  "preventNextVideoAutoplayLabel": {
+    "message": "防止下一个视频自动播放"
+  },
   "quoteTweetsLabel": {
     "message": "引用推文"
+  },
+  "redirectChatNavLabel": {
+    "message": "将聊天导航项重定向至消息"
+  },
+  "redirectToTwitterLabel": {
+    "message": "重定向到 twitter.com"
   },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "删除算法性内容"
@@ -335,8 +404,14 @@
   "restoreQuoteTweetsLinkLabel": {
     "message": "恢复推文下的“引用推文”链接"
   },
+  "restoreTweetSourceLabel": {
+    "message": "恢复推文来源标签"
+  },
   "retweetsLabel": {
     "message": "转发"
+  },
+  "saveAndApplyButton": {
+    "message": "保存并应用"
   },
   "sharedTweetsOptionsLabel": {
     "message": "其他用户分享的推文"
@@ -345,27 +420,48 @@
     "message": "粉丝数"
   },
   "showBlueReplyFollowersCountLabel": {
-    "message": "显示拥有超过 $AMOUNT$ 个粉丝的人",
+    "message": "显示粉丝数超过$AMOUNT$的账户",
     "placeholders": {
       "amount": {
         "content": "$1"
       }
     }
   },
-  "showBlueReplyVerifiedAccountsLabel": {
-    "message": "显示\"已验证\"账号"
-  },
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "在焦点推文下显示"
   },
+  "showPremiumReplyBusinessLabel": {
+    "message": "显示已验证的企业账户"
+  },
+  "showPremiumReplyFollowedByLabel": {
+    "message": "显示关注我的账户"
+  },
+  "showPremiumReplyFollowingLabel": {
+    "message": "显示我关注的账户"
+  },
+  "showPremiumReplyGovernmentLabel": {
+    "message": "显示已验证的政府账户"
+  },
   "showRelevantPeopleLabel": {
     "message": "查看推文时显示\"相关人员\""
+  },
+  "sidebarLabel": {
+    "message": "侧边栏"
+  },
+  "sortFollowingLabel": {
+    "message": "排序“关注”"
   },
   "sortReplies": {
     "message": "对回复排序"
   },
   "sortRepliesLabel": {
-    "message": "对回复排序的默认设置"
+    "message": "回复的默认排序"
+  },
+  "tweakNewLayoutInfo": {
+    "message": "实验性功能 - 仅在您拥有新布局时启用"
+  },
+  "tweakNewLayoutLabel": {
+    "message": "调整新布局"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "查看引用推文时隐藏被引用的推文"

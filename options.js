@@ -1,12 +1,26 @@
 document.title = chrome.i18n.getMessage(`extensionName`)
 
 for (let optionValue of [
+  '1000',
+  '10000',
+  '100000',
+  '1000000',
+]) {
+  for (let $option of document.querySelectorAll(`option[value="${optionValue}"]`)) {
+    $option.textContent = formatFollowerCount(Number(optionValue))
+  }
+}
+
+for (let optionValue of [
+  'badges',
   'comfortable',
   'compact',
   'default',
   'hide',
   'ignore',
   'liked',
+  'mostRecent',
+  'popular',
   'recent',
   'relevant',
   'separate',
@@ -20,9 +34,14 @@ for (let optionValue of [
 for (let translationId of [
   'addAddMutedWordMenuItemLabel_desktop',
   'addAddMutedWordMenuItemLabel_mobile',
+  'addUserHoverCardAccountLocationLabel',
+  'addFocusedTweetAccountLocationLabel',
   'alwaysUseLatestTweetsLabel',
+  'bypassAgeVerificationLabel',
+  'customCssLabel',
   'debugInfo',
   'debugLabel',
+  'debugLogTimelineStatsLabel',
   'debugOptionsLabel',
   'defaultToLatestSearchLabel',
   'disableHomeTimelineInfo',
@@ -30,10 +49,9 @@ for (let translationId of [
   'disableTweetTextFormattingLabel',
   'disabledHomeTimelineRedirectLabel',
   'disabledHomeTimelineRedirectOption_messages',
-  'disabledHomeTimelineRedirectOption_notifications',
   'dontUseChirpFontLabel',
   'dropdownMenuFontWeightLabel',
-  'experimentalNote',
+  'enabled',
   'experimentsOptionsLabel',
   'exportConfigLabel',
   'fastBlockLabel',
@@ -46,26 +64,32 @@ for (let translationId of [
   'hideAccountSwitcherLabel',
   'hideAdsNavLabel',
   'hideAllMetricsLabel',
-  'hideBlueReplyFollowedByLabel',
-  'hideBlueReplyFollowingLabel',
   'hideBookmarkButtonLabel',
   'hideBookmarkMetricsLabel',
+  'hideChatNavLabel',
+  'hideComposeTweetLabel',
+  'hideDiscoverSuggestionsLabel',
+  'hideEditImageLabel',
   'hideExploreNavLabel',
   'hideExploreNavWithSidebarLabel',
   'hideExplorePageContentsLabel',
   'hideFollowingMetricsLabel',
   'hideForYouTimelineLabel',
   'hideGrokLabel',
+  'hideGrokTweetsLabel',
   'hideInlinePrompts',
   'hideJobsLabel',
   'hideLikeMetricsLabel',
+  'hideLiveBroadcastBarLabel',
+  'hideLiveBroadcastsLabel',
   'hideMessagesBottomNavItemLabel',
   'hideMessagesDrawerLabel',
   'hideMetricsLabel',
-  'hideMonetizationNavLabel',
   'hideMoreSlideOutMenuItemsOptionsLabel_desktop',
   'hideMoreSlideOutMenuItemsOptionsLabel_mobile',
-  'hideMoreTweetsLabel',
+  'hideNotificationLikesLabel',
+  'hideNotificationRetweetsLabel',
+  'hideProfileHeaderMetricsLabel',
   'hideProfileRetweetsLabel',
   'hideQuoteTweetMetricsLabel',
   'hideReplyMetricsLabel',
@@ -75,22 +99,29 @@ for (let translationId of [
   'hideSidebarContentLabel',
   'hideSpacesNavLabel',
   'hideSubscriptionsLabel',
+  'hideSuggestedFollowsLabel',
   'hideTimelineTweetBoxLabel',
-  'hideTotalTweetsMetricsLabel',
-  'hideTweetAnalyticsLinksLabel',
+  'hideTodaysNewsLabel',
+  'hideToggleNavigationLabel',
   'hideTwitterBlueRepliesLabel',
   'hideTwitterBlueUpsellsLabel',
   'hideUnavailableQuoteTweetsLabel',
   'hideUnusedUiItemsOptionsLabel',
   'hideVerifiedNotificationsTabLabel',
+  'hideViewActivityLinksLabel',
   'hideViewsLabel',
+  'hideWhatsHappeningLabel',
   'hideWhoToFollowEtcLabel',
   'homeTimelineOptionsLabel',
   'listRetweetsLabel',
   'mutableQuoteTweetsLabel',
   'navBaseFontSizeLabel',
   'navDensityLabel',
+  'preventNextVideoAutoplayInfo',
+  'preventNextVideoAutoplayLabel',
   'quoteTweetsLabel',
+  'redirectChatNavLabel',
+  'redirectToTwitterLabel',
   'reduceAlgorithmicContentOptionsLabel',
   'reduceEngagementOptionsLabel',
   'reducedInteractionModeInfo',
@@ -99,12 +130,20 @@ for (let translationId of [
   'restoreLinkHeadlinesLabel',
   'restoreOtherInteractionLinksLabel',
   'restoreQuoteTweetsLinkLabel',
+  'restoreTweetSourceLabel',
   'retweetsLabel',
   'showBlueReplyFollowersCountAmountLabel',
-  'showBlueReplyVerifiedAccountsLabel',
   'showBookmarkButtonUnderFocusedTweetsLabel',
+  'showPremiumReplyBusinessLabel',
+  'showPremiumReplyFollowedByLabel',
+  'showPremiumReplyFollowingLabel',
+  'showPremiumReplyGovernmentLabel',
   'showRelevantPeopleLabel',
+  'sidebarLabel',
+  'sortFollowingLabel',
   'sortRepliesLabel',
+  'tweakNewLayoutInfo',
+  'tweakNewLayoutLabel',
   'tweakQuoteTweetsPageLabel',
   'twitterBlueChecksLabel',
   'twitterBlueChecksOption_replace',
@@ -114,17 +153,27 @@ for (let translationId of [
   'uninvertFollowButtonsLabel',
   'xFixesLabel',
 ]) {
-  document.getElementById(translationId).textContent = chrome.i18n.getMessage(translationId)
+  let $el = document.getElementById(translationId)
+  if ($el) {
+    $el.textContent = chrome.i18n.getMessage(translationId)
+  } else {
+    console.warn('could not find element for translationId', translationId)
+  }
 }
 
 for (let translationClass of [
   'hideNotificationsNavLabel',
   'hideMessagesNavLabel',
   'hideBookmarksNavLabel',
+  'hideBusinessNavLabel',
   'hideCommunitiesNavLabel',
   'hideCommunityNotesNavLabel',
   'hideGrokNavLabel',
+  'hideConnectNavLabel',
+  'hideCreatorStudioNavLabel',
   'hideListsNavLabel',
+  'notificationsLabel',
+  'saveAndApplyButton',
 ]) {
   let translation = chrome.i18n.getMessage(translationClass)
   for (let $el of document.querySelectorAll(`.${translationClass}`)) {
@@ -152,12 +201,16 @@ if (navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.
 //#region Default config
 /** @type {import("./types").Config} */
 const defaultConfig = {
+  enabled: true,
   debug: false,
+  debugLogTimelineStats: false,
   // Default based on the platform if the main script hasn't run on Twitter yet
   version: /(Android|iP(ad|hone))/.test(navigator.userAgent) ? 'mobile' : 'desktop',
   // Shared
   addAddMutedWordMenuItem: true,
+  addFocusedTweetAccountLocation: false,
   alwaysUseLatestTweets: true,
+  bypassAgeVerification: true,
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
@@ -167,26 +220,33 @@ const defaultConfig = {
   fastBlock: true,
   followButtonStyle: 'monochrome',
   hideAdsNav: true,
-  hideBlueReplyFollowedBy: false,
-  hideBlueReplyFollowing: false,
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideNotificationsNav: false,
   hideMessagesNav: false,
   hideBookmarksNav: false,
+  hideBusinessNav: true,
+  hideChatNav: false,
   hideCommunitiesNav: false,
   hideCommunityNotesNav: false,
+  hideComposeTweet: false,
+  hideConnectNav: true,
+  hideCreatorStudioNav: true,
+  hideEditImage: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
   hideGrokNav: true,
+  hideGrokTweets: false,
   hideInlinePrompts: true,
   hideJobsNav: true,
   hideLikeMetrics: true,
   hideListsNav: false,
   hideMetrics: false,
-  hideMonetizationNav: true,
   hideMoreTweets: true,
+  hideNotificationLikes: false,
+  hideNotificationRetweets: false,
+  hideNotifications: 'ignore',
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
   hideQuotesFrom: [],
@@ -194,52 +254,68 @@ const defaultConfig = {
   hideRetweetMetrics: true,
   hideSeeNewTweets: false,
   hideShareTweetButton: false,
+  hideSortRepliesMenu: false,
   hideSubscriptions: true,
-  hideTimelineTweetBox: false,
   hideTotalTweetsMetrics: true,
-  hideTweetAnalyticsLinks: false,
   hideTwitterBlueReplies: false,
   hideTwitterBlueUpsells: true,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
+  hideViewActivityLinks: true,
   hideViews: true,
   hideWhoToFollowEtc: true,
   listRetweets: 'ignore',
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
+  redirectChatNav: false,
+  redirectToTwitter: false,
   reducedInteractionMode: false,
   replaceLogo: true,
   restoreLinkHeadlines: true,
-  restoreOtherInteractionLinks: false,
+  restoreOtherInteractionLinks: true,
   restoreQuoteTweetsLink: true,
+  restoreTweetSource: true,
   retweets: 'separate',
-  showBlueReplyFollowersCountAmount: '1000000',
   showBlueReplyFollowersCount: false,
-  showBlueReplyVerifiedAccounts: false,
+  showBlueReplyFollowersCountAmount: '1000000',
   showBookmarkButtonUnderFocusedTweets: true,
+  showPremiumReplyBusiness: true,
+  showPremiumReplyFollowedBy: true,
+  showPremiumReplyFollowing: true,
+  showPremiumReplyGovernment: true,
+  sortFollowing: 'mostRecent',
   sortReplies: 'relevant',
+  tweakNewLayout: false,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
   unblurSensitiveContent: false,
   // Experiments
-  // none currently
+  customCss: '',
   // Desktop only
+  addUserHoverCardAccountLocation: true,
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,
   hideExploreNav: true,
   hideExploreNavWithSidebar: true,
+  hideLiveBroadcasts: false,
   hideMessagesDrawer: true,
-  hideProNav: true,
   hideSidebarContent: true,
   hideSpacesNav: false,
+  hideSuggestedFollows: false,
+  hideTimelineTweetBox: false,
+  hideTodaysNews: false,
+  hideToggleNavigation: false,
+  hideWhatsHappening: false,
   navBaseFontSize: true,
   navDensity: 'default',
   showRelevantPeople: false,
   // Mobile only
+  hideLiveBroadcastBar: false,
   hideMessagesBottomNavItem: false,
+  preventNextVideoAutoplay: true,
 }
 //#endregion
 
@@ -266,13 +342,14 @@ let $hideQuotesFromLabel = /** @type {HTMLElement} */ (document.querySelector('#
 let $mutedQuotes =  /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
 let $mutedQuotesDetails =  /** @type {HTMLDetailsElement} */ (document.querySelector('details#mutedQuotesDetails'))
 let $mutedQuotesLabel = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesLabel'))
+let $saveCustomCssButton = document.querySelector('button#saveCustomCss')
 let $showBlueReplyFollowersCountLabel = /** @type {HTMLElement} */ (document.querySelector('#showBlueReplyFollowersCountLabel'))
 //#endregion
 
 //#region Utility functions
 function exportConfig() {
   let $a = document.createElement('a')
-  $a.download = 'control-panel-for-twitter-v4.4.3.config.txt'
+  $a.download = 'control-panel-for-twitter-v4.21.1.config.txt'
   $a.href = URL.createObjectURL(new Blob([
     JSON.stringify(optionsConfig, null, 2)
   ], {type: 'text/plain'}))
@@ -374,6 +451,8 @@ function applyConfig() {
  * @param {Event} e
  */
 function onFormChanged(e) {
+  if (e.target instanceof HTMLTextAreaElement) return
+
   /** @type {Partial<import("./types").Config>} */
   let changedConfig = {}
 
@@ -387,6 +466,14 @@ function onFormChanged(e) {
       $el.indeterminate = false
     } else {
       optionsConfig[$el.name] = changedConfig[$el.name] = $el.checked
+      // Don't try to redirect the Home timeline to Notifications if both are disabled
+      if ($el.name == 'hideNotifications' &&
+          $el.checked &&
+          optionsConfig.disabledHomeTimelineRedirect == 'notifications') {
+        $form.elements['disabledHomeTimelineRedirect'].value = 'messages'
+        optionsConfig.disabledHomeTimelineRedirect = 'messages'
+        changedConfig.disabledHomeTimelineRedirect = 'messages'
+      }
       updateCheckboxGroups()
     }
   } else {
@@ -407,6 +494,15 @@ function onStorageChanged(changes) {
   )
   Object.assign(optionsConfig, configChanges)
   applyConfig()
+}
+
+function saveCustomCss() {
+  if (optionsConfig.customCss == $form.elements['customCss'].value) return
+
+  /** @type {Partial<import("./types").Config>} */
+  let changedConfig = {}
+  optionsConfig['customCss'] = changedConfig['customCss'] = $form.elements['customCss'].value
+  storeConfigChanges(changedConfig)
 }
 
 function shouldDisplayHideQuotesFrom() {
@@ -436,17 +532,22 @@ function updateCheckboxGroups() {
 }
 
 function updateDisplay() {
+  $body.classList.toggle('debugging', optionsConfig.debug)
   $body.classList.toggle('chronological', optionsConfig.alwaysUseLatestTweets)
+  $body.classList.toggle('disabled', !optionsConfig.enabled)
   $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
   $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
   $body.classList.toggle('hidingBookmarkButton', optionsConfig.hideBookmarkButton)
   $body.classList.toggle('hidingExploreNav', optionsConfig.hideExploreNav)
   $body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
+  $body.classList.toggle('hidingNotifications', optionsConfig.hideNotifications == 'hide')
   $body.classList.toggle('hidingQuotesFrom', shouldDisplayHideQuotesFrom())
-  $body.classList.toggle('hidingSidebarContent', optionsConfig.hideSidebarContent)
+  $body.classList.toggle('hidingSuggestedFollows', optionsConfig.hideSidebarContent || optionsConfig.hideSuggestedFollows)
   $body.classList.toggle('hidingTwitterBlueReplies', optionsConfig.hideTwitterBlueReplies)
   $body.classList.toggle('mutingQuotes', shouldDisplayMutedQuotes())
   $body.classList.toggle('showingBlueReplyFollowersCount', optionsConfig.showBlueReplyFollowersCount)
+  $body.classList.toggle('showingSidebarContent', !optionsConfig.hideSidebarContent)
+  $body.classList.toggle('tweakingNewLayout', optionsConfig.tweakNewLayout)
   $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
   $showBlueReplyFollowersCountLabel.textContent = chrome.i18n.getMessage(
     'showBlueReplyFollowersCountLabel',
@@ -526,7 +627,7 @@ function updateFormControls() {
 function updateFormControl($control, value) {
   if ($control instanceof RadioNodeList) {
     // If a checkbox displays in multiple sections, update them all
-    $control.forEach(input => input.checked = value)
+    $control.forEach(input => /** @type {HTMLInputElement} */ (input).checked = value)
   }
   else if ($control.type == 'checkbox') {
     $control.checked = value
@@ -548,20 +649,21 @@ function main() {
     optionsConfig = {...defaultConfig, ...storedConfig}
 
     $body.classList.toggle('debug', optionsConfig.debug === true)
-    // $experiments.open = (...)
+    $experiments.open = Boolean(optionsConfig.customCss)
     $exportConfig.addEventListener('click', exportConfig)
     $form.addEventListener('change', onFormChanged)
     $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
+    $saveCustomCssButton.addEventListener('click', saveCustomCss)
     chrome.storage.onChanged.addListener(onStorageChanged)
 
     if (!optionsConfig.debug) {
-      let $showDebugOptions = document.querySelector('#showDebugOptions')
+      let $version = document.querySelector('#version')
       let $debugCountdown = document.querySelector('#debugCountdown')
       let debugCountdown = 5
 
       function onClick(e) {
-        if (e.target === $showDebugOptions || $showDebugOptions.contains(/** @type {Node} */ (e.target))) {
+        if (e.target === $version || $version.contains(/** @type {Node} */ (e.target))) {
           debugCountdown--
         } else {
           debugCountdown = 5
@@ -571,15 +673,13 @@ function main() {
           $body.classList.add('debug')
           $debugCountdown.textContent = ''
           $form.removeEventListener('click', onClick)
-          $showDebugOptions.classList.remove('clickable')
         }
         else if (debugCountdown <= 3) {
-          $debugCountdown.textContent = chrome.i18n.getMessage('debugCountdownLabel', String(debugCountdown))
+          $debugCountdown.textContent = ` (${debugCountdown})`
         }
       }
 
       $form.addEventListener('click', onClick)
-      $showDebugOptions.classList.add('clickable')
     }
 
     applyConfig()

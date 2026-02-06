@@ -3,14 +3,18 @@
   "default_locale": "en",
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescriptionShort__",
-  "homepage_url": "https://jbscript.dev/control-panel-for-twitter",
-  "version": "4.4.3",
+  "homepage_url": "https://soitis.dev/control-panel-for-twitter",
+  "version": "4.21.1",
   "icons": {
     "48": "icon48.png",
     "96": "icon96.png",
     "128": "icon128.png",
     "256": "icon256.png",
     "512": "icon512.png"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
