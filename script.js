@@ -137,10 +137,13 @@ const config = {
   hideAdsNav: true,
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
+  hideNotificationsNav: true,
+  hideMessagesNav: true,
   hideBookmarksNav: false,
   hideBusinessNav: true,
   hideChatNav: false,
   hideCommunitiesNav: false,
+  hideCommunityNotesNav: true,
   hideComposeTweet: false,
   hideConnectNav: true,
   hideCreatorStudioNav: true,
@@ -4919,6 +4922,12 @@ const configureCss = (() => {
           hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/explore"]`)
         }
       }
+      if (config.hideNotificationsNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/notifications"]`)
+      }
+      if (config.hideMessagesNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/messages"]`)
+      }
       if (config.hideBookmarksNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`)
         if (config.tweakNewLayout) {
@@ -4927,11 +4936,15 @@ const configureCss = (() => {
         }
       }
       if (config.hideCommunitiesNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/communities"]`)
         if (config.tweakNewLayout) {
           // In new More dialog
           hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/communities"]`)
         }
+      }
+      if (config.hideCommunityNotesNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/communitynotes"]`)
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
       }
       if (config.hideMessagesDrawer) {
         cssRules.push(`div:is([data-testid="DMDrawer"], [data-testid="chat-drawer-root"]) { visibility: hidden; }`)

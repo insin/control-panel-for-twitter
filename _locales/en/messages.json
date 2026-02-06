@@ -122,6 +122,12 @@
   "hideBookmarkMetricsLabel": {
     "message": "Bookmarks"
   },
+  "hideNotificationsNavLabel": {
+    "message": "Notifications"
+  },
+  "hideMessagesNavLabel": {
+    "message": "Messages"
+  },
   "hideBookmarksNavLabel": {
     "message": "Bookmarks"
   },
@@ -133,6 +139,9 @@
   },
   "hideCommunitiesNavLabel": {
     "message": "Communities"
+  },
+  "hideCommunityNotesNavLabel": {
+    "message": "Community Notes"
   },
   "hideComposeTweetLabel": {
     "message": "Hide the Compose Tweet button"
