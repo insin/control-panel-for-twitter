@@ -39,7 +39,8 @@
   ],
   "options_ui": {
     "browser_style": true,
-    "page": "options.html"
+    "page": "options.html",
+    "open_in_tab": true
   },
   "browser_action": {
     "browser_style": true,
