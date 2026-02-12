@@ -23,6 +23,9 @@
   "customCssLabel": {
     "message": "CSS personalizado"
   },
+  "darkModeThemeLabel": {
+    "message": "Tema del modo oscuro"
+  },
   "debugInfo": {
     "message": "Activa los registros de debug y muestra estadísticas de debug en los tweets del Inicio"
   },
@@ -332,11 +335,17 @@
   "option_default": {
     "message": "Predet."
   },
+  "option_dim": {
+    "message": "Noche clara"
+  },
   "option_hide": {
     "message": "Ocultar"
   },
   "option_ignore": {
     "message": "No cambiar"
+  },
+  "option_lightsOut": {
+    "message": "Oscuro"
   },
   "option_liked": {
     "message": "Me gusta"

@@ -23,6 +23,9 @@
   "customCssLabel": {
     "message": "CSS personnalisé"
   },
+  "darkModeThemeLabel": {
+    "message": "Thème du mode sombre"
+  },
   "debugInfo": {
     "message": "Active la journalisation du débogage et affiche les informations de débogage du tweet dans la ligne de temps"
   },
@@ -332,11 +335,17 @@
   "option_default": {
     "message": "Par défaut"
   },
+  "option_dim": {
+    "message": "Bleu foncé"
+  },
   "option_hide": {
     "message": "Masquer"
   },
   "option_ignore": {
     "message": "Ne rien faire"
+  },
+  "option_lightsOut": {
+    "message": "Noir"
   },
   "option_liked": {
     "message": "J'aime"

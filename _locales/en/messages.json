@@ -24,6 +24,9 @@
   "customCssLabel": {
     "message": "Custom CSS"
   },
+  "darkModeThemeLabel": {
+    "message": "Dark mode theme"
+  },
   "debugInfo": {
     "message": "Enables debug logging and displays tweet debug info in the timeline"
   },
@@ -335,6 +338,9 @@
   "option_default": {
     "message": "Default"
   },
+  "option_dim": {
+    "message": "Dim"
+  },
   "option_hide": {
     "message": "Hide",
     "description": "Option for hiding things"
@@ -342,6 +348,9 @@
   "option_ignore": {
     "message": "Do nothing",
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
+  },
+  "option_lightsOut": {
+    "message": "Lights out"
   },
   "option_liked": {
     "message": "Likes"

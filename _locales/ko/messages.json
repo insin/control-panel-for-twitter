@@ -23,6 +23,9 @@
   "customCssLabel": {
     "message": "사용자 정의 CSS"
   },
+  "darkModeThemeLabel": {
+    "message": "다크 모드의 테마"
+  },
   "debugInfo": {
     "message": "디버그 로깅을 활성화하고 타임라인에서 트윗 디버그 정보를 표시합니다"
   },
@@ -332,11 +335,17 @@
   "option_default": {
     "message": "기본"
   },
+  "option_dim": {
+    "message": "어둡게"
+  },
   "option_hide": {
     "message": "숨기기"
   },
   "option_ignore": {
     "message": "아무것도 하지 않음"
+  },
+  "option_lightsOut": {
+    "message": "완전히 어둡게"
   },
   "option_liked": {
     "message": "마음에 들어요"

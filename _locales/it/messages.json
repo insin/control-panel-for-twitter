@@ -23,6 +23,9 @@
   "customCssLabel": {
     "message": "CSS personalizzato"
   },
+  "darkModeThemeLabel": {
+    "message": "Tema della modalità scura"
+  },
   "debugInfo": {
     "message": "Attiva il logging di debug e mostra le info di debug sui tweet nella timeline"
   },
@@ -332,11 +335,17 @@
   "option_default": {
     "message": "Default"
   },
+  "option_dim": {
+    "message": "Luci soffuse"
+  },
   "option_hide": {
     "message": "Nascondi"
   },
   "option_ignore": {
     "message": "Non fare nulla"
+  },
+  "option_lightsOut": {
+    "message": "Luci spente"
   },
   "option_liked": {
     "message": "Mi piace"

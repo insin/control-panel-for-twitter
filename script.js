@@ -126,6 +126,7 @@ const config = {
   addFocusedTweetAccountLocation: false,
   alwaysUseLatestTweets: true,
   bypassAgeVerification: true,
+  darkModeTheme: 'lightsOut',
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
@@ -2432,7 +2433,7 @@ let currentPath = ''
 let filterBlurRule = null
 
 /**
- * React Native stylesheett rule for the Chirp font-family.
+ * React Native stylesheet rule for the Chirp font-family.
  * @type {CSSStyleRule}
  */
 let fontFamilyRule = null
@@ -3065,11 +3066,17 @@ function observeBodyBackgroundColor() {
     if (backgroundColor == lastBackgroundColor) return
 
     $body.classList.toggle('Default', backgroundColor == 'rgb(255, 255, 255)')
-    $body.classList.toggle('Dim', backgroundColor == 'rgb(21, 32, 43)')
-    $body.classList.toggle('LightsOut', backgroundColor == 'rgb(0, 0, 0)')
+    $body.classList.toggle('LightsOut', backgroundColor == 'rgb(0, 0, 0)' || backgroundColor == 'rgb(5, 5, 5)')
 
     if (lastBackgroundColor != null) {
       log('Background setting changed - re-processing current page')
+      // This also updates body.HighContrast
+      let newThemeColor = getThemeColorFromState()
+      if (newThemeColor != themeColor) {
+        log('Color setting changed')
+        themeColor = newThemeColor
+        configureThemeCss()
+      }
       observePopups()
       observeSideNavItems()
       processCurrentPage()
@@ -4188,21 +4195,83 @@ const configureCss = (() => {
         --color: rgb(83, 100, 113);
         --color-emphasis: rgb(15, 20, 25);
         --hover-bg-color: rgb(247, 249, 249);
-      }
-      body.Dim {
-        --border-color: rgb(56, 68, 77);
-        --color: rgb(139, 152, 165);
-        --color-emphasis: rgb(247, 249, 249);
-        --hover-bg-color: rgb(30, 39, 50);
+        --tab-hover: rgba(15, 20, 25, 0.1);
       }
       body.LightsOut {
         --border-color: rgb(47, 51, 54);
         --color: rgb(113, 118, 123);
         --color-emphasis: rgb(247, 249, 249);
         --hover-bg-color: rgb(22, 24, 28);
+        --tab-hover: rgba(231, 233, 234, 0.1);
       }
       .cpft_menu_item:hover { background-color: var(--hover-bg-color) !important; }
     `)
+
+    if (config.darkModeTheme == 'dim') {
+      cssRules.push(`
+        body.LightsOut {
+          --backdrop-color: rgba(21, 32, 43, .85);
+          --background-color: rgb(21, 32, 43);
+          --border-color: rgb(56, 68, 77);
+          --color: rgb(139, 152, 165);
+          --color-emphasis: rgb(247, 249, 249);
+          --hover-bg-color: rgb(30, 39, 50);
+          --tab-hover: rgba(247, 249, 249, 0.1);
+
+          background-color: var(--background-color) !important;
+
+          [style*="background-color: rgb(0, 0, 0)"] {
+            background-color: var(--background-color) !important;
+          }
+          .r-kemksi {
+            background-color: var(--background-color);
+          }
+          /* background-color as border */
+          .r-gu4em3 {
+            background-color: var(--border-color);
+          }
+          .r-5zmot {
+            background-color: var(--backdrop-color);
+          }
+          .r-1kqtdi0, /* all */
+          .r-1igl3o0, /* bottom */
+          .r-2sztyj,  /* top */
+          .r-vpktly,  /* bottom (brighter) */
+          .r-1roi411  /* input */ {
+            border-color: var(--border-color);
+          }
+          .r-g2wdr4,
+          .r-cuuowz {
+            background-color: var(--hover-bg-color);
+          }
+          .r-1hdo0pc{
+            background-color: var(--tab-hover);
+          }
+          [style*="color: rgb(113, 118, 123);"] {
+            color: var(--color) !important;
+          }
+          .r-qo02w8,
+          .r-1uusn97 {
+            box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+          }
+        }
+        body.LightsOut.HighContrast {
+          [style*="background-color: rgb(5, 5, 5)"] {
+            background-color: var(--background-color) !important;
+          }
+          .r-16331v6 {
+            background-color: var(--background-color);
+          }
+          /* background-color as border */
+          .r-1wh73dq {
+            background-color: var(--border-color);
+          }
+          .r-dgm4ly /* all */ {
+            border-color: var(--border-color);
+          }
+        }
+      `)
+    }
 
     if (config.addFocusedTweetAccountLocation) {
       cssRules.push('.AccountLocation[hidden] { display: inline; }')
@@ -4553,15 +4622,6 @@ const configureCss = (() => {
         `)
       } else {
         cssRules.push(`
-          body.Default {
-            --tab-hover: rgba(15, 20, 25, 0.1);
-          }
-          body.Dim {
-            --tab-hover: rgba(247, 249, 249, 0.1);
-          }
-          body.LightsOut {
-            --tab-hover: rgba(231, 233, 234, 0.1);
-          }
           /* Sometimes the cloned tab has a hover background color class */
           body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] {
             background-color: transparent !important;
@@ -5352,10 +5412,10 @@ const configureThemeCss = (() => {
           [data-testid="tweetButton"]:hover:not(:disabled) {
             background-color: ${themeColor.replace(')', ', 80%)')} !important;
           }
-          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div,
-          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="tweetButtonInline"] > div,
-          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="tweetButton"] > div,
-          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div > svg {
+          body:is(.LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div,
+          body:is(.LightsOut):not(.HighContrast) [data-testid="tweetButtonInline"] > div,
+          body:is(.LightsOut):not(.HighContrast) [data-testid="tweetButton"] > div,
+          body:is(.LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div > svg {
             color: rgb(255, 255, 255) !important;
           }
         `)
@@ -5381,29 +5441,29 @@ const configureThemeCss = (() => {
           body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
             color: rgb(255, 255, 255) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) {
+          body:is(.LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) {
             background-color: rgb(255, 255, 255) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
+          body:is(.LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
             color: rgb(15, 20, 25) !important;
           }
           /* Follow button */
           body.Default [role="button"][data-testid$="-follow"] {
             border-color: rgb(207, 217, 222) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"] {
+          body:is(.LightsOut) [role="button"][data-testid$="-follow"] {
             border-color: rgb(83, 100, 113) !important;
           }
           body.Default [role="button"][data-testid$="-follow"] > :is(div, span) {
             color: rgb(15, 20, 25) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"] > :is(div, span) {
+          body:is(.LightsOut) [role="button"][data-testid$="-follow"] > :is(div, span) {
             color: rgb(255, 255, 255) !important;
           }
           body.Default [role="button"][data-testid$="-follow"]:hover {
             background-color: rgba(15, 20, 25, 0.1) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"]:hover {
+          body:is(.LightsOut) [role="button"][data-testid$="-follow"]:hover {
             background-color: rgba(255, 255, 255, 0.1) !important;
           }
         `)
@@ -5457,8 +5517,8 @@ const configureThemeCss = (() => {
 function getColorScheme() {
   return {
     'rgb(255, 255, 255)': 'Default',
-    'rgb(21, 32, 43)': 'Dim',
     'rgb(0, 0, 0)': 'LightsOut',
+    'rgb(5, 5, 5)': 'LightsOut',
   }[$body.style.backgroundColor]
 }
 

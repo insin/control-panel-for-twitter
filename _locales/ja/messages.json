@@ -23,6 +23,9 @@
   "customCssLabel": {
     "message": "カスタムCSS"
   },
+  "darkModeThemeLabel": {
+    "message": "ダークモードのテーマ"
+  },
   "debugInfo": {
     "message": "デバッグログを有効化し、ツイートデバッグ情報をタイムラインに表示"
   },
@@ -332,11 +335,17 @@
   "option_default": {
     "message": "デフォルト"
   },
+  "option_dim": {
+    "message": "ダークブルー"
+  },
   "option_hide": {
     "message": "非表示"
   },
   "option_ignore": {
     "message": "そのまま"
+  },
+  "option_lightsOut": {
+    "message": "ブラック"
   },
   "option_liked": {
     "message": "いいね"

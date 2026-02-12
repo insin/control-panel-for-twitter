@@ -9,6 +9,7 @@ export type Config = {
   // XXX This is now more like "use the Following tab by default"
   alwaysUseLatestTweets: boolean
   bypassAgeVerification: boolean
+  darkModeTheme: 'lightsOut' | 'dim'
   defaultToLatestSearch: boolean
   disableHomeTimeline: boolean
   disabledHomeTimelineRedirect: 'notifications' | 'messages'

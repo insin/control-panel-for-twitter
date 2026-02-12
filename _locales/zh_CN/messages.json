@@ -23,6 +23,9 @@
   "customCssLabel": {
     "message": "自定义 CSS"
   },
+  "darkModeThemeLabel": {
+    "message": "深色模式主题"
+  },
   "debugInfo": {
     "message": "启用调试日志并在时间线上显示推文调试信息"
   },
@@ -341,11 +344,17 @@
   "option_default": {
     "message": "默认"
   },
+  "option_dim": {
+    "message": "暗淡"
+  },
   "option_hide": {
     "message": "隐藏"
   },
   "option_ignore": {
     "message": "什么都不做"
+  },
+  "option_lightsOut": {
+    "message": "暗黑"
   },
   "option_liked": {
     "message": "喜欢"
