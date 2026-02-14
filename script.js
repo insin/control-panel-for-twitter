@@ -4207,17 +4207,9 @@ const configureCss = (() => {
       .cpft_menu_item:hover { background-color: var(--hover-bg-color) !important; }
     `)
 
-    if (config.darkModeTheme == 'dim') {
+    if (config.darkModeTheme != 'lightsOut') {
       cssRules.push(`
         body.LightsOut {
-          --backdrop-color: rgba(21, 32, 43, .85);
-          --background-color: rgb(21, 32, 43);
-          --border-color: rgb(56, 68, 77);
-          --color: rgb(139, 152, 165);
-          --color-emphasis: rgb(247, 249, 249);
-          --hover-bg-color: rgb(30, 39, 50);
-          --tab-hover: rgba(247, 249, 249, 0.1);
-
           background-color: var(--background-color) !important;
 
           [style*="background-color: rgb(0, 0, 0)"] {
@@ -4252,7 +4244,7 @@ const configureCss = (() => {
           }
           .r-qo02w8,
           .r-1uusn97 {
-            box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+            box-shadow: var(--box-shadow);
           }
         }
         body.LightsOut.HighContrast {
@@ -4271,6 +4263,36 @@ const configureCss = (() => {
           }
         }
       `)
+      if (config.darkModeTheme == 'dim') {
+        cssRules.push(`
+          body.LightsOut {
+            --backdrop-color: rgba(21, 32, 43, .85);
+            --background-color: rgb(21, 32, 43);
+            --border-color: rgb(56, 68, 77);
+            --color: rgb(139, 152, 165);
+            --color-emphasis: rgb(247, 249, 249);
+            --hover-bg-color: rgb(30, 39, 50);
+            --tab-hover: rgba(247, 249, 249, 0.1);
+            --box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+          }
+        `)
+      }
+      if (config.darkModeTheme == 'monokai') {
+        cssRules.push(`
+          body.LightsOut {
+            --base-background: 34 34 34;
+            --base-emphasis: 248 248 242;
+            --backdrop-color: rgb(var(--base-background) / .85);
+            --background-color: rgb(var(--base-background));
+            --border-color: rgb(90, 90, 90);
+            --color: rgb(124, 120, 101);
+            --color-emphasis: rgb(var(--base-emphasis));
+            --hover-bg-color: rgb(88, 110, 117);
+            --tab-hover: rgb(var(--base-emphasis) / 0.1);
+            --box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+          }
+        `)
+      }
     }
 
     if (config.addFocusedTweetAccountLocation) {
