@@ -4195,6 +4195,7 @@ const configureCss = (() => {
         --color: rgb(83, 100, 113);
         --color-emphasis: rgb(15, 20, 25);
         --hover-bg-color: rgb(247, 249, 249);
+        --active-bg-color: rgb(239, 243, 244);
         --tab-hover: rgba(15, 20, 25, 0.1);
       }
       body.LightsOut {
@@ -4202,22 +4203,15 @@ const configureCss = (() => {
         --color: rgb(113, 118, 123);
         --color-emphasis: rgb(247, 249, 249);
         --hover-bg-color: rgb(22, 24, 28);
+        --active-bg-color: rgb(32, 35, 39);
         --tab-hover: rgba(231, 233, 234, 0.1);
       }
       .cpft_menu_item:hover { background-color: var(--hover-bg-color) !important; }
     `)
 
-    if (config.darkModeTheme == 'dim') {
+    if (config.darkModeTheme != 'lightsOut') {
       cssRules.push(`
         body.LightsOut {
-          --backdrop-color: rgba(21, 32, 43, .85);
-          --background-color: rgb(21, 32, 43);
-          --border-color: rgb(56, 68, 77);
-          --color: rgb(139, 152, 165);
-          --color-emphasis: rgb(247, 249, 249);
-          --hover-bg-color: rgb(30, 39, 50);
-          --tab-hover: rgba(247, 249, 249, 0.1);
-
           background-color: var(--background-color) !important;
 
           [style*="background-color: rgb(0, 0, 0)"] {
@@ -4226,7 +4220,7 @@ const configureCss = (() => {
           .r-kemksi {
             background-color: var(--background-color);
           }
-          /* background-color as border */
+          /* border-color as background */
           .r-gu4em3 {
             background-color: var(--border-color);
           }
@@ -4244,10 +4238,15 @@ const configureCss = (() => {
           .r-cuuowz {
             background-color: var(--hover-bg-color);
           }
+          .r-z32n2g {
+            background-color: var(--active-bg-color);
+          }
           .r-1hdo0pc{
             background-color: var(--tab-hover);
           }
-          [style*="color: rgb(113, 118, 123);"] {
+          [style*="color: rgb(113, 118, 123);"],
+          .public-DraftEditorPlaceholder-hasFocus,
+          .public-DraftEditorPlaceholder-root {
             color: var(--color) !important;
           }
           .r-qo02w8,
@@ -4271,6 +4270,20 @@ const configureCss = (() => {
           }
         }
       `)
+      if (config.darkModeTheme == 'dim') {
+        cssRules.push(`
+          body.LightsOut {
+            --backdrop-color: rgba(21, 32, 43, .85);
+            --background-color: rgb(21, 32, 43);
+            --border-color: rgb(56, 68, 77);
+            --color: rgb(139, 152, 165);
+            --color-emphasis: rgb(247, 249, 249);
+            --hover-bg-color: rgb(30, 39, 50);
+            --active-bg-color: rgb(40, 50, 61);
+            --tab-hover: rgba(247, 249, 249, 0.1);
+          }
+        `)
+      }
     }
 
     if (config.addFocusedTweetAccountLocation) {
