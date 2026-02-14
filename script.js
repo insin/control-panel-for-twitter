@@ -4176,7 +4176,7 @@ const configureCss = (() => {
         padding: 0 4px;
       }
       .cpft_text {
-        color: var(--color);
+        color: var(--cpft-text-secondary);
       }
     `]
     let hideCssSelectors = [
@@ -4191,88 +4191,158 @@ const configureCss = (() => {
     // Theme colours for custom UI items
     cssRules.push(`
       body.Default {
-        --border-color: rgb(239, 243, 244);
-        --color: rgb(83, 100, 113);
-        --color-emphasis: rgb(15, 20, 25);
-        --hover-bg-color: rgb(247, 249, 249);
-        --tab-hover: rgba(15, 20, 25, 0.1);
+        --cpft-active-bg-color: rgb(239, 243, 244);
+        --cpft-border-color: rgb(239, 243, 244);
+        --cpft-hover-bg-color: rgb(247, 249, 249);
+        --cpft-tab-hover: rgba(15, 20, 25, 0.1);
+        --cpft-text-primary: rgb(15, 20, 25);
+        --cpft-text-secondary: rgb(83, 100, 113);
       }
       body.LightsOut {
-        --border-color: rgb(47, 51, 54);
-        --color: rgb(113, 118, 123);
-        --color-emphasis: rgb(247, 249, 249);
-        --hover-bg-color: rgb(22, 24, 28);
-        --tab-hover: rgba(231, 233, 234, 0.1);
+        --cpft-active-bg-color: rgb(32, 35, 39);
+        --cpft-border-color: rgb(47, 51, 54);
+        --cpft-hover-bg-color: rgb(22, 24, 28);
+        --cpft-tab-hover: rgba(231, 233, 234, 0.1);
+        --cpft-text-primary: rgb(231, 233, 234);
+        --cpft-text-secondary: rgb(113, 118, 123);
       }
-      .cpft_menu_item:hover { background-color: var(--hover-bg-color) !important; }
+      .cpft_menu_item:hover {
+        background-color: var(--cpft-hover-bg-color) !important;
+      }
     `)
 
-    if (config.darkModeTheme == 'dim') {
+    if (config.darkModeTheme != 'lightsOut') {
       cssRules.push(`
         body.LightsOut {
-          --backdrop-color: rgba(21, 32, 43, .85);
-          --background-color: rgb(21, 32, 43);
-          --border-color: rgb(56, 68, 77);
-          --color: rgb(139, 152, 165);
-          --color-emphasis: rgb(247, 249, 249);
-          --hover-bg-color: rgb(30, 39, 50);
-          --tab-hover: rgba(247, 249, 249, 0.1);
+          background-color: var(--cpft-background-color) !important;
+          scrollbar-color: var(--cpft-surface-color) var(--cpft-hover-bg-color) !important;
 
-          background-color: var(--background-color) !important;
-
+          [data-testid="dm-search-bar"].bg-gray-0,
+          :is(.animate-pulse, .motion-safe\\:animate-pulse).bg-gray-100, /* Chat skeletons */
+          :is([data-testid="dm-message-list"], [data-testid="dm-composer-container"]) .bg-gray-50,
+          .r-z32n2g {
+            background-color: var(--cpft-active-bg-color);
+          }
+          :is([data-testid^="dm-conversation-item-"], [data-radix-popper-content-wrapper]) .bg-gray-0,
+          .r-14tof1o {
+            background-color: var(--cpft-active-bg-color-dark);
+          }
           [style*="background-color: rgb(0, 0, 0)"] {
-            background-color: var(--background-color) !important;
+            background-color: var(--cpft-background-color) !important;
           }
+          [data-testid="dm-conversation-header"] > div:first-child.absolute > div {
+            mask-image: linear-gradient(360deg, transparent 0%, var(--cpft-background-color) 100%) !important;
+          }
+          .bg-background,
+          .jf-element .j-vdda9x11,
           .r-kemksi {
-            background-color: var(--background-color);
+            background-color: var(--cpft-background-color);
           }
-          /* background-color as border */
-          .r-gu4em3 {
-            background-color: var(--border-color);
+          .r-gu4em3, /* horizontal border */
+          .r-1bnu78o /* thread line */ {
+            background-color: var(--cpft-border-color);
           }
           .r-5zmot {
-            background-color: var(--backdrop-color);
+            background-color: var(--cpft-backdrop-color);
           }
           .r-1kqtdi0, /* all */
           .r-1igl3o0, /* bottom */
           .r-2sztyj,  /* top */
           .r-vpktly,  /* bottom (brighter) */
           .r-1roi411  /* input */ {
-            border-color: var(--border-color);
-          }
-          .r-g2wdr4,
-          .r-cuuowz {
-            background-color: var(--hover-bg-color);
-          }
-          .r-1hdo0pc{
-            background-color: var(--tab-hover);
-          }
-          [style*="color: rgb(113, 118, 123);"] {
-            color: var(--color) !important;
+            border-color: var(--cpft-border-color);
           }
           .r-qo02w8,
           .r-1uusn97 {
-            box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+            box-shadow: var(--cpft-box-shadow);
+          }
+          [data-testid^="dm-conversation-item-"] .hover\\:bg-gray-50:hover,
+          [data-testid="dm-inbox-tab-requests"].hover\\:bg-gray-50:hover,
+          [data-testid="dm-conversation-header"] button.hover\\:bg-gray-50:hover,
+          .r-g2wdr4,
+          .r-cuuowz {
+            background-color: var(--cpft-hover-bg-color);
+          }
+          [data-testid^="dm-conversation-item-"] .border-gray-50 {
+            border-color: var(--cpft-hover-bg-color);
+          }
+          [data-testid="dm-conversation-header"] button.bg-gray-0,
+          .jf-element .j-cw4uj611 {
+            background-color: var(--cpft-surface-color);
+          }
+          [data-testid="dm-empty-conversation-state"] .bg-gray-0,
+          [data-radix-popper-content-wrapper] .hover\\:bg-gray-50:hover,
+          .r-1hdo0pc {
+            background-color: var(--cpft-tab-hover);
+          }
+          .jf-element .j-4t3tug11 {
+            color: var(--cpft-text-primary);
+          }
+          [style*="color: rgb(113, 118, 123);"],
+          [data-testid="dm-container"] .\\!text-gray-700:not([data-state="active"]),
+          .public-DraftEditorPlaceholder-hasFocus,
+          .public-DraftEditorPlaceholder-root {
+            color: var(--cpft-text-secondary) !important;
+          }
+          [data-testid="dm-container"] .text-gray-700,
+          [data-testid="dm-message-list"] .text-subtext2,
+          .jf-element .j-tibd4011,
+          .r-1bwzh9t /* icons */ {
+            color: var(--cpft-text-secondary);
+          }
+          [role="dialog"][id^="radix"] {
+            &.bg-gray-0 {
+              background-color: var(--cpft-background-color);
+            }
+            .bg-gray-50, .bg-gray-100 {
+              background-color: var(--cpft-surface-color);
+            }
+            .hover\:bg-gray-100:hover {
+              background-color: var(--cpft-hover-bg-color) !important;
+            }
+            .text-gray-700 {
+              color: var(--cpft-text-secondary);
+            }
           }
         }
         body.LightsOut.HighContrast {
           [style*="background-color: rgb(5, 5, 5)"] {
-            background-color: var(--background-color) !important;
+            background-color: var(--cpft-background-color) !important;
           }
           .r-16331v6 {
-            background-color: var(--background-color);
+            background-color: var(--cpft-background-color);
           }
-          /* background-color as border */
-          .r-1wh73dq {
-            background-color: var(--border-color);
+          .r-1wh73dq /* horizontal border */ {
+            background-color: var(--cpft-border-color);
           }
           .r-dgm4ly /* all */ {
-            border-color: var(--border-color);
+            border-color: var(--cpft-border-color);
           }
         }
       `)
+      if (config.darkModeTheme == 'dim') {
+        cssRules.push(`
+          body.LightsOut {
+            /* Tailwind & shadcn overrides */
+            --background: 210 34% 13%;
+            --border: 206 16% 26%;
+            --color-background: 210 34% 13%;
+            /* Theme */
+            --cpft-active-bg-color-dark: rgb(27, 36, 47);
+            --cpft-active-bg-color: rgb(40, 50, 61);
+            --cpft-backdrop-color: rgba(21, 32, 43, .85);
+            --cpft-background-color: rgb(21, 32, 43);
+            --cpft-border-color: rgb(56, 68, 77);
+            --cpft-box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+            --cpft-hover-bg-color: rgb(30, 39, 50);
+            --cpft-surface-color: rgb(17, 26, 34); /* 20% darker background-color */
+            --cpft-tab-hover: rgba(247, 249, 249, 0.1);
+            --cpft-text-primary: rgb(247, 249, 249);
+            --cpft-text-secondary: rgb(139, 152, 165);
+          }
+        `)
+      }
     }
-
     if (config.addFocusedTweetAccountLocation) {
       cssRules.push('.AccountLocation[hidden] { display: inline; }')
     }
@@ -4547,7 +4617,7 @@ const configureCss = (() => {
       cssRules.push(`
         .cpft_link_headline[hidden] {
           display: block;
-          border-top: 1px solid var(--border-color);
+          border-top: 1px solid var(--cpft-border-color);
           padding: 14px;
         }
       `)
@@ -4565,7 +4635,7 @@ const configureCss = (() => {
         }
         #cpftInteractionLinks a {
           text-decoration: none;
-          color: var(--color);
+          color: var(--cpft-text-secondary);
         }
         #cpftInteractionLinks a:hover span:last-child {
           text-decoration: underline;
@@ -4573,7 +4643,7 @@ const configureCss = (() => {
         #cpftQuoteTweetCount, #cpftRetweetCount, #cpftLikeCount {
           margin-right: 2px;
           font-weight: 700;
-          color: var(--color-emphasis);
+          color: var(--cpft-text-primary);
         }
         /* Replaces the "View activity" link under your own tweets */
         .ViewActivity {
@@ -4611,13 +4681,13 @@ const configureCss = (() => {
         cssRules.push(`
           body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
           body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
-            color: var(--color) !important;
+            color: var(--cpft-text-secondary) !important;
           }
           body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
-            color: var(--color-emphasis) !important;
+            color: var(--cpft-text-primary) !important;
           }
           body.Desktop #cpftSeparatedTweetsTab:hover > [role="tab"] > div > div {
-            color: var(--color-emphasis) !important;
+            color: var(--cpft-text-primary) !important;
           }
         `)
       } else {
@@ -4629,16 +4699,16 @@ const configureCss = (() => {
           body.Desktop #cpftSeparatedTweetsTab:hover,
           body.Mobile:not(.SeparatedTweets) #cpftSeparatedTweetsTab:hover,
           body.Mobile #cpftSeparatedTweetsTab:active {
-            background-color: var(--tab-hover) !important;
+            background-color: var(--cpft-tab-hover) !important;
           }
           body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
           body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
             font-weight: normal !important;
-            color: var(--color) !important;
+            color: var(--cpft-text-secondary) !important;
           }
           body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
             font-weight: bold;
-            color: var(--color-emphasis) !important;
+            color: var(--cpft-text-primary) !important;
           }
           /* Active tab underline */
           body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div > div,
@@ -4693,15 +4763,15 @@ const configureCss = (() => {
           ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) svg {
             width: 1.75rem !important;
             height: 1.75rem !important;
-            fill: var(--color-emphasis) !important;
+            fill: var(--cpft-text-primary) !important;
           }
           /* Restore contrast of main nav text when expanded */
           ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) div[dir]:not([aria-live]) {
-            color: var(--color-emphasis) !important;
+            color: var(--cpft-text-primary) !important;
           }
           /* Give other nav button icons more contrast too */
           header[role="banner"] button svg {
-            fill: var(--color-emphasis) !important;
+            fill: var(--cpft-text-primary) !important;
           }
           /* Make the Tweet button larger */
           [data-testid="SideNav_NewTweet_Button"] {
@@ -4715,10 +4785,10 @@ const configureCss = (() => {
           }
           /* Restore primary column borders */
           header[role="banner"] > div > div > div  {
-            border-right: 1px solid var(--border-color);
+            border-right: 1px solid var(--cpft-border-color);
           }
           ${Selectors.PRIMARY_COLUMN} {
-            border-right: 1px solid var(--border-color);
+            border-right: 1px solid var(--cpft-border-color);
           }
           /* Left-align main contents and stop it taking up all available space */
           main {
@@ -6822,8 +6892,8 @@ function restoreLinkHeadline($tweet) {
     let headline = rest.join(' ')
     $link.lastElementChild?.classList.add('cpft_overlay_headline')
     $link.insertAdjacentHTML('beforeend', `<div class="cpft_link_headline ${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" hidden>
-      <div style="color: var(--color); margin-bottom: 2px;">${site}</div>
-      <div style="color: var(--color-emphasis)">${headline}</div>
+      <div style="color: var(--cpft-text-secondary); margin-bottom: 2px;">${site}</div>
+      <div style="color: var(--cpft-text-primary)">${headline}</div>
     </div>`)
     $link.dataset.headlineRestored = 'true'
   }
@@ -6858,7 +6928,7 @@ function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, is
   let tweetLink = location.pathname.match(URL_TWEET_BASE_RE)?.[0]
   $actionBar.insertAdjacentHTML('beforebegin', `
     <div id="cpftInteractionLinks" hidden>
-      <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--border-color); display: flex; gap: 20px;">
+      <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--cpft-border-color); display: flex; gap: 20px;">
         ${tweetInfo.quote_count > 0 ? `<a id="cpftQuoteTweetsLink" class="quoteTweets" href="${tweetLink}/quotes" dir="auto" role="link">
           <span id="cpftQuoteTweetCount">
             ${Intl.NumberFormat(lang, {notation: tweetInfo.quote_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)}
