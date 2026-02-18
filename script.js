@@ -5929,7 +5929,7 @@ function handlePopup($popup) {
     }
   }
 
-  if (desktop && config.hideGrokNav || config.twitterBlueChecks != 'ignore' || config.addUserHoverCardAccountLocation) {
+  if (desktop && (config.hideGrokNav || config.twitterBlueChecks != 'ignore' || config.addUserHoverCardAccountLocation)) {
     // User hovercard popup
     let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
     if ($hoverCard) {
