@@ -4298,7 +4298,7 @@ const configureCss = (() => {
             .bg-gray-50, .bg-gray-100 {
               background-color: var(--cpft-surface-color);
             }
-            .hover\:bg-gray-100:hover {
+            .hover\\:bg-gray-100:hover {
               background-color: var(--cpft-hover-bg-color) !important;
             }
             .text-gray-700 {
