@@ -2405,6 +2405,9 @@ const TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR = '.tva-download-icon, .tva-modal-dow
  */
 let quotedTweet = null
 
+/** `true` when a 'Block @${user}' menu item was clicked in the last popup. */
+let blockMenuItemClicked = false
+
 /** `true` when a 'Block @${user}' menu item was seen in the last popup. */
 let blockMenuItemSeen = false
 
@@ -3385,8 +3388,6 @@ const observeFavicon = (() => {
  * need to be mindful of that.
  */
 const observePopups = (() => {
-  /** @type {MutationObserver} */
-  let popupObserver
   /** @type {WeakMap<HTMLElement, {disconnect()}>} */
   let nestedObservers = new WeakMap()
 
@@ -5863,18 +5864,30 @@ function handlePopup($popup) {
   }
 
   if (config.fastBlock) {
-    if (blockMenuItemSeen && $popup.querySelector('[data-testid="confirmationSheetConfirm"]')) {
-      log('fast blocking')
+    if (blockMenuItemSeen && blockMenuItemClicked && $popup.querySelector('[data-testid="confirmationSheetConfirm"]')) {
+      log('fastBlock: fast blocking')
       ;/** @type {HTMLElement} */ ($popup.querySelector('[data-testid="confirmationSheetConfirm"]')).click()
+      blockMenuItemSeen = false
+      blockMenuItemClicked = false
       result.tookAction = true
     }
     else if ($popup.querySelector(Selectors.BLOCK_MENU_ITEM)) {
-      log('preparing for fast blocking')
+      log('fastBlock: preparing for fast blocking')
       blockMenuItemSeen = true
-      // Create a nested observer for mobile, as it reuses the popup element
+      blockMenuItemClicked = false
+      document.addEventListener('click', (e) => {
+        if (e.target instanceof Element && e.target.closest(Selectors.BLOCK_MENU_ITEM)) {
+          log('fastBlock: block clicked')
+          blockMenuItemClicked = true
+        }
+      }, {capture: true, once: true})
+      // Create a nested observer for mobile, as it reuses the menu popup to
+      // display the block dialog.
       result.tookAction = !mobile
-    } else {
+    }
+    else {
       blockMenuItemSeen = false
+      blockMenuItemClicked = false
     }
   }
 
@@ -5916,7 +5929,7 @@ function handlePopup($popup) {
     }
   }
 
-  if (config.hideGrokNav || config.twitterBlueChecks != 'ignore' || config.addUserHoverCardAccountLocation) {
+  if (desktop && config.hideGrokNav || config.twitterBlueChecks != 'ignore' || config.addUserHoverCardAccountLocation) {
     // User hovercard popup
     let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
     if ($hoverCard) {
@@ -6065,8 +6078,7 @@ function onPopup($popup) {
         onPopupClosed = handlePopup($addedNode).onPopupClosed
       }
       for (let $removedNode of mutation.removedNodes) {
-        if (!($removedNode instanceof HTMLElement)) continue
-        if ($removedNode !== $nestedPopup) return
+        if (!($removedNode instanceof HTMLElement) || $removedNode !== $nestedPopup) continue
         if (onPopupClosed) {
           log('cleaning up after nested popup removed')
           onPopupClosed()
