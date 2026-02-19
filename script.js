@@ -6640,7 +6640,7 @@ function onTitleChange(title) {
 
   let hasDesktopInitialModalBeenClosed = desktop && (
     // Premium sign up dialog closed
-    currentPath == '/i/premium_sign_up' && location.pathname == '/home'
+    currentPath == '/i/premium_sign_up' && location.pathname == PagePaths.HOME
   )
 
   if (newPage == currentPage && !hasDesktopInitialModalBeenClosed) {
@@ -6868,7 +6868,7 @@ function redirectToTwitter() {
       // Don't redirect the path used by the OldTweetDeck extension
       location.pathname != '/i/tweetdeck') {
     // If we got a logout redirect from twitter.com, redirect back to the login page
-    let pathname = location.search.includes('logout=') ? '/i/flow/login' : location.pathname || '/home'
+    let pathname = location.search.includes('logout=') ? '/i/flow/login' : location.pathname || PagePaths.HOME
     let searchParams = new URLSearchParams(location.search)
     searchParams.delete('logout')
     searchParams.set('mx', '1')
@@ -7505,10 +7505,13 @@ function tweakHomeTimelinePage() {
 
   updateSelectedHomeTabIndex()
 
-  // If there are pinned lists, the timeline tabs <nav> will be replaced when they load
+  // If there are pinned lists, the timeline tabs <nav> will be replaced the
+  // first time they load in the current session.
   observeElement($timelineTabs.parentElement, (mutations) => {
     let timelineTabsReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($timelineTabs))
-    if (timelineTabsReplaced) {
+    if (timelineTabsReplaced &&
+        // On mobile, navigating to a different tabbed screen can switch tabs before the title changes
+        location.pathname == PagePaths.HOME) {
       log('Home timeline tabs replaced')
       $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
       tweakTimelineTabs($timelineTabs)
@@ -7737,7 +7740,7 @@ async function tweakTimelineTabs($timelineTabs) {
 
       // Return to the Home timeline when any other tab is clicked
       $followingTabLink.parentElement.parentElement.addEventListener('click', () => {
-        if (location.pathname == '/home' && currentPage != getString('HOME')) {
+        if (location.pathname == PagePaths.HOME && currentPage != getString('HOME')) {
           log('setting title to Home')
           homeNavigationIsBeingUsed = true
           setTitle(getString('HOME'))
@@ -7752,7 +7755,7 @@ async function tweakTimelineTabs($timelineTabs) {
       if ($homeNavLink && !$homeNavLink.dataset.cpftListener) {
         $homeNavLink.addEventListener('click', () => {
           homeNavigationIsBeingUsed = true
-          if (location.pathname == '/home' && currentPage != getString('HOME')) {
+          if (location.pathname == PagePaths.HOME && currentPage != getString('HOME')) {
             setTitle(getString('HOME'))
           }
         })
