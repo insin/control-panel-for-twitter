@@ -2958,6 +2958,7 @@ let logObserverDisconnects = true
  *   logElement?: boolean
  *   name: string
  *   observers: Map<string, import("./types").Disconnectable>
+ *   onDisconnect?: () => void
  * }} nameOrOptions
  * @param {MutationObserverInit} mutationObserverOptions
  * @returns {import("./types").NamedMutationObserver}
@@ -2970,7 +2971,7 @@ function observeElement($target, callback, nameOrOptions, mutationObserverOption
     return observer
   }
 
-  let {leading, logElement, name, observers} = nameOrOptions
+  let {leading, logElement, name, observers, onDisconnect} = nameOrOptions
 
   let observer = Object.assign(new MutationObserver(callback), {name})
   let disconnect = observer.disconnect.bind(observer)
@@ -2979,6 +2980,7 @@ function observeElement($target, callback, nameOrOptions, mutationObserverOption
     if (disconnected) return
     disconnected = true
     disconnect()
+    onDisconnect?.()
     observers.delete(name)
     if (logObserverDisconnects) {
       log(`disconnected ${name} observer`)
@@ -3467,6 +3469,53 @@ async function observeTitle() {
     observers: globalObservers,
   })
 }
+
+const observeThemeMeta = (() => {
+  /** @type {HTMLElement} */
+  let $themeMeta
+  /** @type {string} */
+  let lastDarkModeBg
+
+  function updateContent() {
+    let content = $themeMeta?.getAttribute('content')
+    if (config.enabled && config.darkModeTheme == 'dim') {
+      if (content == '#000000' || content == '#050505') {
+        lastDarkModeBg = content
+        $themeMeta.setAttribute('content', '#15202b')
+      }
+    }
+    else if (content == '#15202b' && lastDarkModeBg) {
+      $themeMeta.setAttribute('content', lastDarkModeBg)
+      lastDarkModeBg = null
+    }
+  }
+
+  async function observeThemeMeta() {
+    $themeMeta = await getElement('meta[name="theme-color"]', {
+      name: 'theme <meta>',
+      context: document.head || document.documentElement,
+    })
+    observeElement($themeMeta, () => {
+      updateContent()
+    }, {
+      leading: true,
+      name: 'theme <meta>',
+      observers: globalObservers,
+      onDisconnect() {
+        updateContent()
+      },
+    }, {
+      attributes: true,
+      attributeFilter: ['content'],
+    })
+  }
+
+  observeThemeMeta.update = function() {
+    updateContent()
+  }
+
+  return observeThemeMeta
+})()
 //#endregion
 
 //#region Page observers
@@ -8013,6 +8062,7 @@ async function main() {
 
   observeFavicon()
   observeTitle()
+  observeThemeMeta()
 
   let $appWrapper = await getElement('#layers + div', {name: 'app wrapper'})
 
@@ -8142,6 +8192,9 @@ function configChanged(changes) {
   observePopups()
   observeSideNavItems()
 
+  if ('darkModeTheme' in changes) {
+    observeThemeMeta.update()
+  }
   if ('replaceLogo' in changes || 'hideNotifications' in changes) {
     observeFavicon.forceUpdate(getNotificationCount() > 0)
   }
