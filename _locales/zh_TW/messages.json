@@ -1,0 +1,445 @@
+{
+  "addAddMutedWordMenuItemLabel_desktop": {
+    "message": "在「更多」選單中新增「靜音關鍵字」"
+  },
+  "addAddMutedWordMenuItemLabel_mobile": {
+    "message": "在滑出式選單中新增「靜音關鍵字」"
+  },
+  "alwaysUseLatestTweetsLabel": {
+    "message": "預設使用「追蹤中」（按時間排序）的動態"
+  },
+  "appStoreSubtitle": {
+    "message": "掌握您的動態時間軸"
+  },
+  "customCssLabel": {
+    "message": "自訂 CSS"
+  },
+  "debugInfo": {
+    "message": "啟用除錯日誌，並在動態中顯示推文調試資訊"
+  },
+  "debugLabel": {
+    "message": "除錯模式"
+  },
+  "debugLogTimelineStatsLabel": {
+    "message": "記錄動態統計資訊"
+  },
+  "debugOptionsLabel": {
+    "message": "除錯選項"
+  },
+  "defaultToLatestSearchLabel": {
+    "message": "搜尋時預設至「最新」分頁"
+  },
+  "disableHomeTimelineInfo": {
+    "message": "發現自己在 Twitter 上浪費太多時間？試著阻止使用主頁動態"
+  },
+  "disableHomeTimelineLabel": {
+    "message": "停用主頁動態"
+  },
+  "disableTweetTextFormattingLabel": {
+    "message": "停用推文中的粗體和斜體文字"
+  },
+  "disabledHomeTimelineRedirectLabel": {
+    "message": "將主頁動態重新導向至"
+  },
+  "disabledHomeTimelineRedirectOption_messages": {
+    "message": "訊息"
+  },
+  "dontUseChirpFontLabel": {
+    "message": "不要使用 Chirp 字型"
+  },
+  "dropdownMenuFontWeightLabel": {
+    "message": "在下拉選單中使用正常字重"
+  },
+  "enabled": {
+    "message": "已啟用"
+  },
+  "experimentsOptionsLabel": {
+    "message": "實驗功能"
+  },
+  "exportConfigLabel": {
+    "message": "匯出設定以回報錯誤"
+  },
+  "extensionDescription": {
+    "message": "讓您對 Twitter 擁有更多控制，並新增缺失的功能及介面改進"
+  },
+  "extensionDescriptionShort": {
+    "message": "讓您對 Twitter 擁有更多控制，並新增缺失的功能及介面改進"
+  },
+  "extensionName": {
+    "message": "Twitter 控制面板"
+  },
+  "extensionNameDisabled": {
+    "message": "Twitter 控制面板（停用）"
+  },
+  "fastBlockLabel": {
+    "message": "快速封鎖（跳過確認對話框）"
+  },
+  "features": {
+    "message": "功能"
+  },
+  "followButtonStyleLabel": {
+    "message": "按鈕樣式"
+  },
+  "followButtonStyleOption_monochrome": {
+    "message": "單色"
+  },
+  "followButtonStyleOption_themed": {
+    "message": "多彩"
+  },
+  "fullWidthContentInfo": {
+    "message": "隱藏側邊欄，讓動態內容全寬顯示"
+  },
+  "fullWidthContentLabel": {
+    "message": "全寬動態內容"
+  },
+  "fullWidthMediaLabel": {
+    "message": "全寬媒體與卡片"
+  },
+  "hideAccountSwitcherLabel": {
+    "message": "帳號切換器"
+  },
+  "hideAdsNavLabel": {
+    "message": "廣告"
+  },
+  "hideAllMetricsLabel": {
+    "message": "全部隱藏"
+  },
+  "hideBookmarkButtonLabel": {
+    "message": "推文下的書籤按鈕"
+  },
+  "hideBookmarkMetricsLabel": {
+    "message": "書籤數"
+  },
+  "hideBookmarksNavLabel": {
+    "message": "書籤"
+  },
+  "hideCommunitiesNavLabel": {
+    "message": "社群"
+  },
+  "hideComposeTweetLabel": {
+    "message": "隱藏「撰寫推文」按鈕"
+  },
+  "hideDiscoverSuggestionsLabel": {
+    "message": "隱藏「探索」建議"
+  },
+  "hideExploreNavLabel": {
+    "message": "探索"
+  },
+  "hideExploreNavWithSidebarLabel": {
+    "message": "隱藏側邊欄時顯示"
+  },
+  "hideExplorePageContentsLabel": {
+    "message": "隱藏探索頁面內容，只用於搜尋"
+  },
+  "hideFollowingMetricsLabel": {
+    "message": "正在追蹤／追蹤者"
+  },
+  "hideForYouTimelineLabel": {
+    "message": "隱藏「為您推薦」（演算法）動態"
+  },
+  "hideGrok": {
+    "message": "隱藏 Grok"
+  },
+  "hideGrokLabel": {
+    "message": "隱藏 Grok"
+  },
+  "hideGrokTweetsLabel": {
+    "message": "隱藏 Grok 推文"
+  },
+  "hideInlinePrompts": {
+    "message": "隱藏動態中的內嵌提示"
+  },
+  "hideJobsLabel": {
+    "message": "隱藏職缺"
+  },
+  "hideLikeMetricsLabel": {
+    "message": "按讚數"
+  },
+  "hideListsNavLabel": {
+    "message": "名單"
+  },
+  "hideLiveBroadcastBarLabel": {
+    "message": "隱藏直播欄"
+  },
+  "hideLiveBroadcastsLabel": {
+    "message": "隱藏直播"
+  },
+  "hideMessagesBottomNavItemLabel": {
+    "message": "訊息"
+  },
+  "hideMessagesDrawerLabel": {
+    "message": "訊息抽屜"
+  },
+  "hideMetricsLabel": {
+    "message": "隱藏統計數據"
+  },
+  "hideMonetizationNavLabel": {
+    "message": "創收"
+  },
+  "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
+    "message": "隱藏不常用的「更多」選單項目"
+  },
+  "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
+    "message": "隱藏不常用的滑出式選單項目"
+  },
+  "hideNotificationsLabel": {
+    "message": "隱藏通知"
+  },
+  "hideProfileHeaderMetricsLabel": {
+    "message": "個人檔案頁首統計"
+  },
+  "hideProfileRetweetsLabel": {
+    "message": "在個人檔案中隱藏轉推"
+  },
+  "hideQuoteTweetMetricsLabel": {
+    "message": "引用推文數"
+  },
+  "hideQuotesFromLabel": {
+    "message": "已靜音用戶 ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "hideReplyMetricsLabel": {
+    "message": "回覆數"
+  },
+  "hideRetweetMetricsLabel": {
+    "message": "轉推數"
+  },
+  "hideSeeNewTweetsLabel": {
+    "message": "隱藏「查看新推文」"
+  },
+  "hideShareTweetButtonLabel": {
+    "message": "推文下的分享按鈕"
+  },
+  "hideSidebarContentLabel": {
+    "message": "隱藏側邊欄內容"
+  },
+  "hideSpacesNavLabel": {
+    "message": "建立您的空間"
+  },
+  "hideSubscriptionsLabel": {
+    "message": "隱藏訂閱"
+  },
+  "hideSuggestedFollowsLabel": {
+    "message": "隱藏推薦追蹤"
+  },
+  "hideTimelineTweetBoxLabel": {
+    "message": "動態推文輸入框"
+  },
+  "hideToggleNavigationLabel": {
+    "message": "隱藏切換導覽"
+  },
+  "hideTweetAnalyticsLinksLabel": {
+    "message": "「查看貼文互動」於您的推文下方"
+  },
+  "hideTwitterBlueRepliesLabel": {
+    "message": "隱藏 Premium 藍勾回覆"
+  },
+  "hideTwitterBlueUpsellsLabel": {
+    "message": "隱藏 Premium 推銷"
+  },
+  "hideUnavailableQuoteTweetsLabel": {
+    "message": "隱藏對已封鎖和已靜音帳號的引用和回覆"
+  },
+  "hideUnusedUiItemsOptionsLabel": {
+    "message": "隱藏不常用的介面項目"
+  },
+  "hideVerifiedNotificationsTabLabel": {
+    "message": "隱藏通知與追蹤者中的「認證」分頁"
+  },
+  "hideViewsLabel": {
+    "message": "隱藏推文下的觀看次數"
+  },
+  "hideWhatsHappeningLabel": {
+    "message": "隱藏「正在發生什麼事」"
+  },
+  "hideWhoToFollowEtcLabel": {
+    "message": "在動態中隱藏「可追蹤的人」、「追蹤主題」等"
+  },
+  "homeTimelineOptionsLabel": {
+    "message": "主頁動態"
+  },
+  "listRetweetsLabel": {
+    "message": "名單中的轉推"
+  },
+  "mostLiked": {
+    "message": "最多按讚"
+  },
+  "mostRecent": {
+    "message": "最新"
+  },
+  "mostRelevant": {
+    "message": "最相關"
+  },
+  "mutableQuoteTweetsLabel": {
+    "message": "對特定推文啟用靜音引用"
+  },
+  "mutedTweetsLabel": {
+    "message": "已靜音推文 ($COUNT$)",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "navBaseFontSizeLabel": {
+    "message": "在導覽列中使用正常文字字型"
+  },
+  "navDensityLabel": {
+    "message": "導覽密度"
+  },
+  "notificationsLabel": {
+    "message": "通知"
+  },
+  "option_badges": {
+    "message": "僅隱藏徽章"
+  },
+  "option_comfortable": {
+    "message": "舒適"
+  },
+  "option_compact": {
+    "message": "緊湊"
+  },
+  "option_default": {
+    "message": "預設"
+  },
+  "option_hide": {
+    "message": "隱藏"
+  },
+  "option_ignore": {
+    "message": "保持原狀"
+  },
+  "option_liked": {
+    "message": "按讚"
+  },
+  "option_recent": {
+    "message": "最新"
+  },
+  "option_relevant": {
+    "message": "相關性"
+  },
+  "option_separate": {
+    "message": "於獨立分頁顯示"
+  },
+  "preventNextVideoAutoplayInfo": {
+    "message": "影片將改為重複播放"
+  },
+  "preventNextVideoAutoplayLabel": {
+    "message": "防止下一支影片自動播放"
+  },
+  "quoteTweetsLabel": {
+    "message": "引用推文"
+  },
+  "redirectToTwitterLabel": {
+    "message": "導向至 twitter.com"
+  },
+  "reduceAlgorithmicContentOptionsLabel": {
+    "message": "移除演算法內容"
+  },
+  "reduceEngagementOptionsLabel": {
+    "message": "降低「互動」"
+  },
+  "reducedInteractionModeInfo": {
+    "message": "隱藏推文下方操作列—回覆為唯一互動方式"
+  },
+  "reducedInteractionModeLabel": {
+    "message": "減少互動模式"
+  },
+  "replaceLogoLabel": {
+    "message": "替換 X 品牌變更"
+  },
+  "restoreLinkHeadlinesLabel": {
+    "message": "恢復外部連結下的標題"
+  },
+  "restoreOtherInteractionLinksLabel": {
+    "message": "恢復推文下的其他連結"
+  },
+  "restoreQuoteTweetsLinkLabel": {
+    "message": "恢復推文下的「引用推文」連結"
+  },
+  "restoreTweetSourceLabel": {
+    "message": "恢復推文來源標籤"
+  },
+  "retweetsLabel": {
+    "message": "轉推"
+  },
+  "saveAndApplyButton": {
+    "message": "儲存並套用"
+  },
+  "sharedTweetsOptionsLabel": {
+    "message": "其他用戶分享的推文"
+  },
+  "showBlueReplyFollowersCountAmountLabel": {
+    "message": "追蹤者數量"
+  },
+  "showBlueReplyFollowersCountLabel": {
+    "message": "顯示擁有超過 $AMOUNT$ 追蹤者的帳號",
+    "placeholders": {
+      "amount": {
+        "content": "$1"
+      }
+    }
+  },
+  "showBookmarkButtonUnderFocusedTweetsLabel": {
+    "message": "在焦點推文下顯示"
+  },
+  "showPremiumReplyBusinessLabel": {
+    "message": "顯示已驗證企業帳號"
+  },
+  "showPremiumReplyFollowedByLabel": {
+    "message": "顯示追蹤我的帳號"
+  },
+  "showPremiumReplyFollowingLabel": {
+    "message": "顯示我追蹤的帳號"
+  },
+  "showPremiumReplyGovernmentLabel": {
+    "message": "顯示已驗證政府帳號"
+  },
+  "showRelevantPeopleLabel": {
+    "message": "查看推文時顯示「相關人員」"
+  },
+  "sidebarLabel": {
+    "message": "側邊欄"
+  },
+  "sortRepliesLabel": {
+    "message": "回覆預設排序"
+  },
+  "tweakNewLayoutInfo": {
+    "message": "實驗功能—僅在您使用新介面時啟用"
+  },
+  "tweakNewLayoutLabel": {
+    "message": "微調新介面"
+  },
+  "tweakQuoteTweetsPageLabel": {
+    "message": "查看引用推文時隱藏被引用的推文"
+  },
+  "twitterBlueChecksLabel": {
+    "message": "Premium 藍勾認證"
+  },
+  "twitterBlueChecksOption_replace": {
+    "message": "以 Premium 藍勾標誌取代"
+  },
+  "uiImprovementsOptionsLabel": {
+    "message": "介面改進"
+  },
+  "uiTweaksOptionsLabel": {
+    "message": "介面微調"
+  },
+  "unblurSensitiveContentLabel": {
+    "message": "取消模糊敏感內容"
+  },
+  "uninvertFollowButtonsLabel": {
+    "message": "取消反轉「追蹤／追蹤中」按鈕"
+  },
+  "unmuteButtonText": {
+    "message": "取消靜音"
+  },
+  "xFixesLabel": {
+    "message": "X 修正"
+  }
+}
