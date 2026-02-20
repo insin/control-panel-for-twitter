@@ -54,7 +54,35 @@ chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ store
   }
   document.documentElement.appendChild($main)
 
-  chrome.storage.onChanged.addListener(onConfigChange)
+  // Listen for config changes from background script
+  chrome.runtime.onMessage.addListener((message) => {
+    if (message.type === 'configUpdate' && message.changes) {
+      onConfigChange(
+        Object.fromEntries(
+          Object.entries(message.changes).map(([key, newValue]) => [key, {newValue}])
+        )
+      )
+    }
+  })
+
+  // Storage change listener (primary for Firefox)
+  const storageListener = (changes) => {
+    onConfigChange(changes)
+  }
+  chrome.storage.onChanged.addListener(storageListener)
+
+  // Store config changes sent from the injected script
+  window.addEventListener('message', (event) => {
+    if (event.source !== window) return
+    if (event.data.type === 'cpftConfigChange' && event.data.changes) {
+      // Temporarily remove listener to prevent infinite loop
+      chrome.storage.onChanged.removeListener(storageListener)
+      chrome.storage.local.set(event.data.changes, () => {
+        // Re-add listener after storage update
+        chrome.storage.onChanged.addListener(storageListener)
+      })
+    }
+  }, false)
 })
 
 // Inject config changes from options pages into the settings <script>
@@ -66,14 +94,3 @@ function onConfigChange(changes) {
   )
   $settings.innerText = JSON.stringify(configChanges)
 }
-
-// Store config changes sent from the injected script
-window.addEventListener('message', (event) => {
-  if (event.source !== window) return
-  if (event.data.type === 'cpftConfigChange' && event.data.changes) {
-    chrome.storage.onChanged.removeListener(onConfigChange)
-    chrome.storage.local.set(event.data.changes, () => {
-      chrome.storage.onChanged.addListener(onConfigChange)
-    })
-  }
-}, false)

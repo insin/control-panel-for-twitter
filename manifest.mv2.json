@@ -17,8 +17,7 @@
     "scripts": [
       "background.js"
     ],
-    "persistent": false,
-    "type": "module"
+    "persistent": false
   },
   "content_scripts": [
     {
@@ -51,7 +50,7 @@
   ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "{5cce4ab5-3d47-41b9-af5e-8203eea05245}",
+      "id": "{d0031149-0161-4a95-b0c5-9e9741aa6125}",
       "strict_min_version": "121.0"
     },
     "gecko_android": {

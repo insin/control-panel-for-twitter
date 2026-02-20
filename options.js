@@ -334,6 +334,8 @@ let checkboxGroups
 // Page elements
 let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('details#experiments'))
 let $exportConfig = document.querySelector('#export-config')
+let $importConfig = document.querySelector('#import-config')
+let $importConfigFile = document.querySelector('#import-config-file')
 let $form = document.querySelector('form')
 let $hideQuotesFrom =  /** @type {HTMLDivElement} */ (document.querySelector('#hideQuotesFrom'))
 let $hideQuotesFromDetails = /** @type {HTMLDetailsElement} */ (document.querySelector('details#hideQuotesFromDetails'))
@@ -347,13 +349,75 @@ let $showBlueReplyFollowersCountLabel = /** @type {HTMLElement} */ (document.que
 
 //#region Utility functions
 function exportConfig() {
+  console.log('Export config function called')
+  console.log('Current config:', optionsConfig)
+
+  // Get version info from script.js config or manifest
+  let appVersion = optionsConfig._appVersion || '4.15.2'
+  let buildDate = optionsConfig._buildDate || new Date().toISOString().split('T')[0]
+
+  // Create export timestamp: YYMMDDHHNN format
+  let now = new Date()
+  let timestamp = [
+    String(now.getFullYear()).slice(-2).padStart(2, '0'),
+    String(now.getMonth() + 1).padStart(2, '0'),
+    String(now.getDate()).padStart(2, '0'),
+    String(now.getHours()).padStart(2, '0'),
+    String(now.getMinutes()).padStart(2, '0')
+  ].join('')
+
+  // Add version info to exported config
+  let exportConfig = {
+    ...optionsConfig,
+    _appVersion: appVersion,
+    _buildDate: buildDate,
+    _exportDate: now.toISOString().split('T')[0],
+    _exportTime: now.toTimeString().split(' ')[0]
+  }
+
+  let filename = `control-panel-for-twitter-v${appVersion}.config.${timestamp}.txt`
+
   let $a = document.createElement('a')
-  $a.download = 'control-panel-for-twitter-v4.22.2.config.txt'
+  $a.download = filename
   $a.href = URL.createObjectURL(new Blob([
-    JSON.stringify(optionsConfig, null, 2)
+    JSON.stringify(exportConfig, null, 2)
   ], {type: 'text/plain'}))
   $a.click()
   URL.revokeObjectURL($a.href)
+  console.log('Export completed:', filename)
+}
+
+async function handleImportFile(e) {
+  let file = e.target.files[0]
+  if (!file) return
+
+  let reader = new FileReader()
+  reader.onload = async (e) => {
+    try {
+      let importedConfig = JSON.parse(e.target.result)
+      // Basic validation - check if it has some expected properties
+      if (typeof importedConfig !== 'object' || !importedConfig.hasOwnProperty('enabled')) {
+        throw new Error('Invalid configuration file')
+      }
+
+      // Merge with default config to ensure all properties exist
+      let newConfig = {...defaultConfig, ...importedConfig}
+
+      // Store the imported config - use callback for better Firefox compatibility
+      chrome.storage.local.set(newConfig, () => {
+        if (chrome.runtime.lastError) {
+          alert('Error importing configuration: ' + chrome.runtime.lastError.message)
+        } else {
+          alert('Configuration imported successfully!')
+          // Give broadcast time to complete before reload
+          setTimeout(() => location.reload(), 500)
+        }
+      })
+    } catch (error) {
+      alert('Error parsing configuration file: ' + error.message)
+    }
+  }
+  reader.readAsText(file)
 }
 
 function formatFollowerCount(num) {
@@ -622,6 +686,10 @@ function main() {
     $body.classList.toggle('debug', optionsConfig.debug === true)
     $experiments.open = Boolean(optionsConfig.customCss)
     $exportConfig.addEventListener('click', exportConfig)
+    if ($importConfig && $importConfigFile) {
+      $importConfig.addEventListener('click', () => $importConfigFile.click())
+      $importConfigFile.addEventListener('change', handleImportFile)
+    }
     $form.addEventListener('change', onFormChanged)
     $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)

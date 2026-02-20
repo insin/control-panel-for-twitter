@@ -3,6 +3,12 @@ export type Config = {
   debug: boolean
   debugLogTimelineStats: boolean
   version?: 'desktop' | 'mobile'
+  // Fork
+  hideAvatars: boolean
+  hideMedia: boolean
+  hideEmojis: boolean
+  grayLinks: boolean
+  hashtagCheckmarks: boolean
   // Shared
   addAddMutedWordMenuItem: boolean
   addFocusedTweetAccountLocation: boolean
@@ -117,6 +123,11 @@ export type Config = {
   hideLiveBroadcastBar: boolean
   hideMessagesBottomNavItem: boolean
   preventNextVideoAutoplay: boolean
+  // Build metadata (added during build/export)
+  _appVersion?: string
+  _buildDate?: string
+  _exportDate?: string
+  _exportTime?: string
 }
 
 export type Locale = {
