@@ -257,6 +257,9 @@
   "hideSubscriptionsLabel": {
     "message": "Masquer \"Souscriptions\""
   },
+  "hideSuggestedContentSearchLabel": {
+    "message": "Masquer le contenu suggéré dans la Recherche"
+  },
   "hideSuggestedFollowsLabel": {
     "message": "Masquer les suggestions de suivi"
   },
@@ -294,7 +297,7 @@
     "message": "Masquer Ce qui se passe"
   },
   "hideWhoToFollowEtcLabel": {
-    "message": "Masquer \"Qui suivre\", \"Suivre certains sujets\", etc. dans le fil"
+    "message": "Masquer le contenu suggéré dans le fil"
   },
   "homeTimelineOptionsLabel": {
     "message": "Fil d'actualités"

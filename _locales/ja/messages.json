@@ -257,6 +257,9 @@
   "hideSubscriptionsLabel": {
     "message": "サブスクリプションを非表示にする"
   },
+  "hideSuggestedContentSearchLabel": {
+    "message": "検索のおすすめコンテンツを非表示"
+  },
   "hideSuggestedFollowsLabel": {
     "message": "おすすめのフォローを非表示"
   },
@@ -294,7 +297,7 @@
     "message": "「いまどうしてる？」を非表示"
   },
   "hideWhoToFollowEtcLabel": {
-    "message": "タイムラインの「おすすめユーザー」「おすすめトピック」を非表示"
+    "message": "タイムラインのおすすめコンテンツを非表示"
   },
   "homeTimelineOptionsLabel": {
     "message": "ホームタイムライン"

@@ -54,6 +54,7 @@ export type Config = {
   hideSortRepliesMenu: boolean
   hideSpacesNav: boolean
   hideSubscriptions: boolean
+  hideSuggestedContentSearch: boolean
   // XXX This now controls hiding profile header metrics
   hideTotalTweetsMetrics: boolean
   hideTwitterBlueReplies: boolean

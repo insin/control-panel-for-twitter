@@ -257,6 +257,9 @@
   "hideSubscriptionsLabel": {
     "message": "Nascondi Iscrizioni"
   },
+  "hideSuggestedContentSearchLabel": {
+    "message": "Nascondi i contenuti suggeriti nella Ricerca"
+  },
   "hideSuggestedFollowsLabel": {
     "message": "Nascondi i suggerimenti di follow"
   },
@@ -294,7 +297,7 @@
     "message": "Nascondi Cosa sta succedendo"
   },
   "hideWhoToFollowEtcLabel": {
-    "message": "Nascondi \"Chi seguire\", \"Segui dei topic\" ecc. nella timeline"
+    "message": "Nascondi i contenuti suggeriti nella timeline"
   },
   "homeTimelineOptionsLabel": {
     "message": "Home"

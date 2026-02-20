@@ -257,6 +257,9 @@
   "hideSubscriptionsLabel": {
     "message": "구독 숨기기"
   },
+  "hideSuggestedContentSearchLabel": {
+    "message": "검색에서 추천 콘텐츠 숨기기"
+  },
   "hideSuggestedFollowsLabel": {
     "message": "추천 팔로우 숨기기"
   },
@@ -294,7 +297,7 @@
     "message": "'지금 일어나는 일' 숨기기"
   },
   "hideWhoToFollowEtcLabel": {
-    "message": "타임라인에서 \"팔로우 추천\" 등 숨기기"
+    "message": "타임라인에서 추천 콘텐츠 숨기기"
   },
   "homeTimelineOptionsLabel": {
     "message": "홈 타임라인"

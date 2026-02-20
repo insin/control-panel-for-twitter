@@ -260,6 +260,9 @@
   "hideSubscriptionsLabel": {
     "message": "Hide Subscriptions"
   },
+  "hideSuggestedContentSearchLabel": {
+    "message": "Hide suggested content in Search"
+  },
   "hideSuggestedFollowsLabel": {
     "message": "Hide suggested follows"
   },
@@ -297,7 +300,7 @@
     "message": "Hide What's happening"
   },
   "hideWhoToFollowEtcLabel": {
-    "message": "Hide \"Who to follow\", \"Follow some Topics\" etc. in the timeline"
+    "message": "Hide suggested content in the timeline"
   },
   "homeTimelineOptionsLabel": {
     "message": "Home timeline"

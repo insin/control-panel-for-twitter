@@ -169,6 +169,7 @@ const config = {
   hideShareTweetButton: false,
   hideSortRepliesMenu: false,
   hideSubscriptions: true,
+  hideSuggestedContentSearch: true,
   hideTotalTweetsMetrics: true,
   hideTwitterBlueReplies: false,
   hideTwitterBlueUpsells: true,
@@ -7940,7 +7941,7 @@ function tweakSearchPage() {
   }
 
   observeTimeline(currentPage, {
-    hideHeadings: false,
+    hideHeadings: config.hideSuggestedContentSearch,
     isTabbed: true,
     tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
   })

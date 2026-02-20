@@ -257,6 +257,9 @@
   "hideSubscriptionsLabel": {
     "message": "Ocultar Suscripciones"
   },
+  "hideSuggestedContentSearchLabel": {
+    "message": "Ocultar contenido sugerido en la Búsqueda"
+  },
   "hideSuggestedFollowsLabel": {
     "message": "Ocultar seguimientos sugeridos"
   },
@@ -294,7 +297,7 @@
     "message": "Ocultar Qué está pasando"
   },
   "hideWhoToFollowEtcLabel": {
-    "message": "Ocultar \"A quién seguir\", \"Seguir temas\" etc. en la timeline"
+    "message": "Ocultar contenido sugerido en la timeline"
   },
   "homeTimelineOptionsLabel": {
     "message": "Cronología de inicio"

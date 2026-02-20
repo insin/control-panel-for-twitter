@@ -257,6 +257,9 @@
   "hideSubscriptionsLabel": {
     "message": "隐藏订阅服务"
   },
+  "hideSuggestedContentSearchLabel": {
+    "message": "在搜索中隐藏推荐内容"
+  },
   "hideSuggestedFollowsLabel": {
     "message": "隐藏推荐关注"
   },
@@ -294,7 +297,7 @@
     "message": "隐藏“正在发生的事”"
   },
   "hideWhoToFollowEtcLabel": {
-    "message": "在时间线中隐藏\"关注谁\", \"关注一些话题\"等"
+    "message": "在时间线中隐藏推荐内容"
   },
   "homeTimelineOptionsLabel": {
     "message": "主页时间线"
