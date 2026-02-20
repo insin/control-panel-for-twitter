@@ -112,6 +112,8 @@ let lang
 let dir
 /** @type {boolean} */
 let ltr
+/** @type {number | null} */
+let homeTimelineTrackingInterval = null
 
 //#region Default config
 /**
@@ -130,6 +132,12 @@ const config = {
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
+  homeTimelineLimit: 'unlimited',
+  homeTimelineLimitData: {
+    date: new Date().toISOString().split('T')[0],
+    usedMs: 0,
+    lastActiveTime: null
+  },
   disableTweetTextFormatting: false,
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
@@ -4103,12 +4111,23 @@ async function addToggleListRetweetsMenuItem($switchMenuItem) {
 }
 
 /**
- * Redirects away from the Home timeline if we're on it and it's been disabled.
+ * Redirects away from the Home timeline if we're on it and it's been disabled
+ * or the time limit has been exceeded.
  * @returns {boolean} `true` if redirected as a result of this call
  */
 function checkforDisabledHomeTimeline() {
-  if (config.disableHomeTimeline && location.pathname == PagePaths.HOME) {
-    log(`Home timeline disabled, redirecting to /${config.disabledHomeTimelineRedirect}`)
+  // Check if disabled with unlimited limit, or time limit exceeded
+  let shouldDisable = config.disableHomeTimeline && (
+    config.homeTimelineLimit === 'unlimited' ||
+    checkHomeTimelineLimit()
+  )
+
+  if (shouldDisable && location.pathname == PagePaths.HOME) {
+    log(`Home timeline ${config.homeTimelineLimit === 'unlimited' ? 'disabled' : 'time limit exceeded'}, redirecting to /${config.disabledHomeTimelineRedirect}`)
+
+    // Stop tracking before redirect
+    stopHomeTimelineTracking(true)
+
     let primaryNavSelector = desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE
     void (async () => {
       let $navLink = await getElement(`${primaryNavSelector} a[href="/${config.disabledHomeTimelineRedirect}"]`, {
@@ -4120,7 +4139,147 @@ function checkforDisabledHomeTimeline() {
     })()
     return true
   }
+  return false
 }
+
+//#region Home Timeline Time Limit
+
+/**
+ * Check if a new day has started and reset the daily limit if so.
+ * @returns {boolean} True if reset occurred
+ */
+function checkAndResetDailyLimit() {
+  let today = new Date().toISOString().split('T')[0]
+  if (config.homeTimelineLimitData.date !== today) {
+    log('Daily home timeline limit reset - new day:', today)
+    config.homeTimelineLimitData = {
+      date: today,
+      usedMs: 0,
+      lastActiveTime: null
+    }
+    storeConfigChanges({homeTimelineLimitData: config.homeTimelineLimitData})
+    return true
+  }
+  return false
+}
+
+/**
+ * Get remaining time in milliseconds for home timeline viewing.
+ * @returns {number} Remaining milliseconds, or Infinity if unlimited
+ */
+function getRemainingHomeTimelineMs() {
+  if (config.homeTimelineLimit === 'unlimited') {
+    return Infinity
+  }
+  let limitMinutes = parseInt(config.homeTimelineLimit)
+  let limitMs = limitMinutes * 60 * 1000
+  let remaining = limitMs - config.homeTimelineLimitData.usedMs
+  return Math.max(0, remaining)
+}
+
+/**
+ * Check if the home timeline time limit has been exceeded.
+ * @returns {boolean} True if limit is exceeded
+ */
+function checkHomeTimelineLimit() {
+  if (config.homeTimelineLimit === 'unlimited') {
+    return false
+  }
+  return getRemainingHomeTimelineMs() <= 0
+}
+
+/**
+ * Initialize home timeline tracking on page load.
+ */
+function initializeHomeTimelineTracking() {
+  if (config.homeTimelineLimit === 'unlimited') {
+    return
+  }
+
+  checkAndResetDailyLimit()
+
+  if (isOnHomeTimelinePage() && !document.hidden) {
+    startHomeTimelineTracking()
+  }
+}
+
+/**
+ * Start tracking time spent on home timeline.
+ */
+function startHomeTimelineTracking() {
+  if (config.homeTimelineLimit === 'unlimited') {
+    return
+  }
+
+  if (homeTimelineTrackingInterval !== null) {
+    return // Already tracking
+  }
+
+  config.homeTimelineLimitData.lastActiveTime = Date.now()
+
+  // Update usage every 5 seconds
+  homeTimelineTrackingInterval = setInterval(() => {
+    updateHomeTimelineUsage()
+  }, 5000)
+
+  log('Started home timeline tracking')
+}
+
+/**
+ * Stop tracking time spent on home timeline.
+ * @param {boolean} saveUsage Whether to save the accumulated usage
+ */
+function stopHomeTimelineTracking(saveUsage = true) {
+  if (homeTimelineTrackingInterval === null) {
+    return // Not tracking
+  }
+
+  clearInterval(homeTimelineTrackingInterval)
+  homeTimelineTrackingInterval = null
+
+  if (saveUsage && config.homeTimelineLimitData.lastActiveTime !== null) {
+    let elapsed = Date.now() - config.homeTimelineLimitData.lastActiveTime
+    config.homeTimelineLimitData.usedMs += elapsed
+    config.homeTimelineLimitData.lastActiveTime = null
+    storeConfigChanges({homeTimelineLimitData: config.homeTimelineLimitData})
+    log('Stopped home timeline tracking, used:', Math.floor(config.homeTimelineLimitData.usedMs / 1000), 'seconds')
+  }
+
+  config.homeTimelineLimitData.lastActiveTime = null
+}
+
+/**
+ * Update accumulated home timeline usage and check for limit expiry.
+ */
+function updateHomeTimelineUsage() {
+  if (config.homeTimelineLimit === 'unlimited' || config.homeTimelineLimitData.lastActiveTime === null) {
+    return
+  }
+
+  // Check for midnight rollover
+  if (checkAndResetDailyLimit()) {
+    // Day changed, restart tracking with fresh limit
+    config.homeTimelineLimitData.lastActiveTime = Date.now()
+    return
+  }
+
+  // Add elapsed time to used time
+  let elapsed = Date.now() - config.homeTimelineLimitData.lastActiveTime
+  config.homeTimelineLimitData.usedMs += elapsed
+  config.homeTimelineLimitData.lastActiveTime = Date.now()
+
+  // Save to storage
+  storeConfigChanges({homeTimelineLimitData: config.homeTimelineLimitData})
+
+  // Check if limit exceeded
+  if (checkHomeTimelineLimit()) {
+    log('Home timeline time limit exceeded')
+    stopHomeTimelineTracking(false) // Already saved above
+    checkforDisabledHomeTimeline() // Trigger redirect
+  }
+}
+
+//#endregion
 
 function checkReactNativeStylesheet() {
   let $style = /** @type {HTMLStyleElement} */ (document.querySelector('style#react-native-stylesheet'))
@@ -4916,7 +5075,7 @@ const configureCss = (() => {
       if (config.hideTimelineTweetBox) {
         hideCssSelectors.push(`body.HomeTimeline ${Selectors.PRIMARY_COLUMN} .TweetBox`)
       }
-      if (config.disableHomeTimeline) {
+      if (config.disableHomeTimeline && (config.homeTimelineLimit === 'unlimited' || checkHomeTimelineLimit())) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/home"]`)
       }
       if (config.hideNotifications != 'ignore') {
@@ -5163,7 +5322,7 @@ const configureCss = (() => {
           `)
         }
       }
-      if (config.disableHomeTimeline) {
+      if (config.disableHomeTimeline && (config.homeTimelineLimit === 'unlimited' || checkHomeTimelineLimit())) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
       }
       if (config.hideComposeTweet) {
@@ -6856,6 +7015,8 @@ function processCurrentPage() {
   }
   else {
     removeMobileTimelineHeaderElements()
+    // Stop tracking when leaving home timeline
+    stopHomeTimelineTracking(true)
   }
 
   if (isOnProfilePage()) {
@@ -7541,6 +7702,11 @@ function tweakHomeTimelinePage() {
   // Hook for styling when on the separated tweets tab
   $body.classList.toggle('SeparatedTweets', isOnSeparatedTweetsTimeline())
 
+  // Start tracking time if time limit is enabled
+  if (!document.hidden) {
+    startHomeTimelineTracking()
+  }
+
   if ($timelineTabs == null) {
     warn('could not find Home timeline tabs')
     return
@@ -8117,6 +8283,25 @@ async function main() {
         }
       }
 
+      // Set up home timeline time tracking
+      initializeHomeTimelineTracking()
+
+      // Listen for page visibility changes to pause/resume tracking
+      document.addEventListener('visibilitychange', () => {
+        if (config.homeTimelineLimit === 'unlimited') {
+          return
+        }
+
+        if (document.hidden) {
+          stopHomeTimelineTracking(true)
+        } else {
+          checkAndResetDailyLimit()
+          if (isOnHomeTimelinePage()) {
+            startHomeTimelineTracking()
+          }
+        }
+      })
+
       // Repeatable configuration setup
       configureSeparatedTweetsTimelineTitle()
       configureCss()
@@ -8190,6 +8375,17 @@ function configChanged(changes) {
 
   if ('version' in changes) {
     fontSize = desktop ? $html.style.fontSize : null
+  }
+
+  if ('homeTimelineLimit' in changes || 'disableHomeTimeline' in changes) {
+    if (config.homeTimelineLimit === 'unlimited') {
+      stopHomeTimelineTracking(true)
+    } else if (isOnHomeTimelinePage()) {
+      checkAndResetDailyLimit()
+      if (!document.hidden) {
+        startHomeTimelineTracking()
+      }
+    }
   }
 
   // Apply configuration changes
