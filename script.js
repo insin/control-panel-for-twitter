@@ -4242,66 +4242,66 @@ const configureCss = (() => {
     // Theme colours for custom UI items
     cssRules.push(`
       body.Default {
-        --cpft-active-bg-color: rgb(239, 243, 244);
-        --cpft-border-color: rgb(239, 243, 244);
-        --cpft-hover-bg-color: rgb(247, 249, 249);
-        --cpft-tab-hover: rgba(15, 20, 25, 0.1);
+        --cpft-active-bg: rgb(239, 243, 244);
+        --cpft-border: rgb(239, 243, 244);
+        --cpft-hover-bg: rgb(247, 249, 249);
+        --cpft-tab-hover-backdrop: rgba(15, 20, 25, 0.1);
         --cpft-text-primary: rgb(15, 20, 25);
         --cpft-text-secondary: rgb(83, 100, 113);
       }
       body.LightsOut {
-        --cpft-active-bg-color: rgb(32, 35, 39);
-        --cpft-border-color: rgb(47, 51, 54);
-        --cpft-hover-bg-color: rgb(22, 24, 28);
-        --cpft-tab-hover: rgba(231, 233, 234, 0.1);
+        --cpft-active-bg: rgb(32, 35, 39);
+        --cpft-border: rgb(47, 51, 54);
+        --cpft-hover-bg: rgb(22, 24, 28);
+        --cpft-tab-hover-backdrop: rgba(231, 233, 234, 0.1);
         --cpft-text-primary: rgb(231, 233, 234);
         --cpft-text-secondary: rgb(113, 118, 123);
       }
       .cpft_menu_item:hover {
-        background-color: var(--cpft-hover-bg-color) !important;
+        background-color: var(--cpft-hover-bg) !important;
       }
     `)
 
     if (config.darkModeTheme != 'lightsOut') {
       cssRules.push(`
         body.LightsOut {
-          background-color: var(--cpft-background-color) !important;
-          scrollbar-color: var(--cpft-surface-color) var(--cpft-hover-bg-color) !important;
+          background-color: var(--cpft-background) !important;
+          scrollbar-color: var(--cpft-border) var(--cpft-hover-bg) !important;
 
           [data-testid="dm-search-bar"].bg-gray-0,
           :is(.animate-pulse, .motion-safe\\:animate-pulse).bg-gray-100, /* Chat skeletons */
           :is([data-testid="dm-message-list"], [data-testid="dm-composer-container"]) .bg-gray-50,
           .r-z32n2g {
-            background-color: var(--cpft-active-bg-color);
+            background-color: var(--cpft-active-bg);
           }
           :is([data-testid^="dm-conversation-item-"], [data-radix-popper-content-wrapper]) .bg-gray-0,
           .r-14tof1o {
-            background-color: var(--cpft-active-bg-color-dark);
+            background-color: var(--cpft-active-bg-dark);
           }
           [style*="background-color: rgb(0, 0, 0)"] {
-            background-color: var(--cpft-background-color) !important;
+            background-color: var(--cpft-background) !important;
           }
           [data-testid="dm-conversation-header"] > div:first-child.absolute > div {
-            mask-image: linear-gradient(360deg, transparent 0%, var(--cpft-background-color) 100%) !important;
+            mask-image: linear-gradient(360deg, transparent 0%, var(--cpft-background) 100%) !important;
           }
           .bg-background,
           .jf-element .j-vdda9x11,
           .r-kemksi {
-            background-color: var(--cpft-background-color);
+            background-color: var(--cpft-background);
           }
           .r-gu4em3, /* horizontal border */
           .r-1bnu78o /* thread line */ {
-            background-color: var(--cpft-border-color);
+            background-color: var(--cpft-border);
           }
           .r-5zmot {
-            background-color: var(--cpft-backdrop-color);
+            background-color: var(--cpft-backdrop);
           }
           .r-1kqtdi0, /* all */
           .r-1igl3o0, /* bottom */
           .r-2sztyj,  /* top */
           .r-vpktly,  /* bottom (brighter) */
           .r-1roi411  /* input */ {
-            border-color: var(--cpft-border-color);
+            border-color: var(--cpft-border);
           }
           .r-qo02w8,
           .r-1uusn97 {
@@ -4312,19 +4312,19 @@ const configureCss = (() => {
           [data-testid="dm-conversation-header"] button.hover\\:bg-gray-50:hover,
           .r-g2wdr4,
           .r-cuuowz {
-            background-color: var(--cpft-hover-bg-color);
+            background-color: var(--cpft-hover-bg);
           }
           [data-testid^="dm-conversation-item-"] .border-gray-50 {
-            border-color: var(--cpft-hover-bg-color);
+            border-color: var(--cpft-hover-bg);
           }
           [data-testid="dm-conversation-header"] button.bg-gray-0,
           .jf-element .j-cw4uj611 {
-            background-color: var(--cpft-surface-color);
+            background-color: var(--cpft-hover-bg);
           }
           [data-testid="dm-empty-conversation-state"] .bg-gray-0,
           [data-radix-popper-content-wrapper] .hover\\:bg-gray-50:hover,
           .r-1hdo0pc {
-            background-color: var(--cpft-tab-hover);
+            background-color: var(--cpft-tab-hover-backdrop);
           }
           .jf-element .j-4t3tug11 {
             color: var(--cpft-text-primary);
@@ -4343,31 +4343,40 @@ const configureCss = (() => {
           }
           [role="dialog"][id^="radix"] {
             &.bg-gray-0 {
-              background-color: var(--cpft-background-color);
+              background-color: var(--cpft-background);
             }
             .bg-gray-50, .bg-gray-100 {
-              background-color: var(--cpft-surface-color);
+              background-color: var(--cpft-hover-bg);
             }
             .hover\\:bg-gray-100:hover {
-              background-color: var(--cpft-hover-bg-color) !important;
+              background-color: var(--cpft-tab-hover-bg) !important;
             }
             .text-gray-700 {
               color: var(--cpft-text-secondary);
             }
           }
+          .scrollbar-thin-custom {
+            scrollbar-color: var(--cpft-border) var(--cpft-hover-bg);
+            &::-webkit-scrollbar-thumb {
+              background-color: var(--cpft-border);
+            }
+            &::-webkit-scrollbar-track {
+              background: var(--cpft-hover-bg);
+            }
+          }
         }
         body.LightsOut.HighContrast {
           [style*="background-color: rgb(5, 5, 5)"] {
-            background-color: var(--cpft-background-color) !important;
+            background-color: var(--cpft-background) !important;
           }
           .r-16331v6 {
-            background-color: var(--cpft-background-color);
+            background-color: var(--cpft-background);
           }
           .r-1wh73dq /* horizontal border */ {
-            background-color: var(--cpft-border-color);
+            background-color: var(--cpft-border);
           }
           .r-dgm4ly /* all */ {
-            border-color: var(--cpft-border-color);
+            border-color: var(--cpft-border);
           }
         }
       `)
@@ -4379,15 +4388,15 @@ const configureCss = (() => {
             --border: 206 16% 26%;
             --color-background: 210 34% 13%;
             /* Theme */
-            --cpft-active-bg-color-dark: rgb(27, 36, 47);
-            --cpft-active-bg-color: rgb(40, 50, 61);
-            --cpft-backdrop-color: rgba(21, 32, 43, .85);
-            --cpft-background-color: rgb(21, 32, 43);
-            --cpft-border-color: rgb(56, 68, 77);
+            --cpft-active-bg-dark: rgb(27, 36, 47);
+            --cpft-active-bg: rgb(40, 50, 61);
+            --cpft-backdrop: rgba(21, 32, 43, .85);
+            --cpft-background: rgb(21, 32, 43);
+            --cpft-border: rgb(56, 68, 77);
             --cpft-box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
-            --cpft-hover-bg-color: rgb(30, 39, 50);
-            --cpft-surface-color: rgb(17, 26, 34); /* 20% darker background-color */
-            --cpft-tab-hover: rgba(247, 249, 249, 0.1);
+            --cpft-hover-bg: rgb(30, 39, 50);
+            --cpft-tab-hover-backdrop: rgba(247, 249, 249, 0.1);
+            --cpft-tab-hover-bg: rgba(44, 53, 64);
             --cpft-text-primary: rgb(247, 249, 249);
             --cpft-text-secondary: rgb(139, 152, 165);
           }
@@ -4668,7 +4677,7 @@ const configureCss = (() => {
       cssRules.push(`
         .cpft_link_headline[hidden] {
           display: block;
-          border-top: 1px solid var(--cpft-border-color);
+          border-top: 1px solid var(--cpft-border);
           padding: 14px;
         }
       `)
@@ -4750,7 +4759,7 @@ const configureCss = (() => {
           body.Desktop #cpftSeparatedTweetsTab:hover,
           body.Mobile:not(.SeparatedTweets) #cpftSeparatedTweetsTab:hover,
           body.Mobile #cpftSeparatedTweetsTab:active {
-            background-color: var(--cpft-tab-hover) !important;
+            background-color: var(--cpft-tab-hover-backdrop) !important;
           }
           body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
           body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
@@ -4796,7 +4805,7 @@ const configureCss = (() => {
         cssRules.push(`
           /* Add theme colour back to Tweet editor toolbar buttons */
           [data-testid="toolBar"] [role="tablist"] > [role="presentation"] svg {
-            fill: var(--theme-color);
+            fill: var(--cpft-theme);
           }
         `)
       }
@@ -4836,10 +4845,10 @@ const configureCss = (() => {
           }
           /* Restore primary column borders */
           header[role="banner"] > div > div > div  {
-            border-right: 1px solid var(--cpft-border-color);
+            border-right: 1px solid var(--cpft-border);
           }
           ${Selectors.PRIMARY_COLUMN} {
-            border-right: 1px solid var(--cpft-border-color);
+            border-right: 1px solid var(--cpft-border);
           }
           /* Left-align main contents and stop it taking up all available space */
           main {
@@ -4871,7 +4880,7 @@ const configureCss = (() => {
             button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label],
             /* Restore theme colour in account switcher notifications pips */
             [data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live] {
-              background-color: var(--theme-color);
+              background-color: var(--cpft-theme);
             }
             /* Replace the plus icon in the Tweet button with the feather */
             [data-testid="SideNav_NewTweet_Button"] path[d="${Svgs.PLUS_PATH}"] {
@@ -5149,7 +5158,7 @@ const configureCss = (() => {
             button[data-testid="DashButton_ProfileIcon_Link"] div[aria-label],
             /* Restore theme colour in account switcher notifications pips */
             [role="dialog"] [data-testid^="UserAvatar-Container"] div[dir] {
-              background-color: var(--theme-color);
+              background-color: var(--cpft-theme);
             }
           `)
         }
@@ -5471,7 +5480,7 @@ const configureThemeCss = (() => {
     if (themeColor != null) {
       cssRules.push(`
         body {
-          --theme-color: ${themeColor};
+          --cpft-theme: ${themeColor};
         }
       `)
     }
@@ -5593,20 +5602,20 @@ const configureThemeCss = (() => {
         cssRules.push(`
           /* Following button */
           [role="button"][data-testid$="-unfollow"]:not(:hover) {
-            background-color: var(--theme-color) !important;
+            background-color: var(--cpft-theme) !important;
           }
           [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
             color: rgb(255, 255, 255) !important;
           }
           /* Follow button */
           [role="button"][data-testid$="-follow"] {
-            border-color: var(--theme-color) !important;
+            border-color: var(--cpft-theme) !important;
           }
           [role="button"][data-testid$="-follow"] > :is(div, span) {
-            color: var(--theme-color) !important;
+            color: var(--cpft-theme) !important;
           }
           [role="button"][data-testid$="-follow"]:hover {
-            background-color: var(--theme-color) !important;
+            background-color: var(--cpft-theme) !important;
           }
           [role="button"][data-testid$="-follow"]:hover > :is(div, span) {
             color: rgb(255, 255, 255) !important;
@@ -5620,7 +5629,7 @@ const configureThemeCss = (() => {
             background: transparent !important;
           }
           body.MediaViewer [role="button"][data-testid$="follow"] > div {
-            color: var(--theme-color) !important;
+            color: var(--cpft-theme) !important;
           }
         `)
       }
@@ -6990,7 +6999,7 @@ function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, is
   let tweetLink = location.pathname.match(URL_TWEET_BASE_RE)?.[0]
   $actionBar.insertAdjacentHTML('beforebegin', `
     <div id="cpftInteractionLinks" hidden>
-      <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--cpft-border-color); display: flex; gap: 20px;">
+      <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--cpft-border); display: flex; gap: 20px;">
         ${tweetInfo.quote_count > 0 ? `<a id="cpftQuoteTweetsLink" class="quoteTweets" href="${tweetLink}/quotes" dir="auto" role="link">
           <span id="cpftQuoteTweetCount">
             ${Intl.NumberFormat(lang, {notation: tweetInfo.quote_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)}
