@@ -65,6 +65,7 @@ ${messages.uiImprovementsOptionsLabel}:
 • ${messages.hideNotificationLikesLabel}
 • ${messages.hideNotificationRetweetsLabel}
 • ${messages.listRetweetsLabel}
+• ${messages.hideSuggestedContentSearchLabel}
 • ${messages.defaultToLatestSearchLabel}
 • ${messages.tweakQuoteTweetsPageLabel}
 
@@ -73,6 +74,7 @@ ${messages.xFixesLabel}:
 • ${messages.redirectToTwitterLabel}
 • ${messages.redirectChatNavLabel}
 • ${messages.replaceLogoLabel}
+• ${messages.darkModeThemeLabel} (${messages.option_dim})
 • ${messages.hideViewsLabel}
 • ${messages.hideVerifiedNotificationsTabLabel}
 • ${messages.restoreTweetSourceLabel}
