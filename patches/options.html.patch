@@ -1,0 +1,110 @@
+diff --git a/options.html b/options.html
+index 4f9fd80..3fc1e6b 100644
+--- a/options.html
++++ b/options.html
+@@ -8,16 +8,16 @@
+ </head>
+ <body>
+   <form>
+-    <section class="group">
+-      <label class="checkbox" style="align-items: center;">
+-        <span style="display: flex; align-items: center; gap: .5em;">
+-          <img src="options-icon.png" class="icon">
+-          <span id="enabled">Enabled</span>
+-        </span>
+-        <input type="checkbox" name="enabled">
+-        <span class="toggle"></span>
+-      </label>
+-    </section>
++     <section class="group">
++       <label class="checkbox" style="align-items: center;">
++         <span style="display: flex; align-items: center; gap: .5em;">
++           <img src="options-icon.png" class="icon">
++           <span id="enabled">Enabled</span>
++         </span>
++         <input type="checkbox" name="enabled">
++         <span class="toggle"></span>
++       </label>
++     </section>
+     <section class="group labelled">
+       <label id="homeTimelineOptionsLabel">
+         Home timeline
+@@ -774,22 +774,38 @@
+       </section>
+     </section>
+ 
+-    <section>
+-      <details id="experiments">
+-        <summary id="experimentsOptionsLabel">
+-          Experiments
+-        </summary>
+-        <section class="group">
+-          <section class="textarea">
+-            <label id="customCssLabel" for="customCss">Custom CSS</label>
+-            <textarea id="customCss" rows="8"></textarea>
+-            <button type="button" id="saveCustomCss" class="saveAndApplyButton">Save and apply</button>
+-          </section>
+-        </section>
+-      </details>
+-    </section>
++     <section>
++       <details id="experiments">
++         <summary id="experimentsOptionsLabel">
++           Experiments
++         </summary>
++         <section class="group">
++           <section class="textarea">
++             <label id="customCssLabel" for="customCss">Custom CSS</label>
++             <textarea id="customCss" rows="8"></textarea>
++             <button type="button" id="saveCustomCss" class="saveAndApplyButton">Save and apply</button>
++           </section>
++         </section>
++       </details>
++     </section>
++
++     <section class="group">
++       <label id="configurationLabel">Configuration</label>
++       <section>
++         <label class="button">
++           <span id="exportConfigLabel">Export configuration</span>
++           <input type="button" value="Export" id="export-config">
++         </label>
++       </section>
++       <section>
++         <label class="button">
++           <span id="importConfigLabel">Import configuration</span>
++           <input type="button" value="Import" id="import-config">
++         </label>
++       </section>
++     </section>
+ 
+-    <section class="group labelled debug">
++     <section class="group labelled debug">
+       <label id="debugOptionsLabel">Debug options</label>
+       <section class="checkbox">
+         <label>
+@@ -806,12 +822,18 @@
+           </label>
+         </section>
+       </section>
+-      <section>
+-        <label class="button">
+-          <span id="exportConfigLabel">Export configuration for bug report</span>
+-          <input type="button" value="Export" id="export-config">
+-        </label>
+-      </section>
++       <section>
++         <label class="button">
++           <span id="exportConfigLabel">Export configuration for bug report</span>
++           <input type="button" value="Export" id="export-config">
++         </label>
++       </section>
++       <section>
++         <label class="button">
++           <span id="importConfigLabel">Import configuration</span>
++           <input type="button" value="Import" id="import-config">
++         </label>
++       </section>
+     </section>
+ 
+     <div id="version">v4.14.1<span id="debugCountdown"></span></div>

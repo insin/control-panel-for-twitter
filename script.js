@@ -121,17 +121,16 @@ const config = {
   enabled: true,
   debug: false,
   debugLogTimelineStats: false,
-  // Shared
+  version: 'desktop',
   addAddMutedWordMenuItem: true,
-  addFocusedTweetAccountLocation: false,
   alwaysUseLatestTweets: true,
   bypassAgeVerification: true,
   darkModeTheme: 'lightsOut',
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
-  disableTweetTextFormatting: false,
-  dontUseChirpFont: false,
+  disableTweetTextFormatting: true,
+  dontUseChirpFont: true,
   dropdownMenuFontWeight: true,
   fastBlock: true,
   followButtonStyle: 'monochrome',
@@ -142,37 +141,36 @@ const config = {
   hideBusinessNav: true,
   hideChatNav: false,
   hideCommunitiesNav: false,
-  hideComposeTweet: false,
+  hideComposeTweet: true,
   hideConnectNav: true,
   hideCreatorStudioNav: true,
   hideEditImage: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
-  hideForYouTimeline: true,
-  hideGrokNav: true,
+  hideForYouTimeline: false,
+  hideGrokNav: false,
   hideGrokTweets: false,
   hideInlinePrompts: true,
   hideJobsNav: true,
   hideLikeMetrics: true,
   hideListsNav: false,
-  hideMetrics: false,
+  hideMetrics: true,
   hideMoreTweets: true,
-  hideNotificationLikes: false,
-  hideNotificationRetweets: false,
-  hideNotifications: 'ignore',
+  hideNotificationLikes: true,
+  hideNotifications: 'badges',
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
   hideQuotesFrom: [],
   hideReplyMetrics: true,
   hideRetweetMetrics: true,
-  hideSeeNewTweets: false,
-  hideShareTweetButton: false,
+  hideSeeNewTweets: true,
+  hideShareTweetButton: true,
   hideSortRepliesMenu: false,
   hideSubscriptions: true,
   hideSuggestedContentSearch: true,
   hideTotalTweetsMetrics: true,
   hideTwitterBlueReplies: false,
-  hideTwitterBlueUpsells: true,
+  hideTwitterBlueUpsells: false,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
   hideViewActivityLinks: true,
@@ -181,11 +179,11 @@ const config = {
   listRetweets: 'ignore',
   mutableQuoteTweets: true,
   mutedQuotes: [],
-  quoteTweets: 'ignore',
+  quoteTweets: 'separate',
   redirectChatNav: false,
-  redirectToTwitter: false,
+  redirectToTwitter: true,
   reducedInteractionMode: false,
-  replaceLogo: true,
+  replaceLogo: false,
   restoreLinkHeadlines: true,
   restoreOtherInteractionLinks: true,
   restoreQuoteTweetsLink: true,
@@ -193,7 +191,7 @@ const config = {
   retweets: 'separate',
   showBlueReplyFollowersCount: false,
   showBlueReplyFollowersCountAmount: '1000000',
-  showBookmarkButtonUnderFocusedTweets: true,
+  showBookmarkButtonUnderFocusedTweets: false,
   showPremiumReplyBusiness: true,
   showPremiumReplyFollowedBy: true,
   showPremiumReplyFollowing: true,
@@ -202,22 +200,21 @@ const config = {
   sortReplies: 'relevant',
   tweakNewLayout: false,
   tweakQuoteTweetsPage: true,
-  twitterBlueChecks: 'replace',
+  twitterBlueChecks: 'ignore',
+  uninvertFollowButtons: false,
   unblurSensitiveContent: false,
-  uninvertFollowButtons: true,
-  // Experiments
   customCss: '',
   // Desktop only
   addUserHoverCardAccountLocation: true,
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,
-  hideExploreNav: true,
+  hideExploreNav: false,
   hideExploreNavWithSidebar: true,
   hideLiveBroadcasts: false,
   hideMessagesDrawer: true,
   hideSidebarContent: true,
-  hideSpacesNav: false,
+  hideSpacesNav: true,
   hideSuggestedFollows: false,
   hideTimelineTweetBox: false,
   hideTodaysNews: false,
@@ -225,11 +222,18 @@ const config = {
   hideWhatsHappening: false,
   navBaseFontSize: true,
   navDensity: 'default',
-  showRelevantPeople: false,
-  // Mobile only
+  showRelevantPeople: true,
   hideLiveBroadcastBar: false,
   hideMessagesBottomNavItem: false,
   preventNextVideoAutoplay: true,
+  grayLinks: true,
+  hashtagCheckmarks: true,
+  hideAvatars: true,
+  hideEmojis: true,
+  hideMedia: true,
+  _appVersion: '4.16.0',
+  _buildDate: '2025-12-24',
+
 }
 //#endregion
 
@@ -3098,6 +3102,48 @@ function observeBodyBackgroundColor() {
   })
 }
 
+function observeVerificationBadges() {
+  if (!config.hashtagCheckmarks) return
+
+  // Apply to existing badges
+  document.querySelectorAll(Selectors.VERIFIED_TICK).forEach($svg => {
+    if (!$svg.classList.contains('cpft_blue_check')) {
+      blueCheck($svg)
+    }
+  })
+
+  // Watch for new badges being added
+  let badgeObserver = new MutationObserver((mutations) => {
+    for (let mutation of mutations) {
+      for (let node of mutation.addedNodes) {
+        if (node.nodeType !== 1) continue
+        let $element = /** @type {Element} */ (node)
+
+        // Check if the added node itself is a verification badge
+        if ($element.matches && $element.matches(Selectors.VERIFIED_TICK)) {
+          if (!$element.classList.contains('cpft_blue_check')) {
+            blueCheck($element)
+          }
+        }
+
+        // Check for verification badges within the added node
+        if ($element.querySelectorAll) {
+          $element.querySelectorAll(Selectors.VERIFIED_TICK).forEach($svg => {
+            if (!$svg.classList.contains('cpft_blue_check')) {
+              blueCheck($svg)
+            }
+          })
+        }
+      }
+    }
+  })
+
+  badgeObserver.observe(document.body, {
+    childList: true,
+    subtree: true
+  })
+}
+
 /**
  * @param {HTMLElement} $popup
  */
@@ -4475,6 +4521,172 @@ const configureCss = (() => {
         // In media modal
         `[aria-modal="true"] > div > div:first-of-type a${isImagineSelector}`,
       )
+    }
+    if (config.hideAvatars) {
+      hideCssSelectors.push(
+        // User avatars in tweets
+        '[data-testid="Tweet-User-Avatar"]',
+        // User avatar containers (includes username)
+        '[data-testid^="UserAvatar-Container-"]',
+      )
+    }
+    if (config.hideMedia) {
+      cssRules.push(`
+        /* Media spoiler - extreme blur only for images */
+        [data-testid="tweetPhoto"] img,
+        [data-testid="tweetPhoto"] div[style*="background-image"] {
+          filter: blur(80px) brightness(0.15) saturate(0) !important;
+          transition: filter 0.3s ease !important;
+        }
+        /* Remove blur on hover - target parent link */
+        a[role="link"]:hover [data-testid="tweetPhoto"] img,
+        a[role="link"]:hover [data-testid="tweetPhoto"] div[style*="background-image"] {
+          filter: blur(0) brightness(1) saturate(1) !important;
+        }
+        /* Media spoiler - blur with dark overlay for videos and cards */
+        [data-testid="videoPlayer"],
+        [data-testid="videoComponent"],
+        [data-testid="card.wrapper"],
+        a[href$="/header_photo"] {
+          position: relative !important;
+          filter: blur(30px) brightness(0.5) !important;
+          transition: filter 0.3s ease !important;
+        }
+        [data-testid="videoPlayer"]::before,
+        [data-testid="videoComponent"]::before,
+        [data-testid="card.wrapper"]::before,
+        a[href$="/header_photo"]::before {
+          content: "";
+          position: absolute !important;
+          top: 0 !important;
+          left: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          background: var(--background-color, #000000) !important;
+          opacity: 0.7 !important;
+          z-index: 1 !important;
+          pointer-events: none !important;
+        }
+        [data-testid="videoPlayer"]:hover,
+        [data-testid="videoComponent"]:hover,
+        [data-testid="card.wrapper"]:hover,
+        a[href$="/header_photo"]:hover {
+          filter: blur(0) brightness(1) !important;
+        }
+        [data-testid="videoPlayer"]:hover::before,
+        [data-testid="videoComponent"]:hover::before,
+        [data-testid="card.wrapper"]:hover::before,
+        a[href$="/header_photo"]:hover::before {
+          opacity: 0 !important;
+        }
+        /* Disable video autoplay */
+        [data-testid="videoPlayer"] video,
+        [data-testid="videoComponent"] video {
+          pointer-events: auto !important;
+        }
+      `)
+
+      // Disable video autoplay with JavaScript
+      let mediaObserver = new MutationObserver((mutations) => {
+        for (let mutation of mutations) {
+          for (let node of mutation.addedNodes) {
+            if (node.nodeType === 1) {
+              let videos = node.querySelectorAll?.('[data-testid="videoPlayer"] video, [data-testid="videoComponent"] video') || []
+              videos.forEach(video => {
+                video.pause()
+                video.autoplay = false
+                video.removeAttribute('autoplay')
+              })
+              if (node.matches?.('[data-testid="videoPlayer"] video, [data-testid="videoComponent"] video')) {
+                node.pause()
+                node.autoplay = false
+                node.removeAttribute('autoplay')
+              }
+            }
+          }
+        }
+      })
+      mediaObserver.observe(document.body, { childList: true, subtree: true })
+
+      // Pause existing videos
+      document.querySelectorAll('[data-testid="videoPlayer"] video, [data-testid="videoComponent"] video').forEach(video => {
+        video.pause()
+        video.autoplay = false
+        video.removeAttribute('autoplay')
+      })
+    }
+    if (config.hideEmojis) {
+      hideCssSelectors.push(
+        'img[src*="/emoji/"]',
+        'img[draggable="false"][src*=".svg"]',
+      )
+    }
+    if (config.grayLinks) {
+      cssRules.push(`
+        /* Gray links instead of blue - target the link and all children */
+        a[role="link"],
+        a[role="link"] *,
+        a[role="link"] span,
+        a[role="link"] div {
+          color: #999999 !important;
+        }
+        a[role="link"]:hover,
+        a[role="link"]:hover *,
+        a[role="link"]:hover span,
+        a[role="link"]:hover div {
+          color: #bbbbbb !important;
+        }
+        /* Gray hashtags */
+        a[href*="/hashtag/"],
+        a[href*="/hashtag/"] * {
+          color: #999999 !important;
+        }
+        /* Gray "Show more" button */
+        [data-testid="tweet-text-show-more-link"],
+        [data-testid="tweet-text-show-more-link"] * {
+          color: #999999 !important;
+        }
+        /* Gray username/handle in tweets */
+        [data-testid="User-Name"] a[role="link"],
+        [data-testid="User-Name"] a[role="link"] * {
+          color: #999999 !important;
+        }
+        /* Gray profile URL link */
+        [data-testid="UserUrl"] a,
+        [data-testid="UserUrl"] a *,
+        [data-testid="UserUrl"] span {
+          color: #999999 !important;
+        }
+        /* Gray/hide unread notification dots */
+        [aria-label*="unread"] {
+          opacity: 0 !important;
+        }
+        /* Prevent red hover on unfollow button - make it grey */
+        [role="button"][data-testid$="-unfollow"]:hover,
+        [role="button"][data-testid$="-unfollow"]:hover * {
+          background-color: #555555 !important;
+          color: #cccccc !important;
+        }
+      `)
+    }
+    if (config.hashtagCheckmarks) {
+      cssRules.push(`
+        /* Hide blue checkmark SVG and its aria-label */
+        svg.cpft_blue_check {
+          display: none !important;
+        }
+        svg.cpft_blue_check[aria-label] {
+          font-size: 0 !important;
+        }
+        /* Add # sign on parent element using :has() */
+        span:has(> svg.cpft_blue_check)::after,
+        div:has(> svg.cpft_blue_check)::after {
+          content: " #";
+          color: #999999;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      `)
     }
     if (!config.hideExplorePageContents) {
       hideCssSelectors.push(
@@ -6453,12 +6665,15 @@ function onIndividualTweetTimelineChange($timeline, options) {
         hideItem = true
       }
 
-      if (!hideItem && (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies)) {
+      if (!hideItem && (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies || config.hashtagCheckmarks)) {
         for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
           let verifiedType = getVerifiedType($svg)
           if (!verifiedType) continue
 
-          if (config.twitterBlueChecks != 'ignore' && verifiedType == 'BLUE') {
+          // Apply cpft_blue_check class for all badge types when hashtagCheckmarks is enabled
+          if (config.hashtagCheckmarks) {
+            blueCheck($svg)
+          } else if (config.twitterBlueChecks != 'ignore' && verifiedType == 'BLUE') {
             blueCheck($svg)
           }
 
@@ -8105,6 +8320,7 @@ async function main() {
       checkReactNativeStylesheet()
       observeBodyBackgroundColor()
       observeReRenderBoundary()
+      observeVerificationBadges()
       patchHistory()
       let initialThemeColor = getThemeColorFromState()
       if (initialThemeColor) {

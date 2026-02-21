@@ -1,4 +1,4 @@
-const isSafari = location.protocol.startsWith('safari-web-extension:')
+const isSafari = typeof location !== 'undefined' && location.protocol && location.protocol.startsWith('safari-web-extension:')
 
 const enabledIcons = {
   16: 'icons/icon16.png',
@@ -42,4 +42,32 @@ chrome.storage.local.onChanged.addListener((changes) => {
   if (changes.enabled) {
     updateToolbarIcon(changes.enabled.newValue)
   }
+  // Broadcast config changes to all tabs
+  broadcastConfigChanges(changes)
 })
+
+// Broadcast config changes to all content scripts
+async function broadcastConfigChanges(changes) {
+  try {
+    // Use browser API (Firefox) with fallback to chrome API
+    const browserAPI = typeof browser !== 'undefined' ? browser : chrome
+    const tabs = await browserAPI.tabs.query({})
+
+    const configChanges = Object.fromEntries(
+      Object.entries(changes).map(([key, {newValue}]) => [key, newValue])
+    )
+
+    for (const tab of tabs) {
+      try {
+        await browserAPI.tabs.sendMessage(tab.id, {
+          type: 'configUpdate',
+          changes: configChanges
+        })
+      } catch (error) {
+        // Tab might not have content script injected, ignore
+      }
+    }
+  } catch (error) {
+    console.error('Failed to broadcast config changes:', error)
+  }
+}

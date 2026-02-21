@@ -1,0 +1,24 @@
+diff --git a/_locales/ko/messages.json b/_locales/ko/messages.json
+index a8e9c5d..550d581 100644
+--- a/_locales/ko/messages.json
++++ b/_locales/ko/messages.json
+@@ -14,6 +14,9 @@
+   "bypassAgeVerificationLabel": {
+     "message": "성인 인증 우회하기"
+   },
++  "configurationLabel": {
++    "message": "설정"
++  },
+   "customCssLabel": {
+     "message": "사용자 정의 CSS"
+   },
+@@ -62,6 +65,9 @@
+   "exportConfigLabel": {
+     "message": "버그 보고서를 위한 설정 내보내기"
+   },
++  "importConfigLabel": {
++    "message": "설정 가져오기"
++  },
+   "extensionDescription": {
+     "message": "트위터에 대한 더 많은 제어권을 제공하고 기능을 보완하며 UI를 개선합니다"
+   },

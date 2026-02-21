@@ -1,0 +1,46 @@
+<!-- Example HTML Usage -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Media Spoiler Examples</title>
+    <link rel="stylesheet" href="css-hover-click-spoiler.css">
+    <link rel="stylesheet" href="blur-overlay-spoiler.css">
+</head>
+<body>
+
+    <h1>Media Spoiler Solutions</h1>
+
+    <!-- CSS-only solution -->
+    <h2>CSS Hover + Click Solution</h2>
+    <img src="example-image.jpg" alt="Example" class="spoiler-media">
+
+    <!-- Blur overlay solution -->
+    <h2>Blur Overlay Solution</h2>
+    <div class="media-spoiler-overlay">
+        <img src="example-image.jpg" alt="Example">
+    </div>
+
+    <!-- JavaScript solution -->
+    <h2>JavaScript Solution</h2>
+    <img src="example-image.jpg" alt="Example" data-spoiler="true">
+
+    <!-- Advanced solution -->
+    <h2>Advanced Solution</h2>
+    <img src="example-image.jpg" alt="Example" data-spoiler data-spoiler-text="Custom warning message">
+
+    <script src="js-spoiler-hover-click.js"></script>
+    <script src="advanced-media-spoiler.js"></script>
+
+    <script>
+        // Manual application example
+        document.addEventListener('DOMContentLoaded', function() {
+            // Apply to specific elements
+            document.querySelectorAll('.manual-spoiler').forEach(el => {
+                window.MediaSpoiler.makeSpoiler(el)
+            })
+        })
+    </script>
+
+</body>
+</html>
