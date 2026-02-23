@@ -1,7 +1,6 @@
-const fs = require('fs')
-const path = require('path')
+import fs from 'node:fs'
 
-const {sortProperties} = require('../lib')
+import { sortProperties } from '../lib.mjs'
 
 const baseLocales = JSON.parse(fs.readFileSync('./base-locales.json', 'utf-8'))
 
@@ -21,8 +20,8 @@ Where the translations JSON file is in the format:
   }
 
 Usage:
-  node update-base-locales-from-json.js base-translations.json
-`.trim()
+  node update-base-locales-from-json.mjs base-translations.json
+`.trim(),
   )
   process.exit(1)
 }
@@ -40,15 +39,11 @@ try {
   process.exit(1)
 }
 
-for (let [translationKey, translations] of Object.entries(translationsJson)) {
-  for (let [localeCode, message] of Object.entries(translations)) {
+for (const [translationKey, translations] of Object.entries(translationsJson)) {
+  for (const [localeCode, message] of Object.entries(translations)) {
     baseLocales[localeCode][translationKey] = message
     baseLocales[localeCode] = sortProperties(baseLocales[localeCode])
   }
 }
 
-fs.writeFileSync(
-  'base-locales.json',
-  JSON.stringify(baseLocales, null, 2),
-  'utf8'
-)
+fs.writeFileSync('base-locales.json', JSON.stringify(baseLocales, null, 2), 'utf8')

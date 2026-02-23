@@ -6,7 +6,7 @@
   --font-size-primary: 13px;
   --font-size-secondary: 13px;
   --group-label-weight: 600;
-  --hover-background: rgba(31, 31, 31, .08);
+  --hover-background: rgba(31, 31, 31, 0.08);
   --label-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
   --text-error: rgb(197, 57, 41);
   --text-primary: rgb(31, 31, 31);
@@ -117,7 +117,7 @@ label {
 label .label-content {
   align-items: center;
   display: flex;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
 p {
@@ -128,15 +128,17 @@ p {
   padding-bottom: 4px;
 }
 
-input[name=customTheme] {
-  transition: background-color 0.3s, color 0.3s;
+input[name="customTheme"] {
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
-input[type=checkbox],
+input[type="checkbox"],
 select {
   cursor: pointer;
 }
-input[type=checkbox] {
+input[type="checkbox"] {
   flex-shrink: 0;
 }
 
@@ -216,7 +218,7 @@ body.disabled #version {
 :root {
   --ios-pill-bg: rgb(255, 255, 255);
   --ios-segment-bg: rgb(229, 229, 234);
-  --ios-selected-shadow: rgba(0, 0, 0, .18);
+  --ios-selected-shadow: rgba(0, 0, 0, 0.18);
   --mac-bg: rgb(230, 230, 230);
   --mac-border-bottom-color: rgb(218, 218, 218);
   --mac-border-side-color: rgb(218, 218, 218);
@@ -229,7 +231,7 @@ body.disabled #version {
   :root {
     --ios-pill-bg: rgb(44, 44, 46);
     --ios-segment-bg: rgb(28, 28, 30);
-    --ios-selected-shadow: rgba(0, 0, 0, .7);
+    --ios-selected-shadow: rgba(0, 0, 0, 0.7);
     /* This is 54 in macOS, but that's the browser action bg in dark mode */
     --mac-bg: rgb(74, 74, 74);
     --mac-border-bottom-color: rgb(87, 87, 87);
@@ -314,14 +316,14 @@ body.mac .tabs {
   button[aria-selected="true"] {
     background: var(--mac-selected);
     font-weight: normal;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .5);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
   }
 }
 
 @media (prefers-color-scheme: dark) {
   body.mac .tabs {
     button[aria-selected="true"] {
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
     }
   }
 }
@@ -510,7 +512,7 @@ body.mac {
   p {
     margin-right: 12px;
   }
-  input[type=checkbox] {
+  input[type="checkbox"] {
     margin-left: 0;
     margin-right: 6px;
   }
@@ -585,7 +587,7 @@ body.mac {
   }
   section.select span::after {
     content: ": ";
-    display: inline-block
+    display: inline-block;
   }
   /* Align help text with checkbox labels */
   section.checkbox > p {
@@ -613,7 +615,8 @@ body.ios {
   summary {
     padding-left: 0;
   }
-  button, select {
+  button,
+  select {
     font-size: 16px;
   }
 
@@ -755,6 +758,7 @@ body.ios input:checked + .toggle::after {
 }
 body.ios .checkbox input:focus + .toggle {
   outline: 5px auto Highlight;
+  /* biome-ignore lint/suspicious/noDuplicateProperties: fallback for WebKit focus rings. */
   outline: 5px auto -webkit-focus-ring-color;
 }
 /* #endregion */
@@ -811,7 +815,7 @@ body.ios {
   :root {
     --background: rgb(41, 42, 45);
     --border: rgb(63, 64, 66);
-    --hover-background: rgba(227, 227, 227, .08);
+    --hover-background: rgba(227, 227, 227, 0.08);
     --label-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     --text-error: rgb(242, 139, 130);
     --text-primary: rgb(227, 227, 227);

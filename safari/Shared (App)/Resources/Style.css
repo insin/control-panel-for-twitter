@@ -19,8 +19,10 @@ body {
   gap: var(--spacing);
   margin: 0 calc(var(--spacing));
   height: 100%;
+  /* biome-ignore lint/a11y/useGenericFontNames: -apple-system-short-body is a system font shorthand */
   font: -apple-system-short-body;
-  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", sans-serif;
   text-align: center;
 }
 body.platform-ios .platform-mac,

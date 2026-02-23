@@ -1,5 +1,3 @@
 {
-  "recommendations": [
-    "santacodes.santacodes-region-viewer"
-  ]
+  "recommendations": ["biomejs.biome", "santacodes.santacodes-region-viewer"]
 }

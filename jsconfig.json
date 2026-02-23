@@ -5,8 +5,5 @@
     "target": "es2024",
     "types": ["chrome"]
   },
-  "include": [
-    "*.js",
-    "safari/Shared (App)/Resources/**/*.js"
-  ]
+  "include": ["*.js", "safari/Shared (App)/Resources/**/*.js"]
 }

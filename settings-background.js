@@ -58,7 +58,7 @@ async function applyServerSettings(settings, lastModified) {
   await set({
     // Records the server version we have applied locally; pending local edits
     // are overlaid below and remain unsynced until a push acknowledges them.
-    ...(lastModified != null && {serverLastModified: lastModified}),
+    ...(lastModified != null && { serverLastModified: lastModified }),
     settings: {
       ...settings,
       ...pendingSettingsPatch,
@@ -70,7 +70,7 @@ async function getHeaders() {
   const { token } = await get('token')
   if (!token) return null
   return {
-    'Authorization': `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
   }
 }
@@ -143,8 +143,10 @@ async function pushSettings({ full = false } = {}) {
   const headers = await getHeaders()
   if (!headers) return
 
-  const { pendingSettingsPatch = {}, settings = {} } =
-    await get(['pendingSettingsPatch', 'settings'])
+  const { pendingSettingsPatch = {}, settings = {} } = await get([
+    'pendingSettingsPatch',
+    'settings',
+  ])
   const settingsPatch = full ? settings : pendingSettingsPatch
 
   if (!full && Object.keys(settingsPatch).length == 0) return
@@ -177,20 +179,16 @@ async function pushSettings({ full = false } = {}) {
   const { pendingSettingsPatch: latestPendingSettingsPatch = {} } =
     await get('pendingSettingsPatch')
   const remainingPendingSettingsPatch = Object.fromEntries(
-    Object.entries(latestPendingSettingsPatch)
-      .filter(([key, value]) => {
-        return !(
-          Object.hasOwn(settingsPatch, key) &&
-          settingsValueMatches(value, settingsPatch[key])
-        )
-      })
+    Object.entries(latestPendingSettingsPatch).filter(([key, value]) => {
+      return !(Object.hasOwn(settingsPatch, key) && settingsValueMatches(value, settingsPatch[key]))
+    }),
   )
 
   if (Object.keys(remainingPendingSettingsPatch).length > 0) {
     await set({
       // Some edits happened while this push was in flight; keep them pending
       // but advance the server version if the server actually changed.
-      ...(lastModified != null && {serverLastModified: lastModified}),
+      ...(lastModified != null && { serverLastModified: lastModified }),
       pendingSettingsPatch: remainingPendingSettingsPatch,
     })
   } else {
@@ -230,7 +228,7 @@ export function initSettingsSync(config = {}) {
 
   chrome.runtime.onMessage.addListener((msg) => {
     if (msg.type == OPEN_APP_MESSAGE) {
-      chrome.tabs.create({url: CONFIG.apiBase})
+      chrome.tabs.create({ url: CONFIG.apiBase })
     }
     if (msg.type == SYNC_RESET_MESSAGE) {
       resetPullTimer()

@@ -1,0 +1,70 @@
+import fs from 'node:fs'
+
+import semver from 'semver'
+
+const manifestPaths = [
+  './manifest.mv2.json',
+  './manifest.mv3.json',
+  './safari/Shared (Extension)/Resources/manifest.json',
+]
+const optionsJsPath = './options.js'
+const optionsHtmlPath = './options.html'
+const safariProjectPath = './safari/Control Panel for Twitter.xcodeproj/project.pbxproj'
+
+const releaseType = process.argv[2]
+
+if (releaseType != 'patch' && releaseType != 'minor' && releaseType != 'major') {
+  console.log(
+    `
+Usage:
+  npm run release (patch|minor|major)
+`.trim(),
+  )
+  process.exit(1)
+}
+
+const currentVersion = JSON.parse(fs.readFileSync(manifestPaths[0], { encoding: 'utf8' })).version
+const nextVersion = semver.inc(currentVersion, releaseType)
+
+for (const manifestPath of manifestPaths) {
+  fs.writeFileSync(
+    manifestPath,
+    fs
+      .readFileSync(manifestPath, { encoding: 'utf8' })
+      .replace(/"version": "[^"]+"/, `"version": "${nextVersion}"`),
+    { encoding: 'utf8' },
+  )
+}
+
+fs.writeFileSync(
+  optionsJsPath,
+  fs
+    .readFileSync(optionsJsPath, { encoding: 'utf8' })
+    .replace(
+      /control-panel-for-twitter-.+\.config\.txt/,
+      `control-panel-for-twitter-v${nextVersion}.config.txt`,
+    ),
+  { encoding: 'utf8' },
+)
+
+fs.writeFileSync(
+  optionsHtmlPath,
+  fs
+    .readFileSync(optionsHtmlPath, { encoding: 'utf8' })
+    .replace(/id="version">[^<]+</, `id="version">v${nextVersion}<`),
+  { encoding: 'utf8' },
+)
+
+fs.writeFileSync(
+  safariProjectPath,
+  fs
+    .readFileSync(safariProjectPath, { encoding: 'utf8' })
+    .replace(
+      /CURRENT_PROJECT_VERSION = (\d+)/g,
+      (_, current) => `CURRENT_PROJECT_VERSION = ${Number(current) + 1}`,
+    )
+    .replace(/MARKETING_VERSION = [^;]+/g, `MARKETING_VERSION = ${nextVersion}`),
+  { encoding: 'utf8' },
+)
+
+console.log(`Bumped to v${nextVersion}`)

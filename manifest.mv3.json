@@ -13,60 +13,34 @@
     "96": "icons/icon96.png",
     "128": "icons/icon128.png"
   },
-  "permissions": [
-    "alarms",
-    "storage"
-  ],
-  "host_permissions": [
-    "https://pro.soitis.dev/*"
-  ],
+  "permissions": ["alarms", "storage"],
+  "host_permissions": ["https://pro.soitis.dev/*"],
   "background": {
     "service_worker": "background.js",
     "type": "module"
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://twitter.com/*",
-        "https://x.com/*"
-      ],
-      "js": [
-        "content.js"
-      ],
+      "matches": ["https://twitter.com/*", "https://x.com/*"],
+      "js": ["content.js"],
       "run_at": "document_start"
     },
     {
       "world": "MAIN",
-      "matches": [
-        "https://twitter.com/*",
-        "https://x.com/*"
-      ],
-      "js": [
-        "script.js"
-      ],
+      "matches": ["https://twitter.com/*", "https://x.com/*"],
+      "js": ["script.js"],
       "run_at": "document_start"
     },
     {
-      "matches": [
-        "https://pro.soitis.dev/*"
-      ],
-      "js": [
-        "content-pro.js"
-      ],
+      "matches": ["https://pro.soitis.dev/*"],
+      "js": ["content-pro.js"],
       "run_at": "document_start"
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": [
-        "extensions-pro-id.js",
-        "settings.js"
-      ],
-      "matches": [
-        "https://pro.soitis.dev/*",
-        "https://twitter.com/*",
-        "https://x.com/*"
-      ]
+      "resources": ["extensions-pro-id.js", "settings.js"],
+      "matches": ["https://pro.soitis.dev/*", "https://twitter.com/*", "https://x.com/*"]
     }
   ],
   "options_ui": {

@@ -170,9 +170,7 @@ export function set(keys) {
  * storage and pendingSettingsPatch yourself and want sync to follow.
  */
 export function resetSyncTimer() {
-  chrome.runtime
-    .sendMessage({ type: SYNC_RESET_MESSAGE })
-    .catch(() => {})
+  chrome.runtime.sendMessage({ type: SYNC_RESET_MESSAGE }).catch(() => {})
 }
 
 /**
@@ -188,7 +186,10 @@ export function resetSyncTimer() {
  * @param {Partial<import("./types").UserSettings>} changes - Partial settings to merge in.
  */
 export async function setSettings(changes) {
-  const { pendingSettingsPatch = {}, settings = {} } = await get(['pendingSettingsPatch', 'settings'])
+  const { pendingSettingsPatch = {}, settings = {} } = await get([
+    'pendingSettingsPatch',
+    'settings',
+  ])
 
   await set({
     pendingSettingsPatch: {
@@ -201,8 +202,6 @@ export async function setSettings(changes) {
     },
   })
 
-  chrome.runtime
-    .sendMessage({ type: SYNC_RESET_MESSAGE })
-    .catch(() => {})
+  chrome.runtime.sendMessage({ type: SYNC_RESET_MESSAGE }).catch(() => {})
 }
 //#endregion

@@ -2,42 +2,53 @@ import fs from 'node:fs'
 
 import clipboard from 'clipboardy'
 
-let extraTranslations = {
-  "desktopVersion": {
-    "en": " (desktop version)",
-    "es": " (versión de escritorio)",
-    "fr": " (version de bureau)",
-    "it": " (versione desktop)",
-    "ja": "（デスクトップ版）",
-    "ko": " (데스크톱 버전)",
-    "zh_CN": "（桌面版）"
+const extraTranslations = {
+  desktopVersion: {
+    en: ' (desktop version)',
+    es: ' (versión de escritorio)',
+    fr: ' (version de bureau)',
+    it: ' (versione desktop)',
+    ja: '（デスクトップ版）',
+    ko: ' (데스크톱 버전)',
+    zh_CN: '（桌面版）',
   },
-  "mobileVersion": {
-    "en": " (mobile version)",
-    "es": " (versión móvil)",
-    "fr": " (version mobile)",
-    "it": " (versione mobile)",
-    "ja": "（モバイル版）",
-    "ko": " (모바일 버전)",
-    "zh_CN": "（手机版）"
-  }
+  mobileVersion: {
+    en: ' (mobile version)',
+    es: ' (versión móvil)',
+    fr: ' (version mobile)',
+    it: ' (versione mobile)',
+    ja: '（モバイル版）',
+    ko: ' (모바일 버전)',
+    zh_CN: '（手机版）',
+  },
 }
 
-let localeCode = process.argv[2]
+const localeCode = process.argv[2]
 
 if (!localeCode) {
-  console.log(`
+  console.log(
+    `
 Usage:
   npm run create-store-description ja
   npm run create-store-description ja html
-`.trim())
+`.trim(),
+  )
   process.exit(1)
 }
 
-let locale = JSON.parse(fs.readFileSync(`./_locales/${localeCode}/messages.json`, {encoding: 'utf8'}))
-let messages = Object.fromEntries(Object.entries(locale).map(([prop, value]) => ([prop, value.message])))
+const locale = JSON.parse(
+  fs.readFileSync(`./_locales/${localeCode}/messages.json`, { encoding: 'utf8' }),
+)
+const messages = Object.fromEntries(
+  Object.entries(locale).map(([prop, value]) => [prop, value.message]),
+)
 // Add extra translations
-Object.assign(messages, Object.fromEntries(Object.entries(extraTranslations).map(([prop, value]) => [prop, value[localeCode]])))
+Object.assign(
+  messages,
+  Object.fromEntries(
+    Object.entries(extraTranslations).map(([prop, value]) => [prop, value[localeCode]]),
+  ),
+)
 
 let storeDescription = `
 ${messages.features}
@@ -138,11 +149,12 @@ if (process.argv[3] == 'md') {
   storeDescription = storeDescription
     // Section titles
     .replace(/^([^:\n]+):$/gm, '**$1:**')
-    // List items
-    // .replace(/•/g, '-')
+  // List items
+  // .replace(/•/g, '-')
 }
 
-storeDescription += '\n\nTWITTER, TWEET and RETWEET are trademarks of Twitter Inc. or its affiliates'
+storeDescription +=
+  '\n\nTWITTER, TWEET and RETWEET are trademarks of Twitter Inc. or its affiliates'
 
 clipboard.writeSync(storeDescription)
 console.log(storeDescription)

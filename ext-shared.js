@@ -38,8 +38,8 @@ export function crossesVersionThreshold(previous, current, threshold) {
  * @param {string} v2
  */
 export function isVersionLessThan(v1, v2) {
-  let a = v1.split('.').map(Number)
-  let b = v2.split('.').map(Number)
+  const a = v1.split('.').map(Number)
+  const b = v2.split('.').map(Number)
   for (let i = 0; i < Math.max(a.length, b.length); i++) {
     const diff = (a[i] || 0) - (b[i] || 0)
     if (diff < 0) return true
@@ -69,8 +69,7 @@ export function boolean() {
 export function string({ maxLength } = {}) {
   return {
     validate: (value) =>
-      typeof value == 'string' &&
-      (maxLength == null || value.length <= maxLength),
+      typeof value == 'string' && (maxLength == null || value.length <= maxLength),
   }
 }
 
@@ -125,8 +124,7 @@ export function optional(field) {
 export function object(fields) {
   return {
     validate: (value) =>
-      isObject(value) &&
-      Object.entries(fields).every(([key, field]) => field.validate(value[key])),
+      isObject(value) && Object.entries(fields).every(([key, field]) => field.validate(value[key])),
   }
 }
 //#endregion
@@ -158,12 +156,12 @@ export function getSchemaForVersion(schemas, version) {
  */
 export function validateSettings(input, schema) {
   /** @type {Record<string, unknown>} */
-  let settings = {}
-  let invalid = []
-  let unknown = []
+  const settings = {}
+  const invalid = []
+  const unknown = []
 
-  for (let [key, value] of Object.entries(input)) {
-    let field = schema[key]
+  for (const [key, value] of Object.entries(input)) {
+    const field = schema[key]
     if (!field) {
       unknown.push(key)
       continue

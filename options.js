@@ -8,24 +8,24 @@ const isBrowserAction = $body.classList.contains('browserAction')
 //#region Theme hooks
 /** @type {'chrome' | 'edge' | 'firefox' | 'ios' | 'mac'} */
 const browser = (() => {
-  let ua = navigator.userAgent.toLowerCase()
+  const ua = navigator.userAgent.toLowerCase()
   if (ua.includes('firefox')) return 'firefox'
   else if (ua.includes('edg/')) return 'edge'
   else if (ua.includes('safari') && !ua.includes('chrome'))
     return ua.includes('iphone') || ua.includes('ipad') ? 'ios' : 'mac'
   return 'chrome'
 })()
-let theme = browser
+const theme = browser
 $body.classList.add(`browser-${browser}`, theme)
 
 if (theme == 'chrome' || theme == 'edge' || theme == 'firefox') {
-  let $top = document.createElement('div')
+  const $top = document.createElement('div')
   $top.className = 'stickySentinel top'
-  let $bottom = document.createElement('div')
+  const $bottom = document.createElement('div')
   $bottom.className = 'stickySentinel bottom'
-  for (let $group of document.querySelectorAll('section.group.labelled')) {
+  for (const $group of document.querySelectorAll('section.group.labelled')) {
     $group.prepend($top.cloneNode())
-    let $options = $group.querySelector('.options')
+    const $options = $group.querySelector('.options')
     $options.insertBefore($bottom.cloneNode(), $options.lastElementChild)
   }
 } else {
@@ -36,7 +36,7 @@ if (theme == 'chrome' || theme == 'edge' || theme == 'firefox') {
 //#region Localisation
 document.title = chrome.i18n.getMessage('extensionName')
 
-for (let optionValue of [
+for (const optionValue of [
   'badges',
   'comfortable',
   'compact',
@@ -52,13 +52,13 @@ for (let optionValue of [
   'relevant',
   'separate',
 ]) {
-  let label = chrome.i18n.getMessage(`option_${optionValue}`)
-  for (let $option of document.querySelectorAll(`option[value="${optionValue}"]`)) {
+  const label = chrome.i18n.getMessage(`option_${optionValue}`)
+  for (const $option of document.querySelectorAll(`option[value="${optionValue}"]`)) {
     $option.textContent = label
   }
 }
 
-for (let translationId of [
+for (const translationId of [
   'addAddMutedWordMenuItem_desktop',
   'addAddMutedWordMenuItem_mobile',
   'addFocusedTweetAccountLocation',
@@ -197,7 +197,7 @@ for (let translationId of [
   'uninvertFollowButtons',
   'xFixesOptions',
 ]) {
-  let $el = document.getElementById(translationId)
+  const $el = document.getElementById(translationId)
   if ($el) {
     $el.textContent = chrome.i18n.getMessage(translationId)
   } else {
@@ -205,7 +205,7 @@ for (let translationId of [
   }
 }
 
-for (let translationClass of [
+for (const translationClass of [
   'hideBookmarksNav',
   'hideBusinessNav',
   'hideCommunitiesNav',
@@ -215,13 +215,13 @@ for (let translationClass of [
   'notifications',
   'saveAndApply',
 ]) {
-  let translation = chrome.i18n.getMessage(translationClass)
-  for (let $el of document.querySelectorAll(`.${translationClass}`)) {
+  const translation = chrome.i18n.getMessage(translationClass)
+  for (const $el of document.querySelectorAll(`.${translationClass}`)) {
     $el.textContent = translation
   }
 }
 
-for (let amount of [1_000, 10_000, 100_000, 1_000_000]) {
+for (const amount of [1_000, 10_000, 100_000, 1_000_000]) {
   document.querySelector(`option[value="${amount}"]`).textContent = formatFollowerCount(amount)
 }
 
@@ -229,11 +229,15 @@ for (let amount of [1_000, 10_000, 100_000, 1_000_000]) {
 if (isBrowserAction) {
   if (browser == 'firefox') {
     document.getElementById('import').textContent = chrome.i18n.getMessage('openOptionsPage')
-    document.getElementById('importMessages').textContent = chrome.i18n.getMessage('optionsPageImportSettingsNote')
+    document.getElementById('importMessages').textContent = chrome.i18n.getMessage(
+      'optionsPageImportSettingsNote',
+    )
   }
   if (browser == 'mac') {
     document.getElementById('export').textContent = chrome.i18n.getMessage('openOptionsPage')
-    document.getElementById('exportMessages').textContent = chrome.i18n.getMessage('optionsPageExportSettingsNote')
+    document.getElementById('exportMessages').textContent = chrome.i18n.getMessage(
+      'optionsPageExportSettingsNote',
+    )
   }
 }
 
@@ -288,50 +292,73 @@ let stickyObserver
 let tabsHeight
 
 // Page elements
-let $collapsibleLabels = document.querySelectorAll('section.labelled.collapsible > label[data-collapse-id]')
-let $customCss = /** @type {HTMLTextAreaElement} */ (document.querySelector('textarea#customCss'))
-let $customThemeInput = /** @type {HTMLInputElement} */ (document.querySelector('input[name="customTheme"]'))
-let $displaySettingsLink = /** @type {HTMLAnchorElement} */ (document.querySelector('#customThemeInfo a'))
-let $exportSettingsButton = document.querySelector('button#export')
-let $fileInput = /** @type {HTMLInputElement} */ (document.querySelector('input[type="file"]'))
-let $form = document.querySelector('form')
-let $hideQuotesFrom =  /** @type {HTMLDivElement} */ (document.querySelector('#hideQuotesFrom'))
-let $hideQuotesFromCount = /** @type {HTMLElement} */ (document.querySelector('#hideQuotesFromCount'))
-let $hideQuotesFromDetails = /** @type {HTMLDetailsElement} */ (document.querySelector('details#hideQuotesFromDetails'))
-let $importMessages = /** @type {HTMLElement} */ (document.querySelector('#importMessages'))
-let $importSettingsButton = document.querySelector('button#import')
-let $mutedQuotes =  /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
-let $mutedQuotesCount = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesCount'))
-let $mutedQuotesDetails =  /** @type {HTMLDetailsElement} */ (document.querySelector('details#mutedQuotesDetails'))
-let $optionsIcon = /** @type {HTMLImageElement} */ (document.querySelector('#optionsIcon'))
-let $mutedWords = /** @type {HTMLTextAreaElement} */ (document.querySelector('textarea#mutedWords'))
-let $mutedWordsError = document.querySelector('#mutedWordsError')
-let $mutedWordsErrorLine = document.querySelector('#mutedWordsErrorLine')
-let $mutedWordsErrorMessage = document.querySelector('#mutedWordsErrorMessage')
-let $panels = /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('.panel'))
-let $proButton = document.querySelector('button#proButton')
-let $proStatusIcon = document.querySelector('#proStatusIcon')
-let $proStatusText = document.querySelector('#proStatusText')
-let $saveCustomCssButton = document.querySelector('button#saveCustomCss')
-let $showPremiumReplyFollowersCount = /** @type {HTMLElement} */ (document.querySelector('#showPremiumReplyFollowersCount'))
-let $stickySentinels = document.querySelectorAll('.stickySentinel')
-let $tablist = /** @type {HTMLElement} */ (document.querySelector('.tabs'))
-let $tabs = Array.from($tablist.querySelectorAll('button'))
+const $collapsibleLabels = document.querySelectorAll(
+  'section.labelled.collapsible > label[data-collapse-id]',
+)
+const $customCss = /** @type {HTMLTextAreaElement} */ (document.querySelector('textarea#customCss'))
+const $customThemeInput = /** @type {HTMLInputElement} */ (
+  document.querySelector('input[name="customTheme"]')
+)
+const $displaySettingsLink = /** @type {HTMLAnchorElement} */ (
+  document.querySelector('#customThemeInfo a')
+)
+const $exportSettingsButton = document.querySelector('button#export')
+const $fileInput = /** @type {HTMLInputElement} */ (document.querySelector('input[type="file"]'))
+const $form = document.querySelector('form')
+const $hideQuotesFrom = /** @type {HTMLDivElement} */ (document.querySelector('#hideQuotesFrom'))
+const $hideQuotesFromCount = /** @type {HTMLElement} */ (
+  document.querySelector('#hideQuotesFromCount')
+)
+const $hideQuotesFromDetails = /** @type {HTMLDetailsElement} */ (
+  document.querySelector('details#hideQuotesFromDetails')
+)
+const $importMessages = /** @type {HTMLElement} */ (document.querySelector('#importMessages'))
+const $importSettingsButton = document.querySelector('button#import')
+const $mutedQuotes = /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
+const $mutedQuotesCount = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesCount'))
+const $mutedQuotesDetails = /** @type {HTMLDetailsElement} */ (
+  document.querySelector('details#mutedQuotesDetails')
+)
+const $optionsIcon = /** @type {HTMLImageElement} */ (document.querySelector('#optionsIcon'))
+const $mutedWords = /** @type {HTMLTextAreaElement} */ (
+  document.querySelector('textarea#mutedWords')
+)
+const $mutedWordsError = document.querySelector('#mutedWordsError')
+const $mutedWordsErrorLine = document.querySelector('#mutedWordsErrorLine')
+const $mutedWordsErrorMessage = document.querySelector('#mutedWordsErrorMessage')
+const $panels = /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('.panel'))
+const $proButton = document.querySelector('button#proButton')
+const $proStatusIcon = document.querySelector('#proStatusIcon')
+const $proStatusText = document.querySelector('#proStatusText')
+const $saveCustomCssButton = document.querySelector('button#saveCustomCss')
+const $showPremiumReplyFollowersCount = /** @type {HTMLElement} */ (
+  document.querySelector('#showPremiumReplyFollowersCount')
+)
+const $stickySentinels = document.querySelectorAll('.stickySentinel')
+const $tablist = /** @type {HTMLElement} */ (document.querySelector('.tabs'))
+const $tabs = Array.from($tablist.querySelectorAll('button'))
 //#endregion
 
 //#region Utility functions
 const HEX_RE = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i
 const RGB_RE = /^rgb\(\s*(\d{1,3}%?)\s*[, ]\s*(\d{1,3}%?)\s*[, ]\s*(\d{1,3}%?)\s*\)$/i
-const HSL_RE = /^hsl\(\s*([\d.]+)(deg|rad|grad|turn)?\s*[, ]\s*(\d{1,3})%\s*[, ]\s*(\d{1,3})%\s*\)$/i
+const HSL_RE =
+  /^hsl\(\s*([\d.]+)(deg|rad|grad|turn)?\s*[, ]\s*(\d{1,3})%\s*[, ]\s*(\d{1,3})%\s*\)$/i
 
 function autoResize($textarea) {
   if (!$textarea.offsetParent) return
   if (!$textarea.hasAttribute('data-border-height')) {
-    let {borderBottomWidth, borderTopWidth} = getComputedStyle($textarea)
-    $textarea.setAttribute('data-border-height', parseFloat(borderBottomWidth) + parseFloat(borderTopWidth))
+    const { borderBottomWidth, borderTopWidth } = getComputedStyle($textarea)
+    $textarea.setAttribute(
+      'data-border-height',
+      parseFloat(borderBottomWidth) + parseFloat(borderTopWidth),
+    )
   }
-  $textarea.style.height = 'auto';
-  $textarea.style.height = Math.ceil($textarea.scrollHeight) + parseFloat($textarea.getAttribute('data-border-height')) + 'px'
+  $textarea.style.height = 'auto'
+  $textarea.style.height =
+    Math.ceil($textarea.scrollHeight) +
+    parseFloat($textarea.getAttribute('data-border-height')) +
+    'px'
 }
 
 /**
@@ -345,7 +372,7 @@ function calculateLuminance(rgb) {
 
 function debounce(func, delay = 400) {
   let timeoutId
-  return function(...args) {
+  return function (...args) {
     clearTimeout(timeoutId)
     timeoutId = setTimeout(() => func.apply(this, args), delay)
     return () => clearTimeout(timeoutId)
@@ -353,7 +380,10 @@ function debounce(func, delay = 400) {
 }
 
 function formatFollowerCount(num) {
-  let numFormat = Intl.NumberFormat(undefined, {notation: 'compact', compactDisplay: num < 1_000_000 ? 'short' : 'long'})
+  const numFormat = Intl.NumberFormat(undefined, {
+    notation: 'compact',
+    compactDisplay: num < 1_000_000 ? 'short' : 'long',
+  })
   return numFormat.format(num)
 }
 
@@ -363,11 +393,11 @@ function formatFollowerCount(num) {
  * @param {...any} children
  * @returns {HTMLElement}
  */
- function h(tagName, attributes, ...children) {
-  let $el = document.createElement(tagName)
+function h(tagName, attributes, ...children) {
+  const $el = document.createElement(tagName)
 
   if (attributes) {
-    for (let [prop, value] of Object.entries(attributes)) {
+    for (const [prop, value] of Object.entries(attributes)) {
       if (value == null) continue
       if (prop.startsWith('on') && typeof value == 'function') {
         $el.addEventListener(prop.slice(2).toLowerCase(), value)
@@ -379,7 +409,7 @@ function formatFollowerCount(num) {
       }
       if (prop == 'style') {
         if (!isObject(value)) continue
-        for (let [name, styleValue] of Object.entries(value)) {
+        for (const [name, styleValue] of Object.entries(value)) {
           if (styleValue == null) continue
           if (name.startsWith('--')) {
             $el.style.setProperty(name, String(styleValue))
@@ -393,7 +423,7 @@ function formatFollowerCount(num) {
     }
   }
 
-  for (let child of children.flat()) {
+  for (const child of children.flat()) {
     if (child == null || child === false) continue
     if (child instanceof Node) {
       $el.appendChild(child)
@@ -411,7 +441,7 @@ function sortKeys(obj) {
       if (a < b) return -1
       if (a > b) return 1
       return 0
-    })
+    }),
   )
 }
 
@@ -423,9 +453,9 @@ function sortKeys(obj) {
 function hslToRgb(h, s, l) {
   s /= 100
   l /= 100
-  let k = n => (n + h / 30) % 12
-  let a = s * Math.min(l, 1 - l)
-  let f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
+  const k = (n) => (n + h / 30) % 12
+  const a = s * Math.min(l, 1 - l)
+  const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
   return {
     r: Math.round(255 * f(0)),
     g: Math.round(255 * f(8)),
@@ -444,27 +474,26 @@ function isValidCustomTheme(color) {
     return true
   }
 
-  let rgbMatch = color.match(RGB_RE)
+  const rgbMatch = color.match(RGB_RE)
   if (rgbMatch) {
     for (let i = 1; i <= 3; i++) {
-      let value = rgbMatch[i]
+      const value = rgbMatch[i]
       if (value.endsWith('%')) {
-        let percentage = parseFloat(value)
+        const percentage = parseFloat(value)
         if (Number.isNaN(percentage) || percentage > 100) return false
-      }
-      else if (Number(value) > 255) {
+      } else if (Number(value) > 255) {
         return false
       }
     }
     return true
   }
 
-  let hslMatch = color.match(HSL_RE)
+  const hslMatch = color.match(HSL_RE)
   if (hslMatch) {
-    let hue = parseFloat(hslMatch[1])
+    const hue = parseFloat(hslMatch[1])
     if (Number.isNaN(hue)) return false
-    let saturation = Number(hslMatch[3])
-    let lightness = Number(hslMatch[4])
+    const saturation = Number(hslMatch[3])
+    const lightness = Number(hslMatch[4])
     if (saturation > 100 || lightness > 100) {
       return false
     }
@@ -483,11 +512,9 @@ function normalizeHue(hueStr, unit) {
   unit = unit ? unit.toLowerCase() : 'deg'
   if (unit == 'rad') {
     hue = hue * (180 / Math.PI)
-  }
-  else if (unit == 'grad') {
+  } else if (unit == 'grad') {
     hue = (hue / 400) * 360
-  }
-  else if (unit == 'turn') {
+  } else if (unit == 'turn') {
     hue = hue * 360
   }
   return ((hue % 360) + 360) % 360
@@ -499,7 +526,7 @@ function normalizeHue(hueStr, unit) {
  */
 function parseColorToRgb(color) {
   if (HEX_RE.test(color)) {
-    let hex = color.slice(1)
+    const hex = color.slice(1)
     let r, g, b
     if (hex.length === 3) {
       r = parseInt(hex[0].repeat(2), 16)
@@ -510,10 +537,10 @@ function parseColorToRgb(color) {
       g = parseInt(hex.substring(2, 4), 16)
       b = parseInt(hex.substring(4, 6), 16)
     }
-    return {r, g, b}
+    return { r, g, b }
   }
 
-  let rgbMatch = color.match(RGB_RE);
+  const rgbMatch = color.match(RGB_RE)
   if (rgbMatch) {
     return {
       r: parseRgbComponentValue(rgbMatch[1]),
@@ -522,15 +549,15 @@ function parseColorToRgb(color) {
     }
   }
 
-  let hslMatch = color.match(HSL_RE);
+  const hslMatch = color.match(HSL_RE)
   if (hslMatch) {
-    let h = normalizeHue(hslMatch[1], hslMatch[2])
-    let s = parseFloat(hslMatch[3])
-    let l = parseFloat(hslMatch[4])
+    const h = normalizeHue(hslMatch[1], hslMatch[2])
+    const s = parseFloat(hslMatch[3])
+    const l = parseFloat(hslMatch[4])
     return hslToRgb(h, s, l)
   }
 
-  return null;
+  return null
 }
 
 function parseRgbComponentValue(value) {
@@ -541,13 +568,13 @@ function parseRgbComponentValue(value) {
 }
 
 function validateMuteRegExps(terms) {
-  let lines = terms.split('\n')
+  const lines = terms.split('\n')
   for (let i = 0; i < lines.length; i++) {
-    let match = lines[i].trim().match(/^\/(.*)\/$/)
+    const match = lines[i].trim().match(/^\/(.*)\/$/)
     if (!match) continue
     try {
       new RegExp(match[1])
-    } catch(e) {
+    } catch (e) {
       return {
         line: i + 1,
         message: e.message,
@@ -565,30 +592,32 @@ function validateMuteRegExps(terms) {
 function applyConfig() {
   $body.classList.toggle('mobile', config.version == 'mobile')
   $body.classList.toggle('desktop', config.version == 'desktop')
-  checkboxGroups = new Map(Object.entries({
-    hideAllMetrics: [
-      'hideBookmarkMetrics',
-      'hideFollowingMetrics',
-      'hideLikeMetrics',
-      'hideReplyMetrics',
-      'hideRetweetMetrics',
-      'hideQuoteTweetMetrics',
-      'hideProfileHeaderMetrics',
-    ]
-  }))
+  checkboxGroups = new Map(
+    Object.entries({
+      hideAllMetrics: [
+        'hideBookmarkMetrics',
+        'hideFollowingMetrics',
+        'hideLikeMetrics',
+        'hideReplyMetrics',
+        'hideRetweetMetrics',
+        'hideQuoteTweetMetrics',
+        'hideProfileHeaderMetrics',
+      ],
+    }),
+  )
   updateFormControls()
   updateCheckboxGroups()
   updateDisplay()
 }
 
 async function exportSettings() {
-  let version = chrome.runtime.getManifest().version
-  let json = JSON.stringify({settings: sortKeys(config.settings), version}, null, 2)
-  let filename = `control-panel-for-twitter-v${version}-settings.json`
-  let blob = new Blob([json], {type: 'application/json'})
+  const version = chrome.runtime.getManifest().version
+  const json = JSON.stringify({ settings: sortKeys(config.settings), version }, null, 2)
+  const filename = `control-panel-for-twitter-v${version}-settings.json`
+  const blob = new Blob([json], { type: 'application/json' })
   if (browser == 'ios') {
-    let file = new File([blob], filename, { type: 'application/json' })
-    if (navigator.canShare && navigator.canShare({files: [file]})) {
+    const file = new File([blob], filename, { type: 'application/json' })
+    if (navigator.canShare?.({ files: [file] })) {
       await navigator.share({
         files: [file],
         title: filename,
@@ -598,8 +627,8 @@ async function exportSettings() {
     }
     return
   }
-  let url = URL.createObjectURL(blob)
-  let $a = document.createElement('a')
+  const url = URL.createObjectURL(blob)
+  const $a = document.createElement('a')
   $a.download = filename
   $a.href = url
   $a.click()
@@ -613,29 +642,33 @@ async function importSettings() {
     clearTimeout(clearImportMessagesTimeout)
     clearImportMessagesTimeout = null
   }
-  let file = $fileInput.files[0]
+  const file = $fileInput.files[0]
   // Allow the same file to be re-selected if the user edits it
   $fileInput.files = null
   if (!file) {
     $importMessages.replaceChildren(
-      h('span', {class: 'text-error'}, chrome.i18n.getMessage('noFileSelected'))
+      h('span', { class: 'text-error' }, chrome.i18n.getMessage('noFileSelected')),
     )
     return
   }
-  let json = await file.text()
-  let {settings, messages} = validateSettingsJson(json)
+  const json = await file.text()
+  const { settings, messages } = validateSettingsJson(json)
   if (settings != null) {
     await setSettings(settings)
   } else {
     $importMessages.style.color = 'var(--text-error)'
   }
   $importMessages.replaceChildren(
-    h('span', {class: 'whitespace-pre-line'},
-      h('span', {class: ['font-bold', settings != null ? 'text-success' : 'text-error']},
-        chrome.i18n.getMessage(settings != null ? 'settingsImported' : 'settingsNotImported')
+    h(
+      'span',
+      { class: 'whitespace-pre-line' },
+      h(
+        'span',
+        { class: ['font-bold', settings != null ? 'text-success' : 'text-error'] },
+        chrome.i18n.getMessage(settings != null ? 'settingsImported' : 'settingsNotImported'),
       ),
-      messages.length > 0 && ['\n\n', h('span', {class: 'text-error'}, messages.join('\n\n'))]
-    )
+      messages.length > 0 && ['\n\n', h('span', { class: 'text-error' }, messages.join('\n\n'))],
+    ),
   )
   if (settings != null) {
     clearImportMessagesTimeout = setTimeout(() => $importMessages.replaceChildren(), 3000)
@@ -646,10 +679,10 @@ async function importSettings() {
  * Only allow valid CSS colors.
  */
 function onCustomThemeInput(e) {
-  let customTheme = e.target.value.trim()
+  const customTheme = e.target.value.trim()
   if (isValidCustomTheme(customTheme) && customTheme != config.settings.customTheme) {
     config.settings.customTheme = customTheme
-    storeConfigChanges({settings: {customTheme}})
+    storeConfigChanges({ settings: { customTheme } })
     updateDisplay()
   }
 }
@@ -657,16 +690,17 @@ function onCustomThemeInput(e) {
 function onFormChanged(/** @type {Event} */ e) {
   if (
     e.target instanceof HTMLTextAreaElement ||
-    e.target instanceof HTMLInputElement && (e.target.type == 'file' || e.target.type == 'text')
-  ) return
+    (e.target instanceof HTMLInputElement && (e.target.type == 'file' || e.target.type == 'text'))
+  )
+    return
 
   /** @type {import("./types").StoredConfig} */
-  let changedConfig = Object.create(null)
+  const changedConfig = Object.create(null)
   /** @type {Partial<import("./types").UserSettings>} */
-  let changedSettings = Object.create(null)
+  const changedSettings = Object.create(null)
 
   // Handle input
-  let $el = /** @type {HTMLInputElement} */ (e.target)
+  const $el = /** @type {HTMLInputElement} */ (e.target)
   if ($el.type == 'checkbox') {
     // All internal config is currently checkbox toggles
     if (INTERNAL_CONFIG_FORM_KEYSET.has($el.name)) {
@@ -674,7 +708,7 @@ function onFormChanged(/** @type {Event} */ e) {
     }
     // Checkbox group toggle
     else if (checkboxGroups.has($el.name)) {
-      checkboxGroups.get($el.name).forEach(checkboxName => {
+      checkboxGroups.get($el.name).forEach((checkboxName) => {
         config.settings[checkboxName] = changedSettings[checkboxName] = $el.checked
         updateFormControl($form.elements[checkboxName], $el.checked)
       })
@@ -691,9 +725,11 @@ function onFormChanged(/** @type {Event} */ e) {
 
   // Apply other settings changes based on input
   // Don't try to redirect the Home timeline to Notifications if both are disabled
-  if (changedSettings.hideNotifications &&
-      config.settings.disabledHomeTimelineRedirect == 'notifications') {
-    let key = 'disabledHomeTimelineRedirect'
+  if (
+    changedSettings.hideNotifications &&
+    config.settings.disabledHomeTimelineRedirect == 'notifications'
+  ) {
+    const key = 'disabledHomeTimelineRedirect'
     $form.elements[key].value = config.settings[key] = changedSettings[key] = 'messages'
   }
 
@@ -706,30 +742,30 @@ function onFormChanged(/** @type {Event} */ e) {
 
 function onMutedWordsInput() {
   autoResize($mutedWords)
-  let mutedWords = $mutedWords.value
-  let isEmpty = /^\s*$/.test(mutedWords)
+  const mutedWords = $mutedWords.value
+  const isEmpty = /^\s*$/.test(mutedWords)
   if (isEmpty) {
     if (config.settings.mutedWords) {
-      storeConfigChangesDebounced({settings: {mutedWords: '', mutedWordsError: false}})
+      storeConfigChangesDebounced({ settings: { mutedWords: '', mutedWordsError: false } })
       clearMutedWordsError()
     }
     return
   }
 
-  let error = validateMuteRegExps(mutedWords)
+  const error = validateMuteRegExps(mutedWords)
   if (error) {
     cancelPendingMutedWordsError = showMutedWordsErrorDebounced(error)
-    storeConfigChangesDebounced({settings: {mutedWords, mutedWordsError: true}})
+    storeConfigChangesDebounced({ settings: { mutedWords, mutedWordsError: true } })
     return
   } else {
     // Immediately hide any error when invalid input becomes valid
     clearMutedWordsError()
   }
 
-  storeConfigChangesDebounced({settings: {mutedWords, mutedWordsError: false}})
+  storeConfigChangesDebounced({ settings: { mutedWords, mutedWordsError: false } })
 }
 
-function showMutedWordsError({line, message}) {
+function showMutedWordsError({ line, message }) {
   $mutedWords.classList.add('invalid')
   $mutedWordsError.removeAttribute('hidden')
   $mutedWordsErrorMessage.textContent = message
@@ -756,10 +792,10 @@ let cancelPendingMutedWordsError
  * @param {{[key: string]: chrome.storage.StorageChange}} storageChanges
  */
 function onStorageChanged(storageChanges) {
-  let changes = Object.fromEntries(
-    Object.entries(storageChanges).map(([key, {newValue}]) => [key, newValue])
+  const changes = Object.fromEntries(
+    Object.entries(storageChanges).map(([key, { newValue }]) => [key, newValue]),
   )
-  let {settings: settingsChanges, ...configChanges} = changes
+  const { settings: settingsChanges, ...configChanges } = changes
   Object.assign(config, configChanges)
   Object.assign(config.settings, settingsChanges)
   applyConfig()
@@ -768,33 +804,33 @@ function onStorageChanged(storageChanges) {
 function onTabClick(e) {
   // Only start animating on interaction, to avoid initial flash of animation
   $tablist.classList.add('animate')
-  let tab = e.currentTarget.getAttribute('data-tab')
+  const tab = e.currentTarget.getAttribute('data-tab')
   config.tab = tab
-  storeConfigChanges({tab})
-  window.scrollTo({top: 0})
+  storeConfigChanges({ tab })
+  window.scrollTo({ top: 0 })
   updateDisplay()
 }
 
 function onToggleCollapse(e) {
   if (theme == 'ios') return
-  let collapsedGroups = config.collapsedGroups.slice()
-  let collapseId = e.currentTarget.getAttribute('data-collapse-id')
-  let index = collapsedGroups.indexOf(collapseId)
+  const collapsedGroups = config.collapsedGroups.slice()
+  const collapseId = e.currentTarget.getAttribute('data-collapse-id')
+  const index = collapsedGroups.indexOf(collapseId)
   if (index == -1) {
     collapsedGroups.push(collapseId)
   } else {
     collapsedGroups.splice(index, 1)
   }
   config.collapsedGroups = collapsedGroups
-  storeConfigChanges({collapsedGroups})
+  storeConfigChanges({ collapsedGroups })
   updateDisplay()
 }
 
 function saveCustomCss() {
-  let customCss = $form.elements['customCss'].value
+  const customCss = /** @type {HTMLTextAreaElement} */ ($form.elements.namedItem('customCss')).value
   if (config.settings.customCss == customCss) return
   config.settings.customCss = customCss
-  storeConfigChanges({settings: {customCss}})
+  storeConfigChanges({ settings: { customCss } })
 }
 
 function shouldDisplayHideQuotesFrom() {
@@ -810,8 +846,8 @@ function shouldDisplayMutedQuotes() {
  */
 async function storeConfigChanges(changes) {
   /** @type {Partial<import("./types").StoredConfig>} */
-  let internalConfig = Object.create(null)
-  for (let key of Object.keys(defaultConfig)) {
+  const internalConfig = Object.create(null)
+  for (const key of Object.keys(defaultConfig)) {
     if (Object.hasOwn(changes, key)) {
       internalConfig[key] = changes[key]
     }
@@ -825,7 +861,7 @@ async function storeConfigChanges(changes) {
     if (Object.keys(internalConfig).length > 0) {
       await set(internalConfig)
     }
-  } catch(e) {
+  } catch (e) {
     console.error('[options] error storing config change', e)
   } finally {
     chrome.storage.onChanged.addListener(onStorageChanged)
@@ -835,16 +871,19 @@ async function storeConfigChanges(changes) {
 const storeConfigChangesDebounced = debounce(storeConfigChanges)
 
 function updateCheckboxGroups() {
-  for (let [group, checkboxNames] of checkboxGroups.entries()) {
-    let checkedCount = checkboxNames.filter(name => config.settings[name]).length
+  for (const [group, checkboxNames] of checkboxGroups.entries()) {
+    const checkedCount = checkboxNames.filter((name) => config.settings[name]).length
     $form.elements[group].checked = checkedCount == checkboxNames.length
-    $form.elements[group].indeterminate = checkedCount > 0 && checkedCount < checkboxNames.length;
+    $form.elements[group].indeterminate = checkedCount > 0 && checkedCount < checkboxNames.length
   }
 }
 
 function updateCollapsedOptionGroupsDisplay() {
-  for (let $label of $collapsibleLabels) {
-    $label.parentElement.classList.toggle('collapsed', config.collapsedGroups.includes($label.getAttribute('data-collapse-id')))
+  for (const $label of $collapsibleLabels) {
+    $label.parentElement.classList.toggle(
+      'collapsed',
+      config.collapsedGroups.includes($label.getAttribute('data-collapse-id')),
+    )
   }
 }
 
@@ -861,23 +900,27 @@ function updateDisplay() {
   $body.classList.toggle('hidingNotifications', config.settings.hideNotifications == 'hide')
   $body.classList.toggle('hidingPremiumReplies', config.settings.hidePremiumReplies)
   $body.classList.toggle('hidingQuotesFrom', shouldDisplayHideQuotesFrom())
-  $body.classList.toggle('hidingSuggestedFollows', config.settings.hideSidebarContent || config.settings.hideSuggestedFollows)
+  $body.classList.toggle(
+    'hidingSuggestedFollows',
+    config.settings.hideSidebarContent || config.settings.hideSuggestedFollows,
+  )
   $body.classList.toggle('mutingQuotes', shouldDisplayMutedQuotes())
-  $body.classList.toggle('showingBlueReplyFollowersCount', config.settings.showPremiumReplyFollowersCount)
+  $body.classList.toggle(
+    'showingBlueReplyFollowersCount',
+    config.settings.showPremiumReplyFollowersCount,
+  )
   $body.classList.toggle('showingSidebarContent', !config.settings.hideSidebarContent)
   $body.classList.toggle('sortingRepliesByLikes', config.settings.sortReplies == 'liked')
   $body.classList.toggle('stickyHeadings', config.stickyHeadings)
   $body.classList.toggle('tweakingNewLayout', config.settings.tweakNewLayout)
   $body.classList.toggle('uninvertedFollowButtons', config.settings.uninvertFollowButtons)
-  let icon = `options-icon${!config.enabled ? '-disabled' : ''}.png`
+  const icon = `options-icon${!config.enabled ? '-disabled' : ''}.png`
   if ($optionsIcon.src != icon) {
     $optionsIcon.src = icon
   }
-  $displaySettingsLink.href = config.settings.redirectToTwitter ? (
-    'https://twitter.com/settings/display?mx=1'
-  ) : (
-    'https://x.com/settings/display'
-  )
+  $displaySettingsLink.href = config.settings.redirectToTwitter
+    ? 'https://twitter.com/settings/display?mx=1'
+    : 'https://x.com/settings/display'
   if (!config.token) {
     $proStatusIcon.textContent = '🟢'
     $proStatusText.textContent = 'Active'
@@ -887,17 +930,17 @@ function updateDisplay() {
   }
   $showPremiumReplyFollowersCount.textContent = chrome.i18n.getMessage(
     'showPremiumReplyFollowersCount',
-    formatFollowerCount(Number(config.settings.showPremiumReplyFollowersCountAmount))
+    formatFollowerCount(Number(config.settings.showPremiumReplyFollowersCountAmount)),
   )
   updateCollapsedOptionGroupsDisplay()
   updateHideQuotesFromDisplay()
   updateMutedQuotesDisplay()
   updateTabsDisplay()
   if (config.settings.customTheme) {
-    let rgb = parseColorToRgb(config.settings.customTheme)
-    let luminance = calculateLuminance(rgb);
+    const rgb = parseColorToRgb(config.settings.customTheme)
+    const luminance = calculateLuminance(rgb)
     $customThemeInput.style.backgroundColor = config.settings.customTheme
-    $customThemeInput.style.color = luminance > 128 ? 'black' : 'white';
+    $customThemeInput.style.color = luminance > 128 ? 'black' : 'white'
   } else {
     $customThemeInput.style.backgroundColor = ''
     $customThemeInput.style.color = ''
@@ -907,27 +950,39 @@ function updateDisplay() {
 function updateHideQuotesFromDisplay() {
   if (!shouldDisplayHideQuotesFrom()) return
 
-  $hideQuotesFromCount.textContent =
-    chrome.i18n.getMessage('hideQuotesFromCount', String(config.settings.hideQuotesFrom.length))
+  $hideQuotesFromCount.textContent = chrome.i18n.getMessage(
+    'hideQuotesFromCount',
+    String(config.settings.hideQuotesFrom.length),
+  )
 
   if (!$hideQuotesFromDetails.open) return
 
   while ($hideQuotesFrom.hasChildNodes()) $hideQuotesFrom.firstChild.remove()
-  for (let user of config.settings.hideQuotesFrom) {
+  for (const user of config.settings.hideQuotesFrom) {
     $hideQuotesFrom.appendChild(
-      h('section', null,
-        h('label', {class: 'button'},
+      h(
+        'section',
+        null,
+        h(
+          'label',
+          { class: 'button' },
           h('span', null, `@${user}`),
-          h('button', {
-            type: 'button',
-            onclick() {
-              config.settings.hideQuotesFrom = config.settings.hideQuotesFrom.filter(u => u != user)
-              updateDisplay()
-              storeConfigChanges({settings: {hideQuotesFrom: config.settings.hideQuotesFrom}})
-            }
-          }, chrome.i18n.getMessage('unmuteButtonText'))
-        )
-      )
+          h(
+            'button',
+            {
+              type: 'button',
+              onclick() {
+                config.settings.hideQuotesFrom = config.settings.hideQuotesFrom.filter(
+                  (u) => u != user,
+                )
+                updateDisplay()
+                storeConfigChanges({ settings: { hideQuotesFrom: config.settings.hideQuotesFrom } })
+              },
+            },
+            chrome.i18n.getMessage('unmuteButtonText'),
+          ),
+        ),
+      ),
     )
   }
 }
@@ -935,43 +990,58 @@ function updateHideQuotesFromDisplay() {
 function updateMutedQuotesDisplay() {
   if (!shouldDisplayMutedQuotes()) return
 
-  $mutedQuotesCount.textContent = chrome.i18n.getMessage('mutedTweetsCount', String(config.settings.mutedQuotes.length))
+  $mutedQuotesCount.textContent = chrome.i18n.getMessage(
+    'mutedTweetsCount',
+    String(config.settings.mutedQuotes.length),
+  )
 
   if (!$mutedQuotesDetails.open) return
 
   while ($mutedQuotes.hasChildNodes()) $mutedQuotes.firstChild.remove()
 
-  config.settings.mutedQuotes.forEach(({user, time, text}, index) => {
+  config.settings.mutedQuotes.forEach(({ user, time, text }, index) => {
     $mutedQuotes.appendChild(
-      h('section', null,
-        h('label', {class: 'button mutedQuote'},
-          h('div', null,
+      h(
+        'section',
+        null,
+        h(
+          'label',
+          { class: 'button mutedQuote' },
+          h(
+            'div',
+            null,
             user,
             ' – ',
-            new Intl.DateTimeFormat([], {dateStyle: 'medium'}).format(new Date(time)),
-            text && h('p', {class: 'mb-0 whitespace-pre-line'}, text),
+            new Intl.DateTimeFormat([], { dateStyle: 'medium' }).format(new Date(time)),
+            text && h('p', { class: 'mb-0 whitespace-pre-line' }, text),
           ),
-          h('button', {
-            type: 'button',
-            onclick: () => {
-              config.settings.mutedQuotes = config.settings.mutedQuotes.filter((_, i) => i != index)
-              set({mutedQuotes: config.settings.mutedQuotes})
-              updateDisplay()
+          h(
+            'button',
+            {
+              type: 'button',
+              onclick: () => {
+                config.settings.mutedQuotes = config.settings.mutedQuotes.filter(
+                  (_, i) => i != index,
+                )
+                set({ mutedQuotes: config.settings.mutedQuotes })
+                updateDisplay()
+              },
             },
-          }, chrome.i18n.getMessage('unmuteButtonText'))
-        )
-      )
+            chrome.i18n.getMessage('unmuteButtonText'),
+          ),
+        ),
+      ),
     )
   })
 }
 
 function updateFormControls() {
-  for (let key of INTERNAL_CONFIG_FORM_KEYSET) {
+  for (const key of INTERNAL_CONFIG_FORM_KEYSET) {
     if (key in $form.elements) {
       updateFormControl($form.elements[key], config[key])
     }
   }
-  for (let key of Object.keys(config.settings)) {
+  for (const key of Object.keys(config.settings)) {
     if (key in $form.elements) {
       updateFormControl($form.elements[key], config.settings[key])
     }
@@ -981,29 +1051,29 @@ function updateFormControls() {
 function updateFormControl($control, value) {
   if ($control instanceof RadioNodeList) {
     // If a checkbox displays in multiple sections, update them all
-    $control.forEach(input => /** @type {HTMLInputElement} */ (input).checked = value)
-  }
-  else if ($control.type == 'checkbox') {
+    $control.forEach((input) => {
+      /** @type {HTMLInputElement} */
+      input.checked = value
+    })
+  } else if ($control.type == 'checkbox') {
     $control.checked = value
-  }
-  else {
+  } else {
     $control.value = value
   }
 }
 
 function updateTabsDisplay() {
-  let selectedTabIndex = $tabs.findIndex($tab => $tab.getAttribute('data-tab') == config.tab)
+  const selectedTabIndex = $tabs.findIndex(($tab) => $tab.getAttribute('data-tab') == config.tab)
   $tablist.style.setProperty('--selected-tab-index', String(selectedTabIndex))
-  for (let $tab of $tabs) {
+  for (const $tab of $tabs) {
     $tab.setAttribute('aria-selected', String($tab.getAttribute('data-tab') == config.tab))
   }
-  for (let $panel of $panels) {
+  for (const $panel of $panels) {
     $panel.style.display = config.tab == $panel.getAttribute('data-tab') ? 'block' : 'none'
   }
   if (config.tab == 'features') {
     autoResize($customCss)
-  }
-  else if (config.tab == 'pro') {
+  } else if (config.tab == 'pro') {
     autoResize($mutedWords)
   }
 }
@@ -1024,9 +1094,8 @@ export function validateSettingsJson(json) {
     return { messages: [chrome.i18n.getMessage('noSettingsObject')], settings: null }
   }
 
-  const version = typeof input.version == 'string'
-    ? input.version
-    : chrome.runtime.getManifest().version
+  const version =
+    typeof input.version == 'string' ? input.version : chrome.runtime.getManifest().version
   const schema = getSchemaForVersion(schemas, version) || schemas.at(-1)[1]
   const { settings, invalid, unknown } = validateSettings(input.settings, schema)
 
@@ -1043,14 +1112,14 @@ export function validateSettingsJson(json) {
 //#region Main
 async function main() {
   /** @type {Partial<import("./types").StoredConfig>} */
-  let {settings: storedSettings = {}, ...storedConfig} = await get()
+  const { settings: storedSettings = {}, ...storedConfig } = await get()
   config = {
     ...defaultConfig,
     ...storedConfig,
-    settings: {...DEFAULT_SETTINGS, ...storedSettings}
+    settings: { ...DEFAULT_SETTINGS, ...storedSettings },
   }
 
-  for (let $label of $collapsibleLabels) {
+  for (const $label of $collapsibleLabels) {
     $label.addEventListener('click', onToggleCollapse)
   }
   $customCss.addEventListener('input', () => autoResize($customCss))
@@ -1066,8 +1135,8 @@ async function main() {
   })
   $customThemeInput.addEventListener('input', onCustomThemeInput)
   $displaySettingsLink.addEventListener('click', () => {
-    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-      chrome.tabs.update(tabs[0].id, {url: $displaySettingsLink.href})
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      chrome.tabs.update(tabs[0].id, { url: $displaySettingsLink.href })
     })
   })
   $fileInput.addEventListener('change', importSettings)
@@ -1087,38 +1156,47 @@ async function main() {
   $mutedWords.addEventListener('input', onMutedWordsInput)
   $proButton.addEventListener('click', (e) => {
     e.preventDefault()
-    chrome.runtime.sendMessage({type: 'open_pro_window'})
+    chrome.runtime.sendMessage({ type: 'open_pro_window' })
   })
   $saveCustomCssButton.addEventListener('click', saveCustomCss)
-  for (let $tab of $tabs) {
+  for (const $tab of $tabs) {
     $tab.addEventListener('click', onTabClick)
   }
   if (config.settings.mutedWordsError) {
     showMutedWordsError(validateMuteRegExps(config.settings.mutedWords))
   }
 
-  let tabsResizeObserver = new ResizeObserver((entries) => {
-    for (let entry of entries) {
+  const tabsResizeObserver = new ResizeObserver((entries) => {
+    for (const entry of entries) {
       tabsHeight = entry.contentRect.height
-      $body.style.setProperty('--tabs-height', `${tabsHeight}px`);
+      $body.style.setProperty('--tabs-height', `${tabsHeight}px`)
       stickyObserver?.disconnect()
-      stickyObserver = new IntersectionObserver((entries) => {
-        for (let entry of entries) {
-          let $sentinel =/** @type {HTMLElement} */ (entry.target)
-          // Ignore hidden sentinels
-          if ($sentinel.offsetParent == null) continue
-          let $label = $sentinel.closest('section.labelled').querySelector('label')
-          if ($sentinel.classList.contains('top')) {
-            $label.classList.toggle('stuck', !entry.isIntersecting && entry.boundingClientRect.top < tabsHeight)
+      stickyObserver = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            const $sentinel = /** @type {HTMLElement} */ (entry.target)
+            // Ignore hidden sentinels
+            if ($sentinel.offsetParent == null) continue
+            const $label = $sentinel.closest('section.labelled').querySelector('label')
+            if ($sentinel.classList.contains('top')) {
+              $label.classList.toggle(
+                'stuck',
+                !entry.isIntersecting && entry.boundingClientRect.top < tabsHeight,
+              )
+            }
+            if ($sentinel.classList.contains('bottom')) {
+              $label.classList.toggle(
+                'unstick',
+                !entry.isIntersecting && entry.boundingClientRect.top < tabsHeight,
+              )
+            }
           }
-          if ($sentinel.classList.contains('bottom')) {
-            $label.classList.toggle('unstick', !entry.isIntersecting && entry.boundingClientRect.top < tabsHeight)
-          }
-        }
-      }, {
-        rootMargin: `-${tabsHeight}px 0px 0px 0px`,
-      })
-      for (let $sentinel of $stickySentinels) {
+        },
+        {
+          rootMargin: `-${tabsHeight}px 0px 0px 0px`,
+        },
+      )
+      for (const $sentinel of $stickySentinels) {
         stickyObserver.observe($sentinel)
       }
     }

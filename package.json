@@ -1,19 +1,21 @@
 {
   "scripts": {
-    "create-browser-action": "node ./scripts/create-browser-action.js",
+    "create-browser-action": "node ./scripts/create-browser-action.mjs",
     "watch-options-html": "npx -y chokidar-cli options.html -c \"npm run create-browser-action\" --initial",
     "create-store-description": "node ./scripts/create-store-description.mjs",
+    "check": "biome check && npm run typecheck",
+    "check:fix": "biome check --write",
     "typecheck": "npx --yes -p typescript tsc -p jsconfig.json --noEmit && npx --yes -p typescript tsc -p scripts/jsconfig.json --noEmit",
-    "release": "node ./scripts/release.js",
+    "release": "node ./scripts/release.mjs",
     "prebuild": "npm run create-browser-action",
-    "build": "node ./scripts/build.js",
-    "build-mv2": "node ./scripts/build.js 2",
-    "build-mv3": "node ./scripts/build.js 3",
-    "clean": "node ./scripts/clean.js",
+    "build": "node ./scripts/build.mjs",
+    "build-mv2": "node ./scripts/build.mjs 2",
+    "build-mv3": "node ./scripts/build.mjs 3",
+    "clean": "node ./scripts/clean.mjs",
     "lint-mv2": "npm run copy-mv2 && web-ext lint && npm run clean",
     "lint-mv3": "npm run copy-mv3 && web-ext lint && npm run clean",
-    "copy-mv2": "node ./scripts/copy.js 2",
-    "copy-mv3": "node ./scripts/copy.js 3",
+    "copy-mv2": "node ./scripts/copy.mjs 2",
+    "copy-mv3": "node ./scripts/copy.mjs 3",
     "start": "npm run firefox",
     "prefirefox": "npm run create-browser-action && npm run copy-mv2",
     "firefox": "web-ext run --start-url https://twitter.com",
@@ -29,6 +31,7 @@
   "webExt": {
     "ignoreFiles": [
       "README.md",
+      "biome.json",
       "icons/chrome-web-store-icon.png",
       "icons/icon.svg",
       "icons/icon256.png",
@@ -50,6 +53,7 @@
     ]
   },
   "devDependencies": {
+    "@biomejs/biome": "2.4.15",
     "@types/chrome": "0.1.x",
     "@types/node": "25.x",
     "clipboardy": "5.x",

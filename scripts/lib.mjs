@@ -1,16 +1,16 @@
-const fs = require('fs')
+import fs from 'node:fs'
 
 /**
  * @param {{dryRun?: boolean}} [options]
  */
-function clean(options = {}) {
-  let {dryRun = false} = options
-  let mvFileRegExp = /\.mv[23]\./
+export function clean(options = {}) {
+  const { dryRun = false } = options
+  const mvFileRegExp = /\.mv[23]\./
 
-  for (let file of fs.readdirSync('.', {withFileTypes: true})) {
+  for (const file of fs.readdirSync('.', { withFileTypes: true })) {
     if (file.isDirectory() || !mvFileRegExp.test(file.name)) continue
 
-    let copiedFile = file.name.replace(mvFileRegExp, '.')
+    const copiedFile = file.name.replace(mvFileRegExp, '.')
     if (fs.existsSync(copiedFile)) {
       if (!dryRun) {
         fs.rmSync(copiedFile)
@@ -24,20 +24,19 @@ function clean(options = {}) {
  * @param {import('./types').ManifestVersion} manifestVersion
  * @param {{dryRun?: boolean, local?: boolean}} [options]
  */
-function copy(manifestVersion, options = {}) {
-  let {dryRun = false, local = false} = options
-  let mvFileRegExp =  new RegExp(`\\.mv${manifestVersion}\\.`)
+export function copy(manifestVersion, options = {}) {
+  const { dryRun = false, local = false } = options
+  const mvFileRegExp = new RegExp(`\\.mv${manifestVersion}\\.`)
 
-  for (let file of fs.readdirSync('.', {withFileTypes: true})) {
+  for (const file of fs.readdirSync('.', { withFileTypes: true })) {
     if (file.isDirectory() || !mvFileRegExp.test(file.name)) continue
 
-    let copyTo = file.name.replace(mvFileRegExp, '.')
+    const copyTo = file.name.replace(mvFileRegExp, '.')
     if (!dryRun) {
       if (local && copyTo == 'manifest.json') {
-        let manifest = fs.readFileSync(file.name, 'utf8').replaceAll(
-          '"https://pro.soitis.dev/*"',
-          '"http://localhost/*", $&'
-        )
+        const manifest = fs
+          .readFileSync(file.name, 'utf8')
+          .replaceAll('"https://pro.soitis.dev/*"', '"http://localhost/*", $&')
         fs.writeFileSync(copyTo, manifest, 'utf8')
       } else {
         fs.copyFileSync(file.name, copyTo)
@@ -50,18 +49,12 @@ function copy(manifestVersion, options = {}) {
 /**
  * @param {Record<string, any>} obj
  */
-function sortProperties(obj) {
-  let entries = Object.entries(obj)
+export function sortProperties(obj) {
+  const entries = Object.entries(obj)
   entries.sort(([a], [b]) => {
     if (a < b) return -1
     if (a > b) return 1
     return 0
   })
   return Object.fromEntries(entries)
-}
-
-module.exports = {
-  clean,
-  copy,
-  sortProperties,
 }

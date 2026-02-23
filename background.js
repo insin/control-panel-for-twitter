@@ -1,7 +1,7 @@
 import { crossesVersionThreshold } from './ext-shared.js'
 import { runSettingsMigrations } from './migrations.js'
-import { SERVER_ORIGIN, get, set } from './settings.js'
-import { initSettingsSync, startSync } from './settings-background.js';
+import { get, SERVER_ORIGIN, set } from './settings.js'
+import { initSettingsSync, startSync } from './settings-background.js'
 
 //#region Constants
 const DISABLED_ICONS = {
@@ -27,44 +27,41 @@ const IS_SAFARI = location.protocol.startsWith('safari-web-extension:')
 
 //#region Functions
 function updateToolbarIcon(enabled) {
-  let title = chrome.i18n.getMessage(enabled ? 'extensionName' : 'extensionNameDisabled')
+  const title = chrome.i18n.getMessage(enabled ? 'extensionName' : 'extensionNameDisabled')
   if (chrome.runtime.getManifest().manifest_version == 3) {
-    chrome.action.setTitle({title})
+    chrome.action.setTitle({ title })
     if (!IS_SAFARI) {
-      chrome.action.setIcon({path: enabled ? ENABLED_ICONS : DISABLED_ICONS})
+      chrome.action.setIcon({ path: enabled ? ENABLED_ICONS : DISABLED_ICONS })
     } else {
-      chrome.action.setBadgeText({text: enabled ? '' : '⏻'})
+      chrome.action.setBadgeText({ text: enabled ? '' : '⏻' })
     }
   } else {
-    chrome.browserAction.setTitle({title})
-    chrome.browserAction.setIcon({path: enabled ? ENABLED_ICONS : DISABLED_ICONS})
+    chrome.browserAction.setTitle({ title })
+    chrome.browserAction.setIcon({ path: enabled ? ENABLED_ICONS : DISABLED_ICONS })
   }
 }
 //#endregion
 
 //#region Main
 async function main() {
-  let current = chrome.runtime.getManifest().version
-  let { extensionVersion, settings } = await get(['extensionVersion', 'settings'])
+  const current = chrome.runtime.getManifest().version
+  const { extensionVersion, settings } = await get(['extensionVersion', 'settings'])
   // `extensionVersion` is new in v5, so an existing `settings` object means
   // this browser has already crossed the top-level-settings migration boundary.
-  let previous = typeof extensionVersion == 'string'
-    ? extensionVersion
-    : settings != null
-      ? current
-      : '0'
+  const previous =
+    typeof extensionVersion == 'string' ? extensionVersion : settings != null ? current : '0'
 
   await runSettingsMigrations(previous, current)
-  await set({extensionVersion: current})
+  await set({ extensionVersion: current })
   await startSync()
 }
 
-initSettingsSync({apiBase: SERVER_ORIGIN})
+initSettingsSync({ apiBase: SERVER_ORIGIN })
 main().catch((error) => {
   console.error('[background]', error)
 })
 
-chrome.storage.local.get({enabled: true}, ({enabled}) => {
+chrome.storage.local.get({ enabled: true }, ({ enabled }) => {
   updateToolbarIcon(enabled)
 })
 
@@ -73,13 +70,12 @@ chrome.runtime.onInstalled.addListener((details) => {
     chrome.tabs.create({
       url: 'https://soitis.dev/control-panel-for-twitter/welcome',
     })
-  }
-  else if (details.reason == 'update') {
-    let previous = details.previousVersion
-    let current = chrome.runtime.getManifest().version
-    let significantVersions = [
-      crossesVersionThreshold(previous, current, '5') && '5',
-    ].filter(Boolean)
+  } else if (details.reason == 'update') {
+    const previous = details.previousVersion
+    const current = chrome.runtime.getManifest().version
+    const significantVersions = [crossesVersionThreshold(previous, current, '5') && '5'].filter(
+      Boolean,
+    )
     if (significantVersions.length > 0) {
       chrome.tabs.create({
         url: `https://soitis.dev/control-panel-for-twitter/updated?version=${significantVersions[0]}`,
