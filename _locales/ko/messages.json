@@ -1,63 +1,87 @@
 {
-  "addAddMutedWordMenuItemLabel_desktop": {
+  "addAddMutedWordMenuItem_desktop": {
     "message": "\"더 보기\" 메뉴에 \"뮤트할 단어 추가하기\" 추가"
   },
-  "addAddMutedWordMenuItemLabel_mobile": {
+  "addAddMutedWordMenuItem_mobile": {
     "message": "슬라이드 메뉴에 \"뮤트할 단어 추가하기\" 추가"
   },
-  "alwaysUseLatestTweetsLabel": {
-    "message": "기본적으로 \"팔로잉\" (시간순) 타임라인 사용"
+  "addFocusedTweetAccountLocation": {
+    "message": "개별 트윗에 계정 위치 표시"
+  },
+  "addUserHoverCardAccountLocation": {
+    "message": "사용자 호버 카드에 계정 위치 표시"
   },
   "appStoreSubtitle": {
     "message": "타임라인을 통제하세요"
   },
-  "customCssLabel": {
+  "backupAndRestoreOptions": {
+    "message": "백업 및 복원"
+  },
+  "bypassAgeVerification": {
+    "message": "성인 인증 우회하기"
+  },
+  "customCss": {
     "message": "사용자 정의 CSS"
+  },
+  "darkModeTheme": {
+    "message": "다크 모드의 테마"
+  },
+  "debug": {
+    "message": "디버그 모드"
   },
   "debugInfo": {
     "message": "디버그 로깅을 활성화하고 타임라인에서 트윗 디버그 정보를 표시합니다"
   },
-  "debugLabel": {
-    "message": "디버그 모드"
+  "debugLogGetElementStats": {
+    "message": "getElement() 통계 로그 기록"
   },
-  "debugLogTimelineStatsLabel": {
+  "debugLogTimelineStats": {
     "message": "타임라인 통계 로깅"
   },
-  "debugOptionsLabel": {
-    "message": "디버그 옵션"
+  "defaultFollowingToRecent": {
+    "message": "팔로잉을 기본적으로 \"최신순\"으로 정렬"
   },
-  "defaultToLatestSearchLabel": {
+  "defaultToFollowing": {
+    "message": "기본적으로 팔로잉 타임라인 사용"
+  },
+  "defaultToLatestSearch": {
     "message": "검색 시 기본적으로 \"최신\" 탭 사용"
+  },
+  "developerOptions": {
+    "message": "개발자"
+  },
+  "disableHomeTimeline": {
+    "message": "홈 타임라인 비활성화"
   },
   "disableHomeTimelineInfo": {
     "message": "트위터에 너무 많은 시간을 낭비하고 있나요? 홈 타임라인 사용을 방지해 보세요"
   },
-  "disableHomeTimelineLabel": {
-    "message": "홈 타임라인 비활성화"
-  },
-  "disableTweetTextFormattingLabel": {
+  "disableTweetTextFormatting": {
     "message": "트윗에서 볼드체 및 이탤릭체 비활성화"
   },
-  "disabledHomeTimelineRedirectLabel": {
+  "disabledHomeTimelineRedirect": {
     "message": "비활성화된 홈 타임라인 리디렉션"
   },
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "쪽지"
   },
-  "dontUseChirpFontLabel": {
+  "dontUseChirpFont": {
     "message": "Chirp 글꼴 사용 안 함"
   },
-  "dropdownMenuFontWeightLabel": {
+  "dropdownMenuFontWeight": {
     "message": "드롭다운 메뉴에서 일반 글꼴 두께 사용"
   },
   "enabled": {
     "message": "활성화됨"
   },
-  "experimentsOptionsLabel": {
+  "experimentsOptions": {
     "message": "실험"
   },
-  "exportConfigLabel": {
-    "message": "버그 보고서를 위한 설정 내보내기"
+  "export": {
+    "message": "내보내기"
+  },
+  "exportSettings": {
+    "message": "설정 내보내기"
   },
   "extensionDescription": {
     "message": "트위터에 대한 더 많은 제어권을 제공하고 기능을 보완하며 UI를 개선합니다"
@@ -71,13 +95,13 @@
   "extensionNameDisabled": {
     "message": "Control Panel for Twitter (비활성화됨)"
   },
-  "fastBlockLabel": {
+  "fastBlock": {
     "message": "빠른 차단 (확인 대화상자 생략)"
   },
   "features": {
     "message": "기능"
   },
-  "followButtonStyleLabel": {
+  "followButtonStyle": {
     "message": "버튼 스타일"
   },
   "followButtonStyleOption_monochrome": {
@@ -86,206 +110,264 @@
   "followButtonStyleOption_themed": {
     "message": "테마별"
   },
+  "fullWidthContent": {
+    "message": "전체 너비 타임라인 콘텐츠"
+  },
   "fullWidthContentInfo": {
     "message": "사이드바를 숨기고 타임라인 콘텐츠를 전체 너비로 표시"
   },
-  "fullWidthContentLabel": {
-    "message": "전체 너비 타임라인 콘텐츠"
-  },
-  "fullWidthMediaLabel": {
+  "fullWidthMedia": {
     "message": "전체 너비 미디어 및 카드"
   },
-  "hideAccountSwitcherLabel": {
+  "hideAccountSwitcher": {
     "message": "계정 전환기"
   },
-  "hideAdsNavLabel": {
+  "hideAdsNav": {
     "message": "광고"
   },
-  "hideAllMetricsLabel": {
+  "hideAllMetrics": {
     "message": "모두 숨기기"
   },
-  "hideBookmarkButtonLabel": {
+  "hideBookmarkButton": {
     "message": "트윗 아래 북마크 버튼 숨기기"
   },
-  "hideBookmarkMetricsLabel": {
+  "hideBookmarkMetrics": {
     "message": "북마크"
   },
-  "hideBookmarksNavLabel": {
+  "hideBookmarksNav": {
     "message": "북마크"
   },
-  "hideCommunitiesNavLabel": {
+  "hideBusinessNav": {
+    "message": "비즈니스"
+  },
+  "hideChatNav": {
+    "message": "채팅"
+  },
+  "hideCommunitiesNav": {
     "message": "커뮤니티"
   },
-  "hideComposeTweetLabel": {
+  "hideComposeTweet": {
     "message": "트윗 작성 버튼 숨기기"
   },
-  "hideDiscoverSuggestionsLabel": {
+  "hideConnectNav": {
+    "message": "팔로우"
+  },
+  "hideCreatorStudioNav": {
+    "message": "크리에이터 스튜디오"
+  },
+  "hideDiscoverSuggestions": {
     "message": "\"발견\" 제안 숨기기"
   },
-  "hideExploreNavLabel": {
+  "hideEditImage": {
+    "message": "이미지 수정하기 숨기기"
+  },
+  "hideExploreNav": {
     "message": "탐색"
   },
-  "hideExploreNavWithSidebarLabel": {
+  "hideExploreNavWithSidebar": {
     "message": "사이드바 숨김 상태에서 표시"
   },
-  "hideExplorePageContentsLabel": {
+  "hideExplorePageContents": {
     "message": "탐색하기 페이지 컨텐츠 숨기기 및 검색에만 사용"
   },
-  "hideFollowingMetricsLabel": {
+  "hideFollowingMenu": {
+    "message": "팔로잉의 \"정렬\" 메뉴 숨기기"
+  },
+  "hideFollowingMetrics": {
     "message": "팔로잉/팔로워"
   },
-  "hideForYouTimelineLabel": {
-    "message": "\"나를 위한 추천\" (알고리즘) 타임라인 숨기기"
+  "hideForYouTimeline": {
+    "message": "\"추천\" 타임라인 숨기기"
   },
   "hideGrok": {
     "message": "Grok 숨기기"
   },
-  "hideGrokLabel": {
-    "message": "Grok 숨기기"
-  },
-  "hideGrokTweetsLabel": {
+  "hideGrokTweets": {
     "message": "Grok 트윗 숨기기"
   },
   "hideInlinePrompts": {
     "message": "타임라인에서 인라인 프롬프트 숨기기"
   },
-  "hideJobsLabel": {
+  "hideJobs": {
     "message": "채용을 숨긴다"
   },
-  "hideLikeMetricsLabel": {
+  "hideLikeMetrics": {
     "message": "좋아요"
   },
-  "hideListsNavLabel": {
+  "hideListRetweets": {
+    "message": "리스트에서 리트윗 숨기기"
+  },
+  "hideListsNav": {
     "message": "리스트"
   },
-  "hideLiveBroadcastBarLabel": {
+  "hideLiveBroadcastBar": {
     "message": "라이브 방송 표시줄 숨기기"
   },
-  "hideLiveBroadcastsLabel": {
+  "hideLiveBroadcasts": {
     "message": "라이브 방송 숨기기"
   },
-  "hideMessagesBottomNavItemLabel": {
+  "hideMessagesBottomNavItem": {
     "message": "메시지"
   },
-  "hideMessagesDrawerLabel": {
-    "message": "메시지 드로어"
+  "hideMessagesDrawer": {
+    "message": "채팅 드로어"
   },
-  "hideMetricsLabel": {
+  "hideMetrics": {
     "message": "지표 숨기기"
   },
-  "hideMonetizationNavLabel": {
-    "message": "수익 창출"
-  },
-  "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
+  "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "사용하지 않는 \"더 보기\" 메뉴 항목숨기기 (데스크톱)"
   },
-  "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
+  "hideMoreSlideOutMenuItemsOptions_mobile": {
     "message": "사용하지 않는 \"더 보기\" 메뉴 항목 숨기기 (모바일)"
   },
-  "hideNotificationsLabel": {
+  "hideNotificationLikes": {
+    "message": "알림에서 좋아요 숨기기"
+  },
+  "hideNotificationRetweets": {
+    "message": "알림에서 리트윗 숨기기"
+  },
+  "hideNotifications": {
     "message": "알림 숨기기"
   },
-  "hideProfileHeaderMetricsLabel": {
-    "message": "프로필 헤더 메트릭"
-  },
-  "hideProfileRetweetsLabel": {
-    "message": "사용자 프로필에서 리트윗 숨기기"
-  },
-  "hideQuoteTweetMetricsLabel": {
-    "message": "인용 트윗"
-  },
-  "hideQuotesFromLabel": {
-    "message": "음소거된 사용자 ($COUNT$)",
-    "placeholders": {
-      "count": {
-        "content": "$1",
-        "example": "1"
-      }
-    }
-  },
-  "hideReplyMetricsLabel": {
-    "message": "답글"
-  },
-  "hideRetweetMetricsLabel": {
-    "message": "리트윗"
-  },
-  "hideSeeNewTweetsLabel": {
-    "message": "\"새 트윗 보기\" 숨기기"
-  },
-  "hideShareTweetButtonLabel": {
-    "message": "트윗 아래 공유 버튼 숨기기"
-  },
-  "hideSidebarContentLabel": {
-    "message": "사이드바 내용 숨기기"
-  },
-  "hideSpacesNavLabel": {
-    "message": "스페이스 만들기"
-  },
-  "hideSubscriptionsLabel": {
-    "message": "구독 숨기기"
-  },
-  "hideSuggestedFollowsLabel": {
-    "message": "추천 팔로우 숨기기"
-  },
-  "hideTimelineTweetBoxLabel": {
-    "message": "타임라인 트윗 상자"
-  },
-  "hideToggleNavigationLabel": {
-    "message": "탐색 전환 숨기기"
-  },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "내 트윗 아래에 \"게시 참여수 조회\""
-  },
-  "hideTwitterBlueRepliesLabel": {
+  "hidePremiumReplies": {
     "message": "Premium 파란색 체크 답장 숨기기"
   },
-  "hideTwitterBlueUpsellsLabel": {
+  "hidePremiumUpsells": {
     "message": "Premium 업셀 숨기기"
   },
-  "hideUnavailableQuoteTweetsLabel": {
-    "message": "차단 및 음소거된 계정에 대한 인용 및 답글 숨기기"
+  "hideProfileHeaderMetrics": {
+    "message": "프로필 헤더 메트릭"
   },
-  "hideUnusedUiItemsOptionsLabel": {
-    "message": "사용하지 않는 UI 항목 숨기기"
+  "hideProfileRetweets": {
+    "message": "사용자 프로필에서 리트윗 숨기기"
   },
-  "hideVerifiedNotificationsTabLabel": {
-    "message": "알림 및 팔로어에 \"인증된\" 탭 숨기기"
+  "hideQuoteTweetMetrics": {
+    "message": "인용 트윗"
   },
-  "hideViewsLabel": {
-    "message": "트윗 아래의 조회수 숨기기"
-  },
-  "hideWhatsHappeningLabel": {
-    "message": "'지금 일어나는 일' 숨기기"
-  },
-  "hideWhoToFollowEtcLabel": {
-    "message": "타임라인에서 \"팔로우 추천\" 등 숨기기"
-  },
-  "homeTimelineOptionsLabel": {
-    "message": "홈 타임라인"
-  },
-  "listRetweetsLabel": {
-    "message": "리스트에 포함된 리트윗"
-  },
-  "mutableQuoteTweetsLabel": {
-    "message": "인용 트윗 음소거 활성화"
-  },
-  "mutedTweetsLabel": {
-    "message": "음소거된 트윗 ($COUNT$개)",
+  "hideQuotesFromCount": {
+    "message": "음소거된 사용자 ($COUNT$)",
     "placeholders": {
-      "count": {
+      "COUNT": {
         "content": "$1",
         "example": "1"
       }
     }
   },
-  "navBaseFontSizeLabel": {
+  "hideReplyMetrics": {
+    "message": "답글"
+  },
+  "hideRetweetMetrics": {
+    "message": "리트윗"
+  },
+  "hideSeeNewTweets": {
+    "message": "\"새 트윗 보기\" 숨기기"
+  },
+  "hideShareTweetButton": {
+    "message": "트윗 아래 공유 버튼 숨기기"
+  },
+  "hideSidebarContent": {
+    "message": "사이드바 내용 숨기기"
+  },
+  "hideSortRepliesMenu": {
+    "message": "\"답글 정렬하기\" 메뉴 숨기기"
+  },
+  "hideSpacesNav": {
+    "message": "스페이스 만들기"
+  },
+  "hideSubscriptions": {
+    "message": "구독 숨기기"
+  },
+  "hideSuggestedContentSearch": {
+    "message": "검색에서 추천 콘텐츠 숨기기"
+  },
+  "hideSuggestedContentTimeline": {
+    "message": "타임라인에서 추천 콘텐츠 숨기기"
+  },
+  "hideSuggestedFollows": {
+    "message": "추천 팔로우 숨기기"
+  },
+  "hideTimelineTweetBox": {
+    "message": "타임라인 트윗 상자"
+  },
+  "hideTodaysNews": {
+    "message": "오늘의 뉴스 숨기기"
+  },
+  "hideToggleNavigation": {
+    "message": "탐색 전환 숨기기"
+  },
+  "hideUnavailableQuoteTweets": {
+    "message": "차단 및 음소거된 계정에 대한 인용 및 답글 숨기기"
+  },
+  "hideUnusedUiItemsOptions": {
+    "message": "사용하지 않는 UI 항목 숨기기"
+  },
+  "hideVerifiedTabs": {
+    "message": "팔로워의 인증된 탭 숨기기"
+  },
+  "hideViewActivityLinks": {
+    "message": "\"활동 보기\" 링크"
+  },
+  "hideViews": {
+    "message": "트윗 아래의 조회수 숨기기"
+  },
+  "hideWhatsHappening": {
+    "message": "'지금 일어나는 일' 숨기기"
+  },
+  "homeTimelineOptions": {
+    "message": "홈 타임라인"
+  },
+  "import": {
+    "message": "가져오기"
+  },
+  "importSettings": {
+    "message": "설정 가져오기"
+  },
+  "invalidJsonFile": {
+    "message": "잘못된 JSON 파일: $ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1"
+      }
+    }
+  },
+  "invalidSettings": {
+    "message": "잘못된 설정: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
+  },
+  "mutableQuoteTweets": {
+    "message": "인용 트윗 음소거 활성화"
+  },
+  "mutedTweetsCount": {
+    "message": "음소거된 트윗 ($COUNT$개)",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "navBaseFontSize": {
     "message": "내비게이션 바에 일반 텍스트 글꼴 스타일 사용"
   },
-  "navDensityLabel": {
+  "navDensity": {
     "message": "네비게이션 밀도"
   },
-  "notificationsLabel": {
+  "noFileSelected": {
+    "message": "선택된 파일 없음"
+  },
+  "noSettingsObject": {
+    "message": "JSON 파일에서 설정 개체를 찾을 수 없습니다"
+  },
+  "notifications": {
     "message": "알림"
+  },
+  "openOptionsPage": {
+    "message": "옵션 페이지 열기"
   },
   "option_badges": {
     "message": "배지만 숨기기"
@@ -299,17 +381,29 @@
   "option_default": {
     "message": "기본"
   },
+  "option_dim": {
+    "message": "어둡게"
+  },
   "option_hide": {
     "message": "숨기기"
   },
   "option_ignore": {
     "message": "아무것도 하지 않음"
   },
+  "option_lightsOut": {
+    "message": "완전히 어둡게"
+  },
   "option_liked": {
     "message": "마음에 들어요"
   },
+  "option_mostRecent": {
+    "message": "최신 순서"
+  },
+  "option_popular": {
+    "message": "인기"
+  },
   "option_recent": {
-    "message": "최신"
+    "message": "최근"
   },
   "option_relevant": {
     "message": "관련성"
@@ -317,120 +411,146 @@
   "option_separate": {
     "message": "별도의 탭에 표시"
   },
+  "optionsPageImportSettingsNote": {
+    "message": "옵션 페이지를 사용하여 설정을 가져옵니다"
+  },
+  "premiumBlueChecks": {
+    "message": "Premium 파란색 체크"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "Twitter Blue 로고로 교체"
+  },
+  "preventNextVideoAutoplay": {
+    "message": "다음 비디오 자동 재생 방지"
+  },
   "preventNextVideoAutoplayInfo": {
     "message": "비디오는 반복 재생됩니다"
   },
-  "preventNextVideoAutoplayLabel": {
-    "message": "다음 비디오 자동 재생 방지"
-  },
-  "quoteTweetsLabel": {
+  "quoteTweets": {
     "message": "인용 트윗"
   },
-  "redirectToTwitterLabel": {
+  "redirectChatNav": {
+    "message": "채팅 탐색 항목을 메시지로 리디렉션"
+  },
+  "redirectToTwitter": {
     "message": "twitter.com으로 리디렉션"
   },
-  "reduceAlgorithmicContentOptionsLabel": {
+  "reduceAlgorithmicContentOptions": {
     "message": "알고리즘 컨텐츠 제거"
   },
-  "reduceEngagementOptionsLabel": {
+  "reduceEngagementOptions": {
     "message": "\"참여\" 줄이기"
+  },
+  "reducedInteractionMode": {
+    "message": "상호작용 줄임 모드"
   },
   "reducedInteractionModeInfo": {
     "message": "트윗 아래의 작업 표시줄을 숨김 - 답글이 상호작용의 유일한 수단이 됨"
   },
-  "reducedInteractionModeLabel": {
-    "message": "상호작용 줄임 모드"
-  },
-  "replaceLogoLabel": {
-    "message": "X 브랜딩 변경 사항 바꾸기"
-  },
-  "restoreLinkHeadlinesLabel": {
+  "restoreLinkHeadlines": {
     "message": "외부 링크 아래의 제목 복원"
   },
-  "restoreOtherInteractionLinksLabel": {
+  "restoreOtherInteractionLinks": {
     "message": "트윗 아래의 다른 링크 복원"
   },
-  "restoreQuoteTweetsLinkLabel": {
+  "restoreQuoteTweetsLink": {
     "message": "트윗 아래의 \"트윗 인용\" 링크 복원"
   },
-  "restoreTweetSourceLabel": {
+  "restoreTweetSource": {
     "message": "트윗 출처 라벨 복원"
   },
-  "retweetsLabel": {
+  "retweets": {
     "message": "리트윗"
   },
-  "saveAndApplyButton": {
+  "revertXBranding": {
+    "message": "X 브랜딩 변경 되돌리기"
+  },
+  "saveAndApply": {
     "message": "저장하고 적용"
   },
-  "sharedTweetsOptionsLabel": {
+  "settings": {
+    "message": "설정"
+  },
+  "settingsImported": {
+    "message": "설정을 가져왔습니다"
+  },
+  "settingsNotImported": {
+    "message": "설정을 가져오지 못했습니다"
+  },
+  "sharedTweetsOptions": {
     "message": "다른 사용자가 공유한 트윗"
   },
-  "showBlueReplyFollowersCountAmountLabel": {
-    "message": "팔로워 수"
+  "showBookmarkButtonUnderFocusedTweets": {
+    "message": "집중된 트윗 아래에 표시"
   },
-  "showBlueReplyFollowersCountLabel": {
+  "showPremiumReplyBusiness": {
+    "message": "인증된 비즈니스 계정 표시"
+  },
+  "showPremiumReplyFollowedBy": {
+    "message": "나를 팔로우하는 계정 표시"
+  },
+  "showPremiumReplyFollowersCount": {
     "message": "팔로워 수가 $AMOUNT$명을 초과하는 계정 표시",
     "placeholders": {
-      "amount": {
+      "AMOUNT": {
         "content": "$1"
       }
     }
   },
-  "showBookmarkButtonUnderFocusedTweetsLabel": {
-    "message": "집중된 트윗 아래에 표시"
+  "showPremiumReplyFollowersCountAmount": {
+    "message": "팔로워 수"
   },
-  "showPremiumReplyBusinessLabel": {
-    "message": "인증된 비즈니스 계정 표시"
-  },
-  "showPremiumReplyFollowedByLabel": {
-    "message": "나를 팔로우하는 계정 표시"
-  },
-  "showPremiumReplyFollowingLabel": {
+  "showPremiumReplyFollowing": {
     "message": "내가 팔로우하는 계정 표시"
   },
-  "showPremiumReplyGovernmentLabel": {
+  "showPremiumReplyGovernment": {
     "message": "인증된 정부 계정 표시"
   },
-  "showRelevantPeopleLabel": {
+  "showRelevantPeople": {
     "message": "트윗 보기 시 \"연관된 사람\" 표시"
   },
-  "sidebarLabel": {
+  "sidebar": {
     "message": "사이드바"
   },
-  "sortRepliesLabel": {
+  "sortReplies": {
     "message": "답글의 기본 정렬"
+  },
+  "sortRepliesInfo": {
+    "message": "X의 버그로 인해 '마음에 들어요' 순으로 정렬하면 답글 순서가 깨집니다"
+  },
+  "tweakNewLayout": {
+    "message": "새 레이아웃 조정"
   },
   "tweakNewLayoutInfo": {
     "message": "실험적 기능 - 새 레이아웃이 있는 경우에만 활성화하세요"
   },
-  "tweakNewLayoutLabel": {
-    "message": "새 레이아웃 조정"
-  },
-  "tweakQuoteTweetsPageLabel": {
+  "tweakQuoteTweetsPage": {
     "message": "인용 트윗을 볼 때 인용된 트윗 숨기기"
   },
-  "twitterBlueChecksLabel": {
-    "message": "Premium 파란색 체크"
-  },
-  "twitterBlueChecksOption_replace": {
-    "message": "Twitter Blue 로고로 교체"
-  },
-  "uiImprovementsOptionsLabel": {
+  "uiImprovementsOptions": {
     "message": "UI 개선"
   },
-  "uiTweaksOptionsLabel": {
+  "uiTweaksOptions": {
     "message": "UI 조정"
   },
-  "unblurSensitiveContentLabel": {
+  "unblurSensitiveContent": {
     "message": "민감한 콘텐츠 흐리게 처리 해제"
   },
-  "uninvertFollowButtonsLabel": {
+  "uninvertFollowButtons": {
     "message": "팔로우/팔로잉 버튼 색상 반전 해제"
+  },
+  "unknownSettings": {
+    "message": "알 수 없는 설정: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
   },
   "unmuteButtonText": {
     "message": "음소거 해제"
   },
-  "xFixesLabel": {
+  "xFixesOptions": {
     "message": "X 수정 사항"
   }
 }

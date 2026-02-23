@@ -6,11 +6,10 @@ const manifestPaths = ['./manifest.mv2.json', './manifest.mv3.json', './Safari/S
 const optionsJsPath = './options.js'
 const optionsHtmlPath = './options.html'
 const safariProjectPath = './Safari/Control Panel for Twitter.xcodeproj/project.pbxproj'
-const scriptPath = './script.js'
 
 let releaseType = process.argv[2]
 
-if (!releaseType) {
+if (releaseType != 'patch' && releaseType != 'minor' && releaseType != 'major') {
   console.log(`
 Usage:
   npm run release (patch|minor|major)
@@ -49,13 +48,6 @@ fs.writeFileSync(
   fs.readFileSync(safariProjectPath, {encoding: 'utf8'})
     .replace(/CURRENT_PROJECT_VERSION = (\d+)/g, (_, current) => `CURRENT_PROJECT_VERSION = ${Number(current) + 1}`)
     .replace(/MARKETING_VERSION = [^;]+/g, `MARKETING_VERSION = ${nextVersion}`),
-  {encoding: 'utf8'}
-)
-
-fs.writeFileSync(
-  scriptPath,
-  fs.readFileSync(scriptPath, {encoding: 'utf8'})
-    .replace(/@version     (\d+)/g, (_, current) => `@version     ${Number(current) + 1}`),
   {encoding: 'utf8'}
 )
 

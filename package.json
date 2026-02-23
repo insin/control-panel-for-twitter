@@ -1,16 +1,18 @@
 {
   "scripts": {
     "create-browser-action": "node ./scripts/create-browser-action.js",
+    "watch-options-html": "npx -y chokidar-cli options.html -c \"npm run create-browser-action\" --initial",
     "create-store-description": "node ./scripts/create-store-description.mjs",
     "release": "node ./scripts/release.js",
     "prebuild": "npm run create-browser-action",
     "build": "node ./scripts/build.js",
     "build-mv2": "node ./scripts/build.js 2",
     "build-mv3": "node ./scripts/build.js 3",
-    "lint-mv2": "npm run copy-mv2 && web-ext lint",
-    "lint-mv3": "npm run copy-mv3 && web-ext lint",
-    "copy-mv2": "node ./scripts/copy.js manifest.mv2.json manifest.json",
-    "copy-mv3": "node ./scripts/copy.js manifest.mv3.json manifest.json",
+    "clean": "node ./scripts/clean.js",
+    "lint-mv2": "npm run copy-mv2 && web-ext lint && npm run clean",
+    "lint-mv3": "npm run copy-mv3 && web-ext lint && npm run clean",
+    "copy-mv2": "node ./scripts/copy.js 2",
+    "copy-mv3": "node ./scripts/copy.js 3",
     "start": "npm run firefox",
     "prefirefox": "npm run create-browser-action && npm run copy-mv2",
     "firefox": "web-ext run --start-url https://twitter.com",
@@ -25,8 +27,6 @@
   },
   "webExt": {
     "ignoreFiles": [
-      "CONTRIBUTING.md",
-      "PRIVACY_POLICY.md",
       "README.md",
       "icons/chrome-web-store-icon.png",
       "icons/icon.svg",
@@ -43,7 +43,8 @@
       "safari/",
       "screenshots/",
       "scripts/",
-      "types.d.ts"
+      "types.d.ts",
+      "wip/"
     ]
   },
   "devDependencies": {

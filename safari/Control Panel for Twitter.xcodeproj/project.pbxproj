@@ -63,6 +63,10 @@
 		A598E1D7297B467D00BF2F25 /* browser_action.html in Resources */ = {isa = PBXBuildFile; fileRef = A598E1D5297B467D00BF2F25 /* browser_action.html */; };
 		A598E1D9297B46C300BF2F25 /* options.css in Resources */ = {isa = PBXBuildFile; fileRef = A598E1D8297B46C300BF2F25 /* options.css */; };
 		A598E1DA297B46C300BF2F25 /* options.css in Resources */ = {isa = PBXBuildFile; fileRef = A598E1D8297B46C300BF2F25 /* options.css */; };
+		FB191D7E2E52C40A00FB6F20 /* settings.js in Resources */ = {isa = PBXBuildFile; fileRef = FB191D7C2E52C40A00FB6F20 /* settings.js */; };
+		FB191D7F2E52C40A00FB6F20 /* storage.js in Resources */ = {isa = PBXBuildFile; fileRef = FB191D7D2E52C40A00FB6F20 /* storage.js */; };
+		FB191D802E52C40A00FB6F20 /* settings.js in Resources */ = {isa = PBXBuildFile; fileRef = FB191D7C2E52C40A00FB6F20 /* settings.js */; };
+		FB191D812E52C40A00FB6F20 /* storage.js in Resources */ = {isa = PBXBuildFile; fileRef = FB191D7D2E52C40A00FB6F20 /* storage.js */; };
 		FB38F985298CF4DA00F9AA54 /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = FB38F984298CF4DA00F9AA54 /* script.js */; };
 		FB38F986298CF4DA00F9AA54 /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = FB38F984298CF4DA00F9AA54 /* script.js */; };
 		FB5703372983C50800E44D21 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = FB5703362983C50800E44D21 /* _locales */; };
@@ -155,6 +159,8 @@
 		A598E1BE297B444700BF2F25 /* toolbar-icon72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolbar-icon72.png"; path = "../../../icons/toolbar-icon72.png"; sourceTree = "<group>"; };
 		A598E1D5297B467D00BF2F25 /* browser_action.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = browser_action.html; path = ../../../browser_action.html; sourceTree = "<group>"; };
 		A598E1D8297B46C300BF2F25 /* options.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = options.css; path = ../../../options.css; sourceTree = "<group>"; };
+		FB191D7C2E52C40A00FB6F20 /* settings.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = settings.js; path = ../../../settings.js; sourceTree = "<group>"; };
+		FB191D7D2E52C40A00FB6F20 /* storage.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = storage.js; path = ../../../storage.js; sourceTree = "<group>"; };
 		FB38F984298CF4DA00F9AA54 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = script.js; path = ../../../script.js; sourceTree = "<group>"; };
 		FB5703362983C50800E44D21 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _locales; path = ../../../_locales; sourceTree = "<group>"; };
 		FBB23FE22DE93E27007886FC /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../../background.js; sourceTree = "<group>"; };
@@ -254,6 +260,8 @@
 				A598E1AB297B441300BF2F25 /* options.js */,
 				FBB23FE52DE96642007886FC /* options-icon.png */,
 				FB38F984298CF4DA00F9AA54 /* script.js */,
+				FB191D7C2E52C40A00FB6F20 /* settings.js */,
+				FB191D7D2E52C40A00FB6F20 /* storage.js */,
 				A598E1BD297B444700BF2F25 /* toolbar-icon16.png */,
 				A598E1BA297B444700BF2F25 /* toolbar-icon19.png */,
 				A598E1BC297B444700BF2F25 /* toolbar-icon32.png */,
@@ -397,7 +405,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1630;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					A598E14A297B3E9300BF2F25 = {
 						CreatedOnToolsVersion = 14.2;
@@ -467,6 +475,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A598E1CB297B444700BF2F25 /* toolbar-icon19.png in Resources */,
+				FB191D7E2E52C40A00FB6F20 /* settings.js in Resources */,
+				FB191D7F2E52C40A00FB6F20 /* storage.js in Resources */,
 				FBB23FE72DE96642007886FC /* options-icon.png in Resources */,
 				A598E1C7297B444700BF2F25 /* icon256.png in Resources */,
 				A598E1D9297B46C300BF2F25 /* options.css in Resources */,
@@ -495,6 +505,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A598E1CC297B444700BF2F25 /* toolbar-icon19.png in Resources */,
+				FB191D802E52C40A00FB6F20 /* settings.js in Resources */,
+				FB191D812E52C40A00FB6F20 /* storage.js in Resources */,
 				FBB23FE62DE96642007886FC /* options-icon.png in Resources */,
 				A598E1C8297B444700BF2F25 /* icon256.png in Resources */,
 				A598E1DA297B46C300BF2F25 /* options.css in Resources */,
@@ -611,6 +623,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -661,7 +674,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 4.12.1;
+				MARKETING_VERSION = 4.99.9;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -674,6 +687,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -718,7 +732,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 4.12.1;
+				MARKETING_VERSION = 4.99.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
