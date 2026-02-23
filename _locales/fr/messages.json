@@ -23,6 +23,12 @@
   "customCss": {
     "message": "CSS personnalisé"
   },
+  "customTheme": {
+    "message": "Couleur de thème personnalisée"
+  },
+  "customThemeInfo": {
+    "message": "Choisissez une couleur personnalisée sur votre page de <a>Paramètres d'Affichage</a>"
+  },
   "darkModeTheme": {
     "message": "Thème du mode sombre"
   },
@@ -351,6 +357,12 @@
       }
     }
   },
+  "mutedWords": {
+    "message": "Masquer les mots n'importe où"
+  },
+  "mutedWordsInfo": {
+    "message": "Masquer les Tweets contenant des mots, expressions ou motifs spécifiques - un par ligne"
+  },
   "navBaseFontSize": {
     "message": "Utiliser la police d'écriture normale dans la barre de navigation"
   },
@@ -523,6 +535,9 @@
   },
   "stickyHeadings": {
     "message": "Titres fixes"
+  },
+  "syncSettings": {
+    "message": "Synchroniser les paramètres dans ce navigateur"
   },
   "tweakNewLayout": {
     "message": "Ajuster la nouvelle mise en page"

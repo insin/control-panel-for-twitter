@@ -23,6 +23,12 @@
   "customCss": {
     "message": "自定义 CSS"
   },
+  "customTheme": {
+    "message": "自定义主题颜色"
+  },
+  "customThemeInfo": {
+    "message": "在您的<a>显示设置</a>页面中选择自定义颜色"
+  },
   "darkModeTheme": {
     "message": "深色模式主题"
   },
@@ -360,6 +366,12 @@
       }
     }
   },
+  "mutedWords": {
+    "message": "随处屏蔽词语"
+  },
+  "mutedWordsInfo": {
+    "message": "隐藏包含特定词语、短语或模式的推文 - 每行一个"
+  },
   "navBaseFontSize": {
     "message": "在导航栏中使用正常的文本字体样式"
   },
@@ -532,6 +544,9 @@
   },
   "stickyHeadings": {
     "message": "固定标题"
+  },
+  "syncSettings": {
+    "message": "在此浏览器中同步设置"
   },
   "tweakNewLayout": {
     "message": "调整新布局"

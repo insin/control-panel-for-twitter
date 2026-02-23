@@ -5,6 +5,10 @@ void function() {
  * @type {import("./types").UserSettings}
  */
 const DEFAULT_SETTINGS = {
+  // Pro
+  customTheme: '',
+  mutedWords: '',
+  mutedWordsError: false,
   // Shared
   addAddMutedWordMenuItem: true,
   addFocusedTweetAccountLocation: false,
@@ -2189,6 +2193,23 @@ const ModalPaths = {
   GIF_SEARCH: '/i/foundmedia/search',
 }
 
+/** @enum {RegExp} */
+const RegExps = {
+  LINE_BREAKS: /[\n\r\v\f\u2028\u2029]+/,
+  PUNCTUATION: /\p{P}+/u,
+  PUNCTUATION_OR_SPACE: /(?:\p{P}|\s)+?/u,
+  REGEXP: /^\/(.*)\/$/,
+  WILDCARD: /(?<!\\)\*/,
+  WORD_BOUNDARIES: /[\s\n\r\v\f\u2028\u2029]+?/,
+}
+
+/** @enum {RegExp} */
+const ReplaceRegExps = {
+  ESCAPE: /[.*+?^${}()|[\]\\]/g,
+  ESCAPED_ASTERISK: /\\\*/g,
+  LEADING_TRAILING_PUNCTUATION: /(?:^\p{P}+|\p{P}+$)/gu,
+}
+
 /** @enum {string} */
 const Selectors = {
   BLOCK_MENU_ITEM: '[data-testid="block"]',
@@ -2319,6 +2340,7 @@ const COMPOSE_TWEET_MODAL_PAGES = new Set([
 ])
 // <body> pseudo-selector for pages the full-width content feature works on
 const FULL_WIDTH_BODY_PSEUDO = ':is(.Community, .List, .HomeTimeline)'
+const MUTE_SPLIT_LANGUAGE_EXCEPTIONS = new Set('ja,ko,th,vi,zh,zh-Hant'.split(','))
 // Matches any notification count at the start of the title
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 // The Communities nav item takes you to /yourusername/communities
@@ -2347,10 +2369,11 @@ const TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR = '.tva-download-icon, .tva-modal-dow
 //#endregion
 
 //#region State
-let enabled = true
 let debug = false
 let debugLogGetElementStats = false
 let debugLogTimelineStats = false
+let enabled = true
+let pro = false
 /** @type {import("./types").UserSettings} */
 let settings
 
@@ -2440,6 +2463,9 @@ let logObserverDisconnects = true
  */
 let modalObservers = new Map()
 
+/** @type {import("./types").MutedWord[]} */
+let mutedWords = null
+
 /**
  * The current "Color" setting.
  * @type {string}
@@ -2492,6 +2518,36 @@ let separatedTweetsTimelineTitle = null
  */
 let themeColor = nativeThemeColor
 
+/**
+ * React Native stylesheet selectors for rules which apply theme colours.
+ */
+let themeSelectors = {
+  primary: {
+    background: new Set(),
+    border: new Set(),
+    color: new Set(),
+  },
+  accent: {
+    background: new Set(),
+  },
+  hover: {
+    background: new Set(),
+  },
+  get count() {
+    return (
+      this.primary.background.size + this.primary.border.size + this.primary.color.size  +
+      this.accent.background.size + this.hover.background.size
+    )
+  },
+  reset() {
+    this.primary.background.clear()
+    this.primary.border.clear()
+    this.primary.color.clear()
+    this.accent.background.clear()
+    this.hover.background.clear()
+  }
+}
+
 /** `true` if the user has used the Following "Sort by" menu */
 let userSortedFollowing = false
 
@@ -2505,6 +2561,49 @@ let wasForYouTabSelected = false
 
 /** @type {HTMLElement} */
 let $desktopComposeTweetModalPopup = null
+
+function prepareMutedWords() {
+  mutedWords = null
+  if (!pro || !settings.mutedWords || settings.mutedWordsError) {
+    return
+  }
+  mutedWords = []
+  let words = settings.mutedWords
+    .toLowerCase()
+    .split(RegExps.LINE_BREAKS)
+    .map(word => word.trim())
+    .filter(Boolean)
+  for (let mutedWord of words) {
+    let regexpMatch = mutedWord.match(RegExps.REGEXP)
+    if (regexpMatch) {
+      mutedWords.push({
+        type: 'REGEXP',
+        mutedWord: new RegExp(regexpMatch[1], 'i')
+      })
+      continue
+    }
+
+    let wildcard = RegExps.WILDCARD.test(mutedWord)
+    if (wildcard) {
+      mutedWords.push({
+        type: 'WILDCARD',
+        mutedWord: new RegExp(
+          mutedWord
+            .split(RegExps.WILDCARD)
+            .map(part =>
+              part.replace(ReplaceRegExps.ESCAPED_ASTERISK, '*')
+                  .replace(ReplaceRegExps.ESCAPE, '\\$&'))
+            .join('.*?'),
+          'i'
+        )
+      })
+      continue
+    }
+
+    let phrase = RegExps.PUNCTUATION_OR_SPACE.test(mutedWord)
+    mutedWords.push({type: phrase ? 'PHRASE' : 'WORD', mutedWord})
+  }
+}
 //#endregion
 
 function log(...args) {
@@ -2784,6 +2883,65 @@ function getElement(selector, {
 }
 
 /**
+ * Check RegExps and phrases against the tweet, check phrases and words against
+ * words.
+ * @param {string} tweet
+ */
+function hasMutedWord(tweet) {
+  if (mutedWords == null || mutedWords.length == 0) return false
+
+  tweet = tweet.toLowerCase()
+  /** @type {string[]} */
+  let words = null
+
+  for (let muteWord of mutedWords) {
+    if (muteWord.type == 'REGEXP' || muteWord.type == 'WILDCARD') {
+      if (muteWord.mutedWord.test(tweet)) return true
+      continue
+    }
+
+    let mutedWord = muteWord.mutedWord.toLowerCase()
+    // For languages where we don't split the tweet, just do an includes check
+    if (MUTE_SPLIT_LANGUAGE_EXCEPTIONS.has(lang)) {
+      if (tweet.includes(mutedWord)) return true
+      continue
+    }
+
+    if (mutedWord.length == 1 && tweet.includes(mutedWord)) return true
+    if (mutedWord.length > tweet.length) continue
+    if (mutedWord == tweet) return true
+    if (muteWord.type == 'PHRASE' && tweet.includes(mutedWord)) return true
+
+    if (words == null) {
+      words = tweet.split(RegExps.WORD_BOUNDARIES)
+    }
+    for (let word of words) {
+      if (mutedWord == word) return true
+      let wordTrimmedPunctuation = word.replace(ReplaceRegExps.LEADING_TRAILING_PUNCTUATION, '')
+      if (mutedWord == wordTrimmedPunctuation) return true
+      if (mutedWord.length > wordTrimmedPunctuation.length) continue
+      if (/\p{P}+/u.test(wordTrimmedPunctuation)) {
+        // Don't fuzzy match /, e.g. Andor shouldn't match and/or
+        if (/[/]+/.test(wordTrimmedPunctuation)) continue
+
+        let spacedWord = wordTrimmedPunctuation.replace(/\p{P}+/gu, ' ')
+        if (mutedWord == spacedWord) return true
+
+        let contiguousWord = spacedWord.replace(/\s/gu, '')
+        if (mutedWord == contiguousWord) return true
+
+        let wordParts = wordTrimmedPunctuation.split(/\p{P}+/u)
+        for (let wordPart of wordParts) {
+          if (mutedWord == wordPart) return true
+        }
+      }
+    }
+  }
+
+  return false
+}
+
+/**
  * @param {*} value
  * @returns {value is string}
  */
@@ -2873,6 +3031,36 @@ function pageIsNot(page) {
  */
 function pathIsNot(path) {
   return () => path != currentPath
+}
+
+function colorToHex(color) {
+  if (color.startsWith('#')) {
+    let hex = color.slice(1)
+    if (hex.length === 6) return color
+    return `#${hex.split('').map(c => c.repeat(2)).join('')}`
+  }
+  if (color.startsWith('rgb')) {
+    let rgb = color.match(/\d+/g)
+    return `#${rgb?.map(n => Number(n).toString(16).padStart(2, '0')).join('')}`
+  }
+  let $el = null
+  try {
+    $el = document.createElement('div')
+    $el.style.position = 'absolute'
+    $el.style.left = '-9999px'
+    $el.style.width = '1px'
+    $el.style.height = '1px'
+    $el.style.visibility = 'hidden'
+    $el.style.color = color
+    document.documentElement.appendChild($el)
+    let computed = getComputedStyle($el).color
+    let rgb = computed.match(/\d+/g)?.slice(0, 3)
+    return `#${rgb?.map(n => Number(n).toString(16).padStart(2, '0')).join('')}`
+  } catch(e) {
+    error('Error converting', color, 'to hex', e)
+  } finally {
+    $el?.remove()
+  }
 }
 
 /**
@@ -3506,6 +3694,7 @@ function observeReactNativeStylesheet() {
   }
 
   function checkRules() {
+    let lastThemeSelectorsCount = themeSelectors.count
     for (let rule of $style.sheet.cssRules) {
       if (!(rule instanceof CSSStyleRule)) continue
 
@@ -3522,8 +3711,36 @@ function observeReactNativeStylesheet() {
         log('found filter: blur(30px) rule in React Native stylesheet', filterBlurRule)
         configureDynamicCss()
       }
+
+      if (pro) {
+        if (rule.style.backgroundColor?.includes(nativeThemeColor)) {
+          themeSelectors.primary.background.add(rule.selectorText)
+        }
+        else if (rule.style.borderColor?.includes(nativeThemeColor) ||
+                 rule.style.borderRightColor?.includes(nativeThemeColor)) {
+          themeSelectors.primary.border.add(rule.selectorText)
+        }
+        else if (rule.style.color?.includes(nativeThemeColor)) {
+          themeSelectors.primary.color.add(rule.selectorText)
+        }
+        else if (rule.style.backgroundColor?.includes(nativeThemeColorAccent)) {
+          themeSelectors.accent.background.add(rule.selectorText)
+        }
+        else if (rule.style.backgroundColor?.includes(nativeThemeColorHover)) {
+          themeSelectors.hover.background.add(rule.selectorText)
+        }
+      }
     }
-    if (fontFamilyRule != null && filterBlurRule != null) {
+    if (pro) {
+      if (lastThemeSelectorsCount != themeSelectors.count) {
+        let newCount = themeSelectors.count - lastThemeSelectorsCount
+        log(`customTheme: found ${newCount} new selector${s(newCount)} to override`)
+        if (settings.customTheme) {
+          configureThemeCss()
+        }
+      }
+    }
+    else if (fontFamilyRule != null && filterBlurRule != null) {
       cleanup.disconnect()
     }
   }
@@ -5224,6 +5441,17 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
 const configureThemeCss = (() => {
   let $style
 
+  /**
+   * @param {Set<any>} selectors
+   * @param {{not?: string}} [options]
+   */
+  function joinThemeSelectors(selectors, {not} = {}) {
+    if (selectors.size == 0) return ''
+    return Array.from(selectors, (selector) =>
+      not ? `${selector}:not(${not})` : selector
+    ).join(', ') + ','
+  }
+
   return function configureThemeCss() {
     if (!enabled) {
       log('removing theme stylesheet')
@@ -5241,6 +5469,109 @@ const configureThemeCss = (() => {
         --cpft-theme-hover: ${nativeThemeColorHover};
       }
     `)
+    if (pro) {
+      cssRules.push(`
+        .cpft_swatch {
+          cursor: pointer;
+        }
+        .cpft_swatch[hidden] {
+          position: relative;
+          display: flex;
+          align-items: center;
+        }
+        .cpft_swatch > label {
+          width: 45px;
+          height: 45px;
+          border-radius: 9999px;
+        }
+        .cpft_swatch > label > svg {
+          width: 45px;
+          height: 45px;
+        }
+        .cpft_swatch > label > svg circle {
+          ${settings.customTheme && `fill: ${settings.customTheme} !important;`}
+        }
+        .cpft_swatch > label > input {
+          width: 0;
+          height: 0;
+        }
+        .cpft_swatch > div {
+          position: absolute;
+          width: 45px;
+          height: 45px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .cpft_swatch > div > svg {
+          width: 25px;
+          height: 25px;
+          color: #fff;
+          fill: currentcolor;
+        }
+      `)
+    }
+    if (settings.customTheme) {
+      cssRules.push(`
+        body {
+          --cpft-theme-accent: color-mix(in srgb, var(--cpft-theme) 60%, white);
+          --cpft-theme-hover: color-mix(in srgb, var(--cpft-theme) 80%, black);
+        }
+        body.HighContrast.Default {
+          --cpft-theme-accent: color-mix(in srgb, var(--cpft-theme) 30%, white);
+          --cpft-theme-hover: color-mix(in srgb, var(--cpft-theme) 75%, black);
+        }
+        body.HighContrast.LightsOut {
+          --cpft-theme-accent: color-mix(in srgb, var(--cpft-theme) 80%, black);
+          --cpft-theme-hover: color-mix(in srgb, var(--cpft-theme) 80%, black);
+        }
+        /* Hide the active native swatch tick */
+        .DisplaySwatches > div > div {
+          display: none;
+        }
+        /* Apply custom theme */
+        ${joinThemeSelectors(themeSelectors.primary.background)}
+        [style*="background-color: ${nativeThemeColor}"]:not(.UseNativeTheme) {
+          background-color: var(--cpft-theme) !important;
+        }
+        ${joinThemeSelectors(themeSelectors.hover.background)}
+        /* Remaining themed items (New Posts, Premium upsell in Home, buttons in Settings) */
+        .r-1iwjfv5,
+        [style*="background-color: ${nativeThemeColorHover}"]:not(.UseNativeTheme) {
+          background-color: var(--cpft-theme-hover) !important;
+        }
+        ${joinThemeSelectors(themeSelectors.primary.border)}
+        [style*="border-color: ${nativeThemeColor}"]:not(.UseNativeTheme) {
+          border-color: var(--cpft-theme) !important;
+        }
+        ${joinThemeSelectors(themeSelectors.primary.color, {not: '[data-testid="icon-verified"]'})}
+        [style*="color: ${nativeThemeColor}"]:not(.UseNativeTheme) {
+          color: var(--cpft-theme) !important;
+        }
+        /* Spinner */
+        [style*="stroke: ${nativeThemeColor}"] {
+          stroke: var(--cpft-theme) !important;
+        }
+        /* Slider track */
+        div[style="height: 20px; width: 40px;"] > div:first-child,
+        /* Settings font size slider track */
+        div[style="background-color: ${nativeThemeColorAccent};"] {
+          background-color: var(--cpft-theme-accent) !important;
+        }
+        /* Active radio hover ring - this keeps changing - look for rgba(twitter theme, 0.1) */
+        .r-15azkrj,
+        /* Active checkbox hover ring - this keeps changing */
+        .r-1fdfq3,
+        /* Icon button hover ring */
+        .r-1peqgm7 {
+          background-color: rgb(from var(--cpft-theme) r g b / .1) !important;
+        }
+        /* Tweet length circle in editor */
+        [data-testid="countdown-circle"] circle[stroke-dasharray] {
+          stroke: var(--cpft-theme) !important;
+        }
+      `)
+    }
 
     if (debug) {
       cssRules.push(`
@@ -6264,6 +6595,10 @@ function onIndividualTweetTimelineChange($timeline, seen, options) {
         }
       }
 
+      if (!hideItem && mutedWords) {
+        hideItem = shouldMuteTweet($tweet)
+      }
+
       if (!hideItem && settings.restoreLinkHeadlines) {
         restoreLinkHeadline($tweet)
       }
@@ -6531,6 +6866,10 @@ function onTimelineChange($timeline, page, seen, options = {}) {
             isBlueTweet = true
           }
         }
+      }
+
+      if (!hideItem && mutedWords) {
+        hideItem = shouldMuteTweet($tweet)
       }
 
       if (!hideItem && settings.restoreLinkHeadlines) {
@@ -6873,6 +7212,7 @@ function processCurrentPage() {
   $body.classList.toggle('Bookmarks', isOnBookmarksPage())
   $body.classList.toggle('Community', isOnCommunityPage())
   $body.classList.toggle('Communities', isOnCommunitiesPage())
+  $body.classList.toggle('Display', isOnDisplaySettingsPage())
   $body.classList.toggle('Explore', isOnExplorePage())
   $body.classList.toggle('HideSidebar', shouldHideSidebar())
   $body.classList.toggle('List', isOnListPage())
@@ -7266,6 +7606,15 @@ function shouldHideSharedTweet(config, page) {
   }
 }
 
+/** @param {HTMLElement} $tweet */
+function shouldMuteTweet($tweet) {
+  // Quoted Tweets also have tweetText
+  for (let $tweetText of $tweet.querySelectorAll('[data-testid="tweetText"]')) {
+    if (hasMutedWord($tweetText.textContent)) return true
+  }
+  return false
+}
+
 async function tweakBookmarksPage() {
   if (settings.premiumBlueChecks != 'ignore' || settings.restoreLinkHeadlines) {
     observeTimeline(currentPage)
@@ -7317,6 +7666,100 @@ async function tweakDesktopLogo() {
 }
 
 function tweakDisplaySettingsPage() {
+  async function addCustomThemeSwatch() {
+    if (!pro || !isOnDisplaySettingsPage()) return
+    let $swatchGroup = await getElement('[role="radiogroup"]', {
+      name: 'swatches',
+    })
+    if (!$swatchGroup) return
+    $swatchGroup.classList.add('DisplaySwatches')
+    if (!$swatchGroup.hasAttribute('cpft-swatches-tagged')) {
+      function clearCustomTheme() {
+        if (settings.customTheme) {
+          themeColor = nativeThemeColor
+          settings.customTheme = ''
+          configureThemeCss()
+          storeConfigChanges({settings: {customTheme: ''}})
+        }
+      }
+      let $swatches = Array.from($swatchGroup.querySelectorAll(':scope > div'))
+      for (let $swatch of $swatches) {
+        $swatch.addEventListener('click', clearCustomTheme)
+      }
+      let cleanup = {
+        name: 'native swatch click handlers',
+        disconnect() {
+          for (let $swatch of $swatches) {
+            $swatch.removeEventListener('click', clearCustomTheme)
+          }
+          pageObservers.delete(cleanup.name)
+        }
+      }
+      pageObservers.set(cleanup.name, cleanup)
+      for (let $styledElement of $swatchGroup.querySelectorAll('[style]')) {
+        $styledElement.classList.add('UseNativeTheme')
+      }
+      $swatchGroup.setAttribute('cpft-swatches-tagged', '')
+    }
+    let $h2 = $swatchGroup.parentElement.parentElement.previousElementSibling.querySelector('h2')
+    if (!$h2) return
+    let $customThemeSwatch = $h2.querySelector('.cpft_swatch')
+    if ($customThemeSwatch) return
+    $h2.insertAdjacentHTML('beforeend', `<div class="cpft_swatch" hidden>
+      <label>
+        <svg viewBox="0 0 24 24">
+          <defs>
+            <linearGradient id="rainbow" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%"   stop-color="#FF0000" />
+              <stop offset="20%"  stop-color="#FFA500" />
+              <stop offset="40%"  stop-color="#FFFF00" />
+              <stop offset="60%"  stop-color="#00FF00" />
+              <stop offset="80%"  stop-color="#0000FF" />
+              <stop offset="100%" stop-color="#EE82EE" />
+            </linearGradient>
+          </defs>
+          <circle cx="12" cy="12" r="10.3" fill="url(#rainbow)">
+        </svg>
+        <input type="color" value="${colorToHex(themeColor)}">
+      </label>
+      <div>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <g>
+            <path stroke="#000" stroke-width="0.5" stroke-linejoin="round" stroke-linecap="round" d="M22.21 2.793c-1.22-1.217-3.18-1.26-4.45-.097l-10.17 9.32C5.02 12.223 3 14.376 3 17v5h5c2.62 0 4.78-2.022 4.98-4.593L22.3 7.239c1.17-1.269 1.12-3.229-.09-4.446zM8 20H5v-3c0-1.657 1.34-3 3-3s3 1.343 3 3-1.34 3-3 3zM20.83 5.888l-8.28 9.033c-.5-1.09-1.38-1.971-2.47-2.47l9.03-8.28c.48-.44 1.22-.424 1.68.036s.48 1.201.04 1.681z">
+          </g>
+        </svg>
+      </div>
+    </div>
+    `)
+    $customThemeSwatch = $h2.querySelector('.cpft_swatch')
+    let $color = $customThemeSwatch.querySelector('input')
+    $customThemeSwatch.addEventListener('click', () => $color.click())
+    $color.addEventListener('input', () => {
+      themeColor = settings.customTheme = $color.value
+      configureThemeCss()
+      storeConfigChanges({settings: {customTheme: $color.value}})
+    })
+  }
+
+  async function observeSettingsNavRerenderBoundary() {
+    if (!desktop || !pro) return
+    let $settingsNavRerenderBoundary = await getElement('main > div > div', {
+      name: 'settings nav re-render boundary',
+    })
+    if ($settingsNavRerenderBoundary) {
+      observeElement($settingsNavRerenderBoundary, () => {
+        log('customTheme: settings nav caused a re-render')
+        addCustomThemeSwatch()
+      }, {
+        name: 'settings nav re-render boundary',
+        observers: pageObservers,
+      })
+    }
+  }
+
+  addCustomThemeSwatch()
+  observeSettingsNavRerenderBoundary()
+
   void async function() {
     let $colorRerenderBoundary = await getElement('#react-root > div > div', {
       name: 'Color change re-render boundary',
@@ -7330,8 +7773,10 @@ function tweakDisplaySettingsPage() {
       nativeThemeColor = newThemeColor
       nativeThemeColorAccent = newAccent
       nativeThemeColorHover = newHover
-      themeColor = nativeThemeColor
+      themeColor = settings.customTheme || nativeThemeColor
       configureThemeCss()
+      addCustomThemeSwatch()
+      observeSettingsNavRerenderBoundary()
     }, {
       name: 'Color change re-render boundary',
       observers: pageObservers,
@@ -7345,6 +7790,7 @@ function tweakDisplaySettingsPage() {
       if ($html.style.fontSize != fontSize) {
         fontSize = $html.style.fontSize
         log(`<html> fontSize has changed to ${fontSize}`)
+        addCustomThemeSwatch()
         configureDynamicCss()
       }
     }, {
@@ -8335,7 +8781,7 @@ async function main() {
         nativeThemeColor = initialThemeColor
         nativeThemeColorAccent = initialAccent
         nativeThemeColorHover = initialHover
-        themeColor = nativeThemeColor
+        themeColor = settings.customTheme || nativeThemeColor
       }
       observeBodyBackgroundColor()
       observeReRenderBoundary()
@@ -8357,6 +8803,7 @@ async function main() {
       configureCustomCss()
       observePopups()
       observeSideNavItems()
+      prepareMutedWords()
 
       // Start taking action on page changes
       observingPageChanges = true
@@ -8394,6 +8841,15 @@ async function main() {
 function onSettingsChanged(changedSettings = new Set()) {
   if (changedSettings.has('redirectToTwitter') && redirectToTwitter()) {
     return
+  }
+
+  if (changedSettings.has('customTheme')) {
+    themeColor = settings.customTheme || nativeThemeColor
+  }
+
+  if (changedSettings.has('mutedWords') ||
+      changedSettings.has('mutedWordsError')) {
+    prepareMutedWords()
   }
 
   configureCss()
@@ -8445,17 +8901,20 @@ function onSettingsChanged(changedSettings = new Set()) {
  */
 function receiveConfigFromContentScript({data: {type, config}}) {
   if (type == 'initial') {
-    if (Object.hasOwn(config, 'enabled')) {
-      enabled = config.enabled
-    }
     if (Object.hasOwn(config, 'debug')) {
       debug = config.debug
+    }
+    if (Object.hasOwn(config, 'enabled')) {
+      enabled = config.enabled
     }
     if (Object.hasOwn(config, 'debugLogGetElementStats')) {
       debugLogGetElementStats = config.debugLogGetElementStats
     }
     if (Object.hasOwn(config, 'debugLogTimelineStats')) {
       debugLogTimelineStats = config.debugLogTimelineStats
+    }
+    if (Object.hasOwn(config, 'subscription')) {
+      pro = config.subscription.active
     }
     settings = {...DEFAULT_SETTINGS, ...config.settings}
 
@@ -8510,13 +8969,20 @@ function receiveConfigFromContentScript({data: {type, config}}) {
     return
   }
 
+    if (Object.hasOwn(config, 'subscription')) {
+      pro = config.subscription.active
+    }
+
   /** @type {Set<import("./types").UserSettingsKey>} */
   let changedSettings
   if (Object.hasOwn(config, 'settings')) {
     /** @type {import("./types").UserSettingsKey[]} */
     let settingsWithSpecialHandling = [
+      'customTheme',
       'darkModeTheme',
       'hideNotifications',
+      'mutedWords',
+      'mutedWordsError',
       'redirectToTwitter',
       'revertXBranding',
     ]

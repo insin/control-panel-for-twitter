@@ -24,6 +24,12 @@
   "customCss": {
     "message": "Custom CSS"
   },
+  "customTheme": {
+    "message": "Custom theme colour"
+  },
+  "customThemeInfo": {
+    "message": "Pick a custom colour in your <a>Display settings</a> page"
+  },
   "darkModeTheme": {
     "message": "Dark mode theme"
   },
@@ -354,6 +360,12 @@
       }
     }
   },
+  "mutedWords": {
+    "message": "Mute words anywhere"
+  },
+  "mutedWordsInfo": {
+    "message": "Hide Tweets containing specific words, phrases, or patterns - one per line"
+  },
   "navBaseFontSize": {
     "message": "Use normal text font style in navigation bar"
   },
@@ -530,6 +542,9 @@
   },
   "stickyHeadings": {
     "message": "Sticky headings"
+  },
+  "syncSettings": {
+    "message": "Sync settings in this browser"
   },
   "tweakNewLayout": {
     "message": "Tweak new layout"

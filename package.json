@@ -3,6 +3,7 @@
     "create-browser-action": "node ./scripts/create-browser-action.js",
     "watch-options-html": "npx -y chokidar-cli options.html -c \"npm run create-browser-action\" --initial",
     "create-store-description": "node ./scripts/create-store-description.mjs",
+    "typecheck": "npx --yes -p typescript tsc -p jsconfig.json --noEmit && npx --yes -p typescript tsc -p scripts/jsconfig.json --noEmit",
     "release": "node ./scripts/release.js",
     "prebuild": "npm run create-browser-action",
     "build": "node ./scripts/build.js",
@@ -43,14 +44,15 @@
       "safari/",
       "screenshots/",
       "scripts/",
+      "soitis.mv2.js",
       "types.d.ts",
       "wip/"
     ]
   },
   "devDependencies": {
-    "@types/chrome": "0.0.x",
-    "@types/greasemonkey": "4.x",
-    "clipboardy": "3.x",
+    "@types/chrome": "0.1.x",
+    "@types/node": "25.x",
+    "clipboardy": "5.x",
     "semver": "7.x",
     "web-ext": "7.x"
   }

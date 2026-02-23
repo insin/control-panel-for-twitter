@@ -13,6 +13,11 @@
     "96": "icons/icon96.png",
     "128": "icons/icon128.png"
   },
+  "permissions": [
+    "alarms",
+    "storage",
+    "https://pro.soitis.dev/*"
+  ],
   "background": {
     "scripts": [
       "background.js"
@@ -41,7 +46,20 @@
         "script.js"
       ],
       "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://pro.soitis.dev/*"
+      ],
+      "js": [
+        "content-pro.js"
+      ],
+      "run_at": "document_start"
     }
+  ],
+  "web_accessible_resources": [
+    "extensions-pro-id.js",
+    "settings.js"
   ],
   "options_ui": {
     "browser_style": true,
@@ -52,9 +70,6 @@
     "default_title": "__MSG_extensionName__",
     "default_popup": "browser_action.html"
   },
-  "permissions": [
-    "storage"
-  ],
   "browser_specific_settings": {
     "gecko": {
       "id": "{5cce4ab5-3d47-41b9-af5e-8203eea05245}",

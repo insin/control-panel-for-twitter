@@ -11,6 +11,10 @@ const quotedTweet = object({
  * @type {Record<import('./types').UserSettingsKey, import('./ext-shared').FieldDescriptor>}>}
  */
 const v5 = {
+  // Pro
+  customTheme: string(),
+  mutedWords: string(),
+  mutedWordsError: boolean(),
   // Shared
   addAddMutedWordMenuItem: boolean(),
   addFocusedTweetAccountLocation: boolean(),

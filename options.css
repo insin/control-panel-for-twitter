@@ -128,6 +128,10 @@ p {
   padding-bottom: 4px;
 }
 
+input[name=customTheme] {
+  transition: background-color 0.3s, color 0.3s;
+}
+
 input[type=checkbox],
 select {
   cursor: pointer;
@@ -173,6 +177,31 @@ body.ios .icon {
   height: 1.75rem;
 }
 
+#mutedQuotes p {
+  white-space: pre-line;
+}
+
+#mutedWordsError {
+  color: #f00;
+  margin: 0 12px 12px 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+}
+#mutedWordsError:not([hidden]) {
+  display: flex;
+}
+#mutedWordsError:not([hidden]) + p {
+  display: none;
+}
+
+#proButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 #version {
   text-align: center;
   font-size: 75%;
@@ -212,7 +241,7 @@ body.disabled #version {
 }
 
 .tabs {
-  --tab-count: 2;
+  --tab-count: 3;
   background-color: inherit;
   display: grid;
   grid-template-columns: repeat(var(--tab-count), 1fr);

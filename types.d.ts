@@ -1,24 +1,46 @@
 export type StoredConfig = {
-  // Collapsed option groups in options
+  /** Collapsed option groups in options */
   collapsedGroups?: string[]
-  // Log and display debug info
+  /** Log and display debug info */
   debug?: boolean
-  // Log stats for getElement() calls
+  /** Log stats for getElement() calls */
   debugLogGetElementStats?: boolean
-  // Log stats on each timeline change
+  /** Log stats on each timeline change */
   debugLogTimelineStats?: boolean
-  // Disable extension functionality without disabling the extension itself
+  /** Disable extension functionality without disabling the extension itself */
   enabled?: boolean
-  // We only store settings the user has actually interacted with
+  /** Last extension version whose storage migrations completed */
+  extensionVersion?: string
+  /** Local settings changes which have not been acknowledged by the server */
+  pendingSettingsPatch?: Partial<UserSettings>
+  /** Timestamp (ms) echoed back from server after a successful sync */
+  serverLastModified?: number
+  /** We only store settings the user has actually interacted with */
   settings?: Partial<UserSettings>
-  // Use sticky headings in compatible options layouts
+  /** Toggle sticky headings in compatible options layouts */
   stickyHeadings?: boolean
-  // Selected tab in options
-  tab: string
-  // The last version of Twitter which was active when a content script ran -
-  // determines which options the options page displays. Not applicable to most
-  // users, but useful for checking mobile options via a desktop browser in
-  // Responsive Design / Device Mode.
+  /** Extension Pro subscription details */
+  subscription?: ExtensionsProSubscription
+  /** Last sync error type */
+  syncError?:
+    | 'auth'
+    | 'bad_request'
+    | 'network'
+    | 'rate_limited'
+    | 'server_error'
+    | 'subscription_inactive'
+  /** Toggle syncing settings in this browser */
+  syncSettings: boolean
+  /** Selected tab in options */
+  tab: 'features' | 'settings' | 'pro'
+  /** Auth token for the Extensions Pro API */
+  token?: string
+  /**
+   * The last version of Twitter which was active when a content script ran -
+   * determines which options the options page displays. Not applicable to most
+   * users, but useful for checking mobile options via a desktop browser in
+   * Responsive Design / Device Mode.
+   */
   version?: 'desktop' | 'mobile'
 }
 
@@ -30,6 +52,10 @@ export type StoredConfigMessage = {
 }
 
 export type UserSettings = {
+  // Pro
+  customTheme: string
+  mutedWords: string
+  mutedWordsError: boolean
   // Shared
   addAddMutedWordMenuItem: boolean
   addFocusedTweetAccountLocation: boolean
@@ -145,6 +171,31 @@ export type UserSettings = {
 
 export type UserSettingsKey = keyof UserSettings
 
+export type ExtensionsProSubscription =
+  | {
+      type: 'lifetime'
+      active: true
+      status: 'active'
+      createdAt: number
+    }
+  | {
+      type: 'annual' | 'monthly'
+      active: boolean
+      // The only statuses an extension should see
+      status:
+        // Active statuses
+        | 'active'
+        | 'past_due'
+        | 'trialing'
+        // Inactive statuses
+        | 'canceled'
+        | 'paused'
+      createdAt: number
+      currentPeriodEnd: number
+      cancelAtPeriodEnd: boolean
+      canceledAt: number | null
+    }
+
 export type Locale = {
   [K in LocaleKey]?: K extends `${string}_FN` ? (arg: any) => string : string
 }
@@ -203,6 +254,20 @@ export type Migration = {
 }
 
 export type Migrations = Record<string, Migration>
+
+export type MutedWord =
+  | {
+      type: 'WORD' | 'PHRASE'
+      mutedWord: string
+    }
+  | {
+      type: 'REGEXP'
+      mutedWord: RegExp
+    }
+  | {
+      type: 'WILDCARD'
+      mutedWord: RegExp
+    }
 
 export type NamedMutationObserver = MutationObserver & {name: string}
 

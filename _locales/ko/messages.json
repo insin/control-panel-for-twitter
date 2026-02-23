@@ -23,6 +23,12 @@
   "customCss": {
     "message": "사용자 정의 CSS"
   },
+  "customTheme": {
+    "message": "사용자 지정 테마 색상"
+  },
+  "customThemeInfo": {
+    "message": "<a>표시 설정</a> 페이지에서 사용자 지정 색상을 선택하세요"
+  },
   "darkModeTheme": {
     "message": "다크 모드의 테마"
   },
@@ -351,6 +357,12 @@
       }
     }
   },
+  "mutedWords": {
+    "message": "어디서든 단어 뮤트하기"
+  },
+  "mutedWordsInfo": {
+    "message": "특정 단어, 구문 또는 패턴을 포함하는 트윗 숨기기 - 한 줄에 하나씩"
+  },
   "navBaseFontSize": {
     "message": "내비게이션 바에 일반 텍스트 글꼴 스타일 사용"
   },
@@ -523,6 +535,9 @@
   },
   "stickyHeadings": {
     "message": "고정 제목"
+  },
+  "syncSettings": {
+    "message": "이 브라우저에서 설정 동기화"
   },
   "tweakNewLayout": {
     "message": "새 레이아웃 조정"

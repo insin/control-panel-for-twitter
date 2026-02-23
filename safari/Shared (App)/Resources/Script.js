@@ -18,6 +18,7 @@ if (lang.startsWith('ja')) {
 
 document.addEventListener('click', (event) => {
   if (event.target instanceof HTMLElement && event.target.closest('button.open-preferences')) {
+    //@ts-expect-error
     webkit.messageHandlers.controller.postMessage('open-preferences');
   }
 })

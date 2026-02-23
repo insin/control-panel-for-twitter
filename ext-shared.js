@@ -50,7 +50,7 @@ export function isVersionLessThan(v1, v2) {
 
 /** @param {unknown} value */
 export function isObject(value) {
-  return value != null && typeof value == 'object'
+  return value != null && typeof value == 'object' && !Array.isArray(value)
 }
 //#endregion
 
@@ -85,8 +85,8 @@ export function oneOf(allowedValues) {
 }
 
 /**
- * Validates that an array has at least one valid item. Only valid items are
- * retained.
+ * Validates that an array is empty or has at least one valid item. Only valid
+ * items are retained.
  * @param {FieldDescriptor} item
  * @param {{ maxLength?: number }} [options]
  * @returns {FieldDescriptor}
@@ -96,7 +96,7 @@ export function arrayOf(item, { maxLength } = {}) {
     validate: (value) =>
       Array.isArray(value) &&
       (maxLength == null || value.length <= maxLength) &&
-      value.some(item.validate),
+      (value.length == 0 || value.some(item.validate)),
     normalise: (values) => {
       const valid = values.filter(item.validate)
       return maxLength != null ? valid.slice(0, maxLength) : valid
@@ -135,17 +135,16 @@ export function object(fields) {
 /**
  * Returns the appropriate schema for a given extension version by finding the
  * highest schema version that does not exceed the extension version.
- * Falls back to the oldest schema if the version predates all known schemas.
  * @param {SettingsSchemas} schemas settings schemas in ascending version order
  * @param {string} version extension version to look up
- * @returns {Record<string, FieldDescriptor>}
+ * @returns {Record<string, FieldDescriptor> | null}
  */
 export function getSchemaForVersion(schemas, version) {
   for (let i = schemas.length - 1; i >= 0; i--) {
     const [schemaVersion, schema] = schemas[i]
     if (!isVersionLessThan(version, schemaVersion)) return schema
   }
-  return schemas[0][1]
+  return null
 }
 //#endregion
 

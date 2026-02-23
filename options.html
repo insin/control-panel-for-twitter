@@ -26,6 +26,14 @@
         </span>
       </span>
     </button>
+    <button type="button" role="tab" data-tab="pro">
+      <span class="wrapper">
+        <span class="label">
+          <span id="pro">Pro</span>
+          <span class="underline"></span>
+        </span>
+      </span>
+    </button>
   </div>
 
   <div class="panel" data-tab="features">
@@ -1084,6 +1092,58 @@
       </div>
     </section>
   </div>
+
+  <div class="panel" data-tab="pro">
+    <section class="group labelled">
+      <label>
+        Extensions Pro account
+      </label>
+      <div class="options">
+        <section>
+          <label class="button">
+            <span id="proStatus">Extensions Pro status</span>
+            <button id="proButton" type="button">
+              <span id="proStatusIcon"></span>
+              <span id="proStatusText"></span>
+            </button>
+          </label>
+        </section>
+      </div>
+    </section>
+    <section class="group labelled">
+      <label>
+        Pro settings
+      </label>
+      <div class="options">
+        <section class="checkbox">
+          <label>
+            <span id="syncSettings">Sync settings in this browser</span>
+            <input type="checkbox" name="syncSettings">
+            <span class="toggle"></span>
+          </label>
+        </section>
+        <section>
+          <label>
+            <span id="customTheme">Custom theme colour</span>
+            <input type="text" name="customTheme" style="text-align: center;" size="16">
+          </label>
+          <p id="customThemeInfo">
+            Pick a custom colour in your <a>Display settings</a> page
+          </p>
+        </section>
+        <section class="textarea">
+          <label id="mutedWords" for="mutedWords">Mute words anywhere</label>
+          <textarea id="mutedWords" rows="1"></textarea>
+          <div id="mutedWordsError" hidden>
+            <div id="mutedWordsErrorMessage"></div>
+            <div id="mutedWordsErrorLine"></div>
+          </div>
+          <p id="mutedWordsInfo">Hide Tweets containing specific words, phrases, or patterns - one per line</p>
+        </section>
+      </div>
+    </section>
+  </div>
+
   <div id="version">v5.0.0</div>
 </form>
 <script src="options.js" type="module"></script>

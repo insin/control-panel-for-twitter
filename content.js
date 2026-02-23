@@ -18,48 +18,42 @@ let channel
 //#endregion
 
 //#region Functions
-// Can't import this from storage.js in a content script
-function get(keys) {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.get(keys, (result) => {
-      if (chrome.runtime.lastError) {
-        reject(chrome.runtime.lastError)
-      } else {
-        resolve(result)
-      }
-    })
-  })
-}
-
 /**
- * @param {chrome.storage.StorageChange} settingsChange
+ * @param {chrome.storage.StorageChange} change
  * @param {import("./types").UserSettingsKey} key
  */
-function hasSettingChanged(settingsChange, key) {
-  return (
-    settingsChange.newValue &&
-    Object.hasOwn(settingsChange.newValue, key) && (
-    !settingsChange.oldValue ||
-    !Object.hasOwn(settingsChange.oldValue, key) ||
-    settingsChange.oldValue[key] != settingsChange.newValue[key]
-  ))
+function hasSettingChanged(change, key) {
+  // First time setting any settings
+  if (!change.oldValue) return true
+  let oldSettings = /** @type {Partial<import("./types").UserSettings>} */ (change.oldValue)
+  // First time setting this setting
+  if (!Object.hasOwn(oldSettings, key)) return true
+  let newSettings = /** @type {Partial<import("./types").UserSettings>} */ (change.newValue)
+  // XXX Assuming if we set a non-primitive it's because it was changed
+  return oldSettings[key] != newSettings[key]
 }
 
 /**
  * Pass relevant storage changes to the page script.
- * @param {{[key: string]: chrome.storage.StorageChange}} storageChanges
+ * @param {{[key: string]: chrome.storage.StorageChange}} changes
  */
-function onStorageChanged(storageChanges) {
-  if (storageChanges.enabled) {
-    localStorage.cpftEnabled = storageChanges.enabled.newValue
+function onStorageChanged(changes) {
+  // Sync settings needed at document_start to localStorage
+  if (changes.enabled) {
+    if (localStorage.cpftEnabled != String(changes.enabled.newValue)) {
+      localStorage.cpftEnabled = changes.enabled.newValue
+    }
   }
-  if (storageChanges.settings && hasSettingChanged(storageChanges.settings, 'revertXBranding')) {
-    localStorage.cpftRevertXBranding = storageChanges.settings.newValue.revertXBranding
+  if (changes.settings && hasSettingChanged(changes.settings, 'revertXBranding')) {
+    let newSettings = /** @type {import("./types").UserSettings} */ (changes.settings.newValue)
+    if (localStorage.cpftRevertXBranding != String(newSettings.revertXBranding)) {
+      localStorage.cpftRevertXBranding = newSettings.revertXBranding
+    }
   }
 
   /** @type {Partial<import("./types").StoredConfig>} */
   let config = Object.fromEntries(
-    Object.entries(storageChanges)
+    Object.entries(changes)
       .filter(([key]) => PAGE_SCRIPT_CONFIG_KEYSET.has(key))
       .map(([key, {newValue}]) => [key, newValue])
   )
@@ -70,37 +64,18 @@ function onStorageChanged(storageChanges) {
   channel.postMessage({type: 'change', config})
 }
 
-// Can't import this from storage.js in a content script
-function set(keys) {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.set(keys, () => {
-      if (chrome.runtime.lastError) {
-        reject(chrome.runtime.lastError)
-      } else {
-        resolve()
-      }
-    })
-  })
-}
-
 /** @param {MessageEvent<Partial<import("./types").StoredConfig>>} message */
 async function storeConfigChangesFromPageScript({data: changes}) {
-  let configToStore = {}
-  if (changes.version) {
-    configToStore.version = changes.version
-  }
-  try {
-    if (changes.settings) {
-      let {settings} = await get({settings: {}})
-      configToStore.settings = {...settings, ...changes.settings}
-    }
-  } catch(e) {
-    console.error('[content] error merging settings change from page script', e)
-  }
-
+  let {set, setSettings} = await import(chrome.runtime.getURL('settings.js'))
+  let {settings, ...internalConfig} = changes
   chrome.storage.local.onChanged.removeListener(onStorageChanged)
   try {
-    await set(configToStore)
+    if (settings && Object.keys(settings).length > 0) {
+      await setSettings(settings)
+    }
+    if (Object.keys(internalConfig).length > 0) {
+      await set(internalConfig)
+    }
   } catch(e) {
     console.error('[content] error storing settings change from page script', e)
   } finally {

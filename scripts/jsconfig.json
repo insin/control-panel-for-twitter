@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "checkJs": true,
+    "maxNodeModuleJsDepth": 0,
+    "strict": false,
+    "target": "es2024",
+    "types": ["node"]
+  },
+  "include": [
+    "**/*.js"
+  ],
+  "exclude": [
+    // Twitter's own locale files
+    "locales/js/*.js",
+    // Scratch file use for formatting
+    "locales/locales.js",
+    "node_modules"
+  ]
+}

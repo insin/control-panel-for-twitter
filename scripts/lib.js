@@ -25,7 +25,7 @@ function clean(options = {}) {
  * @param {{dryRun?: boolean, local?: boolean}} [options]
  */
 function copy(manifestVersion, options = {}) {
-  let {dryRun = false} = options
+  let {dryRun = false, local = false} = options
   let mvFileRegExp =  new RegExp(`\\.mv${manifestVersion}\\.`)
 
   for (let file of fs.readdirSync('.', {withFileTypes: true})) {
@@ -33,7 +33,15 @@ function copy(manifestVersion, options = {}) {
 
     let copyTo = file.name.replace(mvFileRegExp, '.')
     if (!dryRun) {
-      fs.copyFileSync(file.name, copyTo)
+      if (local && copyTo == 'manifest.json') {
+        let manifest = fs.readFileSync(file.name, 'utf8').replaceAll(
+          '"https://pro.soitis.dev/*"',
+          '"http://localhost/*", $&'
+        )
+        fs.writeFileSync(copyTo, manifest, 'utf8')
+      } else {
+        fs.copyFileSync(file.name, copyTo)
+      }
     }
     console.log(`copied ${file.name} → ${copyTo}`)
   }

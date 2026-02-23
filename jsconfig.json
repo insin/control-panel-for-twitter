@@ -2,10 +2,11 @@
   "compilerOptions": {
     "checkJs": true,
     "strict": false,
-    "target": "es2024"
+    "target": "es2024",
+    "types": ["chrome"]
   },
-  "exclude": [
-    "node_modules",
-    "scripts/locales/*/**"
+  "include": [
+    "*.js",
+    "safari/Shared (App)/Resources/**/*.js"
   ]
 }

@@ -1,5 +1,10 @@
+//#region Default settings
 /** @type {import("./types").UserSettings} */
 export const DEFAULT_SETTINGS = {
+  // Pro
+  customTheme: '',
+  mutedWords: '',
+  mutedWordsError: false,
   // Shared
   addAddMutedWordMenuItem: true,
   addFocusedTweetAccountLocation: false,
@@ -112,5 +117,92 @@ export const DEFAULT_SETTINGS = {
   hideToggleNavigation: false,
   tweakNewLayout: false,
 }
+//#endregion
 
-export const UI_ORIGIN = 'https://soitis.dev'
+//#region Constants
+export const OPEN_APP_MESSAGE = 'OPEN_APP'
+export const SERVER_ORIGIN = 'http://localhost:5173' // 'https://pro.soitis.dev'
+export const SYNC_RESET_MESSAGE = 'SETTINGS_SYNC_RESET_TIMER'
+//#endregion
+
+//#region Async chrome.storage.local wrappers for Firefox MV2
+export function get(keys) {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.get(keys, (result) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError)
+      } else {
+        resolve(result)
+      }
+    })
+  })
+}
+
+export function remove(keys) {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.remove(keys, () => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError)
+      } else {
+        resolve()
+      }
+    })
+  })
+}
+
+export function set(keys) {
+  return new Promise((resolve, reject) => {
+    chrome.storage.local.set(keys, () => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError)
+      } else {
+        resolve()
+      }
+    })
+  })
+}
+//#endregion
+
+//#region Settings functions
+/**
+ * Signals the background script to reset the pull timer and schedule a
+ * debounced push, without writing settings. Use this if you've written to
+ * storage and pendingSettingsPatch yourself and want sync to follow.
+ */
+export function resetSyncTimer() {
+  chrome.runtime
+    .sendMessage({ type: SYNC_RESET_MESSAGE })
+    .catch(() => {})
+}
+
+/**
+ * Merges `changes` into the stored settings object and writes to
+ * chrome.storage.local. Resolves once the write is complete, meaning
+ * chrome.storage.onChanged will have fired before this returns.
+ *
+ * Also signals the background script to reset the pull countdown and
+ * schedule a debounced push. The signal is best-effort — it is silently
+ * dropped if the service worker is not currently running, which is fine
+ * because the next alarm-triggered pull will reconcile.
+ *
+ * @param {Partial<import("./types").UserSettings>} changes - Partial settings to merge in.
+ */
+export async function setSettings(changes) {
+  const { pendingSettingsPatch = {}, settings = {} } = await get(['pendingSettingsPatch', 'settings'])
+
+  await set({
+    pendingSettingsPatch: {
+      .../** @type {Partial<import("./types").UserSettings>} */ (pendingSettingsPatch),
+      ...changes,
+    },
+    settings: {
+      .../** @type {Partial<import("./types").UserSettings>} */ (settings),
+      ...changes,
+    },
+  })
+
+  chrome.runtime
+    .sendMessage({ type: SYNC_RESET_MESSAGE })
+    .catch(() => {})
+}
+//#endregion

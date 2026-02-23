@@ -4,7 +4,7 @@
   "name": "__MSG_extensionName__",
   "description": "__MSG_extensionDescriptionShort__",
   "homepage_url": "https://soitis.dev/control-panel-for-twitter",
-  "version": "4.99.9",
+  "version": "5.0.0",
   "icons": {
     "48": "icon48.png",
     "96": "icon96.png",
@@ -12,6 +12,13 @@
     "256": "icon256.png",
     "512": "icon512.png"
   },
+  "permissions": [
+    "alarms",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://pro.soitis.dev/*"
+  ],
   "background": {
     "service_worker": "background.js",
     "type": "module"
@@ -20,9 +27,7 @@
     {
       "matches": [
         "https://twitter.com/*",
-        "https://mobile.twitter.com/*",
-        "https://x.com/*",
-        "https://mobile.x.com/*"
+        "https://x.com/*"
       ],
       "js": [
         "content.js"
@@ -33,14 +38,34 @@
       "world": "MAIN",
       "matches": [
         "https://twitter.com/*",
-        "https://mobile.twitter.com/*",
-        "https://x.com/*",
-        "https://mobile.x.com/*"
+        "https://x.com/*"
       ],
       "js": [
         "script.js"
       ],
       "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://pro.soitis.dev/*"
+      ],
+      "js": [
+        "content-pro.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "extensions-pro-id.js",
+        "settings.js"
+      ],
+      "matches": [
+        "https://pro.soitis.dev/*",
+        "https://twitter.com/*",
+        "https://x.com/*"
+      ]
     }
   ],
   "options_ui": {
@@ -58,8 +83,5 @@
       "48": "toolbar-icon48.png",
       "72": "toolbar-icon72.png"
     }
-  },
-  "permissions": [
-    "storage"
-  ]
+  }
 }

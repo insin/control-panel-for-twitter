@@ -23,6 +23,12 @@
   "customCss": {
     "message": "カスタムCSS"
   },
+  "customTheme": {
+    "message": "カスタムテーマカラー"
+  },
+  "customThemeInfo": {
+    "message": "<a>表示設定</a>ページでカスタムカラーを選択してください"
+  },
   "darkModeTheme": {
     "message": "ダークモードのテーマ"
   },
@@ -351,6 +357,12 @@
       }
     }
   },
+  "mutedWords": {
+    "message": "どこでも単語をミュート"
+  },
+  "mutedWordsInfo": {
+    "message": "特定の単語、フレーズ、またはパターンを含むツイートを非表示 - 1行に1つ"
+  },
   "navBaseFontSize": {
     "message": "ナビゲーションバーを通常のフォントサイズにする"
   },
@@ -523,6 +535,9 @@
   },
   "stickyHeadings": {
     "message": "追従見出し"
+  },
+  "syncSettings": {
+    "message": "このブラウザで設定を同期"
   },
   "tweakNewLayout": {
     "message": "新しいレイアウトを調整"

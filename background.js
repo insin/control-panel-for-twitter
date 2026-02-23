@@ -1,6 +1,7 @@
-import {crossesVersionThreshold} from './ext-shared.js'
-import {DEFAULT_SETTINGS, UI_ORIGIN} from './settings.js'
-import {get, remove, set} from './storage.js'
+import { crossesVersionThreshold } from './ext-shared.js'
+import { runSettingsMigrations } from './migrations.js'
+import { SERVER_ORIGIN, get, set } from './settings.js'
+import { initSettingsSync, startSync } from './settings-background.js';
 
 //#region Constants
 const DISABLED_ICONS = {
@@ -25,54 +26,6 @@ const IS_SAFARI = location.protocol.startsWith('safari-web-extension:')
 //#endregion
 
 //#region Functions
-function log(...messages) {
-  console.log('[background]', ...messages)
-}
-
-/**
- * One-off migration for v5: move all top-level settings into a settings object.
- */
-async function migrateSettingsToV5() {
-  let extensionConfigKeys = new Set(['debug', 'debugLogTimelineStats', 'enabled', 'version'])
-  let storedConfig = await get()
-  let keysToRemove = []
-  let settings = {}
-  /** @type {import('./types').Migrations} */
-  let migrations = {
-    'hideWhoToFollowEtc': {rename: 'hideSuggestedContentTimeline'},
-    'listRetweets': {rename: 'hideListRetweets', convert: (value) => value == 'hide'},
-    // Changed what it was used for over time
-    'alwaysUseLatestTweets': {rename: 'defaultToFollowing'},
-    'hideMoreTweets': {rename: 'hideDiscoverSuggestions'},
-    'hideTotalTweetsMetrics': {rename: 'hideProfileHeaderMetrics'},
-    'hideVerifiedNotificationsTab': {rename: 'hideVerifiedTabs'},
-    'replaceLogo': {rename: 'revertXBranding'},
-    // Twitter Blue → Premium
-    'hideTwitterBlueReplies': {rename: 'hidePremiumReplies'},
-    'hideTwitterBlueUpsells': {rename: 'hidePremiumUpsells'},
-    'showBlueReplyFollowersCount': {rename: 'showPremiumReplyFollowersCount'},
-    'showBlueReplyFollowersCountAmount': {rename: 'showPremiumReplyFollowersCountAmount'},
-    'twitterBlueChecks': {rename: 'premiumBlueChecks'},
-  }
-  for (let [key, value] of Object.entries(storedConfig)) {
-    if (extensionConfigKeys.has(key)) continue
-    // Remove all top-level keys which aren't v4 extension config
-    keysToRemove.push(key)
-    // Migrate or copy expected settings keys
-    if (Object.hasOwn(migrations, key)) {
-      let migration = migrations[key]
-      settings[migration.rename || key] = migration.convert ? migration.convert(value) : value
-    }
-    else if (Object.hasOwn(DEFAULT_SETTINGS, key)) {
-      settings[key] = value
-    }
-  }
-  await set({settings})
-  if (keysToRemove.length > 0) {
-    await remove(keysToRemove)
-  }
-}
-
 function updateToolbarIcon(enabled) {
   let title = chrome.i18n.getMessage(enabled ? 'extensionName' : 'extensionNameDisabled')
   if (chrome.runtime.getManifest().manifest_version == 3) {
@@ -89,8 +42,33 @@ function updateToolbarIcon(enabled) {
 }
 //#endregion
 
-//#region Events
-chrome.runtime.onInstalled.addListener(async (details) => {
+//#region Main
+async function main() {
+  let current = chrome.runtime.getManifest().version
+  let { extensionVersion, settings } = await get(['extensionVersion', 'settings'])
+  // `extensionVersion` is new in v5, so an existing `settings` object means
+  // this browser has already crossed the top-level-settings migration boundary.
+  let previous = typeof extensionVersion == 'string'
+    ? extensionVersion
+    : settings != null
+      ? current
+      : '0'
+
+  await runSettingsMigrations(previous, current)
+  await set({extensionVersion: current})
+  await startSync()
+}
+
+initSettingsSync({apiBase: SERVER_ORIGIN})
+main().catch((error) => {
+  console.error('[background]', error)
+})
+
+chrome.storage.local.get({enabled: true}, ({enabled}) => {
+  updateToolbarIcon(enabled)
+})
+
+chrome.runtime.onInstalled.addListener((details) => {
   if (details.reason == 'install') {
     chrome.tabs.create({
       url: 'https://soitis.dev/control-panel-for-twitter/welcome',
@@ -99,7 +77,6 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   else if (details.reason == 'update') {
     let previous = details.previousVersion
     let current = chrome.runtime.getManifest().version
-
     let significantVersions = [
       crossesVersionThreshold(previous, current, '5') && '5',
     ].filter(Boolean)
@@ -108,13 +85,6 @@ chrome.runtime.onInstalled.addListener(async (details) => {
         url: `https://soitis.dev/control-panel-for-twitter/updated?version=${significantVersions[0]}`,
         active: false,
       })
-    }
-
-    let settingsVersions = [
-      crossesVersionThreshold(previous, current, '5') && '5',
-    ].filter(Boolean)
-    if (settingsVersions.includes('5')) {
-      await migrateSettingsToV5()
     }
   }
 })
@@ -125,7 +95,3 @@ chrome.storage.local.onChanged.addListener((changes) => {
   }
 })
 //#endregion
-
-chrome.storage.local.get({enabled: true}, ({enabled}) => {
-  updateToolbarIcon(enabled)
-})

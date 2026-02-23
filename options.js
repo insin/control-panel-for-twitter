@@ -1,7 +1,6 @@
-import { isObject, validateSettings } from './ext-shared.js'
-import { currentSettingsSchema } from './schemas.js'
-import { DEFAULT_SETTINGS } from './settings.js'
-import { get, set } from './storage.js'
+import { getSchemaForVersion, isObject, validateSettings } from './ext-shared.js'
+import { schemas } from './schemas.js'
+import { DEFAULT_SETTINGS, get, set, setSettings } from './settings.js'
 
 const $body = document.body
 const isBrowserAction = $body.classList.contains('browserAction')
@@ -67,6 +66,7 @@ for (let translationId of [
   'backupAndRestoreOptions',
   'bypassAgeVerification',
   'customCss',
+  'customTheme',
   'darkModeTheme',
   'debug',
   'debugInfo',
@@ -154,6 +154,8 @@ for (let translationId of [
   'import',
   'importSettings',
   'mutableQuoteTweets',
+  'mutedWords',
+  'mutedWordsInfo',
   'navBaseFontSize',
   'navDensity',
   'premiumBlueChecks',
@@ -185,6 +187,7 @@ for (let translationId of [
   'sortReplies',
   'sortRepliesInfo',
   'stickyHeadings',
+  'syncSettings',
   'tweakNewLayout',
   'tweakNewLayoutInfo',
   'tweakQuoteTweetsPage',
@@ -233,6 +236,8 @@ if (isBrowserAction) {
     document.getElementById('exportMessages').textContent = chrome.i18n.getMessage('optionsPageExportSettingsNote')
   }
 }
+
+document.querySelector('#customThemeInfo').innerHTML = chrome.i18n.getMessage('customThemeInfo')
 //#endregion
 
 /**
@@ -245,6 +250,7 @@ const INTERNAL_CONFIG_FORM_KEYS = [
   'debugLogTimelineStats',
   'enabled',
   'stickyHeadings',
+  'syncSettings',
 ]
 /** @type {Set<string>} */
 const INTERNAL_CONFIG_FORM_KEYSET = new Set(INTERNAL_CONFIG_FORM_KEYS)
@@ -257,6 +263,7 @@ const defaultConfig = {
   debugLogGetElementStats: false,
   debugLogTimelineStats: false,
   enabled: true,
+  syncSettings: true,
   tab: 'features',
   stickyHeadings: true,
   // Default based on the platform if the main script hasn't run on Twitter yet
@@ -283,6 +290,8 @@ let tabsHeight
 // Page elements
 let $collapsibleLabels = document.querySelectorAll('section.labelled.collapsible > label[data-collapse-id]')
 let $customCss = /** @type {HTMLTextAreaElement} */ (document.querySelector('textarea#customCss'))
+let $customThemeInput = /** @type {HTMLInputElement} */ (document.querySelector('input[name="customTheme"]'))
+let $displaySettingsLink = /** @type {HTMLAnchorElement} */ (document.querySelector('#customThemeInfo a'))
 let $exportSettingsButton = document.querySelector('button#export')
 let $fileInput = /** @type {HTMLInputElement} */ (document.querySelector('input[type="file"]'))
 let $form = document.querySelector('form')
@@ -295,7 +304,14 @@ let $mutedQuotes =  /** @type {HTMLDivElement} */ (document.querySelector('#mute
 let $mutedQuotesCount = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesCount'))
 let $mutedQuotesDetails =  /** @type {HTMLDetailsElement} */ (document.querySelector('details#mutedQuotesDetails'))
 let $optionsIcon = /** @type {HTMLImageElement} */ (document.querySelector('#optionsIcon'))
+let $mutedWords = /** @type {HTMLTextAreaElement} */ (document.querySelector('textarea#mutedWords'))
+let $mutedWordsError = document.querySelector('#mutedWordsError')
+let $mutedWordsErrorLine = document.querySelector('#mutedWordsErrorLine')
+let $mutedWordsErrorMessage = document.querySelector('#mutedWordsErrorMessage')
 let $panels = /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('.panel'))
+let $proButton = document.querySelector('button#proButton')
+let $proStatusIcon = document.querySelector('#proStatusIcon')
+let $proStatusText = document.querySelector('#proStatusText')
 let $saveCustomCssButton = document.querySelector('button#saveCustomCss')
 let $showPremiumReplyFollowersCount = /** @type {HTMLElement} */ (document.querySelector('#showPremiumReplyFollowersCount'))
 let $stickySentinels = document.querySelectorAll('.stickySentinel')
@@ -304,6 +320,10 @@ let $tabs = Array.from($tablist.querySelectorAll('button'))
 //#endregion
 
 //#region Utility functions
+const HEX_RE = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i
+const RGB_RE = /^rgb\(\s*(\d{1,3}%?)\s*[, ]\s*(\d{1,3}%?)\s*[, ]\s*(\d{1,3}%?)\s*\)$/i
+const HSL_RE = /^hsl\(\s*([\d.]+)(deg|rad|grad|turn)?\s*[, ]\s*(\d{1,3})%\s*[, ]\s*(\d{1,3})%\s*\)$/i
+
 function autoResize($textarea) {
   if (!$textarea.offsetParent) return
   if (!$textarea.hasAttribute('data-border-height')) {
@@ -312,6 +332,24 @@ function autoResize($textarea) {
   }
   $textarea.style.height = 'auto';
   $textarea.style.height = Math.ceil($textarea.scrollHeight) + parseFloat($textarea.getAttribute('data-border-height')) + 'px'
+}
+
+/**
+ * @param {{r: number, g: number, b: number}} rgb
+ */
+function calculateLuminance(rgb) {
+  if (!rgb) return 0
+  // YIQ formula for perceived brightness
+  return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000
+}
+
+function debounce(func, delay = 400) {
+  let timeoutId
+  return function(...args) {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => func.apply(this, args), delay)
+    return () => clearTimeout(timeoutId)
+  }
 }
 
 function formatFollowerCount(num) {
@@ -375,6 +413,148 @@ function sortKeys(obj) {
       return 0
     })
   )
+}
+
+/**
+ * @param {number} h
+ * @param {number} s
+ * @param {number} l
+ */
+function hslToRgb(h, s, l) {
+  s /= 100
+  l /= 100
+  let k = n => (n + h / 30) % 12
+  let a = s * Math.min(l, 1 - l)
+  let f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
+  return {
+    r: Math.round(255 * f(0)),
+    g: Math.round(255 * f(8)),
+    b: Math.round(255 * f(4)),
+  }
+}
+
+/**
+ * @param {string} color
+ */
+function isValidCustomTheme(color) {
+  // Allow it to be cleared
+  if (!color) return true
+
+  if (HEX_RE.test(color)) {
+    return true
+  }
+
+  let rgbMatch = color.match(RGB_RE)
+  if (rgbMatch) {
+    for (let i = 1; i <= 3; i++) {
+      let value = rgbMatch[i]
+      if (value.endsWith('%')) {
+        let percentage = parseFloat(value)
+        if (Number.isNaN(percentage) || percentage > 100) return false
+      }
+      else if (Number(value) > 255) {
+        return false
+      }
+    }
+    return true
+  }
+
+  let hslMatch = color.match(HSL_RE)
+  if (hslMatch) {
+    let hue = parseFloat(hslMatch[1])
+    if (Number.isNaN(hue)) return false
+    let saturation = Number(hslMatch[3])
+    let lightness = Number(hslMatch[4])
+    if (saturation > 100 || lightness > 100) {
+      return false
+    }
+    return true
+  }
+
+  return false
+}
+
+/**
+ * @param {string} hueStr
+ * @param {string} unit
+ */
+function normalizeHue(hueStr, unit) {
+  let hue = parseFloat(hueStr)
+  unit = unit ? unit.toLowerCase() : 'deg'
+  if (unit == 'rad') {
+    hue = hue * (180 / Math.PI)
+  }
+  else if (unit == 'grad') {
+    hue = (hue / 400) * 360
+  }
+  else if (unit == 'turn') {
+    hue = hue * 360
+  }
+  return ((hue % 360) + 360) % 360
+}
+
+/**
+ * @param {string} color
+ * @returns {{r: number, g: number, b: number} | null}
+ */
+function parseColorToRgb(color) {
+  if (HEX_RE.test(color)) {
+    let hex = color.slice(1)
+    let r, g, b
+    if (hex.length === 3) {
+      r = parseInt(hex[0].repeat(2), 16)
+      g = parseInt(hex[1].repeat(2), 16)
+      b = parseInt(hex[2].repeat(2), 16)
+    } else {
+      r = parseInt(hex.substring(0, 2), 16)
+      g = parseInt(hex.substring(2, 4), 16)
+      b = parseInt(hex.substring(4, 6), 16)
+    }
+    return {r, g, b}
+  }
+
+  let rgbMatch = color.match(RGB_RE);
+  if (rgbMatch) {
+    return {
+      r: parseRgbComponentValue(rgbMatch[1]),
+      g: parseRgbComponentValue(rgbMatch[2]),
+      b: parseRgbComponentValue(rgbMatch[3]),
+    }
+  }
+
+  let hslMatch = color.match(HSL_RE);
+  if (hslMatch) {
+    let h = normalizeHue(hslMatch[1], hslMatch[2])
+    let s = parseFloat(hslMatch[3])
+    let l = parseFloat(hslMatch[4])
+    return hslToRgb(h, s, l)
+  }
+
+  return null;
+}
+
+function parseRgbComponentValue(value) {
+  if (value.endsWith('%')) {
+    return (parseFloat(value) / 100) * 255
+  }
+  return Number(value)
+}
+
+function validateMuteRegExps(terms) {
+  let lines = terms.split('\n')
+  for (let i = 0; i < lines.length; i++) {
+    let match = lines[i].trim().match(/^\/(.*)\/$/)
+    if (!match) continue
+    try {
+      new RegExp(match[1])
+    } catch(e) {
+      return {
+        line: i + 1,
+        message: e.message,
+      }
+    }
+  }
+  return null
 }
 //#endregion
 
@@ -445,7 +625,7 @@ async function importSettings() {
   let json = await file.text()
   let {settings, messages} = validateSettingsJson(json)
   if (settings != null) {
-    await set({settings})
+    await setSettings(settings)
   } else {
     $importMessages.style.color = 'var(--text-error)'
   }
@@ -462,10 +642,22 @@ async function importSettings() {
   }
 }
 
+/**
+ * Only allow valid CSS colors.
+ */
+function onCustomThemeInput(e) {
+  let customTheme = e.target.value.trim()
+  if (isValidCustomTheme(customTheme) && customTheme != config.settings.customTheme) {
+    config.settings.customTheme = customTheme
+    storeConfigChanges({settings: {customTheme}})
+    updateDisplay()
+  }
+}
+
 function onFormChanged(/** @type {Event} */ e) {
   if (
     e.target instanceof HTMLTextAreaElement ||
-    e.target instanceof HTMLInputElement && e.target.type == 'file'
+    e.target instanceof HTMLInputElement && (e.target.type == 'file' || e.target.type == 'text')
   ) return
 
   /** @type {import("./types").StoredConfig} */
@@ -511,6 +703,51 @@ function onFormChanged(/** @type {Event} */ e) {
   }
   storeConfigChanges(changedConfig)
 }
+
+function onMutedWordsInput() {
+  autoResize($mutedWords)
+  let mutedWords = $mutedWords.value
+  let isEmpty = /^\s*$/.test(mutedWords)
+  if (isEmpty) {
+    if (config.settings.mutedWords) {
+      storeConfigChangesDebounced({settings: {mutedWords: '', mutedWordsError: false}})
+      clearMutedWordsError()
+    }
+    return
+  }
+
+  let error = validateMuteRegExps(mutedWords)
+  if (error) {
+    cancelPendingMutedWordsError = showMutedWordsErrorDebounced(error)
+    storeConfigChangesDebounced({settings: {mutedWords, mutedWordsError: true}})
+    return
+  } else {
+    // Immediately hide any error when invalid input becomes valid
+    clearMutedWordsError()
+  }
+
+  storeConfigChangesDebounced({settings: {mutedWords, mutedWordsError: false}})
+}
+
+function showMutedWordsError({line, message}) {
+  $mutedWords.classList.add('invalid')
+  $mutedWordsError.removeAttribute('hidden')
+  $mutedWordsErrorMessage.textContent = message
+  $mutedWordsErrorLine.textContent = `:${line}`
+}
+
+const showMutedWordsErrorDebounced = debounce(showMutedWordsError)
+
+function clearMutedWordsError() {
+  $mutedWords.classList.remove('invalid')
+  $mutedWordsError.setAttribute('hidden', '')
+  $mutedWordsErrorMessage.textContent = ''
+  $mutedWordsErrorLine.textContent = ''
+  cancelPendingMutedWordsError?.()
+}
+
+/** @type {() => void} */
+let cancelPendingMutedWordsError
 
 /**
  * Listen for storage changes while the options page is open and update its
@@ -573,31 +810,29 @@ function shouldDisplayMutedQuotes() {
  */
 async function storeConfigChanges(changes) {
   /** @type {Partial<import("./types").StoredConfig>} */
-  let changesToStore = {}
+  let internalConfig = Object.create(null)
   for (let key of Object.keys(defaultConfig)) {
     if (Object.hasOwn(changes, key)) {
-      changesToStore[key] = changes[key]
+      internalConfig[key] = changes[key]
     }
   }
 
+  chrome.storage.onChanged.removeListener(onStorageChanged)
   try {
-    if (changes.settings) {
-      let {settings: storedSettings} = await get({settings: {}})
-      changesToStore.settings = {...storedSettings, ...changes.settings}
+    if (changes.settings && Object.keys(changes.settings).length > 0) {
+      await setSettings(changes.settings)
     }
-  } catch(e) {
-    console.error('[options] error merging settings change', e)
-  }
-
-  try {
-    chrome.storage.onChanged.removeListener(onStorageChanged)
-    await set(changesToStore)
+    if (Object.keys(internalConfig).length > 0) {
+      await set(internalConfig)
+    }
   } catch(e) {
     console.error('[options] error storing config change', e)
   } finally {
     chrome.storage.onChanged.addListener(onStorageChanged)
   }
 }
+
+const storeConfigChangesDebounced = debounce(storeConfigChanges)
 
 function updateCheckboxGroups() {
   for (let [group, checkboxNames] of checkboxGroups.entries()) {
@@ -638,6 +873,18 @@ function updateDisplay() {
   if ($optionsIcon.src != icon) {
     $optionsIcon.src = icon
   }
+  $displaySettingsLink.href = config.settings.redirectToTwitter ? (
+    'https://twitter.com/settings/display?mx=1'
+  ) : (
+    'https://x.com/settings/display'
+  )
+  if (!config.token) {
+    $proStatusIcon.textContent = '🟢'
+    $proStatusText.textContent = 'Active'
+  } else {
+    $proStatusIcon.textContent = '⚫️'
+    $proStatusText.textContent = 'Get Pro'
+  }
   $showPremiumReplyFollowersCount.textContent = chrome.i18n.getMessage(
     'showPremiumReplyFollowersCount',
     formatFollowerCount(Number(config.settings.showPremiumReplyFollowersCountAmount))
@@ -646,6 +893,15 @@ function updateDisplay() {
   updateHideQuotesFromDisplay()
   updateMutedQuotesDisplay()
   updateTabsDisplay()
+  if (config.settings.customTheme) {
+    let rgb = parseColorToRgb(config.settings.customTheme)
+    let luminance = calculateLuminance(rgb);
+    $customThemeInput.style.backgroundColor = config.settings.customTheme
+    $customThemeInput.style.color = luminance > 128 ? 'black' : 'white';
+  } else {
+    $customThemeInput.style.backgroundColor = ''
+    $customThemeInput.style.color = ''
+  }
 }
 
 function updateHideQuotesFromDisplay() {
@@ -747,6 +1003,9 @@ function updateTabsDisplay() {
   if (config.tab == 'features') {
     autoResize($customCss)
   }
+  else if (config.tab == 'pro') {
+    autoResize($mutedWords)
+  }
 }
 
 /**
@@ -765,7 +1024,11 @@ export function validateSettingsJson(json) {
     return { messages: [chrome.i18n.getMessage('noSettingsObject')], settings: null }
   }
 
-  const { settings, invalid, unknown } = validateSettings(input.settings, currentSettingsSchema)
+  const version = typeof input.version == 'string'
+    ? input.version
+    : chrome.runtime.getManifest().version
+  const schema = getSchemaForVersion(schemas, version) || schemas.at(-1)[1]
+  const { settings, invalid, unknown } = validateSettings(input.settings, schema)
 
   return {
     messages: [
@@ -801,6 +1064,12 @@ async function main() {
     }
     exportSettings()
   })
+  $customThemeInput.addEventListener('input', onCustomThemeInput)
+  $displaySettingsLink.addEventListener('click', () => {
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+      chrome.tabs.update(tabs[0].id, {url: $displaySettingsLink.href})
+    })
+  })
   $fileInput.addEventListener('change', importSettings)
   $form.addEventListener('change', onFormChanged)
   $importSettingsButton.addEventListener('click', () => {
@@ -815,9 +1084,17 @@ async function main() {
   })
   $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
   $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
+  $mutedWords.addEventListener('input', onMutedWordsInput)
+  $proButton.addEventListener('click', (e) => {
+    e.preventDefault()
+    chrome.runtime.sendMessage({type: 'open_pro_window'})
+  })
   $saveCustomCssButton.addEventListener('click', saveCustomCss)
   for (let $tab of $tabs) {
     $tab.addEventListener('click', onTabClick)
+  }
+  if (config.settings.mutedWordsError) {
+    showMutedWordsError(validateMuteRegExps(config.settings.mutedWords))
   }
 
   let tabsResizeObserver = new ResizeObserver((entries) => {
@@ -854,4 +1131,5 @@ async function main() {
 }
 
 main()
+
 //#endregion
