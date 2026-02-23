@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const {sortProperties} = require('./utils')
+const {sortProperties} = require('./lib')
 
 if (process.argv.some(arg => /^-h|--help$/.test(arg))) {
   console.log(`
@@ -9,7 +9,7 @@ Updates ../_locales/**/messages.json with translations from ./scripts/translatio
 Where translations.json is in the format:
 
   {
-    "exampleMessageLabel": {
+    "exampleMessage": {
       "en": "English version",
       "es": "Versión en español"
     }
@@ -33,7 +33,8 @@ for (let [messageProp, translations] of Object.entries(translationsJson)) {
       )
     }
     let messagesJson = localeMessagesJson.get(localeCode)
-    messagesJson[messageProp] = {...messagesJson[messageProp], message}
+    let update = typeof message == 'string' ? {message} : message
+    messagesJson[messageProp] = {...messagesJson[messageProp], ...update}
   }
 }
 

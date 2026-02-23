@@ -40,114 +40,106 @@ let messages = Object.fromEntries(Object.entries(locale).map(([prop, value]) => 
 Object.assign(messages, Object.fromEntries(Object.entries(extraTranslations).map(([prop, value]) => [prop, value[localeCode]])))
 
 let storeDescription = `
-${messages.homeTimelineOptionsLabel}
+${messages.features}
 
-• ${messages.alwaysUseLatestTweetsLabel}
-  • ${messages.hideForYouTimelineLabel}
-• ${messages.retweetsLabel}
-  • ${messages.option_separate} / ${messages.option_hide}
-• ${messages.quoteTweetsLabel}
-  • ${messages.option_separate} / ${messages.option_hide}
-• ${messages.mutableQuoteTweetsLabel}
-• ${messages.hideSeeNewTweetsLabel}
-• ${messages.hideWhoToFollowEtcLabel}
+${messages.homeTimelineOptions}:
+
+• ${messages.defaultToFollowing}
+• ${messages.hideForYouTimeline}
+• ${messages.defaultFollowingToRecent} / ${messages.hideFollowingMenu}
+• ${messages.retweets} (${messages.option_separate} / ${messages.option_hide})
+• ${messages.quoteTweets} (${messages.option_separate} / ${messages.option_hide})
+• ${messages.mutableQuoteTweets}
+• ${messages.hideSeeNewTweets}
+• ${messages.hideSuggestedContentTimeline}
 • ${messages.hideInlinePrompts}
-• ${messages.fullWidthContentLabel}${messages.desktopVersion}
-  • ${messages.fullWidthContentInfo}
+• ${messages.fullWidthContent}${messages.desktopVersion} - ${messages.fullWidthContentInfo}
 
-${messages.uiImprovementsOptionsLabel}
+${messages.uiImprovementsOptions}:
 
-• ${messages.preventNextVideoAutoplayLabel}${messages.mobileVersion}
-• ${messages.addAddMutedWordMenuItemLabel_desktop}
-• ${messages.fastBlockLabel}
-• ${messages.hideUnavailableQuoteTweetsLabel}
-• ${messages.hideProfileRetweetsLabel}
-• ${messages.listRetweetsLabel}
-• ${messages.defaultToLatestSearchLabel}
-• ${messages.tweakQuoteTweetsPageLabel}
+• ${messages.preventNextVideoAutoplay}${messages.mobileVersion}
+• ${messages.addAddMutedWordMenuItem_desktop}
+• ${messages.fastBlock}
+• ${messages.hideUnavailableQuoteTweets}
+• ${messages.hideProfileRetweets}
+• ${messages.hideNotificationLikes}
+• ${messages.hideNotificationRetweets}
+• ${messages.hideListRetweets}
+• ${messages.hideSuggestedContentSearch}
+• ${messages.defaultToLatestSearch}
+• ${messages.tweakQuoteTweetsPage}
 
-${messages.xFixesLabel}
+${messages.xFixesOptions}:
 
-• ${messages.redirectToTwitterLabel}
-• ${messages.tweakNewLayoutLabel}
-  • ${messages.hideToggleNavigationLabel}
-• ${messages.replaceLogoLabel}
-• ${messages.hideViewsLabel}
-• ${messages.hideVerifiedNotificationsTabLabel}
-• ${messages.restoreTweetSourceLabel}
-• ${messages.restoreLinkHeadlinesLabel}
-• ${messages.restoreQuoteTweetsLinkLabel}
-• ${messages.restoreOtherInteractionLinksLabel}
-• ${messages.sortRepliesLabel}
-  • ${messages.option_recent} / ${messages.option_liked}
-• ${messages.twitterBlueChecksLabel}
-  • ${messages.twitterBlueChecksOption_replace} / ${messages.option_hide}
-• ${messages.hideTwitterBlueRepliesLabel}
-• ${messages.hideTwitterBlueUpsellsLabel}
-• ${messages.hideGrokLabel}
-• ${messages.hideGrokTweetsLabel}
-• ${messages.hideJobsLabel}
-• ${messages.hideSubscriptionsLabel}
+• ${messages.revertXBranding}
+• ${messages.darkModeTheme} (${messages.option_dim})
+• ${messages.redirectToTwitter}
+• ${messages.redirectChatNav}
+• ${messages.hideViews}
+• ${messages.hideVerifiedTabs}
+• ${messages.restoreTweetSource}
+• ${messages.addFocusedTweetAccountLocation}
+• ${messages.addUserHoverCardAccountLocation}${messages.desktopVersion}
+• ${messages.restoreLinkHeadlines}
+• ${messages.restoreQuoteTweetsLink}
+• ${messages.restoreOtherInteractionLinks}
+• ${messages.sortReplies} (${messages.option_recent} / ${messages.option_liked})
+• ${messages.hideSortRepliesMenu}
+• ${messages.premiumBlueChecks} (${messages.premiumBlueChecksOption_replace} / ${messages.option_hide})
+• ${messages.hidePremiumReplies}
+• ${messages.hidePremiumUpsells}
+• ${messages.hideGrok}
+• ${messages.hideGrokTweets}
+• ${messages.hideEditImage}
+• ${messages.hideJobs}
+• ${messages.hideSubscriptions}
 
-${messages.uiTweaksOptionsLabel}
+${messages.uiTweaksOptions}:
 
-• ${messages.dontUseChirpFontLabel}
-• ${messages.disableTweetTextFormattingLabel}
-• ${messages.navBaseFontSizeLabel}${messages.desktopVersion}
-• ${messages.navDensityLabel}${messages.desktopVersion}
-  • ${messages.option_comfortable} / ${messages.option_compact}
-• ${messages.dropdownMenuFontWeightLabel}
-• ${messages.uninvertFollowButtonsLabel}
-  • ${messages.followButtonStyleOption_monochrome} / ${messages.followButtonStyleOption_themed}
-• ${messages.unblurSensitiveContentLabel}
+• ${messages.dontUseChirpFont}
+• ${messages.disableTweetTextFormatting}
+• ${messages.navBaseFontSize}${messages.desktopVersion}
+• ${messages.navDensity}${messages.desktopVersion} (${messages.option_comfortable} / ${messages.option_compact})
+• ${messages.dropdownMenuFontWeight}
+• ${messages.uninvertFollowButtons} (${messages.followButtonStyleOption_monochrome} / ${messages.followButtonStyleOption_themed})
+• ${messages.bypassAgeVerification}
+• ${messages.unblurSensitiveContent}
 
-${messages.reduceAlgorithmicContentOptionsLabel}
+${messages.reduceAlgorithmicContentOptions}:
 
-• ${messages.hideSidebarContentLabel}${messages.desktopVersion}
-• ${messages.hideExplorePageContentsLabel}
-• ${messages.hideDiscoverSuggestionsLabel}
+• ${messages.hideSidebarContent}${messages.desktopVersion}
+• ${messages.hideExplorePageContents}
+• ${messages.hideDiscoverSuggestions}
 
-${messages.reduceEngagementOptionsLabel}
+${messages.reduceEngagementOptions}:
 
-• ${messages.hideMetricsLabel}
-• ${messages.reducedInteractionModeLabel}
-  • ${messages.reducedInteractionModeInfo}
-• ${messages.hideComposeTweetLabel}
-• ${messages.disableHomeTimelineLabel}
-  • ${messages.disableHomeTimelineInfo}
-• ${messages.notificationsLabel}
-  • ${messages.option_badges} / ${messages.option_hide}
+• ${messages.hideMetrics}
+• ${messages.reducedInteractionMode} - ${messages.reducedInteractionModeInfo}
+• ${messages.hideComposeTweet}
+• ${messages.disableHomeTimeline} - ${messages.disableHomeTimelineInfo}
+• ${messages.notifications} (${messages.option_badges} / ${messages.option_hide})
 
-${messages.hideUnusedUiItemsOptionsLabel}
+${messages.hideUnusedUiItemsOptions}:
 
-• ${messages.hideBookmarkButtonLabel}
-• ${messages.hideShareTweetButtonLabel}
-• ${messages.hideTweetAnalyticsLinksLabel}
-• ${messages.hideTimelineTweetBoxLabel}${messages.desktopVersion}
-• ${messages.hideAccountSwitcherLabel}${messages.desktopVersion}
-• ${messages.hideMessagesDrawerLabel}${messages.desktopVersion}
-• ${messages.hideExploreNavLabel}${messages.desktopVersion}
-• ${messages.hideCommunitiesNavLabel}
-• ${messages.hideMoreSlideOutMenuItemsOptionsLabel_desktop}
+• ${messages.hideBookmarkButton}
+• ${messages.hideShareTweetButton}
+• ${messages.hideViewActivityLinks}
+• ${messages.hideTimelineTweetBox}${messages.desktopVersion}
+• ${messages.hideAccountSwitcher}${messages.desktopVersion}
+• ${messages.hideMessagesDrawer}${messages.desktopVersion}
+• ${messages.hideExploreNav}${messages.desktopVersion}
+• ${messages.hideCreatorStudioNav}
+• ${messages.hideConnectNav}
+• ${messages.hideCommunitiesNav}
+• ${messages.hideMoreSlideOutMenuItemsOptions_desktop}
 `.trim()
 
-if (process.argv[3] == 'html') {
-  // XXX This depends _very specifically_ on the way dashes, spaces and newlines
-  //     are used in the template string above.
-  storeDescription = `<strong>${messages.features}:</strong>\n\n` + storeDescription
-    // 2 nested items
-    .replace(/^• ([^\n]+)\n  • ([^\n]+)\n  • ([^\n]+)/gm, '<li>$1<ul>\n<li>$2</li>\n<li>$3</li></ul></li>')
-    // 1 nested item
-    .replace(/^• ([^\n]+)\n  • ([^\n]+)/gm, '<li>$1<ul>\n<li>$2</li></ul></li>')
-    // No nested items
-    .replace(/^• ([^\n]+)/gm, '<li>$1</li>')
+if (process.argv[3] == 'md') {
+  storeDescription = storeDescription
     // Section titles
-    .replace(/^([^\n<][^\n]+)\n\n/gm, '<strong>$1</strong>\n<ul>\n')
-    // Remaining empty lines
-    .replace(/^$/gm, '</ul>\n')
-    .replace(/$/, '\n</ul>')
-} else {
-  storeDescription = `${messages.features}:\n\n` + storeDescription
+    .replace(/^([^:\n]+):$/gm, '**$1:**')
+    // List items
+    // .replace(/•/g, '-')
 }
 
 storeDescription += '\n\nTWITTER, TWEET and RETWEET are trademarks of Twitter Inc. or its affiliates'

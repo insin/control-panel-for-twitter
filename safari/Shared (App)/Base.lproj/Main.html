@@ -8,11 +8,56 @@
   <script src="../Script.js" defer></script>
 </head>
 <body>
-  <img src="../Icon.png" width="128" height="128" alt="Control Panel for Twitter Icon">
-  <p class="platform-ios">You can turn on Control Panel for Twitter’s Safari extension in Settings.</p>
-  <p class="platform-mac state-unknown">You can turn on Control Panel for Twitter’s extension in Safari Extensions preferences.</p>
-  <p class="platform-mac state-on">Control Panel for Twitter’s extension is currently on. You can turn it off in Safari Extensions preferences.</p>
-  <p class="platform-mac state-off">Control Panel for Twitter’s extension is currently off. You can turn it on in Safari Extensions preferences.</p>
-  <button class="open-preferences">Quit and Open Safari Extensions Preferences…</button>
+  <img src="../Icon.png" width="128" height="128" alt="Control Panel for Twitter" class="icon">
+  <div data-lang="en">
+    <p class="platform-mac state-unknown">Checking if Control Panel for Twitter is enabled in Safari…</p>
+    <p class="platform-mac state-on">Control Panel for Twitter is enabled in Safari</p>
+    <div class="platform-ios">
+      <p>To enable Control Panel for Twitter in Safari:</p>
+      <ol>
+        <li>Open the <strong>Settings</strong> app</li>
+        <li>Tap <strong>Apps → Safari → Extensions</strong></li>
+        <li>Tap <strong>Control Panel for Twitter</strong></li>
+        <li>Tap <strong>Allow Extension</strong></li>
+        <li>Scroll down to <strong>Permissions</strong></li>
+        <li>Tap <strong>x.com</strong> then <strong>Allow</strong></li>
+        <li>Tap <strong>twitter.com</strong> then <strong>Allow</strong></li>
+      </ol>
+    </div>
+    <div class="platform-mac state-off">
+      <p>To Enable Control Panel for Twitter in Safari:</p>
+      <button class="open-preferences">Open Safari Extensions Settings…</button>
+      <ol>
+        <li>Enable <strong>Control Panel for Twitter</strong></li>
+        <li>Click <strong>Edit Websites…</strong></li>
+        <li>Change <strong>x.com</strong> and <strong>twitter.com</strong> to <strong>Allow</strong></li>
+      </ol>
+    </div>
+  </div>
+  <div data-lang="ja">
+    <p class="platform-mac state-unknown">SafariでControl Panel for Twitterが有効になっているか<span class="no-wrap">確認中…</span></p>
+    <p class="platform-mac state-on">SafariでControl Panel for Twitterが<span class="no-wrap">有効になっています</span></p>
+    <div class="platform-ios">
+      <p>SafariでControl Panel for Twitterを<span class="no-wrap">有効にするには：</span></p>
+      <ol>
+        <li><strong>設定</strong>アプリを開きます</li>
+        <li><strong>アプリ → Safari → 機能拡張</strong>を<span class="no-wrap">タップします</span></li>
+        <li><strong>Control Panel for Twitter</strong>を<span class="no-wrap">タップします</span></li>
+        <li><strong>機能拡張を許可</strong>を<span class="no-wrap">タップします</span></li>
+        <li><strong>アクセス権</strong>まで<span class="no-wrap">下にスクロールします</span></li>
+        <li><strong>x.com</strong>をタップして、<span class="no-wrap"><strong>許可</strong>を選択します</span></li>
+        <li><strong>twitter.com</strong>をタップして、<span class="no-wrap"><strong>許可</strong>を選択します</span></li>
+      </ol>
+    </div>
+    <div class="platform-mac state-off">
+      <p>SafariでControl Panel for Twitterを<span class="no-wrap">有効にするには：</span></p>
+      <button class="open-preferences">Safariの拡張機能設定を開く…</button>
+      <ol>
+        <li><strong>Control Panel for Twitter</strong>を有効にします</li>
+        <li><strong>Webサイトを編集…</strong>をクリックします</li>
+        <li><strong>x.com</strong>と<strong>twitter.com</strong>を<strong>許可</strong>に変更します</li>
+      </ol>
+    </div>
+  </div>
 </body>
 </html>
