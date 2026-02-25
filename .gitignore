@@ -11,4 +11,5 @@ scripts/locales/js/_files.txt
 scripts/locales/locales.js
 scripts/locales/old/
 scripts/translations.json
+sync-reports/
 web-ext-artifacts/

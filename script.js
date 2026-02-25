@@ -204,7 +204,6 @@ const config = {
   uninvertFollowButtons: false,
   unblurSensitiveContent: false,
   customCss: '',
-  // Desktop only
   addUserHoverCardAccountLocation: true,
   fullWidthContent: false,
   fullWidthMedia: true,
@@ -231,8 +230,8 @@ const config = {
   hideAvatars: true,
   hideEmojis: true,
   hideMedia: true,
-  _appVersion: '4.16.0',
-  _buildDate: '2025-12-24',
+  _appVersion: '4.22.2',
+  _buildDate: '2026-02-25',
 
 }
 //#endregion
