@@ -1,0 +1,27 @@
+diff --git a/_locales/zh_CN/messages.json b/_locales/zh_CN/messages.json
+index 585d074..7e7126e 100644
+--- a/_locales/zh_CN/messages.json
++++ b/_locales/zh_CN/messages.json
+@@ -14,8 +14,11 @@
+   "bypassAgeVerificationLabel": {
+     "message": "绕过年龄验证"
+   },
++  "configurationLabel": {
++    "message": "配置"
++  },
+   "customCssLabel": {
+-    "message": "自定义 CSS"
++    "message": "自定义CSS"
+   },
+   "debugInfo": {
+     "message": "启用调试日志并在时间线上显示推文调试信息"
+@@ -62,6 +65,9 @@
+   "exportConfigLabel": {
+     "message": "导出配置用于错误报告"
+   },
++  "importConfigLabel": {
++    "message": "导入配置"
++  },
+   "extensionDescription": {
+     "message": "让你对Twitter有更多的控制，并增加了缺失的功能和UI改进"
+   },

@@ -1,0 +1,94 @@
+diff --git a/options.js b/options.js
+index d8a5ffe..d77d88f 100644
+--- a/options.js
++++ b/options.js
+@@ -33,9 +33,10 @@ for (let translationId of [
+   'addAddMutedWordMenuItemLabel_desktop',
+   'addAddMutedWordMenuItemLabel_mobile',
+   'alwaysUseLatestTweetsLabel',
+-  'bypassAgeVerificationLabel',
+-  'customCssLabel',
+-  'debugInfo',
++   'bypassAgeVerificationLabel',
++   'configurationLabel',
++   'customCssLabel',
++   'debugInfo',
+   'debugLabel',
+   'debugLogTimelineStatsLabel',
+   'debugOptionsLabel',
+@@ -48,9 +49,10 @@ for (let translationId of [
+   'dontUseChirpFontLabel',
+   'dropdownMenuFontWeightLabel',
+   'enabled',
+-  'experimentsOptionsLabel',
+-  'exportConfigLabel',
+-  'fastBlockLabel',
++   'experimentsOptionsLabel',
++   'exportConfigLabel',
++   'importConfigLabel',
++   'fastBlockLabel',
+   'followButtonStyleLabel',
+   'followButtonStyleOption_monochrome',
+   'followButtonStyleOption_themed',
+@@ -302,6 +304,7 @@ let checkboxGroups
+ // Page elements
+ let $experiments = /** @type {HTMLDetailsElement} */ (document.querySelector('details#experiments'))
+ let $exportConfig = document.querySelector('#export-config')
++let $importConfig = document.querySelector('#import-config')
+ let $form = document.querySelector('form')
+ let $hideQuotesFrom =  /** @type {HTMLDivElement} */ (document.querySelector('#hideQuotesFrom'))
+ let $hideQuotesFromDetails = /** @type {HTMLDetailsElement} */ (document.querySelector('details#hideQuotesFromDetails'))
+@@ -324,6 +327,45 @@ function exportConfig() {
+   URL.revokeObjectURL($a.href)
+ }
+ 
++function importConfig() {
++  let $input = document.createElement('input')
++  $input.type = 'file'
++  $input.accept = '.txt,.json'
++  $input.onchange = (e) => {
++    let file = e.target.files[0]
++    if (!file) return
++
++    let reader = new FileReader()
++    reader.onload = (e) => {
++      try {
++        let importedConfig = JSON.parse(e.target.result)
++        // Basic validation - check if it has some expected properties
++        if (typeof importedConfig !== 'object' || !importedConfig.hasOwnProperty('enabled')) {
++          throw new Error('Invalid configuration file')
++        }
++
++        // Merge with default config to ensure all properties exist
++        let newConfig = {...defaultConfig, ...importedConfig}
++
++        // Store the imported config
++        chrome.storage.local.set(newConfig, () => {
++          if (chrome.runtime.lastError) {
++            alert('Error importing configuration: ' + chrome.runtime.lastError.message)
++          } else {
++            alert('Configuration imported successfully!')
++            // Reload the page to apply changes
++            location.reload()
++          }
++        })
++      } catch (error) {
++        alert('Error parsing configuration file: ' + error.message)
++      }
++    }
++    reader.readAsText(file)
++  }
++  $input.click()
++}
++
+ function formatFollowerCount(num) {
+   let numFormat = Intl.NumberFormat(undefined, {notation: 'compact', compactDisplay: num < 1_000_000 ? 'short' : 'long'})
+   return numFormat.format(num)
+@@ -590,6 +632,7 @@ function main() {
+     $body.classList.toggle('debug', optionsConfig.debug === true)
+     $experiments.open = Boolean(optionsConfig.customCss)
+     $exportConfig.addEventListener('click', exportConfig)
++    $importConfig.addEventListener('click', importConfig)
+     $form.addEventListener('change', onFormChanged)
+     $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
+     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)

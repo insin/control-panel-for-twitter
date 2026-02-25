@@ -1,0 +1,26 @@
+# Media Spoiler Implementation Order
+
+Try solutions in this order for best results:
+
+1. **css-hover-click-spoiler.css** - Pure CSS solution
+   - Simplest to implement
+   - No JavaScript required
+   - Good starting point
+
+2. **blur-overlay-spoiler.css** - Modern CSS with backdrop-filter
+   - More visually appealing blur effect
+   - Uses modern CSS features
+   - Still no JavaScript needed
+
+3. **js-spoiler-hover-click.js** - Basic JavaScript solution
+   - Adds programmatic control
+   - Auto-applies to data-spoiler elements
+   - Good balance of features and complexity
+
+4. **advanced-media-spoiler.js** - Full-featured solution
+   - Most customizable and feature-rich
+   - Supports custom warning messages
+   - Best for complex requirements
+
+## Quick Start
+Start with solution #1, then progress to more advanced ones as needed.

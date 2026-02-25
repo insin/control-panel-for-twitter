@@ -1,0 +1,62 @@
+/* Blur Overlay Spoiler - Alternative CSS Approach */
+
+.media-spoiler-overlay {
+  position: relative;
+  display: inline-block;
+}
+
+.media-spoiler-overlay img,
+.media-spoiler-overlay video {
+  display: block;
+  transition: filter 0.3s ease;
+}
+
+.media-spoiler-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(50px);
+  transition: backdrop-filter 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-spoiler-overlay::before {
+  content: '👁️ Hover to preview • Click to reveal';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 10px 15px;
+  border-radius: 5px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.media-spoiler-overlay:hover::after {
+  backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.media-spoiler-overlay:hover::before {
+  content: '👆 Click to reveal permanently';
+}
+
+.media-spoiler-overlay.revealed::after {
+  display: none;
+}
+
+.media-spoiler-overlay.revealed::before {
+  display: none;
+}
