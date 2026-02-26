@@ -97,7 +97,7 @@
   "hideSpacesNav": true,
   "hideSuggestedFollows": false,
   "hideTimelineTweetBox": false,
-  "hideTodaysNews": false,
+  "hideTodaysNews": true,
   "hideToggleNavigation": false,
   "hideWhatsHappening": false,
   "navBaseFontSize": true,
@@ -111,6 +111,6 @@
   "hideAvatars": true,
   "hideEmojis": true,
   "hideMedia": true,
-  "_appVersion": "4.16.0",
-  "_buildDate": "2025-12-24"
+  "_appVersion": "4.22.2",
+  "_buildDate": "2026-02-25"
 }

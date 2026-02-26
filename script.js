@@ -216,7 +216,7 @@ const config = {
   hideSpacesNav: true,
   hideSuggestedFollows: false,
   hideTimelineTweetBox: false,
-  hideTodaysNews: false,
+  hideTodaysNews: true,
   hideToggleNavigation: false,
   hideWhatsHappening: false,
   navBaseFontSize: true,
@@ -230,8 +230,8 @@ const config = {
   hideAvatars: true,
   hideEmojis: true,
   hideMedia: true,
-  _appVersion: '4.22.2',
-  _buildDate: '2026-02-25',
+  _appVersion: '4.22.2.1',
+  _buildDate: '2026-02-26',
 
 }
 //#endregion
