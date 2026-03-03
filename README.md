@@ -2,57 +2,63 @@
 
 Personal fork of [insin/control-panel-for-twitter](https://github.com/insin/control-panel-for-twitter) with custom defaults and extra features (hide avatars, blur media, hide emojis, gray links, hashtag checkmarks).
 
-## Quick Deploy
+## Permanent Install
+
+### Chrome / Edge / Brave (recommended)
+
+One-time setup:
+```bash
+make chrome-manifest   # copies manifest.mv3.json -> manifest.json
+```
+Then `chrome://extensions` > Developer Mode ON > Load unpacked > select this repo folder.
+
+**Update after rebuild:** click the reload icon on the extension card, or Cmd+R the Twitter tab. The "Load unpacked" path points at the repo -- files change in-place.
+
+### Firefox Developer Edition
+
+Firefox Dev Edition allows unsigned extensions. Regular Firefox does not.
+
+One-time setup:
+1. `about:config` > set `xpinstall.signatures.required` = `false`
+2. `about:addons` > gear icon > Install Add-on From File > pick `web-ext-artifacts/*.mv2.zip`
+
+**Update after rebuild:** same path -- `about:addons` > gear > Install Add-on From File > pick the new zip. Replaces in-place.
+
+### Safari
+
+One-time setup:
+```bash
+make safari && make safari-open
+```
+Then Safari > Settings > Extensions > enable "Control Panel for Twitter".
+
+**Update after rebuild:** `make safari`. Safari picks up changes on next page load -- no need to re-enable.
+
+## Build
 
 ```bash
 make build             # MV2 + MV3 zips
 make safari            # Safari app (self-healing Xcode)
-make all               # everything: clean + build + safari + deploy
+make all               # clean + build + safari + deploy
 ```
 
-### Firefox (fastest iteration)
+### Dev mode (temp profile, hot reload)
 
 ```bash
-npm run firefox        # launches temp profile with extension auto-loaded
+npm run firefox        # press r to reload
+npm run chrome         # press r to reload
+npm run edge-mac       # press r to reload
 ```
 
-Uses `web-ext run` -- the extension hot-reloads on file changes. Press `r` in the terminal to force reload.
+### Safari build details
 
-### Chrome / Edge
+`make safari` builds via `xcodebuild` with ad-hoc signing (no Apple developer cert needed). If Xcode's system components are stale (`runFirstLaunch` error), it detects and fixes automatically.
 
-```bash
-npm run chrome         # launches Chromium with extension
-npm run edge-mac       # launches Edge on macOS
-```
-
-Same as Firefox -- temp profile, auto-loaded, press `r` to reload.
-
-### Safari
-
-```bash
-make safari            # builds via xcodebuild, no Xcode GUI needed
-make safari-open       # opens the built app (registers extension with Safari)
-```
-
-If Xcode's system components are stale (the `runFirstLaunch` error), `make safari` detects it and runs `xcodebuild -runFirstLaunch` automatically, then retries the build. No manual intervention needed.
-
-The Xcode project references `script.js`, `content.js`, and `background.js` directly from the repo root via relative paths, so code changes are picked up on rebuild without copying files.
-
-After first run, enable in Safari > Settings > Extensions.
-
-### Sideload (persistent)
-
-For daily use without `web-ext run`:
-
-**Firefox:** `about:debugging#/runtime/this-firefox` > Load Temporary Add-on > select `manifest.mv2.json`. Survives until Firefox restarts.
-
-**Chrome:** Copy `manifest.mv3.json` to `manifest.json`, then `chrome://extensions` > Developer Mode > Load unpacked > select repo root.
-
-**Safari:** `make safari && make safari-open`. The app persists. Re-run `make safari` after code changes.
+The Xcode project references `script.js`, `content.js`, `background.js` directly from the repo root via relative paths -- no file copying needed.
 
 ## Build Artifacts
 
-Output goes to `web-ext-artifacts/`:
+`web-ext-artifacts/`:
 - `control_panel_for_twitter-{version}.mv2.zip` -- Firefox
 - `control_panel_for_twitter-{version}.mv3.zip` -- Chrome, Edge
 

@@ -57,6 +57,10 @@ safari: ## Build Safari extension (self-healing Xcode)
 safari-open: ## Open Safari extension app
 	@open '$(SAFARI_BUILD_DIR)/Build/Products/Release/Control Panel for Twitter.app'
 
+chrome-manifest: ## Copy MV3 manifest for Chrome unpacked loading
+	@cp manifest.mv3.json manifest.json
+	@echo "manifest.json ready for chrome://extensions Load unpacked"
+
 install: build deploy ## Build and deploy the extension
 
 deploy: ## Deploy to $(TARGET_DIR)
