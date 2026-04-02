@@ -5208,6 +5208,9 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
+      if (config.hideExploreNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/explore"]`)
+      }
       if (config.hideGrokNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/grok"]`)
       }
