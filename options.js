@@ -589,6 +589,45 @@ function updateMutedQuotesDisplay() {
   })
 }
 
+function setupOptionsSearch() {
+  let $input = /** @type {HTMLInputElement} */ (document.querySelector('#searchInput'))
+  if (!$input) return
+
+  // Only the labelled groups are filterable; the first (Enabled) group is not.
+  let $groups = /** @type {NodeListOf<HTMLElement>} */ (
+    document.querySelectorAll('form > section.group.labelled')
+  )
+
+  let HIDDEN = 'cpft_hidden_by_search'
+
+  function apply() {
+    let query = $input.value.trim().toLowerCase()
+    for (let $group of $groups) {
+      let anyVisible = false
+      // Direct child rows of the group — each is one option (or a nested <details>)
+      let $rows = /** @type {NodeListOf<HTMLElement>} */ (
+        $group.querySelectorAll(':scope > section, :scope > details, :scope > p')
+      )
+      for (let $row of $rows) {
+        let text = ($row.textContent || '').toLowerCase()
+        let match = !query || text.includes(query)
+        $row.classList.toggle(HIDDEN, !match)
+        if (match) anyVisible = true
+      }
+      $group.classList.toggle(HIDDEN, Boolean(query) && !anyVisible)
+    }
+  }
+
+  $input.addEventListener('input', apply)
+  // Clear filter on Escape
+  $input.addEventListener('keydown', (e) => {
+    if (e.key == 'Escape' && $input.value) {
+      $input.value = ''
+      apply()
+    }
+  })
+}
+
 function updateFormControls() {
   Object.keys(optionsConfig)
         .filter(prop => prop in $form.elements)
@@ -626,6 +665,7 @@ function main() {
     $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
     $saveCustomCssButton.addEventListener('click', saveCustomCss)
+    setupOptionsSearch()
     chrome.storage.onChanged.addListener(onStorageChanged)
 
     if (!optionsConfig.debug) {

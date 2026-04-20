@@ -45,6 +45,31 @@ body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   height: 1.25rem;
 }
 
+#searchSection {
+  padding: 8px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: Canvas;
+  border-bottom: 1px solid #B6B6B6;
+}
+#searchInput {
+  width: 100%;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  font: inherit;
+  border: 1px solid #B6B6B6;
+  border-radius: 6px;
+  background: Field;
+  color: FieldText;
+}
+body.disabled #searchSection {
+  display: none;
+}
+.cpft_hidden_by_search {
+  display: none !important;
+}
+
 body.macOS.safari .icon {
   display: none;
 }
