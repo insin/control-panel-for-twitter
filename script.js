@@ -7621,7 +7621,7 @@ async function tweakMobileComposeTweetPage() {
     observeElement($dropdownContainer, (mutations) => {
       for (let mutation of mutations) {
         if ($typeaheadDropdown &&
-            mutations.some(mutation => Array.from(mutation.removedNodes).includes($typeaheadDropdown))) {
+            Array.from(mutation.removedNodes).includes($typeaheadDropdown)) {
           pageObservers.get('Tweet box typeahead dropdown')?.disconnect()
           $typeaheadDropdown = null
         }
