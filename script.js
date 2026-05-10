@@ -2328,9 +2328,9 @@ const Svgs = {
   TWITTER_HOME_ACTIVE_PATH: 'M12 1.696L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM12 16.5c-1.933 0-3.5-1.567-3.5-3.5s1.567-3.5 3.5-3.5 3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5z',
   TWITTER_HOME_INACTIVE_PATH: 'M12 9c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4zm0 6c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm0-13.304L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM19 19.5c0 .276-.224.5-.5.5h-13c-.276 0-.5-.224-.5-.5V8.429l7-4.375 7 4.375V19.5z',
   TWITTER_LOGO_PATH: 'M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z',
-  X_HOME_ACTIVE_PATH: 'M21.591 7.146L12.52 1.157c-.316-.21-.724-.21-1.04 0l-9.071 5.99c-.26.173-.409.456-.409.757v13.183c0 .502.418.913.929.913H9.14c.51 0 .929-.41.929-.913v-7.075h3.909v7.075c0 .502.417.913.928.913h6.165c.511 0 .929-.41.929-.913V7.904c0-.301-.158-.584-.408-.758z',
-  X_HOME_INACTIVE_PATH: 'M21.591 7.146L12.52 1.157c-.316-.21-.724-.21-1.04 0l-9.071 5.99c-.26.173-.409.456-.409.757v13.183c0 .502.418.913.929.913h6.638c.511 0 .929-.41.929-.913v-7.075h3.008v7.075c0 .502.418.913.929.913h6.639c.51 0 .928-.41.928-.913V7.904c0-.301-.158-.584-.408-.758zM20 20l-4.5.01.011-7.097c0-.502-.418-.913-.928-.913H9.44c-.511 0-.929.41-.929.913L8.5 20H4V8.773l8.011-5.342L20 8.764z',
-  PLUS_PATH: 'M11 11V4h2v7h7v2h-7v7h-2v-7H4v-2h7z',
+  X_HOME_ACTIVE_PATH: 'M10.059 2.593c1.175-.784 2.707-.784 3.882 0l6.5 4.333C21.415 7.575 22 8.668 22 9.838V18.5c0 1.933-1.567 3.5-3.5 3.5h-4.25v-5.25c0-1.243-1.007-2.25-2.25-2.25s-2.25 1.007-2.25 2.25V22H5.5C3.567 22 2 20.433 2 18.5V9.838c0-1.17.585-2.263 1.559-2.912l6.5-4.333z',
+  X_HOME_INACTIVE_PATH: 'M20 9.838c0-.502-.25-.97-.668-1.248l-6.5-4.333c-.504-.336-1.16-.336-1.664 0l-6.5 4.333C4.251 8.868 4 9.336 4 9.838V18.5c0 .828.672 1.5 1.5 1.5h3v-3.5c0-1.933 1.567-3.5 3.5-3.5s3.5 1.567 3.5 3.5V20h3c.828 0 1.5-.672 1.5-1.5V9.838zm2 8.662c0 1.933-1.567 3.5-3.5 3.5h-5v-5.5c0-.829-.672-1.5-1.5-1.5s-1.5.671-1.5 1.5V22h-5C3.567 22 2 20.433 2 18.5V9.838c0-1.17.585-2.263 1.559-2.912l6.5-4.333c1.175-.784 2.707-.784 3.882 0l6.5 4.333C21.415 7.575 22 8.668 22 9.838V18.5z',
+  PLUS_PATH: 'M10.938 4.5H9.9c-1.136 0-1.929 0-2.546.05-.605.05-.953.143-1.216.277-.564.288-1.023.747-1.31 1.31-.135.264-.228.612-.277 1.218C4.5 7.97 4.5 8.765 4.5 9.9v4.2c0 1.136 0 1.929.05 2.546.05.605.143.953.277 1.216.288.565.747 1.023 1.31 1.31.264.135.612.228 1.217.277.617.05 1.41.051 2.546.051h4.2c1.136 0 1.929 0 2.545-.05.606-.05.954-.143 1.217-.277.565-.288 1.023-.746 1.31-1.31.135-.264.228-.612.277-1.217.05-.617.051-1.41.051-2.546v-1.037h2V14.1c0 1.103.001 1.992-.058 2.709-.06.728-.185 1.368-.487 1.96-.48.941-1.245 1.707-2.185 2.186-.593.302-1.233.428-1.961.488-.718.058-1.606.057-2.71.057H9.9c-1.103 0-1.991.001-2.709-.058-.728-.06-1.368-.185-1.96-.487-.941-.48-1.707-1.245-2.186-2.185-.302-.593-.428-1.233-.487-1.961-.059-.718-.058-1.606-.058-2.71V9.9c0-1.103-.001-1.991.058-2.709.06-.728.185-1.368.487-1.96.48-.941 1.245-1.707 2.185-2.186.593-.302 1.233-.428 1.961-.487.718-.059 1.606-.058 2.71-.058h1.037v2z',
 }
 
 /** @enum {string} */
@@ -3105,34 +3105,42 @@ async function observeDesktopComposeTweetModal($popup) {
   $popup.classList.add('ComposeTweetModal')
   if (!config.replaceLogo) return
 
-  let $mask = await getElement('[data-testid="twc-cc-mask"]', {
+  let $firstEditorRoot = await getElement('.DraftEditor-root', {
     context: $popup,
-    name: 'Compose Tweet modal mask',
+    name: 'Compose Tweet first editor root',
     stopIf: () => !isDesktopComposeTweetModalOpen
   })
-  if (!$mask) return
+  if (!$firstEditorRoot) return
 
   let $tweetButtonText = $popup.querySelector('button[data-testid="tweetButton"] span > span')
   if ($tweetButtonText) {
     setTweetButtonText($tweetButtonText)
   }
 
-  observeElement($mask.nextElementSibling, () => {
+  let $container = $firstEditorRoot.closest('div:not([class])')?.parentElement
+  if (!$container) {
+    warn('could not find container to observe in compose Tweet modal')
+    return
+  }
+
+  observeElement($container, () => {
     let $editorRoots = $popup.querySelectorAll('.DraftEditor-root')
     $editorRoots.forEach((/** @type {HTMLElement} */ $editorRoot, index) => {
-      $editorRoot.setAttribute('data-placeholder', getString(index == 0 ? 'WHATS_HAPPENING' : 'ADD_ANOTHER_TWEET'))
+      if (index == 0) return
+      $editorRoot.setAttribute('data-placeholder', getString('ADD_ANOTHER_TWEET'))
       observeDesktopTweetEditorPlaceholder($editorRoot, {
-        name: 'Modal Tweet editor root (for placeholder)',
+        name: `Modal Tweet editor root ${index} (for placeholder)`,
         observers: modalObservers,
       })
     })
   }, {
+    leading: true,
     name: 'Compose Tweet modal Tweets container (for Tweets being added or removed)',
     observers: modalObservers,
   })
 
   // The Tweet button gets moved around when Tweets are added or removed
-  observeElement($mask.nextElementSibling, (mutations) => {
+  observeElement($container, (mutations) => {
     for (let mutation of mutations) {
       for (let $addedNode of mutation.addedNodes) {
         if (!($addedNode instanceof HTMLElement) || $addedNode.nodeName != 'DIV') continue
@@ -3662,11 +3670,15 @@ const observeSideNavChatLink = (() => {
     })
     observer = observeElement($linkTextContainer, () => {
       if ($linkTextContainer.childElementCount > 1) {
+        // Regular React Native for Web markup, e.g. Japanese display language
         let $linkText = /** @type {HTMLElement} */ ($linkTextContainer.querySelector('div[dir]:not([aria-live]) > span'))
         if ($linkText) {
           $linkText.textContent = getString('MESSAGES')
         } else {
-          warn('could not find Chat link text')
+          // New inline style markup, e.g. English display language
+          for (let $linkText of $linkTextContainer.querySelectorAll('span[style] > span')) {
+            $linkText.textContent = getString('MESSAGES')
+          }
         }
       }
     }, {
@@ -3706,6 +3718,9 @@ const observeSideNavTweetButton = (() => {
         } else {
           warn('could not find tweet button text')
         }
+      }
+      if (isSafari && config.replaceLogo) {
+        tweakTweetIcon()
       }
     }, {
       leading: true,
@@ -4245,6 +4260,7 @@ const configureCss = (() => {
         --cpft-active-bg: rgb(239, 243, 244);
         --cpft-border: rgb(239, 243, 244);
         --cpft-hover-bg: rgb(247, 249, 249);
+        --cpft-menu-hover-bg: rgba(0, 0, 0, 0.03);
         --cpft-tab-hover-backdrop: rgba(15, 20, 25, 0.1);
         --cpft-text-primary: rgb(15, 20, 25);
         --cpft-text-secondary: rgb(83, 100, 113);
@@ -4253,12 +4269,20 @@ const configureCss = (() => {
         --cpft-active-bg: rgb(32, 35, 39);
         --cpft-border: rgb(47, 51, 54);
         --cpft-hover-bg: rgb(22, 24, 28);
+        --cpft-menu-hover-bg: rgba(255, 255, 255, 0.03);
         --cpft-tab-hover-backdrop: rgba(231, 233, 234, 0.1);
         --cpft-text-primary: rgb(231, 233, 234);
         --cpft-text-secondary: rgb(113, 118, 123);
       }
+      .cpft_menu_item, .cpft_menu_item a {
+        background-color: transparent !important;
+      }
       .cpft_menu_item:hover {
-        background-color: var(--cpft-hover-bg) !important;
+        background-color: var(--cpft-menu-hover-bg) !important;
+        /* The nav menu is still using the old color */
+        &:has(> a[href="/settings/add_muted_keyword"]) {
+          background-color: var(--cpft-hover-bg) !important;
+        }
       }
     `)
 
@@ -4270,7 +4294,6 @@ const configureCss = (() => {
 
           [data-testid="dm-search-bar"].bg-gray-0,
           :is(.animate-pulse, .motion-safe\\:animate-pulse).bg-gray-100, /* Chat skeletons */
-          :is([data-testid="dm-message-list"], [data-testid="dm-composer-container"]) .bg-gray-50,
           .r-z32n2g {
             background-color: var(--cpft-active-bg);
           }
@@ -4296,6 +4319,13 @@ const configureCss = (() => {
           .r-5zmot {
             background-color: var(--cpft-backdrop);
           }
+          .r-cl2sl0 {
+            background-color: var(--cpft-raised-bg);
+          }
+          .r-qo02w8,
+          .r-1uusn97 {
+            box-shadow: var(--cpft-box-shadow);
+          }
           .r-1kqtdi0, /* all */
           .r-1igl3o0, /* bottom */
           .r-2sztyj,  /* top */
@@ -4303,26 +4333,15 @@ const configureCss = (() => {
           .r-1roi411  /* input */ {
             border-color: var(--cpft-border);
           }
-          .r-qo02w8,
-          .r-1uusn97 {
-            box-shadow: var(--cpft-box-shadow);
-          }
-          [data-testid^="dm-conversation-item-"] .hover\\:bg-gray-50:hover,
-          [data-testid="dm-inbox-tab-requests"].hover\\:bg-gray-50:hover,
-          [data-testid="dm-conversation-header"] button.hover\\:bg-gray-50:hover,
           .r-g2wdr4,
           .r-cuuowz {
             background-color: var(--cpft-hover-bg);
-          }
-          [data-testid^="dm-conversation-item-"] .border-gray-50 {
-            border-color: var(--cpft-hover-bg);
           }
           [data-testid="dm-conversation-header"] button.bg-gray-0,
           .jf-element .j-cw4uj611 {
             background-color: var(--cpft-hover-bg);
           }
           [data-testid="dm-empty-conversation-state"] .bg-gray-0,
-          [data-radix-popper-content-wrapper] .hover\\:bg-gray-50:hover,
           .r-1hdo0pc {
             background-color: var(--cpft-tab-hover-backdrop);
           }
@@ -4344,12 +4363,6 @@ const configureCss = (() => {
           [role="dialog"][id^="radix"] {
             &.bg-gray-0 {
               background-color: var(--cpft-background);
-            }
-            .bg-gray-50, .bg-gray-100 {
-              background-color: var(--cpft-hover-bg);
-            }
-            .hover\\:bg-gray-100:hover {
-              background-color: var(--cpft-tab-hover-bg) !important;
             }
             .text-gray-700 {
               color: var(--cpft-text-secondary);
@@ -4387,6 +4400,8 @@ const configureCss = (() => {
             --background: 210 34% 13%;
             --border: 206 16% 26%;
             --color-background: 210 34% 13%;
+            --color-gray-50: 213 25% 16%;
+            --color-gray-100: 211 34% 24%;
             /* Theme */
             --cpft-active-bg-dark: rgb(27, 36, 47);
             --cpft-active-bg: rgb(40, 50, 61);
@@ -4395,6 +4410,7 @@ const configureCss = (() => {
             --cpft-border: rgb(56, 68, 77);
             --cpft-box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
             --cpft-hover-bg: rgb(30, 39, 50);
+            --cpft-raised-bg: rgb(40, 50, 61);
             --cpft-tab-hover-backdrop: rgba(247, 249, 249, 0.1);
             --cpft-tab-hover-bg: rgba(44, 53, 64);
             --cpft-text-primary: rgb(247, 249, 249);
@@ -4881,10 +4897,6 @@ const configureCss = (() => {
             /* Restore theme colour in account switcher notifications pips */
             [data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live] {
               background-color: var(--cpft-theme);
-            }
-            /* Replace the plus icon in the Tweet button with the feather */
-            [data-testid="SideNav_NewTweet_Button"] path[d="${Svgs.PLUS_PATH}"] {
-              d: path("${Svgs.TWITTER_FEATHER_PLUS_PATH}");
             }
           `)
         }
@@ -5394,8 +5406,13 @@ const configureDynamicCss = (() => {
 
     if (fontSize != null && config.navBaseFontSize) {
       cssRules.push(`
-        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) span { font-size: ${fontSize}; font-weight: normal; }
-        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) { margin-top: -4px; }
+        /* Regular React Native for Web markup */
+        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) span,
+        /* New inline style markup */
+        ${Selectors.PRIMARY_NAV_DESKTOP} span[style] > span {
+          font-size: ${fontSize} !important;
+          font-weight: normal !important;
+        }
       `)
     }
 
@@ -5527,6 +5544,15 @@ const configureThemeCss = (() => {
         }
         svg path[d="${Svgs.X_HOME_INACTIVE_PATH}"] {
           d: path("${Svgs.TWITTER_HOME_INACTIVE_PATH}");
+        }
+        /* Replace the edit icon in the Tweet button with the feather */
+        :is([data-testid="SideNav_NewTweet_Button"], [data-testid="FloatingActionButtons_Tweet_Button"]) {
+          path[d="${Svgs.PLUS_PATH}"] {
+            d: path("${Svgs.TWITTER_FEATHER_PLUS_PATH}");
+          }
+          path[clip-rule="evenodd"] {
+            display: none;
+          }
         }
       `)
       if (desktop) {
@@ -5696,7 +5722,7 @@ function getTweetType($tweet, checkSocialContext = false) {
       // Assume social context tweets are Retweets if we're not checking
       let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
       if (svgPath.startsWith('M7.471 21H.472l.029-1.027c.184')) return 'COMMUNITY_TWEET'
-      if (svgPath.startsWith('M7 4.5C7 3.12 8.12 2 9.5 2h5C1')) return 'PINNED_TWEET'
+      if (svgPath.startsWith('M13 21l-1 2-1-2v-5H4.5v-2.287l')) return 'PINNED_TWEET'
     }
     // Quoted tweets from accounts you blocked or muted are displayed as an
     // <article> with "This Tweet is unavailable."
@@ -6845,6 +6871,7 @@ function processCurrentPage() {
   }
   if (isSafari && config.replaceLogo) {
     tweakHomeIcon()
+    tweakTweetIcon()
   }
 
   if (config.twitterBlueChecks != 'ignore' && (isOnSearchPage() || isOnExplorePage())) {
@@ -7517,6 +7544,17 @@ async function tweakMessagesIcon() {
   }
 }
 
+async function tweakTweetIcon() {
+  let $iconPath = document.querySelector(`:is([data-testid="SideNav_NewTweet_Button"], [data-testid="FloatingActionButtons_Tweet_Button"]) path[d="${Svgs.PLUS_PATH}"]`)
+  if ($iconPath) {
+    // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
+    // we have to manually patch the path in it.
+    if ($iconPath.getAttribute('d') != Svgs.TWITTER_FEATHER_PLUS_PATH) {
+      $iconPath.setAttribute('d', Svgs.TWITTER_FEATHER_PLUS_PATH)
+    }
+  }
+}
+
 /**
  * Restores "Tweet" button text.
  */
@@ -7659,18 +7697,25 @@ async function tweakMobileComposeTweetPage() {
       observeUserTypeaheadDropdown(document.querySelector('main div[data-testid^="tweetTextarea"]'))
     }
   } else {
-    let $mask = document.querySelector('[data-testid="twc-cc-mask"]')
+    let $tweetTextarea =  await getElement('main div[data-testid^="tweetTextarea"]', {
+      name: 'first Tweet textarea',
+      stopIf: pageIsNot(currentPage),
+    })
+    if (!$tweetTextarea) return
+    let $tweetsContainer = $tweetTextarea.closest('div:not([class])')?.parentElement
     let $tweetButtonText = document.querySelector('main button[data-testid^="tweetButton"] span > span')
-    if ($mask && $tweetButtonText) {
+    if ($tweetsContainer && $tweetButtonText) {
       // We need to re-apply tweaks every time the child list changes. When
       // you use the username typeahead dropdown in any Tweet box, the list
       // re-renders so it's the only Tweet while the dropdown is open.
-      observeElement($mask.nextElementSibling, () => {
+      observeElement($tweetsContainer, () => {
         let $containers = document.querySelectorAll('main div[data-testid^="tweetTextarea"]')
         $containers.forEach(($container, index) => {
           if (config.replaceLogo) {
             let $textarea = $container.querySelector('textarea')
-            $textarea.placeholder = getString(index == 0 ? 'WHATS_HAPPENING' : 'ADD_ANOTHER_TWEET')
+            if (index > 0) {
+              $textarea.placeholder = getString('ADD_ANOTHER_TWEET')
+            }
           }
           if (index == 0 && config.twitterBlueChecks) {
             observeUserTypeaheadDropdown($container)
@@ -7687,7 +7732,7 @@ async function tweakMobileComposeTweetPage() {
         observers: pageObservers,
       })
     } else {
-      warn('could not find all elements needed to tweak the Compose Tweet page', {$mask, $tweetButtonText})
+      warn('could not find all elements needed to tweak the Compose Tweet page', {$tweetsContainer, $tweetButtonText})
     }
   }
 }
