@@ -4502,12 +4502,12 @@ const configureCss = (() => {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
     }
     if (settings.hideChatNav) {
-      hideCssSelectors.push(
-        // Nav item
-        `${menuRole} a[href$="/i/chat"]`,
-        // Link in Messages
-        'a[href$="/i/chat"][data-testid="pivot"]',
-      )
+      // Link in Messages
+      hideCssSelectors.push('a[href$="/i/chat"][data-testid="pivot"]')
+      // Nav item
+      if (!settings.redirectChatNav) {
+        hideCssSelectors.push(`${desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE} a[href$="/i/chat"]`)
+      }
     }
     if (settings.hideShareTweetButton) {
       hideCssSelectors.push(
@@ -5016,6 +5016,7 @@ const configureCss = (() => {
       }
       if (settings.hideGrokNav) {
         hideCssSelectors.push(
+          // Nav item
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
           // Grok drawer
           'div[data-testid="GrokDrawer"]',
