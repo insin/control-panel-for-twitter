@@ -55,6 +55,17 @@ XMLHttpRequest.prototype.open = function(method, url) {
     }
   }
 
+  // Capture /UserMedia GraphQL responses to learn which media cells are
+  // replies, so the grid navigation can visit each post before its self-reply.
+  if (config.fullMediaViewerNavigation && url.includes('/UserMedia')) {
+    this.addEventListener('load', function () {
+      if (this.status === 200) {
+        try { captureMediaApiResponse(this.responseText) }
+        catch (e) { error('fullMediaViewerNavigation: failed to capture UserMedia response', e) }
+      }
+    })
+  }
+
   return XMLHttpRequest_open.apply(this, [method, url])
 }
 
@@ -209,6 +220,7 @@ const config = {
   customCss: '',
   // Desktop only
   addUserHoverCardAccountLocation: true,
+  fullMediaViewerNavigation: true,
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,
@@ -2454,6 +2466,30 @@ let homeNavigationIsBeingUsed = false
 /** Set to `true` when the media modal is open on desktop. */
 let isDesktopMediaModalOpen = false
 
+/** Set to `true` when the desktop media modal was opened from a profile's Media tab. */
+let mediaModalOnMediaTab = false
+
+/** @type {string[]} Recent media-viewer pathnames in this modal session, used to detect Twitter auto-advancing us back onto a post we've already seen (and continue forward instead). */
+let viewerVisitHistory = []
+
+/** @type {HTMLElement | null} Container for fullMediaViewerNavigation's on-screen ← / → arrows. */
+let $cpftMediaViewerArrowsContainer = null
+
+/** @type {Element | null} The carousel/swipe-to-dismiss currently being watched by mediaViewerResizeObserver — tracked so we can rebind the observer when X recreates the viewer on cross-post navigation. */
+let $observedMediaViewer = null
+
+/** @type {ResizeObserver | null} Watches the photo viewer's size so positionMediaViewerArrows can re-anchor the arrows when it changes — e.g. user toggles X's conversation column, which doesn't fire a window resize. */
+let mediaViewerResizeObserver = null
+
+/** @type {Map<string, {inReplyTo?: string, inReplyToScreenName?: string, mediaCount?: number}>} Tweet metadata harvested from /UserMedia GraphQL responses — used to detect reply media in the grid and to know each post's photo count. */
+let mediaReplyMap = new Map()
+
+/** RAF debounce flag for marking reply cells in the grid. */
+let replyIndicatorRafScheduled = false
+
+/** Set to `true` while we're synthesising keydown events to advance through a post's photos ourselves (so our own listener doesn't recurse on them). */
+let internalMediaViewerNavInProgress = false
+
 /** Set to `true` when the compose tweet modal is open on desktop. */
 let isDesktopComposeTweetModalOpen = false
 
@@ -3325,6 +3361,558 @@ async function observeDesktopModalTimeline($popup) {
   })
 
   observeModalTimeline($initialTimeline)
+}
+
+/**
+ * Continuous media navigation: when the photo/video viewer is opened from a
+ * profile's Media tab, ← and → move through every post's media instead of
+ * stopping at the media in the current post.
+ *
+ * Twitter's viewer already steps through media within a post, so we let it do
+ * that first; if the URL hasn't changed by the next tick, we were on the
+ * post's first or last media, so we move the viewer to the adjacent post by
+ * clicking its cell in the media grid, which is still rendered in the page
+ * behind the viewer.
+ */
+function observeMediaViewerNavigation() {
+  // Styles for the on-screen ← / → arrows added by show/hideMediaViewerArrows.
+  // The arrows live on document.body (not inside the modal — attaching into
+  // the modal subtree breaks X's close teardown). Their viewport coordinates
+  // are set inline by positionMediaViewerArrows, computed from the photo
+  // viewer's bounding box so the right arrow doesn't sit on the conversation
+  // column when it's expanded.
+  addStyle(`
+    .cpft_media_viewer_arrow {
+      position: fixed;
+      transform: translateY(-50%);
+      z-index: 2147483600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      padding: 0;
+      border: 0;
+      border-radius: 9999px;
+      background: rgba(15, 20, 25, 0.75);
+      color: rgb(231, 233, 234);
+      cursor: pointer;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .cpft_media_viewer_arrow:hover { background: rgba(15, 20, 25, 0.95); }
+    .cpft_media_viewer_arrow svg { width: 22px; height: 22px; }
+    /* Initial fallback positions before positionMediaViewerArrows runs. */
+    .cpft_media_viewer_arrow_prev { left: 12px; top: 50%; }
+    .cpft_media_viewer_arrow_next { right: 12px; top: 50%; }
+    body.FullMediaViewerNav [data-testid="Carousel-NavLeft"],
+    body.FullMediaViewerNav [data-testid="Carousel-NavRight"] { display: none; }
+    .cpft_reply_cell { position: relative; }
+    .cpft_reply_indicator {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 22px;
+      height: 22px;
+      padding: 3px;
+      box-sizing: border-box;
+      border-radius: 4px;
+      background: rgba(0, 0, 0, 0.6);
+      color: rgb(231, 233, 234);
+      pointer-events: none;
+    }
+  `)
+
+  // Re-anchor arrows when the viewport changes (e.g. user toggles X's
+  // conversation column) so the right arrow tracks the photo viewer's edge.
+  window.addEventListener('resize', () => {
+    if (!config.enabled || !config.fullMediaViewerNavigation) return
+    if ($cpftMediaViewerArrowsContainer != null) positionMediaViewerArrows()
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (!config.enabled || !config.fullMediaViewerNavigation) return
+    if (!desktop || !isDesktopMediaModalOpen || !mediaModalOnMediaTab) return
+    if (e.key != 'ArrowLeft' && e.key != 'ArrowRight') return
+    if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return
+    // Synthetic events we dispatched to walk to a post's last photo — let
+    // Twitter handle them, don't run our own logic on top.
+    if (internalMediaViewerNavInProgress) return
+    // Refresh arrow positioning on each interaction in case the layout has
+    // shifted since the modal opened.
+    if ($cpftMediaViewerArrowsContainer != null) positionMediaViewerArrows()
+
+    // Don't interfere while the user is typing, e.g. in the reply box
+    if (e.target instanceof HTMLElement && (
+          e.target.isContentEditable ||
+          e.target.tagName == 'INPUT' ||
+          e.target.tagName == 'TEXTAREA')) return
+
+    let forward = (e.key == 'ArrowRight') == ltr
+    let pathBeforeKey = location.pathname
+    // Let Twitter navigate within the current post's media first; if the path
+    // hasn't changed, we were already on the post's first or last media.
+    setTimeout(() => {
+      if (!isDesktopMediaModalOpen) return
+      if (location.pathname != pathBeforeKey) {
+        // Twitter changed the URL on its own — either advancing within the
+        // current post (photo/1 → photo/2) or its thread navigation moving
+        // us into/out of a reply. Only intervene on a forward press when X
+        // jumped us *backward* in the logical order onto a previously-seen
+        // post — that's the self-reply ↔ parent ping-pong; everything else
+        // is X's legitimate within-post or forward thread navigation that
+        // we want to leave alone.
+        let beforeTweetId = pathBeforeKey.match(URL_TWEET_BASE_RE)?.[2]
+        let afterTweetId = location.pathname.match(URL_TWEET_BASE_RE)?.[2]
+        let crossedPosts = beforeTweetId != afterTweetId
+        if (forward && crossedPosts && viewerVisitHistory.includes(location.pathname)) {
+          let logicalCells = getLogicalCellOrder()
+          let beforeIdx = logicalCells.findIndex(($a) => $a.pathname.includes(`/status/${beforeTweetId}/`))
+          let afterIdx = logicalCells.findIndex(($a) => $a.pathname.includes(`/status/${afterTweetId}/`))
+          if (beforeIdx >= 0 && afterIdx >= 0 && afterIdx < beforeIdx) {
+            log('fullMediaViewerNavigation: Twitter auto-advanced backward into a visited post; jumping past it')
+            moveMediaViewerToAdjacentPost(forward, beforeTweetId)
+            return
+          }
+        }
+        viewerVisitHistory.push(location.pathname)
+        if (viewerVisitHistory.length > 20) viewerVisitHistory.shift()
+        return
+      }
+      moveMediaViewerToAdjacentPost(forward)
+    }, 0)
+  }, true)
+
+  // Keep reply indicators in sync as Twitter virtualizes the media grid:
+  // when new cells get rendered, re-run the marker. Cheap because
+  // markReplyCellsInGrid skips cells that are already marked.
+  if ($body != null) {
+    let mo = new MutationObserver(() => {
+      if (!config.enabled || !config.fullMediaViewerNavigation) return
+      if (mediaReplyMap.size == 0) return
+      scheduleMarkReplyCellsInGrid()
+    })
+    mo.observe($body, {childList: true, subtree: true})
+  }
+}
+
+/**
+ * Returns the media grid cells in their *logical* navigation order: same as
+ * the grid (newest-first), except each reply is moved to sit right after its
+ * parent post (so a self-reply's media is shown after its parent's media
+ * instead of before, the order they were authored in). Replies whose parent
+ * isn't in the loaded grid stay in their original position.
+ * @returns {HTMLAnchorElement[]}
+ */
+function getLogicalCellOrder() {
+  let $timeline = document.querySelector(Selectors.TIMELINE)
+  if ($timeline == null) return []
+  let cells = /** @type {HTMLAnchorElement[]} */ (Array.from(
+    $timeline.querySelectorAll('a[href]')
+  ).filter(($a) => URL_MEDIA_RE.test(/** @type {HTMLAnchorElement} */ ($a).pathname)))
+  let n = cells.length
+  if (n == 0) return []
+
+  let idAt = /** @type {(string|undefined)[]} */ (new Array(n))
+  let posByTweetId = /** @type {Map<string, number>} */ (new Map())
+  for (let i = 0; i < n; i++) {
+    let id = cells[i].pathname.match(URL_TWEET_BASE_RE)?.[2]
+    idAt[i] = id
+    if (id != null && !posByTweetId.has(id)) posByTweetId.set(id, i)
+  }
+
+  // Each cell's sort key is a path of grid indices from its top ancestor down
+  // to itself, e.g. parent at grid idx 2 with a reply at idx 0 gives the
+  // parent key [2] and the reply key [2, 0]. Sorted lexicographically (shorter
+  // key first when prefixes match), that yields [parent, reply] — and the
+  // same shape generalises to chains and multiple replies.
+  let pathCache = /** @type {(number[]|null)[]} */ (new Array(n).fill(null))
+  function pathOf(i, seen) {
+    if (pathCache[i] != null) return pathCache[i]
+    let id = idAt[i]
+    let info = id ? mediaReplyMap.get(id) : null
+    let parentId = info?.inReplyTo
+    if (parentId && parentId != id && posByTweetId.has(parentId)) {
+      let parentIdx = posByTweetId.get(parentId)
+      if (parentIdx != i && !(seen && seen.has(parentIdx))) {
+        let s = seen || new Set()
+        s.add(i)
+        let parentPath = pathOf(parentIdx, s)
+        return pathCache[i] = parentPath.concat(i)
+      }
+    }
+    return pathCache[i] = [i]
+  }
+  for (let i = 0; i < n; i++) pathOf(i, null)
+
+  let indexed = cells.map((c, i) => ({i, path: pathCache[i]}))
+  indexed.sort((a, b) => {
+    let len = Math.min(a.path.length, b.path.length)
+    for (let k = 0; k < len; k++) {
+      if (a.path[k] != b.path[k]) return a.path[k] - b.path[k]
+    }
+    return a.path.length - b.path.length
+  })
+  return indexed.map((x) => cells[x.i])
+}
+
+/**
+ * Moves the open media viewer to the adjacent post in the profile's media
+ * grid (which is still rendered in the page behind the viewer), respecting
+ * the logical order so a reply's media is shown after its parent's.
+ * @param {boolean} forward
+ * @param {string} [fromTweetId] Optional: anchor the step at this post id
+ *   instead of the one in `location.pathname`. Used when X has just
+ *   auto-advanced us somewhere unwanted and we want to move on as if from
+ *   the original post.
+ */
+function moveMediaViewerToAdjacentPost(forward, fromTweetId) {
+  let cells = getLogicalCellOrder()
+  if (cells.length == 0) return
+
+  let currentTweetId = fromTweetId || location.pathname.match(URL_TWEET_BASE_RE)?.[2]
+  if (!currentTweetId) return
+
+  let index = cells.findIndex(($a) => $a.pathname.includes(`/status/${currentTweetId}/`))
+  if (index == -1) {
+    log('fullMediaViewerNavigation: current post is no longer in the loaded media grid')
+    return
+  }
+
+  let step = forward ? 1 : -1
+  let targetIdx = index + step
+
+  let $adjacentCell = cells[targetIdx]
+  if ($adjacentCell == null) {
+    log(`fullMediaViewerNavigation: reached the ${forward ? 'end' : 'start'} of the loaded media grid`)
+    return
+  }
+
+  // When moving backward across posts, land on the new post's *last* photo —
+  // when you're stepping back through media, jumping over a multi-photo post's
+  // photos 2..N straight to photo/1 feels wrong.
+  /** @type {?{tweetId: string, mediaCount: number}} */
+  let advanceAfterClick = null
+  if (!forward) {
+    let targetTweetId = $adjacentCell.pathname.match(URL_TWEET_BASE_RE)?.[2]
+    if (targetTweetId && targetTweetId != currentTweetId) {
+      let mediaCount = mediaReplyMap.get(targetTweetId)?.mediaCount
+      if (mediaCount && mediaCount > 1) advanceAfterClick = {tweetId: targetTweetId, mediaCount}
+    }
+  }
+
+  log('fullMediaViewerNavigation: moving the media viewer to the adjacent post')
+  viewerVisitHistory.push($adjacentCell.pathname)
+  if (viewerVisitHistory.length > 20) viewerVisitHistory.shift()
+  $adjacentCell.click()
+
+  if (advanceAfterClick) {
+    scheduleAdvanceToLastPhoto(advanceAfterClick.tweetId, advanceAfterClick.mediaCount)
+  }
+}
+
+/**
+ * After clicking a grid cell during backward navigation (which always lands
+ * at /photo/1), dispatch synthetic forward-key presses until we reach the
+ * post's last photo. Bounded by the known mediaCount so a stray → at /photo/N
+ * can't carry us into the next post.
+ * @param {string} targetTweetId
+ * @param {number} mediaCount
+ */
+function scheduleAdvanceToLastPhoto(targetTweetId, mediaCount) {
+  setTimeout(() => {
+    if (!isDesktopMediaModalOpen) return
+    let currentId = location.pathname.match(URL_TWEET_BASE_RE)?.[2]
+    if (currentId != targetTweetId) return
+    let photoMatch = location.pathname.match(/\/(?:photo|video)\/(\d+)/)
+    let currentPhoto = photoMatch ? parseInt(photoMatch[1], 10) : 1
+    advanceOnePhotoStep(targetTweetId, mediaCount - currentPhoto)
+  }, 0)
+}
+
+/**
+ * Tail-recursive helper that fires one synthetic forward-key event per call
+ * and re-schedules itself on the next tick if more steps remain.
+ * @param {string} targetTweetId
+ * @param {number} stepsRemaining
+ */
+function advanceOnePhotoStep(targetTweetId, stepsRemaining) {
+  if (stepsRemaining <= 0) return
+  if (!isDesktopMediaModalOpen) return
+  let currentId = location.pathname.match(URL_TWEET_BASE_RE)?.[2]
+  if (currentId != targetTweetId) return
+  let pathBefore = location.pathname
+  let forwardKey = ltr ? 'ArrowRight' : 'ArrowLeft'
+  let forwardKeyCode = ltr ? 39 : 37
+  internalMediaViewerNavInProgress = true
+  document.dispatchEvent(new KeyboardEvent('keydown', {
+    key: forwardKey, code: forwardKey, keyCode: forwardKeyCode, which: forwardKeyCode,
+    bubbles: true, cancelable: true,
+  }))
+  setTimeout(() => {
+    internalMediaViewerNavInProgress = false
+    if (location.pathname == pathBefore) return
+    let afterId = location.pathname.match(URL_TWEET_BASE_RE)?.[2]
+    if (afterId != targetTweetId) return
+    advanceOnePhotoStep(targetTweetId, stepsRemaining - 1)
+  }, 0)
+}
+
+/**
+ * Recursively walks a parsed GraphQL response, calling `callback` for every
+ * object that looks like a tweet result (has a `legacy` with `id_str`).
+ * @param {any} obj
+ * @param {(tweet: any) => void} callback
+ * @param {number} [depth]
+ */
+function walkPossibleTweetsInGraphQLData(obj, callback, depth = 0) {
+  if (obj == null || depth > 30) return
+  if (typeof obj != 'object') return
+  if (Array.isArray(obj)) {
+    for (let item of obj) walkPossibleTweetsInGraphQLData(item, callback, depth + 1)
+    return
+  }
+  if (obj.legacy && typeof obj.legacy == 'object' && typeof obj.legacy.id_str == 'string') {
+    callback(obj)
+  }
+  for (let key in obj) {
+    let value = obj[key]
+    if (value != null && typeof value == 'object') {
+      walkPossibleTweetsInGraphQLData(value, callback, depth + 1)
+    }
+  }
+}
+
+/**
+ * Parses a /UserMedia GraphQL response and harvests tweet → in-reply-to
+ * mappings into mediaReplyMap, then schedules a pass to mark reply cells in
+ * the grid with the SVG indicator.
+ * @param {string} responseText
+ */
+function captureMediaApiResponse(responseText) {
+  let data
+  try {
+    data = JSON.parse(responseText)
+  } catch (e) {
+    return
+  }
+  let added = 0
+  walkPossibleTweetsInGraphQLData(data, (tweet) => {
+    let id = tweet.legacy.id_str
+    let inReplyTo = tweet.legacy.in_reply_to_status_id_str
+    let inReplyToScreenName = tweet.legacy.in_reply_to_screen_name
+    // Prefer extended_entities (carries every photo of a multi-photo post);
+    // entities.media usually only has the first.
+    let mediaCount = tweet.legacy.extended_entities?.media?.length ||
+                     tweet.legacy.entities?.media?.length ||
+                     null
+    if (!id) return
+    if (mediaReplyMap.has(id)) return
+    let entry = /** @type {{inReplyTo?: string, inReplyToScreenName?: string, mediaCount?: number}} */ ({})
+    if (inReplyTo) entry.inReplyTo = inReplyTo
+    if (inReplyToScreenName) entry.inReplyToScreenName = inReplyToScreenName
+    if (mediaCount) entry.mediaCount = mediaCount
+    mediaReplyMap.set(id, entry)
+    added++
+  })
+  if (added > 0) {
+    log(`fullMediaViewerNavigation: captured ${added} tweet(s) from /UserMedia`)
+    scheduleMarkReplyCellsInGrid()
+  }
+}
+
+/** RAF-debounced wrapper around markReplyCellsInGrid. */
+function scheduleMarkReplyCellsInGrid() {
+  if (replyIndicatorRafScheduled) return
+  replyIndicatorRafScheduled = true
+  requestAnimationFrame(() => {
+    replyIndicatorRafScheduled = false
+    try { markReplyCellsInGrid() }
+    catch (e) { error('fullMediaViewerNavigation: failed to mark reply cells', e) }
+  })
+}
+
+/**
+ * Adds the cpft_reply_cell class + SVG indicator to any media grid cell whose
+ * tweet is a reply, so the user can tell at a glance which thumbnails are
+ * comments rather than original posts.
+ */
+function markReplyCellsInGrid() {
+  let $timeline = document.querySelector(Selectors.TIMELINE)
+  if ($timeline == null) return
+  for (let $a of /** @type {NodeListOf<HTMLAnchorElement>} */ ($timeline.querySelectorAll('a[href]'))) {
+    if (!URL_MEDIA_RE.test($a.pathname)) continue
+    let tweetId = $a.pathname.match(URL_TWEET_BASE_RE)?.[2]
+    if (!tweetId) continue
+    let info = mediaReplyMap.get(tweetId)
+    if (!info || !info.inReplyTo) continue
+    if ($a.classList.contains('cpft_reply_cell')) continue
+    addReplyIndicatorTo($a)
+  }
+}
+
+/**
+ * Adds the reply badge SVG to a grid cell. DOM-only (no innerHTML).
+ * @param {HTMLAnchorElement} $cell
+ */
+function addReplyIndicatorTo($cell) {
+  $cell.classList.add('cpft_reply_cell')
+  let svgNS = 'http://www.w3.org/2000/svg'
+  let $svg = document.createElementNS(svgNS, 'svg')
+  $svg.setAttribute('class', 'cpft_reply_indicator')
+  $svg.setAttribute('viewBox', '0 0 24 24')
+  $svg.setAttribute('aria-label', 'Reply')
+  let $path = document.createElementNS(svgNS, 'path')
+  // Twitter's reply icon shape (speech bubble).
+  $path.setAttribute('d', 'M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01z')
+  $path.setAttribute('fill', 'currentColor')
+  $svg.appendChild($path)
+  $cell.appendChild($svg)
+}
+
+/**
+ * Are we showing a media viewer over a profile's Media tab? Checked off the
+ * background timeline rather than `currentPath` because currentPath only
+ * updates on title changes and goes stale when the modal route is replaced.
+ */
+function isOnMediaTabModal() {
+  let $timeline = document.querySelector(Selectors.TIMELINE)
+  if ($timeline == null) return false
+  for (let $a of $timeline.querySelectorAll('a[href]')) {
+    if (URL_MEDIA_RE.test(/** @type {HTMLAnchorElement} */ ($a).pathname)) return true
+  }
+  return false
+}
+
+/**
+ * Inserts ← / → arrow buttons over the photo viewer. Twitter's own carousel
+ * chevrons only appear on mouse movement and are removed at post boundaries
+ * (and on single-photo posts), so on their own they don't support a sustained
+ * "keep clicking →" gesture. Clicks on these buttons dispatch synthetic arrow
+ * keydown events, which Twitter handles within a post as usual and which the
+ * keydown listener in observeMediaViewerNavigation handles at a post boundary.
+ */
+function showMediaViewerArrows() {
+  // If the container ref is stale (the element was detached, e.g. because the
+  // modal popup was re-created on navigation), drop it and build a fresh one.
+  if ($cpftMediaViewerArrowsContainer != null && !$cpftMediaViewerArrowsContainer.isConnected) {
+    $cpftMediaViewerArrowsContainer = null
+    $body.classList.remove('FullMediaViewerNav')
+  }
+  if ($cpftMediaViewerArrowsContainer != null) return
+
+  function makeArrow(direction, key, label, points) {
+    let $btn = document.createElement('button')
+    $btn.type = 'button'
+    $btn.className = `cpft_media_viewer_arrow cpft_media_viewer_arrow_${direction}`
+    $btn.setAttribute('aria-label', label)
+    let svgNS = 'http://www.w3.org/2000/svg'
+    let $svg = document.createElementNS(svgNS, 'svg')
+    $svg.setAttribute('viewBox', '0 0 24 24')
+    let $poly = document.createElementNS(svgNS, 'polyline')
+    $poly.setAttribute('points', points)
+    $poly.setAttribute('fill', 'none')
+    $poly.setAttribute('stroke', 'currentColor')
+    $poly.setAttribute('stroke-width', '2.2')
+    $poly.setAttribute('stroke-linecap', 'round')
+    $poly.setAttribute('stroke-linejoin', 'round')
+    $svg.appendChild($poly)
+    $btn.appendChild($svg)
+    $btn.addEventListener('click', (e) => {
+      e.stopPropagation()
+      // keyCode/which are needed because some of Twitter's handlers check the
+      // legacy properties; without them the synthetic event is ignored and
+      // within-post navigation never happens (just the boundary jump fires).
+      let keyCode = key == 'ArrowLeft' ? 37 : 39
+      document.dispatchEvent(new KeyboardEvent('keydown', {
+        key, code: key, keyCode, which: keyCode, bubbles: true, cancelable: true,
+      }))
+    })
+    return $btn
+  }
+
+  let $container = document.createElement('div')
+  $container.id = 'cpftMediaViewerArrows'
+  $container.appendChild(makeArrow('prev', 'ArrowLeft', 'Previous', '14.5,5 7.5,12 14.5,19'))
+  $container.appendChild(makeArrow('next', 'ArrowRight', 'Next', '9.5,5 16.5,12 9.5,19'))
+  $cpftMediaViewerArrowsContainer = $container
+  $body.classList.add('FullMediaViewerNav')
+  // Append at body level. Earlier versions attached inside the photo viewer's
+  // swipe-to-dismiss/carousel wrapper and re-attached via a MutationObserver
+  // on #layers — but the re-attach fired during X's close teardown and broke
+  // both close and Esc; staying outside X's modal tree avoids that entirely.
+  $body.appendChild($container)
+  // Position to the photo viewer's bounding box. The modal's children can
+  // arrive a frame or two after the popup observer fires, so retry across a
+  // handful of frames until the viewer is in the DOM, stopping as soon as
+  // positioning succeeds.
+  if (positionMediaViewerArrows()) return
+  let attempts = 0
+  function tick() {
+    if ($cpftMediaViewerArrowsContainer == null) return
+    if (positionMediaViewerArrows()) return
+    if (++attempts < 8) requestAnimationFrame(tick)
+  }
+  requestAnimationFrame(tick)
+}
+
+/**
+ * Anchors the on-screen ← / → arrows to the photo viewer's actual bounding
+ * box so they sit on the photo's left and right edges — not the viewport's,
+ * which on desktop puts the right arrow on top of the conversation column
+ * when it's expanded. Also (re)binds a ResizeObserver to the viewer so that
+ * X's internal layout changes (collapsing/expanding the conversation column)
+ * re-anchor the arrows; those don't fire window 'resize'.
+ * @returns {boolean} `true` if the arrows were positioned to a real viewer
+ *   bbox this call. Lets showMediaViewerArrows stop its retry loop early.
+ */
+function positionMediaViewerArrows() {
+  if ($cpftMediaViewerArrowsContainer == null) return false
+  let $prev = /** @type {HTMLElement} */ ($cpftMediaViewerArrowsContainer.querySelector('.cpft_media_viewer_arrow_prev'))
+  let $next = /** @type {HTMLElement} */ ($cpftMediaViewerArrowsContainer.querySelector('.cpft_media_viewer_arrow_next'))
+  if (!$prev || !$next) return false
+  // Prefer the carousel (stable wrapper across within-post photo transitions);
+  // video viewers don't have one, fall back to swipe-to-dismiss.
+  let $viewer = document.querySelector('#layers [aria-roledescription="carousel"]') ||
+                document.querySelector('#layers [data-testid="swipe-to-dismiss"]')
+  // Rebind the ResizeObserver if the viewer element has changed (e.g. X
+  // recreated it on cross-post navigation).
+  if ($viewer !== $observedMediaViewer) {
+    if (mediaViewerResizeObserver) mediaViewerResizeObserver.disconnect()
+    $observedMediaViewer = $viewer
+    mediaViewerResizeObserver = null
+    if ($viewer) {
+      mediaViewerResizeObserver = new ResizeObserver(() => {
+        if ($cpftMediaViewerArrowsContainer != null) positionMediaViewerArrows()
+      })
+      mediaViewerResizeObserver.observe($viewer)
+    }
+  }
+  if (!$viewer) return false
+  let r = $viewer.getBoundingClientRect()
+  // A 0×0 viewer means X is mid-transition (e.g. closing the modal). Don't
+  // snap the arrows to viewport edges here — they'd flicker. The CSS
+  // fallback covers the pre-positioning case before any successful run.
+  if (r.width == 0 || r.height == 0) return false
+  let centerY = (r.top + r.bottom) / 2
+  $prev.style.left = `${r.left + 12}px`
+  $prev.style.top = `${centerY}px`
+  $next.style.left = `${r.right - 38 - 12}px`
+  $next.style.right = 'auto'
+  $next.style.top = `${centerY}px`
+  return true
+}
+
+function hideMediaViewerArrows() {
+  if (mediaViewerResizeObserver) {
+    mediaViewerResizeObserver.disconnect()
+    mediaViewerResizeObserver = null
+    $observedMediaViewer = null
+  }
+  if ($cpftMediaViewerArrowsContainer == null) return
+  $cpftMediaViewerArrowsContainer.remove()
+  $cpftMediaViewerArrowsContainer = null
+  $body.classList.remove('FullMediaViewerNav')
 }
 
 const observeFavicon = (() => {
@@ -5894,12 +6482,22 @@ function handlePopup($popup) {
       currentPath != location.pathname) {
     log('media modal opened')
     isDesktopMediaModalOpen = true
+    // Note if the viewer was opened from a profile's Media tab, so
+    // fullMediaViewerNavigation can move through the whole media grid.
+    mediaModalOnMediaTab = isOnMediaTabModal()
+    viewerVisitHistory = [location.pathname]
+    if (config.fullMediaViewerNavigation && mediaModalOnMediaTab) {
+      showMediaViewerArrows()
+    }
     observeDesktopModalTimeline($popup)
     return {
       tookAction: true,
       onPopupClosed() {
         log('media modal closed')
         isDesktopMediaModalOpen = false
+        mediaModalOnMediaTab = false
+        viewerVisitHistory = []
+        hideMediaViewerArrows()
         disconnectObservers(modalObservers, 'modal')
       }
     }
@@ -8151,6 +8749,7 @@ async function main() {
       observeBodyBackgroundColor()
       observeReRenderBoundary()
       patchHistory()
+      observeMediaViewerNavigation()
       let initialThemeColor = getThemeColorFromState()
       if (initialThemeColor) {
         themeColor = initialThemeColor
