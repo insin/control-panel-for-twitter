@@ -14,6 +14,10 @@ let extensionBundleIdentifier = "dev.jbscript.Tweak-New-Twitter.Extension"
 class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMessageHandler {
   @IBOutlet var webView: WKWebView!
 
+#if os(macOS)
+  private var pageLoaded = false
+#endif
+
   override func viewDidLoad() {
     super.viewDidLoad()
     self.webView.navigationDelegate = self
@@ -37,13 +41,17 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMess
   }
 
   @objc private func appDidBecomeActive() {
+#if os(macOS)
+    guard pageLoaded else { return }
     checkExtensionState()
+#endif
   }
 
   func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 #if os(iOS)
     webView.evaluateJavaScript("show('ios')")
 #elseif os(macOS)
+    pageLoaded = true
     webView.evaluateJavaScript("show('mac')")
     checkExtensionState()
 #endif
@@ -64,11 +72,18 @@ class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMess
   func checkExtensionState() {
 #if os(macOS)
     SFSafariExtensionManager.getStateOfSafariExtension(withIdentifier: extensionBundleIdentifier) { (state, error) in
-      guard let state = state, error == nil else {
-        return
+      let status: String
+      if let error = error {
+        print("Error:", error.localizedDescription)
+        status = "'error'"
+      } else if let state = state {
+        status = state.isEnabled ? "'on'" : "'off'"
+      } else {
+        print("State is nil with no error (unexpected)")
+        status = "'error'"
       }
       DispatchQueue.main.async {
-        self.webView.evaluateJavaScript("show('mac', \(state.isEnabled))")
+        self.webView.evaluateJavaScript("show('mac', \(status))")
       }
     }
 #endif

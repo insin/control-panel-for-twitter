@@ -14,4 +14,4 @@ node create-js-curl-config.mjs
 
 Run `node create-locales.mjs` to create `locales.js`.
 
-Open it, save to format it with Prettier, then use its contents to update `script.js`.
+Open it, save to format it with Biome, then use its contents to update `script.js`.
