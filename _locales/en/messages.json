@@ -245,6 +245,9 @@
   "hideSeeNewTweetsLabel": {
     "message": "Hide \"See new Tweets\""
   },
+  "hideSendViaChatMenuItemLabel": {
+    "message": "Remove \"Send via Chat\" in Share menu"
+  },
   "hideShareTweetButtonLabel": {
     "message": "Share button under tweets"
   },
