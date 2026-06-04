@@ -36,7 +36,7 @@ export function copy(manifestVersion, options = {}) {
       if (local && copyTo == 'manifest.json') {
         const manifest = fs
           .readFileSync(file.name, 'utf8')
-          .replaceAll('"https://pro.soitis.dev/*"', '"http://localhost/*", $&')
+          .replaceAll('"https://pro.soitis.dev/*"', '"http://localhost:5173/*", $&')
         fs.writeFileSync(copyTo, manifest, 'utf8')
       } else {
         fs.copyFileSync(file.name, copyTo)
