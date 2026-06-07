@@ -2299,6 +2299,7 @@ const Selectors = {
   MODAL_TIMELINE: 'section > h1 + div[aria-label] > div',
   MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
   MORE_DIALOG: 'div[aria-labelledby="modal-header"]',
+  NAV_EXPLORE_LINK: 'a[data-testid="AppTabBar_Explore_Link"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   NAV_MESSAGES_LINK: 'a[data-testid="AppTabBar_DirectMessage_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
@@ -5554,10 +5555,10 @@ const configureThemeCss = (() => {
         svg path[d="${Svgs.X_HOME_INACTIVE_PATH}"] {
           d: path("${Svgs.TWITTER_HOME_INACTIVE_PATH}");
         }
-        svg path[d="${Svgs.X_SEARCH_PATH}"] {
+        ${Selectors.NAV_EXPLORE_LINK} svg path[d="${Svgs.X_SEARCH_PATH}"] {
           d: path("${Svgs.TWITTER_SEARCH_PATH}");
         }
-        svg path[d="${Svgs.X_SEARCH_ACTIVE_PATH}"] {
+        ${Selectors.NAV_EXPLORE_LINK} svg path[d="${Svgs.X_SEARCH_ACTIVE_PATH}"] {
           d: path("${Svgs.TWITTER_SEARCH_ACTIVE_PATH}");
         }
         /* Replace the edit icon in the Tweet button with the feather */
@@ -7568,7 +7569,7 @@ async function tweakSearchIcon() {
     [Svgs.X_SEARCH_ACTIVE_PATH]: Svgs.TWITTER_SEARCH_ACTIVE_PATH,
   }
   for (let [xPath, twitterPath] of Object.entries(replacements)) {
-    let $path = document.querySelector(`svg path[d="${xPath}"]`)
+    let $path = document.querySelector(`${Selectors.NAV_EXPLORE_LINK} svg path[d="${xPath}"]`)
     if ($path) $path.setAttribute('d', twitterPath)
   }
 }
