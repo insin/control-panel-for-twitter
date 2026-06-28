@@ -101,6 +101,9 @@
   "followButtonStyleOption_themed": {
     "message": "Themed"
   },
+  "fullMediaViewerNavigationLabel": {
+    "message": "Browse a profile's media in the photo viewer"
+  },
   "fullWidthContentInfo": {
     "message": "Hide the sidebar and let timeline content go full-width"
   },

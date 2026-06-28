@@ -61,6 +61,7 @@ for (let translationId of [
   'followButtonStyleLabel',
   'followButtonStyleOption_monochrome',
   'followButtonStyleOption_themed',
+  'fullMediaViewerNavigationLabel',
   'fullWidthContentInfo',
   'fullWidthContentLabel',
   'fullWidthMediaLabel',
@@ -294,6 +295,7 @@ const defaultConfig = {
   customCss: '',
   // Desktop only
   addUserHoverCardAccountLocation: true,
+  fullMediaViewerNavigation: true,
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,
