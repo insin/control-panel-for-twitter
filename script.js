@@ -6417,7 +6417,9 @@ function onIndividualTweetTimelineChange($timeline, options) {
   /** @type {?HTMLElement} */
   let $focusedTweet
 
-  for (let $item of $timeline.children) {
+  let items = Array.from($timeline.children)
+  for (let i = 0; i < items.length; i++) {
+    let $item = items[i]
     if (seen.has($item) &&
         // Reprocess Discover More Tweets if they were processed before the Discover More heading
         !(hideAllSubsequentItems && seen.get($item).hidden != config.hideMoreTweets)) {
@@ -6557,7 +6559,25 @@ function onIndividualTweetTimelineChange($timeline, options) {
           if ($button?.textContent == getString('SHOW_MORE_REPLIES')) {
             itemType = 'SHOW_MORE'
           }
-        } else {
+        }
+
+        // Hide "More From This Author" → 3 Tweets → "See more" link
+        if (itemType == null) {
+          let $userLink = $item.querySelector(':scope > div > div > a[href^="/i/user/"]')
+          if ($userLink && seen.get(items[i - 4])?.itemType == 'HEADING') {
+            itemType = 'SEE_MORE'
+            hideItem = config.hideMoreTweets
+            for (let j = i - 4; j < i; j++) {
+              if (j < 0 || !items[j]?.firstElementChild) continue
+              changes.push({
+                $item: items[j],
+                hideItem: config.hideMoreTweets || seen.get(items[j])?.hidden == true,
+              })
+            }
+          }
+        }
+
+        if (itemType == null) {
           let $heading = $item.querySelector(Selectors.TIMELINE_HEADING)
           if ($heading) {
             // Discover More headings have a description next to them
