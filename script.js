@@ -2299,6 +2299,7 @@ const Selectors = {
   MODAL_TIMELINE: 'section > h1 + div[aria-label] > div',
   MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
   MORE_DIALOG: 'div[aria-labelledby="modal-header"]',
+  NAV_EXPLORE_LINK: 'a[data-testid="AppTabBar_Explore_Link"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   NAV_MESSAGES_LINK: 'a[data-testid="AppTabBar_DirectMessage_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
@@ -2331,6 +2332,10 @@ const Svgs = {
   X_HOME_ACTIVE_PATH: 'M10.059 2.593c1.175-.784 2.707-.784 3.882 0l6.5 4.333C21.415 7.575 22 8.668 22 9.838V18.5c0 1.933-1.567 3.5-3.5 3.5h-4.25v-5.25c0-1.243-1.007-2.25-2.25-2.25s-2.25 1.007-2.25 2.25V22H5.5C3.567 22 2 20.433 2 18.5V9.838c0-1.17.585-2.263 1.559-2.912l6.5-4.333z',
   X_HOME_INACTIVE_PATH: 'M20 9.838c0-.502-.25-.97-.668-1.248l-6.5-4.333c-.504-.336-1.16-.336-1.664 0l-6.5 4.333C4.251 8.868 4 9.336 4 9.838V18.5c0 .828.672 1.5 1.5 1.5h3v-3.5c0-1.933 1.567-3.5 3.5-3.5s3.5 1.567 3.5 3.5V20h3c.828 0 1.5-.672 1.5-1.5V9.838zm2 8.662c0 1.933-1.567 3.5-3.5 3.5h-5v-5.5c0-.829-.672-1.5-1.5-1.5s-1.5.671-1.5 1.5V22h-5C3.567 22 2 20.433 2 18.5V9.838c0-1.17.585-2.263 1.559-2.912l6.5-4.333c1.175-.784 2.707-.784 3.882 0l6.5 4.333C21.415 7.575 22 8.668 22 9.838V18.5z',
   PLUS_PATH: 'M10.938 4.5H9.9c-1.136 0-1.929 0-2.546.05-.605.05-.953.143-1.216.277-.564.288-1.023.747-1.31 1.31-.135.264-.228.612-.277 1.218C4.5 7.97 4.5 8.765 4.5 9.9v4.2c0 1.136 0 1.929.05 2.546.05.605.143.953.277 1.216.288.565.747 1.023 1.31 1.31.264.135.612.228 1.217.277.617.05 1.41.051 2.546.051h4.2c1.136 0 1.929 0 2.545-.05.606-.05.954-.143 1.217-.277.565-.288 1.023-.746 1.31-1.31.135-.264.228-.612.277-1.217.05-.617.051-1.41.051-2.546v-1.037h2V14.1c0 1.103.001 1.992-.058 2.709-.06.728-.185 1.368-.487 1.96-.48.941-1.245 1.707-2.185 2.186-.593.302-1.233.428-1.961.488-.718.058-1.606.057-2.71.057H9.9c-1.103 0-1.991.001-2.709-.058-.728-.06-1.368-.185-1.96-.487-.941-.48-1.707-1.245-2.186-2.185-.302-.593-.428-1.233-.487-1.961-.059-.718-.058-1.606-.058-2.71V9.9c0-1.103-.001-1.991.058-2.709.06-.728.185-1.368.487-1.96.48-.941 1.245-1.707 2.185-2.186.593-.302 1.233-.428 1.961-.487.718-.059 1.606-.058 2.71-.058h1.037v2z',
+  X_SEARCH_PATH: 'M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5-8.5z',
+  X_SEARCH_ACTIVE_PATH: 'M10.25 4.25c-3.314 0-6 2.686-6 6s2.686 6 6 6c1.657 0 3.155-.67 4.243-1.757 1.087-1.088 1.757-2.586 1.757-4.243 0-3.314-2.686-6-6-6zm-9 6c0-4.971 4.029-9 9-9s9 4.029 9 9c0 1.943-.617 3.744-1.664 5.215l4.475 4.474-2.122 2.122-4.474-4.475c-1.471 1.047-3.272 1.664-5.215 1.664-4.971 0-9-4.029-9-9z',
+  TWITTER_SEARCH_PATH: 'M21 7.337h-3.93l.372-4.272c.036-.412-.27-.775-.682-.812-.417-.03-.776.27-.812.683l-.383 4.4h-6.32l.37-4.27c.037-.413-.27-.776-.68-.813-.42-.03-.777.27-.813.683l-.382 4.4H3.782c-.414 0-.75.337-.75.75s.336.75.75.75H7.61l-.55 6.327H3c-.414 0-.75.336-.75.75s.336.75.75.75h3.93l-.372 4.272c-.036.412.27.775.682.812l.066.003c.385 0 .712-.295.746-.686l.383-4.4h6.32l-.37 4.27c-.036.413.27.776.682.813l.066.003c.385 0 .712-.295.746-.686l.382-4.4h3.957c.413 0 .75-.337.75-.75s-.337-.75-.75-.75H16.39l.55-6.327H21c.414 0 .75-.336.75-.75s-.336-.75-.75-.75zm-6.115 7.826h-6.32l.55-6.326h6.32l-.55 6.326z',
+  TWITTER_SEARCH_ACTIVE_PATH: 'M20.585 9.468c.66 0 1.2-.538 1.2-1.2 0-.662-.54-1.2-1.2-1.2h-3.22l.31-3.547c.027-.318-.07-.63-.277-.875-.206-.245-.495-.396-.822-.425-.65-.035-1.235.432-1.293 1.093l-.326 3.754H9.9l.308-3.545c.06-.658-.43-1.242-1.097-1.302-.665-.05-1.235.43-1.293 1.092l-.325 3.754h-3.33c-.663 0-1.2.538-1.2 1.2 0 .662.538 1.2 1.2 1.2h3.122l-.44 5.064H3.416c-.662 0-1.2.54-1.2 1.2s.538 1.202 1.2 1.202h3.22l-.31 3.548c-.057.657.432 1.24 1.09 1.3l.106.005c.626 0 1.14-.472 1.195-1.098l.327-3.753H14.1l-.308 3.544c-.06.658.43 1.242 1.09 1.302l.106.005c.617 0 1.142-.482 1.195-1.098l.325-3.753h3.33c.66 0 1.2-.54 1.2-1.2s-.54-1.202-1.2-1.202h-3.122l.44-5.064h3.43zm-5.838 0l-.44 5.063H9.253l.44-5.062h5.055z',
 }
 
 /** @enum {string} */
@@ -5539,11 +5544,22 @@ const configureThemeCss = (() => {
         .cpft_logo {
           fill: ${THEME_BLUE};
         }
+        body.LightsOut ${Selectors.X_LOGO_PATH},
+        body.LightsOut ${Selectors.X_DARUMA_LOGO_PATH},
+        body.LightsOut .cpft_logo {
+          fill: #fff;
+        }
         svg path[d="${Svgs.X_HOME_ACTIVE_PATH}"] {
           d: path("${Svgs.TWITTER_HOME_ACTIVE_PATH}");
         }
         svg path[d="${Svgs.X_HOME_INACTIVE_PATH}"] {
           d: path("${Svgs.TWITTER_HOME_INACTIVE_PATH}");
+        }
+        ${Selectors.NAV_EXPLORE_LINK} svg path[d="${Svgs.X_SEARCH_PATH}"] {
+          d: path("${Svgs.TWITTER_SEARCH_PATH}");
+        }
+        ${Selectors.NAV_EXPLORE_LINK} svg path[d="${Svgs.X_SEARCH_ACTIVE_PATH}"] {
+          d: path("${Svgs.TWITTER_SEARCH_ACTIVE_PATH}");
         }
         /* Replace the edit icon in the Tweet button with the feather */
         :is([data-testid="SideNav_NewTweet_Button"], [data-testid="FloatingActionButtons_Tweet_Button"]) {
@@ -6891,6 +6907,7 @@ function processCurrentPage() {
   }
   if (isSafari && config.replaceLogo) {
     tweakHomeIcon()
+    tweakSearchIcon()
     tweakTweetIcon()
   }
 
@@ -7561,6 +7578,19 @@ async function tweakMessagesIcon() {
     if ($messagesIconPath.getAttribute('d') != targetPath) {
       $messagesIconPath.setAttribute('d', targetPath)
     }
+  }
+}
+
+async function tweakSearchIcon() {
+  // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
+  // we have to manually patch the path in it.
+  let replacements = {
+    [Svgs.X_SEARCH_PATH]: Svgs.TWITTER_SEARCH_PATH,
+    [Svgs.X_SEARCH_ACTIVE_PATH]: Svgs.TWITTER_SEARCH_ACTIVE_PATH,
+  }
+  for (let [xPath, twitterPath] of Object.entries(replacements)) {
+    let $path = document.querySelector(`${Selectors.NAV_EXPLORE_LINK} svg path[d="${xPath}"]`)
+    if ($path) $path.setAttribute('d', twitterPath)
   }
 }
 
