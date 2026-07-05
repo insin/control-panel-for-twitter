@@ -212,6 +212,9 @@
   "hideLiveBroadcasts": {
     "message": "ライブ放送を非表示"
   },
+  "hideManageTimelines": {
+    "message": "「タイムラインを管理」ボタンを非表示"
+  },
   "hideMessagesBottomNavItem": {
     "message": "メッセージ"
   },
@@ -220,6 +223,9 @@
   },
   "hideMetrics": {
     "message": "メトリクスを非表示"
+  },
+  "hideMoreFromThisAuthor": {
+    "message": "「この作者の他の投稿」を非表示"
   },
   "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "使用しない「もっと見る」メニューの項目を非表示"

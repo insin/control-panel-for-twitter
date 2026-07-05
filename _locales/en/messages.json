@@ -215,6 +215,9 @@
   "hideLiveBroadcasts": {
     "message": "Hide Live broadcasts"
   },
+  "hideManageTimelines": {
+    "message": "Hide \"Manage timelines\" button"
+  },
   "hideMessagesBottomNavItem": {
     "message": "Messages"
   },
@@ -223,6 +226,9 @@
   },
   "hideMetrics": {
     "message": "Hide metrics"
+  },
+  "hideMoreFromThisAuthor": {
+    "message": "Hide \"More From This Author\""
   },
   "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "Hide \"More\" menu items you don't use"

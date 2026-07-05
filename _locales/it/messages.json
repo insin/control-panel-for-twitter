@@ -212,6 +212,9 @@
   "hideLiveBroadcasts": {
     "message": "Nascondi le trasmissioni in diretta"
   },
+  "hideManageTimelines": {
+    "message": "Nascondi il pulsante \"Gestisci cronologie\""
+  },
   "hideMessagesBottomNavItem": {
     "message": "Messaggi"
   },
@@ -220,6 +223,9 @@
   },
   "hideMetrics": {
     "message": "Nascondi statistiche"
+  },
+  "hideMoreFromThisAuthor": {
+    "message": "Nascondi \"Altro di questo autore\""
   },
   "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "Nascondi elementi del menu \"Altro\" che non usi"

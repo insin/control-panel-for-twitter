@@ -212,6 +212,9 @@
   "hideLiveBroadcasts": {
     "message": "라이브 방송 숨기기"
   },
+  "hideManageTimelines": {
+    "message": "\"타임라인 관리\" 버튼 숨기기"
+  },
   "hideMessagesBottomNavItem": {
     "message": "메시지"
   },
@@ -220,6 +223,9 @@
   },
   "hideMetrics": {
     "message": "지표 숨기기"
+  },
+  "hideMoreFromThisAuthor": {
+    "message": "\"이 작성자의 더 많은 게시물\" 숨기기"
   },
   "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "사용하지 않는 \"더 보기\" 메뉴 항목숨기기 (데스크톱)"

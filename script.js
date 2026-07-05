@@ -47,7 +47,9 @@ const DEFAULT_SETTINGS = {
   hideLikeMetrics: true,
   hideListRetweets: true,
   hideListsNav: false,
+  hideManageTimelines: false,
   hideMetrics: false,
+  hideMoreFromThisAuthor: true,
   hideNotificationLikes: false,
   hideNotificationRetweets: false,
   hideNotifications: 'ignore',
@@ -4509,6 +4511,9 @@ const configureCss = (() => {
         hideCssSelectors.push(`${desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE} a[href$="/i/chat"]`)
       }
     }
+    if (settings.hideManageTimelines) {
+      hideCssSelectors.push('.ManageTimelines')
+    }
     if (settings.hideShareTweetButton) {
       hideCssSelectors.push(
         // Under timeline tweets
@@ -6487,7 +6492,9 @@ function onIndividualTweetTimelineChange($timeline, seen, options) {
   /** @type {?HTMLElement} */
   let $focusedTweet
 
-  for (let $item of $timeline.children) {
+  let items = Array.from($timeline.children)
+  for (let i = 0; i < items.length; i++) {
+    let $item = items[i]
     if (seen.has($item) &&
         // Reprocess Discover More Tweets if they were processed before the Discover More heading
         !(hideAllSubsequentItems && seen.get($item).hidden != settings.hideDiscoverSuggestions)) {
@@ -6631,7 +6638,31 @@ function onIndividualTweetTimelineChange($timeline, seen, options) {
           if ($button?.textContent == getString('SHOW_MORE_REPLIES')) {
             itemType = 'SHOW_MORE'
           }
-        } else {
+        }
+
+        // Hide "More From This Author" → Up to 3 Tweets → "See more" link,
+        // working backwards from "See more" once it renders.
+        if (itemType == null) {
+          let $userLink = $item.querySelector(':scope > div > div > a[href^="/i/user/"]')
+          if ($userLink) {
+            for (let headingOffset = 2; headingOffset <= 4; headingOffset++) {
+              if (seen.get(items[i - headingOffset])?.itemType == 'HEADING') {
+                itemType = 'SEE_MORE'
+                hideItem = settings.hideMoreFromThisAuthor
+                for (let j = i - headingOffset; j < i; j++) {
+                  if (j < 0 || !items[j]?.firstElementChild) continue
+                  changes.push({
+                    $item: items[j],
+                    hideItem: settings.hideMoreFromThisAuthor || seen.get(items[j])?.hidden == true,
+                  })
+                }
+                break
+              }
+            }
+          }
+        }
+
+        if (itemType == null) {
           let $heading = $item.querySelector(Selectors.TIMELINE_HEADING)
           if ($heading) {
             // Discover More headings have a description next to them
@@ -7995,6 +8026,13 @@ function tweakHomeTimelinePage() {
   if ($timelineTabs == null) {
     warn('could not find Home timeline tabs')
     return
+  }
+
+  let $manageTimelinesButton = $timelineTabs.parentElement.nextElementSibling
+  if ($manageTimelinesButton?.querySelector('path[d="M11 11V4h2v7h7v2h-7v7h-2v-7H4v-2h7z"]')) {
+    $manageTimelinesButton.classList.add('ManageTimelines')
+  } else {
+    $manageTimelinesButton = null
   }
 
   tweakTimelineTabs($timelineTabs)

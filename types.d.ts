@@ -94,7 +94,9 @@ export type UserSettings = {
   hideLikeMetrics: boolean
   hideListRetweets: boolean
   hideListsNav: boolean
+  hideManageTimelines: boolean
   hideMetrics: boolean
+  hideMoreFromThisAuthor: boolean
   hideNotificationLikes: boolean
   hideNotificationRetweets: boolean
   hideNotifications: 'ignore' | 'badges' | 'hide'
@@ -304,6 +306,7 @@ export type TimelineItemType =
   | 'GOVERNMENT_REPLY'
   | 'HEADING'
   | 'INLINE_PROMPT'
+  | 'SEE_MORE'
   | 'SHOW_MORE'
   | 'SUBSEQUENT_ITEM'
   | 'UNAVAILABLE'

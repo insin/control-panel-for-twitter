@@ -36,7 +36,7 @@ for (const file of fs.readdirSync('./js')) {
   const src = fs.readFileSync(path.join('js', file), { encoding: 'utf8' })
   for (const [key, code] of Object.entries(template)) {
     if (key.endsWith('_FN')) {
-      const match = src.match(new RegExp(`"${code}",\\((function\\([a-z]\\)[^)]+)\\)`))
+      const match = src.match(new RegExp(`"${code}",\\(?(function\\([a-z]\\)[^)]+)\\)`))
       if (match) {
         locale[key] = match[1]
       } else {

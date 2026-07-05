@@ -212,6 +212,9 @@
   "hideLiveBroadcasts": {
     "message": "隐藏直播"
   },
+  "hideManageTimelines": {
+    "message": "隐藏“管理时间线”按钮"
+  },
   "hideMessagesBottomNavItem": {
     "message": "私信"
   },
@@ -220,6 +223,9 @@
   },
   "hideMetrics": {
     "message": "隐藏指标"
+  },
+  "hideMoreFromThisAuthor": {
+    "message": "隐藏“此作者的更多内容”"
   },
   "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "隐藏你不使用的\"更多\"菜单项"
