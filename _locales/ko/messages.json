@@ -5,14 +5,26 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "슬라이드 메뉴에 \"뮤트할 단어 추가하기\" 추가"
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "개별 트윗에 계정 위치 표시"
+  },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "사용자 호버 카드에 계정 위치 표시"
+  },
   "alwaysUseLatestTweetsLabel": {
-    "message": "기본적으로 \"팔로잉\" (시간순) 타임라인 사용"
+    "message": "기본적으로 팔로잉 (시간순) 타임라인 사용"
   },
   "appStoreSubtitle": {
     "message": "타임라인을 통제하세요"
   },
+  "bypassAgeVerificationLabel": {
+    "message": "성인 인증 우회하기"
+  },
   "customCssLabel": {
     "message": "사용자 정의 CSS"
+  },
+  "darkModeThemeLabel": {
+    "message": "다크 모드의 테마"
   },
   "debugInfo": {
     "message": "디버그 로깅을 활성화하고 타임라인에서 트윗 디버그 정보를 표시합니다"
@@ -113,14 +125,29 @@
   "hideBookmarksNavLabel": {
     "message": "북마크"
   },
+  "hideBusinessNavLabel": {
+    "message": "비즈니스"
+  },
+  "hideChatNavLabel": {
+    "message": "채팅"
+  },
   "hideCommunitiesNavLabel": {
     "message": "커뮤니티"
   },
   "hideComposeTweetLabel": {
     "message": "트윗 작성 버튼 숨기기"
   },
+  "hideConnectNavLabel": {
+    "message": "팔로우"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "크리에이터 스튜디오"
+  },
   "hideDiscoverSuggestionsLabel": {
     "message": "\"발견\" 제안 숨기기"
+  },
+  "hideEditImageLabel": {
+    "message": "이미지 수정하기 숨기기"
   },
   "hideExploreNavLabel": {
     "message": "탐색"
@@ -164,23 +191,32 @@
   "hideLiveBroadcastsLabel": {
     "message": "라이브 방송 숨기기"
   },
+  "hideManageTimelinesLabel": {
+    "message": "\"타임라인 관리\" 버튼 숨기기"
+  },
   "hideMessagesBottomNavItemLabel": {
     "message": "메시지"
   },
   "hideMessagesDrawerLabel": {
-    "message": "메시지 드로어"
+    "message": "채팅 드로어"
   },
   "hideMetricsLabel": {
     "message": "지표 숨기기"
   },
-  "hideMonetizationNavLabel": {
-    "message": "수익 창출"
+  "hideMoreFromThisAuthorLabel": {
+    "message": "\"이 작성자의 더 많은 게시물\" 숨기기"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "사용하지 않는 \"더 보기\" 메뉴 항목숨기기 (데스크톱)"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "사용하지 않는 \"더 보기\" 메뉴 항목 숨기기 (모바일)"
+  },
+  "hideNotificationLikesLabel": {
+    "message": "알림에서 좋아요 숨기기"
+  },
+  "hideNotificationRetweetsLabel": {
+    "message": "알림에서 리트윗 숨기기"
   },
   "hideNotificationsLabel": {
     "message": "알림 숨기기"
@@ -218,11 +254,17 @@
   "hideSidebarContentLabel": {
     "message": "사이드바 내용 숨기기"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "\"답글 정렬하기\" 메뉴 숨기기"
+  },
   "hideSpacesNavLabel": {
     "message": "스페이스 만들기"
   },
   "hideSubscriptionsLabel": {
     "message": "구독 숨기기"
+  },
+  "hideSuggestedContentSearchLabel": {
+    "message": "검색에서 추천 콘텐츠 숨기기"
   },
   "hideSuggestedFollowsLabel": {
     "message": "추천 팔로우 숨기기"
@@ -230,11 +272,11 @@
   "hideTimelineTweetBoxLabel": {
     "message": "타임라인 트윗 상자"
   },
+  "hideTodaysNewsLabel": {
+    "message": "오늘의 뉴스 숨기기"
+  },
   "hideToggleNavigationLabel": {
     "message": "탐색 전환 숨기기"
-  },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "내 트윗 아래에 \"게시 참여수 조회\""
   },
   "hideTwitterBlueRepliesLabel": {
     "message": "Premium 파란색 체크 답장 숨기기"
@@ -249,7 +291,10 @@
     "message": "사용하지 않는 UI 항목 숨기기"
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "알림 및 팔로어에 \"인증된\" 탭 숨기기"
+    "message": "팔로워의 인증된 탭 숨기기"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "\"활동 보기\" 링크"
   },
   "hideViewsLabel": {
     "message": "트윗 아래의 조회수 숨기기"
@@ -258,7 +303,7 @@
     "message": "'지금 일어나는 일' 숨기기"
   },
   "hideWhoToFollowEtcLabel": {
-    "message": "타임라인에서 \"팔로우 추천\" 등 숨기기"
+    "message": "타임라인에서 추천 콘텐츠 숨기기"
   },
   "homeTimelineOptionsLabel": {
     "message": "홈 타임라인"
@@ -299,17 +344,29 @@
   "option_default": {
     "message": "기본"
   },
+  "option_dim": {
+    "message": "어둡게"
+  },
   "option_hide": {
     "message": "숨기기"
   },
   "option_ignore": {
     "message": "아무것도 하지 않음"
   },
+  "option_lightsOut": {
+    "message": "완전히 어둡게"
+  },
   "option_liked": {
     "message": "마음에 들어요"
   },
+  "option_mostRecent": {
+    "message": "최신 순서"
+  },
+  "option_popular": {
+    "message": "인기"
+  },
   "option_recent": {
-    "message": "최신"
+    "message": "최근"
   },
   "option_relevant": {
     "message": "관련성"
@@ -325,6 +382,9 @@
   },
   "quoteTweetsLabel": {
     "message": "인용 트윗"
+  },
+  "redirectChatNavLabel": {
+    "message": "채팅 탐색 항목을 메시지로 리디렉션"
   },
   "redirectToTwitterLabel": {
     "message": "twitter.com으로 리디렉션"
@@ -396,6 +456,9 @@
   },
   "sidebarLabel": {
     "message": "사이드바"
+  },
+  "sortFollowingLabel": {
+    "message": "팔로잉 정렬"
   },
   "sortRepliesLabel": {
     "message": "답글의 기본 정렬"

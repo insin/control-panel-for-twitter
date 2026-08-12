@@ -8,7 +8,7 @@ for (let file of fs.readdirSync('./html')) {
   let html = fs.readFileSync(path.join('html', file), {encoding: 'utf8'})
   let match = html.match(
     new RegExp(
-      `https://abs\\.twimg\\.com/responsive-web/client-web-legacy/i18n/${localeCode}\\.(?:[a-z\\d]+)\\.js`
+      `https://abs\\.twimg\\.com/responsive-web/client-web/i18n/${localeCode}\\.(?:[a-z\\d]+)\\.js`
     )
   )
 

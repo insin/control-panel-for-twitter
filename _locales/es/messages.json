@@ -5,14 +5,26 @@
   "addAddMutedWordMenuItemLabel_mobile": {
     "message": "Añade \"Añadir palabra silenciada\" al menú hamburguesa"
   },
+  "addFocusedTweetAccountLocationLabel": {
+    "message": "Mostrar la ubicación de la cuenta en tweets individuales"
+  },
+  "addUserHoverCardAccountLocationLabel": {
+    "message": "Mostrar la ubicación de la cuenta en las tarjetas flotantes de usuario"
+  },
   "alwaysUseLatestTweetsLabel": {
     "message": "Usar la timeline cronológica (Siguiendo) por defecto"
   },
   "appStoreSubtitle": {
     "message": "Controla tu línea de tiempo"
   },
+  "bypassAgeVerificationLabel": {
+    "message": "Omitir la verificación de edad"
+  },
   "customCssLabel": {
     "message": "CSS personalizado"
+  },
+  "darkModeThemeLabel": {
+    "message": "Tema del modo oscuro"
   },
   "debugInfo": {
     "message": "Activa los registros de debug y muestra estadísticas de debug en los tweets del Inicio"
@@ -113,14 +125,29 @@
   "hideBookmarksNavLabel": {
     "message": "Guardados"
   },
+  "hideBusinessNavLabel": {
+    "message": "Empresa"
+  },
+  "hideChatNavLabel": {
+    "message": "Chatear"
+  },
   "hideCommunitiesNavLabel": {
     "message": "Comunidades"
   },
   "hideComposeTweetLabel": {
     "message": "Ocultar el botón de Redactar Tweet"
   },
+  "hideConnectNavLabel": {
+    "message": "Seguir"
+  },
+  "hideCreatorStudioNavLabel": {
+    "message": "Estudio para creadores"
+  },
   "hideDiscoverSuggestionsLabel": {
     "message": "Ocultar sugerencias de \"Descubrir\""
+  },
+  "hideEditImageLabel": {
+    "message": "Ocultar Editar imagen"
   },
   "hideExploreNavLabel": {
     "message": "Explorar"
@@ -164,23 +191,32 @@
   "hideLiveBroadcastsLabel": {
     "message": "Ocultar transmisiones en vivo"
   },
+  "hideManageTimelinesLabel": {
+    "message": "Ocultar el botón \"Administrar cronologías\""
+  },
   "hideMessagesBottomNavItemLabel": {
     "message": "Mensajes"
   },
   "hideMessagesDrawerLabel": {
-    "message": "Bandeja de mensajes"
+    "message": "Bandeja de chat"
   },
   "hideMetricsLabel": {
     "message": "Ocultar métricas"
   },
-  "hideMonetizationNavLabel": {
-    "message": "Monetización"
+  "hideMoreFromThisAuthorLabel": {
+    "message": "Ocultar \"Más de este autor\""
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "Ocultar elementos no usados en el menú \"Más\""
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_mobile": {
     "message": "Ocultar elementos no usados en el menú hamburguesa"
+  },
+  "hideNotificationLikesLabel": {
+    "message": "Ocultar Me gusta en las notificaciones"
+  },
+  "hideNotificationRetweetsLabel": {
+    "message": "Ocultar Retweets en las notificaciones"
   },
   "hideNotificationsLabel": {
     "message": "Ocultar notificaciones"
@@ -218,11 +254,17 @@
   "hideSidebarContentLabel": {
     "message": "Ocultar contenido de la barra lateral"
   },
+  "hideSortRepliesMenuLabel": {
+    "message": "Ocultar el menú \"Organizar respuestas\""
+  },
   "hideSpacesNavLabel": {
     "message": "Crear tu Espacio"
   },
   "hideSubscriptionsLabel": {
     "message": "Ocultar Suscripciones"
+  },
+  "hideSuggestedContentSearchLabel": {
+    "message": "Ocultar contenido sugerido en la Búsqueda"
   },
   "hideSuggestedFollowsLabel": {
     "message": "Ocultar seguimientos sugeridos"
@@ -230,11 +272,11 @@
   "hideTimelineTweetBoxLabel": {
     "message": "Cuadro de tweet en timeline"
   },
+  "hideTodaysNewsLabel": {
+    "message": "Ocultar Noticias del día"
+  },
   "hideToggleNavigationLabel": {
     "message": "Ocultar activar/desactivar navegación"
-  },
-  "hideTweetAnalyticsLinksLabel": {
-    "message": "\"Ver las interacciones de post\" debajo de tus tweets"
   },
   "hideTwitterBlueRepliesLabel": {
     "message": "Ocultar respuestas de cheque azul Premium"
@@ -249,7 +291,10 @@
     "message": "Ocultar elementos de interfaz no utilizados"
   },
   "hideVerifiedNotificationsTabLabel": {
-    "message": "Ocultar pestañas \"Verificado\" en Notificaciones y Seguidores"
+    "message": "Ocultar la pestaña Verificado de Seguidores"
+  },
+  "hideViewActivityLinksLabel": {
+    "message": "Enlaces \"Ver actividad\""
   },
   "hideViewsLabel": {
     "message": "Ocultar Reproducciones de tweets"
@@ -258,7 +303,7 @@
     "message": "Ocultar Qué está pasando"
   },
   "hideWhoToFollowEtcLabel": {
-    "message": "Ocultar \"A quién seguir\", \"Seguir temas\" etc. en la timeline"
+    "message": "Ocultar contenido sugerido en la timeline"
   },
   "homeTimelineOptionsLabel": {
     "message": "Cronología de inicio"
@@ -299,20 +344,32 @@
   "option_default": {
     "message": "Predet."
   },
+  "option_dim": {
+    "message": "Noche clara"
+  },
   "option_hide": {
     "message": "Ocultar"
   },
   "option_ignore": {
     "message": "No cambiar"
   },
+  "option_lightsOut": {
+    "message": "Oscuro"
+  },
   "option_liked": {
     "message": "Me gusta"
   },
+  "option_mostRecent": {
+    "message": "Más recientes"
+  },
+  "option_popular": {
+    "message": "Popular"
+  },
   "option_recent": {
-    "message": "Más reciente"
+    "message": "Recientes"
   },
   "option_relevant": {
-    "message": "Relevancia"
+    "message": "Relevante"
   },
   "option_separate": {
     "message": "Mostrar en pestaña aparte"
@@ -325,6 +382,9 @@
   },
   "quoteTweetsLabel": {
     "message": "Citados"
+  },
+  "redirectChatNavLabel": {
+    "message": "Redirigir el elemento Chat a Mensajes"
   },
   "redirectToTwitterLabel": {
     "message": "Redirigir a twitter.com"
@@ -396,6 +456,9 @@
   },
   "sidebarLabel": {
     "message": "Barra lateral"
+  },
+  "sortFollowingLabel": {
+    "message": "Ordenar Siguiendo"
   },
   "sortRepliesLabel": {
     "message": "Orden predeterminado de las respuestas"

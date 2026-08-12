@@ -5,8 +5,11 @@ export type Config = {
   version?: 'desktop' | 'mobile'
   // Shared
   addAddMutedWordMenuItem: boolean
+  addFocusedTweetAccountLocation: boolean
   // XXX This is now more like "use the Following tab by default"
   alwaysUseLatestTweets: boolean
+  bypassAgeVerification: boolean
+  darkModeTheme: 'lightsOut' | 'dim'
   defaultToLatestSearch: boolean
   disableHomeTimeline: boolean
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
@@ -19,8 +22,13 @@ export type Config = {
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
   hideBookmarksNav: boolean
+  hideBusinessNav: boolean
+  hideChatNav: boolean
   hideCommunitiesNav: boolean
   hideComposeTweet: boolean
+  hideConnectNav: boolean
+  hideCreatorStudioNav: boolean
+  hideEditImage: boolean
   hideExplorePageContents: boolean
   hideFollowingMetrics: boolean
   hideForYouTimeline: boolean
@@ -30,10 +38,13 @@ export type Config = {
   hideJobsNav: boolean
   hideLikeMetrics: boolean
   hideListsNav: boolean
+  hideManageTimelines: boolean
   hideMetrics: boolean
-  hideMonetizationNav: boolean
+  hideMoreFromThisAuthor: boolean
   // XXX This now controls hiding all "Discover" suggestions
   hideMoreTweets: boolean
+  hideNotificationLikes: boolean
+  hideNotificationRetweets: boolean
   hideNotifications: 'ignore' | 'badges' | 'hide'
   hideProfileRetweets: boolean
   hideQuoteTweetMetrics: boolean
@@ -42,22 +53,25 @@ export type Config = {
   hideRetweetMetrics: boolean
   hideSeeNewTweets: boolean
   hideShareTweetButton: boolean
+  hideSortRepliesMenu: boolean
   hideSpacesNav: boolean
   hideSubscriptions: boolean
+  hideSuggestedContentSearch: boolean
   // XXX This now controls hiding profile header metrics
   hideTotalTweetsMetrics: boolean
-  hideTweetAnalyticsLinks: boolean
   hideTwitterBlueReplies: boolean
   hideTwitterBlueUpsells: boolean
   hideUnavailableQuoteTweets: boolean
   // XXX This now also controls hiding Verified Followers
   hideVerifiedNotificationsTab: boolean
+  hideViewActivityLinks: boolean
   hideViews: boolean
   hideWhoToFollowEtc: boolean
   listRetweets: 'ignore' | 'hide'
   mutableQuoteTweets: boolean
   mutedQuotes: QuotedTweet[]
   quoteTweets: SharedTweetsConfig
+  redirectChatNav: boolean
   redirectToTwitter: boolean
   reducedInteractionMode: boolean
   // XXX This now controls all replacement of X brand changes
@@ -74,6 +88,7 @@ export type Config = {
   showPremiumReplyFollowedBy: boolean
   showPremiumReplyFollowing: boolean
   showPremiumReplyGovernment: boolean
+  sortFollowing: 'mostRecent' | 'popular' | 'ignore'
   sortReplies: 'relevant' | 'recent' | 'liked'
   tweakNewLayout: boolean
   tweakQuoteTweetsPage: boolean
@@ -83,6 +98,7 @@ export type Config = {
   // Experiments
   customCss: string
   // Desktop only
+  addUserHoverCardAccountLocation: boolean
   fullWidthContent: boolean
   fullWidthMedia: boolean
   hideAccountSwitcher: boolean
@@ -93,6 +109,7 @@ export type Config = {
   hideSidebarContent: boolean
   hideSuggestedFollows: boolean
   hideTimelineTweetBox: boolean
+  hideTodaysNews: boolean
   hideToggleNavigation: boolean
   hideWhatsHappening: boolean
   navBaseFontSize: boolean
@@ -105,16 +122,20 @@ export type Config = {
 }
 
 export type Locale = {
-  [key in LocaleKey]?: string
+  [K in LocaleKey]?: K extends `${string}_FN` ? (arg: any) => string : string
 }
 
+export type LocaleFunctionKey = Extract<LocaleKey, `${string}_FN`>
+
 export type LocaleKey =
+  | 'ACCOUNT_BASED_IN_FN'
   | 'ADD_ANOTHER_TWEET'
   | 'ADD_MUTED_WORD'
   | 'GROK_ACTIONS'
   | 'HOME'
   | 'LIKES'
   | 'LIVE_ON_X'
+  | 'MESSAGES'
   | 'MOST_RELEVANT'
   | 'MUTE_THIS_CONVERSATION'
   | 'POST_ALL'
@@ -124,6 +145,8 @@ export type LocaleKey =
   | 'QUOTES'
   | 'QUOTE_TWEET'
   | 'QUOTE_TWEETS'
+  | 'RECENT'
+  | 'RELEVANT'
   | 'REPOST'
   | 'REPOSTS'
   | 'RETWEET'
@@ -133,7 +156,8 @@ export type LocaleKey =
   | 'SHARED_TWEETS'
   | 'SHOW'
   | 'SHOW_MORE_REPLIES'
-  | 'SORT_REPLIES_BY'
+  | 'SORT_BY'
+  | 'SORT_REPLIES'
   | 'TURN_OFF_QUOTE_TWEETS'
   | 'TURN_OFF_RETWEETS'
   | 'TURN_ON_RETWEETS'
@@ -146,6 +170,8 @@ export type LocaleKey =
   | 'UNDO_RETWEET'
   | 'VIEW'
   | 'WHATS_HAPPENING'
+
+export type LocaleStringKey = Exclude<LocaleKey, `${string}_FN`>
 
 export type NamedMutationObserver = MutationObserver & {name: string}
 
@@ -161,6 +187,7 @@ export type QuotedTweet = {
 export type SharedTweetsConfig = 'separate' | 'hide' | 'ignore'
 
 export type TweetType =
+  | 'COMMUNITY_TWEET'
   | 'PINNED_TWEET'
   | 'PROMOTED_TWEET'
   | 'QUOTE_TWEET'
@@ -181,11 +208,16 @@ export type TimelineItemType =
   | 'GOVERNMENT_REPLY'
   | 'HEADING'
   | 'INLINE_PROMPT'
+  | 'SEE_MORE'
   | 'SHOW_MORE'
   | 'SUBSEQUENT_ITEM'
   | 'UNAVAILABLE'
+  | `NOTIFICATION_${NotificationType}`
+
+export type NotificationType = 'AD' | 'FOLLOW' | 'LIKE' | 'RETWEET'
 
 export type TimelineOptions = {
+  checkSocialContext?: boolean
   classifyTweets?: boolean
   hideHeadings?: boolean
   isTabbed?: boolean

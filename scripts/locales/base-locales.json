@@ -1,6 +1,7 @@
 {
   "ar-x-fm": {
     "ADD_ANOTHER_TWEET": "ضافة تغريدة أخرى",
+    "MESSAGES": "الرسائل",
     "MOST_RELEVANT": "الأكثر ملائمة",
     "POST_UNAVAILABLE": "هذا المنشور غير متاح.",
     "QUOTE_TWEET": "اقتباس التغريدة",
@@ -25,6 +26,7 @@
   },
   "ar": {
     "ADD_ANOTHER_TWEET": "ضافة تغريدة أخرى",
+    "MESSAGES": "الرسائل",
     "MOST_RELEVANT": "الأكثر ملائمة",
     "POST_UNAVAILABLE": "هذا المنشور غير متاح.",
     "QUOTE_TWEET": "اقتباس التغريدة",
@@ -48,6 +50,7 @@
   },
   "bg": {
     "ADD_ANOTHER_TWEET": "Добавяне на друг туит",
+    "MESSAGES": "Съобщения",
     "MOST_RELEVANT": "Най-подходящи",
     "POST_UNAVAILABLE": "Тази публикация не е налична.",
     "QUOTE_TWEET": "Цитиране на туита",
@@ -71,6 +74,7 @@
   },
   "bn": {
     "ADD_ANOTHER_TWEET": "অন্য টুইট যোগ করুন",
+    "MESSAGES": "বার্তাগুলি",
     "MOST_RELEVANT": "সবচেয়ে প্রাসঙ্গিক",
     "POST_UNAVAILABLE": "এই পোস্টটি অনুপলভ্য।",
     "QUOTE_TWEET": "টুইট উদ্ধৃত করুন",
@@ -95,6 +99,7 @@
   },
   "ca": {
     "ADD_ANOTHER_TWEET": "Afegeix un altre tuit",
+    "MESSAGES": "Missatges",
     "MOST_RELEVANT": "El més rellevant",
     "POST_UNAVAILABLE": "Aquesta publicació no està disponible.",
     "QUOTE_TWEET": "Cita el tuit",
@@ -118,6 +123,7 @@
   },
   "cs": {
     "ADD_ANOTHER_TWEET": "Přidat další Tweet",
+    "MESSAGES": "Zprávy",
     "MOST_RELEVANT": "Nejvíce související",
     "POST_UNAVAILABLE": "Tento post není dostupný.",
     "QUOTE_TWEET": "Citovat Tweet",
@@ -141,6 +147,7 @@
   },
   "da": {
     "ADD_ANOTHER_TWEET": "Tilføj endnu et Tweet",
+    "MESSAGES": "Beskeder",
     "MOST_RELEVANT": "Mest relevante",
     "POST_UNAVAILABLE": "Denne post er ikke tilgængelig.",
     "QUOTE_TWEET": "Citér Tweet",
@@ -160,6 +167,7 @@
   },
   "de": {
     "ADD_ANOTHER_TWEET": "Weiteren Tweet hinzufügen",
+    "MESSAGES": "Nachrichten",
     "MOST_RELEVANT": "Besonders relevant",
     "POST_UNAVAILABLE": "Dieser Post ist nicht verfügbar.",
     "QUOTE_TWEET": "Tweet zitieren",
@@ -181,6 +189,7 @@
   },
   "el": {
     "ADD_ANOTHER_TWEET": "Προσθήκη άλλου Tweet",
+    "MESSAGES": "Μηνύματα",
     "MOST_RELEVANT": "Πιο σχετική",
     "POST_UNAVAILABLE": "Αυτή η ανάρτηση δεν είναι διαθέσιμη.",
     "QUOTE_TWEET": "Παράθεση Tweet",
@@ -202,6 +211,7 @@
   },
   "en": {
     "ADD_ANOTHER_TWEET": "Add another Tweet",
+    "MESSAGES": "Messages",
     "MOST_RELEVANT": "Most relevant",
     "POST_UNAVAILABLE": "This post is unavailable.",
     "QUOTE_TWEET": "Quote Tweet",
@@ -226,6 +236,7 @@
   },
   "es": {
     "ADD_ANOTHER_TWEET": "Agregar otro Tweet",
+    "MESSAGES": "Mensajes",
     "MOST_RELEVANT": "Más relevantes",
     "POST_UNAVAILABLE": "Este post no está disponible.",
     "QUOTE_TWEET": "Citar Tweet",
@@ -247,6 +258,7 @@
   },
   "eu": {
     "ADD_ANOTHER_TWEET": "Gehitu beste txio bat",
+    "MESSAGES": "Mezuak",
     "QUOTE_TWEET": "Txioa apaitu",
     "QUOTE_TWEETS": "Aipatu txioak",
     "RETWEET": "Bertxiotu",
@@ -268,6 +280,7 @@
   },
   "fa": {
     "ADD_ANOTHER_TWEET": "افزودن توییت دیگر",
+    "MESSAGES": "پیام‌ها",
     "MOST_RELEVANT": "مرتبط‌ترین",
     "POST_UNAVAILABLE": "این پست دردسترس نیست.",
     "QUOTE_TWEET": "نقل‌توییت",
@@ -292,6 +305,7 @@
   },
   "fi": {
     "ADD_ANOTHER_TWEET": "Lisää vielä twiitti",
+    "MESSAGES": "Viestit",
     "MOST_RELEVANT": "Relevanteimmat",
     "POST_UNAVAILABLE": "Tämä julkaisu ei ole saatavilla.",
     "QUOTE_TWEET": "Twiitin lainaus",
@@ -315,6 +329,7 @@
   },
   "fil": {
     "ADD_ANOTHER_TWEET": "Magdagdag ng isa pang Tweet",
+    "MESSAGES": "Mga Mensahe",
     "MOST_RELEVANT": "Pinakanauugnay",
     "POST_UNAVAILABLE": "Hindi available ang post na Ito.",
     "QUOTE_TWEET": "Quote na Tweet",
@@ -338,6 +353,7 @@
   },
   "fr": {
     "ADD_ANOTHER_TWEET": "Ajouter un autre Tweet",
+    "MESSAGES": "Messages",
     "MOST_RELEVANT": "Les plus pertinentes",
     "POST_UNAVAILABLE": "Ce post n'est pas disponible.",
     "QUOTE_TWEET": "Citer le Tweet",
@@ -359,6 +375,7 @@
   },
   "ga": {
     "ADD_ANOTHER_TWEET": "Cuir Tweet eile leis",
+    "MESSAGES": "Teachtaireachtaí",
     "QUOTE_TWEET": "Cuir Ráiteas Leis",
     "QUOTE_TWEETS": "Luaigh Tvuíteanna",
     "RETWEET": "Atweetáil",
@@ -379,6 +396,7 @@
   },
   "gl": {
     "ADD_ANOTHER_TWEET": "Engadir outro chío",
+    "MESSAGES": "Mensaxes",
     "QUOTE_TWEET": "Citar chío",
     "QUOTE_TWEETS": "Chíos citados",
     "RETWEET": "Rechouchiar",
@@ -400,6 +418,7 @@
   },
   "gu": {
     "ADD_ANOTHER_TWEET": "અન્ય ટ્વીટ ઉમેરો",
+    "MESSAGES": "સંદેશાઓ",
     "MOST_RELEVANT": "સૌથી વધુ સુસંગત",
     "POST_UNAVAILABLE": "આ પોસ્ટ અનુપલબ્ધ છે.",
     "QUOTE_TWEET": "અવતરણની સાથે ટ્વીટ કરો",
@@ -423,6 +442,7 @@
   },
   "he": {
     "ADD_ANOTHER_TWEET": "הוסף ציוץ נוסף",
+    "MESSAGES": "מסרים",
     "MOST_RELEVANT": "הכי רלוונטי",
     "POST_UNAVAILABLE": "פוסט זה אינו זמין.",
     "QUOTE_TWEET": "ציטוט ציוץ",
@@ -447,6 +467,7 @@
   },
   "hi": {
     "ADD_ANOTHER_TWEET": "एक और ट्वीट जोड़ें",
+    "MESSAGES": "संदेश",
     "MOST_RELEVANT": "सर्वाधिक प्रासंगिक",
     "POST_UNAVAILABLE": "यह पोस्ट उपलब्ध नहीं है.",
     "QUOTE_TWEET": "ट्वीट क्वोट करें",
@@ -470,6 +491,7 @@
   },
   "hr": {
     "ADD_ANOTHER_TWEET": "Dodaj drugi Tweet",
+    "MESSAGES": "Poruke",
     "MOST_RELEVANT": "Najrelevantnije",
     "POST_UNAVAILABLE": "Ta objava nije dostupna.",
     "QUOTE_TWEET": "Citiraj Tweet",
@@ -492,6 +514,7 @@
   },
   "hu": {
     "ADD_ANOTHER_TWEET": "Másik Tweet hozzáadása",
+    "MESSAGES": "Üzenetek",
     "MOST_RELEVANT": "Legmegfelelőbb",
     "POST_UNAVAILABLE": "Ez a bejegyzés nem elérhető.",
     "QUOTE_TWEET": "Tweet idézése",
@@ -514,6 +537,7 @@
   },
   "id": {
     "ADD_ANOTHER_TWEET": "Tambahkan Tweet lain",
+    "MESSAGES": "Pesan",
     "MOST_RELEVANT": "Paling relevan",
     "POST_UNAVAILABLE": "Postingan ini tidak tersedia.",
     "QUOTE_TWEET": "Kutip Tweet",
@@ -535,6 +559,7 @@
   },
   "it": {
     "ADD_ANOTHER_TWEET": "Aggiungi altro Tweet",
+    "MESSAGES": "Messaggi",
     "MOST_RELEVANT": "Più pertinenti",
     "POST_UNAVAILABLE": "Questo post non è disponibile.",
     "QUOTE_TWEET": "Cita Tweet",
@@ -558,6 +583,7 @@
   },
   "ja": {
     "ADD_ANOTHER_TWEET": "別のツイートを追加する",
+    "MESSAGES": "メッセージ",
     "MOST_RELEVANT": "関連性が高い",
     "POST_UNAVAILABLE": "このポストは表示できません。",
     "QUOTE_TWEET": "引用ツイート",
@@ -581,6 +607,7 @@
   },
   "kn": {
     "ADD_ANOTHER_TWEET": "ಮತ್ತೊಂದು ಟ್ವೀಟ್ ಸೇರಿಸಿ",
+    "MESSAGES": "ಸಂದೇಶಗಳು",
     "MOST_RELEVANT": "ಅತ್ಯಂತ ಸಂಬಂಧಿತ",
     "POST_UNAVAILABLE": "ಈ ಪೋಸ್ಟ್ ಲಭ್ಯವಿಲ್ಲ.",
     "QUOTE_TWEET": "ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ",
@@ -604,6 +631,7 @@
   },
   "ko": {
     "ADD_ANOTHER_TWEET": "다른 트윗 추가하기",
+    "MESSAGES": "쪽지",
     "MOST_RELEVANT": "관련도 순서",
     "POST_UNAVAILABLE": "이 게시물을 볼 수 없습니다.",
     "QUOTE_TWEET": "트윗 인용하기",
@@ -628,6 +656,7 @@
   },
   "mr": {
     "ADD_ANOTHER_TWEET": "दुसरे ट्विट सामील करा",
+    "MESSAGES": "संदेश",
     "MOST_RELEVANT": "सर्वात महत्वाचे",
     "POST_UNAVAILABLE": "हे पोस्ट अनुपलब्ध आहे.",
     "QUOTE_TWEET": "ट्विट वर भाष्य करा",
@@ -651,6 +680,7 @@
   },
   "ms": {
     "ADD_ANOTHER_TWEET": "Tambahkan Tweet lain",
+    "MESSAGES": "Mesej",
     "MOST_RELEVANT": "Paling berkaitan",
     "POST_UNAVAILABLE": "Siaran ini tidak tersedia.",
     "QUOTE_TWEET": "Petik Tweet",
@@ -673,6 +703,7 @@
   },
   "nb": {
     "ADD_ANOTHER_TWEET": "Legg til en annen Tweet",
+    "MESSAGES": "Meldinger",
     "MOST_RELEVANT": "Mest relevante",
     "POST_UNAVAILABLE": "Dette innlegget er utilgjengelig.",
     "QUOTE_TWEET": "Sitat-Tweet",
@@ -692,6 +723,7 @@
   },
   "nl": {
     "ADD_ANOTHER_TWEET": "Nog een Tweet toevoegen",
+    "MESSAGES": "Berichten",
     "MOST_RELEVANT": "Meest relevant",
     "POST_UNAVAILABLE": "Deze post is niet beschikbaar.",
     "QUOTE_TWEET": "Citeer Tweet",
@@ -713,6 +745,7 @@
   },
   "pl": {
     "ADD_ANOTHER_TWEET": "Dodaj kolejnego Tweeta",
+    "MESSAGES": "Wiadomości",
     "MOST_RELEVANT": "Najtrafniejsze",
     "POST_UNAVAILABLE": "Ten wpis jest niedostępny.",
     "QUOTE_TWEET": "Cytuj Tweeta",
@@ -735,6 +768,7 @@
   },
   "pt": {
     "ADD_ANOTHER_TWEET": "Adicionar outro Tweet",
+    "MESSAGES": "Mensagens",
     "MOST_RELEVANT": "Mais relevante",
     "POST_UNAVAILABLE": "Este post está indisponível.",
     "QUOTE_TWEET": "Comentar o Tweet",
@@ -756,6 +790,7 @@
   },
   "ro": {
     "ADD_ANOTHER_TWEET": "Adaugă alt Tweet",
+    "MESSAGES": "Mesaje",
     "MOST_RELEVANT": "Cele mai relevante",
     "POST_UNAVAILABLE": "Această postare este indisponibilă.",
     "QUOTE_TWEET": "Citează Tweetul",
@@ -778,6 +813,7 @@
   },
   "ru": {
     "ADD_ANOTHER_TWEET": "Добавить еще один твит",
+    "MESSAGES": "Сообщения",
     "MOST_RELEVANT": "Наиболее актуальные",
     "POST_UNAVAILABLE": "Этот пост недоступен.",
     "QUOTE_TWEET": "Цитировать",
@@ -802,6 +838,7 @@
   },
   "sk": {
     "ADD_ANOTHER_TWEET": "Pridať ďalší Tweet",
+    "MESSAGES": "Správy",
     "MOST_RELEVANT": "Najrelevantnejšie",
     "POST_UNAVAILABLE": "Tento príspevok je nedostupný.",
     "QUOTE_TWEET": "Tweet s citátom",
@@ -825,6 +862,7 @@
   },
   "sr": {
     "ADD_ANOTHER_TWEET": "Додај још један твит",
+    "MESSAGES": "Поруке",
     "MOST_RELEVANT": "Најважније",
     "POST_UNAVAILABLE": "Ова објава није доступна.",
     "QUOTE_TWEET": "твит са цитатом",
@@ -849,6 +887,7 @@
   },
   "sv": {
     "ADD_ANOTHER_TWEET": "Lägg till en Tweet till",
+    "MESSAGES": "Meddelanden",
     "MOST_RELEVANT": "Mest relevant",
     "POST_UNAVAILABLE": "Detta inlägg är inte tillgängligt.",
     "QUOTE_TWEET": "Citera Tweet",
@@ -870,6 +909,7 @@
   },
   "ta": {
     "ADD_ANOTHER_TWEET": "வேறொரு கீச்சைச் சேர்",
+    "MESSAGES": "செய்திகள்",
     "MOST_RELEVANT": "மிகவும் தொடர்புடையவை",
     "POST_UNAVAILABLE": "இந்த இடுகை கிடைக்கவில்லை.",
     "QUOTE_TWEET": "ட்விட்டை மேற்கோள் காட்டு",
@@ -893,6 +933,7 @@
   },
   "th": {
     "ADD_ANOTHER_TWEET": "เพิ่มอีกทวีต",
+    "MESSAGES": "ข้อความ",
     "MOST_RELEVANT": "เกี่ยวข้องที่สุด",
     "POST_UNAVAILABLE": "โพสต์นี้ไม่สามารถใช้งานได้",
     "QUOTE_TWEET": "อ้างอิงทวีต",
@@ -917,6 +958,7 @@
   },
   "tr": {
     "ADD_ANOTHER_TWEET": "Başka bir Tweet ekle",
+    "MESSAGES": "Mesajlar",
     "MOST_RELEVANT": "En alakalı",
     "POST_UNAVAILABLE": "Bu gönderi kullanılamıyor.",
     "QUOTE_TWEET": "Tweeti Alıntıla",
@@ -939,6 +981,7 @@
   },
   "uk": {
     "ADD_ANOTHER_TWEET": "Додати ще один твіт",
+    "MESSAGES": "Повідомлення",
     "MOST_RELEVANT": "Найактуальніші",
     "POST_UNAVAILABLE": "Цей пост недоступний.",
     "QUOTE_TWEET": "Цитувати твіт",
@@ -963,6 +1006,7 @@
   },
   "ur": {
     "ADD_ANOTHER_TWEET": "ایک اور ٹویٹ شامل کریں",
+    "MESSAGES": "پیغامات",
     "QUOTE_TWEET": "ٹویٹ کا حوالہ دیں",
     "QUOTE_TWEETS": "ٹویٹ کو نقل کرو",
     "RETWEET": "ریٹویٹ",
@@ -985,6 +1029,7 @@
   },
   "vi": {
     "ADD_ANOTHER_TWEET": "Thêm Tweet khác",
+    "MESSAGES": "Tin nhắn",
     "MOST_RELEVANT": "Liên quan nhất",
     "POST_UNAVAILABLE": "Không có bài đăng này.",
     "QUOTE_TWEET": "Trích dẫn Tweet",
@@ -1007,6 +1052,7 @@
   },
   "zh-Hant": {
     "ADD_ANOTHER_TWEET": "加入另一則推文",
+    "MESSAGES": "訊息",
     "MOST_RELEVANT": "最相關",
     "POST_UNAVAILABLE": "此貼文無法查看。",
     "QUOTE_TWEET": "引用推文",
@@ -1030,6 +1076,7 @@
   },
   "zh": {
     "ADD_ANOTHER_TWEET": "添加另一条推文",
+    "MESSAGES": "私信",
     "MOST_RELEVANT": "最相关",
     "POST_UNAVAILABLE": "这个帖子不可用。",
     "QUOTE_TWEET": "引用推文",

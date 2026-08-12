@@ -1,32 +1,95 @@
-// ==UserScript==
-// @name        Control Panel for Twitter
-// @description Gives you more control over Twitter and adds missing features and UI improvements
-// @icon        https://raw.githubusercontent.com/insin/control-panel-for-twitter/master/icons/icon32.png
-// @namespace   https://github.com/insin/control-panel-for-twitter/
-// @match       https://twitter.com/*
-// @match       https://mobile.twitter.com/*
-// @match       https://x.com/*
-// @match       https://mobile.x.com/*
-// @run-at      document-start
-// @version     197
-// ==/UserScript==
 void function() {
 
-// Patch XMLHttpRequest to modify requests
 const XMLHttpRequest_open = XMLHttpRequest.prototype.open
 XMLHttpRequest.prototype.open = function(method, url) {
+  if (!config.enabled) return XMLHttpRequest_open.apply(this, [method, url])
+
   if (config.sortReplies != 'relevant' && !userSortedReplies && url.includes('/TweetDetail?')) {
-    let request = new URL(url)
-    let params = new URLSearchParams(request.search)
-    let variables = JSON.parse(decodeURIComponent(params.get('variables')))
-    variables.rankingMode = {
-      liked: 'Likes',
-      recent: 'Recency',
-    }[config.sortReplies]
-    params.set('variables', JSON.stringify(variables))
-    url = `${request.origin}${request.pathname}?${params.toString()}`
+    try {
+      let request = new URL(url)
+      let params = new URLSearchParams(request.search)
+      let variables = JSON.parse(decodeURIComponent(params.get('variables')))
+      if (typeof variables?.rankingMode == 'string') {
+        let rankingMode = {
+          liked: 'Likes',
+          recent: 'Recency',
+        }[config.sortReplies]
+        if (variables.rankingMode != rankingMode) {
+          log('sortReplies: forcing sort by', config.sortReplies)
+          variables.rankingMode = rankingMode
+          params.set('variables', JSON.stringify(variables))
+          url = `${request.origin}${request.pathname}?${params.toString()}`
+        }
+      } else {
+        warn('sortReplies: typeof variables.rankingMode is', typeof variables?.rankingMode)
+      }
+    } catch (e) {
+      error('sortReplies: error patching rankingMode', e)
+    }
   }
+  else if (config.sortFollowing != 'ignore' && !userSortedFollowing && url.includes('/HomeLatestTimeline')) {
+    if (method.toUpperCase() == 'GET') {
+      try {
+        let request = new URL(url)
+        let params = new URLSearchParams(request.search)
+        let variables = JSON.parse(decodeURIComponent(params.get('variables')))
+        if (typeof variables?.enableRanking == 'boolean') {
+          let enableRanking = config.sortFollowing == 'popular'
+          if (variables.enableRanking != enableRanking) {
+            log('sortFollowing: forcing sort by', config.sortFollowing)
+            variables.enableRanking = enableRanking
+            params.set('variables', JSON.stringify(variables))
+            url = `${request.origin}${request.pathname}?${params.toString()}`
+          }
+        } else {
+          warn('sortFollowing: typeof variables.enableRanking is', typeof variables?.enableRanking)
+        }
+      } catch (e) {
+        error('sortFollowing: error patching enableRanking', e)
+      }
+    } else {
+      // @ts-expect-error
+      this._method = method.toUpperCase()
+      // @ts-expect-error
+      this._url = url
+    }
+  }
+
   return XMLHttpRequest_open.apply(this, [method, url])
+}
+
+const XMLHttpRequest_send = XMLHttpRequest.prototype.send
+XMLHttpRequest.prototype.send = function(body) {
+  if (
+    !config.enabled || !body ||
+    // @ts-expect-error
+    this._method != 'POST' || !this._url
+  ) return XMLHttpRequest_send.apply(this, [body])
+
+  if (config.sortFollowing != 'ignore' && !userSortedFollowing &&
+      // @ts-expect-error
+      this._url?.includes('/HomeLatestTimeline')) {
+    try {
+      let data = JSON.parse(body)
+      if (data?.variables != null && typeof data.variables == 'object') {
+        let variables = data.variables
+        if (typeof variables?.enableRanking == 'boolean') {
+          let enableRanking = config.sortFollowing == 'popular'
+          if (variables.enableRanking != enableRanking) {
+            log('sortFollowing: forcing sort by', config.sortFollowing)
+            variables.enableRanking = enableRanking
+            body = JSON.stringify(data)
+          }
+        } else {
+          warn('sortFollowing: typeof variables.enableRanking is', typeof variables?.enableRanking)
+        }
+      }
+    } catch (e) {
+      error('sortFollowing: error patching enableRanking', e)
+    }
+  }
+
+  return XMLHttpRequest_send.apply(this, [body])
 }
 
 let debug = false
@@ -60,7 +123,10 @@ const config = {
   debugLogTimelineStats: false,
   // Shared
   addAddMutedWordMenuItem: true,
+  addFocusedTweetAccountLocation: false,
   alwaysUseLatestTweets: true,
+  bypassAgeVerification: true,
+  darkModeTheme: 'lightsOut',
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
@@ -73,8 +139,13 @@ const config = {
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBookmarksNav: false,
+  hideBusinessNav: true,
+  hideChatNav: false,
   hideCommunitiesNav: false,
   hideComposeTweet: false,
+  hideConnectNav: true,
+  hideCreatorStudioNav: true,
+  hideEditImage: true,
   hideExplorePageContents: true,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
@@ -84,9 +155,12 @@ const config = {
   hideJobsNav: true,
   hideLikeMetrics: true,
   hideListsNav: false,
+  hideManageTimelines: false,
   hideMetrics: false,
-  hideMonetizationNav: true,
+  hideMoreFromThisAuthor: true,
   hideMoreTweets: true,
+  hideNotificationLikes: false,
+  hideNotificationRetweets: false,
   hideNotifications: 'ignore',
   hideProfileRetweets: false,
   hideQuoteTweetMetrics: true,
@@ -95,24 +169,27 @@ const config = {
   hideRetweetMetrics: true,
   hideSeeNewTweets: false,
   hideShareTweetButton: false,
+  hideSortRepliesMenu: false,
   hideSubscriptions: true,
+  hideSuggestedContentSearch: true,
   hideTotalTweetsMetrics: true,
-  hideTweetAnalyticsLinks: false,
   hideTwitterBlueReplies: false,
   hideTwitterBlueUpsells: true,
   hideUnavailableQuoteTweets: true,
   hideVerifiedNotificationsTab: true,
+  hideViewActivityLinks: true,
   hideViews: true,
   hideWhoToFollowEtc: true,
   listRetweets: 'ignore',
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
+  redirectChatNav: false,
   redirectToTwitter: false,
   reducedInteractionMode: false,
   replaceLogo: true,
   restoreLinkHeadlines: true,
-  restoreOtherInteractionLinks: false,
+  restoreOtherInteractionLinks: true,
   restoreQuoteTweetsLink: true,
   restoreTweetSource: true,
   retweets: 'separate',
@@ -123,6 +200,7 @@ const config = {
   showPremiumReplyFollowedBy: true,
   showPremiumReplyFollowing: true,
   showPremiumReplyGovernment: true,
+  sortFollowing: 'mostRecent',
   sortReplies: 'relevant',
   tweakNewLayout: false,
   tweakQuoteTweetsPage: true,
@@ -132,6 +210,7 @@ const config = {
   // Experiments
   customCss: '',
   // Desktop only
+  addUserHoverCardAccountLocation: true,
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,
@@ -143,6 +222,7 @@ const config = {
   hideSpacesNav: false,
   hideSuggestedFollows: false,
   hideTimelineTweetBox: false,
+  hideTodaysNews: false,
   hideToggleNavigation: false,
   hideWhatsHappening: false,
   navBaseFontSize: true,
@@ -161,12 +241,16 @@ const config = {
  */
 const locales = {
   'ar-x-fm': {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'الحساب موجود في ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'ضافة تغريدة أخرى',
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     GROK_ACTIONS: 'إجراءات Grok',
     HOME: 'الرئيسيّة',
     LIKES: 'الإعجابات',
     LIVE_ON_X: 'بث مباشر على X',
+    MESSAGES: 'الرسائل',
     MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
@@ -175,6 +259,7 @@ const locales = {
     QUOTES: 'اقتباسات',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
+    RECENT: 'الحديثة',
     REPOST: 'إعادة النشر',
     REPOSTS: 'المنشورات المُعاد نشرها',
     RETWEET: 'إعادة التغريد',
@@ -184,7 +269,8 @@ const locales = {
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
-    SORT_REPLIES_BY: 'فرز الردود حسب',
+    SORT_BY: 'فرز حسب',
+    SORT_REPLIES: 'فرز الردود',
     TURN_OFF_QUOTE_TWEETS: 'تعطيل تغريدات اقتباس',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
@@ -199,12 +285,16 @@ const locales = {
     WHATS_HAPPENING: 'ماذا يحدث؟',
   },
   ar: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'الحساب موجود في ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'ضافة تغريدة أخرى',
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     GROK_ACTIONS: 'إجراءات Grok',
     HOME: 'الرئيسيّة',
     LIKES: 'الإعجابات',
     LIVE_ON_X: 'بث مباشر على X',
+    MESSAGES: 'الرسائل',
     MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
@@ -214,6 +304,8 @@ const locales = {
     QUOTES: 'اقتباسات',
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
+    RECENT: 'الحديثة',
+    RELEVANT: 'ذو صلة',
     REPOST: 'إعادة النشر',
     REPOSTS: 'المنشورات المُعاد نشرها',
     RETWEET: 'إعادة التغريد',
@@ -223,7 +315,8 @@ const locales = {
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
-    SORT_REPLIES_BY: 'فرز الردود حسب',
+    SORT_BY: 'فرز حسب',
+    SORT_REPLIES: 'فرز الردود',
     TURN_OFF_QUOTE_TWEETS: 'تعطيل تغريدات اقتباس',
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
@@ -237,12 +330,16 @@ const locales = {
     WHATS_HAPPENING: 'ماذا يحدث؟',
   },
   bg: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Профил, базиран в/ъв ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Добавяне на друг туит',
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
     GROK_ACTIONS: 'Действия, свързани с Grok',
     HOME: 'Начало',
     LIKES: 'Харесвания',
     LIVE_ON_X: 'На живо в X',
+    MESSAGES: 'Съобщения',
     MOST_RELEVANT: 'Най-подходящи',
     MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
     POST_ALL: 'Публикуване на всичко',
@@ -252,6 +349,8 @@ const locales = {
     QUOTES: 'Цитати',
     QUOTE_TWEET: 'Цитиране на туита',
     QUOTE_TWEETS: 'Туитове с цитат',
+    RECENT: 'Скорошни',
+    RELEVANT: 'Уместно',
     REPOST: 'Препубликуване',
     REPOSTS: 'Препубликувания',
     RETWEET: 'Ретуитване',
@@ -261,7 +360,8 @@ const locales = {
     SHARED_TWEETS: 'Споделени туитове',
     SHOW: 'Показване',
     SHOW_MORE_REPLIES: 'Показване на още отговори',
-    SORT_REPLIES_BY: 'Сортиране на отговорите',
+    SORT_BY: 'Сортиране по',
+    SORT_REPLIES: 'Сортиране на отговорите',
     TURN_OFF_QUOTE_TWEETS: 'Изключване на туитове с цитат',
     TURN_OFF_RETWEETS: 'Изключване на ретуитовете',
     TURN_ON_RETWEETS: 'Включване на ретуитовете',
@@ -275,12 +375,16 @@ const locales = {
     WHATS_HAPPENING: 'Какво се случва?',
   },
   bn: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return e.country + '-এর ওপর ভিত্তি করে অ্যাকাউন্ট'
+    },
     ADD_ANOTHER_TWEET: 'অন্য টুইট যোগ করুন',
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
     GROK_ACTIONS: 'Grok কার্যকলাপ',
     HOME: 'হোম',
     LIKES: 'পছন্দ',
     LIVE_ON_X: 'X-এ লাইভ',
+    MESSAGES: 'বার্তাগুলি',
     MOST_RELEVANT: 'সবচেয়ে প্রাসঙ্গিক',
     MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
     POST_ALL: 'সবকটি পোস্ট করুন',
@@ -290,6 +394,8 @@ const locales = {
     QUOTES: 'উদ্ধৃতিগুলো',
     QUOTE_TWEET: 'টুইট উদ্ধৃত করুন',
     QUOTE_TWEETS: 'টুইট উদ্ধৃতিগুলো',
+    RECENT: 'সাম্প্রতিক',
+    RELEVANT: 'প্রাসঙ্গিক',
     REPOST: 'রিপোস্ট',
     REPOSTS: 'রিপোস্ট',
     RETWEET: 'পুনঃটুইট',
@@ -299,7 +405,8 @@ const locales = {
     SHARED_TWEETS: 'ভাগ করা টুইটগুলি',
     SHOW: 'দেখান',
     SHOW_MORE_REPLIES: 'আরও উত্তর দেখান',
-    SORT_REPLIES_BY: 'উত্তরগুলো এই হিসাবে বাছুন',
+    SORT_BY: 'ক্রমানুসার',
+    SORT_REPLIES: 'উত্তরগুলো বাছুন',
     TURN_OFF_QUOTE_TWEETS: 'উদ্ধৃতি টুইটগুলি বন্ধ করুন',
     TURN_OFF_RETWEETS: 'পুনঃ টুইটগুলি বন্ধ করুন',
     TURN_ON_RETWEETS: 'পুনঃ টুইটগুলি চালু করুন',
@@ -314,12 +421,16 @@ const locales = {
     WHATS_HAPPENING: 'কি খবর?',
   },
   ca: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Compte ubicat a ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Afegeix un altre tuit',
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
     GROK_ACTIONS: 'Accions de Grok',
     HOME: 'Inici',
     LIKES: 'Agradaments',
     LIVE_ON_X: 'En directe a X',
+    MESSAGES: 'Missatges',
     MOST_RELEVANT: 'El més rellevant',
     MUTE_THIS_CONVERSATION: 'Silencia la conversa',
     POST_ALL: 'Publica-ho tot',
@@ -329,6 +440,8 @@ const locales = {
     QUOTES: 'Cites',
     QUOTE_TWEET: 'Cita el tuit',
     QUOTE_TWEETS: 'Tuits amb cita',
+    RECENT: 'Recents',
+    RELEVANT: 'Rellevant',
     REPOST: 'Republicació',
     REPOSTS: 'Republicacions',
     RETWEET: 'Retuit',
@@ -338,7 +451,8 @@ const locales = {
     SHARED_TWEETS: 'Tuits compartits',
     SHOW: 'Mostra',
     SHOW_MORE_REPLIES: 'Mostra més respostes',
-    SORT_REPLIES_BY: 'Ordena les respostes per',
+    SORT_BY: 'Ordena per',
+    SORT_REPLIES: 'Ordena les respostes',
     TURN_OFF_QUOTE_TWEETS: 'Desactiva els tuits amb cita',
     TURN_OFF_RETWEETS: 'Desactiva els retuits',
     TURN_ON_RETWEETS: 'Activa els retuits',
@@ -352,12 +466,16 @@ const locales = {
     WHATS_HAPPENING: 'Què passa?',
   },
   cs: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Účet založen v ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Přidat další Tweet',
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
     GROK_ACTIONS: 'Akce funkce Grok',
     HOME: 'Hlavní stránka',
     LIKES: 'Lajky',
     LIVE_ON_X: 'Živě na platformě X',
+    MESSAGES: 'Zprávy',
     MOST_RELEVANT: 'Nejvíce související',
     MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
     POST_ALL: 'Postovat vše',
@@ -367,6 +485,8 @@ const locales = {
     QUOTES: 'Citace',
     QUOTE_TWEET: 'Citovat Tweet',
     QUOTE_TWEETS: 'Tweety s citací',
+    RECENT: 'Poslední',
+    RELEVANT: 'Související',
     REPOSTS: 'Reposty',
     RETWEET: 'Retweetnout',
     RETWEETED_BY: 'Retweetnuto uživateli',
@@ -375,7 +495,8 @@ const locales = {
     SHARED_TWEETS: 'Sdílené tweety',
     SHOW: 'Zobrazit',
     SHOW_MORE_REPLIES: 'Zobrazit další odpovědi',
-    SORT_REPLIES_BY: 'Odpovědi roztřiďte podle',
+    SORT_BY: 'Seřadit podle',
+    SORT_REPLIES: 'Seřadit odpovědi',
     TURN_OFF_QUOTE_TWEETS: 'Vypnout tweety s citací',
     TURN_OFF_RETWEETS: 'Vypnout retweety',
     TURN_ON_RETWEETS: 'Zapnout retweety',
@@ -389,11 +510,15 @@ const locales = {
     WHATS_HAPPENING: 'Co se děje?',
   },
   da: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Konto baseret i ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Tilføj endnu et Tweet',
     ADD_MUTED_WORD: 'Tilføj skjult ord',
     GROK_ACTIONS: 'Grok-handlinger',
     HOME: 'Forside',
     LIVE_ON_X: 'Direkte på X',
+    MESSAGES: 'Beskeder',
     MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
     POST_ALL: 'Post alle',
@@ -403,12 +528,14 @@ const locales = {
     QUOTES: 'Citater',
     QUOTE_TWEET: 'Citér Tweet',
     QUOTE_TWEETS: 'Citat-Tweets',
+    RECENT: 'Nye',
     RETWEETED_BY: 'Retweetet af',
     SHARED: 'Delt',
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
-    SORT_REPLIES_BY: 'Sortér svar efter',
+    SORT_BY: 'Sorter efter',
+    SORT_REPLIES: 'Sortér svar',
     TURN_OFF_QUOTE_TWEETS: 'Slå Citat-Tweets fra',
     TURN_OFF_RETWEETS: 'Slå Retweets fra',
     TURN_ON_RETWEETS: 'Slå Retweets til',
@@ -420,12 +547,16 @@ const locales = {
     WHATS_HAPPENING: 'Hvad sker der?',
   },
   de: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Account befindet sich in ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Weiteren Tweet hinzufügen',
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
     GROK_ACTIONS: 'Grok-Aktionen',
     HOME: 'Startseite',
     LIKES: 'Gefällt mir',
     LIVE_ON_X: 'Live auf X',
+    MESSAGES: 'Nachrichten',
     MOST_RELEVANT: 'Besonders relevant',
     MUTE_THIS_CONVERSATION: 'Diese Konversation stummschalten',
     POST_ALL: 'Alle posten',
@@ -435,6 +566,7 @@ const locales = {
     QUOTES: 'Zitate',
     QUOTE_TWEET: 'Tweet zitieren',
     QUOTE_TWEETS: 'Zitierte Tweets',
+    RECENT: 'Neueste',
     REPOST: 'Reposten',
     RETWEET: 'Retweeten',
     RETWEETED_BY: 'Retweetet von',
@@ -442,7 +574,8 @@ const locales = {
     SHARED_TWEETS: 'Geteilte Tweets',
     SHOW: 'Anzeigen',
     SHOW_MORE_REPLIES: 'Mehr Antworten anzeigen',
-    SORT_REPLIES_BY: 'Antworten sortieren nach',
+    SORT_BY: 'Sortieren nach',
+    SORT_REPLIES: 'Antworten sortieren',
     TURN_OFF_QUOTE_TWEETS: 'Zitierte Tweets ausschalten',
     TURN_OFF_RETWEETS: 'Retweets ausschalten',
     TURN_ON_RETWEETS: 'Retweets einschalten',
@@ -455,12 +588,16 @@ const locales = {
     WHATS_HAPPENING: 'Was gibt’s Neues?',
   },
   el: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Λογαριασμός με βάση σε ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Προσθήκη άλλου Tweet',
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
     GROK_ACTIONS: 'Δράσεις Grok',
     HOME: 'Αρχική σελίδα',
     LIKES: '"Μου αρέσει"',
     LIVE_ON_X: 'Ζωντανά στο X',
+    MESSAGES: 'Μηνύματα',
     MOST_RELEVANT: 'Πιο σχετική',
     MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
     POST_ALL: 'Δημοσίευση όλων',
@@ -470,6 +607,7 @@ const locales = {
     QUOTES: 'Παραθέσεις',
     QUOTE_TWEET: 'Παράθεση Tweet',
     QUOTE_TWEETS: 'Tweet με παράθεση',
+    RECENT: 'Πρόσφατα',
     REPOST: 'Αναδημοσίευση',
     REPOSTS: 'Αναδημοσιεύσεις',
     RETWEETED_BY: 'Έγινε Retweet από',
@@ -478,7 +616,8 @@ const locales = {
     SHARED_TWEETS: 'Κοινόχρηστα Tweets',
     SHOW: 'Εμφάνιση',
     SHOW_MORE_REPLIES: 'Εμφάνιση περισσότερων απαντήσεων',
-    SORT_REPLIES_BY: 'Ταξινόμηση απαντήσεων κατά',
+    SORT_BY: 'Ταξινόμηση κατά',
+    SORT_REPLIES: 'Ταξινόμηση απαντήσεων',
     TURN_OFF_QUOTE_TWEETS: 'Απενεργοποίηση των tweet με παράθεση',
     TURN_OFF_RETWEETS: 'Απενεργοποίηση των Retweet',
     TURN_ON_RETWEETS: 'Ενεργοποίηση των Retweet',
@@ -491,12 +630,16 @@ const locales = {
     WHATS_HAPPENING: 'Τι συμβαίνει;',
   },
   en: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Account based in ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Add another Tweet',
     ADD_MUTED_WORD: 'Add muted word',
     GROK_ACTIONS: 'Grok actions',
     HOME: 'Home',
     LIKES: 'Likes',
     LIVE_ON_X: 'Live on X',
+    MESSAGES: 'Messages',
     MOST_RELEVANT: 'Most relevant',
     MUTE_THIS_CONVERSATION: 'Mute this conversation',
     POST_ALL: 'Post all',
@@ -506,6 +649,8 @@ const locales = {
     QUOTES: 'Quotes',
     QUOTE_TWEET: 'Quote Tweet',
     QUOTE_TWEETS: 'Quote Tweets',
+    RECENT: 'Recent',
+    RELEVANT: 'Relevant',
     REPOST: 'Repost',
     REPOSTS: 'Reposts',
     RETWEET: 'Retweet',
@@ -515,7 +660,8 @@ const locales = {
     SHARED_TWEETS: 'Shared Tweets',
     SHOW: 'Show',
     SHOW_MORE_REPLIES: 'Show more replies',
-    SORT_REPLIES_BY: 'Sort replies by',
+    SORT_BY: 'Sort by',
+    SORT_REPLIES: 'Sort replies',
     TURN_OFF_QUOTE_TWEETS: 'Turn off Quote Tweets',
     TURN_OFF_RETWEETS: 'Turn off Retweets',
     TURN_ON_RETWEETS: 'Turn on Retweets',
@@ -530,12 +676,16 @@ const locales = {
     WHATS_HAPPENING: "What's happening?",
   },
   es: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Cuenta con sede en ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Agregar otro Tweet',
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
     GROK_ACTIONS: 'Acciones de Grok',
     HOME: 'Inicio',
     LIKES: 'Me gusta',
     LIVE_ON_X: 'En directo en X',
+    MESSAGES: 'Mensajes',
     MOST_RELEVANT: 'Más relevantes',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
     POST_ALL: 'Postear todo',
@@ -545,6 +695,8 @@ const locales = {
     QUOTES: 'Citas',
     QUOTE_TWEET: 'Citar Tweet',
     QUOTE_TWEETS: 'Tweets citados',
+    RECENT: 'Recientes',
+    RELEVANT: 'Relevante',
     REPOST: 'Repostear',
     RETWEET: 'Retwittear',
     RETWEETED_BY: 'Retwitteado por',
@@ -552,7 +704,8 @@ const locales = {
     SHARED_TWEETS: 'Tweets compartidos',
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar más respuestas',
-    SORT_REPLIES_BY: 'Ordenar respuestas por',
+    SORT_BY: 'Ordenar por',
+    SORT_REPLIES: 'Organizar respuestas',
     TURN_OFF_QUOTE_TWEETS: 'Desactivar tweets citados',
     TURN_OFF_RETWEETS: 'Desactivar Retweets',
     TURN_ON_RETWEETS: 'Activar Retweets',
@@ -569,11 +722,14 @@ const locales = {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
     HOME: 'Hasiera',
     LIKES: 'Atsegiteak',
+    MESSAGES: 'Mezuak',
     MUTE_THIS_CONVERSATION: 'Isilarazi elkarrizketa hau',
     QUOTE: 'Aipamena',
     QUOTES: 'Aipamenak',
     QUOTE_TWEET: 'Txioa apaitu',
     QUOTE_TWEETS: 'Aipatu txioak',
+    RECENT: 'Azkenak',
+    RELEVANT: 'Aipagarria',
     RETWEET: 'Bertxiotu',
     RETWEETED_BY: 'Bertxiotua:',
     RETWEETS: 'Bertxioak',
@@ -581,6 +737,7 @@ const locales = {
     SHARED_TWEETS: 'Partekatutako',
     SHOW: 'Erakutsi',
     SHOW_MORE_REPLIES: 'Erakutsi erantzun gehiago',
+    SORT_BY: 'Ordenatzeko irizpidea:',
     TURN_OFF_QUOTE_TWEETS: 'Desaktibatu aipatu txioak',
     TURN_OFF_RETWEETS: 'Desaktibatu birtxioak',
     TURN_ON_RETWEETS: 'Aktibatu birtxioak',
@@ -594,12 +751,16 @@ const locales = {
     WHATS_HAPPENING: 'Zer gertatzen ari da?',
   },
   fa: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'حساب کاربری واقع در ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'افزودن توییت دیگر',
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
     GROK_ACTIONS: 'کنش‌های Grok',
     HOME: 'خانه',
     LIKES: 'پسندها',
     LIVE_ON_X: 'زنده در X',
+    MESSAGES: 'پیام‌ها',
     MOST_RELEVANT: 'مرتبط‌ترین',
     MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
     POST_ALL: 'پست کردن همه',
@@ -609,6 +770,7 @@ const locales = {
     QUOTES: 'نقل‌قول‌ها',
     QUOTE_TWEET: 'نقل‌توییت',
     QUOTE_TWEETS: 'نقل‌توییت‌ها',
+    RECENT: 'اخیر',
     REPOST: 'بازپست',
     REPOSTS: 'بازپست',
     RETWEET: 'بازتوییت',
@@ -618,7 +780,8 @@ const locales = {
     SHARED_TWEETS: 'توییتهای مشترک',
     SHOW: 'نمایش',
     SHOW_MORE_REPLIES: 'نمایش پاسخ‌های بیشتر',
-    SORT_REPLIES_BY: 'مرتب‌سازی پاسخ‌ها براساس',
+    SORT_BY: 'مرتب‌سازی براساس',
+    SORT_REPLIES: 'مرتب‌سازی پاسخ‌ها',
     TURN_OFF_QUOTE_TWEETS: 'غیرفعال‌سازی نقل‌توییت‌ها',
     TURN_OFF_RETWEETS: 'غیرفعال‌سازی بازتوییت‌ها',
     TURN_ON_RETWEETS: 'فعال سازی بازتوییت‌ها',
@@ -633,12 +796,16 @@ const locales = {
     WHATS_HAPPENING: 'چه خبر؟',
   },
   fi: {
+    ACCOUNT_BASED_IN_FN: function (a) {
+      return 'Tilin kotimaa on ' + a.country
+    },
     ADD_ANOTHER_TWEET: 'Lisää vielä twiitti',
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
     GROK_ACTIONS: 'Grok-toiminnat',
     HOME: 'Etusivu',
     LIKES: 'Tykkäykset',
     LIVE_ON_X: 'Livenä X:ssä',
+    MESSAGES: 'Viestit',
     MOST_RELEVANT: 'Relevanteimmat',
     MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
     POST_ALL: 'Julkaise kaikki',
@@ -648,6 +815,8 @@ const locales = {
     QUOTES: 'Lainaukset',
     QUOTE_TWEET: 'Twiitin lainaus',
     QUOTE_TWEETS: 'Twiitin lainaukset',
+    RECENT: 'Uusimmat',
+    RELEVANT: 'Relevantti',
     REPOST: 'Uudelleenjulkaise',
     REPOSTS: 'Uudelleenjulkaisut',
     RETWEET: 'Uudelleentwiittaa',
@@ -657,7 +826,8 @@ const locales = {
     SHARED_TWEETS: 'Jaetut twiitit',
     SHOW: 'Näytä',
     SHOW_MORE_REPLIES: 'Näytä lisää vastauksia',
-    SORT_REPLIES_BY: 'Vastausten lajittelutapa',
+    SORT_BY: 'Lajitteluperuste',
+    SORT_REPLIES: 'Lajittele vastaukset',
     TURN_OFF_QUOTE_TWEETS: 'Poista twiitin lainaukset käytöstä',
     TURN_OFF_RETWEETS: 'Poista uudelleentwiittaukset käytöstä',
     TURN_ON_RETWEETS: 'Ota uudelleentwiittaukset käyttöön',
@@ -671,11 +841,15 @@ const locales = {
     WHATS_HAPPENING: 'Missä mennään?',
   },
   fil: {
+    ACCOUNT_BASED_IN_FN: function (a) {
+      return 'Account na naka-base sa ' + a.country
+    },
     ADD_ANOTHER_TWEET: 'Magdagdag ng isa pang Tweet',
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
     GROK_ACTIONS: 'Mga aksyon ni Grok',
     LIKES: 'Mga Gusto',
     LIVE_ON_X: 'Live sa X',
+    MESSAGES: 'Mga Mensahe',
     MOST_RELEVANT: 'Pinakanauugnay',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
     POST_ALL: 'I-post lahat',
@@ -684,6 +858,7 @@ const locales = {
     QUOTES: 'Mga Quote',
     QUOTE_TWEET: 'Quote na Tweet',
     QUOTE_TWEETS: 'Mga Quote na Tweet',
+    RECENT: 'Kamakailan',
     REPOST: 'I-repost',
     REPOSTS: '(na) Repost',
     RETWEET: 'I-retweet',
@@ -693,7 +868,8 @@ const locales = {
     SHARED_TWEETS: 'Mga Ibinahaging Tweet',
     SHOW: 'Ipakita',
     SHOW_MORE_REPLIES: 'Magpakita pa ng mga sagot',
-    SORT_REPLIES_BY: 'I-sort ang mga reply batay sa',
+    SORT_BY: 'Isaayos ayon sa',
+    SORT_REPLIES: 'I-sort ang mga reply',
     TURN_OFF_QUOTE_TWEETS: 'I-off ang mga Quote na Tweet',
     TURN_OFF_RETWEETS: 'I-off ang Retweets',
     TURN_ON_RETWEETS: 'I-on ang Retweets',
@@ -707,6 +883,9 @@ const locales = {
     WHATS_HAPPENING: 'Ano ang nangyayari?',
   },
   fr: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Compte basé dans le pays suivant : ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Ajouter un autre Tweet',
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
     GROK_ACTIONS: 'Actions Grok',
@@ -722,13 +901,16 @@ const locales = {
     QUOTES: 'Citations',
     QUOTE_TWEET: 'Citer le Tweet',
     QUOTE_TWEETS: 'Tweets cités',
+    RECENT: 'Récents',
+    RELEVANT: 'Pertinence',
     RETWEET: 'Retweeter',
     RETWEETED_BY: 'Retweeté par',
     SHARED: 'Partagé',
     SHARED_TWEETS: 'Tweets partagés',
     SHOW: 'Afficher',
     SHOW_MORE_REPLIES: 'Voir plus de réponses',
-    SORT_REPLIES_BY: 'Trier les réponses par',
+    SORT_BY: 'Trier par',
+    SORT_REPLIES: 'Trier les réponses',
     TURN_OFF_QUOTE_TWEETS: 'Désactiver les Tweets cités',
     TURN_OFF_RETWEETS: 'Désactiver les Retweets',
     TURN_ON_RETWEETS: 'Activer les Retweets',
@@ -745,11 +927,13 @@ const locales = {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
     HOME: 'Baile',
     LIKES: 'Thaitin siad seo le',
+    MESSAGES: 'Teachtaireachtaí',
     MUTE_THIS_CONVERSATION: 'Balbhaigh an comhrá seo',
     QUOTE: 'Sliocht',
     QUOTES: 'Sleachta',
     QUOTE_TWEET: 'Cuir Ráiteas Leis',
     QUOTE_TWEETS: 'Luaigh Tvuíteanna',
+    RECENT: 'Le déanaí',
     RETWEET: 'Atweetáil',
     RETWEETED_BY: 'Atweetáilte ag',
     RETWEETS: 'Atweetanna',
@@ -757,6 +941,7 @@ const locales = {
     SHARED_TWEETS: 'Tweetanna Roinnte',
     SHOW: 'Taispeáin',
     SHOW_MORE_REPLIES: 'Taispeáin tuilleadh freagraí',
+    SORT_BY: 'Sórtáil de réir',
     TURN_OFF_QUOTE_TWEETS: 'Cas as Luaigh Tvuíteanna',
     TURN_OFF_RETWEETS: 'Cas as Atweetanna',
     TURN_ON_RETWEETS: 'Cas Atweetanna air',
@@ -773,11 +958,13 @@ const locales = {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
     HOME: 'Inicio',
     LIKES: 'Gústames',
+    MESSAGES: 'Mensaxes',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     QUOTE: 'Cita',
     QUOTES: 'Citas',
     QUOTE_TWEET: 'Citar chío',
     QUOTE_TWEETS: 'Chíos citados',
+    RECENT: 'Recentes',
     RETWEET: 'Rechouchiar',
     RETWEETED_BY: 'Rechouchiado por',
     RETWEETS: 'Rechouchíos',
@@ -785,6 +972,7 @@ const locales = {
     SHARED_TWEETS: 'Chíos compartidos',
     SHOW: 'Amosar',
     SHOW_MORE_REPLIES: 'Amosar máis respostas',
+    SORT_BY: 'Ordenar por',
     TURN_OFF_QUOTE_TWEETS: 'Desactivar os chíos citados',
     TURN_OFF_RETWEETS: 'Desactivar os rechouchíos',
     TURN_ON_RETWEETS: 'Activar os rechouchíos',
@@ -798,12 +986,16 @@ const locales = {
     WHATS_HAPPENING: 'Que está pasando?',
   },
   gu: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'એકાઉન્ટ સ્થિત હોવાનું સ્થાન ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'અન્ય ટ્વીટ ઉમેરો',
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
     GROK_ACTIONS: 'Grok પગલાં',
     HOME: 'હોમ',
     LIKES: 'લાઈક્સ',
     LIVE_ON_X: 'X પર લાઇવ',
+    MESSAGES: 'સંદેશાઓ',
     MOST_RELEVANT: 'સૌથી વધુ સુસંગત',
     MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
     POST_ALL: 'બધા પોસ્ટ કરો',
@@ -813,6 +1005,8 @@ const locales = {
     QUOTES: 'અવતરણો',
     QUOTE_TWEET: 'અવતરણની સાથે ટ્વીટ કરો',
     QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ',
+    RECENT: 'તાજેતરનું',
+    RELEVANT: 'સંબંધિત છે',
     REPOST: 'રીપોસ્ટ કરો',
     REPOSTS: 'ફરીથી કરવામાં આવેલી પોસ્ટ',
     RETWEET: 'પુનટ્વીટ',
@@ -822,7 +1016,8 @@ const locales = {
     SHARED_TWEETS: 'શેર કરેલી ટ્વીટ્સ',
     SHOW: 'બતાવો',
     SHOW_MORE_REPLIES: 'વધુ પ્રત્યુતરો દર્શાવો',
-    SORT_REPLIES_BY: 'દ્વારા પ્રત્યુત્તરોને સૉર્ટ કરો',
+    SORT_BY: 'આની દ્વારા સૉર્ટ કરો',
+    SORT_REPLIES: 'પ્રત્યુત્તરોને સૉર્ટ કરો',
     TURN_OFF_QUOTE_TWEETS: 'અવતરણની સાથે ટ્વીટ્સ બંધ કરો',
     TURN_OFF_RETWEETS: 'પુનટ્વીટ્સ બંધ કરો',
     TURN_ON_RETWEETS: 'પુનટ્વીટ્સ ચાલુ કરો',
@@ -836,12 +1031,16 @@ const locales = {
     WHATS_HAPPENING: 'શું થઈ રહ્યું છે?',
   },
   he: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'החשבון נמצא ב-' + e.country
+    },
     ADD_ANOTHER_TWEET: 'הוסף ציוץ נוסף',
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
     GROK_ACTIONS: 'פעולות של Grok',
     HOME: 'דף הבית',
     LIKES: 'הערות "אהבתי"',
     LIVE_ON_X: 'שידור חי ב-X',
+    MESSAGES: 'מסרים',
     MOST_RELEVANT: 'הכי רלוונטי',
     MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
     POST_ALL: 'פרסום הכל',
@@ -851,6 +1050,8 @@ const locales = {
     QUOTES: 'ציטוטים',
     QUOTE_TWEET: 'ציטוט ציוץ',
     QUOTE_TWEETS: 'ציוצי ציטוט',
+    RECENT: 'אחרונים',
+    RELEVANT: 'רלוונטי',
     REPOST: 'לפרסם מחדש',
     REPOSTS: 'פרסומים מחדש',
     RETWEET: 'צייץ מחדש',
@@ -860,7 +1061,8 @@ const locales = {
     SHARED_TWEETS: 'ציוצים משותפים',
     SHOW: 'הצג',
     SHOW_MORE_REPLIES: 'הצג תשובות נוספות',
-    SORT_REPLIES_BY: 'מיון תשובות לפי',
+    SORT_BY: 'סנן לפי',
+    SORT_REPLIES: 'מיון תשובות',
     TURN_OFF_QUOTE_TWEETS: 'כבה ציוצי ציטוט',
     TURN_OFF_RETWEETS: 'כבה ציוצים מחדש',
     TURN_ON_RETWEETS: 'הפעל ציוצים מחדש',
@@ -875,12 +1077,16 @@ const locales = {
     WHATS_HAPPENING: 'מה קורה?',
   },
   hi: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return e.country + ' में स्थित खाता'
+    },
     ADD_ANOTHER_TWEET: 'एक और ट्वीट जोड़ें',
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
     GROK_ACTIONS: 'Grok कार्रवाई',
     HOME: 'होम',
     LIKES: 'पसंद',
     LIVE_ON_X: 'X पर लाइव',
+    MESSAGES: 'संदेश',
     MOST_RELEVANT: 'सर्वाधिक प्रासंगिक',
     MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
     POST_ALL: 'सभी पोस्ट करें',
@@ -890,6 +1096,8 @@ const locales = {
     QUOTES: 'कोट',
     QUOTE_TWEET: 'ट्वीट क्वोट करें',
     QUOTE_TWEETS: 'कोट ट्वीट्स',
+    RECENT: 'हाल ही के',
+    RELEVANT: 'प्रासंगिक',
     REPOST: 'रीपोस्ट',
     REPOSTS: 'रीपोस्ट्स',
     RETWEET: 'रीट्वीट करें',
@@ -899,7 +1107,8 @@ const locales = {
     SHARED_TWEETS: 'साझा किए गए ट्वीट',
     SHOW: 'दिखाएं',
     SHOW_MORE_REPLIES: 'और अधिक जवाब दिखाएँ',
-    SORT_REPLIES_BY: 'से जवाब सॉर्ट करें',
+    SORT_BY: 'इसके अनुसार सॉर्ट करें',
+    SORT_REPLIES: 'जवाब सॉर्ट करें',
     TURN_OFF_QUOTE_TWEETS: 'कोट ट्वीट्स बंद करें',
     TURN_OFF_RETWEETS: 'रीट्वीट बंद करें',
     TURN_ON_RETWEETS: 'रीट्वीट चालू करें',
@@ -913,12 +1122,16 @@ const locales = {
     WHATS_HAPPENING: 'क्या हो रहा है?',
   },
   hr: {
+    ACCOUNT_BASED_IN_FN: function (a) {
+      return 'Država računa ' + a.country
+    },
     ADD_ANOTHER_TWEET: 'Dodaj drugi Tweet',
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
     GROK_ACTIONS: 'Grokove radnje',
     HOME: 'Naslovnica',
     LIKES: 'Oznake „sviđa mi se”',
     LIVE_ON_X: 'Uživo na platformi X',
+    MESSAGES: 'Poruke',
     MOST_RELEVANT: 'Najrelevantnije',
     MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
     POST_ALL: 'Objavi sve',
@@ -928,6 +1141,8 @@ const locales = {
     QUOTES: 'Citati',
     QUOTE_TWEET: 'Citiraj Tweet',
     QUOTE_TWEETS: 'Citirani tweetovi',
+    RECENT: 'Nedavno',
+    RELEVANT: 'Relevantno',
     REPOST: 'Proslijedi objavu',
     REPOSTS: 'Proslijeđene objave',
     RETWEET: 'Proslijedi tweet',
@@ -937,7 +1152,8 @@ const locales = {
     SHARED_TWEETS: 'Dijeljeni tweetovi',
     SHOW: 'Prikaži',
     SHOW_MORE_REPLIES: 'Prikaži još odgovora',
-    SORT_REPLIES_BY: 'Sortiraj odgovore',
+    SORT_BY: 'Sortiraj prema',
+    SORT_REPLIES: 'Sortiraj odgovore',
     TURN_OFF_QUOTE_TWEETS: 'Isključi citirane tweetove',
     TURN_OFF_RETWEETS: 'Isključi proslijeđene tweetove',
     TURN_ON_RETWEETS: 'Uključi proslijeđene tweetove',
@@ -950,12 +1166,16 @@ const locales = {
     WHATS_HAPPENING: 'Što se događa?',
   },
   hu: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'A felhasználói fiók tartózkodási helye: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Másik Tweet hozzáadása',
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
     GROK_ACTIONS: 'Grok-műveletek',
     HOME: 'Kezdőlap',
     LIKES: 'Kedvelések',
     LIVE_ON_X: 'Élőben az X-en',
+    MESSAGES: 'Üzenetek',
     MOST_RELEVANT: 'Legmegfelelőbb',
     MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
     POST_ALL: 'Az összes közzététele',
@@ -965,6 +1185,8 @@ const locales = {
     QUOTES: 'Idézések',
     QUOTE_TWEET: 'Tweet idézése',
     QUOTE_TWEETS: 'Tweet-idézések',
+    RECENT: 'Legutóbbi',
+    RELEVANT: 'Releváns',
     REPOST: 'Újraposztolás',
     REPOSTS: 'Újraposztolások',
     RETWEETED_BY: 'Retweetelte',
@@ -973,7 +1195,8 @@ const locales = {
     SHARED_TWEETS: 'Megosztott tweetek',
     SHOW: 'Megjelenítés',
     SHOW_MORE_REPLIES: 'Több válasz megjelenítése',
-    SORT_REPLIES_BY: 'Válaszok rendezése a következő szerint',
+    SORT_BY: 'Rendezési szempont',
+    SORT_REPLIES: 'Válaszok rendezése',
     TURN_OFF_QUOTE_TWEETS: 'Tweet-idézések kikapcsolása',
     TURN_OFF_RETWEETS: 'Retweetek kikapcsolása',
     TURN_ON_RETWEETS: 'Retweetek bekapcsolása',
@@ -987,12 +1210,16 @@ const locales = {
     WHATS_HAPPENING: 'Mi történik éppen most?',
   },
   id: {
+    ACCOUNT_BASED_IN_FN: function (a) {
+      return 'Akun berbasis di ' + a.country
+    },
     ADD_ANOTHER_TWEET: 'Tambahkan Tweet lain',
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
     GROK_ACTIONS: 'Tindakan Grok',
     HOME: 'Beranda',
     LIKES: 'Suka',
     LIVE_ON_X: 'Langsung di X',
+    MESSAGES: 'Pesan',
     MOST_RELEVANT: 'Paling relevan',
     MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
     POST_ALL: 'Posting semua',
@@ -1002,6 +1229,7 @@ const locales = {
     QUOTES: 'Kutipan',
     QUOTE_TWEET: 'Kutip Tweet',
     QUOTE_TWEETS: 'Tweet Kutipan',
+    RECENT: 'Terkini',
     REPOST: 'Posting ulang',
     REPOSTS: 'Posting ulang',
     RETWEETED_BY: 'Di-retweet oleh',
@@ -1010,7 +1238,8 @@ const locales = {
     SHARED_TWEETS: 'Tweet yang Dibagikan',
     SHOW: 'Tampilkan',
     SHOW_MORE_REPLIES: 'Tampilkan balasan lainnya',
-    SORT_REPLIES_BY: 'Urutkan balasan berdasarkan',
+    SORT_BY: 'Urutkan berdasarkan',
+    SORT_REPLIES: 'Urutkan balasan',
     TURN_OFF_QUOTE_TWEETS: 'Matikan Tweet Kutipan',
     TURN_OFF_RETWEETS: 'Matikan Retweet',
     TURN_ON_RETWEETS: 'Nyalakan Retweet',
@@ -1023,11 +1252,15 @@ const locales = {
     WHATS_HAPPENING: 'Apa yang sedang hangat dibicarakan?',
   },
   it: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Posizione account: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Aggiungi altro Tweet',
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
     GROK_ACTIONS: 'Azioni di Grok',
     LIKES: 'Mi piace',
     LIVE_ON_X: 'In diretta su X',
+    MESSAGES: 'Messaggi',
     MOST_RELEVANT: 'Più pertinenti',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
     POST_ALL: 'Posta tutto',
@@ -1037,6 +1270,7 @@ const locales = {
     QUOTES: 'Citazioni',
     QUOTE_TWEET: 'Cita Tweet',
     QUOTE_TWEETS: 'Tweet di citazione',
+    RECENT: 'Recenti',
     REPOSTS: 'Repost',
     RETWEET: 'Ritwitta',
     RETWEETED_BY: 'Ritwittato da',
@@ -1045,7 +1279,8 @@ const locales = {
     SHARED_TWEETS: 'Tweet condivisi',
     SHOW: 'Mostra',
     SHOW_MORE_REPLIES: 'Mostra altre risposte',
-    SORT_REPLIES_BY: 'Ordina risposte per',
+    SORT_BY: 'Ordina per',
+    SORT_REPLIES: 'Ordina risposte',
     TURN_OFF_QUOTE_TWEETS: 'Disattiva i Tweet di citazione',
     TURN_OFF_RETWEETS: 'Disattiva Retweet',
     TURN_ON_RETWEETS: 'Attiva Retweet',
@@ -1059,12 +1294,16 @@ const locales = {
     WHATS_HAPPENING: "Che c'è di nuovo?",
   },
   ja: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'アカウントの所在地: ' + e.country
+    },
     ADD_ANOTHER_TWEET: '別のツイートを追加する',
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
     GROK_ACTIONS: 'Grokのアクション',
     HOME: 'ホーム',
     LIKES: 'いいね',
     LIVE_ON_X: 'Xでライブ放送する',
+    MESSAGES: 'メッセージ',
     MOST_RELEVANT: '関連性が高い',
     MUTE_THIS_CONVERSATION: 'この会話をミュート',
     POST_ALL: 'すべてポスト',
@@ -1074,6 +1313,8 @@ const locales = {
     QUOTES: '引用',
     QUOTE_TWEET: '引用ツイート',
     QUOTE_TWEETS: '引用ツイート',
+    RECENT: '最新',
+    RELEVANT: '関連性が高い',
     REPOST: 'リポスト',
     REPOSTS: 'リポスト',
     RETWEET: 'リツイート',
@@ -1083,7 +1324,8 @@ const locales = {
     SHARED_TWEETS: '共有ツイート',
     SHOW: '表示',
     SHOW_MORE_REPLIES: '返信をさらに表示',
-    SORT_REPLIES_BY: '返信の並べ替え基準',
+    SORT_BY: '並べ替え',
+    SORT_REPLIES: '返信を並べ替え',
     TURN_OFF_QUOTE_TWEETS: '引用ツイートをオフにする',
     TURN_OFF_RETWEETS: 'リツイートをオフにする',
     TURN_ON_RETWEETS: 'リツイートをオンにする',
@@ -1097,12 +1339,16 @@ const locales = {
     WHATS_HAPPENING: 'いまどうしてる？',
   },
   kn: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return e.country + ' ನಲ್ಲಿ ಆಧಾರಿತ ಖಾತೆ'
+    },
     ADD_ANOTHER_TWEET: 'ಮತ್ತೊಂದು ಟ್ವೀಟ್ ಸೇರಿಸಿ',
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
     GROK_ACTIONS: 'Grok ಕ್ರಮಗಳು',
     HOME: 'ಹೋಮ್',
     LIKES: 'ಇಷ್ಟಗಳು',
     LIVE_ON_X: 'X ನಲ್ಲಿ ಲೈವ್',
+    MESSAGES: 'ಸಂದೇಶಗಳು',
     MOST_RELEVANT: 'ಅತ್ಯಂತ ಸಂಬಂಧಿತ',
     MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
     POST_ALL: 'ಎಲ್ಲವನ್ನೂ ಪೋಸ್ಟ್ ಮಾಡಿ',
@@ -1112,6 +1358,8 @@ const locales = {
     QUOTES: 'ಉಲ್ಲೇಖಗಳು',
     QUOTE_TWEET: 'ಟ್ವೀಟ್ ಕೋಟ್ ಮಾಡಿ',
     QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು',
+    RECENT: 'ಇತ್ತೀಚಿನ',
+    RELEVANT: 'ಸಂಬಂಧಿತ',
     REPOST: 'ಮರುಪೋಸ್ಟ್ ಮಾಡಿ',
     REPOSTS: 'ಮರುಪೋಸ್ಟ್‌ಗಳು',
     RETWEET: 'ಮರುಟ್ವೀಟಿಸಿ',
@@ -1121,7 +1369,8 @@ const locales = {
     SHARED_TWEETS: 'ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು',
     SHOW: 'ತೋರಿಸಿ',
     SHOW_MORE_REPLIES: 'ಇನ್ನಷ್ಟು ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ತೋರಿಸಿ',
-    SORT_REPLIES_BY: 'ಇದರ ಮೂಲಕ ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ಆಯೋಜಿಸಿ',
+    SORT_BY: 'ಈ ರೀತಿ ಆಯೋಜಿಸಿ',
+    SORT_REPLIES: 'ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ಆಯೋಜಿಸಿ',
     TURN_OFF_QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
     TURN_OFF_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
     TURN_ON_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆನ್ ಮಾಡಿ',
@@ -1135,12 +1384,16 @@ const locales = {
     WHATS_HAPPENING: 'ಏನು ನಡೆಯುತ್ತಿದೆ?',
   },
   ko: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return '계정 사용자 거주 국가: ' + e.country
+    },
     ADD_ANOTHER_TWEET: '다른 트윗 추가하기',
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
     GROK_ACTIONS: 'Grok 작업',
     HOME: '홈',
     LIKES: '마음에 들어요',
     LIVE_ON_X: 'X 생방송',
+    MESSAGES: '쪽지',
     MOST_RELEVANT: '관련도 순서',
     MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
     POST_ALL: '모두 게시하기',
@@ -1150,6 +1403,7 @@ const locales = {
     QUOTES: '인용',
     QUOTE_TWEET: '트윗 인용하기',
     QUOTE_TWEETS: '트윗 인용하기',
+    RECENT: '최근',
     REPOST: '재게시',
     REPOSTS: '재게시',
     RETWEET: '리트윗',
@@ -1159,7 +1413,8 @@ const locales = {
     SHARED_TWEETS: '공유 트윗',
     SHOW: '표시',
     SHOW_MORE_REPLIES: '더 많은 답글 보기',
-    SORT_REPLIES_BY: '답글 정렬하기',
+    SORT_BY: '정렬 기준',
+    SORT_REPLIES: '답글 정렬하기',
     TURN_OFF_QUOTE_TWEETS: '인용 트윗 끄기',
     TURN_OFF_RETWEETS: '리트윗 끄기',
     TURN_ON_RETWEETS: '리트윗 켜기',
@@ -1174,12 +1429,16 @@ const locales = {
     WHATS_HAPPENING: '무슨 일이 일어나고 있나요?',
   },
   mr: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return e.country + ' मध्ये नोंदणीकृत खाते'
+    },
     ADD_ANOTHER_TWEET: 'दुसरे ट्विट सामील करा',
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
     GROK_ACTIONS: 'Grok कृती',
     HOME: 'होम',
     LIKES: 'पसंती',
     LIVE_ON_X: 'X वर लाइव्ह',
+    MESSAGES: 'संदेश',
     MOST_RELEVANT: 'सर्वात महत्वाचे',
     MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
     POST_ALL: 'सर्व पोस्ट करा',
@@ -1189,6 +1448,8 @@ const locales = {
     QUOTES: 'भाष्य',
     QUOTE_TWEET: 'ट्विट वर भाष्य करा',
     QUOTE_TWEETS: 'भाष्य ट्विट्स',
+    RECENT: 'अलीकडील',
+    RELEVANT: 'संबंधित आहे',
     REPOST: 'पुन्हा पोस्ट करा',
     REPOSTS: 'रिपोस्ट',
     RETWEET: 'पुन्हा ट्विट',
@@ -1198,7 +1459,8 @@ const locales = {
     SHARED_TWEETS: 'सामायिक ट्विट',
     SHOW: 'दाखवा',
     SHOW_MORE_REPLIES: 'अधिक प्रत्युत्तरे दाखवा',
-    SORT_REPLIES_BY: 'द्वारे प्रत्युत्तरांची क्रमवारी करा',
+    SORT_BY: 'यानुसार विभागीत करा',
+    SORT_REPLIES: 'प्रत्युत्तरांची क्रमवारी करा',
     TURN_OFF_QUOTE_TWEETS: 'भाष्य ट्विट्स बंद करा',
     TURN_OFF_RETWEETS: 'पुनर्ट्विट्स बंद करा',
     TURN_ON_RETWEETS: 'पुनर्ट्विट्स चालू करा',
@@ -1212,12 +1474,16 @@ const locales = {
     WHATS_HAPPENING: 'ताज्या घडामोडी?',
   },
   ms: {
+    ACCOUNT_BASED_IN_FN: function (a) {
+      return 'Akaun berpangkalan di ' + a.country
+    },
     ADD_ANOTHER_TWEET: 'Tambahkan Tweet lain',
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
     GROK_ACTIONS: 'Tindakan Grok',
     HOME: 'Laman Utama',
     LIKES: 'Suka',
     LIVE_ON_X: 'Secara Langsung di X',
+    MESSAGES: 'Mesej',
     MOST_RELEVANT: 'Paling berkaitan',
     MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
     POST_ALL: 'Siarkan semua',
@@ -1227,6 +1493,8 @@ const locales = {
     QUOTES: 'Petikan',
     QUOTE_TWEET: 'Petik Tweet',
     QUOTE_TWEETS: 'Tweet Petikan',
+    RECENT: 'Terkini',
+    RELEVANT: 'Berkaitan',
     REPOST: 'Siaran semula',
     REPOSTS: 'Siaran semula',
     RETWEET: 'Tweet semula',
@@ -1236,7 +1504,8 @@ const locales = {
     SHARED_TWEETS: 'Tweet Berkongsi',
     SHOW: 'Tunjukkan',
     SHOW_MORE_REPLIES: 'Tunjukkan lagi balasan',
-    SORT_REPLIES_BY: 'Isih balasan mengikut',
+    SORT_BY: 'Isih Mengikut',
+    SORT_REPLIES: 'Isih balasan',
     TURN_OFF_QUOTE_TWEETS: 'Matikan Tweet Petikan',
     TURN_OFF_RETWEETS: 'Matikan Tweet semula',
     TURN_ON_RETWEETS: 'Hidupkan Tweet semula',
@@ -1249,12 +1518,16 @@ const locales = {
     WHATS_HAPPENING: 'Apakah yang sedang berlaku?',
   },
   nb: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Konto basert i ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Legg til en annen Tweet',
     ADD_MUTED_WORD: 'Skjul nytt ord',
     GROK_ACTIONS: 'Grok-handlinger',
     HOME: 'Hjem',
     LIKES: 'Liker',
     LIVE_ON_X: 'Direkte på X',
+    MESSAGES: 'Meldinger',
     MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtalen',
     POST_ALL: 'Publiser alle',
@@ -1264,6 +1537,7 @@ const locales = {
     QUOTES: 'Sitater',
     QUOTE_TWEET: 'Sitat-Tweet',
     QUOTE_TWEETS: 'Sitat-Tweets',
+    RECENT: 'Nylig',
     REPOST: 'Republiser',
     REPOSTS: 'Republiseringer',
     RETWEETED_BY: 'Retweetet av',
@@ -1271,7 +1545,8 @@ const locales = {
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
-    SORT_REPLIES_BY: 'Sorter svar etter',
+    SORT_BY: 'Sorter etter',
+    SORT_REPLIES: 'Sorter svar',
     TURN_OFF_QUOTE_TWEETS: 'Slå av sitat-tweets',
     TURN_OFF_RETWEETS: 'Slå av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
@@ -1283,12 +1558,16 @@ const locales = {
     WHATS_HAPPENING: 'Hva skjer?',
   },
   nl: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Account bevindt zich in ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Nog een Tweet toevoegen',
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
     GROK_ACTIONS: 'Grok-acties',
     HOME: 'Startpagina',
     LIKES: 'Vind-ik-leuks',
     LIVE_ON_X: 'Live op X',
+    MESSAGES: 'Berichten',
     MOST_RELEVANT: 'Meest relevant',
     MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
     POST_ALL: 'Alles plaatsen',
@@ -1304,7 +1583,8 @@ const locales = {
     SHARED_TWEETS: 'Gedeelde Tweets',
     SHOW: 'Weergeven',
     SHOW_MORE_REPLIES: 'Meer antwoorden tonen',
-    SORT_REPLIES_BY: 'Antwoorden sorteren op',
+    SORT_BY: 'Sorteren op',
+    SORT_REPLIES: 'Antwoorden sorteren',
     TURN_OFF_QUOTE_TWEETS: 'Geciteerde Tweets uitschakelen',
     TURN_OFF_RETWEETS: 'Retweets uitschakelen',
     TURN_ON_RETWEETS: 'Retweets inschakelen',
@@ -1317,12 +1597,16 @@ const locales = {
     WHATS_HAPPENING: 'Wat gebeurt er?',
   },
   pl: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Kraj konta: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Dodaj kolejnego Tweeta',
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
     GROK_ACTIONS: 'Akcje Groka',
     HOME: 'Główna',
     LIKES: 'Polubienia',
     LIVE_ON_X: 'Na żywo w serwisie X',
+    MESSAGES: 'Wiadomości',
     MOST_RELEVANT: 'Najtrafniejsze',
     MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
     POST_ALL: 'Opublikuj wszystko',
@@ -1332,6 +1616,7 @@ const locales = {
     QUOTES: 'Cytaty',
     QUOTE_TWEET: 'Cytuj Tweeta',
     QUOTE_TWEETS: 'Cytaty z Tweeta',
+    RECENT: 'Najnowsze',
     REPOST: 'Podaj dalej wpis',
     REPOSTS: 'Wpisy podane dalej',
     RETWEET: 'Podaj dalej',
@@ -1341,7 +1626,8 @@ const locales = {
     SHARED_TWEETS: 'Udostępnione Tweety',
     SHOW: 'Pokaż',
     SHOW_MORE_REPLIES: 'Pokaż więcej odpowiedzi',
-    SORT_REPLIES_BY: 'Sortuj odpowiedzi wg',
+    SORT_BY: 'Sortuj według',
+    SORT_REPLIES: 'Sortuj odpowiedzi',
     TURN_OFF_QUOTE_TWEETS: 'Wyłącz tweety z cytatem',
     TURN_OFF_RETWEETS: 'Wyłącz Tweety podane dalej',
     TURN_ON_RETWEETS: 'Włącz Tweety podane dalej',
@@ -1354,12 +1640,16 @@ const locales = {
     WHATS_HAPPENING: 'Co się dzieje?',
   },
   pt: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Conta com base em ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Adicionar outro Tweet',
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
     GROK_ACTIONS: 'Ações do Grok',
     HOME: 'Página Inicial',
     LIKES: 'Curtidas',
     LIVE_ON_X: 'Ao vivo no X',
+    MESSAGES: 'Mensagens',
     MOST_RELEVANT: 'Mais relevante',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     POST_ALL: 'Postar tudo',
@@ -1369,6 +1659,7 @@ const locales = {
     QUOTES: 'Comentários',
     QUOTE_TWEET: 'Comentar o Tweet',
     QUOTE_TWEETS: 'Tweets com comentário',
+    RECENT: 'Recente',
     REPOST: 'Repostar',
     RETWEET: 'Retweetar',
     RETWEETED_BY: 'Retweetado por',
@@ -1376,7 +1667,8 @@ const locales = {
     SHARED_TWEETS: 'Tweets Compartilhados',
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar mais respostas',
-    SORT_REPLIES_BY: 'Ordenar respostas por',
+    SORT_BY: 'Classificar por',
+    SORT_REPLIES: 'Ordenar respostas',
     TURN_OFF_QUOTE_TWEETS: 'Desativar Tweets com comentário',
     TURN_OFF_RETWEETS: 'Desativar Retweets',
     TURN_ON_RETWEETS: 'Ativar Retweets',
@@ -1389,12 +1681,16 @@ const locales = {
     WHATS_HAPPENING: 'O que está acontecendo?',
   },
   ro: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Cont din ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Adaugă alt Tweet',
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
     GROK_ACTIONS: 'Acțiuni Grok',
     HOME: 'Pagina principală',
     LIKES: 'Aprecieri',
     LIVE_ON_X: 'În direct pe X',
+    MESSAGES: 'Mesaje',
     MOST_RELEVANT: 'Cele mai relevante',
     MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
     POST_ALL: 'Postează tot',
@@ -1404,6 +1700,8 @@ const locales = {
     QUOTES: 'Citate',
     QUOTE_TWEET: 'Citează Tweetul',
     QUOTE_TWEETS: 'Tweeturi cu citat',
+    RECENT: 'Recente',
+    RELEVANT: 'Relevante',
     REPOST: 'Repostează',
     REPOSTS: 'Repostări',
     RETWEET: 'Redistribuie',
@@ -1413,7 +1711,8 @@ const locales = {
     SHARED_TWEETS: 'Tweeturi partajate',
     SHOW: 'Afișează',
     SHOW_MORE_REPLIES: 'Afișează mai multe răspunsuri',
-    SORT_REPLIES_BY: 'Sortare răspunsuri după',
+    SORT_BY: 'Sortează după',
+    SORT_REPLIES: 'Sortare răspunsuri',
     TURN_OFF_QUOTE_TWEETS: 'Dezactivează tweeturile cu citat',
     TURN_OFF_RETWEETS: 'Dezactivează Retweeturile',
     TURN_ON_RETWEETS: 'Activează Retweeturile',
@@ -1426,12 +1725,16 @@ const locales = {
     WHATS_HAPPENING: 'Ce se întâmplă?',
   },
   ru: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Страна или регион: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Добавить еще один твит',
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
     GROK_ACTIONS: 'Действия Grok',
     HOME: 'Главная',
     LIKES: 'Нравится',
     LIVE_ON_X: 'Прямой эфир в X',
+    MESSAGES: 'Сообщения',
     MOST_RELEVANT: 'Наиболее актуальные',
     MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
     POST_ALL: 'Опубликовать все',
@@ -1441,6 +1744,8 @@ const locales = {
     QUOTES: 'Цитаты',
     QUOTE_TWEET: 'Цитировать',
     QUOTE_TWEETS: 'Твиты с цитатами',
+    RECENT: 'Последние',
+    RELEVANT: 'Актуально',
     REPOST: 'Сделать репост',
     REPOSTS: 'Репосты',
     RETWEET: 'Ретвитнуть',
@@ -1450,7 +1755,8 @@ const locales = {
     SHARED_TWEETS: 'Общие твиты',
     SHOW: 'Показать',
     SHOW_MORE_REPLIES: 'Показать ещё ответы',
-    SORT_REPLIES_BY: 'Упорядочить ответы по',
+    SORT_BY: 'Сортировать по',
+    SORT_REPLIES: 'Упорядочить ответы',
     TURN_OFF_QUOTE_TWEETS: 'Отключить твиты с цитатами',
     TURN_OFF_RETWEETS: 'Отключить ретвиты',
     TURN_ON_RETWEETS: 'Включить ретвиты',
@@ -1465,12 +1771,16 @@ const locales = {
     WHATS_HAPPENING: 'Что происходит?',
   },
   sk: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Účet sa používa z krajiny ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Pridať ďalší Tweet',
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
     GROK_ACTIONS: 'Akcie Groka',
     HOME: 'Domov',
     LIKES: 'Páči sa',
     LIVE_ON_X: 'Naživo na X',
+    MESSAGES: 'Správy',
     MOST_RELEVANT: 'Najrelevantnejšie',
     MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
     POST_ALL: 'Uverejniť všetko',
@@ -1480,6 +1790,7 @@ const locales = {
     QUOTES: 'Citáty',
     QUOTE_TWEET: 'Tweet s citátom',
     QUOTE_TWEETS: 'Tweety s citátom',
+    RECENT: 'Nedávne',
     REPOST: 'Opätovné uverejnenie',
     REPOSTS: 'Opätovné uverejnenia',
     RETWEET: 'Retweetnuť',
@@ -1489,7 +1800,8 @@ const locales = {
     SHARED_TWEETS: 'Zdieľané Tweety',
     SHOW: 'Zobraziť',
     SHOW_MORE_REPLIES: 'Zobraziť viac odpovedí',
-    SORT_REPLIES_BY: 'Zoradiť odpovede podľa',
+    SORT_BY: 'Spôsob zoradenia',
+    SORT_REPLIES: 'Zoradiť odpovede',
     TURN_OFF_QUOTE_TWEETS: 'Vypnúť tweety s citátom',
     TURN_OFF_RETWEETS: 'Vypnúť retweety',
     TURN_ON_RETWEETS: 'Zapnúť retweety',
@@ -1503,12 +1815,16 @@ const locales = {
     WHATS_HAPPENING: 'Čo sa deje?',
   },
   sr: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Земља у којој је налог основан: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Додај још један твит',
     ADD_MUTED_WORD: 'Додај игнорисану реч',
     GROK_ACTIONS: 'Grok радње',
     HOME: 'Почетна',
     LIKES: 'Свиђања',
     LIVE_ON_X: 'Уживо на мрежи X',
+    MESSAGES: 'Поруке',
     MOST_RELEVANT: 'Најважније',
     MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
     POST_ALL: 'Објави све',
@@ -1518,6 +1834,8 @@ const locales = {
     QUOTES: 'Цитати',
     QUOTE_TWEET: 'твит са цитатом',
     QUOTE_TWEETS: 'твит(ов)а са цитатом',
+    RECENT: 'Недавни',
+    RELEVANT: 'Релевантно',
     REPOST: 'Поново објави',
     REPOSTS: 'Понвне објаве',
     RETWEET: 'Ретвитуј',
@@ -1527,7 +1845,8 @@ const locales = {
     SHARED_TWEETS: 'Дељени твитови',
     SHOW: 'Прикажи',
     SHOW_MORE_REPLIES: 'Прикажи још одговора',
-    SORT_REPLIES_BY: 'Сортирај одговоре по',
+    SORT_BY: 'Сортирај по',
+    SORT_REPLIES: 'Сортирање одговора',
     TURN_OFF_QUOTE_TWEETS: 'Искључи твит(ов)е са цитатом',
     TURN_OFF_RETWEETS: 'Искључи ретвитове',
     TURN_ON_RETWEETS: 'Укључи ретвитове',
@@ -1542,12 +1861,16 @@ const locales = {
     WHATS_HAPPENING: 'Шта се дешава?',
   },
   sv: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Konto med bas i ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Lägg till en Tweet till',
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
     GROK_ACTIONS: 'Grok-åtgärder',
     HOME: 'Hem',
     LIKES: 'Gilla-markeringar',
     LIVE_ON_X: 'Live på X',
+    MESSAGES: 'Meddelanden',
     MOST_RELEVANT: 'Mest relevant',
     MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
     POST_ALL: 'Lägg upp allt',
@@ -1557,6 +1880,7 @@ const locales = {
     QUOTES: 'Citat',
     QUOTE_TWEET: 'Citera Tweet',
     QUOTE_TWEETS: 'Citat-tweets',
+    RECENT: 'Senaste',
     REPOST: 'Återpublicera',
     REPOSTS: 'Återpubliceringar',
     RETWEET: 'Retweeta',
@@ -1565,7 +1889,8 @@ const locales = {
     SHARED_TWEETS: 'Delade tweetsen',
     SHOW: 'Visa',
     SHOW_MORE_REPLIES: 'Visa fler svar',
-    SORT_REPLIES_BY: 'Sortera svar på',
+    SORT_BY: 'Sortera efter',
+    SORT_REPLIES: 'Sortera svar',
     TURN_OFF_QUOTE_TWEETS: 'Stäng av citat-tweets',
     TURN_OFF_RETWEETS: 'Stäng av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
@@ -1578,12 +1903,16 @@ const locales = {
     WHATS_HAPPENING: 'Vad är det som händer?',
   },
   ta: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return e.country + ' -இல் உள்ள கணக்கு'
+    },
     ADD_ANOTHER_TWEET: 'வேறொரு கீச்சைச் சேர்',
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
     GROK_ACTIONS: 'Grok செயல்கள்',
     HOME: 'முகப்பு',
     LIKES: 'விருப்பங்கள்',
     LIVE_ON_X: 'X -இல் நேரலை',
+    MESSAGES: 'செய்திகள்',
     MOST_RELEVANT: 'மிகவும் தொடர்புடையவை',
     MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
     POST_ALL: 'எல்லாம் இடுகையிடு',
@@ -1593,6 +1922,8 @@ const locales = {
     QUOTES: 'மேற்கோள்கள்',
     QUOTE_TWEET: 'ட்விட்டை மேற்கோள் காட்டு',
     QUOTE_TWEETS: 'மேற்கோள் கீச்சுகள்',
+    RECENT: 'சமீபத்தியவை',
+    RELEVANT: 'பொருத்தமானதாக உள்ளது',
     REPOST: 'மறுஇடுகை',
     REPOSTS: 'மறுஇடுகைகள்',
     RETWEET: 'மறுட்விட் செய்',
@@ -1602,7 +1933,8 @@ const locales = {
     SHARED_TWEETS: 'பகிரப்பட்ட ட்வீட்டுகள்',
     SHOW: 'காண்பி',
     SHOW_MORE_REPLIES: 'மேலும் பதில்களைக் காண்பி',
-    SORT_REPLIES_BY: 'இதன்படி பதில்களை வகைப்படுத்து',
+    SORT_BY: 'இதன்படி வரிசைப்படுத்து:',
+    SORT_REPLIES: 'பதில்களை வகைப்படுத்து',
     TURN_OFF_QUOTE_TWEETS: 'மேற்கோள் கீச்சுகளை அணை',
     TURN_OFF_RETWEETS: 'மறுகீச்சுகளை அணை',
     TURN_ON_RETWEETS: 'மறுகீச்சுகளை இயக்கு',
@@ -1616,12 +1948,16 @@ const locales = {
     WHATS_HAPPENING: 'என்ன நிகழ்கிறது?',
   },
   th: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'บัญชีตั้งอยู่ใน ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'เพิ่มอีกทวีต',
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
     GROK_ACTIONS: 'การดำเนินการของ Grok',
     HOME: 'หน้าแรก',
     LIKES: 'ความชอบ',
     LIVE_ON_X: 'ถ่ายทอดสดบน X',
+    MESSAGES: 'ข้อความ',
     MOST_RELEVANT: 'เกี่ยวข้องที่สุด',
     MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
     POST_ALL: 'โพสต์ทั้งหมด',
@@ -1631,6 +1967,8 @@ const locales = {
     QUOTES: 'คำพูด',
     QUOTE_TWEET: 'อ้างอิงทวีต',
     QUOTE_TWEETS: 'ทวีตและคำพูด',
+    RECENT: 'ล่าสุด',
+    RELEVANT: 'เกี่ยวข้อง',
     REPOST: 'รีโพสต์',
     REPOSTS: 'รีโพสต์',
     RETWEET: 'รีทวีต',
@@ -1640,7 +1978,8 @@ const locales = {
     SHARED_TWEETS: 'ทวีตที่แชร์',
     SHOW: 'แสดง',
     SHOW_MORE_REPLIES: 'แสดงการตอบกลับเพิ่มเติม',
-    SORT_REPLIES_BY: 'จัดเรียงการตอบกลับโดย',
+    SORT_BY: 'เรียงตาม',
+    SORT_REPLIES: 'จัดเรียงการตอบกลับ',
     TURN_OFF_QUOTE_TWEETS: 'ปิดทวีตและคำพูด',
     TURN_OFF_RETWEETS: 'ปิดรีทวีต',
     TURN_ON_RETWEETS: 'เปิดรีทวีต',
@@ -1655,12 +1994,16 @@ const locales = {
     WHATS_HAPPENING: 'มีอะไรเกิดขึ้นบ้าง',
   },
   tr: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Hesabın bulunduğu ülke/bölge: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Başka bir Tweet ekle',
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
     GROK_ACTIONS: 'Grok işlemleri',
     HOME: 'Anasayfa',
     LIKES: 'Beğeni',
     LIVE_ON_X: "X'te Canlı",
+    MESSAGES: 'Mesajlar',
     MOST_RELEVANT: 'En alakalı',
     MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
     POST_ALL: 'Tümünü gönder',
@@ -1670,6 +2013,8 @@ const locales = {
     QUOTES: 'Alıntılar',
     QUOTE_TWEET: 'Tweeti Alıntıla',
     QUOTE_TWEETS: 'Alıntı Tweetler',
+    RECENT: 'En yeni',
+    RELEVANT: 'Alakalı',
     REPOST: 'Yeniden gönder',
     REPOSTS: 'Yeniden gönderiler',
     RETWEETED_BY: 'Retweetleyen(ler):',
@@ -1678,7 +2023,8 @@ const locales = {
     SHARED_TWEETS: 'Paylaşılan Tweetler',
     SHOW: 'Göster',
     SHOW_MORE_REPLIES: 'Daha fazla yanıt göster',
-    SORT_REPLIES_BY: 'Yanıtları sıralama ölçütü',
+    SORT_BY: 'Şuna göre sırala:',
+    SORT_REPLIES: 'Yanıtları sırala',
     TURN_OFF_QUOTE_TWEETS: 'Alıntı Tweetleri kapat',
     TURN_OFF_RETWEETS: 'Retweetleri kapat',
     TURN_ON_RETWEETS: 'Retweetleri aç',
@@ -1692,12 +2038,16 @@ const locales = {
     WHATS_HAPPENING: 'Neler oluyor?',
   },
   uk: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return 'Країна чи регіон: ' + e.country
+    },
     ADD_ANOTHER_TWEET: 'Додати ще один твіт',
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
     GROK_ACTIONS: 'Дії Grok',
     HOME: 'Головна',
     LIKES: 'Вподобання',
     LIVE_ON_X: 'Прямий ефір в X',
+    MESSAGES: 'Повідомлення',
     MOST_RELEVANT: 'Найактуальніші',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
     POST_ALL: 'Опублікувати все',
@@ -1707,6 +2057,8 @@ const locales = {
     QUOTES: 'Цитати',
     QUOTE_TWEET: 'Цитувати твіт',
     QUOTE_TWEETS: 'Цитовані твіти',
+    RECENT: 'Нещодавні',
+    RELEVANT: 'Актуальні',
     REPOST: 'Зробити репост',
     REPOSTS: 'Репости',
     RETWEET: 'Ретвітнути',
@@ -1716,7 +2068,8 @@ const locales = {
     SHARED_TWEETS: 'Спільні твіти',
     SHOW: 'Показати',
     SHOW_MORE_REPLIES: 'Показати більше відповідей',
-    SORT_REPLIES_BY: 'Сортувати відповіді за',
+    SORT_BY: 'Сортування за',
+    SORT_REPLIES: 'Сортувати відповіді',
     TURN_OFF_QUOTE_TWEETS: 'Вимкнути цитовані твіти',
     TURN_OFF_RETWEETS: 'Вимкнути ретвіти',
     TURN_ON_RETWEETS: 'Увімкнути ретвіти',
@@ -1735,11 +2088,13 @@ const locales = {
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
     HOME: 'ہوم',
     LIKES: 'لائک',
+    MESSAGES: 'پیغامات',
     MUTE_THIS_CONVERSATION: 'اس گفتگو کو میوٹ کریں',
     QUOTE: 'نقل کریں',
     QUOTES: 'منقول',
     QUOTE_TWEET: 'ٹویٹ کا حوالہ دیں',
     QUOTE_TWEETS: 'ٹویٹ کو نقل کرو',
+    RECENT: 'حالیہ',
     RETWEET: 'ریٹویٹ',
     RETWEETED_BY: 'جنہوں نے ریٹویٹ کیا',
     RETWEETS: 'ریٹویٹس',
@@ -1747,6 +2102,7 @@ const locales = {
     SHARED_TWEETS: 'مشترکہ ٹویٹس',
     SHOW: 'دکھائیں',
     SHOW_MORE_REPLIES: 'مزید جوابات دکھائیں',
+    SORT_BY: 'چھانٹیں بلحاظ',
     TURN_OFF_QUOTE_TWEETS: 'ٹویٹ کو نقل کرنا بند کریں',
     TURN_OFF_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
     TURN_ON_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
@@ -1761,12 +2117,16 @@ const locales = {
     WHATS_HAPPENING: 'کیا ہو رہا ہے؟',
   },
   vi: {
+    ACCOUNT_BASED_IN_FN: function (n) {
+      return 'Tài khoản ở ' + n.country
+    },
     ADD_ANOTHER_TWEET: 'Thêm Tweet khác',
     ADD_MUTED_WORD: 'Thêm từ tắt tiếng',
     GROK_ACTIONS: 'Hành động của Grok',
     HOME: 'Trang chủ',
     LIKES: 'Lượt thích',
     LIVE_ON_X: 'Trực tuyến trên X',
+    MESSAGES: 'Tin nhắn',
     MOST_RELEVANT: 'Liên quan nhất',
     MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
     POST_ALL: 'Đăng tất cả',
@@ -1776,6 +2136,8 @@ const locales = {
     QUOTES: 'Trích dẫn',
     QUOTE_TWEET: 'Trích dẫn Tweet',
     QUOTE_TWEETS: 'Tweet trích dẫn',
+    RECENT: 'Gần đây',
+    RELEVANT: 'Có liên quan',
     REPOST: 'Đăng lại',
     REPOSTS: 'Bài đăng lại',
     RETWEET: 'Tweet lại',
@@ -1785,7 +2147,8 @@ const locales = {
     SHARED_TWEETS: 'Tweet được chia sẻ',
     SHOW: 'Hiện',
     SHOW_MORE_REPLIES: 'Hiển thị thêm trả lời',
-    SORT_REPLIES_BY: 'Sắp xếp câu trả lời theo',
+    SORT_BY: 'Sắp xếp theo',
+    SORT_REPLIES: 'Sắp xếp câu trả lời',
     TURN_OFF_QUOTE_TWEETS: 'Tắt Tweet trích dẫn',
     TURN_OFF_RETWEETS: 'Tắt Tweet lại',
     TURN_ON_RETWEETS: 'Bật Tweet lại',
@@ -1798,12 +2161,16 @@ const locales = {
     WHATS_HAPPENING: 'Chuyện gì đang xảy ra?',
   },
   'zh-Hant': {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return '帳戶所在地 ' + e.country
+    },
     ADD_ANOTHER_TWEET: '加入另一則推文',
     ADD_MUTED_WORD: '加入靜音文字',
     GROK_ACTIONS: 'Grok 動作',
     HOME: '首頁',
     LIKES: '喜歡的內容',
     LIVE_ON_X: 'X 上的直播',
+    MESSAGES: '訊息',
     MOST_RELEVANT: '最相關',
     MUTE_THIS_CONVERSATION: '將此對話靜音',
     POST_ALL: '全部發佈',
@@ -1813,6 +2180,7 @@ const locales = {
     QUOTES: '引用',
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用的推文',
+    RECENT: '最近',
     REPOST: '轉發',
     REPOSTS: '轉發',
     RETWEET: '轉推',
@@ -1822,7 +2190,8 @@ const locales = {
     SHARED_TWEETS: '分享的推文',
     SHOW: '顯示',
     SHOW_MORE_REPLIES: '顯示更多回覆',
-    SORT_REPLIES_BY: '回覆排序方式',
+    SORT_BY: '排序方式',
+    SORT_REPLIES: '將回覆排序',
     TURN_OFF_QUOTE_TWEETS: '關閉引用的推文',
     TURN_OFF_RETWEETS: '關閉轉推',
     TURN_ON_RETWEETS: '開啟轉推',
@@ -1836,12 +2205,16 @@ const locales = {
     WHATS_HAPPENING: '有什麼新鮮事？',
   },
   zh: {
+    ACCOUNT_BASED_IN_FN: function (e) {
+      return '账号所在地 ' + e.country
+    },
     ADD_ANOTHER_TWEET: '添加另一条推文',
     ADD_MUTED_WORD: '添加要隐藏的字词',
     GROK_ACTIONS: 'Grok 操作',
     HOME: '主页',
     LIKES: '喜欢',
     LIVE_ON_X: 'X 上的直播',
+    MESSAGES: '私信',
     MOST_RELEVANT: '最相关',
     MUTE_THIS_CONVERSATION: '隐藏此对话',
     POST_ALL: '全部发帖',
@@ -1851,6 +2224,8 @@ const locales = {
     QUOTES: '引用',
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用推文',
+    RECENT: '最近',
+    RELEVANT: '相关',
     REPOST: '转帖',
     REPOSTS: '转帖',
     RETWEET: '转推',
@@ -1860,7 +2235,8 @@ const locales = {
     SHARED_TWEETS: '分享的推文',
     SHOW: '显示',
     SHOW_MORE_REPLIES: '显示更多回复',
-    SORT_REPLIES_BY: '回复排序依据',
+    SORT_BY: '排序方式',
+    SORT_REPLIES: '对回复排序',
     TURN_OFF_QUOTE_TWEETS: '关闭引用推文',
     TURN_OFF_RETWEETS: '关闭转推',
     TURN_ON_RETWEETS: '开启转推',
@@ -1876,11 +2252,17 @@ const locales = {
 }
 
 /**
- * @param {import("./types").LocaleKey} code
- * @returns {string}
+ * @param {import("./types").LocaleFunctionKey} key
  */
-function getString(code) {
-  return (locales[lang] || locales['en'])[code] || locales['en'][code];
+function getFn(key) {
+  return (locales[lang] || locales['en'])[key] || locales['en'][key];
+}
+
+/**
+ * @param {import("./types").LocaleStringKey} key
+ */
+function getString(key) {
+  return (locales[lang] || locales['en'])[key] || locales['en'][key];
 }
 //#endregion
 
@@ -1920,24 +2302,26 @@ const Selectors = {
   MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
   MORE_DIALOG: 'div[aria-labelledby="modal-header"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
+  NAV_MESSAGES_LINK: 'a[data-testid="AppTabBar_DirectMessage_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV_DESKTOP: 'header nav',
   PRIMARY_NAV_MOBILE: '#layers nav',
   PROMOTED_TWEET_CONTAINER: '[data-testid="placementTracking"]',
   SIDEBAR: 'div[data-testid="sidebarColumn"]',
-  SIDEBAR_WRAPPERS: 'div[data-testid="sidebarColumn"] > div > div > div > div > div',
   SORT_REPLIES_PATH: 'svg path[d="M14 6V3h2v8h-2V8H3V6h11zm7 2h-3.5V6H21v2zM8 16v-3h2v8H8v-3H3v-2h5zm13 2h-9.5v-2H21v2z"]',
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: '[data-testid="tweet"]',
   VERIFIED_TICK: 'svg[data-testid="icon-verified"]',
-  X_LOGO_PATH: 'svg path[d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"]',
+  X_LOGO_PATH: 'svg path[d="M21.742 21.75l-7.563-11.179 7.056-8.321h-2.456l-5.691 6.714-4.54-6.714H2.359l7.29 10.776L2.25 21.75h2.456l6.035-7.118 4.818 7.118h6.191-.008zM7.739 3.818L18.81 20.182h-2.447L5.29 3.818h2.447z"]',
   X_DARUMA_LOGO_PATH: 'svg path[d="M18.436 1.92h3.403l-7.433 8.495 8.745 11.563h-6.849l-5.363-7.012-6.136 7.012H1.4l7.951-9.088L.96 1.92h7.02l4.848 6.41 5.608-6.41zm-1.194 18.021h1.886L6.958 3.851H4.933l12.308 16.09z"]',
 }
 
 /** @enum {string} */
 const Svgs = {
   BLUE_LOGO_PATH: 'M16.5 3H2v18h15c3.038 0 5.5-2.46 5.5-5.5 0-1.4-.524-2.68-1.385-3.65-.08-.09-.089-.22-.023-.32.574-.87.908-1.91.908-3.03C22 5.46 19.538 3 16.5 3zm-.796 5.99c.457-.05.892-.17 1.296-.35-.302.45-.684.84-1.125 1.15.004.1.006.19.006.29 0 2.94-2.269 6.32-6.421 6.32-1.274 0-2.46-.37-3.459-1 .177.02.357.03.539.03 1.057 0 2.03-.35 2.803-.95-.988-.02-1.821-.66-2.109-1.54.138.03.28.04.425.04.206 0 .405-.03.595-.08-1.033-.2-1.811-1.1-1.811-2.18v-.03c.305.17.652.27 1.023.28-.606-.4-1.004-1.08-1.004-1.85 0-.4.111-.78.305-1.11 1.113 1.34 2.775 2.22 4.652 2.32-.038-.17-.058-.33-.058-.51 0-1.23 1.01-2.22 2.256-2.22.649 0 1.235.27 1.647.7.514-.1.997-.28 1.433-.54-.168.52-.526.96-.992 1.23z',
+  MESSAGES_ACTIVE_PATH: 'M1.998 4.499c0-.828.671-1.499 1.5-1.499h17c.828 0 1.5.671 1.5 1.499v2.858l-10 4.545-10-4.547V4.499zm0 5.053V19.5c0 .828.671 1.5 1.5 1.5h17c.828 0 1.5-.672 1.5-1.5V9.554l-10 4.545-10-4.547z',
+  MESSAGES_INACTIVE_PATH: 'M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z',
   MUTE: '<g><path d="M18 6.59V1.2L8.71 7H5.5C4.12 7 3 8.12 3 9.5v5C3 15.88 4.12 17 5.5 17h2.09l-2.3 2.29 1.42 1.42 15.5-15.5-1.42-1.42L18 6.59zm-8 8V8.55l6-3.75v3.79l-6 6zM5 9.5c0-.28.22-.5.5-.5H8v6H5.5c-.28 0-.5-.22-.5-.5v-5zm6.5 9.24l1.45-1.45L16 19.2V14l2 .02v8.78l-6.5-4.06z"></path></g>',
   PROMOTED_PATH: 'M19.498 3h-15c-1.381 0-2.5 1.12-2.5 2.5v13c0 1.38 1.119 2.5 2.5 2.5h15c1.381 0 2.5-1.12 2.5-2.5v-13c0-1.38-1.119-2.5-2.5-2.5zm-3.502 12h-2v-3.59l-5.293 5.3-1.414-1.42L12.581 10H8.996V8h7v7z',
   RETWEET: '<g><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"></path></g>',
@@ -1946,9 +2330,9 @@ const Svgs = {
   TWITTER_HOME_ACTIVE_PATH: 'M12 1.696L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM12 16.5c-1.933 0-3.5-1.567-3.5-3.5s1.567-3.5 3.5-3.5 3.5 1.567 3.5 3.5-1.567 3.5-3.5 3.5z',
   TWITTER_HOME_INACTIVE_PATH: 'M12 9c-2.209 0-4 1.791-4 4s1.791 4 4 4 4-1.791 4-4-1.791-4-4-4zm0 6c-1.105 0-2-.895-2-2s.895-2 2-2 2 .895 2 2-.895 2-2 2zm0-13.304L.622 8.807l1.06 1.696L3 9.679V19.5C3 20.881 4.119 22 5.5 22h13c1.381 0 2.5-1.119 2.5-2.5V9.679l1.318.824 1.06-1.696L12 1.696zM19 19.5c0 .276-.224.5-.5.5h-13c-.276 0-.5-.224-.5-.5V8.429l7-4.375 7 4.375V19.5z',
   TWITTER_LOGO_PATH: 'M23.643 4.937c-.835.37-1.732.62-2.675.733.962-.576 1.7-1.49 2.048-2.578-.9.534-1.897.922-2.958 1.13-.85-.904-2.06-1.47-3.4-1.47-2.572 0-4.658 2.086-4.658 4.66 0 .364.042.718.12 1.06-3.873-.195-7.304-2.05-9.602-4.868-.4.69-.63 1.49-.63 2.342 0 1.616.823 3.043 2.072 3.878-.764-.025-1.482-.234-2.11-.583v.06c0 2.257 1.605 4.14 3.737 4.568-.392.106-.803.162-1.227.162-.3 0-.593-.028-.877-.082.593 1.85 2.313 3.198 4.352 3.234-1.595 1.25-3.604 1.995-5.786 1.995-.376 0-.747-.022-1.112-.065 2.062 1.323 4.51 2.093 7.14 2.093 8.57 0 13.255-7.098 13.255-13.254 0-.2-.005-.402-.014-.602.91-.658 1.7-1.477 2.323-2.41z',
-  X_HOME_ACTIVE_PATH: 'M21.591 7.146L12.52 1.157c-.316-.21-.724-.21-1.04 0l-9.071 5.99c-.26.173-.409.456-.409.757v13.183c0 .502.418.913.929.913H9.14c.51 0 .929-.41.929-.913v-7.075h3.909v7.075c0 .502.417.913.928.913h6.165c.511 0 .929-.41.929-.913V7.904c0-.301-.158-.584-.408-.758z',
-  X_HOME_INACTIVE_PATH: 'M21.591 7.146L12.52 1.157c-.316-.21-.724-.21-1.04 0l-9.071 5.99c-.26.173-.409.456-.409.757v13.183c0 .502.418.913.929.913h6.638c.511 0 .929-.41.929-.913v-7.075h3.008v7.075c0 .502.418.913.929.913h6.639c.51 0 .928-.41.928-.913V7.904c0-.301-.158-.584-.408-.758zM20 20l-4.5.01.011-7.097c0-.502-.418-.913-.928-.913H9.44c-.511 0-.929.41-.929.913L8.5 20H4V8.773l8.011-5.342L20 8.764z',
-  PLUS_PATH: 'M11 11V4h2v7h7v2h-7v7h-2v-7H4v-2h7z',
+  X_HOME_ACTIVE_PATH: 'M10.059 2.593c1.175-.784 2.707-.784 3.882 0l6.5 4.333C21.415 7.575 22 8.668 22 9.838V18.5c0 1.933-1.567 3.5-3.5 3.5h-4.25v-5.25c0-1.243-1.007-2.25-2.25-2.25s-2.25 1.007-2.25 2.25V22H5.5C3.567 22 2 20.433 2 18.5V9.838c0-1.17.585-2.263 1.559-2.912l6.5-4.333z',
+  X_HOME_INACTIVE_PATH: 'M20 9.838c0-.502-.25-.97-.668-1.248l-6.5-4.333c-.504-.336-1.16-.336-1.664 0l-6.5 4.333C4.251 8.868 4 9.336 4 9.838V18.5c0 .828.672 1.5 1.5 1.5h3v-3.5c0-1.933 1.567-3.5 3.5-3.5s3.5 1.567 3.5 3.5V20h3c.828 0 1.5-.672 1.5-1.5V9.838zm2 8.662c0 1.933-1.567 3.5-3.5 3.5h-5v-5.5c0-.829-.672-1.5-1.5-1.5s-1.5.671-1.5 1.5V22h-5C3.567 22 2 20.433 2 18.5V9.838c0-1.17.585-2.263 1.559-2.912l6.5-4.333c1.175-.784 2.707-.784 3.882 0l6.5 4.333C21.415 7.575 22 8.668 22 9.838V18.5z',
+  PLUS_PATH: 'M10.938 4.5H9.9c-1.136 0-1.929 0-2.546.05-.605.05-.953.143-1.216.277-.564.288-1.023.747-1.31 1.31-.135.264-.228.612-.277 1.218C4.5 7.97 4.5 8.765 4.5 9.9v4.2c0 1.136 0 1.929.05 2.546.05.605.143.953.277 1.216.288.565.747 1.023 1.31 1.31.264.135.612.228 1.217.277.617.05 1.41.051 2.546.051h4.2c1.136 0 1.929 0 2.545-.05.606-.05.954-.143 1.217-.277.565-.288 1.023-.746 1.31-1.31.135-.264.228-.612.277-1.217.05-.617.051-1.41.051-2.546v-1.037h2V14.1c0 1.103.001 1.992-.058 2.709-.06.728-.185 1.368-.487 1.96-.48.941-1.245 1.707-2.185 2.186-.593.302-1.233.428-1.961.488-.718.058-1.606.057-2.71.057H9.9c-1.103 0-1.991.001-2.709-.058-.728-.06-1.368-.185-1.96-.487-.941-.48-1.707-1.245-2.186-2.185-.302-.593-.428-1.233-.487-1.961-.059-.718-.058-1.606-.058-2.71V9.9c0-1.103-.001-1.991.058-2.709.06-.728.185-1.368.487-1.96.48-.941 1.245-1.707 2.185-2.186.593-.302 1.233-.428 1.961-.487.718-.059 1.606-.058 2.71-.058h1.037v2z',
 }
 
 /** @enum {string} */
@@ -2024,10 +2408,16 @@ const TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR = '.tva-download-icon, .tva-modal-dow
  */
 let quotedTweet = null
 
+/** `true` when a 'Block @${user}' menu item was clicked in the last popup. */
+let blockMenuItemClicked = false
+
 /** `true` when a 'Block @${user}' menu item was seen in the last popup. */
 let blockMenuItemSeen = false
 
-/** `true` if the user has used the "Sort replies by" menu */
+/** `true` if the user has used the Following "Sort by" menu */
+let userSortedFollowing = false
+
+/** `true` if the user has used the "Sort replies" menu */
 let userSortedReplies = false
 
 /** Notification count in the title (including trailing space), e.g. `'(1) '`. */
@@ -2049,7 +2439,7 @@ let currentPath = ''
 let filterBlurRule = null
 
 /**
- * React Native stylesheett rule for the Chirp font-family.
+ * React Native stylesheet rule for the Chirp font-family.
  * @type {CSSStyleRule}
  */
 let fontFamilyRule = null
@@ -2119,12 +2509,6 @@ let separatedTweetsTimelineTitle = null
 let themeColor = THEME_BLUE
 
 /**
- * Tab to switch to after navigating to the Tweet interactions page.
- * @type {string}
- */
-let tweetInteractionsTab = null
-
-/**
  * `true` when "For you" was the last tab selected on the Home timeline.
  */
 let wasForYouTabSelected = false
@@ -2135,6 +2519,10 @@ function isOnAccessibilitySettingsPage() {
 
 function isOnBookmarksPage() {
   return currentPath.startsWith(PagePaths.BOOKMARKS)
+}
+
+function isOnChatPage() {
+  return currentPath.startsWith('/i/chat')
 }
 
 function isOnCommunitiesPage() {
@@ -2165,8 +2553,17 @@ function isOnFollowListPage() {
   return URL_PROFILE_FOLLOWS_RE.test(currentPath)
 }
 
+function isOnGrokPage() {
+  return currentPath.startsWith('/i/grok')
+}
+
 function isOnIndividualTweetPage() {
   return URL_TWEET_RE.test(currentPath)
+}
+
+function isOnOwnTweetPage() {
+  let screenName = getUserScreenName()
+  return screenName != null && screenName == currentPath.match(URL_TWEET_BASE_RE)?.[1]
 }
 
 function isOnListPage() {
@@ -2191,6 +2588,10 @@ function isOnComposeTweetPage() {
 
 function isOnNotificationsPage() {
   return currentPath.startsWith('/notifications')
+}
+
+function isOnPremiumSignupPage() {
+  return currentPath.startsWith('/i/premium_sign_up')
 }
 
 function isOnProfilePage() {
@@ -2226,6 +2627,11 @@ function shouldShowSeparatedTweetsTab() {
 //#endregion
 
 //#region Utility functions
+function addQuestionMark(text, add) {
+  if (!add) return text
+  return ltr ? `${text}?` : `؟${text}`
+}
+
 function addStyle(css = '') {
   let $style = document.createElement('style')
   if (css) {
@@ -2259,21 +2665,6 @@ function twitterLogo($svgPath) {
   // we have to manually patch the path in it.
   $svgPath.setAttribute('d', Svgs.TWITTER_LOGO_PATH)
   $svgPath.classList.add('cpft_logo')
-}
-
-/**
- * @param {Element} $svgPath
- */
-function homeIcon($svgPath) {
-  // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
-  // we have to manually patch the path in it.
-  let replacementPath = {
-    [Svgs.X_HOME_ACTIVE_PATH]: Svgs.TWITTER_HOME_ACTIVE_PATH,
-    [Svgs.X_HOME_INACTIVE_PATH]: Svgs.TWITTER_HOME_INACTIVE_PATH,
-  }[$svgPath.getAttribute('d')]
-  if (replacementPath) {
-    $svgPath.setAttribute('d', replacementPath)
-  }
 }
 
 /**
@@ -2318,6 +2709,18 @@ function findAddedNode(mutations, fn) {
     }
   }
   return null
+}
+
+/**
+ * @param {Element} $el
+ * @param {Element} $ancestor
+ */
+function getClosestChild($el, $ancestor) {
+  let $child = $el
+  while ($child && $child.parentElement !== $ancestor) {
+    $child = $child.parentElement
+  }
+  return $child
 }
 
 /**
@@ -2378,15 +2781,25 @@ function getElement(selector, {
   })
 }
 
-function getState() {
-  let wrapped = $reactRoot.firstElementChild['wrappedJSObject'] || $reactRoot.firstElementChild
-  let reactPropsKey = Object.keys(wrapped).find(key => key.startsWith('__reactProps'))
+function getTopLevelProps() {
+  if (!$reactRoot?.firstElementChild) {
+    warn('React top level props element not available yet')
+    return
+  }
+  let reactPropsKey = Object.keys($reactRoot.firstElementChild).find(key => key.startsWith('__reactProps'))
   if (reactPropsKey) {
-    let state = wrapped[reactPropsKey].children?.props?.children?.props?.store?.getState()
+    return $reactRoot.firstElementChild[reactPropsKey].children?.props?.children?.props
+  } else {
+    warn('React props key not found')
+  }
+}
+
+function getState() {
+  let props = getTopLevelProps()
+  if (props) {
+    let state = props.store?.getState()
     if (state) return state
     warn('React state not found')
-  } else {
-    warn('React prop key not found')
   }
 }
 
@@ -2401,6 +2814,39 @@ function getNotificationCount() {
     return 0
   }
   return state.badgeCount.unreadDMCount + state.badgeCount.unreadNTabCount;
+}
+
+let accountLocationCache = new Map()
+
+async function getAccountLocation(screenName) {
+  if (!accountLocationCache.has(screenName)) {
+    let csrfToken = document.cookie.split('; ').find(c => c.startsWith('ct0='))?.split('=')[1]
+    let response = await fetch(
+      `/i/api/graphql/XRqGa7EeokUU5kppkh13EA/AboutAccountQuery?variables=${encodeURIComponent(JSON.stringify({screenName}))}`,
+      {
+        credentials: 'include',
+        headers: {
+          'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA',
+          'content-type': 'application/json',
+          'x-twitter-active-user': 'yes',
+          'x-twitter-auth-type': 'OAuth2Session',
+          'x-twitter-client-language': lang,
+          ...(csrfToken && {'x-csrf-token': csrfToken}),
+        }
+      }
+    )
+    if (response.ok) {
+      try {
+        let body = await response.json()
+        accountLocationCache.set(screenName, body.data?.user_result_by_screen_name?.result?.about_profile)
+      } catch(e) {
+        error('error getting account location for', screenName, e)
+      }
+    } else {
+      error(response.status, 'response getting account location for', screenName)
+    }
+  }
+  return accountLocationCache.get(screenName)
 }
 
 function getStateEntities() {
@@ -2514,6 +2960,7 @@ let logObserverDisconnects = true
  *   logElement?: boolean
  *   name: string
  *   observers: Map<string, import("./types").Disconnectable>
+ *   onDisconnect?: () => void
  * }} nameOrOptions
  * @param {MutationObserverInit} mutationObserverOptions
  * @returns {import("./types").NamedMutationObserver}
@@ -2526,7 +2973,7 @@ function observeElement($target, callback, nameOrOptions, mutationObserverOption
     return observer
   }
 
-  let {leading, logElement, name, observers} = nameOrOptions
+  let {leading, logElement, name, observers, onDisconnect} = nameOrOptions
 
   let observer = Object.assign(new MutationObserver(callback), {name})
   let disconnect = observer.disconnect.bind(observer)
@@ -2535,6 +2982,7 @@ function observeElement($target, callback, nameOrOptions, mutationObserverOption
     if (disconnected) return
     disconnected = true
     disconnect()
+    onDisconnect?.()
     observers.delete(name)
     if (logObserverDisconnects) {
       log(`disconnected ${name} observer`)
@@ -2584,6 +3032,14 @@ function pathIsNot(path) {
 }
 
 /**
+ * @template T
+ * @param {() => T} fn
+ */
+function run(fn) {
+  return fn()
+}
+
+/**
  * @param {number} n
  * @returns {string}
  */
@@ -2618,13 +3074,19 @@ function observeBodyBackgroundColor() {
     if (backgroundColor == lastBackgroundColor) return
 
     $body.classList.toggle('Default', backgroundColor == 'rgb(255, 255, 255)')
-    $body.classList.toggle('Dim', backgroundColor == 'rgb(21, 32, 43)')
-    $body.classList.toggle('LightsOut', backgroundColor == 'rgb(0, 0, 0)')
+    $body.classList.toggle('LightsOut', backgroundColor == 'rgb(0, 0, 0)' || backgroundColor == 'rgb(5, 5, 5)')
 
     if (lastBackgroundColor != null) {
       log('Background setting changed - re-processing current page')
+      // This also updates body.HighContrast
+      let newThemeColor = getThemeColorFromState()
+      if (newThemeColor != themeColor) {
+        log('Color setting changed')
+        themeColor = newThemeColor
+        configureThemeCss()
+      }
       observePopups()
-      observeSideNavTweetButton()
+      observeSideNavItems()
       processCurrentPage()
     }
     lastBackgroundColor = backgroundColor
@@ -2645,34 +3107,42 @@ async function observeDesktopComposeTweetModal($popup) {
   $popup.classList.add('ComposeTweetModal')
   if (!config.replaceLogo) return
 
-  let $mask = await getElement('[data-testid="twc-cc-mask"]', {
+  let $firstEditorRoot = await getElement('.DraftEditor-root', {
     context: $popup,
-    name: 'Compose Tweet modal mask',
+    name: 'Compose Tweet first editor root',
     stopIf: () => !isDesktopComposeTweetModalOpen
   })
-  if (!$mask) return
+  if (!$firstEditorRoot) return
 
   let $tweetButtonText = $popup.querySelector('button[data-testid="tweetButton"] span > span')
   if ($tweetButtonText) {
     setTweetButtonText($tweetButtonText)
   }
 
-  observeElement($mask.nextElementSibling, () => {
+  let $container = $firstEditorRoot.closest('div:not([class])')?.parentElement
+  if (!$container) {
+    warn('could not find container to observe in compose Tweet modal')
+    return
+  }
+
+  observeElement($container, () => {
     let $editorRoots = $popup.querySelectorAll('.DraftEditor-root')
     $editorRoots.forEach((/** @type {HTMLElement} */ $editorRoot, index) => {
-      $editorRoot.setAttribute('data-placeholder', getString(index == 0 ? 'WHATS_HAPPENING' : 'ADD_ANOTHER_TWEET'))
+      if (index == 0) return
+      $editorRoot.setAttribute('data-placeholder', getString('ADD_ANOTHER_TWEET'))
       observeDesktopTweetEditorPlaceholder($editorRoot, {
-        name: 'Modal Tweet editor root (for placeholder)',
+        name: `Modal Tweet editor root ${index} (for placeholder)`,
         observers: modalObservers,
       })
     })
   }, {
+    leading: true,
     name: 'Compose Tweet modal Tweets container (for Tweets being added or removed)',
     observers: modalObservers,
   })
 
   // The Tweet button gets moved around when Tweets are added or removed
-  observeElement($mask.nextElementSibling, (mutations) => {
+  observeElement($container, (mutations) => {
     for (let mutation of mutations) {
       for (let $addedNode of mutation.addedNodes) {
         if (!($addedNode instanceof HTMLElement) || $addedNode.nodeName != 'DIV') continue
@@ -2878,7 +3348,8 @@ const observeFavicon = (() => {
         let icon = config.hideNotifications != 'ignore' && href.includes('-pip') ? (
           Images.TWITTER_PIP_FAVICON
         ) : (
-          Images.TWITTER_FAVICON
+          // Make ths initial icon URL different so forceUpdate() replaces it
+          Images.TWITTER_FAVICON + '?init'
         )
         $shortcutIcon.href = icon
       } else {
@@ -2930,8 +3401,6 @@ const observeFavicon = (() => {
  * need to be mindful of that.
  */
 const observePopups = (() => {
-  /** @type {MutationObserver} */
-  let popupObserver
   /** @type {WeakMap<HTMLElement, {disconnect()}>} */
   let nestedObservers = new WeakMap()
 
@@ -2963,6 +3432,18 @@ const observePopups = (() => {
     })
   }
 })()
+
+async function observeReRenderBoundary() {
+  let $rerenderBoundary = await getElement('#react-root > div > div')
+  observeElement($rerenderBoundary, () => {
+    log('app re-rendered')
+    observePopups()
+    observeSideNavItems()
+  }, {
+    name: 'app re-render boundary',
+    observers: globalObservers,
+  })
+}
 
 async function observeTitle() {
   let $title = await getElement('title', {name: '<title>'})
@@ -2998,13 +3479,60 @@ async function observeTitle() {
     observers: globalObservers,
   })
 }
+
+const observeThemeMeta = (() => {
+  /** @type {HTMLElement} */
+  let $themeMeta
+  /** @type {string} */
+  let lastDarkModeBg
+
+  function updateContent() {
+    let content = $themeMeta?.getAttribute('content')
+    if (config.enabled && config.darkModeTheme == 'dim') {
+      if (content == '#000000' || content == '#050505') {
+        lastDarkModeBg = content
+        $themeMeta.setAttribute('content', '#15202b')
+      }
+    }
+    else if (content == '#15202b' && lastDarkModeBg) {
+      $themeMeta.setAttribute('content', lastDarkModeBg)
+      lastDarkModeBg = null
+    }
+  }
+
+  async function observeThemeMeta() {
+    $themeMeta = await getElement('meta[name="theme-color"]', {
+      name: 'theme <meta>',
+      context: document.head || document.documentElement,
+    })
+    observeElement($themeMeta, () => {
+      updateContent()
+    }, {
+      leading: true,
+      name: 'theme <meta>',
+      observers: globalObservers,
+      onDisconnect() {
+        updateContent()
+      },
+    }, {
+      attributes: true,
+      attributeFilter: ['content'],
+    })
+  }
+
+  observeThemeMeta.update = function() {
+    updateContent()
+  }
+
+  return observeThemeMeta
+})()
 //#endregion
 
 //#region Page observers
 async function observeSidebar() {
   let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {name: 'primary column'})
   let $sidebarContainer = $primaryColumn.parentElement
-  observeElement($sidebarContainer, () => {
+  observeElement($sidebarContainer, async () => {
     let $sidebar = /** @type {HTMLElement} */ ($sidebarContainer.querySelector(Selectors.SIDEBAR))
     log(`sidebar ${$sidebar ? 'appeared' : 'disappeared'}`)
     $body.classList.toggle('Sidebar', Boolean($sidebar))
@@ -3015,6 +3543,12 @@ async function observeSidebar() {
       }
       return
     }
+    let $sidebarContents = await getElement('div[data-testid="sidebarColumn"] > div > div > div > div > div', {
+      name: 'sidebar contents',
+      context: $sidebarContainer,
+    })
+    $sidebarContents.classList.add('SidebarContents')
+
     // Process blue checks in the sidebar search dropdown
     if (config.twitterBlueChecks != 'ignore' && !isOnSearchPage() && !isOnExplorePage()) {
       observeSearchForm()
@@ -3095,10 +3629,6 @@ async function observeSidebar() {
         }
         // The Live on X box can pop in and out of  existence while you're
         // sitting on a page, so always oveserve for it.
-        let $sidebarContents = await getElement(`div[aria-label] > div${isOnHomeTimelinePage() ? ' > div' : ''}`, {
-          context: $sidebar,
-          name: 'sidebar contents',
-        })
         observeElement($sidebarContents, (mutations) => {
           for (let mutation of mutations) {
             for (let $addedNode of mutation.addedNodes) {
@@ -3124,6 +3654,48 @@ async function observeSidebar() {
   })
 }
 
+const observeSideNavChatLink = (() => {
+  /** @type {MutationObserver} */
+  let observer
+
+  return async function observeSideNavChatLink() {
+    if (observer) {
+      observer.disconnect()
+      observer = null
+    }
+
+    if (!desktop || !config.redirectChatNav) return
+
+    // This element is updated when text is added or removed on resize
+    let $linkTextContainer = await getElement('a[data-testid="AppTabBar_DirectMessage_Link"] > div', {
+      name: 'sidenav Chat link text container',
+    })
+    observer = observeElement($linkTextContainer, () => {
+      if ($linkTextContainer.childElementCount > 1) {
+        // Regular React Native for Web markup, e.g. Japanese display language
+        let $linkText = /** @type {HTMLElement} */ ($linkTextContainer.querySelector('div[dir]:not([aria-live]) > span'))
+        if ($linkText) {
+          $linkText.textContent = getString('MESSAGES')
+        } else {
+          // New inline style markup, e.g. English display language
+          for (let $linkText of $linkTextContainer.querySelectorAll('span[style] > span')) {
+            $linkText.textContent = getString('MESSAGES')
+          }
+        }
+      }
+    }, {
+      leading: true,
+      name: 'sidenav Chat link',
+      observers: globalObservers,
+    })
+  }
+})()
+
+function observeSideNavItems() {
+  observeSideNavChatLink()
+  observeSideNavTweetButton()
+}
+
 const observeSideNavTweetButton = (() => {
   /** @type {MutationObserver} */
   let observer
@@ -3137,7 +3709,7 @@ const observeSideNavTweetButton = (() => {
     if (!desktop || !config.replaceLogo) return
 
     // This element is updated when text is added or removed on resize
-    let $buttonTextContainer = await getElement('a[data-testid="SideNav_NewTweet_Button"] > div > span', {
+    let $buttonTextContainer = await getElement('a[data-testid="SideNav_NewTweet_Button"] span', {
       name: 'sidenav tweet button text container',
     })
     observer = observeElement($buttonTextContainer, () => {
@@ -3148,6 +3720,9 @@ const observeSideNavTweetButton = (() => {
         } else {
           warn('could not find tweet button text')
         }
+      }
+      if (isSafari && config.replaceLogo) {
+        tweakTweetIcon()
       }
     }, {
       leading: true,
@@ -3368,6 +3943,25 @@ async function observeIndividualTweetTimeline(page) {
 //#endregion
 
 //#region Tweak functions
+async function addAccountLocationToFocusedTweet($permalinkBar, screenName) {
+  if (!config.addFocusedTweetAccountLocation) return
+  if ($permalinkBar.hasAttribute('cpft-account-location-added')) return
+  if (!screenName) return
+  let accountLocation = await getAccountLocation(screenName)
+  if (!accountLocation || !accountLocation.account_based_in) return
+  let $separator = document.createElement('span')
+  $separator.className = 'AccountLocation cpft_separator cpft_text'
+  $separator.setAttribute('aria-hidden', 'true')
+  $separator.setAttribute('hidden', '')
+  $separator.textContent = '·'
+  let $locationLabel = document.createElement('span')
+  $locationLabel.className = 'AccountLocation cpft_text'
+  $locationLabel.setAttribute('hidden', '')
+  $locationLabel.textContent = addQuestionMark(accountLocation.account_based_in, !accountLocation.location_accurate)
+  $permalinkBar.append($separator, $locationLabel)
+  $permalinkBar.setAttribute('cpft-account-location-added', '')
+}
+
 /**
  * Add an "Add muted word" menu item after the given link which takes you
  * straight to entering a new muted word (by clicking its way through all the
@@ -3376,12 +3970,12 @@ async function observeIndividualTweetTimeline(page) {
  * @param {string} linkSelector
  */
 async function addAddMutedWordMenuItem($link, linkSelector) {
-  log('adding "Add muted word" menu item')
+  log('addAddMutedWordMenuItem: adding "Add muted word" menu item')
 
   // Wait for the dropdown to appear on desktop
   if (desktop) {
     $link = await getElement(`#layers div[data-testid="Dropdown"] ${linkSelector}`, {
-      name: 'rendered menu item',
+      name: 'rendered menu item (addAddMutedWordMenuItem)',
       timeout: 100,
     })
     if (!$link) return
@@ -3394,18 +3988,31 @@ async function addAddMutedWordMenuItem($link, linkSelector) {
   $addMutedWord.querySelector('svg').innerHTML = Svgs.MUTE
   $addMutedWord.addEventListener('click', (e) => {
     e.preventDefault()
-    addMutedWord()
+    History_push?.({
+      pathname: '/settings/add_muted_keyword',
+      hash: '',
+      query: {},
+      search: '',
+    })
+    if (desktop) {
+      // Dismiss the menu
+      let $menuLayer = /** @type {HTMLElement} */ ($link.closest('[role="group"]')?.firstElementChild?.firstElementChild)
+      if (!$menuLayer) {
+        warn('addAddMutedWordMenuItem: could not find menu layer to dismiss menu')
+      }
+      $menuLayer?.click()
+    }
   })
   $link.parentElement.insertAdjacentElement('beforebegin', $addMutedWord)
 }
 
 function addCaretMenuListenerForQuoteTweet($tweet) {
   let $caret = /** @type {HTMLElement} */ ($tweet.querySelector('[data-testid="caret"]'))
-  if ($caret && !$caret.dataset.tweakNewTwitterListener) {
+  if ($caret && !$caret.dataset.cpftListener) {
     $caret.addEventListener('click', () => {
       quotedTweet = getQuotedTweetDetails($tweet, {getText: true})
     })
-    $caret.dataset.tweakNewTwitterListener = 'true'
+    $caret.dataset.cpftListener = 'true'
   }
 }
 
@@ -3470,27 +4077,6 @@ async function addMuteQuotesMenuItems($blockMenuItem) {
   }
 
   $blockMenuItem.insertAdjacentElement('beforebegin', $muteQuotes)
-}
-
-async function addMutedWord() {
-  if (!document.querySelector('a[href="/settings')) {
-    let $settingsAndSupport = /** @type {HTMLElement} */ (document.querySelector('[data-testid="settingsAndSupport"]'))
-    $settingsAndSupport?.click()
-  }
-
-  for (let path of [
-    '/settings',
-    '/settings/privacy_and_safety',
-    '/settings/mute_and_block',
-    '/settings/muted_keywords',
-    '/settings/add_muted_keyword',
-  ]) {
-    let $link = await getElement(`a[href="${path}"]`, {timeout: 500})
-    if (!$link) return
-    $link.click()
-  }
-  let $input = await getElement('input[name="keyword"]')
-  setTimeout(() => $input.focus(), 100)
 }
 
 /**
@@ -3600,6 +4186,44 @@ function checkReactNativeStylesheet() {
   findRules()
 }
 
+let History_push
+let History_replace
+
+function patchHistory() {
+  let props = getTopLevelProps()
+  if (!props) return
+  if (!props.history) return warn('history not found')
+  if (!props.history.push) return warn('history.push not found')
+  if (props.history.push.patched) return
+  History_push = props.history.push
+  History_replace = props.history.replace
+  props.history.push = function (...args) {
+    if (config.enabled && args[0] != null) {
+      if (config.hideVerifiedNotificationsTab && typeof args[0] == 'object' && typeof args[0].pathname == 'string') {
+        if (args[0].pathname.endsWith('/verified_followers')) {
+          log('Redirecting /verified_followers to /followers')
+          args[0].pathname = args[0].pathname.replace(/verified_followers$/, 'followers')
+        }
+      }
+      if (config.redirectChatNav) {
+        if (typeof args[0] == 'object' && args[0].pathname == '/i/chat') {
+          log('Redirecting Chat to Messages')
+          args[0].pathname = desktop ? '/messages/home' : '/messages'
+        }
+        // Back button from Message requests
+        else if (desktop && args[0] === '/messages') {
+          log('Redirecting /messages to Messages')
+          args[0] = '/messages/home'
+        }
+      }
+    }
+    return History_push(...args)
+  }
+  props.history.push.patched = true
+  log('history patched')
+}
+//#endregion
+
 //#region CSS
 const configureCss = (() => {
   let $style
@@ -3620,7 +4244,7 @@ const configureCss = (() => {
         padding: 0 4px;
       }
       .cpft_text {
-        color: var(--color);
+        color: var(--cpft-text-secondary);
       }
     `]
     let hideCssSelectors = [
@@ -3635,26 +4259,171 @@ const configureCss = (() => {
     // Theme colours for custom UI items
     cssRules.push(`
       body.Default {
-        --border-color: rgb(239, 243, 244);
-        --color: rgb(83, 100, 113);
-        --color-emphasis: rgb(15, 20, 25);
-        --hover-bg-color: rgb(247, 249, 249);
-      }
-      body.Dim {
-        --border-color: rgb(56, 68, 77);
-        --color: rgb(139, 152, 165);
-        --color-emphasis: rgb(247, 249, 249);
-        --hover-bg-color: rgb(30, 39, 50);
+        --cpft-active-bg: rgb(239, 243, 244);
+        --cpft-border: rgb(239, 243, 244);
+        --cpft-hover-bg: rgb(247, 249, 249);
+        --cpft-menu-hover-bg: rgba(0, 0, 0, 0.03);
+        --cpft-tab-hover-backdrop: rgba(15, 20, 25, 0.1);
+        --cpft-text-primary: rgb(15, 20, 25);
+        --cpft-text-secondary: rgb(83, 100, 113);
       }
       body.LightsOut {
-        --border-color: rgb(47, 51, 54);
-        --color: rgb(113, 118, 123);
-        --color-emphasis: rgb(247, 249, 249);
-        --hover-bg-color: rgb(22, 24, 28);
+        --cpft-active-bg: rgb(32, 35, 39);
+        --cpft-border: rgb(47, 51, 54);
+        --cpft-hover-bg: rgb(22, 24, 28);
+        --cpft-menu-hover-bg: rgba(255, 255, 255, 0.03);
+        --cpft-tab-hover-backdrop: rgba(231, 233, 234, 0.1);
+        --cpft-text-primary: rgb(231, 233, 234);
+        --cpft-text-secondary: rgb(113, 118, 123);
       }
-      .cpft_menu_item:hover { background-color: var(--hover-bg-color) !important; }
+      .cpft_menu_item, .cpft_menu_item a {
+        background-color: transparent !important;
+      }
+      .cpft_menu_item:hover {
+        background-color: var(--cpft-menu-hover-bg) !important;
+        /* The nav menu is still using the old color */
+        &:has(> a[href="/settings/add_muted_keyword"]) {
+          background-color: var(--cpft-hover-bg) !important;
+        }
+      }
     `)
 
+    if (config.darkModeTheme != 'lightsOut') {
+      cssRules.push(`
+        body.LightsOut {
+          background-color: var(--cpft-background) !important;
+          scrollbar-color: var(--cpft-border) var(--cpft-hover-bg) !important;
+
+          [data-testid="dm-search-bar"].bg-gray-0,
+          :is(.animate-pulse, .motion-safe\\:animate-pulse).bg-gray-100, /* Chat skeletons */
+          .r-z32n2g {
+            background-color: var(--cpft-active-bg);
+          }
+          :is([data-testid^="dm-conversation-item-"], [data-radix-popper-content-wrapper]) .bg-gray-0,
+          .r-14tof1o {
+            background-color: var(--cpft-active-bg-dark);
+          }
+          [style*="background-color: rgb(0, 0, 0)"] {
+            background-color: var(--cpft-background) !important;
+          }
+          [data-testid="dm-conversation-header"] > div:first-child.absolute > div {
+            mask-image: linear-gradient(360deg, transparent 0%, var(--cpft-background) 100%) !important;
+          }
+          .bg-background,
+          .jf-element .j-vdda9x11,
+          .r-kemksi {
+            background-color: var(--cpft-background);
+          }
+          .r-gu4em3, /* horizontal border */
+          .r-1bnu78o /* thread line */ {
+            background-color: var(--cpft-border);
+          }
+          .r-5zmot {
+            background-color: var(--cpft-backdrop);
+          }
+          .r-cl2sl0 {
+            background-color: var(--cpft-raised-bg);
+          }
+          .r-qo02w8,
+          .r-1uusn97 {
+            box-shadow: var(--cpft-box-shadow);
+          }
+          .r-1kqtdi0, /* all */
+          .r-1igl3o0, /* bottom */
+          .r-2sztyj,  /* top */
+          .r-vpktly,  /* bottom (brighter) */
+          .r-1roi411  /* input */ {
+            border-color: var(--cpft-border);
+          }
+          .r-g2wdr4,
+          .r-cuuowz {
+            background-color: var(--cpft-hover-bg);
+          }
+          [data-testid="dm-conversation-header"] button.bg-gray-0,
+          .jf-element .j-cw4uj611 {
+            background-color: var(--cpft-hover-bg);
+          }
+          [data-testid="dm-empty-conversation-state"] .bg-gray-0,
+          .r-1hdo0pc {
+            background-color: var(--cpft-tab-hover-backdrop);
+          }
+          .jf-element .j-4t3tug11 {
+            color: var(--cpft-text-primary);
+          }
+          [style*="color: rgb(113, 118, 123);"],
+          [data-testid="dm-container"] .\\!text-gray-700:not([data-state="active"]),
+          .public-DraftEditorPlaceholder-hasFocus,
+          .public-DraftEditorPlaceholder-root {
+            color: var(--cpft-text-secondary) !important;
+          }
+          [data-testid="dm-container"] .text-gray-700,
+          [data-testid="dm-message-list"] .text-subtext2,
+          .jf-element .j-tibd4011,
+          .r-1bwzh9t /* icons */ {
+            color: var(--cpft-text-secondary);
+          }
+          [role="dialog"][id^="radix"] {
+            &.bg-gray-0 {
+              background-color: var(--cpft-background);
+            }
+            .text-gray-700 {
+              color: var(--cpft-text-secondary);
+            }
+          }
+          .scrollbar-thin-custom {
+            scrollbar-color: var(--cpft-border) var(--cpft-hover-bg);
+            &::-webkit-scrollbar-thumb {
+              background-color: var(--cpft-border);
+            }
+            &::-webkit-scrollbar-track {
+              background: var(--cpft-hover-bg);
+            }
+          }
+        }
+        body.LightsOut.HighContrast {
+          [style*="background-color: rgb(5, 5, 5)"] {
+            background-color: var(--cpft-background) !important;
+          }
+          .r-16331v6 {
+            background-color: var(--cpft-background);
+          }
+          .r-1wh73dq /* horizontal border */ {
+            background-color: var(--cpft-border);
+          }
+          .r-dgm4ly /* all */ {
+            border-color: var(--cpft-border);
+          }
+        }
+      `)
+      if (config.darkModeTheme == 'dim') {
+        cssRules.push(`
+          body.LightsOut {
+            /* Tailwind & shadcn overrides */
+            --background: 210 34% 13%;
+            --border: 206 16% 26%;
+            --color-background: 210 34% 13%;
+            --color-gray-50: 213 25% 16%;
+            --color-gray-100: 211 34% 24%;
+            /* Theme */
+            --cpft-active-bg-dark: rgb(27, 36, 47);
+            --cpft-active-bg: rgb(40, 50, 61);
+            --cpft-backdrop: rgba(21, 32, 43, .85);
+            --cpft-background: rgb(21, 32, 43);
+            --cpft-border: rgb(56, 68, 77);
+            --cpft-box-shadow: rgba(136, 153, 166, 0.2) 0px 0px 15px, rgba(136, 153, 166, 0.15) 0px 0px 3px 1px;
+            --cpft-hover-bg: rgb(30, 39, 50);
+            --cpft-raised-bg: rgb(40, 50, 61);
+            --cpft-tab-hover-backdrop: rgba(247, 249, 249, 0.1);
+            --cpft-tab-hover-bg: rgba(44, 53, 64);
+            --cpft-text-primary: rgb(247, 249, 249);
+            --cpft-text-secondary: rgb(139, 152, 165);
+          }
+        `)
+      }
+    }
+    if (config.addFocusedTweetAccountLocation) {
+      cssRules.push('.AccountLocation[hidden] { display: inline; }')
+    }
     if (config.alwaysUseLatestTweets && config.hideForYouTimeline) {
       cssRules.push(`
         /* Prevent the For you tab container taking up space */
@@ -3665,7 +4434,7 @@ const configureCss = (() => {
           margin-right: 0;
         }
         /* Hide the For you tab link */
-        body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child > a {
+        body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child > [role="tab"] {
           display: none;
         }
       `)
@@ -3697,6 +4466,34 @@ const configureCss = (() => {
         )
       }
     }
+    if (config.hideConnectNav) {
+      hideCssSelectors.push(`${menuRole} a:is([href$="/i/connect_people"], [href$="/i/follow_people"])`)
+    }
+    if (config.hideCreatorStudioNav) {
+      hideCssSelectors.push(
+        `${menuRole} a[href$="/creators/studio"]`,
+        // Monetization and Subscriptions items in Settings
+        'body.Settings a[href="/settings/monetization"]',
+        'body.Settings a[href="/settings/manage_subscriptions"]',
+      )
+      if (desktop) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/creators/studio"]`)
+      }
+    }
+    if (config.hideEditImage) {
+      let isImagineSelector = ':is([href^="/i/imagine"], [href^="https://grok.com/imagine"])'
+      hideCssSelectors.push(
+        // Manually-tagged
+        '.EditImage',
+        // On images in Tweets
+        `[data-testid="tweet"] div[aria-labelledby] a${isImagineSelector}`,
+        `[data-testid="tweet"] [data-testid="tweetText"] a${isImagineSelector}`,
+        // In menus
+        `[role="menuitem"]${isImagineSelector}`,
+        // In media modal
+        `[aria-modal="true"] > div > div:first-of-type a${isImagineSelector}`,
+      )
+    }
     if (!config.hideExplorePageContents) {
       hideCssSelectors.push(
         // Hide the ad at the top of Explore…
@@ -3714,6 +4511,17 @@ const configureCss = (() => {
     if (config.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
     }
+    if (config.hideChatNav) {
+      hideCssSelectors.push(
+        // Nav item
+        `${menuRole} a[href$="/i/chat"]`,
+        // Link in Messages
+        'a[href$="/i/chat"][data-testid="pivot"]',
+      )
+    }
+    if (config.hideManageTimelines) {
+      hideCssSelectors.push('.ManageTimelines')
+    }
     if (config.hideShareTweetButton) {
       hideCssSelectors.push(
         // Under timeline tweets
@@ -3721,6 +4529,9 @@ const configureCss = (() => {
         // Under the focused tweet
         `[data-testid="tweet"][tabindex="-1"] [role="group"] > div[style]:not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
       )
+    }
+    if (config.hideSortRepliesMenu) {
+      hideCssSelectors.push('.SortRepliesMenu')
     }
     if (config.hideSubscriptions) {
       hideCssSelectors.push(
@@ -3738,15 +4549,12 @@ const configureCss = (() => {
         '[data-testid="sheetDialog"] > [data-testid="subscribe"]',
         // "Subscriber" indicator in replies from subscribers
         '[data-testid="tweet"] [data-testid="icon-subscriber"]',
-        // Monetization and Subscriptions items in Settings
-        'body.Settings a[href="/settings/monetization"]',
-        'body.Settings a[href="/settings/manage_subscriptions"]',
         // Subscriptions tab link in Following/Follows
-        `body.ProfileFollows.Subscriptions ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:last-child > a`,
+        `.SubscriptionsTab > [role="tab"]`,
       )
       // Subscriptions tab in Following/Follows
       cssRules.push(`
-        body.ProfileFollows.Subscriptions ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:last-child {
+        .SubscriptionsTab {
           flex: 0;
           /* New layout has margin-right on tabs */
           margin-right: 0;
@@ -3785,8 +4593,11 @@ const configureCss = (() => {
         '[data-testid="card.wrapper"]:has(> div > a[href="https://itunes.apple.com/app/id6670324846"])',
       )
     }
-    if (config.hideMonetizationNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/i/monetization"]`)
+    if (config.hideBusinessNav) {
+      hideCssSelectors.push(`${menuRole} a:is([href^="/i/premium-business"], [href^="/i/verified-orgs-signup"])`)
+      if (desktop) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a:is([href^="/i/premium-business"], [href^="/i/verified-orgs-signup"])`)
+      }
     }
     if (config.hideAdsNav) {
       hideCssSelectors.push(`${menuRole} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
@@ -3799,17 +4610,20 @@ const configureCss = (() => {
         '.Profile [data-testid="jobs"]',
       )
     }
-    if (config.hideTweetAnalyticsLinks) {
-      hideCssSelectors.push('.AnalyticsButton')
+    if (config.hideViewActivityLinks) {
+      hideCssSelectors.push(
+        // Manually-tagged View activity link
+        '.ViewActivity',
+        // View post activity menu item
+        `${menuRole} a[href$="/quotes"]`,
+      )
     }
     if (config.hideTwitterBlueUpsells) {
       hideCssSelectors.push(
         // Manually-tagged upsells
         '.PremiumUpsell',
-        // Premium/Verified menu items
-        `${menuRole} a:is([href^="/i/premium"], [href^="/i/verified"])`,
-        // In new More dialog
-        `${Selectors.MORE_DIALOG} a:is([href^="/i/premium"], [href^="/i/verified"])`,
+        // Premium menu item
+        `${menuRole} a[href^="/i/premium_sign_up"]`,
         // Analytics menu item
         `${menuRole} a[href="/i/account_analytics"]`,
         // "Highlight on your profile" on your tweets
@@ -3817,9 +4631,9 @@ const configureCss = (() => {
         // "Edit" upsell on recent tweets
         '[role="menuitem"][data-testid="editWithPremium"]',
         // Premium item in Settings
-        'body.Settings a[href^="/i/premium"]',
+        'body.Settings a[href^="/i/premium_sign_up"]',
         // Misc upsells in your own profile
-        `.OwnProfile ${Selectors.PRIMARY_COLUMN} a[href^="/i/premium"]`,
+        `.OwnProfile ${Selectors.PRIMARY_COLUMN} a[href^="/i/premium_sign_up"]`,
         // Unlock Analytics button in your own profile
         '.OwnProfile [data-testid="analytics-preview"]',
         // Button in Communities header
@@ -3828,13 +4642,19 @@ const configureCss = (() => {
         '[data-testid="verified_profile_upsell"]',
         // Get Premium Analytics upsell
         '[data-testid="profileAnalyticsUpsell"]',
-        // Upsell in Lists sidebar
-        '[data-testid="super-upsell-UpsellCardRenderProperties"]',
         // "you aren't verified yet" in Premium user profile
         '[data-testid="verified_profile_visitor_upsell"]',
         // "Upgrade to Premium+ to write longer posts" in Tweet composer
-        `${mobile ? 'body.ComposeTweetPage' : ':is(.ComposeTweetModal, .TweetBox)'} [aria-live="polite"][role="status"]:has(a[href="/i/premium_sign_up?referring_page=post-composer"])`,
+        `${mobile ? 'body.ComposeTweetPage' : ':is(.ComposeTweetModal, .TweetBox)'} [aria-live="polite"][role="status"]:has(a[href^="/i/premium_sign_up"])`,
+        // Box in focused Tweet with "Upgrade to Premium+" / "Get Verified" upsell
+        '[data-testid="tweet"][tabindex="-1"] [aria-live="polite"][role="status"]:has(a[href^="/i/premium_sign_up"])',
+        // Upsell on the Likes tab in your own profile
+        `body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"])`,
       )
+      if (desktop && config.tweakNewLayout) {
+        // In new More dialog
+        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href^="/i/premium"], [href^="/i/verified"])`)
+      }
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
       let upsellTabLinks = 'a:is([href$="/highlights"], [href$="/articles"], [href$="/highlights?mx=1"], [href$="/articles?mx=1"])'
@@ -3848,23 +4668,15 @@ const configureCss = (() => {
           display: none;
         }
       `)
-      // Hide upsell on the Likes tab in your own profile
-      cssRules.push(`
-        body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"]) {
-          display: none;
-        }
-      `)
     }
     if (config.hideVerifiedNotificationsTab) {
       cssRules.push(`
-        body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2),
-        body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) {
+        .VerifiedFollowersTab {
           flex: 0;
           /* New layout has margin-right on tabs */
           margin-right: 0;
         }
-        body.Notifications ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > a,
-        body.ProfileFollows ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(1) > a {
+        .VerifiedFollowersTab > [role="tab"] {
           display: none;
         }
       `)
@@ -3886,7 +4698,7 @@ const configureCss = (() => {
       cssRules.push(`
         .cpft_link_headline[hidden] {
           display: block;
-          border-top: 1px solid var(--border-color);
+          border-top: 1px solid var(--cpft-border);
           padding: 14px;
         }
       `)
@@ -3894,7 +4706,7 @@ const configureCss = (() => {
         // Existing headline overlaid on the card
         '.cpft_overlay_headline',
         // From <domain> link after the card
-        'div[data-testid="card.wrapper"] + a',
+        'div[data-testid="card.wrapper"] + div',
       )
     }
     if (config.restoreQuoteTweetsLink || config.restoreOtherInteractionLinks) {
@@ -3904,7 +4716,7 @@ const configureCss = (() => {
         }
         #cpftInteractionLinks a {
           text-decoration: none;
-          color: var(--color);
+          color: var(--cpft-text-secondary);
         }
         #cpftInteractionLinks a:hover span:last-child {
           text-decoration: underline;
@@ -3912,10 +4724,10 @@ const configureCss = (() => {
         #cpftQuoteTweetCount, #cpftRetweetCount, #cpftLikeCount {
           margin-right: 2px;
           font-weight: 700;
-          color: var(--color-emphasis);
+          color: var(--cpft-text-primary);
         }
-        /* Replaces the "View post engagements" link under your own tweets */
-        .AnalyticsButton {
+        /* Replaces the "View activity" link under your own tweets */
+        .ViewActivity {
           display: none;
         }
       `)
@@ -3948,53 +4760,53 @@ const configureCss = (() => {
       if (hasNewLayout()) {
         // The new layout only has colour to distinguish the active tab
         cssRules.push(`
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > a > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > a > div > div {
-            color: var(--color) !important;
+          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
+            color: var(--cpft-text-secondary) !important;
           }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div {
-            color: var(--color-emphasis) !important;
+          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
+            color: var(--cpft-text-primary) !important;
           }
-          body.Desktop #cpftSeparatedTweetsTab:hover > a > div > div {
-            color: var(--color-emphasis) !important;
+          body.Desktop #cpftSeparatedTweetsTab:hover > [role="tab"] > div > div {
+            color: var(--cpft-text-primary) !important;
           }
         `)
       } else {
         cssRules.push(`
-          body.Default {
-            --tab-hover: rgba(15, 20, 25, 0.1);
-          }
-          body.Dim {
-            --tab-hover: rgba(247, 249, 249, 0.1);
-          }
-          body.LightsOut {
-            --tab-hover: rgba(231, 233, 234, 0.1);
+          /* Sometimes the cloned tab has a hover background color class */
+          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] {
+            background-color: transparent !important;
           }
           body.Desktop #cpftSeparatedTweetsTab:hover,
           body.Mobile:not(.SeparatedTweets) #cpftSeparatedTweetsTab:hover,
           body.Mobile #cpftSeparatedTweetsTab:active {
-            background-color: var(--tab-hover);
+            background-color: var(--cpft-tab-hover-backdrop) !important;
           }
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > a > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > a > div > div {
+          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
             font-weight: normal !important;
-            color: var(--color) !important;
+            color: var(--cpft-text-secondary) !important;
           }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div {
+          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
             font-weight: bold;
-            color: var(--color-emphasis); !important;
+            color: var(--cpft-text-primary) !important;
           }
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > a > div > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > a > div > div > div {
+          /* Active tab underline */
+          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div > div,
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div > div {
             height: 0 !important;
           }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div > div {
+          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div > div {
             height: 4px !important;
             min-width: 56px;
             width: 100%;
             position: absolute;
             bottom: 0;
             border-radius: 9999px;
+          }
+          /* Following menu indicator */
+          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"] svg {
+            display: none;
           }
         `)
       }
@@ -4014,7 +4826,7 @@ const configureCss = (() => {
         cssRules.push(`
           /* Add theme colour back to Tweet editor toolbar buttons */
           [data-testid="toolBar"] [role="tablist"] > [role="presentation"] svg {
-            fill: var(--theme-color);
+            fill: var(--cpft-theme);
           }
         `)
       }
@@ -4032,15 +4844,15 @@ const configureCss = (() => {
           ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) svg {
             width: 1.75rem !important;
             height: 1.75rem !important;
-            fill: var(--color-emphasis) !important;
+            fill: var(--cpft-text-primary) !important;
           }
           /* Restore contrast of main nav text when expanded */
           ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) div[dir]:not([aria-live]) {
-            color: var(--color-emphasis) !important;
+            color: var(--cpft-text-primary) !important;
           }
           /* Give other nav button icons more contrast too */
           header[role="banner"] button svg {
-            fill: var(--color-emphasis) !important;
+            fill: var(--cpft-text-primary) !important;
           }
           /* Make the Tweet button larger */
           [data-testid="SideNav_NewTweet_Button"] {
@@ -4054,10 +4866,10 @@ const configureCss = (() => {
           }
           /* Restore primary column borders */
           header[role="banner"] > div > div > div  {
-            border-right: 1px solid var(--border-color);
+            border-right: 1px solid var(--cpft-border);
           }
           ${Selectors.PRIMARY_COLUMN} {
-            border-right: 1px solid var(--border-color);
+            border-right: 1px solid var(--cpft-border);
           }
           /* Left-align main contents and stop it taking up all available space */
           main {
@@ -4071,8 +4883,7 @@ const configureCss = (() => {
           /* Restore the sidebar to its old width */
           ${Selectors.SIDEBAR},
           ${Selectors.SIDEBAR} > div > div,
-          body.HomeTimeline ${Selectors.SIDEBAR_WRAPPERS} > div > div:first-child,
-          ${Selectors.SIDEBAR_WRAPPERS} > div:first-child {
+          .SidebarContents > div:first-child {
             width: 350px !important;
           }
           /* Center content */
@@ -4090,11 +4901,7 @@ const configureCss = (() => {
             button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label],
             /* Restore theme colour in account switcher notifications pips */
             [data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live] {
-              background-color: var(--theme-color);
-            }
-            /* Replace the plus icon in the Tweet button with the feather */
-            [data-testid="SideNav_NewTweet_Button"] path[d="${Svgs.PLUS_PATH}"] {
-              d: path("${Svgs.TWITTER_FEATHER_PLUS_PATH}");
+              background-color: var(--cpft-theme);
             }
           `)
         }
@@ -4210,84 +5017,80 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
-      if (config.hideAdsNav) {
+      if (config.hideAdsNav && config.tweakNewLayout) {
         // In new More dialog
         hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
       }
       if (config.hideComposeTweet) {
         hideCssSelectors.push('[data-testid="SideNav_NewTweet_Button"]')
       }
+      if (config.hideConnectNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/connect_people"]`)
+      }
       if (config.hideGrokNav) {
         hideCssSelectors.push(
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
-          // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href$="/i/grok"]`,
           // Grok drawer
           'div[data-testid="GrokDrawer"]',
         )
+        if (config.tweakNewLayout) {
+          // In new More dialog
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/i/grok"]`)
+        }
       }
       if (config.hideJobsNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`,
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`)
+        if (config.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href="/jobs"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/jobs"]`)
+        }
       }
       if (config.hideListsNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`,
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
+        if (config.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href$="/lists"]`,
-        )
-      }
-      if (config.hideMonetizationNav) {
-        // In new More dialog
-        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/i/monetization"]`)
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/lists"]`)
+        }
       }
       if (config.hideSpacesNav) {
-        hideCssSelectors.push(
-          `${menuRole} a[href="/i/spaces/start"]`,
+        hideCssSelectors.push(`${menuRole} a[href="/i/spaces/start"]`)
+        if (config.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href="/i/spaces/start"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/i/spaces/start"]`)
+        }
       }
       if (config.hideTwitterBlueUpsells) {
         hideCssSelectors.push(
           // Nav items
           `${Selectors.PRIMARY_NAV_DESKTOP} a:is([href^="/i/premium"], [href^="/i/verified"])`,
-          // Search sidebar Radar upsell
-          `body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:first-child:has(a[href="/i/radar"])`,
-          `body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:first-child:has(a[href="/i/radar"]) + div:empty`,
           // Premium link in hovercard
           '[data-testid="HoverCard"] a[href^="/i/premium"]',
         )
+        if (!config.hideSidebarContent) {
+          hideCssSelectors.push(
+            // Upsell in sidebar
+            '.SidebarContents > div:has(aside[role="complementary"] a[href^="/i/premium_sign_up"])',
+            '.SidebarContents > div:has(> div > div[data-testid="super-upsell-UpsellCardRenderProperties"])',
+          )
+        }
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
         // Re-show subsequent non-algorithmic sections on specific pages
         cssRules.push(`
-          body.HomeTimeline ${Selectors.SIDEBAR_WRAPPERS} > div > div:not(:first-of-type) {
+          .SidebarContents > div:not(:first-of-type) {
             display: none;
           }
-          ${Selectors.SIDEBAR_WRAPPERS} > div:not(:first-of-type) {
-            display: none;
-          }
-          body.Search ${Selectors.SIDEBAR_WRAPPERS} > div:nth-of-type(2) {
+          body.Search .SidebarContents > div:nth-of-type(2) {
             display: block;
           }
-          /* Radar upsell in Search uses the first item and adds a second one for spacing */
-          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:first-of-type,
-          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:nth-of-type(2):empty {
-            display: none;
-          }
-          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:nth-of-type(3),
-          body.Search ${Selectors.SIDEBAR_WRAPPERS}:has(a[href="/i/radar"]) > div:nth-of-type(4) {
+          body.Community .SidebarContents > div:nth-of-type(3) {
             display: block;
           }
         `)
         if (config.showRelevantPeople) {
           cssRules.push(`
-            body.Tweet ${Selectors.SIDEBAR_WRAPPERS} > div:is(:nth-of-type(2), :nth-of-type(3)) {
+            body.Tweet .SidebarContents > div:is(:nth-of-type(2), :nth-of-type(3)) {
               display: block;
             }
           `)
@@ -4297,17 +5100,14 @@ const configureCss = (() => {
         if (config.hideLiveBroadcasts) {
           hideCssSelectors.push('.LiveBroadcasts')
         }
+        if (config.hideTodaysNews) {
+          hideCssSelectors.push('.SidebarContents > div:has(> [data-testid="news_sidebar"])')
+        }
         if (config.hideWhatsHappening) {
           hideCssSelectors.push('.WhatsHappening')
         }
         if (config.hideSuggestedFollows) {
           hideCssSelectors.push('.SuggestedFollows')
-        }
-        if (config.hideTwitterBlueUpsells) {
-          // Hide "Subscribe to premium" individually
-          hideCssSelectors.push(
-            `body.HomeTimeline ${Selectors.SIDEBAR_WRAPPERS} > div > div:nth-of-type(3)`
-          )
         }
       }
       if (config.hideShareTweetButton) {
@@ -4320,28 +5120,28 @@ const configureCss = (() => {
         // When configured, hide Explore only when the sidebar is showing, or
         // when on a page full-width content is enabled on.
         let bodySelector = `${config.hideExploreNavWithSidebar ? `body.Sidebar${config.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
-        hideCssSelectors.push(
-          `${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`,
+        hideCssSelectors.push(`${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
+        if (config.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href="/explore"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/explore"]`)
+        }
       }
       if (config.hideBookmarksNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`,
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`)
+        if (config.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href="/i/bookmarks"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/i/bookmarks"]`)
+        }
       }
       if (config.hideCommunitiesNav) {
-        hideCssSelectors.push(
-          `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`,
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
+        if (config.tweakNewLayout) {
           // In new More dialog
-          `${Selectors.MORE_DIALOG} a[href$="/communities"]`,
-        )
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/communities"]`)
+        }
       }
       if (config.hideMessagesDrawer) {
-        cssRules.push(`div[data-testid="DMDrawer"] { visibility: hidden; }`)
+        cssRules.push(`div:is([data-testid="DMDrawer"], [data-testid="chat-drawer-root"]) { visibility: hidden; }`)
       }
       if (config.hideViews) {
         hideCssSelectors.push(
@@ -4375,7 +5175,7 @@ const configureCss = (() => {
             button[data-testid="DashButton_ProfileIcon_Link"] div[aria-label],
             /* Restore theme colour in account switcher notifications pips */
             [role="dialog"] [data-testid^="UserAvatar-Container"] div[dir] {
-              background-color: var(--theme-color);
+              background-color: var(--cpft-theme);
             }
           `)
         }
@@ -4432,7 +5232,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href$="/communities"]`)
       }
       if (config.hideMessagesBottomNavItem) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/messages"]`)
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a:is([href="/messages"], [href="/i/chat"])`)
       }
       if (config.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/jobs"]`)
@@ -4474,6 +5274,37 @@ const configureCss = (() => {
     } else {
       $style.textContent = css
     }
+  }
+})()
+
+const configureFeatureFlags = (() => {
+  let isTrue
+  return function configureFeatureFlags() {
+    let props = getTopLevelProps()
+    if (!props) return
+    let featureSwitches = props?.contextProviderProps?.featureSwitches
+    if (!featureSwitches) {
+      warn('featureSwitches not found')
+      return
+    }
+
+    if (!config.enabled) {
+      if (isTrue) {
+        log('restoring original featureSwitches')
+        featureSwitches.isTrue = isTrue
+        isTrue = null
+      }
+      return
+    }
+
+    if (isTrue) return
+
+    isTrue = featureSwitches.isTrue
+    featureSwitches.isTrue = (flag) => {
+      if (config.bypassAgeVerification && flag == 'rweb_age_assurance_flow_enabled') return false
+      return isTrue(flag)
+    }
+    log('featureSwitches patched')
   }
 })()
 
@@ -4580,8 +5411,13 @@ const configureDynamicCss = (() => {
 
     if (fontSize != null && config.navBaseFontSize) {
       cssRules.push(`
-        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) span { font-size: ${fontSize}; font-weight: normal; }
-        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) { margin-top: -4px; }
+        /* Regular React Native for Web markup */
+        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) span,
+        /* New inline style markup */
+        ${Selectors.PRIMARY_NAV_DESKTOP} span[style] > span {
+          font-size: ${fontSize} !important;
+          font-weight: normal !important;
+        }
       `)
     }
 
@@ -4666,7 +5502,7 @@ const configureThemeCss = (() => {
     if (themeColor != null) {
       cssRules.push(`
         body {
-          --theme-color: ${themeColor};
+          --cpft-theme: ${themeColor};
         }
       `)
     }
@@ -4693,7 +5529,7 @@ const configureThemeCss = (() => {
     // Active tab colour for custom tabs
     if (themeColor != null && shouldShowSeparatedTweetsTab()) {
       cssRules.push(`
-        body.SeparatedTweets #cpftSeparatedTweetsTab > a > div > div > div {
+        body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div > div {
           background-color: ${themeColor} !important;
         }
       `)
@@ -4714,6 +5550,15 @@ const configureThemeCss = (() => {
         svg path[d="${Svgs.X_HOME_INACTIVE_PATH}"] {
           d: path("${Svgs.TWITTER_HOME_INACTIVE_PATH}");
         }
+        /* Replace the edit icon in the Tweet button with the feather */
+        :is([data-testid="SideNav_NewTweet_Button"], [data-testid="FloatingActionButtons_Tweet_Button"]) {
+          path[d="${Svgs.PLUS_PATH}"] {
+            d: path("${Svgs.TWITTER_FEATHER_PLUS_PATH}");
+          }
+          path[clip-rule="evenodd"] {
+            display: none;
+          }
+        }
       `)
       if (desktop) {
         // Revert the Tweet buttons being made monochrome
@@ -4728,10 +5573,10 @@ const configureThemeCss = (() => {
           [data-testid="tweetButton"]:hover:not(:disabled) {
             background-color: ${themeColor.replace(')', ', 80%)')} !important;
           }
-          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div,
-          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="tweetButtonInline"] > div,
-          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="tweetButton"] > div,
-          body:is(.Dim, .LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div > svg {
+          body:is(.LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div,
+          body:is(.LightsOut):not(.HighContrast) [data-testid="tweetButtonInline"] > div,
+          body:is(.LightsOut):not(.HighContrast) [data-testid="tweetButton"] > div,
+          body:is(.LightsOut):not(.HighContrast) [data-testid="SideNav_NewTweet_Button"] > div > svg {
             color: rgb(255, 255, 255) !important;
           }
         `)
@@ -4757,29 +5602,29 @@ const configureThemeCss = (() => {
           body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
             color: rgb(255, 255, 255) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) {
+          body:is(.LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) {
             background-color: rgb(255, 255, 255) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
+          body:is(.LightsOut) [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
             color: rgb(15, 20, 25) !important;
           }
           /* Follow button */
           body.Default [role="button"][data-testid$="-follow"] {
             border-color: rgb(207, 217, 222) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"] {
+          body:is(.LightsOut) [role="button"][data-testid$="-follow"] {
             border-color: rgb(83, 100, 113) !important;
           }
           body.Default [role="button"][data-testid$="-follow"] > :is(div, span) {
             color: rgb(15, 20, 25) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"] > :is(div, span) {
+          body:is(.LightsOut) [role="button"][data-testid$="-follow"] > :is(div, span) {
             color: rgb(255, 255, 255) !important;
           }
           body.Default [role="button"][data-testid$="-follow"]:hover {
             background-color: rgba(15, 20, 25, 0.1) !important;
           }
-          body:is(.Dim, .LightsOut) [role="button"][data-testid$="-follow"]:hover {
+          body:is(.LightsOut) [role="button"][data-testid$="-follow"]:hover {
             background-color: rgba(255, 255, 255, 0.1) !important;
           }
         `)
@@ -4788,20 +5633,20 @@ const configureThemeCss = (() => {
         cssRules.push(`
           /* Following button */
           [role="button"][data-testid$="-unfollow"]:not(:hover) {
-            background-color: var(--theme-color) !important;
+            background-color: var(--cpft-theme) !important;
           }
           [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
             color: rgb(255, 255, 255) !important;
           }
           /* Follow button */
           [role="button"][data-testid$="-follow"] {
-            border-color: var(--theme-color) !important;
+            border-color: var(--cpft-theme) !important;
           }
           [role="button"][data-testid$="-follow"] > :is(div, span) {
-            color: var(--theme-color) !important;
+            color: var(--cpft-theme) !important;
           }
           [role="button"][data-testid$="-follow"]:hover {
-            background-color: var(--theme-color) !important;
+            background-color: var(--cpft-theme) !important;
           }
           [role="button"][data-testid$="-follow"]:hover > :is(div, span) {
             color: rgb(255, 255, 255) !important;
@@ -4815,7 +5660,7 @@ const configureThemeCss = (() => {
             background: transparent !important;
           }
           body.MediaViewer [role="button"][data-testid$="follow"] > div {
-            color: var(--theme-color) !important;
+            color: var(--cpft-theme) !important;
           }
         `)
       }
@@ -4833,8 +5678,8 @@ const configureThemeCss = (() => {
 function getColorScheme() {
   return {
     'rgb(255, 255, 255)': 'Default',
-    'rgb(21, 32, 43)': 'Dim',
     'rgb(0, 0, 0)': 'LightsOut',
+    'rgb(5, 5, 5)': 'LightsOut',
   }[$body.style.backgroundColor]
 }
 
@@ -4870,18 +5715,19 @@ function getColorScheme() {
  * data-testid="tweet" on it, falling back to TWEET if it doesn't appear to be
  * one of the particular types we care about.
  * @param {HTMLElement} $tweet
- * @param {?boolean} checkSocialContext
+ * @param {?boolean} [checkSocialContext]
  * @returns {import("./types").TweetType}
  */
 function getTweetType($tweet, checkSocialContext = false) {
   if ($tweet.closest(Selectors.PROMOTED_TWEET_CONTAINER)) {
     return 'PROMOTED_TWEET'
   }
-  // Assume social context tweets are Retweets
   if ($tweet.querySelector('[data-testid="socialContext"]')) {
     if (checkSocialContext) {
+      // Assume social context tweets are Retweets if we're not checking
       let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
-      if (svgPath.startsWith('M7 4.5C7 3.12 8.12 2 9.5 2h5C1')) return 'PINNED_TWEET'
+      if (svgPath.startsWith('M7.471 21H.472l.029-1.027c.184')) return 'COMMUNITY_TWEET'
+      if (svgPath.startsWith('M13 21l-1 2-1-2v-5H4.5v-2.287l')) return 'PINNED_TWEET'
     }
     // Quoted tweets from accounts you blocked or muted are displayed as an
     // <article> with "This Tweet is unavailable."
@@ -4942,6 +5788,13 @@ function getVerifiedProps($svg) {
 function handlePopup($popup) {
   let result = {tookAction: false, onPopupClosed: null}
 
+  // Automatically close the Premium sign up popup
+  if (desktop && config.hideTwitterBlueUpsells && location.pathname === '/i/premium_sign_up') {
+    tweakPremiumSignUpPage()
+    result.tookAction = true
+    return result
+  }
+
   // Automatically close any sheet dialog which contains a Premium link
   if (desktop && config.hideTwitterBlueUpsells &&
       $popup.querySelector('[data-testid="mask"]') &&
@@ -4954,21 +5807,59 @@ function handlePopup($popup) {
     return result
   }
 
-  // The Sort replies by menu is hydrated asynchronously
+  if (desktop && config.hideEditImage && location.pathname == PagePaths.PROFILE_SETTINGS) {
+    log('hideEditImage: profile settings opened')
+    tweakProfileSettingsPage()
+    result.tookAction = true
+    return result
+  }
+
+  if (isOnHomeTimelinePage() &&
+      config.sortFollowing != 'ignore' &&
+      !userSortedFollowing &&
+      $popup.innerHTML.includes(`>${getString('SORT_BY')}<`)) {
+    // Pinned Communities also have a Sort by menu, which we should ignore
+    let isFollowingTabSelected = Boolean(document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"][aria-selected="true"]`))
+    if (!isFollowingTabSelected) return result
+
+    log('sortFollowing: Following Sort by menu opened')
+    void (async () => {
+      // The Following Sort by menu is hydrated asynchronously on desktop
+      let $dropdown = await getElement(mobile ? '[data-testid="sheetDialog"]' : '[role="menu"] [data-testid="Dropdown"]', {
+        name: 'Rendered Following Sort by dropdown',
+        context: $popup,
+      })
+      let $menuItems =  /** @type {NodeListOf<HTMLElement>} */ ($dropdown.querySelectorAll('div[role="menuitem"]'))
+      let $selectedSvg = $popup.querySelector('div[role="menuitem"] svg')
+      for (let [index, $menuItem] of $menuItems.entries()) {
+        let shouldBeSelected = index == {popular: 0, mostRecent: 1}[config.sortFollowing]
+        if (shouldBeSelected) {
+          $menuItem.lastElementChild.append($selectedSvg)
+        }
+        $menuItem.addEventListener('click', () => {
+          userSortedFollowing = true
+        })
+      }
+    })()
+    result.tookAction = true
+    return result
+  }
+
   if (isOnIndividualTweetPage() &&
       config.sortReplies != 'relevant' &&
       !userSortedReplies &&
-      $popup.innerHTML.includes(`>${getString('SORT_REPLIES_BY')}<`)) {
-    log('sortReplies: Sort replies by menu opened')
+      $popup.innerHTML.includes(`>${getString('SORT_REPLIES')}<`)) {
+    log('sortReplies: Sort replies menu opened')
     void (async () => {
+      // The Sort replies menu is hydrated asynchronously
       let $dropdown = await getElement('[role="menu"] [data-testid="Dropdown"]', {
-        name: 'Rendered Sort replies by dropdown'
+        name: 'Rendered Sort replies dropdown',
+        context: $popup,
       })
       let $menuItems =  /** @type {NodeListOf<HTMLElement>} */ ($dropdown.querySelectorAll('div[role="menuitem"]'))
       let $selectedSvg = $popup.querySelector('div[role="menuitem"] svg')
       for (let [index, $menuItem] of $menuItems.entries()) {
         let shouldBeSelected = index == {recent: 1, liked: 2}[config.sortReplies]
-        log({index, $menuItem, shouldBeSelected})
         if (shouldBeSelected) {
           $menuItem.lastElementChild.append($selectedSvg)
         }
@@ -5063,18 +5954,41 @@ function handlePopup($popup) {
   }
 
   if (config.fastBlock) {
-    if (blockMenuItemSeen && $popup.querySelector('[data-testid="confirmationSheetConfirm"]')) {
-      log('fast blocking')
+    if (blockMenuItemSeen && blockMenuItemClicked && $popup.querySelector('[data-testid="confirmationSheetConfirm"]')) {
+      log('fastBlock: fast blocking')
       ;/** @type {HTMLElement} */ ($popup.querySelector('[data-testid="confirmationSheetConfirm"]')).click()
+      blockMenuItemSeen = false
+      blockMenuItemClicked = false
       result.tookAction = true
     }
     else if ($popup.querySelector(Selectors.BLOCK_MENU_ITEM)) {
-      log('preparing for fast blocking')
+      log('fastBlock: preparing for fast blocking')
       blockMenuItemSeen = true
-      // Create a nested observer for mobile, as it reuses the popup element
+      blockMenuItemClicked = false
+      document.addEventListener('click', (e) => {
+        if (e.target instanceof Element && e.target.closest(Selectors.BLOCK_MENU_ITEM)) {
+          log('fastBlock: block clicked')
+          blockMenuItemClicked = true
+        }
+      }, {capture: true, once: true})
+      // Create a nested observer for mobile, as it reuses the menu popup to
+      // display the block dialog.
       result.tookAction = !mobile
-    } else {
+    }
+    else {
       blockMenuItemSeen = false
+      blockMenuItemClicked = false
+    }
+  }
+
+  if (mobile) {
+    let $sidebarSettingsLink = $popup.querySelector('a[href$="/settings"]')
+    if ($sidebarSettingsLink) {
+      getElement('div:has(> a[href^="https://apps.apple.com/app/apple-store/id333903271"])', {
+        name: 'get the app link',
+        context: $popup,
+        timeout: 100,
+      }).then($appAd => $appAd?.classList?.add('HiddenAd'))
     }
   }
 
@@ -5105,7 +6019,7 @@ function handlePopup($popup) {
     }
   }
 
-  if (config.hideGrokNav || config.twitterBlueChecks != 'ignore') {
+  if (desktop && (config.hideGrokNav || config.twitterBlueChecks != 'ignore' || config.addUserHoverCardAccountLocation)) {
     // User hovercard popup
     let $hoverCard = /** @type {HTMLElement} */ ($popup.querySelector('[data-testid="HoverCard"]'))
     if ($hoverCard) {
@@ -5125,6 +6039,20 @@ function handlePopup($popup) {
         }
         if (config.twitterBlueChecks != 'ignore') {
           processBlueChecks($popup)
+        }
+        if (config.addUserHoverCardAccountLocation) {
+          let $followingLink = /** @type {HTMLAnchorElement} */ ($popup.querySelector('[href$="/following"]'))
+          if (!$followingLink) return
+          let screenName = $followingLink.pathname.split('/')[1]
+          if (!screenName) return
+          getAccountLocation(screenName).then((accountLocation) => {
+            if (!accountLocation || !accountLocation.account_based_in) return
+            let $insertionPoint = $followingLink.parentElement.parentElement.parentElement
+            let fontSizeNum = parseInt(fontSize)
+            $insertionPoint?.insertAdjacentHTML('afterend', `<div class="cpft_text" style="margin-top: ${fontSizeNum - 4}px; line-height: ${fontSizeNum + 1}px; font-size: ${fontSizeNum - 1}px;">
+  ${addQuestionMark(getFn('ACCOUNT_BASED_IN_FN')({country: accountLocation.account_based_in}), !accountLocation.location_accurate)}
+            </div>`)
+          })
         }
       })
     }
@@ -5240,8 +6168,7 @@ function onPopup($popup) {
         onPopupClosed = handlePopup($addedNode).onPopupClosed
       }
       for (let $removedNode of mutation.removedNodes) {
-        if (!($removedNode instanceof HTMLElement)) continue
-        if ($removedNode !== $nestedPopup) return
+        if (!($removedNode instanceof HTMLElement) || $removedNode !== $nestedPopup) continue
         if (onPopupClosed) {
           log('cleaning up after nested popup removed')
           onPopupClosed()
@@ -5269,18 +6196,24 @@ function onPopup($popup) {
  */
 function onTimelineChange($timeline, page, options = {}) {
   let startTime = Date.now()
-  let {classifyTweets = true, hideHeadings = true, isUserTimeline = false} = options
+  let {
+    checkSocialContext = false,
+    classifyTweets = true,
+    hideHeadings = true,
+    isUserTimeline = false,
+  } = options
 
   let isOnHomeTimeline = isOnHomeTimelinePage()
   let isOnListTimeline = isOnListPage()
   let isOnProfileTimeline = isOnProfilePage()
-  let timelineHasSpecificHandling = isOnHomeTimeline || isOnListTimeline || isOnProfileTimeline
+  let isOnNotificationsTimeline = isOnNotificationsPage()
+  let timelineHasSpecificTweetHandling = isOnHomeTimeline || isOnListTimeline || isOnProfileTimeline
 
-  if (config.twitterBlueChecks != 'ignore' && (isUserTimeline || !timelineHasSpecificHandling)) {
+  if (config.twitterBlueChecks != 'ignore' && (isUserTimeline || !timelineHasSpecificTweetHandling)) {
     processBlueChecks($timeline)
   }
 
-  if (isSafari && config.replaceLogo && isOnNotificationsPage()) {
+  if (isSafari && config.replaceLogo && isOnNotificationsTimeline) {
     processTwitterLogos($timeline)
   }
 
@@ -5308,8 +6241,8 @@ function onTimelineChange($timeline, page, options = {}) {
     let isBlueTweet = false
 
     if ($tweet != null) {
-      itemType = getTweetType($tweet, isOnProfileTimeline)
-      if (timelineHasSpecificHandling) {
+      itemType = getTweetType($tweet, checkSocialContext)
+      if (timelineHasSpecificTweetHandling) {
         isReply = isReplyToPreviousTweet($tweet)
         if (isReply && hidPreviousItem != null) {
           hideItem = hidPreviousItem
@@ -5368,13 +6301,38 @@ function onTimelineChange($timeline, page, options = {}) {
         restoreLinkHeadline($tweet)
       }
     }
-    else if (!timelineHasSpecificHandling) {
+    else if (isOnNotificationsTimeline) {
+      /** @type {?import("./types").NotificationType} */
+      let notificationType = null
+      let $iconPath = $item.querySelector('[data-testid="notification"] svg path')?.getAttribute('d')
+      if ($iconPath) {
+        if ($iconPath.startsWith('M18.766 2H7.323l-4.8 12h5.324l')) {
+          notificationType = 'AD'
+          hideItem = true
+        }
+        else if ($iconPath.startsWith('M20.884 13.19c-1.351 2.48-4.00')) {
+          notificationType = 'LIKE'
+          hideItem = config.hideNotificationLikes
+        }
+        else if ($iconPath.startsWith('M17.863 13.44c1.477 1.58 2.366')) {
+          notificationType = 'FOLLOW'
+        }
+        else if ($iconPath.startsWith('M4.75 3.79l4.603 4.3-1.706 1.8')) {
+          notificationType = 'RETWEET'
+          hideItem = config.hideNotificationRetweets
+        }
+      }
+      if (notificationType) {
+        itemType = `NOTIFICATION_${notificationType}`
+      }
+    }
+    else if (!timelineHasSpecificTweetHandling) {
       if ($item.querySelector(':scope > div > div > div > article')) {
         itemType = 'UNAVAILABLE'
       }
     }
 
-    if (!timelineHasSpecificHandling) {
+    if (!timelineHasSpecificTweetHandling && !isOnNotificationsTimeline) {
       if (itemType != null) {
         hideItem = shouldHideOtherTimelineItem(itemType)
       }
@@ -5385,8 +6343,7 @@ function onTimelineChange($timeline, page, options = {}) {
       if ($item.querySelector('[data-testid="inlinePrompt"]')) {
         itemType = 'INLINE_PROMPT'
         hideItem = config.hideInlinePrompts || (
-          config.hideTwitterBlueUpsells && Boolean($item.querySelector('a[href^="/i/premium"]')) ||
-          config.hideMonetizationNav && Boolean($item.querySelector('a[href="/settings/monetization"]'))
+          config.hideTwitterBlueUpsells && Boolean($item.querySelector('a[href^="/i/premium"]'))
         )
       } else if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
         itemType = 'HEADING'
@@ -5399,7 +6356,7 @@ function onTimelineChange($timeline, page, options = {}) {
     }
 
     // Assume a non-identified item following an identified item is related
-    if (itemType == null && hidPreviousItem != null) {
+    if (itemType == null && hidPreviousItem != null && !isOnNotificationsTimeline) {
       hideItem = hidPreviousItem
       itemType = 'SUBSEQUENT_ITEM'
     }
@@ -5465,7 +6422,9 @@ function onIndividualTweetTimelineChange($timeline, options) {
   /** @type {?HTMLElement} */
   let $focusedTweet
 
-  for (let $item of $timeline.children) {
+  let items = Array.from($timeline.children)
+  for (let i = 0; i < items.length; i++) {
+    let $item = items[i]
     if (seen.has($item) &&
         // Reprocess Discover More Tweets if they were processed before the Discover More heading
         !(hideAllSubsequentItems && seen.get($item).hidden != config.hideMoreTweets)) {
@@ -5605,7 +6564,31 @@ function onIndividualTweetTimelineChange($timeline, options) {
           if ($button?.textContent == getString('SHOW_MORE_REPLIES')) {
             itemType = 'SHOW_MORE'
           }
-        } else {
+        }
+
+        // Hide "More From This Author" → Up to 3 Tweets → "See more" link,
+        // working backwards from "See more" once it renders.
+        if (itemType == null) {
+          let $userLink = $item.querySelector(':scope > div > div > a[href^="/i/user/"]')
+          if ($userLink) {
+            for (let headingOffset = 2; headingOffset <= 4; headingOffset++) {
+              if (seen.get(items[i - headingOffset])?.itemType == 'HEADING') {
+                itemType = 'SEE_MORE'
+                hideItem = config.hideMoreFromThisAuthor
+                for (let j = i - headingOffset; j < i; j++) {
+                  if (j < 0 || !items[j]?.firstElementChild) continue
+                  changes.push({
+                    $item: items[j],
+                    hideItem: config.hideMoreFromThisAuthor || seen.get(items[j])?.hidden == true,
+                  })
+                }
+                break
+              }
+            }
+          }
+        }
+
+        if (itemType == null) {
           let $heading = $item.querySelector(Selectors.TIMELINE_HEADING)
           if ($heading) {
             // Discover More headings have a description next to them
@@ -5703,7 +6686,7 @@ function onTitleChange(title) {
 
   // After we replace the shortcut icon, Twitter stops updating it to add/remove
   // the notifications pip, so we need to manage the pip ourselves.
-  if (config.replaceLogo && Boolean(notificationCount) != Boolean(currentNotificationCount)) {
+  if (config.replaceLogo) {
     observeFavicon.forceUpdate(Boolean(notificationCount))
   }
 
@@ -5717,14 +6700,22 @@ function onTitleChange(title) {
     if (mobile && (URL_MEDIA_RE.test(location.pathname) || URL_MEDIAVIEWER_RE.test(location.pathname))) {
       log('viewing media on mobile')
     }
+    // On mobile, the Premium sign up page sets an empty title
+    else if (mobile && location.pathname == '/i/premium_sign_up') {
+      log('viewing Premium sign up page on mobile')
+    }
     // On desktop, the root Settings page sets an empty title when the sidebar
     // is hidden.
     else if (desktop && location.pathname == '/settings' && currentPath != '/settings') {
       log('viewing root Settings page')
     }
-    // On desktop, the root Messages page sometimes sets an empty title
-    else if (desktop && location.pathname == '/messages' && currentPath != '/messages') {
+    // On desktop, the root Messages page sets an empty title
+    else if (desktop && location.pathname.match(/^\/messages(?:\/home)?$/) && !currentPath.match(/^\/messages(?:\/home)?$/)) {
       log('viewing root Messages page')
+    }
+    // On desktop, Chat always has an empty title
+    else if (desktop && location.pathname == '/i/chat' && currentPath != '/i/chat') {
+      log('viewing root Chat page')
     }
     // The Bookmarks page sets an empty title
     else if (location.pathname.startsWith(PagePaths.BOOKMARKS) && !currentPath.startsWith(PagePaths.BOOKMARKS)) {
@@ -5734,6 +6725,8 @@ function onTitleChange(title) {
       log('ignoring Flash of Uninitialised Title')
       return
     }
+    // Check the Messages icon after navigating to a title-less page
+    tweakMessagesIcon()
   }
 
   // Remove " / Twitter" or "Twitter \ " from the title
@@ -5761,7 +6754,12 @@ function onTitleChange(title) {
     currentPath == ModalPaths.COMPOSE_TWEET
   )
 
-  if (newPage == currentPage) {
+  let hasDesktopInitialModalBeenClosed = desktop && (
+    // Premium sign up dialog closed
+    currentPath == '/i/premium_sign_up' && location.pathname == PagePaths.HOME
+  )
+
+  if (newPage == currentPage && !hasDesktopInitialModalBeenClosed) {
     log(`ignoring duplicate title change`)
     // Navigation within the Compose Tweet modal triggers duplcate title changes
     if (isDesktopComposeTweetModalOpen) {
@@ -5875,7 +6873,6 @@ function processCurrentPage() {
   if (!isOnProfilePage()) {
     $body.classList.remove('OwnProfile', 'PremiumProfile')
   }
-  $body.classList.toggle('ProfileFollows', isOnFollowListPage())
   if (!isOnFollowListPage()) {
     $body.classList.remove('Subscriptions')
   }
@@ -5890,7 +6887,7 @@ function processCurrentPage() {
   $body.classList.remove('SeparatedTweets')
 
   if (desktop) {
-    if (!isOnMessagesPage() && !isOnSettingsPage()) {
+    if (!isOnChatPage() && !isOnGrokPage() && !isOnMessagesPage() && !isOnSettingsPage()) {
       observeSidebar()
     } else {
       $body.classList.remove('Sidebar')
@@ -5900,8 +6897,12 @@ function processCurrentPage() {
     }
   }
 
+  if (config.redirectChatNav) {
+    tweakMessagesIcon()
+  }
   if (isSafari && config.replaceLogo) {
     tweakHomeIcon()
+    tweakTweetIcon()
   }
 
   if (config.twitterBlueChecks != 'ignore' && (isOnSearchPage() || isOnExplorePage())) {
@@ -5957,6 +6958,9 @@ function processCurrentPage() {
   else if (isOnDisplaySettingsPage() || isOnAccessibilitySettingsPage()) {
     tweakDisplaySettingsPage()
   }
+  else if (isOnPremiumSignupPage()) {
+    tweakPremiumSignUpPage()
+  }
 
   // On mobile, these are pages instead of modals
   if (mobile) {
@@ -5965,6 +6969,9 @@ function processCurrentPage() {
     }
     else if (URL_MEDIAVIEWER_RE.test(currentPath)) {
       tweakMobileMediaViewerPage()
+    }
+    else if (currentPath.startsWith(PagePaths.PROFILE_SETTINGS)) {
+      tweakProfileSettingsPage()
     }
   }
 }
@@ -5978,8 +6985,11 @@ function redirectToTwitter() {
       // Don't redirect the path used by the OldTweetDeck extension
       location.pathname != '/i/tweetdeck') {
     // If we got a logout redirect from twitter.com, redirect back to the login page
-    let pathname = location.search.includes('logout=') ? '/i/flow/login' : location.pathname || '/home'
-    let redirectUrl = `https://twitter.com${pathname}?mx=1`
+    let pathname = location.search.includes('logout=') ? '/i/flow/login' : location.pathname || PagePaths.HOME
+    let searchParams = new URLSearchParams(location.search)
+    searchParams.delete('logout')
+    searchParams.set('mx', '1')
+    let redirectUrl = `https://twitter.com${pathname}?${searchParams}`
     log('redirectToTwitter: redirecting from', location.href, 'to', redirectUrl)
     location.replace(redirectUrl)
     return true
@@ -6011,17 +7021,22 @@ function restoreLinkHeadline($tweet) {
     let headline = rest.join(' ')
     $link.lastElementChild?.classList.add('cpft_overlay_headline')
     $link.insertAdjacentHTML('beforeend', `<div class="cpft_link_headline ${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" hidden>
-      <div style="color: var(--color); margin-bottom: 2px;">${site}</div>
-      <div style="color: var(--color-emphasis)">${headline}</div>
+      <div style="color: var(--cpft-text-secondary); margin-bottom: 2px;">${site}</div>
+      <div style="color: var(--cpft-text-primary)">${headline}</div>
     </div>`)
     $link.dataset.headlineRestored = 'true'
   }
 }
 
 /**
- * @param {HTMLElement} $focusedTweet
+ * @param {{
+ *   $actionBar: HTMLElement
+ *   $focusedTweet: HTMLElement
+ *   tweetInfo: any
+ *   isOwnTweet: boolean
+ * }} options
  */
-function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
+function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet}) {
   if (!config.restoreQuoteTweetsLink && !config.restoreOtherInteractionLinks) return
 
   if (!tweetInfo) {
@@ -6029,7 +7044,6 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
     return
   }
 
-  let isOwnTweet = Boolean($focusedTweet.querySelector('a[data-testid="analyticsButton"]'))
   let shouldDisplayLinks = (
     (config.restoreQuoteTweetsLink && tweetInfo.quote_count > 0) ||
     (config.restoreOtherInteractionLinks && (tweetInfo.retweet_count > 0 || isOwnTweet && tweetInfo.favorite_count > 0))
@@ -6040,13 +7054,10 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
     return
   }
 
-  let $group = $focusedTweet.querySelector('[role="group"][id^="id__"]')
-  if (!$group) return warn('focused tweet action bar not found')
-
   let tweetLink = location.pathname.match(URL_TWEET_BASE_RE)?.[0]
-  $group.parentElement.insertAdjacentHTML('beforebegin', `
+  $actionBar.insertAdjacentHTML('beforebegin', `
     <div id="cpftInteractionLinks" hidden>
-      <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--border-color); display: flex; gap: 20px;">
+      <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--cpft-border); display: flex; gap: 20px;">
         ${tweetInfo.quote_count > 0 ? `<a id="cpftQuoteTweetsLink" class="quoteTweets" href="${tweetLink}/quotes" dir="auto" role="link">
           <span id="cpftQuoteTweetCount">
             ${Intl.NumberFormat(lang, {notation: tweetInfo.quote_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.quote_count)}
@@ -6069,29 +7080,18 @@ function restoreTweetInteractionsLinks($focusedTweet, tweetInfo) {
     </div>
   `)
 
-  let links = /** @type {NodeListOf<HTMLAnchorElement>} */ ($focusedTweet.querySelectorAll('#cpftInteractionLinks a'))
-  links.forEach(($link) => {
-    $link.addEventListener('click', async (e) => {
-      let $caret = /** @type {HTMLElement} */ ($focusedTweet.querySelector('[data-testid="caret"]'))
-      if (!$caret) return warn('focused tweet menu caret not found')
-
-      log('clicking "View post engagements" menu item')
+  let $links = /** @type {NodeListOf<HTMLAnchorElement>} */ ($focusedTweet.querySelectorAll('#cpftInteractionLinks a'))
+  for (let $link of $links) {
+    $link.addEventListener('click', (e) => {
       e.preventDefault()
-      $caret.click()
-      let $tweetEngagements = await getElement('#layers a[data-testid="tweetEngagements"]', {
-        name: 'View post engagements menu item',
-        stopIf: pageIsNot(currentPage),
-        timeout: 500,
+      History_push?.({
+        pathname: $link.pathname,
+        hash: '',
+        query: {},
+        search: '',
       })
-      if ($tweetEngagements) {
-        tweetInteractionsTab = $link.dataset.tab || null
-        $tweetEngagements.click()
-      } else {
-        warn('falling back to full page refresh')
-        location.href = $link.href
-      }
     })
-  })
+  }
 }
 
 /**
@@ -6166,6 +7166,7 @@ function shouldHideHomeTimelineItem(type, page) {
         ) : (
           shouldHideSharedTweet(config.retweets, page) || shouldHideSharedTweet(config.quoteTweets, page)
         )
+    case 'COMMUNITY_TWEET':
     case 'TWEET':
       return page == separatedTweetsTimelineTitle
     case 'UNAVAILABLE_QUOTE_TWEET':
@@ -6183,6 +7184,7 @@ function shouldHideHomeTimelineItem(type, page) {
  */
 function shouldHideProfileTimelineItem(type) {
   switch (type) {
+    case 'COMMUNITY_TWEET':
     case 'PINNED_TWEET':
     case 'QUOTE_TWEET':
     case 'TWEET':
@@ -6203,6 +7205,7 @@ function shouldHideProfileTimelineItem(type) {
  */
  function shouldHideOtherTimelineItem(type) {
   switch (type) {
+    case 'COMMUNITY_TWEET':
     case 'QUOTE_TWEET':
     case 'RETWEET':
     case 'RETWEETED_QUOTE_TWEET':
@@ -6325,8 +7328,6 @@ function tweakDisplaySettingsPage() {
       log('Color setting changed')
       themeColor = newThemeColor
       configureThemeCss()
-      observePopups()
-      observeSideNavTweetButton()
     }, {
       name: 'Color change re-render boundary',
       observers: pageObservers,
@@ -6342,7 +7343,7 @@ function tweakDisplaySettingsPage() {
         log(`<html> fontSize has changed to ${fontSize}`)
         configureDynamicCss()
         observePopups()
-        observeSideNavTweetButton()
+        observeSideNavItems()
       }
     }, {
       name: '<html> style attribute for font size changes',
@@ -6381,8 +7382,11 @@ function restoreTweetSource($permalinkBar, tweetInfo) {
 async function tweakFocusedTweet($focusedTweet, options) {
   log('tweaking focused tweet')
   let {observers} = options
-  let tweetId = location.pathname.match(URL_TWEET_BASE_RE)?.[2]
+  let focusedTweetUrlMatch = location.pathname.match(URL_TWEET_BASE_RE)
+  let screenName = focusedTweetUrlMatch?.[1]
+  let tweetId = focusedTweetUrlMatch?.[2]
   let tweetInfo = getTweetInfo(tweetId)
+  let isOwnTweet = isOnOwnTweetPage()
 
   // Tag View elements and restore Tweet source
   let $permalinkBar = $focusedTweet.querySelector('div:has(> div > a > time)')
@@ -6390,12 +7394,55 @@ async function tweakFocusedTweet($focusedTweet, options) {
     $permalinkBar.children[1]?.classList.toggle('Views', config.hideViews)
     $permalinkBar.children[2]?.classList.toggle('Views', config.hideViews)
     restoreTweetSource($permalinkBar, tweetInfo)
+    addAccountLocationToFocusedTweet($permalinkBar, screenName)
   } else {
     warn('focused tweet permalink bar not found')
   }
 
-  tweakOwnFocusedTweet($focusedTweet)
-  restoreTweetInteractionsLinks($focusedTweet, tweetInfo)
+  let $actionBar = /** @type {HTMLElement} */ ($focusedTweet.querySelector('div:has(> [role="group"][id^="id__"])'))
+  let $underActionBar = $actionBar?.nextElementSibling
+  if ($actionBar) {
+    $actionBar.id = 'cpftFocusedTweetActionBar'
+    restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet})
+  } else {
+    warn('focused tweet action bar not found')
+  }
+
+  if ($underActionBar) {
+    let $sortRepliesButton = $underActionBar.querySelector('button[aria-haspopup="menu"]')
+    if ($sortRepliesButton) {
+      if (config.hideSortRepliesMenu) {
+        getClosestChild($sortRepliesButton, $underActionBar)?.classList.add('SortRepliesMenu')
+      }
+      // Replace the default Sort replies text with the sort we're applying
+      else if (config.sortReplies != 'relevant' && !userSortedReplies) {
+        let $buttonText = $sortRepliesButton.querySelector('span')
+        if ($buttonText) $buttonText.textContent = {
+          liked: getString('LIKES'),
+          recent: getString('RECENT'),
+        }[config.sortReplies]
+      }
+    }
+
+    let $viewActivity = $underActionBar.querySelector('a[href$="/quotes"]')
+    getClosestChild($viewActivity, $underActionBar)?.classList.add('ViewActivity')
+  }
+
+  if (isOwnTweet) {
+    if (config.hideTwitterBlueUpsells && !$focusedTweet.hasAttribute('cpft-premium-upsells-tagged')) {
+      run(async () => {
+        let $premiumUpsell = await getElement('div:has(> div[style] > button ~ div a:is([href="/i/account_analytics"], [href^="/i/premium"]))', {
+          context: $focusedTweet,
+          name: 'own focused Tweet premium upsell',
+          timeout: 500,
+          stopIf: pageIsNot(currentPage)
+        })
+        if (!$premiumUpsell) return
+        $premiumUpsell.classList.add('PremiumUpsell')
+      })
+      $focusedTweet.setAttribute('cpft-premium-upsells-tagged', 'true')
+    }
+  }
 
   if (desktop && config.replaceLogo) {
     void async function() {
@@ -6416,32 +7463,32 @@ async function tweakFocusedTweet($focusedTweet, options) {
 }
 
 async function tweakFollowListPage() {
-  // These tabs are dynamic as "Followers you know" only appears when applicable
-  let $tabs = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`, {
-    name: 'Following tabs',
-    stopIf: pageIsNot(currentPage),
-  })
-  if (!$tabs) return
-
-  let $subscriptionsTabLink = $tabs.querySelector('div[role="tablist"] a[href$="/subscriptions"]')
-  if ($subscriptionsTabLink) {
-    $body.classList.add('Subscriptions')
-  }
-
-  if (config.hideVerifiedNotificationsTab) {
-    let isVerifiedTabSelected = Boolean($tabs.querySelector('div[role="tablist"] > div:nth-child(1) > a[aria-selected="true"]'))
-    if (isVerifiedTabSelected) {
-      log('switching to Following tab')
-      let $followingTab = /** @type {HTMLAnchorElement} */ (
-        $tabs.querySelector(`div[role="tablist"] > div:nth-last-child(${$subscriptionsTabLink ? 3 : 2}) > a`)
-      )
-      $followingTab?.click()
-    }
+  // Fallback for direct navigation
+  if (config.hideVerifiedNotificationsTab && currentPath.endsWith('/verified_followers')) {
+    History_replace?.(currentPath.replace(/verified_followers$/, 'followers'))
+    return
   }
 
   if (config.twitterBlueChecks != 'ignore') {
     observeTimeline(currentPage, {
       classifyTweets: false,
+    })
+  }
+
+  let $followListTabs = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`, {
+    name: 'Follow list tabs',
+    stopIf: () => !isOnFollowListPage(),
+  })
+  if ($followListTabs) {
+    let $tabsContainer = $followListTabs.parentElement
+    // Tabs <nav> will be replaced when dynamic tabs load
+    observeElement($tabsContainer, () => {
+      $tabsContainer.querySelector('div:has(> a[href$="/verified_followers"])')?.classList?.add('VerifiedFollowersTab')
+      $tabsContainer.querySelector('div:has(> a[href$="/subscriptions"])')?.classList?.add('SubscriptionsTab')
+    }, {
+      name: 'Follow list tabs container',
+      observers: pageObservers,
+      leading: true,
     })
   }
 }
@@ -6465,6 +7512,7 @@ async function tweakIndividualTweetPage() {
 
 function tweakListPage() {
   observeTimeline(currentPage, {
+    checkSocialContext: true,
     hideHeadings: false,
   })
 }
@@ -6503,27 +7551,39 @@ async function tweakDesktopLogo() {
 async function tweakHomeIcon() {
   let $homeIconPath = await getElement(`${Selectors.NAV_HOME_LINK} svg path`, {name: 'Home icon', stopIf: pageIsNot(currentPage)})
   if ($homeIconPath) {
-    homeIcon($homeIconPath)
+    // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
+    // we have to manually patch the path in it.
+    let replacementPath = {
+      [Svgs.X_HOME_ACTIVE_PATH]: Svgs.TWITTER_HOME_ACTIVE_PATH,
+      [Svgs.X_HOME_INACTIVE_PATH]: Svgs.TWITTER_HOME_INACTIVE_PATH,
+    }[$homeIconPath.getAttribute('d')]
+    if (replacementPath) {
+      $homeIconPath.setAttribute('d', replacementPath)
+    }
   }
 }
 
-async function tweakOwnFocusedTweet($focusedTweet) {
-  if (!config.hideTwitterBlueUpsells || $focusedTweet.hasAttribute('cpft-analytics-upsell-tagged')) return
+async function tweakMessagesIcon() {
+  let $messagesIconPath = await getElement(`${Selectors.NAV_MESSAGES_LINK} svg path`, {name: 'Messages icon', stopIf: pageIsNot(currentPage)})
+  if ($messagesIconPath) {
+    // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
+    // we have to manually patch the path in it.
+    let targetPath = isOnMessagesPage() ? Svgs.MESSAGES_ACTIVE_PATH : Svgs.MESSAGES_INACTIVE_PATH
+    if ($messagesIconPath.getAttribute('d') != targetPath) {
+      $messagesIconPath.setAttribute('d', targetPath)
+    }
+  }
+}
 
-  // Only your own focused Tweets have an analytics button
-  let $analyticsButton = $focusedTweet.querySelector('a[data-testid="analyticsButton"]')
-  if (!$analyticsButton) return
-
-  $analyticsButton.parentElement.classList.add('AnalyticsButton')
-  let $accountAnalyticsUpsell = await getElement(':scope > div > div > div > div:has(a[href="/i/account_analytics"])', {
-    context: $focusedTweet,
-    name: 'account analytics upsell',
-    timeout: 1000,
-    stopIf: pageIsNot(currentPage)
-  })
-  if (!$accountAnalyticsUpsell) return
-  $accountAnalyticsUpsell.classList.add('PremiumUpsell')
-  $focusedTweet.setAttribute('cpft-analytics-upsell-tagged', 'true')
+async function tweakTweetIcon() {
+  let $iconPath = document.querySelector(`:is([data-testid="SideNav_NewTweet_Button"], [data-testid="FloatingActionButtons_Tweet_Button"]) path[d="${Svgs.PLUS_PATH}"]`)
+  if ($iconPath) {
+    // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
+    // we have to manually patch the path in it.
+    if ($iconPath.getAttribute('d') != Svgs.TWITTER_FEATHER_PLUS_PATH) {
+      $iconPath.setAttribute('d', Svgs.TWITTER_FEATHER_PLUS_PATH)
+    }
+  }
 }
 
 /**
@@ -6555,13 +7615,20 @@ function tweakHomeTimelinePage() {
     return
   }
 
+  let $manageTimelinesButton = $timelineTabs.parentElement.nextElementSibling
+  if ($manageTimelinesButton?.querySelector('path[d="M11 11V4h2v7h7v2h-7v7h-2v-7H4v-2h7z"]')) {
+    $manageTimelinesButton.classList.add('ManageTimelines')
+  } else {
+    $manageTimelinesButton = null
+  }
+
   tweakTimelineTabs($timelineTabs)
   if (mobile && isSafari && config.replaceLogo) {
     processTwitterLogos(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER))
   }
 
   function updateSelectedHomeTabIndex() {
-    let $selectedHomeTabLink = $timelineTabs.querySelector('div[role="tablist"] a[aria-selected="true"]')
+    let $selectedHomeTabLink = $timelineTabs.querySelector('div[role="tablist"] [aria-selected="true"]')
     if ($selectedHomeTabLink) {
       selectedHomeTabIndex = Array.from($selectedHomeTabLink.parentElement.parentElement.children).indexOf($selectedHomeTabLink.parentElement)
       log({selectedHomeTabIndex})
@@ -6573,10 +7640,13 @@ function tweakHomeTimelinePage() {
 
   updateSelectedHomeTabIndex()
 
-  // If there are pinned lists, the timeline tabs <nav> will be replaced when they load
+  // If there are pinned lists, the timeline tabs <nav> will be replaced the
+  // first time they load in the current session.
   observeElement($timelineTabs.parentElement, (mutations) => {
     let timelineTabsReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($timelineTabs))
-    if (timelineTabsReplaced) {
+    if (timelineTabsReplaced &&
+        // On mobile, navigating to a different tabbed screen can switch tabs before the title changes
+        location.pathname == PagePaths.HOME) {
       log('Home timeline tabs replaced')
       $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
       tweakTimelineTabs($timelineTabs)
@@ -6587,6 +7657,7 @@ function tweakHomeTimelinePage() {
   })
 
   observeTimeline(currentPage, {
+    checkSocialContext: true,
     isTabbed: true,
     onTabChanged: () => {
       updateSelectedHomeTabIndex()
@@ -6664,18 +7735,25 @@ async function tweakMobileComposeTweetPage() {
       observeUserTypeaheadDropdown(document.querySelector('main div[data-testid^="tweetTextarea"]'))
     }
   } else {
-    let $mask = document.querySelector('[data-testid="twc-cc-mask"]')
+    let $tweetTextarea =  await getElement('main div[data-testid^="tweetTextarea"]', {
+      name: 'first Tweet textarea',
+      stopIf: pageIsNot(currentPage),
+    })
+    if (!$tweetTextarea) return
+    let $tweetsContainer = $tweetTextarea.closest('div:not([class])')?.parentElement
     let $tweetButtonText = document.querySelector('main button[data-testid^="tweetButton"] span > span')
-    if ($mask && $tweetButtonText) {
+    if ($tweetsContainer && $tweetButtonText) {
       // We need to re-apply tweaks every time the child list changes. When
       // you use the username typeahead dropdown in any Tweet box, the list
       // re-renders so it's the only Tweet while the dropdown is open.
-      observeElement($mask.nextElementSibling, () => {
+      observeElement($tweetsContainer, () => {
         let $containers = document.querySelectorAll('main div[data-testid^="tweetTextarea"]')
         $containers.forEach(($container, index) => {
           if (config.replaceLogo) {
             let $textarea = $container.querySelector('textarea')
-            $textarea.placeholder = getString(index == 0 ? 'WHATS_HAPPENING' : 'ADD_ANOTHER_TWEET')
+            if (index > 0) {
+              $textarea.placeholder = getString('ADD_ANOTHER_TWEET')
+            }
           }
           if (index == 0 && config.twitterBlueChecks) {
             observeUserTypeaheadDropdown($container)
@@ -6684,14 +7762,15 @@ async function tweakMobileComposeTweetPage() {
         // Don't update the Tweet button if the list was re-rendered to display
         // a user dropdown, in which case it will already be in the DOM.
         if (config.replaceLogo && !document.querySelector('main [id^="typeaheadDropdown"]')) {
-          $tweetButtonText.textContent = getString($containers.length == 1 ? 'TWEET' : 'TWEET_ALL')
+          $tweetButtonText.textContent = getString($containers.length <= 1 ? 'TWEET' : 'TWEET_ALL')
         }
       }, {
+        leading: true,
         name: 'Tweets container',
         observers: pageObservers,
       })
     } else {
-      warn('could not find all elements needed to tweak the Compose Tweet page', {$mask, $tweetButtonText})
+      warn('could not find all elements needed to tweak the Compose Tweet page', {$tweetsContainer, $tweetButtonText})
     }
   }
 }
@@ -6742,10 +7821,14 @@ async function tweakMobileMediaViewerPage() {
 
 async function tweakTimelineTabs($timelineTabs) {
   $timelineTabs.classList.add('TimelineTabs')
-  let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a'))
+  let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > [role="tab"]'))
+  if (!$followingTabLink) {
+    warn('could not find Following tab link')
+    return
+  }
 
   if (config.alwaysUseLatestTweets && !document.title.startsWith(separatedTweetsTimelineTitle)) {
-    let isForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > a[aria-selected="true"]'))
+    let isForYouTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:first-child > [role="tab"][aria-selected="true"]'))
     if (isForYouTabSelected && (!wasForYouTabSelected || config.hideForYouTimeline)) {
       log('switching to Following timeline')
       $followingTabLink.click()
@@ -6762,11 +7845,20 @@ async function tweakTimelineTabs($timelineTabs) {
       $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
     }
     else {
+      let $forYouTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:first-child > [role="tab"]'))
+      if (!$forYouTabLink) {
+        warn('could not find For you tab to clone for separated tweets tab')
+        return
+      }
       log('inserting separated tweets tab')
-      $newTab = /** @type {HTMLElement} */ ($followingTabLink.parentElement.cloneNode(true))
+      $newTab = /** @type {HTMLElement} */ ($forYouTabLink.parentElement.cloneNode(true))
       $newTab.id = 'cpftSeparatedTweetsTab'
       $newTab.querySelector('span').textContent = separatedTweetsTimelineTitle
-      let $link = $newTab.querySelector('a')
+      let $link = $newTab.querySelector('[role="tab"]')
+      if (!$link) {
+        warn('could not find tab link in separated tweets tab')
+        return
+      }
       $link.removeAttribute('aria-selected')
 
       // This script assumes navigation has occurred when the document title
@@ -6777,7 +7869,7 @@ async function tweakTimelineTabs($timelineTabs) {
         e.stopPropagation()
         if (!document.title.startsWith(separatedTweetsTimelineTitle)) {
           // The separated tweets tab belongs to the Following tab
-          let isFollowingTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
+          let isFollowingTabSelected = Boolean($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > [role="tab"][aria-selected="true"]'))
           if (!isFollowingTabSelected) {
             log('switching to the Following tab for separated tweets')
             $followingTabLink.click()
@@ -6790,7 +7882,7 @@ async function tweakTimelineTabs($timelineTabs) {
 
       // Return to the Home timeline when any other tab is clicked
       $followingTabLink.parentElement.parentElement.addEventListener('click', () => {
-        if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
+        if (location.pathname == PagePaths.HOME && currentPage != getString('HOME')) {
           log('setting title to Home')
           homeNavigationIsBeingUsed = true
           setTitle(getString('HOME'))
@@ -6802,15 +7894,27 @@ async function tweakTimelineTabs($timelineTabs) {
         name: 'home nav link',
         stopIf: pathIsNot(currentPath),
       })
-      if ($homeNavLink && !$homeNavLink.dataset.tweakNewTwitterListener) {
+      if ($homeNavLink && !$homeNavLink.dataset.cpftListener) {
         $homeNavLink.addEventListener('click', () => {
           homeNavigationIsBeingUsed = true
-          if (location.pathname == '/home' && !document.title.startsWith(getString('HOME'))) {
+          if (location.pathname == PagePaths.HOME && currentPage != getString('HOME')) {
             setTitle(getString('HOME'))
           }
         })
-        $homeNavLink.dataset.tweakNewTwitterListener = 'true'
+        $homeNavLink.dataset.cpftListener = 'true'
       }
+
+      // Click the Home nav link when the Following tab is clicked while on the
+      // separated Tweets timeline to switch back to Following without opening
+      // the menu.
+      $followingTabLink.parentElement.addEventListener('click', (e) => {
+        if (currentPage != getString('HOME') && $homeNavLink) {
+          e.preventDefault()
+          e.stopPropagation()
+          log('clicking the Home nav link to return to Following')
+          $homeNavLink.click()
+        }
+      })
     }
   } else {
     removeMobileTimelineHeaderElements()
@@ -6818,28 +7922,21 @@ async function tweakTimelineTabs($timelineTabs) {
 }
 
 function tweakNotificationsPage() {
-  let $navigationTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
-  if ($navigationTabs == null) {
-    warn('could not find Notifications tabs')
-    return
-  }
+  observeTimeline(currentPage, {
+    isTabbed: true,
+    tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
+  })
+}
 
-  if (config.hideVerifiedNotificationsTab) {
-    let isVerifiedTabSelected = Boolean($navigationTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a[aria-selected="true"]'))
-    if (isVerifiedTabSelected) {
-      log('switching to All tab')
-      let $allTab = /** @type {HTMLAnchorElement} */ (
-        $navigationTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a')
-      )
-      $allTab?.click()
-    }
-  }
-
-  if (config.twitterBlueChecks != 'ignore' || config.restoreLinkHeadlines) {
-    observeTimeline(currentPage, {
-      isTabbed: true,
-      tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
-    })
+async function tweakPremiumSignUpPage() {
+  if (!config.hideTwitterBlueUpsells) return
+  let $closeButton = await getElement('[data-testid="app-bar-close"]', {
+    name: 'Premium sign up close button',
+    stopIf: () => location.pathname != '/i/premium_sign_up',
+  })
+  if ($closeButton) {
+    log('Closing Premium sign up page')
+    $closeButton.click()
   }
 }
 
@@ -6857,6 +7954,7 @@ async function tweakProfilePage() {
   let tab = currentPath.match(URL_PROFILE_RE)?.[2] || 'tweets'
   log(`on ${tab} tab`)
   observeTimeline(currentPage, {
+    checkSocialContext: tab == 'tweets' || tab == 'with_replies',
     isUserTimeline: tab == 'affiliates'
   })
 
@@ -6875,7 +7973,7 @@ async function tweakProfilePage() {
       ), {
         name: "you aren't verified yet premium upsell",
         stopIf: pageIsNot(currentPage),
-        timeout: 1000,
+        timeout: 2000,
       }).then($upsell => {
         if ($upsell) {
           $upsell.classList.add('PremiumUpsell')
@@ -6928,10 +8026,23 @@ async function tweakProfilePage() {
   }
 }
 
+function tweakProfileSettingsPage() {
+  getElement('input[type="file"] + button:has(path[d^="M17.084 7.5c0-1.163 0-1.744-.14"])', {
+    name: 'profile header button (hideEditImage)',
+    timeout: 2000,
+  }).then($headerButton => $headerButton?.classList?.add('EditImage'))
+  if (desktop) {
+    getElement('div:has(> div + button path[d^="M17.084 7.5c0-1.163 0-1.744-.14"])', {
+      name: 'profile Edit Photo box (hideEditImage)',
+      timeout: 2000,
+    }).then($editPhotoBox => $editPhotoBox?.classList?.add('EditImage'))
+  }
+}
+
 /**
  * @param {Element} $dropdownItem
  * @param {string} dropdownItemSelector
- * @param {import("./types").LocaleKey} localeKey
+ * @param {import("./types").LocaleStringKey} localeKey
  */
 async function tweakRetweetDropdown($dropdownItem, dropdownItemSelector, localeKey) {
   log('tweaking Retweet/Quote Tweet dropdown')
@@ -6957,11 +8068,11 @@ function tweakSearchPage() {
   let $searchTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
   if ($searchTabs != null) {
     if (config.defaultToLatestSearch) {
-      let isTopTabSelected = Boolean($searchTabs.querySelector('div[role="tablist"] > div:nth-child(1) > a[aria-selected="true"]'))
+      let isTopTabSelected = Boolean($searchTabs.querySelector('div[role="tablist"] > div:nth-child(1) > [role="tab"][aria-selected="true"]'))
       if (isTopTabSelected) {
         log('switching to Latest tab')
         let $latestTab = /** @type {HTMLAnchorElement} */ (
-          $searchTabs.querySelector('div[role="tablist"] > div:nth-child(2) > a')
+          $searchTabs.querySelector('div[role="tablist"] > div:nth-child(2) > [role="tab"]')
         )
         $latestTab?.click()
       }
@@ -6971,13 +8082,13 @@ function tweakSearchPage() {
   }
 
   observeTimeline(currentPage, {
-    hideHeadings: false,
+    hideHeadings: config.hideSuggestedContentSearch,
     isTabbed: true,
     tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
   })
 
   if (desktop) {
-    let $emptyFirstSidebarItem = document.querySelector(`${Selectors.SIDEBAR_WRAPPERS} > div:first-child:empty`)
+    let $emptyFirstSidebarItem = document.querySelector(`.SidebarContents > div:first-child:empty`)
     if ($emptyFirstSidebarItem) {
       log('removing empty first sidebar item from Search sidebar')
       $emptyFirstSidebarItem.remove()
@@ -7003,15 +8114,6 @@ function tweakTweetEngagementPage() {
     return
   }
 
-  if (tweetInteractionsTab) {
-    log('switching to tab', tweetInteractionsTab)
-    let $tab = /** @type {HTMLAnchorElement} */ (
-      $tabs.querySelector(`div[role="tablist"] > div:nth-child(${tweetInteractionsTab}) > a`)
-    )
-    $tab?.click()
-    tweetInteractionsTab = null
-  }
-
   if (config.replaceLogo) {
     let $quoteTweetsTabText = $tabs.querySelector('div[role="tablist"] > div:nth-child(1) div[dir] > span')
     if ($quoteTweetsTabText) $quoteTweetsTabText.textContent = getString('QUOTE_TWEETS')
@@ -7027,10 +8129,11 @@ function tweakTweetEngagementPage() {
 
 //#region Main
 async function main() {
-  // Don't run on URLs used for OAuth
+  // Don't run on non-app URLs served from x.com
   if (location.pathname.startsWith('/i/oauth2/authorize') ||
-      location.pathname.startsWith('/oauth/authorize')) {
-    log('Not running on OAuth URL')
+      location.pathname.startsWith('/oauth/authorize') ||
+      /^\/([^/]+\/)?(tos|privacy)(\/previous(\/version_\d+)?)?/.test(location.pathname)) {
+    log('Not running on', location.pathname)
     return
   }
 
@@ -7051,6 +8154,7 @@ async function main() {
 
   observeFavicon()
   observeTitle()
+  observeThemeMeta()
 
   let $appWrapper = await getElement('#layers + div', {name: 'app wrapper'})
 
@@ -7083,6 +8187,8 @@ async function main() {
       // One-time setup
       checkReactNativeStylesheet()
       observeBodyBackgroundColor()
+      observeReRenderBoundary()
+      patchHistory()
       let initialThemeColor = getThemeColorFromState()
       if (initialThemeColor) {
         themeColor = initialThemeColor
@@ -7098,10 +8204,11 @@ async function main() {
       configureSeparatedTweetsTimelineTitle()
       configureCss()
       configureDynamicCss()
+      configureFeatureFlags()
       configureThemeCss()
       configureCustomCss()
       observePopups()
-      observeSideNavTweetButton()
+      observeSideNavItems()
 
       // Start taking action on page changes
       observingPageChanges = true
@@ -7145,6 +8252,7 @@ function configChanged(changes) {
     } else {
       // These functions have teardowns when disabled
       configureCss()
+      configureFeatureFlags()
       configureFont()
       configureDynamicCss()
       configureThemeCss()
@@ -7174,8 +8282,11 @@ function configChanged(changes) {
   configureThemeCss()
   configureCustomCss()
   observePopups()
-  observeSideNavTweetButton()
+  observeSideNavItems()
 
+  if ('darkModeTheme' in changes) {
+    observeThemeMeta.update()
+  }
   if ('replaceLogo' in changes || 'hideNotifications' in changes) {
     observeFavicon.forceUpdate(getNotificationCount() > 0)
   }
