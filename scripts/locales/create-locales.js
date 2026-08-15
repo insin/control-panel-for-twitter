@@ -37,7 +37,7 @@ for (let file of fs.readdirSync('./js')) {
   for (let [key, code] of Object.entries(template)) {
     if (key.endsWith('_FN')) {
       let match = src.match(
-        new RegExp(`"${code}",\\((function\\([a-z]\\)[^)]+)\\)`),
+        new RegExp(`"${code}",\\(?(function\\([a-z]\\)[^)]+)\\)`),
       )
       if (match) {
         locale[key] = match[1]

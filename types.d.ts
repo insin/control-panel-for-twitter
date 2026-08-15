@@ -38,7 +38,9 @@ export type Config = {
   hideJobsNav: boolean
   hideLikeMetrics: boolean
   hideListsNav: boolean
+  hideManageTimelines: boolean
   hideMetrics: boolean
+  hideMoreFromThisAuthor: boolean
   // XXX This now controls hiding all "Discover" suggestions
   hideMoreTweets: boolean
   hideNotificationLikes: boolean
@@ -206,6 +208,7 @@ export type TimelineItemType =
   | 'GOVERNMENT_REPLY'
   | 'HEADING'
   | 'INLINE_PROMPT'
+  | 'SEE_MORE'
   | 'SHOW_MORE'
   | 'SUBSEQUENT_ITEM'
   | 'UNAVAILABLE'

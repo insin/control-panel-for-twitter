@@ -194,6 +194,9 @@
   "hideLiveBroadcastsLabel": {
     "message": "Nascondi le trasmissioni in diretta"
   },
+  "hideManageTimelinesLabel": {
+    "message": "Nascondi il pulsante \"Gestisci cronologie\""
+  },
   "hideMessagesBottomNavItemLabel": {
     "message": "Messaggi"
   },
@@ -202,6 +205,9 @@
   },
   "hideMetricsLabel": {
     "message": "Nascondi statistiche"
+  },
+  "hideMoreFromThisAuthorLabel": {
+    "message": "Nascondi \"Altro di questo autore\""
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "Nascondi elementi del menu \"Altro\" che non usi"

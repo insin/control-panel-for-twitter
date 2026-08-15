@@ -194,6 +194,9 @@
   "hideLiveBroadcastsLabel": {
     "message": "ライブ放送を非表示"
   },
+  "hideManageTimelinesLabel": {
+    "message": "「タイムラインを管理」ボタンを非表示"
+  },
   "hideMessagesBottomNavItemLabel": {
     "message": "メッセージ"
   },
@@ -202,6 +205,9 @@
   },
   "hideMetricsLabel": {
     "message": "メトリクスを非表示"
+  },
+  "hideMoreFromThisAuthorLabel": {
+    "message": "「この作者の他の投稿」を非表示"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "使用しない「もっと見る」メニューの項目を非表示"

@@ -194,6 +194,9 @@
   "hideLiveBroadcastsLabel": {
     "message": "Masquer les diffusions en direct"
   },
+  "hideManageTimelinesLabel": {
+    "message": "Masquer le bouton \"Gérer les fils\""
+  },
   "hideMessagesBottomNavItemLabel": {
     "message": "Messages"
   },
@@ -202,6 +205,9 @@
   },
   "hideMetricsLabel": {
     "message": "Masquer les métriques"
+  },
+  "hideMoreFromThisAuthorLabel": {
+    "message": "Masquer \"Plus de cet auteur\""
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "Masquer les éléments de menu que vous n'utilisez pas"
