@@ -383,9 +383,6 @@
   "quoteTweetsLabel": {
     "message": "Tweets de citation"
   },
-  "redirectChatNavLabel": {
-    "message": "Rediriger l'élément Chat vers Messages"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "Supprimer le contenu algorithmique"
   },

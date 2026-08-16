@@ -392,9 +392,6 @@
   "quoteTweetsLabel": {
     "message": "引用推文"
   },
-  "redirectChatNavLabel": {
-    "message": "将聊天导航项重定向至消息"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "删除算法性内容"
   },

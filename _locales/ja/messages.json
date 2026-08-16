@@ -383,9 +383,6 @@
   "quoteTweetsLabel": {
     "message": "引用ツイート"
   },
-  "redirectChatNavLabel": {
-    "message": "チャットナビをメッセージにリダイレクト"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "アルゴリズムコンテンツを取り除く"
   },

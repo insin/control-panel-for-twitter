@@ -383,9 +383,6 @@
   "quoteTweetsLabel": {
     "message": "인용 트윗"
   },
-  "redirectChatNavLabel": {
-    "message": "채팅 탐색 항목을 메시지로 리디렉션"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "알고리즘 컨텐츠 제거"
   },
