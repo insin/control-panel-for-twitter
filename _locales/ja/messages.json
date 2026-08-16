@@ -386,9 +386,6 @@
   "redirectChatNavLabel": {
     "message": "チャットナビをメッセージにリダイレクト"
   },
-  "redirectToTwitterLabel": {
-    "message": "twitter.com にリダイレクト"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "アルゴリズムコンテンツを取り除く"
   },

@@ -185,7 +185,6 @@ const config = {
   mutedQuotes: [],
   quoteTweets: 'ignore',
   redirectChatNav: false,
-  redirectToTwitter: false,
   reducedInteractionMode: false,
   replaceLogo: true,
   restoreLinkHeadlines: true,
@@ -6977,27 +6976,6 @@ function processCurrentPage() {
 }
 
 /**
- * @returns {boolean} `true` if this call replaces the current location
- */
-function redirectToTwitter() {
-  if (config.redirectToTwitter &&
-      location.hostname.endsWith('x.com') &&
-      // Don't redirect the path used by the OldTweetDeck extension
-      location.pathname != '/i/tweetdeck') {
-    // If we got a logout redirect from twitter.com, redirect back to the login page
-    let pathname = location.search.includes('logout=') ? '/i/flow/login' : location.pathname || PagePaths.HOME
-    let searchParams = new URLSearchParams(location.search)
-    searchParams.delete('logout')
-    searchParams.set('mx', '1')
-    let redirectUrl = `https://twitter.com${pathname}?${searchParams}`
-    log('redirectToTwitter: redirecting from', location.href, 'to', redirectUrl)
-    location.replace(redirectUrl)
-    return true
-  }
-  return false
-}
-
-/**
  * The mobile version of Twitter reuses heading elements between screens, so we
  * always remove any elements which could be there from the previous page and
  * re-add them later when needed.
@@ -8147,11 +8125,6 @@ async function main() {
   fontSize = null
   lastFlexDirection = null
 
-  // Don't run if we're redirecting to twitter.com
-  if (redirectToTwitter()) {
-    return
-  }
-
   observeFavicon()
   observeTitle()
   observeThemeMeta()
@@ -8264,10 +8237,6 @@ function configChanged(changes) {
       disconnectObservers(pageObservers, 'page')
       disconnectObservers(globalObservers, 'global')
     }
-    return
-  }
-
-  if ('redirectToTwitter' in changes && redirectToTwitter()) {
     return
   }
 

@@ -386,9 +386,6 @@
   "redirectChatNavLabel": {
     "message": "Rediriger l'élément Chat vers Messages"
   },
-  "redirectToTwitterLabel": {
-    "message": "Rediriger vers twitter.com"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "Supprimer le contenu algorithmique"
   },

@@ -72,7 +72,6 @@ export type Config = {
   mutedQuotes: QuotedTweet[]
   quoteTweets: SharedTweetsConfig
   redirectChatNav: boolean
-  redirectToTwitter: boolean
   reducedInteractionMode: boolean
   // XXX This now controls all replacement of X brand changes
   replaceLogo: boolean

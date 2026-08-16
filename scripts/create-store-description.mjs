@@ -71,7 +71,6 @@ ${messages.uiImprovementsOptionsLabel}:
 
 ${messages.xFixesLabel}:
 
-• ${messages.redirectToTwitterLabel}
 • ${messages.redirectChatNavLabel}
 • ${messages.replaceLogoLabel}
 • ${messages.darkModeThemeLabel} (${messages.option_dim})
