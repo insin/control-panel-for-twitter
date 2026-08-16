@@ -197,9 +197,6 @@
   "hideManageTimelinesLabel": {
     "message": "Hide \"Manage timelines\" button"
   },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "Messages"
-  },
   "hideMessagesDrawerLabel": {
     "message": "Chat drawer"
   },

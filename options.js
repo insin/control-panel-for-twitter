@@ -69,7 +69,6 @@ for (let translationId of [
   'hideAllMetricsLabel',
   'hideBookmarkButtonLabel',
   'hideBookmarkMetricsLabel',
-  'hideChatNavLabel',
   'hideComposeTweetLabel',
   'hideDiscoverSuggestionsLabel',
   'hideEditImageLabel',
@@ -86,7 +85,6 @@ for (let translationId of [
   'hideLiveBroadcastBarLabel',
   'hideLiveBroadcastsLabel',
   'hideManageTimelinesLabel',
-  'hideMessagesBottomNavItemLabel',
   'hideMessagesDrawerLabel',
   'hideMetricsLabel',
   'hideMoreFromThisAuthorLabel',
@@ -168,6 +166,7 @@ for (let translationId of [
 for (let translationClass of [
   'hideBookmarksNavLabel',
   'hideBusinessNavLabel',
+  'hideChatNavLabel',
   'hideCommunitiesNavLabel',
   'hideConnectNavLabel',
   'hideCreatorStudioNavLabel',

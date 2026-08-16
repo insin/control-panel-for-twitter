@@ -194,9 +194,6 @@
   "hideManageTimelinesLabel": {
     "message": "隐藏“管理时间线”按钮"
   },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "私信"
-  },
   "hideMessagesDrawerLabel": {
     "message": "聊天抽屉"
   },

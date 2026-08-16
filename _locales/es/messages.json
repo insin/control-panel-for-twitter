@@ -194,9 +194,6 @@
   "hideManageTimelinesLabel": {
     "message": "Ocultar el botón \"Administrar cronologías\""
   },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "Mensajes"
-  },
   "hideMessagesDrawerLabel": {
     "message": "Bandeja de chat"
   },

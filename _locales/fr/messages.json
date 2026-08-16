@@ -194,9 +194,6 @@
   "hideManageTimelinesLabel": {
     "message": "Masquer le bouton \"Gérer les fils\""
   },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "Messages"
-  },
   "hideMessagesDrawerLabel": {
     "message": "Tiroir de chat"
   },

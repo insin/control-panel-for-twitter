@@ -194,9 +194,6 @@
   "hideManageTimelinesLabel": {
     "message": "「タイムラインを管理」ボタンを非表示"
   },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "メッセージ"
-  },
   "hideMessagesDrawerLabel": {
     "message": "チャットドロワー"
   },

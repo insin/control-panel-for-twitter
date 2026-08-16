@@ -4412,12 +4412,6 @@ const configureCss = (() => {
     if (config.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
     }
-    if (config.hideChatNav) {
-      hideCssSelectors.push(
-        // Nav item
-        `${menuRole} a[href$="/i/chat"]`,
-      )
-    }
     if (config.hideManageTimelines) {
       hideCssSelectors.push('.ManageTimelines')
     }
@@ -4926,6 +4920,9 @@ const configureCss = (() => {
       if (config.hideConnectNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/connect_people"]`)
       }
+      if (config.hideChatNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/chat"]`)
+      }
       if (config.hideGrokNav) {
         hideCssSelectors.push(
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
@@ -5131,7 +5128,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href$="/communities"]`)
       }
       if (config.hideMessagesBottomNavItem) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a:is([href="/messages"], [href="/i/chat"])`)
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/chat"]`)
       }
       if (config.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/jobs"]`)

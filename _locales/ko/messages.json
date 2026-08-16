@@ -194,9 +194,6 @@
   "hideManageTimelinesLabel": {
     "message": "\"타임라인 관리\" 버튼 숨기기"
   },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "메시지"
-  },
   "hideMessagesDrawerLabel": {
     "message": "채팅 드로어"
   },
