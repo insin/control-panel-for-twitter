@@ -138,7 +138,6 @@ const config = {
   hideAdsNav: true,
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
-  hideBookmarksNav: false,
   hideBusinessNav: true,
   hideChatNav: false,
   hideCommunitiesNav: false,
@@ -151,6 +150,7 @@ const config = {
   hideForYouTimeline: true,
   hideGrokNav: true,
   hideGrokTweets: false,
+  hideHistoryNav: false,
   hideInlinePrompts: true,
   hideJobsNav: true,
   hideLikeMetrics: true,
@@ -257,6 +257,7 @@ const locales = {
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RECENT: 'الحديثة',
+    RELEVANT: 'ذو صلة',
     REPOST: 'إعادة النشر',
     REPOSTS: 'المنشورات المُعاد نشرها',
     RETWEET: 'إعادة التغريد',
@@ -597,6 +598,7 @@ const locales = {
     QUOTE_TWEET: 'Παράθεση Tweet',
     QUOTE_TWEETS: 'Tweet με παράθεση',
     RECENT: 'Πρόσφατα',
+    RELEVANT: 'Σχετικό',
     REPOST: 'Αναδημοσίευση',
     REPOSTS: 'Αναδημοσιεύσεις',
     RETWEETED_BY: 'Έγινε Retweet από',
@@ -756,6 +758,7 @@ const locales = {
     QUOTE_TWEET: 'نقل‌توییت',
     QUOTE_TWEETS: 'نقل‌توییت‌ها',
     RECENT: 'اخیر',
+    RELEVANT: 'مربوط',
     REPOST: 'بازپست',
     REPOSTS: 'بازپست',
     RETWEET: 'بازتوییت',
@@ -842,6 +845,7 @@ const locales = {
     QUOTE_TWEET: 'Quote na Tweet',
     QUOTE_TWEETS: 'Mga Quote na Tweet',
     RECENT: 'Kamakailan',
+    RELEVANT: 'Nauugnay',
     REPOST: 'I-repost',
     REPOSTS: '(na) Repost',
     RETWEET: 'I-retweet',
@@ -1205,6 +1209,7 @@ const locales = {
     QUOTE_TWEET: 'Kutip Tweet',
     QUOTE_TWEETS: 'Tweet Kutipan',
     RECENT: 'Terkini',
+    RELEVANT: 'Relevan',
     REPOST: 'Posting ulang',
     REPOSTS: 'Posting ulang',
     RETWEETED_BY: 'Di-retweet oleh',
@@ -1245,6 +1250,7 @@ const locales = {
     QUOTE_TWEET: 'Cita Tweet',
     QUOTE_TWEETS: 'Tweet di citazione',
     RECENT: 'Recenti',
+    RELEVANT: 'Pertinenza',
     REPOSTS: 'Repost',
     RETWEET: 'Ritwitta',
     RETWEETED_BY: 'Ritwittato da',
@@ -1375,6 +1381,7 @@ const locales = {
     QUOTE_TWEET: '트윗 인용하기',
     QUOTE_TWEETS: '트윗 인용하기',
     RECENT: '최근',
+    RELEVANT: '관련 있음',
     REPOST: '재게시',
     REPOSTS: '재게시',
     RETWEET: '리트윗',
@@ -1583,6 +1590,7 @@ const locales = {
     QUOTE_TWEET: 'Cytuj Tweeta',
     QUOTE_TWEETS: 'Cytaty z Tweeta',
     RECENT: 'Najnowsze',
+    RELEVANT: 'Trafne',
     REPOST: 'Podaj dalej wpis',
     REPOSTS: 'Wpisy podane dalej',
     RETWEET: 'Podaj dalej',
@@ -1625,6 +1633,7 @@ const locales = {
     QUOTE_TWEET: 'Comentar o Tweet',
     QUOTE_TWEETS: 'Tweets com comentário',
     RECENT: 'Recente',
+    RELEVANT: 'Relevante',
     REPOST: 'Repostar',
     RETWEET: 'Retweetar',
     RETWEETED_BY: 'Retweetado por',
@@ -1753,6 +1762,7 @@ const locales = {
     QUOTE_TWEET: 'Tweet s citátom',
     QUOTE_TWEETS: 'Tweety s citátom',
     RECENT: 'Nedávne',
+    RELEVANT: 'Relevantné',
     REPOST: 'Opätovné uverejnenie',
     REPOSTS: 'Opätovné uverejnenia',
     RETWEET: 'Retweetnuť',
@@ -2134,6 +2144,7 @@ const locales = {
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用的推文',
     RECENT: '最近',
+    RELEVANT: '相關',
     REPOST: '轉發',
     REPOSTS: '轉發',
     RETWEET: '轉推',
@@ -2223,10 +2234,10 @@ function getString(key) {
 const PagePaths = {
   ACCESSIBILITY_SETTINGS: '/settings/accessibility',
   ADD_MUTED_WORD: '/settings/add_muted_keyword',
-  BOOKMARKS: '/i/bookmarks',
   COMPOSE_TWEET: '/compose/post',
   CONNECT: '/i/connect',
   DISPLAY_SETTINGS: '/settings/display',
+  HISTORY: '/i/history',
   HOME: '/home',
   NOTIFICATION_TIMELINE: '/i/timeline',
   PROFILE_SETTINGS: '/settings/profile',
@@ -2467,10 +2478,6 @@ function isOnAccessibilitySettingsPage() {
   return currentPath == PagePaths.ACCESSIBILITY_SETTINGS
 }
 
-function isOnBookmarksPage() {
-  return currentPath.startsWith(PagePaths.BOOKMARKS)
-}
-
 function isOnChatPage() {
   return currentPath.startsWith('/i/chat')
 }
@@ -2505,6 +2512,10 @@ function isOnFollowListPage() {
 
 function isOnGrokPage() {
   return currentPath.startsWith('/i/grok')
+}
+
+function isOnHistoryPage() {
+  return currentPath.startsWith(PagePaths.HISTORY)
 }
 
 function isOnIndividualTweetPage() {
@@ -4406,8 +4417,8 @@ const configureCss = (() => {
     if (config.hideListsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/lists"]`)
     }
-    if (config.hideBookmarksNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/bookmarks"]`)
+    if (config.hideHistoryNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="${PagePaths.HISTORY}"]`)
     }
     if (config.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
@@ -5022,11 +5033,11 @@ const configureCss = (() => {
           hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/explore"]`)
         }
       }
-      if (config.hideBookmarksNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`)
+      if (config.hideHistoryNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="${PagePaths.HISTORY}"]`)
         if (config.tweakNewLayout) {
           // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/i/bookmarks"]`)
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="${PagePaths.HISTORY}"]`)
         }
       }
       if (config.hideCommunitiesNav) {
@@ -6613,10 +6624,6 @@ function onTitleChange(title) {
     else if (desktop && location.pathname == '/i/chat' && currentPath != '/i/chat') {
       log('viewing root Chat page')
     }
-    // The Bookmarks page sets an empty title
-    else if (location.pathname.startsWith(PagePaths.BOOKMARKS) && !currentPath.startsWith(PagePaths.BOOKMARKS)) {
-      log('viewing Bookmarks page')
-    }
     else {
       log('ignoring Flash of Uninitialised Title')
       return
@@ -6755,11 +6762,11 @@ function processCurrentPage() {
 
   // Hooks for styling pages
   if (!$body) $body = document.body
-  $body.classList.toggle('Bookmarks', isOnBookmarksPage())
   $body.classList.toggle('Community', isOnCommunityPage())
   $body.classList.toggle('Communities', isOnCommunitiesPage())
   $body.classList.toggle('Explore', isOnExplorePage())
   $body.classList.toggle('HideSidebar', shouldHideSidebar())
+  $body.classList.toggle('History', isOnHistoryPage())
   $body.classList.toggle('List', isOnListPage())
   $body.classList.toggle('HomeTimeline', isOnHomeTimelinePage())
   $body.classList.toggle('Notifications', isOnNotificationsPage())
@@ -6834,8 +6841,8 @@ function processCurrentPage() {
   else if (isOnExplorePage()) {
     tweakExplorePage()
   }
-  else if (isOnBookmarksPage()) {
-    tweakBookmarksPage()
+  else if (isOnHistoryPage()) {
+    tweakHistoryPage()
   }
   else if (isOnCommunitiesPage()) {
     tweakCommunitiesPage()
@@ -7102,9 +7109,21 @@ function shouldHideSharedTweet(config, page) {
   }
 }
 
-async function tweakBookmarksPage() {
+async function tweakHistoryPage() {
   if (config.twitterBlueChecks != 'ignore' || config.restoreLinkHeadlines) {
-    observeTimeline(currentPage)
+    // The History page re-renders the entire main contents when you change tab
+    let $reRerenderBoundary = await getElement('main[role="main"] > div', {
+      name: 'History re-render boundary',
+      stopIf: () => !isOnHistoryPage(),
+    })
+    if (!$reRerenderBoundary) return
+    observeElement($reRerenderBoundary, () => {
+      observeTimeline(currentPage)
+    }, {
+      name: 'History re-render boundary',
+      leading: true,
+      observers: pageObservers,
+    })
   }
 }
 

@@ -125,9 +125,6 @@
   "hideBookmarkMetricsLabel": {
     "message": "Bookmarks"
   },
-  "hideBookmarksNavLabel": {
-    "message": "Bookmarks"
-  },
   "hideBusinessNavLabel": {
     "message": "Business"
   },
@@ -175,6 +172,9 @@
   },
   "hideGrokTweetsLabel": {
     "message": "Hide Grok tweets"
+  },
+  "hideHistoryNavLabel": {
+    "message": "History"
   },
   "hideInlinePrompts": {
     "message": "Hide inline prompts in the timeline"

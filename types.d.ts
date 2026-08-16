@@ -21,7 +21,6 @@ export type Config = {
   hideAdsNav: boolean
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
-  hideBookmarksNav: boolean
   hideBusinessNav: boolean
   hideChatNav: boolean
   hideCommunitiesNav: boolean
@@ -34,6 +33,7 @@ export type Config = {
   hideForYouTimeline: boolean
   hideGrokNav: boolean
   hideGrokTweets: boolean
+  hideHistoryNav: boolean
   hideInlinePrompts: boolean
   hideJobsNav: boolean
   hideLikeMetrics: boolean

@@ -164,12 +164,12 @@ for (let translationId of [
 }
 
 for (let translationClass of [
-  'hideBookmarksNavLabel',
   'hideBusinessNavLabel',
   'hideChatNavLabel',
   'hideCommunitiesNavLabel',
   'hideConnectNavLabel',
   'hideCreatorStudioNavLabel',
+  'hideHistoryNavLabel',
   'hideListsNavLabel',
   'notificationsLabel',
   'saveAndApplyButton',
@@ -222,7 +222,6 @@ const defaultConfig = {
   hideAdsNav: true,
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
-  hideBookmarksNav: false,
   hideBusinessNav: true,
   hideChatNav: false,
   hideCommunitiesNav: false,
@@ -235,6 +234,7 @@ const defaultConfig = {
   hideForYouTimeline: true,
   hideGrokNav: true,
   hideGrokTweets: false,
+  hideHistoryNav: false,
   hideInlinePrompts: true,
   hideJobsNav: true,
   hideLikeMetrics: true,
