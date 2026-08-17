@@ -99,6 +99,7 @@ export type Config = {
   customCss: string
   // Desktop only
   addUserHoverCardAccountLocation: boolean
+  fullMediaViewerNavigation: boolean
   fullWidthContent: boolean
   fullWidthMedia: boolean
   hideAccountSwitcher: boolean
