@@ -72,6 +72,8 @@ ${messages.uiImprovementsOptionsLabel}:
 ${messages.xFixesLabel}:
 
 • ${messages.replaceLogoLabel}
+• ${messages.revertMediaCarouselLabel}
+• ${messages.revertProfileTabsLabel}
 • ${messages.darkModeThemeLabel} (${messages.option_dim})
 • ${messages.hideViewsLabel}
 • ${messages.hideVerifiedNotificationsTabLabel}

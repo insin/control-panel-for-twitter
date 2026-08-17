@@ -410,6 +410,12 @@
   "retweetsLabel": {
     "message": "Retweets"
   },
+  "revertMediaCarouselLabel": {
+    "message": "Rétablir le carrousel de médias"
+  },
+  "revertProfileTabsLabel": {
+    "message": "Annuler les modifications des onglets de profil"
+  },
   "saveAndApplyButton": {
     "message": "Enregistrer et appliquer"
   },

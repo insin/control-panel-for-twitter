@@ -410,6 +410,12 @@
   "retweetsLabel": {
     "message": "리트윗"
   },
+  "revertMediaCarouselLabel": {
+    "message": "미디어 캐러셀 되돌리기"
+  },
+  "revertProfileTabsLabel": {
+    "message": "프로필 탭 변경 사항 되돌리기"
+  },
   "saveAndApplyButton": {
     "message": "저장하고 적용"
   },

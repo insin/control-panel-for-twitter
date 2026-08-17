@@ -79,6 +79,8 @@ export type Config = {
   restoreOtherInteractionLinks: boolean
   restoreTweetSource: boolean
   retweets: SharedTweetsConfig
+  revertMediaCarousel: boolean
+  revertProfileTabs: boolean
   showBlueReplyFollowersCount: boolean
   showBlueReplyFollowersCountAmount: string
   showBookmarkButtonUnderFocusedTweets: boolean

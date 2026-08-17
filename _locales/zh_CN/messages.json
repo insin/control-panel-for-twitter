@@ -419,6 +419,12 @@
   "retweetsLabel": {
     "message": "转发"
   },
+  "revertMediaCarouselLabel": {
+    "message": "还原媒体轮播"
+  },
+  "revertProfileTabsLabel": {
+    "message": "还原个人资料选项卡的更改"
+  },
   "saveAndApplyButton": {
     "message": "保存并应用"
   },

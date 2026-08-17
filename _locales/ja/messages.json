@@ -410,6 +410,12 @@
   "retweetsLabel": {
     "message": "リツイート"
   },
+  "revertMediaCarouselLabel": {
+    "message": "メディアカルーセルを元に戻す"
+  },
+  "revertProfileTabsLabel": {
+    "message": "プロフィールタブの変更を元に戻す"
+  },
   "saveAndApplyButton": {
     "message": "保存して適用"
   },
