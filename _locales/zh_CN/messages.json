@@ -56,6 +56,9 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "私信"
   },
+  "disabledHomeTimelineRedirectOption_bookmarks": {
+    "message": "书签"
+  },
   "dontUseChirpFontLabel": {
     "message": "不要使用Chirp字体"
   },
