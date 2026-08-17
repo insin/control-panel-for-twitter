@@ -3520,7 +3520,7 @@ async function observeSidebar() {
     if (!config.hideSidebarContent || config.showRelevantPeople && isOnIndividualTweetPage()) {
       void async function() {
         // Avoid false positive from Premium upsells in the sidebar
-        let $aside = await getElement('aside[role="complementary"]:not(:has(a[href^="/i/premium"]))', {
+        let $aside = await getElement('aside[role="complementary"]:not(:has(a:is([href^="/i/premium"], [href^="https://grok.com/imagine"])))', {
           name: 'sidebar aside box',
           context: $sidebar,
           stopIf: pageIsNot(currentPage),
@@ -4982,6 +4982,11 @@ const configureCss = (() => {
             '.SidebarContents > div:has(> div > div[data-testid="super-upsell-UpsellCardRenderProperties"])',
           )
         }
+      }
+      if (config.hideGrokNav && !config.hideSidebarContent) {
+        hideCssSelectors.push(
+          '.SidebarContents > div:has(> aside[role="complementary"] > a[href^="https://grok.com/imagine"])'
+        )
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
