@@ -278,7 +278,7 @@ const defaultConfig = {
   restoreTweetSource: true,
   retweets: 'separate',
   revertMediaCarousel: true,
-  revertProfileTabs: true,
+  revertProfileTabs: false,
   showBlueReplyFollowersCount: false,
   showBlueReplyFollowersCountAmount: '1000000',
   showBookmarkButtonUnderFocusedTweets: true,
