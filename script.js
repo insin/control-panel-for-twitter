@@ -6665,21 +6665,26 @@ function onTitleChange(title) {
   )
 
   if (newPage == currentPage && !hasDesktopInitialModalBeenClosed) {
-    log(`ignoring duplicate title change`)
-    // Navigation within the Compose Tweet modal triggers duplcate title changes
-    if (isDesktopComposeTweetModalOpen) {
-      if (currentPath == ModalPaths.COMPOSE_TWEET && COMPOSE_TWEET_MODAL_PAGES.has(location.pathname)) {
-        log('navigated away from Compose Tweet editor')
-        disconnectObservers(modalObservers, 'modal')
+    // The History page re-renders everything when you switch tabs
+    if (location.pathname.startsWith(PagePaths.HISTORY) && currentPath != location.pathname) {
+      log('viewing History page')
+    } else {
+      log(`ignoring duplicate title change`)
+      // Navigation within the Compose Tweet modal triggers duplcate title changes
+      if (isDesktopComposeTweetModalOpen) {
+        if (currentPath == ModalPaths.COMPOSE_TWEET && COMPOSE_TWEET_MODAL_PAGES.has(location.pathname)) {
+          log('navigated away from Compose Tweet editor')
+          disconnectObservers(modalObservers, 'modal')
+        }
+        else if (COMPOSE_TWEET_MODAL_PAGES.has(currentPath) && location.pathname == ModalPaths.COMPOSE_TWEET) {
+          log('navigated back to Compose Tweet editor')
+          observeDesktopComposeTweetModal($desktopComposeTweetModalPopup)
+        }
       }
-      else if (COMPOSE_TWEET_MODAL_PAGES.has(currentPath) && location.pathname == ModalPaths.COMPOSE_TWEET) {
-        log('navigated back to Compose Tweet editor')
-        observeDesktopComposeTweetModal($desktopComposeTweetModalPopup)
-      }
+      currentNotificationCount = notificationCount
+      currentPath = location.pathname
+      return
     }
-    currentNotificationCount = notificationCount
-    currentPath = location.pathname
-    return
   }
 
   // Search terms are shown in the title
@@ -7115,19 +7120,7 @@ function shouldHideSharedTweet(config, page) {
 
 async function tweakHistoryPage() {
   if (config.twitterBlueChecks != 'ignore' || config.restoreLinkHeadlines) {
-    // The History page re-renders the entire main contents when you change tab
-    let $reRerenderBoundary = await getElement('main[role="main"] > div', {
-      name: 'History re-render boundary',
-      stopIf: () => !isOnHistoryPage(),
-    })
-    if (!$reRerenderBoundary) return
-    observeElement($reRerenderBoundary, () => {
-      observeTimeline(currentPage)
-    }, {
-      name: 'History re-render boundary',
-      leading: true,
-      observers: pageObservers,
-    })
+    observeTimeline(currentPage)
   }
 }
 
