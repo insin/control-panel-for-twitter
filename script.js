@@ -4395,7 +4395,7 @@ const configureCss = (() => {
       }
     }
     if (config.hideEditImage) {
-      let isImagineSelector = ':is([href^="/i/imagine"], [href^="https://grok.com/imagine"])'
+      let isImagineSelector = ':is([href^="/i/imagine"], [href^="https://grok.com/imagine"], [href^="/i/grok-redirect"])'
       hideCssSelectors.push(
         // Manually-tagged
         '.EditImage',
