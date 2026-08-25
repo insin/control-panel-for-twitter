@@ -125,9 +125,6 @@
   "hideBookmarkMetricsLabel": {
     "message": "ブックマーク"
   },
-  "hideBookmarksNavLabel": {
-    "message": "ブックマーク"
-  },
   "hideBusinessNavLabel": {
     "message": "ビジネス"
   },
@@ -176,6 +173,9 @@
   "hideGrokTweetsLabel": {
     "message": "Grokのツイートを非表示"
   },
+  "hideHistoryNavLabel": {
+    "message": "履歴"
+  },
   "hideInlinePrompts": {
     "message": "タイムライン内のインラインプロンプトを非表示にする"
   },
@@ -196,9 +196,6 @@
   },
   "hideManageTimelinesLabel": {
     "message": "「タイムラインを管理」ボタンを非表示"
-  },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "メッセージ"
   },
   "hideMessagesDrawerLabel": {
     "message": "チャットドロワー"
@@ -386,12 +383,6 @@
   "quoteTweetsLabel": {
     "message": "引用ツイート"
   },
-  "redirectChatNavLabel": {
-    "message": "チャットナビをメッセージにリダイレクト"
-  },
-  "redirectToTwitterLabel": {
-    "message": "twitter.com にリダイレクト"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "アルゴリズムコンテンツを取り除く"
   },
@@ -421,6 +412,12 @@
   },
   "retweetsLabel": {
     "message": "リツイート"
+  },
+  "revertMediaCarouselLabel": {
+    "message": "メディアカルーセルを元に戻す"
+  },
+  "revertProfileTabsLabel": {
+    "message": "プロフィールタブの変更を元に戻す"
   },
   "saveAndApplyButton": {
     "message": "保存して適用"

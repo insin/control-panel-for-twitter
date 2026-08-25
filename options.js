@@ -70,7 +70,6 @@ for (let translationId of [
   'hideAllMetricsLabel',
   'hideBookmarkButtonLabel',
   'hideBookmarkMetricsLabel',
-  'hideChatNavLabel',
   'hideComposeTweetLabel',
   'hideDiscoverSuggestionsLabel',
   'hideEditImageLabel',
@@ -87,7 +86,6 @@ for (let translationId of [
   'hideLiveBroadcastBarLabel',
   'hideLiveBroadcastsLabel',
   'hideManageTimelinesLabel',
-  'hideMessagesBottomNavItemLabel',
   'hideMessagesDrawerLabel',
   'hideMetricsLabel',
   'hideMoreFromThisAuthorLabel',
@@ -127,8 +125,6 @@ for (let translationId of [
   'preventNextVideoAutoplayInfo',
   'preventNextVideoAutoplayLabel',
   'quoteTweetsLabel',
-  'redirectChatNavLabel',
-  'redirectToTwitterLabel',
   'reduceAlgorithmicContentOptionsLabel',
   'reduceEngagementOptionsLabel',
   'reducedInteractionModeInfo',
@@ -139,6 +135,8 @@ for (let translationId of [
   'restoreQuoteTweetsLinkLabel',
   'restoreTweetSourceLabel',
   'retweetsLabel',
+  'revertMediaCarouselLabel',
+  'revertProfileTabsLabel',
   'showBlueReplyFollowersCountAmountLabel',
   'showBookmarkButtonUnderFocusedTweetsLabel',
   'showPremiumReplyBusinessLabel',
@@ -169,11 +167,12 @@ for (let translationId of [
 }
 
 for (let translationClass of [
-  'hideBookmarksNavLabel',
   'hideBusinessNavLabel',
+  'hideChatNavLabel',
   'hideCommunitiesNavLabel',
   'hideConnectNavLabel',
   'hideCreatorStudioNavLabel',
+  'hideHistoryNavLabel',
   'hideListsNavLabel',
   'notificationsLabel',
   'saveAndApplyButton',
@@ -226,7 +225,6 @@ const defaultConfig = {
   hideAdsNav: true,
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
-  hideBookmarksNav: false,
   hideBusinessNav: true,
   hideChatNav: false,
   hideCommunitiesNav: false,
@@ -239,6 +237,7 @@ const defaultConfig = {
   hideForYouTimeline: true,
   hideGrokNav: true,
   hideGrokTweets: false,
+  hideHistoryNav: false,
   hideInlinePrompts: true,
   hideJobsNav: true,
   hideLikeMetrics: true,
@@ -272,8 +271,6 @@ const defaultConfig = {
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
-  redirectChatNav: false,
-  redirectToTwitter: false,
   reducedInteractionMode: false,
   replaceLogo: true,
   restoreLinkHeadlines: true,
@@ -281,6 +278,8 @@ const defaultConfig = {
   restoreQuoteTweetsLink: true,
   restoreTweetSource: true,
   retweets: 'separate',
+  revertMediaCarousel: true,
+  revertProfileTabs: false,
   showBlueReplyFollowersCount: false,
   showBlueReplyFollowersCountAmount: '1000000',
   showBookmarkButtonUnderFocusedTweets: true,
@@ -353,7 +352,7 @@ let $showBlueReplyFollowersCountLabel = /** @type {HTMLElement} */ (document.que
 //#region Utility functions
 function exportConfig() {
   let $a = document.createElement('a')
-  $a.download = 'control-panel-for-twitter-v4.23.0.config.txt'
+  $a.download = 'control-panel-for-twitter-v4.24.0.config.txt'
   $a.href = URL.createObjectURL(new Blob([
     JSON.stringify(optionsConfig, null, 2)
   ], {type: 'text/plain'}))

@@ -125,9 +125,6 @@
   "hideBookmarkMetricsLabel": {
     "message": "书签"
   },
-  "hideBookmarksNavLabel": {
-    "message": "书签"
-  },
   "hideBusinessNavLabel": {
     "message": "商业"
   },
@@ -176,6 +173,9 @@
   "hideGrokTweetsLabel": {
     "message": "隐藏 Grok 推文"
   },
+  "hideHistoryNavLabel": {
+    "message": "历史"
+  },
   "hideInlinePrompts": {
     "message": "隐藏时间线中的内联提示"
   },
@@ -196,9 +196,6 @@
   },
   "hideManageTimelinesLabel": {
     "message": "隐藏“管理时间线”按钮"
-  },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "私信"
   },
   "hideMessagesDrawerLabel": {
     "message": "聊天抽屉"
@@ -395,12 +392,6 @@
   "quoteTweetsLabel": {
     "message": "引用推文"
   },
-  "redirectChatNavLabel": {
-    "message": "将聊天导航项重定向至消息"
-  },
-  "redirectToTwitterLabel": {
-    "message": "重定向到 twitter.com"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "删除算法性内容"
   },
@@ -430,6 +421,12 @@
   },
   "retweetsLabel": {
     "message": "转发"
+  },
+  "revertMediaCarouselLabel": {
+    "message": "还原媒体轮播"
+  },
+  "revertProfileTabsLabel": {
+    "message": "还原个人资料选项卡的更改"
   },
   "saveAndApplyButton": {
     "message": "保存并应用"

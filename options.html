@@ -226,39 +226,22 @@
       <label id="xFixesLabel">X fixes</label>
       <section class="checkbox">
         <label>
-          <span id="redirectToTwitterLabel">Redirect to twitter.com</span>
-          <input type="checkbox" name="redirectToTwitter">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="redirectChatNavLabel">Redirect Chat nav item to Messages</span>
-          <input type="checkbox" name="redirectChatNav">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="tweakNewLayoutLabel">Tweak new layout</span>
-          <input type="checkbox" name="tweakNewLayout">
-          <span class="toggle"></span>
-        </label>
-        <p id="tweakNewLayoutInfo">
-          Experimental - only enable if you have the new layout
-        </p>
-        <section class="checkbox desktop">
-          <label>
-            <span id="hideToggleNavigationLabel">Hide Toggle navigation</span>
-            <input type="checkbox" name="hideToggleNavigation">
-            <span class="toggle"></span>
-          </label>
-        </section>
-      </section>
-      <section class="checkbox">
-        <label>
           <span id="replaceLogoLabel">Replace X branding changes</span>
           <input type="checkbox" name="replaceLogo">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="revertMediaCarouselLabel">Revert media carousel</span>
+          <input type="checkbox" name="revertMediaCarousel">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
+          <span id="revertProfileTabsLabel">Revert profile tab changes</span>
+          <input type="checkbox" name="revertProfileTabs">
           <span class="toggle"></span>
         </label>
       </section>
@@ -781,22 +764,22 @@
       </section>
       <section class="checkbox desktop">
         <label>
-          <span class="hideConnectNavLabel">Connect</span>
+          <span class="hideConnectNavLabel">Follow</span>
           <input type="checkbox" name="hideConnectNav">
           <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox desktop">
         <label>
-          <span class="hideListsNavLabel">Lists</span>
-          <input type="checkbox" name="hideListsNav">
+          <span class="hideChatNavLabel">Chat</span>
+          <input type="checkbox" name="hideChatNav">
           <span class="toggle"></span>
         </label>
       </section>
       <section class="checkbox desktop">
         <label>
-          <span class="hideBookmarksNavLabel">Bookmarks</span>
-          <input type="checkbox" name="hideBookmarksNav">
+          <span class="hideHistoryNavLabel">History</span>
+          <input type="checkbox" name="hideHistoryNav">
           <span class="toggle"></span>
         </label>
       </section>
@@ -807,31 +790,10 @@
           <span class="toggle"></span>
         </label>
       </section>
-      <section class="checkbox desktop">
-        <label>
-          <span class="hideCommunitiesNavLabel">Communities</span>
-          <input type="checkbox" name="hideCommunitiesNav">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox desktop">
-        <label>
-          <span class="hideBusinessNavLabel">Business</span>
-          <input type="checkbox" name="hideBusinessNav">
-          <span class="toggle"></span>
-        </label>
-      </section>
       <section class="checkbox mobile">
         <label>
-          <span id="hideMessagesBottomNavItemLabel">Messages</span>
+          <span class="hideChatNavLabel">Chat</span>
           <input type="checkbox" name="hideMessagesBottomNavItem">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox">
-        <label>
-          <span id="hideChatNavLabel">Chat</span>
-          <input type="checkbox" name="hideChatNav">
           <span class="toggle"></span>
         </label>
       </section>
@@ -848,24 +810,31 @@
           <span class="toggle"></span>
         </label>
       </section>
-      <section class="checkbox mobile">
-        <label>
-          <span class="hideCommunitiesNavLabel">Communities</span>
-          <input type="checkbox" name="hideCommunitiesNav">
-          <span class="toggle"></span>
-        </label>
-      </section>
-      <section class="checkbox mobile">
+      <section class="checkbox">
         <label>
           <span class="hideListsNavLabel">Lists</span>
           <input type="checkbox" name="hideListsNav">
           <span class="toggle"></span>
         </label>
       </section>
+      <section class="checkbox">
+        <label>
+          <span class="hideCommunitiesNavLabel">Communities</span>
+          <input type="checkbox" name="hideCommunitiesNav">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox desktop">
+        <label>
+          <span class="hideBusinessNavLabel">Business</span>
+          <input type="checkbox" name="hideBusinessNav">
+          <span class="toggle"></span>
+        </label>
+      </section>
       <section class="checkbox mobile">
         <label>
-          <span class="hideBookmarksNavLabel">Bookmarks</span>
-          <input type="checkbox" name="hideBookmarksNav">
+          <span class="hideHistoryNavLabel">History</span>
+          <input type="checkbox" name="hideHistoryNav">
           <span class="toggle"></span>
         </label>
       </section>
@@ -911,6 +880,23 @@
             <button type="button" id="saveCustomCss" class="saveAndApplyButton">Save and apply</button>
           </section>
         </section>
+        <section class="checkbox">
+          <label>
+            <span id="tweakNewLayoutLabel">Tweak new layout</span>
+            <input type="checkbox" name="tweakNewLayout">
+            <span class="toggle"></span>
+          </label>
+          <p id="tweakNewLayoutInfo">
+            Experimental - only enable if you have the new layout
+          </p>
+          <section class="checkbox desktop">
+            <label>
+              <span id="hideToggleNavigationLabel">Hide Toggle navigation</span>
+              <input type="checkbox" name="hideToggleNavigation">
+              <span class="toggle"></span>
+            </label>
+          </section>
+        </section>
       </details>
     </section>
 
@@ -939,7 +925,7 @@
       </section>
     </section>
 
-    <div id="version">v4.23.0<span id="debugCountdown"></span></div>
+    <div id="version">v4.24.0<span id="debugCountdown"></span></div>
   </form>
   <script src="options.js"></script>
 </body>

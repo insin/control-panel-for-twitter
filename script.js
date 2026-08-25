@@ -138,7 +138,6 @@ const config = {
   hideAdsNav: true,
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
-  hideBookmarksNav: false,
   hideBusinessNav: true,
   hideChatNav: false,
   hideCommunitiesNav: false,
@@ -151,6 +150,7 @@ const config = {
   hideForYouTimeline: true,
   hideGrokNav: true,
   hideGrokTweets: false,
+  hideHistoryNav: false,
   hideInlinePrompts: true,
   hideJobsNav: true,
   hideLikeMetrics: true,
@@ -184,8 +184,6 @@ const config = {
   mutableQuoteTweets: true,
   mutedQuotes: [],
   quoteTweets: 'ignore',
-  redirectChatNav: false,
-  redirectToTwitter: false,
   reducedInteractionMode: false,
   replaceLogo: true,
   restoreLinkHeadlines: true,
@@ -193,6 +191,8 @@ const config = {
   restoreQuoteTweetsLink: true,
   restoreTweetSource: true,
   retweets: 'separate',
+  revertMediaCarousel: true,
+  revertProfileTabs: false,
   showBlueReplyFollowersCount: false,
   showBlueReplyFollowersCountAmount: '1000000',
   showBookmarkButtonUnderFocusedTweets: true,
@@ -250,7 +250,6 @@ const locales = {
     HOME: 'الرئيسيّة',
     LIKES: 'الإعجابات',
     LIVE_ON_X: 'بث مباشر على X',
-    MESSAGES: 'الرسائل',
     MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
@@ -260,6 +259,7 @@ const locales = {
     QUOTE_TWEET: 'اقتباس التغريدة',
     QUOTE_TWEETS: 'تغريدات اقتباس',
     RECENT: 'الحديثة',
+    RELEVANT: 'ذو صلة',
     REPOST: 'إعادة النشر',
     REPOSTS: 'المنشورات المُعاد نشرها',
     RETWEET: 'إعادة التغريد',
@@ -294,7 +294,6 @@ const locales = {
     HOME: 'الرئيسيّة',
     LIKES: 'الإعجابات',
     LIVE_ON_X: 'بث مباشر على X',
-    MESSAGES: 'الرسائل',
     MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
     POST_ALL: 'نشر الكل',
@@ -339,7 +338,6 @@ const locales = {
     HOME: 'Начало',
     LIKES: 'Харесвания',
     LIVE_ON_X: 'На живо в X',
-    MESSAGES: 'Съобщения',
     MOST_RELEVANT: 'Най-подходящи',
     MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
     POST_ALL: 'Публикуване на всичко',
@@ -384,7 +382,6 @@ const locales = {
     HOME: 'হোম',
     LIKES: 'পছন্দ',
     LIVE_ON_X: 'X-এ লাইভ',
-    MESSAGES: 'বার্তাগুলি',
     MOST_RELEVANT: 'সবচেয়ে প্রাসঙ্গিক',
     MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
     POST_ALL: 'সবকটি পোস্ট করুন',
@@ -430,7 +427,6 @@ const locales = {
     HOME: 'Inici',
     LIKES: 'Agradaments',
     LIVE_ON_X: 'En directe a X',
-    MESSAGES: 'Missatges',
     MOST_RELEVANT: 'El més rellevant',
     MUTE_THIS_CONVERSATION: 'Silencia la conversa',
     POST_ALL: 'Publica-ho tot',
@@ -475,7 +471,6 @@ const locales = {
     HOME: 'Hlavní stránka',
     LIKES: 'Lajky',
     LIVE_ON_X: 'Živě na platformě X',
-    MESSAGES: 'Zprávy',
     MOST_RELEVANT: 'Nejvíce související',
     MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
     POST_ALL: 'Postovat vše',
@@ -518,7 +513,6 @@ const locales = {
     GROK_ACTIONS: 'Grok-handlinger',
     HOME: 'Forside',
     LIVE_ON_X: 'Direkte på X',
-    MESSAGES: 'Beskeder',
     MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
     POST_ALL: 'Post alle',
@@ -556,7 +550,6 @@ const locales = {
     HOME: 'Startseite',
     LIKES: 'Gefällt mir',
     LIVE_ON_X: 'Live auf X',
-    MESSAGES: 'Nachrichten',
     MOST_RELEVANT: 'Besonders relevant',
     MUTE_THIS_CONVERSATION: 'Diese Konversation stummschalten',
     POST_ALL: 'Alle posten',
@@ -597,7 +590,6 @@ const locales = {
     HOME: 'Αρχική σελίδα',
     LIKES: '"Μου αρέσει"',
     LIVE_ON_X: 'Ζωντανά στο X',
-    MESSAGES: 'Μηνύματα',
     MOST_RELEVANT: 'Πιο σχετική',
     MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
     POST_ALL: 'Δημοσίευση όλων',
@@ -608,6 +600,7 @@ const locales = {
     QUOTE_TWEET: 'Παράθεση Tweet',
     QUOTE_TWEETS: 'Tweet με παράθεση',
     RECENT: 'Πρόσφατα',
+    RELEVANT: 'Σχετικό',
     REPOST: 'Αναδημοσίευση',
     REPOSTS: 'Αναδημοσιεύσεις',
     RETWEETED_BY: 'Έγινε Retweet από',
@@ -639,7 +632,6 @@ const locales = {
     HOME: 'Home',
     LIKES: 'Likes',
     LIVE_ON_X: 'Live on X',
-    MESSAGES: 'Messages',
     MOST_RELEVANT: 'Most relevant',
     MUTE_THIS_CONVERSATION: 'Mute this conversation',
     POST_ALL: 'Post all',
@@ -685,7 +677,6 @@ const locales = {
     HOME: 'Inicio',
     LIKES: 'Me gusta',
     LIVE_ON_X: 'En directo en X',
-    MESSAGES: 'Mensajes',
     MOST_RELEVANT: 'Más relevantes',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
     POST_ALL: 'Postear todo',
@@ -722,7 +713,6 @@ const locales = {
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
     HOME: 'Hasiera',
     LIKES: 'Atsegiteak',
-    MESSAGES: 'Mezuak',
     MUTE_THIS_CONVERSATION: 'Isilarazi elkarrizketa hau',
     QUOTE: 'Aipamena',
     QUOTES: 'Aipamenak',
@@ -760,7 +750,6 @@ const locales = {
     HOME: 'خانه',
     LIKES: 'پسندها',
     LIVE_ON_X: 'زنده در X',
-    MESSAGES: 'پیام‌ها',
     MOST_RELEVANT: 'مرتبط‌ترین',
     MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
     POST_ALL: 'پست کردن همه',
@@ -771,6 +760,7 @@ const locales = {
     QUOTE_TWEET: 'نقل‌توییت',
     QUOTE_TWEETS: 'نقل‌توییت‌ها',
     RECENT: 'اخیر',
+    RELEVANT: 'مربوط',
     REPOST: 'بازپست',
     REPOSTS: 'بازپست',
     RETWEET: 'بازتوییت',
@@ -805,7 +795,6 @@ const locales = {
     HOME: 'Etusivu',
     LIKES: 'Tykkäykset',
     LIVE_ON_X: 'Livenä X:ssä',
-    MESSAGES: 'Viestit',
     MOST_RELEVANT: 'Relevanteimmat',
     MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
     POST_ALL: 'Julkaise kaikki',
@@ -849,7 +838,6 @@ const locales = {
     GROK_ACTIONS: 'Mga aksyon ni Grok',
     LIKES: 'Mga Gusto',
     LIVE_ON_X: 'Live sa X',
-    MESSAGES: 'Mga Mensahe',
     MOST_RELEVANT: 'Pinakanauugnay',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
     POST_ALL: 'I-post lahat',
@@ -859,6 +847,7 @@ const locales = {
     QUOTE_TWEET: 'Quote na Tweet',
     QUOTE_TWEETS: 'Mga Quote na Tweet',
     RECENT: 'Kamakailan',
+    RELEVANT: 'Nauugnay',
     REPOST: 'I-repost',
     REPOSTS: '(na) Repost',
     RETWEET: 'I-retweet',
@@ -927,7 +916,6 @@ const locales = {
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
     HOME: 'Baile',
     LIKES: 'Thaitin siad seo le',
-    MESSAGES: 'Teachtaireachtaí',
     MUTE_THIS_CONVERSATION: 'Balbhaigh an comhrá seo',
     QUOTE: 'Sliocht',
     QUOTES: 'Sleachta',
@@ -958,7 +946,6 @@ const locales = {
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
     HOME: 'Inicio',
     LIKES: 'Gústames',
-    MESSAGES: 'Mensaxes',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     QUOTE: 'Cita',
     QUOTES: 'Citas',
@@ -995,7 +982,6 @@ const locales = {
     HOME: 'હોમ',
     LIKES: 'લાઈક્સ',
     LIVE_ON_X: 'X પર લાઇવ',
-    MESSAGES: 'સંદેશાઓ',
     MOST_RELEVANT: 'સૌથી વધુ સુસંગત',
     MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
     POST_ALL: 'બધા પોસ્ટ કરો',
@@ -1040,7 +1026,6 @@ const locales = {
     HOME: 'דף הבית',
     LIKES: 'הערות "אהבתי"',
     LIVE_ON_X: 'שידור חי ב-X',
-    MESSAGES: 'מסרים',
     MOST_RELEVANT: 'הכי רלוונטי',
     MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
     POST_ALL: 'פרסום הכל',
@@ -1086,7 +1071,6 @@ const locales = {
     HOME: 'होम',
     LIKES: 'पसंद',
     LIVE_ON_X: 'X पर लाइव',
-    MESSAGES: 'संदेश',
     MOST_RELEVANT: 'सर्वाधिक प्रासंगिक',
     MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
     POST_ALL: 'सभी पोस्ट करें',
@@ -1131,7 +1115,6 @@ const locales = {
     HOME: 'Naslovnica',
     LIKES: 'Oznake „sviđa mi se”',
     LIVE_ON_X: 'Uživo na platformi X',
-    MESSAGES: 'Poruke',
     MOST_RELEVANT: 'Najrelevantnije',
     MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
     POST_ALL: 'Objavi sve',
@@ -1175,7 +1158,6 @@ const locales = {
     HOME: 'Kezdőlap',
     LIKES: 'Kedvelések',
     LIVE_ON_X: 'Élőben az X-en',
-    MESSAGES: 'Üzenetek',
     MOST_RELEVANT: 'Legmegfelelőbb',
     MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
     POST_ALL: 'Az összes közzététele',
@@ -1219,7 +1201,6 @@ const locales = {
     HOME: 'Beranda',
     LIKES: 'Suka',
     LIVE_ON_X: 'Langsung di X',
-    MESSAGES: 'Pesan',
     MOST_RELEVANT: 'Paling relevan',
     MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
     POST_ALL: 'Posting semua',
@@ -1230,6 +1211,7 @@ const locales = {
     QUOTE_TWEET: 'Kutip Tweet',
     QUOTE_TWEETS: 'Tweet Kutipan',
     RECENT: 'Terkini',
+    RELEVANT: 'Relevan',
     REPOST: 'Posting ulang',
     REPOSTS: 'Posting ulang',
     RETWEETED_BY: 'Di-retweet oleh',
@@ -1260,7 +1242,6 @@ const locales = {
     GROK_ACTIONS: 'Azioni di Grok',
     LIKES: 'Mi piace',
     LIVE_ON_X: 'In diretta su X',
-    MESSAGES: 'Messaggi',
     MOST_RELEVANT: 'Più pertinenti',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
     POST_ALL: 'Posta tutto',
@@ -1271,6 +1252,7 @@ const locales = {
     QUOTE_TWEET: 'Cita Tweet',
     QUOTE_TWEETS: 'Tweet di citazione',
     RECENT: 'Recenti',
+    RELEVANT: 'Pertinenza',
     REPOSTS: 'Repost',
     RETWEET: 'Ritwitta',
     RETWEETED_BY: 'Ritwittato da',
@@ -1303,7 +1285,6 @@ const locales = {
     HOME: 'ホーム',
     LIKES: 'いいね',
     LIVE_ON_X: 'Xでライブ放送する',
-    MESSAGES: 'メッセージ',
     MOST_RELEVANT: '関連性が高い',
     MUTE_THIS_CONVERSATION: 'この会話をミュート',
     POST_ALL: 'すべてポスト',
@@ -1348,7 +1329,6 @@ const locales = {
     HOME: 'ಹೋಮ್',
     LIKES: 'ಇಷ್ಟಗಳು',
     LIVE_ON_X: 'X ನಲ್ಲಿ ಲೈವ್',
-    MESSAGES: 'ಸಂದೇಶಗಳು',
     MOST_RELEVANT: 'ಅತ್ಯಂತ ಸಂಬಂಧಿತ',
     MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
     POST_ALL: 'ಎಲ್ಲವನ್ನೂ ಪೋಸ್ಟ್ ಮಾಡಿ',
@@ -1393,7 +1373,6 @@ const locales = {
     HOME: '홈',
     LIKES: '마음에 들어요',
     LIVE_ON_X: 'X 생방송',
-    MESSAGES: '쪽지',
     MOST_RELEVANT: '관련도 순서',
     MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
     POST_ALL: '모두 게시하기',
@@ -1404,6 +1383,7 @@ const locales = {
     QUOTE_TWEET: '트윗 인용하기',
     QUOTE_TWEETS: '트윗 인용하기',
     RECENT: '최근',
+    RELEVANT: '관련 있음',
     REPOST: '재게시',
     REPOSTS: '재게시',
     RETWEET: '리트윗',
@@ -1438,7 +1418,6 @@ const locales = {
     HOME: 'होम',
     LIKES: 'पसंती',
     LIVE_ON_X: 'X वर लाइव्ह',
-    MESSAGES: 'संदेश',
     MOST_RELEVANT: 'सर्वात महत्वाचे',
     MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
     POST_ALL: 'सर्व पोस्ट करा',
@@ -1483,7 +1462,6 @@ const locales = {
     HOME: 'Laman Utama',
     LIKES: 'Suka',
     LIVE_ON_X: 'Secara Langsung di X',
-    MESSAGES: 'Mesej',
     MOST_RELEVANT: 'Paling berkaitan',
     MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
     POST_ALL: 'Siarkan semua',
@@ -1527,7 +1505,6 @@ const locales = {
     HOME: 'Hjem',
     LIKES: 'Liker',
     LIVE_ON_X: 'Direkte på X',
-    MESSAGES: 'Meldinger',
     MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtalen',
     POST_ALL: 'Publiser alle',
@@ -1567,7 +1544,6 @@ const locales = {
     HOME: 'Startpagina',
     LIKES: 'Vind-ik-leuks',
     LIVE_ON_X: 'Live op X',
-    MESSAGES: 'Berichten',
     MOST_RELEVANT: 'Meest relevant',
     MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
     POST_ALL: 'Alles plaatsen',
@@ -1606,7 +1582,6 @@ const locales = {
     HOME: 'Główna',
     LIKES: 'Polubienia',
     LIVE_ON_X: 'Na żywo w serwisie X',
-    MESSAGES: 'Wiadomości',
     MOST_RELEVANT: 'Najtrafniejsze',
     MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
     POST_ALL: 'Opublikuj wszystko',
@@ -1617,6 +1592,7 @@ const locales = {
     QUOTE_TWEET: 'Cytuj Tweeta',
     QUOTE_TWEETS: 'Cytaty z Tweeta',
     RECENT: 'Najnowsze',
+    RELEVANT: 'Trafne',
     REPOST: 'Podaj dalej wpis',
     REPOSTS: 'Wpisy podane dalej',
     RETWEET: 'Podaj dalej',
@@ -1649,7 +1625,6 @@ const locales = {
     HOME: 'Página Inicial',
     LIKES: 'Curtidas',
     LIVE_ON_X: 'Ao vivo no X',
-    MESSAGES: 'Mensagens',
     MOST_RELEVANT: 'Mais relevante',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
     POST_ALL: 'Postar tudo',
@@ -1660,6 +1635,7 @@ const locales = {
     QUOTE_TWEET: 'Comentar o Tweet',
     QUOTE_TWEETS: 'Tweets com comentário',
     RECENT: 'Recente',
+    RELEVANT: 'Relevante',
     REPOST: 'Repostar',
     RETWEET: 'Retweetar',
     RETWEETED_BY: 'Retweetado por',
@@ -1690,7 +1666,6 @@ const locales = {
     HOME: 'Pagina principală',
     LIKES: 'Aprecieri',
     LIVE_ON_X: 'În direct pe X',
-    MESSAGES: 'Mesaje',
     MOST_RELEVANT: 'Cele mai relevante',
     MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
     POST_ALL: 'Postează tot',
@@ -1734,7 +1709,6 @@ const locales = {
     HOME: 'Главная',
     LIKES: 'Нравится',
     LIVE_ON_X: 'Прямой эфир в X',
-    MESSAGES: 'Сообщения',
     MOST_RELEVANT: 'Наиболее актуальные',
     MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
     POST_ALL: 'Опубликовать все',
@@ -1780,7 +1754,6 @@ const locales = {
     HOME: 'Domov',
     LIKES: 'Páči sa',
     LIVE_ON_X: 'Naživo na X',
-    MESSAGES: 'Správy',
     MOST_RELEVANT: 'Najrelevantnejšie',
     MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
     POST_ALL: 'Uverejniť všetko',
@@ -1791,6 +1764,7 @@ const locales = {
     QUOTE_TWEET: 'Tweet s citátom',
     QUOTE_TWEETS: 'Tweety s citátom',
     RECENT: 'Nedávne',
+    RELEVANT: 'Relevantné',
     REPOST: 'Opätovné uverejnenie',
     REPOSTS: 'Opätovné uverejnenia',
     RETWEET: 'Retweetnuť',
@@ -1824,7 +1798,6 @@ const locales = {
     HOME: 'Почетна',
     LIKES: 'Свиђања',
     LIVE_ON_X: 'Уживо на мрежи X',
-    MESSAGES: 'Поруке',
     MOST_RELEVANT: 'Најважније',
     MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
     POST_ALL: 'Објави све',
@@ -1870,7 +1843,6 @@ const locales = {
     HOME: 'Hem',
     LIKES: 'Gilla-markeringar',
     LIVE_ON_X: 'Live på X',
-    MESSAGES: 'Meddelanden',
     MOST_RELEVANT: 'Mest relevant',
     MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
     POST_ALL: 'Lägg upp allt',
@@ -1912,7 +1884,6 @@ const locales = {
     HOME: 'முகப்பு',
     LIKES: 'விருப்பங்கள்',
     LIVE_ON_X: 'X -இல் நேரலை',
-    MESSAGES: 'செய்திகள்',
     MOST_RELEVANT: 'மிகவும் தொடர்புடையவை',
     MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
     POST_ALL: 'எல்லாம் இடுகையிடு',
@@ -1957,7 +1928,6 @@ const locales = {
     HOME: 'หน้าแรก',
     LIKES: 'ความชอบ',
     LIVE_ON_X: 'ถ่ายทอดสดบน X',
-    MESSAGES: 'ข้อความ',
     MOST_RELEVANT: 'เกี่ยวข้องที่สุด',
     MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
     POST_ALL: 'โพสต์ทั้งหมด',
@@ -2003,7 +1973,6 @@ const locales = {
     HOME: 'Anasayfa',
     LIKES: 'Beğeni',
     LIVE_ON_X: "X'te Canlı",
-    MESSAGES: 'Mesajlar',
     MOST_RELEVANT: 'En alakalı',
     MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
     POST_ALL: 'Tümünü gönder',
@@ -2047,7 +2016,6 @@ const locales = {
     HOME: 'Головна',
     LIKES: 'Вподобання',
     LIVE_ON_X: 'Прямий ефір в X',
-    MESSAGES: 'Повідомлення',
     MOST_RELEVANT: 'Найактуальніші',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
     POST_ALL: 'Опублікувати все',
@@ -2088,7 +2056,6 @@ const locales = {
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
     HOME: 'ہوم',
     LIKES: 'لائک',
-    MESSAGES: 'پیغامات',
     MUTE_THIS_CONVERSATION: 'اس گفتگو کو میوٹ کریں',
     QUOTE: 'نقل کریں',
     QUOTES: 'منقول',
@@ -2126,7 +2093,6 @@ const locales = {
     HOME: 'Trang chủ',
     LIKES: 'Lượt thích',
     LIVE_ON_X: 'Trực tuyến trên X',
-    MESSAGES: 'Tin nhắn',
     MOST_RELEVANT: 'Liên quan nhất',
     MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
     POST_ALL: 'Đăng tất cả',
@@ -2170,7 +2136,6 @@ const locales = {
     HOME: '首頁',
     LIKES: '喜歡的內容',
     LIVE_ON_X: 'X 上的直播',
-    MESSAGES: '訊息',
     MOST_RELEVANT: '最相關',
     MUTE_THIS_CONVERSATION: '將此對話靜音',
     POST_ALL: '全部發佈',
@@ -2181,6 +2146,7 @@ const locales = {
     QUOTE_TWEET: '引用推文',
     QUOTE_TWEETS: '引用的推文',
     RECENT: '最近',
+    RELEVANT: '相關',
     REPOST: '轉發',
     REPOSTS: '轉發',
     RETWEET: '轉推',
@@ -2214,7 +2180,6 @@ const locales = {
     HOME: '主页',
     LIKES: '喜欢',
     LIVE_ON_X: 'X 上的直播',
-    MESSAGES: '私信',
     MOST_RELEVANT: '最相关',
     MUTE_THIS_CONVERSATION: '隐藏此对话',
     POST_ALL: '全部发帖',
@@ -2271,10 +2236,10 @@ function getString(key) {
 const PagePaths = {
   ACCESSIBILITY_SETTINGS: '/settings/accessibility',
   ADD_MUTED_WORD: '/settings/add_muted_keyword',
-  BOOKMARKS: '/i/bookmarks',
   COMPOSE_TWEET: '/compose/post',
   CONNECT: '/i/connect',
   DISPLAY_SETTINGS: '/settings/display',
+  HISTORY: '/i/history',
   HOME: '/home',
   NOTIFICATION_TIMELINE: '/i/timeline',
   PROFILE_SETTINGS: '/settings/profile',
@@ -2320,8 +2285,6 @@ const Selectors = {
 /** @enum {string} */
 const Svgs = {
   BLUE_LOGO_PATH: 'M16.5 3H2v18h15c3.038 0 5.5-2.46 5.5-5.5 0-1.4-.524-2.68-1.385-3.65-.08-.09-.089-.22-.023-.32.574-.87.908-1.91.908-3.03C22 5.46 19.538 3 16.5 3zm-.796 5.99c.457-.05.892-.17 1.296-.35-.302.45-.684.84-1.125 1.15.004.1.006.19.006.29 0 2.94-2.269 6.32-6.421 6.32-1.274 0-2.46-.37-3.459-1 .177.02.357.03.539.03 1.057 0 2.03-.35 2.803-.95-.988-.02-1.821-.66-2.109-1.54.138.03.28.04.425.04.206 0 .405-.03.595-.08-1.033-.2-1.811-1.1-1.811-2.18v-.03c.305.17.652.27 1.023.28-.606-.4-1.004-1.08-1.004-1.85 0-.4.111-.78.305-1.11 1.113 1.34 2.775 2.22 4.652 2.32-.038-.17-.058-.33-.058-.51 0-1.23 1.01-2.22 2.256-2.22.649 0 1.235.27 1.647.7.514-.1.997-.28 1.433-.54-.168.52-.526.96-.992 1.23z',
-  MESSAGES_ACTIVE_PATH: 'M1.998 4.499c0-.828.671-1.499 1.5-1.499h17c.828 0 1.5.671 1.5 1.499v2.858l-10 4.545-10-4.547V4.499zm0 5.053V19.5c0 .828.671 1.5 1.5 1.5h17c.828 0 1.5-.672 1.5-1.5V9.554l-10 4.545-10-4.547z',
-  MESSAGES_INACTIVE_PATH: 'M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z',
   MUTE: '<g><path d="M18 6.59V1.2L8.71 7H5.5C4.12 7 3 8.12 3 9.5v5C3 15.88 4.12 17 5.5 17h2.09l-2.3 2.29 1.42 1.42 15.5-15.5-1.42-1.42L18 6.59zm-8 8V8.55l6-3.75v3.79l-6 6zM5 9.5c0-.28.22-.5.5-.5H8v6H5.5c-.28 0-.5-.22-.5-.5v-5zm6.5 9.24l1.45-1.45L16 19.2V14l2 .02v8.78l-6.5-4.06z"></path></g>',
   PROMOTED_PATH: 'M19.498 3h-15c-1.381 0-2.5 1.12-2.5 2.5v13c0 1.38 1.119 2.5 2.5 2.5h15c1.381 0 2.5-1.12 2.5-2.5v-13c0-1.38-1.119-2.5-2.5-2.5zm-3.502 12h-2v-3.59l-5.293 5.3-1.414-1.42L12.581 10H8.996V8h7v7z',
   RETWEET: '<g><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"></path></g>',
@@ -2517,10 +2480,6 @@ function isOnAccessibilitySettingsPage() {
   return currentPath == PagePaths.ACCESSIBILITY_SETTINGS
 }
 
-function isOnBookmarksPage() {
-  return currentPath.startsWith(PagePaths.BOOKMARKS)
-}
-
 function isOnChatPage() {
   return currentPath.startsWith('/i/chat')
 }
@@ -2555,6 +2514,10 @@ function isOnFollowListPage() {
 
 function isOnGrokPage() {
   return currentPath.startsWith('/i/grok')
+}
+
+function isOnHistoryPage() {
+  return currentPath.startsWith(PagePaths.HISTORY)
 }
 
 function isOnIndividualTweetPage() {
@@ -3557,7 +3520,7 @@ async function observeSidebar() {
     if (!config.hideSidebarContent || config.showRelevantPeople && isOnIndividualTweetPage()) {
       void async function() {
         // Avoid false positive from Premium upsells in the sidebar
-        let $aside = await getElement('aside[role="complementary"]:not(:has(a[href^="/i/premium"]))', {
+        let $aside = await getElement('aside[role="complementary"]:not(:has(a:is([href^="/i/premium"], [href^="https://grok.com/imagine"])))', {
           name: 'sidebar aside box',
           context: $sidebar,
           stopIf: pageIsNot(currentPage),
@@ -3654,45 +3617,7 @@ async function observeSidebar() {
   })
 }
 
-const observeSideNavChatLink = (() => {
-  /** @type {MutationObserver} */
-  let observer
-
-  return async function observeSideNavChatLink() {
-    if (observer) {
-      observer.disconnect()
-      observer = null
-    }
-
-    if (!desktop || !config.redirectChatNav) return
-
-    // This element is updated when text is added or removed on resize
-    let $linkTextContainer = await getElement('a[data-testid="AppTabBar_DirectMessage_Link"] > div', {
-      name: 'sidenav Chat link text container',
-    })
-    observer = observeElement($linkTextContainer, () => {
-      if ($linkTextContainer.childElementCount > 1) {
-        // Regular React Native for Web markup, e.g. Japanese display language
-        let $linkText = /** @type {HTMLElement} */ ($linkTextContainer.querySelector('div[dir]:not([aria-live]) > span'))
-        if ($linkText) {
-          $linkText.textContent = getString('MESSAGES')
-        } else {
-          // New inline style markup, e.g. English display language
-          for (let $linkText of $linkTextContainer.querySelectorAll('span[style] > span')) {
-            $linkText.textContent = getString('MESSAGES')
-          }
-        }
-      }
-    }, {
-      leading: true,
-      name: 'sidenav Chat link',
-      observers: globalObservers,
-    })
-  }
-})()
-
 function observeSideNavItems() {
-  observeSideNavChatLink()
   observeSideNavTweetButton()
 }
 
@@ -4205,17 +4130,6 @@ function patchHistory() {
           args[0].pathname = args[0].pathname.replace(/verified_followers$/, 'followers')
         }
       }
-      if (config.redirectChatNav) {
-        if (typeof args[0] == 'object' && args[0].pathname == '/i/chat') {
-          log('Redirecting Chat to Messages')
-          args[0].pathname = desktop ? '/messages/home' : '/messages'
-        }
-        // Back button from Message requests
-        else if (desktop && args[0] === '/messages') {
-          log('Redirecting /messages to Messages')
-          args[0] = '/messages/home'
-        }
-      }
     }
     return History_push(...args)
   }
@@ -4481,7 +4395,7 @@ const configureCss = (() => {
       }
     }
     if (config.hideEditImage) {
-      let isImagineSelector = ':is([href^="/i/imagine"], [href^="https://grok.com/imagine"])'
+      let isImagineSelector = ':is([href^="/i/imagine"], [href^="https://grok.com/imagine"], [href^="/i/grok-redirect"])'
       hideCssSelectors.push(
         // Manually-tagged
         '.EditImage',
@@ -4505,19 +4419,11 @@ const configureCss = (() => {
     if (config.hideListsNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/lists"]`)
     }
-    if (config.hideBookmarksNav) {
-      hideCssSelectors.push(`${menuRole} a[href$="/bookmarks"]`)
+    if (config.hideHistoryNav) {
+      hideCssSelectors.push(`${menuRole} a[href$="${PagePaths.HISTORY}"]`)
     }
     if (config.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
-    }
-    if (config.hideChatNav) {
-      hideCssSelectors.push(
-        // Nav item
-        `${menuRole} a[href$="/i/chat"]`,
-        // Link in Messages
-        'a[href$="/i/chat"][data-testid="pivot"]',
-      )
     }
     if (config.hideManageTimelines) {
       hideCssSelectors.push('.ManageTimelines')
@@ -5027,6 +4933,9 @@ const configureCss = (() => {
       if (config.hideConnectNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/connect_people"]`)
       }
+      if (config.hideChatNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/chat"]`)
+      }
       if (config.hideGrokNav) {
         hideCssSelectors.push(
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
@@ -5073,6 +4982,11 @@ const configureCss = (() => {
             '.SidebarContents > div:has(> div > div[data-testid="super-upsell-UpsellCardRenderProperties"])',
           )
         }
+      }
+      if (config.hideGrokNav && !config.hideSidebarContent) {
+        hideCssSelectors.push(
+          '.SidebarContents > div:has(> aside[role="complementary"] > a[href^="https://grok.com/imagine"])'
+        )
       }
       if (config.hideSidebarContent) {
         // Only show the first sidebar item by default
@@ -5126,11 +5040,11 @@ const configureCss = (() => {
           hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/explore"]`)
         }
       }
-      if (config.hideBookmarksNav) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/bookmarks"]`)
+      if (config.hideHistoryNav) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="${PagePaths.HISTORY}"]`)
         if (config.tweakNewLayout) {
           // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/i/bookmarks"]`)
+          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="${PagePaths.HISTORY}"]`)
         }
       }
       if (config.hideCommunitiesNav) {
@@ -5232,7 +5146,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href$="/communities"]`)
       }
       if (config.hideMessagesBottomNavItem) {
-        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a:is([href="/messages"], [href="/i/chat"])`)
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/chat"]`)
       }
       if (config.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/jobs"]`)
@@ -5302,6 +5216,8 @@ const configureFeatureFlags = (() => {
     isTrue = featureSwitches.isTrue
     featureSwitches.isTrue = (flag) => {
       if (config.bypassAgeVerification && flag == 'rweb_age_assurance_flow_enabled') return false
+      if (config.revertMediaCarousel && flag == 'rweb_media_carousel_enabled') return false
+      if (config.revertProfileTabs && flag == 'responsive_web_profile_redesign_enabled') return false
       return isTrue(flag)
     }
     log('featureSwitches patched')
@@ -6717,16 +6633,10 @@ function onTitleChange(title) {
     else if (desktop && location.pathname == '/i/chat' && currentPath != '/i/chat') {
       log('viewing root Chat page')
     }
-    // The Bookmarks page sets an empty title
-    else if (location.pathname.startsWith(PagePaths.BOOKMARKS) && !currentPath.startsWith(PagePaths.BOOKMARKS)) {
-      log('viewing Bookmarks page')
-    }
     else {
       log('ignoring Flash of Uninitialised Title')
       return
     }
-    // Check the Messages icon after navigating to a title-less page
-    tweakMessagesIcon()
   }
 
   // Remove " / Twitter" or "Twitter \ " from the title
@@ -6760,21 +6670,26 @@ function onTitleChange(title) {
   )
 
   if (newPage == currentPage && !hasDesktopInitialModalBeenClosed) {
-    log(`ignoring duplicate title change`)
-    // Navigation within the Compose Tweet modal triggers duplcate title changes
-    if (isDesktopComposeTweetModalOpen) {
-      if (currentPath == ModalPaths.COMPOSE_TWEET && COMPOSE_TWEET_MODAL_PAGES.has(location.pathname)) {
-        log('navigated away from Compose Tweet editor')
-        disconnectObservers(modalObservers, 'modal')
+    // The History page re-renders everything when you switch tabs
+    if (location.pathname.startsWith(PagePaths.HISTORY) && currentPath != location.pathname) {
+      log('viewing History page')
+    } else {
+      log(`ignoring duplicate title change`)
+      // Navigation within the Compose Tweet modal triggers duplcate title changes
+      if (isDesktopComposeTweetModalOpen) {
+        if (currentPath == ModalPaths.COMPOSE_TWEET && COMPOSE_TWEET_MODAL_PAGES.has(location.pathname)) {
+          log('navigated away from Compose Tweet editor')
+          disconnectObservers(modalObservers, 'modal')
+        }
+        else if (COMPOSE_TWEET_MODAL_PAGES.has(currentPath) && location.pathname == ModalPaths.COMPOSE_TWEET) {
+          log('navigated back to Compose Tweet editor')
+          observeDesktopComposeTweetModal($desktopComposeTweetModalPopup)
+        }
       }
-      else if (COMPOSE_TWEET_MODAL_PAGES.has(currentPath) && location.pathname == ModalPaths.COMPOSE_TWEET) {
-        log('navigated back to Compose Tweet editor')
-        observeDesktopComposeTweetModal($desktopComposeTweetModalPopup)
-      }
+      currentNotificationCount = notificationCount
+      currentPath = location.pathname
+      return
     }
-    currentNotificationCount = notificationCount
-    currentPath = location.pathname
-    return
   }
 
   // Search terms are shown in the title
@@ -6861,11 +6776,11 @@ function processCurrentPage() {
 
   // Hooks for styling pages
   if (!$body) $body = document.body
-  $body.classList.toggle('Bookmarks', isOnBookmarksPage())
   $body.classList.toggle('Community', isOnCommunityPage())
   $body.classList.toggle('Communities', isOnCommunitiesPage())
   $body.classList.toggle('Explore', isOnExplorePage())
   $body.classList.toggle('HideSidebar', shouldHideSidebar())
+  $body.classList.toggle('History', isOnHistoryPage())
   $body.classList.toggle('List', isOnListPage())
   $body.classList.toggle('HomeTimeline', isOnHomeTimelinePage())
   $body.classList.toggle('Notifications', isOnNotificationsPage())
@@ -6897,9 +6812,6 @@ function processCurrentPage() {
     }
   }
 
-  if (config.redirectChatNav) {
-    tweakMessagesIcon()
-  }
   if (isSafari && config.replaceLogo) {
     tweakHomeIcon()
     tweakTweetIcon()
@@ -6943,8 +6855,8 @@ function processCurrentPage() {
   else if (isOnExplorePage()) {
     tweakExplorePage()
   }
-  else if (isOnBookmarksPage()) {
-    tweakBookmarksPage()
+  else if (isOnHistoryPage()) {
+    tweakHistoryPage()
   }
   else if (isOnCommunitiesPage()) {
     tweakCommunitiesPage()
@@ -6974,27 +6886,6 @@ function processCurrentPage() {
       tweakProfileSettingsPage()
     }
   }
-}
-
-/**
- * @returns {boolean} `true` if this call replaces the current location
- */
-function redirectToTwitter() {
-  if (config.redirectToTwitter &&
-      location.hostname.endsWith('x.com') &&
-      // Don't redirect the path used by the OldTweetDeck extension
-      location.pathname != '/i/tweetdeck') {
-    // If we got a logout redirect from twitter.com, redirect back to the login page
-    let pathname = location.search.includes('logout=') ? '/i/flow/login' : location.pathname || PagePaths.HOME
-    let searchParams = new URLSearchParams(location.search)
-    searchParams.delete('logout')
-    searchParams.set('mx', '1')
-    let redirectUrl = `https://twitter.com${pathname}?${searchParams}`
-    log('redirectToTwitter: redirecting from', location.href, 'to', redirectUrl)
-    location.replace(redirectUrl)
-    return true
-  }
-  return false
 }
 
 /**
@@ -7232,7 +7123,7 @@ function shouldHideSharedTweet(config, page) {
   }
 }
 
-async function tweakBookmarksPage() {
+async function tweakHistoryPage() {
   if (config.twitterBlueChecks != 'ignore' || config.restoreLinkHeadlines) {
     observeTimeline(currentPage)
   }
@@ -7559,18 +7450,6 @@ async function tweakHomeIcon() {
     }[$homeIconPath.getAttribute('d')]
     if (replacementPath) {
       $homeIconPath.setAttribute('d', replacementPath)
-    }
-  }
-}
-
-async function tweakMessagesIcon() {
-  let $messagesIconPath = await getElement(`${Selectors.NAV_MESSAGES_LINK} svg path`, {name: 'Messages icon', stopIf: pageIsNot(currentPage)})
-  if ($messagesIconPath) {
-    // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
-    // we have to manually patch the path in it.
-    let targetPath = isOnMessagesPage() ? Svgs.MESSAGES_ACTIVE_PATH : Svgs.MESSAGES_INACTIVE_PATH
-    if ($messagesIconPath.getAttribute('d') != targetPath) {
-      $messagesIconPath.setAttribute('d', targetPath)
     }
   }
 }
@@ -8147,11 +8026,6 @@ async function main() {
   fontSize = null
   lastFlexDirection = null
 
-  // Don't run if we're redirecting to twitter.com
-  if (redirectToTwitter()) {
-    return
-  }
-
   observeFavicon()
   observeTitle()
   observeThemeMeta()
@@ -8264,10 +8138,6 @@ function configChanged(changes) {
       disconnectObservers(pageObservers, 'page')
       disconnectObservers(globalObservers, 'global')
     }
-    return
-  }
-
-  if ('redirectToTwitter' in changes && redirectToTwitter()) {
     return
   }
 

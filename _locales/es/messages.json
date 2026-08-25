@@ -125,9 +125,6 @@
   "hideBookmarkMetricsLabel": {
     "message": "Guardados"
   },
-  "hideBookmarksNavLabel": {
-    "message": "Guardados"
-  },
   "hideBusinessNavLabel": {
     "message": "Empresa"
   },
@@ -176,6 +173,9 @@
   "hideGrokTweetsLabel": {
     "message": "Ocultar tweets de Grok"
   },
+  "hideHistoryNavLabel": {
+    "message": "Historia"
+  },
   "hideInlinePrompts": {
     "message": "Ocultar indicaciones en línea en la timeline"
   },
@@ -196,9 +196,6 @@
   },
   "hideManageTimelinesLabel": {
     "message": "Ocultar el botón \"Administrar cronologías\""
-  },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "Mensajes"
   },
   "hideMessagesDrawerLabel": {
     "message": "Bandeja de chat"
@@ -386,12 +383,6 @@
   "quoteTweetsLabel": {
     "message": "Citados"
   },
-  "redirectChatNavLabel": {
-    "message": "Redirigir el elemento Chat a Mensajes"
-  },
-  "redirectToTwitterLabel": {
-    "message": "Redirigir a twitter.com"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "Eliminar contenido algorítmico"
   },
@@ -421,6 +412,12 @@
   },
   "retweetsLabel": {
     "message": "Retweets"
+  },
+  "revertMediaCarouselLabel": {
+    "message": "Revertir el carrusel multimedia"
+  },
+  "revertProfileTabsLabel": {
+    "message": "Revertir los cambios en las pestañas del perfil"
   },
   "saveAndApplyButton": {
     "message": "Guardar y aplicar"

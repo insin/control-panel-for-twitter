@@ -125,9 +125,6 @@
   "hideBookmarkMetricsLabel": {
     "message": "북마크"
   },
-  "hideBookmarksNavLabel": {
-    "message": "북마크"
-  },
   "hideBusinessNavLabel": {
     "message": "비즈니스"
   },
@@ -176,6 +173,9 @@
   "hideGrokTweetsLabel": {
     "message": "Grok 트윗 숨기기"
   },
+  "hideHistoryNavLabel": {
+    "message": "역사"
+  },
   "hideInlinePrompts": {
     "message": "타임라인에서 인라인 프롬프트 숨기기"
   },
@@ -196,9 +196,6 @@
   },
   "hideManageTimelinesLabel": {
     "message": "\"타임라인 관리\" 버튼 숨기기"
-  },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "메시지"
   },
   "hideMessagesDrawerLabel": {
     "message": "채팅 드로어"
@@ -386,12 +383,6 @@
   "quoteTweetsLabel": {
     "message": "인용 트윗"
   },
-  "redirectChatNavLabel": {
-    "message": "채팅 탐색 항목을 메시지로 리디렉션"
-  },
-  "redirectToTwitterLabel": {
-    "message": "twitter.com으로 리디렉션"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "알고리즘 컨텐츠 제거"
   },
@@ -421,6 +412,12 @@
   },
   "retweetsLabel": {
     "message": "리트윗"
+  },
+  "revertMediaCarouselLabel": {
+    "message": "미디어 캐러셀 되돌리기"
+  },
+  "revertProfileTabsLabel": {
+    "message": "프로필 탭 변경 사항 되돌리기"
   },
   "saveAndApplyButton": {
     "message": "저장하고 적용"

@@ -21,7 +21,6 @@ export type Config = {
   hideAdsNav: boolean
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
-  hideBookmarksNav: boolean
   hideBusinessNav: boolean
   hideChatNav: boolean
   hideCommunitiesNav: boolean
@@ -34,6 +33,7 @@ export type Config = {
   hideForYouTimeline: boolean
   hideGrokNav: boolean
   hideGrokTweets: boolean
+  hideHistoryNav: boolean
   hideInlinePrompts: boolean
   hideJobsNav: boolean
   hideLikeMetrics: boolean
@@ -71,8 +71,6 @@ export type Config = {
   mutableQuoteTweets: boolean
   mutedQuotes: QuotedTweet[]
   quoteTweets: SharedTweetsConfig
-  redirectChatNav: boolean
-  redirectToTwitter: boolean
   reducedInteractionMode: boolean
   // XXX This now controls all replacement of X brand changes
   replaceLogo: boolean
@@ -81,6 +79,8 @@ export type Config = {
   restoreOtherInteractionLinks: boolean
   restoreTweetSource: boolean
   retweets: SharedTweetsConfig
+  revertMediaCarousel: boolean
+  revertProfileTabs: boolean
   showBlueReplyFollowersCount: boolean
   showBlueReplyFollowersCountAmount: string
   showBookmarkButtonUnderFocusedTweets: boolean
