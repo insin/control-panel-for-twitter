@@ -52,7 +52,7 @@ for (let translationId of [
   'disableTweetTextFormattingLabel',
   'disabledHomeTimelineRedirectLabel',
   'disabledHomeTimelineRedirectOption_messages',
-  'disabledHomeTimelineRedirectOption_bookmarks',
+  'disabledHomeTimelineRedirectOption_history',
   'dontUseChirpFontLabel',
   'dropdownMenuFontWeightLabel',
   'enabled',
