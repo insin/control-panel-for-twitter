@@ -140,9 +140,6 @@
   "hideBookmarkMetrics": {
     "message": "ブックマーク"
   },
-  "hideBookmarksNav": {
-    "message": "ブックマーク"
-  },
   "hideBusinessNav": {
     "message": "ビジネス"
   },
@@ -191,6 +188,9 @@
   "hideGrokTweets": {
     "message": "Grokのツイートを非表示"
   },
+  "hideHistoryNav": {
+    "message": "履歴"
+  },
   "hideInlinePrompts": {
     "message": "タイムライン内のインラインプロンプトを非表示にする"
   },
@@ -214,9 +214,6 @@
   },
   "hideManageTimelines": {
     "message": "「タイムラインを管理」ボタンを非表示"
-  },
-  "hideMessagesBottomNavItem": {
-    "message": "メッセージ"
   },
   "hideMessagesDrawer": {
     "message": "チャットドロワー"
@@ -450,12 +447,6 @@
   "quoteTweets": {
     "message": "引用ツイート"
   },
-  "redirectChatNav": {
-    "message": "チャットナビをメッセージにリダイレクト"
-  },
-  "redirectToTwitter": {
-    "message": "twitter.com にリダイレクト"
-  },
   "reduceAlgorithmicContentOptions": {
     "message": "アルゴリズムコンテンツを取り除く"
   },
@@ -482,6 +473,12 @@
   },
   "retweets": {
     "message": "リツイート"
+  },
+  "revertMediaCarousel": {
+    "message": "メディアカルーセルを元に戻す"
+  },
+  "revertProfileTabs": {
+    "message": "プロフィールタブの変更を元に戻す"
   },
   "revertXBranding": {
     "message": "Xのブランディング変更を元に戻す"

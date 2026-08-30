@@ -143,9 +143,6 @@
   "hideBookmarkMetrics": {
     "message": "Bookmarks"
   },
-  "hideBookmarksNav": {
-    "message": "Bookmarks"
-  },
   "hideBusinessNav": {
     "message": "Business"
   },
@@ -194,6 +191,9 @@
   "hideGrokTweets": {
     "message": "Hide Grok tweets"
   },
+  "hideHistoryNav": {
+    "message": "History"
+  },
   "hideInlinePrompts": {
     "message": "Hide inline prompts in the timeline"
   },
@@ -217,9 +217,6 @@
   },
   "hideManageTimelines": {
     "message": "Hide \"Manage timelines\" button"
-  },
-  "hideMessagesBottomNavItem": {
-    "message": "Messages"
   },
   "hideMessagesDrawer": {
     "message": "Chat drawer"
@@ -456,12 +453,6 @@
   "quoteTweets": {
     "message": "Quote Tweets"
   },
-  "redirectChatNav": {
-    "message": "Redirect Chat nav item to Messages"
-  },
-  "redirectToTwitter": {
-    "message": "Redirect to twitter.com"
-  },
   "reduceAlgorithmicContentOptions": {
     "message": "Remove algorithmic content"
   },
@@ -488,6 +479,12 @@
   },
   "retweets": {
     "message": "Retweets"
+  },
+  "revertMediaCarousel": {
+    "message": "Revert media carousel"
+  },
+  "revertProfileTabs": {
+    "message": "Revert profile tab changes"
   },
   "revertXBranding": {
     "message": "Revert X branding changes"

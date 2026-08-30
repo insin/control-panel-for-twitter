@@ -83,9 +83,9 @@ ${messages.uiImprovementsOptions}:
 ${messages.xFixesOptions}:
 
 • ${messages.revertXBranding}
+• ${messages.revertMediaCarouselLabel}
+• ${messages.revertProfileTabsLabel}
 • ${messages.darkModeTheme} (${messages.option_dim})
-• ${messages.redirectToTwitter}
-• ${messages.redirectChatNav}
 • ${messages.hideViews}
 • ${messages.hideVerifiedTabs}
 • ${messages.restoreTweetSource}

@@ -140,9 +140,6 @@
   "hideBookmarkMetrics": {
     "message": "书签"
   },
-  "hideBookmarksNav": {
-    "message": "书签"
-  },
   "hideBusinessNav": {
     "message": "商业"
   },
@@ -191,6 +188,9 @@
   "hideGrokTweets": {
     "message": "隐藏 Grok 推文"
   },
+  "hideHistoryNav": {
+    "message": "历史"
+  },
   "hideInlinePrompts": {
     "message": "隐藏时间线中的内联提示"
   },
@@ -214,9 +214,6 @@
   },
   "hideManageTimelines": {
     "message": "隐藏“管理时间线”按钮"
-  },
-  "hideMessagesBottomNavItem": {
-    "message": "私信"
   },
   "hideMessagesDrawer": {
     "message": "聊天抽屉"
@@ -459,12 +456,6 @@
   "quoteTweets": {
     "message": "引用推文"
   },
-  "redirectChatNav": {
-    "message": "将聊天导航项重定向至消息"
-  },
-  "redirectToTwitter": {
-    "message": "重定向到 twitter.com"
-  },
   "reduceAlgorithmicContentOptions": {
     "message": "删除算法性内容"
   },
@@ -491,6 +482,12 @@
   },
   "retweets": {
     "message": "转发"
+  },
+  "revertMediaCarousel": {
+    "message": "还原媒体轮播"
+  },
+  "revertProfileTabs": {
+    "message": "还原个人资料选项卡的更改"
   },
   "revertXBranding": {
     "message": "还原 X 品牌变更"

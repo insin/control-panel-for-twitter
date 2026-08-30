@@ -1,6 +1,6 @@
-import { getSchemaForVersion, isObject, validateSettings } from './ext-shared.js'
-import { schemas } from './schemas.js'
-import { DEFAULT_SETTINGS, get, OPEN_APP_MESSAGE, set, setSettings } from './settings.js'
+import {getSchemaForVersion, isObject, validateSettings} from './ext-shared.js'
+import {schemas} from './schemas.js'
+import {DEFAULT_SETTINGS, get, OPEN_APP_MESSAGE, set, setSettings} from './settings.js'
 
 const $body = document.body
 const isBrowserAction = $body.classList.contains('browserAction')
@@ -36,6 +36,7 @@ if (theme == 'chrome' || theme == 'edge' || theme == 'firefox') {
 //#region Localisation
 document.title = chrome.i18n.getMessage('extensionName')
 
+//#region Option values
 for (const optionValue of [
   'badges',
   'comfortable',
@@ -57,7 +58,9 @@ for (const optionValue of [
     $option.textContent = label
   }
 }
+//#endregion
 
+//#region Ids
 for (const translationId of [
   'addAddMutedWordMenuItem_desktop',
   'addAddMutedWordMenuItem_mobile',
@@ -100,7 +103,6 @@ for (const translationId of [
   'hideAllMetrics',
   'hideBookmarkButton',
   'hideBookmarkMetrics',
-  'hideChatNav',
   'hideComposeTweet',
   'hideDiscoverSuggestions',
   'hideEditImage',
@@ -119,7 +121,6 @@ for (const translationId of [
   'hideLiveBroadcastBar',
   'hideLiveBroadcasts',
   'hideManageTimelines',
-  'hideMessagesBottomNavItem',
   'hideMessagesDrawer',
   'hideMetrics',
   'hideMoreFromThisAuthor',
@@ -165,8 +166,6 @@ for (const translationId of [
   'preventNextVideoAutoplay',
   'preventNextVideoAutoplayInfo',
   'quoteTweets',
-  'redirectChatNav',
-  'redirectToTwitter',
   'reduceAlgorithmicContentOptions',
   'reduceEngagementOptions',
   'reducedInteractionMode',
@@ -176,6 +175,8 @@ for (const translationId of [
   'restoreQuoteTweetsLink',
   'restoreTweetSource',
   'retweets',
+  'revertMediaCarousel',
+  'revertProfileTabs',
   'revertXBranding',
   'settings',
   'showBookmarkButtonUnderFocusedTweets',
@@ -206,13 +207,17 @@ for (const translationId of [
     console.warn('could not find element for translationId', translationId)
   }
 }
+//#endregion
 
+//#region Classes
 for (const translationClass of [
   'hideBookmarksNav',
   'hideBusinessNav',
+  'hideChatNav',
   'hideCommunitiesNav',
   'hideConnectNav',
   'hideCreatorStudioNav',
+  'hideHistoryNav',
   'hideListsNav',
   'notifications',
   'saveAndApply',
@@ -222,6 +227,7 @@ for (const translationClass of [
     $el.textContent = translation
   }
 }
+//#endregion
 
 for (const amount of [1_000, 10_000, 100_000, 1_000_000]) {
   document.querySelector(`option[value="${amount}"]`).textContent = formatFollowerCount(amount)
@@ -953,9 +959,7 @@ function updateDisplay() {
   if ($optionsIcon.src != icon) {
     $optionsIcon.src = icon
   }
-  $displaySettingsLink.href = config.settings.redirectToTwitter
-    ? 'https://twitter.com/settings/display?mx=1'
-    : 'https://x.com/settings/display'
+  $displaySettingsLink.href = 'https://x.com/settings/display'
   updateProDisplay()
   $showPremiumReplyFollowersCount.textContent = chrome.i18n.getMessage(
     'showPremiumReplyFollowersCount',

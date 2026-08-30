@@ -140,9 +140,6 @@
   "hideBookmarkMetrics": {
     "message": "북마크"
   },
-  "hideBookmarksNav": {
-    "message": "북마크"
-  },
   "hideBusinessNav": {
     "message": "비즈니스"
   },
@@ -191,6 +188,9 @@
   "hideGrokTweets": {
     "message": "Grok 트윗 숨기기"
   },
+  "hideHistoryNav": {
+    "message": "역사"
+  },
   "hideInlinePrompts": {
     "message": "타임라인에서 인라인 프롬프트 숨기기"
   },
@@ -214,9 +214,6 @@
   },
   "hideManageTimelines": {
     "message": "\"타임라인 관리\" 버튼 숨기기"
-  },
-  "hideMessagesBottomNavItem": {
-    "message": "메시지"
   },
   "hideMessagesDrawer": {
     "message": "채팅 드로어"
@@ -450,12 +447,6 @@
   "quoteTweets": {
     "message": "인용 트윗"
   },
-  "redirectChatNav": {
-    "message": "채팅 탐색 항목을 메시지로 리디렉션"
-  },
-  "redirectToTwitter": {
-    "message": "twitter.com으로 리디렉션"
-  },
   "reduceAlgorithmicContentOptions": {
     "message": "알고리즘 컨텐츠 제거"
   },
@@ -482,6 +473,12 @@
   },
   "retweets": {
     "message": "리트윗"
+  },
+  "revertMediaCarousel": {
+    "message": "미디어 캐러셀 되돌리기"
+  },
+  "revertProfileTabs": {
+    "message": "프로필 탭 변경 사항 되돌리기"
   },
   "revertXBranding": {
     "message": "X 브랜딩 변경 되돌리기"

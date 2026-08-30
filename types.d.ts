@@ -76,7 +76,6 @@ export type UserSettings = {
   hideAdsNav: boolean
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
-  hideBookmarksNav: boolean
   hideBusinessNav: boolean
   hideChatNav: boolean
   hideCommunitiesNav: boolean
@@ -91,6 +90,7 @@ export type UserSettings = {
   hideForYouTimeline: boolean
   hideGrokNav: boolean
   hideGrokTweets: boolean
+  hideHistoryNav: boolean
   hideInlinePrompts: boolean
   hideJobsNav: boolean
   hideLikeMetrics: boolean
@@ -126,14 +126,14 @@ export type UserSettings = {
   mutedQuotes: QuotedTweet[]
   premiumBlueChecks: 'ignore' | 'replace' | 'hide'
   quoteTweets: SharedTweetsConfig
-  redirectChatNav: boolean
-  redirectToTwitter: boolean
   reducedInteractionMode: boolean
   restoreLinkHeadlines: boolean
   restoreOtherInteractionLinks: boolean
   restoreQuoteTweetsLink: boolean
   restoreTweetSource: boolean
   retweets: SharedTweetsConfig
+  revertMediaCarousel: boolean
+  revertProfileTabs: boolean
   revertXBranding: boolean
   showBookmarkButtonUnderFocusedTweets: boolean
   showPremiumReplyBusiness: boolean
@@ -154,6 +154,7 @@ export type UserSettings = {
   hideExploreNav: boolean
   hideExploreNavWithSidebar: boolean
   hideLiveBroadcasts: boolean
+  // TODO Rename to hideChatDrawer
   hideMessagesDrawer: boolean
   hideSidebarContent: boolean
   hideSuggestedFollows: boolean
@@ -165,6 +166,7 @@ export type UserSettings = {
   showRelevantPeople: boolean
   // Mobile only
   hideLiveBroadcastBar: boolean
+  // TODO Rename to hideChatBottomNavItem, possibly replace with hideChatNav
   hideMessagesBottomNavItem: boolean
   preventNextVideoAutoplay: boolean
   // Experiments
@@ -216,7 +218,6 @@ export type LocaleKey =
   | 'HOME'
   | 'LIKES'
   | 'LIVE_ON_X'
-  | 'MESSAGES'
   | 'MOST_RELEVANT'
   | 'MUTE_THIS_CONVERSATION'
   | 'POST_ALL'

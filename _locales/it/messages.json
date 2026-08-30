@@ -140,9 +140,6 @@
   "hideBookmarkMetrics": {
     "message": "Segnalibri"
   },
-  "hideBookmarksNav": {
-    "message": "segnalibri"
-  },
   "hideBusinessNav": {
     "message": "Per le attività"
   },
@@ -191,6 +188,9 @@
   "hideGrokTweets": {
     "message": "Nascondi i tweet di Grok"
   },
+  "hideHistoryNav": {
+    "message": "Storia"
+  },
   "hideInlinePrompts": {
     "message": "Nascondi i suggerimenti nella timeline"
   },
@@ -214,9 +214,6 @@
   },
   "hideManageTimelines": {
     "message": "Nascondi il pulsante \"Gestisci cronologie\""
-  },
-  "hideMessagesBottomNavItem": {
-    "message": "Messaggi"
   },
   "hideMessagesDrawer": {
     "message": "Cassetto chat"
@@ -450,12 +447,6 @@
   "quoteTweets": {
     "message": "Tweet di citazione"
   },
-  "redirectChatNav": {
-    "message": "Reindirizza la voce Chat a Messaggi"
-  },
-  "redirectToTwitter": {
-    "message": "Reindirizza a twitter.com"
-  },
   "reduceAlgorithmicContentOptions": {
     "message": "Rimuovi contenuti algoritmici"
   },
@@ -482,6 +473,12 @@
   },
   "retweets": {
     "message": "Retweet"
+  },
+  "revertMediaCarousel": {
+    "message": "Ripristina il carosello multimediale"
+  },
+  "revertProfileTabs": {
+    "message": "Annulla le modifiche alle schede del profilo"
   },
   "revertXBranding": {
     "message": "Ripristina modifiche del marchio X"
