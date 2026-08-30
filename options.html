@@ -1113,15 +1113,18 @@
         Extensions Pro account
       </label>
       <div class="options">
-        <section>
-          <label class="button">
-            <span id="proStatus">Extensions Pro status</span>
-            <button id="proButton" type="button">
-              <span id="proStatusIcon"></span>
-              <span id="proStatusText"></span>
-            </button>
-          </label>
-        </section>
+        <div id="proSignInSection">
+          <p id="proSignInInfo">Sync your settings and enable Pro settings with an Extensions Pro account.</p>
+          <p>
+            <a id="proSignInLink" href="#">Sign in to Extensions Pro</a>
+          </p>
+        </div>
+        <div id="proAccountSection">
+          <dl id="proAccountInfo" class="pro-account-info"></dl>
+          <p>
+            <a id="manageProAccount" href="#">Manage your account</a>
+          </p>
+        </div>
       </div>
     </section>
     <section class="group labelled">
@@ -1135,6 +1138,7 @@
             <input type="checkbox" name="syncSettings">
             <span class="toggle"></span>
           </label>
+          <p id="syncLastSynced"></p>
         </section>
         <section>
           <label>

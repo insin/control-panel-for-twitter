@@ -87,7 +87,8 @@ body:not(.mutingQuotes) #mutedQuotesDetails,
 body:not(.showingBlueReplyFollowersCount) .showingBlueReplyFollowersCount,
 body:not(.showingSidebarContent) .showingSidebarContent,
 body:not(.sortingRepliesByLikes) .sortingRepliesByLikes,
-body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
+body:not(.uninvertedFollowButtons) .uninvertedFollowButtons,
+p:empty {
   display: none;
 }
 
@@ -105,19 +106,38 @@ body.disabled:is(.firefox, .chrome, .edge) .panel[data-tab="features"] > section
   display: none;
 }
 
+dl {
+  display: grid;
+  gap: 6px 16px;
+  grid-template-columns: max-content minmax(0, 1fr);
+  margin: 4px 40px 0 0;
+  dt {
+    color: var(--text-secondary);
+  }
+  dd {
+    margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    text-align: right;
+  }
+}
+
 /* Separate controls from their label by default */
 label {
   align-items: center;
   color: var(--text-primary);
-  cursor: pointer;
   display: flex;
   gap: 12px;
   justify-content: space-between;
 }
+/* Wrapper for label content which needs to be grouped */
 label .label-content {
   align-items: center;
   display: flex;
   gap: 0.5rem;
+}
+.options label {
+  cursor: pointer;
 }
 
 p {
@@ -196,12 +216,6 @@ body.ios .icon {
 }
 #mutedWordsError:not([hidden]) + p {
   display: none;
-}
-
-#proButton {
-  display: flex;
-  align-items: center;
-  gap: 4px;
 }
 
 #version {

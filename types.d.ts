@@ -13,6 +13,8 @@ export type StoredConfig = {
   extensionVersion?: string
   /** Local settings changes which have not been acknowledged by the server */
   pendingSettingsPatch?: Partial<UserSettings>
+  /** Last time settings sync completed successfully in this browser */
+  lastSyncTime?: number
   /** Timestamp (ms) echoed back from server after a successful sync */
   serverLastModified?: number
   /** We only store settings the user has actually interacted with */
@@ -178,11 +180,13 @@ export type ExtensionsProSubscription =
       type: 'lifetime'
       active: true
       status: 'active'
+      email?: string
       createdAt: number
     }
   | {
       type: 'annual' | 'monthly'
       active: boolean
+      email?: string
       // The only statuses an extension should see
       status:
         // Active statuses

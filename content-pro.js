@@ -23,5 +23,10 @@ void (async () => {
       chrome.runtime.sendMessage({ type: SYNC_RESET_MESSAGE }).catch(() => {})
       event.source.postMessage({ type: 'EXT_TOKEN_ACK' }, { targetOrigin: event.origin })
     }
+
+    if (event.data?.type === 'EXT_UNLINK') {
+      await chrome.storage.local.remove(['token', 'subscription'])
+      event.source.postMessage({ type: 'EXT_UNLINK_ACK' }, { targetOrigin: event.origin })
+    }
   })
 })()

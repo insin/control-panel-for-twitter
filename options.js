@@ -1,6 +1,6 @@
 import { getSchemaForVersion, isObject, validateSettings } from './ext-shared.js'
 import { schemas } from './schemas.js'
-import { DEFAULT_SETTINGS, get, set, setSettings } from './settings.js'
+import { DEFAULT_SETTINGS, get, OPEN_APP_MESSAGE, set, setSettings } from './settings.js'
 
 const $body = document.body
 const isBrowserAction = $body.classList.contains('browserAction')
@@ -329,14 +329,20 @@ const $mutedWordsError = document.querySelector('#mutedWordsError')
 const $mutedWordsErrorLine = document.querySelector('#mutedWordsErrorLine')
 const $mutedWordsErrorMessage = document.querySelector('#mutedWordsErrorMessage')
 const $panels = /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll('.panel'))
-const $proButton = document.querySelector('button#proButton')
-const $proStatusIcon = document.querySelector('#proStatusIcon')
-const $proStatusText = document.querySelector('#proStatusText')
+const $manageProAccount = /** @type {HTMLAnchorElement} */ (
+  document.querySelector('#manageProAccount')
+)
+const $proAccountInfo = /** @type {HTMLDListElement} */ (document.querySelector('#proAccountInfo'))
+const $proAccountSection = /** @type {HTMLElement} */ (document.querySelector('#proAccountSection'))
+const $proSignInInfo = /** @type {HTMLElement} */ (document.querySelector('#proSignInInfo'))
+const $proSignInLink = /** @type {HTMLAnchorElement} */ (document.querySelector('#proSignInLink'))
+const $proSignInSection = /** @type {HTMLElement} */ (document.querySelector('#proSignInSection'))
 const $saveCustomCssButton = document.querySelector('button#saveCustomCss')
 const $showPremiumReplyFollowersCount = /** @type {HTMLElement} */ (
   document.querySelector('#showPremiumReplyFollowersCount')
 )
 const $stickySentinels = document.querySelectorAll('.stickySentinel')
+const $syncLastSynced = /** @type {HTMLElement} */ (document.querySelector('#syncLastSynced'))
 const $tablist = /** @type {HTMLElement} */ (document.querySelector('.tabs'))
 const $tabs = Array.from($tablist.querySelectorAll('button'))
 //#endregion
@@ -387,6 +393,29 @@ function formatFollowerCount(num) {
     compactDisplay: num < 1_000_000 ? 'short' : 'long',
   })
   return numFormat.format(num)
+}
+
+function formatDate(timestamp) {
+  if (!timestamp) return null
+  return new Intl.DateTimeFormat([], { dateStyle: 'medium' }).format(new Date(timestamp))
+}
+
+function formatDateTime(timestamp) {
+  if (!timestamp) return null
+  return new Intl.DateTimeFormat([], { dateStyle: 'medium', timeStyle: 'short' }).format(
+    new Date(timestamp),
+  )
+}
+
+function formatSubscriptionStatus(status) {
+  return status
+    .split('_')
+    .map((word) => word[0].toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
+function formatSubscriptionType(type) {
+  return `${type[0].toUpperCase()}${type.slice(1)}`
 }
 
 /**
@@ -828,6 +857,10 @@ function onToggleCollapse(e) {
   updateDisplay()
 }
 
+function openProApp(path = '/') {
+  chrome.runtime.sendMessage({ type: OPEN_APP_MESSAGE, path })
+}
+
 function saveCustomCss() {
   const customCss = /** @type {HTMLTextAreaElement} */ ($form.elements.namedItem('customCss')).value
   if (config.settings.customCss == customCss) return
@@ -923,13 +956,7 @@ function updateDisplay() {
   $displaySettingsLink.href = config.settings.redirectToTwitter
     ? 'https://twitter.com/settings/display?mx=1'
     : 'https://x.com/settings/display'
-  if (!config.token) {
-    $proStatusIcon.textContent = '🟢'
-    $proStatusText.textContent = 'Active'
-  } else {
-    $proStatusIcon.textContent = '⚫️'
-    $proStatusText.textContent = 'Get Pro'
-  }
+  updateProDisplay()
   $showPremiumReplyFollowersCount.textContent = chrome.i18n.getMessage(
     'showPremiumReplyFollowersCount',
     formatFollowerCount(Number(config.settings.showPremiumReplyFollowersCountAmount)),
@@ -947,6 +974,44 @@ function updateDisplay() {
     $customThemeInput.style.backgroundColor = ''
     $customThemeInput.style.color = ''
   }
+}
+
+function updateProDisplay() {
+  const { subscription } = config
+  const hasSubscription = subscription != null
+  $proAccountSection.hidden = !hasSubscription
+  $proSignInSection.hidden = hasSubscription
+  $syncLastSynced.textContent = config.lastSyncTime
+    ? `Last synced: ${formatDateTime(config.lastSyncTime)}`
+    : 'Last synced: Never'
+
+  if (!subscription) {
+    $proSignInInfo.textContent = config.token
+      ? 'Account details will appear after sync completes.'
+      : 'Extensions Pro adds cloud sync and extra customisation options.'
+    $proSignInLink.textContent = config.token ? 'Open Extensions Pro' : 'Sign in to Extensions Pro'
+    return
+  }
+
+  const accountInfo = []
+  if ('email' in subscription && typeof subscription.email == 'string' && subscription.email) {
+    accountInfo.push(['Email', subscription.email])
+  }
+  accountInfo.push(['Plan', formatSubscriptionType(subscription.type)])
+  accountInfo.push(['Status', formatSubscriptionStatus(subscription.status)])
+
+  if (subscription.type == 'lifetime') {
+    accountInfo.push(['Active since', formatDateTime(subscription.createdAt)])
+  } else if (subscription.currentPeriodEnd) {
+    accountInfo.push([
+      subscription.cancelAtPeriodEnd || !subscription.active ? 'Ends' : 'Renews',
+      formatDate(subscription.currentPeriodEnd),
+    ])
+  }
+
+  $proAccountInfo.replaceChildren(
+    ...accountInfo.flatMap(([label, value]) => [h('dt', null, label), h('dd', null, value)]),
+  )
 }
 
 function updateHideQuotesFromDisplay() {
@@ -1154,11 +1219,15 @@ async function main() {
     $fileInput.click()
   })
   $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
+  $manageProAccount.addEventListener('click', (e) => {
+    e.preventDefault()
+    openProApp('/account')
+  })
   $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
   $mutedWords.addEventListener('input', onMutedWordsInput)
-  $proButton.addEventListener('click', (e) => {
+  $proSignInLink.addEventListener('click', (e) => {
     e.preventDefault()
-    chrome.runtime.sendMessage({ type: 'open_pro_window' })
+    openProApp()
   })
   $saveCustomCssButton.addEventListener('click', saveCustomCss)
   for (const $tab of $tabs) {

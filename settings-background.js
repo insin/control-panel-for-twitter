@@ -113,6 +113,7 @@ async function pullSettings({ pushIfMissing = false } = {}) {
   }
 
   await remove('syncError')
+  await set({ lastSyncTime: Date.now() })
 
   const { hasSettings, settings, lastModified, subscription } = await res.json()
   const { serverLastModified = 0 } = await get('serverLastModified')
@@ -172,6 +173,7 @@ async function pushSettings({ full = false } = {}) {
   }
 
   await remove('syncError')
+  await set({ lastSyncTime: Date.now() })
 
   // This is the new server version created by our accepted patch. A null
   // timestamp means the server dropped the whole patch as invalid/unknown.
@@ -228,7 +230,8 @@ export function initSettingsSync(config = {}) {
 
   chrome.runtime.onMessage.addListener((msg) => {
     if (msg.type == OPEN_APP_MESSAGE) {
-      chrome.tabs.create({ url: CONFIG.apiBase })
+      const path = typeof msg.path == 'string' && msg.path.startsWith('/') ? msg.path : '/'
+      chrome.tabs.create({ url: new URL(path, CONFIG.apiBase).href })
     }
     if (msg.type == SYNC_RESET_MESSAGE) {
       resetPullTimer()
