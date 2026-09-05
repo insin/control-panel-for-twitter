@@ -4607,6 +4607,7 @@ const configureCss = (() => {
           display: block;
           border-top: 1px solid var(--cpft-border);
           padding: 14px;
+          line-height: normal;
         }
       `)
       hideCssSelectors.push(
