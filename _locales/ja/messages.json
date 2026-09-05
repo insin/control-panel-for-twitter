@@ -56,6 +56,9 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "メッセージ"
   },
+  "disabledHomeTimelineRedirectOption_history": {
+    "message": "履歴"
+  },
   "dontUseChirpFontLabel": {
     "message": "Chirpフォントを使用しない"
   },

@@ -12,7 +12,7 @@ export type Config = {
   darkModeTheme: 'lightsOut' | 'dim'
   defaultToLatestSearch: boolean
   disableHomeTimeline: boolean
-  disabledHomeTimelineRedirect: 'notifications' | 'messages'
+  disabledHomeTimelineRedirect: 'notifications' | 'messages' | 'i/history'
   disableTweetTextFormatting: boolean
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
