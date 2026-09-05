@@ -13,6 +13,12 @@ export type Config = {
   defaultToLatestSearch: boolean
   disableHomeTimeline: boolean
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
+  homeTimelineLimit: 'unlimited' | '5' | '15' | '30'
+  homeTimelineLimitData: {
+    date: string
+    usedMs: number
+    lastActiveTime: number | null
+  }
   disableTweetTextFormatting: boolean
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
