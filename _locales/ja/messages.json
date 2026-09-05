@@ -416,6 +416,9 @@
   "revertProfileTabsLabel": {
     "message": "プロフィールタブの変更を元に戻す"
   },
+  "revertTwemojiLabel": {
+    "message": "Twemojiに戻す"
+  },
   "saveAndApplyButton": {
     "message": "保存して適用"
   },

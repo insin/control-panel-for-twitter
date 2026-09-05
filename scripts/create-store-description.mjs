@@ -74,6 +74,7 @@ ${messages.xFixesLabel}:
 • ${messages.replaceLogoLabel}
 • ${messages.revertMediaCarouselLabel}
 • ${messages.revertProfileTabsLabel}
+• ${messages.revertTwemoji}
 • ${messages.darkModeThemeLabel} (${messages.option_dim})
 • ${messages.hideViewsLabel}
 • ${messages.hideVerifiedNotificationsTabLabel}

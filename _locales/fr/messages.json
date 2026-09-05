@@ -416,6 +416,9 @@
   "revertProfileTabsLabel": {
     "message": "Annuler les modifications des onglets de profil"
   },
+  "revertTwemojiLabel": {
+    "message": "Revenir à Twemoji"
+  },
   "saveAndApplyButton": {
     "message": "Enregistrer et appliquer"
   },

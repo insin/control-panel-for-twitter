@@ -416,6 +416,9 @@
   "revertProfileTabsLabel": {
     "message": "Revertir los cambios en las pestañas del perfil"
   },
+  "revertTwemojiLabel": {
+    "message": "Volver a Twemoji"
+  },
   "saveAndApplyButton": {
     "message": "Guardar y aplicar"
   },

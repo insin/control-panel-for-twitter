@@ -416,6 +416,9 @@
   "revertProfileTabsLabel": {
     "message": "Annulla le modifiche alle schede del profilo"
   },
+  "revertTwemojiLabel": {
+    "message": "Torna a Twemoji"
+  },
   "saveAndApplyButton": {
     "message": "Salva e applica"
   },
