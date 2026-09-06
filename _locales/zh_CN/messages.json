@@ -489,6 +489,9 @@
   "revertProfileTabs": {
     "message": "还原个人资料选项卡的更改"
   },
+  "revertTwemoji": {
+    "message": "还原为 Twemoji"
+  },
   "revertXBranding": {
     "message": "还原 X 品牌变更"
   },

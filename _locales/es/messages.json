@@ -480,6 +480,9 @@
   "revertProfileTabs": {
     "message": "Revertir los cambios en las pestañas del perfil"
   },
+  "revertTwemoji": {
+    "message": "Volver a Twemoji"
+  },
   "revertXBranding": {
     "message": "Revertir cambios de marca X"
   },

@@ -177,6 +177,7 @@ for (const translationId of [
   'retweets',
   'revertMediaCarousel',
   'revertProfileTabs',
+  'revertTwemoji',
   'revertXBranding',
   'settings',
   'showBookmarkButtonUnderFocusedTweets',

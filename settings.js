@@ -80,6 +80,7 @@ export const DEFAULT_SETTINGS = {
   retweets: 'separate',
   revertMediaCarousel: true,
   revertProfileTabs: false,
+  revertTwemoji: true,
   revertXBranding: true,
   showBookmarkButtonUnderFocusedTweets: true,
   showPremiumReplyBusiness: true,

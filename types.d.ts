@@ -134,6 +134,7 @@ export type UserSettings = {
   retweets: SharedTweetsConfig
   revertMediaCarousel: boolean
   revertProfileTabs: boolean
+  revertTwemoji: boolean
   revertXBranding: boolean
   showBookmarkButtonUnderFocusedTweets: boolean
   showPremiumReplyBusiness: boolean

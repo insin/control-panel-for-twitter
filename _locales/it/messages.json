@@ -480,6 +480,9 @@
   "revertProfileTabs": {
     "message": "Annulla le modifiche alle schede del profilo"
   },
+  "revertTwemoji": {
+    "message": "Torna a Twemoji"
+  },
   "revertXBranding": {
     "message": "Ripristina modifiche del marchio X"
   },

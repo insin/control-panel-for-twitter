@@ -486,6 +486,9 @@
   "revertProfileTabs": {
     "message": "Revert profile tab changes"
   },
+  "revertTwemoji": {
+    "message": "Revert to Twemoji"
+  },
   "revertXBranding": {
     "message": "Revert X branding changes"
   },

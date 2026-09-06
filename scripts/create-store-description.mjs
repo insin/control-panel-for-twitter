@@ -85,6 +85,7 @@ ${messages.xFixesOptions}:
 • ${messages.revertXBranding}
 • ${messages.revertMediaCarouselLabel}
 • ${messages.revertProfileTabsLabel}
+• ${messages.revertTwemoji}
 • ${messages.darkModeTheme} (${messages.option_dim})
 • ${messages.hideViews}
 • ${messages.hideVerifiedTabs}

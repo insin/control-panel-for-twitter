@@ -480,6 +480,9 @@
   "revertProfileTabs": {
     "message": "Annuler les modifications des onglets de profil"
   },
+  "revertTwemoji": {
+    "message": "Revenir à Twemoji"
+  },
   "revertXBranding": {
     "message": "Rétablir les changements de marque X"
   },

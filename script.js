@@ -84,6 +84,7 @@ const DEFAULT_SETTINGS = {
   retweets: 'separate',
   revertMediaCarousel: true,
   revertProfileTabs: false,
+  revertTwemoji: true,
   revertXBranding: true,
   showBookmarkButtonUnderFocusedTweets: true,
   showPremiumReplyBusiness: true,
@@ -4600,6 +4601,7 @@ const configureCss = (() => {
           display: block;
           border-top: 1px solid var(--cpft-border);
           padding: 14px;
+          line-height: normal;
         }
       `)
       hideCssSelectors.push(
@@ -5284,6 +5286,7 @@ const configureFeatureFlags = (() => {
       if (settings.bypassAgeVerification && flag == 'rweb_age_assurance_flow_enabled') return false
       if (settings.revertMediaCarousel && flag == 'rweb_media_carousel_enabled') return false
       if (settings.revertProfileTabs && flag == 'responsive_web_profile_redesign_enabled') return false
+      if (settings.revertTwemoji && flag == 'responsive_web_native_emojis_enabled') return false
       return isTrue(flag)
     }
     log('featureSwitches patched')

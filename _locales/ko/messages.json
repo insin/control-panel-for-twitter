@@ -480,6 +480,9 @@
   "revertProfileTabs": {
     "message": "프로필 탭 변경 사항 되돌리기"
   },
+  "revertTwemoji": {
+    "message": "Twemoji로 되돌리기"
+  },
   "revertXBranding": {
     "message": "X 브랜딩 변경 되돌리기"
   },

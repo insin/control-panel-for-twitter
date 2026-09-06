@@ -480,6 +480,9 @@
   "revertProfileTabs": {
     "message": "プロフィールタブの変更を元に戻す"
   },
+  "revertTwemoji": {
+    "message": "Twemojiに戻す"
+  },
   "revertXBranding": {
     "message": "Xのブランディング変更を元に戻す"
   },
