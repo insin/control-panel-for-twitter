@@ -56,6 +56,9 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "Messaggi"
   },
+  "disabledHomeTimelineRedirectOption_history": {
+    "message": "Storia"
+  },
   "dontUseChirpFontLabel": {
     "message": "Non usare il font Chirp"
   },

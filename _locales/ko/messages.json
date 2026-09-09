@@ -56,6 +56,9 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "쪽지"
   },
+  "disabledHomeTimelineRedirectOption_history": {
+    "message": "역사"
+  },
   "dontUseChirpFontLabel": {
     "message": "Chirp 글꼴 사용 안 함"
   },
