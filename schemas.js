@@ -1,4 +1,4 @@
-import {arrayOf, boolean, object, oneOf, optional, string} from './ext-shared.js'
+import { arrayOf, boolean, object, oneOf, optional, string } from './ext-shared.js'
 
 const quotedTweet = object({
   quotedBy: string({ maxLength: 50 }),
@@ -91,6 +91,7 @@ const v5 = {
   retweets: oneOf(['separate', 'hide', 'ignore']),
   revertMediaCarousel: boolean(),
   revertProfileTabs: boolean(),
+  revertTwemoji: boolean(),
   revertXBranding: boolean(),
   showBookmarkButtonUnderFocusedTweets: boolean(),
   showPremiumReplyBusiness: boolean(),

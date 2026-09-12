@@ -3994,6 +3994,7 @@ const observeSideNavTweetButton = (() => {
       name: 'sidenav tweet button text container',
       observers: globalObservers,
     })
+    if (!$buttonTextContainer) return
     observer = observeElement($buttonTextContainer, () => {
       if ($buttonTextContainer.childElementCount > 0) {
         let $buttonText = /** @type {HTMLElement} */ ($buttonTextContainer.querySelector('span > span'))
