@@ -21,6 +21,9 @@
   "bypassAgeVerificationLabel": {
     "message": "Bypass age verification"
   },
+  "centerNavigationLabel": {
+    "message": "Center navigation bar vertically"
+  },
   "customCssLabel": {
     "message": "Custom CSS"
   },
@@ -260,6 +263,9 @@
   "hideSpacesNavLabel": {
     "message": "Create your Space"
   },
+  "hideStickyHeaderLabel": {
+    "message": "Hide sticky timeline header"
+  },
   "hideSubscriptionsLabel": {
     "message": "Hide Subscriptions"
   },
@@ -332,8 +338,26 @@
   "notificationsLabel": {
     "message": "Notifications"
   },
+  "option_650": {
+    "message": "650px"
+  },
+  "option_700": {
+    "message": "700px"
+  },
+  "option_750": {
+    "message": "750px"
+  },
+  "option_800": {
+    "message": "800px"
+  },
+  "option_always": {
+    "message": "Always"
+  },
   "option_badges": {
     "message": "Hide badges only"
+  },
+  "option_center": {
+    "message": "Center"
   },
   "option_comfortable": {
     "message": "Comfortable"
@@ -347,13 +371,22 @@
   "option_dim": {
     "message": "Dim"
   },
+  "option_full": {
+    "message": "Full width"
+  },
   "option_hide": {
     "message": "Hide",
     "description": "Option for hiding things"
   },
+  "option_hover": {
+    "message": "On hover"
+  },
   "option_ignore": {
     "message": "Do nothing",
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
+  },
+  "option_left": {
+    "message": "Left"
   },
   "option_lightsOut": {
     "message": "Lights out"
@@ -364,6 +397,9 @@
   "option_mostRecent": {
     "message": "Most recent"
   },
+  "option_never": {
+    "message": "Never"
+  },
   "option_popular": {
     "message": "Popular"
   },
@@ -372,6 +408,9 @@
   },
   "option_relevant": {
     "message": "Relevant"
+  },
+  "option_right": {
+    "message": "Right"
   },
   "option_separate": {
     "message": "Show in separate tab",
@@ -397,6 +436,12 @@
   },
   "reducedInteractionModeLabel": {
     "message": "Reduced interaction mode"
+  },
+  "removeTimelineBordersLabel": {
+    "message": "Remove timeline borders"
+  },
+  "removeTweetBordersLabel": {
+    "message": "Remove borders between tweets"
   },
   "replaceLogoLabel": {
     "message": "Replace X branding changes"
@@ -446,6 +491,9 @@
   "showBookmarkButtonUnderFocusedTweetsLabel": {
     "message": "Show under focused tweets"
   },
+  "showLabelsLabel": {
+    "message": "Navigation labels"
+  },
   "showPremiumReplyBusinessLabel": {
     "message": "Show verified Business accounts"
   },
@@ -469,6 +517,15 @@
   },
   "sortRepliesLabel": {
     "message": "Default sorting of replies"
+  },
+  "timelineAlignmentLabel": {
+    "message": "Timeline alignment"
+  },
+  "timelineWidthLabel": {
+    "message": "Timeline width"
+  },
+  "collapsibleSearchLabel": {
+    "message": "Collapsible floating search"
   },
   "tweakNewLayoutInfo": {
     "message": "Experimental - only enable if you have the new layout"
