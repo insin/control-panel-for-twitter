@@ -1,6 +1,13 @@
-import {getSchemaForVersion, isObject, validateSettings} from './ext-shared.js'
-import {schemas} from './schemas.js'
-import {DEFAULT_SETTINGS, get, OPEN_APP_MESSAGE, set, setSettings} from './settings.js'
+import { getSchemaForVersion, isObject, validateSettings } from './ext-shared.js'
+import { schemas } from './schemas.js'
+import {
+  DEFAULT_SETTINGS,
+  get,
+  OPEN_APP_MESSAGE,
+  SYNC_SETTINGS_CHANGED_MESSAGE,
+  set,
+  setSettings,
+} from './settings.js'
 
 const $body = document.body
 const isBrowserAction = $body.classList.contains('browserAction')
@@ -903,6 +910,14 @@ async function storeConfigChanges(changes) {
     if (Object.keys(internalConfig).length > 0) {
       await set(internalConfig)
     }
+    if (Object.hasOwn(internalConfig, 'syncSettings')) {
+      chrome.runtime
+        .sendMessage({
+          type: SYNC_SETTINGS_CHANGED_MESSAGE,
+          enabled: internalConfig.syncSettings,
+        })
+        .catch(() => {})
+    }
   } catch (e) {
     console.error('[options] error storing config change', e)
   } finally {
@@ -986,21 +1001,23 @@ function updateProDisplay() {
   const hasSubscription = subscription != null
   $proAccountSection.hidden = !hasSubscription
   $proSignInSection.hidden = hasSubscription
-  $syncLastSynced.textContent = config.lastSyncTime
-    ? `Last synced: ${formatDateTime(config.lastSyncTime)}`
-    : 'Last synced: Never'
+  $syncLastSynced.textContent = !config.syncSettings
+    ? 'Changes stay on this browser while sync is off. Turning it on restores cloud settings.'
+    : config.lastSyncTime
+      ? `Last synced: ${formatDateTime(config.lastSyncTime)}`
+      : 'Last synced: Never'
 
   if (!subscription) {
     $proSignInInfo.textContent = config.token
-      ? 'Account details will appear after sync completes.'
-      : 'Extensions Pro adds cloud sync and extra customisation options.'
+      ? 'Loading account details…'
+      : 'An Extensions Pro subscription enables Pro options.'
     $proSignInLink.textContent = config.token ? 'Open Extensions Pro' : 'Sign in to Extensions Pro'
     return
   }
 
   const accountInfo = []
-  if ('email' in subscription && typeof subscription.email == 'string' && subscription.email) {
-    accountInfo.push(['Email', subscription.email])
+  if (config.accountEmail) {
+    accountInfo.push(['Email', config.accountEmail])
   }
   accountInfo.push(['Plan', formatSubscriptionType(subscription.type)])
   accountInfo.push(['Status', formatSubscriptionStatus(subscription.status)])

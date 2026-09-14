@@ -9,6 +9,23 @@ export type StoredConfig = {
   debugLogTimelineStats?: boolean
   /** Disable extension functionality without disabling the extension itself */
   enabled?: boolean
+  /** We only store settings the user has actually interacted with */
+  settings?: Partial<UserSettings>
+  /** Toggle sticky headings in compatible options layouts */
+  stickyHeadings?: boolean
+  /** Selected tab in options */
+  tab: 'features' | 'settings' | 'pro'
+  /**
+   * The last version of Twitter which was active when a content script ran -
+   * determines which options the options page displays. Not applicable to most
+   * users, but useful for checking mobile options via a desktop browser in
+   * Responsive Design / Device Mode.
+   */
+  version?: 'desktop' | 'mobile'
+
+  // Extensions Pro
+  /** Email address of the linked Extensions Pro account */
+  accountEmail?: string
   /** Last extension version whose storage migrations completed */
   extensionVersion?: string
   /** Local settings changes which have not been acknowledged by the server */
@@ -17,12 +34,10 @@ export type StoredConfig = {
   lastSyncTime?: number
   /** Timestamp (ms) echoed back from server after a successful sync */
   serverLastModified?: number
-  /** We only store settings the user has actually interacted with */
-  settings?: Partial<UserSettings>
-  /** Toggle sticky headings in compatible options layouts */
-  stickyHeadings?: boolean
+  /** Reconciliation which must complete before normal settings sync */
+  settingsSyncPhase?: 'seed-if-missing' | 'replace-from-server' | 'ready'
   /** Extension Pro subscription details */
-  subscription?: ExtensionsProSubscription
+  subscription?: ExtensionsProSubscription | null
   /** Last sync error type */
   syncError?:
     | 'auth'
@@ -33,17 +48,8 @@ export type StoredConfig = {
     | 'subscription_inactive'
   /** Toggle syncing settings in this browser */
   syncSettings: boolean
-  /** Selected tab in options */
-  tab: 'features' | 'settings' | 'pro'
   /** Auth token for the Extensions Pro API */
   token?: string
-  /**
-   * The last version of Twitter which was active when a content script ran -
-   * determines which options the options page displays. Not applicable to most
-   * users, but useful for checking mobile options via a desktop browser in
-   * Responsive Design / Device Mode.
-   */
-  version?: 'desktop' | 'mobile'
 }
 
 export type StoredConfigKey = keyof StoredConfig
@@ -183,13 +189,11 @@ export type ExtensionsProSubscription =
       type: 'lifetime'
       active: true
       status: 'active'
-      email?: string
       createdAt: number
     }
   | {
       type: 'annual' | 'monthly'
       active: boolean
-      email?: string
       // The only statuses an extension should see
       status:
         // Active statuses

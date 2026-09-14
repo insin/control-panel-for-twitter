@@ -5,7 +5,9 @@
     "create-store-description": "node ./scripts/create-store-description.mjs",
     "check": "biome check && npm run typecheck",
     "check:fix": "biome check --write",
-    "typecheck": "npx --yes -p typescript tsc -p jsconfig.json --noEmit && npx --yes -p typescript tsc -p scripts/jsconfig.json --noEmit",
+    "test": "npm run typecheck && vitest run --config tests/vitest.config.mjs",
+    "test:watch": "vitest --config tests/vitest.config.mjs",
+    "typecheck": "npx --yes -p typescript tsc -p jsconfig.json --noEmit && npx --yes -p typescript tsc -p scripts/jsconfig.json --noEmit && npx --yes -p typescript tsc -p tests/jsconfig.json --noEmit",
     "release": "node ./scripts/release.mjs",
     "prebuild": "npm run create-browser-action",
     "build": "node ./scripts/build.mjs",
@@ -48,16 +50,18 @@
       "screenshots/",
       "scripts/",
       "soitis.mv2.js",
+      "tests/",
       "types.d.ts",
       "wip/"
     ]
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.15",
-    "@types/chrome": "0.1.x",
+    "@biomejs/biome": "2.5.13",
+    "@types/chrome": "0.2.x",
     "@types/node": "25.x",
     "clipboardy": "5.x",
     "semver": "7.x",
+    "vitest": "5.x",
     "web-ext": "7.x"
   }
 }

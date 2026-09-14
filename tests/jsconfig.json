@@ -1,0 +1,10 @@
+{
+  "extends": "../jsconfig.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "maxNodeModuleJsDepth": 0,
+    "types": ["chrome", "node"]
+  },
+  "include": ["**/*.js"]
+}

@@ -8592,7 +8592,7 @@ XMLHttpRequest.prototype.open = function(method, url) {
 const XMLHttpRequest_send = XMLHttpRequest.prototype.send
 XMLHttpRequest.prototype.send = function(body) {
   if (
-    !enabled || !body ||
+    !enabled || typeof body != 'string' || !body ||
     // @ts-expect-error
     this._method != 'POST' || !this._url
   ) return XMLHttpRequest_send.apply(this, [body])

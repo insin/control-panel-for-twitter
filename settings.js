@@ -125,7 +125,10 @@ export const DEFAULT_SETTINGS = {
 //#region Constants
 export const OPEN_APP_MESSAGE = 'OPEN_APP'
 export const SERVER_ORIGIN = 'http://localhost:5173' // 'https://pro.soitis.dev'
-export const SYNC_RESET_MESSAGE = 'SETTINGS_SYNC_RESET_TIMER'
+export const ACCOUNT_LINKED_MESSAGE = 'ACCOUNT_LINKED'
+export const ACCOUNT_UNLINKED_MESSAGE = 'ACCOUNT_UNLINKED'
+export const SYNC_SCHEDULE_PUSH_MESSAGE = 'SYNC_SCHEDULE_PUSH'
+export const SYNC_SETTINGS_CHANGED_MESSAGE = 'SYNC_SETTINGS_CHANGED'
 //#endregion
 
 //#region Async chrome.storage.local wrappers for Firefox MV2
@@ -147,7 +150,7 @@ export function remove(keys) {
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError)
       } else {
-        resolve()
+        resolve(undefined)
       }
     })
   })
@@ -159,7 +162,7 @@ export function set(keys) {
       if (chrome.runtime.lastError) {
         reject(chrome.runtime.lastError)
       } else {
-        resolve()
+        resolve(undefined)
       }
     })
   })
@@ -167,44 +170,35 @@ export function set(keys) {
 //#endregion
 
 //#region Settings functions
-/**
- * Signals the background script to reset the pull timer and schedule a
- * debounced push, without writing settings. Use this if you've written to
- * storage and pendingSettingsPatch yourself and want sync to follow.
- */
-export function resetSyncTimer() {
-  chrome.runtime.sendMessage({ type: SYNC_RESET_MESSAGE }).catch(() => {})
-}
-
-/**
- * Merges `changes` into the stored settings object and writes to
- * chrome.storage.local. Resolves once the write is complete, meaning
- * chrome.storage.onChanged will have fired before this returns.
- *
- * Also signals the background script to reset the pull countdown and
- * schedule a debounced push. The signal is best-effort — it is silently
- * dropped if the service worker is not currently running, which is fine
- * because the next alarm-triggered pull will reconcile.
- *
- * @param {Partial<import("./types").UserSettings>} changes - Partial settings to merge in.
- */
 export async function setSettings(changes) {
-  const { pendingSettingsPatch = {}, settings = {} } = await get([
-    'pendingSettingsPatch',
-    'settings',
-  ])
+  const {
+    pendingSettingsPatch = {},
+    settings = {},
+    syncSettings = true,
+    token,
+  } = await get(['pendingSettingsPatch', 'settings', 'syncSettings', 'token'])
 
   await set({
-    pendingSettingsPatch: {
-      .../** @type {Partial<import("./types").UserSettings>} */ (pendingSettingsPatch),
-      ...changes,
-    },
+    ...(syncSettings && token
+      ? {
+          pendingSettingsPatch: {
+            ...pendingSettingsPatch,
+            ...changes,
+          },
+        }
+      : {}),
     settings: {
-      .../** @type {Partial<import("./types").UserSettings>} */ (settings),
+      ...settings,
       ...changes,
     },
   })
 
-  chrome.runtime.sendMessage({ type: SYNC_RESET_MESSAGE }).catch(() => {})
+  if (syncSettings && token) {
+    schedulePush()
+  }
+}
+
+export function schedulePush() {
+  chrome.runtime.sendMessage({ type: SYNC_SCHEDULE_PUSH_MESSAGE }).catch(() => {})
 }
 //#endregion

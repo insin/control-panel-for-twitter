@@ -1,55 +1,47 @@
-import { OPEN_APP_MESSAGE, SYNC_RESET_MESSAGE } from './settings.js'
+import {
+  ACCOUNT_LINKED_MESSAGE,
+  ACCOUNT_UNLINKED_MESSAGE,
+  get,
+  OPEN_APP_MESSAGE,
+  remove,
+  set,
+  SYNC_SCHEDULE_PUSH_MESSAGE,
+  SYNC_SETTINGS_CHANGED_MESSAGE,
+} from './settings.js'
 
-//#region Constants
 const CONFIG = {
+  accountRefreshIntervalMinutes: 60,
   apiBase: 'https://pro.soitis.dev',
   pullIntervalMinutes: 10,
   // TODO If we need a shorter delay, use setTimeout with an alarm as a backup,
   //      in case the service worker is killed before the timeout fires.
   pushDebounceSeconds: 30,
 }
-const PULL_ALARM = 'SETTINGS_PULL'
-const PUSH_ALARM = 'SETTINGS_PUSH'
+
+//#region Constants
+export const ACCOUNT_REFRESH_ALARM = 'ACCOUNT_REFRESH'
+export const PULL_ALARM = 'SETTINGS_PULL'
+export const PUSH_ALARM = 'SETTINGS_PUSH'
 //#endregion
 
 //#region Utilities
-//#region Async chrome.storage.local wrappers for Firefox MV2
-export function get(keys) {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.get(keys, (result) => {
-      if (chrome.runtime.lastError) {
-        reject(chrome.runtime.lastError)
-      } else {
-        resolve(result)
-      }
-    })
-  })
+/**
+ * @param {Promise<any>} task
+ * @param {(response?: any) => void} sendResponse
+ * @returns {true}
+ */
+function keepMessageChannelOpen(task, sendResponse) {
+  runBackgroundTask(task).then(() => sendResponse())
+  return true
 }
 
-export function remove(keys) {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.remove(keys, () => {
-      if (chrome.runtime.lastError) {
-        reject(chrome.runtime.lastError)
-      } else {
-        resolve()
-      }
-    })
-  })
+function runBackgroundTask(task) {
+  return task.catch((error) => console.error('[settings-background]', error))
 }
 
-export function set(keys) {
-  return new Promise((resolve, reject) => {
-    chrome.storage.local.set(keys, () => {
-      if (chrome.runtime.lastError) {
-        reject(chrome.runtime.lastError)
-      } else {
-        resolve()
-      }
-    })
-  })
+function settingsValueMatches(a, b) {
+  return JSON.stringify(a) == JSON.stringify(b)
 }
-//#endregion
 //#endregion
 
 //#region Functions
@@ -57,14 +49,48 @@ async function applyServerSettings(settings, lastModified) {
   const { pendingSettingsPatch = {} } = await get('pendingSettingsPatch')
 
   await set({
-    // Records the server version we have applied locally; pending local edits
-    // are overlaid below and remain unsynced until a push acknowledges them.
-    ...(lastModified != null && { serverLastModified: lastModified }),
+    serverLastModified: lastModified,
     settings: {
       ...settings,
       ...pendingSettingsPatch,
     },
   })
+}
+
+async function disableSettingsSync() {
+  // Settings changes made while sync is off must remain local
+  await Promise.all([chrome.alarms.clear(PULL_ALARM), chrome.alarms.clear(PUSH_ALARM)])
+  await remove('pendingSettingsPatch')
+
+  // Keep subscription details fresh while sync is off
+  const { token } = await get('token')
+  if (token) {
+    const alarm = await chrome.alarms.get(ACCOUNT_REFRESH_ALARM)
+    if (!alarm) resetAccountRefreshTimer()
+  }
+}
+
+async function enableSettingsSync({ phase = 'replace-from-server' } = {}) {
+  const { token } = await get('token')
+  if (!token) {
+    await Promise.all([
+      chrome.alarms.clear(ACCOUNT_REFRESH_ALARM),
+      chrome.alarms.clear(PULL_ALARM),
+      chrome.alarms.clear(PUSH_ALARM),
+    ])
+    return
+  }
+
+  // Keep the intended reconciliation mode across failed requests and MV3
+  // service worker restarts.
+  await set({ settingsSyncPhase: phase })
+
+  // Subscription details are refreshed when pulling settings
+  await chrome.alarms.clear(ACCOUNT_REFRESH_ALARM)
+
+  // Resume pulling with an initial immediate pull
+  await syncSettingsNow()
+  if (await isSettingsSyncEnabled()) resetPullTimer()
 }
 
 async function getHeaders() {
@@ -76,14 +102,49 @@ async function getHeaders() {
   }
 }
 
+async function handleAccountLinked() {
+  await remove([
+    'lastSyncTime',
+    'pendingSettingsPatch',
+    'serverLastModified',
+    'settingsSyncPhase',
+    'subscription',
+    'syncError',
+  ])
+
+  if (await isSettingsSyncEnabled()) {
+    await enableSettingsSync({ phase: 'seed-if-missing' })
+  } else {
+    await refreshAccount()
+    await disableSettingsSync()
+  }
+}
+
+async function handleAccountUnlinked() {
+  await Promise.all([
+    chrome.alarms.clear(ACCOUNT_REFRESH_ALARM),
+    chrome.alarms.clear(PULL_ALARM),
+    chrome.alarms.clear(PUSH_ALARM),
+  ])
+  await remove([
+    'accountEmail',
+    'lastSyncTime',
+    'pendingSettingsPatch',
+    'serverLastModified',
+    'settingsSyncPhase',
+    'subscription',
+    'syncError',
+    'token',
+  ])
+}
+
 async function handleSettingsErrorResponse(res) {
   if (res.status == 401) {
     await set({ syncError: 'auth' })
-    await remove('token')
+    await handleAccountUnlinked()
   } else if (res.status == 402) {
     const { subscription } = await res.json()
     await set({ syncError: 'subscription_inactive', subscription })
-    await remove('token')
   } else if (res.status == 429) {
     await set({ syncError: 'rate_limited' })
   } else if (res.status >= 500) {
@@ -93,57 +154,79 @@ async function handleSettingsErrorResponse(res) {
   }
 }
 
+async function isSettingsSyncEnabled() {
+  const { syncSettings = true } = await get('syncSettings')
+  return syncSettings
+}
+
 /**
- * @param {{ pushIfMissing?: boolean }} [options]
+ * Pulls and reconciles server settings.
+ * @returns `failed` when the pull cannot complete, `seed-server` when the
+ * server should be seeded from this browser, or `reconciled` otherwise.
  */
-async function pullSettings({ pushIfMissing = false } = {}) {
+async function pullSettings() {
+  if (!(await isSettingsSyncEnabled())) return 'failed'
+
   const headers = await getHeaders()
-  if (!headers) return
+  if (!headers) return 'failed'
 
   let res
   try {
     res = await fetch(`${CONFIG.apiBase}/api/extension/settings`, { headers })
   } catch {
     await set({ syncError: 'network' })
-    return
+    return 'failed'
   }
 
   if (!res.ok) {
     await handleSettingsErrorResponse(res)
-    return
+    return 'failed'
   }
+  if (!(await isSettingsSyncEnabled())) return 'failed'
 
   await remove('syncError')
   await set({ lastSyncTime: Date.now() })
 
   const { hasSettings, settings, lastModified, subscription } = await res.json()
-  const { serverLastModified = 0 } = await get('serverLastModified')
+  const { serverLastModified = 0, settingsSyncPhase = 'ready' } = await get([
+    'serverLastModified',
+    'settingsSyncPhase',
+  ])
 
   if (subscription !== undefined) {
     await set({ subscription })
   }
 
   if (!hasSettings) {
-    if (pushIfMissing) {
-      // Server has no settings yet — push whatever we have locally.
-      await pushSettings({ full: true })
+    if (settingsSyncPhase == 'seed-if-missing') {
+      return 'seed-server'
+    } else if (settingsSyncPhase == 'replace-from-server') {
+      // An empty server snapshot means default settings, but we should preserve
+      // any changes made immediately after sync was re-enabled.
+      const { pendingSettingsPatch = {} } = await get('pendingSettingsPatch')
+      await set({ settings: pendingSettingsPatch })
     }
-    return
+    await set({ settingsSyncPhase: 'ready' })
+    return 'reconciled'
   }
 
-  // Only apply server settings if they are newer than the last server version
-  // we accepted. Equal/older pulls are subscription/status refreshes only.
-  if (lastModified > serverLastModified) {
+  if (settingsSyncPhase != 'ready' || lastModified > serverLastModified) {
     await applyServerSettings(settings, lastModified)
   }
+  await set({ settingsSyncPhase: 'ready' })
+  return 'reconciled'
 }
 
 /**
  * @param {{ full?: boolean }} [options]
+ * @returns `true` when the server accepted the settings or there was nothing to
+ * push.
  */
 async function pushSettings({ full = false } = {}) {
+  if (!(await isSettingsSyncEnabled())) return false
+
   const headers = await getHeaders()
-  if (!headers) return
+  if (!headers) return false
 
   const { pendingSettingsPatch = {}, settings = {} } = await get([
     'pendingSettingsPatch',
@@ -151,7 +234,7 @@ async function pushSettings({ full = false } = {}) {
   ])
   const settingsPatch = full ? settings : pendingSettingsPatch
 
-  if (!full && Object.keys(settingsPatch).length == 0) return
+  if (!full && Object.keys(settingsPatch).length == 0) return true
 
   let res
   try {
@@ -159,26 +242,25 @@ async function pushSettings({ full = false } = {}) {
       method: 'PATCH',
       headers,
       body: JSON.stringify({
-        extensionVersion: chrome.runtime.getManifest().version,
         settings: settingsPatch,
       }),
     })
   } catch {
     await set({ syncError: 'network' })
-    return
+    return false
   }
 
   if (!res.ok) {
     await handleSettingsErrorResponse(res)
-    return
+    return false
   }
 
   await remove('syncError')
   await set({ lastSyncTime: Date.now() })
 
-  // This is the new server version created by our accepted patch. A null
-  // timestamp means the server dropped the whole patch as invalid/unknown.
+  // New server version timestamp
   const { lastModified } = await res.json()
+
   const { pendingSettingsPatch: latestPendingSettingsPatch = {} } =
     await get('pendingSettingsPatch')
   const remainingPendingSettingsPatch = Object.fromEntries(
@@ -186,22 +268,63 @@ async function pushSettings({ full = false } = {}) {
       return !(Object.hasOwn(settingsPatch, key) && settingsValueMatches(value, settingsPatch[key]))
     }),
   )
-
   if (Object.keys(remainingPendingSettingsPatch).length > 0) {
     await set({
-      // Some edits happened while this push was in flight; keep them pending
-      // but advance the server version if the server actually changed.
-      ...(lastModified != null && { serverLastModified: lastModified }),
+      serverLastModified: lastModified,
       pendingSettingsPatch: remainingPendingSettingsPatch,
     })
   } else {
-    // No pending edits remain, so this timestamp becomes the baseline used to
-    // decide whether future pulls contain newer settings.
-    if (lastModified != null) {
-      await set({ serverLastModified: lastModified })
-    }
+    await set({ serverLastModified: lastModified })
     await remove('pendingSettingsPatch')
   }
+  return true
+}
+
+/**
+ * Pull first then push any pending local changes.
+ *
+ * Pull failures preserve the reconciliation phase; push failures preserve the
+ * pending patch. Periodic sync retries both, and startup also retries an
+ * incomplete reconciliation.
+ */
+async function syncSettingsNow() {
+  const pullResult = await pullSettings()
+  if (pullResult == 'failed') return
+
+  if (pullResult == 'seed-server') {
+    if (!(await pushSettings({ full: true }))) return
+    await set({ settingsSyncPhase: 'ready' })
+  }
+
+  await pushSettings()
+}
+
+async function refreshAccount() {
+  const headers = await getHeaders()
+  if (!headers) return
+
+  let res
+  try {
+    res = await fetch(`${CONFIG.apiBase}/api/extension/account`, { headers })
+  } catch {
+    return
+  }
+
+  if (res.status == 401) {
+    await set({ syncError: 'auth' })
+    await handleAccountUnlinked()
+    return
+  }
+  if (!res.ok) return
+
+  const { subscription } = await res.json()
+  await set({ subscription })
+}
+
+function resetAccountRefreshTimer() {
+  chrome.alarms.create(ACCOUNT_REFRESH_ALARM, {
+    periodInMinutes: CONFIG.accountRefreshIntervalMinutes,
+  })
 }
 
 function resetPullTimer() {
@@ -212,10 +335,6 @@ function schedulePush() {
   chrome.alarms.create(PUSH_ALARM, {
     when: Date.now() + CONFIG.pushDebounceSeconds * 1000,
   })
-}
-
-function settingsValueMatches(a, b) {
-  return JSON.stringify(a) == JSON.stringify(b)
 }
 //#endregion
 
@@ -229,36 +348,71 @@ function settingsValueMatches(a, b) {
 export function initSettingsSync(config = {}) {
   Object.assign(CONFIG, config)
 
-  chrome.runtime.onMessage.addListener((msg) => {
+  chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
     if (msg.type == OPEN_APP_MESSAGE) {
       const path = typeof msg.path == 'string' && msg.path.startsWith('/') ? msg.path : '/'
       chrome.tabs.create({ url: new URL(path, CONFIG.apiBase).href })
     }
-    if (msg.type == SYNC_RESET_MESSAGE) {
-      resetPullTimer()
-      schedulePush()
+    if (msg.type == ACCOUNT_LINKED_MESSAGE) {
+      return keepMessageChannelOpen(handleAccountLinked(), sendResponse)
+    }
+    if (msg.type == ACCOUNT_UNLINKED_MESSAGE) {
+      return keepMessageChannelOpen(handleAccountUnlinked(), sendResponse)
+    }
+    if (msg.type == SYNC_SETTINGS_CHANGED_MESSAGE) {
+      return keepMessageChannelOpen(
+        msg.enabled === false ? disableSettingsSync() : enableSettingsSync(),
+        sendResponse,
+      )
+    }
+    if (msg.type == SYNC_SCHEDULE_PUSH_MESSAGE) {
+      return keepMessageChannelOpen(
+        isSettingsSyncEnabled().then((enabled) => {
+          if (!enabled) return
+          resetPullTimer()
+          schedulePush()
+        }),
+        sendResponse,
+      )
     }
   })
 
   chrome.alarms.onAlarm.addListener((alarm) => {
-    if (alarm.name == PULL_ALARM) pullSettings()
-    if (alarm.name == PUSH_ALARM) pushSettings()
+    if (alarm.name == ACCOUNT_REFRESH_ALARM) runBackgroundTask(refreshAccount())
+    if (alarm.name == PULL_ALARM) runBackgroundTask(syncSettingsNow())
+    if (alarm.name == PUSH_ALARM) runBackgroundTask(pushSettings())
   })
 }
 
-/**
- * Syncs if we've never successfully synced and creates the pull alarm.
- */
 export async function startSync() {
-  const { serverLastModified } = await get('serverLastModified')
+  const {
+    settingsSyncPhase = 'ready',
+    subscription,
+    syncSettings = true,
+    token,
+  } = await get(['settingsSyncPhase', 'subscription', 'syncSettings', 'token'])
 
-  if (serverLastModified === undefined) {
-    await pullSettings({ pushIfMissing: true })
+  if (!token) {
+    await handleAccountUnlinked()
+    return
   }
 
-  const existing = await chrome.alarms.get(PULL_ALARM)
-  if (!existing) {
-    chrome.alarms.create(PULL_ALARM, { periodInMinutes: CONFIG.pullIntervalMinutes })
+  if (!syncSettings) {
+    if (subscription === undefined) {
+      await refreshAccount()
+    }
+    await disableSettingsSync()
+    return
+  }
+
+  await chrome.alarms.clear(ACCOUNT_REFRESH_ALARM)
+
+  const pullAlarm = await chrome.alarms.get(PULL_ALARM)
+  // Pull immediately when reconciliation is incomplete, pulls haven't been
+  // scheduled yet, or account details need to be populated by the response.
+  if (settingsSyncPhase != 'ready' || !pullAlarm || subscription === undefined) {
+    await syncSettingsNow()
+    resetPullTimer()
   }
 }
 //#endregion

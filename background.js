@@ -44,15 +44,14 @@ function updateToolbarIcon(enabled) {
 
 //#region Main
 async function main() {
-  const current = chrome.runtime.getManifest().version
-  const { extensionVersion, settings } = await get(['extensionVersion', 'settings'])
-  // `extensionVersion` is new in v5, so an existing `settings` object means
-  // this browser has already crossed the top-level-settings migration boundary.
-  const previous =
-    typeof extensionVersion == 'string' ? extensionVersion : settings != null ? current : '0'
+  const currentVersion = chrome.runtime.getManifest().version
+  const { extensionVersion } = await get('extensionVersion')
 
-  await runSettingsMigrations(previous, current)
-  await set({ extensionVersion: current })
+  if (extensionVersion != currentVersion) {
+    await runSettingsMigrations(extensionVersion ?? '0', currentVersion)
+    await set({ extensionVersion: currentVersion })
+  }
+
   await startSync()
 }
 

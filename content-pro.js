@@ -1,6 +1,8 @@
 void (async () => {
   const { EXTENSIONS_PRO_ID } = await import(chrome.runtime.getURL('extensions-pro-id.js'))
-  const { SERVER_ORIGIN, SYNC_RESET_MESSAGE } = await import(chrome.runtime.getURL('settings.js'))
+  const { ACCOUNT_LINKED_MESSAGE, ACCOUNT_UNLINKED_MESSAGE, SERVER_ORIGIN } = await import(
+    chrome.runtime.getURL('settings.js')
+  )
 
   window.addEventListener('message', async (event) => {
     if (event.origin !== SERVER_ORIGIN) return
@@ -18,14 +20,15 @@ void (async () => {
       )
     }
 
-    if (event.data?.type === 'EXT_TOKEN') {
-      await chrome.storage.local.set({ token: event.data.token })
-      chrome.runtime.sendMessage({ type: SYNC_RESET_MESSAGE }).catch(() => {})
-      event.source.postMessage({ type: 'EXT_TOKEN_ACK' }, { targetOrigin: event.origin })
+    if (event.data?.type === 'EXT_LINK') {
+      await chrome.storage.local.set({ accountEmail: event.data.email, token: event.data.token })
+      await chrome.runtime.sendMessage({ type: ACCOUNT_LINKED_MESSAGE }).catch(() => {})
+      event.source.postMessage({ type: 'EXT_LINK_ACK' }, { targetOrigin: event.origin })
     }
 
     if (event.data?.type === 'EXT_UNLINK') {
-      await chrome.storage.local.remove(['token', 'subscription'])
+      await chrome.storage.local.remove(['accountEmail', 'token', 'subscription'])
+      await chrome.runtime.sendMessage({ type: ACCOUNT_UNLINKED_MESSAGE }).catch(() => {})
       event.source.postMessage({ type: 'EXT_UNLINK_ACK' }, { targetOrigin: event.origin })
     }
   })

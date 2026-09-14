@@ -1,14 +1,23 @@
-import { crossesVersionThreshold } from './ext-shared.js'
+import { crossesVersionThreshold, isObject } from './ext-shared.js'
 import { DEFAULT_SETTINGS, get, remove, set } from './settings.js'
 
 /**
  * One-off migration for v5: move all top-level settings into a settings object.
  */
 async function migrateSettingsToV5() {
-  const extensionConfigKeys = new Set(['debug', 'debugLogTimelineStats', 'enabled', 'version'])
+  const extensionConfigKeys = new Set([
+    'debug',
+    'debugLogTimelineStats',
+    'enabled',
+    'settings',
+    'version',
+  ])
   const storedConfig = await get()
   const keysToRemove = []
-  const settings = {}
+  // A previous attempt may have written nested settings before it was
+  // interrupted, so use them as the starting point when the migration reruns.
+  /** @type {Partial<import('./types').UserSettings>} */
+  const settings = isObject(storedConfig.settings) ? { ...storedConfig.settings } : {}
   /** @type {import('./types').Migrations} */
   const migrations = {
     hideWhoToFollowEtc: { rename: 'hideSuggestedContentTimeline' },
@@ -38,6 +47,8 @@ async function migrateSettingsToV5() {
       settings[key] = value
     }
   }
+  // We can write this migration directly to local.settings as there's no way to
+  // be logged into Pro yet if you're migrating from v4 to v5.
   await set({ settings })
   if (keysToRemove.length > 0) {
     await remove(keysToRemove)
