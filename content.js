@@ -29,7 +29,7 @@ if (localStorage.cpftEnabled != 'false' && localStorage.cpftReplaceLogo != 'fals
       else if (Date.now() - startTime > 1000) {
         observer.disconnect()
       }
-    }).observe(document.documentElement, {childList: true, subtree: true})
+    }).observe(document.documentElement, { childList: true, subtree: true })
   }
 }
 
@@ -49,7 +49,7 @@ chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ store
 
   let $main = document.createElement('script')
   $main.src = chrome.runtime.getURL('script.js')
-  $main.onload = function() {
+  $main.onload = function () {
     this.remove()
   }
   document.documentElement.appendChild($main)
@@ -62,7 +62,7 @@ function onConfigChange(changes) {
   if (changes.enabled) localStorage.cpftEnabled = changes.enabled.newValue
   if (changes.replaceLogo) localStorage.cpftReplaceLogo = changes.replaceLogo.newValue
   let configChanges = Object.fromEntries(
-    Object.entries(changes).map(([key, {newValue}]) => [key, newValue])
+    Object.entries(changes).map(([key, { newValue }]) => [key, newValue])
   )
   $settings.innerText = JSON.stringify(configChanges)
 }
@@ -77,3 +77,33 @@ window.addEventListener('message', (event) => {
     })
   }
 }, false)
+
+// Forward media download requests from page context to background service worker
+document.addEventListener('cpftDownloadMedia', (event) => {
+  let data = /** @type {any} */ (event).detail
+  if (!data || typeof data !== 'object') return
+  let { url, filename, subfolder } = data
+  if (typeof url !== 'string' || !url.startsWith('https://')) return
+
+  try {
+    let parsed = new URL(url)
+    let host = parsed.hostname.toLowerCase()
+    if (!host.endsWith('.twimg.com') && !host.endsWith('.twitter.com') && !host.endsWith('.x.com')) {
+      console.warn('[CPFT] Download rejected: unauthorized domain', host)
+      return
+    }
+  } catch {
+    return
+  }
+
+  chrome.runtime.sendMessage({
+    type: 'DOWNLOAD_MEDIA',
+    url,
+    filename,
+    subfolder,
+  }, (response) => {
+    if (chrome.runtime.lastError) {
+      console.error('[CPFT] Download error:', chrome.runtime.lastError.message)
+    }
+  })
+})

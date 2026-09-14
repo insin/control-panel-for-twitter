@@ -60,6 +60,45 @@
   "dontUseChirpFontLabel": {
     "message": "Don't use the Chirp font"
   },
+  "downloadFilenameArgumentsLabel": {
+    "message": "Available arguments:"
+  },
+  "downloadFilenameDateGroup": {
+    "message": "Date"
+  },
+  "downloadFilenameExampleLabel": {
+    "message": "Preview:"
+  },
+  "downloadFilenameFormatLabel": {
+    "message": "Filename format"
+  },
+  "downloadFilenameMediaGroup": {
+    "message": "Media"
+  },
+  "downloadFilenameResetLabel": {
+    "message": "Reset to default"
+  },
+  "downloadFilenameTimeGroup": {
+    "message": "Time"
+  },
+  "downloadFilenameTweetGroup": {
+    "message": "Tweet"
+  },
+  "downloadMediaLabel": {
+    "message": "Show download button on media"
+  },
+  "downloadSubfolderInfo": {
+    "message": "Folder path within your browser's Downloads folder (leave empty for default)"
+  },
+  "downloadSubfolderLabel": {
+    "message": "Download folder"
+  },
+  "downloadVideoQualityLabel": {
+    "message": "Preferred video quality"
+  },
+  "downloadsOptionsLabel": {
+    "message": "Downloads"
+  },
   "dropdownMenuFontWeightLabel": {
     "message": "Use normal font weight in dropdown menus"
   },
@@ -351,6 +390,12 @@
     "message": "Hide",
     "description": "Option for hiding things"
   },
+  "option_highest": {
+    "message": "Highest quality"
+  },
+  "option_id": {
+    "message": "Tweet ID only (12345678)"
+  },
   "option_ignore": {
     "message": "Do nothing",
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
@@ -360,6 +405,9 @@
   },
   "option_liked": {
     "message": "Likes"
+  },
+  "option_lowest": {
+    "message": "Lowest quality"
   },
   "option_mostRecent": {
     "message": "Most recent"
@@ -376,6 +424,12 @@
   "option_separate": {
     "message": "Show in separate tab",
     "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
+  },
+  "option_username_id": {
+    "message": "Username & Tweet ID (@user_12345678)"
+  },
+  "option_username_type_id": {
+    "message": "Username, Type & Tweet ID (@user_video_12345678)"
   },
   "preventNextVideoAutoplayInfo": {
     "message": "Videos will loop instead"
