@@ -293,6 +293,9 @@
   "hideUnavailableQuoteTweetsLabel": {
     "message": "Hide quotes and replies to blocked and muted accounts"
   },
+  "hideUniversalSearchLabel": {
+    "message": "Hide universal search"
+  },
   "hideUnusedUiItemsOptionsLabel": {
     "message": "Hide UI items you don't use"
   },

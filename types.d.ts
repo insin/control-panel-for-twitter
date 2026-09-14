@@ -23,6 +23,7 @@ export type Config = {
   hideStickyHeader: boolean
   centerNavigation: boolean
   collapsibleSearch: boolean
+  hideUniversalSearch: boolean
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
   fastBlock: boolean

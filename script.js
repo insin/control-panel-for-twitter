@@ -140,6 +140,7 @@ const config = {
   removeTweetBorders: false,
   hideStickyHeader: false,
   collapsibleSearch: false,
+  hideUniversalSearch: false,
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
   fastBlock: true,
@@ -3675,7 +3676,7 @@ function setupCollapsibleSearch() {
 
   document.addEventListener('focusin', (e) => {
     let shouldReclaim = config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || config.timelineAlignment
-    if (!desktop || !shouldReclaim || isOnSearchPage()) return
+    if (!desktop || config.hideUniversalSearch || !shouldReclaim || isOnSearchPage() || isOnExplorePage()) return
     let $target = /** @type {HTMLElement} */ (e.target)
     let $form = $target?.closest('form[role="search"]')
     if ($form) {
@@ -3685,7 +3686,7 @@ function setupCollapsibleSearch() {
 
   document.addEventListener('focusout', (e) => {
     let shouldReclaim = config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || config.timelineAlignment
-    if (!desktop || !shouldReclaim || isOnSearchPage()) return
+    if (!desktop || config.hideUniversalSearch || !shouldReclaim || isOnSearchPage() || isOnExplorePage()) return
     let $related = /** @type {HTMLElement} */ (e.relatedTarget)
     let $form = /** @type {HTMLElement} */ (e.target)?.closest('form[role="search"]')
     if ($form && (!$related || !$related.closest('form[role="search"]'))) {
@@ -3695,13 +3696,26 @@ function setupCollapsibleSearch() {
 
   document.addEventListener('click', (e) => {
     let shouldReclaim = config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || config.timelineAlignment
-    if (!desktop || !shouldReclaim || isOnSearchPage()) return
+    if (!desktop || config.hideUniversalSearch || !shouldReclaim || isOnSearchPage() || isOnExplorePage()) return
     let $target = /** @type {HTMLElement} */ (e.target)
     let $form = $target?.closest('form[role="search"]')
     if ($form) {
       let $input = $form.querySelector('input[role="combobox"]')
       if ($input && document.activeElement !== $input) {
         /** @type {HTMLElement} */ ($input).focus()
+      }
+    }
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      let $form = document.querySelector('form[role="search"].SearchExpanded')
+      if ($form) {
+        $form.classList.remove('SearchExpanded')
+        let $input = /** @type {HTMLElement} */ ($form.querySelector('input[role="combobox"]'))
+        if ($input && document.activeElement === $input) {
+          $input.blur()
+        }
       }
     }
   })
@@ -4257,6 +4271,13 @@ const configureCss = (() => {
       margin-inline-end: 8px !important;
       flex-shrink: 0 !important;
     }
+    .cpft_universal_search_action.cpft_fallback {
+      position: fixed !important;
+      top: 12px !important;
+      right: 16px !important;
+      z-index: 9999 !important;
+      margin: 0 !important;
+    }
     .cpft_universal_search_btn {
       display: inline-flex !important;
       align-items: center !important;
@@ -4289,6 +4310,15 @@ const configureCss = (() => {
       fill: currentColor !important;
     }
     `)
+
+    if (config.hideUniversalSearch) {
+      cssRules.push(`
+        body:not(.Search):not(.Explore) ${Selectors.SIDEBAR} form[role="search"],
+        .cpft_universal_search_action {
+          display: none !important;
+        }
+      `)
+    }
 
     if (config.darkModeTheme != 'lightsOut') {
       cssRules.push(`
@@ -5088,8 +5118,8 @@ const configureCss = (() => {
           body:not(.Search) ${Selectors.PRIMARY_COLUMN} > div > div div:not([data-testid="dm-message-list-container"] *) {
             max-width: unset !important;
           }
-          /* Hide floating search capsule on profile pages in full-width mode when not active */
-          body.Profile:not(.Search) ${Selectors.SIDEBAR} form[role="search"]:not(:focus-within, .SearchExpanded) {
+          /* Hide floating search capsule across non-search pages in full-width mode when not active */
+          body:not(.Search):not(.Explore) ${Selectors.SIDEBAR} form[role="search"]:not(:focus-within, .SearchExpanded) {
             visibility: hidden !important;
             opacity: 0 !important;
             pointer-events: none !important;
@@ -5097,8 +5127,8 @@ const configureCss = (() => {
             height: 0 !important;
             overflow: hidden !important;
           }
-          /* Expanded search flyout on profile pages in full-width mode */
-          body.Profile:not(.Search) ${Selectors.SIDEBAR} form[role="search"]:is(:focus-within, .SearchExpanded) {
+          /* Expanded search flyout across non-search pages in full-width mode */
+          body:not(.Search):not(.Explore) ${Selectors.SIDEBAR} form[role="search"]:is(:focus-within, .SearchExpanded) {
             visibility: visible !important;
             opacity: 1 !important;
             pointer-events: auto !important;
@@ -7448,6 +7478,7 @@ function processCurrentPage() {
     if (isSafari && config.replaceLogo) {
       tweakDesktopLogo()
     }
+    setupUniversalSearch()
   }
 
   if (isSafari && config.replaceLogo) {
@@ -8026,6 +8057,10 @@ async function tweakIndividualTweetPage() {
   userSortedReplies = false
   observeIndividualTweetTimeline(currentPage)
 
+  if (desktop) {
+    setupUniversalSearch()
+  }
+
   if (config.replaceLogo) {
     (async () => {
       let $headingText = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`, {
@@ -8140,6 +8175,9 @@ function tweakHomeTimelinePage() {
   }
 
   tweakTimelineTabs($timelineTabs)
+  if (desktop) {
+    setupUniversalSearch()
+  }
   if (mobile && isSafari && config.replaceLogo) {
     processTwitterLogos(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER))
   }
@@ -8468,28 +8506,21 @@ function createSvgIcon(pathData, className) {
   return svg
 }
 
-async function setupProfileHeaderSearch() {
+async function setupUniversalSearch() {
   let isFullWidth = config.timelineWidth === 'full' || (config.timelineWidth === 'default' && config.fullWidthContent)
-  if (!isFullWidth || !desktop) return
+  if (!desktop || config.hideUniversalSearch || !isFullWidth || isOnSearchPage() || isOnExplorePage()) {
+    document.querySelectorAll('.cpft_universal_search_action').forEach(el => el.remove())
+    return
+  }
 
-  let $header = await getElement(Selectors.DESKTOP_TIMELINE_HEADER, {
-    name: 'desktop profile timeline header',
-    stopIf: pageIsNot(currentPage),
-    timeout: 3000,
-  })
-  if (!$header) return
+  let thisPage = currentPage
 
-  function ensureSearchButton() {
-    let isFullWidthNow = config.timelineWidth === 'full' || (config.timelineWidth === 'default' && config.fullWidthContent)
-    if (!isFullWidthNow || !desktop) {
-      $header.querySelectorAll('.cpft_universal_search_action').forEach(el => el.remove())
-      return
+  function getOrCreateSearchAction() {
+    let $existing = /** @type {HTMLElement[]} */ (Array.from(document.querySelectorAll('.cpft_universal_search_action')))
+    let $searchAction = $existing[0]
+    for (let i = 1; i < $existing.length; i++) {
+      $existing[i].remove()
     }
-
-    let $headerInner = $header.firstElementChild || $header
-    if (!$headerInner) return
-
-    let $searchAction = /** @type {HTMLElement} */ ($headerInner.querySelector('.cpft_universal_search_action'))
     if (!$searchAction) {
       $searchAction = document.createElement('div')
       $searchAction.className = 'cpft_universal_search_action'
@@ -8511,9 +8542,11 @@ async function setupProfileHeaderSearch() {
         )
         if ($searchForm) {
           let $input = /** @type {HTMLElement} */ ($searchForm.querySelector('input[role="combobox"]'))
-          if ($searchForm.classList.contains('SearchExpanded') && document.activeElement === $input) {
-            $input.blur()
+          if ($searchForm.classList.contains('SearchExpanded')) {
             $searchForm.classList.remove('SearchExpanded')
+            if ($input && document.activeElement === $input) {
+              $input.blur()
+            }
           } else {
             $searchForm.classList.add('SearchExpanded')
             if ($input) {
@@ -8525,12 +8558,38 @@ async function setupProfileHeaderSearch() {
 
       $searchAction.appendChild($btn)
     }
+    return $searchAction
+  }
+
+  function ensureSearchButton($header) {
+    let isFullWidthNow = config.timelineWidth === 'full' || (config.timelineWidth === 'default' && config.fullWidthContent)
+    if (!desktop || config.hideUniversalSearch || !isFullWidthNow || isOnSearchPage() || isOnExplorePage()) {
+      document.querySelectorAll('.cpft_universal_search_action').forEach(el => el.remove())
+      return
+    }
+
+    let $searchAction = getOrCreateSearchAction()
+
+    // If sticky header is hidden or no header element was found, use fallback
+    if (!$header || !document.contains($header) || config.hideStickyHeader) {
+      $searchAction.classList.add('cpft_fallback')
+      let $mountTarget = document.querySelector('main[role="main"]') || document.body
+      if ($searchAction.parentElement !== $mountTarget) {
+        $mountTarget.appendChild($searchAction)
+      }
+      return
+    }
+
+    $searchAction.classList.remove('cpft_fallback')
+    let $headerInner = $header.firstElementChild || $header
+    if (!$headerInner) return
 
     // Find Twitter's action container (Follow button, More button, etc.)
     let $actionContainer = null
     for (let $child of $headerInner.children) {
       if ($child === $searchAction) continue
       if ($child.querySelector('h2')) continue
+      if ($child.tagName === 'NAV' || $child.querySelector('nav, [role="tablist"]')) continue
       if ($child.querySelector('button, [role="button"], a')) {
         $actionContainer = $child
         break
@@ -8541,22 +8600,39 @@ async function setupProfileHeaderSearch() {
       if ($searchAction.nextElementSibling !== $actionContainer) {
         $headerInner.insertBefore($searchAction, $actionContainer)
       }
-    } else if ($searchAction.parentElement !== $headerInner || $searchAction !== $headerInner.lastElementChild) {
-      $headerInner.appendChild($searchAction)
+    } else {
+      let $nav = $headerInner.querySelector('nav')
+      if ($nav && $nav.parentElement === $headerInner && $nav.nextElementSibling !== $searchAction) {
+        $headerInner.insertBefore($searchAction, $nav.nextElementSibling)
+      } else if ($searchAction.parentElement !== $headerInner || $searchAction !== $headerInner.lastElementChild) {
+        $headerInner.appendChild($searchAction)
+      }
     }
   }
 
-  ensureSearchButton()
-
-  observeElement($header, () => {
-    ensureSearchButton()
-  }, {
-    name: 'profile header search',
-    observers: pageObservers,
-  }, {
-    childList: true,
-    subtree: true,
+  let $header = await getElement(Selectors.DESKTOP_TIMELINE_HEADER, {
+    name: 'desktop timeline header',
+    stopIf: () => currentPage !== thisPage || config.hideUniversalSearch || isOnSearchPage() || isOnExplorePage(),
+    timeout: 2500,
   })
+
+  if (currentPage !== thisPage || config.hideUniversalSearch || isOnSearchPage() || isOnExplorePage()) {
+    return
+  }
+
+  ensureSearchButton($header)
+
+  if ($header && document.contains($header)) {
+    observeElement($header, () => {
+      ensureSearchButton($header)
+    }, {
+      name: 'universal header search',
+      observers: pageObservers,
+    }, {
+      childList: true,
+      subtree: true,
+    })
+  }
 }
 
 async function tweakProfilePage() {
@@ -8567,7 +8643,7 @@ async function tweakProfilePage() {
   if (!$initialContent) return
 
   if (desktop) {
-    setupProfileHeaderSearch()
+    setupUniversalSearch()
   }
 
   if (config.twitterBlueChecks != 'ignore') {
@@ -8906,12 +8982,12 @@ function configChanged(changes) {
   if ('replaceLogo' in changes || 'hideNotifications' in changes) {
     observeFavicon.forceUpdate(getNotificationCount() > 0)
   }
-  if ('timelineWidth' in changes || 'fullWidthContent' in changes) {
+  if ('timelineWidth' in changes || 'fullWidthContent' in changes || 'hideUniversalSearch' in changes || 'hideStickyHeader' in changes) {
     let isFullWidthNow = config.timelineWidth === 'full' || (config.timelineWidth === 'default' && config.fullWidthContent)
-    if (!isFullWidthNow) {
+    if (!isFullWidthNow || config.hideUniversalSearch) {
       document.querySelectorAll('.cpft_universal_search_action').forEach(el => el.remove())
-    } else if (isOnProfilePage()) {
-      setupProfileHeaderSearch()
+    } else {
+      setupUniversalSearch()
     }
   }
   // Store the current notification count if hiding notifications was enabled
