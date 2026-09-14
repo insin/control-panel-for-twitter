@@ -218,6 +218,11 @@ const defaultConfig = {
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
   disableTweetTextFormatting: false,
+  // Downloads
+  downloadMedia: true,
+  downloadFilenameFormat: '{yyyy}-{mm}-{dd}-{hh}-{MM}-{ss}-{ms}-{username}-{tweet_id}',
+  downloadSubfolder: '',
+  downloadVideoQuality: 'highest',
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
   fastBlock: true,
@@ -614,6 +619,192 @@ function updateFormControl($control, value) {
 }
 //#endregion
 
+/**
+ * Resolves legacy format presets into standard template strings.
+ * @param {string} format
+ * @returns {string}
+ */
+function normalizeFilenameTemplate(format) {
+  if (typeof format !== 'string' || !format.trim()) {
+    return '{yyyy}-{mm}-{dd}-{hh}-{MM}-{ss}-{ms}-{username}-{tweet_id}'
+  }
+  let trimmed = format.trim()
+  if (trimmed === 'username_id') return '{username}_{tweet_id}'
+  if (trimmed === 'id') return '{tweet_id}'
+  if (trimmed === 'username_type_id') return '{username}_{type}_{tweet_id}'
+  return trimmed
+}
+
+/**
+ * Expands tokens within a template based on metadata.
+ * @param {string} template
+ * @param {object} metadata
+ * @returns {string}
+ */
+function expandTokens(template, metadata = {}) {
+  let d = metadata.timestamp instanceof Date ? metadata.timestamp : (metadata.timestamp ? new Date(metadata.timestamp) : new Date())
+  if (isNaN(d.getTime())) d = new Date()
+
+  const tokenMap = {
+    '{yyyy}': String(d.getFullYear()),
+    '{yy}': String(d.getFullYear()).slice(-2),
+    '{mm}': String(d.getMonth() + 1).padStart(2, '0'),
+    '{m}': String(d.getMonth() + 1),
+    '{dd}': String(d.getDate()).padStart(2, '0'),
+    '{d}': String(d.getDate()),
+    '{hh}': String(d.getHours()).padStart(2, '0'),
+    '{h}': String(d.getHours()),
+    '{MM}': String(d.getMinutes()).padStart(2, '0'),
+    '{ss}': String(d.getSeconds()).padStart(2, '0'),
+    '{ms}': String(d.getMilliseconds()).padStart(3, '0'),
+    '{author}': metadata.author != null ? String(metadata.author) : '',
+    '{username}': metadata.username != null ? String(metadata.username) : '',
+    '{title}': metadata.title != null ? String(metadata.title) : '',
+    '{tweet_id}': metadata.tweetId != null ? String(metadata.tweetId) : '',
+    '{type}': metadata.type != null ? String(metadata.type) : 'media',
+  }
+
+  return template.replace(/\{(yyyy|yy|mm|m|dd|d|hh|h|MM|ss|ms|author|username|title|tweet_id|type)\}/g, (match) => {
+    return tokenMap[match] !== undefined ? tokenMap[match] : match
+  })
+}
+
+/**
+ * Sanitizes a filename base string to be filesystem and path safe.
+ * @param {string} str
+ * @returns {string}
+ */
+function sanitizeFilenameBase(str) {
+  if (typeof str !== 'string') return ''
+  let sanitized = str
+    .replace(/[\r\n\t]+/g, ' ')
+    .replace(/[\x00-\x1f\x7f-\x9f]/g, '')
+    .replace(/[/\\:*?"<>|]/g, '_')
+    .replace(/\s+/g, ' ')
+    .replace(/_+/g, '_')
+    .replace(/^[\s._]+|[\s._]+$/g, '')
+    .trim()
+
+  const MAX_FILENAME_BASE_LENGTH = 180
+  if (sanitized.length > MAX_FILENAME_BASE_LENGTH) {
+    sanitized = sanitized.slice(0, MAX_FILENAME_BASE_LENGTH).replace(/^[\s._]+|[\s._]+$/g, '').trim()
+  }
+
+  return sanitized
+}
+
+/**
+ * Generates the final media filename given metadata, index, total, extension, and template.
+ */
+function generateMediaFilename(metadataOrUser, tweetIdOrIndex, indexOrTotal, totalOrExt, extOrType, mediaTypeOrFormat, formatOrTemplate) {
+  let metadata = {}
+  let index = 0
+  let total = 1
+  let ext = 'mp4'
+  let rawTemplate = '{yyyy}-{mm}-{dd}-{hh}-{MM}-{ss}-{ms}-{username}-{tweet_id}'
+
+  if (typeof metadataOrUser === 'object' && metadataOrUser !== null) {
+    metadata = metadataOrUser
+    index = Number(tweetIdOrIndex) || 0
+    total = Number(indexOrTotal) || 1
+    ext = totalOrExt || 'mp4'
+    rawTemplate = extOrType || '{yyyy}-{mm}-{dd}-{hh}-{MM}-{ss}-{ms}-{username}-{tweet_id}'
+  } else {
+    let username = metadataOrUser || 'user'
+    let tweetId = tweetIdOrIndex || ''
+    index = Number(indexOrTotal) || 0
+    total = Number(totalOrExt) || 1
+    ext = extOrType || 'mp4'
+    let mediaType = mediaTypeOrFormat || 'media'
+    rawTemplate = formatOrTemplate || '{yyyy}-{mm}-{dd}-{hh}-{MM}-{ss}-{ms}-{username}-{tweet_id}'
+
+    metadata = {
+      author: username,
+      username,
+      tweetId,
+      type: mediaType,
+      title: '',
+      timestamp: new Date(),
+    }
+  }
+
+  let template = normalizeFilenameTemplate(rawTemplate)
+  let expanded = expandTokens(template, metadata)
+  let sanitized = sanitizeFilenameBase(expanded)
+
+  if (!sanitized) {
+    let fallbackUser = sanitizeFilenameBase(metadata.username || metadata.author || 'twitter_user') || 'twitter_user'
+    let fallbackId = metadata.tweetId || `${Date.now()}`
+    sanitized = `${fallbackUser}_${fallbackId}`
+  }
+
+  let indexStr = total > 1 ? `_${String(index + 1).padStart(2, '0')}` : ''
+  let cleanExt = String(ext || 'mp4').replace(/^\.+/, '').toLowerCase()
+
+  let hasExt = new RegExp(`\\.${cleanExt}$`, 'i').test(sanitized)
+  let baseWithoutExt = hasExt ? sanitized.slice(0, -(cleanExt.length + 1)) : sanitized
+
+  return `${baseWithoutExt}${indexStr}.${cleanExt}`
+}
+
+const SAMPLE_METADATA = {
+  author: 'Elon Musk',
+  username: '@elonmusk',
+  title: 'Starship flight test',
+  tweetId: '183204928139785682',
+  type: 'video',
+  timestamp: new Date('2026-09-06T22:31:45.037'),
+}
+
+function updateFilenamePreview() {
+  let $input = /** @type {HTMLInputElement} */ ($form.elements['downloadFilenameFormat'])
+  let $preview = document.getElementById('filenamePreview')
+  if (!$input || !$preview) return
+  let template = $input.value || '{yyyy}-{mm}-{dd}-{hh}-{MM}-{ss}-{ms}-{username}-{tweet_id}'
+  $preview.textContent = generateMediaFilename(SAMPLE_METADATA, 0, 1, 'mp4', template)
+}
+
+function setupFilenameFormatControls() {
+  let $input = /** @type {HTMLInputElement} */ ($form.elements['downloadFilenameFormat'])
+  if (!$input) return
+
+  $input.addEventListener('input', () => {
+    updateFilenamePreview()
+  })
+
+  let $tokenHelper = document.querySelector('.token-helper')
+  if ($tokenHelper) {
+    $tokenHelper.addEventListener('click', (e) => {
+      let $btn = /** @type {HTMLElement} */ (e.target)?.closest('.token-btn')
+      if (!$btn) return
+      let token = $btn.getAttribute('data-token')
+      if (!token) return
+
+      let start = $input.selectionStart ?? $input.value.length
+      let end = $input.selectionEnd ?? $input.value.length
+      let val = $input.value
+      $input.value = val.slice(0, start) + token + val.slice(end)
+      let newCursor = start + token.length
+      $input.setSelectionRange(newCursor, newCursor)
+      $input.focus()
+
+      updateFilenamePreview()
+      $input.dispatchEvent(new Event('change', { bubbles: true }))
+    })
+  }
+
+  let $resetBtn = document.getElementById('resetFilenameFormatBtn')
+  if ($resetBtn) {
+    $resetBtn.addEventListener('click', () => {
+      $input.value = '{yyyy}-{mm}-{dd}-{hh}-{MM}-{ss}-{ms}-{username}-{tweet_id}'
+      $input.focus()
+      updateFilenamePreview()
+      $input.dispatchEvent(new Event('change', { bubbles: true }))
+    })
+  }
+}
+//#endregion
+
 //#region Main
 function main() {
   chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ storedConfig) => {
@@ -621,6 +812,9 @@ function main() {
     // @ts-ignore
     if (storedConfig.twitterBlueChecks == 'dim') {
       storedConfig.twitterBlueChecks = 'replace'
+    }
+    if (storedConfig.downloadFilenameFormat) {
+      storedConfig.downloadFilenameFormat = normalizeFilenameTemplate(storedConfig.downloadFilenameFormat)
     }
     optionsConfig = {...defaultConfig, ...storedConfig}
 
@@ -632,6 +826,8 @@ function main() {
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
     $saveCustomCssButton.addEventListener('click', saveCustomCss)
     chrome.storage.onChanged.addListener(onStorageChanged)
+
+    setupFilenameFormatControls()
 
     if (!optionsConfig.debug) {
       let $version = document.querySelector('#version')

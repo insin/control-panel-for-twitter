@@ -25,6 +25,7 @@ body:not(.chronological) .chronological,
 body:not(.debug) .debug,
 body:not(.debugging) .debugging,
 body:not(.disabledHomeTimeline) .disabledHomeTimeline,
+body:not(.downloadingMedia) .downloadingMedia,
 body:not(.fullWidthContent) .fullWidthContent,
 body:not(.hidingBookmarkButton) .hidingBookmarkButton,
 body:not(.hidingExploreNav) .hidingExploreNav,
@@ -509,4 +510,107 @@ body.iOS.safari .checkbox input:focus + .toggle {
 
 .mb-0 {
   margin-bottom: 0 !important;
+}
+
+/* Filename format template & token helpers */
+.downloadFilenameSection input[name="downloadFilenameFormat"] {
+  width: 260px;
+  font-family: monospace;
+  font-size: 11px;
+}
+
+.token-helper {
+  margin: 6px 12px 10px 12px;
+  padding: 8px 10px;
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid rgba(128, 128, 128, 0.15);
+  border-radius: 6px;
+  font-size: 11px;
+}
+
+.token-helper-title {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+  color: inherit;
+}
+
+.token-group {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.token-group-title {
+  font-size: 11px;
+  font-weight: 500;
+  min-width: 42px;
+  opacity: 0.8;
+}
+
+.token-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.token-btn {
+  background: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-family: monospace;
+  cursor: pointer;
+  color: inherit;
+  transition: all 0.15s ease;
+}
+
+.token-btn:hover {
+  background: rgba(29, 155, 240, 0.15);
+  border-color: #1d9bf0;
+  color: #1d9bf0;
+}
+
+.filename-preview-row {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dashed rgba(128, 128, 128, 0.25);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.filename-preview-label {
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.filename-preview-text {
+  font-family: monospace;
+  font-size: 11px;
+  color: #1d9bf0;
+  word-break: break-all;
+  font-weight: 500;
+}
+
+.filename-reset-row {
+  margin-top: 8px;
+}
+
+.reset-btn {
+  background: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  cursor: pointer;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.reset-btn:hover {
+  background: rgba(128, 128, 128, 0.15);
 }
