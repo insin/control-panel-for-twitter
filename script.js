@@ -131,6 +131,16 @@ const config = {
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
   disableTweetTextFormatting: false,
+  // Timeline / Layout
+  timelineWidth: 'default',
+  timelineAlignment: 'center',
+  showLabels: 'always',
+  centerNavigation: false,
+  removeTimelineBorders: false,
+  removeTweetBorders: false,
+  hideStickyHeader: false,
+  collapsibleSearch: false,
+  hideUniversalSearch: false,
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
   fastBlock: true,
@@ -2285,6 +2295,7 @@ const Selectors = {
 
 /** @enum {string} */
 const Svgs = {
+  SEARCH_PATH: 'M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5-8.5z',
   BLUE_LOGO_PATH: 'M16.5 3H2v18h15c3.038 0 5.5-2.46 5.5-5.5 0-1.4-.524-2.68-1.385-3.65-.08-.09-.089-.22-.023-.32.574-.87.908-1.91.908-3.03C22 5.46 19.538 3 16.5 3zm-.796 5.99c.457-.05.892-.17 1.296-.35-.302.45-.684.84-1.125 1.15.004.1.006.19.006.29 0 2.94-2.269 6.32-6.421 6.32-1.274 0-2.46-.37-3.459-1 .177.02.357.03.539.03 1.057 0 2.03-.35 2.803-.95-.988-.02-1.821-.66-2.109-1.54.138.03.28.04.425.04.206 0 .405-.03.595-.08-1.033-.2-1.811-1.1-1.811-2.18v-.03c.305.17.652.27 1.023.28-.606-.4-1.004-1.08-1.004-1.85 0-.4.111-.78.305-1.11 1.113 1.34 2.775 2.22 4.652 2.32-.038-.17-.058-.33-.058-.51 0-1.23 1.01-2.22 2.256-2.22.649 0 1.235.27 1.647.7.514-.1.997-.28 1.433-.54-.168.52-.526.96-.992 1.23z',
   MUTE: '<g><path d="M18 6.59V1.2L8.71 7H5.5C4.12 7 3 8.12 3 9.5v5C3 15.88 4.12 17 5.5 17h2.09l-2.3 2.29 1.42 1.42 15.5-15.5-1.42-1.42L18 6.59zm-8 8V8.55l6-3.75v3.79l-6 6zM5 9.5c0-.28.22-.5.5-.5H8v6H5.5c-.28 0-.5-.22-.5-.5v-5zm6.5 9.24l1.45-1.45L16 19.2V14l2 .02v8.78l-6.5-4.06z"></path></g>',
   PROMOTED_PATH: 'M19.498 3h-15c-1.381 0-2.5 1.12-2.5 2.5v13c0 1.38 1.119 2.5 2.5 2.5h15c1.381 0 2.5-1.12 2.5-2.5v-13c0-1.38-1.119-2.5-2.5-2.5zm-3.502 12h-2v-3.59l-5.293 5.3-1.414-1.42L12.581 10H8.996V8h7v7z',
@@ -3658,6 +3669,58 @@ const observeSideNavTweetButton = (() => {
   }
 })()
 
+let collapsibleSearchInitialized = false
+function setupCollapsibleSearch() {
+  if (collapsibleSearchInitialized) return
+  collapsibleSearchInitialized = true
+
+  document.addEventListener('focusin', (e) => {
+    let shouldReclaim = config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || (config.timelineAlignment && config.timelineAlignment !== 'center')
+    if (!desktop || config.hideUniversalSearch || !shouldReclaim || isOnSearchPage() || isOnExplorePage()) return
+    let $target = /** @type {HTMLElement} */ (e.target)
+    let $form = $target?.closest('form[role="search"]')
+    if ($form) {
+      $form.classList.add('SearchExpanded')
+    }
+  })
+
+  document.addEventListener('focusout', (e) => {
+    let shouldReclaim = config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || (config.timelineAlignment && config.timelineAlignment !== 'center')
+    if (!desktop || config.hideUniversalSearch || !shouldReclaim || isOnSearchPage() || isOnExplorePage()) return
+    let $related = /** @type {HTMLElement} */ (e.relatedTarget)
+    let $form = /** @type {HTMLElement} */ (e.target)?.closest('form[role="search"]')
+    if ($form && (!$related || !$related.closest('form[role="search"]'))) {
+      $form.classList.remove('SearchExpanded')
+    }
+  })
+
+  document.addEventListener('click', (e) => {
+    let shouldReclaim = config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || (config.timelineAlignment && config.timelineAlignment !== 'center')
+    if (!desktop || config.hideUniversalSearch || !shouldReclaim || isOnSearchPage() || isOnExplorePage()) return
+    let $target = /** @type {HTMLElement} */ (e.target)
+    let $form = $target?.closest('form[role="search"]')
+    if ($form) {
+      let $input = $form.querySelector('input[role="combobox"]')
+      if ($input && document.activeElement !== $input) {
+        /** @type {HTMLElement} */ ($input).focus()
+      }
+    }
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      let $form = document.querySelector('form[role="search"].SearchExpanded')
+      if ($form) {
+        $form.classList.remove('SearchExpanded')
+        let $input = /** @type {HTMLElement} */ ($form.querySelector('input[role="combobox"]'))
+        if ($input && document.activeElement === $input) {
+          $input.blur()
+        }
+      }
+    }
+  })
+}
+
 async function observeSearchForm() {
   let $searchForm = await getElement('form[role="search"]', {
     name: 'search form',
@@ -4201,7 +4264,61 @@ const configureCss = (() => {
           background-color: var(--cpft-hover-bg) !important;
         }
       }
+    .cpft_universal_search_action {
+      display: flex !important;
+      align-items: center !important;
+      margin-inline-start: auto !important;
+      margin-inline-end: 8px !important;
+      flex-shrink: 0 !important;
+    }
+    .cpft_universal_search_action.cpft_fallback {
+      position: fixed !important;
+      top: 12px !important;
+      right: 16px !important;
+      z-index: 9999 !important;
+      margin: 0 !important;
+    }
+    .cpft_universal_search_btn {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 34px !important;
+      height: 34px !important;
+      min-width: 34px !important;
+      border-radius: 9999px !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      cursor: pointer !important;
+      outline: none !important;
+      border: 1px solid rgba(29, 155, 240, 0.45) !important;
+      background-color: rgba(29, 155, 240, 0.08) !important;
+      color: rgb(29, 155, 240) !important;
+      transition: background-color 0.2s, border-color 0.2s, transform 0.15s !important;
+    }
+    .cpft_universal_search_btn:hover {
+      background-color: rgba(29, 155, 240, 0.18) !important;
+      border-color: rgb(29, 155, 240) !important;
+      transform: scale(1.05) !important;
+    }
+    .cpft_universal_search_btn:focus-visible {
+      outline: 2px solid rgb(29, 155, 240) !important;
+      outline-offset: 2px !important;
+    }
+    .cpft_universal_search_icon {
+      width: 17px !important;
+      height: 17px !important;
+      fill: currentColor !important;
+    }
     `)
+
+    if (config.hideUniversalSearch) {
+      cssRules.push(`
+        body:not(.Search):not(.Explore) ${Selectors.SIDEBAR} form[role="search"],
+        .cpft_universal_search_action {
+          display: none !important;
+        }
+      `)
+    }
 
     if (config.darkModeTheme != 'lightsOut') {
       cssRules.push(`
@@ -4867,43 +4984,296 @@ const configureCss = (() => {
           )
         }
       }
-      if (config.fullWidthContent) {
+      if (config.removeTimelineBorders) {
         cssRules.push(`
-          /* Use full width when the sidebar is visible */
-          body.Sidebar${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN},
-          body.Sidebar${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:last-child {
-            max-width: 990px;
+        ${Selectors.PRIMARY_COLUMN},
+        ${Selectors.PRIMARY_COLUMN} > div {
+          border-left-width: 0 !important;
+          border-right-width: 0 !important;
+          border-left: none !important;
+          border-right: none !important;
+          border-style: hidden !important;
+        }
+      `)
+      }
+      if (config.removeTweetBorders) {
+        cssRules.push(`
+        [data-testid="cellInnerDiv"],
+        ${Selectors.PRIMARY_COLUMN} [data-testid="cellInnerDiv"] {
+          border-top: none !important;
+          border-bottom: none !important;
+          border-top-width: 0 !important;
+          border-bottom-width: 0 !important;
+        }
+        [data-testid="cellInnerDiv"] > div,
+        ${Selectors.PRIMARY_COLUMN} [data-testid="cellInnerDiv"] > div {
+          border-top: none !important;
+          border-bottom: none !important;
+          border-top-width: 0 !important;
+          border-bottom-width: 0 !important;
+        }
+        ${Selectors.PRIMARY_COLUMN} [role="separator"] {
+          display: none !important;
+        }
+        ${Selectors.PRIMARY_COLUMN} > div > div:empty {
+          background: transparent !important;
+        }
+        ${Selectors.TWEET} {
+          border-top: none !important;
+          border-bottom: none !important;
+          border-top-width: 0 !important;
+          border-bottom-width: 0 !important;
+        }
+      `)
+      }
+      if (config.hideStickyHeader) {
+        cssRules.push(`
+        div[data-testid="TopNavBar"],
+        ${Selectors.DESKTOP_TIMELINE_HEADER} {
+          display: none !important;
+        }
+      `)
+      }
+      let isFullWidth = config.timelineWidth === 'full' || (config.timelineWidth === 'default' && config.fullWidthContent)
+      let shouldReclaimSidebar = Boolean(config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || (config.timelineAlignment && config.timelineAlignment !== 'center'))
+      let alignment = config.timelineAlignment || 'center'
+      let alignRules = ''
+      if (alignment === 'left') {
+        let leftMargin = (config.showLabels === 'always' && shouldReclaimSidebar) ? '285px' : '100px'
+        alignRules = `
+          body:not(.Search) main[role="main"] {
+            align-items: flex-start !important;
+            overflow-x: clip;
+            overflow: visible !important;
           }
-          /* Make the "What's happening" input keep its original width */
-          body.HomeTimeline ${Selectors.PRIMARY_COLUMN} > div:first-child > div:nth-of-type(3) div[role="progressbar"] + div {
-            max-width: 598px;
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} {
+            margin-left: ${leftMargin} !important;
+            margin-right: auto !important;
           }
-          /* Use full width when the sidebar is not visible */
-          body:not(.Sidebar)${FULL_WIDTH_BODY_PSEUDO} header[role="banner"] {
-            flex-grow: 0;
+        `
+      } else if (alignment === 'right') {
+        alignRules = `
+          body:not(.Search) main[role="main"] {
+            align-items: flex-end !important;
+            overflow: visible !important;
           }
-          body:not(.Sidebar)${FULL_WIDTH_BODY_PSEUDO} main[role="main"] > div {
-            width: 100%;
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} {
+            margin-left: auto !important;
+            margin-right: 16px !important;
           }
-          body:not(.Sidebar)${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} {
-            max-width: unset;
-            width: 100%;
+        `
+      } else {
+        // Default center alignment
+        alignRules = `
+          body:not(.Search) main[role="main"] {
+            align-items: center !important;
+            overflow-x: clip;
+            overflow: visible !important;
           }
-          body:not(.Sidebar)${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:first-child div,
-          body:not(.Sidebar)${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} > div:first-child > div:last-child {
-            max-width: unset;
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} {
+            margin: 0 auto !important;
+          }
+        `
+      }
+
+      if (isFullWidth) {
+        let navWidth = (config.showLabels === "always" && shouldReclaimSidebar) ? "275px" : "88px"
+        cssRules.push(`
+        /* Genuine Full-Width Layout */
+        @media only screen and (min-width: 988px) {
+          header[role="banner"] {
+            flex-grow: 0 !important;
+          }
+          main[role="main"] {
+            width: 100% !important;
+            max-width: 100% !important;
+            align-items: stretch !important;
+            flex-grow: 1 !important;
+            box-sizing: border-box !important;
+          }
+          main[role="main"] > div {
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+          main[role="main"] > div > div {
+            width: 100% !important;
+            max-width: 100% !important;
+            flex-grow: 1 !important;
+          }
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} {
+            width: 100% !important;
+            max-width: 100% !important;
+            flex-grow: 1 !important;
+            margin: 0 !important;
+            border-right-width: 0 !important;
+          }
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} > div {
+            width: 100% !important;
+            max-width: 100% !important;
+          }
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} > div > div,
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} > div > div div:not([data-testid="dm-message-list-container"] *) {
+            max-width: unset !important;
+          }
+          /* Hide floating search capsule across non-search pages in full-width mode when not active */
+          body:not(.Search):not(.Explore) ${Selectors.SIDEBAR} form[role="search"]:not(:focus-within, .SearchExpanded) {
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
+          }
+          /* Expanded search flyout across non-search pages in full-width mode */
+          body:not(.Search):not(.Explore) ${Selectors.SIDEBAR} form[role="search"]:is(:focus-within, .SearchExpanded) {
+            visibility: visible !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+            position: fixed !important;
+            top: 8px !important;
+            right: 16px !important;
+            width: 374px !important;
+            max-width: calc(100vw - 32px) !important;
+            backdrop-filter: blur(12px) !important;
+            z-index: 99999 !important;
+          }
+        }
+        @media only screen and (min-width: 1265px) {
+          body:not(.Search) main[role="main"] {
+            margin-left: ${navWidth} !important;
+            width: calc(100% - ${navWidth}) !important;
+            max-width: calc(100% - ${navWidth}) !important;
+          }
+        }
+        @media only screen and (min-width: 988px) and (max-width: 1264px) {
+          body:not(.Search) main[role="main"] {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin-left: 0 !important;
+          }
+        }
+        /* Make the "What's happening" input keep its original width */
+        body.HomeTimeline ${Selectors.PRIMARY_COLUMN} > div:first-child > div:nth-of-type(3) div[role="progressbar"] + div {
+          max-width: 598px;
+        }
+      `)
+        if (config.fullWidthMedia) {
+          cssRules.push(`
+          /* Full-width media, videos & cards across all pages */
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} [data-testid="tweetPhoto"],
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} [data-testid="tweetPhoto"] img,
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} [data-testid="videoPlayer"],
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} [data-testid="videoComponent"],
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} [aria-label*="video" i],
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} [data-testid="card.layoutLarge.media"] {
+            max-width: 100% !important;
+            width: 100% !important;
+          }
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} [data-testid="tweetPhoto"] img {
+            height: 100% !important;
+            object-fit: cover !important;
           }
         `)
-        if (!config.fullWidthMedia) {
-          // Make media & cards keep their original width
+        } else {
+          // Normal-width media & quoted tweets
           cssRules.push(`
-            body${FULL_WIDTH_BODY_PSEUDO} ${Selectors.PRIMARY_COLUMN} ${Selectors.TWEET} > div > div > div:nth-of-type(2) > div:nth-of-type(2) > div[id][aria-labelledby]:not(:empty) {
-              max-width: 504px;
-            }
-          `)
+          body:not(.Search) ${Selectors.PRIMARY_COLUMN} ${Selectors.TWEET} > div > div > div:nth-of-type(2) > div:nth-of-type(2) > div[id][aria-labelledby]:not(:empty) {
+            max-width: 504px !important;
+          }
+        `)
         }
-        // Hide the sidebar when present
-        hideCssSelectors.push(`body.Sidebar${FULL_WIDTH_BODY_PSEUDO} ${Selectors.SIDEBAR}`)
+        if (!shouldReclaimSidebar) {
+          hideCssSelectors.push(`body.Sidebar ${Selectors.SIDEBAR}`)
+        }
+      } else if (config.timelineWidth && config.timelineWidth !== 'default') {
+        let width = parseInt(config.timelineWidth, 10)
+        if (!isNaN(width) && width >= 600 && width <= 900) {
+          cssRules.push(`
+          /* Custom timeline width and alignment layout rules */
+          @media only screen and (min-width: 1000px) {
+            ${alignRules}
+            ${Selectors.PRIMARY_COLUMN} > div > div:last-child,
+            ${Selectors.PRIMARY_COLUMN} > div > div:last-child div:not([data-testid="dm-message-list-container"] *) {
+              max-width: unset;
+            }
+          }
+          @media only screen and (min-width: 988px) {
+            ${Selectors.PRIMARY_COLUMN} {
+              width: ${width}px;
+              max-width: ${width}px;
+            }
+          }
+        `)
+        }
+      } else if (shouldReclaimSidebar) {
+        // Default timeline width with user-controlled alignment
+        cssRules.push(`
+        @media only screen and (min-width: 1000px) {
+          ${alignRules}
+          ${Selectors.PRIMARY_COLUMN} > div > div:last-child,
+          ${Selectors.PRIMARY_COLUMN} > div > div:last-child div:not([data-testid="dm-message-list-container"] *) {
+            max-width: unset;
+          }
+        }
+      `)
+      }
+
+      if (shouldReclaimSidebar) {
+        cssRules.push(`
+        /* Reclaim sidebar layout footprint on non-search pages */
+        @media only screen and (min-width: 988px) {
+          body:not(.Search) main[role="main"] > div,
+          body:not(.Search) main[role="main"] > div > div {
+            overflow: visible !important;
+          }
+          body:not(.Search) ${Selectors.SIDEBAR} {
+            visibility: hidden;
+            width: 0;
+            margin: 0;
+            padding: 0;
+            position: relative !important;
+            z-index: 99 !important;
+            overflow: visible !important;
+          }
+          body:not(.Search) ${Selectors.SIDEBAR} > div {
+            overflow: visible !important;
+          }
+        }
+        /* Floating search bar behavior */
+        @media only screen and (min-width: 988px) {
+          body:not(.Search) ${Selectors.SIDEBAR} form[role="search"] {
+            visibility: visible;
+            position: fixed;
+            top: 12px;
+            right: 16px;
+            width: auto;
+            z-index: 99;
+            z-index: 9999 !important;
+          }
+          body:not(.Search) ${Selectors.SIDEBAR} form[role="search"] input[role="combobox"] {
+            width: 150px;
+            transition: width 0.2s ease-in-out;
+          }
+          body:not(.Search) ${Selectors.SIDEBAR} form[role="search"]:is(:focus-within, .SearchExpanded) {
+            width: 374px;
+            max-width: calc(100vw - 32px) !important;
+            backdrop-filter: blur(12px);
+            z-index: 9999 !important;
+          }
+          body:not(.Search) ${Selectors.SIDEBAR} form[role="search"]:is(:focus-within, .SearchExpanded) input[role="combobox"] {
+            width: 100% !important;
+          }
+          body:not(.Search) ${Selectors.SIDEBAR} div[style*="left: -12px"],
+          body:not(.Search) ${Selectors.SIDEBAR} div[style*="left: -12px"] {
+            left: unset !important;
+          }
+          body:not(.Search) ${Selectors.SIDEBAR} div[style*="left: -8px"] {
+            left: unset !important;
+            width: 374px !important;
+            max-width: calc(100vw - 32px) !important;
+          }
+        }
+      `)
       }
       if (config.hideAccountSwitcher) {
         cssRules.push(`
@@ -4934,6 +5304,298 @@ const configureCss = (() => {
       }
       if (config.hideConnectNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/connect_people"]`)
+      }
+      if (config.centerNavigation) {
+        cssRules.push(`
+        header[role="banner"] > div > div > div {
+          justify-content: center !important;
+          padding-top: 0 !important;
+        }
+      `)
+      }
+      if (shouldReclaimSidebar || config.showLabels !== 'always') {
+        cssRules.push(`
+        @media only screen and (min-width: 1000px) {
+          header[role="banner"] {
+            position: fixed !important;
+            left: 0 !important;
+            top: 0 !important;
+            height: 100% !important;
+            width: 275px !important;
+            align-items: flex-start !important;
+            z-index: 10 !important;
+            pointer-events: none !important;
+          }
+          header[role="banner"] > div > div > div {
+            width: 275px !important;
+            left: 0 !important;
+            align-items: flex-start !important;
+            overflow: visible !important;
+          }
+          header[role="banner"] a,
+          header[role="banner"] button,
+          header[role="banner"] [role="button"] {
+            pointer-events: auto !important;
+          }
+        }
+        @media only screen and (min-width: 1000px) and (max-width: 1264px) {
+          body {
+            padding-left: 88px !important;
+            box-sizing: border-box !important;
+          }
+        }
+      `)
+      }
+      if (config.showLabels === 'never') {
+        cssRules.push(`
+        @media only screen and (min-width: 1000px) {
+          /* Single vertical centerline alignment */
+          header h1 {
+            margin: 0 !important;
+          }
+          header h1 a {
+            display: inline-flex !important;
+          }
+          header h1 a > div {
+            width: 50px !important;
+            height: 50px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 0 !important;
+          }
+
+          ${Selectors.PRIMARY_NAV_DESKTOP} > * > div > div + div:last-child,
+          ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) div[dir]:not([aria-live]),
+          [data-testid="SideNav_AccountSwitcher_Button"] > div:not(:first-child) {
+            display: none !important;
+          }
+
+          ${Selectors.PRIMARY_NAV_DESKTOP} > * > div {
+            width: fit-content !important;
+            display: inline-flex !important;
+            align-items: center !important;
+          }
+
+          [data-testid="SideNav_AccountSwitcher_Button"] {
+            width: 50px !important;
+            height: 50px !important;
+            min-width: 50px !important;
+            min-height: 50px !important;
+            padding: 0 !important;
+            border-radius: 9999px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+          }
+
+          [data-testid="SideNav_NewTweet_Button"] {
+            width: 50px !important;
+            height: 50px !important;
+            min-width: 50px !important;
+            min-height: 50px !important;
+            max-width: 50px !important;
+            padding: 0 !important;
+            border-radius: 9999px !important;
+            margin: 8px 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+          }
+          [data-testid="SideNav_NewTweet_Button"] > div {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100% !important;
+            height: 100% !important;
+          }
+          [data-testid="SideNav_NewTweet_Button"] span {
+            display: none !important;
+          }
+          [data-testid="SideNav_NewTweet_Button"] svg {
+            display: inline-block !important;
+          }
+          [data-testid="SideNav_NewTweet_Button"]:not(:has(svg)) > div::before {
+            content: '' !important;
+            display: inline-block !important;
+            width: 22px !important;
+            height: 22px !important;
+            background-color: #ffffff !important;
+            -webkit-mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M23 3c-6.62-.1-10.38 2.421-13.05 6.03C7.29 12.61 6 17.331 6 22h2c0-1.007.07-2.012.19-3H12c4.1 0 7.48-3.082 7.94-7.054C22.79 10.147 23.17 6.359 23 3zm-7 8h-1.5v2H16c.63-.016 1.2-.08 1.72-.188C16.95 15.24 14.68 17 12 17H8.55c.57-2.512 1.57-4.851 3-6.78 2.16-2.912 5.29-4.911 9.45-5.187C20.95 8.079 19.9 11 16 11zM4 9V6H1V4h3V1h2v3h3v2H6v3H4z'/%3E%3C/svg%3E") no-repeat center / contain !important;
+            mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M23 3c-6.62-.1-10.38 2.421-13.05 6.03C7.29 12.61 6 17.331 6 22h2c0-1.007.07-2.012.19-3H12c4.1 0 7.48-3.082 7.94-7.054C22.79 10.147 23.17 6.359 23 3zm-7 8h-1.5v2H16c.63-.016 1.2-.08 1.72-.188C16.95 15.24 14.68 17 12 17H8.55c.57-2.512 1.57-4.851 3-6.78 2.16-2.912 5.29-4.911 9.45-5.187C20.95 8.079 19.9 11 16 11zM4 9V6H1V4h3V1h2v3h3v2H6v3H4z'/%3E%3C/svg%3E") no-repeat center / contain !important;
+          }
+        }
+      `)
+      } else if (config.showLabels === 'hover') {
+        cssRules.push(`
+        @media only screen and (min-width: 1000px) {
+          /* Single vertical centerline alignment */
+          header h1 {
+            margin: 0 !important;
+          }
+          header h1 a {
+            display: inline-flex !important;
+          }
+          header h1 a > div {
+            width: 50px !important;
+            height: 50px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 0 !important;
+          }
+
+          /* Compact icon-only default state */
+          ${Selectors.PRIMARY_NAV_DESKTOP} > * > div {
+            width: fit-content !important;
+            position: relative !important;
+            z-index: 10 !important;
+            overflow: visible !important;
+            display: inline-flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+          }
+
+          [data-testid="SideNav_AccountSwitcher_Button"] {
+            width: 50px !important;
+            height: 50px !important;
+            min-width: 50px !important;
+            min-height: 50px !important;
+            padding: 0 !important;
+            border-radius: 9999px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            position: relative !important;
+            z-index: 10 !important;
+            box-sizing: border-box !important;
+            transition: width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), max-width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), padding 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+          }
+
+          [data-testid="SideNav_NewTweet_Button"] {
+            width: 50px !important;
+            height: 50px !important;
+            min-width: 50px !important;
+            min-height: 50px !important;
+            max-width: 50px !important;
+            padding: 0 !important;
+            border-radius: 9999px !important;
+            margin: 8px 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            box-sizing: border-box !important;
+            position: relative !important;
+            z-index: 10 !important;
+            transition: width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), max-width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), padding 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+          }
+          [data-testid="SideNav_NewTweet_Button"] > div {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100% !important;
+            height: 100% !important;
+          }
+          [data-testid="SideNav_NewTweet_Button"] span {
+            display: inline-flex !important;
+            opacity: 0 !important;
+            max-width: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+            pointer-events: none !important;
+            transition: opacity 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), max-width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+          }
+          [data-testid="SideNav_NewTweet_Button"] svg {
+            display: inline-block !important;
+          }
+          [data-testid="SideNav_NewTweet_Button"]:not(:has(svg)) > div::before {
+            content: '' !important;
+            display: inline-block !important;
+            width: 22px !important;
+            height: 22px !important;
+            background-color: #ffffff !important;
+            -webkit-mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M23 3c-6.62-.1-10.38 2.421-13.05 6.03C7.29 12.61 6 17.331 6 22h2c0-1.007.07-2.012.19-3H12c4.1 0 7.48-3.082 7.94-7.054C22.79 10.147 23.17 6.359 23 3zm-7 8h-1.5v2H16c.63-.016 1.2-.08 1.72-.188C16.95 15.24 14.68 17 12 17H8.55c.57-2.512 1.57-4.851 3-6.78 2.16-2.912 5.29-4.911 9.45-5.187C20.95 8.079 19.9 11 16 11zM4 9V6H1V4h3V1h2v3h3v2H6v3H4z'/%3E%3C/svg%3E") no-repeat center / contain !important;
+            mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M23 3c-6.62-.1-10.38 2.421-13.05 6.03C7.29 12.61 6 17.331 6 22h2c0-1.007.07-2.012.19-3H12c4.1 0 7.48-3.082 7.94-7.054C22.79 10.147 23.17 6.359 23 3zm-7 8h-1.5v2H16c.63-.016 1.2-.08 1.72-.188C16.95 15.24 14.68 17 12 17H8.55c.57-2.512 1.57-4.851 3-6.78 2.16-2.912 5.29-4.911 9.45-5.187C20.95 8.079 19.9 11 16 11zM4 9V6H1V4h3V1h2v3h3v2H6v3H4z'/%3E%3C/svg%3E") no-repeat center / contain !important;
+          }
+
+          /* Hide labels unhovered with smooth transition */
+          ${Selectors.PRIMARY_NAV_DESKTOP} > * > div > div + div:last-child,
+          ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) div[dir]:not([aria-live]),
+          [data-testid="SideNav_AccountSwitcher_Button"] > div:not(:first-child) {
+            display: inline-flex !important;
+            opacity: 0 !important;
+            max-width: 0 !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding: 0 !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+            pointer-events: none !important;
+            transition: opacity 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), max-width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), margin-left 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+          }
+
+          /* Backdrop blur on hovered item pill */
+          ${Selectors.PRIMARY_NAV_DESKTOP} > *:hover > div,
+          [data-testid="SideNav_AccountSwitcher_Button"]:hover {
+            backdrop-filter: blur(12px) !important;
+          }
+
+          /* Reveal label on hover for the hovered individual item */
+          ${Selectors.PRIMARY_NAV_DESKTOP} > *:hover > div > div + div:last-child,
+          ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button):hover div[dir]:not([aria-live]) {
+            opacity: 1 !important;
+            max-width: 250px !important;
+            margin-left: 16px !important;
+            margin-right: 4px !important;
+            pointer-events: auto !important;
+          }
+          ${Selectors.PRIMARY_NAV_DESKTOP} > *:hover > div > div + div:last-child span,
+          ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button):hover div[dir]:not([aria-live]) span {
+            overflow: visible !important;
+            text-overflow: clip !important;
+          }
+
+          /* Account switcher hover */
+          [data-testid="SideNav_AccountSwitcher_Button"]:hover {
+            width: fit-content !important;
+            max-width: 275px !important;
+            padding: 12px !important;
+          }
+          [data-testid="SideNav_AccountSwitcher_Button"]:hover > div:not(:first-child) {
+            opacity: 1 !important;
+            max-width: 250px !important;
+            margin-left: 12px !important;
+            margin-right: 4px !important;
+            pointer-events: auto !important;
+          }
+
+          /* Tweet button hover: expand, hide feather/svg icon, reveal text */
+          [data-testid="SideNav_NewTweet_Button"]:hover {
+            width: fit-content !important;
+            min-width: 110px !important;
+            max-width: 200px !important;
+            padding: 0 24px !important;
+          }
+          [data-testid="SideNav_NewTweet_Button"]:hover:not(:has(svg)) > div::before {
+            display: none !important;
+          }
+          [data-testid="SideNav_NewTweet_Button"]:hover svg {
+            display: none !important;
+          }
+          [data-testid="SideNav_NewTweet_Button"]:hover span {
+            opacity: 1 !important;
+            max-width: 150px !important;
+            pointer-events: auto !important;
+            font-weight: 700 !important;
+            font-size: 15px !important;
+            color: #ffffff !important;
+          }
+        }
+      `)
       }
       if (config.hideChatNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/chat"]`)
@@ -6813,6 +7475,7 @@ function processCurrentPage() {
     if (isSafari && config.replaceLogo) {
       tweakDesktopLogo()
     }
+    setupUniversalSearch()
   }
 
   if (isSafari && config.replaceLogo) {
@@ -7391,6 +8054,10 @@ async function tweakIndividualTweetPage() {
   userSortedReplies = false
   observeIndividualTweetTimeline(currentPage)
 
+  if (desktop) {
+    setupUniversalSearch()
+  }
+
   if (config.replaceLogo) {
     (async () => {
       let $headingText = await getElement(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`, {
@@ -7505,6 +8172,9 @@ function tweakHomeTimelinePage() {
   }
 
   tweakTimelineTabs($timelineTabs)
+  if (desktop) {
+    setupUniversalSearch()
+  }
   if (mobile && isSafari && config.replaceLogo) {
     processTwitterLogos(document.querySelector(Selectors.MOBILE_TIMELINE_HEADER))
   }
@@ -7822,12 +8492,156 @@ async function tweakPremiumSignUpPage() {
   }
 }
 
+function createSvgIcon(pathData, className) {
+  let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  svg.setAttribute('viewBox', '0 0 24 24')
+  svg.setAttribute('aria-hidden', 'true')
+  if (className) svg.setAttribute('class', className)
+  let path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+  path.setAttribute('d', pathData)
+  svg.appendChild(path)
+  return svg
+}
+
+async function setupUniversalSearch() {
+  let isFullWidth = config.timelineWidth === 'full' || (config.timelineWidth === 'default' && config.fullWidthContent)
+  if (!desktop || config.hideUniversalSearch || !isFullWidth || isOnSearchPage() || isOnExplorePage()) {
+    document.querySelectorAll('.cpft_universal_search_action').forEach(el => el.remove())
+    return
+  }
+
+  let thisPage = currentPage
+
+  function getOrCreateSearchAction() {
+    let $existing = /** @type {HTMLElement[]} */ (Array.from(document.querySelectorAll('.cpft_universal_search_action')))
+    let $searchAction = $existing[0]
+    for (let i = 1; i < $existing.length; i++) {
+      $existing[i].remove()
+    }
+    if (!$searchAction) {
+      $searchAction = document.createElement('div')
+      $searchAction.className = 'cpft_universal_search_action'
+
+      let $btn = document.createElement('button')
+      $btn.type = 'button'
+      $btn.className = 'cpft_universal_search_btn'
+      $btn.setAttribute('aria-label', 'Search')
+      $btn.setAttribute('title', 'Search X (Universal Search)')
+
+      $btn.appendChild(createSvgIcon(Svgs.SEARCH_PATH, 'cpft_universal_search_icon'))
+
+      $btn.addEventListener('click', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        let $searchForm = /** @type {HTMLElement} */ (
+          document.querySelector(`${Selectors.SIDEBAR} form[role="search"]`) ||
+          document.querySelector('form[role="search"]')
+        )
+        if ($searchForm) {
+          let $input = /** @type {HTMLElement} */ ($searchForm.querySelector('input[role="combobox"]'))
+          if ($searchForm.classList.contains('SearchExpanded')) {
+            $searchForm.classList.remove('SearchExpanded')
+            if ($input && document.activeElement === $input) {
+              $input.blur()
+            }
+          } else {
+            $searchForm.classList.add('SearchExpanded')
+            if ($input) {
+              $input.focus()
+            }
+          }
+        }
+      })
+
+      $searchAction.appendChild($btn)
+    }
+    return $searchAction
+  }
+
+  function ensureSearchButton($header) {
+    let isFullWidthNow = config.timelineWidth === 'full' || (config.timelineWidth === 'default' && config.fullWidthContent)
+    if (!desktop || config.hideUniversalSearch || !isFullWidthNow || isOnSearchPage() || isOnExplorePage()) {
+      document.querySelectorAll('.cpft_universal_search_action').forEach(el => el.remove())
+      return
+    }
+
+    let $searchAction = getOrCreateSearchAction()
+
+    // If sticky header is hidden or no header element was found, use fallback
+    if (!$header || !document.contains($header) || config.hideStickyHeader) {
+      $searchAction.classList.add('cpft_fallback')
+      let $mountTarget = document.querySelector('main[role="main"]') || document.body
+      if ($searchAction.parentElement !== $mountTarget) {
+        $mountTarget.appendChild($searchAction)
+      }
+      return
+    }
+
+    $searchAction.classList.remove('cpft_fallback')
+    let $headerInner = $header.firstElementChild || $header
+    if (!$headerInner) return
+
+    // Find Twitter's action container (Follow button, More button, etc.)
+    let $actionContainer = null
+    for (let $child of $headerInner.children) {
+      if ($child === $searchAction) continue
+      if ($child.querySelector('h2')) continue
+      if ($child.tagName === 'NAV' || $child.querySelector('nav, [role="tablist"]')) continue
+      if ($child.querySelector('button, [role="button"], a')) {
+        $actionContainer = $child
+        break
+      }
+    }
+
+    if ($actionContainer) {
+      if ($searchAction.nextElementSibling !== $actionContainer) {
+        $headerInner.insertBefore($searchAction, $actionContainer)
+      }
+    } else {
+      let $nav = $headerInner.querySelector('nav')
+      if ($nav && $nav.parentElement === $headerInner && $nav.nextElementSibling !== $searchAction) {
+        $headerInner.insertBefore($searchAction, $nav.nextElementSibling)
+      } else if ($searchAction.parentElement !== $headerInner || $searchAction !== $headerInner.lastElementChild) {
+        $headerInner.appendChild($searchAction)
+      }
+    }
+  }
+
+  let $header = await getElement(Selectors.DESKTOP_TIMELINE_HEADER, {
+    name: 'desktop timeline header',
+    stopIf: () => currentPage !== thisPage || config.hideUniversalSearch || isOnSearchPage() || isOnExplorePage(),
+    timeout: 2500,
+  })
+
+  if (currentPage !== thisPage || config.hideUniversalSearch || isOnSearchPage() || isOnExplorePage()) {
+    return
+  }
+
+  ensureSearchButton($header)
+
+  if ($header && document.contains($header)) {
+    observeElement($header, () => {
+      ensureSearchButton($header)
+    }, {
+      name: 'universal header search',
+      observers: pageObservers,
+    }, {
+      childList: true,
+      subtree: true,
+    })
+  }
+}
+
 async function tweakProfilePage() {
   let $initialContent = await getElement(desktop ? Selectors.PRIMARY_COLUMN : Selectors.MOBILE_TIMELINE_HEADER, {
     name: 'initial profile content',
     stopIf: pageIsNot(currentPage),
   })
   if (!$initialContent) return
+
+  if (desktop) {
+    setupUniversalSearch()
+  }
 
   if (config.twitterBlueChecks != 'ignore') {
     processBlueChecks($initialContent)
@@ -8065,6 +8879,7 @@ async function main() {
       checkReactNativeStylesheet()
       observeBodyBackgroundColor()
       observeReRenderBoundary()
+      setupCollapsibleSearch()
       patchHistory()
       let initialThemeColor = getThemeColorFromState()
       if (initialThemeColor) {
@@ -8137,6 +8952,7 @@ function configChanged(changes) {
       // adding a hidden attribute won't hide them by default.
       document.querySelector('#cpftSeparatedTweetsTab')?.remove()
       document.querySelectorAll('.cpft_menu_item').forEach(el => el.remove())
+      document.querySelectorAll('.cpft_universal_search_action').forEach(el => el.remove())
       disconnectObservers(modalObservers, 'modal')
       disconnectObservers(pageObservers, 'page')
       disconnectObservers(globalObservers, 'global')
@@ -8162,6 +8978,14 @@ function configChanged(changes) {
   }
   if ('replaceLogo' in changes || 'hideNotifications' in changes) {
     observeFavicon.forceUpdate(getNotificationCount() > 0)
+  }
+  if ('timelineWidth' in changes || 'fullWidthContent' in changes || 'hideUniversalSearch' in changes || 'hideStickyHeader' in changes) {
+    let isFullWidthNow = config.timelineWidth === 'full' || (config.timelineWidth === 'default' && config.fullWidthContent)
+    if (!isFullWidthNow || config.hideUniversalSearch) {
+      document.querySelectorAll('.cpft_universal_search_action').forEach(el => el.remove())
+    } else {
+      setupUniversalSearch()
+    }
   }
   // Store the current notification count if hiding notifications was enabled
   if ('hideNotifications' in changes && config.hideNotifications != 'ignore') {
@@ -8197,7 +9021,11 @@ function configChanged(changes) {
 let $settings = /** @type {HTMLScriptElement} */ (document.querySelector('script#cpftSettings'))
 if ($settings) {
   try {
-    Object.assign(config, JSON.parse($settings.innerText))
+    let settings = JSON.parse($settings.innerText)
+    Object.assign(config, settings)
+    if (!('collapsibleSearch' in settings) && settings.transparentSearch !== undefined) {
+      config.collapsibleSearch = settings.transparentSearch
+    }
   } catch(e) {
     error('error parsing initial settings', e)
   }
@@ -8220,6 +9048,9 @@ if ($settings) {
       return
     }
 
+    if (!('collapsibleSearch' in configChanges) && configChanges.transparentSearch !== undefined) {
+      configChanges.collapsibleSearch = configChanges.transparentSearch
+    }
     Object.assign(config, configChanges)
     configChanged(configChanges)
   })
