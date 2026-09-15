@@ -70,8 +70,6 @@ for (let translationId of [
   'followButtonStyleLabel',
   'followButtonStyleOption_monochrome',
   'followButtonStyleOption_themed',
-  'fullWidthContentInfo',
-  'fullWidthContentLabel',
   'fullWidthMediaLabel',
   'hideAccountSwitcherLabel',
   'hideAdsNavLabel',

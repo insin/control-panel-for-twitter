@@ -3675,7 +3675,7 @@ function setupCollapsibleSearch() {
   collapsibleSearchInitialized = true
 
   document.addEventListener('focusin', (e) => {
-    let shouldReclaim = config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || config.timelineAlignment
+    let shouldReclaim = config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || (config.timelineAlignment && config.timelineAlignment !== 'center')
     if (!desktop || config.hideUniversalSearch || !shouldReclaim || isOnSearchPage() || isOnExplorePage()) return
     let $target = /** @type {HTMLElement} */ (e.target)
     let $form = $target?.closest('form[role="search"]')
@@ -3685,7 +3685,7 @@ function setupCollapsibleSearch() {
   })
 
   document.addEventListener('focusout', (e) => {
-    let shouldReclaim = config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || config.timelineAlignment
+    let shouldReclaim = config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || (config.timelineAlignment && config.timelineAlignment !== 'center')
     if (!desktop || config.hideUniversalSearch || !shouldReclaim || isOnSearchPage() || isOnExplorePage()) return
     let $related = /** @type {HTMLElement} */ (e.relatedTarget)
     let $form = /** @type {HTMLElement} */ (e.target)?.closest('form[role="search"]')
@@ -3695,7 +3695,7 @@ function setupCollapsibleSearch() {
   })
 
   document.addEventListener('click', (e) => {
-    let shouldReclaim = config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || config.timelineAlignment
+    let shouldReclaim = config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || (config.timelineAlignment && config.timelineAlignment !== 'center')
     if (!desktop || config.hideUniversalSearch || !shouldReclaim || isOnSearchPage() || isOnExplorePage()) return
     let $target = /** @type {HTMLElement} */ (e.target)
     let $form = $target?.closest('form[role="search"]')
@@ -5012,10 +5012,7 @@ const configureCss = (() => {
           border-top-width: 0 !important;
           border-bottom-width: 0 !important;
         }
-        ${Selectors.PRIMARY_COLUMN} section [role="separator"],
-        ${Selectors.PRIMARY_COLUMN} [data-testid="cellInnerDiv"] [role="separator"],
-        ${Selectors.PRIMARY_COLUMN} [role="separator"],
-        div[role="separator"] {
+        ${Selectors.PRIMARY_COLUMN} [role="separator"] {
           display: none !important;
         }
         ${Selectors.PRIMARY_COLUMN} > div > div:empty {
@@ -5038,7 +5035,7 @@ const configureCss = (() => {
       `)
       }
       let isFullWidth = config.timelineWidth === 'full' || (config.timelineWidth === 'default' && config.fullWidthContent)
-      let shouldReclaimSidebar = Boolean(config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || config.timelineAlignment)
+      let shouldReclaimSidebar = Boolean(config.collapsibleSearch || (config.timelineWidth && config.timelineWidth !== 'default') || (config.timelineAlignment && config.timelineAlignment !== 'center'))
       let alignment = config.timelineAlignment || 'center'
       let alignRules = ''
       if (alignment === 'left') {
@@ -5208,7 +5205,7 @@ const configureCss = (() => {
           }
         `)
         }
-      } else {
+      } else if (shouldReclaimSidebar) {
         // Default timeline width with user-controlled alignment
         cssRules.push(`
         @media only screen and (min-width: 1000px) {
@@ -9024,9 +9021,10 @@ function configChanged(changes) {
 let $settings = /** @type {HTMLScriptElement} */ (document.querySelector('script#cpftSettings'))
 if ($settings) {
   try {
-    Object.assign(config, JSON.parse($settings.innerText))
-    if (config.collapsibleSearch === undefined && config.transparentSearch !== undefined) {
-      config.collapsibleSearch = config.transparentSearch
+    let settings = JSON.parse($settings.innerText)
+    Object.assign(config, settings)
+    if (!('collapsibleSearch' in settings) && settings.transparentSearch !== undefined) {
+      config.collapsibleSearch = settings.transparentSearch
     }
   } catch(e) {
     error('error parsing initial settings', e)
@@ -9050,7 +9048,7 @@ if ($settings) {
       return
     }
 
-    if (configChanges.collapsibleSearch === undefined && configChanges.transparentSearch !== undefined) {
+    if (!('collapsibleSearch' in configChanges) && configChanges.transparentSearch !== undefined) {
       configChanges.collapsibleSearch = configChanges.transparentSearch
     }
     Object.assign(config, configChanges)
