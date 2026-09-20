@@ -1,0 +1,47 @@
+:root {
+  color-scheme: light dark;
+  font-family: system-ui, sans-serif;
+  height: 100%;
+}
+
+body {
+  box-sizing: border-box;
+  display: grid;
+  font-family: system-ui, sans-serif;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  padding: 24px;
+}
+
+header {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+#trace {
+  border-radius: 4px;
+  border: 1px solid ButtonBorder;
+  box-sizing: border-box;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+  min-height: 0;
+  overflow: auto;
+  padding: 12px;
+  white-space: pre-wrap;
+}

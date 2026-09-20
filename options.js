@@ -351,6 +351,7 @@ const $proAccountSection = /** @type {HTMLElement} */ (document.querySelector('#
 const $proSignInInfo = /** @type {HTMLElement} */ (document.querySelector('#proSignInInfo'))
 const $proSignInLink = /** @type {HTMLAnchorElement} */ (document.querySelector('#proSignInLink'))
 const $proSignInSection = /** @type {HTMLElement} */ (document.querySelector('#proSignInSection'))
+const $openDebugTraceButton = document.querySelector('button#openDebugTrace')
 const $saveCustomCssButton = document.querySelector('button#saveCustomCss')
 const $showPremiumReplyFollowersCount = /** @type {HTMLElement} */ (
   document.querySelector('#showPremiumReplyFollowersCount')
@@ -1247,6 +1248,9 @@ async function main() {
   })
   $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
   $mutedWords.addEventListener('input', onMutedWordsInput)
+  $openDebugTraceButton.addEventListener('click', () => {
+    chrome.tabs.create({ url: chrome.runtime.getURL('trace.html') })
+  })
   $proSignInLink.addEventListener('click', (e) => {
     e.preventDefault()
     openProApp()

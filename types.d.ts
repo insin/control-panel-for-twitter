@@ -59,6 +59,14 @@ export type StoredConfigMessage = {
   config: Partial<StoredConfig>
 }
 
+export type DebugTraceEntry = {
+  details: Record<string, unknown>
+  event: string
+  sequence: number
+  time: number
+  workerId: string
+}
+
 export type UserSettings = {
   // Pro
   customTheme: string

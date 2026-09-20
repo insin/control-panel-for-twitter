@@ -31,12 +31,28 @@ function getStoredValues(storage, keys) {
   )
 }
 
+function createStorageArea(storage) {
+  return {
+    get: vi.fn((keys, callback) => callback(getStoredValues(storage, keys))),
+    remove: vi.fn((keys, callback) => {
+      const keyList = Array.isArray(keys) ? keys : [keys]
+      for (const key of keyList) delete storage[key]
+      callback()
+    }),
+    set: vi.fn((values, callback) => {
+      Object.assign(storage, structuredClone(values))
+      callback()
+    }),
+  }
+}
+
 /**
  * Creates the subset of the Chrome extension API used by settings sync.
- * @param {{alarms?: Record<string, chrome.alarms.Alarm>, storage?: Record<string, any>}} [initial]
+ * @param {{alarms?: Record<string, chrome.alarms.Alarm>, session?: Record<string, any>, storage?: Record<string, any>}} [initial]
  */
 export function createChromeMock(initial = {}) {
   const storageData = structuredClone(initial.storage ?? {})
+  const sessionData = structuredClone(initial.session ?? {})
   const alarmData = new Map(Object.entries(structuredClone(initial.alarms ?? {})))
   const alarmEvent = createEvent()
   const messageEvent = createEvent()
@@ -81,19 +97,9 @@ export function createChromeMock(initial = {}) {
       sendMessage: vi.fn(dispatchMessage),
     },
     storage: {
-      local: {
-        get: vi.fn((keys, callback) => callback(getStoredValues(storageData, keys))),
-        remove: vi.fn((keys, callback) => {
-          const keyList = Array.isArray(keys) ? keys : [keys]
-          for (const key of keyList) delete storageData[key]
-          callback()
-        }),
-        set: vi.fn((values, callback) => {
-          Object.assign(storageData, structuredClone(values))
-          callback()
-        }),
-      },
+      local: createStorageArea(storageData),
       onChanged: storageChangedEvent,
+      session: createStorageArea(sessionData),
     },
     tabs: {
       create: vi.fn(),
@@ -108,6 +114,7 @@ export function createChromeMock(initial = {}) {
       for (const listener of alarmEvent.listeners) listener(alarm)
       await Promise.resolve()
     },
+    session: sessionData,
     sendMessage: dispatchMessage,
     storage: storageData,
   }

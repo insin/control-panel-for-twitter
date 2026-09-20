@@ -124,12 +124,30 @@ export const DEFAULT_SETTINGS = {
 
 //#region Constants
 export const OPEN_APP_MESSAGE = 'OPEN_APP'
-export const SERVER_ORIGIN = 'http://localhost:5173' // 'https://pro.soitis.dev'
+export const SERVER_ORIGIN = (() => {
+  const manifest = chrome.runtime.getManifest()
+  const serverPermissions =
+    manifest.manifest_version === 2 ? manifest.permissions : manifest.host_permissions
+  return serverPermissions.includes('http://localhost:5173/*')
+    ? 'http://localhost:5173'
+    : 'https://pro.soitis.dev'
+})()
 export const ACCOUNT_LINKED_MESSAGE = 'ACCOUNT_LINKED'
 export const ACCOUNT_UNLINKED_MESSAGE = 'ACCOUNT_UNLINKED'
+export const CLEAR_DEBUG_TRACE_MESSAGE = 'CLEAR_DEBUG_TRACE'
+export const GET_DEBUG_TRACE_MESSAGE = 'GET_DEBUG_TRACE'
 export const SYNC_SCHEDULE_PUSH_MESSAGE = 'SYNC_SCHEDULE_PUSH'
 export const SYNC_SETTINGS_CHANGED_MESSAGE = 'SYNC_SETTINGS_CHANGED'
 //#endregion
+
+export function isTargetExtensionMessage(data, runtimeId, extensionsProId) {
+  return (
+    data != null &&
+    typeof data == 'object' &&
+    data.runtimeId === runtimeId &&
+    data.extensionId === extensionsProId
+  )
+}
 
 //#region Async chrome.storage.local wrappers for Firefox MV2
 export function get(keys) {

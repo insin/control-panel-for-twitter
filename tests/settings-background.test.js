@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
+import { ACCOUNT_LINKED_MESSAGE, SYNC_SETTINGS_CHANGED_MESSAGE, setSettings } from '../settings.js'
 import {
   ACCOUNT_REFRESH_ALARM,
   initSettingsSync,
@@ -7,7 +8,6 @@ import {
   PUSH_ALARM,
   startSync,
 } from '../settings-background.js'
-import { ACCOUNT_LINKED_MESSAGE, setSettings, SYNC_SETTINGS_CHANGED_MESSAGE } from '../settings.js'
 import { createChromeMock } from './helpers/chrome.js'
 import { jsonResponse } from './helpers/http.js'
 
