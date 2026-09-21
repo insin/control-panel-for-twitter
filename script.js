@@ -8034,7 +8034,8 @@ function tweakTweetEngagementPage() {
 //#region Main
 async function main({processImmediately = false} = {}) {
   // Don't run on non-app URLs served from x.com
-  if (location.pathname.startsWith('/i/oauth2/authorize') ||
+  if (location.pathname.startsWith('/account/access') ||
+      location.pathname.startsWith('/i/oauth2/authorize') ||
       location.pathname.startsWith('/oauth/authorize') ||
       /^\/([^/]+\/)?(tos|privacy)(\/previous(\/version_\d+)?)?/.test(location.pathname)) {
     log('Not running on', location.pathname)
