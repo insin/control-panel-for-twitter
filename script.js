@@ -4137,6 +4137,28 @@ function patchHistory() {
   props.history.push.patched = true
   log('history patched')
 }
+
+function interceptMediaButton() {
+  document.addEventListener('click', (e) => {
+    if (!config.enabled || !config.hideGrokNav) return
+    if (!(e.target instanceof Element)) return
+
+    let $button = e.target.closest('button')
+    if (!$button) return
+
+    let $fileInput = $button.previousElementSibling
+    if (!($fileInput instanceof HTMLInputElement) ||
+        $fileInput.dataset.testid != 'fileInput' ||
+        $fileInput.type != 'file') {
+      return
+    }
+
+    log('hideGrok: opening media file picker')
+    e.preventDefault()
+    e.stopImmediatePropagation()
+    $fileInput.click()
+  }, true)
+}
 //#endregion
 
 //#region CSS
@@ -8066,6 +8088,7 @@ async function main() {
       observeBodyBackgroundColor()
       observeReRenderBoundary()
       patchHistory()
+      interceptMediaButton()
       let initialThemeColor = getThemeColorFromState()
       if (initialThemeColor) {
         themeColor = initialThemeColor
