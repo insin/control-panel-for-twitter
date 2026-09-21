@@ -8032,7 +8032,7 @@ function tweakTweetEngagementPage() {
 //#endregion
 
 //#region Main
-async function main() {
+async function main({processImmediately = false} = {}) {
   // Don't run on non-app URLs served from x.com
   if (location.pathname.startsWith('/i/oauth2/authorize') ||
       location.pathname.startsWith('/oauth/authorize') ||
@@ -8113,6 +8113,11 @@ async function main() {
       // Start taking action on page changes
       observingPageChanges = true
 
+      if (processImmediately) {
+        processImmediately = false
+        onTitleChange(document.title)
+      }
+
       // Remove the loading stylesheet if the content script added one
       let $loadingStylesheet = document.querySelector('style#cpftLoading')
       if ($loadingStylesheet) {
@@ -8147,8 +8152,7 @@ function configChanged(changes) {
     log(`${changes.enabled ? 'en' : 'dis'}abling extension functionality`)
     if (changes.enabled) {
       // Process the current page if we've just been enabled on it
-      observingPageChanges = true
-      main()
+      main({processImmediately: true})
     } else {
       // These functions have teardowns when disabled
       configureCss()
