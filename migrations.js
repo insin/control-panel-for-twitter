@@ -20,6 +20,7 @@ async function migrateSettingsToV5() {
   const settings = isObject(storedConfig.settings) ? { ...storedConfig.settings } : {}
   /** @type {import('./types').Migrations} */
   const migrations = {
+    hideGrokNav: { rename: 'hideGrok' },
     hideWhoToFollowEtc: { rename: 'hideSuggestedContentTimeline' },
     listRetweets: { rename: 'hideListRetweets', convert: (value) => value == 'hide' },
     // Changed what it was used for over time

@@ -39,7 +39,7 @@ const DEFAULT_SETTINGS = {
   hideFollowingMenu: false,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
-  hideGrokNav: true,
+  hideGrok: true,
   hideGrokTweets: false,
   hideHistoryNav: false,
   hideInlinePrompts: true,
@@ -4472,7 +4472,7 @@ const configureCss = (() => {
     if (settings.hideCommunitiesNav) {
       hideCssSelectors.push(`${menuRole} a[href$="/communities"]`)
     }
-    if (settings.hideGrokNav) {
+    if (settings.hideGrok) {
       hideCssSelectors.push(
         // In menus
         `${menuRole} a[href="/i/grok"]`,
@@ -4933,7 +4933,7 @@ const configureCss = (() => {
       if (settings.hideChatNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/chat"]`)
       }
-      if (settings.hideGrokNav) {
+      if (settings.hideGrok) {
         hideCssSelectors.push(
           // Nav item
           `${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/grok"]`,
@@ -4981,7 +4981,7 @@ const configureCss = (() => {
           )
         }
       }
-      if (settings.hideGrokNav && !settings.hideSidebarContent) {
+      if (settings.hideGrok && !settings.hideSidebarContent) {
         hideCssSelectors.push(
           '.SidebarContents > div:has(> aside[role="complementary"] > a[href^="https://grok.com/imagine"])'
         )
@@ -5135,7 +5135,7 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
-      if (settings.hideGrokNav) {
+      if (settings.hideGrok) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/grok"]`)
       }
       if (settings.hideCommunitiesNav) {
@@ -6279,7 +6279,7 @@ function handlePopup($popup) {
 
   if (desktop && (
       settings.addUserHoverCardAccountLocation ||
-      settings.hideGrokNav ||
+      settings.hideGrok ||
       settings.premiumBlueChecks != 'ignore'
     )) {
     // User hovercard popup
@@ -6306,7 +6306,7 @@ function handlePopup($popup) {
             </div>`)
           })
         }
-        if (settings.hideGrokNav) {
+        if (settings.hideGrok) {
           // Tag Grok "Profile Summary" button
           let $grokButton = $popup.querySelector('[data-testid="HoverCard"] > div > div > div:last-child:has(> button)')
           if ($grokButton) {
@@ -6362,6 +6362,28 @@ function handlePopup($popup) {
   }
 
   return result
+}
+
+function interceptMediaButton() {
+  document.addEventListener('click', (e) => {
+    if (!enabled || !settings.hideGrok) return
+    if (!(e.target instanceof Element)) return
+
+    let $button = e.target.closest('button')
+    if (!$button) return
+
+    let $fileInput = $button.previousElementSibling
+    if (!($fileInput instanceof HTMLInputElement) ||
+        $fileInput.type != 'file' ||
+        $fileInput.dataset.testid != 'fileInput') {
+      return
+    }
+
+    log('hideGrok: opening media file picker')
+    e.preventDefault()
+    e.stopImmediatePropagation()
+    $fileInput.click()
+  }, true)
 }
 
 function isBlueVerified($svg) {
@@ -8625,9 +8647,10 @@ XMLHttpRequest.prototype.send = function(body) {
 let channelName = crypto.randomUUID()
 let channel = new BroadcastChannel(channelName)
 
-async function main() {
+async function main({processImmediately = false} = {}) {
   // Don't run on non-app URLs served from x.com
-  if (location.pathname.startsWith('/i/oauth2/authorize') ||
+  if (location.pathname.startsWith('/account/access') ||
+      location.pathname.startsWith('/i/oauth2/authorize') ||
       location.pathname.startsWith('/oauth/authorize') ||
       /^\/([^/]+\/)?(tos|privacy)(\/previous(\/version_\d+)?)?/.test(location.pathname)) {
     log('Not running on', location.pathname)
@@ -8691,6 +8714,7 @@ async function main() {
       observeReRenderBoundary()
       observeReactNativeStylesheet()
       patchHistory()
+      interceptMediaButton()
       if (desktop) {
         fontSize = $html.style.fontSize
         if (!fontSize) {
@@ -8711,6 +8735,11 @@ async function main() {
 
       // Start taking action on page changes
       observingPageChanges = true
+
+      if (processImmediately) {
+        processImmediately = false
+        onTitleChange(document.title)
+      }
 
       // Remove the loading stylesheet if the content script added one
       let $loadingStylesheet = document.querySelector('style#cpftLoading')
@@ -8827,8 +8856,7 @@ function receiveConfigFromContentScript({data: {type, config}}) {
     log(`${enabled ? 'en' : 'dis'}abling extension functionality`)
     if (enabled) {
       // Process the current page if we've just been enabled on it
-      observingPageChanges = true
-      main()
+      main({processImmediately: true})
     } else {
       // These functions have teardowns when disabled
       configureCss()

@@ -35,7 +35,7 @@ export const DEFAULT_SETTINGS = {
   hideFollowingMenu: false,
   hideFollowingMetrics: true,
   hideForYouTimeline: true,
-  hideGrokNav: true,
+  hideGrok: true,
   hideGrokTweets: false,
   hideHistoryNav: false,
   hideInlinePrompts: true,

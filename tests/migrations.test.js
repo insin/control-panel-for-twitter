@@ -19,13 +19,14 @@ describe('v5 settings migration', () => {
     expect(browser.storage).toEqual({ settings: {} })
   })
 
-  test('moves settings into a nested object and applies every rename', async () => {
+  test('migrates v4 user settings to v5', async () => {
     loadStorage({
       alwaysUseLatestTweets: false,
       debug: true,
       debugLogTimelineStats: true,
       enabled: false,
       hideAdsNav: false,
+      hideGrokNav: true,
       hideMoreTweets: false,
       hideMoreTweetsLegacy: true,
       hideTotalTweetsMetrics: false,
@@ -51,6 +52,7 @@ describe('v5 settings migration', () => {
         defaultToFollowing: false,
         hideAdsNav: false,
         hideDiscoverSuggestions: false,
+        hideGrok: true,
         hideListRetweets: true,
         hidePremiumReplies: false,
         hidePremiumUpsells: false,

@@ -102,7 +102,7 @@ export type UserSettings = {
   hideFollowingMenu: boolean
   hideFollowingMetrics: boolean
   hideForYouTimeline: boolean
-  hideGrokNav: boolean
+  hideGrok: boolean
   hideGrokTweets: boolean
   hideHistoryNav: boolean
   hideInlinePrompts: boolean

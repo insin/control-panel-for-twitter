@@ -5,7 +5,7 @@
     "create-store-description": "node ./scripts/create-store-description.mjs",
     "check": "biome check && npm run typecheck",
     "check:fix": "biome check --write",
-    "test": "npm run typecheck && vitest run --config tests/vitest.config.mjs",
+    "test": "npm run check && vitest run --config tests/vitest.config.mjs",
     "test:watch": "vitest --config tests/vitest.config.mjs",
     "typecheck": "npx --yes -p typescript tsc -p jsconfig.json --noEmit && npx --yes -p typescript tsc -p scripts/jsconfig.json --noEmit && npx --yes -p typescript tsc -p tests/jsconfig.json --noEmit",
     "release": "node ./scripts/release.mjs",
