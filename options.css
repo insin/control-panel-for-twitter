@@ -2,6 +2,7 @@
   --background: rgb(255, 255, 255);
   --body-padding: 0;
   --border: rgb(240, 240, 240);
+  --browser-action-width: 450px;
   --font-family: system-ui, sans-serif;
   --font-size-primary: 13px;
   --font-size-secondary: 13px;
@@ -38,10 +39,6 @@ html {
 }
 /* #endregion */
 
-.firefoxSizer {
-  display: none;
-}
-
 body {
   background-color: var(--background);
   color: var(--text-primary);
@@ -53,11 +50,14 @@ body {
   -webkit-user-select: none;
 }
 body.browserAction {
-  min-width: 450px;
+  min-width: var(--browser-action-width);
+}
+.firefoxSizer {
+  display: none;
 }
 body.browser-firefox.browserAction {
   min-width: auto;
-  max-width: 450px;
+  max-width: var(--browser-action-width);
   .firefoxSizer {
     display: block;
     overflow: hidden;
@@ -68,9 +68,10 @@ body.browser-ios.browserAction {
   min-width: 0;
 }
 
+/* #region Hide state */
 body.desktop .mobile,
-body.mobile .desktop,
 body.hidingNotifications #disabledHomeTimelineRedirectOption_notifications,
+body.mobile .desktop,
 body:not(.debugging) .debugging,
 body:not(.defaultingFollowingToRecent) .defaultingFollowingToRecent,
 body:not(.defaultingToFollowing) .defaultingToFollowing,
@@ -91,7 +92,9 @@ body:not(.uninvertedFollowButtons) .uninvertedFollowButtons,
 p:empty {
   display: none;
 }
+/* #endregion */
 
+/* #region Disabled */
 body.disabled .panel[data-tab="features"] > section ~ section {
   visibility: hidden;
 }
@@ -101,6 +104,7 @@ body.ios.disabled .panel[data-tab="features"] > section ~ section .toggle {
 body.disabled:is(.firefox, .chrome, .edge) .panel[data-tab="features"] > section {
   border-bottom: 1px solid var(--border);
 }
+/* #endregion */
 
 .panel {
   display: none;

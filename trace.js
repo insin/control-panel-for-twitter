@@ -1,5 +1,9 @@
 import { CLEAR_DEBUG_TRACE_MESSAGE, GET_DEBUG_TRACE_MESSAGE } from './settings.js'
 
+const title = `${chrome.i18n.getMessage('extensionName')} - Extensions Pro sync trace`
+document.title = title
+document.querySelector('h1').textContent = title
+
 const $clear = document.querySelector('#clear')
 const $copy = document.querySelector('#copy')
 const $refresh = document.querySelector('#refresh')
