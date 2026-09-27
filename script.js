@@ -18,6 +18,7 @@ const DEFAULT_SETTINGS = {
   defaultToFollowing: true,
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
+  disableNflFeatures: true,
   disableTweetTextFormatting: false,
   disabledHomeTimelineRedirect: 'notifications',
   dontUseChirpFont: false,
@@ -5285,6 +5286,7 @@ const configureFeatureFlags = (() => {
     isTrue = featureSwitches.isTrue
     featureSwitches.isTrue = (flag) => {
       if (settings.bypassAgeVerification && flag == 'rweb_age_assurance_flow_enabled') return false
+      if (settings.disableNflFeatures && flag == 'responsive_web_nfl_enabled') return false
       if (settings.revertMediaCarousel && flag == 'rweb_media_carousel_enabled') return false
       if (settings.revertProfileTabs && flag == 'responsive_web_profile_redesign_enabled') return false
       if (settings.revertTwemoji && flag == 'responsive_web_native_emojis_enabled') return false

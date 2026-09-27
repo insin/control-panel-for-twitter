@@ -81,6 +81,7 @@ export type UserSettings = {
   defaultToFollowing: boolean
   defaultToLatestSearch: boolean
   disableHomeTimeline: boolean
+  disableNflFeatures: boolean,
   disableTweetTextFormatting: boolean
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
   dontUseChirpFont: boolean

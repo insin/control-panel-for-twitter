@@ -24,6 +24,7 @@ const v5 = {
   defaultToFollowing: boolean(),
   defaultToLatestSearch: boolean(),
   disableHomeTimeline: boolean(),
+  disableNflFeatures: boolean(),
   disableTweetTextFormatting: boolean(),
   disabledHomeTimelineRedirect: oneOf(['notifications', 'messages']),
   dontUseChirpFont: boolean(),

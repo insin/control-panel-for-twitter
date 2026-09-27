@@ -63,6 +63,9 @@
   "disableHomeTimelineInfo": {
     "message": "Find yourself wasting too much time on Twitter? Try preventing use of the home timeline"
   },
+  "disableNflFeatures": {
+    "message": "Disable NFL features"
+  },
   "disableTweetTextFormatting": {
     "message": "Disable bold and italic text in tweets"
   },

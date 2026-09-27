@@ -62,6 +62,9 @@
   "disableHomeTimelineInfo": {
     "message": "发现自己在Twitter上浪费了太多的时间？试着防止使用主页时间线"
   },
+  "disableNflFeatures": {
+    "message": "禁用 NFL 功能"
+  },
   "disableTweetTextFormatting": {
     "message": "禁用推文中的加粗和斜体文本"
   },

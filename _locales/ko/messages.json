@@ -62,6 +62,9 @@
   "disableHomeTimelineInfo": {
     "message": "트위터에 너무 많은 시간을 낭비하고 있나요? 홈 타임라인 사용을 방지해 보세요"
   },
+  "disableNflFeatures": {
+    "message": "NFL 기능 비활성화"
+  },
   "disableTweetTextFormatting": {
     "message": "트윗에서 볼드체 및 이탤릭체 비활성화"
   },

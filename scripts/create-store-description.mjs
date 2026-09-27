@@ -105,6 +105,7 @@ ${messages.xFixesOptions}:
 • ${messages.hideEditImage}
 • ${messages.hideJobs}
 • ${messages.hideSubscriptions}
+• ${messages.disableNflFeatures}
 
 ${messages.uiTweaksOptions}:
 

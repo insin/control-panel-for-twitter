@@ -14,6 +14,7 @@ export const DEFAULT_SETTINGS = {
   defaultToFollowing: true,
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
+  disableNflFeatures: true,
   disableTweetTextFormatting: false,
   disabledHomeTimelineRedirect: 'notifications',
   dontUseChirpFont: false,

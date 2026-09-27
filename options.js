@@ -88,6 +88,7 @@ for (const translationId of [
   'developerOptions',
   'disableHomeTimeline',
   'disableHomeTimelineInfo',
+  'disableNflFeatures',
   'disableTweetTextFormatting',
   'disabledHomeTimelineRedirect',
   'disabledHomeTimelineRedirectOption_messages',

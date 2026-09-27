@@ -62,6 +62,9 @@
   "disableHomeTimelineInfo": {
     "message": "Sprechi troppo tempo su Twitter? Prova a rimuovere la Home"
   },
+  "disableNflFeatures": {
+    "message": "Disattiva le funzionalità della NFL"
+  },
   "disableTweetTextFormatting": {
     "message": "Disabilita il testo in grassetto e corsivo nei tweet"
   },
