@@ -9,7 +9,7 @@ import SafariServices
 typealias PlatformViewController = NSViewController
 #endif
 
-let extensionBundleIdentifier = "dev.jbscript.Tweak-New-Twitter.Extension"
+let extensionBundleIdentifier = Bundle.main.bundleIdentifier! + ".Extension"
 
 class ViewController: PlatformViewController, WKNavigationDelegate, WKScriptMessageHandler {
   @IBOutlet var webView: WKWebView!

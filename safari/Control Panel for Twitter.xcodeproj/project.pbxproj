@@ -770,7 +770,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter Dev Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -782,7 +782,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.jbscript.Tweak-New-Twitter.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.jbscript.Tweak-New-Twitter.Debug.Extension";
 				PRODUCT_NAME = "Control Panel for Twitter Extension";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -830,7 +830,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iOS (App)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter";
+				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter Dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -848,7 +848,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.jbscript.Tweak-New-Twitter";
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.jbscript.Tweak-New-Twitter.Debug";
 				PRODUCT_NAME = "Control Panel for Twitter";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -905,7 +905,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter Extension";
+				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter Dev Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -917,7 +917,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.jbscript.Tweak-New-Twitter.Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.jbscript.Tweak-New-Twitter.Debug.Extension";
 				PRODUCT_NAME = "Control Panel for Twitter Extension";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
@@ -967,7 +967,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter";
+				INFOPLIST_KEY_CFBundleDisplayName = "Control Panel for Twitter Dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -982,7 +982,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.jbscript.Tweak-New-Twitter";
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.jbscript.Tweak-New-Twitter.Debug";
 				PRODUCT_NAME = "Control Panel for Twitter";
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
