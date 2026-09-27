@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { getSettingsMigrationVersions, runSettingsMigrations } from '../migrations.js'
+import { set } from '../settings.js'
 import { createChromeMock } from './helpers/chrome.js'
 
 let browser
@@ -42,7 +43,7 @@ describe('v5 settings migration', () => {
       version: 'mobile',
     })
 
-    await runSettingsMigrations('4.3.1', '5')
+    await runSettingsMigrations('0', '5')
 
     expect(browser.storage).toEqual({
       debug: true,
@@ -71,7 +72,7 @@ describe('v5 settings migration', () => {
   test('converts a visible list-retweets setting to false', async () => {
     loadStorage({ listRetweets: 'show' })
 
-    await runSettingsMigrations('4.9', '5')
+    await runSettingsMigrations('0', '5')
 
     expect(browser.storage.settings).toEqual({ hideListRetweets: false })
   })
@@ -89,14 +90,27 @@ describe('v5 settings migration', () => {
   test('can be rerun after completing without losing nested settings', async () => {
     loadStorage({ hideAdsNav: false, replaceLogo: true })
 
-    await runSettingsMigrations('4.9', '5')
-    await runSettingsMigrations('4.9', '5')
+    await runSettingsMigrations('0', '5')
+    await runSettingsMigrations('0', '5')
 
     expect(browser.storage).toEqual({
       settings: {
         hideAdsNav: false,
         revertXBranding: true,
       },
+    })
+  })
+
+  test('preserves v5 config when rerun before the version marker is updated', async () => {
+    loadStorage({ hideAdsNav: false })
+
+    await runSettingsMigrations('0', '5')
+    await set({ collapsedGroups: ['sidebar'] })
+    await runSettingsMigrations('0', '5')
+
+    expect(browser.storage).toEqual({
+      collapsedGroups: ['sidebar'],
+      settings: { hideAdsNav: false },
     })
   })
 
@@ -111,7 +125,7 @@ describe('v5 settings migration', () => {
       },
     })
 
-    await runSettingsMigrations('4.9', '5')
+    await runSettingsMigrations('0', '5')
 
     expect(browser.storage).toEqual({
       settings: {

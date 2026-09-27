@@ -1,7 +1,8 @@
 import { crossesVersionThreshold } from './ext-shared.js'
-import { runSettingsMigrations } from './migrations.js'
+import { getSettingsMigrationVersions, runSettingsMigrations } from './migrations.js'
 import { get, SERVER_ORIGIN, set } from './settings.js'
 import { initSettingsSync, startSync } from './settings-background.js'
+import { trace } from './trace-background.js'
 
 //#region Constants
 const DISABLED_ICONS = {
@@ -45,11 +46,27 @@ function updateToolbarIcon(enabled) {
 //#region Main
 async function main() {
   const currentVersion = chrome.runtime.getManifest().version
-  const { extensionVersion } = await get('extensionVersion')
-
-  if (extensionVersion != currentVersion) {
-    await runSettingsMigrations(extensionVersion ?? '0', currentVersion)
-    await set({ extensionVersion: currentVersion })
+  let migrationDetails = { currentVersion }
+  try {
+    const { storageMigrationVersion } = await get('storageMigrationVersion')
+    if (storageMigrationVersion != currentVersion) {
+      const previousVersion = storageMigrationVersion ?? '0'
+      migrationDetails = {
+        currentVersion,
+        previousVersion,
+        versions: getSettingsMigrationVersions(previousVersion, currentVersion),
+      }
+      await trace('migrations.started', migrationDetails)
+      await runSettingsMigrations(previousVersion, currentVersion)
+      await set({ storageMigrationVersion: currentVersion })
+      await trace('migrations.completed', migrationDetails)
+    }
+  } catch (error) {
+    await trace('migrations.failed', {
+      ...migrationDetails,
+      error: error?.message ?? String(error),
+    })
+    throw error
   }
 
   await startSync()

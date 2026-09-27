@@ -1,15 +1,30 @@
 import { crossesVersionThreshold, isObject } from './ext-shared.js'
 import { DEFAULT_SETTINGS, get, remove, set } from './settings.js'
+import { trace } from './trace-background.js'
 
 /**
  * One-off migration for v5: move all top-level settings into a settings object.
  */
 async function migrateSettingsToV5() {
   const extensionConfigKeys = new Set([
+    'accountEmail',
+    'collapsedGroups',
     'debug',
+    'debugLogGetElementStats',
     'debugLogTimelineStats',
     'enabled',
+    'lastSyncTime',
+    'pendingSettingsPatch',
+    'serverLastModified',
     'settings',
+    'settingsSyncPhase',
+    'stickyHeadings',
+    'storageMigrationVersion',
+    'subscription',
+    'syncError',
+    'syncSettings',
+    'tab',
+    'token',
     'version',
   ])
   const storedConfig = await get()
@@ -79,7 +94,14 @@ export async function runSettingsMigrations(previous, current) {
   for (const version of versions) {
     const migration = SETTINGS_MIGRATIONS_BY_VERSION.get(version)
     if (migration) {
-      await migration()
+      await trace('migration.started', { version })
+      try {
+        await migration()
+      } catch (error) {
+        await trace('migration.failed', { error: error?.message ?? String(error), version })
+        throw error
+      }
+      await trace('migration.completed', { version })
     }
   }
 }

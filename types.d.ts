@@ -9,6 +9,8 @@ export type StoredConfig = {
   debugLogTimelineStats?: boolean
   /** Disable extension functionality without disabling the extension itself */
   enabled?: boolean
+  /** Extension version through which storage migrations have completed */
+  storageMigrationVersion?: string
   /** We only store settings the user has actually interacted with */
   settings?: Partial<UserSettings>
   /** Toggle sticky headings in compatible options layouts */
@@ -26,8 +28,6 @@ export type StoredConfig = {
   // Extensions Pro
   /** Email address of the linked Extensions Pro account */
   accountEmail?: string
-  /** Last extension version whose storage migrations completed */
-  extensionVersion?: string
   /** Local settings changes which have not been acknowledged by the server */
   pendingSettingsPatch?: Partial<UserSettings>
   /** Last time settings sync completed successfully in this browser */

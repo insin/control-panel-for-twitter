@@ -20,10 +20,27 @@ function formatTrace(entries) {
     .join('\n')
 }
 
+// Async chrome.runtime.sendMessage wrapper for Firefox MV2
+function sendMessage(type) {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage({ type }, (response) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError)
+        return
+      }
+      resolve(response)
+    })
+  })
+}
+
 async function refreshTrace() {
   try {
     /** @type {import('./types').DebugTraceEntry[]} */
-    const entries = await chrome.runtime.sendMessage({ type: GET_DEBUG_TRACE_MESSAGE })
+    const entries = await sendMessage(GET_DEBUG_TRACE_MESSAGE)
+    if (!Array.isArray(entries)) {
+      $status.textContent = 'Could not load trace: unexpected response from the background page'
+      return
+    }
     const wasAtBottom = $trace.scrollTop + $trace.clientHeight >= $trace.scrollHeight - 20
     $trace.textContent = formatTrace(entries)
     if (wasAtBottom) $trace.scrollTop = $trace.scrollHeight
@@ -35,8 +52,12 @@ async function refreshTrace() {
 
 //#region Main
 $clear.addEventListener('click', async () => {
-  await chrome.runtime.sendMessage({ type: CLEAR_DEBUG_TRACE_MESSAGE })
-  await refreshTrace()
+  try {
+    await sendMessage(CLEAR_DEBUG_TRACE_MESSAGE)
+    await refreshTrace()
+  } catch (error) {
+    $status.textContent = `Could not clear trace: ${error.message}`
+  }
 })
 $copy.addEventListener('click', async () => {
   try {

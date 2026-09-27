@@ -36,6 +36,16 @@ describe('settings sync lifecycle', () => {
     vi.setSystemTime(new Date('2026-09-13T00:00:00Z'))
   })
 
+  test('startup without a token is idle', async () => {
+    await loadSync()
+
+    await startSync()
+
+    expect(browser.storage).toEqual({})
+    expect(browser.alarms.size).toBe(0)
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
+
   test('linking seeds an empty server from existing settings', async () => {
     await loadSync({
       storage: {

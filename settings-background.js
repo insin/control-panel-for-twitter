@@ -509,7 +509,11 @@ export function initSettingsSync(config = {}) {
     }
     if (msg.type == OPEN_APP_MESSAGE) {
       const path = typeof msg.path == 'string' && msg.path.startsWith('/') ? msg.path : '/'
-      chrome.tabs.create({ url: new URL(path, CONFIG.apiBase).href })
+      const url = new URL(path, CONFIG.apiBase)
+      if (location.protocol == 'safari-web-extension:') {
+        url.searchParams.set('source', 'safari-extension')
+      }
+      chrome.tabs.create({ url: url.href })
     }
     if (msg.type == ACCOUNT_LINKED_MESSAGE) {
       return keepMessageChannelOpen(
@@ -579,10 +583,7 @@ export async function startSync() {
     syncSettings,
   })
 
-  if (!token) {
-    await handleAccountUnlinked()
-    return
-  }
+  if (!token) return
 
   if (!syncSettings) {
     if (subscription === undefined) {
