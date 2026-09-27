@@ -47,6 +47,9 @@
   "disableHomeTimelineLabel": {
     "message": "홈 타임라인 비활성화"
   },
+  "disableNflFeaturesLabel": {
+    "message": "NFL 기능 비활성화"
+  },
   "disableTweetTextFormattingLabel": {
     "message": "트윗에서 볼드체 및 이탤릭체 비활성화"
   },

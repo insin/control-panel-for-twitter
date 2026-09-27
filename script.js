@@ -129,6 +129,7 @@ const config = {
   darkModeTheme: 'lightsOut',
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
+  disableNflFeatures: true,
   disabledHomeTimelineRedirect: 'notifications',
   disableTweetTextFormatting: false,
   dontUseChirpFont: false,
@@ -5240,6 +5241,7 @@ const configureFeatureFlags = (() => {
     isTrue = featureSwitches.isTrue
     featureSwitches.isTrue = (flag) => {
       if (config.bypassAgeVerification && flag == 'rweb_age_assurance_flow_enabled') return false
+      if (config.disableNflFeatures && flag == 'responsive_web_nfl_enabled') return false
       if (config.revertMediaCarousel && flag == 'rweb_media_carousel_enabled') return false
       if (config.revertProfileTabs && flag == 'responsive_web_profile_redesign_enabled') return false
       if (config.revertTwemoji && flag == 'responsive_web_native_emojis_enabled') return false

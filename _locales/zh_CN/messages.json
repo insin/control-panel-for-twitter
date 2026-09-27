@@ -47,6 +47,9 @@
   "disableHomeTimelineLabel": {
     "message": "禁用主页时间线"
   },
+  "disableNflFeaturesLabel": {
+    "message": "禁用 NFL 功能"
+  },
   "disableTweetTextFormattingLabel": {
     "message": "禁用推文中的加粗和斜体文本"
   },

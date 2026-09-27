@@ -47,6 +47,9 @@
   "disableHomeTimelineLabel": {
     "message": "Disabilita la Home"
   },
+  "disableNflFeaturesLabel": {
+    "message": "Disattiva le funzionalità della NFL"
+  },
   "disableTweetTextFormattingLabel": {
     "message": "Disabilita il testo in grassetto e corsivo nei tweet"
   },
