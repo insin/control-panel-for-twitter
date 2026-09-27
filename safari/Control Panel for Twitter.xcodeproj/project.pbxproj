@@ -85,6 +85,8 @@
 		FBF5C9A93068C9FD001B1C15 /* toolbar-icon38.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FBF5C95E3068C7E0001B1C15 /* toolbar-icon38.png */; };
 		FBF5C9AA3068C9FD001B1C15 /* toolbar-icon48.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FBF5C95F3068C7E0001B1C15 /* toolbar-icon48.png */; };
 		FBF5C9AB3068C9FD001B1C15 /* toolbar-icon72.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FBF5C9603068C7E0001B1C15 /* toolbar-icon72.png */; };
+		7F8C95EAA1324157A1E473CF /* default-settings.js in Resources */ = {isa = PBXBuildFile; fileRef = 03BF7671181D4029B78823C3 /* default-settings.js */; };
+		170A9D3FE6804A78A236F663 /* default-settings.js in Resources */ = {isa = PBXBuildFile; fileRef = 03BF7671181D4029B78823C3 /* default-settings.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -225,6 +227,7 @@
 		FBF5C95E3068C7E0001B1C15 /* toolbar-icon38.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbar-icon38.png"; sourceTree = "<group>"; };
 		FBF5C95F3068C7E0001B1C15 /* toolbar-icon48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbar-icon48.png"; sourceTree = "<group>"; };
 		FBF5C9603068C7E0001B1C15 /* toolbar-icon72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbar-icon72.png"; sourceTree = "<group>"; };
+		03BF7671181D4029B78823C3 /* default-settings.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "default-settings.js"; path = "../../../default-settings.js"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +322,7 @@
 				A598E1AB297B441300BF2F25 /* options.js */,
 				FBD613922FAF651A002E0939 /* schemas.js */,
 				FB38F984298CF4DA00F9AA54 /* script.js */,
+				03BF7671181D4029B78823C3 /* default-settings.js */,
 				FB191D7C2E52C40A00FB6F20 /* settings.js */,
 				FBD613972FB82D9C002E0939 /* settings-background.js */,
 			);
@@ -550,6 +554,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F8C95EAA1324157A1E473CF /* default-settings.js in Resources */,
 				FB191D7E2E52C40A00FB6F20 /* settings.js in Resources */,
 				FBD613952FAF651A002E0939 /* ext-shared.js in Resources */,
 				FBD613962FAF651A002E0939 /* schemas.js in Resources */,
@@ -572,6 +577,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				170A9D3FE6804A78A236F663 /* default-settings.js in Resources */,
 				FB191D802E52C40A00FB6F20 /* settings.js in Resources */,
 				FBD613932FAF651A002E0939 /* ext-shared.js in Resources */,
 				FBD613942FAF651A002E0939 /* schemas.js in Resources */,

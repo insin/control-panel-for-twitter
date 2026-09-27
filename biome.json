@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**/*.{css,html,js,json,jsonc,mjs}", "!script.js"],
+    "includes": ["**/*.{css,html,js,json,jsonc,mjs}", "!script.js", "!!.scratch"],
     "ignoreUnknown": false
   },
   "formatter": {

@@ -1,7 +1,7 @@
+import { DEFAULT_SETTINGS } from './default-settings.js'
 import { getSchemaForVersion, isObject, validateSettings } from './ext-shared.js'
 import { schemas } from './schemas.js'
 import {
-  DEFAULT_SETTINGS,
   get,
   OPEN_APP_MESSAGE,
   SYNC_SETTINGS_CHANGED_MESSAGE,

@@ -1,5 +1,6 @@
+import { DEFAULT_SETTINGS } from './default-settings.js'
 import { crossesVersionThreshold, isObject } from './ext-shared.js'
-import { DEFAULT_SETTINGS, get, remove, set } from './settings.js'
+import { get, remove, set } from './settings.js'
 import { trace } from './trace-background.js'
 
 /**
