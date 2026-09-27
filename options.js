@@ -973,7 +973,7 @@ function updateDisplay() {
   $body.classList.toggle('stickyHeadings', config.stickyHeadings)
   $body.classList.toggle('tweakingNewLayout', config.settings.tweakNewLayout)
   $body.classList.toggle('uninvertedFollowButtons', config.settings.uninvertFollowButtons)
-  const icon = `options-icon${!config.enabled ? '-disabled' : ''}.png`
+  const icon = `icons/icon32${!config.enabled ? '-disabled' : ''}.png`
   if ($optionsIcon.src != icon) {
     $optionsIcon.src = icon
   }
