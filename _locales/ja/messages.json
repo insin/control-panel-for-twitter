@@ -47,6 +47,9 @@
   "disableHomeTimelineLabel": {
     "message": "「ホーム」タイムラインを無効化"
   },
+  "disableNflFeaturesLabel": {
+    "message": "NFL機能を無効にする"
+  },
   "disableTweetTextFormattingLabel": {
     "message": "ツイートの太字と斜体を無効にする"
   },

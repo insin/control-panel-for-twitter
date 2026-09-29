@@ -52,6 +52,7 @@ for (let translationId of [
   'disableTweetTextFormattingLabel',
   'disabledHomeTimelineRedirectLabel',
   'disabledHomeTimelineRedirectOption_messages',
+  'disableNflFeaturesLabel',
   'dontUseChirpFontLabel',
   'dropdownMenuFontWeightLabel',
   'enabled',
@@ -217,6 +218,7 @@ const defaultConfig = {
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
   disabledHomeTimelineRedirect: 'notifications',
+  disableNflFeatures: true,
   disableTweetTextFormatting: false,
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
@@ -353,7 +355,7 @@ let $showBlueReplyFollowersCountLabel = /** @type {HTMLElement} */ (document.que
 //#region Utility functions
 function exportConfig() {
   let $a = document.createElement('a')
-  $a.download = 'control-panel-for-twitter-v4.24.1.config.txt'
+  $a.download = 'control-panel-for-twitter-v4.24.3.config.txt'
   $a.href = URL.createObjectURL(new Blob([
     JSON.stringify(optionsConfig, null, 2)
   ], {type: 'text/plain'}))

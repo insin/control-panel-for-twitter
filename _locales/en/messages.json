@@ -48,6 +48,9 @@
   "disableHomeTimelineLabel": {
     "message": "Disable the home timeline"
   },
+  "disableNflFeaturesLabel": {
+    "message": "Disable NFL features"
+  },
   "disableTweetTextFormattingLabel": {
     "message": "Disable bold and italic text in tweets"
   },

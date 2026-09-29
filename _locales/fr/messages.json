@@ -47,6 +47,9 @@
   "disableHomeTimelineLabel": {
     "message": "Désactiver le fil Accueil"
   },
+  "disableNflFeaturesLabel": {
+    "message": "Désactiver les fonctionnalités de la NFL"
+  },
   "disableTweetTextFormattingLabel": {
     "message": "Désactiver le texte en gras et en italique dans les tweets"
   },

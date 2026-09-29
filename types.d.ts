@@ -13,6 +13,7 @@ export type Config = {
   defaultToLatestSearch: boolean
   disableHomeTimeline: boolean
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
+  disableNflFeatures: boolean
   disableTweetTextFormatting: boolean
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
