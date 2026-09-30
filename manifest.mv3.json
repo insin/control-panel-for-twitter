@@ -52,6 +52,7 @@
     "default_popup": "browser_action.html"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "downloads"
   ]
 }

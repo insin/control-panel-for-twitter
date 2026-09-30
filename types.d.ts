@@ -15,6 +15,11 @@ export type Config = {
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
   disableNflFeatures: boolean
   disableTweetTextFormatting: boolean
+  // Downloads
+  downloadMedia: boolean
+  downloadFilenameFormat: string
+  downloadSubfolder: string
+  downloadVideoQuality: 'highest' | 'lowest'
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
   fastBlock: boolean

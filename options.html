@@ -223,6 +223,88 @@
     </section>
 
     <section class="group labelled">
+      <label id="downloadsOptionsLabel">Downloads</label>
+      <section class="checkbox">
+        <label>
+          <span id="downloadMediaLabel">Show download button on media</span>
+          <input type="checkbox" name="downloadMedia">
+          <span class="toggle"></span>
+        </label>
+        <section class="textInput downloadingMedia downloadFilenameSection">
+          <label>
+            <span id="downloadFilenameFormatLabel">Filename format</span>
+            <input type="text" name="downloadFilenameFormat" id="downloadFilenameFormatInput" spellcheck="false"
+              autocomplete="off" placeholder="{yyyy}-{mm}-{dd}-{hh}-{MM}-{ss}-{ms}-{username}-{tweet_id}">
+          </label>
+          <div class="token-helper">
+            <span id="downloadFilenameArgumentsLabel" class="token-helper-title">Available arguments:</span>
+            <div class="token-group">
+              <span id="downloadFilenameDateGroup" class="token-group-title">Date</span>
+              <div class="token-buttons">
+                <button type="button" class="token-btn" data-token="{yyyy}">{yyyy}</button>
+                <button type="button" class="token-btn" data-token="{yy}">{yy}</button>
+                <button type="button" class="token-btn" data-token="{mm}">{mm}</button>
+                <button type="button" class="token-btn" data-token="{m}">{m}</button>
+                <button type="button" class="token-btn" data-token="{dd}">{dd}</button>
+                <button type="button" class="token-btn" data-token="{d}">{d}</button>
+              </div>
+            </div>
+            <div class="token-group">
+              <span id="downloadFilenameTimeGroup" class="token-group-title">Time</span>
+              <div class="token-buttons">
+                <button type="button" class="token-btn" data-token="{hh}">{hh}</button>
+                <button type="button" class="token-btn" data-token="{h}">{h}</button>
+                <button type="button" class="token-btn" data-token="{MM}">{MM}</button>
+                <button type="button" class="token-btn" data-token="{ss}">{ss}</button>
+                <button type="button" class="token-btn" data-token="{ms}">{ms}</button>
+              </div>
+            </div>
+            <div class="token-group">
+              <span id="downloadFilenameTweetGroup" class="token-group-title">Tweet</span>
+              <div class="token-buttons">
+                <button type="button" class="token-btn" data-token="{author}">{author}</button>
+                <button type="button" class="token-btn" data-token="{username}">{username}</button>
+                <button type="button" class="token-btn" data-token="{title}">{title}</button>
+                <button type="button" class="token-btn" data-token="{tweet_id}">{tweet_id}</button>
+              </div>
+            </div>
+            <div class="token-group">
+              <span id="downloadFilenameMediaGroup" class="token-group-title">Media</span>
+              <div class="token-buttons">
+                <button type="button" class="token-btn" data-token="{type}">{type}</button>
+              </div>
+            </div>
+            <div class="filename-preview-row">
+              <span id="downloadFilenameExampleLabel" class="filename-preview-label">Preview:</span>
+              <span id="filenamePreview" class="filename-preview-text"></span>
+            </div>
+            <div class="filename-reset-row">
+              <button type="button" id="resetFilenameFormatBtn" class="reset-btn">Reset to default</button>
+            </div>
+          </div>
+        </section>
+        <section class="textInput downloadingMedia">
+          <label>
+            <span id="downloadSubfolderLabel">Download folder</span>
+            <input type="text" name="downloadSubfolder" placeholder="e.g. Twitter">
+          </label>
+          <p id="downloadSubfolderInfo">
+            Folder path within your browser's Downloads folder (leave empty for default)
+          </p>
+        </section>
+        <section class="select downloadingMedia">
+          <label>
+            <span id="downloadVideoQualityLabel">Preferred video quality</span>
+            <select name="downloadVideoQuality">
+              <option value="highest">Highest quality</option>
+              <option value="lowest">Lowest quality</option>
+            </select>
+          </label>
+        </section>
+      </section>
+    </section>
+
+    <section class="group labelled">
       <label id="xFixesLabel">X fixes</label>
       <section class="checkbox">
         <label>
