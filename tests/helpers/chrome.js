@@ -84,17 +84,23 @@ export function createChromeMock(initial = {}) {
 
   const chromeMock = {
     alarms: {
-      clear: vi.fn(async (name) => alarmData.delete(name)),
+      clear: vi.fn((name, callback) => {
+        void Promise.resolve().then(() => callback(alarmData.delete(name)))
+      }),
       create: vi.fn((name, alarmInfo) => {
         alarmData.set(name, { name, ...structuredClone(alarmInfo) })
       }),
-      get: vi.fn(async (name) => structuredClone(alarmData.get(name))),
+      get: vi.fn((name, callback) => {
+        void Promise.resolve().then(() => callback(structuredClone(alarmData.get(name))))
+      }),
       onAlarm: alarmEvent,
     },
     runtime: {
       lastError: undefined,
       onMessage: messageEvent,
-      sendMessage: vi.fn(dispatchMessage),
+      sendMessage: vi.fn((message, callback) => {
+        dispatchMessage(message).then(callback)
+      }),
     },
     storage: {
       local: createStorageArea(storageData),

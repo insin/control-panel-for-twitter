@@ -4,7 +4,7 @@ export const SERVER_ORIGIN = (() => {
   const manifest = chrome.runtime.getManifest()
   const serverPermissions =
     manifest.manifest_version === 2 ? manifest.permissions : manifest.host_permissions
-  return serverPermissions.includes('http://localhost:5173/*')
+  return serverPermissions.includes('http://localhost/*')
     ? 'http://localhost:5173'
     : 'https://pro.soitis.dev'
 })()
@@ -63,6 +63,19 @@ export function set(keys) {
 }
 //#endregion
 
+// Async chrome.runtime.sendMessage wrapper for Firefox MV2
+export function sendMessage(message) {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage(message, (response) => {
+      if (chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError)
+      } else {
+        resolve(response)
+      }
+    })
+  })
+}
+
 //#region Settings functions
 export async function setSettings(changes) {
   const {
@@ -93,6 +106,6 @@ export async function setSettings(changes) {
 }
 
 export function schedulePush() {
-  chrome.runtime.sendMessage({ type: SYNC_SCHEDULE_PUSH_MESSAGE }).catch(() => {})
+  sendMessage({ type: SYNC_SCHEDULE_PUSH_MESSAGE }).catch(() => {})
 }
 //#endregion

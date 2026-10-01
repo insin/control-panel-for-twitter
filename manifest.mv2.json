@@ -37,7 +37,7 @@
       "run_at": "document_start"
     }
   ],
-  "web_accessible_resources": ["extensions-pro-id.js", "settings.js"],
+  "web_accessible_resources": ["extensions-pro-bridge.js", "settings.js"],
   "options_ui": {
     "browser_style": true,
     "page": "options.html"

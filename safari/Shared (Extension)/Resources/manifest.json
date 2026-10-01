@@ -58,7 +58,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "extensions-pro-id.js",
+        "extensions-pro-bridge.js",
         "settings.js"
       ],
       "matches": [

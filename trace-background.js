@@ -5,7 +5,6 @@ const workerId = Array.from(crypto.getRandomValues(new Uint8Array(3)), (byte) =>
   byte.toString(16).padStart(2, '0'),
 ).join('')
 
-let sequence = 0
 let traceWrite = Promise.resolve()
 
 //#region Async chrome.storage.session wrappers for Firefox MV2
@@ -76,7 +75,6 @@ export function trace(event, details = {}) {
   const entry = {
     details,
     event,
-    sequence: ++sequence,
     time: Date.now(),
     workerId,
   }

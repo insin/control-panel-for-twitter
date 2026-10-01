@@ -31,9 +31,12 @@ describe('setSettings', () => {
       hideAdsNav: false,
       hideViews: false,
     })
-    expect(browser.chrome.runtime.sendMessage).toHaveBeenCalledWith({
-      type: SYNC_SCHEDULE_PUSH_MESSAGE,
-    })
+    expect(browser.chrome.runtime.sendMessage).toHaveBeenCalledWith(
+      {
+        type: SYNC_SCHEDULE_PUSH_MESSAGE,
+      },
+      expect.any(Function),
+    )
   })
 
   test('accumulates changes made before a push', async () => {
@@ -102,7 +105,7 @@ describe('SERVER_ORIGIN', () => {
     {
       expected: 'http://localhost:5173',
       manifest: {
-        host_permissions: ['http://localhost:5173/*', 'https://pro.soitis.dev/*'],
+        host_permissions: ['http://localhost/*', 'https://pro.soitis.dev/*'],
         manifest_version: 3,
       },
     },
@@ -110,7 +113,7 @@ describe('SERVER_ORIGIN', () => {
       expected: 'http://localhost:5173',
       manifest: {
         manifest_version: 2,
-        permissions: ['http://localhost:5173/*', 'https://pro.soitis.dev/*'],
+        permissions: ['http://localhost/*', 'https://pro.soitis.dev/*'],
       },
     },
   ])('uses $expected for the generated manifest', async ({ expected, manifest }) => {

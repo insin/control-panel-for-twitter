@@ -44,6 +44,25 @@ function runBackgroundTask(task) {
   return task.catch((error) => console.error('[settings-background]', error))
 }
 
+// Async alarm wrappers for Firefox MV2
+function clearAlarm(name) {
+  return new Promise((resolve, reject) => {
+    chrome.alarms.clear(name, (cleared) => {
+      if (chrome.runtime.lastError) reject(chrome.runtime.lastError)
+      else resolve(cleared)
+    })
+  })
+}
+
+function getAlarm(name) {
+  return new Promise((resolve, reject) => {
+    chrome.alarms.get(name, (alarm) => {
+      if (chrome.runtime.lastError) reject(chrome.runtime.lastError)
+      else resolve(alarm)
+    })
+  })
+}
+
 function settingsValueMatches(a, b) {
   return JSON.stringify(a) == JSON.stringify(b)
 }
@@ -65,14 +84,14 @@ async function applyServerSettings(settings, lastModified) {
 async function disableSettingsSync() {
   await trace('sync.disabled')
   // Settings changes made while sync is off must remain local
-  await Promise.all([chrome.alarms.clear(PULL_ALARM), chrome.alarms.clear(PUSH_ALARM)])
+  await Promise.all([clearAlarm(PULL_ALARM), clearAlarm(PUSH_ALARM)])
   await trace('alarms.cleared', { names: [PULL_ALARM, PUSH_ALARM], reason: 'sync-disabled' })
   await remove('pendingSettingsPatch')
 
   // Keep subscription details fresh while sync is off
   const { token } = await get('token')
   if (token) {
-    const alarm = await chrome.alarms.get(ACCOUNT_REFRESH_ALARM)
+    const alarm = await getAlarm(ACCOUNT_REFRESH_ALARM)
     if (!alarm) resetAccountRefreshTimer()
   }
 }
@@ -82,9 +101,9 @@ async function enableSettingsSync({ phase = 'replace-from-server', reason = 'syn
   await trace('sync.enabled', { hasToken: Boolean(token), phase, reason })
   if (!token) {
     await Promise.all([
-      chrome.alarms.clear(ACCOUNT_REFRESH_ALARM),
-      chrome.alarms.clear(PULL_ALARM),
-      chrome.alarms.clear(PUSH_ALARM),
+      clearAlarm(ACCOUNT_REFRESH_ALARM),
+      clearAlarm(PULL_ALARM),
+      clearAlarm(PUSH_ALARM),
     ])
     await trace('alarms.cleared', {
       names: [ACCOUNT_REFRESH_ALARM, PULL_ALARM, PUSH_ALARM],
@@ -98,7 +117,7 @@ async function enableSettingsSync({ phase = 'replace-from-server', reason = 'syn
   await set({ settingsSyncPhase: phase })
 
   // Subscription details are refreshed when pulling settings
-  await chrome.alarms.clear(ACCOUNT_REFRESH_ALARM)
+  await clearAlarm(ACCOUNT_REFRESH_ALARM)
 
   // Resume pulling with an initial immediate pull
   await syncSettingsNow(reason)
@@ -136,9 +155,9 @@ async function handleAccountLinked() {
 async function handleAccountUnlinked() {
   await trace('account.unlinked')
   await Promise.all([
-    chrome.alarms.clear(ACCOUNT_REFRESH_ALARM),
-    chrome.alarms.clear(PULL_ALARM),
-    chrome.alarms.clear(PUSH_ALARM),
+    clearAlarm(ACCOUNT_REFRESH_ALARM),
+    clearAlarm(PULL_ALARM),
+    clearAlarm(PUSH_ALARM),
   ])
   await trace('alarms.cleared', {
     names: [ACCOUNT_REFRESH_ALARM, PULL_ALARM, PUSH_ALARM],
@@ -593,9 +612,9 @@ export async function startSync() {
     return
   }
 
-  await chrome.alarms.clear(ACCOUNT_REFRESH_ALARM)
+  await clearAlarm(ACCOUNT_REFRESH_ALARM)
 
-  const pullAlarm = await chrome.alarms.get(PULL_ALARM)
+  const pullAlarm = await getAlarm(PULL_ALARM)
   // Pull immediately when reconciliation is incomplete, pulls haven't been
   // scheduled yet, or account details need to be populated by the response.
   if (settingsSyncPhase != 'ready' || !pullAlarm || subscription === undefined) {

@@ -62,7 +62,6 @@ export type StoredConfigMessage = {
 export type DebugTraceEntry = {
   details: Record<string, unknown>
   event: string
-  sequence: number
   time: number
   workerId: string
 }

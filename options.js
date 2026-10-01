@@ -5,6 +5,7 @@ import {
   get,
   OPEN_APP_MESSAGE,
   SYNC_SETTINGS_CHANGED_MESSAGE,
+  sendMessage,
   set,
   setSettings,
 } from './settings.js'
@@ -874,7 +875,7 @@ function onToggleCollapse(e) {
 }
 
 function openProApp(path = '/') {
-  chrome.runtime.sendMessage({ type: OPEN_APP_MESSAGE, path })
+  sendMessage({ type: OPEN_APP_MESSAGE, path }).catch(() => {})
 }
 
 function saveCustomCss() {
@@ -913,12 +914,10 @@ async function storeConfigChanges(changes) {
       await set(internalConfig)
     }
     if (Object.hasOwn(internalConfig, 'syncSettings')) {
-      chrome.runtime
-        .sendMessage({
-          type: SYNC_SETTINGS_CHANGED_MESSAGE,
-          enabled: internalConfig.syncSettings,
-        })
-        .catch(() => {})
+      sendMessage({
+        type: SYNC_SETTINGS_CHANGED_MESSAGE,
+        enabled: internalConfig.syncSettings,
+      }).catch(() => {})
     }
   } catch (e) {
     console.error('[options] error storing config change', e)

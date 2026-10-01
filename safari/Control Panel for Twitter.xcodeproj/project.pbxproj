@@ -55,9 +55,9 @@
 		FBD613962FAF651A002E0939 /* schemas.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD613922FAF651A002E0939 /* schemas.js */; };
 		FBD613982FB82D9C002E0939 /* settings-background.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD613972FB82D9C002E0939 /* settings-background.js */; };
 		FBD613992FB82D9C002E0939 /* settings-background.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD613972FB82D9C002E0939 /* settings-background.js */; };
-		FBD6139C2FB947AC002E0939 /* extensions-pro-id.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD6139B2FB947AC002E0939 /* extensions-pro-id.js */; };
+		FBD6139C2FB947AC002E0939 /* extensions-pro-bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD6139B2FB947AC002E0939 /* extensions-pro-bridge.js */; };
 		FBD6139D2FB947AC002E0939 /* content-pro.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD6139A2FB947AC002E0939 /* content-pro.js */; };
-		FBD6139E2FB947AC002E0939 /* extensions-pro-id.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD6139B2FB947AC002E0939 /* extensions-pro-id.js */; };
+		FBD6139E2FB947AC002E0939 /* extensions-pro-bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD6139B2FB947AC002E0939 /* extensions-pro-bridge.js */; };
 		FBD6139F2FB947AC002E0939 /* content-pro.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD6139A2FB947AC002E0939 /* content-pro.js */; };
 		FBF5C9913068C9D8001B1C15 /* icon32.png in Copy Files */ = {isa = PBXBuildFile; fileRef = FBF5C94E3068C7E0001B1C15 /* icon32.png */; };
 		FBF5C9923068C9D8001B1C15 /* icon32-disabled.png in Copy Files */ = {isa = PBXBuildFile; fileRef = FBF5C94F3068C7E0001B1C15 /* icon32-disabled.png */; };
@@ -213,7 +213,7 @@
 		FBD613922FAF651A002E0939 /* schemas.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = schemas.js; path = ../../../schemas.js; sourceTree = "<group>"; };
 		FBD613972FB82D9C002E0939 /* settings-background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "settings-background.js"; path = "../../../settings-background.js"; sourceTree = "<group>"; };
 		FBD6139A2FB947AC002E0939 /* content-pro.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "content-pro.js"; path = "../../../content-pro.js"; sourceTree = "<group>"; };
-		FBD6139B2FB947AC002E0939 /* extensions-pro-id.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "extensions-pro-id.js"; path = "../../../extensions-pro-id.js"; sourceTree = "<group>"; };
+		FBD6139B2FB947AC002E0939 /* extensions-pro-bridge.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "extensions-pro-bridge.js"; path = "../../../extensions-pro-bridge.js"; sourceTree = "<group>"; };
 		FBF5C94E3068C7E0001B1C15 /* icon32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon32.png; sourceTree = "<group>"; };
 		FBF5C94F3068C7E0001B1C15 /* icon32-disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon32-disabled.png"; sourceTree = "<group>"; };
 		FBF5C9503068C7E0001B1C15 /* icon48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon48.png; sourceTree = "<group>"; };
@@ -315,7 +315,7 @@
 				A598E1AA297B441300BF2F25 /* content.js */,
 				FBD6139A2FB947AC002E0939 /* content-pro.js */,
 				FBD613912FAF651A002E0939 /* ext-shared.js */,
-				FBD6139B2FB947AC002E0939 /* extensions-pro-id.js */,
+				FBD6139B2FB947AC002E0939 /* extensions-pro-bridge.js */,
 				A598E141297B3E9300BF2F25 /* manifest.json */,
 				A598E1D8297B46C300BF2F25 /* options.css */,
 				A598E1A9297B441300BF2F25 /* options.html */,
@@ -565,7 +565,7 @@
 				A598E1B0297B441300BF2F25 /* content.js in Resources */,
 				FB38F985298CF4DA00F9AA54 /* script.js in Resources */,
 				A598E18C297B3E9300BF2F25 /* manifest.json in Resources */,
-				FBD6139E2FB947AC002E0939 /* extensions-pro-id.js in Resources */,
+				FBD6139E2FB947AC002E0939 /* extensions-pro-bridge.js in Resources */,
 				FBD6139F2FB947AC002E0939 /* content-pro.js in Resources */,
 				A598E1D6297B467D00BF2F25 /* browser_action.html in Resources */,
 				A598E1AE297B441300BF2F25 /* options.html in Resources */,
@@ -588,7 +588,7 @@
 				A598E1B1297B441300BF2F25 /* content.js in Resources */,
 				FB38F986298CF4DA00F9AA54 /* script.js in Resources */,
 				A598E18D297B3E9300BF2F25 /* manifest.json in Resources */,
-				FBD6139C2FB947AC002E0939 /* extensions-pro-id.js in Resources */,
+				FBD6139C2FB947AC002E0939 /* extensions-pro-bridge.js in Resources */,
 				FBD6139D2FB947AC002E0939 /* content-pro.js in Resources */,
 				A598E1D7297B467D00BF2F25 /* browser_action.html in Resources */,
 				A598E1AF297B441300BF2F25 /* options.html in Resources */,

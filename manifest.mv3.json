@@ -39,7 +39,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["extensions-pro-id.js", "settings.js"],
+      "resources": ["extensions-pro-bridge.js", "settings.js"],
       "matches": ["https://pro.soitis.dev/*", "https://twitter.com/*", "https://x.com/*"]
     }
   ],
