@@ -3216,7 +3216,7 @@ function observeBodyBackgroundColor() {
         nativeThemeColor = newThemeColor
         nativeThemeColorAccent = newAccent
         nativeThemeColorHover = newHover
-        themeColor = nativeThemeColor
+        themeColor = settings.customTheme || nativeThemeColor
         configureThemeCss()
       }
       observePopups()
