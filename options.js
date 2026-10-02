@@ -12,19 +12,26 @@ for (let optionValue of [
 }
 
 for (let optionValue of [
+  'always',
   'badges',
+  'center',
   'comfortable',
   'compact',
   'default',
   'dim',
+  'full',
   'hide',
+  'hover',
   'ignore',
+  'left',
   'lightsOut',
   'liked',
   'mostRecent',
+  'never',
   'popular',
   'recent',
   'relevant',
+  'right',
   'separate',
 ]) {
   let label = chrome.i18n.getMessage(`option_${optionValue}`)
@@ -40,6 +47,8 @@ for (let translationId of [
   'addFocusedTweetAccountLocationLabel',
   'alwaysUseLatestTweetsLabel',
   'bypassAgeVerificationLabel',
+  'centerNavigationLabel',
+  'collapsibleSearchLabel',
   'customCssLabel',
   'darkModeThemeLabel',
   'debugInfo',
@@ -62,8 +71,6 @@ for (let translationId of [
   'followButtonStyleLabel',
   'followButtonStyleOption_monochrome',
   'followButtonStyleOption_themed',
-  'fullWidthContentInfo',
-  'fullWidthContentLabel',
   'fullWidthMediaLabel',
   'hideAccountSwitcherLabel',
   'hideAdsNavLabel',
@@ -102,6 +109,7 @@ for (let translationId of [
   'hideShareTweetButtonLabel',
   'hideSidebarContentLabel',
   'hideSpacesNavLabel',
+  'hideStickyHeaderLabel',
   'hideSubscriptionsLabel',
   'hideSuggestedContentSearchLabel',
   'hideSuggestedFollowsLabel',
@@ -111,6 +119,7 @@ for (let translationId of [
   'hideTwitterBlueRepliesLabel',
   'hideTwitterBlueUpsellsLabel',
   'hideUnavailableQuoteTweetsLabel',
+  'hideUniversalSearchLabel',
   'hideUnusedUiItemsOptionsLabel',
   'hideVerifiedNotificationsTabLabel',
   'hideViewActivityLinksLabel',
@@ -129,6 +138,8 @@ for (let translationId of [
   'reduceEngagementOptionsLabel',
   'reducedInteractionModeInfo',
   'reducedInteractionModeLabel',
+  'removeTimelineBordersLabel',
+  'removeTweetBordersLabel',
   'replaceLogoLabel',
   'restoreLinkHeadlinesLabel',
   'restoreOtherInteractionLinksLabel',
@@ -140,6 +151,7 @@ for (let translationId of [
   'revertTwemojiLabel',
   'showBlueReplyFollowersCountAmountLabel',
   'showBookmarkButtonUnderFocusedTweetsLabel',
+  'showLabelsLabel',
   'showPremiumReplyBusinessLabel',
   'showPremiumReplyFollowedByLabel',
   'showPremiumReplyFollowingLabel',
@@ -148,6 +160,8 @@ for (let translationId of [
   'sidebarLabel',
   'sortFollowingLabel',
   'sortRepliesLabel',
+  'timelineAlignmentLabel',
+  'timelineWidthLabel',
   'tweakNewLayoutInfo',
   'tweakNewLayoutLabel',
   'tweakQuoteTweetsPageLabel',
@@ -220,6 +234,16 @@ const defaultConfig = {
   disabledHomeTimelineRedirect: 'notifications',
   disableNflFeatures: true,
   disableTweetTextFormatting: false,
+  // Timeline / Layout
+  timelineWidth: 'default',
+  timelineAlignment: 'center',
+  showLabels: 'always',
+  centerNavigation: false,
+  removeTimelineBorders: false,
+  removeTweetBorders: false,
+  hideStickyHeader: false,
+  collapsibleSearch: false,
+  hideUniversalSearch: false,
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
   fastBlock: true,
@@ -456,6 +480,10 @@ function onFormChanged(e) {
     }
   } else {
     optionsConfig[$el.name] = changedConfig[$el.name] = $el.value
+    if ($el.name == 'timelineWidth') {
+      let isFull = $el.value == 'full'
+      optionsConfig.fullWidthContent = changedConfig.fullWidthContent = isFull
+    }
   }
 
   updateDisplay()
@@ -514,7 +542,8 @@ function updateDisplay() {
   $body.classList.toggle('chronological', optionsConfig.alwaysUseLatestTweets)
   $body.classList.toggle('disabled', !optionsConfig.enabled)
   $body.classList.toggle('disabledHomeTimeline', optionsConfig.disableHomeTimeline)
-  $body.classList.toggle('fullWidthContent', optionsConfig.fullWidthContent)
+  let isFullWidth = optionsConfig.timelineWidth === 'full' || (optionsConfig.timelineWidth === 'default' && optionsConfig.fullWidthContent)
+  $body.classList.toggle('fullWidthContent', isFullWidth)
   $body.classList.toggle('hidingBookmarkButton', optionsConfig.hideBookmarkButton)
   $body.classList.toggle('hidingExploreNav', optionsConfig.hideExploreNav)
   $body.classList.toggle('hidingMetrics', optionsConfig.hideMetrics)
@@ -623,6 +652,18 @@ function main() {
     // @ts-ignore
     if (storedConfig.twitterBlueChecks == 'dim') {
       storedConfig.twitterBlueChecks = 'replace'
+    }
+    if (storedConfig.fullWidthContent && !storedConfig.timelineWidth) {
+      storedConfig.timelineWidth = 'full'
+    }
+    if (storedConfig.collapsibleSearch === undefined && storedConfig.transparentSearch !== undefined) {
+      storedConfig.collapsibleSearch = storedConfig.transparentSearch
+    }
+    if (!storedConfig.timelineAlignment) {
+      storedConfig.timelineAlignment = 'center'
+    }
+    if (!storedConfig.showLabels) {
+      storedConfig.showLabels = 'always'
     }
     optionsConfig = {...defaultConfig, ...storedConfig}
 

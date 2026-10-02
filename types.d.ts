@@ -15,6 +15,16 @@ export type Config = {
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
   disableNflFeatures: boolean
   disableTweetTextFormatting: boolean
+  // Timeline / Layout
+  timelineWidth: 'default' | '650' | '700' | '750' | '800' | 'full'
+  timelineAlignment: 'left' | 'center' | 'right'
+  showLabels: 'always' | 'hover' | 'never'
+  removeTimelineBorders: boolean
+  removeTweetBorders: boolean
+  hideStickyHeader: boolean
+  centerNavigation: boolean
+  collapsibleSearch: boolean
+  hideUniversalSearch: boolean
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
   fastBlock: boolean

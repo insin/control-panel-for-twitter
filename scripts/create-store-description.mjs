@@ -20,6 +20,15 @@ let extraTranslations = {
     "ja": "（モバイル版）",
     "ko": " (모바일 버전)",
     "zh_CN": "（手机版）"
+  },
+  "timelineWidthLabel": {
+    "en": "Timeline width",
+    "es": "Ancho de la cronología",
+    "fr": "Largeur du fil d'actualités",
+    "it": "Larghezza della cronologia",
+    "ja": "タイムラインの幅",
+    "ko": "타임라인 너비",
+    "zh_CN": "时间线宽度"
   }
 }
 
@@ -34,8 +43,12 @@ Usage:
   process.exit(1)
 }
 
+let enLocale = JSON.parse(fs.readFileSync('./_locales/en/messages.json', {encoding: 'utf8'}))
 let locale = JSON.parse(fs.readFileSync(`./_locales/${localeCode}/messages.json`, {encoding: 'utf8'}))
-let messages = Object.fromEntries(Object.entries(locale).map(([prop, value]) => ([prop, value.message])))
+let messages = {
+  ...Object.fromEntries(Object.entries(enLocale).map(([prop, value]) => ([prop, value.message]))),
+  ...Object.fromEntries(Object.entries(locale).map(([prop, value]) => ([prop, value.message]))),
+}
 // Add extra translations
 Object.assign(messages, Object.fromEntries(Object.entries(extraTranslations).map(([prop, value]) => [prop, value[localeCode]])))
 
@@ -53,7 +66,7 @@ ${messages.homeTimelineOptionsLabel}:
 • ${messages.hideSeeNewTweetsLabel}
 • ${messages.hideWhoToFollowEtcLabel}
 • ${messages.hideInlinePrompts}
-• ${messages.fullWidthContentLabel}${messages.desktopVersion} - ${messages.fullWidthContentInfo}
+• ${messages.timelineWidthLabel}${messages.desktopVersion}
 
 ${messages.uiImprovementsOptionsLabel}:
 
@@ -74,7 +87,7 @@ ${messages.xFixesLabel}:
 • ${messages.replaceLogoLabel}
 • ${messages.revertMediaCarouselLabel}
 • ${messages.revertProfileTabsLabel}
-• ${messages.revertTwemoji}
+• ${messages.revertTwemojiLabel}
 • ${messages.darkModeThemeLabel} (${messages.option_dim})
 • ${messages.hideViewsLabel}
 • ${messages.hideVerifiedNotificationsTabLabel}
