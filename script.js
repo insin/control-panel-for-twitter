@@ -4151,7 +4151,13 @@ function normalizeFilenameTemplate(format) {
  * @returns {string}
  */
 function expandTokens(template, metadata = {}) {
-  let d = metadata.timestamp instanceof Date ? metadata.timestamp : (metadata.timestamp ? new Date(metadata.timestamp) : new Date())
+  let d = metadata.downloadTimestamp instanceof Date ? metadata.downloadTimestamp : (
+    metadata.downloadTimestamp ? new Date(metadata.downloadTimestamp) : (
+      metadata.timestamp instanceof Date ? metadata.timestamp : (
+        metadata.timestamp ? new Date(metadata.timestamp) : new Date()
+      )
+    )
+  )
   if (isNaN(d.getTime())) d = new Date()
 
   const tokenMap = {
@@ -4235,6 +4241,7 @@ function generateMediaFilename(metadataOrUser, tweetIdOrIndex, indexOrTotal, tot
       tweetId,
       type: mediaType,
       title: '',
+      downloadTimestamp: new Date(),
       timestamp: new Date(),
     }
   }
@@ -4357,9 +4364,14 @@ function addDownloadButton($tweetOrContainer) {
       }
 
       let metadata = getTweetMetadata($tweetOrContainer)
+      let downloadTimestamp = new Date()
       for (let i = 0; i < mediaItems.length; i++) {
         let item = mediaItems[i]
-        let itemMetadata = { ...metadata, type: item.type }
+        let itemMetadata = {
+          ...metadata,
+          type: item.type,
+          downloadTimestamp,
+        }
         let filename = generateMediaFilename(itemMetadata, i, mediaItems.length, item.ext, config.downloadFilenameFormat)
         document.dispatchEvent(new CustomEvent('cpftDownloadMedia', {
           detail: {
