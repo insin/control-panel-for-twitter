@@ -156,6 +156,7 @@ const config = {
   downloadFilenameFormat: '{yyyy}-{mm}-{dd}-{hh}-{MM}-{ss}-{ms}-{username}-{tweet_id}',
   downloadSubfolder: '',
   downloadVideoQuality: 'highest',
+  downloadIconPosition: 'left',
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
   fastBlock: true,
@@ -4402,7 +4403,14 @@ function addDownloadButton($tweetOrContainer) {
   })
 
   $btnContainer.appendChild($btn)
-  $actionBar.appendChild($btnContainer)
+
+  if (config.downloadIconPosition === 'right') {
+    $btnContainer.classList.add('cpft_download_right')
+    $actionBar.appendChild($btnContainer)
+  } else {
+    $btnContainer.classList.add('cpft_download_left')
+    $actionBar.insertBefore($btnContainer, $actionBar.firstChild)
+  }
 }
 
 function tweakMediaModal($modal) {
@@ -4775,6 +4783,12 @@ const configureCss = (() => {
     .cpft_download_action {
       display: flex;
       align-items: center;
+    }
+    .cpft_download_action.cpft_download_left {
+      order: -1;
+    }
+    .cpft_download_action.cpft_download_right {
+      order: 99;
     }
     .cpft_download_button {
       display: flex;
@@ -8854,6 +8868,13 @@ function configChanged(changes) {
   }
   if ('downloadMedia' in changes && !changes.downloadMedia) {
     document.querySelectorAll('.cpft_download_action').forEach(el => el.remove())
+  }
+  if ('downloadIconPosition' in changes) {
+    document.querySelectorAll('.cpft_download_action').forEach(el => el.remove())
+    let tweets = document.querySelectorAll(Selectors.TWEET)
+    for (let t of tweets) addDownloadButton(t)
+    let modal = document.querySelector('[aria-modal="true"]')
+    if (modal) tweakMediaModal(modal)
   }
   // Store the current notification count if hiding notifications was enabled
   if ('hideNotifications' in changes && config.hideNotifications != 'ignore') {

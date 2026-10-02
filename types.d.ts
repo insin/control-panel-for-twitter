@@ -19,6 +19,7 @@ export type Config = {
   downloadFilenameFormat: string
   downloadSubfolder: string
   downloadVideoQuality: 'highest' | 'lowest'
+  downloadIconPosition: 'left' | 'right'
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
   fastBlock: boolean

@@ -96,6 +96,9 @@
   "downloadVideoQualityLabel": {
     "message": "Preferred video quality"
   },
+  "downloadIconPositionLabel": {
+    "message": "Download button position"
+  },
   "downloadsOptionsLabel": {
     "message": "Downloads"
   },

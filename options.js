@@ -52,6 +52,20 @@ for (let translationId of [
   'disableTweetTextFormattingLabel',
   'disabledHomeTimelineRedirectLabel',
   'disabledHomeTimelineRedirectOption_messages',
+  'downloadFilenameFormatLabel',
+  'downloadFilenameArgumentsLabel',
+  'downloadFilenameDateGroup',
+  'downloadFilenameTimeGroup',
+  'downloadFilenameTweetGroup',
+  'downloadFilenameMediaGroup',
+  'downloadFilenameExampleLabel',
+  'downloadFilenameResetLabel',
+  'downloadMediaLabel',
+  'downloadsOptionsLabel',
+  'downloadSubfolderInfo',
+  'downloadSubfolderLabel',
+  'downloadVideoQualityLabel',
+  'downloadIconPositionLabel',
   'dontUseChirpFontLabel',
   'dropdownMenuFontWeightLabel',
   'enabled',
@@ -223,6 +237,7 @@ const defaultConfig = {
   downloadFilenameFormat: '{yyyy}-{mm}-{dd}-{hh}-{MM}-{ss}-{ms}-{username}-{tweet_id}',
   downloadSubfolder: '',
   downloadVideoQuality: 'highest',
+  downloadIconPosition: 'left',
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
   fastBlock: true,
@@ -815,6 +830,9 @@ function main() {
     }
     if (storedConfig.downloadFilenameFormat) {
       storedConfig.downloadFilenameFormat = normalizeFilenameTemplate(storedConfig.downloadFilenameFormat)
+    }
+    if (!storedConfig.downloadIconPosition) {
+      storedConfig.downloadIconPosition = 'left'
     }
     optionsConfig = {...defaultConfig, ...storedConfig}
 
