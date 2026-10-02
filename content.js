@@ -11,6 +11,7 @@ const PAGE_SCRIPT_CONFIG_KEYS = [
   'debugLogTimelineStats',
   'enabled',
   'settings',
+  'subscription',
 ]
 /** @type {Set<string>} */
 const PAGE_SCRIPT_CONFIG_KEYSET = new Set(PAGE_SCRIPT_CONFIG_KEYS)

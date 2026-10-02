@@ -8845,7 +8845,7 @@ function receiveConfigFromContentScript({data: {type, config}}) {
       debugLogTimelineStats = config.debugLogTimelineStats
     }
     if (Object.hasOwn(config, 'subscription')) {
-      pro = config.subscription.active
+      pro = config.subscription?.active === true
     }
     settings = {...DEFAULT_SETTINGS, ...config.settings}
 
