@@ -3028,8 +3028,7 @@ function storeConfigChanges(changes) {
 
 //#region Global observers
 /**
- * When the "Background" setting is changed, <body>'s backgroundColor is changed
- * and the app is re-rendered, so we need to re-process the current page.
+ * Update theme hooks and colours when <body>'s backgroundColor changes.
  */
 function observeBodyBackgroundColor() {
   let lastBackgroundColor = null
@@ -3430,7 +3429,7 @@ async function observeTitle() {
       // If Twitter is opened in the background, changing the title might not
       // re-fire the title MutationObserver, preventing the initial page from
       // being processed.
-      if (!currentPage) {
+      if (observingPageChanges && !currentPage) {
         onTitleChange(title)
       }
       return
@@ -4336,12 +4335,6 @@ const configureCss = (() => {
       if (config.darkModeTheme == 'dim') {
         cssRules.push(`
           body.LightsOut {
-            /* Tailwind & shadcn overrides */
-            --background: 210 34% 13%;
-            --border: 206 16% 26%;
-            --color-background: 210 34% 13%;
-            --color-gray-50: 213 25% 16%;
-            --color-gray-100: 211 34% 24%;
             /* Theme */
             --cpft-active-bg-dark: rgb(27, 36, 47);
             --cpft-active-bg: rgb(40, 50, 61);
@@ -6656,9 +6649,9 @@ function onTitleChange(title) {
     else if (desktop && location.pathname.match(/^\/messages(?:\/home)?$/) && !currentPath.match(/^\/messages(?:\/home)?$/)) {
       log('viewing root Messages page')
     }
-    // On desktop, Chat always has an empty title
-    else if (desktop && location.pathname == '/i/chat' && currentPath != '/i/chat') {
-      log('viewing root Chat page')
+    // Chat has an empty title
+    else if (location.pathname.startsWith('/i/chat') && !isOnChatPage()) {
+      log('viewing Chat page')
     }
     else {
       log('ignoring Flash of Uninitialised Title')
@@ -6893,6 +6886,9 @@ function processCurrentPage() {
   }
   else if (isOnCommunityMembersPage()) {
     tweakCommunityMembersPage()
+  }
+  else if (isOnChatPage()) {
+    tweakChatPage()
   }
   else if (isOnDisplaySettingsPage() || isOnAccessibilitySettingsPage()) {
     tweakDisplaySettingsPage()
@@ -7148,6 +7144,72 @@ function shouldHideSharedTweet(config, page) {
     case 'ignore': return page == separatedTweetsTimelineTitle
     case 'separate': return page != separatedTweetsTimelineTitle
   }
+}
+
+async function tweakChatPage() {
+  if (config.darkModeTheme != 'dim') return
+
+  /** @type {HTMLStyleElement | null} */
+  let $style = null
+  let disconnected = false
+  let rafId = null
+
+  function styleChat() {
+    rafId = null
+    // Startup can replace the initial host before attaching its shadow root
+    $host = document.querySelector('[data-testid="xchatEmbedRoute"]')
+    let $shadowRoot = $host?.shadowRoot
+
+    // Wait for shadow attachment and Chat's initial render
+    if (!$shadowRoot || !$shadowRoot.querySelector('[data-xchat-root]')) {
+      rafId = requestAnimationFrame(styleChat)
+      return
+    }
+
+    $style = document.createElement('style')
+    $style.textContent = dedent(`
+      [data-xchat-root][data-theme="dark"] {
+        /* Chat surface colours */
+        --x-bg-primary: var(--cpft-background);
+        --x-bg-secondary: var(--cpft-raised-bg);
+        --x-bg-tertiary: var(--cpft-raised-bg);
+        --x-bg-modal: var(--cpft-raised-bg);
+        --x-bg-sheets: var(--cpft-raised-bg);
+        /* Tailwind & shadcn overrides */
+        --background: 210 34% 13%;
+        --border: 206 16% 26%;
+        --color-background: 210 34% 13%;
+        --color-gray-50: 213 25% 16%;
+        --color-gray-100: 211 34% 24%;
+      }
+    `)
+    updateTheme()
+    $shadowRoot.appendChild($style)
+  }
+
+  function updateTheme() {
+    if ($style) {
+      $style.media = $body.classList.contains('LightsOut') ? 'all' : 'not all'
+    }
+  }
+
+  observeElement($body, updateTheme, {
+    name: 'Chat theme',
+    observers: pageObservers,
+    onDisconnect() {
+      disconnected = true
+      if (rafId != null) cancelAnimationFrame(rafId)
+      $style?.remove()
+    },
+  }, {attributes: true, attributeFilter: ['class']})
+
+  let $host = await getElement('[data-testid="xchatEmbedRoute"]', {
+    name: 'initial Chat embed',
+    stopIf: () => disconnected || !isOnChatPage(),
+  })
+  if (!$host || disconnected || !isOnChatPage()) return
+
+  styleChat()
 }
 
 async function tweakHistoryPage() {
@@ -8116,7 +8178,8 @@ async function main({processImmediately = false} = {}) {
       // Start taking action on page changes
       observingPageChanges = true
 
-      if (processImmediately) {
+      // Replay the initial title after setup if its observer ran before startup
+      if (processImmediately || !currentPage) {
         processImmediately = false
         onTitleChange(document.title)
       }
