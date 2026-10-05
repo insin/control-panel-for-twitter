@@ -3043,7 +3043,7 @@ function observeBodyBackgroundColor() {
     $body.classList.toggle('LightsOut', backgroundColor == 'rgb(0, 0, 0)' || backgroundColor == 'rgb(5, 5, 5)')
 
     if (lastBackgroundColor != null) {
-      log('Background setting changed - re-processing current page')
+      log('Background setting changed')
       // This also updates body.HighContrast
       let newThemeColor = getThemeColorFromState()
       if (newThemeColor != themeColor) {
@@ -3051,9 +3051,6 @@ function observeBodyBackgroundColor() {
         themeColor = newThemeColor
         configureThemeCss()
       }
-      observePopups()
-      observeSideNavItems()
-      processCurrentPage()
     }
     lastBackgroundColor = backgroundColor
   }, {
@@ -3405,6 +3402,9 @@ async function observeReRenderBoundary() {
     log('app re-rendered')
     observePopups()
     observeSideNavItems()
+    if (observingPageChanges) {
+      processCurrentPage()
+    }
   }, {
     name: 'app re-render boundary',
     observers: globalObservers,
