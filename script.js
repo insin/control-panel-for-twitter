@@ -2730,12 +2730,14 @@ function getElement(selector, {
     }
 
     function queryElement() {
+      if (stopIf?.() === true) {
+        stop(null, 'stopIf condition met')
+        return
+      }
+
       let $element = context.querySelector(selector)
       if ($element) {
         stop($element)
-      }
-      else if (stopIf?.() === true) {
-        stop(null, 'stopIf condition met')
       }
       else {
         rafId = requestAnimationFrame(queryElement)
