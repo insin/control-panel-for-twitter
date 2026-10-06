@@ -2818,6 +2818,8 @@ function getElement(selector, {
       resolve($element)
     }
 
+    if (stopIf?.() === true) return stop(null, 'stopIf condition met (initial query)')
+
     let $element = context.querySelector(selector)
     if ($element) return stop($element, 'initial query')
 
@@ -3162,8 +3164,7 @@ function hasNewLayout() {
 
 //#region Global observers
 /**
- * When the "Background" setting is changed, <body>'s backgroundColor is changed
- * and the app is re-rendered, so we need to re-process the current page.
+ * Update theme hooks and colours when <body>'s backgroundColor changes.
  */
 function observeBodyBackgroundColor() {
   let lastBackgroundColor = null
@@ -3176,12 +3177,9 @@ function observeBodyBackgroundColor() {
     $body.classList.toggle('LightsOut', backgroundColor == 'rgb(0, 0, 0)' || backgroundColor == 'rgb(5, 5, 5)')
 
     if (lastBackgroundColor != null) {
-      log('Background setting changed - re-processing current page')
+      log('Background setting changed')
       // This also updates body.HighContrast
       updateNativePalette('background setting change')
-      observePopups()
-      observeSideNavItems()
-      processCurrentPage()
     }
     lastBackgroundColor = backgroundColor
   }, {
@@ -3539,6 +3537,10 @@ async function observeReRenderBoundary() {
     log('app re-rendered')
     observePopups()
     observeSideNavItems()
+    if (observingPageChanges) {
+      updateNativePalette('app rerender')
+      processCurrentPage()
+    }
   }, {
     name: 'app re-render boundary',
     observers: globalObservers,
@@ -3569,7 +3571,7 @@ async function observeTitle() {
       // If Twitter is opened in the background, changing the title might not
       // re-fire the title MutationObserver, preventing the initial page from
       // being processed.
-      if (!currentPage) {
+      if (observingPageChanges && !currentPage) {
         onTitleChange(title)
       }
       return
@@ -4286,12 +4288,6 @@ const configureCss = (() => {
       if (settings.darkModeTheme == 'dim') {
         cssRules.push(`
           body.LightsOut {
-            /* Tailwind & shadcn overrides */
-            --background: 210 34% 13%;
-            --border: 206 16% 26%;
-            --color-background: 210 34% 13%;
-            --color-gray-50: 213 25% 16%;
-            --color-gray-100: 211 34% 24%;
             /* Theme */
             --cpft-active-bg-dark: rgb(27, 36, 47);
             --cpft-active-bg: rgb(40, 50, 61);
@@ -5393,8 +5389,7 @@ const configureThemeCss = (() => {
           ${customTheme && `fill: ${customTheme} !important;`}
         }
         .cpft_swatch > label > input {
-          width: 0;
-          height: 0;
+          display: none;
         }
         .cpft_swatch > div {
           position: absolute;
@@ -6958,9 +6953,9 @@ function onTitleChange(title) {
     else if (desktop && location.pathname.match(/^\/messages(?:\/home)?$/) && !currentPath.match(/^\/messages(?:\/home)?$/)) {
       log('viewing root Messages page')
     }
-    // On desktop, Chat always has an empty title
-    else if (desktop && location.pathname == '/i/chat' && currentPath != '/i/chat') {
-      log('viewing root Chat page')
+    // Chat has an empty title
+    else if (location.pathname.startsWith('/i/chat') && !isOnChatPage()) {
+      log('viewing Chat page')
     }
     else {
       log('ignoring Flash of Uninitialised Title')
@@ -7225,6 +7220,9 @@ function processCurrentPage() {
   }
   else if (isOnCommunityMembersPage()) {
     tweakCommunityMembersPage()
+  }
+  else if (isOnChatPage()) {
+    tweakChatPage()
   }
   else if (isOnDisplaySettingsPage() || isOnAccessibilitySettingsPage()) {
     tweakDisplaySettingsPage()
@@ -7516,6 +7514,72 @@ function shouldMuteTweet($tweet) {
   return false
 }
 
+async function tweakChatPage() {
+  if (settings.darkModeTheme != 'dim') return
+
+  /** @type {HTMLStyleElement | null} */
+  let $style = null
+  let disconnected = false
+  let rafId = null
+
+  function styleChat() {
+    rafId = null
+    // Startup can replace the initial host before attaching its shadow root
+    $host = document.querySelector('[data-testid="xchatEmbedRoute"]')
+    let $shadowRoot = $host?.shadowRoot
+
+    // Wait for shadow attachment and Chat's initial render
+    if (!$shadowRoot || !$shadowRoot.querySelector('[data-xchat-root]')) {
+      rafId = requestAnimationFrame(styleChat)
+      return
+    }
+
+    $style = document.createElement('style')
+    $style.textContent = dedent(`
+      [data-xchat-root][data-theme="dark"] {
+        /* Chat surface colours */
+        --x-bg-primary: var(--cpft-background);
+        --x-bg-secondary: var(--cpft-raised-bg);
+        --x-bg-tertiary: var(--cpft-raised-bg);
+        --x-bg-modal: var(--cpft-raised-bg);
+        --x-bg-sheets: var(--cpft-raised-bg);
+        /* Tailwind & shadcn overrides */
+        --background: 210 34% 13%;
+        --border: 206 16% 26%;
+        --color-background: 210 34% 13%;
+        --color-gray-50: 213 25% 16%;
+        --color-gray-100: 211 34% 24%;
+      }
+    `)
+    updateTheme()
+    $shadowRoot.appendChild($style)
+  }
+
+  function updateTheme() {
+    if ($style) {
+      $style.media = $body.classList.contains('LightsOut') ? 'all' : 'not all'
+    }
+  }
+
+  observeElement($body, updateTheme, {
+    name: 'Chat theme',
+    observers: pageObservers,
+    onDisconnect() {
+      disconnected = true
+      if (rafId != null) cancelAnimationFrame(rafId)
+      $style?.remove()
+    },
+  }, {attributes: true, attributeFilter: ['class']})
+
+  let $host = await getElement('[data-testid="xchatEmbedRoute"]', {
+    name: 'initial Chat embed',
+    stopIf: () => disconnected || !isOnChatPage(),
+  })
+  if (!$host || disconnected || !isOnChatPage()) return
+
+  styleChat()
+}
+
 async function tweakHistoryPage() {
   if (settings.premiumBlueChecks != 'ignore' || settings.restoreLinkHeadlines) {
     observeTimeline(currentPage)
@@ -7663,21 +7727,6 @@ function tweakDisplaySettingsPage() {
 
   addCustomThemeSwatch()
   observeSettingsNavRerenderBoundary()
-
-  void async function() {
-    let $colorRerenderBoundary = await getElement('#react-root > div > div', {
-      name: 'Color change re-render boundary',
-    })
-    if (!$colorRerenderBoundary) return
-    observeElement($colorRerenderBoundary, () => {
-      updateNativePalette('display settings rerender')
-      addCustomThemeSwatch()
-      observeSettingsNavRerenderBoundary()
-    }, {
-      name: 'Color change re-render boundary',
-      observers: pageObservers,
-    })
-  }()
 
   if (desktop) {
     observeElement($html, () => {
@@ -8699,7 +8748,8 @@ async function main({processImmediately = false} = {}) {
       // Start taking action on page changes
       observingPageChanges = true
 
-      if (processImmediately) {
+      // Replay the initial title after setup if its observer ran before startup
+      if (processImmediately || !currentPage) {
         processImmediately = false
         onTitleChange(document.title)
       }
