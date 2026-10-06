@@ -2218,79 +2218,120 @@ const Images = {
   TWITTER_PIP_FAVICON: 'data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAALASURBVHgB7VZNchJBFP5eM9FoRWV2WiZmbmBuIJ4g5ASBRWJlRXIC4ASQVUqxCo4QTwDegJzAiYlFXM1YZWmVQD9fQ6YyAwMMGBZW8i2G6e7He1+/3wHuOih4+fWieJhiKsirA0ZbE44fXZUaWDIGBH4/L+UUUB897DMfPf5ermKJUOaRIhTiDlNEBSwZlnkwY2vCuYOEWD/xMrCoKC41utISRlcc3Or2dfnqwHbDcj9X0fbztn9DAHxOoM0xrZILSIBXtR9F0VGKbJIhz7kVi3Lr770yAz4p2iYm188/awVi6lo4Ns4mETEDLz94uTHjIxDDRaWoohhOSjwi/9mKEFjtlKsayAuRM7M2HmFJwCRVIIqLSAAJjS822v0Vaip1E1oKC6XrXtrExjnxnJ6ldoVKFj0+ujywW3FKTTzJoibmAXP+Yt9uBEsrfLbWRelJzS/0B8z4WoKa6zW/1dd83Hlnn0Z0peAQkqNHvNPZi+qIELBWUNU97LLJ4hDESMZSlNmo+b5UTEvC85m0JCipTQREE+BhdzypIwSkLvyn4LKYrEzQkSZCloiyw+xJbnygfxX+VAJrPWnBoC9ixBXdDm4XflD7YajIinFq3L0E45J7fBa3HyEg7mhgeWjPJODu223J/iMsATzhcmp04+ueXTW1OsiD2zIuVfNNLockBAyIkdaaPxHGs3YR0JTQWnGbWkFCQZX5imwCmBoX++nGpONYD1zu2S0a9IN/g3jSNcNnqsy0ww2ZdPJzCKLXWAAy1N6ay2BRAgEcGZ+aqDnaoqdbjw6dhQgYwz1S2xKOQyQ0Phy7vDPr5iH5ITY+elmtpddLFyQzZBTP3xGl3FJ95NzQJ1hiAgMSw5jnJOZvMA/EMBNKSW89kUAAp+45+g+yojRjljL9NoP4GxdLYzk334vy3lYP0HBjhsw97vHf4C/b8RLHAOr+CQAAAABJRU5ErkJggg==',
 }
 
-const THEME_BLUE = 'rgb(29, 155, 240)'
-const THEME_COLORS = new Map([
-  ['blue500', THEME_BLUE],
-  ['yellow500', 'rgb(255, 212, 0)'],
-  ['magenta500', 'rgb(249, 24, 128)'],
-  ['purple500', 'rgb(120, 86, 255)'],
-  ['orange500', 'rgb(255, 122, 0)'],
-  ['green500', 'rgb(0, 186, 124)'],
+/**
+ * @param {{primary: number[], accent: number[], hover: number[]}} channels
+ */
+function createThemePalette({primary, accent, hover}) {
+  return {
+    primary: `rgb(${primary.join(', ')})`,
+    accent: `rgb(${accent.join(', ')})`,
+    hover: `rgb(${hover.join(', ')})`,
+    primaryHex: `#${primary.map(n => n.toString(16).padStart(2, '0')).join('')}`,
+    rolesByRgb: new Map([
+      [primary.join(','), 'primary'],
+      [accent.join(','), 'accent'],
+      [hover.join(','), 'hover'],
+    ]),
+  }
+}
+
+const THEME_PALETTES = new Map([
+  ['blue500', createThemePalette({
+    primary: [29, 155, 240],
+    accent: [142, 205, 248],
+    hover: [26, 140, 216],
+  })],
+  ['yellow500', createThemePalette({
+    primary: [255, 212, 0],
+    accent: [255, 234, 128],
+    hover: [230, 191, 0],
+  })],
+  ['magenta500', createThemePalette({
+    primary: [249, 24, 128],
+    accent: [252, 140, 192],
+    hover: [224, 22, 115],
+  })],
+  ['purple500', createThemePalette({
+    primary: [120, 86, 255],
+    accent: [188, 171, 255],
+    hover: [108, 77, 230],
+  })],
+  ['orange500', createThemePalette({
+    primary: [255, 122, 0],
+    accent: [255, 189, 128],
+    hover: [230, 110, 0],
+  })],
+  ['green500', createThemePalette({
+    primary: [0, 186, 124],
+    accent: [128, 221, 190],
+    hover: [0, 167, 122],
+  })],
 ])
-const THEME_COLOR_HOVERS = new Map([
-  ['blue500', 'rgb(26, 140, 216)'],
-  ['yellow500', 'rgb(230, 191, 0)'],
-  ['magenta500', 'rgb(224, 22, 115)'],
-  ['purple500', 'rgb(108, 77, 230)'],
-  ['orange500', 'rgb(230, 110, 0)'],
-  ['green500', 'rgb(0, 167, 122)'],
+const HIGH_CONTRAST_LIGHT_PALETTES = new Map([
+  ['blue500', createThemePalette({
+    primary: [0, 56, 134],
+    accent: [128, 156, 195],
+    hover: [26, 76, 146],
+  })],
+  ['yellow500', createThemePalette({
+    primary: [111, 62, 0],
+    accent: [183, 159, 128],
+    hover: [125, 81, 26],
+  })],
+  ['magenta500', createThemePalette({
+    primary: [137, 10, 70],
+    accent: [196, 133, 163],
+    hover: [149, 35, 89],
+  })],
+  ['purple500', createThemePalette({
+    primary: [82, 52, 183],
+    accent: [169, 154, 219],
+    hover: [99, 72, 190],
+  })],
+  ['orange500', createThemePalette({
+    primary: [137, 43, 0],
+    accent: [196, 149, 128],
+    hover: [149, 64, 26],
+  })],
+  ['green500', createThemePalette({
+    primary: [0, 97, 61],
+    accent: [128, 176, 158],
+    hover: [26, 113, 80],
+  })],
 ])
-const THEME_COLOR_ACCENTS = new Map([
-  ['blue500', 'rgb(142, 205, 248)'],
-  ['yellow500', 'rgb(255, 234, 128)'],
-  ['magenta500', 'rgb(252, 140, 192)'],
-  ['purple500', 'rgb(188, 171, 255)'],
-  ['orange500', 'rgb(255, 189, 128)'],
-  ['green500', 'rgb(128, 221, 190)'],
+const HIGH_CONTRAST_DARK_PALETTES = new Map([
+  ['blue500', createThemePalette({
+    primary: [107, 201, 251],
+    accent: [181, 228, 253],
+    hover: [96, 181, 226],
+  })],
+  ['yellow500', createThemePalette({
+    primary: [255, 235, 107],
+    accent: [255, 245, 181],
+    hover: [230, 212, 96],
+  })],
+  ['magenta500', createThemePalette({
+    primary: [251, 112, 176],
+    accent: [253, 184, 216],
+    hover: [226, 101, 158],
+  })],
+  ['purple500', createThemePalette({
+    primary: [172, 151, 255],
+    accent: [214, 203, 255],
+    hover: [155, 136, 230],
+  })],
+  ['orange500', createThemePalette({
+    primary: [255, 173, 97],
+    accent: [255, 214, 176],
+    hover: [230, 156, 87],
+  })],
+  ['green500', createThemePalette({
+    primary: [97, 214, 163],
+    accent: [176, 235, 209],
+    hover: [87, 193, 147],
+  })],
 ])
-const HIGH_CONTRAST_LIGHT = new Map([
-  ['blue500', 'rgb(0, 56, 134)'],
-  ['yellow500', 'rgb(111, 62, 0)'],
-  ['magenta500', 'rgb(137, 10, 70)'],
-  ['purple500', 'rgb(82, 52, 183)'],
-  ['orange500', 'rgb(137, 43, 0)'],
-  ['green500', 'rgb(0, 97, 61)'],
-])
-const HIGH_CONTRAST_LIGHT_ACCENTS = new Map([
-  ['blue500', 'rgb(128, 156, 195)'],
-  ['yellow500', 'rgb(183, 159, 128)'],
-  ['magenta500', 'rgb(196, 133, 163)'],
-  ['purple500', 'rgb(169, 154, 219)'],
-  ['orange500', 'rgb(196, 149, 128)'],
-  ['green500', 'rgb(128, 176, 158)'],
-])
-const HIGH_CONTRAST_LIGHT_HOVERS = new Map([
-  ['blue500', 'rgb(26, 76, 146)'],
-  ['yellow500', 'rgb(125, 81, 26)'],
-  ['magenta500', 'rgb(149, 35, 89)'],
-  ['purple500', 'rgb(99, 72, 190)'],
-  ['orange500', 'rgb(149, 64, 26)'],
-  ['green500', 'rgb(26, 113, 80)'],
-])
-const HIGH_CONTRAST_DARK = new Map([
-  ['blue500', 'rgb(107, 201, 251)'],
-  ['yellow500', 'rgb(255, 235, 107)'],
-  ['magenta500', 'rgb(251, 112, 176)'],
-  ['purple500', 'rgb(172, 151, 255)'],
-  ['orange500', 'rgb(255, 173, 97)'],
-  ['green500', 'rgb(97, 214, 163)'],
-])
-const HIGH_CONTRAST_DARK_ACCENTS = new Map([
-  ['blue500', 'rgb(181, 228, 253)'],
-  ['yellow500', 'rgb(255, 245, 181)'],
-  ['magenta500', 'rgb(253, 184, 216)'],
-  ['purple500', 'rgb(214, 203, 255)'],
-  ['orange500', 'rgb(255, 214, 176)'],
-  ['green500', 'rgb(176, 235, 209)'],
-])
-const HIGH_CONTRAST_DARK_HOVERS = new Map([
-  ['blue500', 'rgb(96, 181, 226)'],
-  ['yellow500', 'rgb(230, 212, 96)'],
-  ['magenta500', 'rgb(226, 101, 158)'],
-  ['purple500', 'rgb(155, 136, 230)'],
-  ['orange500', 'rgb(230, 156, 87)'],
-  ['green500', 'rgb(87, 193, 147)'],
-])
+const THEME_BLUE = THEME_PALETTES.get('blue500').primary
 const COMPOSE_TWEET_MODAL_PAGES = new Set([
   ModalPaths.COMPOSE_DRAFTS,
   ModalPaths.COMPOSE_MEDIA,
@@ -2425,23 +2466,8 @@ let modalObservers = new Map()
 /** @type {import("./types").MutedWord[]} */
 let mutedWords = null
 
-/**
- * The current "Color" setting.
- * @type {string}
- */
-let nativeThemeColor = THEME_COLORS.get('blue500')
-
-/**
- * Accent for the current "Color" setting.
- * @type {string}
- */
-let nativeThemeColorAccent = THEME_COLOR_ACCENTS.get('blue500')
-
-/**
- * Hover for the current "Color" setting.
- * @type {string}
- */
-let nativeThemeColorHover = THEME_COLOR_HOVERS.get('blue500')
+/** Native theme colour palette. */
+let nativePalette = THEME_PALETTES.get('blue500')
 
 /**
  * `true` after the app has initialised.
@@ -2472,40 +2498,19 @@ let selectedHomeTabIndex = -1
 let separatedTweetsTimelineTitle = null
 
 /**
- * The active theme colour, native or customTheme.
- * @type {string}
+ * Custom theme CSS for rules in the React Native stylesheet.
+ * @type {Map<CSSRule, string>}
  */
-let themeColor = nativeThemeColor
+let themeRules = new Map()
+
+/** @type {CSSStyleSheet} */
+let reactNativeStylesheet = null
 
 /**
- * React Native stylesheet selectors for rules which apply theme colours.
+ * Rebuild theme overrides after a change to the native palette.
+ * @type {(reason?: string) => void}
  */
-let themeSelectors = {
-  primary: {
-    background: new Set(),
-    border: new Set(),
-    color: new Set(),
-  },
-  accent: {
-    background: new Set(),
-  },
-  hover: {
-    background: new Set(),
-  },
-  get count() {
-    return (
-      this.primary.background.size + this.primary.border.size + this.primary.color.size  +
-      this.accent.background.size + this.hover.background.size
-    )
-  },
-  reset() {
-    this.primary.background.clear()
-    this.primary.border.clear()
-    this.primary.color.clear()
-    this.accent.background.clear()
-    this.hover.background.clear()
-  }
-}
+let refreshThemeRules = () => {}
 
 /** `true` if the user has used the Following "Sort by" menu */
 let userSortedFollowing = false
@@ -2992,36 +2997,6 @@ function pathIsNot(path) {
   return () => path != currentPath
 }
 
-function colorToHex(color) {
-  if (color.startsWith('#')) {
-    let hex = color.slice(1)
-    if (hex.length === 6) return color
-    return `#${hex.split('').map(c => c.repeat(2)).join('')}`
-  }
-  if (color.startsWith('rgb')) {
-    let rgb = color.match(/\d+/g)
-    return `#${rgb?.map(n => Number(n).toString(16).padStart(2, '0')).join('')}`
-  }
-  let $el = null
-  try {
-    $el = document.createElement('div')
-    $el.style.position = 'absolute'
-    $el.style.left = '-9999px'
-    $el.style.width = '1px'
-    $el.style.height = '1px'
-    $el.style.visibility = 'hidden'
-    $el.style.color = color
-    document.documentElement.appendChild($el)
-    let computed = getComputedStyle($el).color
-    let rgb = computed.match(/\d+/g)?.slice(0, 3)
-    return `#${rgb?.map(n => Number(n).toString(16).padStart(2, '0')).join('')}`
-  } catch(e) {
-    error('Error converting', color, 'to hex', e)
-  } finally {
-    $el?.remove()
-  }
-}
-
 /**
  * @template T
  * @param {() => T} fn
@@ -3119,29 +3094,22 @@ function getStateEntities() {
   }
 }
 
-function getThemeColorFromState() {
-  let localState = getState().settings?.local
+/** @returns {ReturnType<typeof createThemePalette> | null} */
+function getThemePaletteFromState() {
+  let localState = getState()?.settings?.local
   let color = localState?.themeColor
   let highContrast = localState?.highContrastEnabled
   $body.classList.toggle('HighContrast', highContrast)
-  if (color) {
-    if (THEME_COLORS.has(color)) {
-      let colors = THEME_COLORS
-      let accents = THEME_COLOR_ACCENTS
-      let hovers = THEME_COLOR_HOVERS
-      if (highContrast) {
-        let colorScheme = getColorScheme()
-        colors = colorScheme == 'Default' ? HIGH_CONTRAST_LIGHT : HIGH_CONTRAST_DARK
-        accents = colorScheme == 'Default' ? HIGH_CONTRAST_LIGHT_ACCENTS : HIGH_CONTRAST_DARK_ACCENTS
-        hovers = colorScheme == 'Default' ? HIGH_CONTRAST_LIGHT_HOVERS : HIGH_CONTRAST_DARK_HOVERS
-      }
-      return [colors.get(color), accents.get(color), hovers.get(color)]
-    }
-    warn(color, 'not found in THEME_COLORS')
-  } else {
-    warn('could not get settings.local.themeColor from React state')
+  let palettes = THEME_PALETTES
+  if (highContrast) {
+    palettes = getColorScheme() == 'Default' ? HIGH_CONTRAST_LIGHT_PALETTES : HIGH_CONTRAST_DARK_PALETTES
   }
-  return []
+  let palette = palettes.get(color)
+  if (!palette) {
+    warn(color ? `${color} not found in theme palettes` : 'could not get themeColor from React state')
+    return null
+  }
+  return palette
 }
 
 /**
@@ -3210,15 +3178,7 @@ function observeBodyBackgroundColor() {
     if (lastBackgroundColor != null) {
       log('Background setting changed - re-processing current page')
       // This also updates body.HighContrast
-      let [newThemeColor, newAccent, newHover] = getThemeColorFromState()
-      if (newThemeColor != themeColor) {
-        log('Color setting changed')
-        nativeThemeColor = newThemeColor
-        nativeThemeColorAccent = newAccent
-        nativeThemeColorHover = newHover
-        themeColor = settings.customTheme || nativeThemeColor
-        configureThemeCss()
-      }
+      updateNativePalette('background setting change')
       observePopups()
       observeSideNavItems()
       processCurrentPage()
@@ -3631,80 +3591,101 @@ function observeReactNativeStylesheet() {
     return
   }
 
-  let insertRule = $style.sheet.insertRule
+  let name = 'React Native stylesheet (for rules being added)'
+  globalObservers.get(name)?.disconnect()
+  let sheet = reactNativeStylesheet = $style.sheet
+  let insertRule = sheet.insertRule
+  /** @type {Set<CSSRule>} */
+  let pendingRules = new Set()
   let timeout
   let cleanup = {
-    name: 'React Native stylesheet (for rules being added)',
+    name,
     disconnect() {
       clearTimeout(timeout)
-      $style.sheet.insertRule = insertRule
+      sheet.insertRule = insertRule
+      pendingRules.clear()
+      themeRules.clear()
+      reactNativeStylesheet = null
+      refreshThemeRules = () => {}
       globalObservers.delete(cleanup.name)
-      log(`disconnected ${cleanup.name} observer`)
+      log(`customTheme: disconnected ${cleanup.name} observer`)
     }
   }
-  globalObservers.get(cleanup.name)?.disconnect()
   globalObservers.set(cleanup.name, cleanup)
 
-  // @ts-ignore
-  $style.sheet.insertRule = function(...args) {
+  sheet.insertRule = function(rule, index) {
+    let insertedIndex = insertRule.call(this, rule, index)
+    pendingRules.add(this.cssRules[insertedIndex])
     clearTimeout(timeout)
     timeout = setTimeout(checkRules, 100)
-    insertRule.apply(this, args)
+    return insertedIndex
+  }
+
+  /**
+   * @param {CSSRule} rule
+   * @returns `true` if we found native theme colours in the rule.
+   */
+  function checkRule(rule) {
+    if (!(rule instanceof CSSStyleRule)) return false
+
+    if (fontFamilyRule == null &&
+        rule.style.fontFamily?.includes('TwitterChirp') &&
+        !rule.style.fontFamily.includes('TwitterChirpExtendedHeavy')) {
+      fontFamilyRule = rule
+      log('found Chirp fontFamily CSS rule in React Native stylesheet', fontFamilyRule)
+      configureFont()
+    }
+
+    if (filterBlurRule == null && rule.style.filter?.includes('blur(30px)')) {
+      filterBlurRule = rule
+      log('found filter: blur(30px) rule in React Native stylesheet', filterBlurRule)
+      configureDynamicCss()
+    }
+
+    let cssRules = []
+    for (let property of rule.style) {
+      let original = rule.style.getPropertyValue(property)
+      let themed = original.replace(/rgba?\(([\d.,\s]+)\)/g, (color, channels) => {
+        let [r, g, b, alpha = '1'] = channels.split(',').map(part => part.trim())
+        let role = nativePalette.rolesByRgb.get([r, g, b].join(','))
+        if (!role) return color
+        let variable = `var(--cpft-theme-${role})`
+        return Number(alpha) == 1 ? variable : `rgb(from ${variable} r g b / ${alpha})`
+      })
+      if (themed == original) continue
+      let selector = property == 'color'
+        ? `${rule.selectorText}:where(:not([data-testid="icon-verified"]))`
+        : rule.selectorText
+      cssRules.push(`${selector} { ${property}: ${themed} !important; }`)
+    }
+
+    if (cssRules.length == 0) return false
+    themeRules.set(rule, cssRules.join('\n'))
+    return true
   }
 
   function checkRules() {
-    let lastThemeSelectorsCount = themeSelectors.count
-    for (let rule of $style.sheet.cssRules) {
-      if (!(rule instanceof CSSStyleRule)) continue
-
-      if (fontFamilyRule == null &&
-          rule.style.fontFamily?.includes('TwitterChirp') &&
-          !rule.style.fontFamily.includes('TwitterChirpExtendedHeavy')) {
-        fontFamilyRule = rule
-        log('found Chirp fontFamily CSS rule in React Native stylesheet', fontFamilyRule)
-        configureFont()
-      }
-
-      if (filterBlurRule == null && rule.style.filter?.includes('blur(30px)')) {
-        filterBlurRule = rule
-        log('found filter: blur(30px) rule in React Native stylesheet', filterBlurRule)
-        configureDynamicCss()
-      }
-
-      if (pro) {
-        if (rule.style.backgroundColor?.includes(nativeThemeColor)) {
-          themeSelectors.primary.background.add(rule.selectorText)
-        }
-        else if (rule.style.borderColor?.includes(nativeThemeColor) ||
-                 rule.style.borderRightColor?.includes(nativeThemeColor)) {
-          themeSelectors.primary.border.add(rule.selectorText)
-        }
-        else if (rule.style.color?.includes(nativeThemeColor)) {
-          themeSelectors.primary.color.add(rule.selectorText)
-        }
-        else if (rule.style.backgroundColor?.includes(nativeThemeColorAccent)) {
-          themeSelectors.accent.background.add(rule.selectorText)
-        }
-        else if (rule.style.backgroundColor?.includes(nativeThemeColorHover)) {
-          themeSelectors.hover.background.add(rule.selectorText)
-        }
-      }
+    let newCount = 0
+    for (let rule of pendingRules) {
+      if (checkRule(rule)) newCount++
     }
-    if (pro) {
-      if (lastThemeSelectorsCount != themeSelectors.count) {
-        let newCount = themeSelectors.count - lastThemeSelectorsCount
-        log(`customTheme: found ${newCount} new selector${s(newCount)} to override`)
-        if (settings.customTheme) {
-          configureThemeCss()
-        }
-      }
-    }
-    else if (fontFamilyRule != null && filterBlurRule != null) {
-      cleanup.disconnect()
+    pendingRules.clear()
+    if (newCount > 0) {
+      log(`customTheme: found ${newCount} new rule${s(newCount)} to override`, {total: themeRules.size})
+      if (settings.customTheme) configureThemeCss()
     }
   }
 
-  checkRules()
+  refreshThemeRules = (reason = 'manual') => {
+    clearTimeout(timeout)
+    pendingRules.clear()
+    themeRules.clear()
+    for (let rule of sheet.cssRules) checkRule(rule)
+    log('customTheme: rebuilt theme overrides', {
+      reason, scanned: sheet.cssRules.length, themeRules: themeRules.size,
+    })
+  }
+  refreshThemeRules('initial scan')
 }
 
 const observeThemeMeta = (() => {
@@ -4730,7 +4711,7 @@ const configureCss = (() => {
         cssRules.push(`
           /* Add theme colour back to Tweet editor toolbar buttons */
           [data-testid="toolBar"] [role="tablist"] > [role="presentation"] svg {
-            fill: var(--cpft-theme);
+            fill: var(--cpft-theme-primary);
           }
         `)
       }
@@ -4805,7 +4786,7 @@ const configureCss = (() => {
             button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label],
             /* Restore theme colour in account switcher notifications pips */
             [data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live] {
-              background-color: var(--cpft-theme);
+              background-color: var(--cpft-theme-primary);
             }
           `)
         }
@@ -5086,7 +5067,7 @@ const configureCss = (() => {
             button[data-testid="DashButton_ProfileIcon_Link"] div[aria-label],
             /* Restore theme colour in account switcher notifications pips */
             [role="dialog"] [data-testid^="UserAvatar-Container"] div[dir] {
-              background-color: var(--cpft-theme);
+              background-color: var(--cpft-theme-primary);
             }
           `)
         }
@@ -5371,17 +5352,6 @@ function configureHideMetricsCss(cssRules, hideCssSelectors) {
 const configureThemeCss = (() => {
   let $style
 
-  /**
-   * @param {Set<any>} selectors
-   * @param {{not?: string}} [options]
-   */
-  function joinThemeSelectors(selectors, {not} = {}) {
-    if (selectors.size == 0) return ''
-    return Array.from(selectors, (selector) =>
-      not ? `${selector}:not(${not})` : selector
-    ).join(', ') + ','
-  }
-
   return function configureThemeCss() {
     if (!enabled) {
       log('removing theme stylesheet')
@@ -5390,13 +5360,14 @@ const configureThemeCss = (() => {
       return
     }
 
+    let customTheme = pro ? settings.customTheme : ''
     let cssRules = []
 
     cssRules.push(`
       body {
-        --cpft-theme: ${themeColor};
-        --cpft-theme-accent: ${nativeThemeColorAccent};
-        --cpft-theme-hover: ${nativeThemeColorHover};
+        --cpft-theme-primary: ${customTheme || nativePalette.primary};
+        --cpft-theme-accent: ${nativePalette.accent};
+        --cpft-theme-hover: ${nativePalette.hover};
       }
     `)
     if (pro) {
@@ -5419,7 +5390,7 @@ const configureThemeCss = (() => {
           height: 45px;
         }
         .cpft_swatch > label > svg circle {
-          ${settings.customTheme && `fill: ${settings.customTheme} !important;`}
+          ${customTheme && `fill: ${customTheme} !important;`}
         }
         .cpft_swatch > label > input {
           width: 0;
@@ -5441,66 +5412,57 @@ const configureThemeCss = (() => {
         }
       `)
     }
-    if (settings.customTheme) {
+    if (customTheme) {
       cssRules.push(`
         body {
-          --cpft-theme-accent: color-mix(in srgb, var(--cpft-theme) 60%, white);
-          --cpft-theme-hover: color-mix(in srgb, var(--cpft-theme) 80%, black);
+          --cpft-theme-accent: color-mix(in srgb, var(--cpft-theme-primary) 60%, white);
+          --cpft-theme-hover: color-mix(in srgb, var(--cpft-theme-primary) 80%, black);
         }
         body.HighContrast.Default {
-          --cpft-theme-accent: color-mix(in srgb, var(--cpft-theme) 30%, white);
-          --cpft-theme-hover: color-mix(in srgb, var(--cpft-theme) 75%, black);
+          --cpft-theme-accent: color-mix(in srgb, var(--cpft-theme-primary) 30%, white);
+          --cpft-theme-hover: color-mix(in srgb, var(--cpft-theme-primary) 75%, black);
         }
         body.HighContrast.LightsOut {
-          --cpft-theme-accent: color-mix(in srgb, var(--cpft-theme) 80%, black);
-          --cpft-theme-hover: color-mix(in srgb, var(--cpft-theme) 80%, black);
+          --cpft-theme-accent: color-mix(in srgb, var(--cpft-theme-primary) 80%, black);
+          --cpft-theme-hover: color-mix(in srgb, var(--cpft-theme-primary) 80%, black);
         }
         /* Hide the active native swatch tick */
         .DisplaySwatches > div > div {
           display: none;
         }
         /* Apply custom theme */
-        ${joinThemeSelectors(themeSelectors.primary.background)}
-        [style*="background-color: ${nativeThemeColor}"]:not(.UseNativeTheme) {
-          background-color: var(--cpft-theme) !important;
+        [style*="background-color: ${nativePalette.primary}"]:not(.UseNativeTheme) {
+          background-color: var(--cpft-theme-primary) !important;
         }
-        ${joinThemeSelectors(themeSelectors.hover.background)}
-        /* Remaining themed items (New Posts, Premium upsell in Home, buttons in Settings) */
-        .r-1iwjfv5,
-        [style*="background-color: ${nativeThemeColorHover}"]:not(.UseNativeTheme) {
+        [style*="background-color: ${nativePalette.hover}"]:not(.UseNativeTheme) {
           background-color: var(--cpft-theme-hover) !important;
         }
-        ${joinThemeSelectors(themeSelectors.primary.border)}
-        [style*="border-color: ${nativeThemeColor}"]:not(.UseNativeTheme) {
-          border-color: var(--cpft-theme) !important;
+        [style*="border-color: ${nativePalette.primary}"]:not(.UseNativeTheme) {
+          border-color: var(--cpft-theme-primary) !important;
         }
-        ${joinThemeSelectors(themeSelectors.primary.color, {not: '[data-testid="icon-verified"]'})}
-        [style*="color: ${nativeThemeColor}"]:not(.UseNativeTheme) {
-          color: var(--cpft-theme) !important;
+        [style*="color: ${nativePalette.primary}"]:not(.UseNativeTheme) {
+          color: var(--cpft-theme-primary) !important;
         }
         /* Spinner */
-        [style*="stroke: ${nativeThemeColor}"] {
-          stroke: var(--cpft-theme) !important;
+        [style*="stroke: ${nativePalette.primary}"] {
+          stroke: var(--cpft-theme-primary) !important;
         }
         /* Slider track */
         div[style="height: 20px; width: 40px;"] > div:first-child,
         /* Settings font size slider track */
-        div[style="background-color: ${nativeThemeColorAccent};"] {
+        div[style="background-color: ${nativePalette.accent};"] {
           background-color: var(--cpft-theme-accent) !important;
-        }
-        /* Active radio hover ring - this keeps changing - look for rgba(twitter theme, 0.1) */
-        .r-15azkrj,
-        /* Active checkbox hover ring - this keeps changing */
-        .r-1fdfq3,
-        /* Icon button hover ring */
-        .r-1peqgm7 {
-          background-color: rgb(from var(--cpft-theme) r g b / .1) !important;
         }
         /* Tweet length circle in editor */
         [data-testid="countdown-circle"] circle[stroke-dasharray] {
-          stroke: var(--cpft-theme) !important;
+          stroke: var(--cpft-theme-primary) !important;
         }
       `)
+      // Preserve rule order when applying theme overrides
+      for (let rule of reactNativeStylesheet?.cssRules || []) {
+        let override = themeRules.get(rule)
+        if (override) cssRules.push(override)
+      }
     }
 
     if (debug) {
@@ -5526,7 +5488,7 @@ const configureThemeCss = (() => {
     if (shouldShowSeparatedTweetsTab()) {
       cssRules.push(`
         body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div > div {
-          background-color: var(--cpft-theme) !important;
+          background-color: var(--cpft-theme-primary) !important;
         }
       `)
     }
@@ -5562,7 +5524,7 @@ const configureThemeCss = (() => {
           [data-testid="SideNav_NewTweet_Button"],
           [data-testid="tweetButtonInline"],
           [data-testid="tweetButton"] {
-            background-color: var(--cpft-theme) !important;
+            background-color: var(--cpft-theme-primary) !important;
           }
           [data-testid="SideNav_NewTweet_Button"]:hover,
           [data-testid="tweetButtonInline"]:hover:not(:disabled),
@@ -5629,20 +5591,20 @@ const configureThemeCss = (() => {
         cssRules.push(`
           /* Following button */
           [role="button"][data-testid$="-unfollow"]:not(:hover) {
-            background-color: var(--cpft-theme) !important;
+            background-color: var(--cpft-theme-primary) !important;
           }
           [role="button"][data-testid$="-unfollow"]:not(:hover) > :is(div, span) {
             color: rgb(255, 255, 255) !important;
           }
           /* Follow button */
           [role="button"][data-testid$="-follow"] {
-            cpft-border: var(--cpft-theme) !important;
+            cpft-border: var(--cpft-theme-primary) !important;
           }
           [role="button"][data-testid$="-follow"] > :is(div, span) {
-            color: var(--cpft-theme) !important;
+            color: var(--cpft-theme-primary) !important;
           }
           [role="button"][data-testid$="-follow"]:hover {
-            background-color: var(--cpft-theme) !important;
+            background-color: var(--cpft-theme-primary) !important;
           }
           [role="button"][data-testid$="-follow"]:hover > :is(div, span) {
             color: rgb(255, 255, 255) !important;
@@ -5656,7 +5618,7 @@ const configureThemeCss = (() => {
             background: transparent !important;
           }
           body.MediaViewer [role="button"][data-testid$="follow"] > div {
-            color: var(--cpft-theme) !important;
+            color: var(--cpft-theme-primary) !important;
           }
         `)
       }
@@ -7615,7 +7577,6 @@ function tweakDisplaySettingsPage() {
     if (!$swatchGroup.hasAttribute('cpft-swatches-tagged')) {
       function clearCustomTheme() {
         if (settings.customTheme) {
-          themeColor = nativeThemeColor
           settings.customTheme = ''
           configureThemeCss()
           storeConfigChanges({settings: {customTheme: ''}})
@@ -7644,6 +7605,10 @@ function tweakDisplaySettingsPage() {
     if (!$h2) return
     let $customThemeSwatch = $h2.querySelector('.cpft_swatch')
     if ($customThemeSwatch) return
+    let swatchColor = settings.customTheme || nativePalette.primaryHex
+    if (swatchColor.length == 4) {
+      swatchColor = `#${swatchColor.slice(1).split('').map(c => c.repeat(2)).join('')}`
+    }
     $h2.insertAdjacentHTML('beforeend', `<div class="cpft_swatch" hidden>
       <label>
         <svg viewBox="0 0 24 24">
@@ -7659,7 +7624,7 @@ function tweakDisplaySettingsPage() {
           </defs>
           <circle cx="12" cy="12" r="10.3" fill="url(#rainbow)">
         </svg>
-        <input type="color" value="${colorToHex(themeColor)}">
+        <input type="color" value="${swatchColor}">
       </label>
       <div>
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -7674,7 +7639,7 @@ function tweakDisplaySettingsPage() {
     let $color = $customThemeSwatch.querySelector('input')
     $customThemeSwatch.addEventListener('click', () => $color.click())
     $color.addEventListener('input', () => {
-      themeColor = settings.customTheme = $color.value
+      settings.customTheme = $color.value
       configureThemeCss()
       storeConfigChanges({settings: {customTheme: $color.value}})
     })
@@ -7705,15 +7670,7 @@ function tweakDisplaySettingsPage() {
     })
     if (!$colorRerenderBoundary) return
     observeElement($colorRerenderBoundary, () => {
-      let [newThemeColor, newAccent, newHover] = getThemeColorFromState()
-      if (newThemeColor == themeColor) return
-
-      log('Color setting changed')
-      nativeThemeColor = newThemeColor
-      nativeThemeColorAccent = newAccent
-      nativeThemeColorHover = newHover
-      themeColor = settings.customTheme || nativeThemeColor
-      configureThemeCss()
+      updateNativePalette('display settings rerender')
       addCustomThemeSwatch()
       observeSettingsNavRerenderBoundary()
     }, {
@@ -8528,6 +8485,16 @@ function tweakTweetIcon() {
   }
 }
 
+/** @param {string} reason */
+function updateNativePalette(reason) {
+  let palette = getThemePaletteFromState()
+  if (!palette || palette == nativePalette) return
+  log('customTheme: native palette changed', {primary: palette.primary})
+  nativePalette = palette
+  refreshThemeRules(reason)
+  configureThemeCss()
+}
+
 //#region Safari icon patchers
 // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so we
 // have to manually patch paths for it.
@@ -8705,13 +8672,7 @@ async function main({processImmediately = false} = {}) {
       log('initial config', {enabled, config: settings, lang, version})
 
       // One-time setup
-      let [initialThemeColor, initialAccent, initialHover] = getThemeColorFromState()
-      if (initialThemeColor) {
-        nativeThemeColor = initialThemeColor
-        nativeThemeColorAccent = initialAccent
-        nativeThemeColorHover = initialHover
-        themeColor = settings.customTheme || nativeThemeColor
-      }
+      nativePalette = getThemePaletteFromState() || nativePalette
       observeBodyBackgroundColor()
       observeReRenderBoundary()
       observeReactNativeStylesheet()
@@ -8774,10 +8735,6 @@ async function main({processImmediately = false} = {}) {
  * @param {Set<import("./types").UserSettingsKey>} changedSettings
  */
 function onSettingsChanged(changedSettings = new Set()) {
-  if (changedSettings.has('customTheme')) {
-    themeColor = settings.customTheme || nativeThemeColor
-  }
-
   if (changedSettings.has('mutedWords') ||
       changedSettings.has('mutedWordsError')) {
     prepareMutedWords()
@@ -8899,9 +8856,9 @@ function receiveConfigFromContentScript({data: {type, config}}) {
     return
   }
 
-    if (Object.hasOwn(config, 'subscription')) {
-      pro = config.subscription.active
-    }
+  if (Object.hasOwn(config, 'subscription')) {
+    pro = config.subscription?.active === true
+  }
 
   /** @type {Set<import("./types").UserSettingsKey>} */
   let changedSettings
