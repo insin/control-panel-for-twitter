@@ -2783,6 +2783,8 @@ function getNotificationCount() {
   return state.badgeCount.unreadDMCount + state.badgeCount.unreadNTabCount;
 }
 
+const TWITTER_API_AUTHORIZATION = 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA'
+
 let accountLocationCache = new Map()
 
 async function getAccountLocation(screenName) {
@@ -2793,7 +2795,7 @@ async function getAccountLocation(screenName) {
       {
         credentials: 'include',
         headers: {
-          'authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA',
+          'authorization': TWITTER_API_AUTHORIZATION,
           'content-type': 'application/json',
           'x-twitter-active-user': 'yes',
           'x-twitter-auth-type': 'OAuth2Session',
@@ -7337,13 +7339,53 @@ function tweakDisplaySettingsPage() {
   }
 }
 
-function restoreTweetSource($permalinkBar, tweetInfo) {
-  if (!config.restoreTweetSource) return
-  if ($permalinkBar.hasAttribute('cpft-tweet-source-restored')) return
-  if (!tweetInfo?.source_name) {
-    warn('source_name not available in focused tweet info', tweetInfo)
-    return
+// Cache promises, including failed requests, to avoid repeated API calls per page.
+/** @type {Map<string, Promise<string>>} */
+const tweetSourceCache = new Map()
+
+/** @returns {Promise<string>} */
+async function requestTweetSource(tweetId) {
+  let csrfToken = document.cookie.split(';').map(cookie => cookie.trim())
+    .find(cookie => cookie.startsWith('ct0='))?.slice(4)
+  let controller = new AbortController()
+  let timeout = setTimeout(() => controller.abort(), 10000)
+  try {
+    let response = await fetch(`/i/api/2/timeline/conversation/${tweetId}.json?tweet_mode=extended&count=1`, {
+      credentials: 'include',
+      headers: {
+        authorization: TWITTER_API_AUTHORIZATION,
+        'x-twitter-auth-type': 'OAuth2Session',
+        ...(csrfToken && {'x-csrf-token': csrfToken}),
+      },
+      signal: controller.signal,
+    })
+    if (!response.ok) return ''
+    let body = await response.json()
+    let source = body?.globalObjects?.tweets?.[tweetId]?.source
+    if (typeof source != 'string') return ''
+    // Parse in an inert template; only plain text is ever inserted into the page.
+    let template = document.createElement('template')
+    template.innerHTML = source
+    return template.content.querySelector('a')?.textContent?.trim() || ''
+  } catch {
+    return ''
+  } finally {
+    clearTimeout(timeout)
   }
+}
+
+async function restoreTweetSource($permalinkBar, tweetInfo, tweetId) {
+  if (!config.enabled || !config.restoreTweetSource || !/^\d+$/.test(tweetId)) return
+  if ($permalinkBar.hasAttribute('cpft-tweet-source-restored')) return
+  if (!tweetSourceCache.has(tweetId)) {
+    tweetSourceCache.set(tweetId, requestTweetSource(tweetId))
+  }
+  let sourceName = await tweetSourceCache.get(tweetId)
+  if (!config.enabled || !config.restoreTweetSource || !$permalinkBar.isConnected) return
+  if (location.pathname.match(URL_TWEET_BASE_RE)?.[2] != tweetId) return
+  if ($permalinkBar.hasAttribute('cpft-tweet-source-restored')) return
+  sourceName ||= getTweetInfo(tweetId)?.source_name || tweetInfo?.source_name
+  if (!sourceName) return
   let $separator = document.createElement('span')
   $separator.className = 'TweetSource cpft_separator cpft_text'
   $separator.setAttribute('aria-hidden', 'true')
@@ -7352,7 +7394,7 @@ function restoreTweetSource($permalinkBar, tweetInfo) {
   let $sourceLabel = document.createElement('span')
   $sourceLabel.className = 'TweetSource cpft_text'
   $sourceLabel.setAttribute('hidden', '')
-  $sourceLabel.textContent = tweetInfo.source_name
+  $sourceLabel.textContent = sourceName
   $permalinkBar.append($separator, $sourceLabel)
   $permalinkBar.setAttribute('cpft-tweet-source-restored', '')
 }
@@ -7375,7 +7417,7 @@ async function tweakFocusedTweet($focusedTweet, options) {
   if ($permalinkBar) {
     $permalinkBar.children[1]?.classList.toggle('Views', config.hideViews)
     $permalinkBar.children[2]?.classList.toggle('Views', config.hideViews)
-    restoreTweetSource($permalinkBar, tweetInfo)
+    restoreTweetSource($permalinkBar, tweetInfo, tweetId)
     addAccountLocationToFocusedTweet($permalinkBar, screenName)
   } else {
     warn('focused tweet permalink bar not found')
