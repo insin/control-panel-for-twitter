@@ -13,6 +13,7 @@ export type Config = {
   defaultToLatestSearch: boolean
   disableHomeTimeline: boolean
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
+  disableNflFeatures: boolean
   disableTweetTextFormatting: boolean
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
@@ -21,7 +22,6 @@ export type Config = {
   hideAdsNav: boolean
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
-  hideBookmarksNav: boolean
   hideBusinessNav: boolean
   hideChatNav: boolean
   hideCommunitiesNav: boolean
@@ -34,11 +34,14 @@ export type Config = {
   hideForYouTimeline: boolean
   hideGrokNav: boolean
   hideGrokTweets: boolean
+  hideHistoryNav: boolean
   hideInlinePrompts: boolean
   hideJobsNav: boolean
   hideLikeMetrics: boolean
   hideListsNav: boolean
+  hideManageTimelines: boolean
   hideMetrics: boolean
+  hideMoreFromThisAuthor: boolean
   // XXX This now controls hiding all "Discover" suggestions
   hideMoreTweets: boolean
   hideNotificationLikes: boolean
@@ -69,8 +72,6 @@ export type Config = {
   mutableQuoteTweets: boolean
   mutedQuotes: QuotedTweet[]
   quoteTweets: SharedTweetsConfig
-  redirectChatNav: boolean
-  redirectToTwitter: boolean
   reducedInteractionMode: boolean
   // XXX This now controls all replacement of X brand changes
   replaceLogo: boolean
@@ -79,6 +80,9 @@ export type Config = {
   restoreOtherInteractionLinks: boolean
   restoreTweetSource: boolean
   retweets: SharedTweetsConfig
+  revertMediaCarousel: boolean
+  revertProfileTabs: boolean
+  revertTwemoji: boolean
   showBlueReplyFollowersCount: boolean
   showBlueReplyFollowersCountAmount: string
   showBookmarkButtonUnderFocusedTweets: boolean
@@ -206,6 +210,7 @@ export type TimelineItemType =
   | 'GOVERNMENT_REPLY'
   | 'HEADING'
   | 'INLINE_PROMPT'
+  | 'SEE_MORE'
   | 'SHOW_MORE'
   | 'SUBSEQUENT_ITEM'
   | 'UNAVAILABLE'

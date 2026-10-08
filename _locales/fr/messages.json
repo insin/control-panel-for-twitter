@@ -47,6 +47,9 @@
   "disableHomeTimelineLabel": {
     "message": "Désactiver le fil Accueil"
   },
+  "disableNflFeaturesLabel": {
+    "message": "Désactiver les fonctionnalités de la NFL"
+  },
   "disableTweetTextFormattingLabel": {
     "message": "Désactiver le texte en gras et en italique dans les tweets"
   },
@@ -122,9 +125,6 @@
   "hideBookmarkMetricsLabel": {
     "message": "Signets"
   },
-  "hideBookmarksNavLabel": {
-    "message": "Signets"
-  },
   "hideBusinessNavLabel": {
     "message": "Entreprise"
   },
@@ -173,6 +173,9 @@
   "hideGrokTweetsLabel": {
     "message": "Masquer les tweets de Grok"
   },
+  "hideHistoryNavLabel": {
+    "message": "Historique"
+  },
   "hideInlinePrompts": {
     "message": "Masquer les invites en ligne dans la fil"
   },
@@ -191,14 +194,17 @@
   "hideLiveBroadcastsLabel": {
     "message": "Masquer les diffusions en direct"
   },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "Messages"
+  "hideManageTimelinesLabel": {
+    "message": "Masquer le bouton \"Gérer les fils\""
   },
   "hideMessagesDrawerLabel": {
     "message": "Tiroir de chat"
   },
   "hideMetricsLabel": {
     "message": "Masquer les métriques"
+  },
+  "hideMoreFromThisAuthorLabel": {
+    "message": "Masquer \"Plus de cet auteur\""
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "Masquer les éléments de menu que vous n'utilisez pas"
@@ -377,12 +383,6 @@
   "quoteTweetsLabel": {
     "message": "Tweets de citation"
   },
-  "redirectChatNavLabel": {
-    "message": "Rediriger l'élément Chat vers Messages"
-  },
-  "redirectToTwitterLabel": {
-    "message": "Rediriger vers twitter.com"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "Supprimer le contenu algorithmique"
   },
@@ -412,6 +412,15 @@
   },
   "retweetsLabel": {
     "message": "Retweets"
+  },
+  "revertMediaCarouselLabel": {
+    "message": "Rétablir le carrousel de médias"
+  },
+  "revertProfileTabsLabel": {
+    "message": "Annuler les modifications des onglets de profil"
+  },
+  "revertTwemojiLabel": {
+    "message": "Revenir à Twemoji"
   },
   "saveAndApplyButton": {
     "message": "Enregistrer et appliquer"

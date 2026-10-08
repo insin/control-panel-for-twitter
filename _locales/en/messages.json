@@ -48,6 +48,9 @@
   "disableHomeTimelineLabel": {
     "message": "Disable the home timeline"
   },
+  "disableNflFeaturesLabel": {
+    "message": "Disable NFL features"
+  },
   "disableTweetTextFormattingLabel": {
     "message": "Disable bold and italic text in tweets"
   },
@@ -125,9 +128,6 @@
   "hideBookmarkMetricsLabel": {
     "message": "Bookmarks"
   },
-  "hideBookmarksNavLabel": {
-    "message": "Bookmarks"
-  },
   "hideBusinessNavLabel": {
     "message": "Business"
   },
@@ -176,6 +176,9 @@
   "hideGrokTweetsLabel": {
     "message": "Hide Grok tweets"
   },
+  "hideHistoryNavLabel": {
+    "message": "History"
+  },
   "hideInlinePrompts": {
     "message": "Hide inline prompts in the timeline"
   },
@@ -194,14 +197,17 @@
   "hideLiveBroadcastsLabel": {
     "message": "Hide Live broadcasts"
   },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "Messages"
+  "hideManageTimelinesLabel": {
+    "message": "Hide \"Manage timelines\" button"
   },
   "hideMessagesDrawerLabel": {
     "message": "Chat drawer"
   },
   "hideMetricsLabel": {
     "message": "Hide metrics"
+  },
+  "hideMoreFromThisAuthorLabel": {
+    "message": "Hide \"More From This Author\""
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "Hide \"More\" menu items you don't use"
@@ -383,12 +389,6 @@
   "quoteTweetsLabel": {
     "message": "Quote Tweets"
   },
-  "redirectChatNavLabel": {
-    "message": "Redirect Chat nav item to Messages"
-  },
-  "redirectToTwitterLabel": {
-    "message": "Redirect to twitter.com"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "Remove algorithmic content"
   },
@@ -418,6 +418,15 @@
   },
   "retweetsLabel": {
     "message": "Retweets"
+  },
+  "revertMediaCarouselLabel": {
+    "message": "Revert media carousel"
+  },
+  "revertProfileTabsLabel": {
+    "message": "Revert profile tab changes"
+  },
+  "revertTwemojiLabel": {
+    "message": "Revert to Twemoji"
   },
   "saveAndApplyButton": {
     "message": "Save and apply"

@@ -47,6 +47,9 @@
   "disableHomeTimelineLabel": {
     "message": "Disabilita la Home"
   },
+  "disableNflFeaturesLabel": {
+    "message": "Disattiva le funzionalità della NFL"
+  },
   "disableTweetTextFormattingLabel": {
     "message": "Disabilita il testo in grassetto e corsivo nei tweet"
   },
@@ -122,9 +125,6 @@
   "hideBookmarkMetricsLabel": {
     "message": "Segnalibri"
   },
-  "hideBookmarksNavLabel": {
-    "message": "segnalibri"
-  },
   "hideBusinessNavLabel": {
     "message": "Per le attività"
   },
@@ -173,6 +173,9 @@
   "hideGrokTweetsLabel": {
     "message": "Nascondi i tweet di Grok"
   },
+  "hideHistoryNavLabel": {
+    "message": "Storia"
+  },
   "hideInlinePrompts": {
     "message": "Nascondi i suggerimenti nella timeline"
   },
@@ -191,14 +194,17 @@
   "hideLiveBroadcastsLabel": {
     "message": "Nascondi le trasmissioni in diretta"
   },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "Messaggi"
+  "hideManageTimelinesLabel": {
+    "message": "Nascondi il pulsante \"Gestisci cronologie\""
   },
   "hideMessagesDrawerLabel": {
     "message": "Cassetto chat"
   },
   "hideMetricsLabel": {
     "message": "Nascondi statistiche"
+  },
+  "hideMoreFromThisAuthorLabel": {
+    "message": "Nascondi \"Altro di questo autore\""
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "Nascondi elementi del menu \"Altro\" che non usi"
@@ -377,12 +383,6 @@
   "quoteTweetsLabel": {
     "message": "Tweet di citazione"
   },
-  "redirectChatNavLabel": {
-    "message": "Reindirizza la voce Chat a Messaggi"
-  },
-  "redirectToTwitterLabel": {
-    "message": "Reindirizza a twitter.com"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "Rimuovi contenuti algoritmici"
   },
@@ -412,6 +412,15 @@
   },
   "retweetsLabel": {
     "message": "Retweet"
+  },
+  "revertMediaCarouselLabel": {
+    "message": "Ripristina il carosello multimediale"
+  },
+  "revertProfileTabsLabel": {
+    "message": "Annulla le modifiche alle schede del profilo"
+  },
+  "revertTwemojiLabel": {
+    "message": "Torna a Twemoji"
   },
   "saveAndApplyButton": {
     "message": "Salva e applica"

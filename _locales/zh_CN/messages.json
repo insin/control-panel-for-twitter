@@ -47,6 +47,9 @@
   "disableHomeTimelineLabel": {
     "message": "禁用主页时间线"
   },
+  "disableNflFeaturesLabel": {
+    "message": "禁用 NFL 功能"
+  },
   "disableTweetTextFormattingLabel": {
     "message": "禁用推文中的加粗和斜体文本"
   },
@@ -122,9 +125,6 @@
   "hideBookmarkMetricsLabel": {
     "message": "书签"
   },
-  "hideBookmarksNavLabel": {
-    "message": "书签"
-  },
   "hideBusinessNavLabel": {
     "message": "商业"
   },
@@ -173,6 +173,9 @@
   "hideGrokTweetsLabel": {
     "message": "隐藏 Grok 推文"
   },
+  "hideHistoryNavLabel": {
+    "message": "历史"
+  },
   "hideInlinePrompts": {
     "message": "隐藏时间线中的内联提示"
   },
@@ -191,14 +194,17 @@
   "hideLiveBroadcastsLabel": {
     "message": "隐藏直播"
   },
-  "hideMessagesBottomNavItemLabel": {
-    "message": "私信"
+  "hideManageTimelinesLabel": {
+    "message": "隐藏“管理时间线”按钮"
   },
   "hideMessagesDrawerLabel": {
     "message": "聊天抽屉"
   },
   "hideMetricsLabel": {
     "message": "隐藏指标"
+  },
+  "hideMoreFromThisAuthorLabel": {
+    "message": "隐藏“此作者的更多内容”"
   },
   "hideMoreSlideOutMenuItemsOptionsLabel_desktop": {
     "message": "隐藏你不使用的\"更多\"菜单项"
@@ -386,12 +392,6 @@
   "quoteTweetsLabel": {
     "message": "引用推文"
   },
-  "redirectChatNavLabel": {
-    "message": "将聊天导航项重定向至消息"
-  },
-  "redirectToTwitterLabel": {
-    "message": "重定向到 twitter.com"
-  },
   "reduceAlgorithmicContentOptionsLabel": {
     "message": "删除算法性内容"
   },
@@ -421,6 +421,15 @@
   },
   "retweetsLabel": {
     "message": "转发"
+  },
+  "revertMediaCarouselLabel": {
+    "message": "还原媒体轮播"
+  },
+  "revertProfileTabsLabel": {
+    "message": "还原个人资料选项卡的更改"
+  },
+  "revertTwemojiLabel": {
+    "message": "还原为 Twemoji"
   },
   "saveAndApplyButton": {
     "message": "保存并应用"
