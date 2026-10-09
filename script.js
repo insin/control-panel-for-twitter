@@ -3052,6 +3052,7 @@ function observeBodyBackgroundColor() {
         configureThemeCss()
       }
     }
+    styleChat.update()
     lastBackgroundColor = backgroundColor
   }, {
     leading: true,
@@ -3060,6 +3061,99 @@ function observeBodyBackgroundColor() {
   }, {
     attributes: true,
     attributeFilter: ['style']
+  })
+}
+
+const styleChat = (() => {
+  /** @type {Set<{darkModeStyle: HTMLStyleElement, rafId: number | null}>} */
+  let chatStyles = new Set()
+
+  function updateTheme() {
+    let media = config.darkModeTheme == 'dim' && $body.classList.contains('LightsOut') ? 'all' : 'not all'
+    for (let {darkModeStyle} of chatStyles) {
+      darkModeStyle.media = media
+    }
+  }
+
+  /**
+   * @param {string} selector
+   * @param {Document | HTMLElement} context
+   */
+  function styleChat(selector, context = document) {
+    let darkModeStyle = document.createElement('style')
+    darkModeStyle.textContent = dedent(`
+      [data-xchat-root][data-theme="dark"] {
+        /* Chat surface colours */
+        --x-bg-primary: var(--cpft-background);
+        --x-bg-secondary: var(--cpft-raised-bg);
+        --x-bg-tertiary: var(--cpft-raised-bg);
+        --x-bg-modal: var(--cpft-raised-bg);
+        --x-bg-sheets: var(--cpft-raised-bg);
+        /* Tailwind & shadcn overrides */
+        --background: 210 34% 13%;
+        --border: 206 16% 26%;
+        --color-background: 210 34% 13%;
+        --color-gray-50: 213 25% 16%;
+        --color-gray-100: 211 34% 24%;
+      }
+    `)
+    let styles = {darkModeStyle, rafId: null}
+    chatStyles.add(styles)
+    updateTheme()
+
+    function disconnect() {
+      if (styles.rafId != null) cancelAnimationFrame(styles.rafId)
+      darkModeStyle.remove()
+      chatStyles.delete(styles)
+    }
+
+    function attachStyles() {
+      styles.rafId = null
+      if (!context.isConnected) {
+        disconnect()
+        return
+      }
+      let $host = context.querySelector(selector)
+      let $shadowRoot = $host?.shadowRoot
+      let $chatRoot = $shadowRoot?.querySelector('[data-xchat-root]')
+      // Wait for the embed, its shadow root and Chat's initial render.
+      if (!$chatRoot) {
+        styles.rafId = requestAnimationFrame(attachStyles)
+        return
+      }
+      $shadowRoot.appendChild(darkModeStyle)
+    }
+
+    attachStyles()
+    return {disconnect}
+  }
+
+  styleChat.update = updateTheme
+  return styleChat
+})()
+
+/** @param {HTMLElement} $drawerLayer */
+function observeChatDrawer($drawerLayer) {
+  let selector = '[data-testid="xchatEmbedDrawer"]'
+  /** @type {Element | null} */
+  let $embed = null
+  /** @type {{disconnect()} | null} */
+  let styles = null
+
+  return observeElement($drawerLayer, () => {
+    let $host = $drawerLayer.querySelector(selector)
+    if ($host == $embed) return
+
+    styles?.disconnect()
+    $embed = $host
+    styles = $embed ? styleChat(selector, $drawerLayer) : null
+  }, {
+    leading: true,
+    name: 'Chat embed drawer',
+    observers: globalObservers,
+    onDisconnect() {
+      styles?.disconnect()
+    },
   })
 }
 
@@ -3371,11 +3465,21 @@ const observePopups = (() => {
     let $layers = await getElement('#layers', {
       name: 'layers',
     })
+    if (!$layers) return
+    /** @type {HTMLElement | null} */
+    let $drawerLayer = null
 
     observeElement($layers, (mutations) => {
+      // The first layer contains persistent overlays, popups are siblings
+      let $firstLayer = /** @type {HTMLElement} */ ($layers.firstElementChild)
+      if ($firstLayer != $drawerLayer) {
+        $drawerLayer = $firstLayer
+        if ($drawerLayer) observeChatDrawer($drawerLayer)
+      }
+
       for (let mutation of mutations) {
         for (let $addedNode of mutation.addedNodes) {
-          if (!($addedNode instanceof HTMLElement)) continue
+          if (!($addedNode instanceof HTMLElement) || $addedNode == $firstLayer) continue
           let nestedObserver = onPopup($addedNode)
           if (nestedObserver) {
             nestedObservers.set($addedNode, nestedObserver)
@@ -3390,6 +3494,7 @@ const observePopups = (() => {
         }
       }
     }, {
+      leading: true,
       name: 'popup container',
       observers: globalObservers,
     })
@@ -7148,70 +7253,16 @@ function shouldHideSharedTweet(config, page) {
   }
 }
 
-async function tweakChatPage() {
-  if (config.darkModeTheme != 'dim') return
-
-  /** @type {HTMLStyleElement | null} */
-  let $style = null
-  let disconnected = false
-  let rafId = null
-
-  function styleChat() {
-    rafId = null
-    // Startup can replace the initial host before attaching its shadow root
-    $host = document.querySelector('[data-testid="xchatEmbedRoute"]')
-    let $shadowRoot = $host?.shadowRoot
-
-    // Wait for shadow attachment and Chat's initial render
-    if (!$shadowRoot || !$shadowRoot.querySelector('[data-xchat-root]')) {
-      rafId = requestAnimationFrame(styleChat)
-      return
-    }
-
-    $style = document.createElement('style')
-    $style.textContent = dedent(`
-      [data-xchat-root][data-theme="dark"] {
-        /* Chat surface colours */
-        --x-bg-primary: var(--cpft-background);
-        --x-bg-secondary: var(--cpft-raised-bg);
-        --x-bg-tertiary: var(--cpft-raised-bg);
-        --x-bg-modal: var(--cpft-raised-bg);
-        --x-bg-sheets: var(--cpft-raised-bg);
-        /* Tailwind & shadcn overrides */
-        --background: 210 34% 13%;
-        --border: 206 16% 26%;
-        --color-background: 210 34% 13%;
-        --color-gray-50: 213 25% 16%;
-        --color-gray-100: 211 34% 24%;
-      }
-    `)
-    updateTheme()
-    $shadowRoot.appendChild($style)
-  }
-
-  function updateTheme() {
-    if ($style) {
-      $style.media = $body.classList.contains('LightsOut') ? 'all' : 'not all'
-    }
-  }
-
-  observeElement($body, updateTheme, {
-    name: 'Chat theme',
-    observers: pageObservers,
-    onDisconnect() {
-      disconnected = true
-      if (rafId != null) cancelAnimationFrame(rafId)
-      $style?.remove()
+function tweakChatPage() {
+  let styles = styleChat('[data-testid="xchatEmbedRoute"]')
+  let name = 'Chat page styles'
+  pageObservers.set(name, {
+    name,
+    disconnect() {
+      styles.disconnect()
+      pageObservers.delete(name)
     },
-  }, {attributes: true, attributeFilter: ['class']})
-
-  let $host = await getElement('[data-testid="xchatEmbedRoute"]', {
-    name: 'initial Chat embed',
-    stopIf: () => disconnected || !isOnChatPage(),
   })
-  if (!$host || disconnected || !isOnChatPage()) return
-
-  styleChat()
 }
 
 async function tweakHistoryPage() {
@@ -8254,6 +8305,7 @@ function configChanged(changes) {
 
   if ('darkModeTheme' in changes) {
     observeThemeMeta.update()
+    styleChat.update()
   }
   if ('replaceLogo' in changes || 'hideNotifications' in changes) {
     observeFavicon.forceUpdate(getNotificationCount() > 0)
