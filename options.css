@@ -36,7 +36,6 @@ body:not(.iOS.safari) .toggle,
 body:not(.mutingQuotes) #mutedQuotesDetails,
 body:not(.showingBlueReplyFollowersCount) .showingBlueReplyFollowersCount,
 body:not(.showingSidebarContent) .showingSidebarContent,
-body:not(.tweakingNewLayout) .tweakingNewLayout,
 body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   display: none;
 }

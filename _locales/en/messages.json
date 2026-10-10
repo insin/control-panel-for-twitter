@@ -278,9 +278,6 @@
   "hideTodaysNewsLabel": {
     "message": "Hide Today's News"
   },
-  "hideToggleNavigationLabel": {
-    "message": "Hide Toggle navigation"
-  },
   "hideTwitterBlueRepliesLabel": {
     "message": "Hide Premium blue check replies"
   },
@@ -472,12 +469,6 @@
   },
   "sortRepliesLabel": {
     "message": "Default sorting of replies"
-  },
-  "tweakNewLayoutInfo": {
-    "message": "Experimental - only enable if you have the new layout"
-  },
-  "tweakNewLayoutLabel": {
-    "message": "Tweak new layout"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "Hide the quoted tweet when viewing Quote Tweets"

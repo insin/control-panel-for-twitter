@@ -204,7 +204,6 @@ const config = {
   showPremiumReplyGovernment: true,
   sortFollowing: 'mostRecent',
   sortReplies: 'relevant',
-  tweakNewLayout: false,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   unblurSensitiveContent: false,
@@ -225,7 +224,6 @@ const config = {
   hideSuggestedFollows: false,
   hideTimelineTweetBox: false,
   hideTodaysNews: false,
-  hideToggleNavigation: false,
   hideWhatsHappening: false,
   navBaseFontSize: true,
   navDensity: 'default',
@@ -2267,7 +2265,6 @@ const Selectors = {
   DISPLAY_DONE_BUTTON_MOBILE: 'main button[role="button"]:not([aria-label])',
   MODAL_TIMELINE: 'section > h1 + div[aria-label] > div',
   MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
-  MORE_DIALOG: 'div[aria-labelledby="modal-header"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   NAV_MESSAGES_LINK: 'a[data-testid="AppTabBar_DirectMessage_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
@@ -2768,10 +2765,6 @@ function getState() {
     if (state) return state
     warn('React state not found')
   }
-}
-
-function hasNewLayout() {
-  return getState()?.featureSwitch?.user?.config?.rweb_sourcemap_migration?.value
 }
 
 function getNotificationCount() {
@@ -4468,8 +4461,6 @@ const configureCss = (() => {
         body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child {
           flex-grow: 0;
           flex-shrink: 1;
-          /* New layout has margin-right on tabs */
-          margin-right: 0;
         }
         /* Hide the For you tab link */
         body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child > [role="tab"] {
@@ -4586,8 +4577,6 @@ const configureCss = (() => {
       cssRules.push(`
         .SubscriptionsTab {
           flex: 0;
-          /* New layout has margin-right on tabs */
-          margin-right: 0;
         }
       `)
     }
@@ -4681,18 +4670,12 @@ const configureCss = (() => {
         // Upsell on the Likes tab in your own profile
         `body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"])`,
       )
-      if (desktop && config.tweakNewLayout) {
-        // In new More dialog
-        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href^="/i/premium"], [href^="/i/verified"])`)
-      }
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
       let upsellTabLinks = 'a:is([href$="/highlights"], [href$="/articles"], [href$="/highlights?mx=1"], [href$="/articles?mx=1"])'
       cssRules.push(`
         ${profileTabsList} > div:has(> ${upsellTabLinks}) {
           flex: 0;
-          /* New layout has margin-right on tabs */
-          margin-right: 0;
         }
         ${profileTabsList} > div > ${upsellTabLinks} {
           display: none;
@@ -4703,8 +4686,6 @@ const configureCss = (() => {
       cssRules.push(`
         .VerifiedFollowersTab {
           flex: 0;
-          /* New layout has margin-right on tabs */
-          margin-right: 0;
         }
         .VerifiedFollowersTab > [role="tab"] {
           display: none;
@@ -4788,158 +4769,47 @@ const configureCss = (() => {
     }
 
     if (shouldShowSeparatedTweetsTab()) {
-      if (hasNewLayout()) {
-        // The new layout only has colour to distinguish the active tab
-        cssRules.push(`
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
-            color: var(--cpft-text-secondary) !important;
-          }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
-            color: var(--cpft-text-primary) !important;
-          }
-          body.Desktop #cpftSeparatedTweetsTab:hover > [role="tab"] > div > div {
-            color: var(--cpft-text-primary) !important;
-          }
-        `)
-      } else {
-        cssRules.push(`
-          /* Sometimes the cloned tab has a hover background color class */
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] {
-            background-color: transparent !important;
-          }
-          body.Desktop #cpftSeparatedTweetsTab:hover,
-          body.Mobile:not(.SeparatedTweets) #cpftSeparatedTweetsTab:hover,
-          body.Mobile #cpftSeparatedTweetsTab:active {
-            background-color: var(--cpft-tab-hover-backdrop) !important;
-          }
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
-            font-weight: normal !important;
-            color: var(--cpft-text-secondary) !important;
-          }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
-            font-weight: bold;
-            color: var(--cpft-text-primary) !important;
-          }
-          /* Active tab underline */
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div > div {
-            height: 0 !important;
-          }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div > div {
-            height: 4px !important;
-            min-width: 56px;
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            border-radius: 9999px;
-          }
-          /* Following menu indicator */
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"] svg {
-            display: none;
-          }
-        `)
-      }
-    }
-
-    if (hasNewLayout() && config.tweakNewLayout) {
       cssRules.push(`
-        /* Make the image button first in the Tweet editor toolbar again */
-        [data-testid="toolBar"] [role="tablist"] > [role="presentation"] {
-          order: 1;
+        /* Sometimes the cloned tab has a hover background color class */
+        body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] {
+          background-color: transparent !important;
         }
-        [data-testid="toolBar"] [role="tablist"] > [role="presentation"]:has(input[data-testid="fileInput"]) {
-          order: 0;
+        body.Desktop #cpftSeparatedTweetsTab:hover,
+        body.Mobile:not(.SeparatedTweets) #cpftSeparatedTweetsTab:hover,
+        body.Mobile #cpftSeparatedTweetsTab:active {
+          background-color: var(--cpft-tab-hover-backdrop) !important;
+        }
+        body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
+        body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
+          font-weight: normal !important;
+          color: var(--cpft-text-secondary) !important;
+        }
+        body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
+          font-weight: bold;
+          color: var(--cpft-text-primary) !important;
+        }
+        /* Active tab underline */
+        body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div > div,
+        body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div > div {
+          height: 0 !important;
+        }
+        body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div > div {
+          height: 4px !important;
+          min-width: 56px;
+          width: 100%;
+          position: absolute;
+          bottom: 0;
+          border-radius: 9999px;
+        }
+        /* Following menu indicator */
+        body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"] svg {
+          display: none;
         }
       `)
-      if (config.replaceLogo) {
-        cssRules.push(`
-          /* Add theme colour back to Tweet editor toolbar buttons */
-          [data-testid="toolBar"] [role="tablist"] > [role="presentation"] svg {
-            fill: var(--cpft-theme);
-          }
-        `)
-      }
     }
 
     //#region Desktop-only
     if (desktop) {
-      if (hasNewLayout() && config.tweakNewLayout) {
-        cssRules.push(`
-          /* Realign nav items to the top */
-          header[role="banner"] > div > div > div {
-            justify-content: flex-start;
-          }
-          /* Restore size and constrast of main nav icons and More button */
-          ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) svg {
-            width: 1.75rem !important;
-            height: 1.75rem !important;
-            fill: var(--cpft-text-primary) !important;
-          }
-          /* Restore contrast of main nav text when expanded */
-          ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) div[dir]:not([aria-live]) {
-            color: var(--cpft-text-primary) !important;
-          }
-          /* Give other nav button icons more contrast too */
-          header[role="banner"] button svg {
-            fill: var(--cpft-text-primary) !important;
-          }
-          /* Make the Tweet button larger */
-          [data-testid="SideNav_NewTweet_Button"] {
-            min-width: 49px;
-            min-height: 49px;
-          }
-          /* Move the account switcher back to the bottom */
-          header[role="banner"] > div > div > div > div:last-child {
-            flex: 1;
-            justify-content: space-between;
-          }
-          /* Restore primary column borders */
-          header[role="banner"] > div > div > div  {
-            border-right: 1px solid var(--cpft-border);
-          }
-          ${Selectors.PRIMARY_COLUMN} {
-            border-right: 1px solid var(--cpft-border);
-          }
-          /* Left-align main contents and stop it taking up all available space */
-          main {
-            align-items: flex-start !important;
-            flex-grow: 0 !important;
-          }
-          /* Remove the gap between main contents and sidebar */
-          main > div > div > div {
-            justify-content: normal !important;
-          }
-          /* Restore the sidebar to its old width */
-          ${Selectors.SIDEBAR},
-          ${Selectors.SIDEBAR} > div > div,
-          .SidebarContents > div:first-child {
-            width: 350px !important;
-          }
-          /* Center content */
-          div[data-at-shortcutkeys] {
-            justify-content: center;
-          }
-        `)
-        if (config.replaceLogo) {
-          // TODO Manually patch Tweet button SVG in Safari
-          cssRules.push(`
-            /* Restore theme colour in nav item pips */
-            ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live],
-            ${Selectors.MORE_DIALOG} :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live],
-            /* Restore theme colour in profile switcher other accounts have notifications pip */
-            button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label],
-            /* Restore theme colour in account switcher notifications pips */
-            [data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live] {
-              background-color: var(--cpft-theme);
-            }
-          `)
-        }
-      }
-      if (hasNewLayout() && config.hideToggleNavigation) {
-        hideCssSelectors.push('header[role="banner"] > div > div > div > div:first-child > button')
-      }
       if (config.navDensity == 'comfortable' || config.navDensity == 'compact') {
         cssRules.push(`
           header nav > a,
@@ -4972,8 +4842,6 @@ const configureCss = (() => {
         hideCssSelectors.push(
           // Notifications & Messages in primary nav
           `${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live]`,
-          // Notifications & Messages in the More dialog in the new layout
-          `${Selectors.MORE_DIALOG} :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live]`,
           // Account switcher
           'button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label]',
           // Account switcher accounts
@@ -4985,8 +4853,6 @@ const configureCss = (() => {
           hideCssSelectors.push(
             // Nav item
             `${Selectors.PRIMARY_NAV_DESKTOP} a[href^="/notifications"]`,
-            // More dialog item
-            `${Selectors.MORE_DIALOG} a[href^="/notifications"]`,
           )
         }
       }
@@ -5048,10 +4914,6 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
-      if (config.hideAdsNav && config.tweakNewLayout) {
-        // In new More dialog
-        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
-      }
       if (config.hideComposeTweet) {
         hideCssSelectors.push('[data-testid="SideNav_NewTweet_Button"]')
       }
@@ -5067,31 +4929,15 @@ const configureCss = (() => {
           // Grok drawer
           'div[data-testid="GrokDrawer"]',
         )
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/i/grok"]`)
-        }
       }
       if (config.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`)
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/jobs"]`)
-        }
       }
       if (config.hideListsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/lists"]`)
-        }
       }
       if (config.hideSpacesNav) {
         hideCssSelectors.push(`${menuRole} a[href="/i/spaces/start"]`)
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/i/spaces/start"]`)
-        }
       }
       if (config.hideTwitterBlueUpsells) {
         hideCssSelectors.push(
@@ -5160,24 +5006,12 @@ const configureCss = (() => {
         // when on a page full-width content is enabled on.
         let bodySelector = `${config.hideExploreNavWithSidebar ? `body.Sidebar${config.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
         hideCssSelectors.push(`${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/explore"]`)
-        }
       }
       if (config.hideHistoryNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="${PagePaths.HISTORY}"]`)
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="${PagePaths.HISTORY}"]`)
-        }
       }
       if (config.hideCommunitiesNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/communities"]`)
-        }
       }
       if (config.hideMessagesDrawer) {
         cssRules.push(`div:is([data-testid="DMDrawer"], [data-testid="chat-drawer-root"]) { visibility: hidden; }`)
@@ -5198,27 +5032,6 @@ const configureCss = (() => {
 
     //#region Mobile only
     if (mobile) {
-      if (hasNewLayout() && config.tweakNewLayout) {
-        cssRules.push(`
-          /* Remove new padding from profile details and the tab bar (this has to be accidental) */
-          body.Profile ${Selectors.PRIMARY_COLUMN} > div > div > div > div > div > div > div > div {
-            padding-left: 0;
-            padding-right: 0;
-          }
-        `)
-        if (config.replaceLogo) {
-          cssRules.push(`
-            /* Restore theme colour in nav item pips */
-            ${Selectors.PRIMARY_NAV_MOBILE} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-label],
-            /* Restore theme colour in profile button other accounts have notifications pip */
-            button[data-testid="DashButton_ProfileIcon_Link"] div[aria-label],
-            /* Restore theme colour in account switcher notifications pips */
-            [role="dialog"] [data-testid^="UserAvatar-Container"] div[dir] {
-              background-color: var(--cpft-theme);
-            }
-          `)
-        }
-      }
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
       }

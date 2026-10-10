@@ -275,9 +275,6 @@
   "hideTodaysNewsLabel": {
     "message": "「本日のニュース」を非表示"
   },
-  "hideToggleNavigationLabel": {
-    "message": "ナビゲーション切り替えを非表示"
-  },
   "hideTwitterBlueRepliesLabel": {
     "message": "プレミアム ブルー チェックの返信を非表示にする"
   },
@@ -465,12 +462,6 @@
   },
   "sortRepliesLabel": {
     "message": "返信のデフォルトの並べ替え"
-  },
-  "tweakNewLayoutInfo": {
-    "message": "実験的機能 - 新しいレイアウトがある場合にのみ有効にしてください"
-  },
-  "tweakNewLayoutLabel": {
-    "message": "新しいレイアウトを調整"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"

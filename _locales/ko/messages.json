@@ -275,9 +275,6 @@
   "hideTodaysNewsLabel": {
     "message": "오늘의 뉴스 숨기기"
   },
-  "hideToggleNavigationLabel": {
-    "message": "탐색 전환 숨기기"
-  },
   "hideTwitterBlueRepliesLabel": {
     "message": "Premium 파란색 체크 답장 숨기기"
   },
@@ -465,12 +462,6 @@
   },
   "sortRepliesLabel": {
     "message": "답글의 기본 정렬"
-  },
-  "tweakNewLayoutInfo": {
-    "message": "실험적 기능 - 새 레이아웃이 있는 경우에만 활성화하세요"
-  },
-  "tweakNewLayoutLabel": {
-    "message": "새 레이아웃 조정"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "인용 트윗을 볼 때 인용된 트윗 숨기기"

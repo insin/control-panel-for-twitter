@@ -107,7 +107,6 @@ for (let translationId of [
   'hideSuggestedFollowsLabel',
   'hideTimelineTweetBoxLabel',
   'hideTodaysNewsLabel',
-  'hideToggleNavigationLabel',
   'hideTwitterBlueRepliesLabel',
   'hideTwitterBlueUpsellsLabel',
   'hideUnavailableQuoteTweetsLabel',
@@ -148,8 +147,6 @@ for (let translationId of [
   'sidebarLabel',
   'sortFollowingLabel',
   'sortRepliesLabel',
-  'tweakNewLayoutInfo',
-  'tweakNewLayoutLabel',
   'tweakQuoteTweetsPageLabel',
   'twitterBlueChecksLabel',
   'twitterBlueChecksOption_replace',
@@ -292,7 +289,6 @@ const defaultConfig = {
   showPremiumReplyGovernment: true,
   sortFollowing: 'mostRecent',
   sortReplies: 'relevant',
-  tweakNewLayout: false,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
@@ -313,7 +309,6 @@ const defaultConfig = {
   hideSuggestedFollows: false,
   hideTimelineTweetBox: false,
   hideTodaysNews: false,
-  hideToggleNavigation: false,
   hideWhatsHappening: false,
   navBaseFontSize: true,
   navDensity: 'default',
@@ -525,7 +520,6 @@ function updateDisplay() {
   $body.classList.toggle('mutingQuotes', shouldDisplayMutedQuotes())
   $body.classList.toggle('showingBlueReplyFollowersCount', optionsConfig.showBlueReplyFollowersCount)
   $body.classList.toggle('showingSidebarContent', !optionsConfig.hideSidebarContent)
-  $body.classList.toggle('tweakingNewLayout', optionsConfig.tweakNewLayout)
   $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
   $showBlueReplyFollowersCountLabel.textContent = chrome.i18n.getMessage(
     'showBlueReplyFollowersCountLabel',
