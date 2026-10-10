@@ -131,6 +131,9 @@
   "hideBusinessNavLabel": {
     "message": "Business"
   },
+  "hideCallsLabel": {
+    "message": "Calls"
+  },
   "hideChatNavLabel": {
     "message": "Chat"
   },

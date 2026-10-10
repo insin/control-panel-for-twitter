@@ -23,6 +23,7 @@ export type Config = {
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
   hideBusinessNav: boolean
+  hideCalls: boolean
   hideChatNav: boolean
   hideCommunitiesNav: boolean
   hideComposeTweet: boolean

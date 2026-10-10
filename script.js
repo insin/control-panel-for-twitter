@@ -140,6 +140,7 @@ const config = {
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBusinessNav: true,
+  hideCalls: false,
   hideChatNav: false,
   hideCommunitiesNav: false,
   hideComposeTweet: false,
@@ -2479,6 +2480,10 @@ function isOnAccessibilitySettingsPage() {
   return currentPath == PagePaths.ACCESSIBILITY_SETTINGS
 }
 
+function isOnCallsPage() {
+  return currentPath.startsWith('/i/calls')
+}
+
 function isOnChatPage() {
   return currentPath.startsWith('/i/chat')
 }
@@ -3045,7 +3050,7 @@ function observeBodyBackgroundColor() {
         configureThemeCss()
       }
     }
-    styleChat.update()
+    styleEmbed.update()
     lastBackgroundColor = backgroundColor
   }, {
     leading: true,
@@ -3057,32 +3062,32 @@ function observeBodyBackgroundColor() {
   })
 }
 
-const styleChat = (() => {
+const styleEmbed = (() => {
   /** @type {Set<{darkModeStyle: HTMLStyleElement, rafId: number | null}>} */
-  let chatStyles = new Set()
+  let embeddedStyles = new Set()
 
   function updateTheme() {
     let media = config.darkModeTheme == 'dim' && $body.classList.contains('LightsOut') ? 'all' : 'not all'
-    for (let {darkModeStyle} of chatStyles) {
+    for (let {darkModeStyle} of embeddedStyles) {
       darkModeStyle.media = media
     }
   }
 
   /**
    * @param {string} selector
+   * @param {string} rootSelector
    * @param {Document | HTMLElement} context
    */
-  function styleChat(selector, context = document) {
+  function styleEmbed(selector, rootSelector, context = document) {
     let darkModeStyle = document.createElement('style')
     darkModeStyle.textContent = dedent(`
-      [data-xchat-root][data-theme="dark"] {
-        /* Chat surface colours */
+      ${rootSelector}[data-theme="dark"] {
         --x-bg-primary: var(--cpft-background);
         --x-bg-secondary: var(--cpft-raised-bg);
         --x-bg-tertiary: var(--cpft-raised-bg);
         --x-bg-modal: var(--cpft-raised-bg);
         --x-bg-sheets: var(--cpft-raised-bg);
-        /* Tailwind & shadcn overrides */
+        /* Tailwind & shadcn */
         --background: 210 34% 13%;
         --border: 206 16% 26%;
         --color-background: 210 34% 13%;
@@ -3091,13 +3096,13 @@ const styleChat = (() => {
       }
     `)
     let styles = {darkModeStyle, rafId: null}
-    chatStyles.add(styles)
+    embeddedStyles.add(styles)
     updateTheme()
 
     function disconnect() {
       if (styles.rafId != null) cancelAnimationFrame(styles.rafId)
       darkModeStyle.remove()
-      chatStyles.delete(styles)
+      embeddedStyles.delete(styles)
     }
 
     function attachStyles() {
@@ -3108,9 +3113,9 @@ const styleChat = (() => {
       }
       let $host = context.querySelector(selector)
       let $shadowRoot = $host?.shadowRoot
-      let $chatRoot = $shadowRoot?.querySelector('[data-xchat-root]')
-      // Wait for the embed, its shadow root and Chat's initial render.
-      if (!$chatRoot) {
+      let $root = $shadowRoot?.querySelector(rootSelector)
+      // Wait for the embed, its shadow root and initial render
+      if (!$root) {
         styles.rafId = requestAnimationFrame(attachStyles)
         return
       }
@@ -3120,9 +3125,8 @@ const styleChat = (() => {
     attachStyles()
     return {disconnect}
   }
-
-  styleChat.update = updateTheme
-  return styleChat
+  styleEmbed.update = updateTheme
+  return styleEmbed
 })()
 
 /** @param {HTMLElement} $drawerLayer */
@@ -3139,7 +3143,7 @@ function observeChatDrawer($drawerLayer) {
 
     styles?.disconnect()
     $embed = $host
-    styles = $embed ? styleChat(selector, $drawerLayer) : null
+    styles = $embed ? styleEmbed(selector, '[data-xchat-root]', $drawerLayer) : null
   }, {
     leading: true,
     name: 'Chat embed drawer',
@@ -4495,6 +4499,9 @@ const configureCss = (() => {
         )
       }
     }
+    if (config.hideCalls) {
+      hideCssSelectors.push(`${menuRole} a[href="/i/calls"]`)
+    }
     if (config.hideConnectNav) {
       hideCssSelectors.push(`${menuRole} a:is([href$="/i/connect_people"], [href$="/i/follow_people"])`)
     }
@@ -4920,6 +4927,9 @@ const configureCss = (() => {
       if (config.hideConnectNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/connect_people"]`)
       }
+      if (config.hideCalls) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/calls"]`)
+      }
       if (config.hideChatNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/chat"]`)
       }
@@ -5076,6 +5086,9 @@ const configureCss = (() => {
           // Content
           `body.Explore ${Selectors.TIMELINE}`,
         )
+      }
+      if (config.hideCalls) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/calls"]`)
       }
       if (config.hideGrokNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/grok"]`)
@@ -6742,7 +6755,7 @@ function processCurrentPage() {
   $body.classList.remove('SeparatedTweets')
 
   if (desktop) {
-    if (!isOnChatPage() && !isOnGrokPage() && !isOnMessagesPage() && !isOnSettingsPage()) {
+    if (!isOnCallsPage() && !isOnChatPage() && !isOnGrokPage() && !isOnMessagesPage() && !isOnSettingsPage()) {
       observeSidebar()
     } else {
       $body.classList.remove('Sidebar')
@@ -6806,6 +6819,9 @@ function processCurrentPage() {
   }
   else if (isOnCommunityMembersPage()) {
     tweakCommunityMembersPage()
+  }
+  else if (isOnCallsPage()) {
+    tweakCallsPage()
   }
   else if (isOnChatPage()) {
     tweakChatPage()
@@ -7066,8 +7082,20 @@ function shouldHideSharedTweet(config, page) {
   }
 }
 
+function tweakCallsPage() {
+  let styles = styleEmbed('[data-testid="xcallsRemoteHost"]', ':is([data-xcalls-root], [data-xcalls-portal])')
+  let name = 'Calls page styles'
+  pageObservers.set(name, {
+    name,
+    disconnect() {
+      styles.disconnect()
+      pageObservers.delete(name)
+    },
+  })
+}
+
 function tweakChatPage() {
-  let styles = styleChat('[data-testid="xchatEmbedRoute"]')
+  let styles = styleEmbed('[data-testid="xchatEmbedRoute"]', '[data-xchat-root]')
   let name = 'Chat page styles'
   pageObservers.set(name, {
     name,
@@ -8118,7 +8146,7 @@ function configChanged(changes) {
 
   if ('darkModeTheme' in changes) {
     observeThemeMeta.update()
-    styleChat.update()
+    styleEmbed.update()
   }
   if ('replaceLogo' in changes || 'hideNotifications' in changes) {
     observeFavicon.forceUpdate(getNotificationCount() > 0)
