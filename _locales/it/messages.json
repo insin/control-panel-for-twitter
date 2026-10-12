@@ -206,6 +206,9 @@
   "hideMetricsLabel": {
     "message": "Nascondi statistiche"
   },
+  "hideMoneyLabel": {
+    "message": "Nascondi Money"
+  },
   "hideMoreFromThisAuthorLabel": {
     "message": "Nascondi \"Altro di questo autore\""
   },

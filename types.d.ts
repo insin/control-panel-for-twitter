@@ -42,6 +42,7 @@ export type Config = {
   hideListsNav: boolean
   hideManageTimelines: boolean
   hideMetrics: boolean
+  hideMoney: boolean
   hideMoreFromThisAuthor: boolean
   // XXX This now controls hiding all "Discover" suggestions
   hideMoreTweets: boolean

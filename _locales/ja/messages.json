@@ -206,6 +206,9 @@
   "hideMetricsLabel": {
     "message": "メトリクスを非表示"
   },
+  "hideMoneyLabel": {
+    "message": "Money を非表示にする"
+  },
   "hideMoreFromThisAuthorLabel": {
     "message": "「この作者の他の投稿」を非表示"
   },

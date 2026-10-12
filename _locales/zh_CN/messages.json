@@ -206,6 +206,9 @@
   "hideMetricsLabel": {
     "message": "隐藏指标"
   },
+  "hideMoneyLabel": {
+    "message": "隐藏 Money"
+  },
   "hideMoreFromThisAuthorLabel": {
     "message": "隐藏“此作者的更多内容”"
   },

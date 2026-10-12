@@ -206,6 +206,9 @@
   "hideMetricsLabel": {
     "message": "지표 숨기기"
   },
+  "hideMoneyLabel": {
+    "message": "Money 숨기기"
+  },
   "hideMoreFromThisAuthorLabel": {
     "message": "\"이 작성자의 더 많은 게시물\" 숨기기"
   },

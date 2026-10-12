@@ -159,6 +159,7 @@ const config = {
   hideListsNav: false,
   hideManageTimelines: false,
   hideMetrics: false,
+  hideMoney: true,
   hideMoreFromThisAuthor: true,
   hideMoreTweets: true,
   hideNotificationLikes: false,
@@ -4560,6 +4561,16 @@ const configureCss = (() => {
     }
     if (config.hideSortRepliesMenu) {
       hideCssSelectors.push('.SortRepliesMenu')
+    }
+    if (config.hideMoney) {
+      hideCssSelectors.push(
+        `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/money"]`,
+        `${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/money"]`,
+        `${menuRole} a[href="/i/money"]`,
+        // Money icon and balance buttons beside Edit Profile
+        '[data-testid="ownProfilePaymentsButton"]',
+        '[data-testid="ownProfilePaymentsButtonWithBalance"]',
+      )
     }
     if (config.hideSubscriptions) {
       hideCssSelectors.push(

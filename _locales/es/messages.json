@@ -206,6 +206,9 @@
   "hideMetricsLabel": {
     "message": "Ocultar métricas"
   },
+  "hideMoneyLabel": {
+    "message": "Ocultar Money"
+  },
   "hideMoreFromThisAuthorLabel": {
     "message": "Ocultar \"Más de este autor\""
   },
