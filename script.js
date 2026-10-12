@@ -3143,7 +3143,7 @@ function observeChatDrawer($drawerLayer) {
 
     styles?.disconnect()
     $embed = $host
-    styles = $embed ? styleEmbed(selector, '[data-xchat-root]', $drawerLayer) : null
+    styles = $embed ? styleEmbed(selector, ':is([data-xchat-root], [data-xchat-portal])', $drawerLayer) : null
   }, {
     leading: true,
     name: 'Chat embed drawer',
@@ -7095,7 +7095,7 @@ function tweakCallsPage() {
 }
 
 function tweakChatPage() {
-  let styles = styleEmbed('[data-testid="xchatEmbedRoute"]', '[data-xchat-root]')
+  let styles = styleEmbed('[data-testid="xchatEmbedRoute"]', ':is([data-xchat-root], [data-xchat-portal])')
   let name = 'Chat page styles'
   pageObservers.set(name, {
     name,
