@@ -5439,6 +5439,14 @@ const configureThemeCss = (() => {
             display: none;
           }
         }
+        /* Restore theme to Tweet composer icons */
+        [data-testid="toolBar"] [role="tablist"] > [role="presentation"],
+        [data-testid="toolBar"] [role="tablist"] > [role="presentation"] * {
+          filter: none !important;
+        }
+        [data-testid="toolBar"] [role="tablist"] > [role="presentation"] svg {
+          fill: var(--cpft-theme);
+        }
       `)
       if (desktop) {
         // Revert the Tweet buttons being made monochrome
