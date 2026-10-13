@@ -3304,6 +3304,7 @@ async function observeDesktopModalTimeline($popup) {
     observeElement($timeline, () => {
       onIndividualTweetTimelineChange($timeline, {observers: modalObservers, seen})
     }, {
+      leading: true,
       name: 'modal timeline',
       observers: modalObservers,
     })
@@ -3318,6 +3319,7 @@ async function observeDesktopModalTimeline($popup) {
           observeElement($newTimeline, () => {
             onIndividualTweetTimelineChange($newTimeline, {observers: modalObservers, seen})
           }, {
+            leading: true,
             name: 'modal timeline',
             observers: modalObservers,
           })
@@ -3455,49 +3457,48 @@ const observeFavicon = (() => {
  * Use of nested popups can also differ between desktop and mobile, so features
  * need to be mindful of that.
  */
-const observePopups = (() => {
-  /** @type {WeakMap<HTMLElement, {disconnect()}>} */
-  let nestedObservers = new WeakMap()
+async function observePopups() {
+  let $layers = await getElement('#layers', {
+    name: 'layers',
+  })
+  if (!$layers) return
+  /** @type {HTMLElement | null} */
+  let $drawerLayer = null
+  /** @type {Map<HTMLElement, {disconnect()} | null>} */
+  let nestedObservers = new Map()
 
-  return async function observePopups() {
-    let $layers = await getElement('#layers', {
-      name: 'layers',
-    })
-    if (!$layers) return
-    /** @type {HTMLElement | null} */
-    let $drawerLayer = null
+  observeElement($layers, () => {
+    // The first layer contains persistent overlays, popups are siblings
+    let $firstLayer = /** @type {HTMLElement} */ ($layers.firstElementChild)
+    if ($firstLayer != $drawerLayer) {
+      $drawerLayer = $firstLayer
+      if ($drawerLayer) observeChatDrawer($drawerLayer)
+    }
 
-    observeElement($layers, (mutations) => {
-      // The first layer contains persistent overlays, popups are siblings
-      let $firstLayer = /** @type {HTMLElement} */ ($layers.firstElementChild)
-      if ($firstLayer != $drawerLayer) {
-        $drawerLayer = $firstLayer
-        if ($drawerLayer) observeChatDrawer($drawerLayer)
+    for (let [$popup, observer] of nestedObservers) {
+      if ($popup.parentElement != $layers || $popup == $firstLayer) {
+        observer?.disconnect()
+        nestedObservers.delete($popup)
       }
+    }
 
-      for (let mutation of mutations) {
-        for (let $addedNode of mutation.addedNodes) {
-          if (!($addedNode instanceof HTMLElement) || $addedNode == $firstLayer) continue
-          let nestedObserver = onPopup($addedNode)
-          if (nestedObserver) {
-            nestedObservers.set($addedNode, nestedObserver)
-          }
-        }
-        for (let $removedNode of mutation.removedNodes) {
-          if (!($removedNode instanceof HTMLElement)) continue
-          if (nestedObservers.has($removedNode)) {
-            nestedObservers.get($removedNode).disconnect()
-            nestedObservers.delete($removedNode)
-          }
-        }
+    // A modal can already be open if we start on its URL
+    for (let $popup of $layers.children) {
+      if (!($popup instanceof HTMLElement) || $popup == $firstLayer || nestedObservers.has($popup)) continue
+      nestedObservers.set($popup, onPopup($popup))
+    }
+  }, {
+    leading: true,
+    name: 'popup container',
+    observers: globalObservers,
+    onDisconnect() {
+      for (let observer of nestedObservers.values()) {
+        observer?.disconnect()
       }
-    }, {
-      leading: true,
-      name: 'popup container',
-      observers: globalObservers,
-    })
-  }
-})()
+      nestedObservers.clear()
+    },
+  })
+}
 
 async function observeReRenderBoundary() {
   let $rerenderBoundary = await getElement('#react-root > div > div')
@@ -5783,8 +5784,7 @@ function handlePopup($popup) {
   }
 
   if (desktop && !isDesktopMediaModalOpen &&
-      URL_MEDIA_RE.test(location.pathname) &&
-      currentPath != location.pathname) {
+      URL_MEDIA_RE.test(location.pathname)) {
     log('media modal opened')
     isDesktopMediaModalOpen = true
     observeDesktopModalTimeline($popup)
