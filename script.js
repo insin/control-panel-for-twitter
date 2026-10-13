@@ -2829,7 +2829,7 @@ function getUserScreenName() {
 }
 
 function getThemeColorFromState() {
-  let localState = getState().settings?.local
+  let localState = getState()?.settings?.local
   let color = localState?.themeColor
   let highContrast = localState?.highContrastEnabled
   $body.classList.toggle('HighContrast', highContrast)
@@ -3044,12 +3044,7 @@ function observeBodyBackgroundColor() {
     if (lastBackgroundColor != null) {
       log('Background setting changed')
       // This also updates body.HighContrast
-      let newThemeColor = getThemeColorFromState()
-      if (newThemeColor != themeColor) {
-        log('Color setting changed')
-        themeColor = newThemeColor
-        configureThemeCss()
-      }
+      updateThemeColor()
     }
     styleEmbed.update()
     lastBackgroundColor = backgroundColor
@@ -3507,6 +3502,7 @@ async function observeReRenderBoundary() {
     observePopups()
     observeSideNavItems()
     if (observingPageChanges) {
+      updateThemeColor()
       processCurrentPage()
     }
   }, {
@@ -7211,22 +7207,6 @@ function tweakCommunityMembersPage() {
 }
 
 function tweakDisplaySettingsPage() {
-  (async () => {
-    let $colorRerenderBoundary = await getElement('#react-root > div > div')
-
-    observeElement($colorRerenderBoundary, () => {
-      let newThemeColor = getThemeColorFromState()
-      if (newThemeColor == themeColor) return
-
-      log('Color setting changed')
-      themeColor = newThemeColor
-      configureThemeCss()
-    }, {
-      name: 'Color change re-render boundary',
-      observers: pageObservers,
-    })
-  })()
-
   if (desktop) {
     observeElement($html, () => {
       if (!$html.style.fontSize) return
@@ -8006,6 +7986,15 @@ function tweakTweetEngagementPage() {
     observeTimeline(currentPage, {classifyTweets: false})
   }
 }
+
+function updateThemeColor() {
+  let newThemeColor = getThemeColorFromState()
+  if (!newThemeColor || newThemeColor == themeColor) return
+
+  log('Color setting changed')
+  themeColor = newThemeColor
+  configureThemeCss()
+}
 //#endregion
 
 //#region Main
@@ -8063,14 +8052,11 @@ async function main({processImmediately = false} = {}) {
 
       // One-time setup
       checkReactNativeStylesheet()
+      themeColor = getThemeColorFromState() || themeColor
       observeBodyBackgroundColor()
       observeReRenderBoundary()
       patchHistory()
       interceptMediaButton()
-      let initialThemeColor = getThemeColorFromState()
-      if (initialThemeColor) {
-        themeColor = initialThemeColor
-      }
       if (desktop) {
         fontSize = $html.style.fontSize
         if (!fontSize) {
