@@ -9,6 +9,14 @@ XMLHttpRequest.prototype.open = function(method, url) {
       let request = new URL(url)
       let params = new URLSearchParams(request.search)
       let variables = JSON.parse(decodeURIComponent(params.get('variables')))
+      // A reply's detail request also contains its ancestors. Leave its ranking
+      // alone so sorting replies doesn't reorder the conversation above it.
+      if (!isParentTweet(variables?.focalTweetId)) {
+        if (!getStateEntities()?.tweets?.entities?.[variables?.focalTweetId]) {
+          pendingReplySortTweetIds.add(variables?.focalTweetId)
+        }
+        return XMLHttpRequest_open.apply(this, [method, url])
+      }
       if (typeof variables?.rankingMode == 'string') {
         let rankingMode = {
           liked: 'Likes',
@@ -2383,6 +2391,8 @@ let userSortedFollowing = false
 
 /** `true` if the user has used the "Sort replies" menu */
 let userSortedReplies = false
+/** Posts opened directly may not be in React state until their first response. */
+let pendingReplySortTweetIds = new Set()
 
 /** Notification count in the title (including trailing space), e.g. `'(1) '`. */
 let currentNotificationCount = ''
@@ -2859,6 +2869,14 @@ function getTweetInfo(tweetId) {
   } else {
     warn('tweet entities not found', tweetId)
   }
+}
+
+/** Only apply default reply sorting when the focused post is a known parent. */
+function isParentTweet(tweetId = location.pathname.match(URL_TWEET_BASE_RE)?.[2]) {
+  let tweetInfo = getStateEntities()?.tweets?.entities?.[tweetId]
+  return tweetInfo != null &&
+    !tweetInfo.in_reply_to_status_id_str && !tweetInfo.in_reply_to_status_id &&
+    (tweetInfo.conversation_id_str == null || tweetInfo.conversation_id_str == tweetId)
 }
 
 /**
@@ -5726,6 +5744,7 @@ function handlePopup($popup) {
   }
 
   if (isOnIndividualTweetPage() &&
+      isParentTweet() &&
       config.sortReplies != 'relevant' &&
       !userSortedReplies &&
       $popup.innerHTML.includes(`>${getString('SORT_REPLIES')}<`)) {
@@ -7296,11 +7315,28 @@ async function tweakFocusedTweet($focusedTweet, options) {
   if ($underActionBar) {
     let $sortRepliesButton = $underActionBar.querySelector('button[aria-haspopup="menu"]')
     if ($sortRepliesButton) {
+      // On direct navigation, wait until we know this is a parent before using
+      // Twitter's menu to apply the preference to the initially unsorted thread.
+      if (pendingReplySortTweetIds.delete(tweetId) && isParentTweet(tweetId) &&
+          config.sortReplies != 'relevant' && !userSortedReplies) {
+        let sortReplies = config.sortReplies
+        userSortedReplies = true
+        /** @type {HTMLElement} */ ($sortRepliesButton).click()
+        let $dropdown = await getElement('[role="menu"] [data-testid="Dropdown"]', {
+          name: 'Sort replies dropdown for parent post',
+          timeout: 1000,
+          stopIf: pageIsNot(currentPage),
+        })
+        if ($dropdown && location.pathname.match(URL_TWEET_BASE_RE)?.[2] == tweetId) {
+          let $menuItems = $dropdown.querySelectorAll('div[role="menuitem"]')
+          /** @type {HTMLElement} */ ($menuItems[{recent: 1, liked: 2}[sortReplies]])?.click()
+        }
+      }
       if (config.hideSortRepliesMenu) {
         getClosestChild($sortRepliesButton, $underActionBar)?.classList.add('SortRepliesMenu')
       }
       // Replace the default Sort replies text with the sort we're applying
-      else if (config.sortReplies != 'relevant' && !userSortedReplies) {
+      else if (config.sortReplies != 'relevant' && !userSortedReplies && isParentTweet(tweetId)) {
         let $buttonText = $sortRepliesButton.querySelector('span')
         if ($buttonText) $buttonText.textContent = {
           liked: getString('LIKES'),
