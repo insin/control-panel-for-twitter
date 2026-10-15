@@ -2361,7 +2361,7 @@ const URL_TWEET_RE = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)\/?$/
 const URL_TWEET_INTERACTIONS_RE = /^\/[a-zA-Z\d_]{1,20}\/status\/\d+\/(quotes|retweets|reposts|likes)\/?$/
 
 // The Twitter Media Assist exension adds a new button at the end of the action
-// bar (#346)
+// bar (#346).
 const TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR = '.tva-download-icon, .tva-modal-download-icon'
 //#endregion
 
@@ -2384,17 +2384,32 @@ let userSortedFollowing = false
 /** `true` if the user has used the "Sort replies" menu */
 let userSortedReplies = false
 
-/** Notification count in the title (including trailing space), e.g. `'(1) '`. */
+/** Notification count in the title (including any spaces), e.g. `'(1) '`. */
 let currentNotificationCount = ''
 
 /** The last notification count we hid from the title. */
 let hiddenNotificationCount = ''
 
-/** Title of the current page, without the `' / Twitter'` suffix. */
+/**
+ * Title of the page features are being applied to.
+ *
+ * Normally this is document.title without the site suffix or notification
+ * count, but we also use it to "navigate" to the virtual Retweets / Shared
+ * Tweets tab on Home without changing the URL.
+ */
 let currentPage = ''
 
-/** Current `location.pathname`. */
-let currentPath = ''
+/**
+ * URL pathname of the page features are being applied to, even when the URL
+ * points to a desktop modal.
+ */
+let currentPagePath = ''
+
+/**
+ * URL pathname from the last handled title change, used to detect subsequent
+ * navigation and modal transitions.
+ */
+let lastUrlPath = ''
 
 /**
  * React Native stylesheet rule for the blur filter for sensitive content.
@@ -2478,103 +2493,103 @@ let themeColor = THEME_BLUE
 let wasForYouTabSelected = false
 
 function isOnAccessibilitySettingsPage() {
-  return currentPath == PagePaths.ACCESSIBILITY_SETTINGS
+  return currentPagePath == PagePaths.ACCESSIBILITY_SETTINGS
 }
 
 function isOnCallsPage() {
-  return currentPath.startsWith('/i/calls')
+  return currentPagePath.startsWith('/i/calls')
 }
 
 function isOnChatPage() {
-  return currentPath.startsWith('/i/chat')
+  return currentPagePath.startsWith('/i/chat')
 }
 
 function isOnCommunitiesPage() {
-  return URL_COMMUNITIES_RE.test(currentPath)
+  return URL_COMMUNITIES_RE.test(currentPagePath)
 }
 
 function isOnCommunityPage() {
-  return URL_COMMUNITY_RE.test(currentPath)
+  return URL_COMMUNITY_RE.test(currentPagePath)
 }
 
 function isOnCommunityMembersPage() {
-  return URL_COMMUNITY_MEMBERS_RE.test(currentPath)
+  return URL_COMMUNITY_MEMBERS_RE.test(currentPagePath)
 }
 
 function isOnDiscoverCommunitiesPage() {
-  return URL_DISCOVER_COMMUNITIES_RE.test(currentPath)
+  return URL_DISCOVER_COMMUNITIES_RE.test(currentPagePath)
 }
 
 function isOnDisplaySettingsPage() {
-  return currentPath == PagePaths.DISPLAY_SETTINGS
+  return currentPagePath == PagePaths.DISPLAY_SETTINGS
 }
 
 function isOnExplorePage() {
-  return currentPath == '/explore' || currentPath.startsWith('/explore/')
+  return currentPagePath == '/explore' || currentPagePath.startsWith('/explore/')
 }
 
 function isOnFollowListPage() {
-  return URL_PROFILE_FOLLOWS_RE.test(currentPath)
+  return URL_PROFILE_FOLLOWS_RE.test(currentPagePath)
 }
 
 function isOnGrokPage() {
-  return currentPath.startsWith('/i/grok')
+  return currentPagePath.startsWith('/i/grok')
 }
 
 function isOnHistoryPage() {
-  return currentPath.startsWith(PagePaths.HISTORY)
+  return currentPagePath.startsWith(PagePaths.HISTORY)
 }
 
 function isOnIndividualTweetPage() {
-  return URL_TWEET_RE.test(currentPath)
+  return URL_TWEET_RE.test(currentPagePath)
 }
 
-function isOnOwnTweetPage() {
+function isOnOwnTweetPage(tweetPath = currentPagePath) {
   let screenName = getUserScreenName()
-  return screenName != null && screenName == currentPath.match(URL_TWEET_BASE_RE)?.[1]
+  return screenName != null && screenName == tweetPath.match(URL_TWEET_BASE_RE)?.[1]
 }
 
 function isOnListPage() {
-  return URL_LIST_RE.test(currentPath)
+  return URL_LIST_RE.test(currentPagePath)
 }
 
 function isOnListsPage() {
-  return URL_LISTS_RE.test(currentPath)
+  return URL_LISTS_RE.test(currentPagePath)
 }
 
 function isOnHomeTimelinePage() {
-  return currentPath == PagePaths.HOME
+  return currentPagePath == PagePaths.HOME
 }
 
 function isOnMessagesPage() {
-  return currentPath.startsWith('/messages')
+  return currentPagePath.startsWith('/messages')
 }
 
 function isOnComposeTweetPage() {
-  return currentPath.startsWith(PagePaths.COMPOSE_TWEET)
+  return lastUrlPath.startsWith(PagePaths.COMPOSE_TWEET)
 }
 
 function isOnNotificationsPage() {
-  return currentPath.startsWith('/notifications')
+  return currentPagePath.startsWith('/notifications')
 }
 
 function isOnPremiumSignupPage() {
-  return currentPath.startsWith('/i/premium_sign_up')
+  return lastUrlPath.startsWith('/i/premium_sign_up')
 }
 
 function isOnProfilePage() {
-  let profilePathUsername = currentPath.match(URL_PROFILE_RE)?.[1]
+  let profilePathUsername = currentPagePath.match(URL_PROFILE_RE)?.[1]
   if (!profilePathUsername) return false
   // twitter.com/user and its sub-URLs put @user in the title
   return currentPage.toLowerCase().includes(`${ltr ? '@' : ''}${profilePathUsername.toLowerCase()}${!ltr ? '@' : ''}`)
 }
 
 function isOnQuoteTweetsPage() {
-  return currentPath.match(URL_TWEET_INTERACTIONS_RE)?.[1] == 'quotes'
+  return currentPagePath.match(URL_TWEET_INTERACTIONS_RE)?.[1] == 'quotes'
 }
 
 function isOnSearchPage() {
-  return currentPath.startsWith('/search') || currentPath.startsWith('/hashtag/')
+  return currentPagePath.startsWith('/search') || currentPagePath.startsWith('/hashtag/')
 }
 
 function isOnSeparatedTweetsTimeline() {
@@ -2582,7 +2597,7 @@ function isOnSeparatedTweetsTimeline() {
 }
 
 function isOnSettingsPage() {
-  return currentPath.startsWith('/settings')
+  return currentPagePath.startsWith('/settings')
 }
 
 function shouldHideSidebar() {
@@ -2689,6 +2704,27 @@ function getClosestChild($el, $ancestor) {
     $child = $child.parentElement
   }
   return $child
+}
+
+function getCurrentPagePath() {
+  let path = location.pathname
+  if (!desktop) return path
+
+  let history = getTopLevelProps()?.history
+  if (!history?.getIsModalRoute?.()) return path
+
+  let backgroundPath = history.getLastNonModalLocationPathname?.()
+  if (backgroundPath) return backgroundPath
+
+  // Direct modal URLs have no previous route, find the rendered fallback page
+  let $column = document.querySelector(Selectors.PRIMARY_COLUMN)
+  if (!$column) return path
+  let reactFiberKey = Object.keys($column).find(key => key.startsWith('__reactFiber$'))
+  for (let fiber = $column[reactFiberKey], depth = 0; fiber && depth < 50; fiber = fiber.return, depth++) {
+    let routePath = (fiber.stateNode?.props || fiber.memoizedProps)?.location?.pathname
+    if (typeof routePath == 'string' && routePath != path) return routePath
+  }
+  return path
 }
 
 /**
@@ -2994,7 +3030,7 @@ function pageIsNot(page) {
  * @returns {() => boolean}
  */
 function pathIsNot(path) {
-  return () => path != currentPath
+  return () => path != lastUrlPath
 }
 
 /**
@@ -6296,7 +6332,9 @@ function onIndividualTweetTimelineChange($timeline, options) {
   /** @type {boolean} */
   let hideAllSubsequentItems = false
   /** @type {string} */
-  let opScreenName = /^\/([a-zA-Z\d_]{1,20})\//.exec(location.pathname)[1].toLowerCase()
+  let tweetPath = options.observers == modalObservers ? location.pathname : currentPagePath
+  /** @type {?string} */
+  let opScreenName = URL_TWEET_BASE_RE.exec(tweetPath)?.[1]?.toLowerCase()
   /** @type {string} */
   let userScreenName = getUserScreenName()
   /** @type {{$item: Element, hideItem?: boolean}[]} */
@@ -6590,11 +6628,11 @@ function onTitleChange(title) {
     }
     // On desktop, the root Settings page sets an empty title when the sidebar
     // is hidden.
-    else if (desktop && location.pathname == '/settings' && currentPath != '/settings') {
+    else if (desktop && location.pathname == '/settings' && lastUrlPath != '/settings') {
       log('viewing root Settings page')
     }
     // On desktop, the root Messages page sets an empty title
-    else if (desktop && location.pathname.match(/^\/messages(?:\/home)?$/) && !currentPath.match(/^\/messages(?:\/home)?$/)) {
+    else if (desktop && location.pathname.match(/^\/messages(?:\/home)?$/) && !lastUrlPath.match(/^\/messages(?:\/home)?$/)) {
       log('viewing root Messages page')
     }
     // Chat has an empty title
@@ -6617,51 +6655,53 @@ function onTitleChange(title) {
     // Timeline settings dialog opened
     location.pathname == PagePaths.TIMELINE_SETTINGS ||
     // Timeline settings dialog closed
-    currentPath == PagePaths.TIMELINE_SETTINGS ||
+    lastUrlPath == PagePaths.TIMELINE_SETTINGS ||
     // Media modal opened
     URL_MEDIA_RE.test(location.pathname) ||
     // Media modal closed
-    URL_MEDIA_RE.test(currentPath) ||
+    URL_MEDIA_RE.test(lastUrlPath) ||
     // "Send via Direct Message" dialog opened
     location.pathname == ModalPaths.COMPOSE_MESSAGE ||
     // "Send via Direct Message" dialog closed
-    currentPath == ModalPaths.COMPOSE_MESSAGE ||
+    lastUrlPath == ModalPaths.COMPOSE_MESSAGE ||
     // Compose Tweet dialog opened
     location.pathname == ModalPaths.COMPOSE_TWEET ||
     // Compose Tweet dialog closed
-    currentPath == ModalPaths.COMPOSE_TWEET
+    lastUrlPath == ModalPaths.COMPOSE_TWEET
   )
 
-  let hasDesktopInitialModalBeenClosed = desktop && (
+  let hasDesktopModalBeenClosed = desktop && lastUrlPath != location.pathname && (
+    // Closing a modal can re-render its background without changing the title
+    (currentPagePath != lastUrlPath && getCurrentPagePath() == location.pathname) ||
     // Premium sign up dialog closed
-    currentPath == '/i/premium_sign_up' && location.pathname == PagePaths.HOME
+    lastUrlPath == '/i/premium_sign_up' && location.pathname == PagePaths.HOME
   )
 
-  if (newPage == currentPage && !hasDesktopInitialModalBeenClosed) {
+  if (newPage == currentPage && getCurrentPagePath() == currentPagePath && !hasDesktopModalBeenClosed) {
     // The History page re-renders everything when you switch tabs
-    if (location.pathname.startsWith(PagePaths.HISTORY) && currentPath != location.pathname) {
+    if (location.pathname.startsWith(PagePaths.HISTORY) && lastUrlPath != location.pathname) {
       log('viewing History page')
     } else {
       log(`ignoring duplicate title change`)
       // Navigation within the Compose Tweet modal triggers duplcate title changes
       if (isDesktopComposeTweetModalOpen) {
-        if (currentPath == ModalPaths.COMPOSE_TWEET && COMPOSE_TWEET_MODAL_PAGES.has(location.pathname)) {
+        if (lastUrlPath == ModalPaths.COMPOSE_TWEET && COMPOSE_TWEET_MODAL_PAGES.has(location.pathname)) {
           log('navigated away from Compose Tweet editor')
           disconnectObservers(modalObservers, 'modal')
         }
-        else if (COMPOSE_TWEET_MODAL_PAGES.has(currentPath) && location.pathname == ModalPaths.COMPOSE_TWEET) {
+        else if (COMPOSE_TWEET_MODAL_PAGES.has(lastUrlPath) && location.pathname == ModalPaths.COMPOSE_TWEET) {
           log('navigated back to Compose Tweet editor')
           observeDesktopComposeTweetModal($desktopComposeTweetModalPopup)
         }
       }
       currentNotificationCount = notificationCount
-      currentPath = location.pathname
+      lastUrlPath = location.pathname
       return
     }
   }
 
   // Search terms are shown in the title
-  if (currentPath == PagePaths.SEARCH && location.pathname == PagePaths.SEARCH) {
+  if (lastUrlPath == PagePaths.SEARCH && location.pathname == PagePaths.SEARCH) {
     log('ignoring title change on Search page')
     currentNotificationCount = notificationCount
     return
@@ -6681,7 +6721,7 @@ function onTitleChange(title) {
       )) {
     log('ignoring title change on separated tweets timeline')
     currentNotificationCount = notificationCount
-    currentPath = location.pathname
+    lastUrlPath = location.pathname
     setTitle(separatedTweetsTimelineTitle)
     return
   }
@@ -6690,14 +6730,14 @@ function onTitleChange(title) {
   // saw, and the user navigated back home without using the Home navigation
   // item.
   if (location.pathname == PagePaths.HOME &&
-      currentPath != PagePaths.HOME &&
+      lastUrlPath != PagePaths.HOME &&
       !homeNavigationWasUsed &&
       lastHomeTimelineTitle != null &&
       separatedTweetsTimelineTitle != null &&
       lastHomeTimelineTitle == separatedTweetsTimelineTitle) {
     log('restoring display of the separated tweets timeline')
     currentNotificationCount = notificationCount
-    currentPath = location.pathname
+    lastUrlPath = location.pathname
     setTitle(separatedTweetsTimelineTitle)
     return
   }
@@ -6707,7 +6747,7 @@ function onTitleChange(title) {
 
   currentPage = newPage
   currentNotificationCount = notificationCount
-  currentPath = location.pathname
+  lastUrlPath = location.pathname
 
   if (isOnHomeTimelinePage()) {
     lastHomeTimelineTitle = currentPage
@@ -6741,6 +6781,7 @@ function processTwitterLogos($el) {
 
 function processCurrentPage() {
   disconnectObservers(pageObservers, 'page')
+  currentPagePath = getCurrentPagePath()
 
   // Hooks for styling pages
   if (!$body) $body = document.body
@@ -6811,7 +6852,7 @@ function processCurrentPage() {
   else if (isOnSearchPage()) {
     tweakSearchPage()
   }
-  else if (URL_TWEET_INTERACTIONS_RE.test(currentPath)) {
+  else if (URL_TWEET_INTERACTIONS_RE.test(currentPagePath)) {
     tweakTweetEngagementPage()
   }
   else if (isOnListPage()) {
@@ -6853,10 +6894,10 @@ function processCurrentPage() {
     if (isOnComposeTweetPage()) {
       tweakMobileComposeTweetPage()
     }
-    else if (URL_MEDIAVIEWER_RE.test(currentPath)) {
+    else if (URL_MEDIAVIEWER_RE.test(lastUrlPath)) {
       tweakMobileMediaViewerPage()
     }
-    else if (currentPath.startsWith(PagePaths.PROFILE_SETTINGS)) {
+    else if (lastUrlPath.startsWith(PagePaths.PROFILE_SETTINGS)) {
       tweakProfileSettingsPage()
     }
   }
@@ -6899,9 +6940,10 @@ function restoreLinkHeadline($tweet) {
  *   $focusedTweet: HTMLElement
  *   tweetInfo: any
  *   isOwnTweet: boolean
+ *   tweetPath: string
  * }} options
  */
-function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet}) {
+function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet, tweetPath}) {
   if (!config.restoreQuoteTweetsLink && !config.restoreOtherInteractionLinks) return
 
   if (!tweetInfo) {
@@ -6919,7 +6961,7 @@ function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, is
     return
   }
 
-  let tweetLink = location.pathname.match(URL_TWEET_BASE_RE)?.[0]
+  let tweetLink = tweetPath.match(URL_TWEET_BASE_RE)?.[0]
   $actionBar.insertAdjacentHTML('beforebegin', `
     <div id="cpftInteractionLinks" hidden>
       <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--cpft-border); display: flex; gap: 20px;">
@@ -7188,7 +7230,7 @@ function tweakCommunityPage() {
       tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
       onTimelineAppeared() {
         // The About tab has static content at the top which can include a check
-        if (/\/about\/?$/.test(location.pathname)) {
+        if (/\/about\/?$/.test(currentPagePath)) {
           processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
         }
       }
@@ -7255,14 +7297,17 @@ function restoreTweetSource($permalinkBar, tweetInfo) {
 async function tweakFocusedTweet($focusedTweet, options) {
   log('tweaking focused tweet')
   let {observers} = options
-  let focusedTweetUrlMatch = location.pathname.match(URL_TWEET_BASE_RE)
+  let $permalinkBar = $focusedTweet.querySelector('div:has(> div > a > time)')
+  let tweetPath = $permalinkBar?.querySelector('a:has(> time)')?.getAttribute('href') || (
+    observers == modalObservers ? location.pathname : currentPagePath
+  )
+  let focusedTweetUrlMatch = tweetPath.match(URL_TWEET_BASE_RE)
   let screenName = focusedTweetUrlMatch?.[1]
   let tweetId = focusedTweetUrlMatch?.[2]
   let tweetInfo = getTweetInfo(tweetId)
-  let isOwnTweet = isOnOwnTweetPage()
+  let isOwnTweet = isOnOwnTweetPage(tweetPath)
 
   // Tag View elements and restore Tweet source
-  let $permalinkBar = $focusedTweet.querySelector('div:has(> div > a > time)')
   if ($permalinkBar) {
     $permalinkBar.children[1]?.classList.toggle('Views', config.hideViews)
     $permalinkBar.children[2]?.classList.toggle('Views', config.hideViews)
@@ -7276,7 +7321,7 @@ async function tweakFocusedTweet($focusedTweet, options) {
   let $underActionBar = $actionBar?.nextElementSibling
   if ($actionBar) {
     $actionBar.id = 'cpftFocusedTweetActionBar'
-    restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet})
+    restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet, tweetPath})
   } else {
     warn('focused tweet action bar not found')
   }
@@ -7337,8 +7382,8 @@ async function tweakFocusedTweet($focusedTweet, options) {
 
 async function tweakFollowListPage() {
   // Fallback for direct navigation
-  if (config.hideVerifiedNotificationsTab && currentPath.endsWith('/verified_followers')) {
-    History_replace?.(currentPath.replace(/verified_followers$/, 'followers'))
+  if (config.hideVerifiedNotificationsTab && lastUrlPath.endsWith('/verified_followers')) {
+    History_replace?.(lastUrlPath.replace(/verified_followers$/, 'followers'))
     return
   }
 
@@ -7507,7 +7552,7 @@ function tweakHomeTimelinePage() {
     let timelineTabsReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($timelineTabs))
     if (timelineTabsReplaced &&
         // On mobile, navigating to a different tabbed screen can switch tabs before the title changes
-        location.pathname == PagePaths.HOME) {
+        isOnHomeTimelinePage()) {
       log('Home timeline tabs replaced')
       $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
       tweakTimelineTabs($timelineTabs)
@@ -7753,7 +7798,7 @@ async function tweakTimelineTabs($timelineTabs) {
       // Return to the Home timeline when the Home nav link is clicked
       let $homeNavLink = await getElement(Selectors.NAV_HOME_LINK, {
         name: 'home nav link',
-        stopIf: pathIsNot(currentPath),
+        stopIf: pathIsNot(lastUrlPath),
       })
       if ($homeNavLink && !$homeNavLink.dataset.cpftListener) {
         $homeNavLink.addEventListener('click', () => {
@@ -7812,7 +7857,7 @@ async function tweakProfilePage() {
     processBlueChecks($initialContent)
   }
 
-  let tab = currentPath.match(URL_PROFILE_RE)?.[2] || 'tweets'
+  let tab = currentPagePath.match(URL_PROFILE_RE)?.[2] || 'tweets'
   log(`on ${tab} tab`)
   observeTimeline(currentPage, {
     checkSocialContext: tab == 'tweets' || tab == 'with_replies',
@@ -8012,7 +8057,8 @@ async function main({processImmediately = false} = {}) {
 
   // Reset state so initial setup runs again when re-enabled
   currentPage = ''
-  currentPath = ''
+  currentPagePath = ''
+  lastUrlPath = ''
   filterBlurRule = null
   fontFamilyRule = null
   fontSize = null
