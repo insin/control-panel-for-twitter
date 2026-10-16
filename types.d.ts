@@ -55,6 +55,7 @@ export type Config = {
   hideReplyMetrics: boolean
   hideRetweetMetrics: boolean
   hideSeeNewTweets: boolean
+  hideSendViaChatMenuItem: boolean
   hideShareTweetButton: boolean
   hideSortRepliesMenu: boolean
   hideSpacesNav: boolean
