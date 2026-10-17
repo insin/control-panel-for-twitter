@@ -2191,6 +2191,7 @@ const Selectors = {
   TIMELINE: 'div[data-testid="primaryColumn"] section > h1 + div[aria-label] > div',
   TIMELINE_HEADING: 'h2[role="heading"]',
   TWEET: '[data-testid="tweet"]',
+  TWEET_ACTIONS: '[role="group"]:has(> div > button[data-testid="reply"])',
   VERIFIED_TICK: 'svg[data-testid="icon-verified"]',
   X_LOGO_PATH: 'svg path[d="M21.742 21.75l-7.563-11.179 7.056-8.321h-2.456l-5.691 6.714-4.54-6.714H2.359l7.29 10.776L2.25 21.75h2.456l6.035-7.118 4.818 7.118h6.191-.008zM7.739 3.818L18.81 20.182h-2.447L5.29 3.818h2.447z"]',
   X_DARUMA_LOGO_PATH: 'svg path[d="M18.436 1.92h3.403l-7.433 8.495 8.745 11.563h-6.849l-5.363-7.012-6.136 7.012H1.4l7.951-9.088L.96 1.92h7.02l4.848 6.41 5.608-6.41zm-1.194 18.021h1.886L6.958 3.851H4.933l12.308 16.09z"]',
@@ -3768,9 +3769,12 @@ function observeReactNativeStylesheet() {
         return Number(alpha) == 1 ? variable : `rgb(from ${variable} r g b / ${alpha})`
       })
       if (themed == original) continue
-      let selector = property == 'color'
-        ? `${rule.selectorText}:where(:not([data-testid="icon-verified"]))`
-        : rule.selectorText
+      let selector = rule.selectorText
+      if (property == 'color' || property == 'background-color') {
+        let exclusions = `${Selectors.TWEET_ACTIONS} *`
+        if (property == 'color') exclusions += ', svg'
+        selector += `:where(:not(${exclusions}))`
+      }
       cssRules.push(`${selector} { ${property}: ${themed} !important; }`)
     }
 
@@ -5539,16 +5543,16 @@ const configureThemeCss = (() => {
           display: none;
         }
         /* Apply custom theme */
-        [style*="background-color: ${nativePalette.primary}"]:not(.UseNativeTheme) {
+        [style*="background-color: ${nativePalette.primary}"]:not(.UseNativeTheme):where(:not(${Selectors.TWEET_ACTIONS} *)) {
           background-color: var(--cpft-theme-primary) !important;
         }
-        [style*="background-color: ${nativePalette.hover}"]:not(.UseNativeTheme) {
+        [style*="background-color: ${nativePalette.hover}"]:not(.UseNativeTheme):where(:not(${Selectors.TWEET_ACTIONS} *)) {
           background-color: var(--cpft-theme-hover) !important;
         }
         [style*="border-color: ${nativePalette.primary}"]:not(.UseNativeTheme) {
           border-color: var(--cpft-theme-primary) !important;
         }
-        [style*="color: ${nativePalette.primary}"]:not(.UseNativeTheme) {
+        [style*="color: ${nativePalette.primary}"]:not(.UseNativeTheme):where(:not(svg, ${Selectors.TWEET_ACTIONS} *)) {
           color: var(--cpft-theme-primary) !important;
         }
         /* Spinner */
@@ -5558,7 +5562,7 @@ const configureThemeCss = (() => {
         /* Slider track */
         div[style="height: 20px; width: 40px;"] > div:first-child,
         /* Settings font size slider track */
-        div[style="background-color: ${nativePalette.accent};"] {
+        div[style="background-color: ${nativePalette.accent};"]:where(:not(${Selectors.TWEET_ACTIONS} *)) {
           background-color: var(--cpft-theme-accent) !important;
         }
         /* Tweet length circle in editor */
