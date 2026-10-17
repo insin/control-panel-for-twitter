@@ -94,6 +94,7 @@ ${messages.xFixesLabel}:
 • ${messages.hideEditImageLabel}
 • ${messages.hideJobsLabel}
 • ${messages.hideSubscriptionsLabel}
+• ${messages.hideMoneyLabel}
 • ${messages.disableNflFeatures}
 
 ${messages.uiTweaksOptionsLabel}:

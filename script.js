@@ -140,6 +140,7 @@ const config = {
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBusinessNav: true,
+  hideCalls: false,
   hideChatNav: false,
   hideCommunitiesNav: false,
   hideComposeTweet: false,
@@ -158,6 +159,7 @@ const config = {
   hideListsNav: false,
   hideManageTimelines: false,
   hideMetrics: false,
+  hideMoney: true,
   hideMoreFromThisAuthor: true,
   hideMoreTweets: true,
   hideNotificationLikes: false,
@@ -204,7 +206,6 @@ const config = {
   showPremiumReplyGovernment: true,
   sortFollowing: 'mostRecent',
   sortReplies: 'relevant',
-  tweakNewLayout: false,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   unblurSensitiveContent: false,
@@ -225,7 +226,6 @@ const config = {
   hideSuggestedFollows: false,
   hideTimelineTweetBox: false,
   hideTodaysNews: false,
-  hideToggleNavigation: false,
   hideWhatsHappening: false,
   navBaseFontSize: true,
   navDensity: 'default',
@@ -2267,7 +2267,6 @@ const Selectors = {
   DISPLAY_DONE_BUTTON_MOBILE: 'main button[role="button"]:not([aria-label])',
   MODAL_TIMELINE: 'section > h1 + div[aria-label] > div',
   MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
-  MORE_DIALOG: 'div[aria-labelledby="modal-header"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
   NAV_MESSAGES_LINK: 'a[data-testid="AppTabBar_DirectMessage_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
@@ -2480,6 +2479,10 @@ let wasForYouTabSelected = false
 
 function isOnAccessibilitySettingsPage() {
   return currentPath == PagePaths.ACCESSIBILITY_SETTINGS
+}
+
+function isOnCallsPage() {
+  return currentPath.startsWith('/i/calls')
 }
 
 function isOnChatPage() {
@@ -2730,12 +2733,14 @@ function getElement(selector, {
     }
 
     function queryElement() {
+      if (stopIf?.() === true) {
+        stop(null, 'stopIf condition met')
+        return
+      }
+
       let $element = context.querySelector(selector)
       if ($element) {
         stop($element)
-      }
-      else if (stopIf?.() === true) {
-        stop(null, 'stopIf condition met')
       }
       else {
         rafId = requestAnimationFrame(queryElement)
@@ -2766,10 +2771,6 @@ function getState() {
     if (state) return state
     warn('React state not found')
   }
-}
-
-function hasNewLayout() {
-  return getState()?.featureSwitch?.user?.config?.rweb_sourcemap_migration?.value
 }
 
 function getNotificationCount() {
@@ -3028,8 +3029,7 @@ function storeConfigChanges(changes) {
 
 //#region Global observers
 /**
- * When the "Background" setting is changed, <body>'s backgroundColor is changed
- * and the app is re-rendered, so we need to re-process the current page.
+ * Update theme hooks and colours when <body>'s backgroundColor changes.
  */
 function observeBodyBackgroundColor() {
   let lastBackgroundColor = null
@@ -3042,7 +3042,7 @@ function observeBodyBackgroundColor() {
     $body.classList.toggle('LightsOut', backgroundColor == 'rgb(0, 0, 0)' || backgroundColor == 'rgb(5, 5, 5)')
 
     if (lastBackgroundColor != null) {
-      log('Background setting changed - re-processing current page')
+      log('Background setting changed')
       // This also updates body.HighContrast
       let newThemeColor = getThemeColorFromState()
       if (newThemeColor != themeColor) {
@@ -3050,10 +3050,8 @@ function observeBodyBackgroundColor() {
         themeColor = newThemeColor
         configureThemeCss()
       }
-      observePopups()
-      observeSideNavItems()
-      processCurrentPage()
     }
+    styleEmbed.update()
     lastBackgroundColor = backgroundColor
   }, {
     leading: true,
@@ -3062,6 +3060,98 @@ function observeBodyBackgroundColor() {
   }, {
     attributes: true,
     attributeFilter: ['style']
+  })
+}
+
+const styleEmbed = (() => {
+  /** @type {Set<{darkModeStyle: HTMLStyleElement, rafId: number | null}>} */
+  let embeddedStyles = new Set()
+
+  function updateTheme() {
+    let media = config.darkModeTheme == 'dim' && $body.classList.contains('LightsOut') ? 'all' : 'not all'
+    for (let {darkModeStyle} of embeddedStyles) {
+      darkModeStyle.media = media
+    }
+  }
+
+  /**
+   * @param {string} selector
+   * @param {string} rootSelector
+   * @param {Document | HTMLElement} context
+   */
+  function styleEmbed(selector, rootSelector, context = document) {
+    let darkModeStyle = document.createElement('style')
+    darkModeStyle.textContent = dedent(`
+      ${rootSelector}[data-theme="dark"] {
+        --x-bg-primary: var(--cpft-background);
+        --x-bg-secondary: var(--cpft-raised-bg);
+        --x-bg-tertiary: var(--cpft-raised-bg);
+        --x-bg-modal: var(--cpft-raised-bg);
+        --x-bg-sheets: var(--cpft-raised-bg);
+        /* Tailwind & shadcn */
+        --background: 210 34% 13%;
+        --border: 206 16% 26%;
+        --color-background: 210 34% 13%;
+        --color-gray-50: 213 25% 16%;
+        --color-gray-100: 211 34% 24%;
+      }
+    `)
+    let styles = {darkModeStyle, rafId: null}
+    embeddedStyles.add(styles)
+    updateTheme()
+
+    function disconnect() {
+      if (styles.rafId != null) cancelAnimationFrame(styles.rafId)
+      darkModeStyle.remove()
+      embeddedStyles.delete(styles)
+    }
+
+    function attachStyles() {
+      styles.rafId = null
+      if (!context.isConnected) {
+        disconnect()
+        return
+      }
+      let $host = context.querySelector(selector)
+      let $shadowRoot = $host?.shadowRoot
+      let $root = $shadowRoot?.querySelector(rootSelector)
+      // Wait for the embed, its shadow root and initial render
+      if (!$root) {
+        styles.rafId = requestAnimationFrame(attachStyles)
+        return
+      }
+      $shadowRoot.appendChild(darkModeStyle)
+    }
+
+    attachStyles()
+    return {disconnect}
+  }
+  styleEmbed.update = updateTheme
+  return styleEmbed
+})()
+
+/** @param {HTMLElement} $drawerLayer */
+function observeChatDrawer($drawerLayer) {
+  let selector = '[data-testid="xchatEmbedDrawer"]'
+  /** @type {Element | null} */
+  let $embed = null
+  /** @type {{disconnect()} | null} */
+  let styles = null
+
+  return observeElement($drawerLayer, () => {
+    let $host = $drawerLayer.querySelector(selector)
+    if ($host == $embed) return
+
+    styles?.disconnect()
+    $embed = $host
+    styles = $embed ? styleEmbed(selector, ':is([data-xchat-root], [data-xchat-portal])', $drawerLayer) : null
+  }, {
+    leading: true,
+    name: 'Chat embed drawer',
+    observers: globalObservers,
+    onDisconnect() {
+      styles?.disconnect()
+    },
   })
 }
 
@@ -3373,11 +3463,21 @@ const observePopups = (() => {
     let $layers = await getElement('#layers', {
       name: 'layers',
     })
+    if (!$layers) return
+    /** @type {HTMLElement | null} */
+    let $drawerLayer = null
 
     observeElement($layers, (mutations) => {
+      // The first layer contains persistent overlays, popups are siblings
+      let $firstLayer = /** @type {HTMLElement} */ ($layers.firstElementChild)
+      if ($firstLayer != $drawerLayer) {
+        $drawerLayer = $firstLayer
+        if ($drawerLayer) observeChatDrawer($drawerLayer)
+      }
+
       for (let mutation of mutations) {
         for (let $addedNode of mutation.addedNodes) {
-          if (!($addedNode instanceof HTMLElement)) continue
+          if (!($addedNode instanceof HTMLElement) || $addedNode == $firstLayer) continue
           let nestedObserver = onPopup($addedNode)
           if (nestedObserver) {
             nestedObservers.set($addedNode, nestedObserver)
@@ -3392,6 +3492,7 @@ const observePopups = (() => {
         }
       }
     }, {
+      leading: true,
       name: 'popup container',
       observers: globalObservers,
     })
@@ -3404,6 +3505,9 @@ async function observeReRenderBoundary() {
     log('app re-rendered')
     observePopups()
     observeSideNavItems()
+    if (observingPageChanges) {
+      processCurrentPage()
+    }
   }, {
     name: 'app re-render boundary',
     observers: globalObservers,
@@ -3430,7 +3534,7 @@ async function observeTitle() {
       // If Twitter is opened in the background, changing the title might not
       // re-fire the title MutationObserver, preventing the initial page from
       // being processed.
-      if (!currentPage) {
+      if (observingPageChanges && !currentPage) {
         onTitleChange(title)
       }
       return
@@ -4336,12 +4440,6 @@ const configureCss = (() => {
       if (config.darkModeTheme == 'dim') {
         cssRules.push(`
           body.LightsOut {
-            /* Tailwind & shadcn overrides */
-            --background: 210 34% 13%;
-            --border: 206 16% 26%;
-            --color-background: 210 34% 13%;
-            --color-gray-50: 213 25% 16%;
-            --color-gray-100: 211 34% 24%;
             /* Theme */
             --cpft-active-bg-dark: rgb(27, 36, 47);
             --cpft-active-bg: rgb(40, 50, 61);
@@ -4368,8 +4466,6 @@ const configureCss = (() => {
         body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child {
           flex-grow: 0;
           flex-shrink: 1;
-          /* New layout has margin-right on tabs */
-          margin-right: 0;
         }
         /* Hide the For you tab link */
         body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child > [role="tab"] {
@@ -4403,6 +4499,9 @@ const configureCss = (() => {
           '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"] > div:has(> button[data-testid$="ookmark"])',
         )
       }
+    }
+    if (config.hideCalls) {
+      hideCssSelectors.push(`${menuRole} a[href="/i/calls"]`)
     }
     if (config.hideConnectNav) {
       hideCssSelectors.push(`${menuRole} a:is([href$="/i/connect_people"], [href$="/i/follow_people"])`)
@@ -4463,6 +4562,16 @@ const configureCss = (() => {
     if (config.hideSortRepliesMenu) {
       hideCssSelectors.push('.SortRepliesMenu')
     }
+    if (config.hideMoney) {
+      hideCssSelectors.push(
+        `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/money"]`,
+        `${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/money"]`,
+        `${menuRole} a[href="/i/money"]`,
+        // Money icon and balance buttons beside Edit Profile
+        '[data-testid="ownProfilePaymentsButton"]',
+        '[data-testid="ownProfilePaymentsButtonWithBalance"]',
+      )
+    }
     if (config.hideSubscriptions) {
       hideCssSelectors.push(
         // Subscribe buttons in profile (multiple locations)
@@ -4486,8 +4595,6 @@ const configureCss = (() => {
       cssRules.push(`
         .SubscriptionsTab {
           flex: 0;
-          /* New layout has margin-right on tabs */
-          margin-right: 0;
         }
       `)
     }
@@ -4581,18 +4688,12 @@ const configureCss = (() => {
         // Upsell on the Likes tab in your own profile
         `body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"])`,
       )
-      if (desktop && config.tweakNewLayout) {
-        // In new More dialog
-        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href^="/i/premium"], [href^="/i/verified"])`)
-      }
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
       let upsellTabLinks = 'a:is([href$="/highlights"], [href$="/articles"], [href$="/highlights?mx=1"], [href$="/articles?mx=1"])'
       cssRules.push(`
         ${profileTabsList} > div:has(> ${upsellTabLinks}) {
           flex: 0;
-          /* New layout has margin-right on tabs */
-          margin-right: 0;
         }
         ${profileTabsList} > div > ${upsellTabLinks} {
           display: none;
@@ -4603,8 +4704,6 @@ const configureCss = (() => {
       cssRules.push(`
         .VerifiedFollowersTab {
           flex: 0;
-          /* New layout has margin-right on tabs */
-          margin-right: 0;
         }
         .VerifiedFollowersTab > [role="tab"] {
           display: none;
@@ -4688,158 +4787,47 @@ const configureCss = (() => {
     }
 
     if (shouldShowSeparatedTweetsTab()) {
-      if (hasNewLayout()) {
-        // The new layout only has colour to distinguish the active tab
-        cssRules.push(`
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
-            color: var(--cpft-text-secondary) !important;
-          }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
-            color: var(--cpft-text-primary) !important;
-          }
-          body.Desktop #cpftSeparatedTweetsTab:hover > [role="tab"] > div > div {
-            color: var(--cpft-text-primary) !important;
-          }
-        `)
-      } else {
-        cssRules.push(`
-          /* Sometimes the cloned tab has a hover background color class */
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] {
-            background-color: transparent !important;
-          }
-          body.Desktop #cpftSeparatedTweetsTab:hover,
-          body.Mobile:not(.SeparatedTweets) #cpftSeparatedTweetsTab:hover,
-          body.Mobile #cpftSeparatedTweetsTab:active {
-            background-color: var(--cpft-tab-hover-backdrop) !important;
-          }
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
-            font-weight: normal !important;
-            color: var(--cpft-text-secondary) !important;
-          }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
-            font-weight: bold;
-            color: var(--cpft-text-primary) !important;
-          }
-          /* Active tab underline */
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div > div {
-            height: 0 !important;
-          }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div > div {
-            height: 4px !important;
-            min-width: 56px;
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            border-radius: 9999px;
-          }
-          /* Following menu indicator */
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"] svg {
-            display: none;
-          }
-        `)
-      }
-    }
-
-    if (hasNewLayout() && config.tweakNewLayout) {
       cssRules.push(`
-        /* Make the image button first in the Tweet editor toolbar again */
-        [data-testid="toolBar"] [role="tablist"] > [role="presentation"] {
-          order: 1;
+        /* Sometimes the cloned tab has a hover background color class */
+        body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] {
+          background-color: transparent !important;
         }
-        [data-testid="toolBar"] [role="tablist"] > [role="presentation"]:has(input[data-testid="fileInput"]) {
-          order: 0;
+        body.Desktop #cpftSeparatedTweetsTab:hover,
+        body.Mobile:not(.SeparatedTweets) #cpftSeparatedTweetsTab:hover,
+        body.Mobile #cpftSeparatedTweetsTab:active {
+          background-color: var(--cpft-tab-hover-backdrop) !important;
+        }
+        body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
+        body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
+          font-weight: normal !important;
+          color: var(--cpft-text-secondary) !important;
+        }
+        body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
+          font-weight: bold;
+          color: var(--cpft-text-primary) !important;
+        }
+        /* Active tab underline */
+        body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div > div,
+        body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div > div {
+          height: 0 !important;
+        }
+        body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div > div {
+          height: 4px !important;
+          min-width: 56px;
+          width: 100%;
+          position: absolute;
+          bottom: 0;
+          border-radius: 9999px;
+        }
+        /* Following menu indicator */
+        body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"] svg {
+          display: none;
         }
       `)
-      if (config.replaceLogo) {
-        cssRules.push(`
-          /* Add theme colour back to Tweet editor toolbar buttons */
-          [data-testid="toolBar"] [role="tablist"] > [role="presentation"] svg {
-            fill: var(--cpft-theme);
-          }
-        `)
-      }
     }
 
     //#region Desktop-only
     if (desktop) {
-      if (hasNewLayout() && config.tweakNewLayout) {
-        cssRules.push(`
-          /* Realign nav items to the top */
-          header[role="banner"] > div > div > div {
-            justify-content: flex-start;
-          }
-          /* Restore size and constrast of main nav icons and More button */
-          ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) svg {
-            width: 1.75rem !important;
-            height: 1.75rem !important;
-            fill: var(--cpft-text-primary) !important;
-          }
-          /* Restore contrast of main nav text when expanded */
-          ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) div[dir]:not([aria-live]) {
-            color: var(--cpft-text-primary) !important;
-          }
-          /* Give other nav button icons more contrast too */
-          header[role="banner"] button svg {
-            fill: var(--cpft-text-primary) !important;
-          }
-          /* Make the Tweet button larger */
-          [data-testid="SideNav_NewTweet_Button"] {
-            min-width: 49px;
-            min-height: 49px;
-          }
-          /* Move the account switcher back to the bottom */
-          header[role="banner"] > div > div > div > div:last-child {
-            flex: 1;
-            justify-content: space-between;
-          }
-          /* Restore primary column borders */
-          header[role="banner"] > div > div > div  {
-            border-right: 1px solid var(--cpft-border);
-          }
-          ${Selectors.PRIMARY_COLUMN} {
-            border-right: 1px solid var(--cpft-border);
-          }
-          /* Left-align main contents and stop it taking up all available space */
-          main {
-            align-items: flex-start !important;
-            flex-grow: 0 !important;
-          }
-          /* Remove the gap between main contents and sidebar */
-          main > div > div > div {
-            justify-content: normal !important;
-          }
-          /* Restore the sidebar to its old width */
-          ${Selectors.SIDEBAR},
-          ${Selectors.SIDEBAR} > div > div,
-          .SidebarContents > div:first-child {
-            width: 350px !important;
-          }
-          /* Center content */
-          div[data-at-shortcutkeys] {
-            justify-content: center;
-          }
-        `)
-        if (config.replaceLogo) {
-          // TODO Manually patch Tweet button SVG in Safari
-          cssRules.push(`
-            /* Restore theme colour in nav item pips */
-            ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live],
-            ${Selectors.MORE_DIALOG} :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live],
-            /* Restore theme colour in profile switcher other accounts have notifications pip */
-            button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label],
-            /* Restore theme colour in account switcher notifications pips */
-            [data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live] {
-              background-color: var(--cpft-theme);
-            }
-          `)
-        }
-      }
-      if (hasNewLayout() && config.hideToggleNavigation) {
-        hideCssSelectors.push('header[role="banner"] > div > div > div > div:first-child > button')
-      }
       if (config.navDensity == 'comfortable' || config.navDensity == 'compact') {
         cssRules.push(`
           header nav > a,
@@ -4872,8 +4860,6 @@ const configureCss = (() => {
         hideCssSelectors.push(
           // Notifications & Messages in primary nav
           `${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live]`,
-          // Notifications & Messages in the More dialog in the new layout
-          `${Selectors.MORE_DIALOG} :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live]`,
           // Account switcher
           'button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label]',
           // Account switcher accounts
@@ -4885,8 +4871,6 @@ const configureCss = (() => {
           hideCssSelectors.push(
             // Nav item
             `${Selectors.PRIMARY_NAV_DESKTOP} a[href^="/notifications"]`,
-            // More dialog item
-            `${Selectors.MORE_DIALOG} a[href^="/notifications"]`,
           )
         }
       }
@@ -4948,15 +4932,14 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
-      if (config.hideAdsNav && config.tweakNewLayout) {
-        // In new More dialog
-        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
-      }
       if (config.hideComposeTweet) {
         hideCssSelectors.push('[data-testid="SideNav_NewTweet_Button"]')
       }
       if (config.hideConnectNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/connect_people"]`)
+      }
+      if (config.hideCalls) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/calls"]`)
       }
       if (config.hideChatNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/chat"]`)
@@ -4967,31 +4950,15 @@ const configureCss = (() => {
           // Grok drawer
           'div[data-testid="GrokDrawer"]',
         )
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/i/grok"]`)
-        }
       }
       if (config.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`)
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/jobs"]`)
-        }
       }
       if (config.hideListsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/lists"]`)
-        }
       }
       if (config.hideSpacesNav) {
         hideCssSelectors.push(`${menuRole} a[href="/i/spaces/start"]`)
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/i/spaces/start"]`)
-        }
       }
       if (config.hideTwitterBlueUpsells) {
         hideCssSelectors.push(
@@ -5060,24 +5027,12 @@ const configureCss = (() => {
         // when on a page full-width content is enabled on.
         let bodySelector = `${config.hideExploreNavWithSidebar ? `body.Sidebar${config.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
         hideCssSelectors.push(`${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/explore"]`)
-        }
       }
       if (config.hideHistoryNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="${PagePaths.HISTORY}"]`)
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="${PagePaths.HISTORY}"]`)
-        }
       }
       if (config.hideCommunitiesNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
-        if (config.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/communities"]`)
-        }
       }
       if (config.hideMessagesDrawer) {
         cssRules.push(`div:is([data-testid="DMDrawer"], [data-testid="chat-drawer-root"]) { visibility: hidden; }`)
@@ -5098,27 +5053,6 @@ const configureCss = (() => {
 
     //#region Mobile only
     if (mobile) {
-      if (hasNewLayout() && config.tweakNewLayout) {
-        cssRules.push(`
-          /* Remove new padding from profile details and the tab bar (this has to be accidental) */
-          body.Profile ${Selectors.PRIMARY_COLUMN} > div > div > div > div > div > div > div > div {
-            padding-left: 0;
-            padding-right: 0;
-          }
-        `)
-        if (config.replaceLogo) {
-          cssRules.push(`
-            /* Restore theme colour in nav item pips */
-            ${Selectors.PRIMARY_NAV_MOBILE} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-label],
-            /* Restore theme colour in profile button other accounts have notifications pip */
-            button[data-testid="DashButton_ProfileIcon_Link"] div[aria-label],
-            /* Restore theme colour in account switcher notifications pips */
-            [role="dialog"] [data-testid^="UserAvatar-Container"] div[dir] {
-              background-color: var(--cpft-theme);
-            }
-          `)
-        }
-      }
       if (config.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
       }
@@ -5163,6 +5097,9 @@ const configureCss = (() => {
           // Content
           `body.Explore ${Selectors.TIMELINE}`,
         )
+      }
+      if (config.hideCalls) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/calls"]`)
       }
       if (config.hideGrokNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/grok"]`)
@@ -6656,9 +6593,9 @@ function onTitleChange(title) {
     else if (desktop && location.pathname.match(/^\/messages(?:\/home)?$/) && !currentPath.match(/^\/messages(?:\/home)?$/)) {
       log('viewing root Messages page')
     }
-    // On desktop, Chat always has an empty title
-    else if (desktop && location.pathname == '/i/chat' && currentPath != '/i/chat') {
-      log('viewing root Chat page')
+    // Chat has an empty title
+    else if (location.pathname.startsWith('/i/chat') && !isOnChatPage()) {
+      log('viewing Chat page')
     }
     else {
       log('ignoring Flash of Uninitialised Title')
@@ -6829,7 +6766,7 @@ function processCurrentPage() {
   $body.classList.remove('SeparatedTweets')
 
   if (desktop) {
-    if (!isOnChatPage() && !isOnGrokPage() && !isOnMessagesPage() && !isOnSettingsPage()) {
+    if (!isOnCallsPage() && !isOnChatPage() && !isOnGrokPage() && !isOnMessagesPage() && !isOnSettingsPage()) {
       observeSidebar()
     } else {
       $body.classList.remove('Sidebar')
@@ -6893,6 +6830,12 @@ function processCurrentPage() {
   }
   else if (isOnCommunityMembersPage()) {
     tweakCommunityMembersPage()
+  }
+  else if (isOnCallsPage()) {
+    tweakCallsPage()
+  }
+  else if (isOnChatPage()) {
+    tweakChatPage()
   }
   else if (isOnDisplaySettingsPage() || isOnAccessibilitySettingsPage()) {
     tweakDisplaySettingsPage()
@@ -7148,6 +7091,30 @@ function shouldHideSharedTweet(config, page) {
     case 'ignore': return page == separatedTweetsTimelineTitle
     case 'separate': return page != separatedTweetsTimelineTitle
   }
+}
+
+function tweakCallsPage() {
+  let styles = styleEmbed('[data-testid="xcallsRemoteHost"]', ':is([data-xcalls-root], [data-xcalls-portal])')
+  let name = 'Calls page styles'
+  pageObservers.set(name, {
+    name,
+    disconnect() {
+      styles.disconnect()
+      pageObservers.delete(name)
+    },
+  })
+}
+
+function tweakChatPage() {
+  let styles = styleEmbed('[data-testid="xchatEmbedRoute"]', ':is([data-xchat-root], [data-xchat-portal])')
+  let name = 'Chat page styles'
+  pageObservers.set(name, {
+    name,
+    disconnect() {
+      styles.disconnect()
+      pageObservers.delete(name)
+    },
+  })
 }
 
 async function tweakHistoryPage() {
@@ -8116,7 +8083,8 @@ async function main({processImmediately = false} = {}) {
       // Start taking action on page changes
       observingPageChanges = true
 
-      if (processImmediately) {
+      // Replay the initial title after setup if its observer ran before startup
+      if (processImmediately || !currentPage) {
         processImmediately = false
         onTitleChange(document.title)
       }
@@ -8189,6 +8157,7 @@ function configChanged(changes) {
 
   if ('darkModeTheme' in changes) {
     observeThemeMeta.update()
+    styleEmbed.update()
   }
   if ('replaceLogo' in changes || 'hideNotifications' in changes) {
     observeFavicon.forceUpdate(getNotificationCount() > 0)

@@ -88,6 +88,7 @@ for (let translationId of [
   'hideManageTimelinesLabel',
   'hideMessagesDrawerLabel',
   'hideMetricsLabel',
+  'hideMoneyLabel',
   'hideMoreFromThisAuthorLabel',
   'hideMoreSlideOutMenuItemsOptionsLabel_desktop',
   'hideMoreSlideOutMenuItemsOptionsLabel_mobile',
@@ -107,7 +108,6 @@ for (let translationId of [
   'hideSuggestedFollowsLabel',
   'hideTimelineTweetBoxLabel',
   'hideTodaysNewsLabel',
-  'hideToggleNavigationLabel',
   'hideTwitterBlueRepliesLabel',
   'hideTwitterBlueUpsellsLabel',
   'hideUnavailableQuoteTweetsLabel',
@@ -148,8 +148,6 @@ for (let translationId of [
   'sidebarLabel',
   'sortFollowingLabel',
   'sortRepliesLabel',
-  'tweakNewLayoutInfo',
-  'tweakNewLayoutLabel',
   'tweakQuoteTweetsPageLabel',
   'twitterBlueChecksLabel',
   'twitterBlueChecksOption_replace',
@@ -169,6 +167,7 @@ for (let translationId of [
 
 for (let translationClass of [
   'hideBusinessNavLabel',
+  'hideCallsLabel',
   'hideChatNavLabel',
   'hideCommunitiesNavLabel',
   'hideConnectNavLabel',
@@ -228,6 +227,7 @@ const defaultConfig = {
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBusinessNav: true,
+  hideCalls: false,
   hideChatNav: false,
   hideCommunitiesNav: false,
   hideComposeTweet: false,
@@ -246,6 +246,7 @@ const defaultConfig = {
   hideListsNav: false,
   hideManageTimelines: false,
   hideMetrics: false,
+  hideMoney: true,
   hideMoreFromThisAuthor: true,
   hideMoreTweets: true,
   hideNotificationLikes: false,
@@ -292,7 +293,6 @@ const defaultConfig = {
   showPremiumReplyGovernment: true,
   sortFollowing: 'mostRecent',
   sortReplies: 'relevant',
-  tweakNewLayout: false,
   tweakQuoteTweetsPage: true,
   twitterBlueChecks: 'replace',
   uninvertFollowButtons: true,
@@ -313,7 +313,6 @@ const defaultConfig = {
   hideSuggestedFollows: false,
   hideTimelineTweetBox: false,
   hideTodaysNews: false,
-  hideToggleNavigation: false,
   hideWhatsHappening: false,
   navBaseFontSize: true,
   navDensity: 'default',
@@ -355,7 +354,7 @@ let $showBlueReplyFollowersCountLabel = /** @type {HTMLElement} */ (document.que
 //#region Utility functions
 function exportConfig() {
   let $a = document.createElement('a')
-  $a.download = 'control-panel-for-twitter-v4.24.3.config.txt'
+  $a.download = 'control-panel-for-twitter-v4.25.1.config.txt'
   $a.href = URL.createObjectURL(new Blob([
     JSON.stringify(optionsConfig, null, 2)
   ], {type: 'text/plain'}))
@@ -525,7 +524,6 @@ function updateDisplay() {
   $body.classList.toggle('mutingQuotes', shouldDisplayMutedQuotes())
   $body.classList.toggle('showingBlueReplyFollowersCount', optionsConfig.showBlueReplyFollowersCount)
   $body.classList.toggle('showingSidebarContent', !optionsConfig.hideSidebarContent)
-  $body.classList.toggle('tweakingNewLayout', optionsConfig.tweakNewLayout)
   $body.classList.toggle('uninvertedFollowButtons', optionsConfig.uninvertFollowButtons)
   $showBlueReplyFollowersCountLabel.textContent = chrome.i18n.getMessage(
     'showBlueReplyFollowersCountLabel',

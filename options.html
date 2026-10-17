@@ -441,6 +441,13 @@
       </section>
       <section class="checkbox">
         <label>
+          <span id="hideMoneyLabel">Hide Money</span>
+          <input type="checkbox" name="hideMoney">
+          <span class="toggle"></span>
+        </label>
+      </section>
+      <section class="checkbox">
+        <label>
           <span id="disableNflFeaturesLabel">Disable NFL features</span>
           <input type="checkbox" name="disableNflFeatures">
           <span class="toggle"></span>
@@ -789,6 +796,13 @@
           <span class="toggle"></span>
         </label>
       </section>
+      <section class="checkbox">
+        <label>
+          <span class="hideCallsLabel">Calls</span>
+          <input type="checkbox" name="hideCalls">
+          <span class="toggle"></span>
+        </label>
+      </section>
       <section class="checkbox desktop">
         <label>
           <span class="hideHistoryNavLabel">History</span>
@@ -893,23 +907,6 @@
             <button type="button" id="saveCustomCss" class="saveAndApplyButton">Save and apply</button>
           </section>
         </section>
-        <section class="checkbox">
-          <label>
-            <span id="tweakNewLayoutLabel">Tweak new layout</span>
-            <input type="checkbox" name="tweakNewLayout">
-            <span class="toggle"></span>
-          </label>
-          <p id="tweakNewLayoutInfo">
-            Experimental - only enable if you have the new layout
-          </p>
-          <section class="checkbox desktop">
-            <label>
-              <span id="hideToggleNavigationLabel">Hide Toggle navigation</span>
-              <input type="checkbox" name="hideToggleNavigation">
-              <span class="toggle"></span>
-            </label>
-          </section>
-        </section>
       </details>
     </section>
 
@@ -938,7 +935,7 @@
       </section>
     </section>
 
-    <div id="version">v4.24.3<span id="debugCountdown"></span></div>
+    <div id="version">v4.25.1<span id="debugCountdown"></span></div>
   </form>
   <script src="options.js"></script>
 </body>

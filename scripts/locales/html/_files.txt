@@ -1,188 +1,176 @@
 -L
 --cookie nope
 -o ar-x-fm.html
-url="https://x.com/?mx=2&lang=ar-x-fm"
+url="https://x.com/intent/tweet?mx=2&lang=ar-x-fm"
 -L
 --cookie nope
 -o ar.html
-url="https://x.com/?mx=2&lang=ar"
+url="https://x.com/intent/tweet?mx=2&lang=ar"
 -L
 --cookie nope
 -o bg.html
-url="https://x.com/?mx=2&lang=bg"
+url="https://x.com/intent/tweet?mx=2&lang=bg"
 -L
 --cookie nope
 -o bn.html
-url="https://x.com/?mx=2&lang=bn"
+url="https://x.com/intent/tweet?mx=2&lang=bn"
 -L
 --cookie nope
 -o ca.html
-url="https://x.com/?mx=2&lang=ca"
+url="https://x.com/intent/tweet?mx=2&lang=ca"
 -L
 --cookie nope
 -o cs.html
-url="https://x.com/?mx=2&lang=cs"
+url="https://x.com/intent/tweet?mx=2&lang=cs"
 -L
 --cookie nope
 -o da.html
-url="https://x.com/?mx=2&lang=da"
+url="https://x.com/intent/tweet?mx=2&lang=da"
 -L
 --cookie nope
 -o de.html
-url="https://x.com/?mx=2&lang=de"
+url="https://x.com/intent/tweet?mx=2&lang=de"
 -L
 --cookie nope
 -o el.html
-url="https://x.com/?mx=2&lang=el"
+url="https://x.com/intent/tweet?mx=2&lang=el"
 -L
 --cookie nope
 -o en.html
-url="https://x.com/?mx=2&lang=en"
+url="https://x.com/intent/tweet?mx=2&lang=en"
 -L
 --cookie nope
 -o es.html
-url="https://x.com/?mx=2&lang=es"
--L
---cookie nope
--o eu.html
-url="https://x.com/?mx=2&lang=eu"
+url="https://x.com/intent/tweet?mx=2&lang=es"
 -L
 --cookie nope
 -o fa.html
-url="https://x.com/?mx=2&lang=fa"
+url="https://x.com/intent/tweet?mx=2&lang=fa"
 -L
 --cookie nope
 -o fi.html
-url="https://x.com/?mx=2&lang=fi"
+url="https://x.com/intent/tweet?mx=2&lang=fi"
 -L
 --cookie nope
 -o fil.html
-url="https://x.com/?mx=2&lang=fil"
+url="https://x.com/intent/tweet?mx=2&lang=fil"
 -L
 --cookie nope
 -o fr.html
-url="https://x.com/?mx=2&lang=fr"
--L
---cookie nope
--o ga.html
-url="https://x.com/?mx=2&lang=ga"
--L
---cookie nope
--o gl.html
-url="https://x.com/?mx=2&lang=gl"
+url="https://x.com/intent/tweet?mx=2&lang=fr"
 -L
 --cookie nope
 -o gu.html
-url="https://x.com/?mx=2&lang=gu"
+url="https://x.com/intent/tweet?mx=2&lang=gu"
 -L
 --cookie nope
 -o he.html
-url="https://x.com/?mx=2&lang=he"
+url="https://x.com/intent/tweet?mx=2&lang=he"
 -L
 --cookie nope
 -o hi.html
-url="https://x.com/?mx=2&lang=hi"
+url="https://x.com/intent/tweet?mx=2&lang=hi"
 -L
 --cookie nope
 -o hr.html
-url="https://x.com/?mx=2&lang=hr"
+url="https://x.com/intent/tweet?mx=2&lang=hr"
 -L
 --cookie nope
 -o hu.html
-url="https://x.com/?mx=2&lang=hu"
+url="https://x.com/intent/tweet?mx=2&lang=hu"
 -L
 --cookie nope
 -o id.html
-url="https://x.com/?mx=2&lang=id"
+url="https://x.com/intent/tweet?mx=2&lang=id"
 -L
 --cookie nope
 -o it.html
-url="https://x.com/?mx=2&lang=it"
+url="https://x.com/intent/tweet?mx=2&lang=it"
 -L
 --cookie nope
 -o ja.html
-url="https://x.com/?mx=2&lang=ja"
+url="https://x.com/intent/tweet?mx=2&lang=ja"
 -L
 --cookie nope
 -o kn.html
-url="https://x.com/?mx=2&lang=kn"
+url="https://x.com/intent/tweet?mx=2&lang=kn"
 -L
 --cookie nope
 -o ko.html
-url="https://x.com/?mx=2&lang=ko"
+url="https://x.com/intent/tweet?mx=2&lang=ko"
 -L
 --cookie nope
 -o mr.html
-url="https://x.com/?mx=2&lang=mr"
+url="https://x.com/intent/tweet?mx=2&lang=mr"
 -L
 --cookie nope
 -o ms.html
-url="https://x.com/?mx=2&lang=ms"
+url="https://x.com/intent/tweet?mx=2&lang=ms"
 -L
 --cookie nope
 -o nb.html
-url="https://x.com/?mx=2&lang=nb"
+url="https://x.com/intent/tweet?mx=2&lang=nb"
 -L
 --cookie nope
 -o nl.html
-url="https://x.com/?mx=2&lang=nl"
+url="https://x.com/intent/tweet?mx=2&lang=nl"
 -L
 --cookie nope
 -o pl.html
-url="https://x.com/?mx=2&lang=pl"
+url="https://x.com/intent/tweet?mx=2&lang=pl"
 -L
 --cookie nope
 -o pt.html
-url="https://x.com/?mx=2&lang=pt"
+url="https://x.com/intent/tweet?mx=2&lang=pt"
 -L
 --cookie nope
 -o ro.html
-url="https://x.com/?mx=2&lang=ro"
+url="https://x.com/intent/tweet?mx=2&lang=ro"
 -L
 --cookie nope
 -o ru.html
-url="https://x.com/?mx=2&lang=ru"
+url="https://x.com/intent/tweet?mx=2&lang=ru"
 -L
 --cookie nope
 -o sk.html
-url="https://x.com/?mx=2&lang=sk"
+url="https://x.com/intent/tweet?mx=2&lang=sk"
 -L
 --cookie nope
 -o sr.html
-url="https://x.com/?mx=2&lang=sr"
+url="https://x.com/intent/tweet?mx=2&lang=sr"
 -L
 --cookie nope
 -o sv.html
-url="https://x.com/?mx=2&lang=sv"
+url="https://x.com/intent/tweet?mx=2&lang=sv"
 -L
 --cookie nope
 -o ta.html
-url="https://x.com/?mx=2&lang=ta"
+url="https://x.com/intent/tweet?mx=2&lang=ta"
 -L
 --cookie nope
 -o th.html
-url="https://x.com/?mx=2&lang=th"
+url="https://x.com/intent/tweet?mx=2&lang=th"
 -L
 --cookie nope
 -o tr.html
-url="https://x.com/?mx=2&lang=tr"
+url="https://x.com/intent/tweet?mx=2&lang=tr"
 -L
 --cookie nope
 -o uk.html
-url="https://x.com/?mx=2&lang=uk"
+url="https://x.com/intent/tweet?mx=2&lang=uk"
 -L
 --cookie nope
 -o ur.html
-url="https://x.com/?mx=2&lang=ur"
+url="https://x.com/intent/tweet?mx=2&lang=ur"
 -L
 --cookie nope
 -o vi.html
-url="https://x.com/?mx=2&lang=vi"
+url="https://x.com/intent/tweet?mx=2&lang=vi"
 -L
 --cookie nope
 -o zh-Hant.html
-url="https://x.com/?mx=2&lang=zh-Hant"
+url="https://x.com/intent/tweet?mx=2&lang=zh-Hant"
 -L
 --cookie nope
 -o zh.html
-url="https://x.com/?mx=2&lang=zh"
+url="https://x.com/intent/tweet?mx=2&lang=zh"

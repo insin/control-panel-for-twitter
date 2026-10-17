@@ -128,6 +128,9 @@
   "hideBusinessNavLabel": {
     "message": "Per le attività"
   },
+  "hideCallsLabel": {
+    "message": "Chiamate"
+  },
   "hideChatNavLabel": {
     "message": "Chat"
   },
@@ -203,6 +206,9 @@
   "hideMetricsLabel": {
     "message": "Nascondi statistiche"
   },
+  "hideMoneyLabel": {
+    "message": "Nascondi Money"
+  },
   "hideMoreFromThisAuthorLabel": {
     "message": "Nascondi \"Altro di questo autore\""
   },
@@ -274,9 +280,6 @@
   },
   "hideTodaysNewsLabel": {
     "message": "Nascondi le Notizie del giorno"
-  },
-  "hideToggleNavigationLabel": {
-    "message": "Nascondi attiva/disattiva navigazione"
   },
   "hideTwitterBlueRepliesLabel": {
     "message": "Nascondi risposte degli utenti verificati Premium"
@@ -466,12 +469,6 @@
   },
   "sortRepliesLabel": {
     "message": "Ordinamento predefinito delle risposte"
-  },
-  "tweakNewLayoutInfo": {
-    "message": "Sperimentale - abilita solo se hai il nuovo layout"
-  },
-  "tweakNewLayoutLabel": {
-    "message": "Modifica nuovo layout"
   },
   "tweakQuoteTweetsPageLabel": {
     "message": "Nascondi il tweet citato quando visualizzi i tweet di citazione"

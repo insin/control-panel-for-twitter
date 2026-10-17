@@ -23,6 +23,7 @@ export type Config = {
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
   hideBusinessNav: boolean
+  hideCalls: boolean
   hideChatNav: boolean
   hideCommunitiesNav: boolean
   hideComposeTweet: boolean
@@ -41,6 +42,7 @@ export type Config = {
   hideListsNav: boolean
   hideManageTimelines: boolean
   hideMetrics: boolean
+  hideMoney: boolean
   hideMoreFromThisAuthor: boolean
   // XXX This now controls hiding all "Discover" suggestions
   hideMoreTweets: boolean
@@ -92,7 +94,6 @@ export type Config = {
   showPremiumReplyGovernment: boolean
   sortFollowing: 'mostRecent' | 'popular' | 'ignore'
   sortReplies: 'relevant' | 'recent' | 'liked'
-  tweakNewLayout: boolean
   tweakQuoteTweetsPage: boolean
   twitterBlueChecks: 'ignore' | 'replace' | 'hide'
   unblurSensitiveContent: boolean
@@ -112,7 +113,6 @@ export type Config = {
   hideSuggestedFollows: boolean
   hideTimelineTweetBox: boolean
   hideTodaysNews: boolean
-  hideToggleNavigation: boolean
   hideWhatsHappening: boolean
   navBaseFontSize: boolean
   navDensity: 'default' | 'comfortable' | 'compact'
