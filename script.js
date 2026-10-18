@@ -2236,7 +2236,6 @@ function getString(key) {
 //#region Constants
 /** @enum {string} */
 const PagePaths = {
-  ACCESSIBILITY_SETTINGS: '/settings/accessibility',
   ADD_MUTED_WORD: '/settings/add_muted_keyword',
   COMPOSE_TWEET: '/compose/post',
   CONNECT: '/i/connect',
@@ -2246,17 +2245,6 @@ const PagePaths = {
   NOTIFICATION_TIMELINE: '/i/timeline',
   PROFILE_SETTINGS: '/settings/profile',
   SEARCH: '/search',
-  TIMELINE_SETTINGS: '/home/pinned/edit',
-}
-
-/** @enum {string} */
-const ModalPaths = {
-  COMPOSE_DRAFTS: '/compose/post/unsent/drafts',
-  COMPOSE_MEDIA: '/compose/post/media',
-  COMPOSE_MESSAGE: '/messages/compose',
-  COMPOSE_SCHEDULE: '/compose/post/schedule',
-  COMPOSE_TWEET: '/compose/post',
-  GIF_SEARCH: '/i/foundmedia/search',
 }
 
 /** @enum {string} */
@@ -2329,12 +2317,6 @@ const HIGH_CONTRAST_DARK = new Map([
   ['purple500', 'rgb(172, 151, 255)'],
   ['orange500', 'rgb(255, 173, 97)'],
   ['green500', 'rgb(97, 214, 163)'],
-])
-const COMPOSE_TWEET_MODAL_PAGES = new Set([
-  ModalPaths.COMPOSE_DRAFTS,
-  ModalPaths.COMPOSE_MEDIA,
-  ModalPaths.COMPOSE_SCHEDULE,
-  ModalPaths.GIF_SEARCH,
 ])
 // <body> pseudo-selector for pages the full-width content feature works on
 const FULL_WIDTH_BODY_PSEUDO = ':is(.Community, .List, .HomeTimeline)'
@@ -2411,6 +2393,9 @@ let currentPagePath = ''
  */
 let lastUrlPath = ''
 
+/** Whether the URL from the last handled title change was a desktop modal. */
+let lastUrlWasModal = false
+
 /**
  * React Native stylesheet rule for the blur filter for sensitive content.
  * @type {CSSStyleRule}
@@ -2442,6 +2427,12 @@ let isDesktopComposeTweetModalOpen = false
 let $desktopComposeTweetModalPopup = null
 
 /**
+ * Popup container currently being observed, which can survive app re-renders.
+ * @type {HTMLElement}
+ */
+let $popupContainer = null
+
+/**
  * flex-direction on the element wrapping the app is used to determine the
  * current mode (mobile or desktop).
  */
@@ -2454,7 +2445,7 @@ let lastFlexDirection = null
 let lastHomeTimelineTitle = null
 
 /**
- * MutationObservers active on the current modal.
+ * Observers and pending setup to clean up when the current modal changes.
  * @type {Map<string, import("./types").Disconnectable>}
  */
 let modalObservers = new Map()
@@ -2491,10 +2482,6 @@ let themeColor = THEME_BLUE
  * `true` when "For you" was the last tab selected on the Home timeline.
  */
 let wasForYouTabSelected = false
-
-function isOnAccessibilitySettingsPage() {
-  return currentPagePath == PagePaths.ACCESSIBILITY_SETTINGS
-}
 
 function isOnCallsPage() {
   return currentPagePath.startsWith('/i/calls')
@@ -2706,25 +2693,29 @@ function getClosestChild($el, $ancestor) {
   return $child
 }
 
-function getCurrentPagePath() {
-  let path = location.pathname
-  if (!desktop) return path
+/** Read the URL and underlying page together for navigation decisions. */
+function getCurrentRoute() {
+  let urlPath = location.pathname
+  let history = desktop ? getTopLevelProps()?.history : null
+  let isModal = Boolean(history?.getIsModalRoute?.())
+  let pagePath = urlPath
+  if (isModal) {
+    pagePath = history.getLastNonModalLocationPathname?.() || getRenderedPagePath(urlPath)
+  }
+  return {urlPath, pagePath, isModal}
+}
 
-  let history = getTopLevelProps()?.history
-  if (!history?.getIsModalRoute?.()) return path
-
-  let backgroundPath = history.getLastNonModalLocationPathname?.()
-  if (backgroundPath) return backgroundPath
-
+/** @param {string} fallbackPath */
+function getRenderedPagePath(fallbackPath) {
   // Direct modal URLs have no previous route, find the rendered fallback page
   let $column = document.querySelector(Selectors.PRIMARY_COLUMN)
-  if (!$column) return path
+  if (!$column) return fallbackPath
   let reactFiberKey = Object.keys($column).find(key => key.startsWith('__reactFiber$'))
   for (let fiber = $column[reactFiberKey], depth = 0; fiber && depth < 50; fiber = fiber.return, depth++) {
     let routePath = (fiber.stateNode?.props || fiber.memoizedProps)?.location?.pathname
-    if (typeof routePath == 'string' && routePath != path) return routePath
+    if (typeof routePath == 'string' && routePath != fallbackPath) return routePath
   }
-  return path
+  return fallbackPath
 }
 
 /**
@@ -3034,6 +3025,25 @@ function pathIsNot(path) {
 }
 
 /**
+ * Register pending modal setup so disconnecting modalObservers cancels it too.
+ * @param {string} name
+ * @returns {() => boolean}
+ */
+function registerModalSetup(name) {
+  let cancelled = false
+  modalObservers.get(name)?.disconnect()
+  let setup = {
+    name,
+    disconnect() {
+      cancelled = true
+      if (modalObservers.get(name) == setup) modalObservers.delete(name)
+    },
+  }
+  modalObservers.set(name, setup)
+  return () => cancelled
+}
+
+/**
  * @template T
  * @param {() => T} fn
  */
@@ -3193,12 +3203,13 @@ async function observeDesktopComposeTweetModal($popup) {
   $popup.classList.add('ComposeTweetModal')
   if (!config.replaceLogo) return
 
+  let modalCancelled = registerModalSetup('Compose Tweet modal setup')
   let $firstEditorRoot = await getElement('.DraftEditor-root', {
     context: $popup,
     name: 'Compose Tweet first editor root',
-    stopIf: () => !isDesktopComposeTweetModalOpen
+    stopIf: modalCancelled,
   })
-  if (!$firstEditorRoot) return
+  if (!$firstEditorRoot || modalCancelled()) return
 
   let $tweetButtonText = $popup.querySelector('button[data-testid="tweetButton"] span > span')
   if ($tweetButtonText) {
@@ -3317,15 +3328,16 @@ async function observeDesktopHomeTimelineTweetBox() {
  * @param {HTMLElement} $popup
  */
 async function observeDesktopModalTimeline($popup) {
+  let modalCancelled = registerModalSetup('media modal setup')
   // Media modals remember if they were previously collapsed, so we could be
   // waiting for the initial timeline to be either rendered or expanded.
   let $initialTimeline = await getElement(Selectors.MODAL_TIMELINE, {
     context: $popup,
     name: 'initial modal timeline',
-    stopIf: () => !isDesktopMediaModalOpen,
+    stopIf: modalCancelled,
   })
 
-  if ($initialTimeline == null) return
+  if ($initialTimeline == null || modalCancelled()) return
 
   /**
    * @param {HTMLElement} $timeline
@@ -3404,9 +3416,9 @@ async function observeDesktopModalTimeline($popup) {
       let $timeline = await getElement(Selectors.MODAL_TIMELINE, {
         context: $popup,
         name: 'expanded modal timeline',
-        stopIf: () => !isDesktopMediaModalOpen,
+        stopIf: modalCancelled,
       })
-      if ($timeline == null) return
+      if ($timeline == null || modalCancelled()) return
       observeModalTimeline($timeline)
     }
   }, {
@@ -3492,7 +3504,7 @@ async function observePopups() {
   let $layers = await getElement('#layers', {
     name: 'layers',
   })
-  if (!$layers) return
+  if (!$layers || $layers == $popupContainer) return
   /** @type {HTMLElement | null} */
   let $drawerLayer = null
   /** @type {Map<HTMLElement, {disconnect()} | null>} */
@@ -3523,12 +3535,14 @@ async function observePopups() {
     name: 'popup container',
     observers: globalObservers,
     onDisconnect() {
+      $popupContainer = null
       for (let observer of nestedObservers.values()) {
         observer?.disconnect()
       }
       nestedObservers.clear()
     },
   })
+  $popupContainer = $layers
 }
 
 async function observeReRenderBoundary() {
@@ -3539,7 +3553,7 @@ async function observeReRenderBoundary() {
     observeSideNavItems()
     if (observingPageChanges) {
       updateThemeColor()
-      processCurrentPage()
+      if (currentPagePath) processCurrentPage()
     }
   }, {
     name: 'app re-render boundary',
@@ -3567,7 +3581,7 @@ async function observeTitle() {
       // If Twitter is opened in the background, changing the title might not
       // re-fire the title MutationObserver, preventing the initial page from
       // being processed.
-      if (observingPageChanges && !currentPage) {
+      if (observingPageChanges && !currentPagePath) {
         onTitleChange(title)
       }
       return
@@ -5794,7 +5808,7 @@ function handlePopup($popup) {
   }
 
   if (desktop && !isDesktopComposeTweetModalOpen &&
-      location.pathname.startsWith(ModalPaths.COMPOSE_TWEET)) {
+      location.pathname.startsWith(PagePaths.COMPOSE_TWEET)) {
     log('Compose Tweet modal opened')
     isDesktopComposeTweetModalOpen = true
     $desktopComposeTweetModalPopup = $popup
@@ -6612,31 +6626,31 @@ function onTitleChange(title) {
     observeFavicon.forceUpdate(Boolean(notificationCount))
   }
 
-  let homeNavigationWasUsed = homeNavigationIsBeingUsed
-  homeNavigationIsBeingUsed = false
+  let route = getCurrentRoute()
 
   // Ignore Flash of Uninitialised Title when navigating to a page for the first
-  // time, except in scenarios where we know an empty title is being set.
-  if (title == 'X' || title == getString('TWITTER')) {
+  // time, except on pages we've identified as not setting a title, including
+  // when they're rendered beneath a desktop modal.
+  if (!title || title == 'X' || title == getString('TWITTER')) {
     // On mobile, the media viewer sets an empty title
-    if (mobile && (URL_MEDIA_RE.test(location.pathname) || URL_MEDIAVIEWER_RE.test(location.pathname))) {
+    if (mobile && (URL_MEDIA_RE.test(route.urlPath) || URL_MEDIAVIEWER_RE.test(route.urlPath))) {
       log('viewing media on mobile')
     }
     // On mobile, the Premium sign up page sets an empty title
-    else if (mobile && location.pathname == '/i/premium_sign_up') {
+    else if (mobile && route.urlPath == '/i/premium_sign_up') {
       log('viewing Premium sign up page on mobile')
     }
     // On desktop, the root Settings page sets an empty title when the sidebar
     // is hidden.
-    else if (desktop && location.pathname == '/settings' && lastUrlPath != '/settings') {
+    else if (desktop && route.pagePath == '/settings') {
       log('viewing root Settings page')
     }
     // On desktop, the root Messages page sets an empty title
-    else if (desktop && location.pathname.match(/^\/messages(?:\/home)?$/) && !lastUrlPath.match(/^\/messages(?:\/home)?$/)) {
+    else if (desktop && route.pagePath.match(/^\/messages(?:\/home)?$/)) {
       log('viewing root Messages page')
     }
     // Chat has an empty title
-    else if (location.pathname.startsWith('/i/chat') && !isOnChatPage()) {
+    else if (route.pagePath.startsWith('/i/chat')) {
       log('viewing Chat page')
     }
     else {
@@ -6645,63 +6659,39 @@ function onTitleChange(title) {
     }
   }
 
+  let homeNavigationWasUsed = homeNavigationIsBeingUsed
+  homeNavigationIsBeingUsed = false
+
   // Remove " / Twitter" or "Twitter \ " from the title
   let newPage = title
   if (newPage != 'X' && newPage != getString('TWITTER')) {
     newPage = title.slice(...ltr ? [0, title.lastIndexOf('/') - 1] : [title.indexOf('\\') + 2])
   }
 
-  let hasDesktopModalBeenOpenedOrClosed = desktop && (
-    // Timeline settings dialog opened
-    location.pathname == PagePaths.TIMELINE_SETTINGS ||
-    // Timeline settings dialog closed
-    lastUrlPath == PagePaths.TIMELINE_SETTINGS ||
-    // Media modal opened
-    URL_MEDIA_RE.test(location.pathname) ||
-    // Media modal closed
-    URL_MEDIA_RE.test(lastUrlPath) ||
-    // "Send via Direct Message" dialog opened
-    location.pathname == ModalPaths.COMPOSE_MESSAGE ||
-    // "Send via Direct Message" dialog closed
-    lastUrlPath == ModalPaths.COMPOSE_MESSAGE ||
-    // Compose Tweet dialog opened
-    location.pathname == ModalPaths.COMPOSE_TWEET ||
-    // Compose Tweet dialog closed
-    lastUrlPath == ModalPaths.COMPOSE_TWEET
-  )
+  let hasDesktopModalRouteChanged = lastUrlPath != route.urlPath && (lastUrlWasModal || route.isModal)
+  // Closing a modal can rebuild its background without changing the title
+  let hasDesktopModalBeenClosed = lastUrlWasModal && !route.isModal
+  lastUrlWasModal = route.isModal
 
-  let hasDesktopModalBeenClosed = desktop && lastUrlPath != location.pathname && (
-    // Closing a modal can re-render its background without changing the title
-    (currentPagePath != lastUrlPath && getCurrentPagePath() == location.pathname) ||
-    // Premium sign up dialog closed
-    lastUrlPath == '/i/premium_sign_up' && location.pathname == PagePaths.HOME
-  )
+  // A modal can change screens without changing the underlying page or title
+  if (desktop && lastUrlPath != route.urlPath) {
+    handleDesktopModalRouteChange(route.urlPath)
+  }
 
-  if (newPage == currentPage && getCurrentPagePath() == currentPagePath && !hasDesktopModalBeenClosed) {
+  if (newPage == currentPage && route.pagePath == currentPagePath && !hasDesktopModalBeenClosed) {
     // The History page re-renders everything when you switch tabs
-    if (location.pathname.startsWith(PagePaths.HISTORY) && lastUrlPath != location.pathname) {
+    if (route.urlPath.startsWith(PagePaths.HISTORY) && lastUrlPath != route.urlPath) {
       log('viewing History page')
     } else {
       log(`ignoring duplicate title change`)
-      // Navigation within the Compose Tweet modal triggers duplcate title changes
-      if (isDesktopComposeTweetModalOpen) {
-        if (lastUrlPath == ModalPaths.COMPOSE_TWEET && COMPOSE_TWEET_MODAL_PAGES.has(location.pathname)) {
-          log('navigated away from Compose Tweet editor')
-          disconnectObservers(modalObservers, 'modal')
-        }
-        else if (COMPOSE_TWEET_MODAL_PAGES.has(lastUrlPath) && location.pathname == ModalPaths.COMPOSE_TWEET) {
-          log('navigated back to Compose Tweet editor')
-          observeDesktopComposeTweetModal($desktopComposeTweetModalPopup)
-        }
-      }
       currentNotificationCount = notificationCount
-      lastUrlPath = location.pathname
+      lastUrlPath = route.urlPath
       return
     }
   }
 
   // Search terms are shown in the title
-  if (lastUrlPath == PagePaths.SEARCH && location.pathname == PagePaths.SEARCH) {
+  if (lastUrlPath == PagePaths.SEARCH && route.urlPath == PagePaths.SEARCH) {
     log('ignoring title change on Search page')
     currentNotificationCount = notificationCount
     return
@@ -6714,22 +6704,23 @@ function onTitleChange(title) {
       // …the Home nav link or Following / Home header _wasn't_ clicked and…
       !homeNavigationWasUsed &&
       (
-        // …a modal which changes the pathname has been opened or closed.
-        hasDesktopModalBeenOpenedOrClosed ||
+        // …a desktop modal route changed.
+        hasDesktopModalRouteChanged ||
         // …the notification count in the title changed.
         notificationCount != currentNotificationCount
       )) {
     log('ignoring title change on separated tweets timeline')
     currentNotificationCount = notificationCount
-    lastUrlPath = location.pathname
+    lastUrlPath = route.urlPath
     setTitle(separatedTweetsTimelineTitle)
+    if (hasDesktopModalBeenClosed) processCurrentPage(route)
     return
   }
 
   // Restore display of the separated tweets timelne if it's the last one we
   // saw, and the user navigated back home without using the Home navigation
   // item.
-  if (location.pathname == PagePaths.HOME &&
+  if (route.urlPath == PagePaths.HOME &&
       lastUrlPath != PagePaths.HOME &&
       !homeNavigationWasUsed &&
       lastHomeTimelineTitle != null &&
@@ -6737,7 +6728,7 @@ function onTitleChange(title) {
       lastHomeTimelineTitle == separatedTweetsTimelineTitle) {
     log('restoring display of the separated tweets timeline')
     currentNotificationCount = notificationCount
-    lastUrlPath = location.pathname
+    lastUrlPath = route.urlPath
     setTitle(separatedTweetsTimelineTitle)
     return
   }
@@ -6747,15 +6738,29 @@ function onTitleChange(title) {
 
   currentPage = newPage
   currentNotificationCount = notificationCount
-  lastUrlPath = location.pathname
+  lastUrlPath = route.urlPath
 
-  if (isOnHomeTimelinePage()) {
+  if (route.pagePath == PagePaths.HOME) {
     lastHomeTimelineTitle = currentPage
   }
 
   log('processing new page')
 
-  processCurrentPage()
+  processCurrentPage(route)
+}
+
+/** @param {string} path */
+function handleDesktopModalRouteChange(path) {
+  if (!isDesktopComposeTweetModalOpen) return
+  // Any sub-screen can replace the editor, including ones outside /compose/post
+  if (lastUrlPath == PagePaths.COMPOSE_TWEET && path != PagePaths.COMPOSE_TWEET) {
+    log('navigated away from Compose Tweet editor')
+    disconnectObservers(modalObservers, 'modal')
+  }
+  else if (lastUrlPath != PagePaths.COMPOSE_TWEET && path == PagePaths.COMPOSE_TWEET) {
+    log('navigated back to Compose Tweet editor')
+    observeDesktopComposeTweetModal($desktopComposeTweetModalPopup)
+  }
 }
 
 /**
@@ -6779,9 +6784,11 @@ function processTwitterLogos($el) {
   }
 }
 
-function processCurrentPage() {
+function processCurrentPage(route = getCurrentRoute()) {
+  // Startup can re-render before the initial page title has been handled
+  if (!lastUrlPath) return
   disconnectObservers(pageObservers, 'page')
-  currentPagePath = getCurrentPagePath()
+  currentPagePath = route.pagePath
 
   // Hooks for styling pages
   if (!$body) $body = document.body
@@ -6811,7 +6818,7 @@ function processCurrentPage() {
   $body.classList.remove('SeparatedTweets')
 
   if (desktop) {
-    if (!isOnCallsPage() && !isOnChatPage() && !isOnGrokPage() && !isOnMessagesPage() && !isOnSettingsPage()) {
+    if (!isOnCallsPage() && !isOnChatPage() && !isOnGrokPage() && !isOnSettingsPage()) {
       observeSidebar()
     } else {
       $body.classList.remove('Sidebar')
@@ -8059,6 +8066,8 @@ async function main({processImmediately = false} = {}) {
   currentPage = ''
   currentPagePath = ''
   lastUrlPath = ''
+  lastUrlWasModal = false
+  observingPageChanges = false
   filterBlurRule = null
   fontFamilyRule = null
   fontSize = null
@@ -8124,7 +8133,7 @@ async function main({processImmediately = false} = {}) {
       observingPageChanges = true
 
       // Replay the initial title after setup if its observer ran before startup
-      if (processImmediately || !currentPage) {
+      if ((processImmediately || !currentPagePath) && document.querySelector('title')) {
         processImmediately = false
         onTitleChange(document.title)
       }
