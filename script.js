@@ -2236,6 +2236,7 @@ function getString(key) {
 //#region Constants
 /** @enum {string} */
 const PagePaths = {
+  ACCESSIBILITY_SETTINGS: '/settings/accessibility',
   ADD_MUTED_WORD: '/settings/add_muted_keyword',
   COMPOSE_TWEET: '/compose/post',
   CONNECT: '/i/connect',
@@ -2479,6 +2480,10 @@ let themeColor = THEME_BLUE
  * `true` when "For you" was the last tab selected on the Home timeline.
  */
 let wasForYouTabSelected = false
+
+function isOnAccessibilitySettingsPage() {
+  return currentPagePath == PagePaths.ACCESSIBILITY_SETTINGS
+}
 
 function isOnCallsPage() {
   return currentPagePath.startsWith('/i/calls')
