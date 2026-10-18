@@ -2251,12 +2251,9 @@ const PagePaths = {
 const Selectors = {
   BLOCK_MENU_ITEM: '[data-testid="block"]',
   DESKTOP_TIMELINE_HEADER: 'div[data-testid="primaryColumn"] > div > div:first-of-type',
-  DISPLAY_DONE_BUTTON_DESKTOP: '#layers button[role="button"]:not([aria-label])',
-  DISPLAY_DONE_BUTTON_MOBILE: 'main button[role="button"]:not([aria-label])',
   MODAL_TIMELINE: 'section > h1 + div[aria-label] > div',
   MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
-  NAV_MESSAGES_LINK: 'a[data-testid="AppTabBar_DirectMessage_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV_DESKTOP: 'header nav',
   PRIMARY_NAV_MOBILE: '#layers nav',
@@ -2546,10 +2543,6 @@ function isOnListsPage() {
 
 function isOnHomeTimelinePage() {
   return currentPagePath == PagePaths.HOME
-}
-
-function isOnMessagesPage() {
-  return currentPagePath.startsWith('/messages')
 }
 
 function isOnComposeTweetPage() {
@@ -4905,14 +4898,12 @@ const configureCss = (() => {
       if (config.hideNotifications != 'ignore') {
         // Hide notification badges and indicators
         hideCssSelectors.push(
-          // Notifications & Messages in primary nav
-          `${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live]`,
+          // Notifications & Chat in primary nav
+          `${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/i/chat"]) div[aria-live]`,
           // Account switcher
           'button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label]',
           // Account switcher accounts
           '[data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live]',
-          // Messages drawer title
-          '[data-testid="DMDrawerHeader"] h2 svg[role="img"]'
         )
         if (config.hideNotifications == 'hide') {
           hideCssSelectors.push(
@@ -5082,7 +5073,7 @@ const configureCss = (() => {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
       }
       if (config.hideMessagesDrawer) {
-        cssRules.push(`div:is([data-testid="DMDrawer"], [data-testid="chat-drawer-root"]) { visibility: hidden; }`)
+        cssRules.push(`div[data-testid="chat-drawer-root"] { visibility: hidden; }`)
       }
       if (config.hideViews) {
         hideCssSelectors.push(
@@ -5109,8 +5100,8 @@ const configureCss = (() => {
       if (config.hideNotifications != 'ignore') {
         // Hide notification badges and indicators
         hideCssSelectors.push(
-          // Notifications & Messages in primary nav
-          `${Selectors.PRIMARY_NAV_MOBILE} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-label]`,
+          // Notifications & Chat in primary nav
+          `${Selectors.PRIMARY_NAV_MOBILE} > :is(a[href^="/notifications"], a[href="/i/chat"]) div[aria-label]`,
           // Account switcher
           `button[data-testid="DashButton_ProfileIcon_Link"] div[aria-label]`,
           // Account switcher accounts
@@ -6644,10 +6635,6 @@ function onTitleChange(title) {
     // is hidden.
     else if (desktop && route.pagePath == '/settings') {
       log('viewing root Settings page')
-    }
-    // On desktop, the root Messages page sets an empty title
-    else if (desktop && route.pagePath.match(/^\/messages(?:\/home)?$/)) {
-      log('viewing root Messages page')
     }
     // Chat has an empty title
     else if (route.pagePath.startsWith('/i/chat')) {
