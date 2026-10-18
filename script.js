@@ -3098,13 +3098,14 @@ function observeBodyBackgroundColor() {
 }
 
 const styleEmbed = (() => {
-  /** @type {Set<{darkModeStyle: HTMLStyleElement, rafId: number | null}>} */
+  /** @type {Set<{darkModeStyle: HTMLStyleElement, notificationStyle: HTMLStyleElement, rafId: number | null}>} */
   let embeddedStyles = new Set()
 
-  function updateTheme() {
+  function updateStyles() {
     let media = config.darkModeTheme == 'dim' && $body.classList.contains('LightsOut') ? 'all' : 'not all'
-    for (let {darkModeStyle} of embeddedStyles) {
+    for (let {darkModeStyle, notificationStyle} of embeddedStyles) {
       darkModeStyle.media = media
+      notificationStyle.media = config.hideNotifications != 'ignore' ? 'all' : 'not all'
     }
   }
 
@@ -3130,13 +3131,20 @@ const styleEmbed = (() => {
         --color-gray-100: 211 34% 24%;
       }
     `)
-    let styles = {darkModeStyle, rafId: null}
+    let notificationStyle = document.createElement('style')
+    notificationStyle.textContent = dedent(`
+      [data-testid="xchat-drawer-unread-badge"] {
+        display: none !important;
+      }
+    `)
+    let styles = {darkModeStyle, notificationStyle, rafId: null}
     embeddedStyles.add(styles)
-    updateTheme()
+    updateStyles()
 
     function disconnect() {
       if (styles.rafId != null) cancelAnimationFrame(styles.rafId)
       darkModeStyle.remove()
+      notificationStyle.remove()
       embeddedStyles.delete(styles)
     }
 
@@ -3154,13 +3162,13 @@ const styleEmbed = (() => {
         styles.rafId = requestAnimationFrame(attachStyles)
         return
       }
-      $shadowRoot.appendChild(darkModeStyle)
+      $shadowRoot.append(darkModeStyle, notificationStyle)
     }
 
     attachStyles()
     return {disconnect}
   }
-  styleEmbed.update = updateTheme
+  styleEmbed.update = updateStyles
   return styleEmbed
 })()
 
@@ -8193,6 +8201,8 @@ function configChanged(changes) {
 
   if ('darkModeTheme' in changes) {
     observeThemeMeta.update()
+  }
+  if ('darkModeTheme' in changes || 'hideNotifications' in changes) {
     styleEmbed.update()
   }
   if ('replaceLogo' in changes || 'hideNotifications' in changes) {
