@@ -146,6 +146,9 @@
   "hideBusinessNav": {
     "message": "Entreprise"
   },
+  "hideCalls": {
+    "message": "Appels"
+  },
   "hideChatNav": {
     "message": "Chat"
   },
@@ -223,6 +226,9 @@
   },
   "hideMetrics": {
     "message": "Masquer les métriques"
+  },
+  "hideMoney": {
+    "message": "Masquer Money"
   },
   "hideMoreFromThisAuthor": {
     "message": "Masquer \"Plus de cet auteur\""
@@ -304,9 +310,6 @@
   },
   "hideTodaysNews": {
     "message": "Masquer les Actualités du jour"
-  },
-  "hideToggleNavigation": {
-    "message": "Masquer activer/désactiver la navigation"
   },
   "hideUnavailableQuoteTweets": {
     "message": "Masquer les citations et les réponses aux comptes bloqués et muets"
@@ -547,12 +550,6 @@
   },
   "syncSettings": {
     "message": "Synchroniser les paramètres dans ce navigateur"
-  },
-  "tweakNewLayout": {
-    "message": "Ajuster la nouvelle mise en page"
-  },
-  "tweakNewLayoutInfo": {
-    "message": "Expérimental - n'activez que si vous avez la nouvelle mise en page"
   },
   "tweakQuoteTweetsPage": {
     "message": "Masquer le tweet cité lors de l'affichage des citations de tweets"

@@ -508,6 +508,13 @@
         </section>
         <section class="checkbox">
           <label>
+            <span id="hideMoney">Hide Money</span>
+            <input type="checkbox" name="hideMoney">
+            <span class="toggle"></span>
+          </label>
+        </section>
+        <section class="checkbox">
+          <label>
             <span id="disableNflFeaturesLabel">Disable NFL features</span>
             <input type="checkbox" name="disableNflFeatures">
             <span class="toggle"></span>
@@ -899,6 +906,13 @@
             <span class="toggle"></span>
           </label>
         </section>
+        <section class="checkbox">
+          <label>
+            <span class="hideCalls">Calls</span>
+            <input type="checkbox" name="hideCalls">
+            <span class="toggle"></span>
+          </label>
+        </section>
         <section class="checkbox desktop">
           <label>
             <span class="hideHistoryNav">History</span>
@@ -1010,25 +1024,6 @@
           <label id="customCss" for="customCss">Custom CSS</label>
           <textarea id="customCss" rows="1"></textarea>
           <button type="button" id="saveCustomCss" class="saveAndApply">Save and apply</button>
-        </section>
-        <section class="checkbox">
-          <label>
-            <span id="tweakNewLayout">Tweak new layout</span>
-            <input type="checkbox" name="tweakNewLayout">
-            <span class="toggle"></span>
-          </label>
-          <p id="tweakNewLayoutInfo">
-            Experimental - only enable if you have the new layout
-          </p>
-          <div class="sub-options">
-            <section class="checkbox desktop">
-              <label>
-                <span id="hideToggleNavigation">Hide Toggle navigation</span>
-                <input type="checkbox" name="hideToggleNavigation">
-                <span class="toggle"></span>
-              </label>
-            </section>
-          </div>
         </section>
       </div>
     </section>

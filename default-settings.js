@@ -25,6 +25,7 @@ export const DEFAULT_SETTINGS = {
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBusinessNav: true,
+  hideCalls: false,
   hideChatNav: false,
   hideCommunitiesNav: false,
   hideComposeTweet: false,
@@ -46,6 +47,7 @@ export const DEFAULT_SETTINGS = {
   hideListsNav: false,
   hideManageTimelines: false,
   hideMetrics: false,
+  hideMoney: true,
   hideMoreFromThisAuthor: true,
   hideNotificationLikes: false,
   hideNotificationRetweets: false,
@@ -118,7 +120,5 @@ export const DEFAULT_SETTINGS = {
   preventNextVideoAutoplay: true,
   // Experiments
   customCss: '',
-  hideToggleNavigation: false,
-  tweakNewLayout: false,
 }
 //#endregion

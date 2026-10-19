@@ -132,6 +132,7 @@ for (const translationId of [
   'hideManageTimelines',
   'hideMessagesDrawer',
   'hideMetrics',
+  'hideMoney',
   'hideMoreFromThisAuthor',
   'hideMoreSlideOutMenuItemsOptions_desktop',
   'hideMoreSlideOutMenuItemsOptions_mobile',
@@ -155,7 +156,6 @@ for (const translationId of [
   'hideSuggestedFollows',
   'hideTimelineTweetBox',
   'hideTodaysNews',
-  'hideToggleNavigation',
   'hideUnavailableQuoteTweets',
   'hideUnusedUiItemsOptions',
   'hideVerifiedTabs',
@@ -201,8 +201,6 @@ for (const translationId of [
   'sortRepliesInfo',
   'stickyHeadings',
   'syncSettings',
-  'tweakNewLayout',
-  'tweakNewLayoutInfo',
   'tweakQuoteTweetsPage',
   'uiImprovementsOptions',
   'uiTweaksOptions',
@@ -223,6 +221,7 @@ for (const translationId of [
 for (const translationClass of [
   'hideBookmarksNav',
   'hideBusinessNav',
+  'hideCalls',
   'hideChatNav',
   'hideCommunitiesNav',
   'hideConnectNav',
@@ -970,7 +969,6 @@ function updateDisplay() {
   $body.classList.toggle('showingSidebarContent', !config.settings.hideSidebarContent)
   $body.classList.toggle('sortingRepliesByLikes', config.settings.sortReplies == 'liked')
   $body.classList.toggle('stickyHeadings', config.stickyHeadings)
-  $body.classList.toggle('tweakingNewLayout', config.settings.tweakNewLayout)
   $body.classList.toggle('uninvertedFollowButtons', config.settings.uninvertFollowButtons)
   const icon = `icons/icon32${!config.enabled ? '-disabled' : ''}.png`
   if ($optionsIcon.src != icon) {

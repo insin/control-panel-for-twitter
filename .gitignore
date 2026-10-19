@@ -1,4 +1,5 @@
 .DS_Store
+.scratch/
 browser_action.html
 manifest.json
 node_modules/

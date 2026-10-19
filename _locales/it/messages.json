@@ -146,6 +146,9 @@
   "hideBusinessNav": {
     "message": "Per le attività"
   },
+  "hideCalls": {
+    "message": "Chiamate"
+  },
   "hideChatNav": {
     "message": "Chat"
   },
@@ -223,6 +226,9 @@
   },
   "hideMetrics": {
     "message": "Nascondi statistiche"
+  },
+  "hideMoney": {
+    "message": "Nascondi Money"
   },
   "hideMoreFromThisAuthor": {
     "message": "Nascondi \"Altro di questo autore\""
@@ -304,9 +310,6 @@
   },
   "hideTodaysNews": {
     "message": "Nascondi le Notizie del giorno"
-  },
-  "hideToggleNavigation": {
-    "message": "Nascondi attiva/disattiva navigazione"
   },
   "hideUnavailableQuoteTweets": {
     "message": "Nascondi tweet citati e risposte di account bloccati o silenziati"
@@ -548,12 +551,6 @@
   },
   "syncSettings": {
     "message": "Sincronizza le impostazioni in questo browser"
-  },
-  "tweakNewLayout": {
-    "message": "Modifica nuovo layout"
-  },
-  "tweakNewLayoutInfo": {
-    "message": "Sperimentale - abilita solo se hai il nuovo layout"
   },
   "tweakQuoteTweetsPage": {
     "message": "Nascondi il tweet citato quando visualizzi i tweet di citazione"

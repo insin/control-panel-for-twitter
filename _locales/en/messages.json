@@ -149,6 +149,9 @@
   "hideBusinessNav": {
     "message": "Business"
   },
+  "hideCalls": {
+    "message": "Calls"
+  },
   "hideChatNav": {
     "message": "Chat"
   },
@@ -226,6 +229,9 @@
   },
   "hideMetrics": {
     "message": "Hide metrics"
+  },
+  "hideMoney": {
+    "message": "Hide Money"
   },
   "hideMoreFromThisAuthor": {
     "message": "Hide \"More From This Author\""
@@ -307,9 +313,6 @@
   },
   "hideTodaysNews": {
     "message": "Hide Today's News"
-  },
-  "hideToggleNavigation": {
-    "message": "Hide Toggle navigation"
   },
   "hideUnavailableQuoteTweets": {
     "message": "Hide quotes and replies to blocked and muted accounts"
@@ -554,12 +557,6 @@
   },
   "syncSettings": {
     "message": "Sync settings in this browser"
-  },
-  "tweakNewLayout": {
-    "message": "Tweak new layout"
-  },
-  "tweakNewLayoutInfo": {
-    "message": "Experimental - only enable if you have the new layout"
   },
   "tweakQuoteTweetsPage": {
     "message": "Hide the quoted tweet when viewing Quote Tweets"

@@ -146,6 +146,9 @@
   "hideBusinessNav": {
     "message": "ビジネス"
   },
+  "hideCalls": {
+    "message": "通話"
+  },
   "hideChatNav": {
     "message": "チャット"
   },
@@ -223,6 +226,9 @@
   },
   "hideMetrics": {
     "message": "メトリクスを非表示"
+  },
+  "hideMoney": {
+    "message": "Money を非表示にする"
   },
   "hideMoreFromThisAuthor": {
     "message": "「この作者の他の投稿」を非表示"
@@ -304,9 +310,6 @@
   },
   "hideTodaysNews": {
     "message": "「本日のニュース」を非表示"
-  },
-  "hideToggleNavigation": {
-    "message": "ナビゲーション切り替えを非表示"
   },
   "hideUnavailableQuoteTweets": {
     "message": "ブロックまたはミュートしたアカウントへの引用や返信を非表示にする"
@@ -547,12 +550,6 @@
   },
   "syncSettings": {
     "message": "このブラウザで設定を同期"
-  },
-  "tweakNewLayout": {
-    "message": "新しいレイアウトを調整"
-  },
-  "tweakNewLayoutInfo": {
-    "message": "実験的機能 - 新しいレイアウトがある場合にのみ有効にしてください"
   },
   "tweakQuoteTweetsPage": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"

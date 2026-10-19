@@ -146,6 +146,9 @@
   "hideBusinessNav": {
     "message": "商业"
   },
+  "hideCalls": {
+    "message": "呼叫"
+  },
   "hideChatNav": {
     "message": "聊天"
   },
@@ -223,6 +226,9 @@
   },
   "hideMetrics": {
     "message": "隐藏指标"
+  },
+  "hideMoney": {
+    "message": "隐藏 Money"
   },
   "hideMoreFromThisAuthor": {
     "message": "隐藏“此作者的更多内容”"
@@ -304,9 +310,6 @@
   },
   "hideTodaysNews": {
     "message": "隐藏今日新闻"
-  },
-  "hideToggleNavigation": {
-    "message": "隐藏切换导航"
   },
   "hideUnavailableQuoteTweets": {
     "message": "隐藏对已屏蔽和已静音账号的引用和回复"
@@ -556,12 +559,6 @@
   },
   "syncSettings": {
     "message": "在此浏览器中同步设置"
-  },
-  "tweakNewLayout": {
-    "message": "调整新布局"
-  },
-  "tweakNewLayoutInfo": {
-    "message": "实验性功能 - 仅在您拥有新布局时启用"
   },
   "tweakQuoteTweetsPage": {
     "message": "查看引用推文时隐藏被引用的推文"

@@ -62,6 +62,7 @@ ${messages.homeTimelineOptions}:
 • ${messages.quoteTweets} (${messages.option_separate} / ${messages.option_hide})
 • ${messages.mutableQuoteTweets}
 • ${messages.hideSeeNewTweets}
+• ${messages.hideManageTimelines}
 • ${messages.hideSuggestedContentTimeline}
 • ${messages.hideInlinePrompts}
 • ${messages.fullWidthContent}${messages.desktopVersion} - ${messages.fullWidthContentInfo}
@@ -83,8 +84,8 @@ ${messages.uiImprovementsOptions}:
 ${messages.xFixesOptions}:
 
 • ${messages.revertXBranding}
-• ${messages.revertMediaCarouselLabel}
-• ${messages.revertProfileTabsLabel}
+• ${messages.revertMediaCarousel}
+• ${messages.revertProfileTabs}
 • ${messages.revertTwemoji}
 • ${messages.darkModeTheme} (${messages.option_dim})
 • ${messages.hideViews}
@@ -105,6 +106,7 @@ ${messages.xFixesOptions}:
 • ${messages.hideEditImage}
 • ${messages.hideJobs}
 • ${messages.hideSubscriptions}
+• ${messages.hideMoney}
 • ${messages.disableNflFeatures}
 
 ${messages.uiTweaksOptions}:
@@ -123,6 +125,7 @@ ${messages.reduceAlgorithmicContentOptions}:
 • ${messages.hideSidebarContent}${messages.desktopVersion}
 • ${messages.hideExplorePageContents}
 • ${messages.hideDiscoverSuggestions}
+• ${messages.hideMoreFromThisAuthor}
 
 ${messages.reduceEngagementOptions}:
 
@@ -134,7 +137,7 @@ ${messages.reduceEngagementOptions}:
 
 ${messages.hideUnusedUiItemsOptions}:
 
-• ${messages.hideBookmarkButton}
+• ${messages.hideBookmarkButton} / ${messages.showBookmarkButtonUnderFocusedTweets}
 • ${messages.hideShareTweetButton}
 • ${messages.hideViewActivityLinks}
 • ${messages.hideTimelineTweetBox}${messages.desktopVersion}
@@ -144,6 +147,9 @@ ${messages.hideUnusedUiItemsOptions}:
 • ${messages.hideCreatorStudioNav}
 • ${messages.hideConnectNav}
 • ${messages.hideCommunitiesNav}
+• ${messages.hideChatNav}
+• ${messages.hideCalls}
+• ${messages.hideHistoryNav}
 • ${messages.hideMoreSlideOutMenuItemsOptions_desktop}
 `.trim()
 

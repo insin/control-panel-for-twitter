@@ -146,6 +146,9 @@
   "hideBusinessNav": {
     "message": "비즈니스"
   },
+  "hideCalls": {
+    "message": "통화"
+  },
   "hideChatNav": {
     "message": "채팅"
   },
@@ -223,6 +226,9 @@
   },
   "hideMetrics": {
     "message": "지표 숨기기"
+  },
+  "hideMoney": {
+    "message": "Money 숨기기"
   },
   "hideMoreFromThisAuthor": {
     "message": "\"이 작성자의 더 많은 게시물\" 숨기기"
@@ -304,9 +310,6 @@
   },
   "hideTodaysNews": {
     "message": "오늘의 뉴스 숨기기"
-  },
-  "hideToggleNavigation": {
-    "message": "탐색 전환 숨기기"
   },
   "hideUnavailableQuoteTweets": {
     "message": "차단 및 음소거된 계정에 대한 인용 및 답글 숨기기"
@@ -547,12 +550,6 @@
   },
   "syncSettings": {
     "message": "이 브라우저에서 설정 동기화"
-  },
-  "tweakNewLayout": {
-    "message": "새 레이아웃 조정"
-  },
-  "tweakNewLayoutInfo": {
-    "message": "실험적 기능 - 새 레이아웃이 있는 경우에만 활성화하세요"
   },
   "tweakQuoteTweetsPage": {
     "message": "인용 트윗을 볼 때 인용된 트윗 숨기기"

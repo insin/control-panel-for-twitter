@@ -35,6 +35,7 @@ const v5 = {
   hideBookmarkButton: boolean(),
   hideBookmarkMetrics: boolean(),
   hideBusinessNav: boolean(),
+  hideCalls: boolean(),
   hideChatNav: boolean(),
   hideCommunitiesNav: boolean(),
   hideComposeTweet: boolean(),
@@ -56,6 +57,7 @@ const v5 = {
   hideListsNav: boolean(),
   hideManageTimelines: boolean(),
   hideMetrics: boolean(),
+  hideMoney: boolean(),
   hideMoreFromThisAuthor: boolean(),
   hideNotificationLikes: boolean(),
   hideNotificationRetweets: boolean(),
@@ -128,8 +130,6 @@ const v5 = {
   preventNextVideoAutoplay: boolean(),
   // Experiments
   customCss: string({ maxLength: 50000 }),
-  hideToggleNavigation: boolean(),
-  tweakNewLayout: boolean(),
 }
 
 /** @type {import('./ext-shared').SettingsSchemas} */

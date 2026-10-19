@@ -91,6 +91,7 @@ export type UserSettings = {
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
   hideBusinessNav: boolean
+  hideCalls: boolean
   hideChatNav: boolean
   hideCommunitiesNav: boolean
   hideComposeTweet: boolean
@@ -112,6 +113,7 @@ export type UserSettings = {
   hideListsNav: boolean
   hideManageTimelines: boolean
   hideMetrics: boolean
+  hideMoney: boolean
   hideMoreFromThisAuthor: boolean
   hideNotificationLikes: boolean
   hideNotificationRetweets: boolean
@@ -186,8 +188,6 @@ export type UserSettings = {
   preventNextVideoAutoplay: boolean
   // Experiments
   customCss: string
-  tweakNewLayout: boolean
-  hideToggleNavigation: boolean
 }
 
 export type UserSettingsKey = keyof UserSettings

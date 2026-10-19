@@ -29,6 +29,7 @@ const DEFAULT_SETTINGS = {
   hideBookmarkButton: false,
   hideBookmarkMetrics: true,
   hideBusinessNav: true,
+  hideCalls: false,
   hideChatNav: false,
   hideCommunitiesNav: false,
   hideComposeTweet: false,
@@ -50,6 +51,7 @@ const DEFAULT_SETTINGS = {
   hideListsNav: false,
   hideManageTimelines: false,
   hideMetrics: false,
+  hideMoney: true,
   hideMoreFromThisAuthor: true,
   hideNotificationLikes: false,
   hideNotificationRetweets: false,
@@ -124,8 +126,6 @@ const DEFAULT_SETTINGS = {
   preventNextVideoAutoplay: true,
   // Experiments
   customCss: '',
-  hideToggleNavigation: false,
-  tweakNewLayout: false,
 }
 //#endregion
 
@@ -2141,17 +2141,6 @@ const PagePaths = {
   NOTIFICATION_TIMELINE: '/i/timeline',
   PROFILE_SETTINGS: '/settings/profile',
   SEARCH: '/search',
-  TIMELINE_SETTINGS: '/home/pinned/edit',
-}
-
-/** @enum {string} */
-const ModalPaths = {
-  COMPOSE_DRAFTS: '/compose/post/unsent/drafts',
-  COMPOSE_MEDIA: '/compose/post/media',
-  COMPOSE_MESSAGE: '/messages/compose',
-  COMPOSE_SCHEDULE: '/compose/post/schedule',
-  COMPOSE_TWEET: '/compose/post',
-  GIF_SEARCH: '/i/foundmedia/search',
 }
 
 /** @enum {RegExp} */
@@ -2175,13 +2164,9 @@ const ReplaceRegExps = {
 const Selectors = {
   BLOCK_MENU_ITEM: '[data-testid="block"]',
   DESKTOP_TIMELINE_HEADER: 'div[data-testid="primaryColumn"] > div > div:first-of-type',
-  DISPLAY_DONE_BUTTON_DESKTOP: '#layers button[role="button"]:not([aria-label])',
-  DISPLAY_DONE_BUTTON_MOBILE: 'main button[role="button"]:not([aria-label])',
   MODAL_TIMELINE: 'section > h1 + div[aria-label] > div',
   MOBILE_TIMELINE_HEADER: 'div[data-testid="TopNavBar"]',
-  MORE_DIALOG: 'div[aria-labelledby="modal-header"]',
   NAV_HOME_LINK: 'a[data-testid="AppTabBar_Home_Link"]',
-  NAV_MESSAGES_LINK: 'a[data-testid="AppTabBar_DirectMessage_Link"]',
   PRIMARY_COLUMN: 'div[data-testid="primaryColumn"]',
   PRIMARY_NAV_DESKTOP: 'header nav',
   PRIMARY_NAV_MOBILE: '#layers nav',
@@ -2333,12 +2318,6 @@ const HIGH_CONTRAST_DARK_PALETTES = new Map([
   })],
 ])
 const THEME_BLUE = THEME_PALETTES.get('blue500').primary
-const COMPOSE_TWEET_MODAL_PAGES = new Set([
-  ModalPaths.COMPOSE_DRAFTS,
-  ModalPaths.COMPOSE_MEDIA,
-  ModalPaths.COMPOSE_SCHEDULE,
-  ModalPaths.GIF_SEARCH,
-])
 // <body> pseudo-selector for pages the full-width content feature works on
 const FULL_WIDTH_BODY_PSEUDO = ':is(.Community, .List, .HomeTimeline)'
 const MUTE_SPLIT_LANGUAGE_EXCEPTIONS = new Set('ja,ko,th,vi,zh,zh-Hant'.split(','))
@@ -2405,11 +2384,17 @@ let blockMenuItemClicked = false
 /** `true` when the 'Block @${user}' menu item was seen in the last popup. */
 let blockMenuItemSeen = false
 
-/** Title of the current page, without the `' / Twitter'` suffix. */
+/** Title of the rendered page, or the virtual separated tweets timeline. */
 let currentPage = ''
 
-/** Current `location.pathname`. */
-let currentPath = ''
+/** Path of the rendered page, even when the URL points to a desktop modal. */
+let currentPagePath = ''
+
+/** URL pathname from the last handled title change. */
+let lastUrlPath = ''
+
+/** Whether the last handled URL was a desktop modal. */
+let lastUrlWasModal = false
 
 /** Notification count in the title (including trailing space), e.g. `'(1) '`. */
 let currentNotificationCount = ''
@@ -2459,7 +2444,7 @@ let lastHomeTimelineTitle = null
 let logObserverDisconnects = true
 
 /**
- * MutationObservers active on the current modal.
+ * Observers and pending setup to clean up when the current modal changes.
  * @type {Map<string, import("./types").Disconnectable>}
  */
 let modalObservers = new Map()
@@ -2527,6 +2512,9 @@ let wasForYouTabSelected = false
 /** @type {HTMLElement} */
 let $desktopComposeTweetModalPopup = null
 
+/** Popup container which can survive app re-renders. @type {HTMLElement} */
+let $popupContainer = null
+
 function prepareMutedWords() {
   mutedWords = null
   if (!pro || !settings.mutedWords || settings.mutedWordsError) {
@@ -2592,99 +2580,99 @@ function error(...args) {
 
 //#region Location functions
 function isOnAccessibilitySettingsPage() {
-  return currentPath == PagePaths.ACCESSIBILITY_SETTINGS
+  return currentPagePath == PagePaths.ACCESSIBILITY_SETTINGS
+}
+
+function isOnCallsPage() {
+  return currentPagePath.startsWith('/i/calls')
 }
 
 function isOnChatPage() {
-  return currentPath.startsWith('/i/chat')
+  return currentPagePath.startsWith('/i/chat')
 }
 
 function isOnCommunitiesPage() {
-  return URL_COMMUNITIES_RE.test(currentPath)
+  return URL_COMMUNITIES_RE.test(currentPagePath)
 }
 
 function isOnCommunityMembersPage() {
-  return URL_COMMUNITY_MEMBERS_RE.test(currentPath)
+  return URL_COMMUNITY_MEMBERS_RE.test(currentPagePath)
 }
 
 function isOnCommunityPage() {
-  return URL_COMMUNITY_RE.test(currentPath)
+  return URL_COMMUNITY_RE.test(currentPagePath)
 }
 
 function isOnComposeTweetPage() {
-  return currentPath.startsWith(PagePaths.COMPOSE_TWEET)
+  return lastUrlPath.startsWith(PagePaths.COMPOSE_TWEET)
 }
 
 function isOnDiscoverCommunitiesPage() {
-  return URL_DISCOVER_COMMUNITIES_RE.test(currentPath)
+  return URL_DISCOVER_COMMUNITIES_RE.test(currentPagePath)
 }
 
 function isOnDisplaySettingsPage() {
-  return currentPath == PagePaths.DISPLAY_SETTINGS
+  return currentPagePath == PagePaths.DISPLAY_SETTINGS
 }
 
 function isOnExplorePage() {
-  return currentPath == '/explore' || currentPath.startsWith('/explore/')
+  return currentPagePath == '/explore' || currentPagePath.startsWith('/explore/')
 }
 
 function isOnFollowListPage() {
-  return URL_PROFILE_FOLLOWS_RE.test(currentPath)
+  return URL_PROFILE_FOLLOWS_RE.test(currentPagePath)
 }
 
 function isOnGrokPage() {
-  return currentPath.startsWith('/i/grok')
+  return currentPagePath.startsWith('/i/grok')
 }
 
 function isOnHistoryPage() {
-  return currentPath.startsWith(PagePaths.HISTORY)
+  return currentPagePath.startsWith(PagePaths.HISTORY)
 }
 
 function isOnHomeTimelinePage() {
-  return currentPath == PagePaths.HOME
+  return currentPagePath == PagePaths.HOME
 }
 
 function isOnIndividualTweetPage() {
-  return URL_TWEET_RE.test(currentPath)
+  return URL_TWEET_RE.test(currentPagePath)
 }
 
-function isOnOwnTweetPage() {
+function isOnOwnTweetPage(tweetPath = currentPagePath) {
   let screenName = getUserScreenName()
-  return screenName != null && screenName == currentPath.match(URL_TWEET_BASE_RE)?.[1]
+  return screenName != null && screenName == tweetPath.match(URL_TWEET_BASE_RE)?.[1]
 }
 
 function isOnListPage() {
-  return URL_LIST_RE.test(currentPath)
+  return URL_LIST_RE.test(currentPagePath)
 }
 
 function isOnListsPage() {
-  return URL_LISTS_RE.test(currentPath)
-}
-
-function isOnMessagesPage() {
-  return currentPath.startsWith('/messages')
+  return URL_LISTS_RE.test(currentPagePath)
 }
 
 function isOnNotificationsPage() {
-  return currentPath.startsWith('/notifications')
+  return currentPagePath.startsWith('/notifications')
 }
 
 function isOnPremiumSignupPage() {
-  return currentPath.startsWith('/i/premium_sign_up')
+  return lastUrlPath.startsWith('/i/premium_sign_up')
 }
 
 function isOnProfilePage() {
-  let profilePathUsername = currentPath.match(URL_PROFILE_RE)?.[1]
+  let profilePathUsername = currentPagePath.match(URL_PROFILE_RE)?.[1]
   if (!profilePathUsername) return false
   // twitter.com/user and its sub-URLs put @user in the title
   return currentPage.toLowerCase().includes(`${ltr ? '@' : ''}${profilePathUsername.toLowerCase()}${!ltr ? '@' : ''}`)
 }
 
 function isOnQuoteTweetsPage() {
-  return currentPath.match(URL_TWEET_INTERACTIONS_RE)?.[1] == 'quotes'
+  return currentPagePath.match(URL_TWEET_INTERACTIONS_RE)?.[1] == 'quotes'
 }
 
 function isOnSearchPage() {
-  return currentPath.startsWith('/search') || currentPath.startsWith('/hashtag/')
+  return currentPagePath.startsWith('/search') || currentPagePath.startsWith('/hashtag/')
 }
 
 function isOnSeparatedTweetsTimeline() {
@@ -2692,7 +2680,7 @@ function isOnSeparatedTweetsTimeline() {
 }
 
 function isOnSettingsPage() {
-  return currentPath.startsWith('/settings')
+  return currentPagePath.startsWith('/settings')
 }
 
 function shouldHideSidebar() {
@@ -2773,6 +2761,31 @@ function getClosestChild($el, $ancestor) {
     $child = $child.parentElement
   }
   return $child
+}
+
+/** Read the URL and underlying page together for navigation decisions. */
+function getCurrentRoute() {
+  let urlPath = location.pathname
+  let history = desktop ? getTopLevelProps()?.history : null
+  let isModal = Boolean(history?.getIsModalRoute?.())
+  let pagePath = urlPath
+  if (isModal) {
+    pagePath = history.getLastNonModalLocationPathname?.() || getRenderedPagePath(urlPath)
+  }
+  return {urlPath, pagePath, isModal}
+}
+
+/** @param {string} fallbackPath */
+function getRenderedPagePath(fallbackPath) {
+  // Direct modal URLs have no previous route, find the rendered fallback page
+  let $column = document.querySelector(Selectors.PRIMARY_COLUMN)
+  if (!$column) return fallbackPath
+  let reactFiberKey = Object.keys($column).find(key => key.startsWith('__reactFiber$'))
+  for (let fiber = $column[reactFiberKey], depth = 0; fiber && depth < 50; fiber = fiber.return, depth++) {
+    let routePath = (fiber.stateNode?.props || fiber.memoizedProps)?.location?.pathname
+    if (typeof routePath == 'string' && routePath != fallbackPath) return routePath
+  }
+  return fallbackPath
 }
 
 /**
@@ -2997,7 +3010,26 @@ function pageIsNot(page) {
  * @returns {() => boolean}
  */
 function pathIsNot(path) {
-  return () => path != currentPath
+  return () => path != lastUrlPath
+}
+
+/**
+ * Register pending modal setup so disconnecting modalObservers cancels it too.
+ * @param {string} name
+ * @returns {() => boolean}
+ */
+function registerModalSetup(name) {
+  let cancelled = false
+  modalObservers.get(name)?.disconnect()
+  let setup = {
+    name,
+    disconnect() {
+      cancelled = true
+      if (modalObservers.get(name) == setup) modalObservers.delete(name)
+    },
+  }
+  modalObservers.set(name, setup)
+  return () => cancelled
 }
 
 /**
@@ -3158,9 +3190,6 @@ function getUserScreenName() {
   return state?.entities?.users?.entities?.[state?.session?.user_id]?.screen_name
 }
 
-function hasNewLayout() {
-  return getState()?.featureSwitch?.user?.config?.rweb_sourcemap_migration?.value
-}
 //#endregion
 
 //#region Global observers
@@ -3182,7 +3211,7 @@ function observeBodyBackgroundColor() {
       // This also updates body.HighContrast
       updateNativePalette('background setting change')
     }
-    styleChat.update()
+    styleEmbed.update()
     lastBackgroundColor = backgroundColor
   }, {
     leading: true,
@@ -3194,25 +3223,27 @@ function observeBodyBackgroundColor() {
   })
 }
 
-const styleChat = (() => {
-  /** @type {Set<{colorStyle: HTMLStyleElement, darkModeStyle: HTMLStyleElement, rafId: number | null}>} */
-  let chatStyles = new Set()
+const styleEmbed = (() => {
+  /** @type {Set<{colorStyle: HTMLStyleElement, darkModeStyle: HTMLStyleElement, notificationStyle: HTMLStyleElement, rafId: number | null}>} */
+  let embeddedStyles = new Set()
 
-  function updateTheme() {
+  function updateStyles() {
     let media = settings.darkModeTheme == 'dim' && $body.classList.contains('LightsOut') ? 'all' : 'not all'
-    for (let {darkModeStyle} of chatStyles) {
+    for (let {darkModeStyle, notificationStyle} of embeddedStyles) {
       darkModeStyle.media = media
+      notificationStyle.media = settings.hideNotifications != 'ignore' ? 'all' : 'not all'
     }
   }
 
   /**
    * @param {string} selector
+   * @param {string} rootSelector
    * @param {Document | HTMLElement} context
    */
-  function styleChat(selector, context = document) {
+  function styleEmbed(selector, rootSelector, context = document) {
     let colorStyle = document.createElement('style')
     colorStyle.textContent = dedent(`
-      [data-xchat-root] {
+      ${rootSelector} {
         --x-fg-brand: var(--cpft-theme-primary) !important;
         --color-brand: var(--cpft-theme-primary) !important;
         --chat-accent: var(--cpft-theme-primary) !important;
@@ -3220,14 +3251,13 @@ const styleChat = (() => {
     `)
     let darkModeStyle = document.createElement('style')
     darkModeStyle.textContent = dedent(`
-      [data-xchat-root][data-theme="dark"] {
-        /* Chat surface colours */
+      ${rootSelector}[data-theme="dark"] {
         --x-bg-primary: var(--cpft-background);
         --x-bg-secondary: var(--cpft-raised-bg);
         --x-bg-tertiary: var(--cpft-raised-bg);
         --x-bg-modal: var(--cpft-raised-bg);
         --x-bg-sheets: var(--cpft-raised-bg);
-        /* Tailwind & shadcn overrides */
+        /* Tailwind & shadcn */
         --background: 210 34% 13%;
         --border: 206 16% 26%;
         --color-background: 210 34% 13%;
@@ -3235,15 +3265,22 @@ const styleChat = (() => {
         --color-gray-100: 211 34% 24%;
       }
     `)
-    let styles = {colorStyle, darkModeStyle, rafId: null}
-    chatStyles.add(styles)
-    updateTheme()
+    let notificationStyle = document.createElement('style')
+    notificationStyle.textContent = dedent(`
+      [data-testid="xchat-drawer-unread-badge"] {
+        display: none !important;
+      }
+    `)
+    let styles = {colorStyle, darkModeStyle, notificationStyle, rafId: null}
+    embeddedStyles.add(styles)
+    updateStyles()
 
     function disconnect() {
       if (styles.rafId != null) cancelAnimationFrame(styles.rafId)
       colorStyle.remove()
       darkModeStyle.remove()
-      chatStyles.delete(styles)
+      notificationStyle.remove()
+      embeddedStyles.delete(styles)
     }
 
     function attachStyles() {
@@ -3254,21 +3291,20 @@ const styleChat = (() => {
       }
       let $host = context.querySelector(selector)
       let $shadowRoot = $host?.shadowRoot
-      let $chatRoot = $shadowRoot?.querySelector('[data-xchat-root]')
-      // Wait for the embed, its shadow root and Chat's initial render.
-      if (!$chatRoot) {
+      let $root = $shadowRoot?.querySelector(rootSelector)
+      // Wait for the embed, its shadow root and initial render
+      if (!$root) {
         styles.rafId = requestAnimationFrame(attachStyles)
         return
       }
-      $shadowRoot.append(colorStyle, darkModeStyle)
+      $shadowRoot.append(colorStyle, darkModeStyle, notificationStyle)
     }
 
     attachStyles()
     return {disconnect}
   }
-
-  styleChat.update = updateTheme
-  return styleChat
+  styleEmbed.update = updateStyles
+  return styleEmbed
 })()
 
 /** @param {HTMLElement} $drawerLayer */
@@ -3285,7 +3321,7 @@ function observeChatDrawer($drawerLayer) {
 
     styles?.disconnect()
     $embed = $host
-    styles = $embed ? styleChat(selector, $drawerLayer) : null
+    styles = $embed ? styleEmbed(selector, ':is([data-xchat-root], [data-xchat-portal])', $drawerLayer) : null
   }, {
     leading: true,
     name: 'Chat embed drawer',
@@ -3303,13 +3339,14 @@ async function observeDesktopComposeTweetModal($popup) {
   $popup.classList.add('ComposeTweetModal')
   if (!settings.revertXBranding) return
 
+  let modalCancelled = registerModalSetup('Compose Tweet modal setup')
   let $firstEditorRoot = await getElement('.DraftEditor-root', {
     context: $popup,
     name: 'Compose Tweet first editor root',
     observers: modalObservers,
-    stopIf: () => !isDesktopComposeTweetModalOpen
+    stopIf: modalCancelled,
   })
-  if (!$firstEditorRoot) return
+  if (!$firstEditorRoot || modalCancelled()) return
 
   let $tweetButtonText = $popup.querySelector('button[data-testid="tweetButton"] span > span')
   if ($tweetButtonText) {
@@ -3426,15 +3463,17 @@ async function observeDesktopHomeTimelineTweetBox() {
  * @param {HTMLElement} $popup
  */
 async function observeDesktopModalTimeline($popup) {
+  let modalCancelled = registerModalSetup('media modal setup')
   // Media modals remember if they were previously collapsed, so we could be
   // waiting for the initial timeline to be either rendered or expanded.
   let $initialTimeline = await getElement(Selectors.MODAL_TIMELINE, {
     context: $popup,
     name: 'initial modal timeline',
     observers: modalObservers,
+    stopIf: modalCancelled,
   })
 
-  if ($initialTimeline == null) return
+  if ($initialTimeline == null || modalCancelled()) return
 
   /**
    * @param {HTMLElement} $timeline
@@ -3444,6 +3483,7 @@ async function observeDesktopModalTimeline($popup) {
     observeElement($timeline, () => {
       onIndividualTweetTimelineChange($timeline, seen, {observers: modalObservers})
     }, {
+      leading: true,
       name: 'modal timeline',
       observers: modalObservers,
     })
@@ -3458,6 +3498,7 @@ async function observeDesktopModalTimeline($popup) {
           observeElement($newTimeline, () => {
             onIndividualTweetTimelineChange($newTimeline, seen, {observers: modalObservers})
           }, {
+            leading: true,
             name: 'modal timeline',
             observers: modalObservers,
           })
@@ -3512,8 +3553,9 @@ async function observeDesktopModalTimeline($popup) {
         context: $popup,
         name: 'expanded modal timeline',
         observers: modalObservers,
+        stopIf: modalCancelled,
       })
-      if ($timeline == null) return
+      if ($timeline == null || modalCancelled()) return
       observeModalTimeline($timeline)
     }
   }, {
@@ -3596,50 +3638,51 @@ const observeFavicon = (() => {
  * Use of nested popups can also differ between desktop and mobile, so features
  * need to be mindful of that.
  */
-const observePopups = (() => {
-  /** @type {WeakMap<HTMLElement, {disconnect()}>} */
-  let nestedObservers = new WeakMap()
+async function observePopups() {
+  let $layers = await getElement('#layers', {
+    name: 'layers',
+    observers: globalObservers,
+  })
+  if (!$layers || $layers == $popupContainer) return
+  /** @type {HTMLElement | null} */
+  let $drawerLayer = null
+  /** @type {Map<HTMLElement, {disconnect()} | null>} */
+  let nestedObservers = new Map()
 
-  return async function observePopups() {
-    let $layers = await getElement('#layers', {
-      name: 'layers',
-      observers: globalObservers,
-    })
-    if (!$layers) return
-    /** @type {HTMLElement | null} */
-    let $drawerLayer = null
+  observeElement($layers, () => {
+    // The first layer contains persistent overlays, popups are siblings
+    let $firstLayer = /** @type {HTMLElement} */ ($layers.firstElementChild)
+    if ($firstLayer != $drawerLayer) {
+      $drawerLayer = $firstLayer
+      if ($drawerLayer) observeChatDrawer($drawerLayer)
+    }
 
-    observeElement($layers, (mutations) => {
-      // The first layer contains persistent overlays, popups are siblings
-      let $firstLayer = /** @type {HTMLElement} */ ($layers.firstElementChild)
-      if ($firstLayer != $drawerLayer) {
-        $drawerLayer = $firstLayer
-        if ($drawerLayer) observeChatDrawer($drawerLayer)
+    for (let [$popup, observer] of nestedObservers) {
+      if ($popup.parentElement != $layers || $popup == $firstLayer) {
+        observer?.disconnect()
+        nestedObservers.delete($popup)
       }
+    }
 
-      for (let mutation of mutations) {
-        for (let $addedNode of mutation.addedNodes) {
-          if (!($addedNode instanceof HTMLElement) || $addedNode == $firstLayer) continue
-          let nestedObserver = onPopup($addedNode)
-          if (nestedObserver) {
-            nestedObservers.set($addedNode, nestedObserver)
-          }
-        }
-        for (let $removedNode of mutation.removedNodes) {
-          if (!($removedNode instanceof HTMLElement)) continue
-          if (nestedObservers.has($removedNode)) {
-            nestedObservers.get($removedNode).disconnect()
-            nestedObservers.delete($removedNode)
-          }
-        }
+    // A modal can already be open if we start on its URL
+    for (let $popup of $layers.children) {
+      if (!($popup instanceof HTMLElement) || $popup == $firstLayer || nestedObservers.has($popup)) continue
+      nestedObservers.set($popup, onPopup($popup))
+    }
+  }, {
+    leading: true,
+    name: 'popup container',
+    observers: globalObservers,
+    onDisconnect() {
+      $popupContainer = null
+      for (let observer of nestedObservers.values()) {
+        observer?.disconnect()
       }
-    }, {
-      leading: true,
-      name: 'popup container',
-      observers: globalObservers,
-    })
-  }
-})()
+      nestedObservers.clear()
+    },
+  })
+  $popupContainer = $layers
+}
 
 async function observeReRenderBoundary() {
   let $rerenderBoundary = await getElement('#react-root > div > div', {
@@ -3653,7 +3696,7 @@ async function observeReRenderBoundary() {
     observeSideNavItems()
     if (observingPageChanges) {
       updateNativePalette('app rerender')
-      processCurrentPage()
+      if (currentPagePath) processCurrentPage()
     }
   }, {
     name: 'app re-render boundary',
@@ -3685,7 +3728,7 @@ async function observeTitle() {
       // If Twitter is opened in the background, changing the title might not
       // re-fire the title MutationObserver, preventing the initial page from
       // being processed.
-      if (observingPageChanges && !currentPage) {
+      if (observingPageChanges && !currentPagePath) {
         onTitleChange(title)
       }
       return
@@ -4432,8 +4475,6 @@ const configureCss = (() => {
         body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child {
           flex-grow: 0;
           flex-shrink: 1;
-          /* New layout has margin-right on tabs */
-          margin-right: 0;
         }
         /* Hide the For you tab link */
         body.HomeTimeline nav.TimelineTabs div[role="tablist"] > div:first-child > [role="tab"] {
@@ -4470,6 +4511,9 @@ const configureCss = (() => {
           '[data-testid="tweet"][tabindex="-1"] [role="group"][id^="id__"] > div:has(> button[data-testid$="ookmark"])',
         )
       }
+    }
+    if (settings.hideCalls) {
+      hideCssSelectors.push(`${menuRole} a[href="/i/calls"]`)
     }
     if (settings.hideConnectNav) {
       hideCssSelectors.push(`${menuRole} a:is([href$="/i/connect_people"], [href$="/i/follow_people"])`)
@@ -4530,6 +4574,16 @@ const configureCss = (() => {
     if (settings.hideSortRepliesMenu) {
       hideCssSelectors.push('.SortRepliesMenu')
     }
+    if (settings.hideMoney) {
+      hideCssSelectors.push(
+        `${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/money"]`,
+        `${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/money"]`,
+        `${menuRole} a[href="/i/money"]`,
+        // Money icon and balance buttons beside Edit Profile
+        '[data-testid="ownProfilePaymentsButton"]',
+        '[data-testid="ownProfilePaymentsButtonWithBalance"]',
+      )
+    }
     if (settings.hideSubscriptions) {
       hideCssSelectors.push(
         // Subscribe buttons in profile (multiple locations)
@@ -4553,8 +4607,6 @@ const configureCss = (() => {
       cssRules.push(`
         .SubscriptionsTab {
           flex: 0;
-          /* New layout has margin-right on tabs */
-          margin-right: 0;
         }
       `)
     }
@@ -4648,18 +4700,12 @@ const configureCss = (() => {
         // Upsell on the Likes tab in your own profile
         `body.OwnProfile ${Selectors.PRIMARY_COLUMN} nav + div:has(a[href^="/i/premium"])`,
       )
-      if (desktop && settings.tweakNewLayout) {
-        // In new More dialog
-        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href^="/i/premium"], [href^="/i/verified"])`)
-      }
       // Hide Highlights and Articles tabs in your own profile if you don't have Premium
       let profileTabsList = `body.OwnProfile:not(.PremiumProfile) ${Selectors.PRIMARY_COLUMN} nav div[role="tablist"]`
       let upsellTabLinks = 'a:is([href$="/highlights"], [href$="/articles"], [href$="/highlights?mx=1"], [href$="/articles?mx=1"])'
       cssRules.push(`
         ${profileTabsList} > div:has(> ${upsellTabLinks}) {
           flex: 0;
-          /* New layout has margin-right on tabs */
-          margin-right: 0;
         }
         ${profileTabsList} > div > ${upsellTabLinks} {
           display: none;
@@ -4670,8 +4716,6 @@ const configureCss = (() => {
       cssRules.push(`
         .VerifiedFollowersTab {
           flex: 0;
-          /* New layout has margin-right on tabs */
-          margin-right: 0;
         }
         .VerifiedFollowersTab > [role="tab"] {
           display: none;
@@ -4755,158 +4799,47 @@ const configureCss = (() => {
     }
 
     if (shouldShowSeparatedTweetsTab()) {
-      if (hasNewLayout()) {
-        // The new layout only has colour to distinguish the active tab
-        cssRules.push(`
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
-            color: var(--cpft-text-secondary) !important;
-          }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
-            color: var(--cpft-text-primary) !important;
-          }
-          body.Desktop #cpftSeparatedTweetsTab:hover > [role="tab"] > div > div {
-            color: var(--cpft-text-primary) !important;
-          }
-        `)
-      } else {
-        cssRules.push(`
-          /* Sometimes the cloned tab has a hover background color class */
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] {
-            background-color: transparent !important;
-          }
-          body.Desktop #cpftSeparatedTweetsTab:hover,
-          body.Mobile:not(.SeparatedTweets) #cpftSeparatedTweetsTab:hover,
-          body.Mobile #cpftSeparatedTweetsTab:active {
-            background-color: var(--cpft-tab-hover-backdrop) !important;
-          }
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
-            font-weight: normal !important;
-            color: var(--cpft-text-secondary) !important;
-          }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
-            font-weight: bold;
-            color: var(--cpft-text-primary) !important;
-          }
-          /* Active tab underline */
-          body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div > div,
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div > div {
-            height: 0 !important;
-          }
-          body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div > div {
-            height: 4px !important;
-            min-width: 56px;
-            width: 100%;
-            position: absolute;
-            bottom: 0;
-            border-radius: 9999px;
-          }
-          /* Following menu indicator */
-          body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"] svg {
-            display: none;
-          }
-        `)
-      }
-    }
-
-    if (hasNewLayout() && settings.tweakNewLayout) {
       cssRules.push(`
-        /* Make the image button first in the Tweet editor toolbar again */
-        [data-testid="toolBar"] [role="tablist"] > [role="presentation"] {
-          order: 1;
+        /* Sometimes the cloned tab has a hover background color class */
+        body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] {
+          background-color: transparent !important;
         }
-        [data-testid="toolBar"] [role="tablist"] > [role="presentation"]:has(input[data-testid="fileInput"]) {
-          order: 0;
+        body.Desktop #cpftSeparatedTweetsTab:hover,
+        body.Mobile:not(.SeparatedTweets) #cpftSeparatedTweetsTab:hover,
+        body.Mobile #cpftSeparatedTweetsTab:active {
+          background-color: var(--cpft-tab-hover-backdrop) !important;
+        }
+        body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div,
+        body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div {
+          font-weight: normal !important;
+          color: var(--cpft-text-secondary) !important;
+        }
+        body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div {
+          font-weight: bold;
+          color: var(--cpft-text-primary) !important;
+        }
+        /* Active tab underline */
+        body:not(.SeparatedTweets) #cpftSeparatedTweetsTab > [role="tab"] > div > div > div,
+        body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:not(#cpftSeparatedTweetsTab) > [role="tab"] > div > div > div {
+          height: 0 !important;
+        }
+        body.SeparatedTweets #cpftSeparatedTweetsTab > [role="tab"] > div > div > div {
+          height: 4px !important;
+          min-width: 56px;
+          width: 100%;
+          position: absolute;
+          bottom: 0;
+          border-radius: 9999px;
+        }
+        /* Following menu indicator */
+        body.HomeTimeline.SeparatedTweets ${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav div[role="tablist"] > div:nth-child(2) > [role="tab"] svg {
+          display: none;
         }
       `)
-      if (settings.revertXBranding) {
-        cssRules.push(`
-          /* Add theme colour back to Tweet editor toolbar buttons */
-          [data-testid="toolBar"] [role="tablist"] > [role="presentation"] svg {
-            fill: var(--cpft-theme-primary);
-          }
-        `)
-      }
     }
 
     //#region Desktop-only
     if (desktop) {
-      if (hasNewLayout() && settings.tweakNewLayout) {
-        cssRules.push(`
-          /* Realign nav items to the top */
-          header[role="banner"] > div > div > div {
-            justify-content: flex-start;
-          }
-          /* Restore size and constrast of main nav icons and More button */
-          ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) svg {
-            width: 1.75rem !important;
-            height: 1.75rem !important;
-            fill: var(--cpft-text-primary) !important;
-          }
-          /* Restore contrast of main nav text when expanded */
-          ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a, button) div[dir]:not([aria-live]) {
-            color: var(--cpft-text-primary) !important;
-          }
-          /* Give other nav button icons more contrast too */
-          header[role="banner"] button svg {
-            fill: var(--cpft-text-primary) !important;
-          }
-          /* Make the Tweet button larger */
-          [data-testid="SideNav_NewTweet_Button"] {
-            min-width: 49px;
-            min-height: 49px;
-          }
-          /* Move the account switcher back to the bottom */
-          header[role="banner"] > div > div > div > div:last-child {
-            flex: 1;
-            justify-content: space-between;
-          }
-          /* Restore primary column borders */
-          header[role="banner"] > div > div > div  {
-            border-right: 1px solid var(--cpft-border);
-          }
-          ${Selectors.PRIMARY_COLUMN} {
-            border-right: 1px solid var(--cpft-border);
-          }
-          /* Left-align main contents and stop it taking up all available space */
-          main {
-            align-items: flex-start !important;
-            flex-grow: 0 !important;
-          }
-          /* Remove the gap between main contents and sidebar */
-          main > div > div > div {
-            justify-content: normal !important;
-          }
-          /* Restore the sidebar to its old width */
-          ${Selectors.SIDEBAR},
-          ${Selectors.SIDEBAR} > div > div,
-          .SidebarContents > div:first-child {
-            width: 350px !important;
-          }
-          /* Center content */
-          div[data-at-shortcutkeys] {
-            justify-content: center;
-          }
-        `)
-        if (settings.revertXBranding) {
-          // TODO Manually patch Tweet button SVG in Safari
-          cssRules.push(`
-            /* Restore theme colour in nav item pips */
-            ${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live],
-            ${Selectors.MORE_DIALOG} :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live],
-            /* Restore theme colour in profile switcher other accounts have notifications pip */
-            button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label],
-            /* Restore theme colour in account switcher notifications pips */
-            [data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live] {
-              background-color: var(--cpft-theme-primary);
-            }
-          `)
-        }
-      }
-      if (hasNewLayout() && settings.hideToggleNavigation) {
-        hideCssSelectors.push('header[role="banner"] > div > div > div > div:first-child > button')
-      }
       if (settings.navDensity == 'comfortable' || settings.navDensity == 'compact') {
         cssRules.push(`
           header nav > a,
@@ -4937,23 +4870,17 @@ const configureCss = (() => {
       if (settings.hideNotifications != 'ignore') {
         // Hide notification badges and indicators
         hideCssSelectors.push(
-          // Notifications & Messages in primary nav
-          `${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live]`,
-          // Notifications & Messages in the More dialog in the new layout
-          `${Selectors.MORE_DIALOG} :is(a[href^="/notifications"], a[href="/messages"]) div[aria-live]`,
+          // Notifications & Chat in primary nav
+          `${Selectors.PRIMARY_NAV_DESKTOP} > :is(a[href^="/notifications"], a[href="/i/chat"]) div[aria-live]`,
           // Account switcher
           'button[data-testid="SideNav_AccountSwitcher_Button"] > div > div[aria-label]',
           // Account switcher accounts
           '[data-testid="HoverCard"] button[data-testid="UserCell"] div[aria-live]',
-          // Messages drawer title
-          '[data-testid="DMDrawerHeader"] h2 svg[role="img"]'
         )
         if (settings.hideNotifications == 'hide') {
           hideCssSelectors.push(
             // Nav item
             `${Selectors.PRIMARY_NAV_DESKTOP} a[href^="/notifications"]`,
-            // More dialog item
-            `${Selectors.MORE_DIALOG} a[href^="/notifications"]`,
           )
         }
       }
@@ -5015,15 +4942,14 @@ const configureCss = (() => {
           `body.Explore ${Selectors.TIMELINE}`,
         )
       }
-      if (settings.hideAdsNav && settings.tweakNewLayout) {
-        // In new More dialog
-        hideCssSelectors.push(`${Selectors.MORE_DIALOG} a:is([href*="ads.twitter.com"], [href*="ads.x.com"])`)
-      }
       if (settings.hideComposeTweet) {
         hideCssSelectors.push('[data-testid="SideNav_NewTweet_Button"]')
       }
       if (settings.hideConnectNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/connect_people"]`)
+      }
+      if (settings.hideCalls) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/i/calls"]`)
       }
       if (settings.hideChatNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/i/chat"]`)
@@ -5035,31 +4961,15 @@ const configureCss = (() => {
           // Grok drawer
           'div[data-testid="GrokDrawer"]',
         )
-        if (settings.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/i/grok"]`)
-        }
       }
       if (settings.hideJobsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="/jobs"]`)
-        if (settings.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/jobs"]`)
-        }
       }
       if (settings.hideListsNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/lists"]`)
-        if (settings.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/lists"]`)
-        }
       }
       if (settings.hideSpacesNav) {
         hideCssSelectors.push(`${menuRole} a[href="/i/spaces/start"]`)
-        if (settings.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/i/spaces/start"]`)
-        }
       }
       if (settings.hidePremiumUpsells) {
         hideCssSelectors.push(
@@ -5126,27 +5036,15 @@ const configureCss = (() => {
         // when on a page full-width content is enabled on.
         let bodySelector = `${settings.hideExploreNavWithSidebar ? `body.Sidebar${settings.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
         hideCssSelectors.push(`${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
-        if (settings.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="/explore"]`)
-        }
       }
       if (settings.hideHistoryNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="${PagePaths.HISTORY}"]`)
-        if (settings.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href="${PagePaths.HISTORY}"]`)
-        }
       }
       if (settings.hideCommunitiesNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
-        if (settings.tweakNewLayout) {
-          // In new More dialog
-          hideCssSelectors.push(`${Selectors.MORE_DIALOG} a[href$="/communities"]`)
-        }
       }
       if (settings.hideMessagesDrawer) {
-        cssRules.push(`div:is([data-testid="DMDrawer"], [data-testid="chat-drawer-root"]) { visibility: hidden; }`)
+        cssRules.push(`div[data-testid="chat-drawer-root"] { visibility: hidden; }`)
       }
       if (settings.hideViews) {
         hideCssSelectors.push(
@@ -5164,27 +5062,6 @@ const configureCss = (() => {
 
     //#region Mobile only
     if (mobile) {
-      if (hasNewLayout() && settings.tweakNewLayout) {
-        cssRules.push(`
-          /* Remove new padding from profile details and the tab bar (this has to be accidental) */
-          body.Profile ${Selectors.PRIMARY_COLUMN} > div > div > div > div > div > div > div > div {
-            padding-left: 0;
-            padding-right: 0;
-          }
-        `)
-        if (settings.revertXBranding) {
-          cssRules.push(`
-            /* Restore theme colour in nav item pips */
-            ${Selectors.PRIMARY_NAV_MOBILE} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-label],
-            /* Restore theme colour in profile button other accounts have notifications pip */
-            button[data-testid="DashButton_ProfileIcon_Link"] div[aria-label],
-            /* Restore theme colour in account switcher notifications pips */
-            [role="dialog"] [data-testid^="UserAvatar-Container"] div[dir] {
-              background-color: var(--cpft-theme-primary);
-            }
-          `)
-        }
-      }
       if (settings.disableHomeTimeline) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/home"]`)
       }
@@ -5194,8 +5071,8 @@ const configureCss = (() => {
       if (settings.hideNotifications != 'ignore') {
         // Hide notification badges and indicators
         hideCssSelectors.push(
-          // Notifications & Messages in primary nav
-          `${Selectors.PRIMARY_NAV_MOBILE} > :is(a[href^="/notifications"], a[href="/messages"]) div[aria-label]`,
+          // Notifications & Chat in primary nav
+          `${Selectors.PRIMARY_NAV_MOBILE} > :is(a[href^="/notifications"], a[href="/i/chat"]) div[aria-label]`,
           // Account switcher
           `button[data-testid="DashButton_ProfileIcon_Link"] div[aria-label]`,
           // Account switcher accounts
@@ -5229,6 +5106,9 @@ const configureCss = (() => {
           // Content
           `body.Explore ${Selectors.TIMELINE}`,
         )
+      }
+      if (settings.hideCalls) {
+        hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/calls"]`)
       }
       if (settings.hideGrok) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/grok"]`)
@@ -5628,6 +5508,14 @@ const configureThemeCss = (() => {
           path[clip-rule="evenodd"] {
             display: none;
           }
+        }
+        /* Restore theme to Tweet composer icons */
+        [data-testid="toolBar"] [role="tablist"] > [role="presentation"],
+        [data-testid="toolBar"] [role="tablist"] > [role="presentation"] * {
+          filter: none !important;
+        }
+        [data-testid="toolBar"] [role="tablist"] > [role="presentation"] svg {
+          fill: var(--cpft-theme-primary);
         }
       `)
       if (desktop) {
@@ -6207,7 +6095,7 @@ function handlePopup($popup) {
   }
 
   if (desktop && !isDesktopComposeTweetModalOpen &&
-      location.pathname.startsWith(ModalPaths.COMPOSE_TWEET)) {
+      location.pathname.startsWith(PagePaths.COMPOSE_TWEET)) {
     log('Compose Tweet modal opened')
     isDesktopComposeTweetModalOpen = true
     $desktopComposeTweetModalPopup = $popup
@@ -6229,8 +6117,7 @@ function handlePopup($popup) {
   }
 
   if (desktop && !isDesktopMediaModalOpen &&
-      URL_MEDIA_RE.test(location.pathname) &&
-      currentPath != location.pathname) {
+      URL_MEDIA_RE.test(location.pathname)) {
     log('media modal opened')
     isDesktopMediaModalOpen = true
     observeDesktopModalTimeline($popup)
@@ -6502,7 +6389,9 @@ function onIndividualTweetTimelineChange($timeline, seen, options) {
   /** @type {boolean} */
   let hideAllSubsequentItems = false
   /** @type {string} */
-  let opScreenName = /^\/([a-zA-Z\d_]{1,20})\//.exec(location.pathname)[1].toLowerCase()
+  let tweetPath = options.observers == modalObservers ? location.pathname : currentPagePath
+  /** @type {?string} */
+  let opScreenName = URL_TWEET_BASE_RE.exec(tweetPath)?.[1]?.toLowerCase()
   /** @type {string} */
   let userScreenName = getUserScreenName()
   /** @type {{$item: Element, hideItem?: boolean}[]} */
@@ -7047,31 +6936,27 @@ function onTitleChange(title) {
     observeFavicon.forceUpdate(Boolean(notificationCount))
   }
 
-  let homeNavigationWasUsed = homeNavigationIsBeingUsed
-  homeNavigationIsBeingUsed = false
+  let route = getCurrentRoute()
 
   // Ignore Flash of Uninitialised Title when navigating to a page for the first
-  // time, except in scenarios where we know an empty title is being set.
-  if (title == 'X' || title == getString('TWITTER')) {
+  // time, except on pages we've identified as not setting a title, including
+  // when they're rendered beneath a desktop modal.
+  if (!title || title == 'X' || title == getString('TWITTER')) {
     // On mobile, the media viewer sets an empty title
-    if (mobile && (URL_MEDIA_RE.test(location.pathname) || URL_MEDIAVIEWER_RE.test(location.pathname))) {
+    if (mobile && (URL_MEDIA_RE.test(route.urlPath) || URL_MEDIAVIEWER_RE.test(route.urlPath))) {
       log('viewing media on mobile')
     }
     // On mobile, the Premium sign up page sets an empty title
-    else if (mobile && location.pathname == '/i/premium_sign_up') {
+    else if (mobile && route.urlPath == '/i/premium_sign_up') {
       log('viewing Premium sign up page on mobile')
     }
     // On desktop, the root Settings page sets an empty title when the sidebar
     // is hidden.
-    else if (desktop && location.pathname == '/settings' && currentPath != '/settings') {
+    else if (desktop && route.pagePath == '/settings') {
       log('viewing root Settings page')
     }
-    // On desktop, the root Messages page sets an empty title
-    else if (desktop && location.pathname.match(/^\/messages(?:\/home)?$/) && !currentPath.match(/^\/messages(?:\/home)?$/)) {
-      log('viewing root Messages page')
-    }
     // Chat has an empty title
-    else if (location.pathname.startsWith('/i/chat') && !isOnChatPage()) {
+    else if (route.pagePath.startsWith('/i/chat')) {
       log('viewing Chat page')
     }
     else {
@@ -7080,64 +6965,43 @@ function onTitleChange(title) {
     }
   }
 
+  let homeNavigationWasUsed = homeNavigationIsBeingUsed
+  homeNavigationIsBeingUsed = false
+
   // Remove " / Twitter" or "Twitter \ " from the title
   let newPage = title
   if (newPage != 'X' && newPage != getString('TWITTER')) {
     newPage = title.slice(...ltr ? [0, title.lastIndexOf('/') - 1] : [title.indexOf('\\') + 2])
   }
 
-  let hasDesktopModalBeenOpenedOrClosed = desktop && (
-    // Timeline settings dialog opened
-    location.pathname == PagePaths.TIMELINE_SETTINGS ||
-    // Timeline settings dialog closed
-    currentPath == PagePaths.TIMELINE_SETTINGS ||
-    // Media modal opened
-    URL_MEDIA_RE.test(location.pathname) ||
-    // Media modal closed
-    URL_MEDIA_RE.test(currentPath) ||
-    // "Send via Direct Message" dialog opened
-    location.pathname == ModalPaths.COMPOSE_MESSAGE ||
-    // "Send via Direct Message" dialog closed
-    currentPath == ModalPaths.COMPOSE_MESSAGE ||
-    // Compose Tweet dialog opened
-    location.pathname == ModalPaths.COMPOSE_TWEET ||
-    // Compose Tweet dialog closed
-    currentPath == ModalPaths.COMPOSE_TWEET
-  )
+  let hasDesktopModalRouteChanged = lastUrlPath != route.urlPath && (lastUrlWasModal || route.isModal)
+  // Closing a modal can rebuild its background without changing the title
+  let hasDesktopModalBeenClosed = lastUrlWasModal && !route.isModal
+  lastUrlWasModal = route.isModal
 
-  let hasDesktopInitialModalBeenClosed = desktop && (
-    // Premium sign up dialog closed
-    currentPath == '/i/premium_sign_up' && location.pathname == PagePaths.HOME
-  )
+  // A modal can change screens without changing the underlying page or title
+  if (desktop && lastUrlPath != route.urlPath) {
+    handleDesktopModalRouteChange(route.urlPath)
+  }
 
-  if (newPage == currentPage && !hasDesktopInitialModalBeenClosed) {
-    if (location.pathname.startsWith(PagePaths.HISTORY) && currentPath != location.pathname) {
+  if (newPage == currentPage && route.pagePath == currentPagePath && !hasDesktopModalBeenClosed) {
+    // The History page re-renders everything when you switch tabs
+    if (route.urlPath.startsWith(PagePaths.HISTORY) && lastUrlPath != route.urlPath) {
       log('viewing History page')
     }
-    else if (isOnCommunitiesPage() && URL_COMMUNITIES_RE.test(location.pathname) && currentPath != location.pathname) {
+    else if (isOnCommunitiesPage() && URL_COMMUNITIES_RE.test(route.urlPath) && lastUrlPath != route.urlPath) {
       log('navigated between Communities tabs (no title change)')
     }
     else {
       log(`ignoring duplicate title change`)
-      // Navigation within the Compose Tweet modal triggers duplcate title changes
-      if (isDesktopComposeTweetModalOpen) {
-        if (currentPath == ModalPaths.COMPOSE_TWEET && COMPOSE_TWEET_MODAL_PAGES.has(location.pathname)) {
-          log('navigated away from Compose Tweet editor')
-          disconnectObservers(modalObservers, 'modal')
-        }
-        else if (COMPOSE_TWEET_MODAL_PAGES.has(currentPath) && location.pathname == ModalPaths.COMPOSE_TWEET) {
-          log('navigated back to Compose Tweet editor')
-          observeDesktopComposeTweetModal($desktopComposeTweetModalPopup)
-        }
-      }
       currentNotificationCount = notificationCount
-      currentPath = location.pathname
+      lastUrlPath = route.urlPath
       return
     }
   }
 
   // Search terms are shown in the title
-  if (currentPath == PagePaths.SEARCH && location.pathname == PagePaths.SEARCH) {
+  if (lastUrlPath == PagePaths.SEARCH && route.urlPath == PagePaths.SEARCH) {
     log('ignoring title change on Search page')
     currentNotificationCount = notificationCount
     return
@@ -7150,30 +7014,31 @@ function onTitleChange(title) {
       // …the Home nav link or Following / Home header _wasn't_ clicked and…
       !homeNavigationWasUsed &&
       (
-        // …a modal which changes the pathname has been opened or closed.
-        hasDesktopModalBeenOpenedOrClosed ||
+        // …a desktop modal route changed.
+        hasDesktopModalRouteChanged ||
         // …the notification count in the title changed.
         notificationCount != currentNotificationCount
       )) {
     log('ignoring title change on separated tweets timeline')
     currentNotificationCount = notificationCount
-    currentPath = location.pathname
+    lastUrlPath = route.urlPath
     setTitle(separatedTweetsTimelineTitle)
+    if (hasDesktopModalBeenClosed) processCurrentPage(route)
     return
   }
 
   // Restore display of the separated tweets timelne if it's the last one we
   // saw, and the user navigated back home without using the Home navigation
   // item.
-  if (location.pathname == PagePaths.HOME &&
-      currentPath != PagePaths.HOME &&
+  if (route.urlPath == PagePaths.HOME &&
+      lastUrlPath != PagePaths.HOME &&
       !homeNavigationWasUsed &&
       lastHomeTimelineTitle != null &&
       separatedTweetsTimelineTitle != null &&
       lastHomeTimelineTitle == separatedTweetsTimelineTitle) {
     log('restoring display of the separated tweets timeline')
     currentNotificationCount = notificationCount
-    currentPath = location.pathname
+    lastUrlPath = route.urlPath
     setTitle(separatedTweetsTimelineTitle)
     return
   }
@@ -7183,15 +7048,15 @@ function onTitleChange(title) {
 
   currentPage = newPage
   currentNotificationCount = notificationCount
-  currentPath = location.pathname
+  lastUrlPath = route.urlPath
 
-  if (isOnHomeTimelinePage()) {
+  if (route.pagePath == PagePaths.HOME) {
     lastHomeTimelineTitle = currentPage
   }
 
   log('processing new page')
 
-  processCurrentPage()
+  processCurrentPage(route)
 }
 
 let History_push
@@ -7220,6 +7085,20 @@ function patchHistory() {
   log('history patched')
 }
 
+/** @param {string} path */
+function handleDesktopModalRouteChange(path) {
+  if (!isDesktopComposeTweetModalOpen) return
+  // Any sub-screen can replace the editor, including ones outside /compose/post
+  if (lastUrlPath == PagePaths.COMPOSE_TWEET && path != PagePaths.COMPOSE_TWEET) {
+    log('navigated away from Compose Tweet editor')
+    disconnectObservers(modalObservers, 'modal')
+  }
+  else if (lastUrlPath != PagePaths.COMPOSE_TWEET && path == PagePaths.COMPOSE_TWEET) {
+    log('navigated back to Compose Tweet editor')
+    observeDesktopComposeTweetModal($desktopComposeTweetModalPopup)
+  }
+}
+
 /**
  * Processes all Premium Blue checks inside an element.
  * @param {HTMLElement} $el
@@ -7241,8 +7120,11 @@ function processTwitterLogos($el) {
   }
 }
 
-function processCurrentPage() {
+function processCurrentPage(route = getCurrentRoute()) {
+  // Startup can re-render before the initial page title has been handled
+  if (!lastUrlPath) return
   disconnectObservers(pageObservers, 'page')
+  currentPagePath = route.pagePath
 
   // Hooks for styling pages
   if (!$body) $body = document.body
@@ -7273,7 +7155,7 @@ function processCurrentPage() {
   $body.classList.remove('SeparatedTweets')
 
   if (desktop) {
-    if (!isOnChatPage() && !isOnGrokPage() && !isOnMessagesPage() && !isOnSettingsPage()) {
+    if (!isOnCallsPage() && !isOnChatPage() && !isOnGrokPage() && !isOnSettingsPage()) {
       observeSidebar()
     } else {
       $body.classList.remove('Sidebar')
@@ -7314,7 +7196,7 @@ function processCurrentPage() {
   else if (isOnSearchPage()) {
     tweakSearchPage()
   }
-  else if (URL_TWEET_INTERACTIONS_RE.test(currentPath)) {
+  else if (URL_TWEET_INTERACTIONS_RE.test(currentPagePath)) {
     tweakTweetEngagementPage()
   }
   else if (isOnListPage()) {
@@ -7338,6 +7220,9 @@ function processCurrentPage() {
   else if (isOnCommunityMembersPage()) {
     tweakCommunityMembersPage()
   }
+  else if (isOnCallsPage()) {
+    tweakCallsPage()
+  }
   else if (isOnChatPage()) {
     tweakChatPage()
   }
@@ -7353,10 +7238,10 @@ function processCurrentPage() {
     if (isOnComposeTweetPage()) {
       tweakMobileComposeTweetPage()
     }
-    else if (URL_MEDIAVIEWER_RE.test(currentPath)) {
+    else if (URL_MEDIAVIEWER_RE.test(lastUrlPath)) {
       tweakMobileMediaViewerPage()
     }
-    else if (currentPath.startsWith(PagePaths.PROFILE_SETTINGS)) {
+    else if (lastUrlPath.startsWith(PagePaths.PROFILE_SETTINGS)) {
       tweakProfileSettingsPage()
     }
   }
@@ -7399,9 +7284,10 @@ function restoreLinkHeadline($tweet) {
  *   $focusedTweet: HTMLElement
  *   tweetInfo: any
  *   isOwnTweet: boolean
+ *   tweetPath: string
  * }} options
  */
-function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet}) {
+function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet, tweetPath}) {
   if (!settings.restoreQuoteTweetsLink && !settings.restoreOtherInteractionLinks) return
 
   if (!tweetInfo) {
@@ -7419,7 +7305,7 @@ function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, is
     return
   }
 
-  let tweetLink = location.pathname.match(URL_TWEET_BASE_RE)?.[0]
+  let tweetLink = tweetPath.match(URL_TWEET_BASE_RE)?.[0]
   $actionBar.insertAdjacentHTML('beforebegin', `
     <div id="cpftInteractionLinks" hidden>
       <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--cpft-border); display: flex; gap: 20px;">
@@ -7631,8 +7517,20 @@ function shouldMuteTweet($tweet) {
   return false
 }
 
+function tweakCallsPage() {
+  let styles = styleEmbed('[data-testid="xcallsRemoteHost"]', ':is([data-xcalls-root], [data-xcalls-portal])')
+  let name = 'Calls page styles'
+  pageObservers.set(name, {
+    name,
+    disconnect() {
+      styles.disconnect()
+      pageObservers.delete(name)
+    },
+  })
+}
+
 function tweakChatPage() {
-  let styles = styleChat('[data-testid="xchatEmbedRoute"]')
+  let styles = styleEmbed('[data-testid="xchatEmbedRoute"]', ':is([data-xchat-root], [data-xchat-portal])')
   let name = 'Chat page styles'
   pageObservers.set(name, {
     name,
@@ -7665,7 +7563,7 @@ function tweakCommunityPage() {
     tabbedTimelineContainerSelector: `${Selectors.PRIMARY_COLUMN} > div > div:last-child`,
     onTimelineAppeared() {
       // The About tab has static content at the top which can include a check
-      if (/\/about\/?$/.test(location.pathname)) {
+      if (/\/about\/?$/.test(currentPagePath)) {
         processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
       }
     }
@@ -7867,14 +7765,17 @@ async function tweakExplorePage() {
 async function tweakFocusedTweet($focusedTweet, options) {
   log('tweaking focused tweet')
   let {observers} = options
-  let focusedTweetUrlMatch = location.pathname.match(URL_TWEET_BASE_RE)
+  let $permalinkBar = $focusedTweet.querySelector('div:has(> div > a > time)')
+  let tweetPath = $permalinkBar?.querySelector('a:has(> time)')?.getAttribute('href') || (
+    observers == modalObservers ? location.pathname : currentPagePath
+  )
+  let focusedTweetUrlMatch = tweetPath.match(URL_TWEET_BASE_RE)
   let screenName = focusedTweetUrlMatch?.[1]
   let tweetId = focusedTweetUrlMatch?.[2]
   let tweetInfo = getTweetInfo(tweetId)
-  let isOwnTweet = isOnOwnTweetPage()
+  let isOwnTweet = isOnOwnTweetPage(tweetPath)
 
   // Tag View elements and restore Tweet source
-  let $permalinkBar = $focusedTweet.querySelector('div:has(> div > a > time)')
   if ($permalinkBar) {
     $permalinkBar.children[1]?.classList.toggle('Views', settings.hideViews)
     $permalinkBar.children[2]?.classList.toggle('Views', settings.hideViews)
@@ -7888,7 +7789,7 @@ async function tweakFocusedTweet($focusedTweet, options) {
   let $underActionBar = $actionBar?.nextElementSibling
   if ($actionBar) {
     $actionBar.id = 'cpftFocusedTweetActionBar'
-    restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet})
+    restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet, tweetPath})
   } else {
     warn('focused tweet action bar not found')
   }
@@ -7949,8 +7850,8 @@ async function tweakFocusedTweet($focusedTweet, options) {
 
 async function tweakFollowListPage() {
   // Fallback for direct navigation
-  if (settings.hideVerifiedTabs && currentPath.endsWith('/verified_followers')) {
-    History_replace?.(currentPath.replace(/verified_followers$/, 'followers'))
+  if (settings.hideVerifiedTabs && lastUrlPath.endsWith('/verified_followers')) {
+    History_replace?.(lastUrlPath.replace(/verified_followers$/, 'followers'))
     return
   }
 
@@ -8034,7 +7935,7 @@ function tweakHomeTimelinePage() {
     let timelineTabsReplaced = mutations.some(mutation => Array.from(mutation.removedNodes).includes($timelineTabs))
     if (timelineTabsReplaced &&
         // On mobile, navigating to a different tabbed screen can switch tabs before the title changes
-        location.pathname == PagePaths.HOME) {
+        isOnHomeTimelinePage()) {
       log('Home timeline tabs replaced')
       $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
       tweakTimelineTabs($timelineTabs)
@@ -8277,7 +8178,7 @@ async function tweakProfilePage() {
     processBlueChecks($initialContent)
   }
 
-  let tab = currentPath.match(URL_PROFILE_RE)?.[2] || 'tweets'
+  let tab = currentPagePath.match(URL_PROFILE_RE)?.[2] || 'tweets'
   log(`on ${tab} tab`)
   observeTimeline(currentPage, {
     checkSocialContext: tab == 'tweets' || tab == 'with_replies',
@@ -8439,7 +8340,7 @@ async function tweakTimelineTabs($timelineTabs) {
 
   let homeNavLinkPromise = getElement(Selectors.NAV_HOME_LINK, {
     name: 'home nav link',
-    stopIf: pathIsNot(currentPath),
+    stopIf: pathIsNot(lastUrlPath),
   })
 
   if (shouldShowSeparatedTweetsTab()) {
@@ -8742,7 +8643,10 @@ async function main({processImmediately = false} = {}) {
 
   // Reset state so initial setup runs again when re-enabled
   currentPage = ''
-  currentPath = ''
+  currentPagePath = ''
+  lastUrlPath = ''
+  lastUrlWasModal = false
+  observingPageChanges = false
   filterBlurRule = null
   fontFamilyRule = null
   fontSize = null
@@ -8812,7 +8716,7 @@ async function main({processImmediately = false} = {}) {
       observingPageChanges = true
 
       // Replay the initial title after setup if its observer ran before startup
-      if (processImmediately || !currentPage) {
+      if ((processImmediately || !currentPagePath) && document.querySelector('title')) {
         processImmediately = false
         onTitleChange(document.title)
       }
@@ -8863,7 +8767,9 @@ function onSettingsChanged(changedSettings = new Set()) {
 
   if (changedSettings.has('darkModeTheme')) {
     observeThemeMeta.update()
-    styleChat.update()
+  }
+  if (changedSettings.has('darkModeTheme') || changedSettings.has('hideNotifications')) {
+    styleEmbed.update()
   }
   if (changedSettings.has('revertXBranding') || changedSettings.has('hideNotifications')) {
     observeFavicon.forceUpdate(getNotificationCount() > 0)
