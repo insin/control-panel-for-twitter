@@ -3,6 +3,7 @@
 browser_action.html
 manifest.json
 node_modules/
+safari/Generated/
 promo/*.png
 !promo/app-store.png
 scripts/locales/base-translations.json

@@ -1,4 +1,5 @@
 module.exports = {
+  // In lieu of includeFiles config
   ignoreFiles: [
     '**/*',
     '!manifest.json',

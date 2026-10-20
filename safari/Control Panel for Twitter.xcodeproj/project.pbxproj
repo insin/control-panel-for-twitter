@@ -87,6 +87,16 @@
 		FBF5C9AB3068C9FD001B1C15 /* toolbar-icon72.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FBF5C9603068C7E0001B1C15 /* toolbar-icon72.png */; };
 		7F8C95EAA1324157A1E473CF /* default-settings.js in Resources */ = {isa = PBXBuildFile; fileRef = 03BF7671181D4029B78823C3 /* default-settings.js */; };
 		170A9D3FE6804A78A236F663 /* default-settings.js in Resources */ = {isa = PBXBuildFile; fileRef = 03BF7671181D4029B78823C3 /* default-settings.js */; };
+		707C20269DD8D15C43E10FA3 /* migrations.js in Resources */ = {isa = PBXBuildFile; fileRef = 2EC95AA9B1875A29820B88CA /* migrations.js */; };
+		34C8C4A02499AA8A27662F76 /* migrations.js in Resources */ = {isa = PBXBuildFile; fileRef = 2EC95AA9B1875A29820B88CA /* migrations.js */; };
+		4E2780F9B048D5977E169331 /* trace-background.js in Resources */ = {isa = PBXBuildFile; fileRef = 0D9393965D3F4E5EE6F2102D /* trace-background.js */; };
+		47977E7CE869779796280E6B /* trace-background.js in Resources */ = {isa = PBXBuildFile; fileRef = 0D9393965D3F4E5EE6F2102D /* trace-background.js */; };
+		F0876D3A652209E7468D6792 /* trace.html in Resources */ = {isa = PBXBuildFile; fileRef = C682B06D031A353F81E5D619 /* trace.html */; };
+		987D4CE2BD97F1B57D8DB49F /* trace.html in Resources */ = {isa = PBXBuildFile; fileRef = C682B06D031A353F81E5D619 /* trace.html */; };
+		8C7F82A26D7B0375E9CB0E31 /* trace.js in Resources */ = {isa = PBXBuildFile; fileRef = 58DA9BD5FB47518FFCADEC6F /* trace.js */; };
+		C741883EB67045B3EACD52AF /* trace.js in Resources */ = {isa = PBXBuildFile; fileRef = 58DA9BD5FB47518FFCADEC6F /* trace.js */; };
+		746F14010FB8ACF412441783 /* trace.css in Resources */ = {isa = PBXBuildFile; fileRef = 689282D569D4A6C933B5A54D /* trace.css */; };
+		AA2927480967724B437791DA /* trace.css in Resources */ = {isa = PBXBuildFile; fileRef = 689282D569D4A6C933B5A54D /* trace.css */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,7 +194,7 @@
 		A598E13A297B3E9000BF2F25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A598E13B297B3E9300BF2F25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A598E13D297B3E9300BF2F25 /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
-		A598E141297B3E9300BF2F25 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+		A598E141297B3E9300BF2F25 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = manifest.json; path = Generated/manifest.json; sourceTree = SOURCE_ROOT; };
 		A598E14B297B3E9300BF2F25 /* Control Panel for Twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Control Panel for Twitter.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A598E14E297B3E9300BF2F25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A598E150297B3E9300BF2F25 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -228,6 +238,12 @@
 		FBF5C95F3068C7E0001B1C15 /* toolbar-icon48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbar-icon48.png"; sourceTree = "<group>"; };
 		FBF5C9603068C7E0001B1C15 /* toolbar-icon72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbar-icon72.png"; sourceTree = "<group>"; };
 		03BF7671181D4029B78823C3 /* default-settings.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "default-settings.js"; path = "../../../default-settings.js"; sourceTree = "<group>"; };
+		2EC95AA9B1875A29820B88CA /* migrations.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "migrations.js"; path = "../../../migrations.js"; sourceTree = "<group>"; };
+		0D9393965D3F4E5EE6F2102D /* trace-background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "trace-background.js"; path = "../../../trace-background.js"; sourceTree = "<group>"; };
+		C682B06D031A353F81E5D619 /* trace.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "trace.html"; path = "../../../trace.html"; sourceTree = "<group>"; };
+		58DA9BD5FB47518FFCADEC6F /* trace.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "trace.js"; path = "../../../trace.js"; sourceTree = "<group>"; };
+		689282D569D4A6C933B5A54D /* trace.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = "trace.css"; path = "../../../trace.css"; sourceTree = "<group>"; };
+		907EFBC6BAE7BE38A343035A /* Extension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Generated/Extension.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +281,7 @@
 		A598E12E297B3E8F00BF2F25 = {
 			isa = PBXGroup;
 			children = (
+				907EFBC6BAE7BE38A343035A /* Extension.xcconfig */,
 				A598E133297B3E9000BF2F25 /* Shared (App) */,
 				A598E13C297B3E9300BF2F25 /* Shared (Extension) */,
 				A598E14D297B3E9300BF2F25 /* iOS (App) */,
@@ -316,6 +333,11 @@
 				FBD6139A2FB947AC002E0939 /* content-pro.js */,
 				FBD613912FAF651A002E0939 /* ext-shared.js */,
 				FBD6139B2FB947AC002E0939 /* extensions-pro-bridge.js */,
+				2EC95AA9B1875A29820B88CA /* migrations.js */,
+				0D9393965D3F4E5EE6F2102D /* trace-background.js */,
+				C682B06D031A353F81E5D619 /* trace.html */,
+				58DA9BD5FB47518FFCADEC6F /* trace.js */,
+				689282D569D4A6C933B5A54D /* trace.css */,
 				A598E141297B3E9300BF2F25 /* manifest.json */,
 				A598E1D8297B46C300BF2F25 /* options.css */,
 				A598E1A9297B441300BF2F25 /* options.html */,
@@ -554,6 +576,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				707C20269DD8D15C43E10FA3 /* migrations.js in Resources */,
+				4E2780F9B048D5977E169331 /* trace-background.js in Resources */,
+				F0876D3A652209E7468D6792 /* trace.html in Resources */,
+				8C7F82A26D7B0375E9CB0E31 /* trace.js in Resources */,
+				746F14010FB8ACF412441783 /* trace.css in Resources */,
 				7F8C95EAA1324157A1E473CF /* default-settings.js in Resources */,
 				FB191D7E2E52C40A00FB6F20 /* settings.js in Resources */,
 				FBD613952FAF651A002E0939 /* ext-shared.js in Resources */,
@@ -577,6 +604,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34C8C4A02499AA8A27662F76 /* migrations.js in Resources */,
+				47977E7CE869779796280E6B /* trace-background.js in Resources */,
+				987D4CE2BD97F1B57D8DB49F /* trace.html in Resources */,
+				C741883EB67045B3EACD52AF /* trace.js in Resources */,
+				AA2927480967724B437791DA /* trace.css in Resources */,
 				170A9D3FE6804A78A236F663 /* default-settings.js in Resources */,
 				FB191D802E52C40A00FB6F20 /* settings.js in Resources */,
 				FBD613932FAF651A002E0939 /* ext-shared.js in Resources */,
@@ -687,6 +719,7 @@
 /* Begin XCBuildConfiguration section */
 		A598E198297B3E9300BF2F25 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 907EFBC6BAE7BE38A343035A /* Extension.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -740,7 +773,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 5.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -751,6 +783,7 @@
 		};
 		A598E199297B3E9300BF2F25 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 907EFBC6BAE7BE38A343035A /* Extension.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -798,7 +831,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 5.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
