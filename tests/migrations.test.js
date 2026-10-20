@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
+import { DEFAULT_SETTINGS } from '../default-settings.js'
 import { getSettingsMigrationVersions, runSettingsMigrations } from '../migrations.js'
 import { set } from '../settings.js'
 import { createChromeMock } from './helpers/chrome.js'
@@ -81,7 +82,26 @@ describe('v5 settings migration', () => {
     expect(browser.storage.settings).toEqual({ hideListRetweets: false })
   })
 
-  test('does not run without crossing the v5 threshold', async () => {
+  test.each([
+    ['mostRecent', true],
+    ['popular', false],
+    ['ignore', false],
+  ])('converts sortFollowing=%s without hiding the menu', async (sortFollowing, expected) => {
+    loadStorage({ sortFollowing })
+
+    await runSettingsMigrations('4.25.0', '4.999.0')
+
+    expect(browser.storage).toEqual({ settings: { defaultFollowingToRecent: expected } })
+    expect(DEFAULT_SETTINGS.hideFollowingMenu).toBe(false)
+  })
+
+  test('runs at 4.999.0, including direct upgrades to v5, without repeating at v5', () => {
+    expect(getSettingsMigrationVersions('4.25.0', '4.999.0')).toEqual(['4.999.0'])
+    expect(getSettingsMigrationVersions('4.25.0', '5.0.0')).toEqual(['4.999.0'])
+    expect(getSettingsMigrationVersions('4.999.0', '5.0.0')).toEqual([])
+  })
+
+  test('does not run without crossing the migration threshold', async () => {
     loadStorage({ hideAdsNav: false })
 
     await runSettingsMigrations('5', '5.1')

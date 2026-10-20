@@ -11,6 +11,8 @@ import {
 } from './settings.js'
 
 const $body = document.body
+$body.classList.toggle('v5', Number(chrome.runtime.getManifest().version.split('.')[0]) >= 5)
+document.getElementById('version').textContent = `v${chrome.runtime.getManifest().version}`
 const isBrowserAction = $body.classList.contains('browserAction')
 
 //#region Theme hooks

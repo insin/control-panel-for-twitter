@@ -10,7 +10,7 @@ const quotedTweet = object({
 /**
  * @type {Record<import('./types').UserSettingsKey, import('./ext-shared').FieldDescriptor>}>}
  */
-const v5 = {
+const v4_999 = {
   // Pro
   customTheme: string(),
   mutedWords: string(),
@@ -133,6 +133,6 @@ const v5 = {
 }
 
 /** @type {import('./ext-shared').SettingsSchemas} */
-export const schemas = [['5.0.0', v5]]
+export const schemas = [['4.999.0', v4_999]]
 
 export const currentSettingsSchema = schemas.at(-1)[1]

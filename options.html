@@ -8,20 +8,13 @@
 </head>
 <body>
 <form>
+  <!-- #region Tabs -->
   <div class="tabs" role="tablist">
     <div class="indicator"></div>
     <button type="button" role="tab" data-tab="features">
       <span class="wrapper">
         <span class="label">
           <span id="features">Features</span>
-          <span class="underline"></span>
-        </span>
-      </span>
-    </button>
-    <button type="button" role="tab" data-tab="settings">
-      <span class="wrapper">
-        <span class="label">
-          <span id="settings">Settings</span>
           <span class="underline"></span>
         </span>
       </span>
@@ -34,8 +27,17 @@
         </span>
       </span>
     </button>
+    <button type="button" role="tab" data-tab="settings">
+      <span class="wrapper">
+        <span class="label">
+          <span id="settings">Settings</span>
+          <span class="underline"></span>
+        </span>
+      </span>
+    </button>
   </div>
-
+  <!-- #endregion -->
+  <!-- #region Features -->
   <div class="panel" data-tab="features">
     <section class="group">
       <div class="options">
@@ -51,7 +53,7 @@
         </section>
       </div>
     </section>
-
+    <!-- #region Home -->
     <section class="group labelled collapsible">
       <label data-collapse-id="home">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
@@ -183,7 +185,8 @@
         </section>
       </div>
     </section>
-
+    <!-- #endregion -->
+    <!-- #region UI improvements -->
     <section class="group labelled collapsible">
       <label data-collapse-id="uiImprovements">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
@@ -275,7 +278,8 @@
         </section>
       </div>
     </section>
-
+    <!-- #endregion -->
+    <!-- #region X fixes -->
     <section class="group labelled collapsible">
       <label data-collapse-id="xFixes">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
@@ -522,7 +526,8 @@
         </section>
       </div>
     </section>
-
+    <!-- #endregion -->
+    <!-- #region UI  tweaks -->
     <section class="group labelled collapsible">
       <label data-collapse-id="uiTweaks">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
@@ -603,7 +608,8 @@
         </section>
       </div>
     </section>
-
+    <!-- #endregion -->
+    <!-- #region Sidebar -->
     <section class="group labelled collapsible desktop">
       <label data-collapse-id="sidebar">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
@@ -658,7 +664,8 @@
         </section>
       </div>
     </section>
-
+    <!-- #endregion -->
+    <!-- #region Algorithmic content -->
     <section class="group labelled collapsible">
       <label data-collapse-id="algorithmicContent">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
@@ -690,7 +697,8 @@
         </section>
       </div>
     </section>
-
+    <!-- #endregion -->
+    <!-- #region Reduce engagement -->
     <section class="group labelled collapsible">
       <label data-collapse-id="reduceEngagement">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
@@ -816,7 +824,8 @@
         </section>
       </div>
     </section>
-
+    <!-- #endregion -->
+    <!-- #region Hide UI items you don't use -->
     <section class="group labelled collapsible">
       <label data-collapse-id="hideUiItems">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
@@ -936,7 +945,8 @@
         </section>
       </div>
     </section>
-
+    <!-- #endregion -->
+    <!-- #region Hide menu items you don't use -->
     <section class="group labelled collapsible">
       <label data-collapse-id="hideMenuItems">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
@@ -1011,7 +1021,8 @@
         </section>
       </div>
     </section>
-
+    <!-- #endregion -->
+    <!-- #region Experiments -->
     <section class="group labelled collapsible">
       <label data-collapse-id="experiments">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
@@ -1027,8 +1038,68 @@
         </section>
       </div>
     </section>
+    <!-- #endregion -->
   </div>
-
+  <!-- #endregion -->
+  <!-- #region Pro -->
+  <div class="panel" data-tab="pro">
+    <section class="group labelled">
+      <label>
+        Extensions Pro account
+      </label>
+      <div class="options">
+        <section>
+          <div id="proSignInSection">
+            <p id="proSignInInfo">Sync your settings and enable Pro settings with an Extensions Pro account.</p>
+            <p>
+              <a id="proSignInLink" href="#">Sign in to Extensions Pro</a>
+            </p>
+          </div>
+          <div id="proAccountSection">
+            <dl id="proAccountInfo" class="pro-account-info"></dl>
+            <p>
+              <a id="manageProAccount" href="#">Manage your account</a>
+            </p>
+          </div>
+        </section>
+      </div>
+    </section>
+    <section class="group labelled">
+      <label>
+        Pro settings
+      </label>
+      <div class="options">
+        <section class="checkbox">
+          <label>
+            <span id="syncSettings">Sync settings in this browser</span>
+            <input type="checkbox" name="syncSettings">
+            <span class="toggle"></span>
+          </label>
+          <p id="syncLastSynced"></p>
+        </section>
+        <section>
+          <label>
+            <span id="customTheme">Custom theme colour</span>
+            <input type="text" name="customTheme" style="text-align: center;" size="16">
+          </label>
+          <p id="customThemeInfo">
+            Pick a custom colour in your <a>Display settings</a> page
+          </p>
+        </section>
+        <section class="textarea">
+          <label id="mutedWords" for="mutedWords">Mute words anywhere</label>
+          <textarea id="mutedWords" rows="1"></textarea>
+          <div id="mutedWordsError" hidden>
+            <div id="mutedWordsErrorMessage"></div>
+            <div id="mutedWordsErrorLine"></div>
+          </div>
+          <p id="mutedWordsInfo">Hide Tweets containing specific words, phrases, or patterns - one per line</p>
+        </section>
+      </div>
+    </section>
+  </div>
+  <!-- #endregion -->
+  <!-- #region Settings -->
   <div class="panel" data-tab="settings">
     <section class="group stickyHeadings">
       <div class="options">
@@ -1098,7 +1169,7 @@
             </section>
           </div>
         </section>
-        <section>
+        <section class="pro">
           <label class="button">
             <span>Extensions Pro sync trace</span>
             <button type="button" id="openDebugTrace">Open</button>
@@ -1107,65 +1178,8 @@
       </div>
     </section>
   </div>
-
-  <div class="panel" data-tab="pro">
-    <section class="group labelled">
-      <label>
-        Extensions Pro account
-      </label>
-      <div class="options">
-        <section>
-          <div id="proSignInSection">
-            <p id="proSignInInfo">Sync your settings and enable Pro settings with an Extensions Pro account.</p>
-            <p>
-              <a id="proSignInLink" href="#">Sign in to Extensions Pro</a>
-            </p>
-          </div>
-          <div id="proAccountSection">
-            <dl id="proAccountInfo" class="pro-account-info"></dl>
-            <p>
-              <a id="manageProAccount" href="#">Manage your account</a>
-            </p>
-          </div>
-        </section>
-      </div>
-    </section>
-    <section class="group labelled">
-      <label>
-        Pro settings
-      </label>
-      <div class="options">
-        <section class="checkbox">
-          <label>
-            <span id="syncSettings">Sync settings in this browser</span>
-            <input type="checkbox" name="syncSettings">
-            <span class="toggle"></span>
-          </label>
-          <p id="syncLastSynced"></p>
-        </section>
-        <section>
-          <label>
-            <span id="customTheme">Custom theme colour</span>
-            <input type="text" name="customTheme" style="text-align: center;" size="16">
-          </label>
-          <p id="customThemeInfo">
-            Pick a custom colour in your <a>Display settings</a> page
-          </p>
-        </section>
-        <section class="textarea">
-          <label id="mutedWords" for="mutedWords">Mute words anywhere</label>
-          <textarea id="mutedWords" rows="1"></textarea>
-          <div id="mutedWordsError" hidden>
-            <div id="mutedWordsErrorMessage"></div>
-            <div id="mutedWordsErrorLine"></div>
-          </div>
-          <p id="mutedWordsInfo">Hide Tweets containing specific words, phrases, or patterns - one per line</p>
-        </section>
-      </div>
-    </section>
-  </div>
-
-  <div id="version">v5.0.0</div>
+  <!-- #endregion -->
+  <div id="version"></div>
 </form>
 <script src="options.js" type="module"></script>
 <div class="firefoxSizer">Big long string to force Firefox to use the maximum available width of the extension popup</div>

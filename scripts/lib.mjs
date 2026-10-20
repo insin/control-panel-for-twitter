@@ -1,4 +1,16 @@
 import fs from 'node:fs'
+import { parseArgs } from 'node:util'
+
+export function getEdition() {
+  const { values } = parseArgs({
+    options: { edition: { type: 'string', default: 'v4' } },
+    allowPositionals: true,
+    strict: false,
+  })
+  const edition = values.edition
+  if (edition != 'v4' && edition != 'v5') throw new Error(`Unknown edition: ${edition}`)
+  return edition
+}
 
 /**
  * @param {{dryRun?: boolean}} [options]
@@ -8,9 +20,9 @@ export function clean(options = {}) {
   const mvFileRegExp = /\.mv[23]\./
 
   for (const file of fs.readdirSync('.', { withFileTypes: true })) {
-    if (file.isDirectory() || !mvFileRegExp.test(file.name)) continue
+    if (file.isDirectory() || !/\.(?:mv[23]|v[45])\./.test(file.name)) continue
 
-    const copiedFile = file.name.replace(mvFileRegExp, '.')
+    const copiedFile = file.name.replace(mvFileRegExp, '.').replace(/\.v[45]\./, '.')
     if (fs.existsSync(copiedFile)) {
       if (!dryRun) {
         fs.rmSync(copiedFile)
@@ -22,16 +34,22 @@ export function clean(options = {}) {
 
 /**
  * @param {import('./types').ManifestVersion} manifestVersion
- * @param {{dryRun?: boolean, local?: boolean}} [options]
+ * @param {{dryRun?: boolean, local?: boolean, edition?: 'v4' | 'v5'}} [options]
  */
 export function copy(manifestVersion, options = {}) {
-  const { dryRun = false, local = false } = options
+  const { dryRun = false, local = false, edition = 'v4' } = options
+  if (local && edition != 'v5') throw new Error('--local requires --edition=v5')
   const mvFileRegExp = new RegExp(`\\.mv${manifestVersion}\\.`)
+  const manifestFile = `manifest${edition == 'v4' ? '.v4' : ''}.mv${manifestVersion}.json`
 
   for (const file of fs.readdirSync('.', { withFileTypes: true })) {
-    if (file.isDirectory() || !mvFileRegExp.test(file.name)) continue
+    if (file.isDirectory()) continue
+    if (/\.mv[23]\./.test(file.name) && !mvFileRegExp.test(file.name)) continue
+    if (!mvFileRegExp.test(file.name) && !file.name.includes(`.${edition}.`)) continue
 
-    const copyTo = file.name.replace(mvFileRegExp, '.')
+    if (/\.v[45]\./.test(file.name) && !file.name.includes(`.${edition}.`)) continue
+    const copyTo = file.name.replace(mvFileRegExp, '.').replace(/\.v[45]\./, '.')
+    if (copyTo == 'manifest.json' && file.name != manifestFile) continue
     if (!dryRun) {
       if (local && copyTo == 'manifest.json') {
         const manifest = fs

@@ -24,6 +24,7 @@ const ENABLED_ICONS = {
 }
 
 const IS_SAFARI = location.protocol.startsWith('safari-web-extension:')
+const IS_PRO = Number(chrome.runtime.getManifest().version.split('.')[0]) >= 5
 //#endregion
 
 //#region Functions
@@ -69,10 +70,10 @@ async function main() {
     throw error
   }
 
-  await startSync()
+  if (IS_PRO) await startSync()
 }
 
-initSettingsSync({ apiBase: SERVER_ORIGIN })
+if (IS_PRO) initSettingsSync({ apiBase: SERVER_ORIGIN })
 main().catch((error) => {
   console.error('[background]', error)
 })

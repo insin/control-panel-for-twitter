@@ -13,4 +13,5 @@ scripts/locales/locales.js
 scripts/locales/old/
 scripts/translations.json
 web-ext-artifacts/
+web-ext-config.js
 wip/

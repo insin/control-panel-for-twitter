@@ -4,9 +4,9 @@ import { get, remove, set } from './settings.js'
 import { trace } from './trace-background.js'
 
 /**
- * One-off migration for v5: move all top-level settings into a settings object.
+ * Migrates user settings to a single `settings` object.
  */
-async function migrateSettingsToV5() {
+async function migrateUserSettingsToSettingsObject() {
   const extensionConfigKeys = new Set([
     'accountEmail',
     'collapsedGroups',
@@ -39,6 +39,10 @@ async function migrateSettingsToV5() {
     hideGrokNav: { rename: 'hideGrok' },
     hideWhoToFollowEtc: { rename: 'hideSuggestedContentTimeline' },
     listRetweets: { rename: 'hideListRetweets', convert: (value) => value == 'hide' },
+    sortFollowing: {
+      rename: 'defaultFollowingToRecent',
+      convert: (value) => value == 'mostRecent',
+    },
     // Changed what it was used for over time
     alwaysUseLatestTweets: { rename: 'defaultToFollowing' },
     hideMoreTweets: { rename: 'hideDiscoverSuggestions' },
@@ -54,7 +58,7 @@ async function migrateSettingsToV5() {
   }
   for (const [key, value] of Object.entries(storedConfig)) {
     if (extensionConfigKeys.has(key)) continue
-    // Remove all top-level keys which aren't v4 extension config
+    // Remove all top-level keys which aren't user settings
     keysToRemove.push(key)
     // Migrate or copy expected settings keys
     if (Object.hasOwn(migrations, key)) {
@@ -73,7 +77,7 @@ async function migrateSettingsToV5() {
 }
 
 /** @type {[string, () => Promise<void>][]} */
-const SETTINGS_MIGRATIONS = [['5', migrateSettingsToV5]]
+const SETTINGS_MIGRATIONS = [['4.999.0', migrateUserSettingsToSettingsObject]]
 const SETTINGS_MIGRATIONS_BY_VERSION = new Map(SETTINGS_MIGRATIONS)
 
 /**

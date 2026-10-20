@@ -260,8 +260,17 @@ body.disabled #version {
   }
 }
 
-.tabs {
+body:not(.v5) [data-tab="pro"],
+body:not(.v5) .pro {
+  display: none !important;
+}
+
+body.v5 .tabs {
   --tab-count: 3;
+}
+
+.tabs {
+  --tab-count: 2;
   background-color: inherit;
   display: grid;
   grid-template-columns: repeat(var(--tab-count), 1fr);

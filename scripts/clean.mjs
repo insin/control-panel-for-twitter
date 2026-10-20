@@ -5,9 +5,9 @@ const dryRun = process.argv.includes('--dry-run')
 const mvFileRegExp = /\.mv[23]\./
 
 for (const file of fs.readdirSync('.', { withFileTypes: true })) {
-  if (file.isDirectory() || !mvFileRegExp.test(file.name)) continue
+  if (file.isDirectory() || !/\.(?:mv[23]|v[45])\./.test(file.name)) continue
 
-  const copiedFile = file.name.replace(mvFileRegExp, '.')
+  const copiedFile = file.name.replace(mvFileRegExp, '.').replace(/\.v[45]\./, '.')
   if (fs.existsSync(copiedFile)) {
     if (!dryRun) {
       fs.rmSync(copiedFile)

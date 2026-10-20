@@ -4,7 +4,7 @@ export const SERVER_ORIGIN = (() => {
   const manifest = chrome.runtime.getManifest()
   const serverPermissions =
     manifest.manifest_version === 2 ? manifest.permissions : manifest.host_permissions
-  return serverPermissions.includes('http://localhost/*')
+  return serverPermissions?.includes('http://localhost/*')
     ? 'http://localhost:5173'
     : 'https://pro.soitis.dev'
 })()

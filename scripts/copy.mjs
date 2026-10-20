@@ -1,4 +1,4 @@
-import { copy } from './lib.mjs'
+import { copy, getEdition } from './lib.mjs'
 
 const dryRun = process.argv.includes('--dry-run')
 const local = process.argv.includes('--local')
@@ -14,4 +14,4 @@ Usage:
   process.exit(1)
 }
 
-copy(manifestVersion, { dryRun, local })
+copy(manifestVersion, { dryRun, local, edition: getEdition() })
