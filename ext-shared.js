@@ -11,10 +11,6 @@
  */
 
 /**
- * @typedef {[string, Record<string, FieldDescriptor>][]} SettingsSchemas
- */
-
-/**
  * @typedef {{
  *   settings: Record<string, unknown>
  *   invalid: string[]
@@ -48,7 +44,10 @@ export function isVersionLessThan(v1, v2) {
   return false
 }
 
-/** @param {unknown} value */
+/**
+ * @param {unknown} value
+ * @returns {value is Record<string, unknown>}
+ */
 export function isObject(value) {
   return value != null && typeof value == 'object' && !Array.isArray(value)
 }
@@ -126,23 +125,6 @@ export function object(fields) {
     validate: (value) =>
       isObject(value) && Object.entries(fields).every(([key, field]) => field.validate(value[key])),
   }
-}
-//#endregion
-
-//#region Schema lookup
-/**
- * Returns the appropriate schema for a given extension version by finding the
- * highest schema version that does not exceed the extension version.
- * @param {SettingsSchemas} schemas settings schemas in ascending version order
- * @param {string} version extension version to look up
- * @returns {Record<string, FieldDescriptor> | null}
- */
-export function getSchemaForVersion(schemas, version) {
-  for (let i = schemas.length - 1; i >= 0; i--) {
-    const [schemaVersion, schema] = schemas[i]
-    if (!isVersionLessThan(version, schemaVersion)) return schema
-  }
-  return null
 }
 //#endregion
 

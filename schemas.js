@@ -1,4 +1,16 @@
-import { arrayOf, boolean, object, oneOf, optional, string } from './ext-shared.js'
+import {
+  arrayOf,
+  boolean,
+  isObject,
+  object,
+  oneOf,
+  optional,
+  string,
+  validateSettings,
+} from './ext-shared.js'
+
+// Increment for incompatible changes only
+export const SETTINGS_SCHEMA_VERSION = 1
 
 const quotedTweet = object({
   quotedBy: string({ maxLength: 50 }),
@@ -8,9 +20,9 @@ const quotedTweet = object({
 })
 
 /**
- * @type {Record<import('./types').UserSettingsKey, import('./ext-shared').FieldDescriptor>}>}
+ * @type {Record<import('./types').UserSettingsKey, import('./ext-shared').FieldDescriptor>}
  */
-const v4_999 = {
+export const currentSettingsSchema = {
   // Pro
   customTheme: string(),
   mutedWords: string(),
@@ -132,7 +144,36 @@ const v4_999 = {
   customCss: string({ maxLength: 50000 }),
 }
 
-/** @type {import('./ext-shared').SettingsSchemas} */
-export const schemas = [['4.999.0', v4_999]]
+/**
+ * @param {Record<string, unknown>} settings
+ * @param {string} version Extension version, for diagnostics only.
+ */
+export function createSettingsExport(settings, version) {
+  return { schemaVersion: SETTINGS_SCHEMA_VERSION, settings, version }
+}
 
-export const currentSettingsSchema = schemas.at(-1)[1]
+/**
+ * @param {unknown} input
+ * @returns {import('./ext-shared').ValidateSettingsResult & {
+ *   error?: 'noSettingsObject' | 'invalidSettingsSchemaVersion'
+ *   warning?: 'newerSettingsSchemaVersion'
+ * }}
+ */
+export function validateSettingsExport(input) {
+  const rejected = { settings: {}, invalid: [], unknown: [] }
+  if (!isObject(input) || !isObject(input.settings)) {
+    return { ...rejected, error: 'noSettingsObject' }
+  }
+  if (
+    typeof input.schemaVersion != 'number' ||
+    !Number.isSafeInteger(input.schemaVersion) ||
+    input.schemaVersion < 1
+  ) {
+    return { ...rejected, error: 'invalidSettingsSchemaVersion' }
+  }
+  const result = validateSettings(input.settings, currentSettingsSchema)
+  if (input.schemaVersion > SETTINGS_SCHEMA_VERSION) {
+    return { ...result, warning: 'newerSettingsSchemaVersion' }
+  }
+  return result
+}

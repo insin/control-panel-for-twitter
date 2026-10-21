@@ -1,6 +1,6 @@
 import { DEFAULT_SETTINGS } from './default-settings.js'
-import { getSchemaForVersion, isObject, validateSettings } from './ext-shared.js'
-import { schemas } from './schemas.js'
+import { isObject } from './ext-shared.js'
+import { createSettingsExport, validateSettingsExport } from './schemas.js'
 import {
   get,
   OPEN_APP_MESSAGE,
@@ -661,7 +661,7 @@ function applyConfig() {
 
 async function exportSettings() {
   const version = chrome.runtime.getManifest().version
-  const json = JSON.stringify({ settings: sortKeys(config.settings), version }, null, 2)
+  const json = JSON.stringify(createSettingsExport(sortKeys(config.settings), version), null, 2)
   const filename = `control-panel-for-twitter-v${version}-settings.json`
   const blob = new Blob([json], { type: 'application/json' })
   if (browser == 'ios') {
@@ -1180,17 +1180,14 @@ export function validateSettingsJson(json) {
     return { messages: [chrome.i18n.getMessage('invalidJsonFile', error.message)], settings: null }
   }
 
-  if (!isObject(input) || !isObject(input.settings)) {
-    return { messages: [chrome.i18n.getMessage('noSettingsObject')], settings: null }
+  const { settings, invalid, unknown, error, warning } = validateSettingsExport(input)
+  if (error) {
+    return { messages: [chrome.i18n.getMessage(error)], settings: null }
   }
-
-  const version =
-    typeof input.version == 'string' ? input.version : chrome.runtime.getManifest().version
-  const schema = getSchemaForVersion(schemas, version) || schemas.at(-1)[1]
-  const { settings, invalid, unknown } = validateSettings(input.settings, schema)
 
   return {
     messages: [
+      warning && chrome.i18n.getMessage(warning),
       invalid.length > 0 && chrome.i18n.getMessage('invalidSettings', invalid.join(', ')),
       unknown.length > 0 && chrome.i18n.getMessage('unknownSettings', unknown.join(', ')),
     ].filter(Boolean),

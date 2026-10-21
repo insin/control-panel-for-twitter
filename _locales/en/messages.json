@@ -357,6 +357,9 @@
       }
     }
   },
+  "invalidSettingsSchemaVersion": {
+    "message": "Missing or invalid settings format version. Select a settings export created using Export settings."
+  },
   "mutableQuoteTweets": {
     "message": "Enable muting of Quote Tweets"
   },
@@ -383,6 +386,9 @@
   },
   "noFileSelected": {
     "message": "No file selected"
+  },
+  "newerSettingsSchemaVersion": {
+    "message": "This settings export uses a newer format. Only settings supported by this version of Control Panel for Twitter can be imported."
   },
   "noSettingsObject": {
     "message": "No settings object found in JSON file"
