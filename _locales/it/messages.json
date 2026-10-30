@@ -176,6 +176,15 @@
   "hideGrokTweetsLabel": {
     "message": "Nascondi i tweet di Grok"
   },
+  "hideHashtagsLabel": {
+    "message": "Nascondi i post che contengono questi hashtag (uno per riga)"
+  },
+  "minimumLikesLabel": {
+    "message": "Nascondi i post con meno Mi piace di questo numero (0 disattiva)"
+  },
+  "postFiltersLabel": {
+    "message": "Filtri dei post"
+  },
   "hideHistoryNavLabel": {
     "message": "Storia"
   },

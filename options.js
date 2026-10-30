@@ -80,6 +80,7 @@ for (let translationId of [
   'hideForYouTimelineLabel',
   'hideGrokLabel',
   'hideGrokTweetsLabel',
+  'hideHashtagsLabel',
   'hideInlinePrompts',
   'hideJobsLabel',
   'hideLikeMetricsLabel',
@@ -120,6 +121,8 @@ for (let translationId of [
   'homeTimelineOptionsLabel',
   'listRetweetsLabel',
   'mutableQuoteTweetsLabel',
+  'minimumLikesLabel',
+  'postFiltersLabel',
   'navBaseFontSizeLabel',
   'navDensityLabel',
   'preventNextVideoAutoplayInfo',
@@ -239,6 +242,7 @@ const defaultConfig = {
   hideForYouTimeline: true,
   hideGrokNav: true,
   hideGrokTweets: false,
+  hideHashtags: [],
   hideHistoryNav: false,
   hideInlinePrompts: true,
   hideJobsNav: true,
@@ -247,6 +251,7 @@ const defaultConfig = {
   hideManageTimelines: false,
   hideMetrics: false,
   hideMoney: true,
+  minimumLikes: 0,
   hideMoreFromThisAuthor: true,
   hideMoreTweets: true,
   hideNotificationLikes: false,
@@ -453,6 +458,12 @@ function onFormChanged(e) {
       }
       updateCheckboxGroups()
     }
+  } else if ($el.name == 'minimumLikes') {
+    let value = Number($el.value)
+    if (!Number.isFinite(value)) value = 0
+    value = Math.max(0, Math.floor(value))
+    $el.value = String(value)
+    optionsConfig.minimumLikes = changedConfig.minimumLikes = value
   } else {
     optionsConfig[$el.name] = changedConfig[$el.name] = $el.value
   }
@@ -460,6 +471,16 @@ function onFormChanged(e) {
   updateDisplay()
 
   storeConfigChanges(changedConfig)
+}
+
+function saveHiddenHashtags() {
+  let hashtags = [...new Set(
+    $form.elements['hideHashtags'].value.split(/\r?\n/)
+      .map(value => value.trim().replace(/^#+/, '').toLowerCase())
+      .filter(value => /^[\p{L}\p{M}\p{N}_]+$/u.test(value))
+  )]
+  optionsConfig.hideHashtags = hashtags
+  storeConfigChanges({hideHashtags: hashtags})
 }
 
 /**
@@ -608,6 +629,9 @@ function updateFormControl($control, value) {
   else if ($control.type == 'checkbox') {
     $control.checked = value
   }
+  else if ($control instanceof HTMLTextAreaElement && Array.isArray(value)) {
+    $control.value = value.map((/** @type {string} */ hashtag) => `#${hashtag}`).join('\n')
+  }
   else {
     $control.value = value
   }
@@ -628,6 +652,7 @@ function main() {
     $experiments.open = Boolean(optionsConfig.customCss)
     $exportConfig.addEventListener('click', exportConfig)
     $form.addEventListener('change', onFormChanged)
+    $form.elements['hideHashtags'].addEventListener('change', saveHiddenHashtags)
     $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
     $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
     $saveCustomCssButton.addEventListener('click', saveCustomCss)

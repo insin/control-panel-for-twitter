@@ -176,6 +176,15 @@
   "hideGrokTweetsLabel": {
     "message": "隐藏 Grok 推文"
   },
+  "hideHashtagsLabel": {
+    "message": "隐藏包含这些话题标签的帖子（每行一个）"
+  },
+  "minimumLikesLabel": {
+    "message": "隐藏点赞数少于此数的帖子（0 表示关闭）"
+  },
+  "postFiltersLabel": {
+    "message": "帖子过滤器"
+  },
   "hideHistoryNavLabel": {
     "message": "历史"
   },

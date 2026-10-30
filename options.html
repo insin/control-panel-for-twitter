@@ -136,6 +136,20 @@
     </section>
 
     <section class="group labelled">
+      <label id="postFiltersLabel">Post filters</label>
+      <section class="textarea">
+        <label id="hideHashtagsLabel" for="hideHashtags">Hide posts containing these hashtags (one per line)</label>
+        <textarea id="hideHashtags" name="hideHashtags" rows="4" spellcheck="false" placeholder="#example"></textarea>
+      </section>
+      <section class="select">
+        <label>
+          <span id="minimumLikesLabel">Hide posts with fewer than this many likes (0 disables)</span>
+          <input type="number" name="minimumLikes" min="0" step="1">
+        </label>
+      </section>
+    </section>
+
+    <section class="group labelled">
       <label id="uiImprovementsOptionsLabel">UI improvements</label>
       <section class="checkbox mobile">
         <label>

@@ -152,6 +152,7 @@ const config = {
   hideForYouTimeline: true,
   hideGrokNav: true,
   hideGrokTweets: false,
+  hideHashtags: [],
   hideHistoryNav: false,
   hideInlinePrompts: true,
   hideJobsNav: true,
@@ -160,6 +161,7 @@ const config = {
   hideManageTimelines: false,
   hideMetrics: false,
   hideMoney: true,
+  minimumLikes: 0,
   hideMoreFromThisAuthor: true,
   hideMoreTweets: true,
   hideNotificationLikes: false,
@@ -2884,6 +2886,35 @@ function getTweetInfo(tweetId) {
   } else {
     warn('tweet entities not found', tweetId)
   }
+}
+
+/**
+ * @param {HTMLElement} $tweet
+ * @returns {boolean}
+ */
+function shouldHidePostByFilters($tweet) {
+  if (config.hideHashtags.length > 0) {
+    let hashtags = new Set(config.hideHashtags.map(hashtag => hashtag.toLowerCase()))
+    for (let $text of $tweet.querySelectorAll('[data-testid="tweetText"]')) {
+      for (let match of $text.innerText.matchAll(/(?:^|[^\p{L}\p{M}\p{N}_])#([\p{L}\p{M}\p{N}_]+)/gu)) {
+        if (hashtags.has(match[1].toLowerCase())) return true
+      }
+    }
+  }
+
+  let minimumLikes = Number(config.minimumLikes)
+  if (minimumLikes > 0) {
+    let $time = $tweet.querySelector('a[href*="/status/"] time')
+    let tweetId = $time?.closest('a')?.getAttribute('href')?.match(/\/status\/(\d+)/)?.[1]
+    if (tweetId) {
+      let likes = getTweetInfo(tweetId)?.favorite_count
+      if (likes != null && likes !== '' && Number.isFinite(Number(likes)) && Number(likes) < minimumLikes) {
+        return true
+      }
+    }
+  }
+
+  return false
 }
 
 /**
@@ -6238,6 +6269,9 @@ function onTimelineChange($timeline, page, options = {}) {
       if (!hideItem && config.restoreLinkHeadlines) {
         restoreLinkHeadline($tweet)
       }
+      if (!hideItem && shouldHidePostByFilters($tweet)) {
+        hideItem = true
+      }
     }
     else if (isOnNotificationsTimeline) {
       /** @type {?import("./types").NotificationType} */
@@ -6475,6 +6509,9 @@ function onIndividualTweetTimelineChange($timeline, options) {
 
       if (!hideItem && config.restoreLinkHeadlines) {
         restoreLinkHeadline($tweet)
+      }
+      if (!hideItem && !isFocusedTweet && shouldHidePostByFilters($tweet)) {
+        hideItem = true
       }
     }
     else {
