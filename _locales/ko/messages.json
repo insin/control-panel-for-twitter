@@ -176,6 +176,15 @@
   "hideGrokTweetsLabel": {
     "message": "Grok 트윗 숨기기"
   },
+  "hideHashtagsLabel": {
+    "message": "다음 해시태그가 포함된 게시물 숨기기 (한 줄에 하나)"
+  },
+  "minimumLikesLabel": {
+    "message": "좋아요 수가 이 숫자보다 적은 게시물 숨기기 (0은 사용 안 함)"
+  },
+  "postFiltersLabel": {
+    "message": "게시물 필터"
+  },
   "hideHistoryNavLabel": {
     "message": "역사"
   },

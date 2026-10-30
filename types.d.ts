@@ -35,6 +35,7 @@ export type Config = {
   hideForYouTimeline: boolean
   hideGrokNav: boolean
   hideGrokTweets: boolean
+  hideHashtags: string[]
   hideHistoryNav: boolean
   hideInlinePrompts: boolean
   hideJobsNav: boolean
@@ -43,6 +44,7 @@ export type Config = {
   hideManageTimelines: boolean
   hideMetrics: boolean
   hideMoney: boolean
+  minimumLikes: number
   hideMoreFromThisAuthor: boolean
   // XXX This now controls hiding all "Discover" suggestions
   hideMoreTweets: boolean

@@ -176,6 +176,15 @@
   "hideGrokTweetsLabel": {
     "message": "Grokのツイートを非表示"
   },
+  "hideHashtagsLabel": {
+    "message": "これらのハッシュタグを含む投稿を非表示（1行に1つ）"
+  },
+  "minimumLikesLabel": {
+    "message": "いいね数がこの数未満の投稿を非表示（0で無効）"
+  },
+  "postFiltersLabel": {
+    "message": "投稿フィルター"
+  },
   "hideHistoryNavLabel": {
     "message": "履歴"
   },
