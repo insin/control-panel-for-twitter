@@ -21,7 +21,7 @@ export function prepareSafari({ edition = 'v4', local = false } = {}) {
 
   const require = createRequire(path.resolve('package.json'))
   const config = require(`./web-ext-config.${edition}.js`)
-  // Use the edition's packaging exclusions
+  // Omit web-ext's include patterns and blanket exclusion from the Xcode exclusions
   const excludedFiles = config.ignoreFiles.filter((file) => !file.startsWith('!') && file != '**/*')
   let manifestJson = JSON.stringify(manifest, null, 2)
   if (local) {

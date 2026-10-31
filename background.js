@@ -1,8 +1,7 @@
-import { crossesVersionThreshold } from './ext-shared.js'
-import { getSettingsMigrationVersions, runSettingsMigrations } from './migrations.js'
+import { crossesVersionThreshold, isObject } from './ext-shared.js'
+import { runSettingsMigrations, scheduleSettingsMigrations } from './migrations.js'
 import { get, SERVER_ORIGIN, set } from './settings.js'
 import { initSettingsSync, startSync } from './settings-background.js'
-import { trace } from './trace-background.js'
 
 //#region Constants
 const DISABLED_ICONS = {
@@ -45,36 +44,31 @@ function updateToolbarIcon(enabled) {
 //#endregion
 
 //#region Main
-async function main() {
-  const currentVersion = chrome.runtime.getManifest().version
-  let migrationDetails = { currentVersion }
-  try {
-    const { storageMigrationVersion } = await get('storageMigrationVersion')
-    if (storageMigrationVersion != currentVersion) {
-      const previousVersion = storageMigrationVersion ?? '0'
-      migrationDetails = {
-        currentVersion,
-        previousVersion,
-        versions: getSettingsMigrationVersions(previousVersion, currentVersion),
-      }
-      await trace('migrations.started', migrationDetails)
-      await runSettingsMigrations(previousVersion, currentVersion)
-      await set({ storageMigrationVersion: currentVersion })
-      await trace('migrations.completed', migrationDetails)
-    }
-  } catch (error) {
-    await trace('migrations.failed', {
-      ...migrationDetails,
-      error: error?.message ?? String(error),
-    })
-    throw error
-  }
+let startupTask = Promise.resolve()
+let migrationsCompletedThisStartup = false
 
-  if (IS_PRO) await startSync()
+/** @param {chrome.runtime.InstalledDetails} [details] */
+function main(details) {
+  const task = startupTask.then(async () => {
+    const currentVersion = chrome.runtime.getManifest().version
+    if (details?.reason == 'install') {
+      const { settings } = await get('settings')
+      if (!isObject(settings)) await set({ settings: {} })
+    } else if (details?.reason == 'update' && !migrationsCompletedThisStartup) {
+      await scheduleSettingsMigrations(details.previousVersion, currentVersion)
+    }
+    if (await runSettingsMigrations(currentVersion)) migrationsCompletedThisStartup = true
+    const { settings, pendingStorageMigration } = await get(['settings', 'pendingStorageMigration'])
+    // Don't start until storage is initialised and pending migrations have completed
+    if (!isObject(settings) || pendingStorageMigration) return
+    if (IS_PRO) await startSync()
+  })
+  startupTask = task.catch(() => {})
+  return task
 }
 
 if (IS_PRO) initSettingsSync({ apiBase: SERVER_ORIGIN })
-main().catch((error) => {
+const startup = main().catch((error) => {
   console.error('[background]', error)
 })
 
@@ -83,6 +77,8 @@ chrome.storage.local.get({ enabled: true }, ({ enabled }) => {
 })
 
 chrome.runtime.onInstalled.addListener((details) => {
+  const startup = main(details)
+  startup.catch((error) => console.error('[background]', error))
   if (details.reason == 'install') {
     chrome.tabs.create({
       url: 'https://soitis.dev/control-panel-for-twitter/welcome',
@@ -100,6 +96,12 @@ chrome.runtime.onInstalled.addListener((details) => {
       })
     }
   }
+  return startup
+})
+
+chrome.runtime.onStartup.addListener(() => {
+  // Wake the background at browser startup without running main() twice
+  return startup
 })
 
 chrome.storage.local.onChanged.addListener((changes) => {

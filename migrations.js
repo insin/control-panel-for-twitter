@@ -1,5 +1,5 @@
 import { DEFAULT_SETTINGS } from './default-settings.js'
-import { crossesVersionThreshold, isObject } from './ext-shared.js'
+import { crossesVersionThreshold, isObject, isVersionLessThan } from './ext-shared.js'
 import { get, remove, set } from './settings.js'
 import { trace } from './trace-background.js'
 
@@ -16,11 +16,11 @@ async function migrateUserSettingsToSettingsObject() {
     'enabled',
     'lastSyncTime',
     'pendingSettingsPatch',
+    'pendingStorageMigration',
     'serverLastModified',
     'settings',
     'settingsSyncPhase',
     'stickyHeadings',
-    'storageMigrationVersion',
     'subscription',
     'syncError',
     'syncSettings',
@@ -30,10 +30,10 @@ async function migrateUserSettingsToSettingsObject() {
   ])
   const storedConfig = await get()
   const keysToRemove = []
-  // A previous attempt may have written nested settings before it was
-  // interrupted, so use them as the starting point when the migration reruns.
+  // Preserve existing nested values when retrying an interrupted migration
   /** @type {Partial<import('./types').UserSettings>} */
-  const settings = isObject(storedConfig.settings) ? { ...storedConfig.settings } : {}
+  const existingSettings = isObject(storedConfig.settings) ? storedConfig.settings : {}
+  const settings = { ...existingSettings }
   /** @type {import('./types').Migrations} */
   const migrations = {
     hideGrokNav: { rename: 'hideGrok' },
@@ -63,50 +63,83 @@ async function migrateUserSettingsToSettingsObject() {
     // Migrate or copy expected settings keys
     if (Object.hasOwn(migrations, key)) {
       const migration = migrations[key]
-      settings[migration.rename || key] = migration.convert ? migration.convert(value) : value
+      const target = migration.rename || key
+      if (!Object.hasOwn(existingSettings, target)) {
+        settings[target] = migration.convert ? migration.convert(value) : value
+      }
     } else if (Object.hasOwn(DEFAULT_SETTINGS, key)) {
-      settings[key] = value
+      if (!Object.hasOwn(existingSettings, key)) settings[key] = value
     }
   }
-  // We can write this migration directly to local.settings as there's no way to
-  // be logged into Pro yet if you're migrating from v4 to v5.
+  // Legacy v4 settings have no Pro sync state to update
   await set({ settings })
   if (keysToRemove.length > 0) {
     await remove(keysToRemove)
   }
 }
 
-/** @type {[string, () => Promise<void>][]} */
+/** @type {import('./types').SettingsMigrations} */
 const SETTINGS_MIGRATIONS = [['4.999.0', migrateUserSettingsToSettingsObject]]
-const SETTINGS_MIGRATIONS_BY_VERSION = new Map(SETTINGS_MIGRATIONS)
 
 /**
  * @param {string} previous
  * @param {string} current
+ * @param {import('./types').SettingsMigrations} [migrations]
  */
-export function getSettingsMigrationVersions(previous, current) {
-  return SETTINGS_MIGRATIONS.filter(([version]) =>
-    crossesVersionThreshold(previous, current, version),
-  ).map(([version]) => version)
+export function getSettingsMigrationVersions(previous, current, migrations = SETTINGS_MIGRATIONS) {
+  return migrations
+    .filter(([version]) => crossesVersionThreshold(previous, current, version))
+    .map(([version]) => version)
 }
 
 /**
+ * Queue the first crossed release threshold, preserving any earlier pending work.
  * @param {string} previous
  * @param {string} current
+ * @param {import('./types').SettingsMigrations} [migrations]
  */
-export async function runSettingsMigrations(previous, current) {
-  const versions = getSettingsMigrationVersions(previous, current)
-  for (const version of versions) {
-    const migration = SETTINGS_MIGRATIONS_BY_VERSION.get(version)
-    if (migration) {
-      await trace('migration.started', { version })
-      try {
-        await migration()
-      } catch (error) {
-        await trace('migration.failed', { error: error?.message ?? String(error), version })
-        throw error
-      }
-      await trace('migration.completed', { version })
-    }
+export async function scheduleSettingsMigrations(
+  previous,
+  current,
+  migrations = SETTINGS_MIGRATIONS,
+) {
+  const { pendingStorageMigration } = await get('pendingStorageMigration')
+  const next = getSettingsMigrationVersions(previous, current, migrations)[0]
+  if (next && (!pendingStorageMigration || isVersionLessThan(next, pendingStorageMigration))) {
+    await set({ pendingStorageMigration: next })
   }
+}
+
+/**
+ * Run pending migrations in release order up to the installed version.
+ * Returns true after completing the pending migration sequence.
+ * @param {string} current
+ * @param {import('./types').SettingsMigrations} [migrations]
+ */
+export async function runSettingsMigrations(current, migrations = SETTINGS_MIGRATIONS) {
+  const { pendingStorageMigration } = await get('pendingStorageMigration')
+  if (!pendingStorageMigration) return false
+  const start = migrations.findIndex(([version]) => version == pendingStorageMigration)
+  if (start == -1) throw new Error(`Unknown storage migration: ${pendingStorageMigration}`)
+
+  for (let i = start; i < migrations.length; i++) {
+    const [version, migration] = migrations[i]
+    if (isVersionLessThan(current, version)) return false
+    await trace('migration.started', { version })
+    try {
+      await migration()
+      const next = migrations[i + 1]?.[0]
+      if (next && !isVersionLessThan(current, next)) {
+        await set({ pendingStorageMigration: next })
+      } else {
+        await remove('pendingStorageMigration')
+      }
+    } catch (error) {
+      await trace('migration.failed', { error: error?.message ?? String(error), version })
+      throw error
+    }
+    await trace('migration.completed', { version })
+    if (!migrations[i + 1] || isVersionLessThan(current, migrations[i + 1][0])) return true
+  }
+  return false
 }

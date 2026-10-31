@@ -9,8 +9,8 @@ export type StoredConfig = {
   debugLogTimelineStats?: boolean
   /** Disable extension functionality without disabling the extension itself */
   enabled?: boolean
-  /** Extension version through which storage migrations have completed */
-  storageMigrationVersion?: string
+  /** Next release threshold whose storage migration must complete */
+  pendingStorageMigration?: string
   /** We only store settings the user has actually interacted with */
   settings?: Partial<UserSettings>
   /** Toggle sticky headings in compatible options layouts */
@@ -274,6 +274,8 @@ export type Migration = {
 }
 
 export type Migrations = Record<string, Migration>
+
+export type SettingsMigrations = [string, () => Promise<void>][]
 
 export type MutedWord =
   | {

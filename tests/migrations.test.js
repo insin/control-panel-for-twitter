@@ -1,7 +1,11 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { DEFAULT_SETTINGS } from '../default-settings.js'
-import { getSettingsMigrationVersions, runSettingsMigrations } from '../migrations.js'
+import {
+  getSettingsMigrationVersions,
+  runSettingsMigrations,
+  scheduleSettingsMigrations,
+} from '../migrations.js'
 import { set } from '../settings.js'
 import { createChromeMock } from './helpers/chrome.js'
 
@@ -12,13 +16,19 @@ function loadStorage(storage = {}) {
   vi.stubGlobal('chrome', browser.chrome)
 }
 
-describe('v5 settings migration', () => {
+async function migrateFrom(previous, current) {
+  await scheduleSettingsMigrations(previous, current)
+  await runSettingsMigrations(current)
+}
+
+describe('release-based storage migrations', () => {
   beforeEach(() => loadStorage())
 
-  test('creates an empty settings object on a fresh install', async () => {
-    await runSettingsMigrations('0', '5')
+  test('does not infer migrations from empty storage on background startup', async () => {
+    await runSettingsMigrations('5')
 
-    expect(browser.storage).toEqual({ settings: {} })
+    expect(browser.storage).toEqual({})
+    expect(browser.chrome.storage.local.set).not.toHaveBeenCalled()
   })
 
   test('migrates v4 user settings to v5', async () => {
@@ -46,7 +56,7 @@ describe('v5 settings migration', () => {
       version: 'mobile',
     })
 
-    await runSettingsMigrations('0', '5')
+    await migrateFrom('4.25.0', '5')
 
     expect(browser.storage).toEqual({
       debug: true,
@@ -77,7 +87,7 @@ describe('v5 settings migration', () => {
   test('converts a visible list-retweets setting to false', async () => {
     loadStorage({ listRetweets: 'show' })
 
-    await runSettingsMigrations('0', '5')
+    await migrateFrom('4.25.0', '5')
 
     expect(browser.storage.settings).toEqual({ hideListRetweets: false })
   })
@@ -89,7 +99,7 @@ describe('v5 settings migration', () => {
   ])('converts sortFollowing=%s without hiding the menu', async (sortFollowing, expected) => {
     loadStorage({ sortFollowing })
 
-    await runSettingsMigrations('4.25.0', '4.999.0')
+    await migrateFrom('4.25.0', '4.999.0')
 
     expect(browser.storage).toEqual({ settings: { defaultFollowingToRecent: expected } })
     expect(DEFAULT_SETTINGS.hideFollowingMenu).toBe(false)
@@ -104,7 +114,7 @@ describe('v5 settings migration', () => {
   test('does not run without crossing the migration threshold', async () => {
     loadStorage({ hideAdsNav: false })
 
-    await runSettingsMigrations('5', '5.1')
+    await migrateFrom('5', '5.1')
 
     expect(browser.storage).toEqual({ hideAdsNav: false })
     expect(browser.chrome.storage.local.set).not.toHaveBeenCalled()
@@ -114,8 +124,8 @@ describe('v5 settings migration', () => {
   test('can be rerun after completing without losing nested settings', async () => {
     loadStorage({ hideAdsNav: false, replaceLogo: true })
 
-    await runSettingsMigrations('0', '5')
-    await runSettingsMigrations('0', '5')
+    await migrateFrom('4.25.0', '5')
+    await migrateFrom('4.25.0', '5')
 
     expect(browser.storage).toEqual({
       settings: {
@@ -125,12 +135,12 @@ describe('v5 settings migration', () => {
     })
   })
 
-  test('preserves v5 config when rerun before the version marker is updated', async () => {
+  test('preserves internal config when a migration is retried', async () => {
     loadStorage({ hideAdsNav: false })
 
-    await runSettingsMigrations('0', '5')
+    await migrateFrom('4.25.0', '5')
     await set({ collapsedGroups: ['sidebar'] })
-    await runSettingsMigrations('0', '5')
+    await migrateFrom('4.25.0', '5')
 
     expect(browser.storage).toEqual({
       collapsedGroups: ['sidebar'],
@@ -149,7 +159,7 @@ describe('v5 settings migration', () => {
       },
     })
 
-    await runSettingsMigrations('0', '5')
+    await migrateFrom('4.25.0', '5')
 
     expect(browser.storage).toEqual({
       settings: {
@@ -158,5 +168,111 @@ describe('v5 settings migration', () => {
         revertXBranding: true,
       },
     })
+  })
+
+  test('persists the threshold before beginning an upgrade migration', async () => {
+    loadStorage({ hideGrokNav: true })
+    await scheduleSettingsMigrations('4.25.0', '5.1.0')
+
+    expect(browser.storage).toEqual({ hideGrokNav: true, pendingStorageMigration: '4.999.0' })
+    await runSettingsMigrations('5.1.0')
+    expect(browser.storage).toEqual({ settings: { hideGrok: true } })
+  })
+
+  test('does not overwrite nested edits when retrying after legacy cleanup was interrupted', async () => {
+    loadStorage({
+      pendingStorageMigration: '4.999.0',
+      hideGrokNav: true,
+      hideAdsNav: true,
+      settings: { hideGrok: false, hideAdsNav: false },
+    })
+    await runSettingsMigrations('5.1.0')
+    expect(browser.storage).toEqual({ settings: { hideGrok: false, hideAdsNav: false } })
+  })
+
+  test('runs all crossed thresholds in order and retries only the unfinished step after another upgrade', async () => {
+    const first = vi.fn(async () => {
+      expect(browser.storage.pendingStorageMigration).toBe('4.999.0')
+    })
+    const second = vi.fn(async () => {
+      expect(browser.storage.pendingStorageMigration).toBe('5.2.0')
+    })
+    second.mockRejectedValueOnce(new Error('broken rename'))
+    const third = vi.fn(async () => {
+      expect(browser.storage.pendingStorageMigration).toBe('5.3.0')
+    })
+    /** @type {import('../types.js').SettingsMigrations} */
+    const migrations = [
+      ['4.999.0', first],
+      ['5.2.0', second],
+      ['5.3.0', third],
+    ]
+
+    await scheduleSettingsMigrations('4.25.0', '5.2.0', migrations)
+    await expect(runSettingsMigrations('5.2.0', migrations)).rejects.toThrow('broken rename')
+    expect(first).toHaveBeenCalledTimes(1)
+    expect(third).not.toHaveBeenCalled()
+    expect(browser.storage.pendingStorageMigration).toBe('5.2.0')
+
+    await scheduleSettingsMigrations('5.2.0', '5.3.0', migrations)
+    expect(browser.storage.pendingStorageMigration).toBe('5.2.0')
+    await runSettingsMigrations('5.3.0', migrations)
+    expect(first).toHaveBeenCalledTimes(1)
+    expect(second).toHaveBeenCalledTimes(2)
+    expect(third).toHaveBeenCalledTimes(1)
+    expect(browser.storage.pendingStorageMigration).toBeUndefined()
+  })
+
+  test('retains the cursor when legacy cleanup fails and finishes on the next startup', async () => {
+    loadStorage({ hideGrokNav: true })
+    await scheduleSettingsMigrations('4.25.0', '5.1.0')
+    const remove = browser.chrome.storage.local.remove.getMockImplementation()
+    browser.chrome.storage.local.remove.mockImplementationOnce((_keys, callback) => {
+      Object.assign(browser.chrome.runtime, { lastError: new Error('cleanup failed') })
+      callback()
+      browser.chrome.runtime.lastError = undefined
+    })
+
+    await expect(runSettingsMigrations('5.1.0')).rejects.toThrow('cleanup failed')
+    expect(browser.storage).toEqual({
+      hideGrokNav: true,
+      pendingStorageMigration: '4.999.0',
+      settings: { hideGrok: true },
+    })
+
+    browser.chrome.storage.local.remove.mockImplementation(remove)
+    await runSettingsMigrations('5.1.1')
+    expect(browser.storage).toEqual({ settings: { hideGrok: true } })
+  })
+
+  test('retries a completed step if saving its next threshold failed', async () => {
+    const first = vi.fn(async () => {})
+    const second = vi.fn(async () => {})
+    /** @type {import('../types.js').SettingsMigrations} */
+    const migrations = [
+      ['4.999.0', first],
+      ['5.2.0', second],
+    ]
+    await scheduleSettingsMigrations('4.25.0', '5.2.0', migrations)
+    browser.chrome.storage.local.set.mockImplementationOnce((_values, callback) => {
+      Object.assign(browser.chrome.runtime, { lastError: new Error('checkpoint failed') })
+      callback()
+      browser.chrome.runtime.lastError = undefined
+    })
+
+    await expect(runSettingsMigrations('5.2.0', migrations)).rejects.toThrow('checkpoint failed')
+    expect(browser.storage.pendingStorageMigration).toBe('4.999.0')
+    expect(second).not.toHaveBeenCalled()
+
+    await runSettingsMigrations('5.2.0', migrations)
+    expect(first).toHaveBeenCalledTimes(2)
+    expect(second).toHaveBeenCalledTimes(1)
+    expect(browser.storage.pendingStorageMigration).toBeUndefined()
+  })
+
+  test('does not silently discard an unknown pending migration', async () => {
+    loadStorage({ pendingStorageMigration: '5.2.0' })
+    await expect(runSettingsMigrations('5.2.0')).rejects.toThrow('Unknown storage migration: 5.2.0')
+    expect(browser.storage.pendingStorageMigration).toBe('5.2.0')
   })
 })

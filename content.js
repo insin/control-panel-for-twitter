@@ -25,6 +25,9 @@ const X_LOGO_PATH =
 //#region Variables
 /** @type {BroadcastChannel} */
 let channel
+let initialConfigSent = false
+/** @type {Partial<import("./types").StoredConfig>} */
+let pendingConfig = {}
 //#endregion
 
 //#region Functions
@@ -54,7 +57,7 @@ function onStorageChanged(changes) {
       localStorage.cpftEnabled = changes.enabled.newValue
     }
   }
-  if (changes.settings && hasSettingChanged(changes.settings, 'revertXBranding')) {
+  if (changes.settings?.newValue && hasSettingChanged(changes.settings, 'revertXBranding')) {
     const newSettings = /** @type {import("./types").UserSettings} */ (changes.settings.newValue)
     if (localStorage.cpftRevertXBranding != String(newSettings.revertXBranding)) {
       localStorage.cpftRevertXBranding = newSettings.revertXBranding
@@ -71,15 +74,19 @@ function onStorageChanged(changes) {
   // Ignore storage changes which aren't relevant to the page script
   if (Object.keys(config).length == 0) return
 
+  if (!initialConfigSent) {
+    Object.assign(pendingConfig, config)
+    return
+  }
+
   channel.postMessage({ type: 'change', config })
 }
 
 /** @param {MessageEvent<Partial<import("./types").StoredConfig>>} message */
 async function storeConfigChangesFromPageScript({ data: changes }) {
-  const { set, setSettings } = await import(chrome.runtime.getURL('settings.js'))
   const { settings, ...internalConfig } = changes
-  chrome.storage.local.onChanged.removeListener(onStorageChanged)
   try {
+    const { set, setSettings } = await import(chrome.runtime.getURL('settings.js'))
     if (settings && Object.keys(settings).length > 0) {
       await setSettings(settings)
     }
@@ -88,8 +95,6 @@ async function storeConfigChangesFromPageScript({ data: changes }) {
     }
   } catch (e) {
     console.error('[content] error storing settings change from page script', e)
-  } finally {
-    chrome.storage.local.onChanged.addListener(onStorageChanged)
   }
 }
 //#endregion
@@ -126,13 +131,20 @@ if (localStorage.cpftEnabled != 'false' && localStorage.cpftRevertXBranding != '
 window.addEventListener('message', (event) => {
   if (event.source !== window) return
   if (event.data.type != 'init' || !event.data.channelName) return
+  if (channel) return
   channel = new BroadcastChannel(event.data.channelName)
   channel.addEventListener('message', storeConfigChangesFromPageScript)
+  chrome.storage.local.onChanged.addListener(onStorageChanged)
   chrome.storage.local.get((storedConfig) => {
-    const config = Object.fromEntries(
-      Object.entries(storedConfig).filter(([key]) => PAGE_SCRIPT_CONFIG_KEYSET.has(key)),
-    )
-    chrome.storage.local.onChanged.addListener(onStorageChanged)
+    const config = {
+      ...Object.fromEntries(
+        Object.entries(storedConfig).filter(([key]) => PAGE_SCRIPT_CONFIG_KEYSET.has(key)),
+      ),
+      // Include storage changes received during the initial read
+      ...pendingConfig,
+    }
+    pendingConfig = {}
+    initialConfigSent = true
     channel.postMessage({ type: 'initial', config })
   })
 })
