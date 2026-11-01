@@ -9,6 +9,8 @@ export type StoredConfig = {
   debugLogTimelineStats?: boolean
   /** Disable extension functionality without disabling the extension itself */
   enabled?: boolean
+  /** The last app layout which was active when the page script ran */
+  lastLayout?: 'desktop' | 'mobile'
   /** Next release threshold whose storage migration must complete */
   pendingStorageMigration?: string
   /** We only store settings the user has actually interacted with */
@@ -17,13 +19,6 @@ export type StoredConfig = {
   stickyHeadings?: boolean
   /** Selected tab in options */
   tab: 'features' | 'settings' | 'pro'
-  /**
-   * The last version of Twitter which was active when a content script ran -
-   * determines which options the options page displays. Not applicable to most
-   * users, but useful for checking mobile options via a desktop browser in
-   * Responsive Design / Device Mode.
-   */
-  version?: 'desktop' | 'mobile'
 
   // Extensions Pro
   /** Email address of the linked Extensions Pro account */
@@ -168,11 +163,10 @@ export type UserSettings = {
   fullWidthContent: boolean
   fullWidthMedia: boolean
   hideAccountSwitcher: boolean
+  hideChatDrawer: boolean
   hideExploreNav: boolean
   hideExploreNavWithSidebar: boolean
   hideLiveBroadcasts: boolean
-  // TODO Rename to hideChatDrawer
-  hideMessagesDrawer: boolean
   hideSidebarContent: boolean
   hideSuggestedFollows: boolean
   hideTimelineTweetBox: boolean
@@ -182,9 +176,8 @@ export type UserSettings = {
   navDensity: 'default' | 'comfortable' | 'compact'
   showRelevantPeople: boolean
   // Mobile only
+  hideChatBottomNavItem: boolean
   hideLiveBroadcastBar: boolean
-  // TODO Rename to hideChatBottomNavItem, possibly replace with hideChatNav
-  hideMessagesBottomNavItem: boolean
   preventNextVideoAutoplay: boolean
   // Experiments
   customCss: string

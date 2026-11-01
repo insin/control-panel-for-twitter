@@ -149,6 +149,9 @@
   "hideCalls": {
     "message": "Llamadas"
   },
+  "hideChatDrawer": {
+    "message": "Bandeja de chat"
+  },
   "hideChatNav": {
     "message": "Chatear"
   },
@@ -220,9 +223,6 @@
   },
   "hideManageTimelines": {
     "message": "Ocultar el botón \"Administrar cronologías\""
-  },
-  "hideMessagesDrawer": {
-    "message": "Bandeja de chat"
   },
   "hideMetrics": {
     "message": "Ocultar métricas"

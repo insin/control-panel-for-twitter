@@ -149,6 +149,9 @@
   "hideCalls": {
     "message": "呼叫"
   },
+  "hideChatDrawer": {
+    "message": "聊天抽屉"
+  },
   "hideChatNav": {
     "message": "聊天"
   },
@@ -220,9 +223,6 @@
   },
   "hideManageTimelines": {
     "message": "隐藏“管理时间线”按钮"
-  },
-  "hideMessagesDrawer": {
-    "message": "聊天抽屉"
   },
   "hideMetrics": {
     "message": "隐藏指标"

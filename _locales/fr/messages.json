@@ -149,6 +149,9 @@
   "hideCalls": {
     "message": "Appels"
   },
+  "hideChatDrawer": {
+    "message": "Tiroir de chat"
+  },
   "hideChatNav": {
     "message": "Chat"
   },
@@ -220,9 +223,6 @@
   },
   "hideManageTimelines": {
     "message": "Masquer le bouton \"Gérer les fils\""
-  },
-  "hideMessagesDrawer": {
-    "message": "Tiroir de chat"
   },
   "hideMetrics": {
     "message": "Masquer les métriques"

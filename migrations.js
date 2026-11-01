@@ -4,7 +4,7 @@ import { get, remove, set } from './settings.js'
 import { trace } from './trace-background.js'
 
 /**
- * Migrates user settings to a single `settings` object.
+ * Migrates user settings to a single `settings` object and renames layout state.
  */
 async function migrateUserSettingsToSettingsObject() {
   const extensionConfigKeys = new Set([
@@ -14,6 +14,7 @@ async function migrateUserSettingsToSettingsObject() {
     'debugLogGetElementStats',
     'debugLogTimelineStats',
     'enabled',
+    'lastLayout',
     'lastSyncTime',
     'pendingSettingsPatch',
     'pendingStorageMigration',
@@ -26,7 +27,6 @@ async function migrateUserSettingsToSettingsObject() {
     'syncSettings',
     'tab',
     'token',
-    'version',
   ])
   const storedConfig = await get()
   const keysToRemove = []
@@ -37,6 +37,8 @@ async function migrateUserSettingsToSettingsObject() {
   /** @type {import('./types').Migrations} */
   const migrations = {
     hideGrokNav: { rename: 'hideGrok' },
+    hideMessagesBottomNavItem: { rename: 'hideChatBottomNavItem' },
+    hideMessagesDrawer: { rename: 'hideChatDrawer' },
     hideWhoToFollowEtc: { rename: 'hideSuggestedContentTimeline' },
     listRetweets: { rename: 'hideListRetweets', convert: (value) => value == 'hide' },
     sortFollowing: {
@@ -71,8 +73,13 @@ async function migrateUserSettingsToSettingsObject() {
       if (!Object.hasOwn(existingSettings, key)) settings[key] = value
     }
   }
-  // Legacy v4 settings have no Pro sync state to update
-  await set({ settings })
+  await set({
+    settings,
+    ...(!Object.hasOwn(storedConfig, 'lastLayout') &&
+    (storedConfig.version == 'desktop' || storedConfig.version == 'mobile')
+      ? { lastLayout: storedConfig.version }
+      : {}),
+  })
   if (keysToRemove.length > 0) {
     await remove(keysToRemove)
   }

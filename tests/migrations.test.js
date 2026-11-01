@@ -80,7 +80,40 @@ describe('release-based storage migrations', () => {
         showPremiumReplyFollowersCount: false,
         showPremiumReplyFollowersCountAmount: '500',
       },
+      lastLayout: 'mobile',
+    })
+  })
+
+  test.each(['desktop', 'mobile'])(
+    'renames legacy %s layout state at v4.999 and removes version',
+    async (layout) => {
+      loadStorage({ version: layout })
+      await migrateFrom('4.25.0', '4.999.0')
+      expect(browser.storage).toEqual({ settings: {}, lastLayout: layout })
+    },
+  )
+
+  test('preserves newer layout state and renamed settings when retrying', async () => {
+    loadStorage({
       version: 'mobile',
+      lastLayout: 'desktop',
+      hideMessagesDrawer: true,
+      hideMessagesBottomNavItem: true,
+      settings: { hideChatDrawer: false, hideChatBottomNavItem: false },
+    })
+    await migrateFrom('4.25.0', '4.999.0')
+    await migrateFrom('4.25.0', '4.999.0')
+    expect(browser.storage).toEqual({
+      lastLayout: 'desktop',
+      settings: { hideChatDrawer: false, hideChatBottomNavItem: false },
+    })
+  })
+
+  test('renames v4 Chat settings without changing their values', async () => {
+    loadStorage({ hideMessagesDrawer: false, hideMessagesBottomNavItem: true })
+    await migrateFrom('4.25.0', '4.999.0')
+    expect(browser.storage).toEqual({
+      settings: { hideChatDrawer: false, hideChatBottomNavItem: true },
     })
   })
 

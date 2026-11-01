@@ -152,6 +152,9 @@
   "hideCalls": {
     "message": "Calls"
   },
+  "hideChatDrawer": {
+    "message": "Chat drawer"
+  },
   "hideChatNav": {
     "message": "Chat"
   },
@@ -223,9 +226,6 @@
   },
   "hideManageTimelines": {
     "message": "Hide \"Manage timelines\" button"
-  },
-  "hideMessagesDrawer": {
-    "message": "Chat drawer"
   },
   "hideMetrics": {
     "message": "Hide metrics"

@@ -114,6 +114,7 @@ for (const translationId of [
   'hideAllMetrics',
   'hideBookmarkButton',
   'hideBookmarkMetrics',
+  'hideChatDrawer',
   'hideComposeTweet',
   'hideDiscoverSuggestions',
   'hideEditImage',
@@ -132,7 +133,6 @@ for (const translationId of [
   'hideLiveBroadcastBar',
   'hideLiveBroadcasts',
   'hideManageTimelines',
-  'hideMessagesDrawer',
   'hideMetrics',
   'hideMoney',
   'hideMoreFromThisAuthor',
@@ -290,7 +290,7 @@ const defaultConfig = {
   tab: 'features',
   stickyHeadings: true,
   // Default based on the platform if the main script hasn't run on Twitter yet
-  version: /(Android|iP(ad|hone))/.test(navigator.userAgent) ? 'mobile' : 'desktop',
+  lastLayout: /(Android|iP(ad|hone))/.test(navigator.userAgent) ? 'mobile' : 'desktop',
 }
 //#endregion
 
@@ -299,7 +299,7 @@ const defaultConfig = {
 let config
 
 /**
- * Checkbox group configuration for the version being used (mobile or desktop).
+ * Checkbox group configuration for the layout being used (mobile or desktop).
  * @type {Map<string, string[]>}
  */
 let checkboxGroups
@@ -639,8 +639,8 @@ function validateMuteRegExps(terms) {
  * Update the options page to match the current config.
  */
 function applyConfig() {
-  $body.classList.toggle('mobile', config.version == 'mobile')
-  $body.classList.toggle('desktop', config.version == 'desktop')
+  $body.classList.toggle('mobile', config.lastLayout == 'mobile')
+  $body.classList.toggle('desktop', config.lastLayout == 'desktop')
   checkboxGroups = new Map(
     Object.entries({
       hideAllMetrics: [

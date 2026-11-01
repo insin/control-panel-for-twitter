@@ -124,10 +124,10 @@ export const currentSettingsSchema = {
   fullWidthContent: boolean(),
   fullWidthMedia: boolean(),
   hideAccountSwitcher: boolean(),
+  hideChatDrawer: boolean(),
   hideExploreNav: boolean(),
   hideExploreNavWithSidebar: boolean(),
   hideLiveBroadcasts: boolean(),
-  hideMessagesDrawer: boolean(),
   hideSidebarContent: boolean(),
   hideSuggestedFollows: boolean(),
   hideTimelineTweetBox: boolean(),
@@ -137,8 +137,8 @@ export const currentSettingsSchema = {
   navDensity: oneOf(['default', 'comfortable', 'compact']),
   showRelevantPeople: boolean(),
   // Mobile only
+  hideChatBottomNavItem: boolean(),
   hideLiveBroadcastBar: boolean(),
-  hideMessagesBottomNavItem: boolean(),
   preventNextVideoAutoplay: boolean(),
   // Experiments
   customCss: string({ maxLength: 50000 }),

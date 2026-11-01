@@ -105,11 +105,10 @@ const DEFAULT_SETTINGS = {
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,
+  hideChatDrawer: true,
   hideExploreNav: true,
   hideExploreNavWithSidebar: true,
   hideLiveBroadcasts: false,
-
-  hideMessagesDrawer: true,
   hideSidebarContent: true,
   hideSpacesNav: false,
   hideSuggestedFollows: false,
@@ -120,9 +119,8 @@ const DEFAULT_SETTINGS = {
   navDensity: 'default',
   showRelevantPeople: false,
   // Mobile only
+  hideChatBottomNavItem: false,
   hideLiveBroadcastBar: false,
-  // TODO Rename to hideChatBottomNavItem
-  hideMessagesBottomNavItem: false,
   preventNextVideoAutoplay: true,
   // Experiments
   customCss: '',
@@ -5043,7 +5041,7 @@ const configureCss = (() => {
       if (settings.hideCommunitiesNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href$="/communities"]`)
       }
-      if (settings.hideMessagesDrawer) {
+      if (settings.hideChatDrawer) {
         cssRules.push(`div[data-testid="chat-drawer-root"] { visibility: hidden; }`)
       }
       if (settings.hideViews) {
@@ -5116,7 +5114,7 @@ const configureCss = (() => {
       if (settings.hideCommunitiesNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href$="/communities"]`)
       }
-      if (settings.hideMessagesBottomNavItem) {
+      if (settings.hideChatBottomNavItem) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_MOBILE} a[href="/i/chat"]`)
       }
       if (settings.hideJobsNav) {
@@ -8680,12 +8678,12 @@ async function main({processImmediately = false} = {}) {
     desktop = !mobile
 
     /** @type {'mobile' | 'desktop'} */
-    let version = mobile ? 'mobile' : 'desktop'
+    let lastLayout = mobile ? 'mobile' : 'desktop'
     // Let the options page know the last version which was active
-    storeConfigChanges({version})
+    storeConfigChanges({lastLayout})
 
     if (lastFlexDirection == null) {
-      log('initial config', {enabled, config: settings, lang, version})
+      log('initial config', {enabled, config: settings, lang, lastLayout})
 
       // One-time setup
       nativePalette = getThemePaletteFromState() || nativePalette
@@ -8728,7 +8726,7 @@ async function main({processImmediately = false} = {}) {
       }
     }
     else if (flexDirection != lastFlexDirection) {
-      log('version changed', {version})
+      log('layout changed', {lastLayout})
       fontSize = desktop ? $html.style.fontSize : null
       // Reconfigure for the new version
       onSettingsChanged()

@@ -149,6 +149,9 @@
   "hideCalls": {
     "message": "통화"
   },
+  "hideChatDrawer": {
+    "message": "채팅 드로어"
+  },
   "hideChatNav": {
     "message": "채팅"
   },
@@ -220,9 +223,6 @@
   },
   "hideManageTimelines": {
     "message": "\"타임라인 관리\" 버튼 숨기기"
-  },
-  "hideMessagesDrawer": {
-    "message": "채팅 드로어"
   },
   "hideMetrics": {
     "message": "지표 숨기기"

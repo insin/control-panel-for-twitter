@@ -149,6 +149,9 @@
   "hideCalls": {
     "message": "通話"
   },
+  "hideChatDrawer": {
+    "message": "チャットドロワー"
+  },
   "hideChatNav": {
     "message": "チャット"
   },
@@ -220,9 +223,6 @@
   },
   "hideManageTimelines": {
     "message": "「タイムラインを管理」ボタンを非表示"
-  },
-  "hideMessagesDrawer": {
-    "message": "チャットドロワー"
   },
   "hideMetrics": {
     "message": "メトリクスを非表示"

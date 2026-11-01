@@ -142,7 +142,7 @@ ${messages.hideUnusedUiItemsOptions}:
 • ${messages.hideViewActivityLinks}
 • ${messages.hideTimelineTweetBox}${messages.desktopVersion}
 • ${messages.hideAccountSwitcher}${messages.desktopVersion}
-• ${messages.hideMessagesDrawer}${messages.desktopVersion}
+• ${messages.hideChatDrawer}${messages.desktopVersion}
 • ${messages.hideExploreNav}${messages.desktopVersion}
 • ${messages.hideCreatorStudioNav}
 • ${messages.hideConnectNav}

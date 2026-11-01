@@ -101,10 +101,10 @@ export const DEFAULT_SETTINGS = {
   fullWidthContent: false,
   fullWidthMedia: true,
   hideAccountSwitcher: false,
+  hideChatDrawer: true,
   hideExploreNav: true,
   hideExploreNavWithSidebar: true,
   hideLiveBroadcasts: false,
-  hideMessagesDrawer: true,
   hideSidebarContent: true,
   hideSpacesNav: false,
   hideSuggestedFollows: false,
@@ -115,8 +115,8 @@ export const DEFAULT_SETTINGS = {
   navDensity: 'default',
   showRelevantPeople: false,
   // Mobile only
+  hideChatBottomNavItem: false,
   hideLiveBroadcastBar: false,
-  hideMessagesBottomNavItem: false,
   preventNextVideoAutoplay: true,
   // Experiments
   customCss: '',
