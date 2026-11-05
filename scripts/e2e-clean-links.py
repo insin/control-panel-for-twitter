@@ -7,6 +7,7 @@ from marionette_driver.addons import Addons
 from marionette_driver.by import By
 p=argparse.ArgumentParser()
 p.add_argument('--browser', required=True)
+p.add_argument('--mobile', action='store_true', help='Use an Android user agent and a narrow viewport; not a physical phone test')
 p.add_argument('--output', type=Path, required=True)
 a=p.parse_args(); a.output.mkdir(parents=True,exist_ok=True)
 root=Path(__file__).resolve().parent.parent
@@ -42,13 +43,21 @@ document.querySelector('#copy').onclick=async()=>{
     threading.Thread(target=server.serve_forever,daemon=True).start(); url=f'http://127.0.0.1:{server.server_port}/'; m=None
     try:
         m=Marionette(bin=a.browser,app='fxdesktop',headless=True,port=2840,app_args=['-no-remote','--remote-allow-system-access'],workspace=str(tmp),gecko_log=str(a.output/'browser.log'),prefs={'zen.welcome-screen.seen':True,'browser.shell.checkDefaultBrowser':False})
-        m.start_session(); addon=Addons(m).install(str(ext),temp=True); m.set_context('chrome')
+        m.start_session()
+        if a.mobile:
+            m.set_context('chrome')
+            m.execute_script('Services.prefs.setCharPref("general.useragent.override", "Mozilla/5.0 (Android 15; Mobile; rv:145.0) Gecko/145.0 Firefox/145.0")')
+            m.set_context('content');m.set_window_rect(width=390,height=844)
+        addon=Addons(m).install(str(ext),temp=True); m.set_context('chrome')
         options=m.execute_async_script('const done=arguments[arguments.length-1]; const {AddonManager}=ChromeUtils.importESModule("resource://gre/modules/AddonManager.sys.mjs");AddonManager.getAddonByID(arguments[0]).then(a=>done(a.optionsURL));',script_args=[addon])
         m.set_context('content'); m.navigate(url); time.sleep(1); page=m.current_window_handle
         m.open(type='tab',focus=True); settings=next(h for h in m.window_handles if h!=page);m.switch_to_window(settings);m.navigate(options);time.sleep(.5)
         check('Enabled by default',m.find_element(By.CSS_SELECTOR,'[name=cleanCopiedLinks]').is_selected(),True)
         def toggle(name):
-            m.switch_to_window(settings);m.find_element(By.CSS_SELECTOR,f'[name={name}]').click();time.sleep(.3);m.switch_to_window(page)
+            m.switch_to_window(settings)
+            if a.mobile: m.set_window_rect(width=1280,height=1000)
+            m.find_element(By.CSS_SELECTOR,f'[name={name}]').click();time.sleep(.3);m.switch_to_window(page)
+            if a.mobile: m.set_window_rect(width=390,height=844)
         def read(flavor='text/plain'):
             m.set_context('chrome')
             try: return m.execute_script('const t=Cc["@mozilla.org/widget/transferable;1"].createInstance(Ci.nsITransferable);t.init(null);t.addDataFlavor(arguments[0]);Services.clipboard.getData(t,Services.clipboard.kGlobalClipboard);const d={};t.getTransferData(arguments[0],d);return d.value.QueryInterface(Ci.nsISupportsString).data;',script_args=[flavor])
@@ -83,6 +92,6 @@ document.querySelector('#copy').onclick=async()=>{
         check('Image copy preserved',m.execute_script('const t=Cc["@mozilla.org/widget/transferable;1"].createInstance(Ci.nsITransferable);t.init(null);t.addDataFlavor("application/x-moz-nativeimage");Services.clipboard.getData(t,Services.clipboard.kGlobalClipboard);const d={};t.getTransferData("application/x-moz-nativeimage",d);const i=d.value.QueryInterface(Ci.imgIContainer);return [i.width,i.height];'),[2,2]);m.set_context('content')
         m.switch_to_window(settings);(a.output/'options.png').write_bytes(base64.b64decode(m.screenshot()))
     finally:
-        report={'scope':'Real extension and real clipboard in isolated Gecko, local fixture','checks':checks};(a.output/'results.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
+        report={'scope':'Real extension and real clipboard in isolated Gecko, local fixture','mobile_emulation':a.mobile,'checks':checks};(a.output/'results.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
         if m:m.cleanup()
         server.shutdown()

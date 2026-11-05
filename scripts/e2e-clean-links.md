@@ -6,6 +6,8 @@ Run the browser test with Python and `marionette_driver` installed:
 python scripts/e2e-clean-links.py --browser /Applications/Zen.app/Contents/MacOS/zen --output /tmp/cpft-clean-links-results
 ```
 
+Add `--mobile` to use an Android user agent and a narrow test-page window. The runner widens the window for settings clicks. This is emulation, not a physical phone test.
+
 The runner creates an isolated profile, loads the real extension, and adds a localhost match to the test copy only. It clicks copy buttons and reads the browser clipboard. It saves `results.json`, `options.png`, and `browser.log`. It does not use the normal browser profile.
 
 Failure cases covered by the test, defined before implementation:

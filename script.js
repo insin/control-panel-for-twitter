@@ -8245,6 +8245,10 @@ function configChanged(changes) {
 }
 
 // Clean the values passed to the page's clipboard APIs. Never read the clipboard.
+/**
+ * @param {string} text
+ * @returns {string}
+ */
 function cleanCopiedText(text) {
   if (!config.enabled || !config.cleanCopiedLinks || typeof text != 'string') return text
   return text.replace(/https?:\/\/[^\s<>"']+/gi, (match) => {
@@ -8270,6 +8274,10 @@ function cleanCopiedText(text) {
   })
 }
 
+/**
+ * @param {string} html
+ * @returns {string}
+ */
 function cleanCopiedHtml(html) {
   if (!config.enabled || !config.cleanCopiedLinks) return html
   let doc = new DOMParser().parseFromString(html, 'text/html')
@@ -8294,6 +8302,7 @@ function cleanCopiedHtml(html) {
   return changed ? doc.body.innerHTML : html
 }
 
+/** @returns {void} */
 function configureClipboardCleaning() {
   if (navigator.clipboard) {
     let writeText = navigator.clipboard.writeText
@@ -8327,6 +8336,7 @@ function configureClipboardCleaning() {
   }
 
   // Also cover legacy copy handlers which call clipboardData.setData().
+  /** @type {WeakSet<DataTransfer>} */
   let copyTransfers = new WeakSet()
   let setData = DataTransfer.prototype.setData
   DataTransfer.prototype.setData = function(format, data) {
