@@ -1,4 +1,5 @@
 export type Config = {
+  cleanCopiedLinks: boolean
   enabled: boolean
   debug: boolean
   debugLogTimelineStats: boolean

@@ -60,6 +60,9 @@
   "disabledHomeTimelineRedirectOption_messages": {
     "message": "Messages"
   },
+  "cleanCopiedLinksLabel": {
+    "message": "Remove tracking from copied Twitter links"
+  },
   "dontUseChirpFontLabel": {
     "message": "Don't use the Chirp font"
   },
