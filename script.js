@@ -190,6 +190,7 @@ const config = {
   reducedInteractionMode: false,
   replaceLogo: true,
   restoreLinkHeadlines: true,
+  restoreNativeContextMenu: true,
   restoreOtherInteractionLinks: true,
   restoreQuoteTweetsLink: true,
   restoreTweetSource: true,

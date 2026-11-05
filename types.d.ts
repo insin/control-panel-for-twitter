@@ -78,6 +78,7 @@ export type Config = {
   // XXX This now controls all replacement of X brand changes
   replaceLogo: boolean
   restoreLinkHeadlines: boolean
+  restoreNativeContextMenu: boolean
   restoreQuoteTweetsLink: boolean
   restoreOtherInteractionLinks: boolean
   restoreTweetSource: boolean

@@ -407,6 +407,9 @@
   "replaceLogoLabel": {
     "message": "Replace X branding changes"
   },
+  "restoreNativeContextMenuLabel": {
+    "message": "Restore native browser right-click menu"
+  },
   "restoreLinkHeadlinesLabel": {
     "message": "Restore headlines under external links"
   },
