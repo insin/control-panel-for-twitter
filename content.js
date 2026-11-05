@@ -1,3 +1,16 @@
+// Register before page scripts can replace the browser's context menu.
+// Wait for stored settings before enabling the handler.
+const nativeContextMenuConfig = {
+  enabled: false,
+  restoreNativeContextMenu: true,
+}
+window.addEventListener('contextmenu', (event) => {
+  if (nativeContextMenuConfig.enabled && nativeContextMenuConfig.restoreNativeContextMenu) {
+    // Leave the default action intact so the browser can show its native menu.
+    event.stopImmediatePropagation()
+  }
+}, true)
+
 /** @type {HTMLScriptElement} */
 let $settings
 
@@ -35,6 +48,9 @@ if (localStorage.cpftEnabled != 'false' && localStorage.cpftReplaceLogo != 'fals
 
 // Get initial config and inject it and the main script into the Twitter page
 chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ storedConfig) => {
+  nativeContextMenuConfig.enabled = storedConfig.enabled !== false
+  nativeContextMenuConfig.restoreNativeContextMenu = storedConfig.restoreNativeContextMenu !== false
+
   // Update deprecated config values
   // @ts-ignore
   if (storedConfig.twitterBlueChecks == 'dim') {
@@ -59,6 +75,10 @@ chrome.storage.local.get((/** @type {Partial<import("./types").Config>} */ store
 
 // Inject config changes from options pages into the settings <script>
 function onConfigChange(changes) {
+  if (changes.enabled) nativeContextMenuConfig.enabled = changes.enabled.newValue !== false
+  if (changes.restoreNativeContextMenu) {
+    nativeContextMenuConfig.restoreNativeContextMenu = changes.restoreNativeContextMenu.newValue !== false
+  }
   if (changes.enabled) localStorage.cpftEnabled = changes.enabled.newValue
   if (changes.replaceLogo) localStorage.cpftReplaceLogo = changes.replaceLogo.newValue
   let configChanges = Object.fromEntries(
