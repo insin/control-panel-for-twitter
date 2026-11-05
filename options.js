@@ -53,6 +53,7 @@ for (let translationId of [
   'disabledHomeTimelineRedirectLabel',
   'disabledHomeTimelineRedirectOption_messages',
   'disableNflFeaturesLabel',
+  'cleanCopiedLinksLabel',
   'dontUseChirpFontLabel',
   'dropdownMenuFontWeightLabel',
   'enabled',
@@ -204,6 +205,7 @@ if (navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.
 /** @type {import("./types").Config} */
 const defaultConfig = {
   enabled: true,
+  cleanCopiedLinks: true,
   debug: false,
   debugLogTimelineStats: false,
   // Default based on the platform if the main script hasn't run on Twitter yet

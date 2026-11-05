@@ -119,6 +119,7 @@ let ltr
  */
 const config = {
   enabled: true,
+  cleanCopiedLinks: true,
   debug: false,
   debugLogTimelineStats: false,
   // Shared
@@ -8243,6 +8244,124 @@ function configChanged(changes) {
   }
 }
 
+// Clean the values passed to the page's clipboard APIs. Never read the clipboard.
+function cleanCopiedText(text) {
+  if (!config.enabled || !config.cleanCopiedLinks || typeof text != 'string') return text
+  return text.replace(/https?:\/\/[^\s<>"']+/gi, (match) => {
+    // Keep punctuation surrounding a URL in copied prose.
+    let suffix = match.match(/[.,!;:)\]}]+$/)?.[0] || ''
+    let value = suffix ? match.slice(0, -suffix.length) : match
+    let url
+    try { url = new URL(value) } catch { return match }
+    if (!['x.com', 'twitter.com', 'mobile.x.com', 'mobile.twitter.com'].includes(url.hostname)) return match
+    // These are X share parameters. Do not remove arbitrary query fields.
+    let queryStart = value.indexOf('?')
+    let hashStart = value.indexOf('#')
+    if (queryStart < 0 || (hashStart >= 0 && hashStart < queryStart)) return match
+    let end = hashStart < 0 ? value.length : hashStart
+    let parts = value.slice(queryStart + 1, end).split('&')
+    let kept = parts.filter((part) => {
+      let key
+      try { key = decodeURIComponent(part.split('=')[0]) } catch { return true }
+      return !['a', 's', 't', 'ref_src', 'ref_url'].includes(key)
+    })
+    if (kept.length == parts.length) return match
+    return value.slice(0, queryStart) + (kept.length ? '?' + kept.join('&') : '') + value.slice(end) + suffix
+  })
+}
+
+function cleanCopiedHtml(html) {
+  if (!config.enabled || !config.cleanCopiedLinks) return html
+  let doc = new DOMParser().parseFromString(html, 'text/html')
+  let changed = false
+  for (let link of doc.querySelectorAll('a[href]')) {
+    let href = link.getAttribute('href')
+    let clean = cleanCopiedText(href)
+    if (clean != href) {
+      link.setAttribute('href', clean)
+      changed = true
+    }
+  }
+  let walker = doc.createTreeWalker(doc.body, NodeFilter.SHOW_TEXT)
+  while (walker.nextNode()) {
+    let node = walker.currentNode
+    let clean = cleanCopiedText(node.textContent)
+    if (clean != node.textContent) {
+      node.textContent = clean
+      changed = true
+    }
+  }
+  return changed ? doc.body.innerHTML : html
+}
+
+function configureClipboardCleaning() {
+  if (navigator.clipboard) {
+    let writeText = navigator.clipboard.writeText
+    if (writeText) {
+      navigator.clipboard.writeText = function(text) {
+        return Reflect.apply(writeText, this, [cleanCopiedText(text)])
+      }
+    }
+    let write = navigator.clipboard.write
+    if (write && typeof ClipboardItem != 'undefined') {
+      navigator.clipboard.write = function(items) {
+        if (!config.enabled || !config.cleanCopiedLinks || !Array.isArray(items)) {
+          return Reflect.apply(write, this, arguments)
+        }
+        let cleaned = items.map((item) => {
+          if (!item.types?.some(type => type == 'text/plain' || type == 'text/html')) return item
+          let data = Object.fromEntries(item.types.map((type) => [type,
+            item.getType(type).then(async (blob) => {
+              if (type != 'text/plain' && type != 'text/html') return blob
+              let text = await blob.text()
+              let clean = type == 'text/html' ? cleanCopiedHtml(text) : cleanCopiedText(text)
+              return clean == text ? blob : new Blob([clean], {type})
+            }),
+          ]))
+          return new ClipboardItem(data, {presentationStyle: item.presentationStyle})
+        })
+        // Call immediately to retain user activation. ClipboardItem resolves its blobs.
+        return Reflect.apply(write, this, [cleaned])
+      }
+    }
+  }
+
+  // Also cover legacy copy handlers which call clipboardData.setData().
+  let copyTransfers = new WeakSet()
+  let setData = DataTransfer.prototype.setData
+  DataTransfer.prototype.setData = function(format, data) {
+    if (copyTransfers.has(this) && typeof format == 'string') {
+      if (['text', 'text/plain'].includes(format.toLowerCase())) data = cleanCopiedText(data)
+      if (format.toLowerCase() == 'text/html') data = cleanCopiedHtml(data)
+    }
+    return Reflect.apply(setData, this, [format, data])
+  }
+  window.addEventListener('copy', (event) => {
+    if (!event.clipboardData) return
+    copyTransfers.add(event.clipboardData)
+    if (!config.enabled || !config.cleanCopiedLinks || event.defaultPrevented) return
+    let active = document.activeElement
+    let text, html
+    if (active instanceof HTMLTextAreaElement ||
+        (active instanceof HTMLInputElement && ['text', 'search', 'url', 'tel'].includes(active.type))) {
+      text = active.value.slice(active.selectionStart, active.selectionEnd)
+    } else {
+      let selection = window.getSelection()
+      if (!selection || selection.isCollapsed) return
+      text = selection.toString()
+      let container = document.createElement('div')
+      for (let i = 0; i < selection.rangeCount; i++) container.append(selection.getRangeAt(i).cloneContents())
+      html = container.innerHTML
+    }
+    let clean = cleanCopiedText(text)
+    let cleanHtml = html == null ? null : cleanCopiedHtml(html)
+    if (clean == text && cleanHtml == html) return
+    event.clipboardData.setData('text/plain', clean)
+    if (cleanHtml != null) event.clipboardData.setData('text/html', cleanHtml)
+    event.preventDefault()
+  }, true)
+}
+
 // Initial config and config changes are injected into a <script> element
 let $settings = /** @type {HTMLScriptElement} */ (document.querySelector('script#cpftSettings'))
 if ($settings) {
@@ -8278,6 +8397,7 @@ if ($settings) {
 
 debug = config.debug
 
+configureClipboardCleaning()
 main()
 //#endregion
 
