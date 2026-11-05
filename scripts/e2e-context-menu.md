@@ -15,3 +15,5 @@ Use the path to your Gecko browser. The test creates a separate headless profile
 The local page cancels context-menu events at window, document, and image levels. Browser pointer actions open the real native menu. The test runs Copy Image and checks that the Gecko clipboard contains the expected image dimensions. It also checks the options page, toolbar popup, saved settings, live toggles, new images, normal clicks, and text menus.
 
 The output folder contains `results.json`, `options.png`, and `browser.log`. A failing assertion exits with a nonzero status and saves completed checks. This checks the extension and browser together, but does not establish compatibility with the current live X page. Test a timeline image and the full photo viewer on X before release.
+
+Use `--mobile` to repeat the checks with an Android user agent. This checks the mobile configuration with desktop mouse actions; it does not test a physical phone or a touch long press.

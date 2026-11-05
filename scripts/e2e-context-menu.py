@@ -19,6 +19,7 @@ from marionette_driver.by import By
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--browser', required=True)
+parser.add_argument('--mobile', action='store_true', help='Use an Android user agent; desktop mouse actions do not simulate a phone long press')
 parser.add_argument('--output', type=Path, required=True)
 args = parser.parse_args()
 root = Path(__file__).resolve().parent.parent
@@ -70,6 +71,11 @@ document.getElementById('photo').onclick = () => window.imageClicks++;
             gecko_log=str(args.output / 'browser.log'),
             prefs={'zen.welcome-screen.seen': True, 'browser.shell.checkDefaultBrowser': False})
         m.start_session()
+        if args.mobile:
+            m.set_context('chrome')
+            m.execute_script('Services.prefs.setCharPref("general.useragent.override", "Mozilla/5.0 (Android 15; Mobile; rv:145.0) Gecko/145.0 Firefox/145.0")')
+            m.set_context('content')
+            m.set_window_rect(width=800, height=1000)
         addon_id = Addons(m).install(str(extension), temp=True)
         m.set_context('chrome')
         options_url = m.execute_async_script('''const done = arguments[arguments.length - 1];
@@ -140,7 +146,7 @@ document.getElementById('photo').onclick = () => window.imageClicks++;
         check('Toolbar popup contains the setting', m.find_element(By.CSS_SELECTOR, '[name=restoreNativeContextMenu]').is_selected())
     finally:
         report = {'browser': m.session_capabilities.get('browserVersion') if m and m.session else None,
-            'scope': 'Real extension in isolated headless Gecko; localhost fixture with site context-menu handlers. Live X not tested.', 'checks': results}
+            'scope': 'Real extension in isolated headless Gecko; localhost fixture with site context-menu handlers. Live X not tested.', 'mobile_user_agent': args.mobile, 'checks': results}
         (args.output / 'results.json').write_text(json.dumps(report, indent=2) + '\n')
         print(json.dumps(report, indent=2))
         if m: m.cleanup()
