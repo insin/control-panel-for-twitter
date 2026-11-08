@@ -1,3 +1,5 @@
+import './options-components.js'
+
 import { DEFAULT_SETTINGS } from './default-settings.js'
 import { isObject } from './ext-shared.js'
 import { createSettingsExport, validateSettingsExport } from './schemas.js'
@@ -25,190 +27,44 @@ const browser = (() => {
     return ua.includes('iphone') || ua.includes('ipad') ? 'ios' : 'mac'
   return 'chrome'
 })()
-const theme = browser
+let theme = browser
 $body.classList.add(`browser-${browser}`, theme)
 
-if (theme == 'chrome' || theme == 'edge' || theme == 'firefox') {
-  const $top = document.createElement('div')
-  $top.className = 'stickySentinel top'
-  const $bottom = document.createElement('div')
-  $bottom.className = 'stickySentinel bottom'
-  for (const $group of document.querySelectorAll('section.group.labelled')) {
-    $group.prepend($top.cloneNode())
-    const $options = $group.querySelector('.options')
-    $options.insertBefore($bottom.cloneNode(), $options.lastElementChild)
-  }
-} else {
-  document.querySelector('section.group.stickyHeadings')?.remove()
+function updateOptionsStyle() {
+  const selected = config.optionsStyle
+  const next = ['chrome', 'edge', 'firefox', 'ios', 'mac'].includes(selected) ? selected : browser
+  if (next == theme) return
+  $body.classList.remove(theme)
+  theme = /** @type {typeof browser} */ (next)
+  $body.classList.add(theme)
 }
 //#endregion
 
 //#region Localisation
 document.title = chrome.i18n.getMessage('extensionName')
 
-//#region Option values
-for (const optionValue of [
-  'badges',
-  'comfortable',
-  'compact',
-  'default',
-  'dim',
-  'hide',
-  'ignore',
-  'lightsOut',
-  'liked',
-  'mostRecent',
-  'popular',
-  'recent',
-  'relevant',
-  'separate',
-]) {
-  const label = chrome.i18n.getMessage(`option_${optionValue}`)
-  for (const $option of document.querySelectorAll(`option[value="${optionValue}"]`)) {
-    $option.textContent = label
-  }
-}
-//#endregion
-
 //#region Ids
 for (const translationId of [
-  'addAddMutedWordMenuItem_desktop',
-  'addAddMutedWordMenuItem_mobile',
-  'addFocusedTweetAccountLocation',
-  'addUserHoverCardAccountLocation',
+  'advancedOptions',
+  'appearanceOptions',
   'backupAndRestoreOptions',
-  'bypassAgeVerification',
-  'customCss',
   'customTheme',
-  'darkModeTheme',
-  'debug',
-  'debugInfo',
-  'debugLogGetElementStats',
-  'debugLogTimelineStats',
-  'defaultFollowingToRecent',
-  'defaultToFollowing',
-  'defaultToLatestSearch',
   'developerOptions',
-  'disableHomeTimeline',
-  'disableHomeTimelineInfo',
-  'disableNflFeatures',
-  'disableTweetTextFormatting',
-  'disabledHomeTimelineRedirect',
-  'disabledHomeTimelineRedirectOption_messages',
-  'dontUseChirpFont',
-  'dropdownMenuFontWeight',
-  'enabled',
-  'experimentsOptions',
-  'export',
-  'exportSettings',
-  'fastBlock',
   'features',
-  'followButtonStyle',
-  'followButtonStyleOption_monochrome',
-  'followButtonStyleOption_themed',
-  'fullWidthContent',
-  'fullWidthContentInfo',
-  'fullWidthMedia',
-  'hideAccountSwitcher',
-  'hideAdsNav',
-  'hideAllMetrics',
-  'hideBookmarkButton',
-  'hideBookmarkMetrics',
-  'hideChatDrawer',
-  'hideComposeTweet',
-  'hideDiscoverSuggestions',
-  'hideEditImage',
-  'hideExploreNav',
-  'hideExploreNavWithSidebar',
-  'hideExplorePageContents',
-  'hideFollowingMenu',
-  'hideFollowingMetrics',
-  'hideForYouTimeline',
-  'hideGrok',
-  'hideGrokTweets',
-  'hideInlinePrompts',
-  'hideJobs',
-  'hideLikeMetrics',
-  'hideListRetweets',
-  'hideLiveBroadcastBar',
-  'hideLiveBroadcasts',
-  'hideManageTimelines',
-  'hideMetrics',
-  'hideMoney',
-  'hideMoreFromThisAuthor',
-  'hideMoreSlideOutMenuItemsOptions_desktop',
-  'hideMoreSlideOutMenuItemsOptions_mobile',
-  'hideNotificationLikes',
-  'hideNotificationRetweets',
-  'hidePremiumReplies',
-  'hidePremiumUpsells',
-  'hideProfileHeaderMetrics',
-  'hideProfileRetweets',
-  'hideQuoteTweetMetrics',
-  'hideReplyMetrics',
-  'hideRetweetMetrics',
-  'hideSeeNewTweets',
-  'hideShareTweetButton',
-  'hideSidebarContent',
-  'hideSortRepliesMenu',
-  'hideSpacesNav',
-  'hideSubscriptions',
-  'hideSuggestedContentSearch',
-  'hideSuggestedContentTimeline',
-  'hideSuggestedFollows',
-  'hideTimelineTweetBox',
-  'hideTodaysNews',
-  'hideUnavailableQuoteTweets',
-  'hideUnusedUiItemsOptions',
-  'hideVerifiedTabs',
-  'hideViewActivityLinks',
-  'hideViews',
-  'hideWhatsHappening',
+  'featuresDisabledInfo',
+  'hideNavigationItemsOptions',
   'homeTimelineOptions',
-  'import',
-  'importSettings',
-  'mutableQuoteTweets',
   'mutedWords',
   'mutedWordsInfo',
-  'navBaseFontSize',
-  'navDensity',
-  'premiumBlueChecks',
-  'premiumBlueChecksOption_replace',
-  'preventNextVideoAutoplay',
-  'preventNextVideoAutoplayInfo',
-  'quoteTweets',
-  'reduceAlgorithmicContentOptions',
+  'needMoreRoom',
+  'openInTabLink',
+  'otherPagesOptions',
   'reduceEngagementOptions',
-  'reducedInteractionMode',
-  'reducedInteractionModeInfo',
-  'restoreLinkHeadlines',
-  'restoreOtherInteractionLinks',
-  'restoreQuoteTweetsLink',
-  'restoreTweetSource',
-  'retweets',
-  'revertMediaCarousel',
-  'revertProfileTabs',
-  'revertTwemoji',
-  'revertXBranding',
   'settings',
-  'showBookmarkButtonUnderFocusedTweets',
-  'showPremiumReplyBusiness',
-  'showPremiumReplyFollowedBy',
-  'showPremiumReplyFollowersCountAmount',
-  'showPremiumReplyFollowing',
-  'showPremiumReplyGovernment',
-  'showRelevantPeople',
   'sidebar',
-  'sortReplies',
   'sortRepliesInfo',
-  'stickyHeadings',
-  'syncSettings',
-  'tweakQuoteTweetsPage',
-  'uiImprovementsOptions',
-  'uiTweaksOptions',
-  'unblurSensitiveContent',
-  'uninvertFollowButtons',
-  'xFixesOptions',
+  'tweetsAndRepliesOptions',
+  'xFeaturesOptions',
 ]) {
   const $el = document.getElementById(translationId)
   if ($el) {
@@ -220,19 +76,7 @@ for (const translationId of [
 //#endregion
 
 //#region Classes
-for (const translationClass of [
-  'hideBookmarksNav',
-  'hideBusinessNav',
-  'hideCalls',
-  'hideChatNav',
-  'hideCommunitiesNav',
-  'hideConnectNav',
-  'hideCreatorStudioNav',
-  'hideHistoryNav',
-  'hideListsNav',
-  'notifications',
-  'saveAndApply',
-]) {
+for (const translationClass of ['saveAndApply']) {
   const translation = chrome.i18n.getMessage(translationClass)
   for (const $el of document.querySelectorAll(`.${translationClass}`)) {
     $el.textContent = translation
@@ -240,9 +84,11 @@ for (const translationClass of [
 }
 //#endregion
 
+//#region Option values
 for (const amount of [1_000, 10_000, 100_000, 1_000_000]) {
   document.querySelector(`option[value="${amount}"]`).textContent = formatFollowerCount(amount)
 }
+//#endregion
 
 // Some browsers don't support doing certain things in the browser action popup
 if (isBrowserAction) {
@@ -261,6 +107,21 @@ if (isBrowserAction) {
 }
 
 document.querySelector('#customThemeInfo').innerHTML = chrome.i18n.getMessage('customThemeInfo')
+for (const id of ['featureSearchToggle', 'featureSearchInput']) {
+  document.getElementById(id).setAttribute('aria-label', chrome.i18n.getMessage('searchFeatures'))
+}
+document.getElementById('featureSearchToggle').title = chrome.i18n.getMessage('searchFeatures')
+document
+  .getElementById('enabledToggle')
+  .setAttribute('aria-label', chrome.i18n.getMessage('extensionName'))
+document
+  .getElementById('featureSearchInput')
+  .setAttribute('placeholder', chrome.i18n.getMessage('searchFeatures'))
+document
+  .getElementById('featureSearchClear')
+  .setAttribute('aria-label', chrome.i18n.getMessage('clearFeatureSearch'))
+document.getElementById('featureSearchEmpty').textContent =
+  chrome.i18n.getMessage('noMatchingFeatures')
 //#endregion
 
 /**
@@ -271,8 +132,7 @@ const INTERNAL_CONFIG_FORM_KEYS = [
   'debug',
   'debugLogGetElementStats',
   'debugLogTimelineStats',
-  'enabled',
-  'stickyHeadings',
+  'optionsStyle',
   'syncSettings',
 ]
 /** @type {Set<string>} */
@@ -281,16 +141,17 @@ const INTERNAL_CONFIG_FORM_KEYSET = new Set(INTERNAL_CONFIG_FORM_KEYS)
 //#region Default config
 /** @type {import("./types").StoredConfig} */
 const defaultConfig = {
-  collapsedGroups: [],
+  collapsedGroups: ['advanced', 'developer'],
   debug: false,
   debugLogGetElementStats: false,
   debugLogTimelineStats: false,
   enabled: true,
+  optionsStyle: 'automatic',
   syncSettings: true,
   tab: 'features',
-  stickyHeadings: true,
-  // Default based on the platform if the main script hasn't run on Twitter yet
+  // Default based on the platform if the oage script hasn't run yet
   lastLayout: /(Android|iP(ad|hone))/.test(navigator.userAgent) ? 'mobile' : 'desktop',
+  lastSiteVersion: 'rweb',
 }
 //#endregion
 
@@ -304,11 +165,8 @@ let config
  */
 let checkboxGroups
 
-/** @type {IntersectionObserver} */
-let stickyObserver
-
-/** @type {number} */
-let tabsHeight
+let filteringFeatures = false
+let featureSearchOpen = false
 
 // Page elements
 const $collapsibleLabels = document.querySelectorAll(
@@ -321,6 +179,8 @@ const $customThemeInput = /** @type {HTMLInputElement} */ (
 const $displaySettingsLink = /** @type {HTMLAnchorElement} */ (
   document.querySelector('#customThemeInfo a')
 )
+const $enabledLabel = document.querySelector('#enabled')
+const $enabledToggle = document.getElementById('enabledToggle')
 const $exportSettingsButton = document.querySelector('button#export')
 const $fileInput = /** @type {HTMLInputElement} */ (document.querySelector('input[type="file"]'))
 const $form = document.querySelector('form')
@@ -333,12 +193,12 @@ const $hideQuotesFromDetails = /** @type {HTMLDetailsElement} */ (
 )
 const $importMessages = /** @type {HTMLElement} */ (document.querySelector('#importMessages'))
 const $importSettingsButton = document.querySelector('button#import')
+$importSettingsButton.setAttribute('aria-describedby', 'importSettings importSettingsInfo')
 const $mutedQuotes = /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
 const $mutedQuotesCount = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesCount'))
 const $mutedQuotesDetails = /** @type {HTMLDetailsElement} */ (
   document.querySelector('details#mutedQuotesDetails')
 )
-const $optionsIcon = /** @type {HTMLImageElement} */ (document.querySelector('#optionsIcon'))
 const $mutedWords = /** @type {HTMLTextAreaElement} */ (
   document.querySelector('textarea#mutedWords')
 )
@@ -359,10 +219,168 @@ const $saveCustomCssButton = document.querySelector('button#saveCustomCss')
 const $showPremiumReplyFollowersCount = /** @type {HTMLElement} */ (
   document.querySelector('#showPremiumReplyFollowersCount')
 )
-const $stickySentinels = document.querySelectorAll('.stickySentinel')
+const $featurePanel = document.querySelector('.panel[data-tab="features"]')
+const $featureSearchToggle = document.getElementById('featureSearchToggle')
+const $featureSearchRow = document.getElementById('featureSearchRow')
+const $featureSearchInput = /** @type {HTMLInputElement} */ (
+  document.getElementById('featureSearchInput')
+)
+const $featureSearchClear = document.getElementById('featureSearchClear')
+const $featureSearchEmpty = document.getElementById('featureSearchEmpty')
 const $syncLastSynced = /** @type {HTMLElement} */ (document.querySelector('#syncLastSynced'))
 const $tablist = /** @type {HTMLElement} */ (document.querySelector('.tabs'))
 const $tabs = Array.from($tablist.querySelectorAll('button'))
+//#endregion
+
+//#region Feature search
+let featureSearchEscapeHandled = false
+
+function normalizeFeatureSearch(text) {
+  return text
+    .normalize('NFKD')
+    .replace(/\p{M}/gu, '')
+    .toLocaleLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .replace(/\b(?:reposts?|retweets?)\b/g, 'retweet')
+    .replace(/\b(?:posts?|tweets?)\b/g, 'tweet')
+    .trim()
+}
+
+/** Read only rendered explanatory text, never user-entered values. */
+function getFeatureSearchText($root) {
+  if (!$root) return ''
+  function read(node) {
+    if (node.nodeType == 3) return node.textContent
+    if (node.nodeType != 1) return ''
+    const $element = /** @type {HTMLElement} */ (node)
+    if (
+      $element != $root &&
+      $element.matches('section, .sub-options, details, input, textarea, button, script, style')
+    )
+      return ''
+    if (getComputedStyle($element).display == 'none') return ''
+    return Array.from($element.childNodes).map(read).join(' ')
+  }
+  return normalizeFeatureSearch(read($root))
+}
+
+function updateFeatureSearch() {
+  $featureSearchClear.hidden = $featureSearchInput.value.length == 0
+  const terms = normalizeFeatureSearch($featureSearchInput.value).split(/\s+/).filter(Boolean)
+  filteringFeatures = terms.length > 0
+  $body.classList.toggle('filteringFeatures', filteringFeatures)
+  for (const $hidden of $featurePanel.querySelectorAll('.feature-search-hidden')) {
+    $hidden.classList.remove('feature-search-hidden')
+  }
+  updateCollapsedOptionGroupsDisplay()
+  if (!filteringFeatures) {
+    $featureSearchEmpty.hidden = true
+    return
+  }
+
+  const rows = Array.from($featurePanel.querySelectorAll('section:not(.group)')).filter(
+    ($row) =>
+      $row.closest('section.labelled') &&
+      !$row.closest('details') &&
+      $row.querySelector(':scope > :is(.option-label, .option-row)'),
+  )
+  const text = new Map(rows.map(($row) => [$row, getFeatureSearchText($row)]))
+  const visible = new Set()
+  const eligibleRows = new Set()
+  for (const $row of rows) {
+    let eligible = true
+    let context = ''
+    for (
+      let $ancestor = $row;
+      $ancestor && $ancestor != $featurePanel;
+      $ancestor = $ancestor.parentElement
+    ) {
+      if (getComputedStyle($ancestor).display == 'none') {
+        eligible = false
+        break
+      }
+      context += ` ${text.get($ancestor) || ''}`
+    }
+    if (!eligible) continue
+    eligibleRows.add($row)
+    const $group = $row.closest('section.group')
+    context += ` ${getFeatureSearchText($group)}`
+    if (!terms.every((term) => context.includes(term))) continue
+    for (
+      let $ancestor = $row;
+      $ancestor && $ancestor != $featurePanel;
+      $ancestor = $ancestor.parentElement
+    ) {
+      if ($ancestor.matches('section')) visible.add($ancestor)
+    }
+  }
+  for (const $row of rows) $row.classList.toggle('feature-search-hidden', !visible.has($row))
+  // Intermediate controls such as bulk toggles only apply to complete sets.
+  // Keep their containers for matching children, hiding just the control label.
+  for (const $intermediate of $featurePanel.querySelectorAll('section.search-intermediate')) {
+    const children = Array.from(
+      $intermediate.querySelectorAll(':scope > .sub-options > section'),
+    ).filter(($row) => eligibleRows.has($row))
+    $intermediate
+      .querySelector(':scope > :is(.option-label, .option-row)')
+      .classList.toggle(
+        'feature-search-hidden',
+        children.length > 0 && !children.every(($row) => visible.has($row)),
+      )
+  }
+  for (const $group of $featurePanel.querySelectorAll(':scope > section.labelled')) {
+    $group.classList.toggle('feature-search-hidden', !visible.has($group))
+  }
+  $featureSearchEmpty.hidden = visible.size > 0
+}
+
+function setFeatureSearchOpen(open) {
+  featureSearchOpen = open
+  if (open && config.tab != 'features') selectOptionsTab('features')
+  $featureSearchRow.hidden = !open
+  $featureSearchToggle.setAttribute('aria-expanded', String(open))
+  if (open) $featureSearchInput.focus()
+  else {
+    $featureSearchInput.value = ''
+    updateFeatureSearch()
+    $featureSearchToggle.focus()
+  }
+}
+
+function onFeatureSearchKeyDown(e) {
+  if (e.defaultPrevented || e.isComposing) return
+  if (e.key == '/' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    const editing = e
+      .composedPath()
+      .some(($target) => $target.matches?.('input, textarea, select') || $target.isContentEditable)
+    if (editing) return
+    e.preventDefault()
+    e.stopPropagation()
+    setFeatureSearchOpen(true)
+    return
+  }
+  if (!$featureSearchRow.contains(e.target) && e.target != $featureSearchToggle) return
+  if (e.key == 'Enter' && e.target == $featureSearchInput) e.preventDefault()
+  if (e.key != 'Escape' || $featureSearchRow.hidden) return
+  e.preventDefault()
+  e.stopPropagation()
+  featureSearchEscapeHandled = true
+  if (e.repeat) return
+  if ($featureSearchInput.value) {
+    $featureSearchInput.value = ''
+    updateFeatureSearch()
+    $featureSearchInput.focus()
+  } else setFeatureSearchOpen(false)
+}
+
+function onFeatureSearchKeyUp(e) {
+  if (e.key != 'Escape' || !featureSearchEscapeHandled) return
+  featureSearchEscapeHandled = false
+  // Closing search moves focus to its toggle before keyup, so consume that too
+  e.preventDefault()
+  e.stopPropagation()
+}
+
 //#endregion
 
 //#region Utility functions
@@ -641,6 +659,9 @@ function validateMuteRegExps(terms) {
 function applyConfig() {
   $body.classList.toggle('mobile', config.lastLayout == 'mobile')
   $body.classList.toggle('desktop', config.lastLayout == 'desktop')
+  const siteVersion = config.lastSiteVersion || 'rweb'
+  $body.classList.toggle('rweb', siteVersion == 'rweb')
+  $body.classList.toggle('xweb', siteVersion == 'xweb')
   checkboxGroups = new Map(
     Object.entries({
       hideAllMetrics: [
@@ -661,7 +682,8 @@ function applyConfig() {
 
 async function exportSettings() {
   const version = chrome.runtime.getManifest().version
-  const json = JSON.stringify(createSettingsExport(sortKeys(config.settings), version), null, 2)
+  const { settings = {} } = await get('settings')
+  const json = JSON.stringify(createSettingsExport(sortKeys(settings), version), null, 2)
   const filename = `control-panel-for-twitter-v${version}-settings.json`
   const blob = new Blob([json], { type: 'application/json' })
   if (browser == 'ios') {
@@ -701,9 +723,14 @@ async function importSettings() {
     return
   }
   const json = await file.text()
-  const { settings, messages } = validateSettingsJson(json)
+  let { settings, messages } = validateSettingsJson(json)
   if (settings != null) {
-    await setSettings(settings)
+    try {
+      await setSettings(settings, { replace: true })
+    } catch {
+      settings = null
+      messages.push(chrome.i18n.getMessage('settingsImportFailed'))
+    }
   } else {
     $importMessages.style.color = 'var(--text-error)'
   }
@@ -739,24 +766,22 @@ function onCustomThemeInput(e) {
 function onFormChanged(/** @type {Event} */ e) {
   if (
     e.target instanceof HTMLTextAreaElement ||
-    (e.target instanceof HTMLInputElement && (e.target.type == 'file' || e.target.type == 'text'))
+    (e.target instanceof HTMLInputElement && ['file', 'text', 'search'].includes(e.target.type))
   )
     return
 
-  /** @type {import("./types").StoredConfig} */
-  const changedConfig = Object.create(null)
+  /** @type {Partial<import("./types").StoredConfig>} */
+  const changedConfig = {}
   /** @type {Partial<import("./types").UserSettings>} */
-  const changedSettings = Object.create(null)
+  const changedSettings = {}
 
   // Handle input
   const $el = /** @type {HTMLInputElement} */ (e.target)
-  if ($el.type == 'checkbox') {
-    // All internal config is currently checkbox toggles
-    if (INTERNAL_CONFIG_FORM_KEYSET.has($el.name)) {
-      config[$el.name] = changedConfig[$el.name] = $el.checked
-    }
+  if (INTERNAL_CONFIG_FORM_KEYSET.has($el.name)) {
+    config[$el.name] = changedConfig[$el.name] = $el.type == 'checkbox' ? $el.checked : $el.value
+  } else if ($el.type == 'checkbox') {
     // Checkbox group toggle
-    else if (checkboxGroups.has($el.name)) {
+    if (checkboxGroups.has($el.name)) {
       checkboxGroups.get($el.name).forEach((checkboxName) => {
         config.settings[checkboxName] = changedSettings[checkboxName] = $el.checked
         updateFormControl($form.elements[checkboxName], $el.checked)
@@ -773,9 +798,9 @@ function onFormChanged(/** @type {Event} */ e) {
   }
 
   // Apply other settings changes based on input
-  // Don't try to redirect the Home timeline to Notifications if both are disabled
+  // Pick Chat when Notifications is fully hidden
   if (
-    changedSettings.hideNotifications &&
+    changedSettings.hideNotifications == 'hide' &&
     config.settings.disabledHomeTimelineRedirect == 'notifications'
   ) {
     const key = 'disabledHomeTimelineRedirect'
@@ -846,22 +871,51 @@ function onStorageChanged(storageChanges) {
   )
   const { settings: settingsChanges, ...configChanges } = changes
   Object.assign(config, configChanges)
-  Object.assign(config.settings, settingsChanges)
+  if (Object.hasOwn(storageChanges, 'settings')) {
+    config.settings = {
+      ...DEFAULT_SETTINGS,
+      .../** @type {Partial<import('./types').UserSettings>} */ (settingsChanges),
+    }
+  }
   applyConfig()
 }
 
-function onTabClick(e) {
-  // Only start animating on interaction, to avoid initial flash of animation
-  $tablist.classList.add('animate')
-  const tab = e.currentTarget.getAttribute('data-tab')
+function onToggleEnabled() {
+  config.enabled = !config.enabled
+  storeConfigChanges({ enabled: config.enabled })
+  updateDisplay()
+}
+
+/** @param {import('./types').StoredConfig['tab']} tab */
+function selectOptionsTab(tab) {
   config.tab = tab
   storeConfigChanges({ tab })
   window.scrollTo({ top: 0 })
   updateDisplay()
 }
 
+function onTabClick(e) {
+  // Start the segmented indicator animation only after interaction
+  $tablist.classList.add('animate')
+  selectOptionsTab(e.currentTarget.getAttribute('data-tab'))
+}
+
+function onTabKeyDown(e) {
+  if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return
+  const tabs = $tabs.filter(($tab) => getComputedStyle($tab).display != 'none')
+  const current = tabs.indexOf(e.currentTarget)
+  const direction = getComputedStyle($tablist).direction == 'rtl' ? -1 : 1
+  let next = current + (e.key == 'ArrowRight' ? direction : -direction)
+  if (e.key == 'Home') next = 0
+  else if (e.key == 'End') next = tabs.length - 1
+  const $next = tabs[(next + tabs.length) % tabs.length]
+  e.preventDefault()
+  $next.click()
+  $next.focus()
+}
+
 function onToggleCollapse(e) {
-  if (theme == 'ios') return
+  if (theme == 'ios' || filteringFeatures) return
   const collapsedGroups = config.collapsedGroups.slice()
   const collapseId = e.currentTarget.getAttribute('data-collapse-id')
   const index = collapsedGroups.indexOf(collapseId)
@@ -886,6 +940,23 @@ function saveCustomCss() {
   storeConfigChanges({ settings: { customCss } })
 }
 
+function openCustomCssInTab(e) {
+  e.preventDefault()
+  chrome.tabs.create(
+    { url: chrome.runtime.getURL('options.html#customCssSection'), active: true },
+    () => window.close(),
+  )
+}
+
+function focusCustomCss() {
+  config.tab = 'features'
+  config.collapsedGroups = config.collapsedGroups.filter((id) => id != 'advanced')
+  updateDisplay()
+  autoResize($customCss)
+  $customCss.scrollIntoView({ block: 'center' })
+  $customCss.focus({ preventScroll: true })
+}
+
 function shouldDisplayHideQuotesFrom() {
   return config.settings.mutableQuoteTweets && config.settings.hideQuotesFrom.length > 0
 }
@@ -899,7 +970,7 @@ function shouldDisplayMutedQuotes() {
  */
 async function storeConfigChanges(changes) {
   /** @type {Partial<import("./types").StoredConfig>} */
-  const internalConfig = Object.create(null)
+  const internalConfig = {}
   for (const key of Object.keys(defaultConfig)) {
     if (Object.hasOwn(changes, key)) {
       internalConfig[key] = changes[key]
@@ -941,16 +1012,21 @@ function updateCollapsedOptionGroupsDisplay() {
   for (const $label of $collapsibleLabels) {
     $label.parentElement.classList.toggle(
       'collapsed',
-      config.collapsedGroups.includes($label.getAttribute('data-collapse-id')),
+      !(filteringFeatures && $featurePanel.contains($label)) &&
+        config.collapsedGroups.includes($label.getAttribute('data-collapse-id')),
     )
   }
 }
 
 function updateDisplay() {
+  updateOptionsStyle()
   $body.classList.toggle('debugging', config.debug)
   $body.classList.toggle('defaultingFollowingToRecent', config.settings.defaultFollowingToRecent)
   $body.classList.toggle('defaultingToFollowing', config.settings.defaultToFollowing)
   $body.classList.toggle('disabled', !config.enabled)
+  $enabledLabel.textContent = chrome.i18n.getMessage(config.enabled ? 'enabled' : 'disabled')
+  $enabledToggle.setAttribute('aria-pressed', String(config.enabled))
+  $enabledToggle.title = `${chrome.i18n.getMessage('extensionName')}: ${$enabledLabel.textContent}`
   $body.classList.toggle('disabledHomeTimeline', config.settings.disableHomeTimeline)
   $body.classList.toggle('fullWidthContent', config.settings.fullWidthContent)
   $body.classList.toggle('hidingBookmarkButton', config.settings.hideBookmarkButton)
@@ -970,12 +1046,7 @@ function updateDisplay() {
   )
   $body.classList.toggle('showingSidebarContent', !config.settings.hideSidebarContent)
   $body.classList.toggle('sortingRepliesByLikes', config.settings.sortReplies == 'liked')
-  $body.classList.toggle('stickyHeadings', config.stickyHeadings)
-  $body.classList.toggle('uninvertedFollowButtons', config.settings.uninvertFollowButtons)
-  const icon = `icons/icon32${!config.enabled ? '-disabled' : ''}.png`
-  if ($optionsIcon.src != icon) {
-    $optionsIcon.src = icon
-  }
+  $body.classList.toggle('restoringTwitterBranding', config.settings.revertXBranding)
   $displaySettingsLink.href = 'https://x.com/settings/display'
   updateProDisplay()
   $showPremiumReplyFollowersCount.textContent = chrome.i18n.getMessage(
@@ -995,6 +1066,7 @@ function updateDisplay() {
     $customThemeInput.style.backgroundColor = ''
     $customThemeInput.style.color = ''
   }
+  updateFeatureSearch()
 }
 
 function updateProDisplay() {
@@ -1002,8 +1074,13 @@ function updateProDisplay() {
   const hasSubscription = subscription != null
   $proAccountSection.hidden = !hasSubscription
   $proSignInSection.hidden = hasSubscription
+  document.getElementById('importSettingsInfo').textContent = chrome.i18n.getMessage(
+    $body.classList.contains('v5') && config.token && config.syncSettings
+      ? 'importSettingsSyncedInfo'
+      : 'importSettingsInfo',
+  )
   $syncLastSynced.textContent = !config.syncSettings
-    ? 'Changes stay on this browser while sync is off. Turning it on restores cloud settings.'
+    ? chrome.i18n.getMessage('syncSettingsDisabledInfo')
     : config.lastSyncTime
       ? `Last synced: ${formatDateTime(config.lastSyncTime)}`
       : 'Last synced: Never'
@@ -1054,13 +1131,14 @@ function updateHideQuotesFromDisplay() {
         'section',
         null,
         h(
-          'label',
-          { class: 'button' },
-          h('span', null, `@${user}`),
+          'div',
+          { class: 'option-row button muted-entry' },
+          h('span', { class: 'muted-entry-content' }, `@${user}`),
           h(
             'button',
             {
               type: 'button',
+              class: 'unmute-button',
               onclick() {
                 config.settings.hideQuotesFrom = config.settings.hideQuotesFrom.filter(
                   (u) => u != user,
@@ -1095,25 +1173,26 @@ function updateMutedQuotesDisplay() {
         'section',
         null,
         h(
-          'label',
-          { class: 'button mutedQuote' },
+          'div',
+          { class: 'option-row button muted-entry mutedQuote' },
           h(
             'div',
-            null,
+            { class: 'muted-entry-content' },
             user,
             ' – ',
             new Intl.DateTimeFormat([], { dateStyle: 'medium' }).format(new Date(time)),
-            text && h('p', { class: 'mb-0 whitespace-pre-line' }, text),
+            text && h('p', { class: 'mb-0 whitespace-pre-line muted-entry-description' }, text),
           ),
           h(
             'button',
             {
               type: 'button',
+              class: 'unmute-button',
               onclick: () => {
                 config.settings.mutedQuotes = config.settings.mutedQuotes.filter(
                   (_, i) => i != index,
                 )
-                set({ mutedQuotes: config.settings.mutedQuotes })
+                storeConfigChanges({ settings: { mutedQuotes: config.settings.mutedQuotes } })
                 updateDisplay()
               },
             },
@@ -1128,7 +1207,7 @@ function updateMutedQuotesDisplay() {
 function updateFormControls() {
   for (const key of INTERNAL_CONFIG_FORM_KEYSET) {
     if (key in $form.elements) {
-      updateFormControl($form.elements[key], config[key])
+      updateFormControl($form.elements[key], config[key] ?? defaultConfig[key])
     }
   }
   for (const key of Object.keys(config.settings)) {
@@ -1153,11 +1232,28 @@ function updateFormControl($control, value) {
 }
 
 function updateTabsDisplay() {
-  const selectedTabIndex = $tabs.findIndex(($tab) => $tab.getAttribute('data-tab') == config.tab)
-  $tablist.style.setProperty('--selected-tab-index', String(selectedTabIndex))
-  for (const $tab of $tabs) {
-    $tab.setAttribute('aria-selected', String($tab.getAttribute('data-tab') == config.tab))
+  const visibleTabs = $tabs.filter(($tab) => getComputedStyle($tab).display != 'none')
+  if (
+    !visibleTabs.some(($tab) => $tab.getAttribute('data-tab') == config.tab) &&
+    visibleTabs.length
+  ) {
+    config.tab = /** @type {import('./types').StoredConfig['tab']} */ (
+      visibleTabs[0].getAttribute('data-tab')
+    )
   }
+  $tablist.style.setProperty('--tab-count', String(visibleTabs.length || 1))
+  $tablist.style.setProperty(
+    '--selected-tab-index',
+    String(visibleTabs.findIndex(($tab) => $tab.getAttribute('data-tab') == config.tab)),
+  )
+  for (const $tab of $tabs) {
+    const selected = $tab.getAttribute('data-tab') == config.tab
+    $tab.setAttribute('aria-selected', String(selected))
+    $tab.tabIndex = selected ? 0 : -1
+  }
+  const showSearch = featureSearchOpen && config.tab == 'features'
+  $featureSearchRow.hidden = !showSearch
+  $featureSearchToggle.setAttribute('aria-expanded', String(showSearch))
   for (const $panel of $panels) {
     $panel.style.display = config.tab == $panel.getAttribute('data-tab') ? 'block' : 'none'
   }
@@ -1191,7 +1287,7 @@ export function validateSettingsJson(json) {
       invalid.length > 0 && chrome.i18n.getMessage('invalidSettings', invalid.join(', ')),
       unknown.length > 0 && chrome.i18n.getMessage('unknownSettings', unknown.join(', ')),
     ].filter(Boolean),
-    settings: Object.keys(settings).length > 0 ? settings : null,
+    settings: warning || invalid.length > 0 || unknown.length > 0 ? null : settings,
   }
 }
 //#endregion
@@ -1209,7 +1305,27 @@ async function main() {
   for (const $label of $collapsibleLabels) {
     $label.addEventListener('click', onToggleCollapse)
   }
+  $enabledToggle.addEventListener('click', onToggleEnabled)
+  $featureSearchToggle.addEventListener('click', () =>
+    setFeatureSearchOpen($featureSearchRow.hidden),
+  )
+  $featureSearchInput.addEventListener('input', updateFeatureSearch)
+  $featureSearchInput.addEventListener('search', updateFeatureSearch)
+  document.addEventListener('keydown', onFeatureSearchKeyDown, true)
+  document.addEventListener('keyup', onFeatureSearchKeyUp, true)
+  $featureSearchClear.addEventListener('click', () => {
+    $featureSearchInput.value = ''
+    updateFeatureSearch()
+    $featureSearchInput.focus()
+  })
   $customCss.addEventListener('input', () => autoResize($customCss))
+  $customCss.addEventListener('keydown', (e) => {
+    if (!e.isComposing && e.key == 'Enter' && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault()
+      saveCustomCss()
+    }
+  })
+  document.getElementById('openInTabLink').addEventListener('click', openCustomCssInTab)
   $exportSettingsButton.addEventListener('click', () => {
     // macOS Safari can't export from the browser action, WebKitBlobResource error 1
     // We can't use navigator.share() instead as it doesn't have a save option
@@ -1255,51 +1371,16 @@ async function main() {
   $saveCustomCssButton.addEventListener('click', saveCustomCss)
   for (const $tab of $tabs) {
     $tab.addEventListener('click', onTabClick)
+    $tab.addEventListener('keydown', onTabKeyDown)
   }
   if (config.settings.mutedWordsError) {
     showMutedWordsError(validateMuteRegExps(config.settings.mutedWords))
   }
 
-  const tabsResizeObserver = new ResizeObserver((entries) => {
-    for (const entry of entries) {
-      tabsHeight = entry.contentRect.height
-      $body.style.setProperty('--tabs-height', `${tabsHeight}px`)
-      stickyObserver?.disconnect()
-      stickyObserver = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            const $sentinel = /** @type {HTMLElement} */ (entry.target)
-            // Ignore hidden sentinels
-            if ($sentinel.offsetParent == null) continue
-            const $label = $sentinel.closest('section.labelled').querySelector('label')
-            if ($sentinel.classList.contains('top')) {
-              $label.classList.toggle(
-                'stuck',
-                !entry.isIntersecting && entry.boundingClientRect.top < tabsHeight,
-              )
-            }
-            if ($sentinel.classList.contains('bottom')) {
-              $label.classList.toggle(
-                'unstick',
-                !entry.isIntersecting && entry.boundingClientRect.top < tabsHeight,
-              )
-            }
-          }
-        },
-        {
-          rootMargin: `-${tabsHeight}px 0px 0px 0px`,
-        },
-      )
-      for (const $sentinel of $stickySentinels) {
-        stickyObserver.observe($sentinel)
-      }
-    }
-  })
-  tabsResizeObserver.observe($tablist)
-
   chrome.storage.onChanged.addListener(onStorageChanged)
 
   applyConfig()
+  if (location.hash == '#customCssSection') focusCustomCss()
 }
 
 main()

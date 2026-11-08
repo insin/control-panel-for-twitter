@@ -11,12 +11,14 @@ export type StoredConfig = {
   enabled?: boolean
   /** The last app layout which was active when the page script ran */
   lastLayout?: 'desktop' | 'mobile'
+  /** Last detected web app implementation */
+  lastSiteVersion?: 'rweb' | 'xweb'
+  /** Options appearance override - automatic follows the detected browser */
+  optionsStyle?: 'automatic' | 'firefox' | 'chrome' | 'edge' | 'mac' | 'ios'
   /** Next release threshold whose storage migration must complete */
   pendingStorageMigration?: string
   /** We only store settings the user has actually interacted with */
   settings?: Partial<UserSettings>
-  /** Toggle sticky headings in compatible options layouts */
-  stickyHeadings?: boolean
   /** Selected tab in options */
   tab: 'features' | 'settings' | 'pro'
 
@@ -70,7 +72,7 @@ export type UserSettings = {
   addAddMutedWordMenuItem: boolean
   addFocusedTweetAccountLocation: boolean
   bypassAgeVerification: boolean
-  darkModeTheme: 'lightsOut' | 'dim'
+  darkModeTheme: 'lightsOut' | 'dim' | 'monokaiExtended' | 'gruvboxDarkSoft'
   defaultFollowingToRecent: boolean
   defaultToFollowing: boolean
   defaultToLatestSearch: boolean
@@ -81,8 +83,8 @@ export type UserSettings = {
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
   fastBlock: boolean
-  followButtonStyle: 'monochrome' | 'themed'
   hideAdsNav: boolean
+  hideAiTweets: boolean
   hideBookmarkButton: boolean
   hideBookmarkMetrics: boolean
   hideBusinessNav: boolean
@@ -102,7 +104,7 @@ export type UserSettings = {
   hideGrokTweets: boolean
   hideHistoryNav: boolean
   hideInlinePrompts: boolean
-  hideJobsNav: boolean
+  hideJobs: boolean
   hideLikeMetrics: boolean
   hideListRetweets: boolean
   hideListsNav: boolean
@@ -128,20 +130,20 @@ export type UserSettings = {
   hideSubscriptions: boolean
   hideSuggestedContentSearch: boolean
   hideSuggestedContentTimeline: boolean
-  hideTweetAnalyticsLinks: boolean
   hideUnavailableQuoteTweets: boolean
   hideVerifiedTabs: boolean
   hideViewActivityLinks: boolean
   hideViews: boolean
+  lightModeTheme: 'light' | 'catppuccinLatte' | 'solarizedLight' | 'gruvboxLight'
   mutableQuoteTweets: boolean
   mutedQuotes: QuotedTweet[]
   premiumBlueChecks: 'ignore' | 'replace' | 'hide'
   quoteTweets: SharedTweetsConfig
   reducedInteractionMode: boolean
+  removeSidebarPanelGradients: boolean
   restoreLinkHeadlines: boolean
   restoreOtherInteractionLinks: boolean
   restoreQuoteTweetsLink: boolean
-  restoreTweetSource: boolean
   retweets: SharedTweetsConfig
   revertMediaCarousel: boolean
   revertProfileTabs: boolean
@@ -176,11 +178,11 @@ export type UserSettings = {
   navDensity: 'default' | 'comfortable' | 'compact'
   showRelevantPeople: boolean
   // Mobile only
-  hideChatBottomNavItem: boolean
   hideLiveBroadcastBar: boolean
   preventNextVideoAutoplay: boolean
   // Experiments
   customCss: string
+  enableCustomCss: boolean
 }
 
 export type UserSettingsKey = keyof UserSettings
@@ -210,56 +212,85 @@ export type ExtensionsProSubscription =
       canceledAt: number | null
     }
 
-export type Locale = {
-  [K in LocaleKey]?: K extends `${string}_FN` ? (arg: any) => string : string
-}
-
-export type LocaleFunctionKey = Extract<LocaleKey, `${string}_FN`>
+export type Locale = Partial<Record<LocaleKey, string>>
 
 export type LocaleKey =
-  | 'ACCOUNT_BASED_IN_FN'
+  | 'ACCOUNT_BASED_IN'
   | 'ADD_ANOTHER_TWEET'
   | 'ADD_MUTED_WORD'
+  | 'AD_FROM'
+  | 'BACK'
+  | 'CHOOSE_AUDIENCE'
+  | 'DRAFTS'
+  | 'FOLLOWING_USER'
+  | 'FOLLOW_BACK_USER'
+  | 'FOLLOW_USER'
   | 'GROK_ACTIONS'
   | 'HOME'
   | 'LIKES'
+  | 'LIKE_COUNT'
   | 'LIVE_ON_X'
+  | 'MEDIA_COUNT'
+  | 'MEDIA_VIEWER'
   | 'MOST_RELEVANT'
   | 'MUTE_THIS_CONVERSATION'
+  | 'NEW_POST'
+  | 'NEW_TWEET'
+  | 'POST'
+  | 'POSTED'
+  | 'POSTS'
   | 'POST_ALL'
+  | 'POST_COUNT'
+  | 'POST_TITLE'
   | 'POST_UNAVAILABLE'
+  | 'POST_YOUR_REPLY'
   | 'PROFILE_SUMMARY'
   | 'QUOTE'
   | 'QUOTES'
+  | 'QUOTE_COUNT'
   | 'QUOTE_TWEET'
   | 'QUOTE_TWEETS'
+  | 'QUOTE_TWEET_COUNT'
   | 'RECENT'
   | 'RELEVANT'
   | 'REPOST'
   | 'REPOSTS'
+  | 'REPOST_COUNT'
   | 'RETWEET'
   | 'RETWEETED_BY'
   | 'RETWEETS'
+  | 'RETWEET_COUNT'
   | 'SHARED'
   | 'SHARED_TWEETS'
   | 'SHOW'
   | 'SHOW_MORE_REPLIES'
+  | 'SHOW_POSTS'
+  | 'SHOW_TWEETS'
   | 'SORT_BY'
   | 'SORT_REPLIES'
   | 'TURN_OFF_QUOTE_TWEETS'
   | 'TURN_OFF_RETWEETS'
   | 'TURN_ON_RETWEETS'
   | 'TWEET'
+  | 'TWEETED'
   | 'TWEETS'
   | 'TWEET_ALL'
+  | 'TWEET_COUNT'
   | 'TWEET_INTERACTIONS'
+  | 'TWEET_NOUN'
+  | 'TWEET_TITLE'
   | 'TWEET_YOUR_REPLY'
   | 'TWITTER'
   | 'UNDO_RETWEET'
+  | 'UNFOLLOW_USER'
+  | 'USERS_POSTED'
+  | 'USERS_TWEETED'
+  | 'USER_REPOSTED'
+  | 'USER_RETWEETED'
   | 'VIEW'
-  | 'WHATS_HAPPENING'
-
-export type LocaleStringKey = Exclude<LocaleKey, `${string}_FN`>
+  | 'WHO_CAN_REPLY'
+  | 'YOU_REPOSTED'
+  | 'YOU_RETWEETED'
 
 export type Migration = {
   convert?: (value: unknown) => unknown
@@ -301,6 +332,7 @@ export type TweetType =
   | 'COMMUNITY_TWEET'
   | 'PINNED_TWEET'
   | 'PROMOTED_TWEET'
+  | 'PAID_PARTNERSHIP'
   | 'QUOTE_TWEET'
   | 'RETWEET'
   | 'RETWEETED_QUOTE_TWEET'
@@ -313,6 +345,7 @@ export type TimelineItemType =
   | TweetType
   | 'BLUE_REPLY'
   | 'BUSINESS_REPLY'
+  | 'DISCOVER_MORE'
   | 'DISCOVER_MORE_HEADING'
   | 'DISCOVER_MORE_TWEET'
   | 'FOCUSED_TWEET'
@@ -322,7 +355,10 @@ export type TimelineItemType =
   | 'SEE_MORE'
   | 'SHOW_MORE'
   | 'SUBSEQUENT_ITEM'
+  | 'THREAD'
   | 'UNAVAILABLE'
+  | 'UNKNOWN'
+  | 'WHO_TO_FOLLOW'
   | `NOTIFICATION_${NotificationType}`
 
 export type NotificationType = 'AD' | 'FOLLOW' | 'LIKE' | 'RETWEET'
@@ -357,3 +393,20 @@ export type UserInfo = {
 export type UserInfoObject = {[index: string]: UserInfo}
 
 export type VerifiedType = 'BLUE' | 'BUSINESS' | 'GOVERNMENT'
+
+export type XTheme = {
+  /** Native mode this palette replaces */
+  mode: 'light' | 'dark'
+  /**
+   * Semantic tokens - `--x-bg-primary` must be a six-digit hex colour for alpha
+   * generation.
+   */
+  tokens: Record<string, string>
+  highContrastTokens: Record<string, string>
+  /**
+   * Compatibility tokens for older Chat/Calls components which consume
+   * Tailwind/shadcn HSL variables.
+   */
+  embedTokens: Record<string, string>
+  embedHighContrastTokens: Record<string, string>
+}

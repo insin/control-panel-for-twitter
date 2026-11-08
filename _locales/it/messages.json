@@ -1,9 +1,6 @@
 {
-  "addAddMutedWordMenuItem_desktop": {
-    "message": "Aggiungi \"Aggiungi parola o frase silenziata\" al menu \"Altro\""
-  },
-  "addAddMutedWordMenuItem_mobile": {
-    "message": "Aggiungi \"Aggiungi parola o frase silenziata\" al menu ad hamburger"
+  "addAddMutedWordMenuItem": {
+    "message": "Aggiungi \"Aggiungi parola o frase silenziata\" al menu di navigazione"
   },
   "addFocusedTweetAccountLocation": {
     "message": "Mostra la località dell'account nei tweet in primo piano"
@@ -11,8 +8,14 @@
   "addUserHoverCardAccountLocation": {
     "message": "Mostra la località dell'account nelle schede profilo a comparsa"
   },
+  "advancedOptions": {
+    "message": "Avanzate"
+  },
   "appStoreSubtitle": {
     "message": "La tua timeline, come vuoi tu"
+  },
+  "appearanceOptions": {
+    "message": "Aspetto"
   },
   "backupAndRestoreOptions": {
     "message": "Backup e ripristino"
@@ -20,8 +23,8 @@
   "bypassAgeVerification": {
     "message": "Aggira la verifica dell'età"
   },
-  "customCss": {
-    "message": "CSS personalizzato"
+  "clearFeatureSearch": {
+    "message": "Cancella ricerca"
   },
   "customTheme": {
     "message": "Colore tema personalizzato"
@@ -68,11 +71,11 @@
   "disableTweetTextFormatting": {
     "message": "Disabilita il testo in grassetto e corsivo nei tweet"
   },
+  "disabled": {
+    "message": "Disabilitato"
+  },
   "disabledHomeTimelineRedirect": {
     "message": "Reindirizza la Home a"
-  },
-  "disabledHomeTimelineRedirectOption_messages": {
-    "message": "Messaggi"
   },
   "dontUseChirpFont": {
     "message": "Non usare il font Chirp"
@@ -80,11 +83,11 @@
   "dropdownMenuFontWeight": {
     "message": "Usa il peso normale per il font dei menu a tendina"
   },
+  "enableCustomCss": {
+    "message": "CSS personalizzato"
+  },
   "enabled": {
     "message": "Abilitato"
-  },
-  "experimentsOptions": {
-    "message": "Esperimenti"
   },
   "export": {
     "message": "Esporta"
@@ -110,14 +113,8 @@
   "features": {
     "message": "Funzionalità"
   },
-  "followButtonStyle": {
-    "message": "Stile tasti"
-  },
-  "followButtonStyleOption_monochrome": {
-    "message": "Monocromo"
-  },
-  "followButtonStyleOption_themed": {
-    "message": "Colorati"
+  "featuresDisabledInfo": {
+    "message": "Le modifiche verranno applicate quando l’estensione sarà attivata"
   },
   "fullWidthContent": {
     "message": "Timeline a larghezza intera"
@@ -134,11 +131,14 @@
   "hideAdsNav": {
     "message": "Annunci"
   },
+  "hideAiTweets": {
+    "message": "Nascondi i tweet “Realizzato con l'AI”"
+  },
   "hideAllMetrics": {
     "message": "Nascondi tutte"
   },
   "hideBookmarkButton": {
-    "message": "Tasto segnalibro sotto i tweet"
+    "message": "Nascondi il tasto segnalibro sotto i tweet"
   },
   "hideBookmarkMetrics": {
     "message": "Segnalibri"
@@ -147,7 +147,7 @@
     "message": "Per le attività"
   },
   "hideCalls": {
-    "message": "Chiamate"
+    "message": "Nascondi le chiamate"
   },
   "hideChatDrawer": {
     "message": "Cassetto chat"
@@ -171,10 +171,10 @@
     "message": "Nascondi i suggerimenti \"Scopri\""
   },
   "hideEditImage": {
-    "message": "Nascondi Modifica immagine"
+    "message": "Nascondi i pulsanti Modifica immagine"
   },
   "hideExploreNav": {
-    "message": "Esplora"
+    "message": "Nascondi Esplora nella navigazione"
   },
   "hideExploreNavWithSidebar": {
     "message": "Mostra quando la barra laterale è nascosta"
@@ -236,8 +236,8 @@
   "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "Nascondi elementi del menu \"Altro\" che non usi"
   },
-  "hideMoreSlideOutMenuItemsOptions_mobile": {
-    "message": "Nascondi elementi del menu ad hamburger che non usi"
+  "hideNavigationItemsOptions": {
+    "message": "Nascondi elementi di navigazione"
   },
   "hideNotificationLikes": {
     "message": "Nascondi Mi piace nelle notifiche"
@@ -279,10 +279,10 @@
     "message": "Retweet"
   },
   "hideSeeNewTweets": {
-    "message": "Nascondi \"Mostra nuovi tweet\""
+    "message": "Nascondi il popup dei nuovi tweet"
   },
   "hideShareTweetButton": {
-    "message": "Tasto condividi sotto ai tweet"
+    "message": "Nascondi il tasto Condividi sotto ai tweet"
   },
   "hideSidebarContent": {
     "message": "Nascondi contenuti della barra laterale"
@@ -306,13 +306,13 @@
     "message": "Nascondi i suggerimenti di follow"
   },
   "hideTimelineTweetBox": {
-    "message": "Compositore tweet nella timeline"
+    "message": "Nascondi il compositore tweet nella timeline"
   },
   "hideTodaysNews": {
     "message": "Nascondi le Notizie del giorno"
   },
   "hideUnavailableQuoteTweets": {
-    "message": "Nascondi tweet citati e risposte di account bloccati o silenziati"
+    "message": "Nascondi i tweet non disponibili e silenziati"
   },
   "hideUnusedUiItemsOptions": {
     "message": "Nascondi elementi di interfaccia che non usi"
@@ -338,6 +338,12 @@
   "importSettings": {
     "message": "Importa impostazioni"
   },
+  "importSettingsInfo": {
+    "message": "Sostituisce le impostazioni di questo browser."
+  },
+  "importSettingsSyncedInfo": {
+    "message": "Sostituisce le impostazioni sincronizzate in tutti i browser."
+  },
   "invalidJsonFile": {
     "message": "File JSON non valido: $ERROR$",
     "placeholders": {
@@ -353,6 +359,9 @@
         "content": "$1"
       }
     }
+  },
+  "lightModeTheme": {
+    "message": "Tema della modalità chiara"
   },
   "mutableQuoteTweets": {
     "message": "Abilita silenziamento dei tweet di citazione"
@@ -378,8 +387,14 @@
   "navDensity": {
     "message": "Densità navigazione"
   },
+  "needMoreRoom": {
+    "message": "Ti serve più spazio?"
+  },
   "noFileSelected": {
     "message": "Nessun file selezionato"
+  },
+  "noMatchingFeatures": {
+    "message": "Nessuna funzionalità corrispondente."
   },
   "noSettingsObject": {
     "message": "Nessun oggetto di impostazioni trovato nel file JSON"
@@ -387,8 +402,14 @@
   "notifications": {
     "message": "Notifiche"
   },
+  "openInTabLink": {
+    "message": "apri in una scheda"
+  },
   "openOptionsPage": {
     "message": "Apri la pagina delle opzioni"
+  },
+  "option_automatic": {
+    "message": "Automatico"
   },
   "option_badges": {
     "message": "Nascondi solo i badge"
@@ -410,6 +431,9 @@
   },
   "option_ignore": {
     "message": "Non fare nulla"
+  },
+  "option_light": {
+    "message": "Chiaro"
   },
   "option_lightsOut": {
     "message": "Luci spente"
@@ -438,6 +462,12 @@
   "optionsPageImportSettingsNote": {
     "message": "Usa la pagina delle opzioni per importare le impostazioni"
   },
+  "optionsStyle": {
+    "message": "Stile delle opzioni"
+  },
+  "otherPagesOptions": {
+    "message": "Altre pagine"
+  },
   "premiumBlueChecks": {
     "message": "Spunta blu Premium"
   },
@@ -465,17 +495,17 @@
   "reducedInteractionModeInfo": {
     "message": "Nascondi la barra di azione sotto ai tweet: le risposte sono ora l'unico modo per interagire"
   },
+  "removeSidebarPanelGradients": {
+    "message": "Rimuovi le sfumature dai pannelli laterali"
+  },
   "restoreLinkHeadlines": {
-    "message": "Ripristina titoli sotto ai link esterni"
+    "message": "Ripristina le anteprime dei link di Twitter"
   },
   "restoreOtherInteractionLinks": {
     "message": "Ripristina altri link sotto ai tweet"
   },
   "restoreQuoteTweetsLink": {
     "message": "Ripristina link dei tweet di citazione sotto ai tweet"
-  },
-  "restoreTweetSource": {
-    "message": "Ripristina etichetta della fonte del Tweet"
   },
   "retweets": {
     "message": "Retweet"
@@ -490,13 +520,19 @@
     "message": "Torna a Twemoji"
   },
   "revertXBranding": {
-    "message": "Ripristina modifiche del marchio X"
+    "message": "Ripristina l’aspetto di Twitter"
   },
   "saveAndApply": {
     "message": "Salva e applica"
   },
+  "searchFeatures": {
+    "message": "Cerca funzionalità…"
+  },
   "settings": {
     "message": "Impostazioni"
+  },
+  "settingsImportFailed": {
+    "message": "Importazione non riuscita. Le impostazioni di questo browser non sono state modificate. Riprova."
   },
   "settingsImported": {
     "message": "Impostazioni importate"
@@ -546,14 +582,17 @@
   "sortRepliesInfo": {
     "message": "A causa di un bug di X, l'ordinamento per \"Mi piace\" altera l'ordine delle risposte"
   },
-  "stickyHeadings": {
-    "message": "Intestazioni fisse"
-  },
   "syncSettings": {
     "message": "Sincronizza le impostazioni in questo browser"
   },
+  "syncSettingsDisabledInfo": {
+    "message": "Le modifiche rimangono in questo browser quando la sincronizzazione è disattivata. Attivandola, le impostazioni di questo browser vengono sostituite con quelle sincronizzate."
+  },
   "tweakQuoteTweetsPage": {
     "message": "Nascondi il tweet citato quando visualizzi i tweet di citazione"
+  },
+  "tweetsAndRepliesOptions": {
+    "message": "Tweet e risposte"
   },
   "uiImprovementsOptions": {
     "message": "Miglioramenti interfaccia"
@@ -577,6 +616,9 @@
   },
   "unmuteButtonText": {
     "message": "Riattiva"
+  },
+  "xFeaturesOptions": {
+    "message": "Funzionalità di X"
   },
   "xFixesOptions": {
     "message": "Anti-X"

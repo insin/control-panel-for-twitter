@@ -6,7 +6,7 @@ import {
   get,
   OPEN_APP_MESSAGE,
   remove,
-  SYNC_SCHEDULE_PUSH_MESSAGE,
+  SET_SETTINGS_MESSAGE,
   SYNC_SETTINGS_CHANGED_MESSAGE,
   set,
 } from './settings.js'
@@ -16,10 +16,9 @@ const CONFIG = {
   accountRefreshIntervalMinutes: 60,
   apiBase: 'https://pro.soitis.dev',
   pullIntervalMinutes: 10,
-  // TODO If we need a shorter delay, use setTimeout with an alarm as a backup,
-  //      in case the service worker is killed before the timeout fires.
   pushDebounceSeconds: 30,
 }
+const IS_PRO = Number(chrome.runtime.getManifest?.().version?.split('.')[0]) >= 5
 
 //#region Constants
 export const ACCOUNT_REFRESH_ALARM = 'ACCOUNT_REFRESH'
@@ -28,7 +27,45 @@ export const PUSH_ALARM = 'SETTINGS_PUSH'
 //#endregion
 
 //#region Utilities
+let settingsWrite = Promise.resolve()
+
+/**
+ * Serialise background settings mutations
+ * @template T
+ * @param {() => T | Promise<T>} task
+ * @returns {Promise<T>}
+ */
+function withSettingsWrite(task) {
+  const pending = settingsWrite.then(task)
+  settingsWrite = pending.then(
+    () => {},
+    () => {},
+  )
+  return pending
+}
+
 let syncCycleSequence = 0
+let syncEpoch = 0
+let syncTask = Promise.resolve()
+
+/**
+ * @template T
+ * @param {() => T | Promise<T>} task
+ * @returns {Promise<T>}
+ */
+function queueSync(task) {
+  const pending = syncTask.then(task)
+  syncTask = pending.then(
+    () => {},
+    () => {},
+  )
+  return pending
+}
+
+async function isCurrentSync(headers, epoch) {
+  const { token, syncSettings = true } = await get(['token', 'syncSettings'])
+  return syncSettings && epoch == syncEpoch && headers.Authorization == `Bearer ${token}`
+}
 
 /**
  * @param {Promise<any>} task
@@ -69,24 +106,66 @@ function settingsValueMatches(a, b) {
 //#endregion
 
 //#region Functions
+/**
+ * @param {Partial<import('./types').UserSettings>} changes
+ * @param {{replace?: boolean}} [options]
+ */
+function writeSettings(changes, { replace = false } = {}) {
+  return withSettingsWrite(async () => {
+    const {
+      pendingSettingsPatch = {},
+      settings = {},
+      syncSettings = true,
+      token,
+    } = await get(['pendingSettingsPatch', 'settings', 'syncSettings', 'token'])
+    const sync = IS_PRO && syncSettings && token
+    let synced = {}
+    if (replace && sync) {
+      // Imports require a successful upload before changing local settings
+      const epoch = syncEpoch
+      const headers = await getHeaders()
+      const res = await fetch(`${CONFIG.apiBase}/api/extension/settings`, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify({ settings: changes }),
+      })
+      if (!res.ok) throw new Error(`Settings import failed (HTTP ${res.status})`)
+      const { lastModified } = await res.json()
+      if (!(await isCurrentSync(headers, epoch)))
+        throw new Error('Sync state changed during import')
+      synced = {
+        serverLastModified: lastModified,
+        lastSyncTime: Date.now(),
+        settingsSyncPhase: 'ready',
+      }
+    }
+    if (replace && sync) await remove('syncError')
+    await set({
+      settings: replace ? changes : { ...settings, ...changes },
+      ...(sync
+        ? { pendingSettingsPatch: replace ? {} : { ...pendingSettingsPatch, ...changes } }
+        : {}),
+      ...synced,
+    })
+    return Boolean(sync && !replace)
+  })
+}
+
 async function applyServerSettings(settings, lastModified) {
   const { pendingSettingsPatch = {} } = await get('pendingSettingsPatch')
-
   await set({
     serverLastModified: lastModified,
-    settings: {
-      ...settings,
-      ...pendingSettingsPatch,
-    },
+    settings: { ...settings, ...pendingSettingsPatch },
   })
 }
 
 async function disableSettingsSync() {
+  syncEpoch++
   await trace('sync.disabled')
   // Settings changes made while sync is off must remain local
   await Promise.all([clearAlarm(PULL_ALARM), clearAlarm(PUSH_ALARM)])
   await trace('alarms.cleared', { names: [PULL_ALARM, PUSH_ALARM], reason: 'sync-disabled' })
-  await remove('pendingSettingsPatch')
+  await withSettingsWrite(() => remove('pendingSettingsPatch'))
 
   // Keep subscription details fresh while sync is off
   const { token } = await get('token')
@@ -133,16 +212,22 @@ async function getHeaders() {
   }
 }
 
-async function handleAccountLinked() {
+async function handleAccountLinked({ email, token }) {
+  if (typeof token != 'string' || !token || typeof email != 'string')
+    throw new Error('Invalid account credentials')
+  syncEpoch++
   await trace('account.linked')
-  await remove([
-    'lastSyncTime',
-    'pendingSettingsPatch',
-    'serverLastModified',
-    'settingsSyncPhase',
-    'subscription',
-    'syncError',
-  ])
+  await withSettingsWrite(async () => {
+    await remove([
+      'lastSyncTime',
+      'pendingSettingsPatch',
+      'serverLastModified',
+      'settingsSyncPhase',
+      'subscription',
+      'syncError',
+    ])
+    await set({ accountEmail: email, token })
+  })
 
   if (await isSettingsSyncEnabled()) {
     await enableSettingsSync({ phase: 'seed-if-missing', reason: 'account-linked' })
@@ -153,6 +238,7 @@ async function handleAccountLinked() {
 }
 
 async function handleAccountUnlinked() {
+  syncEpoch++
   await trace('account.unlinked')
   await Promise.all([
     clearAlarm(ACCOUNT_REFRESH_ALARM),
@@ -163,16 +249,18 @@ async function handleAccountUnlinked() {
     names: [ACCOUNT_REFRESH_ALARM, PULL_ALARM, PUSH_ALARM],
     reason: 'account-unlinked',
   })
-  await remove([
-    'accountEmail',
-    'lastSyncTime',
-    'pendingSettingsPatch',
-    'serverLastModified',
-    'settingsSyncPhase',
-    'subscription',
-    'syncError',
-    'token',
-  ])
+  await withSettingsWrite(() =>
+    remove([
+      'accountEmail',
+      'lastSyncTime',
+      'pendingSettingsPatch',
+      'serverLastModified',
+      'settingsSyncPhase',
+      'subscription',
+      'syncError',
+      'token',
+    ]),
+  )
 }
 
 async function handleSettingsErrorResponse(res) {
@@ -202,6 +290,7 @@ async function isSettingsSyncEnabled() {
  * server should be seeded from this browser, or `reconciled` otherwise.
  */
 async function pullSettings(cycle) {
+  const epoch = syncEpoch
   if (!(await isSettingsSyncEnabled())) {
     await trace('settings.pull.skipped', { cycle, reason: 'sync-disabled' })
     return 'failed'
@@ -223,6 +312,7 @@ async function pullSettings(cycle) {
   try {
     res = await fetch(`${CONFIG.apiBase}/api/extension/settings`, { headers })
   } catch {
+    if (!(await isCurrentSync(headers, epoch))) return 'failed'
     await set({ syncError: 'network' })
     await trace('http.failed', {
       cycle,
@@ -242,6 +332,7 @@ async function pullSettings(cycle) {
     status: res.status,
   })
 
+  if (!(await isCurrentSync(headers, epoch))) return 'failed'
   if (!res.ok) {
     await handleSettingsErrorResponse(res)
     return 'failed'
@@ -251,60 +342,64 @@ async function pullSettings(cycle) {
     return 'failed'
   }
 
-  await remove('syncError')
-  await set({ lastSyncTime: Date.now() })
+  const payload = await res.json()
+  return withSettingsWrite(async () => {
+    if (!(await isCurrentSync(headers, epoch))) return 'failed'
+    await remove('syncError')
+    await set({ lastSyncTime: Date.now() })
 
-  const { hasSettings, settings, lastModified, subscription } = await res.json()
-  const { serverLastModified = 0, settingsSyncPhase = 'ready' } = await get([
-    'serverLastModified',
-    'settingsSyncPhase',
-  ])
+    const { hasSettings, settings, lastModified, subscription } = payload
+    const { serverLastModified = 0, settingsSyncPhase = 'ready' } = await get([
+      'serverLastModified',
+      'settingsSyncPhase',
+    ])
 
-  if (subscription !== undefined) {
-    await set({ subscription })
-  }
+    if (subscription !== undefined) {
+      await set({ subscription })
+    }
 
-  if (!hasSettings) {
-    if (settingsSyncPhase == 'seed-if-missing') {
-      await trace('settings.reconciled', {
-        cycle,
-        outcome: 'seed-server',
-        phase: settingsSyncPhase,
-      })
-      return 'seed-server'
-    } else if (settingsSyncPhase == 'replace-from-server') {
-      // An empty server snapshot means default settings, but we should preserve
-      // any changes made immediately after sync was re-enabled.
-      const { pendingSettingsPatch = {} } = await get('pendingSettingsPatch')
-      await set({ settings: pendingSettingsPatch })
-      await trace('settings.reconciled', {
-        cycle,
-        outcome: 'replace-with-defaults',
-        pendingKeys: Object.keys(pendingSettingsPatch),
-        phase: settingsSyncPhase,
-      })
-    } else {
-      await trace('settings.reconciled', {
-        cycle,
-        outcome: 'server-empty',
-        phase: settingsSyncPhase,
-      })
+    if (!hasSettings) {
+      if (settingsSyncPhase == 'seed-if-missing') {
+        await trace('settings.reconciled', {
+          cycle,
+          outcome: 'seed-server',
+          phase: settingsSyncPhase,
+        })
+        return 'seed-server'
+      } else if (settingsSyncPhase == 'replace-from-server') {
+        // An empty server snapshot means default settings, but we should
+        // preserve any changes made immediately after sync was re-enabled.
+        const { pendingSettingsPatch = {} } = await get('pendingSettingsPatch')
+        await set({ settings: pendingSettingsPatch })
+        await trace('settings.reconciled', {
+          cycle,
+          outcome: 'replace-with-defaults',
+          pendingKeys: Object.keys(pendingSettingsPatch),
+          phase: settingsSyncPhase,
+        })
+      } else {
+        await trace('settings.reconciled', {
+          cycle,
+          outcome: 'server-empty',
+          phase: settingsSyncPhase,
+        })
+      }
+      await set({ settingsSyncPhase: 'ready' })
+      return 'reconciled'
+    }
+
+    const applyServerSnapshot = settingsSyncPhase != 'ready' || lastModified > serverLastModified
+    if (applyServerSnapshot) {
+      await applyServerSettings(settings, lastModified)
     }
     await set({ settingsSyncPhase: 'ready' })
+    await trace('settings.reconciled', {
+      cycle,
+      outcome: applyServerSnapshot ? 'server-applied' : 'server-not-newer',
+      phase: settingsSyncPhase,
+    })
     return 'reconciled'
-  }
-
-  const applyServerSnapshot = settingsSyncPhase != 'ready' || lastModified > serverLastModified
-  if (applyServerSnapshot) {
-    await applyServerSettings(settings, lastModified)
-  }
-  await set({ settingsSyncPhase: 'ready' })
-  await trace('settings.reconciled', {
-    cycle,
-    outcome: applyServerSnapshot ? 'server-applied' : 'server-not-newer',
-    phase: settingsSyncPhase,
   })
-  return 'reconciled'
 }
 
 /**
@@ -317,19 +412,18 @@ async function pushSettings({ cycle, full = false, reason = 'pending-settings' }
     await trace('settings.push.skipped', { cycle, reason: 'sync-disabled' })
     return false
   }
-
   const headers = await getHeaders()
   if (!headers) {
     await trace('settings.push.skipped', { cycle, reason: 'no-linked-account' })
     return false
   }
-
+  const epoch = syncEpoch
   const { pendingSettingsPatch = {}, settings = {} } = await get([
     'pendingSettingsPatch',
     'settings',
   ])
   const settingsPatch = full ? settings : pendingSettingsPatch
-
+  const method = 'PATCH'
   const settingsKeys = Object.keys(settingsPatch)
   if (!full && settingsKeys.length == 0) {
     await trace('settings.push.skipped', { cycle, reason: 'no-pending-settings' })
@@ -344,69 +438,70 @@ async function pushSettings({ cycle, full = false, reason = 'pending-settings' }
     full,
     keyCount: settingsKeys.length,
     ...(full ? {} : { keys: settingsKeys }),
-    method: 'PATCH',
+    method,
     reason,
   })
   try {
-    res = await fetch(`${CONFIG.apiBase}/api/extension/settings`, {
-      method: 'PATCH',
-      headers,
-      body: JSON.stringify({
-        settings: settingsPatch,
-      }),
+    const request = await withSettingsWrite(async () => {
+      if (!(await isCurrentSync(headers, epoch))) return null
+      return {
+        response: fetch(`${CONFIG.apiBase}/api/extension/settings`, {
+          method,
+          headers,
+          body: JSON.stringify({ settings: settingsPatch }),
+        }),
+      }
     })
+    if (!request) return false
+    res = await request.response
   } catch {
+    if (!(await isCurrentSync(headers, epoch))) return false
     await set({ syncError: 'network' })
     await trace('http.failed', {
       cycle,
       durationMs: Date.now() - startedAt,
       endpoint: '/api/extension/settings',
-      method: 'PATCH',
+      method,
       reason: 'network',
     })
     return false
   }
-
   await trace('http.response', {
     cycle,
     durationMs: Date.now() - startedAt,
     endpoint: '/api/extension/settings',
-    method: 'PATCH',
+    method,
     status: res.status,
   })
-
+  if (!(await isCurrentSync(headers, epoch))) return false
   if (!res.ok) {
     await handleSettingsErrorResponse(res)
     return false
   }
-
-  await remove('syncError')
-  await set({ lastSyncTime: Date.now() })
-
-  // New server version timestamp
   const { lastModified } = await res.json()
-
-  const { pendingSettingsPatch: latestPendingSettingsPatch = {} } =
-    await get('pendingSettingsPatch')
-  const remainingPendingSettingsPatch = Object.fromEntries(
-    Object.entries(latestPendingSettingsPatch).filter(([key, value]) => {
-      return !(Object.hasOwn(settingsPatch, key) && settingsValueMatches(value, settingsPatch[key]))
-    }),
-  )
-  if (Object.keys(remainingPendingSettingsPatch).length > 0) {
-    await set({
-      serverLastModified: lastModified,
-      pendingSettingsPatch: remainingPendingSettingsPatch,
-    })
-  } else {
+  await withSettingsWrite(async () => {
+    if (!(await isCurrentSync(headers, epoch))) return
+    await remove('syncError')
+    await set({ lastSyncTime: Date.now() })
+    const { pendingSettingsPatch: latestPatch = {} } = await get('pendingSettingsPatch')
+    const remainingPatch = Object.fromEntries(
+      Object.entries(latestPatch).filter(
+        ([key, value]) =>
+          !(Object.hasOwn(settingsPatch, key) && settingsValueMatches(value, settingsPatch[key])),
+      ),
+    )
     await set({ serverLastModified: lastModified })
-    await remove('pendingSettingsPatch')
-  }
-  await trace('settings.push.completed', {
-    cycle,
-    full,
-    remainingKeys: Object.keys(remainingPendingSettingsPatch),
-    sentKeys: settingsKeys,
+    if (Object.keys(remainingPatch).length) {
+      await set({ pendingSettingsPatch: remainingPatch })
+    } else {
+      await remove('pendingSettingsPatch')
+    }
+    await trace('settings.push.completed', {
+      cycle,
+      full,
+      remainingKeys: Object.keys(remainingPatch),
+      sentKeys: settingsKeys,
+    })
   })
   return true
 }
@@ -414,11 +509,15 @@ async function pushSettings({ cycle, full = false, reason = 'pending-settings' }
 /**
  * Pull first then push any pending local changes.
  *
- * Pull failures preserve the reconciliation phase; push failures preserve the
- * pending patch. Periodic sync retries both, and startup also retries an
+ * Pull failures preserve the reconciliation phase, while push failures preserve
+ * the pending patch. Periodic sync retries both, and startup also retries an
  * incomplete reconciliation.
  */
-async function syncSettingsNow(reason) {
+function syncSettingsNow(reason) {
+  return queueSync(() => runSettingsSync(reason))
+}
+
+async function runSettingsSync(reason) {
   const cycle = ++syncCycleSequence
   await trace('sync.started', { cycle, reason })
   const pullResult = await pullSettings(cycle)
@@ -510,16 +609,32 @@ function schedulePush() {
 
 //#region Public API
 /**
- * Registers sync event listeners - must be called synchronously in the
+ * Registers settings writes and Pro sync listeners - must be called synchronously in the
  * background script so handlers are in place before queued events are
  * dispatched to it.
  * @param {Partial<typeof CONFIG>} config
  */
 export function initSettingsSync(config = {}) {
   Object.assign(CONFIG, config)
-  trace('worker.started')
+  if (IS_PRO) trace('worker.started')
 
   chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
+    if (msg.type == SET_SETTINGS_MESSAGE) {
+      const write = () => writeSettings(msg.settings, { replace: msg.replace === true })
+      const task = IS_PRO && msg.replace ? queueSync(write) : write()
+      task
+        .then(async (queued) => {
+          if (IS_PRO && queued && (await isSettingsSyncEnabled())) {
+            resetPullTimer()
+            schedulePush()
+          }
+          return {}
+        })
+        .then(sendResponse, (error) => sendResponse({ error: String(error.message || error) }))
+      return true
+    }
+    if (!IS_PRO) return
+
     if (msg.type == GET_DEBUG_TRACE_MESSAGE) {
       return keepMessageChannelOpen(getTrace(), sendResponse)
     }
@@ -536,13 +651,17 @@ export function initSettingsSync(config = {}) {
     }
     if (msg.type == ACCOUNT_LINKED_MESSAGE) {
       return keepMessageChannelOpen(
-        trace('message.received', { type: msg.type }).then(handleAccountLinked),
+        trace('message.received', { type: msg.type })
+          .then(() => handleAccountLinked(msg))
+          .then(() => ({})),
         sendResponse,
       )
     }
     if (msg.type == ACCOUNT_UNLINKED_MESSAGE) {
       return keepMessageChannelOpen(
-        trace('message.received', { type: msg.type }).then(handleAccountUnlinked),
+        trace('message.received', { type: msg.type })
+          .then(handleAccountUnlinked)
+          .then(() => ({})),
         sendResponse,
       )
     }
@@ -554,20 +673,9 @@ export function initSettingsSync(config = {}) {
         sendResponse,
       )
     }
-    if (msg.type == SYNC_SCHEDULE_PUSH_MESSAGE) {
-      return keepMessageChannelOpen(
-        trace('message.received', { type: msg.type }).then(() =>
-          isSettingsSyncEnabled().then((enabled) => {
-            if (!enabled) return
-            resetPullTimer()
-            schedulePush()
-          }),
-        ),
-        sendResponse,
-      )
-    }
   })
 
+  if (!IS_PRO) return
   chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name == ACCOUNT_REFRESH_ALARM) {
       runBackgroundTask(trace('alarm.fired', { name: alarm.name }).then(refreshAccount))
@@ -580,7 +688,7 @@ export function initSettingsSync(config = {}) {
     if (alarm.name == PUSH_ALARM) {
       runBackgroundTask(
         trace('alarm.fired', { name: alarm.name }).then(() =>
-          pushSettings({ reason: 'push-alarm' }),
+          queueSync(() => pushSettings({ reason: 'push-alarm' })),
         ),
       )
     }

@@ -12,8 +12,8 @@ export const ACCOUNT_LINKED_MESSAGE = 'ACCOUNT_LINKED'
 export const ACCOUNT_UNLINKED_MESSAGE = 'ACCOUNT_UNLINKED'
 export const CLEAR_DEBUG_TRACE_MESSAGE = 'CLEAR_DEBUG_TRACE'
 export const GET_DEBUG_TRACE_MESSAGE = 'GET_DEBUG_TRACE'
-export const SYNC_SCHEDULE_PUSH_MESSAGE = 'SYNC_SCHEDULE_PUSH'
 export const SYNC_SETTINGS_CHANGED_MESSAGE = 'SYNC_SETTINGS_CHANGED'
+export const SET_SETTINGS_MESSAGE = 'SET_SETTINGS'
 //#endregion
 
 export function isTargetExtensionMessage(data, runtimeId, extensionsProId) {
@@ -77,35 +77,14 @@ export function sendMessage(message) {
 }
 
 //#region Settings functions
-export async function setSettings(changes) {
-  const {
-    pendingSettingsPatch = {},
-    settings = {},
-    syncSettings = true,
-    token,
-  } = await get(['pendingSettingsPatch', 'settings', 'syncSettings', 'token'])
-
-  await set({
-    ...(syncSettings && token
-      ? {
-          pendingSettingsPatch: {
-            ...pendingSettingsPatch,
-            ...changes,
-          },
-        }
-      : {}),
-    settings: {
-      ...settings,
-      ...changes,
-    },
-  })
-
-  if (syncSettings && token) {
-    schedulePush()
-  }
+/**
+ * @param {Partial<import('./types').UserSettings>} changes
+ * @param {{replace?: boolean}} [options]
+ */
+export async function setSettings(changes, { replace = false } = {}) {
+  const response = await sendMessage({ type: SET_SETTINGS_MESSAGE, settings: changes, replace })
+  if (!response) throw new Error('Settings update was not acknowledged')
+  if (response.error) throw new Error(response.error)
 }
 
-export function schedulePush() {
-  sendMessage({ type: SYNC_SCHEDULE_PUSH_MESSAGE }).catch(() => {})
-}
 //#endregion

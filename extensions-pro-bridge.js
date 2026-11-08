@@ -5,9 +5,7 @@ export async function startExtensionsProBridge(extensionsProId) {
     ACCOUNT_UNLINKED_MESSAGE,
     get,
     isTargetExtensionMessage,
-    remove,
     sendMessage,
-    set,
     SERVER_ORIGIN,
   } = await import(chrome.runtime.getURL('settings.js'))
 
@@ -36,10 +34,13 @@ export async function startExtensionsProBridge(extensionsProId) {
       event.data?.type === 'EXT_LINK' &&
       isTargetExtensionMessage(event.data, chrome.runtime.id, extensionsProId)
     ) {
-      await set({ accountEmail: event.data.email, token: event.data.token })
-      await sendMessage({ type: ACCOUNT_LINKED_MESSAGE }).catch(() => {
-        console.warn('[extensions-pro-bridge] Background link notification failed')
+      const response = await sendMessage({
+        type: ACCOUNT_LINKED_MESSAGE,
+        email: event.data.email,
+        token: event.data.token,
       })
+      if (!response || response.error)
+        throw new Error(response?.error || 'Account link was not acknowledged')
       window.postMessage(
         {
           type: 'EXT_LINK_ACK',
@@ -54,10 +55,9 @@ export async function startExtensionsProBridge(extensionsProId) {
       event.data?.type === 'EXT_UNLINK' &&
       isTargetExtensionMessage(event.data, chrome.runtime.id, extensionsProId)
     ) {
-      await remove(['accountEmail', 'token', 'subscription'])
-      await sendMessage({ type: ACCOUNT_UNLINKED_MESSAGE }).catch(() => {
-        console.warn('[extensions-pro-bridge] Background unlink notification failed')
-      })
+      const response = await sendMessage({ type: ACCOUNT_UNLINKED_MESSAGE })
+      if (!response || response.error)
+        throw new Error(response?.error || 'Account unlink was not acknowledged')
       window.postMessage(
         {
           type: 'EXT_UNLINK_ACK',

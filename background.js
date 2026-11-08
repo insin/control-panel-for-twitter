@@ -67,7 +67,7 @@ function main(details) {
   return task
 }
 
-if (IS_PRO) initSettingsSync({ apiBase: SERVER_ORIGIN })
+initSettingsSync({ apiBase: SERVER_ORIGIN })
 const startup = main().catch((error) => {
   console.error('[background]', error)
 })

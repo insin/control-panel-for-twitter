@@ -16,6 +16,7 @@ module.exports = {
     '!options.html',
     '!options.css',
     '!options.js',
+    '!options-components.js',
     '!browser_action.html',
     '!content-pro.js',
     '!extensions-pro-bridge.js',

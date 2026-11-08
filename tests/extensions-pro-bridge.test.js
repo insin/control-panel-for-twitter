@@ -15,10 +15,31 @@ async function loadBridge(storage = {}) {
       ...browser.chrome.runtime,
       id: 'test-extension',
       // settings.js derives SERVER_ORIGIN from the manifest's host permissions
-      getManifest: () => ({ manifest_version: 3, host_permissions: [`${ORIGIN}/*`] }),
+      getManifest: () => ({
+        version: '5.0.0',
+        manifest_version: 3,
+        host_permissions: [`${ORIGIN}/*`],
+      }),
       getURL: (file) => new URL(`../${file}`, import.meta.url).href,
     },
   })
+  vi.stubGlobal(
+    'fetch',
+    vi.fn(
+      async () =>
+        new Response(
+          JSON.stringify({
+            hasSettings: true,
+            settings: {},
+            lastModified: 1,
+            subscription: { active: true },
+          }),
+          { headers: { 'Content-Type': 'application/json' } },
+        ),
+    ),
+  )
+  const { initSettingsSync } = await import('../settings-background.js')
+  initSettingsSync()
   vi.stubGlobal('window', {
     addEventListener: (_type, listener) => listeners.push(listener),
     postMessage,

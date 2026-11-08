@@ -1,5 +1,8 @@
 {
   "scripts": {
+    "dev:options": "node ./scripts/options-preview.mjs",
+    "dev:safari": "node ./scripts/dev-safari.mjs",
+    "dev:safari:ios": "node ./scripts/dev-safari.mjs ios",
     "create-browser-action": "node ./scripts/create-browser-action.mjs",
     "watch-options-html": "npx -y chokidar-cli options.html -c \"npm run create-browser-action\" --initial",
     "create-store-description": "node ./scripts/create-store-description.mjs",

@@ -15,13 +15,13 @@ async function migrateUserSettingsToSettingsObject() {
     'debugLogTimelineStats',
     'enabled',
     'lastLayout',
+    'lastSiteVersion',
     'lastSyncTime',
     'pendingSettingsPatch',
     'pendingStorageMigration',
     'serverLastModified',
     'settings',
     'settingsSyncPhase',
-    'stickyHeadings',
     'subscription',
     'syncError',
     'syncSettings',
@@ -34,10 +34,22 @@ async function migrateUserSettingsToSettingsObject() {
   /** @type {Partial<import('./types').UserSettings>} */
   const existingSettings = isObject(storedConfig.settings) ? storedConfig.settings : {}
   const settings = { ...existingSettings }
+  // Keep the Chat navigation preference for this device's saved layout.
+  // An already migrated value takes priority if legacy cleanup is retried.
+  if (
+    !Object.hasOwn(existingSettings, 'hideChatNav') &&
+    (Object.hasOwn(storedConfig, 'hideChatNav') ||
+      Object.hasOwn(storedConfig, 'hideMessagesBottomNavItem'))
+  ) {
+    const layout = storedConfig.lastLayout ?? storedConfig.version
+    settings.hideChatNav =
+      (layout == 'mobile' ? storedConfig.hideMessagesBottomNavItem : storedConfig.hideChatNav) ??
+      DEFAULT_SETTINGS.hideChatNav
+  }
   /** @type {import('./types').Migrations} */
   const migrations = {
     hideGrokNav: { rename: 'hideGrok' },
-    hideMessagesBottomNavItem: { rename: 'hideChatBottomNavItem' },
+    hideJobsNav: { rename: 'hideJobs' },
     hideMessagesDrawer: { rename: 'hideChatDrawer' },
     hideWhoToFollowEtc: { rename: 'hideSuggestedContentTimeline' },
     listRetweets: { rename: 'hideListRetweets', convert: (value) => value == 'hide' },
@@ -62,6 +74,8 @@ async function migrateUserSettingsToSettingsObject() {
     if (extensionConfigKeys.has(key)) continue
     // Remove all top-level keys which aren't user settings
     keysToRemove.push(key)
+    // These were merged above using the saved layout rather than copied separately
+    if (key == 'hideChatNav' || key == 'hideMessagesBottomNavItem') continue
     // Migrate or copy expected settings keys
     if (Object.hasOwn(migrations, key)) {
       const migration = migrations[key]
@@ -86,7 +100,7 @@ async function migrateUserSettingsToSettingsObject() {
 }
 
 /** @type {import('./types').SettingsMigrations} */
-const SETTINGS_MIGRATIONS = [['4.999.0', migrateUserSettingsToSettingsObject]]
+const SETTINGS_MIGRATIONS = [['4.99.0', migrateUserSettingsToSettingsObject]]
 
 /**
  * @param {string} previous

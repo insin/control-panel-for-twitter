@@ -1,19 +1,22 @@
 {
-  "addAddMutedWordMenuItem_desktop": {
-    "message": "Add \"Add muted word\" to the \"More\" menu"
-  },
-  "addAddMutedWordMenuItem_mobile": {
-    "message": "Add \"Add muted word\" to the slide-out menu"
+  "addAddMutedWordMenuItem": {
+    "message": "Add \"Add muted word\" to the navigation menu"
   },
   "addFocusedTweetAccountLocation": {
-    "message": "Show account location in focused tweets"
+    "message": "Show account location in focused Tweets"
   },
   "addUserHoverCardAccountLocation": {
     "message": "Show account location in user hover cards"
   },
+  "advancedOptions": {
+    "message": "Advanced"
+  },
   "appStoreSubtitle": {
-    "message": "Take control of your timeline",
-    "description": "<= 30 characters"
+    "description": "<= 30 characters",
+    "message": "Take control of your timeline"
+  },
+  "appearanceOptions": {
+    "message": "Appearance"
   },
   "backupAndRestoreOptions": {
     "message": "Backup & restore"
@@ -21,8 +24,8 @@
   "bypassAgeVerification": {
     "message": "Bypass age verification"
   },
-  "customCss": {
-    "message": "Custom CSS"
+  "clearFeatureSearch": {
+    "message": "Clear search"
   },
   "customTheme": {
     "message": "Custom theme colour"
@@ -37,7 +40,7 @@
     "message": "Debug mode"
   },
   "debugInfo": {
-    "message": "Enables debug logging and displays tweet debug info in the timeline"
+    "message": "Enables debug logging and displays Tweet debug info in the timeline"
   },
   "debugLogGetElementStats": {
     "message": "Log getElement() stats"
@@ -67,13 +70,13 @@
     "message": "Disable NFL features"
   },
   "disableTweetTextFormatting": {
-    "message": "Disable bold and italic text in tweets"
+    "message": "Disable bold and italic text in Tweets"
+  },
+  "disabled": {
+    "message": "Disabled"
   },
   "disabledHomeTimelineRedirect": {
     "message": "Redirect home timeline to"
-  },
-  "disabledHomeTimelineRedirectOption_messages": {
-    "message": "Messages"
   },
   "dontUseChirpFont": {
     "message": "Don't use the Chirp font"
@@ -81,11 +84,11 @@
   "dropdownMenuFontWeight": {
     "message": "Use normal font weight in dropdown menus"
   },
+  "enableCustomCss": {
+    "message": "Custom CSS"
+  },
   "enabled": {
     "message": "Enabled"
-  },
-  "experimentsOptions": {
-    "message": "Experiments"
   },
   "export": {
     "message": "Export"
@@ -94,12 +97,12 @@
     "message": "Export settings"
   },
   "extensionDescription": {
-    "message": "Gives you more control over Twitter and adds missing features and UI improvements",
-    "description": "<= 132 characters"
+    "description": "<= 132 characters",
+    "message": "Gives you more control over Twitter and adds missing features and UI improvements"
   },
   "extensionDescriptionShort": {
-    "message": "Gives you more control over Twitter and adds missing features and UI improvements",
-    "description": "<= 112 characters"
+    "description": "<= 112 characters",
+    "message": "Gives you more control over Twitter and adds missing features and UI improvements"
   },
   "extensionName": {
     "message": "Control Panel for Twitter"
@@ -113,14 +116,8 @@
   "features": {
     "message": "Features"
   },
-  "followButtonStyle": {
-    "message": "Button style"
-  },
-  "followButtonStyleOption_monochrome": {
-    "message": "Monochrome"
-  },
-  "followButtonStyleOption_themed": {
-    "message": "Themed"
+  "featuresDisabledInfo": {
+    "message": "Your changes will apply when the extension is enabled"
   },
   "fullWidthContent": {
     "message": "Full-width timeline content"
@@ -137,11 +134,14 @@
   "hideAdsNav": {
     "message": "Ads"
   },
+  "hideAiTweets": {
+    "message": "Hide \"Made with AI\" Tweets"
+  },
   "hideAllMetrics": {
     "message": "Hide all"
   },
   "hideBookmarkButton": {
-    "message": "Bookmark button under tweets"
+    "message": "Hide Bookmark button under Tweets"
   },
   "hideBookmarkMetrics": {
     "message": "Bookmarks"
@@ -150,7 +150,7 @@
     "message": "Business"
   },
   "hideCalls": {
-    "message": "Calls"
+    "message": "Hide Calls"
   },
   "hideChatDrawer": {
     "message": "Chat drawer"
@@ -174,10 +174,10 @@
     "message": "Hide \"Discover\" suggestions"
   },
   "hideEditImage": {
-    "message": "Hide Edit image"
+    "message": "Hide Edit image buttons"
   },
   "hideExploreNav": {
-    "message": "Explore"
+    "message": "Hide Explore navigation item"
   },
   "hideExploreNavWithSidebar": {
     "message": "Show when sidebar is hidden"
@@ -198,7 +198,7 @@
     "message": "Hide Grok"
   },
   "hideGrokTweets": {
-    "message": "Hide Grok tweets"
+    "message": "Hide Grok Tweets"
   },
   "hideHistoryNav": {
     "message": "History"
@@ -239,8 +239,8 @@
   "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "Hide \"More\" menu items you don't use"
   },
-  "hideMoreSlideOutMenuItemsOptions_mobile": {
-    "message": "Hide slide-out menu items you don't use"
+  "hideNavigationItemsOptions": {
+    "message": "Hide navigation items"
   },
   "hideNotificationLikes": {
     "message": "Hide Likes in Notifications"
@@ -264,7 +264,7 @@
     "message": "Hide Retweets in user profiles"
   },
   "hideQuoteTweetMetrics": {
-    "message": "Quote tweets"
+    "message": "Quote Tweets"
   },
   "hideQuotesFromCount": {
     "message": "Muted users ($COUNT$)",
@@ -282,10 +282,10 @@
     "message": "Retweets"
   },
   "hideSeeNewTweets": {
-    "message": "Hide \"See new Tweets\""
+    "message": "Hide new Tweets popup"
   },
   "hideShareTweetButton": {
-    "message": "Share button under tweets"
+    "message": "Hide Share button under Tweets"
   },
   "hideSidebarContent": {
     "message": "Hide sidebar contents"
@@ -309,13 +309,13 @@
     "message": "Hide suggested follows"
   },
   "hideTimelineTweetBox": {
-    "message": "Tweet box in timeline"
+    "message": "Hide Tweet box in timeline"
   },
   "hideTodaysNews": {
     "message": "Hide Today's News"
   },
   "hideUnavailableQuoteTweets": {
-    "message": "Hide quotes and replies to blocked and muted accounts"
+    "message": "Hide unavailable and muted Tweets"
   },
   "hideUnusedUiItemsOptions": {
     "message": "Hide UI items you don't use"
@@ -327,7 +327,7 @@
     "message": "\"View activity\" links"
   },
   "hideViews": {
-    "message": "Hide Views under tweets"
+    "message": "Hide Views under Tweets"
   },
   "hideWhatsHappening": {
     "message": "Hide What's happening"
@@ -340,6 +340,12 @@
   },
   "importSettings": {
     "message": "Import settings"
+  },
+  "importSettingsInfo": {
+    "message": "Replaces this browser’s settings."
+  },
+  "importSettingsSyncedInfo": {
+    "message": "Replaces your synced settings across browsers."
   },
   "invalidJsonFile": {
     "message": "Invalid JSON file: $ERROR$",
@@ -360,11 +366,14 @@
   "invalidSettingsSchemaVersion": {
     "message": "Missing or invalid settings format version. Select a settings export created using Export settings."
   },
+  "lightModeTheme": {
+    "message": "Light mode theme"
+  },
   "mutableQuoteTweets": {
     "message": "Enable muting of Quote Tweets"
   },
   "mutedTweetsCount": {
-    "message": "Muted tweets ($COUNT$)",
+    "message": "Muted Tweets ($COUNT$)",
     "placeholders": {
       "COUNT": {
         "content": "$1",
@@ -384,11 +393,17 @@
   "navDensity": {
     "message": "Navigation density"
   },
-  "noFileSelected": {
-    "message": "No file selected"
+  "needMoreRoom": {
+    "message": "Need more room?"
   },
   "newerSettingsSchemaVersion": {
     "message": "This settings export uses a newer format. Only settings supported by this version of Control Panel for Twitter can be imported."
+  },
+  "noFileSelected": {
+    "message": "No file selected"
+  },
+  "noMatchingFeatures": {
+    "message": "No matching features."
   },
   "noSettingsObject": {
     "message": "No settings object found in JSON file"
@@ -396,8 +411,14 @@
   "notifications": {
     "message": "Notifications"
   },
+  "openInTabLink": {
+    "message": "open in a tab"
+  },
   "openOptionsPage": {
     "message": "Open the options page"
+  },
+  "option_automatic": {
+    "message": "Automatic"
   },
   "option_badges": {
     "message": "Hide badges only"
@@ -415,12 +436,15 @@
     "message": "Dim"
   },
   "option_hide": {
-    "message": "Hide",
-    "description": "Option for hiding things"
+    "description": "Option for hiding things",
+    "message": "Hide"
   },
   "option_ignore": {
-    "message": "Do nothing",
-    "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'"
+    "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'",
+    "message": "Do nothing"
+  },
+  "option_light": {
+    "message": "Light"
   },
   "option_lightsOut": {
     "message": "Lights out"
@@ -441,14 +465,20 @@
     "message": "Relevant"
   },
   "option_separate": {
-    "message": "Show in separate tab",
-    "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline"
+    "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline",
+    "message": "Show in separate tab"
   },
   "optionsPageExportSettingsNote": {
     "message": "Use the options page to export settings"
   },
   "optionsPageImportSettingsNote": {
     "message": "Use the options page to import settings"
+  },
+  "optionsStyle": {
+    "message": "Options style"
+  },
+  "otherPagesOptions": {
+    "message": "Other pages"
   },
   "premiumBlueChecks": {
     "message": "Premium blue checks"
@@ -475,19 +505,19 @@
     "message": "Reduced interaction mode"
   },
   "reducedInteractionModeInfo": {
-    "message": "Hide the action bar under tweets – replies are now the only means of interacting"
+    "message": "Hide the action bar under Tweets – replies are now the only means of interacting"
+  },
+  "removeSidebarPanelGradients": {
+    "message": "Remove sidebar panel gradients"
   },
   "restoreLinkHeadlines": {
-    "message": "Restore headlines under external links"
+    "message": "Restore Twitter link previews"
   },
   "restoreOtherInteractionLinks": {
     "message": "Restore other links under Tweets"
   },
   "restoreQuoteTweetsLink": {
     "message": "Restore Quote Tweets link under Tweets"
-  },
-  "restoreTweetSource": {
-    "message": "Restore Tweet source label"
   },
   "retweets": {
     "message": "Retweets"
@@ -502,13 +532,19 @@
     "message": "Revert to Twemoji"
   },
   "revertXBranding": {
-    "message": "Revert X branding changes"
+    "message": "Restore Twitter branding"
   },
   "saveAndApply": {
     "message": "Save and apply"
   },
+  "searchFeatures": {
+    "message": "Search features…"
+  },
   "settings": {
     "message": "Settings"
+  },
+  "settingsImportFailed": {
+    "message": "Import failed. Your settings in this browser have not been changed. Please try again."
   },
   "settingsImported": {
     "message": "Settings imported"
@@ -520,7 +556,7 @@
     "message": "Tweets shared by other users"
   },
   "showBookmarkButtonUnderFocusedTweets": {
-    "message": "Show under focused tweets"
+    "message": "Show under focused Tweets"
   },
   "showPremiumReplyBusiness": {
     "message": "Show verified Business accounts"
@@ -547,7 +583,7 @@
     "message": "Show verified Government accounts"
   },
   "showRelevantPeople": {
-    "message": "Show \"Relevant people\" when viewing a tweet"
+    "message": "Show \"Relevant people\" when viewing a Tweet"
   },
   "sidebar": {
     "message": "Sidebar"
@@ -558,14 +594,17 @@
   "sortRepliesInfo": {
     "message": "Sorting by Likes breaks reply ordering due to an X bug"
   },
-  "stickyHeadings": {
-    "message": "Sticky headings"
-  },
   "syncSettings": {
     "message": "Sync settings in this browser"
   },
+  "syncSettingsDisabledInfo": {
+    "message": "Changes stay on this browser while sync is off. Turning it on replaces this browser’s settings with your synced settings."
+  },
   "tweakQuoteTweetsPage": {
-    "message": "Hide the quoted tweet when viewing Quote Tweets"
+    "message": "Hide the quoted Tweet when viewing Quote Tweets"
+  },
+  "tweetsAndRepliesOptions": {
+    "message": "Tweets & replies"
   },
   "uiImprovementsOptions": {
     "message": "UI improvements"
@@ -588,8 +627,11 @@
     }
   },
   "unmuteButtonText": {
-    "message": "Unmute",
-    "description": "Button used in the options page to unmute a muted Quote Tweet"
+    "description": "Button used in the options page to unmute a muted Quote Tweet",
+    "message": "Unmute"
+  },
+  "xFeaturesOptions": {
+    "message": "X features"
   },
   "xFixesOptions": {
     "message": "X fixes"
