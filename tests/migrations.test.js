@@ -85,10 +85,10 @@ describe('release-based storage migrations', () => {
   })
 
   test.each(['desktop', 'mobile'])(
-    'renames legacy %s layout state at v4.999 and removes version',
+    'renames legacy %s layout state at v4.99 and removes version',
     async (layout) => {
       loadStorage({ version: layout })
-      await migrateFrom('4.25.0', '4.999.0')
+      await migrateFrom('4.25.0', '4.99.0')
       expect(browser.storage).toEqual({ settings: {}, lastLayout: layout })
     },
   )
@@ -99,21 +99,81 @@ describe('release-based storage migrations', () => {
       lastLayout: 'desktop',
       hideMessagesDrawer: true,
       hideMessagesBottomNavItem: true,
-      settings: { hideChatDrawer: false, hideChatBottomNavItem: false },
+      settings: { hideChatDrawer: false, hideChatNav: false },
     })
-    await migrateFrom('4.25.0', '4.999.0')
-    await migrateFrom('4.25.0', '4.999.0')
+    await migrateFrom('4.25.0', '4.99.0')
+    await migrateFrom('4.25.0', '4.99.0')
     expect(browser.storage).toEqual({
       lastLayout: 'desktop',
-      settings: { hideChatDrawer: false, hideChatBottomNavItem: false },
+      settings: { hideChatDrawer: false, hideChatNav: false },
     })
   })
 
-  test('renames v4 Chat settings without changing their values', async () => {
-    loadStorage({ hideMessagesDrawer: false, hideMessagesBottomNavItem: true })
-    await migrateFrom('4.25.0', '4.999.0')
+  test('migrates mobile Chat navigation independently of the desktop drawer', async () => {
+    loadStorage({ version: 'mobile', hideMessagesDrawer: false, hideMessagesBottomNavItem: true })
+    await migrateFrom('4.25.0', '4.99.0')
     expect(browser.storage).toEqual({
-      settings: { hideChatDrawer: false, hideChatBottomNavItem: true },
+      lastLayout: 'mobile',
+      settings: { hideChatDrawer: false, hideChatNav: true },
+    })
+  })
+
+  test.each([
+    ['desktop', true, false, true],
+    ['desktop', false, true, false],
+    ['mobile', true, false, false],
+    ['mobile', false, true, true],
+  ])(
+    'merges Chat navigation using the saved %s layout (desktop=%s, mobile=%s)',
+    async (layout, desktop, mobile, expected) => {
+      loadStorage({ version: layout, hideChatNav: desktop, hideMessagesBottomNavItem: mobile })
+      await migrateFrom('4.25.0', '4.99.0')
+      expect(browser.storage).toEqual({
+        lastLayout: layout,
+        settings: { hideChatNav: expected },
+      })
+    },
+  )
+
+  test('prefers lastLayout over legacy version when merging Chat navigation', async () => {
+    loadStorage({
+      lastLayout: 'mobile',
+      version: 'desktop',
+      hideChatNav: true,
+      hideMessagesBottomNavItem: false,
+    })
+    await migrateFrom('4.25.0', '4.99.0')
+    expect(browser.storage).toEqual({ lastLayout: 'mobile', settings: { hideChatNav: false } })
+  })
+
+  test.each([
+    { version: 'mobile', hideChatNav: true },
+    { version: 'desktop', hideMessagesBottomNavItem: true },
+  ])('uses the selected layout default when its Chat preference is absent: %j', async (saved) => {
+    loadStorage(saved)
+    await migrateFrom('4.25.0', '4.99.0')
+    expect(browser.storage.settings).toEqual({ hideChatNav: false })
+  })
+
+  test.each([true, false])('renames hideJobsNav=%s without changing its value', async (value) => {
+    loadStorage({ hideJobsNav: value })
+    await migrateFrom('4.25.0', '4.99.0')
+    expect(browser.storage).toEqual({ settings: { hideJobs: value } })
+  })
+
+  test('preserves migrated Chat and Jobs edits when legacy cleanup is retried', async () => {
+    loadStorage({
+      pendingStorageMigration: '4.99.0',
+      version: 'mobile',
+      hideChatNav: true,
+      hideMessagesBottomNavItem: true,
+      hideJobsNav: true,
+      settings: { hideChatNav: false, hideJobs: false },
+    })
+    await runSettingsMigrations('4.99.0')
+    expect(browser.storage).toEqual({
+      lastLayout: 'mobile',
+      settings: { hideChatNav: false, hideJobs: false },
     })
   })
 
@@ -132,16 +192,16 @@ describe('release-based storage migrations', () => {
   ])('converts sortFollowing=%s without hiding the menu', async (sortFollowing, expected) => {
     loadStorage({ sortFollowing })
 
-    await migrateFrom('4.25.0', '4.999.0')
+    await migrateFrom('4.25.0', '4.99.0')
 
     expect(browser.storage).toEqual({ settings: { defaultFollowingToRecent: expected } })
     expect(DEFAULT_SETTINGS.hideFollowingMenu).toBe(false)
   })
 
-  test('runs at 4.999.0, including direct upgrades to v5, without repeating at v5', () => {
-    expect(getSettingsMigrationVersions('4.25.0', '4.999.0')).toEqual(['4.999.0'])
-    expect(getSettingsMigrationVersions('4.25.0', '5.0.0')).toEqual(['4.999.0'])
-    expect(getSettingsMigrationVersions('4.999.0', '5.0.0')).toEqual([])
+  test('runs at 4.99.0, including direct upgrades to v5, without repeating at v5', () => {
+    expect(getSettingsMigrationVersions('4.25.0', '4.99.0')).toEqual(['4.99.0'])
+    expect(getSettingsMigrationVersions('4.25.0', '5.0.0')).toEqual(['4.99.0'])
+    expect(getSettingsMigrationVersions('4.99.0', '5.0.0')).toEqual([])
   })
 
   test('does not run without crossing the migration threshold', async () => {
@@ -207,14 +267,14 @@ describe('release-based storage migrations', () => {
     loadStorage({ hideGrokNav: true })
     await scheduleSettingsMigrations('4.25.0', '5.1.0')
 
-    expect(browser.storage).toEqual({ hideGrokNav: true, pendingStorageMigration: '4.999.0' })
+    expect(browser.storage).toEqual({ hideGrokNav: true, pendingStorageMigration: '4.99.0' })
     await runSettingsMigrations('5.1.0')
     expect(browser.storage).toEqual({ settings: { hideGrok: true } })
   })
 
   test('does not overwrite nested edits when retrying after legacy cleanup was interrupted', async () => {
     loadStorage({
-      pendingStorageMigration: '4.999.0',
+      pendingStorageMigration: '4.99.0',
       hideGrokNav: true,
       hideAdsNav: true,
       settings: { hideGrok: false, hideAdsNav: false },
@@ -225,7 +285,7 @@ describe('release-based storage migrations', () => {
 
   test('runs all crossed thresholds in order and retries only the unfinished step after another upgrade', async () => {
     const first = vi.fn(async () => {
-      expect(browser.storage.pendingStorageMigration).toBe('4.999.0')
+      expect(browser.storage.pendingStorageMigration).toBe('4.99.0')
     })
     const second = vi.fn(async () => {
       expect(browser.storage.pendingStorageMigration).toBe('5.2.0')
@@ -236,7 +296,7 @@ describe('release-based storage migrations', () => {
     })
     /** @type {import('../types.js').SettingsMigrations} */
     const migrations = [
-      ['4.999.0', first],
+      ['4.99.0', first],
       ['5.2.0', second],
       ['5.3.0', third],
     ]
@@ -269,7 +329,7 @@ describe('release-based storage migrations', () => {
     await expect(runSettingsMigrations('5.1.0')).rejects.toThrow('cleanup failed')
     expect(browser.storage).toEqual({
       hideGrokNav: true,
-      pendingStorageMigration: '4.999.0',
+      pendingStorageMigration: '4.99.0',
       settings: { hideGrok: true },
     })
 
@@ -283,7 +343,7 @@ describe('release-based storage migrations', () => {
     const second = vi.fn(async () => {})
     /** @type {import('../types.js').SettingsMigrations} */
     const migrations = [
-      ['4.999.0', first],
+      ['4.99.0', first],
       ['5.2.0', second],
     ]
     await scheduleSettingsMigrations('4.25.0', '5.2.0', migrations)
@@ -294,7 +354,7 @@ describe('release-based storage migrations', () => {
     })
 
     await expect(runSettingsMigrations('5.2.0', migrations)).rejects.toThrow('checkpoint failed')
-    expect(browser.storage.pendingStorageMigration).toBe('4.999.0')
+    expect(browser.storage.pendingStorageMigration).toBe('4.99.0')
     expect(second).not.toHaveBeenCalled()
 
     await runSettingsMigrations('5.2.0', migrations)

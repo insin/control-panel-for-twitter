@@ -7,9 +7,7 @@ safari/Generated/
 promo/*.png
 !promo/app-store.png
 scripts/locales/base-translations.json
-scripts/locales/html/*.html
-scripts/locales/js/*.js
-scripts/locales/js/_files.txt
+scripts/locales/json/
 scripts/locales/locales.js
 scripts/locales/old/
 scripts/translations.json

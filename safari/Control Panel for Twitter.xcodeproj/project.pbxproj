@@ -97,6 +97,8 @@
 		C741883EB67045B3EACD52AF /* trace.js in Resources */ = {isa = PBXBuildFile; fileRef = 58DA9BD5FB47518FFCADEC6F /* trace.js */; };
 		746F14010FB8ACF412441783 /* trace.css in Resources */ = {isa = PBXBuildFile; fileRef = 689282D569D4A6C933B5A54D /* trace.css */; };
 		AA2927480967724B437791DA /* trace.css in Resources */ = {isa = PBXBuildFile; fileRef = 689282D569D4A6C933B5A54D /* trace.css */; };
+		F7313A5058C5DA2D331A9EEB /* options-components.js in Resources */ = {isa = PBXBuildFile; fileRef = E135A7AAC72C6481D1A22D10 /* options-components.js */; };
+		04A1E001A070D81F2B51DEA9 /* options-components.js in Resources */ = {isa = PBXBuildFile; fileRef = E135A7AAC72C6481D1A22D10 /* options-components.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -244,6 +246,7 @@
 		58DA9BD5FB47518FFCADEC6F /* trace.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "trace.js"; path = "../../../trace.js"; sourceTree = "<group>"; };
 		689282D569D4A6C933B5A54D /* trace.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = "trace.css"; path = "../../../trace.css"; sourceTree = "<group>"; };
 		907EFBC6BAE7BE38A343035A /* Extension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Generated/Extension.xcconfig; sourceTree = SOURCE_ROOT; };
+		E135A7AAC72C6481D1A22D10 /* options-components.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "options-components.js"; path = "../../../options-components.js"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,6 +344,7 @@
 				A598E141297B3E9300BF2F25 /* manifest.json */,
 				A598E1D8297B46C300BF2F25 /* options.css */,
 				A598E1A9297B441300BF2F25 /* options.html */,
+				E135A7AAC72C6481D1A22D10 /* options-components.js */,
 				A598E1AB297B441300BF2F25 /* options.js */,
 				FBD613922FAF651A002E0939 /* schemas.js */,
 				FB38F984298CF4DA00F9AA54 /* script.js */,
@@ -596,6 +600,7 @@
 				FBD6139F2FB947AC002E0939 /* content-pro.js in Resources */,
 				A598E1D6297B467D00BF2F25 /* browser_action.html in Resources */,
 				A598E1AE297B441300BF2F25 /* options.html in Resources */,
+				F7313A5058C5DA2D331A9EEB /* options-components.js in Resources */,
 				A598E1B2297B441300BF2F25 /* options.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -624,6 +629,7 @@
 				FBD6139D2FB947AC002E0939 /* content-pro.js in Resources */,
 				A598E1D7297B467D00BF2F25 /* browser_action.html in Resources */,
 				A598E1AF297B441300BF2F25 /* options.html in Resources */,
+				04A1E001A070D81F2B51DEA9 /* options-components.js in Resources */,
 				A598E1B3297B441300BF2F25 /* options.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

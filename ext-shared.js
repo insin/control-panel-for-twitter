@@ -1,7 +1,3 @@
-/**
- * Shared module for settings validation. No `chrome.*` APIs.
- */
-
 //#region Typedefs
 /**
  * @typedef {{
@@ -103,8 +99,8 @@ export function arrayOf(item, { maxLength } = {}) {
 }
 
 /**
- * Wraps a field descriptor to also accept `null`/`undefined`.
- * Use for optional fields within `object()` descriptors.
+ * Wraps a field descriptor to also accept `null`/`undefined`. Use for optional
+ * fields within `object()` descriptors.
  * @param {FieldDescriptor} field
  * @returns {FieldDescriptor}
  */
@@ -115,8 +111,8 @@ export function optional(field) {
 }
 
 /**
- * Validates a plain object against a map of field descriptors.
- * All fields are required unless wrapped with `optional()`.
+ * Validates a plain object against a map of field descriptors. All fields are
+ * required unless wrapped with `optional()`.
  * @param {Record<string, FieldDescriptor>} fields
  * @returns {FieldDescriptor}
  */
@@ -130,8 +126,8 @@ export function object(fields) {
 
 //#region Validation
 /**
- * Validates and normalises a settings object against a schema.
- * Unknown and invalid keys are dropped.
+ * Validates and normalises a settings object against a schema. Unknown and
+ * invalid keys are dropped.
  * @param {Record<string, unknown>} input
  * @param {Record<string, FieldDescriptor>} schema
  * @returns {ValidateSettingsResult}

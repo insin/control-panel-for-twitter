@@ -41,7 +41,7 @@ function hasSettingChanged(change, key) {
   const oldSettings = /** @type {Partial<import("./types").UserSettings>} */ (change.oldValue)
   // First time setting this setting
   if (!Object.hasOwn(oldSettings, key)) return true
-  const newSettings = /** @type {Partial<import("./types").UserSettings>} */ (change.newValue)
+  const newSettings = /** @type {Partial<import("./types").UserSettings>} */ (change.newValue || {})
   // XXX Assuming if we set a non-primitive it's because it was changed
   return oldSettings[key] != newSettings[key]
 }
@@ -57,10 +57,13 @@ function onStorageChanged(changes) {
       localStorage.cpftEnabled = changes.enabled.newValue
     }
   }
-  if (changes.settings?.newValue && hasSettingChanged(changes.settings, 'revertXBranding')) {
-    const newSettings = /** @type {import("./types").UserSettings} */ (changes.settings.newValue)
-    if (localStorage.cpftRevertXBranding != String(newSettings.revertXBranding)) {
-      localStorage.cpftRevertXBranding = newSettings.revertXBranding
+  if (changes.settings && hasSettingChanged(changes.settings, 'revertXBranding')) {
+    const newSettings = /** @type {Partial<import("./types").UserSettings>} */ (
+      changes.settings.newValue || {}
+    )
+    const revertXBranding = newSettings.revertXBranding ?? true
+    if (localStorage.cpftRevertXBranding != String(revertXBranding)) {
+      localStorage.cpftRevertXBranding = revertXBranding
     }
   }
 
@@ -100,7 +103,7 @@ async function storeConfigChangesFromPageScript({ data: changes }) {
 //#endregion
 
 //#region Main
-// Replace the X logo on initial load before the page script runs
+// Replace the X logo on initial rweb load before the page script runs
 if (localStorage.cpftEnabled != 'false' && localStorage.cpftRevertXBranding != 'false') {
   if (!IS_SAFARI) {
     const $style = document.createElement('style')

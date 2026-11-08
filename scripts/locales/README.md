@@ -1,17 +1,15 @@
-## Updating Locales
-
-### Get locale files from Twitter
-
-> Tweak `html/_files.txt` and `create-js-curl-config.mjs` first if locales have changed.
+## Updating locales
 
 ```sh
-(cd html && curl -K _files.txt)
-node create-js-curl-config.mjs
-(cd js && curl -K _files.txt)
+node scripts/locales/download-locales.mjs
+node scripts/locales/create-locales.mjs
+npx biome format --write --vcs-enabled=false scripts/locales/locales.js
 ```
 
-### Create locale object for script.js
+To match a captured xweb build, pass its catalog-registry bundle URL or local file
+to `download-locales.mjs`. The default `/home` request can receive a different
+build from a signed-in browser. Downloaded sources are recorded in
+`json/_sources.txt`.
 
-Run `node create-locales.mjs` to create `locales.js`.
-
-Open it, save to format it with Biome, then use its contents to update `script.js`.
+The generator omits empty catalogs and xweb's `en-ss` diagnostic and `en-xx`
+pseudo-locales.
