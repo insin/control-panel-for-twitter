@@ -11,8 +11,14 @@
   "addUserHoverCardAccountLocation": {
     "message": "사용자 호버 카드에 계정 위치 표시"
   },
+  "advancedOptions": {
+    "message": "고급"
+  },
   "appStoreSubtitle": {
     "message": "타임라인을 통제하세요"
+  },
+  "appearanceOptions": {
+    "message": "디자인"
   },
   "backupAndRestoreOptions": {
     "message": "백업 및 복원"
@@ -20,8 +26,8 @@
   "bypassAgeVerification": {
     "message": "성인 인증 우회하기"
   },
-  "customCss": {
-    "message": "사용자 정의 CSS"
+  "clearFeatureSearch": {
+    "message": "검색 지우기"
   },
   "customTheme": {
     "message": "사용자 지정 테마 색상"
@@ -68,11 +74,11 @@
   "disableTweetTextFormatting": {
     "message": "트윗에서 볼드체 및 이탤릭체 비활성화"
   },
+  "disabled": {
+    "message": "비활성화됨"
+  },
   "disabledHomeTimelineRedirect": {
     "message": "비활성화된 홈 타임라인 리디렉션"
-  },
-  "disabledHomeTimelineRedirectOption_messages": {
-    "message": "쪽지"
   },
   "dontUseChirpFont": {
     "message": "Chirp 글꼴 사용 안 함"
@@ -80,11 +86,11 @@
   "dropdownMenuFontWeight": {
     "message": "드롭다운 메뉴에서 일반 글꼴 두께 사용"
   },
+  "enableCustomCss": {
+    "message": "사용자 정의 CSS"
+  },
   "enabled": {
     "message": "활성화됨"
-  },
-  "experimentsOptions": {
-    "message": "실험"
   },
   "export": {
     "message": "내보내기"
@@ -110,14 +116,8 @@
   "features": {
     "message": "기능"
   },
-  "followButtonStyle": {
-    "message": "버튼 스타일"
-  },
-  "followButtonStyleOption_monochrome": {
-    "message": "흑백"
-  },
-  "followButtonStyleOption_themed": {
-    "message": "테마별"
+  "featuresDisabledInfo": {
+    "message": "확장 프로그램을 사용 설정하면 변경사항이 적용됩니다"
   },
   "fullWidthContent": {
     "message": "전체 너비 타임라인 콘텐츠"
@@ -134,6 +134,9 @@
   "hideAdsNav": {
     "message": "광고"
   },
+  "hideAiTweets": {
+    "message": "‘AI로 제작됨’ 트윗 숨기기"
+  },
   "hideAllMetrics": {
     "message": "모두 숨기기"
   },
@@ -147,7 +150,7 @@
     "message": "비즈니스"
   },
   "hideCalls": {
-    "message": "통화"
+    "message": "통화 숨기기"
   },
   "hideChatDrawer": {
     "message": "채팅 드로어"
@@ -174,7 +177,7 @@
     "message": "이미지 수정하기 숨기기"
   },
   "hideExploreNav": {
-    "message": "탐색"
+    "message": "탐색 메뉴 항목 숨기기"
   },
   "hideExploreNavWithSidebar": {
     "message": "사이드바 숨김 상태에서 표시"
@@ -236,8 +239,8 @@
   "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "사용하지 않는 \"더 보기\" 메뉴 항목숨기기 (데스크톱)"
   },
-  "hideMoreSlideOutMenuItemsOptions_mobile": {
-    "message": "사용하지 않는 \"더 보기\" 메뉴 항목 숨기기 (모바일)"
+  "hideNavigationItemsOptions": {
+    "message": "탐색 항목 숨기기"
   },
   "hideNotificationLikes": {
     "message": "알림에서 좋아요 숨기기"
@@ -279,7 +282,7 @@
     "message": "리트윗"
   },
   "hideSeeNewTweets": {
-    "message": "\"새 트윗 보기\" 숨기기"
+    "message": "새 트윗 표시기 숨기기"
   },
   "hideShareTweetButton": {
     "message": "트윗 아래 공유 버튼 숨기기"
@@ -306,13 +309,13 @@
     "message": "추천 팔로우 숨기기"
   },
   "hideTimelineTweetBox": {
-    "message": "타임라인 트윗 상자"
+    "message": "타임라인 트윗 상자 숨기기"
   },
   "hideTodaysNews": {
     "message": "오늘의 뉴스 숨기기"
   },
   "hideUnavailableQuoteTweets": {
-    "message": "차단 및 음소거된 계정에 대한 인용 및 답글 숨기기"
+    "message": "볼 수 없거나 뮤트한 트윗 숨기기"
   },
   "hideUnusedUiItemsOptions": {
     "message": "사용하지 않는 UI 항목 숨기기"
@@ -354,6 +357,9 @@
       }
     }
   },
+  "lightModeTheme": {
+    "message": "라이트 모드의 테마"
+  },
   "mutableQuoteTweets": {
     "message": "인용 트윗 음소거 활성화"
   },
@@ -378,8 +384,14 @@
   "navDensity": {
     "message": "네비게이션 밀도"
   },
+  "needMoreRoom": {
+    "message": "더 넓은 공간이 필요하세요?"
+  },
   "noFileSelected": {
     "message": "선택된 파일 없음"
+  },
+  "noMatchingFeatures": {
+    "message": "일치하는 기능이 없습니다."
   },
   "noSettingsObject": {
     "message": "JSON 파일에서 설정 개체를 찾을 수 없습니다"
@@ -387,8 +399,14 @@
   "notifications": {
     "message": "알림"
   },
+  "openInTabLink": {
+    "message": "탭에서 열기"
+  },
   "openOptionsPage": {
     "message": "옵션 페이지 열기"
+  },
+  "option_automatic": {
+    "message": "자동"
   },
   "option_badges": {
     "message": "배지만 숨기기"
@@ -410,6 +428,9 @@
   },
   "option_ignore": {
     "message": "아무것도 하지 않음"
+  },
+  "option_light": {
+    "message": "밝게"
   },
   "option_lightsOut": {
     "message": "완전히 어둡게"
@@ -438,6 +459,12 @@
   "optionsPageImportSettingsNote": {
     "message": "옵션 페이지를 사용하여 설정을 가져옵니다"
   },
+  "optionsStyle": {
+    "message": "옵션 스타일"
+  },
+  "otherPagesOptions": {
+    "message": "다른 페이지"
+  },
   "premiumBlueChecks": {
     "message": "Premium 파란색 체크"
   },
@@ -465,17 +492,17 @@
   "reducedInteractionModeInfo": {
     "message": "트윗 아래의 작업 표시줄을 숨김 - 답글이 상호작용의 유일한 수단이 됨"
   },
+  "removeSidebarPanelGradients": {
+    "message": "사이드바 패널의 그라데이션 제거"
+  },
   "restoreLinkHeadlines": {
-    "message": "외부 링크 아래의 제목 복원"
+    "message": "트위터 링크 미리보기 복원"
   },
   "restoreOtherInteractionLinks": {
     "message": "트윗 아래의 다른 링크 복원"
   },
   "restoreQuoteTweetsLink": {
     "message": "트윗 아래의 \"트윗 인용\" 링크 복원"
-  },
-  "restoreTweetSource": {
-    "message": "트윗 출처 라벨 복원"
   },
   "retweets": {
     "message": "리트윗"
@@ -490,10 +517,13 @@
     "message": "Twemoji로 되돌리기"
   },
   "revertXBranding": {
-    "message": "X 브랜딩 변경 되돌리기"
+    "message": "Twitter 브랜딩 복원"
   },
   "saveAndApply": {
     "message": "저장하고 적용"
+  },
+  "searchFeatures": {
+    "message": "기능 검색…"
   },
   "settings": {
     "message": "설정"
@@ -545,14 +575,14 @@
   "sortRepliesInfo": {
     "message": "X의 버그로 인해 '마음에 들어요' 순으로 정렬하면 답글 순서가 깨집니다"
   },
-  "stickyHeadings": {
-    "message": "고정 제목"
-  },
   "syncSettings": {
     "message": "이 브라우저에서 설정 동기화"
   },
   "tweakQuoteTweetsPage": {
     "message": "인용 트윗을 볼 때 인용된 트윗 숨기기"
+  },
+  "tweetsAndRepliesOptions": {
+    "message": "트윗 및 답글"
   },
   "uiImprovementsOptions": {
     "message": "UI 개선"
@@ -576,6 +606,9 @@
   },
   "unmuteButtonText": {
     "message": "음소거 해제"
+  },
+  "xFeaturesOptions": {
+    "message": "X 기능"
   },
   "xFixesOptions": {
     "message": "X 수정 사항"

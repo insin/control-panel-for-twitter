@@ -100,7 +100,7 @@ async function storeConfigChangesFromPageScript({ data: changes }) {
 //#endregion
 
 //#region Main
-// Replace the X logo on initial load before the page script runs
+// Replace the X logo on initial rweb load before the page script runs
 if (localStorage.cpftEnabled != 'false' && localStorage.cpftRevertXBranding != 'false') {
   if (!IS_SAFARI) {
     const $style = document.createElement('style')

@@ -11,8 +11,14 @@
   "addUserHoverCardAccountLocation": {
     "message": "在用户悬浮卡片中显示账户位置"
   },
+  "advancedOptions": {
+    "message": "高级"
+  },
   "appStoreSubtitle": {
     "message": "掌控你的时间线"
+  },
+  "appearanceOptions": {
+    "message": "外观"
   },
   "backupAndRestoreOptions": {
     "message": "备份与恢复"
@@ -20,8 +26,8 @@
   "bypassAgeVerification": {
     "message": "绕过年龄验证"
   },
-  "customCss": {
-    "message": "自定义 CSS"
+  "clearFeatureSearch": {
+    "message": "清除搜索"
   },
   "customTheme": {
     "message": "自定义主题颜色"
@@ -68,11 +74,11 @@
   "disableTweetTextFormatting": {
     "message": "禁用推文中的加粗和斜体文本"
   },
+  "disabled": {
+    "message": "已禁用"
+  },
   "disabledHomeTimelineRedirect": {
     "message": "将主页时间线重定向至"
-  },
-  "disabledHomeTimelineRedirectOption_messages": {
-    "message": "私信"
   },
   "dontUseChirpFont": {
     "message": "不要使用Chirp字体"
@@ -80,11 +86,11 @@
   "dropdownMenuFontWeight": {
     "message": "在下拉菜单中使用正常的字体大小"
   },
+  "enableCustomCss": {
+    "message": "自定义 CSS"
+  },
   "enabled": {
     "message": "已启用"
-  },
-  "experimentsOptions": {
-    "message": "试验"
   },
   "export": {
     "message": "导出"
@@ -110,14 +116,8 @@
   "features": {
     "message": "特征"
   },
-  "followButtonStyle": {
-    "message": "按钮样式"
-  },
-  "followButtonStyleOption_monochrome": {
-    "message": "单色"
-  },
-  "followButtonStyleOption_themed": {
-    "message": "主题"
+  "featuresDisabledInfo": {
+    "message": "启用扩展程序后，您的更改将会生效"
   },
   "fullWidthContent": {
     "message": "全宽的时间线内容"
@@ -134,11 +134,14 @@
   "hideAdsNav": {
     "message": "广告"
   },
+  "hideAiTweets": {
+    "message": "隐藏“由 AI 生成”的推文"
+  },
   "hideAllMetrics": {
     "message": "全部隐藏"
   },
   "hideBookmarkButton": {
-    "message": "推文下方的书签按钮"
+    "message": "隐藏推文下方的书签按钮"
   },
   "hideBookmarkMetrics": {
     "message": "书签"
@@ -147,7 +150,7 @@
     "message": "商业"
   },
   "hideCalls": {
-    "message": "呼叫"
+    "message": "隐藏呼叫"
   },
   "hideChatDrawer": {
     "message": "聊天抽屉"
@@ -174,7 +177,7 @@
     "message": "隐藏编辑图片"
   },
   "hideExploreNav": {
-    "message": "探索"
+    "message": "隐藏导航栏中的探索"
   },
   "hideExploreNavWithSidebar": {
     "message": "隐藏侧边栏时显示"
@@ -236,8 +239,8 @@
   "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "隐藏你不使用的\"更多\"菜单项"
   },
-  "hideMoreSlideOutMenuItemsOptions_mobile": {
-    "message": "隐藏你不使用的滑出式菜单项"
+  "hideNavigationItemsOptions": {
+    "message": "隐藏导航项目"
   },
   "hideNotificationLikes": {
     "message": "在通知中隐藏喜欢"
@@ -279,10 +282,10 @@
     "message": "转推"
   },
   "hideSeeNewTweets": {
-    "message": "隐藏\"查看新推文\""
+    "message": "隐藏新推文指示器"
   },
   "hideShareTweetButton": {
-    "message": "推文下的分享按钮"
+    "message": "隐藏推文下的分享按钮"
   },
   "hideSidebarContent": {
     "message": "隐藏侧边栏内容"
@@ -306,13 +309,13 @@
     "message": "隐藏推荐关注"
   },
   "hideTimelineTweetBox": {
-    "message": "时间线推文框"
+    "message": "隐藏时间线推文框"
   },
   "hideTodaysNews": {
     "message": "隐藏今日新闻"
   },
   "hideUnavailableQuoteTweets": {
-    "message": "隐藏对已屏蔽和已静音账号的引用和回复"
+    "message": "隐藏不可用和已屏蔽的推文"
   },
   "hideUnusedUiItemsOptions": {
     "message": "隐藏你不使用的用户界面项目"
@@ -354,6 +357,9 @@
       }
     }
   },
+  "lightModeTheme": {
+    "message": "浅色模式主题"
+  },
   "mostLiked": {
     "message": "最多点赞"
   },
@@ -387,8 +393,14 @@
   "navDensity": {
     "message": "导航密度"
   },
+  "needMoreRoom": {
+    "message": "需要更多空间？"
+  },
   "noFileSelected": {
     "message": "未选择任何文件"
+  },
+  "noMatchingFeatures": {
+    "message": "没有匹配的功能。"
   },
   "noSettingsObject": {
     "message": "在JSON文件中找不到设置对象"
@@ -396,8 +408,14 @@
   "notifications": {
     "message": "通知"
   },
+  "openInTabLink": {
+    "message": "在标签页中打开"
+  },
   "openOptionsPage": {
     "message": "打开选项页面"
+  },
+  "option_automatic": {
+    "message": "自动"
   },
   "option_badges": {
     "message": "仅隐藏徽章"
@@ -419,6 +437,9 @@
   },
   "option_ignore": {
     "message": "什么都不做"
+  },
+  "option_light": {
+    "message": "浅色"
   },
   "option_lightsOut": {
     "message": "暗黑"
@@ -447,6 +468,12 @@
   "optionsPageImportSettingsNote": {
     "message": "使用选项页面导入设置"
   },
+  "optionsStyle": {
+    "message": "选项页面样式"
+  },
+  "otherPagesOptions": {
+    "message": "其他页面"
+  },
   "premiumBlueChecks": {
     "message": "Premium蓝色支票"
   },
@@ -474,17 +501,17 @@
   "reducedInteractionModeInfo": {
     "message": "隐藏推文下的动作栏--回复现在是唯一的互动方式"
   },
+  "removeSidebarPanelGradients": {
+    "message": "移除侧栏面板渐变"
+  },
   "restoreLinkHeadlines": {
-    "message": "恢复外部链接下的标题"
+    "message": "恢复 Twitter 链接预览"
   },
   "restoreOtherInteractionLinks": {
     "message": "恢复推文下的其他链接"
   },
   "restoreQuoteTweetsLink": {
     "message": "恢复推文下的“引用推文”链接"
-  },
-  "restoreTweetSource": {
-    "message": "恢复推文来源标签"
   },
   "retweets": {
     "message": "转发"
@@ -499,10 +526,13 @@
     "message": "还原为 Twemoji"
   },
   "revertXBranding": {
-    "message": "还原 X 品牌变更"
+    "message": "恢复 Twitter 品牌样式"
   },
   "saveAndApply": {
     "message": "保存并应用"
+  },
+  "searchFeatures": {
+    "message": "搜索功能…"
   },
   "settings": {
     "message": "设置"
@@ -554,14 +584,14 @@
   "sortRepliesInfo": {
     "message": "由于X的一个错误，按“喜欢”排序会打乱回复顺序"
   },
-  "stickyHeadings": {
-    "message": "固定标题"
-  },
   "syncSettings": {
     "message": "在此浏览器中同步设置"
   },
   "tweakQuoteTweetsPage": {
     "message": "查看引用推文时隐藏被引用的推文"
+  },
+  "tweetsAndRepliesOptions": {
+    "message": "推文与回复"
   },
   "uiImprovementsOptions": {
     "message": "用户界面改进"
@@ -585,6 +615,9 @@
   },
   "unmuteButtonText": {
     "message": "取消隐藏"
+  },
+  "xFeaturesOptions": {
+    "message": "X 功能"
   },
   "xFixesOptions": {
     "message": "X 修复"

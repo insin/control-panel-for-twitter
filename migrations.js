@@ -15,13 +15,13 @@ async function migrateUserSettingsToSettingsObject() {
     'debugLogTimelineStats',
     'enabled',
     'lastLayout',
+    'lastSiteVersion',
     'lastSyncTime',
     'pendingSettingsPatch',
     'pendingStorageMigration',
     'serverLastModified',
     'settings',
     'settingsSyncPhase',
-    'stickyHeadings',
     'subscription',
     'syncError',
     'syncSettings',
@@ -86,7 +86,7 @@ async function migrateUserSettingsToSettingsObject() {
 }
 
 /** @type {import('./types').SettingsMigrations} */
-const SETTINGS_MIGRATIONS = [['4.999.0', migrateUserSettingsToSettingsObject]]
+const SETTINGS_MIGRATIONS = [['4.99.0', migrateUserSettingsToSettingsObject]]
 
 /**
  * @param {string} previous

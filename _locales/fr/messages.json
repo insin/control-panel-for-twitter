@@ -11,8 +11,14 @@
   "addUserHoverCardAccountLocation": {
     "message": "Afficher le lieu du compte dans les cartes de profil flottantes"
   },
+  "advancedOptions": {
+    "message": "Avancé"
+  },
   "appStoreSubtitle": {
     "message": "Contrôlez votre fil"
+  },
+  "appearanceOptions": {
+    "message": "Apparence"
   },
   "backupAndRestoreOptions": {
     "message": "Sauvegarde et restauration"
@@ -20,8 +26,8 @@
   "bypassAgeVerification": {
     "message": "Contourner la vérification de l'âge"
   },
-  "customCss": {
-    "message": "CSS personnalisé"
+  "clearFeatureSearch": {
+    "message": "Effacer la recherche"
   },
   "customTheme": {
     "message": "Couleur de thème personnalisée"
@@ -68,11 +74,11 @@
   "disableTweetTextFormatting": {
     "message": "Désactiver le texte en gras et en italique dans les tweets"
   },
+  "disabled": {
+    "message": "Désactivé"
+  },
   "disabledHomeTimelineRedirect": {
     "message": "Rediriger le fil Accueil vers"
-  },
-  "disabledHomeTimelineRedirectOption_messages": {
-    "message": "Messages"
   },
   "dontUseChirpFont": {
     "message": "Ne pas utiliser la police Chirp"
@@ -80,11 +86,11 @@
   "dropdownMenuFontWeight": {
     "message": "Utiliser une taille de police normale dans les menus déroulants"
   },
+  "enableCustomCss": {
+    "message": "CSS personnalisé"
+  },
   "enabled": {
     "message": "Activé"
-  },
-  "experimentsOptions": {
-    "message": "Fonctionnalités expérimentales"
   },
   "export": {
     "message": "Exporter"
@@ -110,14 +116,8 @@
   "features": {
     "message": "Fonctionnalités"
   },
-  "followButtonStyle": {
-    "message": "Style de bouton"
-  },
-  "followButtonStyleOption_monochrome": {
-    "message": "Monochrome"
-  },
-  "followButtonStyleOption_themed": {
-    "message": "Thème"
+  "featuresDisabledInfo": {
+    "message": "Vos modifications seront appliquées lorsque l’extension sera activée"
   },
   "fullWidthContent": {
     "message": "Contenu du fil sur toute la largeur"
@@ -134,11 +134,14 @@
   "hideAdsNav": {
     "message": "Publicités"
   },
+  "hideAiTweets": {
+    "message": "Masquer les tweets « Fabriqué avec l'IA »"
+  },
   "hideAllMetrics": {
     "message": "Masquer tous les paramètres"
   },
   "hideBookmarkButton": {
-    "message": "Bouton de signet sous les tweets"
+    "message": "Masquer le bouton de signet sous les tweets"
   },
   "hideBookmarkMetrics": {
     "message": "Signets"
@@ -147,7 +150,7 @@
     "message": "Entreprise"
   },
   "hideCalls": {
-    "message": "Appels"
+    "message": "Masquer les appels"
   },
   "hideChatDrawer": {
     "message": "Tiroir de chat"
@@ -174,7 +177,7 @@
     "message": "Masquer l'édition de l'image"
   },
   "hideExploreNav": {
-    "message": "Explorer"
+    "message": "Masquer Explorer dans la navigation"
   },
   "hideExploreNavWithSidebar": {
     "message": "Afficher si la barre latérale est masquée"
@@ -236,8 +239,8 @@
   "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "Masquer les éléments de menu que vous n'utilisez pas"
   },
-  "hideMoreSlideOutMenuItemsOptions_mobile": {
-    "message": "Masquer les éléments inutilisés du menu latéral"
+  "hideNavigationItemsOptions": {
+    "message": "Masquer des éléments de navigation"
   },
   "hideNotificationLikes": {
     "message": "Masquer les J'aime dans les notifications"
@@ -279,10 +282,10 @@
     "message": "Retweets"
   },
   "hideSeeNewTweets": {
-    "message": "Masquer \"Voir les nouveaux Tweets\""
+    "message": "Masquer l’indicateur de nouveaux Tweets"
   },
   "hideShareTweetButton": {
-    "message": "Bouton \"Partager\" sous les tweets"
+    "message": "Masquer le bouton « Partager » sous les tweets"
   },
   "hideSidebarContent": {
     "message": "Masquer le contenu de la barre latérale"
@@ -306,13 +309,13 @@
     "message": "Masquer les suggestions de suivi"
   },
   "hideTimelineTweetBox": {
-    "message": "Zone de tweet dans le fil"
+    "message": "Masquer la zone de tweet dans le fil"
   },
   "hideTodaysNews": {
     "message": "Masquer les Actualités du jour"
   },
   "hideUnavailableQuoteTweets": {
-    "message": "Masquer les citations et les réponses aux comptes bloqués et muets"
+    "message": "Masquer les tweets indisponibles et masqués"
   },
   "hideUnusedUiItemsOptions": {
     "message": "Masquer les éléments de l'interface utilisateur que vous n'utilisez pas"
@@ -354,6 +357,9 @@
       }
     }
   },
+  "lightModeTheme": {
+    "message": "Thème du mode clair"
+  },
   "mutableQuoteTweets": {
     "message": "Activer la mise en sourdine des Tweets de citation"
   },
@@ -378,8 +384,14 @@
   "navDensity": {
     "message": "Densité de navigation"
   },
+  "needMoreRoom": {
+    "message": "Besoin de plus de place ?"
+  },
   "noFileSelected": {
     "message": "Aucun fichier sélectionné"
+  },
+  "noMatchingFeatures": {
+    "message": "Aucune fonctionnalité correspondante."
   },
   "noSettingsObject": {
     "message": "Aucun objet de paramètres trouvé dans le fichier JSON"
@@ -387,8 +399,14 @@
   "notifications": {
     "message": "Notifications"
   },
+  "openInTabLink": {
+    "message": "ouvrir dans un onglet"
+  },
   "openOptionsPage": {
     "message": "Ouvrir la page des options"
+  },
+  "option_automatic": {
+    "message": "Automatique"
   },
   "option_badges": {
     "message": "Masquer uniquement les badges"
@@ -410,6 +428,9 @@
   },
   "option_ignore": {
     "message": "Ne rien faire"
+  },
+  "option_light": {
+    "message": "Clair"
   },
   "option_lightsOut": {
     "message": "Noir"
@@ -438,6 +459,12 @@
   "optionsPageImportSettingsNote": {
     "message": "Utilisez la page des options pour importer les paramètres"
   },
+  "optionsStyle": {
+    "message": "Style des options"
+  },
+  "otherPagesOptions": {
+    "message": "Autres pages"
+  },
   "premiumBlueChecks": {
     "message": "Coches bleues Premium"
   },
@@ -465,17 +492,17 @@
   "reducedInteractionModeInfo": {
     "message": "Masquer la barre d'action sous les tweets - les réponses sont désormais le seul moyen d'interagir"
   },
+  "removeSidebarPanelGradients": {
+    "message": "Supprimer les dégradés des panneaux latéraux"
+  },
   "restoreLinkHeadlines": {
-    "message": "Restaurer les titres sous les liens externes"
+    "message": "Rétablir les aperçus de liens de Twitter"
   },
   "restoreOtherInteractionLinks": {
     "message": "Restaurer d'autres liens sous les Tweets"
   },
   "restoreQuoteTweetsLink": {
     "message": "Restaurer les liens des Tweets cités sous les Tweets"
-  },
-  "restoreTweetSource": {
-    "message": "Restaurer l'étiquette de source du Tweet"
   },
   "retweets": {
     "message": "Retweets"
@@ -490,10 +517,13 @@
     "message": "Revenir à Twemoji"
   },
   "revertXBranding": {
-    "message": "Rétablir les changements de marque X"
+    "message": "Restaurer l’identité visuelle de Twitter"
   },
   "saveAndApply": {
     "message": "Enregistrer et appliquer"
+  },
+  "searchFeatures": {
+    "message": "Rechercher des fonctionnalités…"
   },
   "settings": {
     "message": "Paramètres"
@@ -545,14 +575,14 @@
   "sortRepliesInfo": {
     "message": "Le tri par \"J'aime\" perturbe l'ordre des réponses en raison d'un bug de X"
   },
-  "stickyHeadings": {
-    "message": "Titres fixes"
-  },
   "syncSettings": {
     "message": "Synchroniser les paramètres dans ce navigateur"
   },
   "tweakQuoteTweetsPage": {
     "message": "Masquer le tweet cité lors de l'affichage des citations de tweets"
+  },
+  "tweetsAndRepliesOptions": {
+    "message": "Tweets et réponses"
   },
   "uiImprovementsOptions": {
     "message": "Améliorations de l'interface utilisateur"
@@ -576,6 +606,9 @@
   },
   "unmuteButtonText": {
     "message": "Restaurer"
+  },
+  "xFeaturesOptions": {
+    "message": "Fonctionnalités X"
   },
   "xFixesOptions": {
     "message": "Correctifs de X"

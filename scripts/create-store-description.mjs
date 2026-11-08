@@ -90,7 +90,6 @@ ${messages.xFixesOptions}:
 • ${messages.darkModeTheme} (${messages.option_dim})
 • ${messages.hideViews}
 • ${messages.hideVerifiedTabs}
-• ${messages.restoreTweetSource}
 • ${messages.addFocusedTweetAccountLocation}
 • ${messages.addUserHoverCardAccountLocation}${messages.desktopVersion}
 • ${messages.restoreLinkHeadlines}
@@ -107,6 +106,7 @@ ${messages.xFixesOptions}:
 • ${messages.hideJobs}
 • ${messages.hideSubscriptions}
 • ${messages.hideMoney}
+• ${messages.hideCalls}
 • ${messages.disableNflFeatures}
 
 ${messages.uiTweaksOptions}:
@@ -116,7 +116,7 @@ ${messages.uiTweaksOptions}:
 • ${messages.navBaseFontSize}${messages.desktopVersion}
 • ${messages.navDensity}${messages.desktopVersion} (${messages.option_comfortable} / ${messages.option_compact})
 • ${messages.dropdownMenuFontWeight}
-• ${messages.uninvertFollowButtons} (${messages.followButtonStyleOption_monochrome} / ${messages.followButtonStyleOption_themed})
+• ${messages.uninvertFollowButtons}
 • ${messages.bypassAgeVerification}
 • ${messages.unblurSensitiveContent}
 
@@ -148,7 +148,6 @@ ${messages.hideUnusedUiItemsOptions}:
 • ${messages.hideConnectNav}
 • ${messages.hideCommunitiesNav}
 • ${messages.hideChatNav}
-• ${messages.hideCalls}
 • ${messages.hideHistoryNav}
 • ${messages.hideMoreSlideOutMenuItemsOptions_desktop}
 `.trim()

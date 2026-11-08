@@ -1,17 +1,7 @@
-## Updating Locales
-
-### Get locale files from Twitter
-
-> Tweak `html/_files.txt` and `create-js-curl-config.mjs` first if locales have changed.
+## Updating locales
 
 ```sh
-(cd html && curl -K _files.txt)
-node create-js-curl-config.mjs
-(cd js && curl -K _files.txt)
+node scripts/locales/download-locales.mjs
+node scripts/locales/create-locales.mjs
+npx biome format --write --vcs-enabled=false scripts/locales/locales.js
 ```
-
-### Create locale object for script.js
-
-Run `node create-locales.mjs` to create `locales.js`.
-
-Open it, save to format it with Biome, then use its contents to update `script.js`.

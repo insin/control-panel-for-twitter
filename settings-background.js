@@ -414,8 +414,8 @@ async function pushSettings({ cycle, full = false, reason = 'pending-settings' }
 /**
  * Pull first then push any pending local changes.
  *
- * Pull failures preserve the reconciliation phase; push failures preserve the
- * pending patch. Periodic sync retries both, and startup also retries an
+ * Pull failures preserve the reconciliation phase, while push failures preserve
+ * the pending patch. Periodic sync retries both, and startup also retries an
  * incomplete reconciliation.
  */
 async function syncSettingsNow(reason) {

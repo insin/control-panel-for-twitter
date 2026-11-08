@@ -11,8 +11,14 @@
   "addUserHoverCardAccountLocation": {
     "message": "ユーザーのプロフィールカードにアカウントの場所を表示"
   },
+  "advancedOptions": {
+    "message": "詳細設定"
+  },
   "appStoreSubtitle": {
     "message": "タイムラインを制御せよ"
+  },
+  "appearanceOptions": {
+    "message": "外観"
   },
   "backupAndRestoreOptions": {
     "message": "バックアップと復元"
@@ -20,8 +26,8 @@
   "bypassAgeVerification": {
     "message": "年齢確認をバイパス"
   },
-  "customCss": {
-    "message": "カスタムCSS"
+  "clearFeatureSearch": {
+    "message": "検索をクリア"
   },
   "customTheme": {
     "message": "カスタムテーマカラー"
@@ -68,11 +74,11 @@
   "disableTweetTextFormatting": {
     "message": "ツイートの太字と斜体を無効にする"
   },
+  "disabled": {
+    "message": "無効"
+  },
   "disabledHomeTimelineRedirect": {
     "message": "「ホーム」タイムラインをリダイレクト"
-  },
-  "disabledHomeTimelineRedirectOption_messages": {
-    "message": "メッセージ"
   },
   "dontUseChirpFont": {
     "message": "Chirpフォントを使用しない"
@@ -80,11 +86,11 @@
   "dropdownMenuFontWeight": {
     "message": "ドロップダウンメニューを通常のフォントの太さにする"
   },
+  "enableCustomCss": {
+    "message": "カスタムCSS"
+  },
   "enabled": {
     "message": "有効"
-  },
-  "experimentsOptions": {
-    "message": "実験的機能"
   },
   "export": {
     "message": "エクスポート"
@@ -110,14 +116,8 @@
   "features": {
     "message": "機能"
   },
-  "followButtonStyle": {
-    "message": "ボタンのスタイル"
-  },
-  "followButtonStyleOption_monochrome": {
-    "message": "モノクロ"
-  },
-  "followButtonStyleOption_themed": {
-    "message": "テーマ"
+  "featuresDisabledInfo": {
+    "message": "拡張機能を有効にすると変更が適用されます"
   },
   "fullWidthContent": {
     "message": "タイムラインのコンテンツを全幅表示"
@@ -134,11 +134,14 @@
   "hideAdsNav": {
     "message": "広告"
   },
+  "hideAiTweets": {
+    "message": "「AIで生成」ツイートを非表示"
+  },
   "hideAllMetrics": {
     "message": "すべて非表示"
   },
   "hideBookmarkButton": {
-    "message": "ツイート下部のブックマークボタン"
+    "message": "ツイート下部のブックマークボタンを非表示"
   },
   "hideBookmarkMetrics": {
     "message": "ブックマーク"
@@ -147,7 +150,7 @@
     "message": "ビジネス"
   },
   "hideCalls": {
-    "message": "通話"
+    "message": "通話を非表示にする"
   },
   "hideChatDrawer": {
     "message": "チャットドロワー"
@@ -174,7 +177,7 @@
     "message": "「画像を編集」を非表示"
   },
   "hideExploreNav": {
-    "message": "「話題を検索」"
+    "message": "ナビゲーションの「話題を検索」を非表示"
   },
   "hideExploreNavWithSidebar": {
     "message": "サイドバーが非表示の場合に表示"
@@ -236,8 +239,8 @@
   "hideMoreSlideOutMenuItemsOptions_desktop": {
     "message": "使用しない「もっと見る」メニューの項目を非表示"
   },
-  "hideMoreSlideOutMenuItemsOptions_mobile": {
-    "message": "使用しないスライドアウトメニューの項目を非表示"
+  "hideNavigationItemsOptions": {
+    "message": "ナビゲーション項目を非表示"
   },
   "hideNotificationLikes": {
     "message": "通知内の「いいね！」を非表示"
@@ -279,10 +282,10 @@
     "message": "リツイート件数"
   },
   "hideSeeNewTweets": {
-    "message": "「新しいツイートを表示」を非表示"
+    "message": "新着ツイートのインジケーターを非表示"
   },
   "hideShareTweetButton": {
-    "message": "ツイート下部のシェアボタン"
+    "message": "ツイート下部のシェアボタンを非表示"
   },
   "hideSidebarContent": {
     "message": "サイドバーコンテンツを非表示にする"
@@ -306,13 +309,13 @@
     "message": "おすすめのフォローを非表示"
   },
   "hideTimelineTweetBox": {
-    "message": "タイムラインのツイートボックス"
+    "message": "タイムラインのツイートボックスを非表示"
   },
   "hideTodaysNews": {
     "message": "「本日のニュース」を非表示"
   },
   "hideUnavailableQuoteTweets": {
-    "message": "ブロックまたはミュートしたアカウントへの引用や返信を非表示にする"
+    "message": "表示できないツイートやミュートしたツイートを非表示にする"
   },
   "hideUnusedUiItemsOptions": {
     "message": "使用しないUI項目を非表示"
@@ -354,6 +357,9 @@
       }
     }
   },
+  "lightModeTheme": {
+    "message": "ライトモードのテーマ"
+  },
   "mutableQuoteTweets": {
     "message": "引用ツイートのミュートを有効にする"
   },
@@ -378,8 +384,14 @@
   "navDensity": {
     "message": "ナビゲーションの密度"
   },
+  "needMoreRoom": {
+    "message": "もっと広いスペースが必要ですか？"
+  },
   "noFileSelected": {
     "message": "ファイルが選択されていません"
+  },
+  "noMatchingFeatures": {
+    "message": "一致する機能がありません。"
   },
   "noSettingsObject": {
     "message": "JSONファイルに設定オブジェクトが見つかりません"
@@ -387,8 +399,14 @@
   "notifications": {
     "message": "通知"
   },
+  "openInTabLink": {
+    "message": "タブで開く"
+  },
   "openOptionsPage": {
     "message": "設定ページを開く"
+  },
+  "option_automatic": {
+    "message": "自動"
   },
   "option_badges": {
     "message": "バッジのみ非表示"
@@ -410,6 +428,9 @@
   },
   "option_ignore": {
     "message": "そのまま"
+  },
+  "option_light": {
+    "message": "明るい"
   },
   "option_lightsOut": {
     "message": "ブラック"
@@ -438,6 +459,12 @@
   "optionsPageImportSettingsNote": {
     "message": "設定ページを使用して設定をインポートします"
   },
+  "optionsStyle": {
+    "message": "設定画面のスタイル"
+  },
+  "otherPagesOptions": {
+    "message": "その他のページ"
+  },
   "premiumBlueChecks": {
     "message": "プレミアムブルーチェック"
   },
@@ -465,17 +492,17 @@
   "reducedInteractionModeInfo": {
     "message": "ツイートの下にあるアクションバーを非表示（リプライのみで交流する）"
   },
+  "removeSidebarPanelGradients": {
+    "message": "サイドバーパネルのグラデーションを削除"
+  },
   "restoreLinkHeadlines": {
-    "message": "外部リンクの下に見出しを復元する"
+    "message": "Twitterのリンクプレビューを復元"
   },
   "restoreOtherInteractionLinks": {
     "message": "ツイートの下の他のリンクを復元する"
   },
   "restoreQuoteTweetsLink": {
     "message": "ツイートの下にある「引用ツイート」リンクを復元する"
-  },
-  "restoreTweetSource": {
-    "message": "ツイートのソースラベルを復元"
   },
   "retweets": {
     "message": "リツイート"
@@ -490,10 +517,13 @@
     "message": "Twemojiに戻す"
   },
   "revertXBranding": {
-    "message": "Xのブランディング変更を元に戻す"
+    "message": "Twitterのブランド表示を復元"
   },
   "saveAndApply": {
     "message": "保存して適用"
+  },
+  "searchFeatures": {
+    "message": "機能を検索…"
   },
   "settings": {
     "message": "設定"
@@ -545,14 +575,14 @@
   "sortRepliesInfo": {
     "message": "Xのバグにより、「いいね」順で並び替えると返信の順序が崩れます"
   },
-  "stickyHeadings": {
-    "message": "追従見出し"
-  },
   "syncSettings": {
     "message": "このブラウザで設定を同期"
   },
   "tweakQuoteTweetsPage": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"
+  },
+  "tweetsAndRepliesOptions": {
+    "message": "ツイートと返信"
   },
   "uiImprovementsOptions": {
     "message": "UIの改善"
@@ -576,6 +606,9 @@
   },
   "unmuteButtonText": {
     "message": "ミュート解除"
+  },
+  "xFeaturesOptions": {
+    "message": "Xの機能"
   },
   "xFixesOptions": {
     "message": "X の修正"
