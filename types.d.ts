@@ -238,6 +238,7 @@ export type IndividualTweetTimelineOptions = {
 export type IndividualTweetDetails = {
   itemType: TimelineItemType,
   hidden: boolean | null,
+  key?: string,
 }
 
 export type UserInfo = {

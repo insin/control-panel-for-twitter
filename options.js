@@ -443,18 +443,18 @@ function onFormChanged(e) {
       $el.indeterminate = false
     } else {
       optionsConfig[$el.name] = changedConfig[$el.name] = $el.checked
-      // Don't try to redirect the Home timeline to Notifications if both are disabled
-      if ($el.name == 'hideNotifications' &&
-          $el.checked &&
-          optionsConfig.disabledHomeTimelineRedirect == 'notifications') {
-        $form.elements['disabledHomeTimelineRedirect'].value = 'messages'
-        optionsConfig.disabledHomeTimelineRedirect = 'messages'
-        changedConfig.disabledHomeTimelineRedirect = 'messages'
-      }
       updateCheckboxGroups()
     }
   } else {
     optionsConfig[$el.name] = changedConfig[$el.name] = $el.value
+    // Hiding Notifications must not leave it selected as the Home redirect.
+    if ($el.name == 'hideNotifications' &&
+        $el.value == 'hide' &&
+        optionsConfig.disabledHomeTimelineRedirect == 'notifications') {
+      $form.elements['disabledHomeTimelineRedirect'].value = 'messages'
+      optionsConfig.disabledHomeTimelineRedirect = 'messages'
+      changedConfig.disabledHomeTimelineRedirect = 'messages'
+    }
   }
 
   updateDisplay()
