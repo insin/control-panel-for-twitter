@@ -2364,6 +2364,9 @@ let userSortedFollowing = false
 /** `true` if the user has used the "Sort replies" menu */
 let userSortedReplies = false
 
+/** Search query key for which the user manually selected a native search tab. */
+let userSelectedSearchTabQuery = null
+
 /** Notification count in the title (including any spaces), e.g. `'(1) '`. */
 let currentNotificationCount = ''
 
@@ -2379,6 +2382,9 @@ let hiddenNotificationCount = ''
  */
 let currentPage = ''
 
+/** Whether X is serving the semantic, Relay-backed interface. */
+let modern = false
+
 /**
  * URL pathname of the page features are being applied to, even when the URL
  * points to a desktop modal.
@@ -2390,6 +2396,7 @@ let currentPagePath = ''
  * navigation and modal transitions.
  */
 let lastUrlPath = ''
+let lastUrlSearch = ''
 
 /** Whether the URL from the last handled title change was a desktop modal. */
 let lastUrlWasModal = false
@@ -2618,6 +2625,18 @@ function blueCheck($svg) {
     return
   }
   $svg.classList.add('cpft_blue_check')
+  if (modern) {
+    let $replacement = $svg.querySelector('[data-cpft-badge-replacement]')
+    if (config.twitterBlueChecks == 'replace' && !$replacement) {
+      $replacement = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+      $replacement.setAttribute('d', Svgs.BLUE_LOGO_PATH)
+      $replacement.setAttribute('data-cpft-badge-replacement', '')
+      $svg.append($replacement)
+    } else if (config.twitterBlueChecks != 'replace') {
+      $replacement?.remove()
+    }
+    return
+  }
   // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
   // we have to manually patch the path in it.
   if (isSafari && config.twitterBlueChecks == 'replace') {
@@ -2694,6 +2713,14 @@ function getClosestChild($el, $ancestor) {
 /** Read the URL and underlying page together for navigation decisions. */
 function getCurrentRoute() {
   let urlPath = location.pathname
+  if (modern) {
+    let router = getModernProviders()?.router
+    let routerLocation = router?.latestLocation || router?.location
+    let modalPath = routerLocation?.search?.['@modal']
+    let isModal = typeof modalPath == 'string' || routerLocation?.state?.__routeSlotPush != null
+    let pagePath = isModal ? routerLocation?.pathname || getRenderedPagePath(urlPath) : urlPath
+    return {urlPath, pagePath, isModal}
+  }
   let history = desktop ? getTopLevelProps()?.history : null
   let isModal = Boolean(history?.getIsModalRoute?.())
   let pagePath = urlPath
@@ -2705,6 +2732,11 @@ function getCurrentRoute() {
 
 /** @param {string} fallbackPath */
 function getRenderedPagePath(fallbackPath) {
+  if (modern) {
+    let router = getModernProviders()?.router
+    let routePath = (router?.latestLocation || router?.location)?.pathname
+    return typeof routePath == 'string' && routePath != fallbackPath ? routePath : fallbackPath
+  }
   // Direct modal URLs have no previous route, find the rendered fallback page
   let $column = document.querySelector(Selectors.PRIMARY_COLUMN)
   if (!$column) return fallbackPath
@@ -2715,6 +2747,259 @@ function getRenderedPagePath(fallbackPath) {
   }
   return fallbackPath
 }
+
+let modernFiber
+let modernProviders
+let modernRelayEnvironment
+let modernRelaySource
+
+function getModernReactFiber($el) {
+  if (!$el) return
+  let reactFiberKey = Object.keys($el).find(key => key.startsWith('__reactFiber$'))
+  return reactFiberKey ? $el[reactFiberKey] : null
+}
+
+function getModernProviders() {
+  if (!modern) return
+  let $anchor = $body || document.body
+  let fiber = getModernReactFiber($anchor) || modernFiber
+  if (!fiber) {
+    warn('React fiber not found')
+    return
+  }
+
+  let sameFiber = modernFiber == fiber
+  if (
+    sameFiber &&
+    modernProviders?.environment &&
+    modernProviders?.router &&
+    modernProviders?.preferences
+  ) {
+    return modernProviders
+  }
+
+  let environment = sameFiber ? modernProviders?.environment : null
+  let router = sameFiber ? modernProviders?.router : null
+  let preferences = sameFiber ? modernProviders?.preferences : null
+  for (let current = fiber; current; current = current.return) {
+    let value = current.memoizedProps?.value ?? current.pendingProps?.value
+    if (!value) continue
+
+    if (!environment && typeof value.environment?.getStore == 'function') {
+      let store
+      try {
+        store = value.environment.getStore()
+      } catch {}
+      if (typeof store?.getSource == 'function') {
+        environment = value.environment
+      }
+    }
+    if (
+      !router &&
+      typeof value.navigate == 'function' &&
+      typeof value.buildLocation == 'function'
+    ) {
+      router = value
+    }
+    if (
+      !preferences &&
+      typeof value.getPreference == 'function' &&
+      typeof value.getTheme == 'function' &&
+      typeof value.subscribe == 'function'
+    ) {
+      preferences = value
+    }
+    if (environment && router && preferences) break
+  }
+
+  modernFiber = fiber
+  modernProviders = {environment, router, preferences}
+  if (!environment && !router && !preferences) {
+    warn('modern providers not found')
+    return
+  }
+  return modernProviders
+}
+
+function getModernRelaySource() {
+  let environment = getModernProviders()?.environment
+  if (!environment) return
+  if (modernRelayEnvironment != environment) {
+    modernRelayEnvironment = environment
+    modernRelaySource = null
+  }
+  if (modernRelaySource) return modernRelaySource
+  let store
+  try {
+    store = environment.getStore()
+  } catch {}
+  let source
+  try {
+    source = store?.getSource?.()
+  } catch {}
+  if (source && typeof source.get == 'function') {
+    modernRelaySource = source
+    return source
+  }
+}
+
+function getModernSourceRecord(source, recordId) {
+  if (!source || typeof source.get != 'function' || typeof recordId != 'string') return
+  try {
+    return source.get(recordId)
+  } catch {}
+}
+
+function getModernRecord(recordId) {
+  return getModernSourceRecord(getModernRelaySource(), recordId)
+}
+
+function resolveModernValue(value, seen = new Set()) {
+  if (value == null || typeof value != 'object') return value
+  if (typeof value.__ref == 'string') {
+    if (seen.has(value.__ref)) return
+    let nextSeen = new Set(seen)
+    nextSeen.add(value.__ref)
+    return resolveModernValue(getModernRecord(value.__ref), nextSeen)
+  }
+  if (Array.isArray(value.__refs)) {
+    return value.__refs.map(ref => resolveModernValue({__ref: ref}, new Set(seen)))
+  }
+  return value
+}
+
+function getModernPath(value, path) {
+  for (let key of path) {
+    value = resolveModernValue(value)
+    if (value == null || typeof value != 'object') return
+    value = value[key]
+  }
+  return resolveModernValue(value)
+}
+
+function getModernRecordsByType(type) {
+  let source = getModernRelaySource()
+  if (!source || typeof source.getRecordIDs != 'function') return []
+  let recordIds
+  try {
+    recordIds = source.getRecordIDs()
+  } catch {
+    return []
+  }
+  if (!Array.isArray(recordIds)) return []
+  let records = []
+  for (let recordId of recordIds) {
+    let record = getModernSourceRecord(source, recordId)
+    if (record?.__typename == type) records.push(record)
+  }
+  return records
+}
+
+function getModernLinkedRecord(record, field) {
+  return resolveModernValue(record?.[field])
+}
+
+function getModernViewerUser() {
+  let viewer = getModernRecord('client:root:viewer')
+  if (!viewer) viewer = getModernRecordsByType('Viewer')[0]
+  return getModernPath(viewer, ['user_results', 'result'])
+}
+
+function getModernTweetRecord(tweetId) {
+  if (tweetId == null) return
+  let source = getModernRelaySource()
+  if (!source || typeof source.getRecordIDs != 'function') return
+  let recordIds
+  try {
+    recordIds = source.getRecordIDs()
+  } catch {
+    return
+  }
+  if (!Array.isArray(recordIds)) return
+  for (let recordId of recordIds) {
+    let record = getModernSourceRecord(source, recordId)
+    if (
+      record?.__typename == 'Tweet' &&
+      String(record.rest_id) == String(tweetId)
+    ) {
+      return record
+    }
+  }
+}
+
+function getModernNavigationPath(value) {
+  if (typeof value == 'string') return value
+  if (!value || typeof value.pathname != 'string') return
+  let path = value.pathname
+  if (value.query && typeof value.query == 'object') {
+    let search = new URLSearchParams(value.query).toString()
+    if (search) path += `?${search}`
+  }
+  if (typeof value.hash == 'string' && value.hash) {
+    path += value.hash.startsWith('#') ? value.hash : `#${value.hash}`
+  }
+  return path
+}
+
+function getTopLevelProps() {
+  if (modern) return getModernProviders()
+  if (!$reactRoot?.firstElementChild) {
+    warn('React top level props element not available yet')
+    return
+  }
+  let reactPropsKey = Object.keys($reactRoot.firstElementChild).find(key => key.startsWith('__reactProps'))
+  if (reactPropsKey) {
+    return $reactRoot.firstElementChild[reactPropsKey].children?.props?.children?.props
+  } else {
+    warn('React props key not found')
+  }
+}
+
+function getState() {
+  if (modern) return
+  let props = getTopLevelProps()
+  if (props) {
+    let state = props.store?.getState()
+    if (state) return state
+    warn('React state not found')
+  }
+}
+
+function getNotificationCount() {
+  if (modern) {
+    let $notificationLink = document.querySelector('nav[aria-label="Primary"] a[href="/notifications"]')
+    for (let fiber = getModernReactFiber($notificationLink); fiber; fiber = fiber.return) {
+      let value = fiber.memoizedProps?.value ?? fiber.pendingProps?.value
+      let store = value?.store
+      if (typeof store?.getState != 'function' || typeof store.receiveCounts != 'function') continue
+      let state = store.getState()
+      let remote = state.remote
+      if (!remote?.counts) break
+      let unreadNTabCount = state.pendingNtabSeenWrites > 0 || remote.requestedAt <= state.ntabSeenAt
+        ? 0 : remote.counts.ntabUnreadCount
+      return (remote.counts.xchatUnreadCount || 0) + (unreadNTabCount || 0)
+    }
+    let user = getModernViewerUser()
+    let badgeCounts = getModernLinkedRecord(user, 'badge_counts')
+    if (!badgeCounts) {
+      warn('modern viewer badge counts not found')
+      return 0
+    }
+    let unreadDMCount = badgeCounts.xchat_unread_count
+    let unreadNTabCount = badgeCounts.ntab_unread_count
+    return (
+      (typeof unreadDMCount == 'number' ? unreadDMCount : 0) +
+      (typeof unreadNTabCount == 'number' ? unreadNTabCount : 0)
+    )
+  }
+  let state = getState()
+  if (!state || !state.badgeCount) {
+    warn('could not get notification count from state')
+    return 0
+  }
+  return state.badgeCount.unreadDMCount + state.badgeCount.unreadNTabCount;
+}
+
 
 /**
  * @param {string} selector
@@ -2776,38 +3061,9 @@ function getElement(selector, {
   })
 }
 
-function getTopLevelProps() {
-  if (!$reactRoot?.firstElementChild) {
-    warn('React top level props element not available yet')
-    return
-  }
-  let reactPropsKey = Object.keys($reactRoot.firstElementChild).find(key => key.startsWith('__reactProps'))
-  if (reactPropsKey) {
-    return $reactRoot.firstElementChild[reactPropsKey].children?.props?.children?.props
-  } else {
-    warn('React props key not found')
-  }
-}
-
-function getState() {
-  let props = getTopLevelProps()
-  if (props) {
-    let state = props.store?.getState()
-    if (state) return state
-    warn('React state not found')
-  }
-}
-
-function getNotificationCount() {
-  let state = getState()
-  if (!state || !state.badgeCount) {
-    warn('could not get notification count from state')
-    return 0
-  }
-  return state.badgeCount.unreadDMCount + state.badgeCount.unreadNTabCount;
-}
 
 let accountLocationCache = new Map()
+let focusedAccountLocationRequests = new WeakMap()
 
 async function getAccountLocation(screenName) {
   if (!accountLocationCache.has(screenName)) {
@@ -2841,6 +3097,7 @@ async function getAccountLocation(screenName) {
 }
 
 function getStateEntities() {
+  if (modern) return
   let state = getState()
   if (state) {
     if (state.entities) return state.entities
@@ -2849,11 +3106,31 @@ function getStateEntities() {
 }
 
 function getUserScreenName() {
+  if (modern) {
+    let user = getModernViewerUser()
+    return getModernLinkedRecord(user, 'core')?.screen_name
+  }
   let state = getState()
   return state?.entities?.users?.entities?.[state?.session?.user_id]?.screen_name
 }
 
 function getThemeColorFromState() {
+  if (modern) {
+    let preferences = getModernProviders()?.preferences
+    let theme
+    try {
+      theme = preferences?.getTheme?.()
+    } catch {}
+    let color = $html?.dataset.accent
+    let highContrast = $html?.dataset.highContrast == 'true'
+    $body?.classList.toggle('HighContrast', highContrast)
+    if (color && THEME_COLORS.has(color)) {
+      if (!highContrast) return THEME_COLORS.get(color)
+      let isLight = $html?.dataset.theme == 'light' || theme == 'light'
+      return (isLight ? HIGH_CONTRAST_LIGHT : HIGH_CONTRAST_DARK).get(color)
+    }
+    return themeColor || THEME_BLUE
+  }
   let localState = getState()?.settings?.local
   let color = localState?.themeColor
   let highContrast = localState?.highContrastEnabled
@@ -2874,6 +3151,29 @@ function getThemeColorFromState() {
  * Gets cached tweet info from React state.
  */
 function getTweetInfo(tweetId) {
+  if (modern) {
+    let tweet = getModernTweetRecord(tweetId)
+    if (!tweet) {
+      warn('tweet info not found', tweetId)
+      return
+    }
+    let counts = getModernLinkedRecord(tweet, 'counts')
+    let legacy = getModernLinkedRecord(tweet, 'legacy')
+    let details = getModernLinkedRecord(tweet, 'details')
+    let createdAt
+    if (typeof details?.created_at_ms == 'number') {
+      try {
+        createdAt = new Date(details.created_at_ms).toISOString()
+      } catch {}
+    }
+    return {
+      quote_count: counts?.quote_count,
+      retweet_count: counts?.retweet_count,
+      favorite_count: counts?.favorite_count,
+      created_at: createdAt,
+      source_name: legacy?.source_name,
+    }
+  }
   let tweetEntities = getStateEntities()?.tweets?.entities
   if (tweetEntities) {
     let tweetInfo = tweetEntities[tweetId]
@@ -2893,6 +3193,21 @@ function getTweetInfo(tweetId) {
 function getUserInfo() {
   /** @type {import("./types").UserInfoObject} */
   let userInfo = {}
+  if (modern) {
+    for (let user of getModernRecordsByType('User')) {
+      let core = getModernLinkedRecord(user, 'core')
+      let perspective = getModernLinkedRecord(user, 'relationship_perspectives')
+      let counts = getModernLinkedRecord(user, 'relationship_counts')
+      let screenName = core?.screen_name
+      if (typeof screenName != 'string') continue
+      userInfo[screenName] = {
+        following: perspective?.following,
+        followedBy: perspective?.followed_by,
+        followersCount: counts?.followers,
+      }
+    }
+    return userInfo
+  }
   let userEntities = getStateEntities()?.users?.entities
   if (userEntities) {
     for (let user of Object.values(userEntities)) {
@@ -3076,6 +3391,23 @@ function storeConfigChanges(changes) {
  * Update theme hooks and colours when <body>'s backgroundColor changes.
  */
 function observeBodyBackgroundColor() {
+  if (modern) {
+    observeElement($html, () => {
+      let dark = $html.dataset.theme == 'dark'
+      $body.classList.toggle('Default', !dark)
+      $body.classList.toggle('LightsOut', dark)
+      updateThemeColor()
+      styleEmbed.update()
+    }, {
+      leading: true,
+      name: 'application theme',
+      observers: globalObservers,
+    }, {
+      attributes: true,
+      attributeFilter: ['data-theme', 'data-accent', 'data-high-contrast'],
+    })
+    return
+  }
   let lastBackgroundColor = null
 
   observeElement($body, () => {
@@ -3207,6 +3539,10 @@ function observeChatDrawer($drawerLayer) {
  */
 async function observeDesktopComposeTweetModal($popup) {
   $popup.classList.add('ComposeTweetModal')
+  if (modern) {
+    tweakModernCompose($popup, modalObservers)
+    return
+  }
   if (!config.replaceLogo) return
 
   let modalCancelled = registerModalSetup('Compose Tweet modal setup')
@@ -3269,6 +3605,11 @@ async function observeDesktopComposeTweetModal($popup) {
  * tab and re-added when you navigate to another Home timeline tab.
  */
 async function observeDesktopHomeTimelineTweetBox() {
+  if (modern) {
+    let $main = await getElement('main', {name: 'home composer', stopIf: pageIsNot(currentPage)})
+    if ($main) tweakModernCompose($main, pageObservers)
+    return
+  }
   let $container = await getElement('div[data-testid="primaryColumn"] > div', {
     name: 'Home timeline Tweet box container',
     stopIf: pageIsNot(currentPage),
@@ -3334,6 +3675,27 @@ async function observeDesktopHomeTimelineTweetBox() {
  * @param {HTMLElement} $popup
  */
 async function observeDesktopModalTimeline($popup) {
+  if (modern) {
+    let seen = new WeakMap()
+    let $timeline = null
+    observeElement($popup, () => {
+      let $nextTimeline = $popup.querySelector('[id^="urt:"] > ul')
+      if (!$nextTimeline) {
+        $timeline = null
+        return
+      }
+      if ($timeline != $nextTimeline) {
+        $timeline = $nextTimeline
+        seen = new WeakMap()
+      }
+      onIndividualTweetTimelineChange($timeline, {observers: modalObservers, seen})
+    }, {
+      leading: true,
+      name: 'modal timeline',
+      observers: modalObservers,
+    }, {childList: true, subtree: true})
+    return
+  }
   let modalCancelled = registerModalSetup('media modal setup')
   // Media modals remember if they were previously collapsed, so we could be
   // waiting for the initial timeline to be either rendered or expanded.
@@ -3438,19 +3800,24 @@ async function observeDesktopModalTimeline($popup) {
 const observeFavicon = (() => {
   /** @type {HTMLLinkElement} */
   let $shortcutIcon
+  let nativeHref
 
   async function observeFavicon() {
     $shortcutIcon = /** @type {HTMLLinkElement} */ (await getElement('link[rel~="icon"]', {
       name: 'shortcut icon'
     }))
+    nativeHref ||= $shortcutIcon.href
 
     observeElement($shortcutIcon, () => {
       let href = $shortcutIcon.href
+      if (!href.startsWith('data:')) nativeHref = href
       if (config.replaceLogo) {
-        // Once we replace the favicon, Twitter stops updating it when
-        // notification status changes, so this only handles initial switchover
-        // to the Twitter version of the icon.
         if (href.startsWith('data:')) return
+        if (modern) {
+          observeFavicon.forceUpdate(getNotificationCount() > 0)
+          return
+        }
+        // The legacy app stops updating the icon after replacement.
         let icon = config.hideNotifications != 'ignore' && href.includes('-pip') ? (
           Images.TWITTER_PIP_FAVICON
         ) : (
@@ -3483,6 +3850,8 @@ const observeFavicon = (() => {
       ) : (
         Images.TWITTER_FAVICON
       )
+    } else if (modern && nativeHref) {
+      href = config.hideNotifications == 'ignore' ? nativeHref : nativeHref.replace('-pip', '')
     } else {
       href = `//abs.twimg.com/favicons/twitter${
         config.hideNotifications == 'ignore' && showPip ? '-pip' : ''
@@ -3491,6 +3860,10 @@ const observeFavicon = (() => {
     if (href != $shortcutIcon.href) {
       $shortcutIcon.href = href
     }
+  }
+
+  observeFavicon.restore = function() {
+    if ($shortcutIcon && nativeHref) $shortcutIcon.href = nativeHref
   }
 
   return observeFavicon
@@ -3507,6 +3880,202 @@ const observeFavicon = (() => {
  * need to be mindful of that.
  */
 async function observePopups() {
+  if (modern) {
+    let $root = $body || document.body
+    if (!$root) return
+
+    /** @type {Map<HTMLElement, {observer: import("./types").Disconnectable, name: string}>} */
+    let portals = new Map()
+    /** @type {Map<HTMLElement, {observer: import("./types").Disconnectable, name: string}>} */
+    let directDialogs = new Map()
+    /** @type {Map<HTMLElement, {portal: HTMLElement, pending: boolean, cleanup: (() => void) | null}>} */
+    let popupStates = new Map()
+    const directDialogSelector = '[role="dialog"][aria-label="Account menu"]'
+    let portalNumber = 0
+
+    function removePopup($popup) {
+      let state = popupStates.get($popup)
+      if (!state) return
+      state.cleanup?.()
+      popupStates.delete($popup)
+    }
+
+    function scanPopup($popup, $portal) {
+      let previous = popupStates.get($popup)
+      let result = handlePopup($popup)
+      let cleanup = result.onPopupClosed || previous?.cleanup || null
+      if (previous?.cleanup && cleanup != previous.cleanup) previous.cleanup()
+      popupStates.set($popup, {
+        portal: $portal,
+        pending: !result.tookAction,
+        cleanup,
+      })
+    }
+
+    function scanPortal($portal) {
+      let popups = new Set()
+      if ($portal.matches('[role="menu"], [role="dialog"]')) popups.add($portal)
+      for (let $popup of $portal.querySelectorAll('[role="menu"], [role="dialog"]')) {
+        popups.add($popup)
+      }
+      for (let [$popup, state] of popupStates) {
+        if (state.portal == $portal && (!popups.has($popup) || !$popup.isConnected)) {
+          removePopup($popup)
+        }
+      }
+      for (let $popup of popups) {
+        if (!($popup instanceof HTMLElement)) continue
+        scanPopup($popup, $portal)
+      }
+    }
+
+    function observePortal($portal) {
+      if (portals.has($portal)) {
+        scanPortal($portal)
+        return
+      }
+      let name = `modern popup portal ${++portalNumber}`
+      let state = {observer: null, name}
+      portals.set($portal, state)
+      state.observer = observeElement($portal, (mutations) => {
+        let shouldScan = false
+        for (let mutation of mutations) {
+          if (mutation.addedNodes.length || mutation.removedNodes.length) {
+            for (let $node of [...mutation.addedNodes, ...mutation.removedNodes]) {
+              if (!($node instanceof HTMLElement)) continue
+              if ($node.matches('[role="menu"], [role="dialog"]') ||
+                  $node.querySelector('[role="menu"], [role="dialog"]')) {
+                shouldScan = true
+                break
+              }
+            }
+          }
+          if (shouldScan) break
+          if (mutation.target instanceof HTMLElement) {
+            for (let [$popup, popupState] of popupStates) {
+              if (popupState.portal == $portal && popupState.pending && $popup.contains(mutation.target)) {
+                shouldScan = true
+                break
+              }
+            }
+          }
+          if (shouldScan) break
+        }
+        if (shouldScan) scanPortal($portal)
+      }, {
+        name,
+        observers: globalObservers,
+        onDisconnect() {
+          portals.delete($portal)
+          for (let [$popup, popupState] of popupStates) {
+            if (popupState.portal == $portal) removePopup($popup)
+          }
+        },
+      }, {childList: true, subtree: true})
+      scanPortal($portal)
+    }
+
+    function observeDirectDialog($dialog) {
+      if ($dialog.closest('[data-base-ui-portal]')) return
+      if (directDialogs.has($dialog)) {
+        scanPopup($dialog, $root)
+        return
+      }
+      let name = `modern native dialog ${++portalNumber}`
+      let state = {observer: null, name}
+      directDialogs.set($dialog, state)
+      state.observer = observeElement($dialog, (mutations) => {
+        let shouldScan = false
+        for (let mutation of mutations) {
+          if (mutation.addedNodes.length || mutation.removedNodes.length) {
+            shouldScan = true
+            break
+          }
+          if (mutation.target instanceof HTMLElement && popupStates.get($dialog)?.pending) {
+            shouldScan = true
+            break
+          }
+        }
+        if (shouldScan) scanPopup($dialog, $root)
+      }, {
+        name,
+        observers: globalObservers,
+        onDisconnect() {
+          directDialogs.delete($dialog)
+          removePopup($dialog)
+        },
+      }, {childList: true, subtree: true})
+      scanPopup($dialog, $root)
+    }
+
+    function addDirectDialogs($node) {
+      if (!($node instanceof HTMLElement)) return
+      if ($node.matches(directDialogSelector)) observeDirectDialog($node)
+      for (let $dialog of $node.querySelectorAll(directDialogSelector)) {
+        observeDirectDialog($dialog)
+      }
+    }
+
+    function removeDirectDialogs($node) {
+      if (!($node instanceof HTMLElement)) return
+      for (let [$dialog, state] of directDialogs) {
+        if ($dialog == $node || $node.contains($dialog)) state.observer.disconnect()
+      }
+    }
+
+    function addPortals($node) {
+      if (!($node instanceof HTMLElement)) return
+      if ($node.matches('[data-base-ui-portal]')) observePortal($node)
+      for (let $portal of $node.querySelectorAll('[data-base-ui-portal]')) {
+        observePortal($portal)
+      }
+    }
+
+    function removePortals($node) {
+      if (!($node instanceof HTMLElement)) return
+      for (let [$portal, state] of portals) {
+        if ($portal == $node || $node.contains($portal)) state.observer.disconnect()
+      }
+    }
+
+    observeElement($root, (mutations) => {
+      if (mutations.length == 0) {
+        for (let $portal of document.querySelectorAll('[data-base-ui-portal]')) {
+          observePortal($portal)
+        }
+        for (let $dialog of document.querySelectorAll(directDialogSelector)) {
+          observeDirectDialog($dialog)
+        }
+        return
+      }
+      for (let mutation of mutations) {
+        for (let $node of mutation.addedNodes) {
+          addPortals($node)
+          addDirectDialogs($node)
+        }
+        for (let $node of mutation.removedNodes) {
+          removePortals($node)
+          removeDirectDialogs($node)
+        }
+      }
+    }, {
+      leading: true,
+      name: 'modern popup portals',
+      observers: globalObservers,
+      onDisconnect() {
+        if ($popupContainer == $root) $popupContainer = null
+        for (let state of portals.values()) state.observer.disconnect()
+        for (let state of directDialogs.values()) state.observer.disconnect()
+        for (let $popup of popupStates.keys()) removePopup($popup)
+        portals.clear()
+        directDialogs.clear()
+        popupStates.clear()
+      },
+    }, {childList: true})
+    $popupContainer = $root
+    return
+  }
+
   let $layers = await getElement('#layers', {
     name: 'layers',
   })
@@ -3552,6 +4121,21 @@ async function observePopups() {
 }
 
 async function observeReRenderBoundary() {
+  if (modern) {
+    let $main = document.querySelector('main')
+    observeElement($body, () => {
+      let $nextMain = document.querySelector('main')
+      if ($main == $nextMain) return
+      $main = $nextMain
+      observePopups()
+      observeSideNavItems()
+      if (observingPageChanges && currentPagePath) processCurrentPage()
+    }, {
+      name: 'app re-render boundary',
+      observers: globalObservers,
+    })
+    return
+  }
   let $rerenderBoundary = await getElement('#react-root > div > div')
   observeElement($rerenderBoundary, () => {
     log('app re-rendered')
@@ -3569,6 +4153,38 @@ async function observeReRenderBoundary() {
 
 async function observeTitle() {
   let $title = await getElement('title', {name: '<title>'})
+  if (modern) {
+    let name = 'native title assignments'
+    globalObservers.get(name)?.disconnect()
+    let ownDescriptor = Object.getOwnPropertyDescriptor(document, 'title')
+    let descriptor = ownDescriptor || Object.getOwnPropertyDescriptor(Document.prototype, 'title')
+    if (descriptor?.get && descriptor?.set) {
+      // X observes the head and re-adds unread counts to title assignments.
+      // Filter before writing so its observer cannot fight our title observer.
+      Object.defineProperty(document, 'title', {
+        configurable: true,
+        enumerable: descriptor.enumerable,
+        get: descriptor.get,
+        set(value) {
+          let title = `${value}`
+          if (config.enabled && config.hideNotifications != 'ignore') {
+            let notificationCount = TITLE_NOTIFICATION_RE.exec(title)?.[0]
+            if (notificationCount) hiddenNotificationCount = notificationCount
+            title = title.replace(TITLE_NOTIFICATION_RE, '')
+          }
+          if (descriptor.get.call(this) != title) descriptor.set.call(this, title)
+        },
+      })
+      globalObservers.set(name, {
+        name,
+        disconnect() {
+          if (ownDescriptor) Object.defineProperty(document, 'title', ownDescriptor)
+          else delete document.title
+          globalObservers.delete(name)
+        },
+      })
+    }
+  }
   observeElement($title, () => {
     let title = $title.textContent
     if (title.match(/^Intervention for (X|Twitter)$/)) {
@@ -3599,6 +4215,26 @@ async function observeTitle() {
     leading: true,
     name: '<title>',
     observers: globalObservers,
+  })
+}
+
+function observeModernRoute() {
+  let router = getModernProviders()?.router
+  if (!router) return
+  let name = 'application route'
+  globalObservers.get(name)?.disconnect()
+  let lastHref = location.href
+  let unsubscribe = router.subscribe('onResolved', () => {
+    if (!config.enabled || !observingPageChanges || lastHref == location.href) return
+    lastHref = location.href
+    onTitleChange(document.title, true)
+  })
+  globalObservers.set(name, {
+    name,
+    disconnect() {
+      unsubscribe()
+      globalObservers.delete(name)
+    },
   })
 }
 
@@ -3652,6 +4288,137 @@ const observeThemeMeta = (() => {
 
 //#region Page observers
 async function observeSidebar() {
+  if (modern) {
+    let $main = await getElement('main', {name: 'modern primary column'})
+    if (!$main) return
+
+    let $sidebar = null
+    let $sidebarObserver = null
+
+    function disconnectSidebar() {
+      $sidebarObserver?.disconnect()
+      if ($sidebar) {
+        $sidebar.removeAttribute('data-cpft-sidebar-contents')
+        for (let $section of $sidebar.querySelectorAll('[data-cpft-sidebar-annotated]')) {
+          $section.classList.remove('SuggestedFollows', 'WhatsHappening', 'LiveBroadcasts')
+          $section.removeAttribute('data-cpft-sidebar-annotated')
+        }
+      }
+      $sidebarObserver = null
+      $sidebar = null
+      $body.classList.remove('Sidebar')
+    }
+
+    function classifySidebarSection($section) {
+      $section.dataset.cpftSidebarAnnotated = 'true'
+      let $heading = $section.querySelector('h2')
+      let headingText = $heading?.textContent?.trim() || ''
+      let normalizedHeading = headingText.replace(/[’]/g, "'")
+      let isSuggested = Boolean(
+        $section.querySelector('button[aria-label^="Follow"], button[aria-label^="Unfollow"]') ||
+        $section.querySelector('a[href^="/i/connect_people"]') ||
+        normalizedHeading == 'Who to follow'
+      )
+      let isWhatsHappening = Boolean(
+        $section.querySelector('a[href="/explore"]') ||
+        $section.querySelector('a[href^="/i/trending/"]') ||
+        headingText == getString('WHATS_HAPPENING') ||
+        normalizedHeading == "What's happening"
+      )
+      let isLive = Boolean(
+        $section.querySelector('h2[data-branding]') ||
+        headingText == getString('LIVE_ON_X')
+      )
+
+      $section.classList.toggle(
+        'SuggestedFollows',
+        isSuggested && config.hideSuggestedFollows &&
+        !(config.showRelevantPeople && isOnIndividualTweetPage())
+      )
+      $section.classList.toggle('WhatsHappening', isWhatsHappening && config.hideWhatsHappening)
+      if (isLive) {
+        $section.classList.add('LiveBroadcasts')
+        if (config.twitterBlueChecks != 'ignore') processBlueChecks($section)
+        if ($heading) {
+          let branding = $heading.getAttribute('data-branding') || 'x'
+          if (config.replaceLogo ? branding == 'x' : branding == 'twitter') {
+            let $span = $heading.querySelector('span')
+            if ($span) {
+              $span.textContent = branding == 'x'
+                ? $span.textContent.replace('X', getString('TWITTER'))
+                : getString('TWITTER')
+              $heading.setAttribute('data-branding', branding == 'x' ? 'twitter' : 'x')
+            }
+          }
+        }
+      }
+      else {
+        $section.classList.remove('LiveBroadcasts')
+      }
+    }
+
+    function processSidebarNode($node) {
+      if (!($node instanceof HTMLElement)) return
+      let sections = new Set()
+      if ($node.matches('section')) sections.add($node)
+      for (let $section of $node.querySelectorAll('section')) sections.add($section)
+      if ($node.matches('h2')) $node.closest('section') && sections.add($node.closest('section'))
+      for (let $section of sections) classifySidebarSection($section)
+      if (config.twitterBlueChecks != 'ignore' && sections.size == 0) processBlueChecks($node)
+    }
+
+    function processSidebar($nextSidebar) {
+      if ($nextSidebar == $sidebar) {
+        if ($sidebar) {
+          for (let $section of $sidebar.querySelectorAll('section')) classifySidebarSection($section)
+        }
+        return
+      }
+      $sidebarObserver?.disconnect()
+      $sidebarObserver = null
+      $sidebar = $nextSidebar
+      $body.classList.toggle('Sidebar', Boolean($sidebar))
+      if (!$sidebar) return
+
+      $sidebar.classList.add('SidebarContents')
+      $sidebar.dataset.cpftSidebarContents = 'true'
+      if (config.twitterBlueChecks != 'ignore' && !isOnSearchPage() && !isOnExplorePage()) {
+        observeSearchForm()
+      }
+      if (!config.hideSidebarContent || config.showRelevantPeople && isOnIndividualTweetPage()) {
+        processBlueChecks($sidebar)
+      }
+      for (let $section of $sidebar.querySelectorAll('section')) classifySidebarSection($section)
+
+      $sidebarObserver = observeElement($sidebar, (mutations) => {
+        for (let mutation of mutations) {
+          for (let $node of mutation.addedNodes) processSidebarNode($node)
+        }
+      }, {
+        name: 'modern sidebar contents',
+        observers: pageObservers,
+      }, {childList: true, subtree: true})
+    }
+
+    let $layout = $main.parentElement
+    while ($layout?.parentElement && !$layout.querySelector('aside')) {
+      $layout = $layout.parentElement
+    }
+    if (!$layout) $layout = document.body
+    observeElement($layout, () => {
+      let $nextSidebar = /** @type {HTMLElement} */ (document.querySelector('aside'))
+      processSidebar($nextSidebar)
+    }, {
+      leading: true,
+      name: 'modern sidebar container',
+      observers: pageObservers,
+      onDisconnect() {
+        disconnectSidebar()
+      },
+    }, {childList: true})
+    return
+  }
+
   let $primaryColumn = await getElement(Selectors.PRIMARY_COLUMN, {name: 'primary column'})
   let $sidebarContainer = $primaryColumn.parentElement
   observeElement($sidebarContainer, async () => {
@@ -3777,6 +4544,108 @@ async function observeSidebar() {
 }
 
 function observeSideNavItems() {
+  if (modern) {
+    let $root = $body || document.body
+    if (!$root) return
+    let $nav = null
+    let $navObserver = null
+    let $composeObserver = null
+    let $postText = null
+
+    function restorePostText() {
+      if (!$postText) return
+      let original = $postText.dataset.cpftOriginalPostText
+      if (original != null && $postText.textContent != original) $postText.textContent = original
+      $postText.removeAttribute('data-cpft-original-post-text')
+      $postText = null
+    }
+
+    function findPostText() {
+      let $postLink = document.querySelector('#sidebar-compose-post')
+      if (!$postLink && $nav) {
+        let $shell = $nav.closest('aside') || $nav.parentElement
+        $postLink = $shell?.querySelector('a:is([href="/compose/post"], [href^="/compose/post?"])')
+      }
+      return Array.from($postLink?.querySelectorAll('span') || []).find($span =>
+        !$span.querySelector('svg') && $span.textContent?.trim()
+      )
+    }
+
+    function updatePostText() {
+      if (!desktop || !config.replaceLogo) {
+        restorePostText()
+        return
+      }
+      let $nextText = findPostText()
+      if (!$nextText) return
+      if ($postText != $nextText) {
+        restorePostText()
+        $postText = $nextText
+        $postText.dataset.cpftOriginalPostText = $postText.textContent || ''
+      }
+      setTweetButtonText($postText)
+    }
+
+    function cleanupNav() {
+      $composeObserver?.disconnect()
+      $composeObserver = null
+      $navObserver?.disconnect()
+      $navObserver = null
+      if ($nav) {
+        $nav.classList.remove('PrimaryNav')
+        $nav.removeAttribute('data-cpft-primary-nav')
+      }
+      restorePostText()
+    }
+
+    function updateNav() {
+      let $nextNav = /** @type {HTMLElement} */ (document.querySelector('nav[aria-label="Primary"]'))
+      if ($nextNav != $nav) {
+        cleanupNav()
+        $nav = $nextNav
+        if (!$nav) return
+        $nav.classList.add('PrimaryNav')
+        $nav.dataset.cpftPrimaryNav = ''
+        let $shell = $nav.closest('aside') || $nav.parentElement
+        if ($shell) {
+          $composeObserver = observeElement($shell, updatePostText, {
+            name: 'modern sidebar compose',
+            observers: globalObservers,
+          }, {
+            childList: true,
+            subtree: true,
+          })
+        }
+        $navObserver = observeElement($nav, () => {
+          $nav.classList.add('PrimaryNav')
+          updatePostText()
+        }, {
+          leading: true,
+          name: 'modern primary nav contents',
+          observers: globalObservers,
+        }, {
+          childList: true,
+          subtree: true,
+        })
+      }
+      updatePostText()
+      let $composeFab = document.querySelector('button[data-compose-fab]')
+      if ($composeFab?.parentElement) tweakModernCompose($composeFab.parentElement, globalObservers)
+    }
+
+    observeElement($root, () => {
+      updateNav()
+    }, {
+      leading: true,
+      name: 'modern primary navigation',
+      observers: globalObservers,
+      onDisconnect() {
+        cleanupNav()
+        $nav = null
+      },
+    })
+    return
+  }
   observeSideNavTweetButton()
 }
 
@@ -3817,14 +4686,14 @@ const observeSideNavTweetButton = (() => {
 })()
 
 async function observeSearchForm() {
-  let $searchForm = await getElement('form[role="search"]', {
+  let $searchForm = await getElement(modern ? '[role="search"]' : 'form[role="search"]', {
     name: 'search form',
     stopIf: pageIsNot(currentPage),
     // The sidebar on Profile pages can be really slow
     timeout: 2000,
   })
   if (!$searchForm) return
-  let $results =  /** @type {HTMLElement} */ ($searchForm.lastElementChild)
+  let $results = /** @type {HTMLElement} */ (modern ? $searchForm : $searchForm.lastElementChild)
   observeElement($results, () => {
     processBlueChecks($results)
   }, {
@@ -3856,6 +4725,55 @@ async function observeTimeline(page, options = {}) {
   })
 
   if ($timeline == null) return
+
+  if (modern) {
+    let observedTimeline = null
+
+    /**
+     * @param {HTMLElement} $newTimeline
+     */
+    function observeModernTimelineItems($newTimeline) {
+      if (observedTimeline == $newTimeline) return
+      observedTimeline = $newTimeline
+      observeElement($newTimeline, () => {
+        onTimelineChange($newTimeline, page, options)
+      }, {
+        leading: true,
+        name: 'timeline',
+        observers: pageObservers,
+      }, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['data-href', 'data-index', 'data-slot', 'aria-label', 'href', 'rel'],
+      })
+      onTimelineAppeared?.()
+    }
+
+    observeModernTimelineItems($timeline)
+
+    // The new client recycles/replaces the virtualised timeline root when a
+    // native tab changes. Keep the observer on the persistent page root and
+    // rebind only when the actual <ul> changes.
+    let $root = $timeline.closest('main') || $timeline.parentElement || document.body
+    observeElement($root, () => {
+      let $newTimeline = /** @type {HTMLElement} */ (document.querySelector(timelineSelector))
+      if (!$newTimeline || $newTimeline == observedTimeline) return
+      log('timeline replaced')
+      if (isTabbed) {
+        log('tab changed')
+        onTabChanged?.()
+      }
+      observeModernTimelineItems($newTimeline)
+    }, {
+      name: 'timeline root',
+      observers: pageObservers,
+    }, {
+      childList: true,
+      subtree: true,
+    })
+    return
+  }
 
   /**
    * @param {HTMLElement} $timeline
@@ -3986,6 +4904,49 @@ async function observeIndividualTweetTimeline(page) {
 
   if ($timeline == null) return
 
+  if (modern) {
+    let observedTimeline = null
+    let seen = new Map()
+
+    /**
+     * @param {HTMLElement} $newTimeline
+     */
+    function observeModernTimelineItems($newTimeline) {
+      if (observedTimeline == $newTimeline) return
+      observedTimeline = $newTimeline
+      seen = new Map()
+      observeElement($newTimeline, () => {
+        onIndividualTweetTimelineChange($newTimeline, {observers: pageObservers, seen})
+      }, {
+        leading: true,
+        name: 'individual tweet timeline',
+        observers: pageObservers,
+      }, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['data-href', 'data-index', 'data-slot', 'aria-current', 'data-status', 'href', 'rel'],
+      })
+    }
+
+    observeModernTimelineItems($timeline)
+
+    let $root = $timeline.closest('main') || $timeline.parentElement || document.body
+    observeElement($root, () => {
+      let $newTimeline = /** @type {HTMLElement} */ (document.querySelector(Selectors.TIMELINE))
+      if (!$newTimeline || $newTimeline == observedTimeline) return
+      log('individual tweet timeline replaced')
+      observeModernTimelineItems($newTimeline)
+    }, {
+      name: 'individual tweet timeline root',
+      observers: pageObservers,
+    }, {
+      childList: true,
+      subtree: true,
+    })
+    return
+  }
+
   /**
    * @param {HTMLElement} $timeline
    */
@@ -4029,21 +4990,106 @@ async function observeIndividualTweetTimeline(page) {
 //#region Tweak functions
 async function addAccountLocationToFocusedTweet($permalinkBar, screenName) {
   if (!config.addFocusedTweetAccountLocation) return
-  if ($permalinkBar.hasAttribute('cpft-account-location-added')) return
   if (!screenName) return
+  let normalizedScreenName = screenName.toLowerCase()
+  if ($permalinkBar.getAttribute('cpft-account-location-added') == normalizedScreenName) return
+  if ($permalinkBar.hasAttribute('cpft-account-location-added')) {
+    $permalinkBar.querySelectorAll('.AccountLocation').forEach($el => $el.remove())
+    $permalinkBar.removeAttribute('cpft-account-location-added')
+  }
+  let requestId = Symbol()
+  focusedAccountLocationRequests.set($permalinkBar, requestId)
   let accountLocation = await getAccountLocation(screenName)
-  if (!accountLocation || !accountLocation.account_based_in) return
+  if (focusedAccountLocationRequests.get($permalinkBar) != requestId) return
+  if (!config.addFocusedTweetAccountLocation ||
+      !accountLocation?.account_based_in ||
+      !$permalinkBar.isConnected) {
+    focusedAccountLocationRequests.delete($permalinkBar)
+    return
+  }
+  if (modern) {
+    let currentScreenName = getModernTweetAuthorPath(
+      $permalinkBar.closest(Selectors.TWEET)
+    )?.split('/')[1]?.toLowerCase()
+    if (currentScreenName != normalizedScreenName) {
+      focusedAccountLocationRequests.delete($permalinkBar)
+      return
+    }
+  }
   let $separator = document.createElement('span')
   $separator.className = 'AccountLocation cpft_separator cpft_text'
   $separator.setAttribute('aria-hidden', 'true')
-  $separator.setAttribute('hidden', '')
+  if (!modern) $separator.setAttribute('hidden', '')
   $separator.textContent = '·'
   let $locationLabel = document.createElement('span')
   $locationLabel.className = 'AccountLocation cpft_text'
-  $locationLabel.setAttribute('hidden', '')
+  if (!modern) $locationLabel.setAttribute('hidden', '')
   $locationLabel.textContent = addQuestionMark(accountLocation.account_based_in, !accountLocation.location_accurate)
   $permalinkBar.append($separator, $locationLabel)
-  $permalinkBar.setAttribute('cpft-account-location-added', '')
+  $permalinkBar.setAttribute('cpft-account-location-added', normalizedScreenName)
+  focusedAccountLocationRequests.delete($permalinkBar)
+}
+
+function dismissModernMenu($menu) {
+  let labelledBy = $menu.getAttribute('aria-labelledby')
+  let $trigger = labelledBy && document.getElementById(labelledBy)
+  if ($trigger instanceof HTMLElement) $trigger.click()
+}
+
+/**
+ * @param {HTMLElement} $menu
+ * @param {string} action
+ * @param {string} label
+ * @param {string} icon
+ * @param {() => void} callback
+ * @returns {HTMLElement}
+ */
+function createModernMenuItem($menu, action, label, icon, callback) {
+  let $item = document.createElement('div')
+  $item.className = 'cpft_menu_item'
+  $item.dataset.cpftMenuAction = action
+  $item.setAttribute('role', 'menuitem')
+  $item.tabIndex = 0
+  $item.style.cssText = 'display:flex;align-items:center;gap:.75rem;min-height:2.5rem;padding:.625rem .75rem;cursor:pointer;color:var(--x-fg-primary);font:inherit;text-align:start;width:100%;box-sizing:border-box;'
+  let $icon = document.createElement('span')
+  $icon.setAttribute('aria-hidden', 'true')
+  let $svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  $svg.setAttribute('viewBox', '0 0 24 24')
+  $svg.setAttribute('aria-hidden', 'true')
+  $svg.innerHTML = icon
+  $icon.append($svg)
+  let $label = document.createElement('span')
+  $label.className = 'cpft_menu_label'
+  $label.textContent = label
+  $item.append($icon, $label)
+
+  let activate = (e) => {
+    e?.preventDefault()
+    e?.stopPropagation()
+    callback()
+    dismissModernMenu($menu)
+  }
+  $item.addEventListener('click', (e) => activate(e))
+  $item.addEventListener('keydown', (e) => {
+    if (e.key == 'Enter' || e.key == ' ') {
+      activate(e)
+      return
+    }
+    if (e.key != 'ArrowDown' && e.key != 'ArrowUp' &&
+        e.key != 'Home' && e.key != 'End') return
+    let $items = Array.from(/** @type {NodeListOf<HTMLElement>} */ (
+      $menu.querySelectorAll('[role="menuitem"], [role="menuitemradio"]')
+    )).filter($menuItem => !$menuItem.hasAttribute('aria-disabled') && !$menuItem.matches('[data-disabled]'))
+    let index = $items.indexOf($item)
+    if (index < 0 || $items.length == 0) return
+    let nextIndex = e.key == 'ArrowDown' ? (index + 1) % $items.length :
+      e.key == 'ArrowUp' ? (index - 1 + $items.length) % $items.length :
+      e.key == 'Home' ? 0 : $items.length - 1
+    e.preventDefault()
+    e.stopPropagation()
+    $items[nextIndex].focus()
+  })
+  return $item
 }
 
 /**
@@ -4055,7 +5101,47 @@ async function addAccountLocationToFocusedTweet($permalinkBar, screenName) {
  */
 async function addAddMutedWordMenuItem($link, linkSelector) {
   log('addAddMutedWordMenuItem: adding "Add muted word" menu item')
-
+  if (modern) {
+    let $menu = /** @type {HTMLElement} */ (
+      $link.closest('[role="menu"], [role="dialog"][aria-label="Account menu"]')
+    )
+    let $before = /** @type {HTMLElement} */ ($link.closest('[role="menuitem"]') || $link)
+    if (!$menu || !$before || $menu.querySelector('[data-cpft-menu-action="add-muted-word"]')) return
+    if ($menu.getAttribute('role') == 'dialog') {
+      let $item = /** @type {HTMLElement} */ ($link.cloneNode(true))
+      $item.classList.add('cpft_menu_item')
+      $item.dataset.cpftMenuAction = 'add-muted-word'
+      $item.setAttribute('href', PagePaths.ADD_MUTED_WORD)
+      $item.querySelector('span')?.replaceChildren(document.createTextNode(getString('ADD_MUTED_WORD')))
+      let $svg = $item.querySelector('svg')
+      if ($svg) $svg.innerHTML = Svgs.MUTE
+      $item.addEventListener('click', (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        History_push?.({
+          pathname: PagePaths.ADD_MUTED_WORD,
+          hash: '',
+          query: {},
+          search: '',
+        })
+        if ($menu.isConnected) {
+          let $close = $menu.querySelector('button[aria-label="Close"]')
+          if ($close instanceof HTMLElement) $close.click()
+        }
+      })
+      $before.parentElement?.insertBefore($item, $before)
+      return
+    }
+    let $item = createModernMenuItem($menu, 'add-muted-word', getString('ADD_MUTED_WORD'), Svgs.MUTE, () => {
+      History_push?.({
+        pathname: PagePaths.ADD_MUTED_WORD,
+        hash: '',
+        query: {},
+        search: '',
+      })
+    })
+    return
+  }
   // Wait for the dropdown to appear on desktop
   if (desktop) {
     $link = await getElement(`#layers div[data-testid="Dropdown"] ${linkSelector}`, {
@@ -4091,7 +5177,13 @@ async function addAddMutedWordMenuItem($link, linkSelector) {
 }
 
 function addCaretMenuListenerForQuoteTweet($tweet) {
-  let $caret = /** @type {HTMLElement} */ ($tweet.querySelector('[data-testid="caret"]'))
+  let $caret
+  if (modern) {
+    $caret = Array.from($tweet.querySelectorAll('button[aria-label="More"][data-slot="xds-menu-trigger"], button[aria-label="More"]'))
+      .find($button => $button.closest('article') == $tweet)
+  } else {
+    $caret = $tweet.querySelector('[data-testid="caret"]')
+  }
   if ($caret && !$caret.dataset.cpftListener) {
     $caret.addEventListener('click', () => {
       quotedTweet = getQuotedTweetDetails($tweet, {getText: true})
@@ -4105,7 +5197,46 @@ function addCaretMenuListenerForQuoteTweet($tweet) {
  */
 async function addMuteQuotesMenuItems($blockMenuItem) {
   log('mutableQuoteTweets: adding "Mute this conversation" and "Turn off Quote Tweets" menu item')
-
+  if (modern) {
+    let currentQuotedTweet = quotedTweet
+    let $menu = /** @type {HTMLElement} */ ($blockMenuItem.closest('[role="menu"]'))
+    if (!$menu || $menu.querySelector('[data-cpft-menu-action="mute-quotes"]')) return
+    let $container = $blockMenuItem.parentElement
+    if (!$container) return
+    if (currentQuotedTweet?.quotedBy) {
+      let $toggleQuotes = createModernMenuItem(
+        $menu,
+        'turn-off-quote-tweets',
+        getString('TURN_OFF_QUOTE_TWEETS'),
+        Svgs.RETWEETS_OFF,
+        () => {
+          log('mutableQuoteTweets: toggling quotes from', currentQuotedTweet.quotedBy)
+          if (config.hideQuotesFrom.includes(currentQuotedTweet.quotedBy)) {
+            config.hideQuotesFrom = config.hideQuotesFrom.filter(user => user != currentQuotedTweet.quotedBy)
+          } else {
+            config.hideQuotesFrom = config.hideQuotesFrom.concat(currentQuotedTweet.quotedBy)
+          }
+          storeConfigChanges({hideQuotesFrom: config.hideQuotesFrom})
+          processCurrentPage()
+        },
+      )
+      $container.insertBefore($toggleQuotes, $blockMenuItem)
+    }
+    let $muteQuotes = createModernMenuItem(
+      $menu,
+      'mute-quotes',
+      getString('MUTE_THIS_CONVERSATION'),
+      Svgs.MUTE,
+      () => {
+        log('mutableQuoteTweets: muting quotes of a tweet', currentQuotedTweet)
+        config.mutedQuotes = config.mutedQuotes.concat(currentQuotedTweet)
+        storeConfigChanges({mutedQuotes: config.mutedQuotes})
+        processCurrentPage()
+      },
+    )
+    $container.insertBefore($muteQuotes, $blockMenuItem)
+    return
+  }
   // Wait for the menu to render properly on desktop
   if (desktop) {
     $blockMenuItem = await getElement(`:scope > div > div > div > ${Selectors.BLOCK_MENU_ITEM}`, {
@@ -4169,7 +5300,26 @@ async function addMuteQuotesMenuItems($blockMenuItem) {
  */
 async function addToggleListRetweetsMenuItem($switchMenuItem) {
   log('adding "Turn on/off Retweets" menu item')
-
+  if (modern) {
+    let $menu = /** @type {HTMLElement} */ ($switchMenuItem?.closest('[role="menu"]'))
+    if (!$menu || !$switchMenuItem || $menu.querySelector('[data-cpft-menu-action="toggle-list-retweets"]')) return
+    let $container = $switchMenuItem.parentElement
+    if (!$container) return
+    let $toggleRetweets = createModernMenuItem(
+      $menu,
+      'toggle-list-retweets',
+      getString(`TURN_${config.listRetweets == 'ignore' ? 'OFF' : 'ON'}_RETWEETS`),
+      config.listRetweets == 'ignore' ? Svgs.RETWEETS_OFF : Svgs.RETWEET,
+      () => {
+        log('toggling list retweets')
+        config.listRetweets = config.listRetweets == 'ignore' ? 'hide' : 'ignore'
+        storeConfigChanges({listRetweets: config.listRetweets})
+        processCurrentPage()
+      },
+    )
+    $container.insertBefore($toggleRetweets, $switchMenuItem)
+    return
+  }
   // Wait for the menu to render properly on desktop
   if (desktop) {
     $switchMenuItem = await getElement(':scope > div > div > div > [role="menuitem"]', {
@@ -4209,10 +5359,12 @@ async function addToggleListRetweetsMenuItem($switchMenuItem) {
  */
 function checkforDisabledHomeTimeline() {
   if (config.disableHomeTimeline && location.pathname == PagePaths.HOME) {
-    log(`Home timeline disabled, redirecting to /${config.disabledHomeTimelineRedirect}`)
+    let redirectPath = modern && config.disabledHomeTimelineRedirect == 'messages' ?
+      '/i/chat' : `/${config.disabledHomeTimelineRedirect}`
+    log(`Home timeline disabled, redirecting to ${redirectPath}`)
     let primaryNavSelector = desktop ? Selectors.PRIMARY_NAV_DESKTOP : Selectors.PRIMARY_NAV_MOBILE
     void (async () => {
-      let $navLink = await getElement(`${primaryNavSelector} a[href="/${config.disabledHomeTimelineRedirect}"]`, {
+      let $navLink = await getElement(`${primaryNavSelector} a[href="${redirectPath}"]`, {
         name: `${config.disabledHomeTimelineRedirect} nav link`,
         stopIf: () => location.pathname != PagePaths.HOME,
       })
@@ -4274,6 +5426,33 @@ let History_push
 let History_replace
 
 function patchHistory() {
+  if (modern) {
+    let router = getModernProviders()?.router
+    if (!router) return warn('router not found')
+    if (typeof router.navigate != 'function' && typeof router.history?.push != 'function') {
+      return warn('router navigation not found')
+    }
+
+    function navigate(value, replace) {
+      let path = getModernNavigationPath(value)
+      if (!path) return
+      if (config.enabled && config.hideVerifiedNotificationsTab && path.endsWith('/verified_followers')) {
+        log('Redirecting /verified_followers to /followers')
+        path = path.replace(/verified_followers$/, 'followers')
+      }
+      if (typeof router.navigate == 'function') {
+        return router.navigate({to: path, ...(replace && {replace: true})})
+      }
+      let history = router.history
+      let method = replace ? history?.replace : history?.push
+      if (typeof method == 'function') return method.call(history, path)
+    }
+
+    History_push = (value) => navigate(value, false)
+    History_replace = (value) => navigate(value, true)
+    log('history adapter configured')
+    return
+  }
   let props = getTopLevelProps()
   if (!props) return
   if (!props.history) return warn('history not found')
@@ -4320,6 +5499,560 @@ function interceptMediaButton() {
 //#endregion
 
 //#region CSS
+/**
+ * Build the stylesheet for the replacement X application.
+ *
+ * The replacement app deliberately has no React test IDs or legacy wrapper
+ * classes. Keep these selectors tied to the semantic regions and extension
+ * markers that are present in that app; the legacy stylesheet below remains
+ * unchanged for the old app.
+ *
+ * @returns {string[]}
+ */
+function buildModernCss() {
+  const root = 'html[data-app-version]'
+  const nav = `${root} nav[aria-label="Primary"]`
+  const menu = `${root} [role="menu"]`
+  const nativeUnreadBadge = 'span.pointer-events-none:has(> span[aria-label])'
+  const hideCssSelectors = [
+    `${root} .HiddenTweet`,
+    `${root} .HiddenTweet + [role="separator"]`,
+    `${root} .HiddenAd`,
+  ]
+  const cssRules = [`
+    ${root} {
+      --cpft-active-bg: var(--x-bg-secondary);
+      --cpft-background: var(--x-bg-primary);
+      --cpft-border: var(--x-border-normal);
+      --cpft-hover-bg: var(--x-bg-tertiary);
+      --cpft-menu-hover-bg: var(--x-bg-alpha-05);
+      --cpft-tab-hover-backdrop: var(--x-bg-alpha-10);
+      --cpft-text-primary: var(--x-fg-primary);
+      --cpft-text-secondary: var(--x-fg-secondary);
+    }
+    ${root} body {
+      background-color: var(--x-bg-primary);
+      color: var(--x-fg-primary);
+      scrollbar-color: var(--x-border-normal) var(--x-bg-secondary);
+    }
+    /* Keep hidden virtual rows measurable so X recalculates their offsets. */
+    ${root} main [id^="urt:"] > ul > li[style*="position: absolute"]:has(> :is(.HiddenTweet, .HiddenAd)) {
+      min-height: 1px;
+    }
+    ${root} [data-page-header] > div:first-child,
+    ${root} aside section,
+    ${root} [role="dialog"],
+    ${root} [role="menu"] {
+      border-color: var(--x-border-normal);
+    }
+    ${root} .cpft_menu_item,
+    ${root} .cpft_menu_item a {
+      background-color: transparent !important;
+    }
+    ${root} .cpft_menu_item:hover {
+      background-color: var(--cpft-menu-hover-bg) !important;
+    }
+    ${root} .cpft_text {
+      color: var(--cpft-text-secondary);
+    }
+    ${root} .cpft_separator {
+      padding: 0 4px;
+    }
+  `]
+
+  // Dim is not exposed as a native data-theme value by the replacement app.
+  // Override its semantic tokens instead of relying on the old body classes.
+  if (config.darkModeTheme != 'lightsOut') {
+    cssRules.push(`
+      ${root}[data-theme="dark"] {
+        --x-bg-primary: rgb(21, 32, 43);
+        --x-bg-secondary: rgb(30, 39, 50);
+        --x-bg-tertiary: rgb(40, 50, 61);
+        --x-bg-quaternary: rgb(27, 36, 47);
+        --x-bg-inputs: rgb(30, 39, 50);
+        --x-bg-modal: rgb(40, 50, 61);
+        --x-bg-sheets: rgb(40, 50, 61);
+        --x-fg-primary: rgb(247, 249, 249);
+        --x-fg-secondary: rgb(139, 152, 165);
+        --x-fg-tertiary: rgb(139, 152, 165);
+        --x-fg-inverted: rgb(15, 20, 25);
+        --x-border-normal: rgb(56, 68, 77);
+        --x-border-divider: rgb(56, 68, 77);
+        --x-border-hover: rgba(247, 249, 249, .1);
+      }
+    `)
+  }
+
+  cssRules.push(`
+    ${root}[data-high-contrast]:not([data-high-contrast="false"]) {
+      --x-border-normal: color-mix(in srgb, var(--x-fg-primary) 50%, transparent);
+      --x-border-divider: color-mix(in srgb, var(--x-fg-primary) 50%, transparent);
+    }
+  `)
+
+  if (config.dontUseChirpFont) {
+    cssRules.push(`
+      ${root} body,
+      ${root} body * {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+      }
+    `)
+  }
+
+  const mobileAccountMenu = `${root} [role="dialog"][aria-label="Account menu"]`
+  const addNavAndMenu = (selector) => {
+    hideCssSelectors.push(`${nav} ${selector}`, `${menu} ${selector}`, `${mobileAccountMenu} ${selector}`)
+  }
+  const addNavHref = (selector) => {
+    hideCssSelectors.push(
+      `${nav} a${selector}`,
+      `${menu} a${selector}`,
+      `${mobileAccountMenu} a${selector}`,
+    )
+  }
+
+  if (config.addFocusedTweetAccountLocation) {
+    cssRules.push(`${root} .AccountLocation { display: inline; }`)
+  } else {
+    hideCssSelectors.push(`${root} .AccountLocation`)
+  }
+  if (config.alwaysUseLatestTweets && config.hideForYouTimeline) {
+    hideCssSelectors.push(`${root} main [role="tablist"] > [role="tab"][data-pinned-timeline="for-you"]`)
+  }
+  if (config.disableTweetTextFormatting) {
+    cssRules.push(`
+      ${root} main article [dir="auto"] span {
+        font-style: normal;
+        font-weight: normal;
+      }
+    `)
+  }
+  if (config.dropdownMenuFontWeight) {
+    cssRules.push(`
+      ${menu} :is([role="menuitem"], [role="menuitemradio"]) {
+        font-weight: normal;
+      }
+    `)
+  }
+  if (config.hideBookmarkButton) {
+    hideCssSelectors.push(
+      `${root} article:not([data-cpft-focused]) [data-engagement-action="bookmark"]`,
+    )
+    if (!config.showBookmarkButtonUnderFocusedTweets) {
+      hideCssSelectors.push(`${root} article[data-cpft-focused] [data-engagement-action="bookmark"]`)
+    }
+  }
+  if (config.hideCalls) addNavHref('[href="/i/calls"]')
+  if (config.hideConnectNav) addNavHref(':is([href$="/i/connect_people"], [href$="/i/follow_people"])')
+  if (config.hideCreatorStudioNav) {
+    addNavHref(':is([href$="/creators/studio"], [href$="/i/jf/creators/studio"])')
+    addNavHref(':is([href="/settings/monetization"], [href="/settings/manage_subscriptions"])')
+  }
+  if (config.hideEditImage) {
+    addNavAndMenu(':is([href^="/i/imagine"], [href^="https://grok.com/imagine"], [href^="/i/grok-redirect"])')
+    hideCssSelectors.push(
+      `${root} main a:is([href^="/i/imagine"], [href^="https://grok.com/imagine"], [href^="/i/grok-redirect"])`,
+      `${root} .EditImage`,
+    )
+  }
+  if (config.hideListsNav) addNavHref('[href$="/lists"]')
+  if (config.hideHistoryNav) addNavHref(`[href="${PagePaths.HISTORY}"]`)
+  if (config.hideCommunitiesNav) addNavHref('[href*="/communities"]')
+  if (config.hideManageTimelines) {
+    hideCssSelectors.push(`${root} button[aria-label="Manage timelines"]`)
+  }
+  if (config.hideShareTweetButton) {
+    // Share and bookmark occupy one native cell, so hide only the share button.
+    hideCssSelectors.push(`${root} [data-engagement-action="share"]`)
+  }
+  if (config.hideSortRepliesMenu) hideCssSelectors.push(`${root} .SortRepliesMenu`)
+  if (config.hideMoney) addNavHref('[href="/i/money"]')
+  if (config.hideSubscriptions) {
+    addNavAndMenu('[href*="/creator-subscriptions/subscriptions"]')
+    hideCssSelectors.push(
+      `${root} main [role="tablist"] > [role="tab"]:is([href*="/creator-subscriptions"], [href$="/subscriptions"], [href$="/superfollows"])`,
+      `${root} article [data-icon="icon-subscriber"]`,
+      `${root} .SubscriptionsTab`,
+      `${root} .SubsTab`,
+    )
+  }
+  if (config.hideMetrics) {
+    configureHideMetricsCss(cssRules, hideCssSelectors)
+  }
+  if (config.hideMoreTweets) hideCssSelectors.push(`${root} .SuggestedContent`)
+  if (config.hideGrokNav) {
+    addNavHref('[href="/i/grok"]')
+    hideCssSelectors.push(
+      `${root} button:has(svg[data-icon="icon-logo-grok"])`,
+      `${root} [data-slot="xds-dock-window"]:has(button[data-slot="xds-dock-launcher"] svg[data-icon="icon-logo-grok"])`,
+      `${root} main a[href="/i/grok"]`,
+      `${root} .GrokButton`,
+    )
+  }
+  if (config.hideBusinessNav) {
+    addNavHref(':is([href^="/i/premium-business"], [href^="/i/verified-orgs-signup"])')
+  }
+  if (config.hideAdsNav) {
+    addNavHref(':is([href*="ads.twitter.com"], [href*="ads.x.com"])')
+  }
+  if (config.hideJobsNav) addNavHref('[href="/jobs"]')
+  if (config.hideViewActivityLinks) {
+    hideCssSelectors.push(
+      `${root} .ViewActivity`,
+      `${menu} [role="menuitem"]:has(svg[data-icon="icon-feather-scatter-plot"])`,
+    )
+  }
+  if (config.hideTwitterBlueUpsells) {
+    const premiumUpsellHref = ':is([href^="/i/premium"]:not([href^="/i/premium-business"]), [href="/i/verified"])'
+    addNavHref(premiumUpsellHref)
+    hideCssSelectors.push(
+      `${root} header[data-page-header] a${premiumUpsellHref}`,
+      `${root} aside section:has(a[href^="/i/premium_sign_up"])`,
+      `${menu} a[href="/i/account_analytics"]`,
+      `${root} main [role="status"]:has(a[href^="/i/premium_sign_up"])`,
+      `${root} .PremiumUpsell`,
+      `${root} [data-cpft-premium-upsell]`,
+    )
+  }
+  if (config.hideVerifiedNotificationsTab) {
+    hideCssSelectors.push(
+      `${root} main [role="tab"][href$="/verified_followers"]`,
+      `${root} main a[href$="/verified_followers"]`,
+      `${root} .VerifiedFollowersTab`,
+      `${root} [data-cpft-verified-followers-tab]`,
+    )
+  }
+  if (config.hideViews) {
+    hideCssSelectors.push(
+      `${root} article [role="group"] > div:has(> a[href$="/analytics"])`,
+      `${root} [aria-modal="true"] [role="group"] > div:has(> a[href$="/analytics"])`,
+      `${root} .Views`,
+    )
+  }
+  if (config.hideWhoToFollowEtc) {
+    hideCssSelectors.push(`${root} body.Profile aside`)
+  }
+  if (config.reducedInteractionMode) {
+    hideCssSelectors.push(`${root} article [role="group"]:has([data-engagement-action])`)
+  }
+  if (config.restoreLinkHeadlines) {
+    cssRules.push(`
+      ${root} .cpft_link_headline {
+        display: block;
+        border-top: 1px solid var(--cpft-border);
+        padding: 14px;
+        line-height: normal;
+      }
+    `)
+    hideCssSelectors.push(`${root} .cpft_overlay_headline`)
+  } else {
+    hideCssSelectors.push(`${root} .cpft_link_headline`)
+  }
+  if (config.restoreQuoteTweetsLink || config.restoreOtherInteractionLinks) {
+    cssRules.push(`
+      ${root} #cpftInteractionLinks {
+        display: block;
+      }
+      ${root} #cpftInteractionLinks a {
+        text-decoration: none;
+        color: var(--cpft-text-secondary);
+      }
+      ${root} #cpftInteractionLinks a:hover span:last-child {
+        text-decoration: underline;
+      }
+      ${root} #cpftQuoteTweetCount,
+      ${root} #cpftRetweetCount,
+      ${root} #cpftLikeCount {
+        margin-right: 2px;
+        font-weight: 700;
+        color: var(--cpft-text-primary);
+      }
+      ${root} .ViewActivity {
+        display: none;
+      }
+    `)
+  } else {
+    hideCssSelectors.push(`${root} #cpftInteractionLinks`)
+  }
+  if (!config.restoreQuoteTweetsLink) hideCssSelectors.push(`${root} #cpftQuoteTweetsLink`)
+  if (!config.restoreOtherInteractionLinks) {
+    hideCssSelectors.push(`${root} #cpftRetweetsLink`, `${root} #cpftLikesLink`)
+  }
+  if (config.restoreTweetSource) {
+    cssRules.push(`${root} .TweetSource[hidden] { display: inline; }`)
+  }
+  if (config.tweakQuoteTweetsPage) {
+    // Only the embedded post is repeated; never hide the outer article body.
+    hideCssSelectors.push(`${root} body.QuoteTweets [data-slot="embedded-tweet-frame"]`)
+  }
+  if (config.twitterBlueChecks == 'hide') hideCssSelectors.push(`${root} .cpft_blue_check`)
+
+  // Modern tabs use native role=tab semantics. The synthetic tab is extension
+  // owned, so the class/ID selectors remain safe for both app generations.
+  if (shouldShowSeparatedTweetsTab()) {
+    cssRules.push(`
+      ${root} #cpftSeparatedTweetsTab {
+        position: relative;
+        display: flex;
+        flex: 1 1 0%;
+        cursor: pointer;
+        white-space: nowrap;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-radius: 2px;
+        padding: 16px;
+        text-align: center;
+        font: inherit;
+        color: var(--x-fg-secondary);
+        background-color: transparent !important;
+      }
+      ${root} #cpftSeparatedTweetsTab:hover {
+        color: var(--x-fg-primary);
+      }
+      ${root} body:not(.SeparatedTweets) #cpftSeparatedTweetsTab::after {
+        content: "";
+        display: block;
+        position: absolute;
+        inset-inline: 0;
+        bottom: 0;
+        height: 0;
+        border-radius: 9999px;
+      }
+      ${root} body.SeparatedTweets #cpftSeparatedTweetsTab::after {
+        content: "";
+        display: block;
+        position: absolute;
+        inset-inline: 0;
+        bottom: 0;
+        height: 4px;
+        min-width: 56px;
+        width: 100%;
+        border-radius: 9999px;
+      }
+    `)
+  }
+
+  if (desktop) {
+    if (config.navDensity == 'comfortable') {
+      cssRules.push(`
+        ${nav} > :is(a, button) {
+          height: 56px;
+        }
+      `)
+    } else if (config.navDensity == 'compact') {
+      cssRules.push(`
+        ${nav} > :is(a, button) {
+          height: 40px;
+        }
+        ${nav} > :is(a, button) > span {
+          padding-top: 6px;
+          padding-bottom: 6px;
+        }
+      `)
+    }
+    if (config.hideSeeNewTweets) {
+      hideCssSelectors.push(
+        `${root} main [role="status"]:has(button.bg-btn-brand svg[data-icon="icon-arrow-up"])`,
+        `${root} .SeeNewTweets`,
+        `${root} [data-cpft-see-new-tweets]`,
+      )
+    }
+    if (config.hideTimelineTweetBox) {
+      hideCssSelectors.push(`${root} main form:has(textarea[aria-label="What's happening?"])`)
+    }
+    if (config.disableHomeTimeline) addNavHref('[href="/home"]')
+    if (config.hideNotifications != 'ignore') {
+      hideCssSelectors.push(
+        `${nav} a[href="/notifications"] ${nativeUnreadBadge}`,
+        `${nav} a[href="/i/chat"] ${nativeUnreadBadge}`,
+        `${root} button[aria-label="Account menu"] ${nativeUnreadBadge}`,
+        `${root} [data-slot="xds-dock-launcher"][aria-label="Chat"] ${nativeUnreadBadge}`,
+      )
+      if (config.hideNotifications == 'hide') {
+        hideCssSelectors.push(`${nav} a[href="/notifications"]`)
+      }
+    }
+    if (config.fullWidthContent) {
+      cssRules.push(`
+        ${root} body > div:has(> div > main) > div:has(> main):has(> aside) {
+          grid-template-columns: minmax(0, 1fr);
+        }
+        ${root} main {
+          max-width: 990px;
+          width: 100%;
+        }
+      `)
+      if (!config.fullWidthMedia) {
+        cssRules.push(`
+          ${root} main article [data-engagement-action="media"] {
+            max-width: 504px;
+          }
+          ${root} main article [data-engagement-action="media"] img,
+          ${root} main article [data-engagement-action="media"] video,
+          ${root} main article a[target="_blank"][rel~="noopener"]:has(img) {
+            max-width: 100%;
+          }
+          ${root} main article a[target="_blank"][rel~="noopener"]:has(img) {
+            max-width: 504px;
+          }
+        `)
+      }
+      hideCssSelectors.push(`${root} aside`)
+    }
+    if (config.hideAccountSwitcher) {
+      hideCssSelectors.push(
+        `${root} div:has(> button[aria-label="Account menu"])`,
+      )
+    }
+    if (config.hideMessagesDrawer) {
+      hideCssSelectors.push(
+        `${root} [data-slot="xds-dock"] > [data-slot="xds-dock-window"]:has(button[data-slot="xds-dock-launcher"][aria-label="Chat"])`,
+      )
+    }
+    if (config.hideExplorePageContents) {
+      hideCssSelectors.push(
+        `${root} body.Explore main [role="tablist"]`,
+        `${root} body.Explore main div[id^="urt:"]`,
+      )
+    }
+    if (config.hideComposeTweet) {
+      hideCssSelectors.push(
+        `${root} #sidebar-compose-post`,
+        `${root} aside a:is([href="/compose/post"], [href^="/compose/post?"])`,
+        `${nav} a:is([href="/compose/post"], [href^="/compose/post?"])`,
+      )
+    }
+    if (config.hideChatNav) addNavHref('[href="/i/chat"]')
+    if (config.hideSpacesNav) addNavHref('[href="/i/spaces/start"]')
+    if (config.hideSidebarContent) {
+      // Keep the first card (normally Premium) and remove the remaining cards.
+      cssRules.push(`
+        ${root} aside > div > div > section:nth-of-type(n + 2) {
+          display: none;
+        }
+      `)
+      if (config.showRelevantPeople) {
+        cssRules.push(`
+          ${root} body.Tweet aside > div > div > section:has(button:is([aria-label^="Follow @"], [aria-label^="Unfollow @"])) {
+            display: block;
+          }
+        `)
+      }
+      hideCssSelectors.push(`${root} body.HideSidebar aside`)
+    } else {
+      if (config.hideLiveBroadcasts) hideCssSelectors.push(`${root} .LiveBroadcasts`)
+      if (config.hideTodaysNews) {
+        hideCssSelectors.push(`${root} aside section:has(a[href^="/i/trending/"])`)
+      }
+      if (config.hideWhatsHappening) {
+        hideCssSelectors.push(`${root} .WhatsHappening`)
+      }
+      if (config.hideSuggestedFollows) {
+        const suggestedFollowSection = 'section:has(button:is([aria-label^="Follow @"], [aria-label^="Unfollow @"]))'
+        hideCssSelectors.push(
+          `${root} .SuggestedFollows`,
+          `${root} body:not(.Tweet) aside ${suggestedFollowSection}`,
+        )
+      }
+    }
+    if (config.hideExploreNav && (!config.hideExploreNavWithSidebar || !config.fullWidthContent)) {
+      const exploreNav = config.hideExploreNavWithSidebar
+        ? `${root}:has(aside) nav[aria-label="Primary"]`
+        : nav
+      hideCssSelectors.push(`${exploreNav} a[href="/explore"]`)
+    }
+    if (config.retweets != 'separate' && config.quoteTweets != 'separate') {
+      hideCssSelectors.push(`${root} #cpftSeparatedTweetsTab`)
+    }
+  } else if (mobile) {
+    if (config.disableHomeTimeline) addNavHref('[href="/home"]')
+    if (config.hideComposeTweet) {
+      hideCssSelectors.push(`${root} [data-compose-fab]`)
+    }
+    if (config.hideNotifications != 'ignore') {
+      hideCssSelectors.push(
+        `${nav} a[href="/notifications"] ${nativeUnreadBadge}`,
+        `${nav} a[href="/i/chat"] ${nativeUnreadBadge}`,
+        `${root} button[aria-label="Account menu"] ${nativeUnreadBadge}`,
+        `${root} [data-slot="xds-dock-launcher"][aria-label="Chat"] ${nativeUnreadBadge}`,
+      )
+      if (config.hideNotifications == 'hide') {
+        hideCssSelectors.push(`${nav} a[href="/notifications"]`)
+      }
+    }
+    if (config.hideLiveBroadcastBar) {
+      hideCssSelectors.push(
+        `${root} .LiveBroadcastBar`,
+        `${root} [data-cpft-live-broadcast-bar]`,
+        `${root} body.HomeTimeline header[data-page-header] > div:has([role="list"] a:is([href*="/i/spaces/"], [href*="/i/broadcasts/"]))`,
+      )
+    }
+    if (config.hideSeeNewTweets) {
+      hideCssSelectors.push(
+        `${root} main [role="status"]:has(button.bg-btn-brand svg[data-icon="icon-arrow-up"])`,
+        `${root} .SeeNewTweets`,
+        `${root} [data-cpft-see-new-tweets]`,
+      )
+    }
+    if (config.hideExplorePageContents) {
+      hideCssSelectors.push(
+        `${root} body.Explore main [role="tablist"]`,
+        `${root} body.Explore main div[id^="urt:"]`,
+      )
+    }
+    if (config.hideMessagesBottomNavItem) addNavHref('[href="/i/chat"]')
+  }
+
+  if (config.revertMediaCarousel) {
+    cssRules.push(`
+      ${root} [class~="group/carousel"] [class~="snap-x"] {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        overflow-x: visible;
+        scroll-snap-type: none;
+      }
+      ${root} [class~="group/carousel"] [class~="snap-x"] > div {
+        min-width: 0;
+        width: 100%;
+      }
+    `)
+  }
+
+  if (hideCssSelectors.length > 0) {
+    cssRules.push(`
+      ${hideCssSelectors.join(',\n')} {
+        display: none !important;
+      }
+    `)
+  }
+  return cssRules
+}
+
+/**
+ * @param {string[]} cssRules
+ */
+function configureModernThemeLogo(cssRules) {
+  if (!config.replaceLogo) return
+  cssRules.push(`
+    html[data-app-version] svg[data-icon="icon-logo-x"] path {
+      fill: ${THEME_BLUE};
+      d: path("${Svgs.TWITTER_LOGO_PATH}");
+    }
+    html[data-app-version] .cpft_logo {
+      fill: ${THEME_BLUE};
+    }
+    html[data-app-version] svg[data-icon="icon-home"] path {
+      d: path("${Svgs.TWITTER_HOME_INACTIVE_PATH}");
+    }
+    html[data-app-version] svg[data-icon="icon-home-fill"] path {
+      d: path("${Svgs.TWITTER_HOME_ACTIVE_PATH}");
+    }
+    html[data-app-version] [data-slot="xds-button"] svg[data-icon="icon-logo-x"] path {
+      fill: ${THEME_BLUE};
+    }
+  `)
+}
 const configureCss = (() => {
   let $style
 
@@ -4330,6 +6063,17 @@ const configureCss = (() => {
       $style = null
       return
     }
+    if (modern) {
+      let cssRules = buildModernCss()
+      let css = cssRules.map(dedent).join('\n')
+      if ($style == null) {
+        $style = addStyle(css)
+      } else {
+        $style.textContent = css
+      }
+      return
+    }
+
 
     let cssRules = [`
       .cpft_font_family, .cpft_text {
@@ -5206,7 +6950,133 @@ const configureCss = (() => {
 
 const configureFeatureFlags = (() => {
   let isTrue
+  let modernFeaturesLogged = false
+  const modernNflFlags = [
+    'responsive_web_nfl_game_dock_enabled',
+    'responsive_web_nfl_sidebar_for_all_users_enabled',
+  ]
+  let modernNflProvider
+  let modernNflOverrides
+  let modernNflSetOverride
+
+  function getModernFeatureSwitchProvider() {
+    function findProvider(fiber) {
+      while (fiber) {
+        let value = fiber.memoizedProps?.value
+        if (
+          value?.featureSwitches &&
+          typeof value.featureSwitches.isTrue == 'function' &&
+          typeof value.setOverride == 'function' &&
+          value.overrides &&
+          typeof value.overrides == 'object'
+        ) {
+          return {
+            identity: value.setOverride,
+            value,
+          }
+        }
+        value = fiber.pendingProps?.value
+        if (
+          value?.featureSwitches &&
+          typeof value.featureSwitches.isTrue == 'function' &&
+          typeof value.setOverride == 'function' &&
+          value.overrides &&
+          typeof value.overrides == 'object'
+        ) {
+          return {
+            identity: value.setOverride,
+            value,
+          }
+        }
+        fiber = fiber.return
+      }
+    }
+    return (
+      findProvider(getModernReactFiber(document.querySelector(Selectors.NAV_HOME_LINK))) ||
+      findProvider(getModernReactFiber(document.querySelector('main'))) ||
+      findProvider(getModernReactFiber($body || document.body)) ||
+      findProvider(modernFiber)
+    )
+  }
+
+  function restoreModernNflOverrides() {
+    if (!modernNflOverrides || !modernNflSetOverride) return true
+    let restored = true
+    for (let flag of modernNflFlags) {
+      let override = modernNflOverrides[flag]
+      if (!override?.changed) continue
+      try {
+        modernNflSetOverride(flag, override.had ? override.value : undefined)
+      } catch {
+        restored = false
+        warn(`failed to restore modern NFL feature switch ${flag}`)
+      }
+    }
+    if (restored) {
+      modernNflProvider = null
+      modernNflOverrides = null
+      modernNflSetOverride = null
+    }
+    return restored
+  }
   return function configureFeatureFlags() {
+    if (modern) {
+      if (!config.enabled) {
+        restoreModernNflOverrides()
+        return
+      }
+      let provider = getModernFeatureSwitchProvider()
+      if (provider && modernNflOverrides && modernNflProvider != provider.identity) {
+        if (!restoreModernNflOverrides()) return
+      }
+      if (provider && modernNflOverrides && modernNflProvider == provider.identity) {
+        modernNflSetOverride = provider.value.setOverride
+      }
+      if (config.disableNflFeatures && provider) {
+        let value = provider.value
+        if (!modernNflOverrides) {
+          let overrides = {}
+          for (let flag of modernNflFlags) {
+            let had = Object.prototype.hasOwnProperty.call(value.overrides, flag)
+            let previous = had ? value.overrides[flag] : undefined
+            overrides[flag] = {
+              had,
+              value: previous,
+              changed: !had || previous !== false,
+              applied: had && previous === false,
+            }
+          }
+          modernNflProvider = provider.identity
+          modernNflOverrides = overrides
+        }
+        modernNflSetOverride = value.setOverride
+        for (let flag of modernNflFlags) {
+          let override = modernNflOverrides[flag]
+          if (override.applied) continue
+          try {
+            modernNflSetOverride(flag, false)
+            override.applied = true
+          } catch {
+            warn(`failed to apply modern NFL feature switch ${flag}`)
+          }
+        }
+      } else if (!config.disableNflFeatures) {
+        restoreModernNflOverrides()
+      }
+      // Native NFL consumers use the two switches above. The provider's
+      // setOverride(key, value) API is reactive; undefined removes an override.
+      // Legacy age assurance, profile tab, and native emoji consumers are absent
+      // from the currently loaded client; do not map them to unrelated flags.
+      if (provider && !modernFeaturesLogged && (
+        config.bypassAgeVerification ||
+        config.revertProfileTabs ||
+        config.revertTwemoji
+      )) {
+        modernFeaturesLogged = true
+        log('modern app feature-switch provider exists, but legacy target consumers are absent from current client')
+      }
+      return
+    }
     let props = getTopLevelProps()
     if (!props) return
     let featureSwitches = props?.contextProviderProps?.featureSwitches
@@ -5240,6 +7110,7 @@ const configureFeatureFlags = (() => {
 })()
 
 function configureFont() {
+  if (modern) return
   if (!fontFamilyRule) {
     warn('no fontFamilyRule found for configureFont to use')
     return
@@ -5269,6 +7140,45 @@ function configureFont() {
  * @param {string[]} hideCssSelectors
  */
 function configureHideMetricsCss(cssRules, hideCssSelectors) {
+  if (modern) {
+    const root = 'html[data-app-version]'
+    if (config.hideFollowingMetrics) {
+      hideCssSelectors.push(
+        `${root} main a:is([href$="/following"], [href$="/followers"], [href$="/verified_followers"]) > div > span:first-child`,
+        `${root} main a:is([href$="/following"], [href$="/followers"], [href$="/verified_followers"]) > span:first-child`,
+      )
+      cssRules.push(`
+        ${root} main a:is([href$="/following"], [href$="/followers"], [href$="/verified_followers"]) {
+          white-space: pre-line;
+        }
+      `)
+    }
+    if (config.hideTotalTweetsMetrics) {
+      // Modern profile headers expose this metric through the same semantic
+      // marker used by extension-created profile metadata when available.
+      hideCssSelectors.push(
+        `${root} main [data-cpft-total-tweets-metric]`,
+        `${root} main .TotalTweetsMetrics`,
+      )
+    }
+    const modernMetricActions = [
+      config.hideReplyMetrics && 'reply',
+      config.hideRetweetMetrics && 'retweet',
+      config.hideLikeMetrics && 'like',
+      config.hideBookmarkMetrics && 'bookmark',
+    ].filter(Boolean)
+    for (const action of modernMetricActions) {
+      cssRules.push(`
+        ${root} article [data-engagement-action="${action}"] .x-animated-count-visual {
+          visibility: hidden;
+        }
+      `)
+    }
+    if (config.hideQuoteTweetMetrics) hideCssSelectors.push(`${root} #cpftQuoteTweetCount`)
+    if (config.hideRetweetMetrics) hideCssSelectors.push(`${root} #cpftRetweetCount`)
+    if (config.hideLikeMetrics) hideCssSelectors.push(`${root} #cpftLikeCount`)
+    return
+  }
   if (config.hideFollowingMetrics) {
     // User profile hover card and page metrics
     hideCssSelectors.push(
@@ -5315,12 +7225,13 @@ const configureCustomCss = (() => {
   let $style
 
   return function configureCustomCss() {
-    if (config.customCss) {
+    if (config.enabled && config.customCss) {
       $style ??= addStyle('custom')
       $style.textContent = config.customCss
-    } else {
-      $style?.remove()
+      return
     }
+    $style?.remove()
+    $style = null
   }
 })()
 
@@ -5340,27 +7251,47 @@ const configureDynamicCss = (() => {
 
     let cssRules = []
 
-    if (fontSize != null && config.navBaseFontSize) {
-      cssRules.push(`
-        /* Regular React Native for Web markup */
-        ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) span,
-        /* New inline style markup */
-        ${Selectors.PRIMARY_NAV_DESKTOP} span[style] > span {
-          font-size: ${fontSize} !important;
-          font-weight: normal !important;
-        }
-      `)
-    }
+    if (modern) {
+      const root = 'html[data-app-version]'
+      const modernFontSize = ($body && getComputedStyle($body).fontSize) || fontSize || '16px'
+      if (config.navBaseFontSize) {
+        cssRules.push(`
+          ${root} nav[aria-label="Primary"] > :is(a, button) > span > span[aria-hidden="true"]:last-child > span {
+            font-size: ${modernFontSize} !important;
+            font-weight: normal !important;
+          }
+        `)
+      }
+      if (config.unblurSensitiveContent) {
+        cssRules.push(`
+          ${root} main article :is(img, video)[style*="blur("] {
+            filter: none !important;
+          }
+        `)
+      }
+    } else {
+      if (fontSize != null && config.navBaseFontSize) {
+        cssRules.push(`
+          /* Regular React Native for Web markup */
+          ${Selectors.PRIMARY_NAV_DESKTOP} div[dir]:not([aria-live]) span,
+          /* New inline style markup */
+          ${Selectors.PRIMARY_NAV_DESKTOP} span[style] > span {
+            font-size: ${fontSize} !important;
+            font-weight: normal !important;
+          }
+        `)
+      }
 
-    if (filterBlurRule != null && config.unblurSensitiveContent) {
-      cssRules.push(`
-        ${filterBlurRule.selectorText} {
-          filter: none !important;
-        }
-        ${filterBlurRule.selectorText} + div {
-          display: none !important;
-        }
-      `)
+      if (filterBlurRule != null && config.unblurSensitiveContent) {
+        cssRules.push(`
+          ${filterBlurRule.selectorText} {
+            filter: none !important;
+          }
+          ${filterBlurRule.selectorText} + div {
+            display: none !important;
+          }
+        `)
+      }
     }
 
     let css = cssRules.map(dedent).join('\n')
@@ -5429,6 +7360,95 @@ const configureThemeCss = (() => {
     }
 
     let cssRules = []
+    if (modern) {
+      const root = 'html[data-app-version]'
+      const modernThemeColor = themeColor || THEME_BLUE
+      cssRules.push(`
+        ${root} {
+          --cpft-theme: ${modernThemeColor};
+          --color-brand: ${modernThemeColor};
+          --x-fg-brand: ${modernThemeColor};
+          --x-bg-brand: ${modernThemeColor};
+        }
+      `)
+      if (debug) {
+        cssRules.push(`
+          ${root} [data-item-type]::after {
+            position: absolute;
+            top: 0;
+            ${ltr ? 'right' : 'left'}: 50px;
+            content: attr(data-item-type);
+            font-family: var(--x-font-sans);
+            background-color: rgb(242, 29, 29);
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 6px;
+            border-bottom-left-radius: 1em;
+            border-bottom-right-radius: 1em;
+          }
+        `)
+      }
+      if (modernThemeColor != null && shouldShowSeparatedTweetsTab()) {
+        cssRules.push(`
+          ${root} body.SeparatedTweets #cpftSeparatedTweetsTab::after {
+            background-color: ${modernThemeColor} !important;
+          }
+        `)
+      }
+      configureModernThemeLogo(cssRules)
+      if (config.twitterBlueChecks == 'replace') {
+        cssRules.push(`
+          ${root} svg.cpft_blue_check:has(> path[data-cpft-badge-replacement]) > use {
+            display: none;
+          }
+          ${root} svg.cpft_blue_check > path[data-cpft-badge-replacement] {
+            fill: ${THEME_BLUE};
+          }
+        `)
+      }
+
+
+      if (config.replaceLogo) {
+        cssRules.push(`
+          ${root} main form button[data-slot="xds-button"]:has([data-cpft-original-text]):not(:disabled) {
+            background-color: ${modernThemeColor} !important;
+          }
+          ${root} main form button[data-slot="xds-button"]:has([data-cpft-original-text]):not(:disabled):hover {
+            background-color: color-mix(in srgb, ${modernThemeColor} 80%, transparent) !important;
+          }
+        `)
+      }
+
+      if (config.uninvertFollowButtons) {
+        const followButtons = `:is(${root} main :is(button, a))`
+        cssRules.push(`
+          ${followButtons}:is([aria-label="Following"], [aria-label^="Following @"], [aria-label^="Unfollow @"]):not(:hover) {
+            border-color: transparent !important;
+            background-color: ${config.followButtonStyle == 'themed' ? 'var(--cpft-theme)' : 'var(--x-fg-primary)'} !important;
+            color: ${config.followButtonStyle == 'themed' ? 'var(--x-fg-on-brand)' : 'var(--x-bg-primary)'} !important;
+          }
+          ${followButtons}:is([aria-label="Follow"], [aria-label^="Follow @"]) {
+            background-color: transparent !important;
+            border-color: ${config.followButtonStyle == 'themed' ? 'var(--cpft-theme)' : 'var(--x-border-normal)'} !important;
+            color: ${config.followButtonStyle == 'themed' ? 'var(--cpft-theme)' : 'var(--x-fg-primary)'} !important;
+          }
+          ${followButtons}:is([aria-label="Follow"], [aria-label^="Follow @"]):hover {
+            background-color: ${config.followButtonStyle == 'themed' ? 'var(--cpft-theme)' : 'var(--x-bg-tertiary)'} !important;
+            color: ${config.followButtonStyle == 'themed' ? 'var(--x-fg-on-brand)' : 'var(--x-fg-primary)'} !important;
+          }
+        `)
+      }
+
+      let css = cssRules.map(dedent).join('\n')
+      if ($style == null) {
+        $style = addStyle(css)
+      } else {
+        $style.textContent = css
+      }
+      return
+    }
+
 
     if (themeColor != null) {
       cssRules.push(`
@@ -5615,6 +7635,7 @@ const configureThemeCss = (() => {
 })()
 
 function getColorScheme() {
+  if (modern) return $html.dataset.theme == 'dark' ? 'LightsOut' : 'Default'
   return {
     'rgb(255, 255, 255)': 'Default',
     'rgb(0, 0, 0)': 'LightsOut',
@@ -5627,18 +7648,45 @@ function getColorScheme() {
  * @param {?{getText?: boolean}} options
  * @returns {import("./types").QuotedTweet}
  */
- function getQuotedTweetDetails($tweet, options = {}) {
+function getQuotedTweetDetails($tweet, options = {}) {
   let {getText = false} = options
-  let $quotedByLink = /** @type {HTMLAnchorElement} */ ($tweet.querySelector('[data-testid="User-Name"] a'))
-  let $quotedTweet = $tweet.querySelector('div[id^="id__"] > div[dir] > span').parentElement.nextElementSibling
-  let $userName = $quotedTweet?.querySelector('[data-testid="User-Name"]')
-  let quotedBy = $quotedByLink?.pathname?.substring(1)
-  let user = $userName?.querySelector('[tabindex="-1"]')?.textContent
-  let time = $userName?.querySelector('time')?.dateTime
+  if (!modern) {
+    let $quotedByLink = /** @type {HTMLAnchorElement} */ ($tweet.querySelector('[data-testid="User-Name"] a'))
+    let $quotedTweet = $tweet.querySelector('div[id^="id__"] > div[dir] > span')?.parentElement?.nextElementSibling
+    let $userName = $quotedTweet?.querySelector('[data-testid="User-Name"]')
+    let quotedBy = $quotedByLink?.pathname?.substring(1)
+    let user = $userName?.querySelector('[tabindex="-1"]')?.textContent
+    let time = $userName?.querySelector('time')?.dateTime
+    if (!getText) return {quotedBy, user, time}
+
+    let $heading = $quotedTweet?.querySelector(':scope > div > div:first-child')
+    let $qtText = $heading?.nextElementSibling?.querySelector('[lang]')
+    let text = $qtText && Array.from($qtText.childNodes, node => {
+      if (node.nodeType == 1) {
+        if (node.nodeName == 'IMG') return /** @type {HTMLImageElement} */ (node).alt
+        return node.textContent
+      }
+      return node.nodeValue
+    }).join('')
+    return {quotedBy, user, time, text}
+  }
+
+  let quotedBy = getModernTweetAuthorPath($tweet)?.split('/')[1]
+  let $quotedTweet = /** @type {HTMLElement} */ ($tweet.querySelector(
+    ':scope [data-slot="embedded-tweet-frame"] > article'
+  ))
+  let user = getModernTweetAuthorPath($quotedTweet)?.split('/')[1]
+  let quotedId = getModernTweetId($quotedTweet)
+  let quotedInfo = quotedId && getTweetInfo(quotedId)
+  let time = $quotedTweet?.querySelector('time')?.dateTime || (
+    quotedInfo?.created_at ||
+    quotedInfo?.createdAt ||
+    quotedInfo?.legacy?.created_at ||
+    quotedInfo?.legacy?.createdAt
+  )
   if (!getText) return {quotedBy, user, time}
 
-  let $heading = $quotedTweet?.querySelector(':scope > div > div:first-child')
-  let $qtText = $heading?.nextElementSibling?.querySelector('[lang]')
+  let $qtText = $quotedTweet?.querySelector('[dir="auto"]')
   let text = $qtText && Array.from($qtText.childNodes, node => {
     if (node.nodeType == 1) {
       if (node.nodeName == 'IMG') return /** @type {HTMLImageElement} */ (node).alt
@@ -5650,6 +7698,105 @@ function getColorScheme() {
 }
 
 /**
+ * @param {HTMLElement?} $tweet
+ * @returns {string?}
+ */
+function getModernTweetAuthorPath($tweet) {
+  if (!$tweet) return null
+  let path = $tweet.querySelector('[data-post-avatar] a[href]')?.getAttribute('href')
+  if (path) return path
+  let $statusLinks = Array.from($tweet.querySelectorAll('a[href*="/status/"]'))
+  let $statusLink = $statusLinks.find($link => !($link.getAttribute('href') || '').includes('/photo/'))
+  let href = $statusLink?.getAttribute('href') || ''
+  let statusIndex = href.indexOf('/status/')
+  return statusIndex > 0 ? href.slice(0, statusIndex) : null
+}
+
+/**
+ * @param {HTMLElement?} $tweet
+ * @returns {string?}
+ */
+function getModernTweetPath($tweet) {
+  if (!$tweet) return null
+  let $frame = $tweet.closest('[data-slot="embedded-tweet-frame"]')
+  let path = $frame ? null : $tweet.closest('[role="link"][data-href]')?.getAttribute('data-href')
+  if (!path) {
+    let $statusLinks = Array.from($tweet.querySelectorAll('a[href*="/status/"]')).filter($link => {
+      let href = $link.getAttribute('href') || ''
+      return !href.includes('/photo/') && ($frame || !$link.closest('[data-slot="embedded-tweet-frame"]'))
+    })
+    path = $statusLinks[$statusLinks.length - 1]?.getAttribute('href')
+  }
+  if (!path) return null
+  try {
+    return new URL(path, location.origin).pathname
+  } catch {
+    return path
+  }
+}
+
+/**
+ * @param {HTMLElement?} $tweet
+ * @returns {string?}
+ */
+function getModernTweetId($tweet) {
+  return getModernTweetPath($tweet)?.match(/\/status\/(\d+)/)?.[1] || null
+}
+
+/**
+ * @param {HTMLElement} $tweet
+ * @returns {any}
+ */
+function getModernTweetInfo($tweet) {
+  let tweetId = getModernTweetId($tweet)
+  return tweetId ? getTweetInfo(tweetId) : null
+}
+/**
+ * Reads the native card binding metadata for a modern tweet.
+ *
+ * Relay can hydrate the card after the tweet DOM, so callers should include
+ * the returned values in their mutation signature and retry on later passes.
+ * Do not derive a headline from tweet text: the title must come from the
+ * native card binding.
+ * @param {string?} tweetId
+ * @returns {{title?: string, domain?: string, vanity_url?: string}?}
+ */
+function getModernCardMetadata(tweetId) {
+  if (!modern || !tweetId) return
+  let tweet = getModernTweetRecord(tweetId)
+  let card = resolveModernValue(tweet?.card)
+  if (!card || typeof card != 'object') return
+  let legacy = resolveModernValue(card.legacy)
+  let bindings = resolveModernValue(legacy?.binding_values)
+  if (!Array.isArray(bindings)) return
+  let metadata = {}
+  for (let binding of bindings) {
+    let key = binding?.key
+    if (key != 'title' && key != 'domain' && key != 'vanity_url') continue
+    let value = resolveModernValue(binding?.value)
+    let text = typeof value?.string_value == 'string'
+      ? value.string_value.replace(/\u200B/g, '').trim()
+      : ''
+    if (text) metadata[key] = text
+  }
+  return Object.keys(metadata).length > 0 ? metadata : undefined
+}
+
+/**
+ * @param {HTMLElement} $element
+ * @returns {boolean}
+ */
+function hasModernAdDisclosure($element) {
+  return Array.from($element.querySelectorAll(
+    '.x-middot-group + div:has(> button[data-slot="xds-menu-trigger"]) > a'
+  )).some($link => {
+    if ($link.closest('[data-slot="embedded-tweet-frame"]')) return false
+    let text = $link.textContent?.trim() || ''
+    return /^(?:ad|promoted|sponsored)$/i.test(text)
+  })
+}
+
+/**
  * Attempts to determine the type of a timeline Tweet given the element with
  * data-testid="tweet" on it, falling back to TWEET if it doesn't appear to be
  * one of the particular types we care about.
@@ -5658,41 +7805,132 @@ function getColorScheme() {
  * @returns {import("./types").TweetType}
  */
 function getTweetType($tweet, checkSocialContext = false) {
-  if ($tweet.closest(Selectors.PROMOTED_TWEET_CONTAINER)) {
-    return 'PROMOTED_TWEET'
-  }
-  if ($tweet.querySelector('[data-testid="socialContext"]')) {
-    if (checkSocialContext) {
-      // Assume social context tweets are Retweets if we're not checking
-      let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
-      if (svgPath.startsWith('M7.471 21H.472l.029-1.027c.184')) return 'COMMUNITY_TWEET'
-      if (svgPath.startsWith('M13 21l-1 2-1-2v-5H4.5v-2.287l')) return 'PINNED_TWEET'
+  if (!modern) {
+    if ($tweet.closest(Selectors.PROMOTED_TWEET_CONTAINER)) {
+      return 'PROMOTED_TWEET'
+    }
+    if ($tweet.querySelector('[data-testid="socialContext"]')) {
+      if (checkSocialContext) {
+        // Assume social context tweets are Retweets if we're not checking
+        let svgPath = $tweet.querySelector('svg path')?.getAttribute('d') ?? ''
+        if (svgPath.startsWith('M7.471 21H.472l.029-1.027c.184')) return 'COMMUNITY_TWEET'
+        if (svgPath.startsWith('M13 21l-1 2-1-2v-5H4.5v-2.287l')) return 'PINNED_TWEET'
+      }
+      // Quoted tweets from accounts you blocked or muted are displayed as an
+      // <article> with "This Tweet is unavailable."
+      if ($tweet.querySelector('article')) {
+        return 'UNAVAILABLE_RETWEET'
+      }
+      // Quoted tweets are preceded by visually-hidden "Quote" text
+      if ($tweet.querySelector('div[id^="id__"] > div[dir] > span')?.textContent.includes(getString('QUOTE'))) {
+        return 'RETWEETED_QUOTE_TWEET'
+      }
+      return 'RETWEET'
+    }
+    // Quoted tweets are preceded by visually-hidden "Quote" text
+    if ($tweet.querySelector('div[id^="id__"] > div[dir] > span')?.textContent.includes(getString('QUOTE'))) {
+      return 'QUOTE_TWEET'
     }
     // Quoted tweets from accounts you blocked or muted are displayed as an
     // <article> with "This Tweet is unavailable."
     if ($tweet.querySelector('article')) {
-      return 'UNAVAILABLE_RETWEET'
+      return 'UNAVAILABLE_QUOTE_TWEET'
     }
-    // Quoted tweets are preceded by visually-hidden "Quote" text
-    if ($tweet.querySelector('div[id^="id__"] > div[dir] > span')?.textContent.includes(getString('QUOTE'))) {
-      return 'RETWEETED_QUOTE_TWEET'
+    return 'TWEET'
+  }
+
+  let $frame = /** @type {HTMLElement} */ ($tweet.querySelector(
+    ':scope [data-slot="embedded-tweet-frame"]'
+  ))
+  let $quotedTweet = /** @type {HTMLElement} */ ($frame?.querySelector(':scope > article'))
+  let $context = $tweet.previousElementSibling
+  if ($context?.matches('a[aria-hidden="true"]')) {
+    $context = $context.previousElementSibling
+  }
+  let $nestedArticle = $tweet.querySelector(':scope > article')
+  if (!$context && $nestedArticle && $tweet.firstElementChild != $nestedArticle) {
+    let $candidate = $tweet.firstElementChild
+    let candidateText = $candidate?.textContent?.trim() || ''
+    let hasSocialIcon = Boolean($candidate?.querySelector('svg[data-icon], svg use'))
+    if (
+      hasSocialIcon ||
+      /\b(?:reposted|retweeted)\s*$/i.test(candidateText) ||
+      /^(?:pinned|community)\b/i.test(candidateText)
+    ) {
+      $context = $candidate
     }
+  }
+  let socialIconNames = Array.from($context?.querySelectorAll('svg[data-icon], svg use') || []).filter($icon => {
+    return !$icon.closest('[data-slot="embedded-tweet-frame"]') &&
+      !$icon.closest('[data-engagement-action]')
+  }).map($icon => {
+    return ($icon.getAttribute('data-icon') || $icon.getAttribute('href') || '').toLowerCase()
+  })
+  let hasRepostContext = socialIconNames.some(name => /(?:^|[-_])(repost|retweet)(?:[-_]|$)/.test(name))
+  let hasCommunityContext = socialIconNames.some(name => /(?:^|[-_])community(?:[-_]|$)/.test(name))
+  let hasPinnedContext = socialIconNames.some(name => /(?:^|[-_])pin(?:[-_]|$)/.test(name))
+  let contextText = $context?.textContent?.trim().slice(0, 320) || ''
+  let hasTextRepostContext = /^(?:reposted|retweeted)\b/i.test(contextText)
+  let hasTextPinnedContext = /^pinned\b/i.test(contextText)
+  let hasTextCommunityContext = /^community\b/i.test(contextText)
+  let hasAd = hasModernAdDisclosure($tweet)
+  if (hasAd) return 'PROMOTED_TWEET'
+
+  let framePath = getModernTweetPath($quotedTweet)
+  let frameButtonText = $quotedTweet?.querySelector('button')?.textContent?.trim() || ''
+  let frameUnavailable = Boolean(
+    $quotedTweet && (
+      !framePath ||
+      /^(?:view|show)$/i.test(frameButtonText)
+    )
+  )
+  let hasSocialContext = hasRepostContext || hasTextRepostContext
+  if (checkSocialContext && (hasCommunityContext || hasTextCommunityContext)) {
+    return 'COMMUNITY_TWEET'
+  }
+  if (checkSocialContext && (hasPinnedContext || hasTextPinnedContext)) {
+    return 'PINNED_TWEET'
+  }
+  if (hasSocialContext) {
+    if (frameUnavailable) return 'UNAVAILABLE_RETWEET'
+    if ($quotedTweet) return 'RETWEETED_QUOTE_TWEET'
     return 'RETWEET'
   }
-  // Quoted tweets are preceded by visually-hidden "Quote" text
-  if ($tweet.querySelector('div[id^="id__"] > div[dir] > span')?.textContent.includes(getString('QUOTE'))) {
-    return 'QUOTE_TWEET'
+  if ($quotedTweet) {
+    return frameUnavailable ? 'UNAVAILABLE_QUOTE_TWEET' : 'QUOTE_TWEET'
   }
-  // Quoted tweets from accounts you blocked or muted are displayed as an
-  // <article> with "This Tweet is unavailable."
-  if ($tweet.querySelector('article')) {
-    return 'UNAVAILABLE_QUOTE_TWEET'
+  let tweetPath = getModernTweetPath($tweet)
+  if (!tweetPath && /(?:post|tweet)\s+(?:is\s+)?unavailable/i.test($tweet.textContent || '')) {
+    return 'UNAVAILABLE'
   }
   return 'TWEET'
 }
 
 // Add 1 every time this gets broken: 6
 function getVerifiedProps($svg) {
+  if (modern) {
+    let icon = (
+      $svg.querySelector('use')?.getAttribute('href') ||
+      $svg.querySelector('use')?.getAttribute('xlink:href') ||
+      $svg.getAttribute('data-icon') ||
+      ''
+    ).toLowerCase()
+    let label = ($svg.getAttribute('aria-label') || $svg.parentElement?.getAttribute('aria-label') || '').toLowerCase()
+    let verifiedType = (
+      icon.includes('business') ? 'Business' :
+      icon.includes('government') ? 'Government' :
+      null
+    )
+    return {
+      isBlueVerified: Boolean(
+        icon.includes('verified') ||
+        label.includes('verified') ||
+        label.includes('check')
+      ),
+      verifiedType,
+    }
+  }
+
   let propsGetter = (props) => props?.children?.props?.children?.[0]?.[0]?.props
   let $parent = $svg.parentElement.parentElement
   // Verified badge button on the profile screen
@@ -5727,6 +7965,354 @@ function getVerifiedProps($svg) {
 function handlePopup($popup) {
   let result = {tookAction: false, onPopupClosed: null}
 
+  if (modern) {
+    let cleanups = []
+    let finish = () => {
+      if (cleanups.length) {
+        result.onPopupClosed = () => {
+          for (let cleanup of cleanups) cleanup()
+        }
+      }
+      return result
+    }
+    let menuText = ($item) => $item?.textContent?.trim() || ''
+    let radioItems = Array.from(/** @type {NodeListOf<HTMLElement>} */ (
+      $popup.querySelectorAll('[role="menuitemradio"]')
+    ))
+    let $followingTab = /** @type {HTMLElement?} */ (
+      document.querySelector(
+        'main [role="tab"][data-pinned-timeline="following"][aria-selected="true"]'
+      ) || document.querySelector(
+        'main [role="tab"][aria-label="Following"][aria-selected="true"]'
+      )
+    )
+    function isMenu($popup) {
+      return $popup.getAttribute('role') == 'menu'
+    }
+
+    // Premium dialogs are XDS portals rather than #layers sheet dialogs.
+    if (desktop && config.hideTwitterBlueUpsells &&
+        $popup.getAttribute('role') == 'dialog' &&
+        $popup.querySelector('a[href^="/i/premium"]') &&
+        !$popup.querySelector('svg[aria-label="Verified account"]')) {
+      let $close = $popup.querySelector('button[aria-label="Close"], button[aria-label="Dismiss"]')
+      if ($close instanceof HTMLElement) {
+        log('hidePremiumUpsells: automatically closing modern Premium dialog')
+        $close.click()
+        result.tookAction = true
+        return finish()
+      }
+    }
+
+    // The modern sort menus expose native radio items. Clicking the desired
+    // item is important: it lets X issue the real Relay request.
+    if (isMenu($popup) && isOnHomeTimelinePage() &&
+        config.sortFollowing != 'ignore' && !userSortedFollowing &&
+        $followingTab && $popup.getAttribute('aria-labelledby') == $followingTab.id &&
+        radioItems.length == 2) {
+      let targetIndex = config.sortFollowing == 'popular' ? 1 : 0
+      let $target = radioItems[targetIndex]
+      if ($target) {
+        for (let $item of radioItems) {
+          if ($item.dataset.cpftManualSortListener) continue
+          $item.dataset.cpftManualSortListener = 'true'
+          $item.addEventListener('click', (e) => {
+            if (e.isTrusted) userSortedFollowing = true
+          })
+        }
+        let autoSortPending = $followingTab.dataset.cpftFollowingSortPending == config.sortFollowing
+        delete $followingTab.dataset.cpftFollowingSortPending
+        if ($target.getAttribute('aria-checked') == 'true' && autoSortPending) dismissModernMenu($popup)
+        else if ($target.getAttribute('aria-checked') != 'true') $target.click()
+        result.tookAction = true
+        return finish()
+      }
+    }
+
+    let $sortRepliesGroup = $popup.querySelector('[role="group"][aria-label="Sort replies"]')
+    if (!$sortRepliesGroup) {
+      $sortRepliesGroup = Array.from($popup.querySelectorAll('[role="group"]')).find($group =>
+        $group.getAttribute('aria-label') == getString('SORT_REPLIES')
+      )
+    }
+    /** @type {HTMLElement[]} */
+    let $sortRepliesItems = []
+    if ($sortRepliesGroup) {
+      $sortRepliesItems = Array.from(/** @type {NodeListOf<HTMLElement>} */ (
+        $sortRepliesGroup.querySelectorAll('[role="menuitemradio"]')
+      ))
+    }
+    if (isMenu($popup) && isOnIndividualTweetPage() &&
+        config.sortReplies != 'relevant' && !userSortedReplies &&
+        $sortRepliesItems.length >= 3 && $sortRepliesGroup) {
+      let targetIndex = {recent: 1, liked: 2}[config.sortReplies]
+      let $target = $sortRepliesItems[targetIndex]
+      if ($target) {
+        for (let $item of $sortRepliesItems) {
+          if ($item.dataset.cpftManualSortListener) continue
+          $item.dataset.cpftManualSortListener = 'true'
+          $item.addEventListener('click', (e) => {
+            if (e.isTrusted) userSortedReplies = true
+          })
+        }
+        if ($target.getAttribute('aria-checked') != 'true') $target.click()
+        result.tookAction = true
+        return finish()
+      }
+    }
+
+    if (config.replaceLogo && isMenu($popup)) {
+      let $repostItem = Array.from(/** @type {NodeListOf<HTMLElement>} */ (
+        $popup.querySelectorAll('[role="menuitem"]')
+      )).find($item =>
+        !($item.matches('[role="menuitemradio"]')) &&
+        [getString('REPOST'), 'Repost'].includes(menuText($item))
+      )
+      if ($repostItem && !$repostItem.dataset.cpftLogoReplaced) {
+        let $label = $repostItem.querySelector('.relative.min-w-0.flex-1, span') || $repostItem
+        $label.textContent = getString('RETWEET')
+        $repostItem.dataset.cpftLogoReplaced = 'true'
+        result.tookAction = true
+      }
+      let $undoRepostItem = Array.from(/** @type {NodeListOf<HTMLElement>} */ (
+        $popup.querySelectorAll('[role="menuitem"]')
+      )).find($item =>
+        !($item.matches('[role="menuitemradio"]')) &&
+        [getString('UNDO_RETWEET'), 'Undo repost'].includes(menuText($item))
+      )
+      if ($undoRepostItem && !$undoRepostItem.dataset.cpftLogoReplaced) {
+        let $label = $undoRepostItem.querySelector('.relative.min-w-0.flex-1, span') || $undoRepostItem
+        $label.textContent = getString('UNDO_RETWEET')
+        $undoRepostItem.dataset.cpftLogoReplaced = 'true'
+        result.tookAction = true
+      }
+    }
+
+    if (isOnListPage() && isMenu($popup)) {
+      let $menuItems = Array.from(/** @type {NodeListOf<HTMLElement>} */ (
+        $popup.querySelectorAll('[role="menuitem"]')
+      ))
+      let repostLabels = [getString('REPOST'), getString('RETWEET'), 'Repost', 'Retweet']
+      let quoteLabels = [getString('QUOTE'), getString('QUOTE_TWEET'), 'Quote']
+      let $repostItem = $menuItems.find($item => repostLabels.includes(menuText($item)))
+      let $quoteItem = $menuItems.find($item => quoteLabels.includes(menuText($item)))
+      if ($repostItem && $quoteItem) {
+        addToggleListRetweetsMenuItem($repostItem)
+        result.tookAction = true
+        return finish()
+      }
+    }
+
+    if (config.mutableQuoteTweets && quotedTweet && isMenu($popup)) {
+      let $blockMenuItem = Array.from(/** @type {NodeListOf<HTMLElement>} */ (
+        $popup.querySelectorAll('[role="menuitem"]')
+      )).find($item =>
+        /^Block\s+@/i.test(menuText($item))
+      )
+      if ($blockMenuItem) {
+        addMuteQuotesMenuItems($blockMenuItem)
+        result.tookAction = true
+        cleanups.push(() => {
+          quotedTweet = null
+        })
+      }
+    }
+
+    if (config.fastBlock) {
+      let $blockMenuItem = isMenu($popup)
+        ? Array.from(/** @type {NodeListOf<HTMLElement>} */ (
+          $popup.querySelectorAll('[role="menuitem"]')
+        )).find($item =>
+          /^Block\s+@/i.test(menuText($item))
+        )
+        : null
+      let $heading = $popup.querySelector('h2')
+      let isBlockDialog = $popup.getAttribute('role') == 'dialog' &&
+        $popup.matches('[data-slot="xds-modal-surface"]') &&
+        /^Block\s+@.+\?/i.test($heading?.textContent?.trim() || '')
+      let $confirmButton = isBlockDialog
+        ? Array.from($popup.querySelectorAll('button')).find($button => $button.textContent?.trim() == 'Block') || null
+        : null
+      let dialogTarget = ($heading?.textContent?.trim() || '')
+        .replace(/^Block\s+/i, '')
+        .replace(/\?\s*$/, '')
+        .trim()
+      let matchesBlockTarget = Boolean(
+        dialogTarget &&
+        $body?.dataset.cpftFastBlockTarget &&
+        dialogTarget == $body.dataset.cpftFastBlockTarget
+      )
+      if (blockMenuItemSeen && blockMenuItemClicked && matchesBlockTarget && $confirmButton) {
+        log('fastBlock: fast blocking modern confirmation')
+        $confirmButton.click()
+        blockMenuItemSeen = false
+        blockMenuItemClicked = false
+        delete $body?.dataset.cpftFastBlockTarget
+        result.tookAction = true
+        return finish()
+      }
+      if (isBlockDialog && !$popup.dataset.cpftFastBlockDialogGuard) {
+        let $cancelButton = Array.from($popup.querySelectorAll('button')).find($button =>
+          $button.textContent?.trim() == 'Cancel'
+        ) || null
+        if ($cancelButton) {
+          let resetBlockState = () => {
+            blockMenuItemSeen = false
+            blockMenuItemClicked = false
+            delete $body?.dataset.cpftFastBlockTarget
+          }
+          $cancelButton.addEventListener('click', resetBlockState)
+          $popup.addEventListener('keydown', (e) => {
+            if (e.key == 'Escape') resetBlockState()
+          })
+          $popup.dataset.cpftFastBlockDialogGuard = 'true'
+        }
+      }
+      if ($blockMenuItem && !$blockMenuItem.dataset.cpftFastBlockPrepared) {
+        log('fastBlock: preparing for modern fast blocking')
+        blockMenuItemSeen = true
+        blockMenuItemClicked = false
+        if ($body) {
+          $body.dataset.cpftFastBlockTarget = menuText($blockMenuItem)
+            .replace(/^Block\s+/i, '')
+            .replace(/\?\s*$/, '')
+            .trim()
+        }
+        let blockClickListener = (e) => {
+          let $target = e.target instanceof Element ? e.target.closest('[role="menuitem"]') : null
+          if ($target == $blockMenuItem) {
+            log('fastBlock: block clicked')
+            blockMenuItemClicked = true
+          }
+        }
+        document.addEventListener('click', blockClickListener, {capture: true, once: true})
+        $blockMenuItem.dataset.cpftFastBlockPrepared = 'true'
+        cleanups.push(() => {
+          document.removeEventListener('click', blockClickListener, {capture: true})
+          if (!blockMenuItemClicked) {
+            blockMenuItemSeen = false
+            blockMenuItemClicked = false
+            delete $body?.dataset.cpftFastBlockTarget
+          }
+        })
+        result.tookAction = true
+      }
+      else if (!$blockMenuItem && !isBlockDialog && !blockMenuItemClicked) {
+        blockMenuItemSeen = false
+        blockMenuItemClicked = false
+        delete $body?.dataset.cpftFastBlockTarget
+      }
+    }
+
+    if (config.addAddMutedWordMenuItem &&
+        (isMenu($popup) || $popup.matches('[role="dialog"][aria-label="Account menu"]'))) {
+      let $settingsLink = /** @type {HTMLAnchorElement?} */ ($popup.querySelector('a[href$="/settings"]'))
+      if ($settingsLink) {
+        addAddMutedWordMenuItem($settingsLink, 'a[href$="/settings"]')
+        result.tookAction = true
+        return finish()
+      }
+    }
+
+    if (config.twitterBlueChecks != 'ignore') {
+      let $typeahead = /** @type {HTMLElement?} */ ($popup.querySelector('[role="listbox"]'))
+      if ($typeahead) {
+        processBlueChecks($typeahead)
+        let $observer = observeElement($typeahead, () => processBlueChecks($typeahead), 'modern popup typeahead')
+        result.tookAction = true
+        cleanups.push(() => $observer.disconnect())
+      }
+    }
+
+    if (desktop && (config.hideGrokNav || config.twitterBlueChecks != 'ignore' || config.addUserHoverCardAccountLocation)) {
+      let $followingLink = /** @type {HTMLAnchorElement?} */ ($popup.querySelector('a[href$="/following"]'))
+      let removeLocationMarkers = () => {
+        $popup.querySelectorAll('[data-cpft-account-location]').forEach($el => $el.remove())
+      }
+      if (!config.addUserHoverCardAccountLocation) removeLocationMarkers()
+      if ($followingLink) {
+        result.tookAction = true
+        if (config.hideGrokNav) {
+          let $grokButton = Array.from($popup.querySelectorAll('button')).find($button =>
+            $button.textContent?.trim() == getString('PROFILE_SUMMARY')
+          )
+          $grokButton?.classList.add('GrokButton')
+        }
+        if (config.twitterBlueChecks != 'ignore') processBlueChecks($popup)
+        if (config.addUserHoverCardAccountLocation && !$popup.querySelector('[data-cpft-account-location]')) {
+          let screenName = $followingLink.pathname.split('/')[1]
+          if (screenName) {
+            let requestActive = true
+            cleanups.push(() => {
+              requestActive = false
+              removeLocationMarkers()
+            })
+            getAccountLocation(screenName).then((accountLocation) => {
+              let currentScreenName = $followingLink.pathname.split('/')[1]
+              if (!requestActive || !config.addUserHoverCardAccountLocation ||
+                  !accountLocation?.account_based_in || !$popup.isConnected ||
+                  !$followingLink.isConnected ||
+                  currentScreenName?.toLowerCase() != screenName.toLowerCase() ||
+                  $popup.querySelector('[data-cpft-account-location]')) return
+              let $insertionPoint = $followingLink.parentElement?.parentElement?.parentElement
+              if (!$insertionPoint?.isConnected) return
+              let $location = document.createElement('div')
+              $location.className = 'cpft_text'
+              $location.dataset.cpftAccountLocation = ''
+              $location.textContent = addQuestionMark(
+                getFn('ACCOUNT_BASED_IN_FN')({country: accountLocation.account_based_in}),
+                !accountLocation.location_accurate
+              )
+              $insertionPoint.insertAdjacentElement('afterend', $location)
+            })
+          }
+        }
+      }
+    }
+    if (mobile && $popup.getAttribute('role') == 'dialog' &&
+        location.pathname.startsWith(PagePaths.COMPOSE_TWEET)) {
+      tweakModernCompose($popup, modalObservers)
+      return {
+        tookAction: true,
+        onPopupClosed() {
+          disconnectObservers(modalObservers, 'modal')
+        },
+      }
+    }
+    if (desktop && $popup.getAttribute('role') == 'dialog') {
+      if (!isDesktopComposeTweetModalOpen &&
+          location.pathname.startsWith(PagePaths.COMPOSE_TWEET)) {
+        log('Compose Tweet modal opened')
+        isDesktopComposeTweetModalOpen = true
+        $desktopComposeTweetModalPopup = $popup
+        observeDesktopComposeTweetModal($popup)
+        return {
+          tookAction: true,
+          onPopupClosed() {
+            log('Compose Tweet modal closed')
+            isDesktopComposeTweetModalOpen = false
+            $desktopComposeTweetModalPopup = null
+            disconnectObservers(modalObservers, 'modal')
+            if (config.replaceLogo && isOnHomeTimelinePage()) tweakTweetButton()
+          },
+        }
+      }
+      if (!isDesktopMediaModalOpen && URL_MEDIA_RE.test(location.pathname)) {
+        log('media modal opened')
+        isDesktopMediaModalOpen = true
+        observeDesktopModalTimeline($popup)
+        return {
+          tookAction: true,
+          onPopupClosed() {
+            log('media modal closed')
+            isDesktopMediaModalOpen = false
+            disconnectObservers(modalObservers, 'modal')
+          },
+        }
+      }
+    }
+    return finish()
+  }
   // Automatically close the Premium sign up popup
   if (desktop && config.hideTwitterBlueUpsells && location.pathname === '/i/premium_sign_up') {
     tweakPremiumSignUpPage()
@@ -6040,6 +8626,9 @@ function handlePopup($popup) {
   return result
 }
 
+/**
+ * @param {SVGElement} $svg
+ */
 function isBlueVerified($svg) {
   let props = getVerifiedProps($svg)
   return Boolean(props && props.isBlueVerified && !(
@@ -6051,6 +8640,7 @@ function isBlueVerified($svg) {
 }
 
 /**
+ * @param {SVGElement} $svg
  * @returns {import("./types").VerifiedType}
  */
 function getVerifiedType($svg) {
@@ -6076,6 +8666,18 @@ function getVerifiedType($svg) {
  * @returns {boolean}
  */
 function isReplyToPreviousTweet($tweet) {
+  if (modern) {
+    let $avatar = $tweet.querySelector('[data-post-avatar]')
+    let $avatarColumn = $avatar?.parentElement
+    if (!$avatarColumn || !$avatar) return false
+    for (let $child of $avatarColumn.children) {
+      if ($child == $avatar) break
+      let style = getComputedStyle($child)
+      if (style.width == '2px' && style.height != '0px') return true
+    }
+    return false
+  }
+
   let $replyLine = $tweet.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild?.firstElementChild
   if ($replyLine) {
     return getComputedStyle($replyLine).width == '2px'
@@ -6128,6 +8730,75 @@ function onPopup($popup) {
 }
 
 /**
+ * Enumerate the outer post cards in one modern virtualised timeline item.
+ * A conversation item can contain several cards, while a focused post is
+ * rendered as a plain article without a data-href wrapper.
+ * @param {HTMLElement} $item
+ * @returns {{target: HTMLElement, tweet: HTMLElement}[]}
+ */
+function getModernTimelineItemCards($item) {
+  let cards = []
+  for (let $target of $item.querySelectorAll('[role="link"][data-href]')) {
+    if ($target.closest('li') != $item || $target.closest('[data-slot="embedded-tweet-frame"]')) continue
+    let $tweet = /** @type {HTMLElement} */ ($target.querySelector(':scope > article'))
+    if ($tweet) cards.push({target: /** @type {HTMLElement} */ ($target), tweet: $tweet})
+  }
+
+  for (let $tweet of $item.querySelectorAll(Selectors.TWEET)) {
+    if (
+      $tweet.closest('li') != $item ||
+      $tweet.closest('[role="link"][data-href]') ||
+      $tweet.closest('[data-slot="embedded-tweet-frame"]')
+    ) continue
+    let target = /** @type {HTMLElement} */ ($tweet.parentElement)
+    if (target && !cards.some(card => card.tweet == $tweet)) {
+      cards.push({target, tweet: /** @type {HTMLElement} */ ($tweet)})
+    }
+  }
+  return cards
+}
+
+/**
+ * @param {HTMLElement} $tweet
+ * @param {string?} [routePath]
+ * @returns {boolean}
+ */
+function isModernFocusedTweet($tweet, routePath = null) {
+  routePath ||= currentPagePath || location.pathname
+  let routeMatch = URL_TWEET_BASE_RE.exec(routePath)
+  let tweetPath = getModernTweetPath($tweet)
+  let tweetMatch = tweetPath && URL_TWEET_BASE_RE.exec(tweetPath)
+  return Boolean(
+    routeMatch &&
+    tweetMatch &&
+    tweetMatch[2] == routeMatch[2] &&
+    tweetMatch[1]?.toLowerCase() == routeMatch[1]?.toLowerCase()
+  )
+}
+
+/**
+ * Remove extension-owned styling when a virtualised badge node is reused for
+ * a non-blue verification type.
+ * @param {SVGElement} $svg
+ */
+function clearModernBlueCheck($svg) {
+  $svg.classList.remove('cpft_blue_check')
+  $svg.querySelector('[data-cpft-badge-replacement]')?.remove()
+}
+
+/**
+ * @param {HTMLElement} $tweet
+ */
+function resetModernBlueChecks($tweet) {
+  for (let $svg of /** @type {NodeListOf<SVGElement>} */ ($tweet.querySelectorAll('svg.cpft_blue_check'))) {
+    if (!$svg.matches(Selectors.VERIFIED_TICK) || !isBlueVerified($svg)) {
+      clearModernBlueCheck($svg)
+    }
+  }
+}
+
+
+/**
  * @param {HTMLElement} $timeline
  * @param {string} page
  * @param {import("./types").TimelineOptions?} options
@@ -6140,6 +8811,193 @@ function onTimelineChange($timeline, page, options = {}) {
     hideHeadings = true,
     isUserTimeline = false,
   } = options
+  if (modern) {
+    let isOnHomeTimeline = isOnHomeTimelinePage()
+    let isOnListTimeline = isOnListPage()
+    let isOnProfileTimeline = isOnProfilePage()
+    let isOnNotificationsTimeline = isOnNotificationsPage()
+    let isOnSearchTimeline = isOnSearchPage()
+    let timelineHasSpecificTweetHandling = isOnHomeTimeline || isOnListTimeline || isOnProfileTimeline
+
+    if (config.twitterBlueChecks != 'ignore' && (isUserTimeline || !timelineHasSpecificTweetHandling)) {
+      processBlueChecks($timeline)
+    }
+    if (isSafari && config.replaceLogo && isOnNotificationsTimeline) {
+      processTwitterLogos($timeline)
+    }
+    if (isUserTimeline || !classifyTweets) return
+
+    let itemTypes = {}
+    let hiddenItemCount = 0
+    let hiddenItemTypes = {}
+    let hidPreviousItem = null
+    let changes = []
+
+    function queueModernHide($target, hideItem) {
+      if (!$target || hideItem == null) return
+      let hidden = $target.classList.contains('HiddenTweet')
+      if (hidden != hideItem) changes.push({$target, hideItem})
+    }
+
+    function recordModernItem(itemType, hideItem) {
+      if (itemType != null) {
+        itemTypes[itemType] ||= 0
+        itemTypes[itemType]++
+      }
+      if (hideItem) {
+        hiddenItemCount++
+        hiddenItemTypes[itemType] ||= 0
+        hiddenItemTypes[itemType]++
+      }
+    }
+
+    for (let $item of /** @type {HTMLCollectionOf<HTMLElement>} */ ($timeline.children)) {
+      let cards = getModernTimelineItemCards($item)
+      if (cards.length > 0) {
+        for (let {target: $target, tweet: $tweet} of cards) {
+          let itemType = getTweetType($tweet, checkSocialContext)
+          let hideItem = null
+          let isReply = false
+          let isBlueTweet = false
+
+          if (timelineHasSpecificTweetHandling && config.twitterBlueChecks != 'ignore') {
+            resetModernBlueChecks($tweet)
+          }
+          if (timelineHasSpecificTweetHandling) {
+            isReply = isReplyToPreviousTweet($tweet)
+            if (isReply && hidPreviousItem != null) {
+              hideItem = hidPreviousItem
+            } else if (isOnHomeTimeline) {
+              hideItem = shouldHideHomeTimelineItem(itemType, page)
+              if (config.mutableQuoteTweets && !hideItem && itemType == 'QUOTE_TWEET' && config.hideQuotesFrom.length > 0) {
+                let quotedBy = getQuotedTweetDetails($tweet).quotedBy
+                hideItem = quotedBy ? config.hideQuotesFrom.includes(quotedBy) : false
+              }
+            } else if (isOnListTimeline) {
+              hideItem = shouldHideListTimelineItem(itemType)
+            } else if (isOnProfileTimeline) {
+              hideItem = shouldHideProfileTimelineItem(itemType)
+            }
+
+            if (!hideItem && config.hideGrokTweets && $tweet.querySelector('a[href^="/i/grok/share/"]')) {
+              hideItem = true
+            }
+
+            if (!hideItem && config.mutableQuoteTweets &&
+                (itemType == 'QUOTE_TWEET' || itemType == 'RETWEETED_QUOTE_TWEET')) {
+              let quotedTweet = getQuotedTweetDetails($tweet)
+              if (config.mutedQuotes.length > 0) {
+                hideItem = config.mutedQuotes.some(muted => (
+                  muted.user == quotedTweet.user && muted.time == quotedTweet.time
+                ))
+              }
+              if (!hideItem) addCaretMenuListenerForQuoteTweet($tweet)
+            }
+
+            if (config.twitterBlueChecks != 'ignore') {
+              for (let $svg of /** @type {NodeListOf<SVGElement>} */ ($tweet.querySelectorAll(Selectors.VERIFIED_TICK))) {
+                let isEmbedded = Boolean($svg.closest('[data-slot="embedded-tweet-frame"]'))
+                if (!isBlueVerified($svg)) continue
+                blueCheck($svg)
+                if (!isEmbedded && getModernTweetAuthorPath($tweet)) isBlueTweet = true
+              }
+            }
+          }
+
+          if (!hideItem && config.restoreLinkHeadlines) {
+            restoreLinkHeadline($tweet)
+          }
+
+          if (!timelineHasSpecificTweetHandling) {
+            hideItem = shouldHideOtherTimelineItem(itemType)
+          }
+
+          if (debug && itemType != null) {
+            $target.setAttribute('data-item-type', `${itemType}${isReply ? ' / REPLY' : ''}${isBlueTweet ? ' / BLUE' : ''}`)
+          }
+          recordModernItem(itemType, hideItem)
+          queueModernHide($target, hideItem)
+          hidPreviousItem = hideItem
+        }
+        continue
+      }
+
+      /** @type {?import("./types").TimelineItemType} */
+      let itemType = null
+      let hideItem = null
+      let $target = /** @type {HTMLElement} */ ($item.firstElementChild)
+      if (isOnNotificationsTimeline) {
+        let iconNames = Array.from($item.querySelectorAll('svg[data-icon], svg use')).map($icon => {
+          return ($icon.getAttribute('data-icon') || $icon.getAttribute('href') || '').toLowerCase()
+        })
+        let hasAdDisclosure = hasModernAdDisclosure($item)
+        /** @type {?import("./types").NotificationType} */
+        let notificationType = (
+          hasAdDisclosure ? 'AD' :
+          iconNames.some(name => name.includes('heart') || name.includes('like')) ? 'LIKE' :
+          iconNames.some(name => name.includes('repost') || name.includes('retweet')) ? 'RETWEET' :
+          iconNames.some(name => name.includes('person') || name.includes('follow')) ? 'FOLLOW' :
+          null
+        )
+        if (notificationType) {
+          itemType = notificationType == 'AD' ? 'NOTIFICATION_AD' : (
+            notificationType == 'LIKE' ? 'NOTIFICATION_LIKE' : (
+              notificationType == 'RETWEET' ? 'NOTIFICATION_RETWEET' : 'NOTIFICATION_FOLLOW'
+            )
+          )
+          hideItem = notificationType == 'AD' ? true : (
+            notificationType == 'LIKE' ? config.hideNotificationLikes :
+            notificationType == 'RETWEET' ? config.hideNotificationRetweets : false
+          )
+        }
+      } else if ($item.querySelector('article')) {
+        itemType = 'UNAVAILABLE'
+      }
+
+      if (itemType == null) {
+        let text = ($item.textContent || '').trim()
+        if (
+          $item.querySelector('a[href^="/i/premium"]') ||
+          /^who to follow\b/i.test(text)
+        ) {
+          itemType = 'INLINE_PROMPT'
+          hideItem = config.hideInlinePrompts || (
+            config.hideTwitterBlueUpsells && Boolean($item.querySelector('a[href^="/i/premium"]'))
+          )
+        } else if ($item.querySelector(Selectors.TIMELINE_HEADING)) {
+          itemType = 'HEADING'
+          hideItem = hideHeadings && (isOnSearchTimeline || config.hideWhoToFollowEtc)
+        }
+      }
+
+      if (!timelineHasSpecificTweetHandling && !isOnNotificationsTimeline &&
+          itemType != null && itemType != 'HEADING' && itemType != 'INLINE_PROMPT') {
+        hideItem = shouldHideOtherTimelineItem(itemType)
+      }
+      if (itemType == null && hidPreviousItem != null && !isOnNotificationsTimeline) {
+        hideItem = hidPreviousItem
+        itemType = 'SUBSEQUENT_ITEM'
+      }
+      if (debug && itemType != null && $target) {
+        $target.setAttribute('data-item-type', `${itemType}`)
+      }
+      recordModernItem(itemType, hideItem)
+      queueModernHide($target, hideItem)
+      hidPreviousItem = hideItem
+    }
+
+    for (let change of changes) {
+      change.$target.classList.toggle('HiddenTweet', change.hideItem)
+    }
+    if (debug && config.debugLogTimelineStats) {
+      log(
+        `processed ${$timeline.children.length} timeline item${s($timeline.children.length)} in ${Date.now() - startTime}ms`,
+        itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
+      )
+    }
+    return
+  }
+
 
   let isOnHomeTimeline = isOnHomeTimelinePage()
   let isOnListTimeline = isOnListPage()
@@ -6220,7 +9078,7 @@ function onTimelineChange($timeline, page, options = {}) {
         }
 
         if (config.twitterBlueChecks != 'ignore') {
-          for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
+          for (let $svg of /** @type {NodeListOf<SVGElement>} */ ($tweet.querySelectorAll(Selectors.VERIFIED_TICK))) {
             let isBlueCheck = isBlueVerified($svg)
             if (!isBlueCheck) continue
 
@@ -6340,6 +9198,277 @@ function onIndividualTweetTimelineChange($timeline, options) {
   let startTime = Date.now()
 
   let {seen} = options
+  if (modern) {
+    let itemTypes = {}
+    let hiddenItemCount = 0
+    let hiddenItemTypes = {}
+    let processedCount = 0
+    let hidPreviousItem = null
+    let hideAllSubsequentItems = false
+    let tweetPath = options.observers == modalObservers ? getCurrentRoute().urlPath : currentPagePath
+    let opScreenName = URL_TWEET_BASE_RE.exec(tweetPath)?.[1]?.toLowerCase()
+    let userScreenName = getUserScreenName()?.toLowerCase()
+    let changes = []
+    let processedTargets = []
+    let userInfo = getUserInfo()
+    let $focusedTweet = null
+
+    // The native client reuses article nodes while scrolling. Recompute the
+    // marker on every pass so a recycled node cannot retain focal styling.
+    for (let $tweet of $timeline.querySelectorAll(Selectors.TWEET)) {
+      $tweet.removeAttribute('data-cpft-focused')
+    }
+
+    function queueModernIndividualHide($target, hideItem) {
+      if (!$target || hideItem == null) return
+      let hidden = $target.classList.contains('HiddenTweet')
+      if (hidden != hideItem) changes.push({$target, hideItem})
+    }
+
+    function recordModernIndividualItem(itemType, hideItem) {
+      if (itemType != null) {
+        itemTypes[itemType] ||= 0
+        itemTypes[itemType]++
+      }
+      if (hideItem) {
+        hiddenItemCount++
+        hiddenItemTypes[itemType] ||= 0
+        hiddenItemTypes[itemType]++
+      }
+    }
+
+    let items = /** @type {HTMLElement[]} */ (Array.from($timeline.children))
+    for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
+      let $item = items[itemIndex]
+      let cards = getModernTimelineItemCards($item)
+      if (cards.length > 0) {
+        for (let {target: $target, tweet: $tweet} of cards) {
+          /** @type {import("./types").TimelineItemType} */
+          let itemType = 'TWEET'
+          let hideItem = null
+          let isFocusedTweet = false
+          let isReply = false
+          /** @type {?import("./types").VerifiedType} */
+          let tweetVerifiedType = null
+          let screenName = null
+          let isOp = false
+          let isUser = false
+          if (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies) {
+            resetModernBlueChecks($tweet)
+          }
+
+          if (hideAllSubsequentItems) {
+            hideItem = true
+            itemType = 'DISCOVER_MORE_TWEET'
+          } else {
+            isFocusedTweet = isModernFocusedTweet($tweet, tweetPath)
+            if (isFocusedTweet) {
+              itemType = 'FOCUSED_TWEET'
+              hideItem = false
+              $focusedTweet = $tweet
+              for (let $previousTarget of processedTargets) {
+                $previousTarget.classList.remove('HiddenTweet')
+              }
+              processedTargets = []
+              changes = []
+              hiddenItemCount = 0
+              hiddenItemTypes = {}
+              $tweet.setAttribute('data-cpft-focused', '')
+            } else {
+              itemType = getTweetType($tweet)
+              isReply = isReplyToPreviousTweet($tweet)
+              if (isReply && hidPreviousItem != null) {
+                hideItem = hidPreviousItem
+              } else {
+                hideItem = shouldHideIndividualTweetTimelineItem(itemType)
+              }
+            }
+
+            if (!hideItem && config.hideGrokTweets && $tweet.querySelector('a[href^="/i/grok/share/"]')) {
+              hideItem = true
+            }
+
+            if (!hideItem && (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies)) {
+              for (let $svg of /** @type {NodeListOf<SVGElement>} */ ($tweet.querySelectorAll(Selectors.VERIFIED_TICK))) {
+                let isEmbedded = Boolean($svg.closest('[data-slot="embedded-tweet-frame"]'))
+                let verifiedType = getVerifiedType($svg)
+                if (!verifiedType) continue
+                if (config.twitterBlueChecks != 'ignore' && verifiedType == 'BLUE') {
+                  blueCheck($svg)
+                }
+                if (isEmbedded) continue
+                let authorPath = getModernTweetAuthorPath($tweet)
+                if (!authorPath) continue
+                tweetVerifiedType = verifiedType
+                screenName = authorPath.split('/')[1]?.toLowerCase()
+                isOp = screenName == opScreenName
+                isUser = screenName == userScreenName
+                break
+              }
+
+              if (tweetVerifiedType &&
+                  !isFocusedTweet &&
+                  !isReply &&
+                  !isOp &&
+                  !isUser) {
+                itemType = tweetVerifiedType == 'BLUE' ? 'BLUE_REPLY' : (
+                  tweetVerifiedType == 'BUSINESS' ? 'BUSINESS_REPLY' : 'GOVERNMENT_REPLY'
+                )
+                if (config.hideTwitterBlueReplies) {
+                  let user = userInfo[screenName]
+                  if (!user) {
+                    let entry = Object.entries(userInfo).find(([name]) => name.toLowerCase() == screenName)
+                    user = entry?.[1]
+                  }
+                  if (!user && config.debugLogTimelineStats) {
+                    log('hideTwitterBlueReplies: user info not found for', screenName)
+                  }
+                  hideItem = !(
+                    config.showPremiumReplyBusiness && tweetVerifiedType == 'BUSINESS' ||
+                    config.showPremiumReplyGovernment && tweetVerifiedType == 'GOVERNMENT' ||
+                    (user != null && (
+                      config.showPremiumReplyFollowing && user.following ||
+                      config.showPremiumReplyFollowedBy && user.followedBy ||
+                      config.showBlueReplyFollowersCount && user.followersCount >= Number(config.showBlueReplyFollowersCountAmount)
+                    ))
+                  )
+                }
+              }
+            }
+          }
+
+          if (!hideItem && config.restoreLinkHeadlines) {
+            restoreLinkHeadline($tweet)
+          }
+          if (isFocusedTweet) {
+            let focusInfo = getModernTweetInfo($tweet)
+            let focusKey = [
+              getModernTweetPath($tweet),
+              focusInfo?.quote_count ?? '',
+              focusInfo?.retweet_count ?? '',
+              focusInfo?.favorite_count ?? '',
+              focusInfo?.created_at ?? '',
+            ].join('|')
+            let focusDetails = seen.get($tweet)
+            if (!focusDetails || focusDetails.itemType != 'FOCUSED_TWEET' || focusDetails.key != focusKey) {
+              void tweakFocusedTweet($tweet, options)
+            }
+            seen.set($tweet, {itemType: 'FOCUSED_TWEET', hidden: false, key: focusKey})
+          } else {
+            seen.set($item, {itemType, hidden: hideItem, key: getModernTweetPath($tweet)})
+          }
+
+          if (debug && itemType != null) {
+            $target.setAttribute('data-item-type', `${itemType}${isReply ? ' / REPLY' : ''}${isOp ? ' / OP' : ''}`)
+          }
+          recordModernIndividualItem(itemType, hideItem)
+          queueModernIndividualHide($target, hideItem)
+          processedTargets.push($target)
+          hidPreviousItem = hideItem
+          processedCount++
+        }
+        continue
+      }
+
+      let itemType = null
+      let hideItem = null
+      let $target = /** @type {HTMLElement} */ ($item.firstElementChild)
+      let $article = $item.querySelector('article')
+      if ($article) {
+        itemType = 'UNAVAILABLE'
+        let $button = $article.querySelector('button, [role="button"]')
+        if ($button) {
+          if ($button.textContent == getString('SHOW')) {
+            itemType = 'SHOW_MORE'
+          } else if ($button.textContent == getString('VIEW')) {
+            hideItem = config.hideUnavailableQuoteTweets
+          }
+        } else if ($article.textContent == getString('POST_UNAVAILABLE')) {
+          hideItem = config.hideUnavailableQuoteTweets
+        }
+      } else {
+        let $button = $item.querySelector('button[role="button"], button')
+        if ($button?.textContent == getString('SHOW_MORE_REPLIES')) {
+          itemType = 'SHOW_MORE'
+        }
+        if (itemType == null) {
+          // Native focused threads render "More from this author" followed
+          // by up to three posts and a See more link. Match the legacy
+          // heading-to-link boundary without hiding unrelated replies.
+          let $userLink = $item.querySelector(':scope > div > div > a[href^="/i/user/"]')
+          if ($userLink) {
+            for (let headingOffset = 2; headingOffset <= 4; headingOffset++) {
+              let $headingItem = items[itemIndex - headingOffset]
+              let $previousHeading = $headingItem?.querySelector(Selectors.TIMELINE_HEADING)
+              if (!/\bmore\s+from\s+this\s+author\b/i.test($previousHeading?.textContent?.trim() || '')) {
+                continue
+              }
+              itemType = 'MORE_FROM_AUTHOR_SEE_MORE'
+              hideItem = config.hideMoreFromThisAuthor
+              for (let j = itemIndex - headingOffset; j < itemIndex; j++) {
+                let $previousTarget = items[j]?.firstElementChild
+                if (!$previousTarget) continue
+                let previousChange
+                for (let changeIndex = changes.length - 1; changeIndex >= 0; changeIndex--) {
+                  if (changes[changeIndex].$target == $previousTarget) {
+                    previousChange = changes[changeIndex]
+                    break
+                  }
+                }
+                let wasHidden = previousChange?.hideItem ?? $previousTarget.classList.contains('HiddenTweet')
+                let previousHide = config.hideMoreFromThisAuthor || wasHidden
+                if (previousHide != wasHidden) changes.push({$target: $previousTarget, hideItem: previousHide})
+              }
+              break
+            }
+          }
+        }
+        if (itemType == null) {
+          let $heading = $item.querySelector(Selectors.TIMELINE_HEADING)
+          if ($heading) {
+            let headingText = $heading.textContent?.trim() || ''
+            if (/\bmore\s+from\s+this\s+author\b/i.test(headingText)) {
+              itemType = 'MORE_FROM_AUTHOR_HEADING'
+              hideItem = config.hideMoreFromThisAuthor
+            } else if (
+              $heading.nextElementSibling?.tagName == 'DIV' &&
+              $heading.nextElementSibling.getAttribute('dir') != null
+            ) {
+              itemType = 'DISCOVER_MORE_HEADING'
+              hideItem = config.hideMoreTweets
+              hideAllSubsequentItems = config.hideMoreTweets
+            } else {
+              itemType = 'HEADING'
+            }
+          }
+        }
+      }
+      if (itemType == null && hidPreviousItem != null) {
+        hideItem = hidPreviousItem
+        itemType = 'SUBSEQUENT_ITEM'
+      }
+      if (debug && itemType != null && $target) {
+        $target.setAttribute('data-item-type', `${itemType}`)
+      }
+      recordModernIndividualItem(itemType, hideItem)
+      queueModernIndividualHide($target, hideItem)
+      if ($target) processedTargets.push($target)
+      hidPreviousItem = hideItem
+      processedCount++
+    }
+
+    for (let change of changes) {
+      change.$target.classList.toggle('HiddenTweet', change.hideItem)
+    }
+    if (debug && config.debugLogTimelineStats) {
+      log(
+        `processed ${processedCount} thread item${s(processedCount)} in ${Date.now() - startTime}ms`,
+        itemTypes, `hid ${hiddenItemCount}`, hiddenItemTypes
+      )
+    }
+    return
+  }
+
   let itemTypes = {}
   let hiddenItemCount = 0
   let hiddenItemTypes = {}
@@ -6427,7 +9556,7 @@ function onIndividualTweetTimelineChange($timeline, options) {
       }
 
       if (!hideItem && (config.twitterBlueChecks != 'ignore' || config.hideTwitterBlueReplies)) {
-        for (let $svg of $tweet.querySelectorAll(Selectors.VERIFIED_TICK)) {
+        for (let $svg of /** @type {NodeListOf<SVGElement>} */ ($tweet.querySelectorAll(Selectors.VERIFIED_TICK))) {
           let verifiedType = getVerifiedType($svg)
           if (!verifiedType) continue
 
@@ -6612,8 +9741,10 @@ function onIndividualTweetTimelineChange($timeline, options) {
  * - RTL: (3) X \ ${title}
  * @param {string} title
  */
-function onTitleChange(title) {
+function onTitleChange(title, routeChanged = false) {
   log('title changed', {title, path: location.pathname})
+  let searchChanged = lastUrlSearch != location.search
+  lastUrlSearch = location.search
 
   if (checkforDisabledHomeTimeline()) return
 
@@ -6678,7 +9809,7 @@ function onTitleChange(title) {
     handleDesktopModalRouteChange(route.urlPath)
   }
 
-  if (newPage == currentPage && route.pagePath == currentPagePath && !hasDesktopModalBeenClosed) {
+  if (!routeChanged && !searchChanged && newPage == currentPage && route.pagePath == currentPagePath && !hasDesktopModalBeenClosed) {
     // The History page re-renders everything when you switch tabs
     if (route.urlPath.startsWith(PagePaths.HISTORY) && lastUrlPath != route.urlPath) {
       log('viewing History page')
@@ -6691,7 +9822,7 @@ function onTitleChange(title) {
   }
 
   // Search terms are shown in the title
-  if (lastUrlPath == PagePaths.SEARCH && route.urlPath == PagePaths.SEARCH) {
+  if (!modern && lastUrlPath == PagePaths.SEARCH && route.urlPath == PagePaths.SEARCH) {
     log('ignoring title change on Search page')
     currentNotificationCount = notificationCount
     return
@@ -6768,7 +9899,18 @@ function handleDesktopModalRouteChange(path) {
  * @param {HTMLElement} $el
  */
 function processBlueChecks($el) {
-  for (let $svg of $el.querySelectorAll(`${Selectors.VERIFIED_TICK}:not(.cpft_blue_check)`)) {
+  if (modern) {
+    for (let $svg of /** @type {NodeListOf<SVGElement>} */ ($el.querySelectorAll(`:is(${Selectors.VERIFIED_TICK}, svg.cpft_blue_check)`))) {
+      if (config.twitterBlueChecks != 'ignore' && isBlueVerified($svg)) {
+        blueCheck($svg)
+      } else {
+        $svg.classList.remove('cpft_blue_check')
+        $svg.querySelector('[data-cpft-badge-replacement]')?.remove()
+      }
+    }
+    return
+  }
+  for (let $svg of /** @type {NodeListOf<SVGElement>} */ ($el.querySelectorAll(`${Selectors.VERIFIED_TICK}:not(.cpft_blue_check)`))) {
     if (isBlueVerified($svg)) {
       blueCheck($svg)
     }
@@ -6789,6 +9931,7 @@ function processCurrentPage(route = getCurrentRoute()) {
   if (!lastUrlPath) return
   disconnectObservers(pageObservers, 'page')
   currentPagePath = route.pagePath
+  if (!isOnSearchPage()) userSelectedSearchTabQuery = null
 
   // Hooks for styling pages
   if (!$body) $body = document.body
@@ -6925,6 +10068,52 @@ function removeMobileTimelineHeaderElements() {
  * @param {HTMLElement} $tweet
  */
 function restoreLinkHeadline($tweet) {
+  if (modern) {
+    let tweetId = getModernTweetId($tweet)
+    let cardMetadata = getModernCardMetadata(tweetId)
+    let $link = /** @type {HTMLElement} */ (Array.from($tweet.querySelectorAll('a[rel][href]')).find($candidate => {
+      let href = $candidate.getAttribute('href') || ''
+      if (href == 'https://itunes.apple.com/app/id6670324846') return false
+      return Boolean($candidate.getAttribute('aria-label')) || /^from\s+/i.test($candidate.textContent?.trim() || '')
+    }))
+    if (!$link) return
+
+    let href = $link.getAttribute('href') || ''
+    let label = $link.getAttribute('aria-label')?.trim() || ''
+    let linkText = $link.textContent?.trim() || ''
+    let cardSite = cardMetadata?.domain || cardMetadata?.vanity_url || ''
+    let cardTitle = cardMetadata?.title || ''
+    let signature = [href, label, linkText, cardSite, cardTitle].join('\u0000')
+    if ($link.dataset.headlineRestored == signature) return
+    if ($link.dataset.headlineRestored) {
+      $link.querySelectorAll('.cpft_overlay_headline').forEach($el => {
+        $el.classList.remove('cpft_overlay_headline')
+      })
+      $link.querySelector('.cpft_link_headline')?.remove()
+      delete $link.dataset.headlineRestored
+    }
+
+    let [labelSite, ...labelRest] = label.split(/\s+/)
+    let fromSite = /^from\s+(.+)$/i.exec(linkText)?.[1] || ''
+    let site = cardSite || labelSite || fromSite
+    let headline = cardTitle || labelRest.join(' ')
+    if (!site || !headline) return
+
+    $link.lastElementChild?.classList.add('cpft_overlay_headline')
+    let $headline = document.createElement('div')
+    $headline.className = `cpft_link_headline ${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}`
+    let $site = document.createElement('div')
+    $site.style.cssText = 'color: var(--cpft-text-secondary); margin-bottom: 2px;'
+    $site.textContent = site
+    let $title = document.createElement('div')
+    $title.style.color = 'var(--cpft-text-primary)'
+    $title.textContent = headline
+    $headline.append($site, $title)
+    $link.append($headline)
+    $link.dataset.headlineRestored = signature
+    return
+  }
+
   let $link = /** @type {HTMLElement} */ ($tweet.querySelector(
     // Exclude Install button cards in Grok tweets
     'div[data-testid="card.layoutLarge.media"] > a[rel][aria-label]:not([href="https://itunes.apple.com/app/id6670324846"])'
@@ -6953,6 +10142,10 @@ function restoreLinkHeadline($tweet) {
 function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet, tweetPath}) {
   if (!config.restoreQuoteTweetsLink && !config.restoreOtherInteractionLinks) return
 
+  if (!$actionBar || !$focusedTweet || !tweetPath) {
+    warn('restoreTweetInteractionsLinks: focused tweet link target not available')
+    return
+  }
   if (!tweetInfo) {
     warn('restoreTweetInteractionsLinks: focused tweet info not available')
     return
@@ -6960,17 +10153,37 @@ function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, is
 
   let shouldDisplayLinks = (
     (config.restoreQuoteTweetsLink && tweetInfo.quote_count > 0) ||
-    (config.restoreOtherInteractionLinks && (tweetInfo.retweet_count > 0 || isOwnTweet && tweetInfo.favorite_count > 0))
+    (config.restoreOtherInteractionLinks && (
+      tweetInfo.retweet_count > 0 ||
+      !modern && isOwnTweet && tweetInfo.favorite_count > 0
+    ))
   )
+  let interactionKey = [
+    tweetPath,
+    tweetInfo.quote_count ?? '',
+    tweetInfo.retweet_count ?? '',
+    !modern ? tweetInfo.favorite_count ?? '' : '',
+    isOwnTweet ? '1' : '0',
+    config.restoreQuoteTweetsLink ? 'quotes' : '',
+    config.restoreOtherInteractionLinks ? 'other' : '',
+    config.replaceLogo ? 'logo' : '',
+  ].join('\u0000')
   let $existingLinks = $focusedTweet.querySelector('#cpftInteractionLinks')
-  if (!shouldDisplayLinks || $existingLinks) {
-    if (!shouldDisplayLinks) $existingLinks?.remove()
+  if ($focusedTweet.dataset.cpftInteractionLinksKey == interactionKey &&
+      Boolean($existingLinks) == shouldDisplayLinks) {
     return
   }
+  $existingLinks?.remove()
+  delete $focusedTweet.dataset.cpftInteractionLinksKey
+  if (!shouldDisplayLinks) return
 
   let tweetLink = tweetPath.match(URL_TWEET_BASE_RE)?.[0]
+  if (!tweetLink) {
+    warn('restoreTweetInteractionsLinks: focused tweet path not recognized')
+    return
+  }
   $actionBar.insertAdjacentHTML('beforebegin', `
-    <div id="cpftInteractionLinks" hidden>
+    <div id="cpftInteractionLinks"${modern ? '' : ' hidden'}>
       <div class="${fontFamilyRule?.selectorText?.replace('.', '') || 'cpft_font_family'}" style="padding: 16px 4px; border-top: 1px solid var(--cpft-border); display: flex; gap: 20px;">
         ${tweetInfo.quote_count > 0 ? `<a id="cpftQuoteTweetsLink" class="quoteTweets" href="${tweetLink}/quotes" dir="auto" role="link">
           <span id="cpftQuoteTweetCount">
@@ -6984,7 +10197,7 @@ function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, is
           </span>
           <span>${getString(config.replaceLogo ? 'RETWEETS' : 'REPOSTS')}</span>
         </a>` : ''}
-        ${isOwnTweet && tweetInfo.favorite_count > 0 ? `<a id="cpftLikesLink" data-tab="3" href="${tweetLink}/likes" dir="auto" role="link">
+        ${!modern && isOwnTweet && tweetInfo.favorite_count > 0 ? `<a id="cpftLikesLink" data-tab="3" href="${tweetLink}/likes" dir="auto" role="link">
           <span id="cpftLikeCount">
             ${Intl.NumberFormat(lang, {notation: tweetInfo.favorite_count < 10000 ? 'standard' : 'compact', compactDisplay: 'short'}).format(tweetInfo.favorite_count)}
           </span>
@@ -7006,6 +10219,7 @@ function restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, is
       })
     })
   }
+  $focusedTweet.dataset.cpftInteractionLinksKey = interactionKey
 }
 
 /**
@@ -7017,7 +10231,7 @@ function setTitle(page) {
   let notificationCount = config.hideNotifications != 'ignore' ? (
     ''
   ) : (
-    hiddenNotificationCount || currentNotificationCount
+    modern && getNotificationCount() == 0 ? '' : hiddenNotificationCount || currentNotificationCount
   )
   document.title = ltr ? (
     `${notificationCount}${page} / ${name}`
@@ -7086,7 +10300,11 @@ function shouldHideHomeTimelineItem(type, page) {
     case 'UNAVAILABLE_QUOTE_TWEET':
       return config.hideUnavailableQuoteTweets || shouldHideSharedTweet(config.quoteTweets, page)
     case 'UNAVAILABLE_RETWEET':
-      return config.hideUnavailableQuoteTweets || selectedHomeTabIndex >= 2 ? config.listRetweets == 'hide' : shouldHideSharedTweet(config.retweets, page)
+      return config.hideUnavailableQuoteTweets || (
+        selectedHomeTabIndex >= 2
+          ? config.listRetweets == 'hide'
+          : shouldHideSharedTweet(config.retweets, page)
+      )
     default:
       return true
   }
@@ -7107,7 +10325,10 @@ function shouldHideProfileTimelineItem(type) {
     case 'RETWEETED_QUOTE_TWEET':
       return config.hideProfileRetweets
     case 'UNAVAILABLE_QUOTE_TWEET':
-      return config.hideUnavailableQuoteTweets
+    case 'UNAVAILABLE_RETWEET':
+      return config.hideUnavailableQuoteTweets || (
+        type == 'UNAVAILABLE_RETWEET' && config.hideProfileRetweets
+      )
     default:
       return true
   }
@@ -7146,7 +10367,275 @@ function shouldHideSharedTweet(config, page) {
   }
 }
 
+/**
+ * @param {Document | HTMLElement | null} [$context=document]
+ * @returns {HTMLElement?}
+ */
+function getModernTablist($context = document) {
+  if (!$context) return null
+  let $tablist = $context instanceof Element && $context.matches('[role="tablist"]') ?
+    $context : $context.querySelector('[role="tablist"]')
+  return $tablist instanceof HTMLElement ? $tablist : null
+}
+
+/**
+ * @param {HTMLElement | null | undefined} $tablist
+ * @returns {HTMLElement[]}
+ */
+function getModernTabs($tablist) {
+  if (!$tablist) return []
+  return Array.from(/** @type {NodeListOf<HTMLElement>} */ (
+    $tablist.querySelectorAll('[role="tab"]')
+  ))
+}
+
+/**
+ * @param {HTMLElement | null | undefined} $tab
+ * @returns {HTMLElement?}
+ */
+function getModernVisibleTabText($tab) {
+  let $spans = $tab ? Array.from(/** @type {NodeListOf<HTMLElement>} */ (
+    $tab.querySelectorAll('span')
+  )) : []
+  return /** @type {HTMLElement?} */ (
+    $spans.find($span => $span.children.length == 0 && !$span.classList.contains('invisible') && $span.getAttribute('aria-hidden') != 'true' && !$span.hidden)
+  )
+}
+
+/**
+ * @param {HTMLElement | null | undefined} $tab
+ * @returns {string}
+ */
+function getModernTabLabel($tab) {
+  let ariaLabel = $tab?.getAttribute('aria-label')?.trim()
+  if (ariaLabel) return ariaLabel
+  let $text = getModernVisibleTabText($tab)
+  if ($text) return $text.textContent?.trim() || ''
+  return $tab?.querySelector('span') ? '' : $tab?.textContent?.trim() || ''
+}
+
+/**
+ * @param {HTMLElement | null | undefined} $tab
+ * @param {string} text
+ * @param {boolean} enabled
+ */
+function setModernTabText($tab, text, enabled) {
+  let $text = getModernVisibleTabText($tab)
+  if (!$text) return
+  if (enabled) {
+    if ($text.dataset.cpftOriginalText == null) $text.dataset.cpftOriginalText = $text.textContent || ''
+    if ($text.textContent != text) $text.textContent = text
+  } else if ($text.dataset.cpftOriginalText != null) {
+    if ($text.textContent != $text.dataset.cpftOriginalText) $text.textContent = $text.dataset.cpftOriginalText
+    delete $text.dataset.cpftOriginalText
+  }
+}
+
+/**
+ * Mark the smallest tab wrapper that is not the tablist itself.
+ * @param {HTMLElement | null | undefined} $tab
+ * @param {string} className
+ * @param {boolean} enabled
+ */
+function markModernTab($tab, className, enabled) {
+  if (!$tab) return
+  let $tablist = $tab.closest('[role="tablist"]')
+  let $target = $tab.closest('[role="presentation"]')
+  if (!$target || $target == $tablist) $target = $tab.parentElement == $tablist ? $tab : $tab.parentElement
+  $target?.classList.toggle(className, enabled)
+}
+
+/**
+ * Restore the profile post-count metric only when this extension tagged it.
+ * @param {HTMLElement} $root
+ */
+function markModernProfilePostCount($root) {
+  let $metric = Array.from($root.querySelectorAll('div,span')).find($candidate => (
+    /^\s*[\d,.]+(?:[KMB])?\s+(?:posts|tweets)\s*$/i.test($candidate.textContent || '') &&
+    !$candidate.querySelector('*')
+  ))
+  if (!$metric) return
+  let enabled = config.hideTotalTweetsMetrics
+  $metric.classList.toggle('TotalTweetsMetrics', enabled)
+  $metric.toggleAttribute('data-cpft-total-tweets-metric', enabled)
+}
+
+/**
+ * Apply modern compose labels without replacing native editor structure.
+ * Parent desktop compose/home handlers call this same helper.
+ * @param {HTMLElement | null | undefined} $root
+ * @param {Map<string, import("./types").Disconnectable>} [observers]
+ * @returns {boolean}
+ */
+function tweakModernCompose($root, observers = pageObservers) {
+  if (!$root) return false
+
+  /**
+   * @param {HTMLElement} $button
+   */
+  function getDirectTextNode($button) {
+    return Array.from($button.childNodes).find($node =>
+      $node.nodeType == Node.TEXT_NODE && $node.textContent?.trim()
+    )
+  }
+
+  function restoreComposeTitles() {
+    let $buttons = /** @type {NodeListOf<HTMLElement>} */ (
+      $root.querySelectorAll('[data-cpft-original-compose-title]')
+    )
+    $buttons.forEach($button => {
+      let $textNode = getDirectTextNode($button)
+      let original = $button.dataset.cpftOriginalComposeTitle
+      if ($textNode && original != null) $textNode.textContent = original
+      $button.removeAttribute('data-cpft-original-compose-title')
+    })
+  }
+
+  function updateComposeTitles(replace) {
+    $root.querySelectorAll('button').forEach($button => {
+      let $textNode = getDirectTextNode($button)
+      if (!$textNode) return
+      if (!replace) {
+        if ($button.dataset.cpftOriginalComposeTitle != null) {
+          $textNode.textContent = $button.dataset.cpftOriginalComposeTitle
+          $button.removeAttribute('data-cpft-original-compose-title')
+        }
+        return
+      }
+      let text = $textNode.textContent || ''
+      if ($button.dataset.cpftOriginalComposeTitle == null && /^new\s+post$/i.test(text.trim())) {
+        $button.dataset.cpftOriginalComposeTitle = text
+      }
+      if ($button.dataset.cpftOriginalComposeTitle != null && /\bpost\b/i.test(text)) {
+        let replacement = getString('TWEET')
+        let nextText = text.replace(/\bpost\b/i, replacement)
+        if (nextText != text) $textNode.textContent = nextText
+      }
+    })
+  }
+
+  function restoreComposeIcons() {
+    $root.querySelectorAll('svg[data-cpft-original-fab-icon]').forEach($icon => {
+      let original = $icon.getAttribute('data-cpft-original-fab-icon')
+      if (original != null) $icon.innerHTML = original
+      $icon.removeAttribute('data-cpft-original-fab-icon')
+    })
+  }
+
+  function updateComposeIcons(replace) {
+    let $icons = Array.from($root.querySelectorAll('button[data-compose-fab] svg[data-icon="icon-new-chat"]'))
+    if (!replace) {
+      restoreComposeIcons()
+      return
+    }
+    $icons.forEach($icon => {
+      let $path = $icon.querySelector('path')
+      if (!$path) return
+      if (!$icon.hasAttribute('data-cpft-original-fab-icon')) {
+        $icon.setAttribute('data-cpft-original-fab-icon', $icon.innerHTML)
+      }
+      if ($path.getAttribute('d') != Svgs.TWITTER_FEATHER_PLUS_PATH) {
+        $path.setAttribute('d', Svgs.TWITTER_FEATHER_PLUS_PATH)
+      }
+      Array.from($icon.querySelectorAll('path')).slice(1).forEach($extraPath => {
+        $extraPath.setAttribute('display', 'none')
+      })
+    })
+  }
+
+  function apply() {
+    let replace = Boolean(config.enabled && config.replaceLogo)
+    updateComposeTitles(replace)
+    updateComposeIcons(replace)
+
+    let $editors = Array.from(/** @type {NodeListOf<HTMLElement>} */ (
+      $root.querySelectorAll('textarea[aria-multiline="true"], [role="textbox"][contenteditable="true"]')
+    ))
+    let isReply = $editors.some($editor => $editor.getAttribute('aria-label') == 'Post your reply')
+    $editors.forEach(($editor, index) => {
+      let $input = $editor
+      if (replace) {
+        $input.dataset.cpftOriginalPlaceholder ||= $input.getAttribute('placeholder') || ''
+        /** @type {import("./types").LocaleStringKey} */
+        let key = isReply ? 'TWEET_YOUR_REPLY' : index > 0 ? 'ADD_ANOTHER_TWEET' : 'WHATS_HAPPENING'
+        if (key) {
+          let placeholder = getString(key)
+          if ($input.getAttribute('placeholder') != placeholder) $input.setAttribute('placeholder', placeholder)
+        }
+      } else if ($input.dataset.cpftOriginalPlaceholder != null) {
+        let original = $input.dataset.cpftOriginalPlaceholder
+        if (original) {
+          if ($input.getAttribute('placeholder') != original) $input.setAttribute('placeholder', original)
+        } else if ($input.hasAttribute('placeholder')) {
+          $input.removeAttribute('placeholder')
+        }
+        delete $input.dataset.cpftOriginalPlaceholder
+      }
+    })
+
+    let $button = Array.from($root.querySelectorAll('button')).find($candidate => {
+      let label = ($candidate.getAttribute('aria-label') || $candidate.textContent || '').trim()
+      return /^(?:Post|Reply|Add Reply|Tweet|Tweets|Post all|Tweet all)$/i.test(label) ||
+        [getString('POST_ALL'), getString('TWEET_ALL')].includes(label)
+    })
+    if ($button) {
+      let $text = getModernVisibleTabText($button) || /** @type {HTMLElement?} */ (
+        Array.from($button.querySelectorAll('span')).find($span => $span.children.length == 0)
+      )
+      if ($text) {
+        if (replace && !isReply) {
+          $text.dataset.cpftOriginalText ||= $text.textContent || ''
+          let text = getString($editors.length > 1 ? 'TWEET_ALL' : 'TWEET')
+          if ($text.textContent != text) $text.textContent = text
+        } else if (!replace && $text.dataset.cpftOriginalText != null) {
+          let original = $text.dataset.cpftOriginalText
+          if ($text.textContent != original) $text.textContent = original
+          delete $text.dataset.cpftOriginalText
+        }
+      }
+    }
+    if ($button && config.twitterBlueChecks != 'ignore') processBlueChecks($root)
+  }
+
+  apply()
+  if (observers && !$root.dataset.cpftComposeObserver) {
+    $root.dataset.cpftComposeObserver = 'true'
+    observeElement($root, apply, {
+      name: 'modern compose',
+      observers,
+      onDisconnect: () => {
+        restoreComposeTitles()
+        restoreComposeIcons()
+        delete $root.dataset.cpftComposeObserver
+      },
+    }, {
+      childList: true,
+      subtree: true,
+    })
+  }
+  return true
+}
+
+/**
+ * @param {HTMLElement | null | undefined} $root
+ * @param {string} name
+ * @param {() => void} callback
+ */
+function observeModernRouteRoot($root, name, callback) {
+  if (!$root || $root.dataset[`cpft${name}Observer`]) return
+  $root.dataset[`cpft${name}Observer`] = 'true'
+  observeElement($root, callback, {
+    name,
+    observers: pageObservers,
+    onDisconnect: () => delete $root.dataset[`cpft${name}Observer`],
+  }, {
+    childList: true,
+    subtree: true,
+  })
+}
+
 function tweakCallsPage() {
+  if (modern) return
   let styles = styleEmbed('[data-testid="xcallsRemoteHost"]', ':is([data-xcalls-root], [data-xcalls-portal])')
   let name = 'Calls page styles'
   pageObservers.set(name, {
@@ -7159,6 +10648,7 @@ function tweakCallsPage() {
 }
 
 function tweakChatPage() {
+  if (modern) return
   let styles = styleEmbed('[data-testid="xchatEmbedRoute"]', ':is([data-xchat-root], [data-xchat-portal])')
   let name = 'Chat page styles'
   pageObservers.set(name, {
@@ -7171,12 +10661,34 @@ function tweakChatPage() {
 }
 
 async function tweakHistoryPage() {
+  if (modern) {
+    if (config.twitterBlueChecks != 'ignore' || config.restoreLinkHeadlines) {
+      observeTimeline(currentPage, {isTabbed: true})
+    }
+    return
+  }
   if (config.twitterBlueChecks != 'ignore' || config.restoreLinkHeadlines) {
     observeTimeline(currentPage)
   }
 }
 
 async function tweakExplorePage() {
+  if (modern) {
+    if (!config.hideExplorePageContents) {
+      if (config.twitterBlueChecks != 'ignore') {
+        observeTimeline(currentPage, {
+          classifyTweets: false,
+          isTabbed: true,
+        })
+      }
+      return
+    }
+    let $searchInput = /** @type {HTMLElement?} */ (
+      document.querySelector('main [role="search"] [role="combobox"][aria-label="Search query"]')
+    )
+    if ($searchInput) $searchInput.focus()
+    return
+  }
   if (!config.hideExplorePageContents) {
     if (config.twitterBlueChecks != 'ignore') {
       observeTimeline(currentPage, {
@@ -7226,10 +10738,31 @@ async function tweakExplorePage() {
 }
 
 function tweakCommunitiesPage() {
+  if (modern) {
+    observeTimeline(currentPage, {
+      classifyTweets: false,
+      isTabbed: true,
+    })
+    return
+  }
   observeTimeline(currentPage)
 }
 
 function tweakCommunityPage() {
+  if (modern) {
+    if (config.twitterBlueChecks != 'ignore') {
+      observeTimeline(currentPage, {
+        classifyTweets: false,
+        isTabbed: true,
+        onTimelineAppeared() {
+          if (/\/about\/?$/.test(currentPagePath)) {
+            processBlueChecks(document.querySelector(Selectors.PRIMARY_COLUMN))
+          }
+        },
+      })
+    }
+    return
+  }
   if (config.twitterBlueChecks != 'ignore') {
     observeTimeline(currentPage, {
       classifyTweets: false,
@@ -7246,6 +10779,15 @@ function tweakCommunityPage() {
 }
 
 function tweakCommunityMembersPage() {
+  if (modern) {
+    if (config.twitterBlueChecks != 'ignore') {
+      observeTimeline(currentPage, {
+        classifyTweets: false,
+        isTabbed: true,
+      })
+    }
+    return
+  }
   if (config.twitterBlueChecks != 'ignore') {
     observeTimeline(currentPage, {
       classifyTweets: false,
@@ -7278,6 +10820,7 @@ function tweakDisplaySettingsPage() {
 }
 
 function restoreTweetSource($permalinkBar, tweetInfo) {
+  if (modern) return
   if (!config.restoreTweetSource) return
   if ($permalinkBar.hasAttribute('cpft-tweet-source-restored')) return
   if (!tweetInfo?.source_name) {
@@ -7302,6 +10845,93 @@ function restoreTweetSource($permalinkBar, tweetInfo) {
  * @param {import("./types").IndividualTweetTimelineOptions} options
  */
 async function tweakFocusedTweet($focusedTweet, options) {
+  if (modern) {
+    let {observers} = options
+    let routePath = observers == modalObservers ? location.pathname : currentPagePath
+    let tweetPath = getModernTweetPath($focusedTweet) || routePath
+    let $statusLinks = Array.from($focusedTweet.querySelectorAll('a[href]')).filter($link => {
+      return URL_TWEET_BASE_RE.test($link.getAttribute('href') || '')
+    })
+    let $outerStatusLinks = $statusLinks.filter($link => !$link.closest('[data-slot="embedded-tweet-frame"]'))
+    let matchesTweetPath = $link => {
+      let href = $link.getAttribute('href') || ''
+      try {
+        return new URL(href, location.origin).pathname == tweetPath
+      } catch {
+        return href == tweetPath
+      }
+    }
+    let $permalinkLink = $outerStatusLinks.find(matchesTweetPath) ||
+      $outerStatusLinks.find($link => $link.getAttribute('aria-current') == 'page') ||
+      $statusLinks.find(matchesTweetPath) ||
+      $statusLinks.find($link => $link.getAttribute('aria-current') == 'page')
+    let focusedTweetUrlMatch = tweetPath.match(URL_TWEET_BASE_RE)
+    let screenName = focusedTweetUrlMatch?.[1]
+    let tweetId = focusedTweetUrlMatch?.[2]
+    let tweetInfo = getTweetInfo(tweetId)
+    let isOwnTweet = isOnOwnTweetPage(tweetPath)
+
+    let $permalinkBar = /** @type {HTMLElement?} */ ($permalinkLink?.parentElement)
+    let $analyticsLink = /** @type {HTMLAnchorElement?} */ ($focusedTweet.querySelector('a[href$="/analytics"]'))
+    $analyticsLink?.classList.toggle('Views', config.hideViews)
+    if ($permalinkBar) {
+      restoreTweetSource($permalinkBar, tweetInfo)
+      addAccountLocationToFocusedTweet($permalinkBar, screenName)
+    } else if (!$analyticsLink) {
+      warn('focused tweet permalink bar not found')
+    }
+
+    if (!config.restoreQuoteTweetsLink && !config.restoreOtherInteractionLinks) {
+      $focusedTweet.querySelector('#cpftInteractionLinks')?.remove()
+    }
+    let $actionBar = /** @type {HTMLElement?} */ (
+      $focusedTweet.querySelector('[role="group"][aria-label*="repl"]')
+    )
+    if ($actionBar) {
+      $actionBar.id = 'cpftFocusedTweetActionBar'
+      restoreTweetInteractionsLinks({$actionBar, $focusedTweet, tweetInfo, isOwnTweet, tweetPath})
+    } else {
+      warn('focused tweet action bar not found')
+    }
+
+    let $sortRepliesButton = /** @type {HTMLButtonElement?} */ (
+      $focusedTweet.querySelector('button[aria-label^="Sort replies"]')
+    )
+    if ($sortRepliesButton) {
+      $sortRepliesButton.parentElement?.classList.toggle('SortRepliesMenu', config.hideSortRepliesMenu)
+      if (config.sortReplies != 'relevant' && !userSortedReplies) {
+        let selectedLabel = $sortRepliesButton.textContent?.trim()
+        let desiredLabel = getString(config.sortReplies == 'recent' ? 'RECENT' : 'LIKES')
+        if (selectedLabel != desiredLabel &&
+            $sortRepliesButton.dataset.cpftSortTriggered != config.sortReplies) {
+          $sortRepliesButton.dataset.cpftSortTriggered = config.sortReplies
+          $sortRepliesButton.click()
+        }
+      } else {
+        delete $sortRepliesButton.dataset.cpftSortTriggered
+      }
+    }
+
+    let $viewActivity = /** @type {HTMLAnchorElement?} */ ($focusedTweet.querySelector('a[href$="/quotes"]:not(#cpftQuoteTweetsLink)'))
+    $viewActivity?.classList.toggle('ViewActivity', config.hideViewActivityLinks)
+
+    let $upsellLink = /** @type {HTMLAnchorElement?} */ (
+      isOwnTweet ? $focusedTweet.querySelector('a[href="/i/account_analytics"], a[href^="/i/premium"]') : null
+    )
+    let $upsell = $upsellLink?.closest('section') || $upsellLink?.parentElement?.parentElement
+    $upsell?.classList.toggle('PremiumUpsell', Boolean(config.hideTwitterBlueUpsells))
+    if (!config.hideTwitterBlueUpsells) {
+      $focusedTweet.removeAttribute('cpft-premium-upsells-tagged')
+    }
+
+    if (desktop && config.replaceLogo) {
+      tweakModernCompose(
+        /** @type {HTMLElement} */ ($focusedTweet.parentElement || $focusedTweet),
+        observers,
+      )
+    }
+    return
+  }
   log('tweaking focused tweet')
   let {observers} = options
   let $permalinkBar = $focusedTweet.querySelector('div:has(> div > a > time)')
@@ -7388,6 +11018,34 @@ async function tweakFocusedTweet($focusedTweet, options) {
 }
 
 async function tweakFollowListPage() {
+  if (modern) {
+    if (config.twitterBlueChecks != 'ignore') {
+      observeTimeline(currentPage, {classifyTweets: false})
+    }
+    let $main = document.querySelector('main')
+    let applyTabs = () => {
+      let $verifiedTab = /** @type {HTMLAnchorElement?} */ (
+        $main?.querySelector('[role="tab"][href$="/verified_followers"]')
+      )
+      markModernTab($verifiedTab, 'VerifiedFollowersTab', config.hideVerifiedNotificationsTab)
+      let $subscriptionsTab = /** @type {HTMLAnchorElement?} */ (
+        $main?.querySelector(
+          '[role="tab"][href$="/subscriptions"], [role="tab"][href$="/creator-subscriptions/subscriptions"]',
+        )
+      )
+      markModernTab($subscriptionsTab, 'SubscriptionsTab', config.hideSubscriptions)
+    }
+    applyTabs()
+    let $tablist = getModernTablist($main)
+    observeModernRouteRoot($tablist?.parentElement || $main, 'FollowTabs', applyTabs)
+    if (config.hideVerifiedNotificationsTab && /\/verified_followers\/?$/.test(location.pathname)) {
+      let $followersTab = /** @type {HTMLAnchorElement?} */ (
+        $main?.querySelector('[role="tab"][href$="/followers"]')
+      )
+      $followersTab?.click()
+    }
+    return
+  }
   // Fallback for direct navigation
   if (config.hideVerifiedNotificationsTab && lastUrlPath.endsWith('/verified_followers')) {
     History_replace?.(lastUrlPath.replace(/verified_followers$/, 'followers'))
@@ -7419,6 +11077,28 @@ async function tweakFollowListPage() {
 }
 
 async function tweakIndividualTweetPage() {
+  if (modern) {
+    userSortedReplies = false
+    observeIndividualTweetTimeline(currentPage)
+    let applyHeading = () => {
+      let $heading = /** @type {HTMLElement?} */ (document.querySelector('main h2, main h1'))
+      if (!$heading) return
+      let $text = getModernVisibleTabText($heading) || ($heading.children.length == 0 ? $heading : null)
+      if (!$text) return
+      if (config.replaceLogo) {
+        $text.dataset.cpftOriginalText ||= $text.textContent || ''
+        let text = getString('TWEET')
+        if ($text.textContent != text) $text.textContent = text
+      } else if ($text.dataset.cpftOriginalText != null) {
+        let original = $text.dataset.cpftOriginalText
+        if ($text.textContent != original) $text.textContent = original
+        delete $text.dataset.cpftOriginalText
+      }
+    }
+    applyHeading()
+    observeModernRouteRoot(document.querySelector('main'), 'IndividualHeading', applyHeading)
+    return
+  }
   userSortedReplies = false
   observeIndividualTweetTimeline(currentPage)
 
@@ -7436,6 +11116,13 @@ async function tweakIndividualTweetPage() {
 }
 
 function tweakListPage() {
+  if (modern) {
+    observeTimeline(currentPage, {
+      checkSocialContext: true,
+      hideHeadings: false,
+    })
+    return
+  }
   observeTimeline(currentPage, {
     checkSocialContext: true,
     hideHeadings: false,
@@ -7443,6 +11130,17 @@ function tweakListPage() {
 }
 
 async function tweakListsPage() {
+  if (modern) {
+    let $main = document.querySelector('main')
+    let apply = () => {
+      let $showMore = $main?.querySelector('a[href="/i/lists/suggested"]')
+      let $item = $showMore?.closest('li')
+      $item?.classList.toggle('SuggestedContent', Boolean(config.hideMoreTweets))
+    }
+    apply()
+    observeModernRouteRoot($main, 'ListsSuggested', apply)
+    return
+  }
   if (config.hideMoreTweets) {
     // Hide Discover new Lists
     let $showMoreLink = await getElement('a[href="/i/lists/suggested"]', {
@@ -7464,6 +11162,11 @@ async function tweakListsPage() {
 }
 
 async function tweakDesktopLogo() {
+  if (modern) {
+    let $logoPath = /** @type {SVGPathElement?} */ (document.querySelector(`${Selectors.NAV_HOME_LINK} svg path`))
+    if ($logoPath && config.replaceLogo) twitterLogo($logoPath)
+    return
+  }
   let $logoPath = await getElement(`h1 ${Selectors.X_LOGO_PATH}, h1 ${Selectors.X_DARUMA_LOGO_PATH}`, {
     name: 'desktop nav logo',
     timeout: 5000,
@@ -7489,6 +11192,11 @@ async function tweakHomeIcon() {
 }
 
 async function tweakTweetIcon() {
+  if (modern) {
+    let $iconPath = document.querySelector(`${Selectors.NAV_HOME_LINK} svg path[d="${Svgs.PLUS_PATH}"], nav[aria-label="Primary"] a[href="/compose/post"] svg path[d="${Svgs.PLUS_PATH}"]`)
+    if ($iconPath && config.replaceLogo) $iconPath.setAttribute('d', Svgs.TWITTER_FEATHER_PLUS_PATH)
+    return
+  }
   let $iconPath = document.querySelector(`:is([data-testid="SideNav_NewTweet_Button"], [data-testid="FloatingActionButtons_Tweet_Button"]) path[d="${Svgs.PLUS_PATH}"]`)
   if ($iconPath) {
     // Safari doesn't support using `d: path(…)` to replace paths in an SVG, so
@@ -7503,6 +11211,13 @@ async function tweakTweetIcon() {
  * Restores "Tweet" button text.
  */
 async function tweakTweetButton() {
+  if (modern) {
+    tweakModernCompose(
+      /** @type {HTMLElement?} */ (document.querySelector('[role="dialog"]') || document.querySelector('main')),
+      pageObservers,
+    )
+    return
+  }
   let $tweetButton = await getElement(`${desktop ? 'div[data-testid="primaryColumn"]': 'main'} button[data-testid^="tweetButton"]`, {
     name: 'tweet button',
     stopIf: pageIsNot(currentPage),
@@ -7518,7 +11233,42 @@ async function tweakTweetButton() {
 }
 
 function tweakHomeTimelinePage() {
-  let $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
+  if (modern) {
+    let $main = document.querySelector('main')
+    if (!$main) {
+      warn('could not find modern Home main')
+      return
+    }
+    function update() {
+      let $pageHeader = $main.querySelector('[data-page-header]')
+      let $tablist = getModernTablist($pageHeader instanceof HTMLElement ? $pageHeader : $main)
+      if (!$tablist) {
+        warn('could not find modern Home timeline tabs')
+        return
+      }
+      let $tabsRoot = $tablist.closest('nav') || $tablist
+      $tabsRoot.classList.add('TimelineTabs')
+      let $manageTimelinesButton = $main.querySelector('button[aria-label="Manage timelines"]')
+      $manageTimelinesButton?.classList.add('ManageTimelines')
+      tweakTimelineTabs($tabsRoot)
+      let $tabs = getModernTabs($tablist)
+      let $selected = $tabs.find($tab => $tab.getAttribute('aria-selected') == 'true')
+      selectedHomeTabIndex = $selected ? $tabs.indexOf($selected) : -1
+      wasForYouTabSelected = $selected?.dataset.pinnedTimeline == 'for-you' ||
+        (!$selected?.dataset.pinnedTimeline && selectedHomeTabIndex == 0)
+      $body.classList.toggle('SeparatedTweets', isOnSeparatedTweetsTimeline())
+    }
+    update()
+    observeModernRouteRoot($main, 'HomeTabs', update)
+    observeTimeline(currentPage, {
+      checkSocialContext: true,
+      isTabbed: true,
+      onTabChanged: update,
+    })
+    tweakModernCompose($main, pageObservers)
+    return
+  }
+  let $timelineTabs = /** @type {HTMLElement?} */ (document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`))
 
   // Hook for styling when on the separated tweets tab
   $body.classList.toggle('SeparatedTweets', isOnSeparatedTweetsTimeline())
@@ -7561,7 +11311,7 @@ function tweakHomeTimelinePage() {
         // On mobile, navigating to a different tabbed screen can switch tabs before the title changes
         isOnHomeTimelinePage()) {
       log('Home timeline tabs replaced')
-      $timelineTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
+      $timelineTabs = /** @type {HTMLElement?} */ (document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`))
       tweakTimelineTabs($timelineTabs)
     }
   }, {
@@ -7585,6 +11335,15 @@ function tweakHomeTimelinePage() {
 }
 
 async function tweakMobileComposeTweetPage() {
+  if (modern) {
+    tweakModernCompose(
+      /** @type {HTMLElement?} */ (
+        document.querySelector('[role="dialog"]') || document.querySelector('main')
+      ),
+      pageObservers,
+    )
+    return
+  }
   if (!config.replaceLogo && config.twitterBlueChecks == 'ignore') return
 
   function observeUserTypeaheadDropdown($tweetTextareaContainer) {
@@ -7689,6 +11448,40 @@ async function tweakMobileComposeTweetPage() {
 }
 
 async function tweakMobileMediaViewerPage() {
+  if (modern) {
+    let $viewer = /** @type {HTMLElement?} */ (
+      document.querySelector('[role="dialog"]') || document.querySelector('main')
+    )
+    if (!$viewer || $viewer.dataset.cpftMediaViewerObserver) return
+    let originalLoops = new Map()
+    function restoreOriginalLoops() {
+      for (let [$video, loop] of originalLoops) $video.loop = loop
+      originalLoops.clear()
+    }
+    function apply() {
+      let preventAutoplay = Boolean(config.preventNextVideoAutoplay)
+      $viewer.querySelectorAll('video').forEach($video => {
+        if ($video.loop == preventAutoplay) return
+        if (!originalLoops.has($video)) originalLoops.set($video, $video.loop)
+        $video.loop = preventAutoplay
+      })
+      if (config.twitterBlueChecks != 'ignore') processBlueChecks($viewer)
+    }
+    apply()
+    $viewer.dataset.cpftMediaViewerObserver = 'true'
+    observeElement($viewer, apply, {
+      name: 'modern media viewer',
+      observers: pageObservers,
+      onDisconnect: () => {
+        restoreOriginalLoops()
+        delete $viewer.dataset.cpftMediaViewerObserver
+      },
+    }, {
+      childList: true,
+      subtree: true,
+    })
+    return
+  }
   let $timeline = await getElement('[data-testid="vss-scroll-view"] > div', {
     name: 'media viewer timeline',
     stopIf: () => !URL_MEDIAVIEWER_RE.test(location.pathname),
@@ -7732,7 +11525,130 @@ async function tweakMobileMediaViewerPage() {
   }, {childList: true, subtree: true})
 }
 
+/**
+ * @param {HTMLElement | null | undefined} $timelineTabs
+ */
 async function tweakTimelineTabs($timelineTabs) {
+  if (!$timelineTabs) return
+  if (modern) {
+    let $tablist = getModernTablist($timelineTabs)
+    if (!$tablist) {
+      warn('could not find modern timeline tablist')
+      return
+    }
+    $timelineTabs.classList.add('TimelineTabs')
+    let getTabs = () => getModernTabs($tablist)
+    let $followingTab = getTabs().find($tab => $tab.dataset.pinnedTimeline == 'following') ||
+      getTabs().find($tab => /\bfollowing\b/i.test(getModernTabLabel($tab)))
+    let $forYouTab = getTabs().find($tab => $tab.dataset.pinnedTimeline == 'for-you') ||
+      getTabs().find($tab => /\bfor you\b/i.test(getModernTabLabel($tab)))
+    if (!$followingTab) {
+      warn('could not find modern Following tab')
+      return
+    }
+
+    if (config.alwaysUseLatestTweets && !isOnSeparatedTweetsTimeline()) {
+      let isForYouTabSelected = $forYouTab?.getAttribute('aria-selected') == 'true'
+      if (isForYouTabSelected && (!wasForYouTabSelected || config.hideForYouTimeline)) {
+        log('switching to Following timeline')
+        $followingTab.click()
+        wasForYouTabSelected = false
+      } else {
+        wasForYouTabSelected = isForYouTabSelected
+      }
+    }
+    let shouldOpenFollowingSort = isOnHomeTimelinePage() &&
+      !isOnSeparatedTweetsTimeline() &&
+      config.sortFollowing != 'ignore' &&
+      !userSortedFollowing &&
+      $followingTab.getAttribute('aria-selected') == 'true' &&
+      $followingTab.getAttribute('aria-haspopup') == 'menu'
+    if (shouldOpenFollowingSort) {
+      if ($followingTab.dataset.cpftFollowingSort != config.sortFollowing) {
+        $followingTab.dataset.cpftFollowingSort = config.sortFollowing
+        $followingTab.dataset.cpftFollowingSortPending = config.sortFollowing
+        log('sortFollowing: opening native Following sort menu')
+        $followingTab.click()
+      }
+    } else {
+      delete $followingTab.dataset.cpftFollowingSort
+      delete $followingTab.dataset.cpftFollowingSortPending
+    }
+
+
+    let $newTab = /** @type {HTMLButtonElement?} */ ($tablist.querySelector('#cpftSeparatedTweetsTab'))
+    if (!shouldShowSeparatedTweetsTab()) {
+      $newTab?.remove()
+      $body.classList.remove('SeparatedTweets')
+      return
+    }
+
+    if (!$newTab) {
+      $newTab = document.createElement('button')
+      $newTab.type = 'button'
+      $newTab.id = 'cpftSeparatedTweetsTab'
+      $newTab.className = 'cpftSeparatedTweetsTab'
+      $newTab.setAttribute('role', 'tab')
+      $newTab.setAttribute('aria-selected', 'false')
+      $newTab.setAttribute('tabindex', '-1')
+      $followingTab.insertAdjacentElement('afterend', $newTab)
+    }
+    let separatedLabel = separatedTweetsTimelineTitle || getString('SHARED')
+    if ($newTab.textContent != separatedLabel) $newTab.textContent = separatedLabel
+
+    function selectTab($selected) {
+      getTabs().forEach($tab => {
+        let selected = $tab == $selected
+        $tab.setAttribute('aria-selected', String(selected))
+        $tab.setAttribute('tabindex', selected ? '0' : '-1')
+      })
+    }
+
+    if (!$newTab.dataset.cpftSeparatedListeners) {
+      $newTab.addEventListener('click', event => {
+        event.preventDefault()
+        event.stopPropagation()
+        if ($followingTab.getAttribute('aria-selected') != 'true') $followingTab.click()
+        setTitle(separatedLabel)
+        $body.classList.add('SeparatedTweets')
+        selectTab($newTab)
+        window.scrollTo({top: 0})
+      })
+      $newTab.addEventListener('keydown', event => {
+        let tabs = getTabs()
+        let index = tabs.indexOf($newTab)
+        let nextIndex = event.key == 'ArrowRight' ? index + 1 :
+          event.key == 'ArrowLeft' ? index - 1 :
+          event.key == 'Home' ? 0 :
+          event.key == 'End' ? tabs.length - 1 : -1
+        if (nextIndex >= 0) {
+          event.preventDefault()
+          tabs[(nextIndex + tabs.length) % tabs.length]?.focus()
+        } else if (event.key == 'Enter' || event.key == ' ') {
+          event.preventDefault()
+          $newTab.click()
+        }
+      })
+      $newTab.dataset.cpftSeparatedListeners = 'true'
+    }
+    if (!$tablist.dataset.cpftSeparatedListener) {
+      $tablist.addEventListener('click', event => {
+        let $tab = event.target instanceof Element ? event.target.closest('[role="tab"]') : null
+        if (!$tab || $tab.id == 'cpftSeparatedTweetsTab') return
+        $body.classList.remove('SeparatedTweets')
+        if (isOnSeparatedTweetsTimeline()) {
+          homeNavigationIsBeingUsed = true
+          setTitle(getString('HOME'))
+        }
+      })
+      $tablist.dataset.cpftSeparatedListener = 'true'
+    }
+    if (isOnSeparatedTweetsTimeline()) {
+      selectTab($newTab)
+      $body.classList.add('SeparatedTweets')
+    }
+    return
+  }
   $timelineTabs.classList.add('TimelineTabs')
   let $followingTabLink = /** @type {HTMLElement} */ ($timelineTabs.querySelector('div[role="tablist"] > div:nth-child(2) > [role="tab"]'))
   if (!$followingTabLink) {
@@ -7835,6 +11751,10 @@ async function tweakTimelineTabs($timelineTabs) {
 }
 
 function tweakNotificationsPage() {
+  if (modern) {
+    observeTimeline(currentPage, {isTabbed: true})
+    return
+  }
   observeTimeline(currentPage, {
     isTabbed: true,
     tabbedTimelineContainerSelector: 'div[data-testid="primaryColumn"] > div > div:last-child',
@@ -7842,6 +11762,14 @@ function tweakNotificationsPage() {
 }
 
 async function tweakPremiumSignUpPage() {
+  if (modern) {
+    let $root = document.querySelector('[role="dialog"]') || document.querySelector('main')
+    let $closeButton = /** @type {HTMLButtonElement?} */ (
+      $root?.querySelector('button[aria-label="Close"], button[aria-label="Back"]')
+    )
+    $closeButton?.click()
+    return
+  }
   if (!config.hideTwitterBlueUpsells) return
   let $closeButton = await getElement('[data-testid="app-bar-close"]', {
     name: 'Premium sign up close button',
@@ -7854,6 +11782,47 @@ async function tweakPremiumSignUpPage() {
 }
 
 async function tweakProfilePage() {
+  if (modern) {
+    let $main = document.querySelector('main')
+    if (!$main) return
+    let path = currentPagePath || location.pathname
+    let tab = path.includes('/with_replies') ? 'with_replies' :
+      path.includes('/reposts') ? 'reposts' :
+      path.includes('/media') ? 'media' :
+      path.includes('/affiliates') ? 'affiliates' : 'tweets'
+    if (config.twitterBlueChecks != 'ignore') processBlueChecks($main)
+    observeTimeline(currentPage, {
+      checkSocialContext: tab == 'tweets' || tab == 'with_replies',
+      isUserTimeline: tab == 'affiliates',
+    })
+    $body.classList.toggle('OwnProfile', Boolean($main.querySelector('a[href="/settings/profile"]')))
+    $body.classList.toggle('PremiumProfile', Boolean(
+      $main.querySelector(`span[role="button"][aria-label="Verified account"] ${Selectors.VERIFIED_TICK}`)
+    ))
+
+    function apply() {
+      markModernProfilePostCount($main)
+      let $profileTabs = getModernTablist($main)
+      if ($profileTabs) {
+        let $tabs = getModernTabs($profileTabs)
+        setModernTabText($tabs[0], getString('TWEETS'), config.replaceLogo)
+        $tabs.forEach($tab => {
+          let href = $tab.getAttribute('href') || ''
+          markModernTab($tab, 'SubsTab', config.hideSubscriptions && /\/(?:subscriptions|superfollows)(?:$|\/)/.test(href))
+        })
+      }
+      let enabled = config.hideTwitterBlueUpsells
+      $main.querySelectorAll('a[href^="/i/premium"], a[href="/i/account_analytics"]').forEach($link => {
+        let $upsell = $link.closest('section') || $link.parentElement?.parentElement
+        if (!$upsell) return
+        $upsell.classList.toggle('PremiumUpsell', enabled)
+        $upsell.toggleAttribute('data-cpft-premium-upsell', enabled)
+      })
+    }
+    apply()
+    observeModernRouteRoot($main, 'Profile', apply)
+    return
+  }
   let $initialContent = await getElement(desktop ? Selectors.PRIMARY_COLUMN : Selectors.MOBILE_TIMELINE_HEADER, {
     name: 'initial profile content',
     stopIf: pageIsNot(currentPage),
@@ -7959,6 +11928,28 @@ function tweakProfileSettingsPage() {
  */
 async function tweakRetweetDropdown($dropdownItem, dropdownItemSelector, localeKey) {
   log('tweaking Retweet/Quote Tweet dropdown')
+  if (modern) {
+    let $item = $dropdownItem?.closest?.('[role="menuitem"]') || $dropdownItem
+    if (!($item instanceof HTMLElement)) return
+    function setMenuText($menuItem, key) {
+      if (!($menuItem instanceof HTMLElement)) return
+      let $text = getModernVisibleTabText($menuItem) || /** @type {HTMLElement?} */ (
+        Array.from($menuItem.querySelectorAll('span')).find($span => $span.children.length == 0)
+      )
+      if (!$text) return
+      if (config.replaceLogo) {
+        if ($text.dataset.cpftOriginalText == null) $text.dataset.cpftOriginalText = $text.textContent || ''
+        let text = getString(key)
+        if ($text.textContent != text) $text.textContent = text
+      } else if ($text.dataset.cpftOriginalText != null) {
+        if ($text.textContent != $text.dataset.cpftOriginalText) $text.textContent = $text.dataset.cpftOriginalText
+        delete $text.dataset.cpftOriginalText
+      }
+    }
+    setMenuText($item, localeKey)
+    setMenuText($item.nextElementSibling, 'QUOTE_TWEET')
+    return
+  }
 
   if (desktop) {
     $dropdownItem = await getElement(`
@@ -7978,6 +11969,50 @@ async function tweakRetweetDropdown($dropdownItem, dropdownItemSelector, localeK
 }
 
 function tweakSearchPage() {
+  if (modern) {
+    let $main = document.querySelector('main')
+    let $tablist = getModernTablist($main)
+    let searchQuery = new URLSearchParams(location.search).get('q') || ''
+    let searchTabQuery = `${currentPagePath}\u0000${searchQuery}`
+    if (userSelectedSearchTabQuery != null && userSelectedSearchTabQuery != searchTabQuery) {
+      userSelectedSearchTabQuery = null
+    }
+    if (!$tablist) {
+      warn('could not find modern Search tabs')
+    } else {
+      let $tabs = getModernTabs($tablist)
+      let $top = $tabs.find($tab => /^top$/i.test(getModernTabLabel($tab)))
+      let $latest = $tabs.find($tab => /^latest$/i.test(getModernTabLabel($tab)))
+      if ($main) {
+        let onSearchTabClick = (e) => {
+          if (!e.isTrusted) return
+          let $tab = e.target instanceof Element ? e.target.closest('[role="tab"]') : null
+          let $currentTablist = getModernTablist($main)
+          if (!($tab instanceof HTMLElement) || !$currentTablist?.contains($tab)) return
+          userSelectedSearchTabQuery = `${currentPagePath}\u0000${new URLSearchParams(location.search).get('q') || ''}`
+        }
+        $main.addEventListener('click', onSearchTabClick, true)
+        let observerName = 'modern search tab selection'
+        pageObservers.set(observerName, {
+          name: observerName,
+          disconnect() {
+            $main.removeEventListener('click', onSearchTabClick, true)
+            pageObservers.delete(observerName)
+          },
+        })
+      }
+      if (config.defaultToLatestSearch &&
+          userSelectedSearchTabQuery != searchTabQuery &&
+          $top?.getAttribute('aria-selected') == 'true') {
+        $latest?.click()
+      }
+    }
+    observeTimeline(currentPage, {
+      hideHeadings: config.hideSuggestedContentSearch,
+      isTabbed: true,
+    })
+    return
+  }
   let $searchTabs = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} nav`)
   if ($searchTabs != null) {
     if (config.defaultToLatestSearch) {
@@ -8010,6 +12045,38 @@ function tweakSearchPage() {
 }
 
 function tweakTweetEngagementPage() {
+  if (modern) {
+    let $main = document.querySelector('main')
+    if (!$main) return
+    let $heading = $main.querySelector('h2')
+    let $headingText = getModernVisibleTabText($heading) || (
+      $heading && !$heading.children.length ? $heading : null
+    )
+    if ($headingText) {
+      if (config.replaceLogo) {
+        if ($headingText.dataset.cpftOriginalText == null) $headingText.dataset.cpftOriginalText = $headingText.textContent || ''
+        let text = getString('TWEET_INTERACTIONS')
+        if ($headingText.textContent != text) $headingText.textContent = text
+      } else if ($headingText.dataset.cpftOriginalText != null) {
+        if ($headingText.textContent != $headingText.dataset.cpftOriginalText) {
+          $headingText.textContent = $headingText.dataset.cpftOriginalText
+        }
+        delete $headingText.dataset.cpftOriginalText
+      }
+    }
+    let $tablist = getModernTablist($main)
+    if ($tablist) {
+      let $tabs = getModernTabs($tablist)
+      setModernTabText($tabs[0], getString('QUOTE_TWEETS'), config.replaceLogo)
+      setModernTabText($tabs[1], getString('RETWEETS'), config.replaceLogo)
+    } else {
+      warn('could not find modern Post activity tabs')
+    }
+    if (config.twitterBlueChecks != 'ignore') {
+      observeTimeline(currentPage, {classifyTweets: false, isTabbed: true})
+    }
+    return
+  }
   if (config.replaceLogo) {
     let $headingText = document.querySelector(`${mobile ? Selectors.MOBILE_TIMELINE_HEADER : Selectors.PRIMARY_COLUMN} h2 span`)
     if ($headingText) {
@@ -8066,6 +12133,7 @@ async function main({processImmediately = false} = {}) {
   currentPage = ''
   currentPagePath = ''
   lastUrlPath = ''
+  lastUrlSearch = ''
   lastUrlWasModal = false
   observingPageChanges = false
   filterBlurRule = null
@@ -8073,11 +12141,9 @@ async function main({processImmediately = false} = {}) {
   fontSize = null
   lastFlexDirection = null
 
-  observeFavicon()
-  observeTitle()
-  observeThemeMeta()
 
-  let $appWrapper = await getElement('#layers + div', {name: 'app wrapper'})
+  let $appWrapper = await getElement('#layers + div, main', {name: 'app wrapper', stopIf: () => !config.enabled})
+  if (!$appWrapper || !config.enabled) return
 
   $html = document.querySelector('html')
   $body = document.body
@@ -8086,8 +12152,36 @@ async function main({processImmediately = false} = {}) {
   dir = $html.dir
   ltr = dir == 'ltr'
 
-  observeElement($appWrapper, () => {
-    let flexDirection = getComputedStyle($appWrapper).flexDirection
+  modern = !document.querySelector('#react-root') && $appWrapper.matches('main')
+  if (modern) {
+    Object.assign(Selectors, {
+      DESKTOP_TIMELINE_HEADER: 'main [data-page-header]',
+      MODAL_TIMELINE: '[role="dialog"] [id^="urt:"] > ul',
+      MOBILE_TIMELINE_HEADER: 'main [data-page-header]',
+      NAV_HOME_LINK: 'nav[aria-label="Primary"] a[href="/home"]',
+      PRIMARY_COLUMN: 'main',
+      PRIMARY_NAV_DESKTOP: 'nav[aria-label="Primary"]',
+      PRIMARY_NAV_MOBILE: 'nav[aria-label="Primary"]',
+      SIDEBAR: 'aside',
+      TIMELINE: 'main [id^="urt:"] > ul',
+      TIMELINE_HEADING: 'h2',
+      TWEET: 'article:not([data-slot="embedded-tweet-frame"] article)',
+      VERIFIED_TICK: 'svg:has(use[href^="#icon-verified-"])',
+      X_LOGO_PATH: 'svg[data-icon="icon-logo-x"] path',
+    })
+    while (config.enabled && !getModernProviders()?.router) {
+      await new Promise(requestAnimationFrame)
+    }
+    if (!config.enabled) return
+  }
+
+  await observeFavicon()
+  observeTitle()
+  observeThemeMeta()
+
+  let $mobileViewport = modern ? matchMedia('(max-width: 639px)') : null
+  let updateVersion = () => {
+    let flexDirection = modern ? ($mobileViewport.matches ? 'column' : 'row') : getComputedStyle($appWrapper).flexDirection
 
     mobile = flexDirection == 'column'
     desktop = !mobile
@@ -8106,14 +12200,15 @@ async function main({processImmediately = false} = {}) {
       log('initial config', {config, lang, version})
 
       // One-time setup
-      checkReactNativeStylesheet()
+      if (!modern) checkReactNativeStylesheet()
       themeColor = getThemeColorFromState() || themeColor
       observeBodyBackgroundColor()
       observeReRenderBoundary()
       patchHistory()
-      interceptMediaButton()
+      if (modern) observeModernRoute()
+      if (!modern) interceptMediaButton()
       if (desktop) {
-        fontSize = $html.style.fontSize
+        fontSize = modern ? getComputedStyle($html).fontSize : $html.style.fontSize
         if (!fontSize) {
           warn('initial fontSize not set on <html>')
         }
@@ -8152,14 +12247,63 @@ async function main({processImmediately = false} = {}) {
     $body.classList.toggle('Desktop', desktop)
 
     lastFlexDirection = flexDirection
-  }, {
-    leading: true,
-    name: 'app wrapper class attribute for version changes (mobile ↔ desktop)',
-    observers: globalObservers,
-  }, {
-    attributes: true,
-    attributeFilter: ['class']
-  })
+  }
+  if (modern) {
+    updateVersion()
+    $mobileViewport.addEventListener('change', updateVersion)
+    let name = 'application viewport'
+    globalObservers.set(name, {
+      name,
+      disconnect() {
+        $mobileViewport.removeEventListener('change', updateVersion)
+        globalObservers.delete(name)
+      },
+    })
+  } else {
+    observeElement($appWrapper, updateVersion, {
+      leading: true,
+      name: 'app wrapper class attribute for version changes (mobile ↔ desktop)',
+      observers: globalObservers,
+    }, {
+      attributes: true,
+      attributeFilter: ['class']
+    })
+  }
+}
+
+function restoreModernInterface() {
+  document.querySelectorAll(
+    '#cpftInteractionLinks, .cpft_link_headline, [data-cpft-account-location], .AccountLocation'
+  ).forEach(el => el.remove())
+  for (let $el of document.querySelectorAll('[data-cpft-original-text]')) {
+    $el.textContent = $el.getAttribute('data-cpft-original-text')
+    $el.removeAttribute('data-cpft-original-text')
+  }
+  for (let $el of document.querySelectorAll('[data-cpft-original-placeholder]')) {
+    let placeholder = $el.getAttribute('data-cpft-original-placeholder')
+    if (placeholder) $el.setAttribute('placeholder', placeholder)
+    else $el.removeAttribute('placeholder')
+    $el.removeAttribute('data-cpft-original-placeholder')
+  }
+  for (let $el of document.querySelectorAll('.HiddenTweet, .HiddenAd, .cpft_overlay_headline')) {
+    $el.classList.remove('HiddenTweet', 'HiddenAd', 'cpft_overlay_headline')
+  }
+  for (let $el of document.querySelectorAll(
+    '[data-cpft-focused], [data-headline-restored], [cpft-account-location-added], [data-item-type], [data-cpft-interaction-links-key]'
+  )) {
+    $el.removeAttribute('data-cpft-focused')
+    $el.removeAttribute('data-headline-restored')
+    $el.removeAttribute('cpft-account-location-added')
+    $el.removeAttribute('data-item-type')
+    $el.removeAttribute('data-cpft-interaction-links-key')
+  }
+  observeFavicon.restore()
+  if (currentPage) {
+    let page = isOnSeparatedTweetsTimeline() ? getString('HOME') : currentPage
+    let count = getNotificationCount() == 0 ? '' : hiddenNotificationCount || currentNotificationCount
+    document.title = ltr ? `${count}${page} / X` : `${count}X \\ ${page}`
+  }
+  $body?.classList.remove('HighContrast', 'SeparatedTweets')
 }
 
 /**
@@ -8167,6 +12311,7 @@ async function main({processImmediately = false} = {}) {
  */
 function configChanged(changes) {
   log('config changed', changes)
+  if ('defaultToLatestSearch' in changes) userSelectedSearchTabQuery = null
 
   if ('enabled' in changes) {
     log(`${changes.enabled ? 'en' : 'dis'}abling extension functionality`)
@@ -8180,20 +12325,35 @@ function configChanged(changes) {
       configureFont()
       configureDynamicCss()
       configureThemeCss()
+      configureCustomCss()
+      document.querySelectorAll('[data-cpft-badge-replacement]').forEach(el => el.remove())
+      document.querySelectorAll('.cpft_blue_check').forEach(el => el.classList.remove('cpft_blue_check'))
       // Manually remove custom UI elements which clone existing elements, as
       // adding a hidden attribute won't hide them by default.
       document.querySelector('#cpftSeparatedTweetsTab')?.remove()
-      document.querySelectorAll('.cpft_menu_item').forEach(el => el.remove())
+      document.querySelectorAll('.cpft_menu_item, [data-cpft-menu-action="add-muted-word"]').forEach(el => el.remove())
       disconnectObservers(modalObservers, 'modal')
       disconnectObservers(pageObservers, 'page')
       disconnectObservers(globalObservers, 'global')
+      if (modern) restoreModernInterface()
     }
     return
   }
 
   if ('version' in changes) {
-    fontSize = desktop ? $html.style.fontSize : null
+    fontSize = desktop ? (modern ? getComputedStyle($html).fontSize : $html.style.fontSize) : null
   }
+
+  if ('twitterBlueChecks' in changes) {
+    document.querySelectorAll('[data-cpft-badge-replacement]').forEach(el => el.remove())
+    document.querySelectorAll('.cpft_blue_check').forEach(el => el.classList.remove('cpft_blue_check'))
+  }
+  if (modern) document.querySelectorAll('.cpft_menu_item, [data-cpft-menu-action="add-muted-word"]').forEach(el => el.remove())
+  if ('addUserHoverCardAccountLocation' in changes && !config.addUserHoverCardAccountLocation) {
+    document.querySelectorAll('[data-cpft-account-location]').forEach($el => $el.remove())
+  }
+
+  if ('disableNflFeatures' in changes) configureFeatureFlags()
 
   // Apply configuration changes
   configureCss()
@@ -8266,8 +12426,9 @@ if ($settings) {
       log('disabling debug mode')
       debug = configChanges.debug
       log('enabled debug mode')
-      configureThemeCss()
-      return
+      if (!debug) {
+        document.querySelectorAll('[data-item-type]').forEach($el => $el.removeAttribute('data-item-type'))
+      }
     }
 
     Object.assign(config, configChanges)

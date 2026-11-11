@@ -25,6 +25,7 @@
   },
   "webExt": {
     "ignoreFiles": [
+      ".chrome-profile/**",
       "CONTRIBUTING.md",
       "PRIVACY_POLICY.md",
       "README.md",
