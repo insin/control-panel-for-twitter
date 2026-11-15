@@ -264,6 +264,7 @@ export type LocaleKey =
   | 'TWEETED'
   | 'TWEETS'
   | 'TWEET_ALL'
+  | 'TWEET_ANALYTICS'
   | 'TWEET_COUNT'
   | 'TWEET_INTERACTIONS'
   | 'TWEET_NOUN'
@@ -275,6 +276,7 @@ export type LocaleKey =
   | 'UNSENT_TWEETS'
   | 'USER_RETWEETED'
   | 'VIEW'
+  | 'VIEW_TWEET_ANALYTICS'
   | 'YOU_RETWEETED'
 
 export type Migration = {

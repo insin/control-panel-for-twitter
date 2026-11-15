@@ -24,6 +24,7 @@
     "TWEETED": "غرَّد",
     "TWEETS": "التغريدات",
     "TWEET_ALL": "تغريد الكل",
+    "TWEET_ANALYTICS": "تحليلات التغريدة",
     "TWEET_COUNT": "{formattedCount} {count, plural, zero {تغريدة} one {تغريدة واحدة} two {تغريدتان} few {تغريدات} many {تغريدةً} other {تغريدة}}",
     "TWEET_INTERACTIONS": "تفاعلات التغريدة",
     "TWEET_NOUN": "تغريدة",
@@ -33,6 +34,7 @@
     "UNDO_RETWEET": "التراجع عن التغريدة",
     "UNSENT_TWEETS": "التغريدات غير المرسلة",
     "USER_RETWEETED": "أعاد التغريد {name}",
+    "VIEW_TWEET_ANALYTICS": "عرض تحليلات Twitter",
     "YOU_RETWEETED": "أعدت تغريد"
   },
   "ar-x-fm": {
@@ -60,6 +62,7 @@
     "TWEETED": "غرّدت",
     "TWEETS": "التغريدات",
     "TWEET_ALL": "تغريد الكل",
+    "TWEET_ANALYTICS": "تحليلات التغريدة",
     "TWEET_COUNT": "{formattedCount} {count, plural, zero {تغريدة} one {تغريدة واحدة} two {تغريدتان} few {تغريدةً} many {تغريدةً} other {تغريدة}}",
     "TWEET_INTERACTIONS": "تفاعلات التغريدة",
     "TWEET_NOUN": "تغريدة",
@@ -69,6 +72,7 @@
     "UNDO_RETWEET": "التراجع عن التغريدة",
     "UNSENT_TWEETS": "التغريدات غير المرسلة",
     "USER_RETWEETED": "أعادت التغريد {name}",
+    "VIEW_TWEET_ANALYTICS": "عرض تحليلات Twitter",
     "YOU_RETWEETED": "أعدتِ تغريد"
   },
   "bg": {
@@ -96,6 +100,7 @@
     "TWEETED": "туитна",
     "TWEETS": "Туитове",
     "TWEET_ALL": "Туитване на всички",
+    "TWEET_ANALYTICS": "Статистика за туита",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {туит} other {туита}}",
     "TWEET_INTERACTIONS": "Интеракции с туит",
     "TWEET_NOUN": "Туит",
@@ -104,6 +109,7 @@
     "UNDO_RETWEET": "Отмяна на ретуитването",
     "UNSENT_TWEETS": "Неизпратени туитове",
     "USER_RETWEETED": "{name} ретуитна",
+    "VIEW_TWEET_ANALYTICS": "Преглед на статистиката за туита",
     "YOU_RETWEETED": "Ретуитна"
   },
   "bn": {
@@ -131,6 +137,7 @@
     "TWEETED": "টুইট করেছেন",
     "TWEETS": "টুইটগুলি",
     "TWEET_ALL": "সব টুইট করুন",
+    "TWEET_ANALYTICS": "টুইট অ্যানালিটিক্স",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {টুইট} other {টুইটগুলি}}",
     "TWEET_INTERACTIONS": "টুইট ইন্টারেকশন",
     "TWEET_NOUN": "-এর টুইট",
@@ -140,6 +147,7 @@
     "UNDO_RETWEET": "পুনঃ টুইট পুর্বাবস্থায় ফেরান",
     "UNSENT_TWEETS": "অপ্রেরিত টুইট",
     "USER_RETWEETED": "{name} দ্বারা পুনঃ টুইটকৃত",
+    "VIEW_TWEET_ANALYTICS": "টুইটের বিশ্লেষণ দেখুন",
     "YOU_RETWEETED": "আপনি পুনঃ টুইট করেছেন"
   },
   "ca": {
@@ -167,6 +175,7 @@
     "TWEETED": "ha tuitat",
     "TWEETS": "Tuits",
     "TWEET_ALL": "Tuita-ho tot",
+    "TWEET_ANALYTICS": "Analítica del tuit",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {tuit} many {tuits} other {tuits}}",
     "TWEET_INTERACTIONS": "Interaccions amb tuits",
     "TWEET_NOUN": "Tuit",
@@ -175,6 +184,7 @@
     "UNDO_RETWEET": "Desfés el retuit",
     "UNSENT_TWEETS": "Tuits no enviats",
     "USER_RETWEETED": "{name} ha retuitat",
+    "VIEW_TWEET_ANALYTICS": "Mostra les analítiques del tuit",
     "YOU_RETWEETED": "Has retuitat"
   },
   "cs": {
@@ -202,6 +212,7 @@
     "TWEETED": "tweetnul",
     "TWEETS": "Tweety",
     "TWEET_ALL": "Tweetnout vše",
+    "TWEET_ANALYTICS": "Analýza tweetů",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} few {tweety} many {tweetů} other {tweetů}}",
     "TWEET_INTERACTIONS": "Interakce s Tweetem",
     "TWEET_NOUN": "Tweet",
@@ -210,6 +221,7 @@
     "UNDO_RETWEET": "Zrušit Retweet",
     "UNSENT_TWEETS": "Neodeslané tweety",
     "USER_RETWEETED": "Uživatel {name} retweetnul",
+    "VIEW_TWEET_ANALYTICS": "Zobrazit analýzu tweetů",
     "YOU_RETWEETED": "Retweetnuli jste"
   },
   "da": {
@@ -233,6 +245,7 @@
     "TURN_ON_RETWEETS": "Slå Retweets til",
     "TWEETED": "tweetede",
     "TWEET_ALL": "Tweet alt",
+    "TWEET_ANALYTICS": "Tweet-statistik",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} other {Tweets}}",
     "TWEET_INTERACTIONS": "Tweet-interaktioner",
     "TWEET_NOUN": "Tweet",
@@ -241,6 +254,7 @@
     "UNDO_RETWEET": "Fortryd Retweet",
     "UNSENT_TWEETS": "Usendte Tweets",
     "USER_RETWEETED": "{name} retweetede",
+    "VIEW_TWEET_ANALYTICS": "Vis Tweet-statistik",
     "YOU_RETWEETED": "Du retweetede"
   },
   "de": {
@@ -266,6 +280,7 @@
     "TWEET": "Twittern",
     "TWEETED": "hat getwittert",
     "TWEET_ALL": "Alle twittern",
+    "TWEET_ANALYTICS": "Tweet-Statistiken",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} other {Tweets}}",
     "TWEET_INTERACTIONS": "Tweet-Interaktionen",
     "TWEET_NOUN": "Tweet",
@@ -274,6 +289,7 @@
     "UNDO_RETWEET": "Retweet rückgängig machen",
     "UNSENT_TWEETS": "Nicht gesendete Tweets",
     "USER_RETWEETED": "{name} hat retweetet",
+    "VIEW_TWEET_ANALYTICS": "Tweet-Statistiken anzeigen",
     "YOU_RETWEETED": "Du hast retweetet"
   },
   "el": {
@@ -299,6 +315,7 @@
     "TWEETED": "έγραψε Tweet",
     "TWEETS": "Tweet",
     "TWEET_ALL": "Δημοσίευση όλων ως Tweet",
+    "TWEET_ANALYTICS": "Στοιχεία ανάλυσης Tweet",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} other {Tweet}}",
     "TWEET_INTERACTIONS": "Αλληλεπιδράσεις με tweet",
     "TWEET_NOUN": "Tweet",
@@ -307,6 +324,7 @@
     "UNDO_RETWEET": "Αναίρεση Retweet",
     "UNSENT_TWEETS": "Μη σταλμένα Tweet",
     "USER_RETWEETED": "Ο χρήστης {name} έκανε Retweet",
+    "VIEW_TWEET_ANALYTICS": "Προβολή στοιχείων ανάλυσης Tweet",
     "YOU_RETWEETED": "Κάνατε Retweet"
   },
   "en": {
@@ -334,6 +352,7 @@
     "TWEETED": "Tweeted",
     "TWEETS": "Tweets",
     "TWEET_ALL": "Tweet all",
+    "TWEET_ANALYTICS": "Tweet Analytics",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} other {Tweets}}",
     "TWEET_INTERACTIONS": "Tweet interactions",
     "TWEET_NOUN": "Tweet",
@@ -343,6 +362,7 @@
     "UNDO_RETWEET": "Undo Retweet",
     "UNSENT_TWEETS": "Unsent Tweets",
     "USER_RETWEETED": "{name} Retweeted",
+    "VIEW_TWEET_ANALYTICS": "View Tweet analytics",
     "YOU_RETWEETED": "You Retweeted"
   },
   "en-gb": {},
@@ -371,6 +391,7 @@
     "TWEET": "Twittear",
     "TWEETED": "twitteó",
     "TWEET_ALL": "Twittear todo",
+    "TWEET_ANALYTICS": "Estadísticas de los Tweets",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} many {Tweets} other {Tweets}}",
     "TWEET_INTERACTIONS": "Interacciones con el Tweet",
     "TWEET_NOUN": "Tweet",
@@ -379,6 +400,7 @@
     "UNDO_RETWEET": "Deshacer Retweet",
     "UNSENT_TWEETS": "Tweets no enviados",
     "USER_RETWEETED": "{name} retwitteó",
+    "VIEW_TWEET_ANALYTICS": "Ver estadísticas del Tweet",
     "YOU_RETWEETED": "Retwitteaste"
   },
   "eu": {
@@ -413,6 +435,7 @@
     "TWEETED": "Txiokatu du",
     "TWEETS": "Txioak",
     "TWEET_ALL": "Txiotu guztiak",
+    "TWEET_ANALYTICS": "Txioei buruzko estatistikak",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} other {Tweets}}",
     "TWEET_INTERACTIONS": "Txio elkarrekintzak",
     "TWEET_NOUN": "Txio",
@@ -422,6 +445,7 @@
     "UNSENT_TWEETS": "Bidali gabeko txioak",
     "USER_RETWEETED": "{name} erabiltzaileak bertxiotu du",
     "VIEW": "Ikusi",
+    "VIEW_TWEET_ANALYTICS": "Ikusi txioen analisiak",
     "YOU_RETWEETED": "Zuk Bertxiotua"
   },
   "fa": {
@@ -449,6 +473,7 @@
     "TWEETED": "توییت کرد",
     "TWEETS": "توييت‌ها",
     "TWEET_ALL": "توییت به همه",
+    "TWEET_ANALYTICS": "اطلاعات آماری توییت",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {توییت} other {توييت}}",
     "TWEET_INTERACTIONS": "تعاملات توییت",
     "TWEET_NOUN": "توییت",
@@ -458,6 +483,7 @@
     "UNDO_RETWEET": "لغو بازتوییت",
     "UNSENT_TWEETS": "توییت‌های فرستاده‌نشده",
     "USER_RETWEETED": "{name} بازتوییت کرد",
+    "VIEW_TWEET_ANALYTICS": "مشاهده اطلاعات آماری توییت",
     "YOU_RETWEETED": "شما بازتوییت کردید"
   },
   "fi": {
@@ -485,6 +511,7 @@
     "TWEETED": "twiittasi",
     "TWEETS": "Twiitit",
     "TWEET_ALL": "Twiittaa kaikki",
+    "TWEET_ANALYTICS": "Twiittikohtaiset tilastot",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {twiitti} other {twiittiä}}",
     "TWEET_INTERACTIONS": "Twiitin vuorovaikutukset",
     "TWEET_NOUN": "twiitti",
@@ -493,6 +520,7 @@
     "UNDO_RETWEET": "Kumoa uudelleentwiittaus",
     "UNSENT_TWEETS": "Lähettämättömät twiitit",
     "USER_RETWEETED": "{name} uudelleentwiittasi",
+    "VIEW_TWEET_ANALYTICS": "Näytä twiitin tilastot",
     "YOU_RETWEETED": "Uudelleentwiittasit"
   },
   "fil": {
@@ -520,6 +548,7 @@
     "TWEETED": "Nag-tweet",
     "TWEETS": "Mga Tweet",
     "TWEET_ALL": "I-tweet lahat",
+    "TWEET_ANALYTICS": "Analytics ng Tweet",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} other {(na) Tweet}}",
     "TWEET_INTERACTIONS": "Interaksyon sa Tweet",
     "TWEET_NOUN": "Tweet",
@@ -528,6 +557,7 @@
     "UNDO_RETWEET": "Huwag nang I-retweet",
     "UNSENT_TWEETS": "Mga Hindi Naipadalang Tweet",
     "USER_RETWEETED": "Ni-retweet ni {name}",
+    "VIEW_TWEET_ANALYTICS": "Tingnan ang analytics ng Tweet",
     "YOU_RETWEETED": "Ni-retweet Mo"
   },
   "fr": {
@@ -553,6 +583,7 @@
     "TWEET": "Tweeter",
     "TWEETED": "a tweeté",
     "TWEET_ALL": "Tout tweeter",
+    "TWEET_ANALYTICS": "Statistiques du Tweet",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} many {Tweets} other {Tweets}}",
     "TWEET_INTERACTIONS": "Interactions avec le Tweet",
     "TWEET_NOUN": "Tweet",
@@ -561,6 +592,7 @@
     "UNDO_RETWEET": "Annuler le Retweet",
     "UNSENT_TWEETS": "Tweets non envoyés",
     "USER_RETWEETED": "{name} a retweeté",
+    "VIEW_TWEET_ANALYTICS": "Voir les statistiques des Tweets",
     "YOU_RETWEETED": "Vous avez retweeté"
   },
   "ga": {
@@ -594,6 +626,7 @@
     "TWEETED": "Rinne Tweetáil",
     "TWEETS": "Tweetanna",
     "TWEET_ALL": "Tweetáil gach rud",
+    "TWEET_ANALYTICS": "Anailísíocht Tweetanna",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} two {Tweets} few {Tweets} many {Tweets} other {Tweets}}",
     "TWEET_INTERACTIONS": "Idirghníomhaíochtaí le Tweet",
     "TWEET_NOUN": "Tvuít",
@@ -603,6 +636,7 @@
     "UNSENT_TWEETS": "Tweetanna nár seoladh",
     "USER_RETWEETED": "Rinne {name} Atweetáil",
     "VIEW": "Breathnaigh",
+    "VIEW_TWEET_ANALYTICS": "Breathnaigh ar anailísíocht an Tweet",
     "YOU_RETWEETED": "Rinne tú Atweetáil"
   },
   "gl": {
@@ -637,6 +671,7 @@
     "TWEETED": "chiou",
     "TWEETS": "Chíos",
     "TWEET_ALL": "Chiar todo",
+    "TWEET_ANALYTICS": "Análises dos chíos",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} other {Tweets}}",
     "TWEET_INTERACTIONS": "Interaccións chío",
     "TWEET_NOUN": "Chío",
@@ -646,6 +681,7 @@
     "UNSENT_TWEETS": "Chíos sen enviar",
     "USER_RETWEETED": "{name} rechouchiou",
     "VIEW": "Ver",
+    "VIEW_TWEET_ANALYTICS": "Ver análises do chío",
     "YOU_RETWEETED": "Rechouchiaches"
   },
   "gu": {
@@ -673,6 +709,7 @@
     "TWEETED": "ટ્વીટ કરી",
     "TWEETS": "ટ્વીટ્સ",
     "TWEET_ALL": "બધાને ટ્વીટ કરો",
+    "TWEET_ANALYTICS": "ટ્વીટ વિશ્લેષણો",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {ટ્વીટ} other {ટ્વીટ}}",
     "TWEET_INTERACTIONS": "ટ્વીટ ક્રિયાપ્રતિક્રિયાઓ",
     "TWEET_NOUN": "ટ્વીટ",
@@ -681,6 +718,7 @@
     "UNDO_RETWEET": "પુનટ્વીટને પૂર્વવત કરો",
     "UNSENT_TWEETS": "મોકલ્યા વગરની ટ્વીટ્સ",
     "USER_RETWEETED": "{name}એ પુનટ્વીટ કરી",
+    "VIEW_TWEET_ANALYTICS": "ટ્વીટ વિશ્લેષણ જુઓ",
     "YOU_RETWEETED": "તમે પુનટ્વીટ કરી"
   },
   "he": {
@@ -708,6 +746,7 @@
     "TWEETED": "צייצ/ה",
     "TWEETS": "ציוצים",
     "TWEET_ALL": "צייץ הכול",
+    "TWEET_ANALYTICS": "ניתוח ציוצים",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {ציוץ} two {ציוצים} other {ציוצים}}",
     "TWEET_INTERACTIONS": "אינטראקציות עם הציוץ",
     "TWEET_NOUN": "ציוץ",
@@ -717,6 +756,7 @@
     "UNDO_RETWEET": "ביטול ציוץ מחדש",
     "UNSENT_TWEETS": "ציוצים שלא נשלחו",
     "USER_RETWEETED": "{name} צייץ מחדש",
+    "VIEW_TWEET_ANALYTICS": "הצג את ניתוח הציוצים",
     "YOU_RETWEETED": "צייצת מחדש"
   },
   "hi": {
@@ -744,6 +784,7 @@
     "TWEETED": "ट्वीट किया",
     "TWEETS": "ट्वीट",
     "TWEET_ALL": "सभी ट्वीट करें",
+    "TWEET_ANALYTICS": "ट्वीट विश्लेषण",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {ट्वीट} other {ट्वीट्स}}",
     "TWEET_INTERACTIONS": "ट्वीट इंटरैक्शन",
     "TWEET_NOUN": "ट्वीट",
@@ -752,6 +793,7 @@
     "UNDO_RETWEET": "रीट्वीट को पूर्ववत करें",
     "UNSENT_TWEETS": "बिना भेजे गए ट्वीट",
     "USER_RETWEETED": "{name} ने रीट्वीट किया",
+    "VIEW_TWEET_ANALYTICS": "ट्वीट विश्लेषण देखें",
     "YOU_RETWEETED": "आपने रीट्वीट किया"
   },
   "hr": {
@@ -778,6 +820,7 @@
     "TWEETED": "objavio/la je Tweet",
     "TWEETS": "Tweetovi",
     "TWEET_ALL": "Tweetaj sve",
+    "TWEET_ANALYTICS": "Analitika tweeta",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} few {tweeta} other {tweetova}}",
     "TWEET_INTERACTIONS": "Interakcije s Tweetom",
     "TWEET_NOUN": "Tweet",
@@ -786,6 +829,7 @@
     "UNDO_RETWEET": "Poništi prosljeđivanje tweeta",
     "UNSENT_TWEETS": "Neposlani tweetovi",
     "USER_RETWEETED": "{name} proslijedio/la je Tweet",
+    "VIEW_TWEET_ANALYTICS": "Prikaži analitičke podatke o tweetovima",
     "YOU_RETWEETED": "Proslijedili ste Tweet"
   },
   "hu": {
@@ -812,6 +856,7 @@
     "TWEETED": "Tweetelt",
     "TWEETS": "Tweetek",
     "TWEET_ALL": "Tweet küldése mindenkinek",
+    "TWEET_ANALYTICS": "Tweet-elemzések",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} other {Tweet}}",
     "TWEET_INTERACTIONS": "Tweet interakciók",
     "TWEET_NOUN": "Tweetje",
@@ -820,6 +865,7 @@
     "UNDO_RETWEET": "Retweet visszavonása",
     "UNSENT_TWEETS": "Elküldetlen Tweetek",
     "USER_RETWEETED": "{name} Retweetelte",
+    "VIEW_TWEET_ANALYTICS": "Tweet-elemzések megtekintése",
     "YOU_RETWEETED": "Retweetelted"
   },
   "id": {
@@ -845,6 +891,7 @@
     "TWEETED": "menge-tweet",
     "TWEETS": "Tweet",
     "TWEET_ALL": "Tweet semua",
+    "TWEET_ANALYTICS": "Analitik Tweet",
     "TWEET_COUNT": "{formattedCount} {count, plural, other {Tweet}}",
     "TWEET_INTERACTIONS": "Interaksi Tweet",
     "TWEET_NOUN": "Tweet",
@@ -853,6 +900,7 @@
     "UNDO_RETWEET": "Batalkan Retweet",
     "UNSENT_TWEETS": "Tweet yang Belum Terkirim",
     "USER_RETWEETED": "{name} me-retweet",
+    "VIEW_TWEET_ANALYTICS": "Lihat analitik Tweet",
     "YOU_RETWEETED": "Anda me-Retweet"
   },
   "it": {
@@ -880,6 +928,7 @@
     "TWEETED": "ha twittato",
     "TWEETS": "Tweet",
     "TWEET_ALL": "Twitta tutto",
+    "TWEET_ANALYTICS": "Statistiche Tweet",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} many {Tweet} other {Tweet}}",
     "TWEET_INTERACTIONS": "Interazioni con Tweet",
     "TWEET_NOUN": "Tweet",
@@ -888,6 +937,7 @@
     "UNDO_RETWEET": "Annulla Retweet",
     "UNSENT_TWEETS": "Tweet non inviati",
     "USER_RETWEETED": "Ritwittato da {name}",
+    "VIEW_TWEET_ANALYTICS": "Visualizza statistiche Tweet",
     "YOU_RETWEETED": "Hai ritwittato"
   },
   "ja": {
@@ -915,6 +965,7 @@
     "TWEETED": "ツイートしました",
     "TWEETS": "ツイート",
     "TWEET_ALL": "すべてツイート",
+    "TWEET_ANALYTICS": "ツイートアナリティクス",
     "TWEET_COUNT": "{formattedCount} {count, plural, other {件のツイート}}",
     "TWEET_INTERACTIONS": "ツイートアクティビティ",
     "TWEET_NOUN": "ツイート",
@@ -923,6 +974,7 @@
     "UNDO_RETWEET": "リツイートを取り消す",
     "UNSENT_TWEETS": "未送信ツイート",
     "USER_RETWEETED": "{name}さんがリツイートしました",
+    "VIEW_TWEET_ANALYTICS": "ツイートアナリティクスを表示",
     "YOU_RETWEETED": "リツイート済み"
   },
   "kn": {
@@ -950,6 +1002,7 @@
     "TWEETED": "ಟ್ವೀಟ್ ಮಾಡಿದ್ದಾರೆ",
     "TWEETS": "ಟ್ವೀಟ್‌ಗಳು",
     "TWEET_ALL": "ಎಲ್ಲಾ ಟ್ವೀಟ್ ಮಾಡಿ",
+    "TWEET_ANALYTICS": "ಟ್ವೀಟ್ ಅನಾಲಿಟಿಕ್ಸ್",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {ಟ್ವೀಟ್} other {ಟ್ವೀಟ್‌ಗಳು}}",
     "TWEET_INTERACTIONS": "ಟ್ವೀಟ್ ಸಂವಾದಗಳು",
     "TWEET_NOUN": "ಟ್ವೀಟ್",
@@ -958,6 +1011,7 @@
     "UNDO_RETWEET": "ಮರುಟ್ವೀಟಿಸುವುದನ್ನು ರದ್ದುಮಾಡಿ",
     "UNSENT_TWEETS": "ಕಳುಹಿಸದೇ ಇರುವ ಟ್ವೀಟ್‌ಗಳು",
     "USER_RETWEETED": "{name} ಮರುಟ್ವೀಟಿಸಿದ್ದಾರೆ",
+    "VIEW_TWEET_ANALYTICS": "ಟ್ವೀಟ್ ಅನಾಲಿಟಿಕ್ಸ್ ಅನ್ನು ನೋಡಿ",
     "YOU_RETWEETED": "ನೀವು ಮರುಟ್ವೀಟಿಸಿದ್ದೀರಿ"
   },
   "ko": {
@@ -985,6 +1039,7 @@
     "TWEETED": "트윗했습니다",
     "TWEETS": "트윗",
     "TWEET_ALL": "모두 트윗하기",
+    "TWEET_ANALYTICS": "트윗 애널리틱스",
     "TWEET_COUNT": "{formattedCount} {count, plural, other {트윗개}}",
     "TWEET_INTERACTIONS": "트윗 상호작용",
     "TWEET_NOUN": "트윗",
@@ -994,6 +1049,7 @@
     "UNDO_RETWEET": "리트윗 취소",
     "UNSENT_TWEETS": "전송하지 않은 트윗",
     "USER_RETWEETED": "{name} 님이 리트윗했습니다",
+    "VIEW_TWEET_ANALYTICS": "트윗 애널리틱스 보기",
     "YOU_RETWEETED": "내가 리트윗함"
   },
   "mr": {
@@ -1021,6 +1077,7 @@
     "TWEETED": "ट्विट केले",
     "TWEETS": "ट्विट्स",
     "TWEET_ALL": "सर्व ट्विट करा",
+    "TWEET_ANALYTICS": "ट्विट विश्लेषणे",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {ट्विट} other {ट्विट्स}}",
     "TWEET_INTERACTIONS": "ट्वीट इंटरऍक्शन्स",
     "TWEET_NOUN": "ट्विट",
@@ -1029,6 +1086,7 @@
     "UNDO_RETWEET": "पुनर्ट्विट पूर्ववत करा",
     "UNSENT_TWEETS": "न पाठविलेली ट्विट्स",
     "USER_RETWEETED": "{name} यांनी पुन्हा ट्विट केले",
+    "VIEW_TWEET_ANALYTICS": "ट्विटची विश्लेषणे पहा",
     "YOU_RETWEETED": "आपण पुन्हा ट्विट केले"
   },
   "msa": {
@@ -1055,6 +1113,7 @@
     "TWEETED": "telah mengetweet",
     "TWEETS": "Tweet",
     "TWEET_ALL": "Tweet semua",
+    "TWEET_ANALYTICS": "Analitis Tweet",
     "TWEET_COUNT": "{formattedCount} {count, plural, other {Tweet}}",
     "TWEET_INTERACTIONS": "Interaksi Tweet",
     "TWEET_NOUN": "Tweet",
@@ -1063,6 +1122,7 @@
     "UNDO_RETWEET": "Buat asal Tweet semula",
     "UNSENT_TWEETS": "Tweet yang tidak dihantar",
     "USER_RETWEETED": "{name} Tweet semula",
+    "VIEW_TWEET_ANALYTICS": "Lihat analitis Tweet",
     "YOU_RETWEETED": "Anda Mengetweet semula"
   },
   "nl": {
@@ -1088,6 +1148,7 @@
     "TWEET": "Tweeten",
     "TWEETED": "heeft getweet",
     "TWEET_ALL": "Alles tweeten",
+    "TWEET_ANALYTICS": "Tweet-analyses",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} other {Tweets}}",
     "TWEET_INTERACTIONS": "Tweet-interacties",
     "TWEET_NOUN": "Tweet",
@@ -1096,6 +1157,7 @@
     "UNDO_RETWEET": "Retweet ongedaan maken",
     "UNSENT_TWEETS": "Niet-verstuurde Tweets",
     "USER_RETWEETED": "{name} heeft geretweet",
+    "VIEW_TWEET_ANALYTICS": "Tweet-analyses bekijken",
     "YOU_RETWEETED": "Je hebt geretweet"
   },
   "no": {
@@ -1119,6 +1181,7 @@
     "TURN_ON_RETWEETS": "Slå på Retweets",
     "TWEETED": "tweetet",
     "TWEET_ALL": "Tweet alle",
+    "TWEET_ANALYTICS": "Tweet-statistikk",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {tweet} other {tweets}}",
     "TWEET_INTERACTIONS": "Tweet-interaksjoner",
     "TWEET_NOUN": "Tweet",
@@ -1127,6 +1190,7 @@
     "UNDO_RETWEET": "Angre Retweet",
     "UNSENT_TWEETS": "Usendte Tweets",
     "USER_RETWEETED": "{name} retweetet",
+    "VIEW_TWEET_ANALYTICS": "Se tweetstatistikk",
     "YOU_RETWEETED": "Du retweetet"
   },
   "pl": {
@@ -1153,6 +1217,7 @@
     "TWEETED": "wysłał/a Tweeta",
     "TWEETS": "Tweety",
     "TWEET_ALL": "Tweetnij wszystko",
+    "TWEET_ANALYTICS": "Statystyki Tweetów",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} few {Tweety} many {Tweetów} other {Tweetów}}",
     "TWEET_INTERACTIONS": "Interakcje z Tweetem",
     "TWEET_NOUN": "Tweet",
@@ -1161,6 +1226,7 @@
     "UNDO_RETWEET": "Cofnij podanie dalej",
     "UNSENT_TWEETS": "Niewysłane Tweety",
     "USER_RETWEETED": "{name} podał/a dalej Tweeta",
+    "VIEW_TWEET_ANALYTICS": "Zobacz statystyki dotyczące Tweeta",
     "YOU_RETWEETED": "Podałeś/aś dalej"
   },
   "pt": {
@@ -1186,6 +1252,7 @@
     "TWEET": "Tweetar",
     "TWEETED": "Tweetou",
     "TWEET_ALL": "Tweetar tudo",
+    "TWEET_ANALYTICS": "Estatísticas do Tweet",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} many {Tweets} other {Tweets}}",
     "TWEET_INTERACTIONS": "Interações com Tweet",
     "TWEET_NOUN": "Tweet",
@@ -1194,6 +1261,7 @@
     "UNDO_RETWEET": "Desfazer Retweet",
     "UNSENT_TWEETS": "Tweets não enviados",
     "USER_RETWEETED": "{name} Retweetou",
+    "VIEW_TWEET_ANALYTICS": "Ver estatísticas do Tweet",
     "YOU_RETWEETED": "Você retweetou"
   },
   "ro": {
@@ -1220,6 +1288,7 @@
     "TWEETED": "a dat Tweetul",
     "TWEETS": "Tweeturi",
     "TWEET_ALL": "Dă Tweeturi cu tot",
+    "TWEET_ANALYTICS": "Analize Tweet",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} few {(de) Tweeturi} other {(de) Tweeturi}}",
     "TWEET_INTERACTIONS": "Interacțiuni cu Tweetul",
     "TWEET_NOUN": "Tweet",
@@ -1228,6 +1297,7 @@
     "UNDO_RETWEET": "Anulează Retweetul",
     "UNSENT_TWEETS": "Tweeturi netrimise",
     "USER_RETWEETED": "{name} a redistribuit",
+    "VIEW_TWEET_ANALYTICS": "Vezi analiza Tweet",
     "YOU_RETWEETED": "Ai redistribuit"
   },
   "ru": {
@@ -1255,6 +1325,7 @@
     "TWEETED": "твитнул(а)",
     "TWEETS": "Твиты",
     "TWEET_ALL": "Твитнуть все",
+    "TWEET_ANALYTICS": "Аналитика твитов",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Твит} few {Твита} many {Твитов} other {Твита}}",
     "TWEET_INTERACTIONS": "Взаимодействия с твитом",
     "TWEET_NOUN": "Твит",
@@ -1264,6 +1335,7 @@
     "UNDO_RETWEET": "Отменить ретвит",
     "UNSENT_TWEETS": "Неотправленные твиты",
     "USER_RETWEETED": "{name} ретвитнул(а)",
+    "VIEW_TWEET_ANALYTICS": "Смотреть аналитику твита",
     "YOU_RETWEETED": "Вы ретвитнули"
   },
   "sk": {
@@ -1291,6 +1363,7 @@
     "TWEETED": "tweetoval",
     "TWEETS": "Tweety",
     "TWEET_ALL": "Tweetnuť všetko",
+    "TWEET_ANALYTICS": "Štatistika Tweetov",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} few {Tweety} many {Tweetu} other {Tweetov}}",
     "TWEET_INTERACTIONS": "Interakcie s Tweetom",
     "TWEET_NOUN": "Tweet",
@@ -1299,6 +1372,7 @@
     "UNDO_RETWEET": "Zrušiť retweet",
     "UNSENT_TWEETS": "Neodoslané Tweety",
     "USER_RETWEETED": "Retweetol používateľ {name}",
+    "VIEW_TWEET_ANALYTICS": "Zobraziť štatistiku Tweetu",
     "YOU_RETWEETED": "Retweetli ste"
   },
   "sr": {
@@ -1326,6 +1400,7 @@
     "TWEETED": "је твитовао/ла",
     "TWEETS": "Твитови",
     "TWEET_ALL": "Твитуј све",
+    "TWEET_ANALYTICS": "Аналитика твита",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Твит} few {Твита} other {Твитова}}",
     "TWEET_INTERACTIONS": "Интеракције са твитом",
     "TWEET_NOUN": "Твит",
@@ -1335,6 +1410,7 @@
     "UNDO_RETWEET": "Опозови ретвит",
     "UNSENT_TWEETS": "Непослати твитови",
     "USER_RETWEETED": "{name} је ретвитовао/ла",
+    "VIEW_TWEET_ANALYTICS": "Погледај аналитику твита",
     "YOU_RETWEETED": "Ретвитовао/ла си"
   },
   "sv": {
@@ -1360,6 +1436,7 @@
     "TWEET": "Tweeta",
     "TWEETED": "tweetade",
     "TWEET_ALL": "Tweeta allt",
+    "TWEET_ANALYTICS": "Tweet-statistik",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} other {Tweets}}",
     "TWEET_INTERACTIONS": "Interaktioner med Tweet",
     "TWEET_NOUN": "Tweet",
@@ -1368,6 +1445,7 @@
     "UNDO_RETWEET": "Ångra retweeten",
     "UNSENT_TWEETS": "Tweets som inte har skickats",
     "USER_RETWEETED": "{name} retweetade",
+    "VIEW_TWEET_ANALYTICS": "Visa Tweet-statistik",
     "YOU_RETWEETED": "Du Retweetade"
   },
   "ta": {
@@ -1395,6 +1473,7 @@
     "TWEETED": "ட்விட் செய்துள்ளார்",
     "TWEETS": "கீச்சுகள்",
     "TWEET_ALL": "அனைத்தையும் ட்விட் செய்",
+    "TWEET_ANALYTICS": "கீச்சுப் பகுப்பாய்வு",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {கீச்சு} other {கீச்சுகள்}}",
     "TWEET_INTERACTIONS": "கீச்சின் செயல்பாடுகள்",
     "TWEET_NOUN": "கீச்சு",
@@ -1403,6 +1482,7 @@
     "UNDO_RETWEET": "மறுகீச்சை செயல்தவிர்",
     "UNSENT_TWEETS": "அனுப்பப்படாத கீச்சுகள்",
     "USER_RETWEETED": "{name} மறுட்வீட் செய்துள்ளார்",
+    "VIEW_TWEET_ANALYTICS": "கீச்சுப் பகுப்பாய்வைக் காட்டு",
     "YOU_RETWEETED": "நீங்கள் மறுட்விட் செய்தது"
   },
   "th": {
@@ -1430,6 +1510,7 @@
     "TWEETED": "ได้ทวีต",
     "TWEETS": "ทวีต",
     "TWEET_ALL": "ทวีตทั้งหมด",
+    "TWEET_ANALYTICS": "การวิเคราะห์ทวีต",
     "TWEET_COUNT": "{formattedCount} {count, plural, other {ทวีต}}",
     "TWEET_INTERACTIONS": "การโต้ตอบของทวีต",
     "TWEET_NOUN": "ทวีต",
@@ -1439,6 +1520,7 @@
     "UNDO_RETWEET": "ยกเลิกการรีทวีต",
     "UNSENT_TWEETS": "ทวีตที่ไม่ได้ส่ง",
     "USER_RETWEETED": "{name} ได้รีทวีต",
+    "VIEW_TWEET_ANALYTICS": "ดูการวิเคราะห์ทวีต",
     "YOU_RETWEETED": "คุณรีทวีต"
   },
   "tr": {
@@ -1465,6 +1547,7 @@
     "TWEETED": "Tweetledi",
     "TWEETS": "Tweetler",
     "TWEET_ALL": "Hepsini Tweetle",
+    "TWEET_ANALYTICS": "Tweet İstatistikleri",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {Tweet} other {Tweet}}",
     "TWEET_INTERACTIONS": "Tweet etkileşimleri",
     "TWEET_NOUN": "Tweet",
@@ -1473,6 +1556,7 @@
     "UNDO_RETWEET": "Retweeti Geri Al",
     "UNSENT_TWEETS": "Gönderilmemiş Tweetler",
     "USER_RETWEETED": "{name} Retweetledi",
+    "VIEW_TWEET_ANALYTICS": "Tweet istatistiklerini görüntüle",
     "YOU_RETWEETED": "Retweetledin"
   },
   "uk": {
@@ -1500,6 +1584,7 @@
     "TWEETED": "твітнув(ла)",
     "TWEETS": "Твіти",
     "TWEET_ALL": "Твітнути все",
+    "TWEET_ANALYTICS": "Аналітика твіта",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {твіт} few {твіти} many {твітів} other {твіта}}",
     "TWEET_INTERACTIONS": "Взаємодія твітів",
     "TWEET_NOUN": "Твіт",
@@ -1509,6 +1594,7 @@
     "UNDO_RETWEET": "Скасувати ретвіт",
     "UNSENT_TWEETS": "Ненадіслані твіти",
     "USER_RETWEETED": "{name} ретвітнув(ла)",
+    "VIEW_TWEET_ANALYTICS": "Переглянути аналітику твіта",
     "YOU_RETWEETED": "Ви ретвітнули"
   },
   "ur": {
@@ -1534,6 +1620,7 @@
     "TWEETED": "ٹویٹ کیا",
     "TWEETS": "ٹویٹس",
     "TWEET_ALL": "سب کو ٹویٹ کریں",
+    "TWEET_ANALYTICS": "ٹویٹ کے اینالیٹکس",
     "TWEET_COUNT": "{formattedCount} {count, plural, one {ٹویٹ} other {ٹویٹس}}",
     "TWEET_INTERACTIONS": "ٹویٹ تعاملات",
     "TWEET_NOUN": "ٹویٹ",
@@ -1543,6 +1630,7 @@
     "UNDO_RETWEET": "ری ٹویٹ کو کالعدم کریں",
     "UNSENT_TWEETS": "غیر ارسال شدہ ٹویٹس",
     "USER_RETWEETED": "{name} نے ریٹویٹ کیا",
+    "VIEW_TWEET_ANALYTICS": "ٹویٹ کے تجزیات دیکھیں",
     "YOU_RETWEETED": "آپ نے ریٹویٹ کیا"
   },
   "vi": {
@@ -1569,6 +1657,7 @@
     "TWEETED": "đã Tweet",
     "TWEETS": "Tweet",
     "TWEET_ALL": "Đăng Tweet tất cả",
+    "TWEET_ANALYTICS": "Số liệu thống kê Tweet",
     "TWEET_COUNT": "{formattedCount} {count, plural, other {Các Tweet}}",
     "TWEET_INTERACTIONS": "Tương tác Tweet",
     "TWEET_NOUN": "Tweet",
@@ -1577,6 +1666,7 @@
     "UNDO_RETWEET": "Hoàn tác Tweet lại",
     "UNSENT_TWEETS": "Tweet chưa gửi",
     "USER_RETWEETED": "{name} đã Tweet lại",
+    "VIEW_TWEET_ANALYTICS": "Xem phân tích Tweet",
     "YOU_RETWEETED": "Bạn đã Tweet lại"
   },
   "zh-cn": {
@@ -1604,6 +1694,7 @@
     "TWEETED": "发布了推文",
     "TWEETS": "推文",
     "TWEET_ALL": "全部发推",
+    "TWEET_ANALYTICS": "推文分析",
     "TWEET_COUNT": "{formattedCount} {count, plural, other {推文}}",
     "TWEET_INTERACTIONS": "推文互动",
     "TWEET_NOUN": "推文",
@@ -1612,6 +1703,7 @@
     "UNDO_RETWEET": "撤销转推",
     "UNSENT_TWEETS": "未发布的推文",
     "USER_RETWEETED": "{name} 已转推",
+    "VIEW_TWEET_ANALYTICS": "查看推文分析",
     "YOU_RETWEETED": "你转推了"
   },
   "zh-tw": {
@@ -1639,6 +1731,7 @@
     "TWEETED": "已推文",
     "TWEETS": "推文",
     "TWEET_ALL": "推全部內容",
+    "TWEET_ANALYTICS": "推文分析",
     "TWEET_COUNT": "{formattedCount} {count, plural, other {則推文}}",
     "TWEET_INTERACTIONS": "推文互動",
     "TWEET_NOUN": "推文",
@@ -1647,6 +1740,7 @@
     "UNDO_RETWEET": "取消轉推",
     "UNSENT_TWEETS": "未發送的推文",
     "USER_RETWEETED": "{name} 已轉推",
+    "VIEW_TWEET_ANALYTICS": "查看推文分析",
     "YOU_RETWEETED": "你已轉推"
   }
 }

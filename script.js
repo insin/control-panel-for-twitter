@@ -188,6 +188,7 @@ const locales = {
     TWEETED: 'غرَّد',
     TWEETS: 'التغريدات',
     TWEET_ALL: 'تغريد الكل',
+    TWEET_ANALYTICS: 'تحليلات التغريدة',
     TWEET_COUNT:
       '{formattedCount} {count, plural, zero {تغريدة} one {تغريدة واحدة} two {تغريدتان} few {تغريدات} many {تغريدةً} other {تغريدة}}',
     TWEET_INTERACTIONS: 'تفاعلات التغريدة',
@@ -200,6 +201,7 @@ const locales = {
     UNSENT_TWEETS: 'التغريدات غير المرسلة',
     USER_RETWEETED: 'أعاد التغريد {name}',
     VIEW: 'عرض',
+    VIEW_TWEET_ANALYTICS: 'عرض تحليلات Twitter',
     YOU_RETWEETED: 'أعدت تغريد',
   },
   'ar-x-fm': {
@@ -257,6 +259,7 @@ const locales = {
     TWEETED: 'غرّدت',
     TWEETS: 'التغريدات',
     TWEET_ALL: 'تغريد الكل',
+    TWEET_ANALYTICS: 'تحليلات التغريدة',
     TWEET_COUNT:
       '{formattedCount} {count, plural, zero {تغريدة} one {تغريدة واحدة} two {تغريدتان} few {تغريدةً} many {تغريدةً} other {تغريدة}}',
     TWEET_INTERACTIONS: 'تفاعلات التغريدة',
@@ -269,6 +272,7 @@ const locales = {
     UNSENT_TWEETS: 'التغريدات غير المرسلة',
     USER_RETWEETED: 'أعادت التغريد {name}',
     VIEW: 'عرض',
+    VIEW_TWEET_ANALYTICS: 'عرض تحليلات Twitter',
     YOU_RETWEETED: 'أعدتِ تغريد',
   },
   bg: {
@@ -321,6 +325,7 @@ const locales = {
     TWEETED: 'туитна',
     TWEETS: 'Туитове',
     TWEET_ALL: 'Туитване на всички',
+    TWEET_ANALYTICS: 'Статистика за туита',
     TWEET_COUNT: '{formattedCount} {count, plural, one {туит} other {туита}}',
     TWEET_INTERACTIONS: 'Интеракции с туит',
     TWEET_NOUN: 'Туит',
@@ -331,6 +336,7 @@ const locales = {
     UNSENT_TWEETS: 'Неизпратени туитове',
     USER_RETWEETED: '{name} ретуитна',
     VIEW: 'Преглед',
+    VIEW_TWEET_ANALYTICS: 'Преглед на статистиката за туита',
     YOU_RETWEETED: 'Ретуитна',
   },
   bn: {
@@ -383,6 +389,7 @@ const locales = {
     TWEETED: 'টুইট করেছেন',
     TWEETS: 'টুইটগুলি',
     TWEET_ALL: 'সব টুইট করুন',
+    TWEET_ANALYTICS: 'টুইট অ্যানালিটিক্স',
     TWEET_COUNT: '{formattedCount} {count, plural, one {টুইট} other {টুইটগুলি}}',
     TWEET_INTERACTIONS: 'টুইট ইন্টারেকশন',
     TWEET_NOUN: '-এর টুইট',
@@ -394,6 +401,7 @@ const locales = {
     UNSENT_TWEETS: 'অপ্রেরিত টুইট',
     USER_RETWEETED: '{name} দ্বারা পুনঃ টুইটকৃত',
     VIEW: 'দেখুন',
+    VIEW_TWEET_ANALYTICS: 'টুইটের বিশ্লেষণ দেখুন',
     YOU_RETWEETED: 'আপনি পুনঃ টুইট করেছেন',
   },
   ca: {
@@ -449,6 +457,7 @@ const locales = {
     TWEETED: 'ha tuitat',
     TWEETS: 'Tuits',
     TWEET_ALL: 'Tuita-ho tot',
+    TWEET_ANALYTICS: 'Analítica del tuit',
     TWEET_COUNT: '{formattedCount} {count, plural, one {tuit} many {tuits} other {tuits}}',
     TWEET_INTERACTIONS: 'Interaccions amb tuits',
     TWEET_NOUN: 'Tuit',
@@ -459,6 +468,7 @@ const locales = {
     UNSENT_TWEETS: 'Tuits no enviats',
     USER_RETWEETED: '{name} ha retuitat',
     VIEW: 'Mostra',
+    VIEW_TWEET_ANALYTICS: 'Mostra les analítiques del tuit',
     YOU_RETWEETED: 'Has retuitat',
   },
   cs: {
@@ -511,6 +521,7 @@ const locales = {
     TWEETED: 'tweetnul',
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnout vše',
+    TWEET_ANALYTICS: 'Analýza tweetů',
     TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet} few {tweety} many {tweetů} other {tweetů}}',
     TWEET_INTERACTIONS: 'Interakce s Tweetem',
@@ -521,6 +532,7 @@ const locales = {
     UNSENT_TWEETS: 'Neodeslané tweety',
     USER_RETWEETED: 'Uživatel {name} retweetnul',
     VIEW: 'Zobrazit',
+    VIEW_TWEET_ANALYTICS: 'Zobrazit analýzu tweetů',
     YOU_RETWEETED: 'Retweetnuli jste',
   },
   da: {
@@ -564,6 +576,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Slå Retweets til',
     TWEETED: 'tweetede',
     TWEET_ALL: 'Tweet alt',
+    TWEET_ANALYTICS: 'Tweet-statistik',
     TWEET_INTERACTIONS: 'Tweet-interaktioner',
     TWEET_TITLE: '{name} på Twitter: "{text}"',
     TWEET_YOUR_REPLY: 'Tweet dit svar',
@@ -572,6 +585,7 @@ const locales = {
     UNSENT_TWEETS: 'Usendte Tweets',
     USER_RETWEETED: '{name} retweetede',
     VIEW: 'Vis',
+    VIEW_TWEET_ANALYTICS: 'Vis Tweet-statistik',
     YOU_RETWEETED: 'Du retweetede',
   },
   de: {
@@ -620,6 +634,7 @@ const locales = {
     TWEET: 'Twittern',
     TWEETED: 'hat getwittert',
     TWEET_ALL: 'Alle twittern',
+    TWEET_ANALYTICS: 'Tweet-Statistiken',
     TWEET_INTERACTIONS: 'Tweet-Interaktionen',
     TWEET_TITLE: '{name} auf Twitter: „{text}“',
     TWEET_YOUR_REPLY: 'Twittere deine Antwort',
@@ -628,6 +643,7 @@ const locales = {
     UNSENT_TWEETS: 'Nicht gesendete Tweets',
     USER_RETWEETED: '{name} hat retweetet',
     VIEW: 'Anzeigen',
+    VIEW_TWEET_ANALYTICS: 'Tweet-Statistiken anzeigen',
     YOU_RETWEETED: 'Du hast retweetet',
   },
   el: {
@@ -681,6 +697,7 @@ const locales = {
     TWEETED: 'έγραψε Tweet',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Δημοσίευση όλων ως Tweet',
+    TWEET_ANALYTICS: 'Στοιχεία ανάλυσης Tweet',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} other {Tweet}}',
     TWEET_INTERACTIONS: 'Αλληλεπιδράσεις με tweet',
     TWEET_TITLE: 'Ο χρήστης {name} στο Twitter: "{text}"',
@@ -690,6 +707,7 @@ const locales = {
     UNSENT_TWEETS: 'Μη σταλμένα Tweet',
     USER_RETWEETED: 'Ο χρήστης {name} έκανε Retweet',
     VIEW: 'Προβολή',
+    VIEW_TWEET_ANALYTICS: 'Προβολή στοιχείων ανάλυσης Tweet',
     YOU_RETWEETED: 'Κάνατε Retweet',
   },
   en: {
@@ -742,6 +760,7 @@ const locales = {
     TWEETED: 'Tweeted',
     TWEETS: 'Tweets',
     TWEET_ALL: 'Tweet all',
+    TWEET_ANALYTICS: 'Tweet Analytics',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} other {Tweets}}',
     TWEET_INTERACTIONS: 'Tweet interactions',
     TWEET_NOUN: 'Tweet',
@@ -753,6 +772,7 @@ const locales = {
     UNSENT_TWEETS: 'Unsent Tweets',
     USER_RETWEETED: '{name} Retweeted',
     VIEW: 'View',
+    VIEW_TWEET_ANALYTICS: 'View Tweet analytics',
     YOU_RETWEETED: 'You Retweeted',
   },
   es: {
@@ -803,6 +823,7 @@ const locales = {
     TWEET: 'Twittear',
     TWEETED: 'twitteó',
     TWEET_ALL: 'Twittear todo',
+    TWEET_ANALYTICS: 'Estadísticas de los Tweets',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} many {Tweets} other {Tweets}}',
     TWEET_INTERACTIONS: 'Interacciones con el Tweet',
     TWEET_TITLE: '{name} en Twitter: "{text}"',
@@ -812,6 +833,7 @@ const locales = {
     UNSENT_TWEETS: 'Tweets no enviados',
     USER_RETWEETED: '{name} retwitteó',
     VIEW: 'Ver',
+    VIEW_TWEET_ANALYTICS: 'Ver estadísticas del Tweet',
     YOU_RETWEETED: 'Retwitteaste',
   },
   eu: {
@@ -844,6 +866,7 @@ const locales = {
     TWEETED: 'Txiokatu du',
     TWEETS: 'Txioak',
     TWEET_ALL: 'Txiotu guztiak',
+    TWEET_ANALYTICS: 'Txioei buruzko estatistikak',
     TWEET_INTERACTIONS: 'Txio elkarrekintzak',
     TWEET_NOUN: 'Txio',
     TWEET_TITLE: '{name} Twitterren: "{text}"',
@@ -852,6 +875,7 @@ const locales = {
     UNSENT_TWEETS: 'Bidali gabeko txioak',
     USER_RETWEETED: '{name} erabiltzaileak bertxiotu du',
     VIEW: 'Ikusi',
+    VIEW_TWEET_ANALYTICS: 'Ikusi txioen analisiak',
     YOU_RETWEETED: 'Zuk Bertxiotua',
   },
   fa: {
@@ -904,6 +928,7 @@ const locales = {
     TWEETED: 'توییت کرد',
     TWEETS: 'توييت‌ها',
     TWEET_ALL: 'توییت به همه',
+    TWEET_ANALYTICS: 'اطلاعات آماری توییت',
     TWEET_COUNT: '{formattedCount} {count, plural, one {توییت} other {توييت}}',
     TWEET_INTERACTIONS: 'تعاملات توییت',
     TWEET_NOUN: 'توییت',
@@ -915,6 +940,7 @@ const locales = {
     UNSENT_TWEETS: 'توییت‌های فرستاده‌نشده',
     USER_RETWEETED: '{name} بازتوییت کرد',
     VIEW: 'مشاهده',
+    VIEW_TWEET_ANALYTICS: 'مشاهده اطلاعات آماری توییت',
     YOU_RETWEETED: 'شما بازتوییت کردید',
   },
   fi: {
@@ -969,6 +995,7 @@ const locales = {
     TWEETED: 'twiittasi',
     TWEETS: 'Twiitit',
     TWEET_ALL: 'Twiittaa kaikki',
+    TWEET_ANALYTICS: 'Twiittikohtaiset tilastot',
     TWEET_COUNT: '{formattedCount} {count, plural, one {twiitti} other {twiittiä}}',
     TWEET_INTERACTIONS: 'Twiitin vuorovaikutukset',
     TWEET_NOUN: 'twiitti',
@@ -979,6 +1006,7 @@ const locales = {
     UNSENT_TWEETS: 'Lähettämättömät twiitit',
     USER_RETWEETED: '{name} uudelleentwiittasi',
     VIEW: 'Näytä',
+    VIEW_TWEET_ANALYTICS: 'Näytä twiitin tilastot',
     YOU_RETWEETED: 'Uudelleentwiittasit',
   },
   fil: {
@@ -1026,6 +1054,7 @@ const locales = {
     TWEETED: 'Nag-tweet',
     TWEETS: 'Mga Tweet',
     TWEET_ALL: 'I-tweet lahat',
+    TWEET_ANALYTICS: 'Analytics ng Tweet',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} other {(na) Tweet}}',
     TWEET_INTERACTIONS: 'Interaksyon sa Tweet',
     TWEET_TITLE: 'Si {name} sa Twitter: "{text}"',
@@ -1035,6 +1064,7 @@ const locales = {
     UNSENT_TWEETS: 'Mga Hindi Naipadalang Tweet',
     USER_RETWEETED: 'Ni-retweet ni {name}',
     VIEW: 'Tingnan',
+    VIEW_TWEET_ANALYTICS: 'Tingnan ang analytics ng Tweet',
     YOU_RETWEETED: 'Ni-retweet Mo',
   },
   fr: {
@@ -1083,6 +1113,7 @@ const locales = {
     TWEET: 'Tweeter',
     TWEETED: 'a tweeté',
     TWEET_ALL: 'Tout tweeter',
+    TWEET_ANALYTICS: 'Statistiques du Tweet',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} many {Tweets} other {Tweets}}',
     TWEET_INTERACTIONS: 'Interactions avec le Tweet',
     TWEET_TITLE: '{name} sur Twitter : "{text}"',
@@ -1092,6 +1123,7 @@ const locales = {
     UNSENT_TWEETS: 'Tweets non envoyés',
     USER_RETWEETED: '{name} a retweeté',
     VIEW: 'Voir',
+    VIEW_TWEET_ANALYTICS: 'Voir les statistiques des Tweets',
     YOU_RETWEETED: 'Vous avez retweeté',
   },
   ga: {
@@ -1129,6 +1161,7 @@ const locales = {
     TWEETED: 'Rinne Tweetáil',
     TWEETS: 'Tweetanna',
     TWEET_ALL: 'Tweetáil gach rud',
+    TWEET_ANALYTICS: 'Anailísíocht Tweetanna',
     TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet} two {Tweets} few {Tweets} many {Tweets} other {Tweets}}',
     TWEET_INTERACTIONS: 'Idirghníomhaíochtaí le Tweet',
@@ -1139,6 +1172,7 @@ const locales = {
     UNSENT_TWEETS: 'Tweetanna nár seoladh',
     USER_RETWEETED: 'Rinne {name} Atweetáil',
     VIEW: 'Breathnaigh',
+    VIEW_TWEET_ANALYTICS: 'Breathnaigh ar anailísíocht an Tweet',
     YOU_RETWEETED: 'Rinne tú Atweetáil',
   },
   gl: {
@@ -1172,6 +1206,7 @@ const locales = {
     TWEETED: 'chiou',
     TWEETS: 'Chíos',
     TWEET_ALL: 'Chiar todo',
+    TWEET_ANALYTICS: 'Análises dos chíos',
     TWEET_INTERACTIONS: 'Interaccións chío',
     TWEET_NOUN: 'Chío',
     TWEET_TITLE: '{name} no Twitter: "{text}"',
@@ -1180,6 +1215,7 @@ const locales = {
     UNSENT_TWEETS: 'Chíos sen enviar',
     USER_RETWEETED: '{name} rechouchiou',
     VIEW: 'Ver',
+    VIEW_TWEET_ANALYTICS: 'Ver análises do chío',
     YOU_RETWEETED: 'Rechouchiaches',
   },
   gu: {
@@ -1233,6 +1269,7 @@ const locales = {
     TWEETED: 'ટ્વીટ કરી',
     TWEETS: 'ટ્વીટ્સ',
     TWEET_ALL: 'બધાને ટ્વીટ કરો',
+    TWEET_ANALYTICS: 'ટ્વીટ વિશ્લેષણો',
     TWEET_COUNT: '{formattedCount} {count, plural, one {ટ્વીટ} other {ટ્વીટ}}',
     TWEET_INTERACTIONS: 'ટ્વીટ ક્રિયાપ્રતિક્રિયાઓ',
     TWEET_NOUN: 'ટ્વીટ',
@@ -1243,6 +1280,7 @@ const locales = {
     UNSENT_TWEETS: 'મોકલ્યા વગરની ટ્વીટ્સ',
     USER_RETWEETED: '{name}એ પુનટ્વીટ કરી',
     VIEW: 'જુઓ',
+    VIEW_TWEET_ANALYTICS: 'ટ્વીટ વિશ્લેષણ જુઓ',
     YOU_RETWEETED: 'તમે પુનટ્વીટ કરી',
   },
   he: {
@@ -1296,6 +1334,7 @@ const locales = {
     TWEETED: 'צייצ/ה',
     TWEETS: 'ציוצים',
     TWEET_ALL: 'צייץ הכול',
+    TWEET_ANALYTICS: 'ניתוח ציוצים',
     TWEET_COUNT: '{formattedCount} {count, plural, one {ציוץ} two {ציוצים} other {ציוצים}}',
     TWEET_INTERACTIONS: 'אינטראקציות עם הציוץ',
     TWEET_NOUN: 'ציוץ',
@@ -1307,6 +1346,7 @@ const locales = {
     UNSENT_TWEETS: 'ציוצים שלא נשלחו',
     USER_RETWEETED: '{name} צייץ מחדש',
     VIEW: 'הצג',
+    VIEW_TWEET_ANALYTICS: 'הצג את ניתוח הציוצים',
     YOU_RETWEETED: 'צייצת מחדש',
   },
   hi: {
@@ -1359,6 +1399,7 @@ const locales = {
     TWEETED: 'ट्वीट किया',
     TWEETS: 'ट्वीट',
     TWEET_ALL: 'सभी ट्वीट करें',
+    TWEET_ANALYTICS: 'ट्वीट विश्लेषण',
     TWEET_COUNT: '{formattedCount} {count, plural, one {ट्वीट} other {ट्वीट्स}}',
     TWEET_INTERACTIONS: 'ट्वीट इंटरैक्शन',
     TWEET_NOUN: 'ट्वीट',
@@ -1369,6 +1410,7 @@ const locales = {
     UNSENT_TWEETS: 'बिना भेजे गए ट्वीट',
     USER_RETWEETED: '{name} ने रीट्वीट किया',
     VIEW: 'देखें',
+    VIEW_TWEET_ANALYTICS: 'ट्वीट विश्लेषण देखें',
     YOU_RETWEETED: 'आपने रीट्वीट किया',
   },
   hr: {
@@ -1426,6 +1468,7 @@ const locales = {
     TWEETED: 'objavio/la je Tweet',
     TWEETS: 'Tweetovi',
     TWEET_ALL: 'Tweetaj sve',
+    TWEET_ANALYTICS: 'Analitika tweeta',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} few {tweeta} other {tweetova}}',
     TWEET_INTERACTIONS: 'Interakcije s Tweetom',
     TWEET_TITLE: '{name} na Twitteru: "{text}"',
@@ -1435,6 +1478,7 @@ const locales = {
     UNSENT_TWEETS: 'Neposlani tweetovi',
     USER_RETWEETED: '{name} proslijedio/la je Tweet',
     VIEW: 'Prikaz',
+    VIEW_TWEET_ANALYTICS: 'Prikaži analitičke podatke o tweetovima',
     YOU_RETWEETED: 'Proslijedili ste Tweet',
   },
   hu: {
@@ -1487,6 +1531,7 @@ const locales = {
     TWEETED: 'Tweetelt',
     TWEETS: 'Tweetek',
     TWEET_ALL: 'Tweet küldése mindenkinek',
+    TWEET_ANALYTICS: 'Tweet-elemzések',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} other {Tweet}}',
     TWEET_INTERACTIONS: 'Tweet interakciók',
     TWEET_NOUN: 'Tweetje',
@@ -1497,6 +1542,7 @@ const locales = {
     UNSENT_TWEETS: 'Elküldetlen Tweetek',
     USER_RETWEETED: '{name} Retweetelte',
     VIEW: 'Megtekintés',
+    VIEW_TWEET_ANALYTICS: 'Tweet-elemzések megtekintése',
     YOU_RETWEETED: 'Retweetelted',
   },
   id: {
@@ -1547,6 +1593,7 @@ const locales = {
     TWEETED: 'menge-tweet',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Tweet semua',
+    TWEET_ANALYTICS: 'Analitik Tweet',
     TWEET_COUNT: '{formattedCount} {count, plural, other {Tweet}}',
     TWEET_INTERACTIONS: 'Interaksi Tweet',
     TWEET_TITLE: '{name} di Twitter: "{text}"',
@@ -1556,6 +1603,7 @@ const locales = {
     UNSENT_TWEETS: 'Tweet yang Belum Terkirim',
     USER_RETWEETED: '{name} me-retweet',
     VIEW: 'Penayangan',
+    VIEW_TWEET_ANALYTICS: 'Lihat analitik Tweet',
     YOU_RETWEETED: 'Anda me-Retweet',
   },
   it: {
@@ -1607,6 +1655,7 @@ const locales = {
     TWEETED: 'ha twittato',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Twitta tutto',
+    TWEET_ANALYTICS: 'Statistiche Tweet',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} many {Tweet} other {Tweet}}',
     TWEET_INTERACTIONS: 'Interazioni con Tweet',
     TWEET_TITLE: '{name} su Twitter: "{text}"',
@@ -1616,6 +1665,7 @@ const locales = {
     UNSENT_TWEETS: 'Tweet non inviati',
     USER_RETWEETED: 'Ritwittato da {name}',
     VIEW: 'Visualizza',
+    VIEW_TWEET_ANALYTICS: 'Visualizza statistiche Tweet',
     YOU_RETWEETED: 'Hai ritwittato',
   },
   ja: {
@@ -1668,6 +1718,7 @@ const locales = {
     TWEETED: 'ツイートしました',
     TWEETS: 'ツイート',
     TWEET_ALL: 'すべてツイート',
+    TWEET_ANALYTICS: 'ツイートアナリティクス',
     TWEET_COUNT: '{formattedCount} {count, plural, other {件のツイート}}',
     TWEET_INTERACTIONS: 'ツイートアクティビティ',
     TWEET_NOUN: 'ツイート',
@@ -1678,6 +1729,7 @@ const locales = {
     UNSENT_TWEETS: '未送信ツイート',
     USER_RETWEETED: '{name}さんがリツイートしました',
     VIEW: '表示',
+    VIEW_TWEET_ANALYTICS: 'ツイートアナリティクスを表示',
     YOU_RETWEETED: 'リツイート済み',
   },
   kn: {
@@ -1730,6 +1782,7 @@ const locales = {
     TWEETED: 'ಟ್ವೀಟ್ ಮಾಡಿದ್ದಾರೆ',
     TWEETS: 'ಟ್ವೀಟ್‌ಗಳು',
     TWEET_ALL: 'ಎಲ್ಲಾ ಟ್ವೀಟ್ ಮಾಡಿ',
+    TWEET_ANALYTICS: 'ಟ್ವೀಟ್ ಅನಾಲಿಟಿಕ್ಸ್',
     TWEET_COUNT: '{formattedCount} {count, plural, one {ಟ್ವೀಟ್} other {ಟ್ವೀಟ್‌ಗಳು}}',
     TWEET_INTERACTIONS: 'ಟ್ವೀಟ್ ಸಂವಾದಗಳು',
     TWEET_NOUN: 'ಟ್ವೀಟ್',
@@ -1740,6 +1793,7 @@ const locales = {
     UNSENT_TWEETS: 'ಕಳುಹಿಸದೇ ಇರುವ ಟ್ವೀಟ್‌ಗಳು',
     USER_RETWEETED: '{name} ಮರುಟ್ವೀಟಿಸಿದ್ದಾರೆ',
     VIEW: 'ವೀಕ್ಷಿಸಿ',
+    VIEW_TWEET_ANALYTICS: 'ಟ್ವೀಟ್ ಅನಾಲಿಟಿಕ್ಸ್ ಅನ್ನು ನೋಡಿ',
     YOU_RETWEETED: 'ನೀವು ಮರುಟ್ವೀಟಿಸಿದ್ದೀರಿ',
   },
   ko: {
@@ -1792,6 +1846,7 @@ const locales = {
     TWEETED: '트윗했습니다',
     TWEETS: '트윗',
     TWEET_ALL: '모두 트윗하기',
+    TWEET_ANALYTICS: '트윗 애널리틱스',
     TWEET_COUNT: '{formattedCount} {count, plural, other {트윗개}}',
     TWEET_INTERACTIONS: '트윗 상호작용',
     TWEET_NOUN: '트윗',
@@ -1803,6 +1858,7 @@ const locales = {
     UNSENT_TWEETS: '전송하지 않은 트윗',
     USER_RETWEETED: '{name} 님이 리트윗했습니다',
     VIEW: '보기',
+    VIEW_TWEET_ANALYTICS: '트윗 애널리틱스 보기',
     YOU_RETWEETED: '내가 리트윗함',
   },
   mr: {
@@ -1855,6 +1911,7 @@ const locales = {
     TWEETED: 'ट्विट केले',
     TWEETS: 'ट्विट्स',
     TWEET_ALL: 'सर्व ट्विट करा',
+    TWEET_ANALYTICS: 'ट्विट विश्लेषणे',
     TWEET_COUNT: '{formattedCount} {count, plural, one {ट्विट} other {ट्विट्स}}',
     TWEET_INTERACTIONS: 'ट्वीट इंटरऍक्शन्स',
     TWEET_NOUN: 'ट्विट',
@@ -1865,6 +1922,7 @@ const locales = {
     UNSENT_TWEETS: 'न पाठविलेली ट्विट्स',
     USER_RETWEETED: '{name} यांनी पुन्हा ट्विट केले',
     VIEW: 'पहा',
+    VIEW_TWEET_ANALYTICS: 'ट्विटची विश्लेषणे पहा',
     YOU_RETWEETED: 'आपण पुन्हा ट्विट केले',
   },
   msa: {
@@ -1916,6 +1974,7 @@ const locales = {
     TWEETED: 'telah mengetweet',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Tweet semua',
+    TWEET_ANALYTICS: 'Analitis Tweet',
     TWEET_COUNT: '{formattedCount} {count, plural, other {Tweet}}',
     TWEET_INTERACTIONS: 'Interaksi Tweet',
     TWEET_TITLE: '{name} di Twitter: "{text}"',
@@ -1925,6 +1984,7 @@ const locales = {
     UNSENT_TWEETS: 'Tweet yang tidak dihantar',
     USER_RETWEETED: '{name} Tweet semula',
     VIEW: 'Lihat',
+    VIEW_TWEET_ANALYTICS: 'Lihat analitis Tweet',
     YOU_RETWEETED: 'Anda Mengetweet semula',
   },
   nl: {
@@ -1970,6 +2030,7 @@ const locales = {
     TWEET: 'Tweeten',
     TWEETED: 'heeft getweet',
     TWEET_ALL: 'Alles tweeten',
+    TWEET_ANALYTICS: 'Tweet-analyses',
     TWEET_INTERACTIONS: 'Tweet-interacties',
     TWEET_TITLE: '{name} op Twitter: "{text}"',
     TWEET_YOUR_REPLY: 'Tweet je antwoord',
@@ -1978,6 +2039,7 @@ const locales = {
     UNSENT_TWEETS: 'Niet-verstuurde Tweets',
     USER_RETWEETED: '{name} heeft geretweet',
     VIEW: 'Bekijken',
+    VIEW_TWEET_ANALYTICS: 'Tweet-analyses bekijken',
     YOU_RETWEETED: 'Je hebt geretweet',
   },
   no: {
@@ -2026,6 +2088,7 @@ const locales = {
     TURN_ON_RETWEETS: 'Slå på Retweets',
     TWEETED: 'tweetet',
     TWEET_ALL: 'Tweet alle',
+    TWEET_ANALYTICS: 'Tweet-statistikk',
     TWEET_COUNT: '{formattedCount} {count, plural, one {tweet} other {tweets}}',
     TWEET_INTERACTIONS: 'Tweet-interaksjoner',
     TWEET_TITLE: '{name} på Twitter: "{text}"',
@@ -2035,6 +2098,7 @@ const locales = {
     UNSENT_TWEETS: 'Usendte Tweets',
     USER_RETWEETED: '{name} retweetet',
     VIEW: 'Vis',
+    VIEW_TWEET_ANALYTICS: 'Se tweetstatistikk',
     YOU_RETWEETED: 'Du retweetet',
   },
   pl: {
@@ -2092,6 +2156,7 @@ const locales = {
     TWEETED: 'wysłał/a Tweeta',
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnij wszystko',
+    TWEET_ANALYTICS: 'Statystyki Tweetów',
     TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet} few {Tweety} many {Tweetów} other {Tweetów}}',
     TWEET_INTERACTIONS: 'Interakcje z Tweetem',
@@ -2102,6 +2167,7 @@ const locales = {
     UNSENT_TWEETS: 'Niewysłane Tweety',
     USER_RETWEETED: '{name} podał/a dalej Tweeta',
     VIEW: 'Wyświetl',
+    VIEW_TWEET_ANALYTICS: 'Zobacz statystyki dotyczące Tweeta',
     YOU_RETWEETED: 'Podałeś/aś dalej',
   },
   pt: {
@@ -2153,6 +2219,7 @@ const locales = {
     TWEET: 'Tweetar',
     TWEETED: 'Tweetou',
     TWEET_ALL: 'Tweetar tudo',
+    TWEET_ANALYTICS: 'Estatísticas do Tweet',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} many {Tweets} other {Tweets}}',
     TWEET_INTERACTIONS: 'Interações com Tweet',
     TWEET_TITLE: '{name} no Twitter: "{text}"',
@@ -2162,6 +2229,7 @@ const locales = {
     UNSENT_TWEETS: 'Tweets não enviados',
     USER_RETWEETED: '{name} Retweetou',
     VIEW: 'Ver',
+    VIEW_TWEET_ANALYTICS: 'Ver estatísticas do Tweet',
     YOU_RETWEETED: 'Você retweetou',
   },
   ro: {
@@ -2218,6 +2286,7 @@ const locales = {
     TWEETED: 'a dat Tweetul',
     TWEETS: 'Tweeturi',
     TWEET_ALL: 'Dă Tweeturi cu tot',
+    TWEET_ANALYTICS: 'Analize Tweet',
     TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet} few {(de) Tweeturi} other {(de) Tweeturi}}',
     TWEET_INTERACTIONS: 'Interacțiuni cu Tweetul',
@@ -2228,6 +2297,7 @@ const locales = {
     UNSENT_TWEETS: 'Tweeturi netrimise',
     USER_RETWEETED: '{name} a redistribuit',
     VIEW: 'Vezi',
+    VIEW_TWEET_ANALYTICS: 'Vezi analiza Tweet',
     YOU_RETWEETED: 'Ai redistribuit',
   },
   ru: {
@@ -2286,6 +2356,7 @@ const locales = {
     TWEETED: 'твитнул(а)',
     TWEETS: 'Твиты',
     TWEET_ALL: 'Твитнуть все',
+    TWEET_ANALYTICS: 'Аналитика твитов',
     TWEET_COUNT:
       '{formattedCount} {count, plural, one {Твит} few {Твита} many {Твитов} other {Твита}}',
     TWEET_INTERACTIONS: 'Взаимодействия с твитом',
@@ -2298,6 +2369,7 @@ const locales = {
     UNSENT_TWEETS: 'Неотправленные твиты',
     USER_RETWEETED: '{name} ретвитнул(а)',
     VIEW: 'Посмотреть',
+    VIEW_TWEET_ANALYTICS: 'Смотреть аналитику твита',
     YOU_RETWEETED: 'Вы ретвитнули',
   },
   sk: {
@@ -2356,6 +2428,7 @@ const locales = {
     TWEETED: 'tweetoval',
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnuť všetko',
+    TWEET_ANALYTICS: 'Štatistika Tweetov',
     TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet} few {Tweety} many {Tweetu} other {Tweetov}}',
     TWEET_INTERACTIONS: 'Interakcie s Tweetom',
@@ -2366,6 +2439,7 @@ const locales = {
     UNSENT_TWEETS: 'Neodoslané Tweety',
     USER_RETWEETED: 'Retweetol používateľ {name}',
     VIEW: 'Zobraziť',
+    VIEW_TWEET_ANALYTICS: 'Zobraziť štatistiku Tweetu',
     YOU_RETWEETED: 'Retweetli ste',
   },
   sr: {
@@ -2421,6 +2495,7 @@ const locales = {
     TWEETED: 'је твитовао/ла',
     TWEETS: 'Твитови',
     TWEET_ALL: 'Твитуј све',
+    TWEET_ANALYTICS: 'Аналитика твита',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Твит} few {Твита} other {Твитова}}',
     TWEET_INTERACTIONS: 'Интеракције са твитом',
     TWEET_NOUN: 'Твит',
@@ -2432,6 +2507,7 @@ const locales = {
     UNSENT_TWEETS: 'Непослати твитови',
     USER_RETWEETED: '{name} је ретвитовао/ла',
     VIEW: 'Погледај',
+    VIEW_TWEET_ANALYTICS: 'Погледај аналитику твита',
     YOU_RETWEETED: 'Ретвитовао/ла си',
   },
   sv: {
@@ -2482,6 +2558,7 @@ const locales = {
     TWEET: 'Tweeta',
     TWEETED: 'tweetade',
     TWEET_ALL: 'Tweeta allt',
+    TWEET_ANALYTICS: 'Tweet-statistik',
     TWEET_INTERACTIONS: 'Interaktioner med Tweet',
     TWEET_TITLE: '{name} på Twitter: ”{text}”',
     TWEET_YOUR_REPLY: 'Tweeta ditt svar',
@@ -2490,6 +2567,7 @@ const locales = {
     UNSENT_TWEETS: 'Tweets som inte har skickats',
     USER_RETWEETED: '{name} retweetade',
     VIEW: 'Visa',
+    VIEW_TWEET_ANALYTICS: 'Visa Tweet-statistik',
     YOU_RETWEETED: 'Du Retweetade',
   },
   ta: {
@@ -2542,6 +2620,7 @@ const locales = {
     TWEETED: 'ட்விட் செய்துள்ளார்',
     TWEETS: 'கீச்சுகள்',
     TWEET_ALL: 'அனைத்தையும் ட்விட் செய்',
+    TWEET_ANALYTICS: 'கீச்சுப் பகுப்பாய்வு',
     TWEET_COUNT: '{formattedCount} {count, plural, one {கீச்சு} other {கீச்சுகள்}}',
     TWEET_INTERACTIONS: 'கீச்சின் செயல்பாடுகள்',
     TWEET_NOUN: 'கீச்சு',
@@ -2552,6 +2631,7 @@ const locales = {
     UNSENT_TWEETS: 'அனுப்பப்படாத கீச்சுகள்',
     USER_RETWEETED: '{name} மறுட்வீட் செய்துள்ளார்',
     VIEW: 'காண்பி',
+    VIEW_TWEET_ANALYTICS: 'கீச்சுப் பகுப்பாய்வைக் காட்டு',
     YOU_RETWEETED: 'நீங்கள் மறுட்விட் செய்தது',
   },
   th: {
@@ -2604,6 +2684,7 @@ const locales = {
     TWEETED: 'ได้ทวีต',
     TWEETS: 'ทวีต',
     TWEET_ALL: 'ทวีตทั้งหมด',
+    TWEET_ANALYTICS: 'การวิเคราะห์ทวีต',
     TWEET_COUNT: '{formattedCount} {count, plural, other {ทวีต}}',
     TWEET_INTERACTIONS: 'การโต้ตอบของทวีต',
     TWEET_NOUN: 'ทวีต',
@@ -2615,6 +2696,7 @@ const locales = {
     UNSENT_TWEETS: 'ทวีตที่ไม่ได้ส่ง',
     USER_RETWEETED: '{name} ได้รีทวีต',
     VIEW: 'ดู',
+    VIEW_TWEET_ANALYTICS: 'ดูการวิเคราะห์ทวีต',
     YOU_RETWEETED: 'คุณรีทวีต',
   },
   tr: {
@@ -2667,6 +2749,7 @@ const locales = {
     TWEETED: 'Tweetledi',
     TWEETS: 'Tweetler',
     TWEET_ALL: 'Hepsini Tweetle',
+    TWEET_ANALYTICS: 'Tweet İstatistikleri',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} other {Tweet}}',
     TWEET_INTERACTIONS: 'Tweet etkileşimleri',
     TWEET_TITLE: '{name} Twitter\'da: "{text}"',
@@ -2676,6 +2759,7 @@ const locales = {
     UNSENT_TWEETS: 'Gönderilmemiş Tweetler',
     USER_RETWEETED: '{name} Retweetledi',
     VIEW: 'Görüntüle',
+    VIEW_TWEET_ANALYTICS: 'Tweet istatistiklerini görüntüle',
     YOU_RETWEETED: 'Retweetledin',
   },
   uk: {
@@ -2734,6 +2818,7 @@ const locales = {
     TWEETED: 'твітнув(ла)',
     TWEETS: 'Твіти',
     TWEET_ALL: 'Твітнути все',
+    TWEET_ANALYTICS: 'Аналітика твіта',
     TWEET_COUNT:
       '{formattedCount} {count, plural, one {твіт} few {твіти} many {твітів} other {твіта}}',
     TWEET_INTERACTIONS: 'Взаємодія твітів',
@@ -2746,6 +2831,7 @@ const locales = {
     UNSENT_TWEETS: 'Ненадіслані твіти',
     USER_RETWEETED: '{name} ретвітнув(ла)',
     VIEW: 'Переглянути',
+    VIEW_TWEET_ANALYTICS: 'Переглянути аналітику твіта',
     YOU_RETWEETED: 'Ви ретвітнули',
   },
   ur: {
@@ -2782,6 +2868,7 @@ const locales = {
     TWEETED: 'ٹویٹ کیا',
     TWEETS: 'ٹویٹس',
     TWEET_ALL: 'سب کو ٹویٹ کریں',
+    TWEET_ANALYTICS: 'ٹویٹ کے اینالیٹکس',
     TWEET_COUNT: '{formattedCount} {count, plural, one {ٹویٹ} other {ٹویٹس}}',
     TWEET_INTERACTIONS: 'ٹویٹ تعاملات',
     TWEET_NOUN: 'ٹویٹ',
@@ -2793,6 +2880,7 @@ const locales = {
     UNSENT_TWEETS: 'غیر ارسال شدہ ٹویٹس',
     USER_RETWEETED: '{name} نے ریٹویٹ کیا',
     VIEW: 'دیکھیں',
+    VIEW_TWEET_ANALYTICS: 'ٹویٹ کے تجزیات دیکھیں',
     YOU_RETWEETED: 'آپ نے ریٹویٹ کیا',
   },
   vi: {
@@ -2845,6 +2933,7 @@ const locales = {
     TWEETED: 'đã Tweet',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Đăng Tweet tất cả',
+    TWEET_ANALYTICS: 'Số liệu thống kê Tweet',
     TWEET_COUNT: '{formattedCount} {count, plural, other {Các Tweet}}',
     TWEET_INTERACTIONS: 'Tương tác Tweet',
     TWEET_TITLE: '{name} trên Twitter: "{text}"',
@@ -2854,6 +2943,7 @@ const locales = {
     UNSENT_TWEETS: 'Tweet chưa gửi',
     USER_RETWEETED: '{name} đã Tweet lại',
     VIEW: 'Xem',
+    VIEW_TWEET_ANALYTICS: 'Xem phân tích Tweet',
     YOU_RETWEETED: 'Bạn đã Tweet lại',
   },
   'zh-cn': {
@@ -2906,6 +2996,7 @@ const locales = {
     TWEETED: '发布了推文',
     TWEETS: '推文',
     TWEET_ALL: '全部发推',
+    TWEET_ANALYTICS: '推文分析',
     TWEET_COUNT: '{formattedCount} {count, plural, other {推文}}',
     TWEET_INTERACTIONS: '推文互动',
     TWEET_NOUN: '推文',
@@ -2916,6 +3007,7 @@ const locales = {
     UNSENT_TWEETS: '未发布的推文',
     USER_RETWEETED: '{name} 已转推',
     VIEW: '查看',
+    VIEW_TWEET_ANALYTICS: '查看推文分析',
     YOU_RETWEETED: '你转推了',
   },
   'zh-tw': {
@@ -2968,6 +3060,7 @@ const locales = {
     TWEETED: '已推文',
     TWEETS: '推文',
     TWEET_ALL: '推全部內容',
+    TWEET_ANALYTICS: '推文分析',
     TWEET_COUNT: '{formattedCount} {count, plural, other {則推文}}',
     TWEET_INTERACTIONS: '推文互動',
     TWEET_NOUN: '推文',
@@ -2978,6 +3071,7 @@ const locales = {
     UNSENT_TWEETS: '未發送的推文',
     USER_RETWEETED: '{name} 已轉推',
     VIEW: '查看',
+    VIEW_TWEET_ANALYTICS: '查看推文分析',
     YOU_RETWEETED: '你已轉推',
   },
 }
@@ -9939,6 +10033,7 @@ const xweb = function() {
 const BRANDING_TRANSLATIONS = {
   'Embed post': 'EMBED_TWEET',
   'New post': 'NEW_TWEET',
+  'Post Analytics': 'TWEET_ANALYTICS',
   'Post activity': 'TWEET_INTERACTIONS',
   'Post all': 'TWEET_ALL',
   'Post your reply': 'TWEET_YOUR_REPLY',
@@ -9956,6 +10051,7 @@ const BRANDING_TRANSLATIONS = {
   'Undo repost': 'UNDO_RETWEET',
   'Unsent posts': 'UNSENT_TWEETS',
   'View post activity': 'TWEET_INTERACTIONS',
+  'View post analytics': 'VIEW_TWEET_ANALYTICS',
   'You reposted': 'YOU_RETWEETED',
   '{formattedCount} {count, plural, one {post} other {posts}}': 'TWEET_COUNT',
   '{formattedCount} {count, plural, one {quote} other {quotes}}': 'QUOTE_TWEET_COUNT',
