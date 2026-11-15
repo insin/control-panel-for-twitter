@@ -11455,10 +11455,6 @@ function observeAccountHovercard($shell) {
   }
 }
 
-
-
-
-
 /** @param {'Chat' | 'Calls'} type */
 async function observeEmbeddedTheme(type) {
   let $main = /** @type {HTMLElement} */ (document.querySelector('main'))
@@ -12793,6 +12789,9 @@ function getTweetType($tweet) {
   let $article = $tweet.querySelector(':scope > article')
   if (!author || !$article) return null
   let $body = $article.querySelector(':scope > article') || $article
+  // "Ad" disclosures link to a profile beside More
+  let $disclosure = $body.querySelector('a[href]:has(+ button use[href="#icon-more-dots-hor"])')
+  if (/^\/[a-zA-Z\d_]{1,20}$/.test($disclosure?.getAttribute('href') || '')) return 'PROMOTED_TWEET'
   // Cards share a translated ad disclosure inside their destination link
   for (let $label of $body.querySelectorAll('a[href][target="_blank"] div:not(:has(div))')) {
     if ($label.closest('[data-slot="embedded-tweet-frame"]')) continue
