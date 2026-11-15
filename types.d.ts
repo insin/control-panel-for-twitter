@@ -268,6 +268,7 @@ export type LocaleKey =
   | 'TWEET_COUNT'
   | 'TWEET_INTERACTIONS'
   | 'TWEET_NOUN'
+  | 'TWEET_SENT'
   | 'TWEET_TITLE'
   | 'TWEET_YOUR_REPLY'
   | 'TWITTER'
