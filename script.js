@@ -3818,6 +3818,42 @@ const getAccountLocation = (() => {
   }
 })()
 
+function bypassPhotoContextMenu() {
+  let name = 'photo context menu'
+  if (!enabled || !settings.bypassPhotoContextMenu) {
+    globalObservers.get(name)?.disconnect()
+    return
+  }
+  if (globalObservers.has(name)) return
+  function onContextMenu(event) {
+    if (!enabled || !settings.bypassPhotoContextMenu) return
+    let $target = event.target
+    let $trigger = $target?.closest?.('[data-slot="xds-context-menu-trigger"], [data-testid="tweetPhoto"]')
+    if (!$trigger || $target.closest('button, [data-press-control], [data-testid="videoPlayer"], [data-testid="videoComponent"]') ||
+        $trigger.querySelector('video') ||
+        !$trigger.querySelector('img[src^="https://pbs.twimg.com/media/"]')) return
+    log('bypassPhotoContextMenu: bypassing photo context menu')
+    event.stopImmediatePropagation()
+  }
+  document.addEventListener('contextmenu', onContextMenu, true)
+  globalObservers.set(name, {name, disconnect() {
+    document.removeEventListener('contextmenu', onContextMenu, true)
+    globalObservers.delete(name)
+  }})
+}
+
+function cleanTweetLink(text) {
+  try {
+    let url = new URL(text)
+    if (url.protocol != 'https:' || !['x.com', 'twitter.com'].includes(url.hostname) ||
+        !/^\/(?:[a-zA-Z\d_]{1,20}\/status|i\/web\/status)\/\d+(?:\/(?:photo|video)\/\d+)?\/?$/.test(url.pathname)) return text
+    url.search = ''
+    return url.href
+  } catch {
+    return text
+  }
+}
+
 /** @param {string} url */
 function isFollowingTimelineRequest(url) {
   try {
@@ -4443,6 +4479,53 @@ function shouldShowSeparatedTweetsTab() {
 //#endregion
 
 //#region Utility functions
+function configureCleanTweetLinks() {
+  let name = 'clean tweet links'
+  if (!enabled || !settings.cleanTweetLinks) {
+    globalObservers.get(name)?.disconnect()
+    return
+  }
+  if (globalObservers.has(name)) return
+  let restore = () => {}
+  function onClick(event) {
+    if (!enabled || !settings.cleanTweetLinks) return
+    if (event.type == 'click' ? event.button != 0 : !['Enter', ' '].includes(event.key)) return
+    let $item = event.target?.closest?.('[role="menuitem"]')
+    if (!$item?.closest('[role="menu"]') || $item.getAttribute('aria-disabled') == 'true' ||
+        !$item.querySelector('svg path[d^="M18.36 5.64"]')) return
+    restore()
+    let timer = null
+    function reset() {
+      if (timer != null) clearTimeout(timer)
+      document.removeEventListener('copy', onCopy, true)
+    }
+    function onCopy(event) {
+      reset()
+      if (!enabled || !settings.cleanTweetLinks || !event.clipboardData) return
+      // rweb selects its temporary URL span before calling execCommand('copy')
+      let value = window.getSelection()?.toString() || ''
+      let text = cleanTweetLink(value)
+      if (text == value) return
+      event.clipboardData.setData('text/plain', text)
+      event.preventDefault()
+      log('cleanTweetLinks: removed tracking from copied link', {url: text})
+    }
+    document.addEventListener('copy', onCopy, true)
+    restore = reset
+    timer = setTimeout(reset, 0)
+  }
+  document.addEventListener('click', onClick, true)
+  document.addEventListener('keydown', onClick, true)
+  document.addEventListener('keyup', onClick, true)
+  globalObservers.set(name, {name, disconnect() {
+    restore()
+    document.removeEventListener('click', onClick, true)
+    document.removeEventListener('keydown', onClick, true)
+    document.removeEventListener('keyup', onClick, true)
+    globalObservers.delete(name)
+  }})
+}
+
 /** Read the URL and underlying page together for navigation decisions */
 function getCurrentRoute() {
   let urlPath = location.pathname
@@ -9925,6 +10008,8 @@ async function main({processImmediately = false} = {}) {
       configureFeatureFlags()
       configureThemeCss()
       configureCustomCss()
+      bypassPhotoContextMenu()
+      configureCleanTweetLinks()
       observePopups()
       observeSideNavItems()
 
@@ -9972,6 +10057,8 @@ function onDisabled() {
   configureDynamicCss()
   configureThemeCss()
   configureCustomCss()
+  bypassPhotoContextMenu()
+  configureCleanTweetLinks()
   // Manually remove custom UI elements which clone existing elements, as
   // adding a hidden attribute won't hide them by default.
   document.querySelector('#cpftSeparatedTweetsTab')?.remove()
@@ -9987,6 +10074,8 @@ function onSettingsChanged(changedSettings = new Set()) {
   configureDynamicCss()
   configureThemeCss()
   configureCustomCss()
+  bypassPhotoContextMenu()
+  configureCleanTweetLinks()
   observePopups()
   observeSideNavItems()
 
@@ -11114,30 +11203,6 @@ const configureBranding = (() => {
   }
 })()
 
-function bypassPhotoContextMenu() {
-  let name = 'photo context menu'
-  if (!enabled || !settings.bypassPhotoContextMenu) {
-    globalObservers.get(name)?.disconnect()
-    return
-  }
-  if (globalObservers.has(name)) return
-  function onContextMenu(event) {
-    if (!enabled || !settings.bypassPhotoContextMenu) return
-    let $target = event.target
-    let $trigger = $target?.closest?.('[data-slot="xds-context-menu-trigger"]')
-    if (!$trigger || $target.closest('button, [data-press-control]') ||
-        $trigger.querySelector('video') ||
-        !$trigger.querySelector('img[src^="https://pbs.twimg.com/media/"]')) return
-    log('bypassPhotoContextMenu: bypassing photo context menu')
-    event.stopImmediatePropagation()
-  }
-  document.addEventListener('contextmenu', onContextMenu, true)
-  globalObservers.set(name, {name, disconnect() {
-    document.removeEventListener('contextmenu', onContextMenu, true)
-    globalObservers.delete(name)
-  }})
-}
-
 function configureFastBlock() {
   let name = 'fast block clicks'
   if (!enabled || !settings.fastBlock) {
@@ -11199,17 +11264,6 @@ function configureCleanTweetLinks() {
     i18n ||= findRouter()?.options?.context?.i18n
     return i18n?.t(text) || text
   }
-  function cleanLink(text) {
-    try {
-      let url = new URL(text)
-      if (url.protocol != 'https:' || !['x.com', 'twitter.com'].includes(url.hostname) ||
-          !/^\/(?:[a-zA-Z\d_]{1,20}\/status|i\/web\/status)\/\d+(?:\/(?:photo|video)\/\d+)?\/?$/.test(url.pathname)) return text
-      url.search = ''
-      return url.href
-    } catch {
-      return text
-    }
-  }
   function onCopy(event) {
     if (!enabled || !settings.cleanTweetLinks || event.button != 0) return
     let $item = event.target?.closest?.('[data-slot="xds-menu-item"]')
@@ -11231,7 +11285,7 @@ function configureCleanTweetLinks() {
       else delete clipboard.writeText
     }
     function writeText(value) {
-      let text = armed && enabled && settings.cleanTweetLinks ? cleanLink(value) : value
+      let text = armed && enabled && settings.cleanTweetLinks ? cleanTweetLink(value) : value
       if (text != value) log('cleanTweetLinks: removed tracking from copied link', {url: text})
       reset()
       return original.call(this, text)
