@@ -137,9 +137,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'ضافة تغريدة أخرى',
     ADD_MUTED_WORD: 'إضافة كلمة مكتومة',
     AD_FROM: 'إعلان من {url}',
-    BACK: 'رجوع',
-    CHOOSE_AUDIENCE: 'اختيار جمهور: {audience}',
-    DRAFTS: 'المسودات',
     FOLLOWING_USER: 'متابعة @{screenName}',
     FOLLOW_BACK_USER: 'رد المتابعة @{screenName}',
     FOLLOW_USER: 'متابعة {screenName}@',
@@ -149,21 +146,13 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, zero {إعجاب} one {إعجاب} two {إعجابان} few {إعجابات} many {إعجابًا} other {إعجاب}}',
     LIVE_ON_X: 'بث مباشر على X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, zero {صور وفيديوهات} one {صور وفيديوهات} two {صور وفيديوهات} few {صور وفيديوهات} many {صور وفيديوهات} other {صور وفيديوهات}}',
     MEDIA_VIEWER: 'عارض الوسائط',
-    MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثة',
-    NEW_POST: 'منشور جديد',
     NEW_TWEET: 'تغريدة جديدة',
     POST: 'نشر',
-    POSTS: 'المنشورات',
     POST_ALL: 'نشر الكل',
-    POST_COUNT:
-      '{formattedCount} {count, plural, zero {منشورات} one {منشور} two {منشوران} few {منشورات} many {منشورات} other {منشورات}}',
     POST_TITLE: '{name} على X: "{text}"',
     POST_UNAVAILABLE: 'هذا المنشور غير متاح.',
-    POST_YOUR_REPLY: 'نشر ردّك',
     PROFILE_SUMMARY: 'ملخص الملف الشخصيّ',
     QUOTE: 'اقتباس',
     QUOTES: 'اقتباسات',
@@ -174,13 +163,11 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, zero {تغريدة اقتباس} one {تغريدة اقتباس واحدة} two {تغريدتا اقتباس} few {تغريدات اقتباس} many {تغريدة اقتباس} other {تغريدة اقتباس}}',
     RECENT: 'الأخيرة',
-    RELEVANT: 'ذو صلة',
     REPOST: 'إعادة النشر',
     REPOSTS: 'المنشورات المُعاد نشرها',
     REPOST_COUNT:
       '{formattedCount} {count, plural, zero {إعادة نشر} one {إعادة نشر} two {إعادة نشر} few {إعادة نشر} many {إعادة نشر} other {إعادة نشر}}',
     RETWEET: 'إعادة التغريد',
-    RETWEETED_BY: 'مُعاد تغريدها بواسطة',
     RETWEETS: 'إعادات التغريد',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, zero {إعادة تغريد} one {إعادة تغريد} two {إعادتا تغريد} few {إعادات تغريد} many {إعادة تغريد} other {إعادة تغريد}}',
@@ -188,8 +175,6 @@ const locales = {
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
-    SHOW_POSTS:
-      'عرض {count, plural, zero {# منشور} one {# منشور} two {# منشور} few {# منشورات} many {# منشورات} other {# منشورات}}',
     SHOW_TWEETS:
       '{count, plural, zero {عرض # تغريدة} one {عرض # تغريدة} two {عرض # تغريدتين} few {عرض # تغريدات} many {عرض # تغريدة} other {عرض # تغريدة}}',
     SORT_BY: 'فرز حسب',
@@ -209,11 +194,8 @@ const locales = {
     TWITTER: 'تويتر',
     UNDO_RETWEET: 'التراجع عن التغريدة',
     UNFOLLOW_USER: 'إلغاء متابعة {screenName}@',
-    USER_REPOSTED: 'أعاد {name} النشر',
     USER_RETWEETED: 'أعاد التغريد {name}',
     VIEW: 'عرض',
-    WHO_CAN_REPLY: 'مَن يمكنه الرد: {replyPolicy}',
-    YOU_REPOSTED: 'لقد أعدتَ النشر',
     YOU_RETWEETED: 'أعدت تغريد',
   },
   'ar-x-fm': {
@@ -221,9 +203,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'ضافة تغريدة أخرى',
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     AD_FROM: 'إعلان من {url}',
-    BACK: 'رجوع',
-    CHOOSE_AUDIENCE: 'اختيار جمهور: {audience}',
-    DRAFTS: 'المسودات',
     FOLLOWING_USER: 'متابعة @{screenName}',
     FOLLOW_BACK_USER: 'ردي المتابعة لـ @{screenName}',
     FOLLOW_USER: 'متابعة {screenName}@',
@@ -233,21 +212,13 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, zero {إعجاب} one {إعجاب} two {إعجابان} few {إعجابات} many {إعجابًا} other {إعجاب}}',
     LIVE_ON_X: 'بث مباشر على X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, zero {صور وفيديوهات} one {صورة وفيديو} two {صورتان وفيديوهان} few {صور وفيديوهات} many {صور وفيديوهات} other {صور وفيديوهات}}',
     MEDIA_VIEWER: 'عارض الوسائط',
-    MOST_RELEVANT: 'الأكثر ملائمة',
     MUTE_THIS_CONVERSATION: 'كتم هذه المحادثه',
-    NEW_POST: 'منشور جديد',
     NEW_TWEET: 'تغريدة جديدة',
     POST: 'نشر',
-    POSTS: 'المنشورات',
     POST_ALL: 'نشر الكل',
-    POST_COUNT:
-      '{formattedCount} {count, plural, zero {منشورات} one {منشور} two {منشوران} few {منشورات} many {منشورات} other {منشورات}}',
     POST_TITLE: '{name} على X: "{text}"',
     POST_UNAVAILABLE: 'هذا المنشور غير متاح.',
-    POST_YOUR_REPLY: 'نشر ردّكِ',
     PROFILE_SUMMARY: 'ملخص الملف الشخصيّ',
     QUOTES: 'اقتباسات',
     QUOTE_COUNT:
@@ -257,13 +228,11 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, zero {تغريدة اقتباس} one {تغريدة اقتباس واحدة} two {تغريدتا اقتباس} few {تغريدات اقتباس} many {تغريدة اقتباس} other {تغريدة اقتباس}}',
     RECENT: 'الحديثة',
-    RELEVANT: 'ذو صلة',
     REPOST: 'إعادة النشر',
     REPOSTS: 'المنشورات المُعاد نشرها',
     REPOST_COUNT:
       '{formattedCount} {count, plural, zero {إعادة نشر} one {إعادة نشر} two {إعادتا نشر} few {إعادات نشر} many {إعادة نشر} other {إعادة نشر}}',
     RETWEET: 'إعادة التغريد',
-    RETWEETED_BY: 'مُعاد تغريدها بواسطة',
     RETWEETS: 'إعادات التغريد',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, zero {إعادة تغريد} one {إعادة تغريد} two {إعادتا تغريد} few {إعادات تغريد} many {إعادة تغريد} other {إعادة تغريد}}',
@@ -271,8 +240,6 @@ const locales = {
     SHARED_TWEETS: 'التغريدات المشتركة',
     SHOW: 'إظهار',
     SHOW_MORE_REPLIES: 'عرض المزيد من الردود',
-    SHOW_POSTS:
-      'عرض {count, plural, zero {# منشورات} one {# منشور} two {# منشورين} few {# منشورات} many {# منشورًا} other {# منشور}}',
     SHOW_TWEETS:
       '{count, plural, zero {عرض # تغريدة} one {عرض # تغريدة} two {عرض # تغريدتين} few {عرض # تغريدات} many {عرض # تغريدة} other {عرض # تغريدة}}',
     SORT_BY: 'فرز حسب',
@@ -292,11 +259,8 @@ const locales = {
     TWITTER: 'تويتر',
     UNDO_RETWEET: 'التراجع عن التغريدة',
     UNFOLLOW_USER: 'إلغاء متابِعة @{screenName}',
-    USER_REPOSTED: 'أعاد {name} النشر',
     USER_RETWEETED: 'أعادت التغريد {name}',
     VIEW: 'عرض',
-    WHO_CAN_REPLY: 'مَن يمكنه الردّ: {replyPolicy}',
-    YOU_REPOSTED: 'لقد أعدتِ النشر',
     YOU_RETWEETED: 'أعدتِ تغريد',
   },
   bg: {
@@ -304,9 +268,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Добавяне на друг туит',
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
     AD_FROM: 'Реклама от {url}',
-    BACK: 'Назад',
-    CHOOSE_AUDIENCE: 'Избор на аудитория: {audience}',
-    DRAFTS: 'Чернови',
     FOLLOWING_USER: 'Следваш @{screenName}',
     FOLLOW_BACK_USER: 'Следвай обратно @{screenName}',
     FOLLOW_USER: 'Следване на @{screenName}',
@@ -315,20 +276,13 @@ const locales = {
     LIKES: 'Харесвания',
     LIKE_COUNT: '{formattedCount} {count, plural, one {харесване} other {харесвания}}',
     LIVE_ON_X: 'На живо в X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {снимка и видеоклип} other {снимки и видеоклипове}}',
     MEDIA_VIEWER: 'Преглед на мултимедийно съдържание',
-    MOST_RELEVANT: 'Най-подходящи',
     MUTE_THIS_CONVERSATION: 'Заглушаване на разговора',
-    NEW_POST: 'Нова публикация',
     NEW_TWEET: 'Нов туит',
     POST: 'Публикуване',
-    POSTS: 'Публикации',
     POST_ALL: 'Публикуване на всичко',
-    POST_COUNT: '{formattedCount} {count, plural, one {публикация} other {публикации}}',
     POST_TITLE: '{name} в X: „{text}“',
     POST_UNAVAILABLE: 'Тази публикация не е налична.',
-    POST_YOUR_REPLY: 'Публикувай своя отговор',
     PROFILE_SUMMARY: 'Резюме на профила',
     QUOTE: 'Цитат',
     QUOTES: 'Цитати',
@@ -337,19 +291,16 @@ const locales = {
     QUOTE_TWEETS: 'Туитове с цитат',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {Туит с цитат} other {туита с цитат}}',
     RECENT: 'Скорошни',
-    RELEVANT: 'Уместно',
     REPOST: 'Препубликуване',
     REPOSTS: 'Препубликувания',
     REPOST_COUNT: '{formattedCount} {count, plural, one {препубликуване} other {препубликувания}}',
     RETWEET: 'Ретуитване',
-    RETWEETED_BY: 'Ретуитнат от',
     RETWEETS: 'Ретуитове',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {ретуит} other {ретуита}}',
     SHARED: 'Споделен',
     SHARED_TWEETS: 'Споделени туитове',
     SHOW: 'Показване',
     SHOW_MORE_REPLIES: 'Показване на още отговори',
-    SHOW_POSTS: 'Показване на {count, plural, one {# публикация} other {# публикации}}',
     SHOW_TWEETS: '{count, plural, one {Показване на # туит} other {Показване на # туита}}',
     SORT_BY: 'Сортиране по',
     SORT_REPLIES: 'Сортиране на отговорите',
@@ -366,11 +317,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'туит своя отговор',
     UNDO_RETWEET: 'Отмяна на ретуитването',
     UNFOLLOW_USER: 'Спиране на следването на @{screenName}',
-    USER_REPOSTED: '{name} препубликува',
     USER_RETWEETED: '{name} ретуитна',
     VIEW: 'Преглед',
-    WHO_CAN_REPLY: 'Кой може да отговаря: {replyPolicy}',
-    YOU_REPOSTED: 'Ти препубликува',
     YOU_RETWEETED: 'Ретуитна',
   },
   bn: {
@@ -378,9 +326,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'অন্য টুইট যোগ করুন',
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
     AD_FROM: '{url} থেকে বিজ্ঞাপন',
-    BACK: 'ফিরে যান',
-    CHOOSE_AUDIENCE: 'দর্শক বেছে নিন: {audience}',
-    DRAFTS: 'পূর্বলেখগুলো',
     FOLLOWING_USER: '@{screenName}-কে অনুসরণ করছেন',
     FOLLOW_BACK_USER: '@{screenName}-কে ফলো ব্যাক করুন',
     FOLLOW_USER: '@{screenName}-কে অনুসরণ করুন',
@@ -389,19 +334,13 @@ const locales = {
     LIKES: 'পছন্দ',
     LIKE_COUNT: '{formattedCount} {count, plural, one {পছন্দ} other {পছন্দগুলো}}',
     LIVE_ON_X: 'X-এ লাইভ',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {ফটো ও ভিডিও} other {ফটো ও ভিডিও}}',
     MEDIA_VIEWER: 'মিডিয়া ভিউয়ার',
-    MOST_RELEVANT: 'সবচেয়ে প্রাসঙ্গিক',
     MUTE_THIS_CONVERSATION: 'এই কথা-বার্তা নীরব করুন',
-    NEW_POST: 'নতুন পোস্ট',
     NEW_TWEET: 'নতুন টুইট',
     POST: 'পোস্ট',
-    POSTS: 'পোস্ট',
     POST_ALL: 'সবকটি পোস্ট করুন',
-    POST_COUNT: '{formattedCount} {count, plural, one {পোস্ট} other {পোস্ট}}',
     POST_TITLE: 'X-এ {name}: "{text}"',
     POST_UNAVAILABLE: 'এই পোস্টটি অনুপলভ্য।',
-    POST_YOUR_REPLY: 'আপনার উত্তর পোস্ট করুন',
     PROFILE_SUMMARY: 'প্রোফাইল সারসংক্ষেপ',
     QUOTE: 'উদ্ধৃতি',
     QUOTES: 'উদ্ধৃতিগুলো',
@@ -410,19 +349,16 @@ const locales = {
     QUOTE_TWEETS: 'টুইট উদ্ধৃতিগুলো',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {উদ্ধৃতি টুইট} other {উদ্ধৃতি টুইটগুলি}}',
     RECENT: 'সাম্প্রতিক',
-    RELEVANT: 'প্রাসঙ্গিক',
     REPOST: 'রিপোস্ট',
     REPOSTS: 'রিপোস্ট',
     REPOST_COUNT: '{formattedCount} {count, plural, one {রিপোস্ট} other {রিপোস্ট}}',
     RETWEET: 'পুনঃটুইট',
-    RETWEETED_BY: 'পুনঃ টুইট করেছেন',
     RETWEETS: 'পুনঃটুইটগুলো',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {পুনঃ টুইট করুন} other {পুনঃটুইটগুলো}}',
     SHARED: 'ভাগ করা',
     SHARED_TWEETS: 'ভাগ করা টুইটগুলি',
     SHOW: 'দেখান',
     SHOW_MORE_REPLIES: 'আরও উত্তর দেখান',
-    SHOW_POSTS: '{count, plural, one {#টি পোস্ট দেখান} other {#টি পোস্ট দেখান}}',
     SHOW_TWEETS: '{count, plural, one {# টুইট দেখান} other {# টুইটগুলো দেখান}}',
     SORT_BY: 'ক্রমানুসার',
     SORT_REPLIES: 'উত্তরগুলো বাছুন',
@@ -440,11 +376,8 @@ const locales = {
     TWITTER: 'টুইটার',
     UNDO_RETWEET: 'পুনঃ টুইট পুর্বাবস্থায় ফেরান',
     UNFOLLOW_USER: '@{screenName} কে অনুসরণ বাতিল করুন',
-    USER_REPOSTED: '{name} রিপোস্ট করা হয়েছে',
     USER_RETWEETED: '{name} দ্বারা পুনঃ টুইটকৃত',
     VIEW: 'দেখুন',
-    WHO_CAN_REPLY: 'কারা উত্তর দিতে পারবেন: {replyPolicy}',
-    YOU_REPOSTED: 'আপনি রিপোস্ট করেছেন',
     YOU_RETWEETED: 'আপনি পুনঃ টুইট করেছেন',
   },
   ca: {
@@ -452,9 +385,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Afegeix un altre tuit',
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
     AD_FROM: 'Anunci de {url}',
-    BACK: 'Enrere',
-    CHOOSE_AUDIENCE: "Tria l'audiència: {audience}",
-    DRAFTS: 'Esborranys',
     FOLLOWING_USER: 'Seguint @{screenName}',
     FOLLOW_BACK_USER: 'Segueix de nou @{screenName}',
     FOLLOW_USER: 'Segueix @{screenName}',
@@ -464,19 +394,13 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, one {agradament} many {agradaments} other {agradaments}}',
     LIVE_ON_X: 'En directe a X',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {fotos i vídeos} other {fotos i vídeos}}',
     MEDIA_VIEWER: 'Visualitzador de contingut multimèdia',
-    MOST_RELEVANT: 'El més rellevant',
     MUTE_THIS_CONVERSATION: 'Silencia la conversa',
-    NEW_POST: 'Publicació nova',
     NEW_TWEET: 'Tuit nou',
     POST: 'Publica',
-    POSTS: 'Publicacions',
     POST_ALL: 'Publica-ho tot',
-    POST_COUNT: '{formattedCount} {count, plural, one {publicació} other {publicacions}}',
     POST_TITLE: '{name} a X: "{text}"',
     POST_UNAVAILABLE: 'Aquesta publicació no està disponible.',
-    POST_YOUR_REPLY: 'Publica la resposta',
     PROFILE_SUMMARY: 'Resum del perfil',
     QUOTE: 'Cita',
     QUOTES: 'Cites',
@@ -486,19 +410,16 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tuit amb cita} many {Tuits amb cita} other {Tuits amb cita}}',
     RECENT: 'Recents',
-    RELEVANT: 'Rellevant',
     REPOST: 'Republicació',
     REPOSTS: 'Republicacions',
     REPOST_COUNT: '{formattedCount} {count, plural, one {republicació} other {republicació}}',
     RETWEET: 'Retuit',
-    RETWEETED_BY: 'Retuitat per',
     RETWEETS: 'Retuits',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {Retuit} many {Retuits} other {Retuits}}',
     SHARED: 'Compartit',
     SHARED_TWEETS: 'Tuits compartits',
     SHOW: 'Mostra',
     SHOW_MORE_REPLIES: 'Mostra més respostes',
-    SHOW_POSTS: 'Mostra {count, plural, one {# publicació} other {# publicacions}}',
     SHOW_TWEETS:
       '{count, plural, one {Mostra # Tuit} many {Mostra # Tuits} other {Mostra # Tuits}}',
     SORT_BY: 'Ordena per',
@@ -516,11 +437,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tuita la teva resposta',
     UNDO_RETWEET: 'Desfés el retuit',
     UNFOLLOW_USER: 'Deixa de seguir @{screenName}',
-    USER_REPOSTED: "{name} l'ha republicat",
     USER_RETWEETED: '{name} ha retuitat',
     VIEW: 'Mostra',
-    WHO_CAN_REPLY: 'Qui hi pot respondre: {replyPolicy}',
-    YOU_REPOSTED: 'Ho has republicat',
     YOU_RETWEETED: 'Has retuitat',
   },
   cs: {
@@ -528,9 +446,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Přidat další Tweet',
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
     AD_FROM: 'Reklama z {url}',
-    BACK: 'Zpět',
-    CHOOSE_AUDIENCE: 'Vyberte okruh uživatelů: {audience}',
-    DRAFTS: 'Koncepty',
     FOLLOWING_USER: 'Sledujete uživatele @{screenName}',
     FOLLOW_BACK_USER: 'Sledovat zpět @{screenName}',
     FOLLOW_USER: 'Začít sledovat uživatele @{screenName}',
@@ -540,20 +455,12 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, one {lajk} few {lajky} many {lajky} other {lajků}}',
     LIVE_ON_X: 'Živě na platformě X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {fotografie a videa} few {fotografie a videa} many {fotografie a videa} other {fotografie a videa}}',
     MEDIA_VIEWER: 'Prohlížeč médií',
-    MOST_RELEVANT: 'Nejvíce související',
     MUTE_THIS_CONVERSATION: 'Skrýt tuto konverzaci',
-    NEW_POST: 'Nový post',
     NEW_TWEET: 'Nový Tweet',
-    POSTS: 'Posty',
     POST_ALL: 'Postovat vše',
-    POST_COUNT:
-      '{formattedCount} {count, plural, one {post} few {posty} many {posty} other {posty}}',
     POST_TITLE: '{name} na platformě X: „{text}“',
     POST_UNAVAILABLE: 'Tento post není dostupný.',
-    POST_YOUR_REPLY: 'Postujte svou odpověď',
     PROFILE_SUMMARY: 'Souhrn profilu',
     QUOTE: 'Citace',
     QUOTES: 'Citace',
@@ -562,10 +469,8 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet s citací} few {tweety s citací} many {tweetů s citací} other {tweetů s citací}}',
     RECENT: 'Poslední',
-    RELEVANT: 'Související',
     REPOSTS: 'Reposty',
     RETWEET: 'Retweetnout',
-    RETWEETED_BY: 'Retweetnuto uživateli',
     RETWEETS: 'Retweety',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {Retweet} few {Retweety} many {Retweety} other {Retweetů}}',
@@ -573,8 +478,6 @@ const locales = {
     SHARED_TWEETS: 'Sdílené tweety',
     SHOW: 'Zobrazit',
     SHOW_MORE_REPLIES: 'Zobrazit další odpovědi',
-    SHOW_POSTS:
-      'Zobrazit {count, plural, one {# příspěvek} few {# příspěvky} many {# příspěvků} other {# příspěvků}}',
     SHOW_TWEETS:
       '{count, plural, one {Ukázat # Tweet} few {Ukázat # tweety} many {Ukázat # tweety} other {Ukázat # tweetů}}',
     SORT_BY: 'Seřadit podle',
@@ -592,11 +495,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetujte svou odpověď',
     UNDO_RETWEET: 'Zrušit Retweet',
     UNFOLLOW_USER: 'Přestat sledovat uživatele @{screenName}',
-    USER_REPOSTED: '{name} repostuje',
     USER_RETWEETED: 'Uživatel {name} retweetnul',
     VIEW: 'Zobrazit',
-    WHO_CAN_REPLY: 'Kdo může odpovědět: {replyPolicy}',
-    YOU_REPOSTED: 'Repostovali jste',
     YOU_RETWEETED: 'Retweetnuli jste',
   },
   da: {
@@ -604,9 +504,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Tilføj endnu et Tweet',
     ADD_MUTED_WORD: 'Tilføj skjult ord',
     AD_FROM: 'Annonce fra {url}',
-    BACK: 'Tilbage',
-    CHOOSE_AUDIENCE: 'Vælg målgruppe: {audience}',
-    DRAFTS: 'Udkast',
     FOLLOWING_USER: 'Følger @{screenName}',
     FOLLOW_BACK_USER: 'Følg tilbage @{screenName}',
     FOLLOW_USER: 'Følg @{screenName}',
@@ -614,17 +511,12 @@ const locales = {
     HOME: 'Forside',
     LIKE_COUNT: '{formattedCount} {count, plural, one {like} other {likes}}',
     LIVE_ON_X: 'Direkte på X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {fotos og videoer} other {fotos og videoer}}',
     MEDIA_VIEWER: 'Mediefremviser',
-    MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Skjul denne samtale',
-    NEW_POST: 'Ny post',
     NEW_TWEET: 'Nyt Tweet',
     POST_ALL: 'Post alle',
     POST_TITLE: '{name} på X: "{text}"',
     POST_UNAVAILABLE: 'Denne post er ikke tilgængelig.',
-    POST_YOUR_REPLY: 'Post dit svar',
     PROFILE_SUMMARY: 'Profilresumé',
     QUOTE: 'Citat',
     QUOTES: 'Citater',
@@ -634,12 +526,10 @@ const locales = {
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {Citat-Tweet} other {Citat-Tweets}}',
     RECENT: 'Nye',
     REPOST_COUNT: '{formattedCount} {count, plural, one {repost} other {repost}}',
-    RETWEETED_BY: 'Retweetet af',
     SHARED: 'Delt',
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
-    SHOW_POSTS: 'Vis {count, plural, one {# post} other {# posts}}',
     SHOW_TWEETS: '{count, plural, one {Vis # Tweet} other {Vis # Tweets}}',
     SORT_BY: 'Sorter efter',
     SORT_REPLIES: 'Sortér svar',
@@ -652,11 +542,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet dit svar',
     UNDO_RETWEET: 'Fortryd Retweet',
     UNFOLLOW_USER: 'Følg ikke længere @{screenName}',
-    USER_REPOSTED: '{name} repostede',
     USER_RETWEETED: '{name} retweetede',
     VIEW: 'Vis',
-    WHO_CAN_REPLY: 'Hvem kan svare: {replyPolicy}',
-    YOU_REPOSTED: 'Du repostede',
     YOU_RETWEETED: 'Du retweetede',
   },
   de: {
@@ -664,9 +551,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Weiteren Tweet hinzufügen',
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
     AD_FROM: 'Anzeige von {url}',
-    BACK: 'Zurück',
-    CHOOSE_AUDIENCE: 'Zielgruppe wählen: {audience}',
-    DRAFTS: 'Entwürfe',
     FOLLOWING_USER: '@{screenName} gefolgt',
     FOLLOW_BACK_USER: '@{screenName} ebenfalls folgen',
     FOLLOW_USER: '@{screenName} folgen',
@@ -676,16 +560,11 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, one {„Gefällt mir“-Angabe} other {„Gefällt mir“-Angaben}}',
     LIVE_ON_X: 'Live auf X',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {Fotos & Videos} other {Fotos & Videos}}',
-    MOST_RELEVANT: 'Besonders relevant',
     MUTE_THIS_CONVERSATION: 'Diesen Konversatiom stummschalten',
-    NEW_POST: 'Neuer Post',
     NEW_TWEET: 'Neuer Tweet',
     POST_ALL: 'Alle posten',
-    POST_COUNT: '{formattedCount} {count, plural, one {Post} other {Posts}}',
     POST_TITLE: '{name} auf X: „{text}“',
     POST_UNAVAILABLE: 'Dieser Post ist nicht verfügbar.',
-    POST_YOUR_REPLY: 'Deine Antwort posten',
     PROFILE_SUMMARY: 'Kurzprofil',
     QUOTE: 'Zitat',
     QUOTES: 'Zitate',
@@ -698,12 +577,10 @@ const locales = {
     REPOST: 'Reposten',
     REPOST_COUNT: '{formattedCount} {count, plural, one {Repost} other {Reposts}}',
     RETWEET: 'Retweeten',
-    RETWEETED_BY: 'Retweetet von',
     SHARED: 'Geteilt',
     SHARED_TWEETS: 'Geteilte Tweets',
     SHOW: 'Anzeigen',
     SHOW_MORE_REPLIES: 'Mehr Antworten anzeigen',
-    SHOW_POSTS: '{count, plural, one {# Post anzeigen} other {# Posts anzeigen}}',
     SHOW_TWEETS: '{count, plural, one {# Tweet anzeigen} other {# Tweets anzeigen}}',
     SORT_BY: 'Sortieren nach',
     SORT_REPLIES: 'Antworten sortieren',
@@ -717,11 +594,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Twittere deine Antwort',
     UNDO_RETWEET: 'Retweet rückgängig machen',
     UNFOLLOW_USER: '@{screenName} entfolgen',
-    USER_REPOSTED: '{name} hat repostet',
     USER_RETWEETED: '{name} hat retweetet',
     VIEW: 'Anzeigen',
-    WHO_CAN_REPLY: 'Wer antworten kann: {replyPolicy}',
-    YOU_REPOSTED: 'Du hast repostet',
     YOU_RETWEETED: 'Du hast retweetet',
   },
   el: {
@@ -729,9 +603,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Προσθήκη άλλου Tweet',
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
     AD_FROM: 'Διαφήμιση από {url}',
-    BACK: 'Πίσω',
-    CHOOSE_AUDIENCE: 'Επιλέξτε κοινό: {audience}',
-    DRAFTS: 'Πρόχειρα',
     FOLLOWING_USER: 'Σε ακολούθηση του @{screenName}',
     FOLLOW_BACK_USER: 'Ακολουθήστε και εσείς τον χρήστη @{screenName}',
     FOLLOW_USER: 'Ακολουθήστε τον χρήστη @{screenName}',
@@ -741,20 +612,13 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, one {επισήμανση "Μου αρέσει"} other {επισημάνσεις "Μου αρέσει"}}',
     LIVE_ON_X: 'Ζωντανά στο X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {φωτογραφίες και βίντεο} other {φωτογραφίες και βίντεο}}',
     MEDIA_VIEWER: 'Πρόγραμμα προβολής πολυμέσων',
-    MOST_RELEVANT: 'Πιο σχετική',
     MUTE_THIS_CONVERSATION: 'Σίγαση αυτής της συζήτησης',
-    NEW_POST: 'Νέα ανάρτηση',
     NEW_TWEET: 'Νέο Tweet',
     POST: 'Δημοσίευση',
-    POSTS: 'Αναρτήσεις',
     POST_ALL: 'Δημοσίευση όλων',
-    POST_COUNT: '{formattedCount} {count, plural, one {ανάρτηση} other {αναρτήσεις}}',
     POST_TITLE: '{name}στο X: ""{text}',
     POST_UNAVAILABLE: 'Αυτή η ανάρτηση δεν είναι διαθέσιμη.',
-    POST_YOUR_REPLY: 'Δημοσιεύστε την απάντησή σας',
     PROFILE_SUMMARY: ' Περίληψη προφίλ',
     QUOTE: 'Παράθεση',
     QUOTES: 'Παραθέσεις',
@@ -765,18 +629,15 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet με παράθεση} other {Tweet με παράθεση}}',
     RECENT: 'Πρόσφατα',
-    RELEVANT: 'Σχετικό',
     REPOST: 'Αναδημοσίευση',
     REPOSTS: 'Αναδημοσιεύσεις',
     REPOST_COUNT: '{formattedCount} {count, plural, one {αναδημοσίευση} other {αναδημοσιεύσεις}}',
-    RETWEETED_BY: 'Έγινε Retweet από',
     RETWEETS: 'Retweet',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {Retweet} other {Retweet}}',
     SHARED: 'Κοινόχρηστο',
     SHARED_TWEETS: 'Κοινόχρηστα Tweets',
     SHOW: 'Εμφάνιση',
     SHOW_MORE_REPLIES: 'Εμφάνιση περισσότερων απαντήσεων',
-    SHOW_POSTS: 'Εμφάνιση {count, plural, one {# ανάρτησης} other {# αναρτήσεων}}',
     SHOW_TWEETS: '{count, plural, one {Εμφάνιση # Tweet} other {Εμφάνιση # Tweet}}',
     SORT_BY: 'Ταξινόμηση κατά',
     SORT_REPLIES: 'Ταξινόμηση απαντήσεων',
@@ -791,11 +652,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Στείλτε την απάντησή σας',
     UNDO_RETWEET: 'Αναίρεση Retweet',
     UNFOLLOW_USER: 'Άρση ακολούθησης του χρήστη @{screenName}',
-    USER_REPOSTED: '{name} αναδημοσίευσε',
     USER_RETWEETED: 'Ο χρήστης {name} έκανε Retweet',
     VIEW: 'Προβολή',
-    WHO_CAN_REPLY: 'Ποιοι μπορούν να απαντήσουν:{replyPolicy}',
-    YOU_REPOSTED: 'Αναδημοσιεύσατε',
     YOU_RETWEETED: 'Κάνατε Retweet',
   },
   en: {
@@ -803,9 +661,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Add another Tweet',
     ADD_MUTED_WORD: 'Add muted word',
     AD_FROM: 'Ad from {url}',
-    BACK: 'Back',
-    CHOOSE_AUDIENCE: 'Choose audience: {audience}',
-    DRAFTS: 'Drafts',
     FOLLOWING_USER: 'Following @{screenName}',
     FOLLOW_BACK_USER: 'Follow back @{screenName}',
     FOLLOW_USER: 'Follow @{screenName}',
@@ -814,20 +669,13 @@ const locales = {
     LIKES: 'Likes',
     LIKE_COUNT: '{formattedCount} {count, plural, one {Like} other {Likes}}',
     LIVE_ON_X: 'Live on X',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {photos & videos} other {photos & videos}}',
     MEDIA_VIEWER: 'Media Viewer',
-    MOST_RELEVANT: 'Most relevant',
     MUTE_THIS_CONVERSATION: 'Mute this conversation',
-    NEW_POST: 'New post',
     NEW_TWEET: 'New Tweet',
     POST: 'Post',
-    POSTED: 'posted',
-    POSTS: 'Posts',
     POST_ALL: 'Post all',
-    POST_COUNT: '{formattedCount} {count, plural, one {post} other {posts}}',
     POST_TITLE: '{name} on X: "{text}"',
     POST_UNAVAILABLE: 'This post is unavailable.',
-    POST_YOUR_REPLY: 'Post your reply',
     PROFILE_SUMMARY: 'Profile Summary',
     QUOTE: 'Quote',
     QUOTES: 'Quotes',
@@ -836,19 +684,16 @@ const locales = {
     QUOTE_TWEETS: 'Quote Tweets',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {Quote Tweet} other {Quote Tweets}}',
     RECENT: 'Recent',
-    RELEVANT: 'Relevant',
     REPOST: 'Repost',
     REPOSTS: 'Reposts',
     REPOST_COUNT: '{formattedCount} {count, plural, one {repost} other {reposts}}',
     RETWEET: 'Retweet',
-    RETWEETED_BY: 'Retweeted by',
     RETWEETS: 'Retweets',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {Retweet} other {Retweets}}',
     SHARED: 'Shared',
     SHARED_TWEETS: 'Shared Tweets',
     SHOW: 'Show',
     SHOW_MORE_REPLIES: 'Show more replies',
-    SHOW_POSTS: 'Show {count, plural, one {# post} other {# posts}}',
     SHOW_TWEETS: '{count, plural, one {Show # Tweet} other {Show # Tweets}}',
     SORT_BY: 'Sort by',
     SORT_REPLIES: 'Sort replies',
@@ -856,7 +701,6 @@ const locales = {
     TURN_OFF_RETWEETS: 'Turn off Retweets',
     TURN_ON_RETWEETS: 'Turn on Retweets',
     TWEET: 'Tweet',
-    TWEETED: 'Tweeted',
     TWEETS: 'Tweets',
     TWEET_ALL: 'Tweet all',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} other {Tweets}}',
@@ -867,13 +711,8 @@ const locales = {
     TWITTER: 'Twitter',
     UNDO_RETWEET: 'Undo Retweet',
     UNFOLLOW_USER: 'Unfollow @{screenName}',
-    USERS_POSTED: '{names} posted',
-    USERS_TWEETED: '{names} Tweeted',
-    USER_REPOSTED: '{name} reposted',
     USER_RETWEETED: '{name} Retweeted',
     VIEW: 'View',
-    WHO_CAN_REPLY: 'Who can reply: {replyPolicy}',
-    YOU_REPOSTED: 'You reposted',
     YOU_RETWEETED: 'You Retweeted',
   },
   es: {
@@ -881,9 +720,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Agregar otro Tweet',
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
     AD_FROM: 'Anuncio de {url}',
-    BACK: 'Atrás',
-    CHOOSE_AUDIENCE: 'Elegir audiencia: {audience}',
-    DRAFTS: 'Borradores',
     FOLLOWING_USER: 'Siguiendo a @{screenName}',
     FOLLOW_BACK_USER: 'Seguir de vuelta @{screenName}',
     FOLLOW_USER: 'Seguir a @{screenName}',
@@ -892,16 +728,12 @@ const locales = {
     LIKES: 'Me gusta',
     LIKE_COUNT: '{formattedCount} {count, plural, one {Me gusta} many {Me gusta} other {Me gusta}}',
     LIVE_ON_X: 'En directo en X',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {fotos y vídeos} other {fotos y vídeos}}',
     MEDIA_VIEWER: 'Visor de contenido multimedia',
-    MOST_RELEVANT: 'Más relevantes',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversación',
-    NEW_POST: 'Nuevo post',
     NEW_TWEET: 'Nuevo Tweet',
     POST_ALL: 'Postear todo',
     POST_TITLE: '{name} en X: "{text}"',
     POST_UNAVAILABLE: 'Este post no está disponible.',
-    POST_YOUR_REPLY: 'Postea tu respuesta',
     PROFILE_SUMMARY: 'Resumen del perfil',
     QUOTE: 'Cita',
     QUOTES: 'Citas',
@@ -911,17 +743,14 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet citado} many {Tweets citados} other {Tweets citados}}',
     RECENT: 'Recientes',
-    RELEVANT: 'Relevante',
     REPOST: 'Repostear',
     RETWEET: 'Retwittear',
-    RETWEETED_BY: 'Retwitteado por',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {Retweet} many {Retweets} other {Retweets}}',
     SHARED: 'Compartido',
     SHARED_TWEETS: 'Tweets compartidos',
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar más respuestas',
-    SHOW_POSTS: 'Mostrar {count, plural, one {# post} other {# posts}}',
     SHOW_TWEETS:
       '{count, plural, one {Mostrar # Tweet} many {Mostrar # Tweets} other {Mostrar # Tweets}}',
     SORT_BY: 'Ordenar por',
@@ -937,11 +766,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Twittea tu respuesta',
     UNDO_RETWEET: 'Deshacer Retweet',
     UNFOLLOW_USER: 'Dejar de seguir a @{screenName}',
-    USER_REPOSTED: '{name} reposteó',
     USER_RETWEETED: '{name} retwitteó',
     VIEW: 'Ver',
-    WHO_CAN_REPLY: 'Quiénes pueden responder: {replyPolicy}',
-    YOU_REPOSTED: 'Reposteaste',
     YOU_RETWEETED: 'Retwitteaste',
   },
   eu: {
@@ -957,9 +783,7 @@ const locales = {
     QUOTE_TWEET: 'Txioa apaitu',
     QUOTE_TWEETS: 'Aipu-txioak',
     RECENT: 'Azkenak',
-    RELEVANT: 'Aipagarria',
     RETWEET: 'Bertxiotu',
-    RETWEETED_BY: 'Bertxiotua:',
     RETWEETS: 'Bertxioak',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {bertxio} other {bertxio}}',
     SHARED: 'Partekatua',
@@ -987,9 +811,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'افزودن توییت دیگر',
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
     AD_FROM: 'تبلیغ از {url}',
-    BACK: 'بازگشت',
-    CHOOSE_AUDIENCE: 'انتخاب مخاطب: {audience}',
-    DRAFTS: 'پیش‌نویس‌ها',
     FOLLOWING_USER: 'در حال دنبال کردن @{screenName}',
     FOLLOW_BACK_USER: 'فالو بک @{screenName}',
     FOLLOW_USER: 'دنبال کردن @{screenName}',
@@ -998,19 +819,13 @@ const locales = {
     LIKES: 'پسندها',
     LIKE_COUNT: '{formattedCount} {count, plural, one {پسند} other {پسند‌}}',
     LIVE_ON_X: 'زنده در X',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {عکس‌ها و ویدیوها} other {عکس‌ها و ویدیوها}}',
     MEDIA_VIEWER: 'نمایشگر رسانه',
-    MOST_RELEVANT: 'مرتبط‌ترین',
     MUTE_THIS_CONVERSATION: 'خموش‌سازی این گفتگو',
-    NEW_POST: 'پست جدید',
     NEW_TWEET: 'توییت جدید',
     POST: 'پست',
-    POSTS: 'پست‌ها',
     POST_ALL: 'پست کردن همه',
-    POST_COUNT: '{formattedCount} {count, plural, one {پست} other {پست‌ها}}',
     POST_TITLE: '{name} در X: «{text}»',
     POST_UNAVAILABLE: 'این پست دردسترس نیست.',
-    POST_YOUR_REPLY: 'پاسختان را پست کنید',
     PROFILE_SUMMARY: 'خلاصه نمایه',
     QUOTE: 'نقل‌قول',
     QUOTES: 'نقل‌قول‌ها',
@@ -1019,19 +834,16 @@ const locales = {
     QUOTE_TWEETS: 'نقل‌توییت‌ها',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {نقل‌توییت} other {نقل‌توییت}}',
     RECENT: 'اخیر',
-    RELEVANT: 'مربوط',
     REPOST: 'بازپست',
     REPOSTS: 'بازپست',
     REPOST_COUNT: '{formattedCount} {count, plural, one {بازپست} other {بازپست‌}}',
     RETWEET: 'بازتوییت',
-    RETWEETED_BY: 'بازتوییت‌ شد توسط',
     RETWEETS: 'بازتوییت‌ها',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {بازتوییت} other {بازتوییت}}',
     SHARED: 'مشترک',
     SHARED_TWEETS: 'توییتهای مشترک',
     SHOW: 'نمایش',
     SHOW_MORE_REPLIES: 'نمایش پاسخ‌های بیشتر',
-    SHOW_POSTS: 'نمایش {count, plural, one {# پست} other {# پست}}',
     SHOW_TWEETS: '{count, plural, one {نمایش # توییت} other {نمایش # توييت}}',
     SORT_BY: 'مرتب‌سازی براساس',
     SORT_REPLIES: 'مرتب‌سازی پاسخ‌ها',
@@ -1049,11 +861,8 @@ const locales = {
     TWITTER: 'توییتر',
     UNDO_RETWEET: 'لغو بازتوییت',
     UNFOLLOW_USER: 'دنبال‌ نکردن @{screenName}',
-    USER_REPOSTED: '{name} بازپست کرد',
     USER_RETWEETED: '{name} بازتوییت کرد',
     VIEW: 'مشاهده',
-    WHO_CAN_REPLY: 'کسانی که می‌توانند پاسخ دهند: {replyPolicy}',
-    YOU_REPOSTED: 'شما بازپست کردید',
     YOU_RETWEETED: 'شما بازتوییت کردید',
   },
   fi: {
@@ -1061,9 +870,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Lisää vielä twiitti',
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
     AD_FROM: 'Mainos osoitteesta {url}',
-    BACK: 'Takaisin',
-    CHOOSE_AUDIENCE: 'Valitse yleisö: {audience}',
-    DRAFTS: 'Luonnokset',
     FOLLOWING_USER: 'Seurataan käyttäjää @{screenName}',
     FOLLOW_BACK_USER: 'Seuraa käyttäjää @{screenName} takaisin',
     FOLLOW_USER: 'Seuraa käyttäjää @{screenName}',
@@ -1072,19 +878,12 @@ const locales = {
     LIKES: 'Tykkäykset',
     LIKE_COUNT: '{formattedCount} {count, plural, one {tykkäys} other {tykkäystä}}',
     LIVE_ON_X: 'Livenä X:ssä',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {valokuva ja video} other {valokuvaa ja videota}}',
-    MOST_RELEVANT: 'Relevanteimmat',
     MUTE_THIS_CONVERSATION: 'Hiljennä tämä keskustelu',
-    NEW_POST: 'Uusi julkaisu',
     NEW_TWEET: 'Uusi twiitti',
     POST: 'Julkaise',
-    POSTS: 'Julkaisut',
     POST_ALL: 'Julkaise kaikki',
-    POST_COUNT: '{formattedCount} {count, plural, one {julkaisu} other {julkaisua}}',
     POST_TITLE: '{name} X:ssä: ”{text}”',
     POST_UNAVAILABLE: 'Tämä julkaisu ei ole saatavilla.',
-    POST_YOUR_REPLY: 'Julkaise vastauksesi',
     PROFILE_SUMMARY: 'Profiilin yhteenveto',
     QUOTE: 'Lainaa',
     QUOTES: 'Lainaukset',
@@ -1094,13 +893,11 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {twiitin lainaus} other {twiitin lainausta}}',
     RECENT: 'Viimeisimmät',
-    RELEVANT: 'Relevantti',
     REPOST: 'Uudelleenjulkaise',
     REPOSTS: 'Uudelleenjulkaisut',
     REPOST_COUNT:
       '{formattedCount} {count, plural, one {uudelleenjulkaisu} other {uudelleenjulkaisua}}',
     RETWEET: 'Uudelleentwiittaa',
-    RETWEETED_BY: 'Uudelleentwiitannut',
     RETWEETS: 'Uudelleentwiittaukset',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {uudelleentwiittaus} other {uudelleentwiittausta}}',
@@ -1108,7 +905,6 @@ const locales = {
     SHARED_TWEETS: 'Jaetut twiitit',
     SHOW: 'Näytä',
     SHOW_MORE_REPLIES: 'Näytä lisää vastauksia',
-    SHOW_POSTS: 'Näytä {count, plural, one {# julkaisu} other {# julkaisua}}',
     SHOW_TWEETS: '{count, plural, one {Näytä # twiitti} other {Näytä # twiittiä}}',
     SORT_BY: 'Lajitteluperuste',
     SORT_REPLIES: 'Lajittele vastaukset',
@@ -1125,11 +921,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Twiittaa vastauksesi',
     UNDO_RETWEET: 'Kumoa uudelleentwiittaus',
     UNFOLLOW_USER: 'Lopeta käyttäjän @{screenName} seuraaminen',
-    USER_REPOSTED: '{name} uudelleenjulkaisi',
     USER_RETWEETED: '{name} uudelleentwiittasi',
     VIEW: 'Näytä',
-    WHO_CAN_REPLY: 'Kuka voi vastata: {replyPolicy}',
-    YOU_REPOSTED: 'Uudelleenjulkaisit',
     YOU_RETWEETED: 'Uudelleentwiittasit',
   },
   fil: {
@@ -1137,9 +930,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Magdagdag ng isa pang Tweet',
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
     AD_FROM: 'Ad mula sa {url}',
-    BACK: 'Bumalik',
-    CHOOSE_AUDIENCE: 'Pumili ng audience: {audience}',
-    DRAFTS: 'Mga Draft',
     FOLLOWING_USER: 'Fina-follow si @{screenName}',
     FOLLOW_BACK_USER: 'I-follow back si @{screenName}',
     FOLLOW_USER: 'Sundan si @{screenName}',
@@ -1147,17 +937,11 @@ const locales = {
     LIKES: 'Mga Gusto',
     LIKE_COUNT: '{formattedCount} {count, plural, one {like} other {mga like}}',
     LIVE_ON_X: 'Live sa X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {mga larawan at video} other {mga larawan at video}}',
-    MOST_RELEVANT: 'Pinakanauugnay',
     MUTE_THIS_CONVERSATION: 'I-mute ang usapang ito',
-    NEW_POST: 'Bagong post',
     NEW_TWEET: 'Bagong Tweet',
-    POSTS: 'Mga Post',
     POST_ALL: 'I-post lahat',
     POST_TITLE: '{name} sa X: "{text}"',
     POST_UNAVAILABLE: 'Hindi available ang post na Ito.',
-    POST_YOUR_REPLY: 'I-post ang reply mo',
     PROFILE_SUMMARY: 'Buod ng Profile',
     QUOTES: 'Mga Quote',
     QUOTE_TWEET: 'Quote na Tweet',
@@ -1165,18 +949,15 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Quote na Tweet} other {Quote na Tweet}}',
     RECENT: 'Kamakailan',
-    RELEVANT: 'Nauugnay',
     REPOST: 'I-repost',
     REPOSTS: '(na) Repost',
     RETWEET: 'I-retweet',
-    RETWEETED_BY: 'Ni-retweet ni',
     RETWEETS: 'Mga Retweet',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {Retweet} other {Mga Retweet}}',
     SHARED: 'Ibinahagi',
     SHARED_TWEETS: 'Mga Ibinahaging Tweet',
     SHOW: 'Ipakita',
     SHOW_MORE_REPLIES: 'Magpakita pa ng mga sagot',
-    SHOW_POSTS: 'Ipakita ang {count, plural, one {# post} other {# posts}}',
     SHOW_TWEETS: '{count, plural, one {Ipakita ang # Tweet} other {Ipakita ang # (na) Tweet}}',
     SORT_BY: 'Isaayos ayon sa',
     SORT_REPLIES: 'I-sort ang mga reply',
@@ -1192,11 +973,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'I-Tweet ang reply mo',
     UNDO_RETWEET: 'Huwag nang I-retweet',
     UNFOLLOW_USER: 'I-unfollow si @{screenName}',
-    USER_REPOSTED: 'Ni-repost ni {name}',
     USER_RETWEETED: 'Ni-retweet ni {name}',
     VIEW: 'Tingnan',
-    WHO_CAN_REPLY: 'Sino ang makaka-reply: {replyPolicy}',
-    YOU_REPOSTED: 'Nag-repost ka',
     YOU_RETWEETED: 'Ni-retweet Mo',
   },
   fr: {
@@ -1204,9 +982,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Ajouter un autre Tweet',
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
     AD_FROM: 'Annonce de {url}',
-    BACK: 'Retour',
-    CHOOSE_AUDIENCE: 'Choisir une audience : {audience}',
-    DRAFTS: 'Brouillons',
     FOLLOWING_USER: 'Abonné à @{screenName}',
     FOLLOW_BACK_USER: 'Suivre en retour @{screenName}',
     FOLLOW_USER: 'Suivre @{screenName}',
@@ -1215,18 +990,12 @@ const locales = {
     LIKES: "J'aime",
     LIKE_COUNT: "{formattedCount} {count, plural, one {J'aime} many {J'aime} other {J'aime}}",
     LIVE_ON_X: 'En direct sur X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {photos et vidéos} other {photos et vidéos}}',
     MEDIA_VIEWER: 'Visionneuse de médias',
-    MOST_RELEVANT: 'Les plus pertinentes',
     MUTE_THIS_CONVERSATION: 'Masquer cette conversation',
-    NEW_POST: 'Nouveau post',
     NEW_TWEET: 'Nouveau Tweet',
     POST_ALL: 'Tout poster',
-    POST_COUNT: '{formattedCount} {count, plural, one {post} other {posts}}',
     POST_TITLE: '{name} sur X : « {text} »',
     POST_UNAVAILABLE: "Ce post n'est pas disponible.",
-    POST_YOUR_REPLY: 'Postez votre réponse',
     PROFILE_SUMMARY: 'Résumé du profil',
     QUOTE: 'Citation',
     QUOTES: 'Citations',
@@ -1236,16 +1005,13 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet cité} many {Tweets cités} other {Tweets cités}}',
     RECENT: 'Récents',
-    RELEVANT: 'Pertinence',
     RETWEET: 'Retweeter',
-    RETWEETED_BY: 'Retweeté par',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {Retweet} many {Retweets} other {Retweets}}',
     SHARED: 'Partagé',
     SHARED_TWEETS: 'Tweets partagés',
     SHOW: 'Afficher',
     SHOW_MORE_REPLIES: 'Voir plus de réponses',
-    SHOW_POSTS: 'Afficher {count, plural, one {# post} other {# posts}}',
     SHOW_TWEETS: '{count, plural, one {Voir # Tweet} many {Voir # Tweets} other {Voir # Tweets}}',
     SORT_BY: 'Trier par',
     SORT_REPLIES: 'Trier les réponses',
@@ -1260,11 +1026,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetez votre réponse',
     UNDO_RETWEET: 'Annuler le Retweet',
     UNFOLLOW_USER: 'Se désabonner de @{screenName}',
-    USER_REPOSTED: '{name} a reposté',
     USER_RETWEETED: '{name} a retweeté',
     VIEW: 'Voir',
-    WHO_CAN_REPLY: 'Qui peut répondre ? : {replyPolicy}',
-    YOU_REPOSTED: 'Vous avez reposté',
     YOU_RETWEETED: 'Vous avez retweeté',
   },
   ga: {
@@ -1283,9 +1046,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Quote Tweet} two {Quote Tweets} few {Quote Tweets} many {Quote Tweets} other {Quote Tweets}}',
     RECENT: 'Le déanaí',
-    RELEVANT: 'Ábhartha',
     RETWEET: 'Atweetáil',
-    RETWEETED_BY: 'Atweetáilte ag',
     RETWEETS: 'Atweetanna',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {Atweet} two {Atweet} few {Atweet} many {Atweet} other {Atweet}}',
@@ -1326,9 +1087,7 @@ const locales = {
     QUOTE_TWEETS: 'Chíos citados',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {Chío citado} other {Chíos citados}}',
     RECENT: 'Recentes',
-    RELEVANT: 'Pertinente',
     RETWEET: 'Rechouchiar',
-    RETWEETED_BY: 'Rechouchiado por',
     RETWEETS: 'Rechouchíos',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {rechouchío} other {rechouchíos}}',
     SHARED: 'Compartido',
@@ -1356,9 +1115,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'અન્ય ટ્વીટ ઉમેરો',
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
     AD_FROM: '{url} માંથી જાહેરાત',
-    BACK: 'પાછળ જાઓ',
-    CHOOSE_AUDIENCE: 'પ્રેક્ષકો પસંદ કરો: {audience}',
-    DRAFTS: 'રૂપરેખાઓ',
     FOLLOWING_USER: 'અનુસરણ @{screenName}',
     FOLLOW_BACK_USER: '@{screenName} ને ફોલો કરો',
     FOLLOW_USER: 'અનુસરો @{screenName}',
@@ -1367,19 +1123,13 @@ const locales = {
     LIKES: 'લાઈક્સ',
     LIKE_COUNT: '{formattedCount} {count, plural, one {લાઈક} other {લાઈક્સ}}',
     LIVE_ON_X: 'X પર લાઇવ',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {ફોટા અને વિડિયો} other {ફોટા અને વિડિયો}}',
     MEDIA_VIEWER: 'મીડિયા વ્યૂઅર',
-    MOST_RELEVANT: 'સૌથી વધુ સુસંગત',
     MUTE_THIS_CONVERSATION: 'આ વાર્તાલાપનું જોડાણ અટકાવો',
-    NEW_POST: 'નવી પોસ્ટ',
     NEW_TWEET: 'નવી ટ્વીટ',
     POST: 'પોસ્ટ',
-    POSTS: 'પોસ્ટ્સ',
     POST_ALL: 'બધા પોસ્ટ કરો',
-    POST_COUNT: '{formattedCount} {count, plural, one {પોસ્ટ} other {પોસ્ટ્સ}}',
     POST_TITLE: '{name} X પર: "{text}"',
     POST_UNAVAILABLE: 'આ પોસ્ટ અનુપલબ્ધ છે.',
-    POST_YOUR_REPLY: 'તમારો પ્રત્યુત્તર પોસ્ટ કરો',
     PROFILE_SUMMARY: 'પ્રોફાઇલ સારાંશ',
     QUOTE: 'અવતરણ',
     QUOTES: 'અવતરણો',
@@ -1389,19 +1139,16 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {અવતરણની સાથે ટ્વીટ} other {અવતરણની સાથે ટ્વીટ}}',
     RECENT: 'તાજેતરનું',
-    RELEVANT: 'સંબંધિત છે',
     REPOST: 'રીપોસ્ટ કરો',
     REPOSTS: 'ફરીથી કરવામાં આવેલી પોસ્ટ',
     REPOST_COUNT: '{formattedCount} {count, plural, one {ફરીથી પોસ્ટ કરો} other {ફરીથી પોસ્ટ કરો}}',
     RETWEET: 'પુનટ્વીટ',
-    RETWEETED_BY: 'આમની દ્વારા પુનટ્વીટ કરવામાં આવી',
     RETWEETS: 'પુનટ્વીટ્સ',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {પુનટ્વીટ} other {પુનટ્વીટ્સ}}',
     SHARED: 'સાંજેડેલું',
     SHARED_TWEETS: 'શેર કરેલી ટ્વીટ્સ',
     SHOW: 'બતાવો',
     SHOW_MORE_REPLIES: 'વધુ પ્રત્યુતરો દર્શાવો',
-    SHOW_POSTS: '{count, plural, one {# પોસ્ટ બતાવો} other {# પોસ્ટ્સ બતાવો}}',
     SHOW_TWEETS: '{count, plural, one {બતાવો # ટ્વીટ} other {બતાવો # ટ્વીટ્સ}}',
     SORT_BY: 'આની દ્વારા સૉર્ટ કરો',
     SORT_REPLIES: 'પ્રત્યુત્તરોને સૉર્ટ કરો',
@@ -1418,11 +1165,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'તમારા પ્રત્યુત્તરને ટ્વીટ કરો',
     UNDO_RETWEET: 'પુનટ્વીટને પૂર્વવત કરો',
     UNFOLLOW_USER: '@{screenName}ને અનુસરવાનું બંધ કરો',
-    USER_REPOSTED: '{name} ફરીથી પોસ્ટ કર્યું',
     USER_RETWEETED: '{name}એ પુનટ્વીટ કરી',
     VIEW: 'જુઓ',
-    WHO_CAN_REPLY: 'કોણ જવાબ આપી શકે:{replyPolicy}',
-    YOU_REPOSTED: 'તમે રીપોસ્ટ કર્યું',
     YOU_RETWEETED: 'તમે પુનટ્વીટ કરી',
   },
   he: {
@@ -1430,9 +1174,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'הוסף ציוץ נוסף',
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
     AD_FROM: 'מודעה מ-{url}',
-    BACK: 'חזרה',
-    CHOOSE_AUDIENCE: 'בחירת קהל יעד: {audience}',
-    DRAFTS: 'טיוטות',
     FOLLOWING_USER: 'במעקב אחר @{screenName}',
     FOLLOW_BACK_USER: 'לעקוב בחזרה @{screenName}',
     FOLLOW_USER: 'עקוב אחרי @{screenName}',
@@ -1442,21 +1183,13 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, one {סימון אהבתי} two {סימוני אהבתי} other {סימוני אהבתי}}',
     LIVE_ON_X: 'שידור חי ב-X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {תמונות וסרטונים} two {תמונות וסרטונים} many {תמונות וסרטונים} other {תמונות וסרטונים}}',
     MEDIA_VIEWER: 'מציג מדיה',
-    MOST_RELEVANT: 'הכי רלוונטי',
     MUTE_THIS_CONVERSATION: 'להשתיק את השיחה הזאת',
-    NEW_POST: 'פוסט חדש',
     NEW_TWEET: 'ציוץ חדש',
     POST: 'פרסום',
-    POSTS: 'פוסטים',
     POST_ALL: 'פרסום הכל',
-    POST_COUNT:
-      '{formattedCount} {count, plural, one {פוסט} two {פוסטים} many {פוסטים} other {פוסטים}}',
     POST_TITLE: '{name} ב-X: {text}',
     POST_UNAVAILABLE: 'פוסט זה אינו זמין.',
-    POST_YOUR_REPLY: 'פרסום תשובה',
     PROFILE_SUMMARY: 'סיכום הפרופיל',
     QUOTE: 'ציטוט',
     QUOTES: 'ציטוטים',
@@ -1465,11 +1198,9 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {ציוץ ציטוט} two {ציוצי ציטוט} other {ציוצי ציטוט}}',
     RECENT: 'אחרונים',
-    RELEVANT: 'רלוונטי',
     REPOST: 'לפרסם מחדש',
     REPOSTS: 'פרסומים מחדש',
     RETWEET: 'צייץ מחדש',
-    RETWEETED_BY: 'צויץ מחדש על־ידי',
     RETWEETS: 'ציוצים מחדש',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {ציוץ מחדש} two {ציוצים מחדש} other {ציוצים מחדש}}',
@@ -1494,11 +1225,8 @@ const locales = {
     TWITTER: 'טוויטר',
     UNDO_RETWEET: 'ביטול ציוץ מחדש',
     UNFOLLOW_USER: 'בטל מעקב אחר ‎@{screenName}',
-    USER_REPOSTED: '{name} פרסם מחדש',
     USER_RETWEETED: '{name} צייץ מחדש',
     VIEW: 'הצג',
-    WHO_CAN_REPLY: 'מי יכול להשיב: {replyPolicy}',
-    YOU_REPOSTED: 'פרסמת מחדש',
     YOU_RETWEETED: 'צייצת מחדש',
   },
   hi: {
@@ -1506,9 +1234,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'एक और ट्वीट जोड़ें',
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
     AD_FROM: '{url} से विज्ञापन',
-    BACK: 'वापस जाएँ',
-    CHOOSE_AUDIENCE: 'दर्शक चुनें: {audience}',
-    DRAFTS: 'प्रारूप',
     FOLLOWING_USER: '@{screenName} को फ़ॉलो कर रहे हैं',
     FOLLOW_BACK_USER: '@{screenName} को फ़ॉलो बैक करें',
     FOLLOW_USER: '@{screenName} फ़ॉलो करें',
@@ -1517,19 +1242,13 @@ const locales = {
     LIKES: 'पसंद',
     LIKE_COUNT: '{formattedCount} {count, plural, one {पसंद} other {पसंद}}',
     LIVE_ON_X: 'X पर लाइव',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {फ़ोटो और वीडियो} other {फ़ोटो और वीडियो}}',
     MEDIA_VIEWER: 'मीडिया व्यूअर',
-    MOST_RELEVANT: 'सर्वाधिक प्रासंगिक',
     MUTE_THIS_CONVERSATION: 'इस बातचीत को म्यूट करें',
-    NEW_POST: 'नया पोस्ट',
     NEW_TWEET: 'नया ट्वीट',
     POST: 'पोस्ट',
-    POSTS: 'पोस्ट्स',
     POST_ALL: 'सभी पोस्ट करें',
-    POST_COUNT: '{formattedCount} {count, plural, one {पोस्ट} other {पोस्ट्स}}',
     POST_TITLE: 'X पर {name}: "{text}"',
     POST_UNAVAILABLE: 'यह पोस्ट उपलब्ध नहीं है.',
-    POST_YOUR_REPLY: 'अपना जवाब पोस्ट करें',
     PROFILE_SUMMARY: 'प्रोफ़ाइल सारांश',
     QUOTE: 'कोट',
     QUOTES: 'कोट',
@@ -1538,19 +1257,16 @@ const locales = {
     QUOTE_TWEETS: 'कोट ट्वीट्स',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {कोट ट्वीट} other {कोट ट्वीट्स}}',
     RECENT: 'हाल ही के',
-    RELEVANT: 'प्रासंगिक',
     REPOST: 'रीपोस्ट',
     REPOSTS: 'रीपोस्ट्स',
     REPOST_COUNT: '{formattedCount} {count, plural, one {रीपोस्ट} other {रीपोस्ट}}',
     RETWEET: 'रीट्वीट करें',
-    RETWEETED_BY: 'इनके द्वारा रीट्वीट किया गया',
     RETWEETS: 'रीट्वीट्स',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {रीट्वीट} other {रीट्वीट्स}}',
     SHARED: 'साझा किया हुआ',
     SHARED_TWEETS: 'साझा किए गए ट्वीट',
     SHOW: 'दिखाएं',
     SHOW_MORE_REPLIES: 'और अधिक जवाब दिखाएँ',
-    SHOW_POSTS: '{count, plural, one {# पोस्ट} other {# पोस्ट}} दिखाएँ',
     SHOW_TWEETS: '{count, plural, one {# ट्वीट दिखाएं} other {# ट्वीट्स दिखाएं}}',
     SORT_BY: 'इसके अनुसार सॉर्ट करें',
     SORT_REPLIES: 'जवाब सॉर्ट करें',
@@ -1567,11 +1283,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'अपना जवाब ट्वीट करें',
     UNDO_RETWEET: 'रीट्वीट को पूर्ववत करें',
     UNFOLLOW_USER: '@{screenName} को अनफ़ॉलो करें',
-    USER_REPOSTED: '{name} ने रीपोस्ट किया',
     USER_RETWEETED: '{name} ने रीट्वीट किया',
     VIEW: 'देखें',
-    WHO_CAN_REPLY: 'कौन जवाब दे सकता है: {replyPolicy}',
-    YOU_REPOSTED: 'आपने रीपोस्ट किया',
     YOU_RETWEETED: 'आपने रीट्वीट किया',
   },
   hr: {
@@ -1579,9 +1292,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Dodaj drugi Tweet',
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
     AD_FROM: 'Oglas od {url}',
-    BACK: 'Natrag',
-    CHOOSE_AUDIENCE: 'Odabir publike: {audience}',
-    DRAFTS: 'Skice',
     FOLLOWING_USER: 'Pratite korisnika/cu @{screenName}',
     FOLLOW_BACK_USER: 'Prati natrag @{screenName}',
     FOLLOW_USER: 'Počni pratiti korisnika/cu @{screenName}',
@@ -1591,20 +1301,13 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, one {oznaka „sviđa mi se”} few {oznake „sviđa mi se”} other {oznaka „sviđa mi se”}}',
     LIVE_ON_X: 'Uživo na platformi X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {fotografije i videozapisi} few {fotografije i videozapisi} other {fotografije i videozapisi}}',
     MEDIA_VIEWER: 'Preglednik medija',
-    MOST_RELEVANT: 'Najrelevantnije',
     MUTE_THIS_CONVERSATION: 'Isključi zvuk ovog razgovora',
-    NEW_POST: 'Nova objava',
     NEW_TWEET: 'Novi Tweet',
     POST: 'Objavi',
-    POSTS: 'Objave',
     POST_ALL: 'Objavi sve',
-    POST_COUNT: '{formattedCount} {count, plural, one {objava} few {objave} other {objave}}',
     POST_TITLE: '{name} na platformi X: „{text}”',
     POST_UNAVAILABLE: 'Ta objava nije dostupna.',
-    POST_YOUR_REPLY: 'Objavite odgovor',
     PROFILE_SUMMARY: 'Sažetak profila',
     QUOTE: 'Citat',
     QUOTES: 'Citati',
@@ -1615,13 +1318,11 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {citirani Tweet} few {citirana tweeta} other {citiranih tweetova}}',
     RECENT: 'Nedavno',
-    RELEVANT: 'Relevantno',
     REPOST: 'Proslijedi objavu',
     REPOSTS: 'Proslijeđene objave',
     REPOST_COUNT:
       '{formattedCount} {count, plural, one {ponovna objava} few {ponovne objave} other {ponovnih objava}}',
     RETWEET: 'Proslijedi tweet',
-    RETWEETED_BY: 'Korisnici koji su proslijedili Tweet',
     RETWEETS: 'Proslijeđeni tweetovi',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {proslijeđeni Tweet} few {proslijeđena tweeta} other {proslijeđenih tweetova}}',
@@ -1629,7 +1330,6 @@ const locales = {
     SHARED_TWEETS: 'Dijeljeni tweetovi',
     SHOW: 'Prikaži',
     SHOW_MORE_REPLIES: 'Prikaži još odgovora',
-    SHOW_POSTS: 'Prikaži {count, plural, one {# objavu} few {# objave} other {# objava}}',
     SHOW_TWEETS:
       '{count, plural, one {Prikaži # Tweet} few {Prikaži # tweeta} other {Prikaži # tweetova}}',
     SORT_BY: 'Sortiraj prema',
@@ -1645,11 +1345,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetajte odgovor',
     UNDO_RETWEET: 'Poništi prosljeđivanje tweeta',
     UNFOLLOW_USER: 'Prestani pratiti korisnika/cu @{screenName}',
-    USER_REPOSTED: '{name} je proslijedio/la objavu',
     USER_RETWEETED: '{name} proslijedio/la je Tweet',
     VIEW: 'Prikaz',
-    WHO_CAN_REPLY: 'Tko može odgovoriti: {replyPolicy}',
-    YOU_REPOSTED: 'Proslijedili ste objavu',
     YOU_RETWEETED: 'Proslijedili ste Tweet',
   },
   hu: {
@@ -1657,9 +1354,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Másik Tweet hozzáadása',
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
     AD_FROM: 'Hirdetés innen: {url}',
-    BACK: 'Vissza',
-    CHOOSE_AUDIENCE: 'Célközönség kiválasztása: {audience}',
-    DRAFTS: 'Piszkozatok',
     FOLLOWING_USER: '@{screenName} követése',
     FOLLOW_BACK_USER: '@{screenName} visszakövetése',
     FOLLOW_USER: '@{screenName} követése',
@@ -1668,20 +1362,13 @@ const locales = {
     LIKES: 'Kedvelések',
     LIKE_COUNT: '{formattedCount} {count, plural, one {kedvelés} other {kedvelés}}',
     LIVE_ON_X: 'Élőben az X-en',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {fénykép és videó} other {fénykép és videó}}',
     MEDIA_VIEWER: 'Médiamegjelenítő',
-    MOST_RELEVANT: 'Legmegfelelőbb',
     MUTE_THIS_CONVERSATION: 'Beszélgetés némítása',
-    NEW_POST: 'Új bejegyzés',
     NEW_TWEET: 'Új Tweet',
     POST: 'Bejegyzés',
-    POSTS: 'Bejegyzések',
     POST_ALL: 'Az összes közzététele',
-    POST_COUNT: '{formattedCount} {count, plural, one {bejegyzés} other {bejegyzés}}',
     POST_TITLE: '{name} az X-en: „{text}”',
     POST_UNAVAILABLE: 'Ez a bejegyzés nem elérhető.',
-    POST_YOUR_REPLY: 'Tedd közzé a válaszod!',
     PROFILE_SUMMARY: 'Profil összegzése',
     QUOTE: 'Idézés',
     QUOTES: 'Idézések',
@@ -1690,19 +1377,16 @@ const locales = {
     QUOTE_TWEETS: 'Tweet-idézések',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {idéző Tweet} other {idéző Tweet}}',
     RECENT: 'Legutóbbi',
-    RELEVANT: 'Releváns',
     REPOST: 'Újraposztolás',
     REPOSTS: 'Újraposztolások',
     REPOST_COUNT:
       '{formattedCount} {count, plural, one {újraposztolt bejegyzés} other {újraposztolt bejegyzés}}',
-    RETWEETED_BY: 'Retweetelte',
     RETWEETS: 'Retweetek',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {Retweet} other {Retweet}}',
     SHARED: 'Megosztott',
     SHARED_TWEETS: 'Megosztott tweetek',
     SHOW: 'Megjelenítés',
     SHOW_MORE_REPLIES: 'Több válasz megjelenítése',
-    SHOW_POSTS: '{count, plural, one {# bejegyzés} other {# bejegyzés}} megjelenítése',
     SHOW_TWEETS: '{count, plural, one {# Tweet megjelenítése} other {# Tweet megjelenítése}}',
     SORT_BY: 'Rendezési szempont',
     SORT_REPLIES: 'Válaszok rendezése',
@@ -1719,11 +1403,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweeteld válaszodat',
     UNDO_RETWEET: 'Retweet visszavonása',
     UNFOLLOW_USER: '@{screenName} követésének megszüntetése',
-    USER_REPOSTED: '{name} újraposztolta',
     USER_RETWEETED: '{name} Retweetelte',
     VIEW: 'Megtekintés',
-    WHO_CAN_REPLY: 'Ki válaszolhat? {replyPolicy}',
-    YOU_REPOSTED: 'Újraposztoltad',
     YOU_RETWEETED: 'Retweetelted',
   },
   id: {
@@ -1731,9 +1412,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Tambahkan Tweet lain',
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
     AD_FROM: 'Iklan dari {url}',
-    BACK: 'Kembali',
-    CHOOSE_AUDIENCE: 'Pilih audiens: {audience}',
-    DRAFTS: 'Draf',
     FOLLOWING_USER: 'Mengikuti @{screenName}',
     FOLLOW_BACK_USER: 'Ikuti balik @{screenName}',
     FOLLOW_USER: 'Ikuti @{screenName}',
@@ -1742,19 +1420,13 @@ const locales = {
     LIKES: 'Suka',
     LIKE_COUNT: '{formattedCount} {count, plural, other {suka}}',
     LIVE_ON_X: 'Langsung di X',
-    MEDIA_COUNT: '{formattedCount} {count, plural, other {foto & video}}',
     MEDIA_VIEWER: 'Penampil Media',
-    MOST_RELEVANT: 'Paling relevan',
     MUTE_THIS_CONVERSATION: 'Bisukan percakapan ini',
-    NEW_POST: 'Postingan baru',
     NEW_TWEET: 'Tweet Baru',
     POST: 'Posting',
-    POSTS: 'Postingan',
     POST_ALL: 'Posting semua',
-    POST_COUNT: '{formattedCount} {count, plural, other {postingan}}',
     POST_TITLE: '{name} di X: "{text}"',
     POST_UNAVAILABLE: 'Postingan ini tidak tersedia.',
-    POST_YOUR_REPLY: 'Posting balasan Anda',
     PROFILE_SUMMARY: 'Ringkasan Profil',
     QUOTE: 'Kutipan',
     QUOTES: 'Kutipan',
@@ -1763,18 +1435,15 @@ const locales = {
     QUOTE_TWEETS: 'Tweet Kutipan',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {Tweet Kutipan}}',
     RECENT: 'Terkini',
-    RELEVANT: 'Relevan',
     REPOST: 'Posting ulang',
     REPOSTS: 'Posting ulang',
     REPOST_COUNT: '{formattedCount} {count, plural, other {posting ulang}}',
-    RETWEETED_BY: 'Di-retweet oleh',
     RETWEETS: 'Retweet',
     RETWEET_COUNT: '{formattedCount} {count, plural, other {Retweet}}',
     SHARED: 'Dibagikan',
     SHARED_TWEETS: 'Tweet yang Dibagikan',
     SHOW: 'Tampilkan',
     SHOW_MORE_REPLIES: 'Tampilkan balasan lainnya',
-    SHOW_POSTS: 'Tampilkan {count, plural, one {# postingan} other {# postingan}}',
     SHOW_TWEETS: '{count, plural, other {Tampilkan # Tweet}}',
     SORT_BY: 'Urutkan berdasarkan',
     SORT_REPLIES: 'Urutkan balasan',
@@ -1789,11 +1458,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet balasan Anda',
     UNDO_RETWEET: 'Batalkan Retweet',
     UNFOLLOW_USER: 'Setop ikuti @{screenName}',
-    USER_REPOSTED: '{name} memposting ulang',
     USER_RETWEETED: '{name} me-retweet',
     VIEW: 'Penayangan',
-    WHO_CAN_REPLY: 'Siapa yang dapat membalas: {replyPolicy}',
-    YOU_REPOSTED: 'Anda memposting ulang',
     YOU_RETWEETED: 'Anda me-Retweet',
   },
   it: {
@@ -1801,9 +1467,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Aggiungi altro Tweet',
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
     AD_FROM: 'Annuncio da {url}',
-    BACK: 'Indietro',
-    CHOOSE_AUDIENCE: 'Scegli pubblico: {audience}',
-    DRAFTS: 'Bozze',
     FOLLOWING_USER: 'Segui già @{screenName}',
     FOLLOW_BACK_USER: 'Segui @{screenName} anche tu',
     FOLLOW_USER: 'Segui @{screenName}',
@@ -1811,18 +1474,12 @@ const locales = {
     LIKES: 'Mi piace',
     LIKE_COUNT: '{formattedCount} {count, plural, one {Mi piace} many {Mi piace} other {Mi piace}}',
     LIVE_ON_X: 'In diretta su X',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {foto & video} other {foto & video}}',
     MEDIA_VIEWER: 'Visualizzatore multimediale',
-    MOST_RELEVANT: 'Più pertinenti',
     MUTE_THIS_CONVERSATION: 'Silenzia questa conversazione',
-    NEW_POST: 'Nuovo post',
     NEW_TWEET: 'Nuovo Tweet',
-    POSTS: 'Post',
     POST_ALL: 'Posta tutto',
-    POST_COUNT: '{formattedCount} {count, plural, one {post} other {post}}',
     POST_TITLE: '{name} su X: "{text}"',
     POST_UNAVAILABLE: 'Questo post non è disponibile.',
-    POST_YOUR_REPLY: 'Posta la tua risposta',
     PROFILE_SUMMARY: 'Riepilogo del profilo',
     QUOTE: 'Citazione',
     QUOTES: 'Citazioni',
@@ -1832,18 +1489,15 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet di citazione} many {Tweet di citazione} other {Tweet di citazione}}',
     RECENT: 'Recenti',
-    RELEVANT: 'Pertinenza',
     REPOSTS: 'Repost',
     REPOST_COUNT: '{formattedCount} {count, plural, one {repost} other {repost}}',
     RETWEET: 'Ritwitta',
-    RETWEETED_BY: 'Ritwittato da',
     RETWEETS: 'Retweet',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {Retweet} many {Retweet} other {Retweet}}',
     SHARED: 'Condiviso',
     SHARED_TWEETS: 'Tweet condivisi',
     SHOW: 'Mostra',
     SHOW_MORE_REPLIES: 'Mostra altre risposte',
-    SHOW_POSTS: 'Mostra {count, plural, one {# post} other {# post}}',
     SHOW_TWEETS:
       '{count, plural, one {Mostra # Tweet} many {Mostra # Tweet} other {Mostra # Tweet}}',
     SORT_BY: 'Ordina per',
@@ -1860,11 +1514,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Twitta la tua risposta',
     UNDO_RETWEET: 'Annulla Retweet',
     UNFOLLOW_USER: 'Smetti di seguire @{screenName}',
-    USER_REPOSTED: 'Ripostato da {name}',
     USER_RETWEETED: 'Ritwittato da {name}',
     VIEW: 'Visualizza',
-    WHO_CAN_REPLY: 'Chi può rispondere: {replyPolicy}',
-    YOU_REPOSTED: 'Repost da parte tua',
     YOU_RETWEETED: 'Hai ritwittato',
   },
   ja: {
@@ -1872,9 +1523,6 @@ const locales = {
     ADD_ANOTHER_TWEET: '別のツイートを追加する',
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
     AD_FROM: '{url} からの広告',
-    BACK: '戻る',
-    CHOOSE_AUDIENCE: 'オーディエンスを選択: {audience}',
-    DRAFTS: '下書き',
     FOLLOWING_USER: '@{screenName}さんをフォローしています',
     FOLLOW_BACK_USER: '@{screenName}さんをフォローバック',
     FOLLOW_USER: '@{screenName}さんをフォロー',
@@ -1883,19 +1531,13 @@ const locales = {
     LIKES: 'いいね',
     LIKE_COUNT: '{formattedCount} {count, plural, other {件のいいね}}',
     LIVE_ON_X: 'Xでライブ放送する',
-    MEDIA_COUNT: '{formattedCount}件の{count, plural, other {写真と動画}}',
     MEDIA_VIEWER: 'メディアビューアー',
-    MOST_RELEVANT: '関連性が高い',
     MUTE_THIS_CONVERSATION: 'この会話をミュート',
-    NEW_POST: '新しいポスト',
     NEW_TWEET: '新しいツイート',
     POST: 'ポスト',
-    POSTS: 'ポスト',
     POST_ALL: 'すべてポスト',
-    POST_COUNT: '{formattedCount}件の{count, plural, other {ポスト}}',
     POST_TITLE: 'Xユーザーの{name}さん: 「{text}」',
     POST_UNAVAILABLE: 'このポストは表示できません。',
-    POST_YOUR_REPLY: '返信をポスト',
     PROFILE_SUMMARY: 'プロフィールの要約',
     QUOTE: '引用',
     QUOTES: '引用',
@@ -1904,19 +1546,16 @@ const locales = {
     QUOTE_TWEETS: '引用ツイート',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {件の引用ツイート}}',
     RECENT: '最新',
-    RELEVANT: '関連性が高い',
     REPOST: 'リポスト',
     REPOSTS: 'リポスト',
     REPOST_COUNT: '{formattedCount}{count, plural, other {件のリポスト}}',
     RETWEET: 'リツイート',
-    RETWEETED_BY: 'リツイートしたユーザー',
     RETWEETS: 'リツイート',
     RETWEET_COUNT: '{formattedCount} {count, plural, other {件のリツイート}}',
     SHARED: '共有',
     SHARED_TWEETS: '共有ツイート',
     SHOW: '表示',
     SHOW_MORE_REPLIES: '返信をさらに表示',
-    SHOW_POSTS: '{count, plural, other {#件のポストを表示}}',
     SHOW_TWEETS: '{count, plural, other {# 件のツイートを表示}}',
     SORT_BY: '並べ替え',
     SORT_REPLIES: '返信を並べ替え',
@@ -1933,11 +1572,8 @@ const locales = {
     TWEET_YOUR_REPLY: '返信をツイート',
     UNDO_RETWEET: 'リツイートを取り消す',
     UNFOLLOW_USER: '@{screenName}さんのフォローを解除',
-    USER_REPOSTED: '{name}さんがリポストしました',
     USER_RETWEETED: '{name}さんがリツイートしました',
     VIEW: '表示',
-    WHO_CAN_REPLY: '返信できるアカウント: {replyPolicy}',
-    YOU_REPOSTED: 'あなたがリポストしました',
     YOU_RETWEETED: 'リツイート済み',
   },
   kn: {
@@ -1945,9 +1581,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'ಮತ್ತೊಂದು ಟ್ವೀಟ್ ಸೇರಿಸಿ',
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
     AD_FROM: '{url} ನಿಂದ ಜಾಹೀರಾತು',
-    BACK: 'ಹಿಂದೆ',
-    CHOOSE_AUDIENCE: 'ಪ್ರೇಕ್ಷಕರನ್ನು ಆಯ್ಕೆ ಮಾಡಿ {audience}',
-    DRAFTS: 'ಕರಡುಗಳು',
     FOLLOWING_USER: '@{screenName} ಅವರನ್ನು ಹಿಂಬಾಲಿಸಲಾಗುತ್ತಿದೆ',
     FOLLOW_BACK_USER: 'ಮತ್ತೆ ಹಿಂಬಾಲಿಸು @{screenName}',
     FOLLOW_USER: '@{screenName} ಅವರನ್ನು ಹಿಂಬಾಲಿಸಿ',
@@ -1956,19 +1589,13 @@ const locales = {
     LIKES: 'ಇಷ್ಟಗಳು',
     LIKE_COUNT: '{formattedCount} {count, plural, one {ಇಷ್ಟ} other {ಇಷ್ಟಗಳು}}',
     LIVE_ON_X: 'X ನಲ್ಲಿ ಲೈವ್',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {ಫೋಟೋ & ವೀಡಿಯೊ} other {ಫೋಟೋ & ವೀಡಿಯೊ}}',
     MEDIA_VIEWER: 'ಮೀಡಿಯಾ ವೀಕ್ಷಕ',
-    MOST_RELEVANT: 'ಅತ್ಯಂತ ಸಂಬಂಧಿತ',
     MUTE_THIS_CONVERSATION: 'ಈ ಸಂವಾದವನ್ನು ಸದ್ದಡಗಿಸಿ',
-    NEW_POST: 'ಹೊಸ ಪೋಸ್ಟ್',
     NEW_TWEET: 'ಹೊಸ ಟ್ವೀಟ್',
     POST: 'ಪೋಸ್ಟ್',
-    POSTS: 'ಪೋಸ್ಟ್‌ಗಳು',
     POST_ALL: 'ಎಲ್ಲವನ್ನೂ ಪೋಸ್ಟ್ ಮಾಡಿ',
-    POST_COUNT: '{formattedCount} {count, plural, one {ಪೋಸ್ಟ್} other {ಪೋಸ್ಟ್}}',
     POST_TITLE: 'X ನಲ್ಲಿ {name}: "{text}"',
     POST_UNAVAILABLE: 'ಈ ಪೋಸ್ಟ್ ಲಭ್ಯವಿಲ್ಲ.',
-    POST_YOUR_REPLY: 'ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಪೋಸ್ಟ್ ಮಾಡಿ',
     PROFILE_SUMMARY: 'ಪ್ರೊಫೈಲ್ ಸಾರಾಂಶ',
     QUOTE: 'ಕೋಟ್‌',
     QUOTES: 'ಉಲ್ಲೇಖಗಳು',
@@ -1977,19 +1604,16 @@ const locales = {
     QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {ಕೋಟ್ ಟ್ವೀಟ್} other {ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು}}',
     RECENT: 'ಇತ್ತೀಚಿನ',
-    RELEVANT: 'ಸಂಬಂಧಿತ',
     REPOST: 'ಮರುಪೋಸ್ಟ್ ಮಾಡಿ',
     REPOSTS: 'ಮರುಪೋಸ್ಟ್‌ಗಳು',
     REPOST_COUNT: '{formattedCount} {count, plural, one {ರೀಪೋಸ್ಟ್} other {ರೀಪೋಸ್ಟ್‌ಗಳು}}',
     RETWEET: 'ಮರುಟ್ವೀಟಿಸಿ',
-    RETWEETED_BY: 'ಮರುಟ್ವೀಟಿಸಿದವರು',
     RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳು',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {ಮರುಟ್ವೀಟಿಸಿ} other {ಮರುಟ್ವೀಟ್‌ಗಳು}}',
     SHARED: 'ಹಂಚಲಾಗಿದೆ',
     SHARED_TWEETS: 'ಹಂಚಿದ ಟ್ವೀಟ್‌ಗಳು',
     SHOW: 'ತೋರಿಸಿ',
     SHOW_MORE_REPLIES: 'ಇನ್ನಷ್ಟು ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ತೋರಿಸಿ',
-    SHOW_POSTS: 'ತೋರಿಸಿ {count, plural, one {# ಪೋಸ್ಟ್} other {# ಪೋಸ್ಟ್‌ಗಳು}}',
     SHOW_TWEETS: '{count, plural, one {ತೋರಿಸಿ # ಟ್ವೀಟ್} other {ತೋರಿಸಿ # ಟ್ವೀಟ್‌ಗಳು}}',
     SORT_BY: 'ಈ ರೀತಿ ಆಯೋಜಿಸಿ',
     SORT_REPLIES: 'ಪ್ರತಿಕ್ರಿಯೆಗಳನ್ನು ಆಯೋಜಿಸಿ',
@@ -2006,11 +1630,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ',
     UNDO_RETWEET: 'ಮರುಟ್ವೀಟಿಸುವುದನ್ನು ರದ್ದುಮಾಡಿ',
     UNFOLLOW_USER: '@{screenName} ಅವರನ್ನು ಹಿಂಬಾಲಿಸದಿರಿ',
-    USER_REPOSTED: '{name} ಅವರು ಮರುಪೋಸ್ಟ್ ಮಾಡಿದ್ದಾರೆ',
     USER_RETWEETED: '{name} ಮರುಟ್ವೀಟಿಸಿದ್ದಾರೆ',
     VIEW: 'ವೀಕ್ಷಿಸಿ',
-    WHO_CAN_REPLY: 'ಯಾರು ಉತ್ತರಿಸಬಹುದು: {replyPolicy}',
-    YOU_REPOSTED: 'ನೀವು ಮರುಪೋಸ್ಟ್ ಮಾಡಿದ್ದೀರಿ',
     YOU_RETWEETED: 'ನೀವು ಮರುಟ್ವೀಟಿಸಿದ್ದೀರಿ',
   },
   ko: {
@@ -2018,9 +1639,6 @@ const locales = {
     ADD_ANOTHER_TWEET: '다른 트윗 추가하기',
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
     AD_FROM: '{url}의 광고',
-    BACK: '돌아가기',
-    CHOOSE_AUDIENCE: '오디언스 선택: {audience}',
-    DRAFTS: '초안',
     FOLLOWING_USER: '@{screenName} 님 팔로우 중',
     FOLLOW_BACK_USER: '@{screenName} 님 맞팔로우하기',
     FOLLOW_USER: '@{screenName} 님 팔로우하기',
@@ -2029,19 +1647,13 @@ const locales = {
     LIKES: '마음에 들어요',
     LIKE_COUNT: '{formattedCount} {count, plural, other {마음에 들어요}}',
     LIVE_ON_X: 'X 생방송',
-    MEDIA_COUNT: '{formattedCount} {count, plural, other {사진 및 동영상}}',
     MEDIA_VIEWER: '미디어 뷰어',
-    MOST_RELEVANT: '관련도 순서',
     MUTE_THIS_CONVERSATION: '이 대화 뮤트하기',
-    NEW_POST: '새 게시물',
     NEW_TWEET: '새 트윗',
     POST: '게시',
-    POSTS: '게시물',
     POST_ALL: '모두 게시하기',
-    POST_COUNT: '{formattedCount} {count, plural, other {게시물}}',
     POST_TITLE: 'X에서 {name} 님: "{text}"',
     POST_UNAVAILABLE: '이 게시물을 볼 수 없습니다.',
-    POST_YOUR_REPLY: '답글 게시하기',
     PROFILE_SUMMARY: '프로필 요약',
     QUOTE: '인용',
     QUOTES: '인용',
@@ -2050,19 +1662,16 @@ const locales = {
     QUOTE_TWEETS: '인용 트윗',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {개의 인용 트윗}}',
     RECENT: '최근',
-    RELEVANT: '관련 있음',
     REPOST: '재게시',
     REPOSTS: '재게시',
     REPOST_COUNT: '{formattedCount} {count, plural, other {재게시물}}',
     RETWEET: '리트윗',
-    RETWEETED_BY: '리트윗함',
     RETWEETS: '리트윗',
     RETWEET_COUNT: '{formattedCount} {count, plural, other {리트윗}}',
     SHARED: '공유된',
     SHARED_TWEETS: '공유 트윗',
     SHOW: '표시',
     SHOW_MORE_REPLIES: '더 많은 답글 보기',
-    SHOW_POSTS: '{count, plural, other {#개 게시물 표시}}',
     SHOW_TWEETS: '{count, plural, other {보기 # 트윗}}',
     SORT_BY: '정렬 기준',
     SORT_REPLIES: '답글 정렬하기',
@@ -2080,11 +1689,8 @@ const locales = {
     TWITTER: '트위터',
     UNDO_RETWEET: '리트윗 취소',
     UNFOLLOW_USER: '@{screenName} 님 언팔로우하기',
-    USER_REPOSTED: '{name} 님이 재게시함',
     USER_RETWEETED: '{name} 님이 리트윗했습니다',
     VIEW: '보기',
-    WHO_CAN_REPLY: '답글 달 수 있는 사람: {replyPolicy}',
-    YOU_REPOSTED: '재게시했습니다',
     YOU_RETWEETED: '내가 리트윗함',
   },
   mr: {
@@ -2092,9 +1698,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'दुसरे ट्विट सामील करा',
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
     AD_FROM: '{url} कडून जाहिरात',
-    BACK: 'मागे',
-    CHOOSE_AUDIENCE: 'आडियन्स निवडा: {audience}',
-    DRAFTS: 'मसुदे',
     FOLLOWING_USER: '@{screenName} यांना फॉलो करत आहे',
     FOLLOW_BACK_USER: 'परत फॉलो करा @{screenName}',
     FOLLOW_USER: '@{screenName} यांना फॉलो करा',
@@ -2103,19 +1706,13 @@ const locales = {
     LIKES: 'पसंती',
     LIKE_COUNT: '{formattedCount} {count, plural, one {पसंती} other {पसंत्या}}',
     LIVE_ON_X: 'X वर लाइव्ह',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {फोटो & व्हिडिओ} other {फोटो & व्हिडिओ}}',
     MEDIA_VIEWER: 'मीडिया व्ह्यूअर',
-    MOST_RELEVANT: 'सर्वात महत्वाचे',
     MUTE_THIS_CONVERSATION: 'ही चर्चा म्यूट करा',
-    NEW_POST: 'नवीन पोस्ट',
     NEW_TWEET: 'नवीन ट्विट',
     POST: 'पोस्ट करा',
-    POSTS: 'पोस्ट',
     POST_ALL: 'सर्व पोस्ट करा',
-    POST_COUNT: '{formattedCount} {count, plural, one {पोस्ट} other {पोस्ट}}',
     POST_TITLE: '{name} X वर: "{text}"',
     POST_UNAVAILABLE: 'हे पोस्ट अनुपलब्ध आहे.',
-    POST_YOUR_REPLY: 'आपले प्रत्युत्तर पोस्ट करा',
     PROFILE_SUMMARY: 'प्रोफाइल सारांश',
     QUOTE: 'भाष्य',
     QUOTES: 'भाष्य',
@@ -2124,19 +1721,16 @@ const locales = {
     QUOTE_TWEETS: 'भाष्य ट्विट्स',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {भाष्य ट्विट} other {भाष्य ट्विट्स}}',
     RECENT: 'अलीकडील',
-    RELEVANT: 'संबंधित आहे',
     REPOST: 'पुन्हा पोस्ट करा',
     REPOSTS: 'रिपोस्ट',
     REPOST_COUNT: '{formattedCount} {count, plural, one {रिपोस्ट} other {रिपोस्ट}}',
     RETWEET: 'पुन्हा ट्विट',
-    RETWEETED_BY: 'यांनी पुन्हा ट्विट केले',
     RETWEETS: 'पुनर्ट्विट्स',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {पुन्हा ट्विट करा} other {पुनर्ट्विट्स}}',
     SHARED: 'सामायिक',
     SHARED_TWEETS: 'सामायिक ट्विट',
     SHOW: 'दाखवा',
     SHOW_MORE_REPLIES: 'अधिक प्रत्युत्तरे दाखवा',
-    SHOW_POSTS: '{count, plural, one {# पोस्ट दाखवा} other {# पोस्ट्स दाखवा}}',
     SHOW_TWEETS: '{count, plural, one {# ट्विट दाखवा} other {# ट्विट्स दाखवा}}',
     SORT_BY: 'यानुसार विभागीत करा',
     SORT_REPLIES: 'प्रत्युत्तरांची क्रमवारी करा',
@@ -2153,11 +1747,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'आपले प्रत्युत्तर ट्विट करा',
     UNDO_RETWEET: 'पुनर्ट्विट पूर्ववत करा',
     UNFOLLOW_USER: '@{screenName} यांना अनफॉलो करा',
-    USER_REPOSTED: '{name} पुन्हा पोस्ट केले',
     USER_RETWEETED: '{name} यांनी पुन्हा ट्विट केले',
     VIEW: 'पहा',
-    WHO_CAN_REPLY: 'कोण उत्तर देऊ शकेल: {replyPolicy}',
-    YOU_REPOSTED: 'आपण पुन्हा पोस्ट केले',
     YOU_RETWEETED: 'आपण पुन्हा ट्विट केले',
   },
   msa: {
@@ -2165,9 +1756,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Tambahkan Tweet lain',
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
     AD_FROM: 'Iklan daripada {url}',
-    BACK: 'Kembali',
-    CHOOSE_AUDIENCE: 'Pilih khalayak: {audience}',
-    DRAFTS: 'Draf',
     FOLLOWING_USER: 'Mengikuti @{screenName}',
     FOLLOW_BACK_USER: 'Ikut kembali @{screenName}',
     FOLLOW_USER: 'Ikut @{screenName}',
@@ -2176,19 +1764,13 @@ const locales = {
     LIKES: 'Suka',
     LIKE_COUNT: '{formattedCount} {count, plural, other {suka}}',
     LIVE_ON_X: 'Secara Langsung di X',
-    MEDIA_COUNT: '{formattedCount} {count, plural, other {foto & video}}',
     MEDIA_VIEWER: 'Penonton Media',
-    MOST_RELEVANT: 'Paling berkaitan',
     MUTE_THIS_CONVERSATION: 'Senyapkan perbualan ini',
-    NEW_POST: 'Siaran baharu',
     NEW_TWEET: 'Tweet Baharu',
     POST: 'Siaran',
-    POSTS: 'Siaran',
     POST_ALL: 'Siarkan semua',
-    POST_COUNT: '{formattedCount} {count, plural, other {siaran}}',
     POST_TITLE: '{name} di X: "{text}"',
     POST_UNAVAILABLE: 'Siaran ini tidak tersedia.',
-    POST_YOUR_REPLY: 'Siarkan balasan anda',
     PROFILE_SUMMARY: 'Ringkasan Profil',
     QUOTE: 'Petikan',
     QUOTES: 'Petikan',
@@ -2197,19 +1779,16 @@ const locales = {
     QUOTE_TWEETS: 'Tweet Petikan',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {Tweet Petikan}}',
     RECENT: 'Terkini',
-    RELEVANT: 'Berkaitan',
     REPOST: 'Siaran semula',
     REPOSTS: 'Siaran semula',
     REPOST_COUNT: '{formattedCount} {count, plural, one {siaran semula} other {siaran semula}}',
     RETWEET: 'Tweet semula',
-    RETWEETED_BY: 'Ditweet semula oleh',
     RETWEETS: 'Tweet semula',
     RETWEET_COUNT: '{formattedCount} {count, plural, other {Tweet semula}}',
     SHARED: 'Dikongsi',
     SHARED_TWEETS: 'Tweet Berkongsi',
     SHOW: 'Tunjukkan',
     SHOW_MORE_REPLIES: 'Tunjukkan lagi balasan',
-    SHOW_POSTS: 'Tunjukkan {count, plural, one {# siaran} other {# siaran}}',
     SHOW_TWEETS: '{count, plural, other {Tunjukkan # Tweet}}',
     SORT_BY: 'Isih Mengikut',
     SORT_REPLIES: 'Isih balasan',
@@ -2224,11 +1803,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet balasan anda',
     UNDO_RETWEET: 'Buat asal Tweet semula',
     UNFOLLOW_USER: 'Nyahikut @{screenName}',
-    USER_REPOSTED: '{name} membuat siaran semula',
     USER_RETWEETED: '{name} Tweet semula',
     VIEW: 'Lihat',
-    WHO_CAN_REPLY: 'Siapa yang boleh membalas: {replyPolicy}',
-    YOU_REPOSTED: 'Anda membuat siaran semula',
     YOU_RETWEETED: 'Anda Mengetweet semula',
   },
   nl: {
@@ -2236,9 +1812,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Nog een Tweet toevoegen',
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
     AD_FROM: 'Advertentie van {url}',
-    BACK: 'Terug',
-    CHOOSE_AUDIENCE: 'Doelgroep kiezen: {audience}',
-    DRAFTS: 'Concepten',
     FOLLOWING_USER: '@{screenName} volgend',
     FOLLOW_BACK_USER: 'Volg @{screenName} terug',
     FOLLOW_USER: '@{screenName} volgen',
@@ -2247,16 +1820,12 @@ const locales = {
     LIKES: 'Vind-ik-leuks',
     LIKE_COUNT: '{formattedCount} {count, plural, one {vind-ik-leuk} other {vind-ik-leuks}}',
     LIVE_ON_X: 'Live op X',
-    MEDIA_COUNT: "{formattedCount} {count, plural, one {foto & video} other {foto's & video's}}",
     MEDIA_VIEWER: 'Mediaweergave',
-    MOST_RELEVANT: 'Meest relevant',
     MUTE_THIS_CONVERSATION: 'Dit gesprek negeren',
-    NEW_POST: 'Nieuwe post',
     NEW_TWEET: 'Nieuwe Tweet',
     POST_ALL: 'Alles plaatsen',
     POST_TITLE: "{name} op X: '{text}'",
     POST_UNAVAILABLE: 'Deze post is niet beschikbaar.',
-    POST_YOUR_REPLY: 'Je antwoord plaatsen',
     PROFILE_SUMMARY: 'Profieloverzicht',
     QUOTE: 'Geciteerd',
     QUOTES: 'Geciteerd',
@@ -2266,12 +1835,10 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Geciteerde Tweet} other {Geciteerde Tweets}}',
     RETWEET: 'Retweeten',
-    RETWEETED_BY: 'Geretweet door',
     SHARED: 'Gedeeld',
     SHARED_TWEETS: 'Gedeelde Tweets',
     SHOW: 'Weergeven',
     SHOW_MORE_REPLIES: 'Meer antwoorden tonen',
-    SHOW_POSTS: 'geef {count, plural, one {# post} other {# posts}} weer',
     SHOW_TWEETS: '{count, plural, one {# Tweet weergeven} other {# Tweets weergeven}}',
     SORT_BY: 'Sorteren op',
     SORT_REPLIES: 'Antwoorden sorteren',
@@ -2285,11 +1852,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet je antwoord',
     UNDO_RETWEET: 'Retweet ongedaan maken',
     UNFOLLOW_USER: '@{screenName} ontvolgen',
-    USER_REPOSTED: '{name} heeft een post opnieuw geplaatst',
     USER_RETWEETED: '{name} heeft geretweet',
     VIEW: 'Bekijken',
-    WHO_CAN_REPLY: 'Wie kan antwoorden: {replyPolicy}',
-    YOU_REPOSTED: 'Je hebt deze post opnieuw geplaatst',
     YOU_RETWEETED: 'Je hebt geretweet',
   },
   no: {
@@ -2297,9 +1861,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Legg til en annen Tweet',
     ADD_MUTED_WORD: 'Legg til skjult ord',
     AD_FROM: 'Annonse fra {url}',
-    BACK: 'Tilbake',
-    CHOOSE_AUDIENCE: 'Velg målgruppe: {audience}',
-    DRAFTS: 'Utkast',
     FOLLOWING_USER: 'Følger @{screenName}',
     FOLLOW_BACK_USER: 'Følg @{screenName} tilbake',
     FOLLOW_USER: 'Følg @{screenName}',
@@ -2308,20 +1869,13 @@ const locales = {
     LIKES: 'Liker',
     LIKE_COUNT: '{formattedCount} {count, plural, one {likerklikk} other {likerklikk}}',
     LIVE_ON_X: 'Direkte på X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {bilder & videoer} other {bilder & videoer}}',
     MEDIA_VIEWER: 'Medievisning',
-    MOST_RELEVANT: 'Mest relevante',
     MUTE_THIS_CONVERSATION: 'Dempe denne samtalen',
-    NEW_POST: 'Nytt innlegg',
     NEW_TWEET: 'Ny Tweet',
     POST: 'Publiser',
-    POSTS: 'Innlegg',
     POST_ALL: 'Publiser alle',
-    POST_COUNT: '{formattedCount} {count, plural, one {innlegg} other {innlegg}}',
     POST_TITLE: '{name} på X: «{text}»',
     POST_UNAVAILABLE: 'Dette innlegget er utilgjengelig.',
-    POST_YOUR_REPLY: 'Publiser svaret ditt',
     PROFILE_SUMMARY: 'Profilsammendrag',
     QUOTE: 'Sitat',
     QUOTES: 'Sitater',
@@ -2334,12 +1888,10 @@ const locales = {
     REPOSTS: 'Republiseringer',
     REPOST_COUNT:
       '{formattedCount} {count, plural, one {republisert innlegg} other {republiserte innlegg}}',
-    RETWEETED_BY: 'Retweetet av',
     SHARED: 'Delt',
     SHARED_TWEETS: 'Delte tweets',
     SHOW: 'Vis',
     SHOW_MORE_REPLIES: 'Vis flere svar',
-    SHOW_POSTS: 'Vis {count, plural, one {# innlegg} other {# innlegg}}',
     SHOW_TWEETS: '{count, plural, one {Vis # Tweet} other {Vis # Tweets}}',
     SORT_BY: 'Sorter etter',
     SORT_REPLIES: 'Sorter svar',
@@ -2353,11 +1905,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet svaret ditt',
     UNDO_RETWEET: 'Angre Retweet',
     UNFOLLOW_USER: 'Avfølg @{screenName}',
-    USER_REPOSTED: '{name} har republisert',
     USER_RETWEETED: '{name} retweetet',
     VIEW: 'Vis',
-    WHO_CAN_REPLY: 'Hvem kan svare: {replyPolicy}',
-    YOU_REPOSTED: 'Du republiserte',
     YOU_RETWEETED: 'Du retweetet',
   },
   pl: {
@@ -2365,9 +1914,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Dodaj kolejnego Tweeta',
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
     AD_FROM: 'Reklama z {url}',
-    BACK: 'Wróć',
-    CHOOSE_AUDIENCE: 'Wskaż odbiorców: {audience}',
-    DRAFTS: 'Szkice',
     FOLLOWING_USER: 'Obserwujesz użytkownika @{screenName}',
     FOLLOW_BACK_USER: 'Również obserwuj @{screenName}',
     FOLLOW_USER: 'Obserwuj @{screenName}',
@@ -2377,21 +1923,13 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, one {polubienie} few {polubienia} many {polubień} other {polubień}}',
     LIVE_ON_X: 'Na żywo w serwisie X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {zdjęcie i film} few {zdjęcia i filmy} many {zdjęć i filmów} other {zdjęcia i filmu}}',
     MEDIA_VIEWER: 'Przeglądarka multimediów',
-    MOST_RELEVANT: 'Najtrafniejsze',
     MUTE_THIS_CONVERSATION: 'Wycisz tę rozmowę',
-    NEW_POST: 'Nowy wpis',
     NEW_TWEET: 'Nowy Tweet',
     POST: 'Wpis',
-    POSTS: 'Wpisy',
     POST_ALL: 'Opublikuj wszystko',
-    POST_COUNT:
-      '{formattedCount} {count, plural, one {wpis} few {wpisy} many {wpisów} other {wpisu}}',
     POST_TITLE: '{name} w serwisie X: „{text}”',
     POST_UNAVAILABLE: 'Ten wpis jest niedostępny.',
-    POST_YOUR_REPLY: 'Opublikuj swoją odpowiedź',
     PROFILE_SUMMARY: 'Podsumowanie profilu',
     QUOTE: 'Cytuj',
     QUOTES: 'Cytaty',
@@ -2402,13 +1940,11 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet z cytatem} few {Tweety z cytatami} many {Tweetów z cytatami} other {Tweetów z cytatami}}',
     RECENT: 'Najnowsze',
-    RELEVANT: 'Trafne',
     REPOST: 'Podaj dalej wpis',
     REPOSTS: 'Wpisy podane dalej',
     REPOST_COUNT:
       '{formattedCount} {count, plural, one {podany dalej wpis} few {podane dalej wpisy} many {podanych dalej wpisów} other {podanych dalej wpisów}}',
     RETWEET: 'Podaj dalej',
-    RETWEETED_BY: 'Podane dalej przez',
     RETWEETS: 'Tweety podane dalej',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet podany dalej} few {Tweety podane dalej} many {Tweetów podanych dalej} other {Tweetów podanych dalej}}',
@@ -2416,7 +1952,6 @@ const locales = {
     SHARED_TWEETS: 'Udostępnione Tweety',
     SHOW: 'Pokaż',
     SHOW_MORE_REPLIES: 'Pokaż więcej odpowiedzi',
-    SHOW_POSTS: 'Pokaż {count, plural, one {# wpis} few {# wpisy} many {# wpisów} other {# wpisu}}',
     SHOW_TWEETS:
       '{count, plural, one {Pokaż # Tweeta} few {Pokaż # Tweety} many {Pokaż # Tweetów} other {Pokaż # Tweetów}}',
     SORT_BY: 'Sortuj według',
@@ -2433,11 +1968,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweeta swoją odpowiedź',
     UNDO_RETWEET: 'Cofnij podanie dalej',
     UNFOLLOW_USER: 'Przestań obserwować użytkownika @{screenName}',
-    USER_REPOSTED: 'Użytkownik {name} podał dalej wpis',
     USER_RETWEETED: '{name} podał/a dalej Tweeta',
     VIEW: 'Wyświetl',
-    WHO_CAN_REPLY: 'Kto może odpowiadać: {replyPolicy}',
-    YOU_REPOSTED: 'Podano dalej',
     YOU_RETWEETED: 'Podałeś/aś dalej',
   },
   pt: {
@@ -2445,9 +1977,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Adicionar outro Tweet',
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
     AD_FROM: 'Anúncio de {url}',
-    BACK: 'Voltar',
-    CHOOSE_AUDIENCE: 'Selecione o público: {audience}',
-    DRAFTS: 'Rascunhos',
     FOLLOWING_USER: 'Seguindo @{screenName}',
     FOLLOW_BACK_USER: 'Seguir de volta @{screenName}',
     FOLLOW_USER: 'Seguir @{screenName}',
@@ -2456,17 +1985,13 @@ const locales = {
     LIKES: 'Curtidas',
     LIKE_COUNT: '{formattedCount} {count, plural, one {curtida} many {curtidas} other {curtidas}}',
     LIVE_ON_X: 'Ao vivo no X',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {fotos & vídeos} other {fotos & vídeos}}',
     MEDIA_VIEWER: 'Visualizador de mídia',
-    MOST_RELEVANT: 'Mais relevante',
     MUTE_THIS_CONVERSATION: 'Silenciar esta conversa',
-    NEW_POST: 'Novo post',
     NEW_TWEET: 'Novo Tweet',
     POST: 'Postar',
     POST_ALL: 'Postar tudo',
     POST_TITLE: '{name} no X: "{text}"',
     POST_UNAVAILABLE: 'Este post está indisponível.',
-    POST_YOUR_REPLY: 'Postar sua resposta',
     PROFILE_SUMMARY: 'Resumo do perfil',
     QUOTE: 'Comentar',
     QUOTES: 'Comentários',
@@ -2476,17 +2001,14 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet com comentário} many {Tweets com comentário} other {Tweets com comentário}}',
     RECENT: 'Recente',
-    RELEVANT: 'Relevante',
     REPOST: 'Repostar',
     RETWEET: 'Retweetar',
-    RETWEETED_BY: 'Retweetado por',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {Retweet} many {Retweets} other {Retweets}}',
     SHARED: 'Compartilhado',
     SHARED_TWEETS: 'Tweets Compartilhados',
     SHOW: 'Mostrar',
     SHOW_MORE_REPLIES: 'Mostrar mais respostas',
-    SHOW_POSTS: 'Mostrar {count, plural, one {# post} other {# posts}}',
     SHOW_TWEETS:
       '{count, plural, one {Mostrar # Tweet} many {Mostrar # Tweets} other {Mostrar # Tweets}}',
     SORT_BY: 'Classificar por',
@@ -2502,11 +2024,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetar sua resposta',
     UNDO_RETWEET: 'Desfazer Retweet',
     UNFOLLOW_USER: 'Deixar de seguir @{screenName}',
-    USER_REPOSTED: '{name} repostado',
     USER_RETWEETED: '{name} Retweetou',
     VIEW: 'Ver',
-    WHO_CAN_REPLY: 'Quem pode responder: {replyPolicy}',
-    YOU_REPOSTED: 'Você repostou',
     YOU_RETWEETED: 'Você retweetou',
   },
   ro: {
@@ -2514,9 +2033,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Adaugă alt Tweet',
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
     AD_FROM: 'Reclamă de la {url}',
-    BACK: 'Înapoi',
-    CHOOSE_AUDIENCE: 'Alege publicul: {audience}',
-    DRAFTS: 'Schițe',
     FOLLOWING_USER: 'Urmărite de @{screenName}',
     FOLLOW_BACK_USER: 'Urmărește-l la rândul tău pe @{screenName}',
     FOLLOW_USER: 'Urmărește pe @{screenName}',
@@ -2526,20 +2042,13 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, one {apreciere} few {aprecieri} other {de aprecieri}}',
     LIVE_ON_X: 'În direct pe X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {fotografii și videoclipuri} few {fotografii și videoclipuri} other {fotografii și videoclipuri}}',
     MEDIA_VIEWER: 'Vizualizator media',
-    MOST_RELEVANT: 'Cele mai relevante',
     MUTE_THIS_CONVERSATION: 'Ignoră această conversație',
-    NEW_POST: 'Postare nouă',
     NEW_TWEET: 'Tweet nou',
     POST: 'Postează',
-    POSTS: 'Postări',
     POST_ALL: 'Postează tot',
-    POST_COUNT: '{formattedCount} {count, plural, one {postare} few {postări} other {postări}}',
     POST_TITLE: '{name} pe X: „{text}”',
     POST_UNAVAILABLE: 'Această postare este indisponibilă.',
-    POST_YOUR_REPLY: 'Postează-ți răspunsul',
     PROFILE_SUMMARY: 'Sumarul profilului',
     QUOTE: 'Citat',
     QUOTES: 'Citate',
@@ -2549,13 +2058,11 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet cu citat} few {(de) Tweeturi cu citat} other {(de) Tweeturi cu citat}}',
     RECENT: 'Recente',
-    RELEVANT: 'Relevante',
     REPOST: 'Repostează',
     REPOSTS: 'Repostări',
     REPOST_COUNT:
       '{formattedCount} {count, plural, one {repostare} few {repostări} other {de repostări}}',
     RETWEET: 'Redistribuie',
-    RETWEETED_BY: 'Redistribuit de către',
     RETWEETS: 'Retweeturi',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {Retweet} few {Retweeturi} other {de Retweeturi}}',
@@ -2563,7 +2070,6 @@ const locales = {
     SHARED_TWEETS: 'Tweeturi partajate',
     SHOW: 'Afișează',
     SHOW_MORE_REPLIES: 'Afișează mai multe răspunsuri',
-    SHOW_POSTS: 'Afișează {count, plural, one {# postare} few {# postări} other {# de postări}}',
     SHOW_TWEETS:
       '{count, plural, one {Afișează # Dă Tweet} few {Afișează # Tweeturi} other {Afișează # Tweeturi}}',
     SORT_BY: 'Sortează după',
@@ -2580,11 +2086,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Dă Tweet cu răspunsul',
     UNDO_RETWEET: 'Anulează Retweetul',
     UNFOLLOW_USER: 'Anulează urmărirea utilizatorului @{screenName}',
-    USER_REPOSTED: '{name} a repostat',
     USER_RETWEETED: '{name} a redistribuit',
     VIEW: 'Vezi',
-    WHO_CAN_REPLY: 'Cine poate răspunde: {replyPolicy}',
-    YOU_REPOSTED: 'Ai repostat',
     YOU_RETWEETED: 'Ai redistribuit',
   },
   ru: {
@@ -2592,9 +2095,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Добавить еще один твит',
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
     AD_FROM: 'Реклама от {url}',
-    BACK: 'Назад',
-    CHOOSE_AUDIENCE: 'Выберите аудиторию: {audience}',
-    DRAFTS: 'Черновики',
     FOLLOWING_USER: 'Вы читаете @{screenName}',
     FOLLOW_BACK_USER: 'Подписаться в ответ на @{screenName}',
     FOLLOW_USER: 'Начать читать @{screenName}',
@@ -2604,21 +2104,13 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, one {отметка «Нравится»} few {отметки «Нравится»} many {отметок «Нравится»} other {отметки «Нравится»}}',
     LIVE_ON_X: 'Прямой эфир в X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {фото и видео} few {фото и видео} many {фото и видео} other {фото и видео}}',
     MEDIA_VIEWER: 'Окно просмотра медиафайлов',
-    MOST_RELEVANT: 'Наиболее актуальные',
     MUTE_THIS_CONVERSATION: 'Игнорировать эту переписку',
-    NEW_POST: 'Новый пост',
     NEW_TWEET: 'Новый твит',
     POST: 'Опубликовать пост',
-    POSTS: 'Посты',
     POST_ALL: 'Опубликовать все',
-    POST_COUNT:
-      '{formattedCount} {count, plural, one {публикация} few {публикации} many {публикаций} other {публикации}}',
     POST_TITLE: '{name} в X: «{text}»',
     POST_UNAVAILABLE: 'Этот пост недоступен.',
-    POST_YOUR_REPLY: 'Опубликовать ответ',
     PROFILE_SUMMARY: 'Сводка профиля',
     QUOTE: 'Цитата',
     QUOTES: 'Цитаты',
@@ -2629,13 +2121,11 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Твит с цитатой} few {Твита с цитатами} many {Твитов с цитатами} other {Твита с цитатами}}',
     RECENT: 'Последние',
-    RELEVANT: 'Актуально',
     REPOST: 'Сделать репост',
     REPOSTS: 'Репосты',
     REPOST_COUNT:
       '{formattedCount} {count, plural, one {репост} few {репоста} many {репостов} other {репостов}}',
     RETWEET: 'Ретвитнуть',
-    RETWEETED_BY: 'Ретвитнул(а)',
     RETWEETS: 'Ретвиты',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {ретвит} few {ретвита} many {ретвитов} other {ретвита}}',
@@ -2643,8 +2133,6 @@ const locales = {
     SHARED_TWEETS: 'Общие твиты',
     SHOW: 'Показать',
     SHOW_MORE_REPLIES: 'Показать ещё ответы',
-    SHOW_POSTS:
-      'Показать {count, plural, one {# пост} few {# поста} many {# постов} other {# поста}}',
     SHOW_TWEETS:
       '{count, plural, one {Показать # твит} few {Показать # твита} many {Показать # твитов} other {Показать # твита}}',
     SORT_BY: 'Сортировать по',
@@ -2664,11 +2152,8 @@ const locales = {
     TWITTER: 'Твиттер',
     UNDO_RETWEET: 'Отменить ретвит',
     UNFOLLOW_USER: 'Перестать читать @{screenName}',
-    USER_REPOSTED: 'Пользователь {name} сделал репост',
     USER_RETWEETED: '{name} ретвитнул(а)',
     VIEW: 'Посмотреть',
-    WHO_CAN_REPLY: 'Кто может отвечать: {replyPolicy}',
-    YOU_REPOSTED: 'Вы сделали репост',
     YOU_RETWEETED: 'Вы ретвитнули',
   },
   sk: {
@@ -2676,9 +2161,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Pridať ďalší Tweet',
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
     AD_FROM: 'Reklama od {url}',
-    BACK: 'Späť',
-    CHOOSE_AUDIENCE: 'Vyberte publikum: {audience}',
-    DRAFTS: 'Koncepty',
     FOLLOWING_USER: 'Sleduje sa používateľ @{screenName}',
     FOLLOW_BACK_USER: 'Sledovať späť @{screenName}',
     FOLLOW_USER: 'Sledovať používateľa @{screenName}',
@@ -2688,21 +2170,13 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, one {označenie Páči sa} few {označenia Páči sa} many {označenia Páči sa} other {označení Páči sa}}',
     LIVE_ON_X: 'Naživo na X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {fotka a video} few {fotky a videá} many {fotky a videa} other {fotiek a videí}}',
     MEDIA_VIEWER: 'Prehliadač médií',
-    MOST_RELEVANT: 'Najrelevantnejšie',
     MUTE_THIS_CONVERSATION: 'Stíšiť túto konverzáciu',
-    NEW_POST: 'Nový príspevok',
     NEW_TWEET: 'Nový Tweet',
     POST: 'Uverejniť',
-    POSTS: 'Príspevky',
     POST_ALL: 'Uverejniť všetko',
-    POST_COUNT:
-      '{formattedCount} {count, plural, one {nový príspevok} few {príspevky} many {príspevku} other {príspevku}}',
     POST_TITLE: '{name} v službe X: „{text}“',
     POST_UNAVAILABLE: 'Tento príspevok je nedostupný.',
-    POST_YOUR_REPLY: 'Uverejnite svoju odpoveď',
     PROFILE_SUMMARY: 'Súhrn profilu',
     QUOTE: 'Citát',
     QUOTES: 'Citáty',
@@ -2713,13 +2187,11 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet s citátom} few {Tweety s citátom} many {Tweetu s citátom} other {Tweetov s citátom}}',
     RECENT: 'Nedávne',
-    RELEVANT: 'Relevantné',
     REPOST: 'Repostnúť',
     REPOSTS: 'reposty',
     REPOST_COUNT:
       '{formattedCount} {count, plural, one {repost} few {reposty} many {repostov} other {repostov}}',
     RETWEET: 'Retweetnuť',
-    RETWEETED_BY: 'Retweetnuté používateľom',
     RETWEETS: 'Retweety',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {retweet} few {retweety} many {retweetu} other {retweetov}}',
@@ -2727,8 +2199,6 @@ const locales = {
     SHARED_TWEETS: 'Zdieľané Tweety',
     SHOW: 'Zobraziť',
     SHOW_MORE_REPLIES: 'Zobraziť viac odpovedí',
-    SHOW_POSTS:
-      'Zobraziť {count, plural, one {# príspevok} few {# príspevky} many {# príspevkov} other {# príspevkov}}',
     SHOW_TWEETS:
       '{count, plural, one {Zobraziť # Tweet} few {Zobraziť # Tweety} many {Zobraziť # Tweetu} other {Zobraziť # Tweetov}}',
     SORT_BY: 'Spôsob zoradenia',
@@ -2746,11 +2216,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetnite odpoveď',
     UNDO_RETWEET: 'Zrušiť retweet',
     UNFOLLOW_USER: 'Nesledovať používateľa @{screenName}',
-    USER_REPOSTED: 'Opätovne uverejnil/a {name}',
     USER_RETWEETED: 'Retweetol používateľ {name}',
     VIEW: 'Zobraziť',
-    WHO_CAN_REPLY: 'Kto môže odpovedať: {replyPolicy}',
-    YOU_REPOSTED: 'Repostli ste',
     YOU_RETWEETED: 'Retweetli ste',
   },
   sr: {
@@ -2758,9 +2225,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Додај још један твит',
     ADD_MUTED_WORD: 'Додај игнорисану реч',
     AD_FROM: 'Оглас од {url}',
-    BACK: 'Назад',
-    CHOOSE_AUDIENCE: 'Одабери публику: {audience}',
-    DRAFTS: 'Нацрти',
     FOLLOWING_USER: 'Пратиш корисника @{screenName}',
     FOLLOW_BACK_USER: 'Прати назад @{screenName}',
     FOLLOW_USER: 'Прати корисника @{screenName}',
@@ -2769,20 +2233,13 @@ const locales = {
     LIKES: 'Свиђања',
     LIKE_COUNT: '{formattedCount} {count, plural, one {свиђање} few {свиђања} other {свиђања}}',
     LIVE_ON_X: 'Уживо на мрежи X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {фотографије & видео} few {фотографије & видео} other {фотографије & видео}}',
     MEDIA_VIEWER: 'Прегледач медија',
-    MOST_RELEVANT: 'Најважније',
     MUTE_THIS_CONVERSATION: 'Игнориши овај разговор',
-    NEW_POST: 'Нова објава',
     NEW_TWEET: 'Нови твит',
     POST: 'Објава',
-    POSTS: 'Објаве',
     POST_ALL: 'Објави све',
-    POST_COUNT: '{formattedCount} {count, plural, one {објава} few {објаве} other {објава}}',
     POST_TITLE: '{name} на мрежи X: „{text}“',
     POST_UNAVAILABLE: 'Ова објава није доступна.',
-    POST_YOUR_REPLY: 'Објави свој одговор',
     PROFILE_SUMMARY: 'Резиме профила',
     QUOTE: 'Цитат',
     QUOTES: 'Цитати',
@@ -2792,20 +2249,17 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Твит са цитатом} few {Твита са цитатом} other {Твитова са цитатом}}',
     RECENT: 'Недавни',
-    RELEVANT: 'Релевантно',
     REPOST: 'Поново објави',
     REPOSTS: 'Понвне објаве',
     REPOST_COUNT:
       '{formattedCount} {count, plural, one {поновна објава} few {поновне објаве} other {поновних објава}}',
     RETWEET: 'Ретвитуј',
-    RETWEETED_BY: 'Ретвитовано од стране',
     RETWEETS: 'Ретвитови',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {ретвит} few {ретвита} other {ретвитова}}',
     SHARED: 'Подељено',
     SHARED_TWEETS: 'Дељени твитови',
     SHOW: 'Прикажи',
     SHOW_MORE_REPLIES: 'Прикажи још одговора',
-    SHOW_POSTS: 'Прикажи {count, plural, one {# објаву} few {# објаве} other {# објава}}',
     SHOW_TWEETS:
       '{count, plural, one {Прикажи # твит} few {Прикажи # твита} other {Прикажи # твитова}}',
     SORT_BY: 'Сортирај по',
@@ -2824,11 +2278,8 @@ const locales = {
     TWITTER: 'Твитер',
     UNDO_RETWEET: 'Опозови ретвит',
     UNFOLLOW_USER: 'Не прати корисника @{screenName}',
-    USER_REPOSTED: 'Корисник {name} је поново објавио',
     USER_RETWEETED: '{name} је ретвитовао/ла',
     VIEW: 'Погледај',
-    WHO_CAN_REPLY: 'Ко може да одговара: {replyPolicy}',
-    YOU_REPOSTED: 'Твоје поновне објаве',
     YOU_RETWEETED: 'Ретвитовао/ла си',
   },
   sv: {
@@ -2836,9 +2287,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Lägg till en Tweet till',
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
     AD_FROM: 'Annons från {url}',
-    BACK: 'Tillbaka',
-    CHOOSE_AUDIENCE: 'Välj målgrupp: {audience}',
-    DRAFTS: 'Utkast',
     FOLLOWING_USER: 'Följer @{screenName}',
     FOLLOW_BACK_USER: 'Följ du också @{screenName}',
     FOLLOW_USER: 'Följ @{screenName}',
@@ -2847,19 +2295,13 @@ const locales = {
     LIKES: 'Gilla-markeringar',
     LIKE_COUNT: '{formattedCount} {count, plural, one {gilla-markering} other {gilla-markeringar}}',
     LIVE_ON_X: 'Live på X',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {foton & videor} other {foton & videor}}',
     MEDIA_VIEWER: 'Medievisare',
-    MOST_RELEVANT: 'Mest relevant',
     MUTE_THIS_CONVERSATION: 'Ignorera den här konversationen',
-    NEW_POST: 'Nytt inlägg',
     NEW_TWEET: 'Ny Tweet',
     POST: 'Lägg upp',
-    POSTS: 'Inlägg',
     POST_ALL: 'Lägg upp allt',
-    POST_COUNT: '{formattedCount} {count, plural, one {inlägg} other {inlägg}}',
     POST_TITLE: '{name} på X: {text}',
     POST_UNAVAILABLE: 'Detta inlägg är inte tillgängligt.',
-    POST_YOUR_REPLY: 'Lägg upp ditt svar',
     PROFILE_SUMMARY: 'Profilöversikt',
     QUOTE: 'Citat',
     QUOTES: 'Citat',
@@ -2873,12 +2315,10 @@ const locales = {
     REPOST_COUNT:
       '{formattedCount} {count, plural, one {återpublicering} other {återpubliceringar}}',
     RETWEET: 'Retweeta',
-    RETWEETED_BY: 'Retweetad av',
     SHARED: 'Delad',
     SHARED_TWEETS: 'Delade tweetsen',
     SHOW: 'Visa',
     SHOW_MORE_REPLIES: 'Visa fler svar',
-    SHOW_POSTS: 'Visa {count, plural, one {# inlägg} other {# inlägg}}',
     SHOW_TWEETS: '{count, plural, one {Visa # Tweet} other {Visa # Tweets}}',
     SORT_BY: 'Sortera efter',
     SORT_REPLIES: 'Sortera svar',
@@ -2892,11 +2332,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweeta ditt svar',
     UNDO_RETWEET: 'Ångra retweeten',
     UNFOLLOW_USER: 'Avfölj @{screenName}',
-    USER_REPOSTED: '{name} återpublicerade',
     USER_RETWEETED: '{name} retweetade',
     VIEW: 'Visa',
-    WHO_CAN_REPLY: 'Dessa får svara: {replyPolicy}',
-    YOU_REPOSTED: 'Du återpublicerade',
     YOU_RETWEETED: 'Du Retweetade',
   },
   ta: {
@@ -2904,9 +2341,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'வேறொரு கீச்சைச் சேர்',
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
     AD_FROM: '{url} இலிருந்து விளம்பரம்',
-    BACK: 'பின்செல்',
-    CHOOSE_AUDIENCE: 'ஆசிரியரை தேர்ந்தெடுக: {audience}',
-    DRAFTS: 'வரைவுகள்',
     FOLLOWING_USER: 'பின்வருபவை @{screenName}',
     FOLLOW_BACK_USER: '@{screenName}ஐ மீண்டும் பின்தொடரவும்',
     FOLLOW_USER: '@{screenName}-ஐப் பின்தொடர்',
@@ -2915,20 +2349,13 @@ const locales = {
     LIKES: 'விருப்பங்கள்',
     LIKE_COUNT: '{formattedCount} {count, plural, one {விருப்பம்} other {விருப்பங்கள்}}',
     LIVE_ON_X: 'X -இல் நேரலை',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {புகைப்படங்கள் & வீடியோக்கள்} other {புகைப்படங்கள் & வீடியோக்கள்}}',
     MEDIA_VIEWER: 'மீடியா பார்வையாளர்',
-    MOST_RELEVANT: 'மிகவும் தொடர்புடையவை',
     MUTE_THIS_CONVERSATION: 'இந்த உரையாடலை செயல்மறை',
-    NEW_POST: 'புதிய இடுகை',
     NEW_TWEET: 'புதிய கீச்சு',
     POST: 'இடுகை',
-    POSTS: 'இடுகைகள்',
     POST_ALL: 'எல்லாம் இடுகையிடு',
-    POST_COUNT: '{formattedCount} {count, plural, one {பதிவு} other {பதிவுகள்}}',
     POST_TITLE: 'X இல் {name}: "{text}"',
     POST_UNAVAILABLE: 'இந்த இடுகை கிடைக்கவில்லை.',
-    POST_YOUR_REPLY: 'உங்கள் பதிலை இடுகையிடவும்',
     PROFILE_SUMMARY: 'சுயவிவரச் சுருக்கம்',
     QUOTE: 'மேற்கோள்',
     QUOTES: 'மேற்கோள்கள்',
@@ -2937,19 +2364,16 @@ const locales = {
     QUOTE_TWEETS: 'மேற்கோள் கீச்சுகள்',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {மேற்கோள் கீச்சு} other {மேற்கோள் கீச்சுகள்}}',
     RECENT: 'சமீபத்தியவை',
-    RELEVANT: 'பொருத்தமானதாக உள்ளது',
     REPOST: 'மறுஇடுகை',
     REPOSTS: 'மறுஇடுகைகள்',
     REPOST_COUNT: '{formattedCount} {count, plural, one {மறுஇடுகை} other {மறுஇடுகைகள்}}',
     RETWEET: 'மறுட்விட் செய்',
-    RETWEETED_BY: 'இவரால் மறுட்விட் செய்யப்பட்டது',
     RETWEETS: 'மறுகீச்சுகள்',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {மறுகீச்சு} other {மறுகீச்சுகள்}}',
     SHARED: 'பகிரப்பட்டது',
     SHARED_TWEETS: 'பகிரப்பட்ட ட்வீட்டுகள்',
     SHOW: 'காண்பி',
     SHOW_MORE_REPLIES: 'மேலும் பதில்களைக் காண்பி',
-    SHOW_POSTS: '{count, plural, one {# பதிவை காட்டு} other {# பதிவுகளைக் காட்டு}}',
     SHOW_TWEETS: '{count, plural, one {# கீச்சு-ஐக் காண்பி} other {# கீச்சுகள்-ஐக் காண்பி}}',
     SORT_BY: 'இதன்படி வரிசைப்படுத்து:',
     SORT_REPLIES: 'பதில்களை வகைப்படுத்து',
@@ -2966,11 +2390,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'உங்கள் பதிலை ட்விட் செய்யவும்',
     UNDO_RETWEET: 'மறுகீச்சை செயல்தவிர்',
     UNFOLLOW_USER: '@{screenName} -ஐப் பின்தொடராதே',
-    USER_REPOSTED: '{name} மறுஇடுகையிட்டார்',
     USER_RETWEETED: '{name} மறுட்வீட் செய்துள்ளார்',
     VIEW: 'காண்பி',
-    WHO_CAN_REPLY: 'யார் பதில் சொல்லலாம்:{replyPolicy}',
-    YOU_REPOSTED: 'நீங்கள் மறுஇடுகையிட்டீர்',
     YOU_RETWEETED: 'நீங்கள் மறுட்விட் செய்தது',
   },
   th: {
@@ -2978,9 +2399,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'เพิ่มอีกทวีต',
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
     AD_FROM: 'โฆษณาจาก {url}',
-    BACK: 'กลับ',
-    CHOOSE_AUDIENCE: 'เลือกกลุ่มเป้าหมาย: {audience}',
-    DRAFTS: 'แบบร่าง',
     FOLLOWING_USER: 'กําลังติดตาม @{screenName}',
     FOLLOW_BACK_USER: 'ติดตาม @{screenName} กลับ',
     FOLLOW_USER: 'ติดตาม @{screenName}',
@@ -2989,19 +2407,13 @@ const locales = {
     LIKES: 'ความชอบ',
     LIKE_COUNT: '{formattedCount} {count, plural, other {ความชอบ}}',
     LIVE_ON_X: 'ถ่ายทอดสดบน X',
-    MEDIA_COUNT: '{formattedCount} {count, plural, one {รูปภาพ & วิดีโอ} other {รูปภาพ & วิดีโอ}}',
     MEDIA_VIEWER: 'ตัวแสดงสื่อ',
-    MOST_RELEVANT: 'เกี่ยวข้องที่สุด',
     MUTE_THIS_CONVERSATION: 'ซ่อนบทสนทนานี้',
-    NEW_POST: 'โพสต์ใหม่',
     NEW_TWEET: 'ทวีตใหม่',
     POST: 'โพสต์',
-    POSTS: 'โพสต์',
     POST_ALL: 'โพสต์ทั้งหมด',
-    POST_COUNT: '{formattedCount} {count, plural, one {โพสต์} other {โพสต์}}',
     POST_TITLE: '{name} บน X: "{text}"',
     POST_UNAVAILABLE: 'โพสต์นี้ไม่สามารถใช้งานได้',
-    POST_YOUR_REPLY: 'โพสต์การตอบกลับของคุณ',
     PROFILE_SUMMARY: 'ข้อมูลส่วนตัวโดยย่อ',
     QUOTE: 'การอ้างอิง',
     QUOTES: 'คำพูด',
@@ -3010,19 +2422,16 @@ const locales = {
     QUOTE_TWEETS: 'ทวีตอ้างอิง',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {ทวีตอ้างอิง}}',
     RECENT: 'ล่าสุด',
-    RELEVANT: 'เกี่ยวข้อง',
     REPOST: 'รีโพสต์',
     REPOSTS: 'รีโพสต์',
     REPOST_COUNT: '{formattedCount} {count, plural, one {รีโพสต์} other {รีโพสต์}}',
     RETWEET: 'รีทวีต',
-    RETWEETED_BY: 'ถูกรีทวีตโดย',
     RETWEETS: 'รีทวีต',
     RETWEET_COUNT: '{formattedCount} {count, plural, other {รีทวีต}}',
     SHARED: 'แบ่งปัน',
     SHARED_TWEETS: 'ทวีตที่แชร์',
     SHOW: 'แสดง',
     SHOW_MORE_REPLIES: 'แสดงการตอบกลับเพิ่มเติม',
-    SHOW_POSTS: 'แสดง {count, plural, other {# โพสต์}}',
     SHOW_TWEETS: '{count, plural, other {แสดง # ทวีต}}',
     SORT_BY: 'เรียงตาม',
     SORT_REPLIES: 'จัดเรียงการตอบกลับ',
@@ -3040,11 +2449,8 @@ const locales = {
     TWITTER: 'ทวิตเตอร์',
     UNDO_RETWEET: 'ยกเลิกการรีทวีต',
     UNFOLLOW_USER: 'เลิกติดตาม @{screenName}',
-    USER_REPOSTED: '{name} รีโพสต์แล้ว',
     USER_RETWEETED: '{name} ได้รีทวีต',
     VIEW: 'ดู',
-    WHO_CAN_REPLY: 'ใครสามารถตอบกลับได้: {replyPolicy}',
-    YOU_REPOSTED: 'คุณรีโพสต์แล้ว',
     YOU_RETWEETED: 'คุณรีทวีต',
   },
   tr: {
@@ -3052,9 +2458,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Başka bir Tweet ekle',
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
     AD_FROM: '{url} adresinden reklam',
-    BACK: 'Geri',
-    CHOOSE_AUDIENCE: 'Hedef kitle seç: {audience}',
-    DRAFTS: 'Taslaklar',
     FOLLOWING_USER: '@{screenName} adlı kullanıcı takip ediliyor',
     FOLLOW_BACK_USER: '@{screenName} geri takip et',
     FOLLOW_USER: '@{screenName} adlı kişiyi takip et',
@@ -3063,20 +2466,13 @@ const locales = {
     LIKES: 'Beğeni',
     LIKE_COUNT: '{formattedCount} {count, plural, one {beğeni} other {beğeni}}',
     LIVE_ON_X: "X'te Canlı",
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {fotoğraf ve video} other {fotoğraf ve video}}',
     MEDIA_VIEWER: 'Medya Görüntüleyici',
-    MOST_RELEVANT: 'En alakalı',
     MUTE_THIS_CONVERSATION: 'Bu sohbeti sessize al',
-    NEW_POST: 'Yeni gönderi',
     NEW_TWEET: 'Yeni Tweet',
     POST: 'Gönderi',
-    POSTS: 'Gönderiler',
     POST_ALL: 'Tümünü gönder',
-    POST_COUNT: '{formattedCount} {count, plural, one {gönderi} other {gönderi}}',
     POST_TITLE: 'X\'te {name}: "{text}"',
     POST_UNAVAILABLE: 'Bu gönderi kullanılamıyor.',
-    POST_YOUR_REPLY: 'Yanıtını gönder',
     PROFILE_SUMMARY: 'Profil Özeti',
     QUOTE: 'Alıntı',
     QUOTES: 'Alıntılar',
@@ -3085,19 +2481,16 @@ const locales = {
     QUOTE_TWEETS: 'Alıntı Tweetler',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {Alıntı Tweet} other {Alıntı Tweet}}',
     RECENT: 'En yeni',
-    RELEVANT: 'Alakalı',
     REPOST: 'Yeniden gönder',
     REPOSTS: 'Yeniden gönderiler',
     REPOST_COUNT:
       '{formattedCount} {count, plural, one {yeniden paylaşım} other {yeniden paylaşım}}',
-    RETWEETED_BY: 'Retweetleyen(ler):',
     RETWEETS: 'Retweetler',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {Retweet} other {Retweet}}',
     SHARED: 'Paylaşılan',
     SHARED_TWEETS: 'Paylaşılan Tweetler',
     SHOW: 'Göster',
     SHOW_MORE_REPLIES: 'Daha fazla yanıt göster',
-    SHOW_POSTS: '{count, plural, one {# gönderiyi göster} other {# gönderiyi göster}}',
     SHOW_TWEETS: '{count, plural, one {Göster # Tweet} other {Göster # Tweet}}',
     SORT_BY: 'Şuna göre sırala:',
     SORT_REPLIES: 'Yanıtları sırala',
@@ -3113,11 +2506,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Yanıtını Tweetle',
     UNDO_RETWEET: 'Retweeti Geri Al',
     UNFOLLOW_USER: '@{screenName} adlı kullanıcıyı takibi bırak',
-    USER_REPOSTED: '{name} yeniden gönderdi',
     USER_RETWEETED: '{name} Retweetledi',
     VIEW: 'Görüntüle',
-    WHO_CAN_REPLY: 'Kimler yanıtlayabilir: {replyPolicy}',
-    YOU_REPOSTED: 'Yeniden gönderi yayınladın',
     YOU_RETWEETED: 'Retweetledin',
   },
   uk: {
@@ -3125,9 +2515,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Додати ще один твіт',
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
     AD_FROM: 'Реклама від {url}',
-    BACK: 'Назад',
-    CHOOSE_AUDIENCE: 'Виберіть аудиторію: {audience}',
-    DRAFTS: 'Чернетки',
     FOLLOWING_USER: 'Ви читаєте @{screenName}',
     FOLLOW_BACK_USER: 'Читати у відповідь @{screenName}',
     FOLLOW_USER: 'Читати @{screenName}',
@@ -3137,21 +2524,13 @@ const locales = {
     LIKE_COUNT:
       '{formattedCount} {count, plural, one {уподобання} few {уподобання} many {уподобань} other {уподобання}}',
     LIVE_ON_X: 'Прямий ефір в X',
-    MEDIA_COUNT:
-      '{formattedCount} {count, plural, one {фото & відео} few {фото & видео} many {фото & відео} other {фото & відео}}',
     MEDIA_VIEWER: 'Засіб перегляду медіафайлів',
-    MOST_RELEVANT: 'Найактуальніші',
     MUTE_THIS_CONVERSATION: 'Ігнорувати цю розмову',
-    NEW_POST: 'Новий пост',
     NEW_TWEET: 'Новий твіт',
     POST: 'Опублікувати пост',
-    POSTS: 'Пости',
     POST_ALL: 'Опублікувати все',
-    POST_COUNT:
-      '{formattedCount} {count, plural, one {пост} few {пости} many {постів} other {постів}}',
     POST_TITLE: '{name} в X: «{text}»',
     POST_UNAVAILABLE: 'Цей пост недоступний.',
-    POST_YOUR_REPLY: 'Опублікувати відповідь',
     PROFILE_SUMMARY: 'Зведення профілю',
     QUOTE: 'Цитата',
     QUOTES: 'Цитати',
@@ -3162,13 +2541,11 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Цитований твіт} few {цитовані твіти} many {цитованих твітів} other {цитованого твіта}}',
     RECENT: 'Нещодавні',
-    RELEVANT: 'Актуальні',
     REPOST: 'Зробити репост',
     REPOSTS: 'Репости',
     REPOST_COUNT:
       '{formattedCount} {count, plural, one {репост} few {репости} many {репостів} other {репости}}',
     RETWEET: 'Ретвітнути',
-    RETWEETED_BY: 'Ретвіти',
     RETWEETS: 'Ретвіти',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {ретвіт} few {ретвіти} many {ретвітів} other {ретвіта}}',
@@ -3176,8 +2553,6 @@ const locales = {
     SHARED_TWEETS: 'Спільні твіти',
     SHOW: 'Показати',
     SHOW_MORE_REPLIES: 'Показати більше відповідей',
-    SHOW_POSTS:
-      'Показати {count, plural, one {# публікацію} few {# публікації} many {# публікацій} other {# публікації}}',
     SHOW_TWEETS:
       '{count, plural, one {Показати # твіт} few {Показати # твіти} many {Показати # твітів} other {Показати # твіта}}',
     SORT_BY: 'Сортування за',
@@ -3197,18 +2572,13 @@ const locales = {
     TWITTER: 'Твіттер',
     UNDO_RETWEET: 'Скасувати ретвіт',
     UNFOLLOW_USER: 'Не читати @{screenName}',
-    USER_REPOSTED: '{name} зробив(-ла) репост',
     USER_RETWEETED: '{name} ретвітнув(ла)',
     VIEW: 'Переглянути',
-    WHO_CAN_REPLY: 'Хто може відповідати: {replyPolicy}',
-    YOU_REPOSTED: 'Ви зробили репост',
     YOU_RETWEETED: 'Ви ретвітнули',
   },
   ur: {
     ADD_ANOTHER_TWEET: 'ایک اور ٹویٹ شامل کریں',
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
-    BACK: 'واپس',
-    DRAFTS: 'مسودہ',
     FOLLOWING_USER: 'فالو کر رہے ہیں @{screenName}',
     FOLLOW_USER: '@{screenName} کو فالو کریں',
     HOME: 'ہوم',
@@ -3223,7 +2593,6 @@ const locales = {
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {حوالہ ٹویٹ} other {حوالہ ٹویٹس}}',
     RECENT: 'حالیہ',
     RETWEET: 'ریٹویٹ',
-    RETWEETED_BY: 'جنہوں نے ریٹویٹ کیا',
     RETWEETS: 'ریٹویٹس',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {ریٹویٹ} other {ریٹویٹس}}',
     SHARED: 'مشترکہ',
@@ -3255,9 +2624,6 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Thêm Tweet khác',
     ADD_MUTED_WORD: 'Thêm từ bị ẩn',
     AD_FROM: 'Quảng cáo từ {url}',
-    BACK: 'Quay lại',
-    CHOOSE_AUDIENCE: 'Chọn đối tượng: {audience}',
-    DRAFTS: 'Bản thảo',
     FOLLOWING_USER: 'Đang theo dõi @{screenName}',
     FOLLOW_BACK_USER: 'Theo dõi lại @{screenName}',
     FOLLOW_USER: 'Theo dõi @{screenName}',
@@ -3266,19 +2632,13 @@ const locales = {
     LIKES: 'Lượt thích',
     LIKE_COUNT: '{formattedCount} {count, plural, other {thích}}',
     LIVE_ON_X: 'Trực tuyến trên X',
-    MEDIA_COUNT: '{formattedCount} {count, plural, other {ảnh & video}}',
     MEDIA_VIEWER: 'Trình xem nội dung đa phương tiện',
-    MOST_RELEVANT: 'Liên quan nhất',
     MUTE_THIS_CONVERSATION: 'Tắt tiếng cuộc trò chuyện này',
-    NEW_POST: 'Bài đăng mới',
     NEW_TWEET: 'Tweet Mới',
     POST: 'Đăng',
-    POSTS: 'Bài đăng',
     POST_ALL: 'Đăng tất cả',
-    POST_COUNT: '{formattedCount} {count, plural, other {bài đăng}}',
     POST_TITLE: '{name} trên X: "{text}"',
     POST_UNAVAILABLE: 'Không có bài đăng này.',
-    POST_YOUR_REPLY: 'Đăng câu trả lời của bạn',
     PROFILE_SUMMARY: 'Tóm tắt hồ sơ',
     QUOTE: 'Trích dẫn',
     QUOTES: 'Trích dẫn',
@@ -3288,19 +2648,16 @@ const locales = {
     QUOTE_TWEETS: 'Tweet trích dẫn',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {Tweet trích dẫn}}',
     RECENT: 'Gần đây',
-    RELEVANT: 'Có liên quan',
     REPOST: 'Đăng lại',
     REPOSTS: 'Bài đăng lại',
     REPOST_COUNT: '{formattedCount} {count, plural, one {bài đăng lại} other {bài đăng lại}}',
     RETWEET: 'Tweet lại',
-    RETWEETED_BY: 'Được Tweet lại bởi',
     RETWEETS: 'Các Tweet lại',
     RETWEET_COUNT: '{formattedCount} {count, plural, other {Tweet lại}}',
     SHARED: 'Đã chia sẻ',
     SHARED_TWEETS: 'Tweet được chia sẻ',
     SHOW: 'Hiện',
     SHOW_MORE_REPLIES: 'Hiển thị thêm trả lời',
-    SHOW_POSTS: 'Hiển thị {count, plural, other {# bài đăng}}',
     SHOW_TWEETS: '{count, plural, other {Hiển thị # Tweet}}',
     SORT_BY: 'Sắp xếp theo',
     SORT_REPLIES: 'Sắp xếp câu trả lời',
@@ -3315,11 +2672,8 @@ const locales = {
     TWEET_YOUR_REPLY: 'Đăng Tweet câu trả lời của bạn',
     UNDO_RETWEET: 'Hoàn tác Tweet lại',
     UNFOLLOW_USER: 'Ngừng theo dõi @{screenName}',
-    USER_REPOSTED: '{name} đã đăng lại',
     USER_RETWEETED: '{name} đã Tweet lại',
     VIEW: 'Xem',
-    WHO_CAN_REPLY: 'Ai có thể trả lời: {replyPolicy}',
-    YOU_REPOSTED: 'Bạn đã đăng lại',
     YOU_RETWEETED: 'Bạn đã Tweet lại',
   },
   'zh-cn': {
@@ -3327,9 +2681,6 @@ const locales = {
     ADD_ANOTHER_TWEET: '添加另一条推文',
     ADD_MUTED_WORD: '添加要隐藏的字词',
     AD_FROM: '来自 {url} 的广告',
-    BACK: '返回',
-    CHOOSE_AUDIENCE: '选择受众：{audience}',
-    DRAFTS: '草稿',
     FOLLOWING_USER: '正在关注 @{screenName}',
     FOLLOW_BACK_USER: '回关 @{screenName}',
     FOLLOW_USER: '关注 @{screenName}',
@@ -3338,19 +2689,13 @@ const locales = {
     LIKES: '喜欢',
     LIKE_COUNT: '{formattedCount} {count, plural, other {喜欢}}',
     LIVE_ON_X: 'X 上的直播',
-    MEDIA_COUNT: '{formattedCount} {count, plural, other {照片和视频}}',
     MEDIA_VIEWER: '媒体浏览器',
-    MOST_RELEVANT: '最相关',
     MUTE_THIS_CONVERSATION: '隐藏此对话',
-    NEW_POST: '新帖子',
     NEW_TWEET: '新推文',
     POST: '发帖',
-    POSTS: '帖子',
     POST_ALL: '全部发帖',
-    POST_COUNT: '{formattedCount} {count, plural, other {帖子}}',
     POST_TITLE: 'X 上的 {name}：“{text}”',
     POST_UNAVAILABLE: '这个帖子不可用。',
-    POST_YOUR_REPLY: '发布你的回复',
     PROFILE_SUMMARY: '个人资料概要',
     QUOTE: '引用',
     QUOTES: '引用',
@@ -3359,19 +2704,16 @@ const locales = {
     QUOTE_TWEETS: '引用推文',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {条引用推文}}',
     RECENT: '最近',
-    RELEVANT: '相关',
     REPOST: '转帖',
     REPOSTS: '转帖',
     REPOST_COUNT: '{formattedCount} {count, plural, other {转帖}}',
     RETWEET: '转推',
-    RETWEETED_BY: '转推者',
     RETWEETS: '转推',
     RETWEET_COUNT: '{formattedCount} {count, plural, other {转推}}',
     SHARED: '共享',
     SHARED_TWEETS: '分享的推文',
     SHOW: '显示',
     SHOW_MORE_REPLIES: '显示更多回复',
-    SHOW_POSTS: '显示 {count, plural, other {# 条帖子}}',
     SHOW_TWEETS: '{count, plural, other {显示 # 推文}}',
     SORT_BY: '排序方式',
     SORT_REPLIES: '对回复排序',
@@ -3388,11 +2730,8 @@ const locales = {
     TWEET_YOUR_REPLY: '发布你的回复',
     UNDO_RETWEET: '撤销转推',
     UNFOLLOW_USER: '取消关注 @{screenName}',
-    USER_REPOSTED: '{name} 已转帖',
     USER_RETWEETED: '{name} 已转推',
     VIEW: '查看',
-    WHO_CAN_REPLY: '谁可以回复：{replyPolicy}',
-    YOU_REPOSTED: '你已转帖',
     YOU_RETWEETED: '你转推了',
   },
   'zh-tw': {
@@ -3400,9 +2739,6 @@ const locales = {
     ADD_ANOTHER_TWEET: '加入另一則推文',
     ADD_MUTED_WORD: '加入靜音文字',
     AD_FROM: '來自 {url} 的廣告',
-    BACK: '返回',
-    CHOOSE_AUDIENCE: '選擇受眾：{audience}',
-    DRAFTS: '草稿',
     FOLLOWING_USER: '正在跟隨 @{screenName}',
     FOLLOW_BACK_USER: '回跟隨 @{screenName}',
     FOLLOW_USER: '跟隨 @{screenName}',
@@ -3411,19 +2747,13 @@ const locales = {
     LIKES: '喜歡的內容',
     LIKE_COUNT: '{formattedCount} {count, plural, other {個喜歡}}',
     LIVE_ON_X: 'X 上的直播',
-    MEDIA_COUNT: '{formattedCount} {count, plural, other {照片和影片}}',
     MEDIA_VIEWER: '媒體檢視器',
-    MOST_RELEVANT: '最相關',
     MUTE_THIS_CONVERSATION: '將此對話靜音',
-    NEW_POST: '新貼文',
     NEW_TWEET: '新推文',
     POST: '貼文',
-    POSTS: '貼文',
     POST_ALL: '全部發佈',
-    POST_COUNT: '{formattedCount} {count, plural, other {貼文}}',
     POST_TITLE: 'X 上的 {name}：「{text}」',
     POST_UNAVAILABLE: '此貼文無法查看。',
-    POST_YOUR_REPLY: '發佈你的回覆',
     PROFILE_SUMMARY: '個人檔案摘要',
     QUOTE: '引用',
     QUOTES: '引用',
@@ -3432,19 +2762,16 @@ const locales = {
     QUOTE_TWEETS: '引用的推文',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {則引用推文}}',
     RECENT: '最近',
-    RELEVANT: '相關',
     REPOST: '轉發',
     REPOSTS: '轉發',
     REPOST_COUNT: '{formattedCount} {count, plural, other {轉貼}}',
     RETWEET: '轉推',
-    RETWEETED_BY: '已被轉推',
     RETWEETS: '轉推',
     RETWEET_COUNT: '{formattedCount} {count, plural, other {則轉推}}',
     SHARED: '共享',
     SHARED_TWEETS: '分享的推文',
     SHOW: '顯示',
     SHOW_MORE_REPLIES: '顯示更多回覆',
-    SHOW_POSTS: '顯示 {count, plural, other {# 則貼文}}',
     SHOW_TWEETS: '{count, plural, other {顯示 # 則推文}}',
     SORT_BY: '排序方式',
     SORT_REPLIES: '將回覆排序',
@@ -3461,11 +2788,8 @@ const locales = {
     TWEET_YOUR_REPLY: '推你的回覆',
     UNDO_RETWEET: '取消轉推',
     UNFOLLOW_USER: '取消跟隨 @{screenName}',
-    USER_REPOSTED: '{name} 已轉發',
     USER_RETWEETED: '{name} 已轉推',
     VIEW: '查看',
-    WHO_CAN_REPLY: '哪些人可以回覆：{replyPolicy}',
-    YOU_REPOSTED: '你已轉發',
     YOU_RETWEETED: '你已轉推',
   },
 }
@@ -3532,55 +2856,8 @@ function parseCountTemplate(template) {
   return {clause: match[0], forms}
 }
 
-/** @param {string} text */
-function parseVisibleCount(text) {
-  if (!text) return null
-  let format = new Intl.NumberFormat(lang)
-  let digits = new Intl.NumberFormat(lang, {useGrouping: false})
-  let normalized = text
-  for (let part of format.formatToParts(1234567890)) {
-    if (part.type == 'group' || part.type == 'literal') normalized = normalized.replaceAll(part.value, '')
-  }
-  for (let n = 0; n < 10; n++) normalized = normalized.replaceAll(digits.format(n), String(n))
-  if (!/^\d+$/.test(normalized)) return null
-  let value = Number(normalized)
-  return Number.isSafeInteger(value) && format.format(value) == text ? value : null
-}
 
-/**
- * Several plural categories can share the same visible wording. Use the visible
- * number to distinguish them, or a large-number form when the count is compact.
- * @param {import("./types").LocaleKey} key
- * @param {string} text
- * @param {string} replacement
- */
-function replaceCountString(key, text, replacement) {
-  let target = parseCountTemplate(replacement)
-  if (!target) return text
-  for (let template of new Set([getString(key), locales.en[key]])) {
-    let plural = parseCountTemplate(template)
-    if (!plural) continue
-    let matches = []
-    for (let [category, branch] of plural.forms) {
-      let source = template.replace(plural.clause, () => branch.replaceAll('#', '{formattedCount}'))
-      let values = matchTemplate(source, text)
-      if (values) matches.push({category, values})
-    }
-    if (!matches.length) continue
-    let render = ({category, values}) => {
-      let branch = target.forms.get(category) ?? target.forms.get('other')
-      return replacement.replace(target.clause, () => branch.replaceAll('#', '{formattedCount}'))
-        .replace(/\{\w+\}/g, placeholder => values.get(placeholder) ?? placeholder)
-    }
-    let results = matches.map(render)
-    if (new Set(results).size == 1) return results[0]
-    let count = parseVisibleCount(matches[0].values.get('{formattedCount}'))
-    let category = new Intl.PluralRules(lang).select(count ?? 1_000_000)
-    return render(matches.find(match => match.category == category) ||
-      matches.find(match => match.category == 'other') || matches[0])
-  }
-  return text
-}
+
 
 /**
  * Matches a simple translation template and carries its placeholder values into
@@ -4025,18 +3302,6 @@ function getElement(selector, {
   })
 }
 
-/**
- * @param {Node} $root
- * @returns {Text[]}
- */
-function getTextNodes($root) {
-  let nodes = []
-  for (let $node of $root.childNodes) {
-    if ($node.nodeType == 3) nodes.push(/** @type {Text} */ ($node))
-    else if ($node.nodeType == 1) nodes.push(...getTextNodes($node))
-  }
-  return nodes
-}
 
 /**
  * @param {*} value
@@ -4149,49 +3414,6 @@ function registerModalSetup(name) {
   return () => cancelled
 }
 
-/**
- * React retains references to text nodes between renders. Setting an element's
- * textContent detaches those nodes, so change only the differing text in place.
- * Cleanup restores edits the app hasn't overwritten.
- * @param {Text[]} nodes
- * @param {string} after
- * @returns {() => void}
- */
-function replaceTextNodes(nodes, after) {
-  let before = nodes.map($node => $node.nodeValue).join('')
-  if (before == after) return () => {}
-  let start = 0
-  while (start < before.length && start < after.length && before[start] == after[start]) start++
-  let end = before.length
-  let replacementEnd = after.length
-  while (end > start && replacementEnd > start && before[end - 1] == after[replacementEnd - 1]) {
-    end--
-    replacementEnd--
-  }
-  let offset = 0
-  let ranges = nodes.map($node => {
-    let original = $node.nodeValue
-    let range = {$node, original, start: offset, end: offset + original.length}
-    offset = range.end
-    return range
-  })
-  let insertion = ranges.find(range => range.end > start) || ranges.at(-1)
-  let restorers = []
-  for (let range of ranges) {
-    let {original, $node} = range
-    let from = Math.min(original.length, Math.max(0, start - range.start))
-    let to = Math.min(original.length, Math.max(0, end - range.start))
-    let replacement = original.slice(0, from) + (range == insertion ? after.slice(start, replacementEnd) : '') + original.slice(to)
-    if (original == replacement) continue
-    $node.nodeValue = replacement
-    restorers.push(() => {
-      if ($node.nodeValue == replacement) $node.nodeValue = original
-    })
-  }
-  return () => {
-    for (let restore of restorers) restore()
-  }
-}
 
 /**
  * @template T
@@ -10522,10 +9744,34 @@ return function init() {
 const xweb = function() {
 
 //#region Constants
-const COMPOSER_DRAFTS_BUTTON_SELECTOR = '[data-cpft-composer-accent="drafts"]'
-const COMPOSER_EVERYONE_AND_WHO_CAN_REPLY_BUTTON_SELECTOR = '[data-cpft-composer-accent="audience"], [data-cpft-composer-accent="reply-policy"]'
+/** @type {Record<string, import('./types').LocaleKey>} */
+const BRANDING_TRANSLATIONS = {
+  'New post': 'NEW_TWEET',
+  'Post activity': 'TWEET_INTERACTIONS',
+  'Post all': 'TWEET_ALL',
+  'Post your reply': 'TWEET_YOUR_REPLY',
+  'Post': 'TWEET_NOUN',
+  'Posts': 'TWEETS',
+  'Post{verb}': 'TWEET',
+  'Quote': 'QUOTE_TWEET',
+  'Quotes': 'QUOTE_TWEETS',
+  'Repost': 'RETWEET',
+  'Reposts': 'RETWEETS',
+  'Show {count, plural, one {# post} other {# posts}}': 'SHOW_TWEETS',
+  'Turn off reposts': 'TURN_OFF_RETWEETS',
+  'Turn on reposts': 'TURN_ON_RETWEETS',
+  'Undo repost': 'UNDO_RETWEET',
+  'You reposted': 'YOU_RETWEETED',
+  '{formattedCount} {count, plural, one {post} other {posts}}': 'TWEET_COUNT',
+  '{formattedCount} {count, plural, one {quote} other {quotes}}': 'QUOTE_TWEET_COUNT',
+  '{formattedCount} {count, plural, one {repost} other {reposts}}': 'RETWEET_COUNT',
+  '{name} on X: "{text}"': 'TWEET_TITLE',
+  '{name} reposted': 'USER_RETWEETED',
+}
+const COMPOSER_MODAL_HEADER_SELECTOR = '[data-slot="xds-modal-surface"] div:has(> [data-media-upload-dropzone]) > header'
 const COMPOSER_SUBMIT_BUTTON_SELECTOR = '[data-media-upload-dropzone] form button[data-slot="xds-button"].bg-btn-primary'
-const COMPOSER_TOOL_BUTTON_SELECTOR = '[data-media-upload-dropzone] form div:has(> div > button[data-slot="xds-button"].bg-btn-primary) button:is([data-slot="xds-button"], [data-slot="xds-menu-trigger"]):has(svg):not(.bg-btn-primary)'
+const COMPOSER_SECONDARY_BUTTON_SELECTOR = `:is(${COMPOSER_MODAL_HEADER_SELECTOR} > div, [data-media-upload-dropzone] form div:has(> button .truncate)) > button`
+const COMPOSER_TOOL_BUTTON_SELECTOR = '[data-media-upload-dropzone] form div:has(> input[type="file"]) > button:has(> span:only-child > svg)'
 const COMPOSE_BUTTON_SELECTOR = ':is(#sidebar-compose-post, button[data-compose-fab="true"])'
 const COMPOSE_ICON_SELECTOR = `${COMPOSE_BUTTON_SELECTOR} svg:is([data-icon="icon-edit-plus"], [data-icon="icon-new-chat"])`
 const DESKTOP_NAV_CONTAINER_SELECTOR = 'body > div > div.hidden[class~="sm:block"]'
@@ -10819,6 +10065,7 @@ let currentPageType = ''
 let currentPageUrl = ''
 /** @type {string | null} */
 let nativeDocumentTitle = null
+let brandingTranslator = null
 let nativeHomePageTitle = ''
 let nativeHomeTitle = ''
 let requestedFollowing = null
@@ -10976,6 +10223,7 @@ const configureTitleSetter = (() => {
       let title = `${value}`
       let display = title.replace(TITLE_NOTIFICATION_RE, '')
       nativeDocumentTitle = title
+      appliedDocumentTitle = display
       currentNotificationCount = TITLE_NOTIFICATION_RE.exec(title)?.[0] || ''
       if (accessor.get.call(document) != display) {
         pending = {native: title, display}
@@ -11080,7 +10328,6 @@ function updatePageTitle(title, {native = false} = {}) {
   if (native || nativeDocumentTitle == null || title != appliedDocumentTitle) nativeDocumentTitle = title
   let display = nativeDocumentTitle
   if (enabled && settings.hideNotifications != 'ignore' && configureTitleSetter.active()) display = display.replace(TITLE_NOTIFICATION_RE, '')
-  if (enabled && settings.revertXBranding) display = formatBrandedTitle(display)
   appliedDocumentTitle = display
   writeDocumentTitle(display)
   return nativeDocumentTitle
@@ -11169,8 +10416,6 @@ function processCurrentPage() {
     requestedFollowing = null
     if (type == 'List' || type == 'Profile' || type == 'Trending' || type == 'Community') {
       if (type == 'Profile' && settings.hideSubscriptions) observeProfileSubscriptions()
-      if (type == 'Profile' && settings.revertXBranding) observeProfileBranding()
-      if (type == 'Profile' && (settings.revertXBranding || settings.hideMetrics && settings.hideProfileHeaderMetrics)) observeProfileHeaderBranding()
       observePageTimeline({containerSelector: ':scope > div'})
     } else if (type == 'FollowList' && settings.hideVerifiedTabs) {
       // A direct visit can reach title setup before the follow-list UI mounts
@@ -11240,7 +10485,13 @@ function updateHomeTimelineTitle() {
   if (!/^\/home\/?$/.test(location.pathname)) return
   let home = nativeHomePageTitle || getString('HOME')
   let title = nativeHomeTitle || `${home} / X`
-  if (separatedTweetsTimelineSelected) title = title.replace(home, getSeparatedTweetsTimelineTitle())
+  if (separatedTweetsTimelineSelected) {
+    title = title.replace(home, getSeparatedTweetsTimelineTitle())
+    if (settings.revertXBranding) {
+      title = title.replace(/ \/ X$/, () => ` / ${getString('TWITTER')}`)
+        .replace(/^X \\ /, () => `${getString('TWITTER')} \\ `)
+    }
+  }
   let count = TITLE_NOTIFICATION_RE.exec(nativeDocumentTitle ?? document.title)?.[0] || currentNotificationCount
   updatePageTitle(count + title)
 }
@@ -11347,6 +10598,60 @@ const configureBlueChecks = (() => {
   }
 })()
 
+const configureBrandingMessages = (() => {
+  let name = 'branding messages'
+
+  return function configureBrandingMessages() {
+    if (!enabled || !settings.revertXBranding) {
+      globalObservers.get(name)?.disconnect()
+      return
+    }
+    let i18n = findRouter()?.options?.context?.i18n
+    let translator = i18n?.translator
+    if (translator == brandingTranslator && translator != null) return
+    globalObservers.get(name)?.disconnect()
+    if (typeof translator?.getResource != 'function') return
+    let original = translator.getResource
+    let descriptor = Object.getOwnPropertyDescriptor(translator, 'getResource')
+    // Components may already hold the original translation functions, so
+    // replacing i18n.t would miss their calls. Those functions still call this
+    // resource lookup. Return our templates here so the app formats counts and
+    // inserts names/text.
+    function getResource(language, namespace, key, options) {
+      // Callers can request a specific language through getFixedT(), even when
+      // the page uses another language. Choose translations using this call's
+      // language.
+      if (enabled && settings.revertXBranding && namespace == 'translation' && language != 'en-ss' && language != 'en-xx') {
+        if (key == '{label} / X') {
+          let template = original.call(this, language, namespace, key, options) || key
+          return typeof template == 'string' ? (
+            template.replace(/\bX\b/g, () => locales[language]?.TWITTER || locales.en.TWITTER)
+          ) : template
+        }
+        if (Object.hasOwn(BRANDING_TRANSLATIONS, key)) {
+          let code = BRANDING_TRANSLATIONS[key]
+          return locales[language]?.[code] || locales.en[code]
+        }
+      }
+      return original.call(this, language, namespace, key, options)
+    }
+    translator.getResource = getResource
+    brandingTranslator = translator
+    globalObservers.set(name, {
+      name,
+      disconnect() {
+        if (translator.getResource == getResource) {
+          if (descriptor) Object.defineProperty(translator, 'getResource', descriptor)
+          else delete translator.getResource
+        }
+        brandingTranslator = null
+        globalObservers.delete(name)
+      }
+    })
+    log('Branding message overrides enabled')
+  }
+})()
+
 // SVG path attributes need patching only in Safari
 const configureBranding = (() => {
   let name = 'branding'
@@ -11426,23 +10731,6 @@ const configureBranding = (() => {
 
   function tweakComposeButtons() {
     // Resize hides sidebar text, while startup can replace the sidebar contents
-    let tweet = getString('TWEET')
-    for (let $text of document.querySelectorAll('#sidebar-compose-post > span:last-child')) {
-      let original = $text.textContent
-      $text.textContent = tweet
-      restorers.push(() => {
-        if ($text.textContent == tweet) $text.textContent = original
-      })
-    }
-    for (let $button of document.querySelectorAll(COMPOSE_BUTTON_SELECTOR)) {
-      let original = $button.getAttribute('aria-label')
-      $button.setAttribute('aria-label', tweet)
-      restorers.push(() => {
-        if ($button.getAttribute('aria-label') != tweet) return
-        if (original == null) $button.removeAttribute('aria-label')
-        else $button.setAttribute('aria-label', original)
-      })
-    }
     if (isSafari) {
       for (let $path of document.querySelectorAll(`${COMPOSE_ICON_SELECTOR} > path:first-child`)) {
         restorers.push(patchSvgPath($path, Svgs.TWITTER_FEATHER_PLUS_PATH))
@@ -11451,6 +10739,7 @@ const configureBranding = (() => {
   }
 
   return function configureBranding() {
+    configureBrandingMessages()
     restore()
     if (!enabled || !settings.revertXBranding) {
       globalObservers.delete(name)
@@ -11462,8 +10751,8 @@ const configureBranding = (() => {
       tweakHomeIcons()
       if (mobile) observeMobileHomeIcon()
     }
-    tweakComposeButtons()
-    if (desktop) observeDesktopSidebar()
+    if (isSafari) tweakComposeButtons()
+    if (desktop && isSafari) observeDesktopSidebar()
     globalObservers.set(name, {
       name,
       disconnect() {
@@ -11664,214 +10953,9 @@ function observeAccountHovercard($shell) {
   }
 }
 
-/**
- * @param {Element} $container
- * @param {{
- *   selector: string
- *   from: import("./types").LocaleKey
- *   to: import("./types").LocaleKey
- *   ignoreCase?: boolean
- *   matchPluralForms?: boolean
- *   matchPlaceholders?: boolean
- * }[]} labels
- * @param {string} observerName
- */
-function observeBrandingLabels($container, labels, observerName) {
-  let restorers = []
-  let observer = observeElement($container, update, observerName)
-  function restore() {
-    for (let restore of restorers) restore()
-    restorers = []
-  }
-  function update() {
-    observer.disconnect()
-    restore()
-    for (let {selector, from, to, ignoreCase, matchPluralForms, matchPlaceholders} of labels) {
-      let originals = [getString(from), locales.en[from]]
-      let replacement = getString(to)
-      let replace = text => matchPluralForms ? replaceCountString(from, text, replacement) :
-        matchPlaceholders ? originals.reduce((text, original) => replaceTemplate(original, text, replacement), text) :
-        originals.some(original => text == original || ignoreCase && text.toLowerCase() == original.toLowerCase()) ? replacement : text
-      for (let $control of $container.querySelectorAll(selector)) {
-        let nodes = getTextNodes($control)
-        for (let group of matchPluralForms || matchPlaceholders ? [nodes] : nodes.map($node => [$node])) {
-          let before = group.map($node => $node.nodeValue).join('')
-          let after = before.replace(before.trim(), () => replace(before.trim()))
-          if (before != after) restorers.push(replaceTextNodes(group, after))
-        }
-        let original = $control.getAttribute('aria-label')
-        let after = original && replace(original)
-        if (original && original != after) {
-          $control.setAttribute('aria-label', after)
-          restorers.push(() => {
-            if ($control.getAttribute('aria-label') == after) $control.setAttribute('aria-label', original)
-          })
-        }
-      }
-    }
-    observer.observe($container, {childList: true, characterData: true, subtree: true, attributes: true, attributeFilter: ['aria-label']})
-  }
-  update()
-  return () => {
-    observer.disconnect()
-    restore()
-  }
-}
 
-/** @param {Element} $content */
-function observeComposerSecondaryControls($content) {
-  let tagged = new Set()
-  let observer = observeElement($content, update, 'composer secondary controls')
-  function update() {
-    observer.disconnect()
-    for (let $button of tagged) $button.removeAttribute('data-cpft-composer-accent')
-    tagged.clear()
-    let buttons = $content.querySelectorAll('header button, [data-media-upload-dropzone] form button')
-    for (let $button of buttons) {
-      let labels = [$button.getAttribute('aria-label') || '']
-      // Community audience labels are inside the button and referenced by aria-labelledby
-      if ($button.hasAttribute('aria-labelledby')) {
-        for (let $label of $button.querySelectorAll('[id]')) labels.push($label.textContent.trim())
-      }
-      /** @param {import('./types').LocaleKey} key */
-      let matches = key => [getString(key), locales.en[key]].some(template => labels.some(label => matchTemplate(template, label)))
-      let kind = matches('WHO_CAN_REPLY') ? 'reply-policy' :
-        matches('CHOOSE_AUDIENCE') && !$button.querySelector('[data-icon="icon-superfollow"]') ? 'audience' :
-        $button.closest('header') && [getString('DRAFTS'), locales.en.DRAFTS].includes($button.textContent.trim()) ? 'drafts' : null
-      if (kind) {
-        $button.setAttribute('data-cpft-composer-accent', kind)
-        tagged.add($button)
-      }
-      observer.observe($button, {childList: true, characterData: true, subtree: true, attributes: true, attributeFilter: ['aria-label', 'aria-labelledby']})
-      // Follow toolbar replacements without observing text being typed in the editor
-      for (let $parent = $button.parentElement; $parent && $parent != $content; $parent = $parent.parentElement) observer.observe($parent, {childList: true})
-    }
-    for (let $header of $content.querySelectorAll('header')) observer.observe($header, {childList: true, characterData: true, subtree: true})
-    for (let $form of $content.querySelectorAll('[data-media-upload-dropzone], [data-media-upload-dropzone] form')) observer.observe($form, {childList: true})
-    observer.observe($content, {childList: true})
-  }
-  update()
-  return () => {
-    observer.disconnect()
-    for (let $button of tagged) $button.removeAttribute('data-cpft-composer-accent')
-  }
-}
 
-/**
- * The composer can replace its submit label as Tweets are added or removed. Watch
- * the button and label so revertXBranding stays applied without observing typed
- * Tweet text.
- * @param {Element} $button
- * @param {string} name
- */
-function observeComposerSubmitLabel($button, name = 'compose submit label') {
-  let $label = null
-  let original = null
-  let replacement = null
-  let observer = observeElement($button, updateLabel, name)
 
-  function restoreLabel() {
-    if ($label && replacement != null && $label.textContent == replacement) $label.textContent = original
-  }
-
-  function updateLabel() {
-    observer.disconnect()
-    let $nextLabel = $button.querySelector(':scope > span:last-child')
-    if ($nextLabel != $label) {
-      restoreLabel()
-      $label = $nextLabel
-      original = null
-      replacement = null
-    }
-    if ($label) {
-      let text = $label.textContent
-      if (text == getString('POST') || text == getString('POST_ALL')) {
-        original = text
-        replacement = getString(text == getString('POST_ALL') ? 'TWEET_ALL' : 'TWEET')
-        $label.textContent = replacement
-      }
-      observer.observe($label, {childList: true})
-      for (let $node of $label.childNodes) {
-        if ($node.nodeType == 3) observer.observe($node, {characterData: true})
-      }
-    }
-    // React can replace the submit button's label span or text node
-    observer.observe($button, {childList: true})
-  }
-
-  updateLabel()
-  return () => {
-    observer.disconnect()
-    restoreLabel()
-  }
-}
-
-/**
- * The submit toolbar belongs to the active tweet's form.
- * @param {Element} $content
- */
-function observeComposeTweetModal($content) {
-  let cleanupControls = observeComposerSecondaryControls($content)
-  let cleanupLabel = () => {}
-  let cleanupReply = () => {}
-  let binding = 0
-  let observers = new Map()
-  let replyObserver = observeElement($content, updateReplyPlaceholders, 'compose reply placeholders')
-  let formObserver = observeElement($content, bindSubmitLabel, 'compose form controls')
-
-  function updateReplyPlaceholders() {
-    replyObserver.disconnect()
-    cleanupReply()
-    let restorers = []
-    for (let $textarea of $content.querySelectorAll('[data-media-upload-dropzone] > form textarea')) {
-      restorers.push(tweakReplyTextarea($textarea))
-      // Native label changes are observed independently of editable contents
-      replyObserver.observe($textarea, {attributes: true, attributeFilter: ['placeholder', 'aria-label']})
-    }
-    cleanupReply = () => {
-      for (let restore of restorers) restore()
-    }
-  }
-
-  function bindSubmitLabel() {
-    let generation = ++binding
-    formObserver.disconnect()
-    for (let $dropzone of $content.querySelectorAll(':scope > [data-media-upload-dropzone]')) {
-      formObserver.observe($dropzone, {childList: true})
-      for (let $form of $dropzone.querySelectorAll(':scope > form')) {
-        formObserver.observe($form, {childList: true})
-      }
-    }
-    updateReplyPlaceholders()
-    observers.get('getElement: compose submit button')?.disconnect()
-    cleanupLabel()
-    cleanupLabel = () => {}
-    let $button = $content.querySelector(COMPOSER_SUBMIT_BUTTON_SELECTOR)
-    if ($button) cleanupLabel = observeComposerSubmitLabel($button)
-    else getElement(COMPOSER_SUBMIT_BUTTON_SELECTOR, {
-      context: /** @type {HTMLElement} */ ($content), name: 'compose submit button', observers,
-    }).then($button => {
-      if ($button && generation == binding && observers.has('compose tweet forms') && enabled && settings.revertXBranding &&
-          $content.isConnected && $content.querySelector(COMPOSER_SUBMIT_BUTTON_SELECTOR) == $button) {
-        cleanupLabel = observeComposerSubmitLabel($button)
-        updateReplyPlaceholders()
-      }
-    })
-  }
-
-  let boundary = observeElement($content, bindSubmitLabel, {
-    name: 'compose tweet forms', observers, leading: true, logElement: true,
-    onDisconnect() {
-      observers.get('getElement: compose submit button')?.disconnect()
-      formObserver.disconnect()
-      replyObserver.disconnect()
-      cleanupReply()
-      cleanupLabel()
-      cleanupControls()
-    },
-  })
-  return () => boundary.disconnect()
-}
 
 /** @param {'Chat' | 'Calls'} type */
 async function observeEmbeddedTheme(type) {
@@ -12065,24 +11149,10 @@ const observeOverlays = (() => {
   /** @type {Map<string, import("./types").Disconnectable>} */
   let observers = new Map()
   /** @type {Map<Element, () => void>} */
-  let composers = new Map()
-  /** @type {Map<Element, () => void>} */
   let hovercards = new Map()
-  /** @type {Map<Element, () => void>} */
-  let brandedMenus = new Map()
   function clearHovercards() {
     for (let cleanup of hovercards.values()) cleanup()
     hovercards.clear()
-  }
-
-  function clearComposers() {
-    for (let cleanup of composers.values()) cleanup()
-    composers.clear()
-  }
-
-  function clearBrandedMenus() {
-    for (let cleanup of brandedMenus.values()) cleanup()
-    brandedMenus.clear()
   }
 
   function tweetPath($items, id) {
@@ -12113,9 +11183,7 @@ const observeOverlays = (() => {
     for (let $wrapper of document.querySelectorAll('body > .contents')) observer.observe($wrapper, {childList: true})
     dismissPremiumSignupModal()
     let $nextViewer = null
-    let nextComposers = new Set()
     let nextHovercards = new Set()
-    let nextBrandedMenus = new Set()
     for (let $portal of portals) {
       for (let $parent = $portal.parentElement; $parent && $parent != document.body; $parent = $parent.parentElement) {
         observer.observe($parent, {childList: true})
@@ -12144,46 +11212,11 @@ const observeOverlays = (() => {
           }
         }
       }
-      if (settings.revertXBranding) {
-        for (let $menu of $portal.querySelectorAll('[data-slot="xds-menu-content"]')) {
-          nextBrandedMenus.add($menu)
-          if (!brandedMenus.has($menu)) {
-            let repost = '[data-slot="xds-menu-item"]:has(use[href="#icon-repost"])'
-            let $trigger = document.getElementById($menu.getAttribute('aria-labelledby') || '')
-            let profilePostsMenu = currentPageType == 'Profile' &&
-              $trigger?.matches('button[role="tab"][aria-haspopup="menu"]') &&
-              $trigger.closest('[role="tablist"]')?.querySelector('a[role="tab"][href$="/reposts"]')
-            /** @type {Parameters<typeof observeBrandingLabels>[1]} */
-            let labels = [
-              {selector: repost, from: 'REPOST', to: 'RETWEET'},
-              {selector: `${repost} ~ [data-slot="xds-menu-item"]:has([data-icon="icon-edit-line"])`, from: 'QUOTE', to: 'QUOTE_TWEET'},
-            ]
-            if (profilePostsMenu) labels.push({selector: '[role="menuitemradio"]', from: 'POSTS', to: 'TWEETS'})
-            brandedMenus.set($menu, observeBrandingLabels($menu, labels, 'menu branding labels'))
-          }
-        }
-        for (let $content of $portal.querySelectorAll(':scope > [data-slot="xds-modal-surface"] div:has(> header):has(> [data-media-upload-dropzone])')) {
-          nextComposers.add($content)
-          if (!composers.has($content)) composers.set($content, observeComposeTweetModal($content))
-        }
-      }
     }
     for (let [$shell, cleanup] of hovercards) {
       if (!nextHovercards.has($shell)) {
         cleanup()
         hovercards.delete($shell)
-      }
-    }
-    for (let [$content, cleanup] of composers) {
-      if (!nextComposers.has($content)) {
-        cleanup()
-        composers.delete($content)
-      }
-    }
-    for (let [$menu, cleanup] of brandedMenus) {
-      if (!nextBrandedMenus.has($menu)) {
-        cleanup()
-        brandedMenus.delete($menu)
       }
     }
     if ($nextViewer == $viewer) return
@@ -12222,18 +11255,14 @@ const observeOverlays = (() => {
       observer?.disconnect()
       observer = null
       clear()
-      clearComposers()
       clearHovercards()
-      clearBrandedMenus()
       globalObservers.delete(name)
     }})
     update()
   }
   observePortals.refresh = () => {
     clear()
-    clearComposers()
     clearHovercards()
-    clearBrandedMenus()
     update()
   }
   return observePortals
@@ -12362,7 +11391,9 @@ function observePageChanges() {
     for (let $el = $nextMain?.parentElement; $el && $el != document.documentElement; $el = $el.parentElement) {
       observer.observe($el, {childList: true})
     }
+    configureBrandingMessages()
     configureRedirects()
+    if (currentPageType == 'QuoteTweets' || currentPageType == 'TweetEngagement') tweakTweetEngagementPage()
     if ($nextMain == $main) return
     $main = $nextMain
     if ($main) onTitleChange(document.title, {force: true})
@@ -12761,7 +11792,7 @@ const configureCss = (() => {
         )
       }
       if (settings.hideProfileHeaderMetrics) {
-        hideCssSelectors.push('[data-cpft-profile-header-count]')
+        hideCssSelectors.push('body.Profile main > div > div:first-of-type .text-subtext2')
       }
     }
     if (desktop && settings.hideLiveBroadcasts) {
@@ -13015,7 +12046,8 @@ const configureCss = (() => {
         :is(${COMPOSE_BUTTON_SELECTOR}, ${COMPOSER_SUBMIT_BUTTON_SELECTOR}):active {
           background-color: var(--x-btn-brand-pressed) !important;
         }
-        ${COMPOSER_TOOL_BUTTON_SELECTOR} {
+        ${COMPOSER_TOOL_BUTTON_SELECTOR},
+        [data-media-upload-dropzone] form button:has([data-icon="icon-plus"]) {
           color: var(--x-btn-brand) !important;
           --x-btn-ghost-hover: color-mix(in srgb, var(--x-btn-brand) 10%, transparent) !important;
           --x-btn-ghost-pressed: color-mix(in srgb, var(--x-btn-brand) 20%, transparent) !important;
@@ -13023,14 +12055,10 @@ const configureCss = (() => {
         [data-media-upload-dropzone] form [role="progressbar"][aria-valuemax] circle.text-primary[stroke-dasharray]:not(.text-warning, .text-destructive) {
           color: var(--x-fg-brand) !important;
         }
-        ${COMPOSER_EVERYONE_AND_WHO_CAN_REPLY_BUTTON_SELECTOR},
-        ${COMPOSER_DRAFTS_BUTTON_SELECTOR} {
+        ${COMPOSER_SECONDARY_BUTTON_SELECTOR} {
           color: var(--x-fg-brand) !important;
           --x-btn-ghost-hover: color-mix(in srgb, var(--x-btn-brand) 10%, transparent) !important;
           --x-btn-ghost-pressed: color-mix(in srgb, var(--x-btn-brand) 20%, transparent) !important;
-        }
-        /* Match Drafts typography to Everyone */
-        ${COMPOSER_DRAFTS_BUTTON_SELECTOR} {
           font-size: calc(14 / var(--x-root-font-size,16) * 1rem * var(--x-font-scale,1)) !important;
           line-height: var(--tw-leading,calc(16 / var(--x-root-font-size,16) * 1rem * var(--x-font-scale,1))) !important;
           font-weight: var(--font-weight-medium,500) !important;
@@ -13375,106 +12403,6 @@ function shouldHideTimelineTweet(type, timelineId) {
 //#endregion
 
 //#region Page observers
-/** @param {Element} $timeline */
-function observeHomeNewTweetsNotice($timeline) {
-  let $button = null
-  let cleanup = () => {}
-  let observer = observeElement($timeline, update, 'Home new Tweets notice')
-  function update() {
-    let $nextButton = $timeline.querySelector(':scope > div > button')
-    if ($nextButton == $button) return
-    cleanup()
-    $button = $nextButton
-    cleanup = $button ? observeBrandingLabels($button, [
-      {selector: ':scope > div', from: 'SHOW_POSTS', to: 'SHOW_TWEETS', matchPluralForms: true},
-    ], 'Home new Tweets label') : () => {}
-  }
-  update()
-  return () => {
-    observer.disconnect()
-    cleanup()
-  }
-}
-
-async function observeProfileBranding() {
-  let $main = /** @type {HTMLElement} */ (document.querySelector('main'))
-  if (!$main) return
-  let selector = '[role="tablist"]:has(> a[role="tab"][href$="/reposts"])'
-  let $tabs = await getElement(selector, {context: $main, name: 'profile branding tabs', observers: pageObservers})
-  if (!$tabs?.isConnected || !enabled || !settings.revertXBranding || currentPageType != 'Profile' || !syncPageUrl()) return
-  let cleanup = () => {}
-  let $container = $tabs.parentElement
-  observeElement($container, () => {
-    cleanup()
-    $tabs = $container.querySelector(`:scope > ${selector}`)
-    cleanup = $tabs ? observeBrandingLabels($tabs, [
-      {selector: '[role="tab"]', from: 'POSTS', to: 'TWEETS'},
-      {selector: 'a[role="tab"][href$="/reposts"]', from: 'REPOSTS', to: 'RETWEETS'},
-    ], 'profile tab labels') : () => {}
-  }, {name: 'profile branding tabs', observers: pageObservers, leading: true, onDisconnect() { cleanup() }})
-}
-
-async function observeProfileHeaderBranding() {
-  let $main = /** @type {HTMLElement} */ (document.querySelector('main'))
-  if (!$main) return
-  let $content = await getElement(':scope > div', {context: $main, name: 'profile header branding', observers: pageObservers})
-  if (!$content?.isConnected || !enabled || currentPageType != 'Profile' || !syncPageUrl()) return
-  let $header = null
-  let cleanup = () => {}
-  let name = 'profile header branding'
-  pageObservers.get(name)?.disconnect()
-  let observer = observeElement($content, update, name)
-  pageObservers.set(name, {name, disconnect() {
-    observer.disconnect()
-    cleanup()
-    pageObservers.delete(name)
-  }})
-  function update() {
-    observer.disconnect()
-    let back = Array.from(new Set([getString('BACK'), locales.en.BACK]), label => `button[aria-label=${JSON.stringify(label)}]`).join(', ')
-    let $back = $content.querySelector(back)
-    let $nextHeader = $back?.parentElement || null
-    if ($nextHeader != $header) {
-      cleanup()
-      $header = $nextHeader
-      cleanup = $header ? observeProfileHeaderCount($header, back) : () => {}
-    }
-    for (let $parent = $header?.parentElement; $parent && $parent != $content; $parent = $parent.parentElement) observer.observe($parent, {childList: true})
-    observer.observe($content, {childList: true, ...(!$header && {subtree: true})})
-  }
-  update()
-}
-
-/** @param {Element} $header @param {string} back */
-function observeProfileHeaderCount($header, back) {
-  let $count = null
-  let restore = () => {}
-  let observer = observeElement($header, update, 'profile header labels')
-  function update() {
-    observer.disconnect()
-    restore()
-    $count?.removeAttribute('data-cpft-profile-header-count')
-    // The title beside Back contains the name followed by the post or media count
-    let $title = $header.querySelector(back)?.nextElementSibling
-    $count = $title?.querySelector(':scope > :last-child:not(:first-child)') || null
-    let text = $count?.textContent.trim() || ''
-    /** @type {import('./types').LocaleKey[]} */
-    let keys = ['POST_COUNT', 'MEDIA_COUNT']
-    if ($count && keys.some(key => replaceCountString(key, text, '{count, plural, other {#}}') != text)) {
-      $count.setAttribute('data-cpft-profile-header-count', '')
-      let replacement = settings.revertXBranding ? replaceCountString('POST_COUNT', text, getString('TWEET_COUNT')) : text
-      restore = replacement != text ? replaceTextNodes(getTextNodes($count), replacement) : () => {}
-    } else restore = () => {}
-    observer.observe($header, {childList: true, characterData: true, subtree: true})
-  }
-  update()
-  return () => {
-    observer.disconnect()
-    restore()
-    $count?.removeAttribute('data-cpft-profile-header-count')
-  }
-}
-
 async function observeProfileSubscriptions() {
   let $main = /** @type {HTMLElement} */ (document.querySelector('main'))
   if (!$main) return
@@ -13649,13 +12577,6 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {observers 
   let processedItems = new Set()
   let hiddenRows = new Set()
   let cleanupProcessedItems = null
-  // Repost context is the icon row above the tweet's own article
-  let repostLabel = '[data-href]:not([data-slot="embedded-tweet-frame"]) > article > div:has(> span [data-icon="icon-repost-fill"]) a'
-  let cleanupBranding = settings.revertXBranding ? observeBrandingLabels($list, [
-    {selector: repostLabel, from: 'YOU_REPOSTED', to: 'YOU_RETWEETED'},
-    {selector: repostLabel, from: 'USER_REPOSTED', to: 'USER_RETWEETED', matchPlaceholders: true},
-  ], 'timeline repost branding') : null
-
   function clearItem($item) {
     clearUnavailableTweetContent($item)
     $item.classList.remove('HiddenAd', 'HiddenTweet')
@@ -13696,7 +12617,6 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {observers 
     name: 'timeline rows',
     observers,
     onDisconnect() {
-      cleanupBranding?.()
       cleanupProcessedItems?.()
       cleanupProcessedItems = null
       for (let $item of processedItems) clearItem($item)
@@ -13815,68 +12735,21 @@ async function tweakRoutedModalPage(type) {
 }
 
 function tweakTweetEngagementPage() {
-  let $main = /** @type {HTMLElement} */ (document.querySelector('main'))
-  if (!$main) return
-  let path = currentPagePath
-  let restorers = []
-  function restore() {
-    for (let cleanup of restorers) cleanup()
-    restorers = []
-  }
-  function attach($content) {
-    if (!$content || !enabled || currentPagePath != path || getPageLocation().pathname != path) return
-    observeElement($content, () => {
-      let {pathname, search} = getPageLocation()
-      if (!enabled || !TWEET_ENGAGEMENT_PATH_RE.test(pathname)) return
-      if (pathname + search != currentPageUrl) {
-        // Engagement tabs can share a title
-        onTitleChange(document.title, {force: true})
-        return
-      }
-      restore()
-      if (!settings.revertXBranding) return
-      let base = TWEET_ENGAGEMENT_PATH_RE.exec(pathname)[1]
-      for (let $heading of $content.querySelectorAll(':scope > div:first-child h2')) {
-        let original = $heading.textContent
-        let replacement = getString('TWEET_INTERACTIONS')
-        $heading.textContent = replacement
-        restorers.push(() => {
-          if ($heading.textContent == replacement) $heading.textContent = original
-        })
-      }
-      for (let $tab of $content.querySelectorAll('[role="tablist"] [role="tab"]')) {
-        let href = ($tab.getAttribute('href') || $tab.getAttribute('data-href') || '').split(/[?#]/)[0].replace(/\/$/, '')
-        let quote = href == `${base}/quotes`
-        if (!quote && href != `${base}/retweets` && href != `${base}/reposts`) continue
-        let original = getString(quote ? 'QUOTES' : 'REPOSTS')
-        let replacement = getString(quote ? 'QUOTE_TWEETS' : 'RETWEETS')
-        // Native tabs duplicate visible/invisible text for width matching
-        for (let $element of [$tab, ...$tab.querySelectorAll('*')]) {
-          for (let $node of $element.childNodes) {
-            if ($node.nodeType != 3 || $node.nodeValue?.trim() != original) continue
-            let before = $node.nodeValue
-            let after = before.replace(original, replacement)
-            $node.nodeValue = after
-            restorers.push(() => {
-              if ($node.nodeValue == after) $node.nodeValue = before
-            })
-          }
-        }
-        if ($tab.getAttribute('aria-label') == original) {
-          $tab.setAttribute('aria-label', replacement)
-          restorers.push(() => {
-            if ($tab.getAttribute('aria-label') == replacement) $tab.setAttribute('aria-label', original)
-          })
-        }
-      }
-    }, {name: 'engagement page content', observers: pageObservers, leading: true, logElement: true, onDisconnect: restore})
-  }
-  let $content = $main.querySelector(':scope > div')
-  if ($content) attach($content)
-  else getElement(':scope > div', {
-    context: $main, name: 'engagement page content', observers: pageObservers,
-    mutationObserverOptions: {childList: true},
-  }).then(attach)
+  let name = 'engagement route'
+  if (pageObservers.has(name)) return
+  let router = findRouter()
+  if (!router) return
+  let unsubscribe = router.subscribe('onResolved', () => {
+    if (enabled && TWEET_ENGAGEMENT_PATH_RE.test(location.pathname) &&
+        location.pathname + location.search != currentPageUrl) {
+      // Engagement tabs can share a title; listen to navigation rather than DOM changes.
+      onTitleChange(document.title, {force: true})
+    }
+  })
+  pageObservers.set(name, {name, disconnect() {
+    unsubscribe?.()
+    pageObservers.delete(name)
+  }})
 }
 
 async function tweakExplorePage() {
@@ -13970,45 +12843,6 @@ function restoreFocusedTweetMetrics($focused, tweetPath, readState) {
   }
 }
 
-/** @param {Element} $textarea */
-function tweakReplyTextarea($textarea) {
-  let restorers = []
-  for (let attribute of ['placeholder', 'aria-label']) {
-    let original = $textarea.getAttribute(attribute)
-    if (original != getString('POST_YOUR_REPLY')) continue
-    let replacement = getString('TWEET_YOUR_REPLY')
-    $textarea.setAttribute(attribute, replacement)
-    restorers.push(() => {
-      if ($textarea.getAttribute(attribute) == replacement) $textarea.setAttribute(attribute, original)
-    })
-  }
-  return () => {
-    for (let restore of restorers) restore()
-  }
-}
-
-/** @param {Element} $focused */
-function tweakFocusedReplyComposer($focused) {
-  let restorers = [observeComposerSecondaryControls($focused)]
-  for (let $textarea of $focused.querySelectorAll('[data-media-upload-dropzone] > form textarea')) {
-    restorers.push(tweakReplyTextarea($textarea))
-  }
-  // Before the editor is opened, the standalone card displays a static prompt
-  for (let $prompt of $focused.querySelectorAll('span:has(+ button[disabled])')) {
-    if ($prompt.closest('article') != $focused.querySelector(':scope > article')) continue
-    let original = $prompt.textContent
-    if (original != getString('POST_YOUR_REPLY')) continue
-    let replacement = getString('TWEET_YOUR_REPLY')
-    $prompt.textContent = replacement
-    restorers.push(() => {
-      if ($prompt.textContent == replacement) $prompt.textContent = original
-    })
-  }
-  // Conversation row processing owns these patches and restores them on cleanup
-  return () => {
-    for (let restore of restorers) restore()
-  }
-}
 
 /**
  * The focused Tweet can render before the virtualized timeline, so its changes
@@ -14019,12 +12853,6 @@ function tweakFocusedReplyComposer($focused) {
  */
 function tweakFocusedTweet($focused, tweetPath, readState) {
   processUnavailableTweetContent($focused)
-  let repost = ':scope > article > a:has([data-icon="icon-repost-fill"])'
-  let restoreRepost = settings.revertXBranding ? observeBrandingLabels($focused, [
-    {selector: repost, from: 'YOU_REPOSTED', to: 'YOU_RETWEETED'},
-    {selector: repost, from: 'USER_REPOSTED', to: 'USER_RETWEETED', matchPlaceholders: true},
-  ], 'focused repost branding') : null
-  let restoreReplyComposer = settings.revertXBranding ? tweakFocusedReplyComposer($focused) : null
   let cleanupLocation = null
   if (settings.addFocusedTweetAccountLocation) {
     let $time = $focused.querySelector(`a[href="${tweetPath}"][data-base-ui-tooltip-trigger]`)
@@ -14037,8 +12865,6 @@ function tweakFocusedTweet($focused, tweetPath, readState) {
     ? restoreFocusedTweetMetrics($focused, tweetPath, readState) : null
   return () => {
     clearUnavailableTweetContent($focused)
-    restoreRepost?.()
-    restoreReplyComposer?.()
     cleanupLocation?.()
     cleanupMetrics?.()
   }
@@ -14088,7 +12914,6 @@ function observeInitialFocusedTweet($container, {tweetPath, isCurrent}) {
 }
 
 function tweakIndividualTweetPage() {
-  let restoreHeadings = () => {}
   let tweetPath = currentPagePath
   let processItems = createIndividualTweetTimelineProcessor(tweetPath)
   let $initialContent = null
@@ -14107,37 +12932,14 @@ function tweakIndividualTweetPage() {
         $initialContent = $content
         initialFocused = observeInitialFocusedTweet($content, {tweetPath, isCurrent: syncPageUrl})
       } else initialFocused.update()
-      restoreHeadings()
-      let restorers = []
-      if (settings.revertXBranding) {
-        // The first direct div contains the desktop and mobile focused-tweet headings
-        for (let $text of $content.querySelectorAll(':scope > div:first-child h2 > span:only-child')) {
-          let original = $text.textContent
-          if (original != getString('POST')) continue
-          let replacement = getString('TWEET_NOUN')
-          $text.textContent = replacement
-          restorers.push(() => {
-            if ($text.textContent == replacement) $text.textContent = original
-          })
-        }
-      }
-      restoreHeadings = () => {
-        for (let restore of restorers) restore()
-      }
     },
     onDisconnect() {
       initialFocused?.disconnect()
-      restoreHeadings()
     },
   })
 }
 
 function tweakHomeTimelinePage() {
-  let $composeButton = null
-  let cleanupComposeLabel = () => {}
-  let $alertContent = null
-  let cleanupAlertLabels = () => {}
-  let cleanupComposerControls = () => {}
   let $nativeSelectedTab = null
   let $newTab = null
   let $tabs = null
@@ -14284,37 +13086,11 @@ function tweakHomeTimelinePage() {
 
   observePageTimeline({
     containerSelector: ':scope > div:has(> header[data-page-header])',
-    onTimelineChanged($timeline) {
-      if ($timeline && settings.revertXBranding) return observeHomeNewTweetsNotice($timeline)
-    },
     onContentChanged($content) {
-      if ($content != $alertContent) {
-        cleanupAlertLabels()
-        cleanupComposerControls()
-        cleanupComposerControls = settings.revertXBranding ? observeComposerSecondaryControls($content) : () => {}
-        $alertContent = $content
-        // The alert label comes from the timeline response, outside the locale catalog
-        let alert = '[role="status"] button[aria-keyshortcuts="."]'
-        cleanupAlertLabels = settings.revertXBranding ? observeBrandingLabels($content, [
-          {selector: `${alert} > span:last-child`, from: 'POSTED', to: 'TWEETED'},
-          {selector: alert, from: 'USERS_POSTED', to: 'USERS_TWEETED', matchPlaceholders: true},
-        ], 'Home new Tweets popup labels') : () => {}
-      }
-      let $button = $content.querySelector(`:scope > ${COMPOSER_SUBMIT_BUTTON_SELECTOR}`)
-      if ($button != $composeButton) {
-        cleanupComposeLabel()
-        cleanupComposeLabel = () => {}
-        $composeButton = $button
-        if ($button && settings.revertXBranding) cleanupComposeLabel = observeComposerSubmitLabel($button, 'Home compose submit label')
-      }
       tweakTimelineTabs($content)
     },
     onDisconnect() {
       cancelTabWait()
-      cleanupComposeLabel()
-      cleanupComposerControls()
-      cleanupAlertLabels()
-      $alertContent = null
       $tabs?.removeEventListener('click', onTabClick, true)
       $tabs?.removeEventListener('keydown', onTabKeyDown, true)
       $tabs?.removeEventListener('pointerdown', onTabPointerDown, true)
