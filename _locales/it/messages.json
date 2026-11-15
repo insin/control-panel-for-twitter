@@ -23,8 +23,8 @@
   "bypassAgeVerification": {
     "message": "Aggira la verifica dell'età"
   },
-  "bypassPhotoContextMenu": {
-    "message": "Ignora il menu «Copia link della foto»"
+  "bypassMediaContextMenu": {
+    "message": "Ignora i menu contestuali dei contenuti multimediali"
   },
   "cleanTweetLinks": {
     "message": "Copia i link dei Tweet senza tracciamento"

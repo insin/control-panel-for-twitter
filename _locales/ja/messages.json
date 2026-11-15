@@ -23,8 +23,8 @@
   "bypassAgeVerification": {
     "message": "年齢確認をバイパス"
   },
-  "bypassPhotoContextMenu": {
-    "message": "「画像のリンクをコピー」メニューをスキップ"
+  "bypassMediaContextMenu": {
+    "message": "メディアのコンテキストメニューをスキップ"
   },
   "cleanTweetLinks": {
     "message": "追跡情報なしでツイートのリンクをコピー"

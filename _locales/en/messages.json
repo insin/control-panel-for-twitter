@@ -24,8 +24,8 @@
   "bypassAgeVerification": {
     "message": "Bypass age verification"
   },
-  "bypassPhotoContextMenu": {
-    "message": "Bypass \"Copy photo link\" menu"
+  "bypassMediaContextMenu": {
+    "message": "Bypass media context menus"
   },
   "cleanTweetLinks": {
     "message": "Copy clean Tweet links"

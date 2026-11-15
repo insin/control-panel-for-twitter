@@ -23,8 +23,8 @@
   "bypassAgeVerification": {
     "message": "성인 인증 우회하기"
   },
-  "bypassPhotoContextMenu": {
-    "message": "\"사진 링크 복사\" 메뉴 건너뛰기"
+  "bypassMediaContextMenu": {
+    "message": "미디어 컨텍스트 메뉴 건너뛰기"
   },
   "cleanTweetLinks": {
     "message": "추적 정보 없이 트윗 링크 복사"

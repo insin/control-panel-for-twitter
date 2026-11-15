@@ -31,7 +31,7 @@ export const currentSettingsSchema = {
   addAddMutedWordMenuItem: boolean(),
   addFocusedTweetAccountLocation: boolean(),
   bypassAgeVerification: boolean(),
-  bypassPhotoContextMenu: boolean(),
+  bypassMediaContextMenu: boolean(),
   cleanTweetLinks: boolean(),
   darkModeTheme: oneOf(['lightsOut', 'dim', 'monokaiExtended', 'gruvboxDarkSoft']),
   defaultFollowingToRecent: boolean(),

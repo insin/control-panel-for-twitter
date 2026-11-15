@@ -23,8 +23,8 @@
   "bypassAgeVerification": {
     "message": "绕过年龄验证"
   },
-  "bypassPhotoContextMenu": {
-    "message": "跳过“复制照片链接”菜单"
+  "bypassMediaContextMenu": {
+    "message": "跳过媒体右键菜单"
   },
   "cleanTweetLinks": {
     "message": "复制不含跟踪信息的推文链接"

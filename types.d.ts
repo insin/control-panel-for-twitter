@@ -72,7 +72,7 @@ export type UserSettings = {
   addAddMutedWordMenuItem: boolean
   addFocusedTweetAccountLocation: boolean
   bypassAgeVerification: boolean
-  bypassPhotoContextMenu: boolean
+  bypassMediaContextMenu: boolean
   cleanTweetLinks: boolean
   darkModeTheme: 'lightsOut' | 'dim' | 'monokaiExtended' | 'gruvboxDarkSoft'
   defaultFollowingToRecent: boolean

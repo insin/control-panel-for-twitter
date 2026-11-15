@@ -13,7 +13,7 @@ const DEFAULT_SETTINGS = {
   addAddMutedWordMenuItem: true,
   addFocusedTweetAccountLocation: false,
   bypassAgeVerification: true,
-  bypassPhotoContextMenu: true,
+  bypassMediaContextMenu: true,
   cleanTweetLinks: true,
   darkModeTheme: 'lightsOut',
   defaultFollowingToRecent: true,
@@ -3818,21 +3818,25 @@ const getAccountLocation = (() => {
   }
 })()
 
-function bypassPhotoContextMenu() {
-  let name = 'photo context menu'
-  if (!enabled || !settings.bypassPhotoContextMenu) {
+function bypassMediaContextMenu() {
+  let name = 'media context menu'
+  if (!enabled || !settings.bypassMediaContextMenu) {
     globalObservers.get(name)?.disconnect()
     return
   }
   if (globalObservers.has(name)) return
   function onContextMenu(event) {
-    if (!enabled || !settings.bypassPhotoContextMenu) return
+    if (!enabled || !settings.bypassMediaContextMenu) return
     let $target = event.target
     let $trigger = $target?.closest?.('[data-slot="xds-context-menu-trigger"], [data-testid="tweetPhoto"]')
-    if (!$trigger || $target.closest('button, [data-press-control], [data-testid="videoPlayer"], [data-testid="videoComponent"]') ||
+    if (!$trigger && $target?.matches?.('video')) $trigger = $target.parentElement?.querySelector(':scope > [data-slot="xds-context-menu-trigger"]')
+    if (!$trigger) return
+    let video = $trigger.matches('[data-slot="xds-context-menu-trigger"]') &&
+      ($trigger.querySelector('video') || $trigger.parentElement?.querySelector(':scope > video'))
+    if (!video && ($target.closest('button, [data-press-control], [data-testid="videoPlayer"], [data-testid="videoComponent"]') ||
         $trigger.querySelector('video') ||
-        !$trigger.querySelector('img[src^="https://pbs.twimg.com/media/"]')) return
-    log('bypassPhotoContextMenu: bypassing photo context menu')
+        !$trigger.querySelector('img[src^="https://pbs.twimg.com/media/"]'))) return
+    log('bypassMediaContextMenu: bypassing media context menu')
     event.stopImmediatePropagation()
   }
   document.addEventListener('contextmenu', onContextMenu, true)
@@ -10014,7 +10018,7 @@ async function main({processImmediately = false} = {}) {
       configureFeatureFlags()
       configureThemeCss()
       configureCustomCss()
-      bypassPhotoContextMenu()
+      bypassMediaContextMenu()
       configureCleanTweetLinks()
       observePopups()
       observeSideNavItems()
@@ -10063,7 +10067,7 @@ function onDisabled() {
   configureDynamicCss()
   configureThemeCss()
   configureCustomCss()
-  bypassPhotoContextMenu()
+  bypassMediaContextMenu()
   configureCleanTweetLinks()
   // Manually remove custom UI elements which clone existing elements, as
   // adding a hidden attribute won't hide them by default.
@@ -10080,7 +10084,7 @@ function onSettingsChanged(changedSettings = new Set()) {
   configureDynamicCss()
   configureThemeCss()
   configureCustomCss()
-  bypassPhotoContextMenu()
+  bypassMediaContextMenu()
   configureCleanTweetLinks()
   observePopups()
   observeSideNavItems()
@@ -13779,7 +13783,7 @@ function onDebugChanged() {
 function onDisabled() {
   configureTitleSetter()
   configureFastBlock()
-  bypassPhotoContextMenu()
+  bypassMediaContextMenu()
   configureCleanTweetLinks()
   configureRedirects()
   observeTheme()
@@ -13802,7 +13806,7 @@ function onSettingsChanged(changedSettings = new Set()) {
   if (changedSettings.has('hideVerifiedTabs') || changedSettings.has('disableHomeTimeline') ||
       changedSettings.has('disabledHomeTimelineRedirect') || changedSettings.has('hideNotifications')) configureRedirects()
   if (changedSettings.has('fastBlock')) configureFastBlock()
-  if (changedSettings.has('bypassPhotoContextMenu')) bypassPhotoContextMenu()
+  if (changedSettings.has('bypassMediaContextMenu')) bypassMediaContextMenu()
   if (changedSettings.has('cleanTweetLinks')) configureCleanTweetLinks()
   configureCss()
   configureCustomCss()
@@ -13835,7 +13839,7 @@ function main() {
   configureTitleSetter()
   configureRedirects()
   configureFastBlock()
-  bypassPhotoContextMenu()
+  bypassMediaContextMenu()
   configureCleanTweetLinks()
 
   // Sets mobile/desktop and generates feature CSS
