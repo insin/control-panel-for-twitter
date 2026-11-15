@@ -400,3 +400,8 @@ export type XTheme = {
   embedTokens: Record<string, string>
   embedHighContrastTokens: Record<string, string>
 }
+
+export type XwebTimelineProcessor = (items: Element[], timelineId: string, changedItems: Set<Element>) => {
+  processed: number,
+  cleanup?: () => void,
+} | void

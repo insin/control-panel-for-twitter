@@ -11728,7 +11728,7 @@ const observeOverlays = (() => {
       observers,
       isCurrent: () => Boolean($viewer?.isConnected),
       timelineSelector: '[id^="urt:conversation:"]',
-      onItemsChanged($items, id) {
+      onItemsChanged($items, id, changedItems) {
         initialFocused.disconnect()
         let nextPath = tweetPath($items, id) || (id.startsWith(`urt:conversation:${/\/status\/(\d+)/.exec(path)?.[1]}:`) ? path : '')
         if (!nextPath) return
@@ -11736,7 +11736,7 @@ const observeOverlays = (() => {
           path = nextPath
           processItems = createIndividualTweetTimelineProcessor(path)
         }
-        return processItems($items)
+        return processItems($items, id, changedItems)
       },
       onContentChanged() { initialFocused.update() },
       onDisconnect() { initialFocused.disconnect() },
@@ -12634,7 +12634,7 @@ function clearUnavailableTweetContent($item) {
 
 /**
  * Reply groups follow their initial reply - focused tweets and ancestors stay visible.
- * @returns {($items: Element[]) => (() => void) | null}
+ * @returns {import("./types").XwebTimelineProcessor}
  */
 function createIndividualTweetTimelineProcessor(tweetPath = currentPagePath) {
   let readState = createConversationStateReader()
@@ -12645,14 +12645,22 @@ function createIndividualTweetTimelineProcessor(tweetPath = currentPagePath) {
   let $timeline = null
   let timelineId = ''
   let op = /^\/([a-zA-Z\d_]{1,20})\/status\//.exec(tweetPath)?.[1]?.toLowerCase()
+  let classifications = new WeakMap()
+  let focusedTargets = []
+  let cleanupFocused = null
+  function cleanup() {
+    cleanupFocused?.()
+    cleanupFocused = null
+    focusedTargets = []
+  }
   /** @type {Record<string, import("./types").TimelineItemType>} */
   let replyTypes = {
     '#icon-verified-premium-color': 'BLUE_REPLY',
     '#icon-verified-business-color': 'BUSINESS_REPLY',
     '#icon-verified-government-color': 'GOVERNMENT_REPLY',
   }
-  /** @param {Element[]} $items */
-  return function processIndividualTweetTimelineItems($items) {
+  return function processIndividualTweetTimelineItems($items, id, changedItems) {
+    let processed = 0
     let $nextTimeline = $items[0]?.closest('[id^="urt:conversation:"]')
     let nextTimelineId = $nextTimeline?.id || ''
     let matchesConversation = nextTimelineId.startsWith(`urt:conversation:${focusedId}:`)
@@ -12675,8 +12683,16 @@ function createIndividualTweetTimelineProcessor(tweetPath = currentPagePath) {
     let state = settings.hidePremiumReplies || debug ? readState(ids) : null
     let opId = state?.authors.get(focusedId)?.id
     for (let $item of $items) {
-      let type = getTimelineItemType($item, true)
+      let cached = classifications.get($item)
+      let changed = !cached || changedItems.has($item)
+      if (changed) {
+        cached = {type: getTimelineItemType($item, true)}
+        classifications.set($item, cached)
+      }
+      let type = cached.type
       if (type == 'DISCOVER_MORE' || type == 'WHO_TO_FOLLOW') {
+        if (!changed) continue
+        processed++
         if (debug) $item.setAttribute('data-item-type', type)
         else $item.removeAttribute('data-item-type')
         $item.classList.remove('HiddenAd')
@@ -12691,17 +12707,29 @@ function createIndividualTweetTimelineProcessor(tweetPath = currentPagePath) {
       // Continuations, including OP replies, share the initial reply's hide decision
       let $tweet = $item.hasAttribute('data-href') || type == 'FOCUSED_TWEET' ? $item :
         type == 'THREAD' || $item.children.length == 1 ? $item.children[0] : null
-      processTweet($item, type == 'THREAD' ? getTweetType($tweet) : type, $tweet)
+      if (changed) {
+        cached.tweetType = type == 'THREAD' ? getTweetType($tweet) : type
+        cached.unavailable = processUnavailableTweetContent($item, $tweet || $item)
+        cached.isAi = (settings.hideAiTweets || debug) && hasAiDisclosure($tweet)
+      }
+      processTweet($item, cached, $tweet, changed)
     }
 
-    return $focused ? tweakFocusedTweet($focused, tweetPath, readState) : null
+    let targets = $focused ? [$focused, $focused.querySelector(':scope > article'),
+      $focused.querySelector(`a[href="${tweetPath}"][data-base-ui-tooltip-trigger]`), getFocusedTweetActions($focused)] : []
+    if (targets.length != focusedTargets.length || targets.some(($target, i) => $target != focusedTargets[i])) {
+      cleanup()
+      focusedTargets = targets
+      if ($focused) cleanupFocused = tweakFocusedTweet($focused, tweetPath, readState)
+    }
+    return {processed, cleanup}
 
-    function processTweet($item, type, $tweet) {
-      let unavailable = processUnavailableTweetContent($item, $tweet || $item)
+    function processTweet($item, cached, $tweet, changed) {
+      let type = cached.tweetType
+      let unavailable = cached.unavailable
       let match = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)/.exec($tweet?.getAttribute('data-href') || '')
       let author = match?.[1]?.toLowerCase()
       let user = state?.authors.get(match?.[2])
-      let $article = $tweet?.querySelector(':scope > article')
       let isOp = author == op || (opId != null && user?.id == opId)
       let isUser = state && ((user?.id != null && user.id == state.viewer.id) ||
         (author && author == state.viewer.screenName?.toLowerCase()))
@@ -12710,7 +12738,11 @@ function createIndividualTweetTimelineProcessor(tweetPath = currentPagePath) {
       let replyGroup = Boolean(matchesConversation && !$item.hasAttribute('data-href') &&
         $item.children[0]?.matches('[data-href]:has(> article)'))
       let reply = focusedIndex != null ? index > focusedIndex : replyGroup
-      let isAi = (settings.hideAiTweets || debug) && hasAiDisclosure($tweet)
+      let context = JSON.stringify([reply, isOp, isUser, user])
+      if (!changed && cached.context == context) return
+      cached.context = context
+      processed++
+      let isAi = cached.isAi
       let hidden = unavailable && reply
       hidden ||= settings.hideAiTweets && reply && isAi
       // Exempt ancestors/focus and groups whose initial reply is by OP/self
@@ -12719,16 +12751,21 @@ function createIndividualTweetTimelineProcessor(tweetPath = currentPagePath) {
         else if (user?.verifiedType == 'Government') type = 'GOVERNMENT_REPLY'
         else if (user?.blueVerified === true) type = 'BLUE_REPLY'
         else if (user?.blueVerified == null && user?.verifiedType == null) {
-          let $header = $article?.querySelector('[class~="@container/post-actions"]')
-          for (let $badge of $header?.querySelectorAll('use[href^="#icon-verified-"]') || []) {
-            // Quoted-tweet badges do not identify the reply's author
-            if ($badge.closest('article') != $article) continue
-            let verifiedType = replyTypes[$badge.getAttribute('href')]
-            if (verifiedType) {
-              type = verifiedType
-              break
+          if (cached.badgeType === undefined) {
+            cached.badgeType = null
+            let $article = $tweet?.querySelector(':scope > article')
+            let $header = $article?.querySelector('[class~="@container/post-actions"]')
+            for (let $badge of $header?.querySelectorAll('use[href^="#icon-verified-"]') || []) {
+              // Match the reply author's badge in its own article
+              if ($badge.closest('article') != $article) continue
+              let verifiedType = replyTypes[$badge.getAttribute('href')]
+              if (verifiedType) {
+                cached.badgeType = verifiedType
+                break
+              }
             }
           }
+          type = cached.badgeType || type
         }
         if (!hidden && state && user && ['BLUE_REPLY', 'BUSINESS_REPLY', 'GOVERNMENT_REPLY'].includes(type) &&
             shouldHidePremiumReply(type, user, state.viewer)) {
@@ -12776,6 +12813,7 @@ function getTimelineItemType($item, conversation = currentPageType == 'Tweet') {
       Array.from($item.children).every($tweet => ['TWEET', 'QUOTE_TWEET'].includes(getTweetType($tweet)))) {
     return 'THREAD'
   }
+  if ($item.querySelector('h2') && !$item.querySelector('article')) return 'HEADING'
   return 'UNKNOWN'
 }
 
@@ -13045,11 +13083,10 @@ function syncTimelineRowSizes($list, previousHiddenRows) {
 }
 
 /**
- * Virtualized rows mount at either end. Patch cleanup runs before reprocessing
- * and on teardown.
+ * Track mounted rows as they enter and leave the virtualized list.
  * @param {HTMLDivElement} $timeline
  * @param {string} timelineId
- * @param {($items: Element[], timelineId: string) => void | (() => void)} [onItemsChanged]
+ * @param {import("./types").XwebTimelineProcessor} [onItemsChanged]
  * @returns {(() => void) | null}
  */
 function observeTimelineItems($timeline, timelineId, onItemsChanged, {observers = pageObservers, isCurrent = syncPageUrl} = {}) {
@@ -13083,16 +13120,21 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {observers 
     $item.removeAttribute('data-item-type')
   }
 
-  function processRows() {
+  function processRows(mutations = []) {
     if (!enabled || !isCurrent()) return
     let start = Date.now()
     let items = []
     for (let $row of $list.children) {
       if ($row.matches('li[data-index]')) items.push(...$row.children)
     }
-    cleanupProcessedItems?.()
-    cleanupProcessedItems = onItemsChanged ? onItemsChanged(items, timelineId) || null : null
-    if (!onItemsChanged) processTimelineItems(items, timelineId)
+    let changedItems = new Set(items.filter($item => !processedItems.has($item)))
+    // Explicit refreshes re-evaluate the mounted content
+    if (!mutations.length) for (let $item of items) changedItems.add($item)
+    let result = onItemsChanged?.(items, timelineId, changedItems) || null
+    if (!onItemsChanged) processTimelineItems(items.filter($item => changedItems.has($item)), timelineId)
+    let nextCleanup = result?.cleanup || null
+    if (nextCleanup != cleanupProcessedItems) cleanupProcessedItems?.()
+    cleanupProcessedItems = nextCleanup
     let nextItems = new Set(items)
     for (let $item of processedItems) {
       if (!nextItems.has($item)) clearItem($item)
@@ -13108,10 +13150,10 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {observers 
         categories[type] = (categories[type] || 0) + 1
         hiddenCount++
       }
-      log('timeline rows processed', {id: timelineId, processed: items.length, hidden: hiddenCount, categories, ms: Date.now() - start})
+      let processed = result?.processed ?? changedItems.size
+      log('timeline rows processed', {id: timelineId, mounted: items.length, processed, reused: items.length - processed, hidden: hiddenCount, categories, ms: Date.now() - start})
     }
   }
-  // Observe list membership - changes inside an existing row do not trigger processing
   let observer = observeElement($list, processRows, {
     leading: true,
     name: 'timeline rows',
@@ -13132,7 +13174,7 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {observers 
  * @param {Element} $container
  * @param {{
  *   timelineSelector?: string | (() => string)
- *   onItemsChanged?: ($items: Element[], timelineId: string) => void | (() => void)
+ *   onItemsChanged?: import("./types").XwebTimelineProcessor
  *   onTimelineChanged?: ($timeline: HTMLDivElement | null, id: string) => void | (() => void)
  *   onContentChanged?: ($container: Element) => void
  *   onDisconnect?: () => void
@@ -13264,6 +13306,14 @@ async function tweakExplorePage() {
       currentPagePath == path && location.pathname == path && $input.getClientRects().length) $input.focus()
 }
 
+/** @param {Element} $focused */
+function getFocusedTweetActions($focused) {
+  let $article = $focused.querySelector(':scope > article')
+  return Array.from($article?.querySelectorAll('[role="group"]') || []).find(
+    $group => $group.closest('article') == $article && $group.querySelector('[data-engagement-action="like"]')
+  )
+}
+
 /**
  * Restore legacy interaction links using the normalized Tweet.counts record.
  * @param {Element} $focused
@@ -13273,9 +13323,7 @@ async function tweakExplorePage() {
 function restoreFocusedTweetMetrics($focused, tweetPath, readState) {
   let signature = ''
   let id = /\/status\/(\d+)/.exec(tweetPath)?.[1]
-  let $article = $focused.querySelector(':scope > article')
-  let $actions = Array.from($article?.querySelectorAll('[role="group"]') || []).find($group =>
-    $group.closest('article') == $article && $group.querySelector('[data-engagement-action="like"]'))
+  let $actions = getFocusedTweetActions($focused)
   if (!id || !$actions) return () => {}
   let $row = null
   function update() {
@@ -13421,10 +13469,10 @@ function tweakIndividualTweetPage() {
   observePageTimeline({
     containerSelector: ':scope > div',
     timelineSelector: '[id^="urt:conversation:"]',
-    onItemsChanged($items) {
+    onItemsChanged($items, id, changedItems) {
       // Row processing precedes onContentChanged, even when React reuses the focused card
       initialFocused?.disconnect()
-      return processItems($items)
+      return processItems($items, id, changedItems)
     },
     onContentChanged($content) {
       if ($content != $initialContent) {
