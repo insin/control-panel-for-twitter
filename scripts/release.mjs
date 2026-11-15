@@ -13,19 +13,38 @@ const manifestPaths =
 const safariProjectPath = './safari/Control Panel for Twitter.xcodeproj/project.pbxproj'
 
 const releaseType = process.argv[2]
+const specificVersion = semver.parse(releaseType)
 
-if (releaseType != 'patch' && releaseType != 'minor' && releaseType != 'major') {
+if (
+  releaseType != 'patch' &&
+  releaseType != 'minor' &&
+  releaseType != 'major' &&
+  !specificVersion
+) {
   console.log(
     `
 Usage:
-  npm run release (patch|minor|major)
+  npm run release -- (patch|minor|major|<version>) [--edition=v4|v5]
+
+Examples:
+  npm run release -- 4.99.0
+  npm run release -- minor --edition=v5
 `.trim(),
   )
   process.exit(1)
 }
 
 const currentVersion = JSON.parse(fs.readFileSync(manifestPaths[0], { encoding: 'utf8' })).version
-const nextVersion = semver.inc(currentVersion, releaseType)
+const nextVersion = specificVersion
+  ? [specificVersion.version, specificVersion.build.join('.')].filter(Boolean).join('+')
+  : semver.inc(currentVersion, releaseType)
+
+if (specificVersion && !semver.gt(nextVersion, currentVersion)) {
+  console.error(
+    `Version ${nextVersion} must be higher than the current ${edition} version ${currentVersion}`,
+  )
+  process.exit(1)
+}
 
 for (const manifestPath of manifestPaths) {
   fs.writeFileSync(
