@@ -73,6 +73,7 @@ export type UserSettings = {
   addFocusedTweetAccountLocation: boolean
   bypassAgeVerification: boolean
   bypassPhotoContextMenu: boolean
+  cleanTweetLinks: boolean
   darkModeTheme: 'lightsOut' | 'dim' | 'monokaiExtended' | 'gruvboxDarkSoft'
   defaultFollowingToRecent: boolean
   defaultToFollowing: boolean

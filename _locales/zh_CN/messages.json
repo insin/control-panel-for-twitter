@@ -26,6 +26,9 @@
   "bypassPhotoContextMenu": {
     "message": "跳过“复制照片链接”菜单"
   },
+  "cleanTweetLinks": {
+    "message": "复制不含跟踪信息的推文链接"
+  },
   "clearFeatureSearch": {
     "message": "清除搜索"
   },

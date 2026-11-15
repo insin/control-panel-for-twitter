@@ -10,6 +10,7 @@ export const DEFAULT_SETTINGS = {
   addFocusedTweetAccountLocation: false,
   bypassAgeVerification: true,
   bypassPhotoContextMenu: true,
+  cleanTweetLinks: true,
   darkModeTheme: 'lightsOut',
   defaultFollowingToRecent: true,
   defaultToFollowing: true,

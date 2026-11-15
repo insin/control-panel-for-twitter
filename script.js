@@ -14,6 +14,7 @@ const DEFAULT_SETTINGS = {
   addFocusedTweetAccountLocation: false,
   bypassAgeVerification: true,
   bypassPhotoContextMenu: true,
+  cleanTweetLinks: true,
   darkModeTheme: 'lightsOut',
   defaultFollowingToRecent: true,
   defaultToFollowing: true,
@@ -11185,6 +11186,73 @@ function configureFastBlock() {
   }})
 }
 
+function configureCleanTweetLinks() {
+  let name = 'clean tweet links'
+  if (!enabled || !settings.cleanTweetLinks) {
+    globalObservers.get(name)?.disconnect()
+    return
+  }
+  if (globalObservers.has(name)) return
+  let restore = () => {}
+  let i18n = null
+  function translate(text) {
+    i18n ||= findRouter()?.options?.context?.i18n
+    return i18n?.t(text) || text
+  }
+  function cleanLink(text) {
+    try {
+      let url = new URL(text)
+      if (url.protocol != 'https:' || !['x.com', 'twitter.com'].includes(url.hostname) ||
+          !/^\/(?:[a-zA-Z\d_]{1,20}\/status|i\/web\/status)\/\d+(?:\/(?:photo|video)\/\d+)?\/?$/.test(url.pathname)) return text
+      url.search = ''
+      return url.href
+    } catch {
+      return text
+    }
+  }
+  function onCopy(event) {
+    if (!enabled || !settings.cleanTweetLinks || event.button != 0) return
+    let $item = event.target?.closest?.('[data-slot="xds-menu-item"]')
+    if (!$item?.closest('[data-slot="xds-menu-content"]') || $item.getAttribute('aria-disabled') == 'true') return
+    let text = $item.textContent.trim()
+    if (text != translate('Copy link') && text != translate('Copy link to ad')) return
+    let clipboard = navigator.clipboard
+    if (typeof clipboard?.writeText != 'function') return
+    restore()
+    let original = clipboard.writeText
+    let descriptor = Object.getOwnPropertyDescriptor(clipboard, 'writeText')
+    let armed = true
+    let timer = null
+    function reset() {
+      armed = false
+      if (timer != null) clearTimeout(timer)
+      if (clipboard.writeText != writeText) return
+      if (descriptor) Object.defineProperty(clipboard, 'writeText', descriptor)
+      else delete clipboard.writeText
+    }
+    function writeText(value) {
+      let text = armed && enabled && settings.cleanTweetLinks ? cleanLink(value) : value
+      if (text != value) log('cleanTweetLinks: removed tracking from copied link', {url: text})
+      reset()
+      return original.call(this, text)
+    }
+    try {
+      Object.defineProperty(clipboard, 'writeText', {configurable: true, writable: true, value: writeText})
+    } catch {
+      return
+    }
+    restore = reset
+    // Keep the wrapper through event propagation, then restore if X never calls it.
+    timer = setTimeout(reset, 0)
+  }
+  document.addEventListener('click', onCopy, true)
+  globalObservers.set(name, {name, disconnect() {
+    restore()
+    document.removeEventListener('click', onCopy, true)
+    globalObservers.delete(name)
+  }})
+}
+
 const configureRedirects = (() => {
   let name = 'router navigation'
   let router = null
@@ -13606,6 +13674,7 @@ function onDisabled() {
   configureTitleSetter()
   configureFastBlock()
   bypassPhotoContextMenu()
+  configureCleanTweetLinks()
   configureRedirects()
   observeTheme()
   if (separatedTweetsTimelineSelected) {
@@ -13628,6 +13697,7 @@ function onSettingsChanged(changedSettings = new Set()) {
       changedSettings.has('disabledHomeTimelineRedirect') || changedSettings.has('hideNotifications')) configureRedirects()
   if (changedSettings.has('fastBlock')) configureFastBlock()
   if (changedSettings.has('bypassPhotoContextMenu')) bypassPhotoContextMenu()
+  if (changedSettings.has('cleanTweetLinks')) configureCleanTweetLinks()
   configureCss()
   configureCustomCss()
   if (changedSettings.has('darkModeTheme') || changedSettings.has('lightModeTheme') || changedSettings.has('revertXBranding')) observeTheme()
@@ -13660,6 +13730,7 @@ function main() {
   configureRedirects()
   configureFastBlock()
   bypassPhotoContextMenu()
+  configureCleanTweetLinks()
 
   // Sets mobile/desktop and generates feature CSS
   observeLayout()

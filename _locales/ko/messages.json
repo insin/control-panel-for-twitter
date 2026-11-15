@@ -26,6 +26,9 @@
   "bypassPhotoContextMenu": {
     "message": "\"사진 링크 복사\" 메뉴 건너뛰기"
   },
+  "cleanTweetLinks": {
+    "message": "추적 정보 없이 트윗 링크 복사"
+  },
   "clearFeatureSearch": {
     "message": "검색 지우기"
   },

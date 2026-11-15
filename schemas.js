@@ -32,6 +32,7 @@ export const currentSettingsSchema = {
   addFocusedTweetAccountLocation: boolean(),
   bypassAgeVerification: boolean(),
   bypassPhotoContextMenu: boolean(),
+  cleanTweetLinks: boolean(),
   darkModeTheme: oneOf(['lightsOut', 'dim', 'monokaiExtended', 'gruvboxDarkSoft']),
   defaultFollowingToRecent: boolean(),
   defaultToFollowing: boolean(),

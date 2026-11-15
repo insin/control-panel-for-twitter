@@ -27,6 +27,9 @@
   "bypassPhotoContextMenu": {
     "message": "Bypass \"Copy photo link\" menu"
   },
+  "cleanTweetLinks": {
+    "message": "Copy clean Tweet links"
+  },
   "clearFeatureSearch": {
     "message": "Clear search"
   },

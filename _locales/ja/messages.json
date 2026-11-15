@@ -26,6 +26,9 @@
   "bypassPhotoContextMenu": {
     "message": "「画像のリンクをコピー」メニューをスキップ"
   },
+  "cleanTweetLinks": {
+    "message": "追跡情報なしでツイートのリンクをコピー"
+  },
   "clearFeatureSearch": {
     "message": "検索をクリア"
   },

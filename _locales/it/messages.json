@@ -26,6 +26,9 @@
   "bypassPhotoContextMenu": {
     "message": "Ignora il menu «Copia link della foto»"
   },
+  "cleanTweetLinks": {
+    "message": "Copia i link dei Tweet senza tracciamento"
+  },
   "clearFeatureSearch": {
     "message": "Cancella ricerca"
   },
