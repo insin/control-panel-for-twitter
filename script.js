@@ -10416,7 +10416,7 @@ const configureTitleSetter = (() => {
       // Other extensions may retain our retired setter - it must keep delegating
       if (this != document || setter != wrapped || !enabled || settings.hideNotifications == 'ignore') return accessor.set.call(this, value)
       let title = `${value}`
-      let display = title.replace(TITLE_NOTIFICATION_RE, '')
+      let display = formatPageTitle(title)
       nativeDocumentTitle = title
       appliedDocumentTitle = display
       currentNotificationCount = TITLE_NOTIFICATION_RE.exec(title)?.[0] || ''
@@ -10519,10 +10519,24 @@ function restorePageTitle() {
   appliedDocumentTitle = null
 }
 
+/** @param {string} title */
+function formatPageTitle(title) {
+  let count = TITLE_NOTIFICATION_RE.exec(title)?.[0] || ''
+  title = title.slice(count.length)
+  // Some route heads translate the page label, then append " / X" themselves.
+  if (enabled && settings.revertXBranding) {
+    let twitter = getString('TWITTER')
+    if (title == 'X') title = twitter
+    else if (title.endsWith(' / X')) title = title.slice(0, -1) + twitter
+    else if (title.startsWith('X \\ ')) title = twitter + title.slice(1)
+  }
+  if (enabled && settings.hideNotifications != 'ignore' && configureTitleSetter.active()) count = ''
+  return count + title
+}
+
 function updatePageTitle(title, {native = false} = {}) {
   if (native || nativeDocumentTitle == null || title != appliedDocumentTitle) nativeDocumentTitle = title
-  let display = nativeDocumentTitle
-  if (enabled && settings.hideNotifications != 'ignore' && configureTitleSetter.active()) display = display.replace(TITLE_NOTIFICATION_RE, '')
+  let display = formatPageTitle(nativeDocumentTitle)
   appliedDocumentTitle = display
   writeDocumentTitle(display)
   return nativeDocumentTitle
@@ -10682,10 +10696,6 @@ function updateHomeTimelineTitle() {
   let title = nativeHomeTitle || `${home} / X`
   if (separatedTweetsTimelineSelected) {
     title = title.replace(home, getSeparatedTweetsTimelineTitle())
-    if (settings.revertXBranding) {
-      title = title.replace(/ \/ X$/, () => ` / ${getString('TWITTER')}`)
-        .replace(/^X \\ /, () => `${getString('TWITTER')} \\ `)
-    }
   }
   let count = TITLE_NOTIFICATION_RE.exec(nativeDocumentTitle ?? document.title)?.[0] || currentNotificationCount
   updatePageTitle(count + title)
