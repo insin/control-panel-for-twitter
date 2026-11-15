@@ -12817,7 +12817,10 @@ function getTimelineItemType($item, conversation = currentPageType == 'Tweet') {
       Array.from($item.children).every($tweet => ['TWEET', 'QUOTE_TWEET'].includes(getTweetType($tweet)))) {
     return 'THREAD'
   }
-  if ($item.querySelector('h2') && !$item.querySelector('article')) return 'HEADING'
+  if (!$item.querySelector('article')) {
+    if ($item.querySelector('button [data-icon="icon-close-md"]')) return 'INLINE_PROMPT'
+    if ($item.querySelector('h2')) return 'HEADING'
+  }
   return 'UNKNOWN'
 }
 
@@ -12884,6 +12887,7 @@ function processTimelineItems($items, timelineId) {
     if (type == 'NOTIFICATION_LIKE') hidden = settings.hideNotificationLikes
     if (type == 'NOTIFICATION_RETWEET') hidden = settings.hideNotificationRetweets
     if (type == 'WHO_TO_FOLLOW') hidden = settings.hideSuggestedContentTimeline
+    if (type == 'INLINE_PROMPT') hidden = settings.hideInlinePrompts
     $item.classList.toggle('HiddenAd', ad)
     $item.classList.toggle('HiddenTweet', hidden)
   }
