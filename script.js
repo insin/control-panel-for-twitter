@@ -137,6 +137,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'ضافة تغريدة أخرى',
     ADD_MUTED_WORD: 'إضافة كلمة مكتومة',
     AD_FROM: 'إعلان من {url}',
+    EMBED_TWEET: 'تضمين التغريدة',
     FOLLOWING_USER: 'متابعة @{screenName}',
     FOLLOW_BACK_USER: 'رد المتابعة @{screenName}',
     FOLLOW_USER: 'متابعة {screenName}@',
@@ -163,6 +164,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, zero {تغريدة اقتباس} one {تغريدة اقتباس واحدة} two {تغريدتا اقتباس} few {تغريدات اقتباس} many {تغريدة اقتباس} other {تغريدة اقتباس}}',
     RECENT: 'الأخيرة',
+    REPORT_TWEET: 'الإبلاغ عن التغريدة',
     REPOST: 'إعادة النشر',
     REPOSTS: 'المنشورات المُعاد نشرها',
     REPOST_COUNT:
@@ -183,6 +185,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
     TWEET: 'تغريد',
+    TWEETED: 'غرَّد',
     TWEETS: 'التغريدات',
     TWEET_ALL: 'تغريد الكل',
     TWEET_COUNT:
@@ -194,6 +197,7 @@ const locales = {
     TWITTER: 'تويتر',
     UNDO_RETWEET: 'التراجع عن التغريدة',
     UNFOLLOW_USER: 'إلغاء متابعة {screenName}@',
+    UNSENT_TWEETS: 'التغريدات غير المرسلة',
     USER_RETWEETED: 'أعاد التغريد {name}',
     VIEW: 'عرض',
     YOU_RETWEETED: 'أعدت تغريد',
@@ -203,6 +207,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'ضافة تغريدة أخرى',
     ADD_MUTED_WORD: 'اضافة كلمة مكتومة',
     AD_FROM: 'إعلان من {url}',
+    EMBED_TWEET: 'تضمين التغريدة',
     FOLLOWING_USER: 'متابعة @{screenName}',
     FOLLOW_BACK_USER: 'ردي المتابعة لـ @{screenName}',
     FOLLOW_USER: 'متابعة {screenName}@',
@@ -228,6 +233,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, zero {تغريدة اقتباس} one {تغريدة اقتباس واحدة} two {تغريدتا اقتباس} few {تغريدات اقتباس} many {تغريدة اقتباس} other {تغريدة اقتباس}}',
     RECENT: 'الحديثة',
+    REPORT_TWEET: 'الإبلاغ عن التغريدة',
     REPOST: 'إعادة النشر',
     REPOSTS: 'المنشورات المُعاد نشرها',
     REPOST_COUNT:
@@ -248,6 +254,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'تعطيل إعادة التغريد',
     TURN_ON_RETWEETS: 'تفعيل إعادة التغريد',
     TWEET: 'غرّدي',
+    TWEETED: 'غرّدت',
     TWEETS: 'التغريدات',
     TWEET_ALL: 'تغريد الكل',
     TWEET_COUNT:
@@ -259,6 +266,7 @@ const locales = {
     TWITTER: 'تويتر',
     UNDO_RETWEET: 'التراجع عن التغريدة',
     UNFOLLOW_USER: 'إلغاء متابِعة @{screenName}',
+    UNSENT_TWEETS: 'التغريدات غير المرسلة',
     USER_RETWEETED: 'أعادت التغريد {name}',
     VIEW: 'عرض',
     YOU_RETWEETED: 'أعدتِ تغريد',
@@ -268,6 +276,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Добавяне на друг туит',
     ADD_MUTED_WORD: 'Добавяне на заглушена дума',
     AD_FROM: 'Реклама от {url}',
+    EMBED_TWEET: 'Вграждане на туит',
     FOLLOWING_USER: 'Следваш @{screenName}',
     FOLLOW_BACK_USER: 'Следвай обратно @{screenName}',
     FOLLOW_USER: 'Следване на @{screenName}',
@@ -291,6 +300,7 @@ const locales = {
     QUOTE_TWEETS: 'Туитове с цитат',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {Туит с цитат} other {туита с цитат}}',
     RECENT: 'Скорошни',
+    REPORT_TWEET: 'Докладване на туита',
     REPOST: 'Препубликуване',
     REPOSTS: 'Препубликувания',
     REPOST_COUNT: '{formattedCount} {count, plural, one {препубликуване} other {препубликувания}}',
@@ -308,6 +318,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Изключване на ретуитовете',
     TURN_ON_RETWEETS: 'Включване на ретуитовете',
     TWEET: 'Туит',
+    TWEETED: 'туитна',
     TWEETS: 'Туитове',
     TWEET_ALL: 'Туитване на всички',
     TWEET_COUNT: '{formattedCount} {count, plural, one {туит} other {туита}}',
@@ -317,6 +328,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'туит своя отговор',
     UNDO_RETWEET: 'Отмяна на ретуитването',
     UNFOLLOW_USER: 'Спиране на следването на @{screenName}',
+    UNSENT_TWEETS: 'Неизпратени туитове',
     USER_RETWEETED: '{name} ретуитна',
     VIEW: 'Преглед',
     YOU_RETWEETED: 'Ретуитна',
@@ -326,6 +338,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'অন্য টুইট যোগ করুন',
     ADD_MUTED_WORD: 'নীরব করা শব্দ যোগ করুন',
     AD_FROM: '{url} থেকে বিজ্ঞাপন',
+    EMBED_TWEET: 'এম্বেড করা টুইট',
     FOLLOWING_USER: '@{screenName}-কে অনুসরণ করছেন',
     FOLLOW_BACK_USER: '@{screenName}-কে ফলো ব্যাক করুন',
     FOLLOW_USER: '@{screenName}-কে অনুসরণ করুন',
@@ -349,6 +362,7 @@ const locales = {
     QUOTE_TWEETS: 'টুইট উদ্ধৃতিগুলো',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {উদ্ধৃতি টুইট} other {উদ্ধৃতি টুইটগুলি}}',
     RECENT: 'সাম্প্রতিক',
+    REPORT_TWEET: 'টুইটের রিপোর্ট করুন',
     REPOST: 'রিপোস্ট',
     REPOSTS: 'রিপোস্ট',
     REPOST_COUNT: '{formattedCount} {count, plural, one {রিপোস্ট} other {রিপোস্ট}}',
@@ -366,6 +380,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'পুনঃ টুইটগুলি বন্ধ করুন',
     TURN_ON_RETWEETS: 'পুনঃ টুইটগুলি চালু করুন',
     TWEET: 'টুইট',
+    TWEETED: 'টুইট করেছেন',
     TWEETS: 'টুইটগুলি',
     TWEET_ALL: 'সব টুইট করুন',
     TWEET_COUNT: '{formattedCount} {count, plural, one {টুইট} other {টুইটগুলি}}',
@@ -376,6 +391,7 @@ const locales = {
     TWITTER: 'টুইটার',
     UNDO_RETWEET: 'পুনঃ টুইট পুর্বাবস্থায় ফেরান',
     UNFOLLOW_USER: '@{screenName} কে অনুসরণ বাতিল করুন',
+    UNSENT_TWEETS: 'অপ্রেরিত টুইট',
     USER_RETWEETED: '{name} দ্বারা পুনঃ টুইটকৃত',
     VIEW: 'দেখুন',
     YOU_RETWEETED: 'আপনি পুনঃ টুইট করেছেন',
@@ -385,6 +401,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Afegeix un altre tuit',
     ADD_MUTED_WORD: 'Afegeix una paraula silenciada',
     AD_FROM: 'Anunci de {url}',
+    EMBED_TWEET: 'Incrusta el tuit',
     FOLLOWING_USER: 'Seguint @{screenName}',
     FOLLOW_BACK_USER: 'Segueix de nou @{screenName}',
     FOLLOW_USER: 'Segueix @{screenName}',
@@ -410,6 +427,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tuit amb cita} many {Tuits amb cita} other {Tuits amb cita}}',
     RECENT: 'Recents',
+    REPORT_TWEET: 'Denuncia el tuit',
     REPOST: 'Republicació',
     REPOSTS: 'Republicacions',
     REPOST_COUNT: '{formattedCount} {count, plural, one {republicació} other {republicació}}',
@@ -428,6 +446,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Desactiva els retuits',
     TURN_ON_RETWEETS: 'Activa els retuits',
     TWEET: 'Tuita',
+    TWEETED: 'ha tuitat',
     TWEETS: 'Tuits',
     TWEET_ALL: 'Tuita-ho tot',
     TWEET_COUNT: '{formattedCount} {count, plural, one {tuit} many {tuits} other {tuits}}',
@@ -437,6 +456,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tuita la teva resposta',
     UNDO_RETWEET: 'Desfés el retuit',
     UNFOLLOW_USER: 'Deixa de seguir @{screenName}',
+    UNSENT_TWEETS: 'Tuits no enviats',
     USER_RETWEETED: '{name} ha retuitat',
     VIEW: 'Mostra',
     YOU_RETWEETED: 'Has retuitat',
@@ -446,6 +466,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Přidat další Tweet',
     ADD_MUTED_WORD: 'Přidat slovo na seznam skrytých slov',
     AD_FROM: 'Reklama z {url}',
+    EMBED_TWEET: 'Vložit Tweet',
     FOLLOWING_USER: 'Sledujete uživatele @{screenName}',
     FOLLOW_BACK_USER: 'Sledovat zpět @{screenName}',
     FOLLOW_USER: 'Začít sledovat uživatele @{screenName}',
@@ -469,6 +490,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet s citací} few {tweety s citací} many {tweetů s citací} other {tweetů s citací}}',
     RECENT: 'Poslední',
+    REPORT_TWEET: 'Nahlásit Tweet',
     REPOSTS: 'Reposty',
     RETWEET: 'Retweetnout',
     RETWEETS: 'Retweety',
@@ -486,6 +508,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Vypnout retweety',
     TURN_ON_RETWEETS: 'Zapnout retweety',
     TWEET: 'Tweetovat',
+    TWEETED: 'tweetnul',
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnout vše',
     TWEET_COUNT:
@@ -495,6 +518,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetujte svou odpověď',
     UNDO_RETWEET: 'Zrušit Retweet',
     UNFOLLOW_USER: 'Přestat sledovat uživatele @{screenName}',
+    UNSENT_TWEETS: 'Neodeslané tweety',
     USER_RETWEETED: 'Uživatel {name} retweetnul',
     VIEW: 'Zobrazit',
     YOU_RETWEETED: 'Retweetnuli jste',
@@ -504,6 +528,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Tilføj endnu et Tweet',
     ADD_MUTED_WORD: 'Tilføj skjult ord',
     AD_FROM: 'Annonce fra {url}',
+    EMBED_TWEET: 'Indlejr Tweet',
     FOLLOWING_USER: 'Følger @{screenName}',
     FOLLOW_BACK_USER: 'Følg tilbage @{screenName}',
     FOLLOW_USER: 'Følg @{screenName}',
@@ -525,6 +550,7 @@ const locales = {
     QUOTE_TWEETS: 'Citat-Tweets',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {Citat-Tweet} other {Citat-Tweets}}',
     RECENT: 'Nye',
+    REPORT_TWEET: 'Indberet Tweet',
     REPOST_COUNT: '{formattedCount} {count, plural, one {repost} other {repost}}',
     SHARED: 'Delt',
     SHARED_TWEETS: 'Delte tweets',
@@ -536,12 +562,14 @@ const locales = {
     TURN_OFF_QUOTE_TWEETS: 'Slå Citat-Tweets fra',
     TURN_OFF_RETWEETS: 'Slå Retweets fra',
     TURN_ON_RETWEETS: 'Slå Retweets til',
+    TWEETED: 'tweetede',
     TWEET_ALL: 'Tweet alt',
     TWEET_INTERACTIONS: 'Tweet-interaktioner',
     TWEET_TITLE: '{name} på Twitter: "{text}"',
     TWEET_YOUR_REPLY: 'Tweet dit svar',
     UNDO_RETWEET: 'Fortryd Retweet',
     UNFOLLOW_USER: 'Følg ikke længere @{screenName}',
+    UNSENT_TWEETS: 'Usendte Tweets',
     USER_RETWEETED: '{name} retweetede',
     VIEW: 'Vis',
     YOU_RETWEETED: 'Du retweetede',
@@ -551,6 +579,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Weiteren Tweet hinzufügen',
     ADD_MUTED_WORD: 'Stummgeschaltetes Wort hinzufügen',
     AD_FROM: 'Anzeige von {url}',
+    EMBED_TWEET: 'Tweet einbetten',
     FOLLOWING_USER: '@{screenName} gefolgt',
     FOLLOW_BACK_USER: '@{screenName} ebenfalls folgen',
     FOLLOW_USER: '@{screenName} folgen',
@@ -574,6 +603,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Zitierter Tweet} other {Zitierte Tweets}}',
     RECENT: 'Neueste',
+    REPORT_TWEET: 'Tweet melden',
     REPOST: 'Reposten',
     REPOST_COUNT: '{formattedCount} {count, plural, one {Repost} other {Reposts}}',
     RETWEET: 'Retweeten',
@@ -588,12 +618,14 @@ const locales = {
     TURN_OFF_RETWEETS: 'Retweets ausschalten',
     TURN_ON_RETWEETS: 'Retweets einschalten',
     TWEET: 'Twittern',
+    TWEETED: 'hat getwittert',
     TWEET_ALL: 'Alle twittern',
     TWEET_INTERACTIONS: 'Tweet-Interaktionen',
     TWEET_TITLE: '{name} auf Twitter: „{text}“',
     TWEET_YOUR_REPLY: 'Twittere deine Antwort',
     UNDO_RETWEET: 'Retweet rückgängig machen',
     UNFOLLOW_USER: '@{screenName} entfolgen',
+    UNSENT_TWEETS: 'Nicht gesendete Tweets',
     USER_RETWEETED: '{name} hat retweetet',
     VIEW: 'Anzeigen',
     YOU_RETWEETED: 'Du hast retweetet',
@@ -603,6 +635,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Προσθήκη άλλου Tweet',
     ADD_MUTED_WORD: 'Προσθήκη λέξης σε σίγαση',
     AD_FROM: 'Διαφήμιση από {url}',
+    EMBED_TWEET: 'Ενσωμάτωση Tweet',
     FOLLOWING_USER: 'Σε ακολούθηση του @{screenName}',
     FOLLOW_BACK_USER: 'Ακολουθήστε και εσείς τον χρήστη @{screenName}',
     FOLLOW_USER: 'Ακολουθήστε τον χρήστη @{screenName}',
@@ -629,6 +662,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet με παράθεση} other {Tweet με παράθεση}}',
     RECENT: 'Πρόσφατα',
+    REPORT_TWEET: 'Αναφορά Tweet',
     REPOST: 'Αναδημοσίευση',
     REPOSTS: 'Αναδημοσιεύσεις',
     REPOST_COUNT: '{formattedCount} {count, plural, one {αναδημοσίευση} other {αναδημοσιεύσεις}}',
@@ -644,6 +678,7 @@ const locales = {
     TURN_OFF_QUOTE_TWEETS: 'Απενεργοποίηση των tweet με παράθεση',
     TURN_OFF_RETWEETS: 'Απενεργοποίηση των Retweet',
     TURN_ON_RETWEETS: 'Ενεργοποίηση των Retweet',
+    TWEETED: 'έγραψε Tweet',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Δημοσίευση όλων ως Tweet',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} other {Tweet}}',
@@ -652,6 +687,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Στείλτε την απάντησή σας',
     UNDO_RETWEET: 'Αναίρεση Retweet',
     UNFOLLOW_USER: 'Άρση ακολούθησης του χρήστη @{screenName}',
+    UNSENT_TWEETS: 'Μη σταλμένα Tweet',
     USER_RETWEETED: 'Ο χρήστης {name} έκανε Retweet',
     VIEW: 'Προβολή',
     YOU_RETWEETED: 'Κάνατε Retweet',
@@ -661,6 +697,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Add another Tweet',
     ADD_MUTED_WORD: 'Add muted word',
     AD_FROM: 'Ad from {url}',
+    EMBED_TWEET: 'Embed Tweet',
     FOLLOWING_USER: 'Following @{screenName}',
     FOLLOW_BACK_USER: 'Follow back @{screenName}',
     FOLLOW_USER: 'Follow @{screenName}',
@@ -684,6 +721,7 @@ const locales = {
     QUOTE_TWEETS: 'Quote Tweets',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {Quote Tweet} other {Quote Tweets}}',
     RECENT: 'Recent',
+    REPORT_TWEET: 'Report Tweet',
     REPOST: 'Repost',
     REPOSTS: 'Reposts',
     REPOST_COUNT: '{formattedCount} {count, plural, one {repost} other {reposts}}',
@@ -701,6 +739,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Turn off Retweets',
     TURN_ON_RETWEETS: 'Turn on Retweets',
     TWEET: 'Tweet',
+    TWEETED: 'Tweeted',
     TWEETS: 'Tweets',
     TWEET_ALL: 'Tweet all',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} other {Tweets}}',
@@ -711,6 +750,7 @@ const locales = {
     TWITTER: 'Twitter',
     UNDO_RETWEET: 'Undo Retweet',
     UNFOLLOW_USER: 'Unfollow @{screenName}',
+    UNSENT_TWEETS: 'Unsent Tweets',
     USER_RETWEETED: '{name} Retweeted',
     VIEW: 'View',
     YOU_RETWEETED: 'You Retweeted',
@@ -720,6 +760,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Agregar otro Tweet',
     ADD_MUTED_WORD: 'Añadir palabra silenciada',
     AD_FROM: 'Anuncio de {url}',
+    EMBED_TWEET: 'Insertar Tweet',
     FOLLOWING_USER: 'Siguiendo a @{screenName}',
     FOLLOW_BACK_USER: 'Seguir de vuelta @{screenName}',
     FOLLOW_USER: 'Seguir a @{screenName}',
@@ -743,6 +784,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet citado} many {Tweets citados} other {Tweets citados}}',
     RECENT: 'Recientes',
+    REPORT_TWEET: 'Denunciar el Tweet',
     REPOST: 'Repostear',
     RETWEET: 'Retwittear',
     RETWEET_COUNT:
@@ -759,6 +801,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Desactivar Retweets',
     TURN_ON_RETWEETS: 'Activar Retweets',
     TWEET: 'Twittear',
+    TWEETED: 'twitteó',
     TWEET_ALL: 'Twittear todo',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} many {Tweets} other {Tweets}}',
     TWEET_INTERACTIONS: 'Interacciones con el Tweet',
@@ -766,6 +809,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Twittea tu respuesta',
     UNDO_RETWEET: 'Deshacer Retweet',
     UNFOLLOW_USER: 'Dejar de seguir a @{screenName}',
+    UNSENT_TWEETS: 'Tweets no enviados',
     USER_RETWEETED: '{name} retwitteó',
     VIEW: 'Ver',
     YOU_RETWEETED: 'Retwitteaste',
@@ -773,6 +817,7 @@ const locales = {
   eu: {
     ADD_ANOTHER_TWEET: 'Gehitu beste txio bat',
     ADD_MUTED_WORD: 'Gehitu isilarazitako hitza',
+    EMBED_TWEET: 'Kapsulatu txioa',
     HOME: 'Hasiera',
     LIKES: 'Atsegiteak',
     LIKE_COUNT: '{formattedCount} {count, plural, one {atsegite} other {atsegite}}',
@@ -783,6 +828,7 @@ const locales = {
     QUOTE_TWEET: 'Txioa apaitu',
     QUOTE_TWEETS: 'Aipu-txioak',
     RECENT: 'Azkenak',
+    REPORT_TWEET: 'Salatu Txioa',
     RETWEET: 'Bertxiotu',
     RETWEETS: 'Bertxioak',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {bertxio} other {bertxio}}',
@@ -795,6 +841,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Desaktibatu birtxioak',
     TURN_ON_RETWEETS: 'Aktibatu birtxioak',
     TWEET: 'Txio',
+    TWEETED: 'Txiokatu du',
     TWEETS: 'Txioak',
     TWEET_ALL: 'Txiotu guztiak',
     TWEET_INTERACTIONS: 'Txio elkarrekintzak',
@@ -802,6 +849,7 @@ const locales = {
     TWEET_TITLE: '{name} Twitterren: "{text}"',
     TWEET_YOUR_REPLY: 'Txiotu zure erantzuna',
     UNDO_RETWEET: 'Desegin birtxiokatzea',
+    UNSENT_TWEETS: 'Bidali gabeko txioak',
     USER_RETWEETED: '{name} erabiltzaileak bertxiotu du',
     VIEW: 'Ikusi',
     YOU_RETWEETED: 'Zuk Bertxiotua',
@@ -811,6 +859,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'افزودن توییت دیگر',
     ADD_MUTED_WORD: 'افزودن واژه خموش‌سازی شده',
     AD_FROM: 'تبلیغ از {url}',
+    EMBED_TWEET: 'جاسازی توییت',
     FOLLOWING_USER: 'در حال دنبال کردن @{screenName}',
     FOLLOW_BACK_USER: 'فالو بک @{screenName}',
     FOLLOW_USER: 'دنبال کردن @{screenName}',
@@ -834,6 +883,7 @@ const locales = {
     QUOTE_TWEETS: 'نقل‌توییت‌ها',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {نقل‌توییت} other {نقل‌توییت}}',
     RECENT: 'اخیر',
+    REPORT_TWEET: 'گزارش توییت',
     REPOST: 'بازپست',
     REPOSTS: 'بازپست',
     REPOST_COUNT: '{formattedCount} {count, plural, one {بازپست} other {بازپست‌}}',
@@ -851,6 +901,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'غیرفعال‌سازی بازتوییت‌ها',
     TURN_ON_RETWEETS: 'فعال سازی بازتوییت‌ها',
     TWEET: 'توییت',
+    TWEETED: 'توییت کرد',
     TWEETS: 'توييت‌ها',
     TWEET_ALL: 'توییت به همه',
     TWEET_COUNT: '{formattedCount} {count, plural, one {توییت} other {توييت}}',
@@ -861,6 +912,7 @@ const locales = {
     TWITTER: 'توییتر',
     UNDO_RETWEET: 'لغو بازتوییت',
     UNFOLLOW_USER: 'دنبال‌ نکردن @{screenName}',
+    UNSENT_TWEETS: 'توییت‌های فرستاده‌نشده',
     USER_RETWEETED: '{name} بازتوییت کرد',
     VIEW: 'مشاهده',
     YOU_RETWEETED: 'شما بازتوییت کردید',
@@ -870,6 +922,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Lisää vielä twiitti',
     ADD_MUTED_WORD: 'Lisää hiljennetty sana',
     AD_FROM: 'Mainos osoitteesta {url}',
+    EMBED_TWEET: 'Upota twiitti',
     FOLLOWING_USER: 'Seurataan käyttäjää @{screenName}',
     FOLLOW_BACK_USER: 'Seuraa käyttäjää @{screenName} takaisin',
     FOLLOW_USER: 'Seuraa käyttäjää @{screenName}',
@@ -893,6 +946,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {twiitin lainaus} other {twiitin lainausta}}',
     RECENT: 'Viimeisimmät',
+    REPORT_TWEET: 'Ilmianna twiitti',
     REPOST: 'Uudelleenjulkaise',
     REPOSTS: 'Uudelleenjulkaisut',
     REPOST_COUNT:
@@ -912,6 +966,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Poista uudelleentwiittaukset käytöstä',
     TURN_ON_RETWEETS: 'Ota uudelleentwiittaukset käyttöön',
     TWEET: 'Twiittaa',
+    TWEETED: 'twiittasi',
     TWEETS: 'Twiitit',
     TWEET_ALL: 'Twiittaa kaikki',
     TWEET_COUNT: '{formattedCount} {count, plural, one {twiitti} other {twiittiä}}',
@@ -921,6 +976,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Twiittaa vastauksesi',
     UNDO_RETWEET: 'Kumoa uudelleentwiittaus',
     UNFOLLOW_USER: 'Lopeta käyttäjän @{screenName} seuraaminen',
+    UNSENT_TWEETS: 'Lähettämättömät twiitit',
     USER_RETWEETED: '{name} uudelleentwiittasi',
     VIEW: 'Näytä',
     YOU_RETWEETED: 'Uudelleentwiittasit',
@@ -930,6 +986,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Magdagdag ng isa pang Tweet',
     ADD_MUTED_WORD: 'Idagdag ang naka-mute na salita',
     AD_FROM: 'Ad mula sa {url}',
+    EMBED_TWEET: 'I-embed ang Tweet',
     FOLLOWING_USER: 'Fina-follow si @{screenName}',
     FOLLOW_BACK_USER: 'I-follow back si @{screenName}',
     FOLLOW_USER: 'Sundan si @{screenName}',
@@ -949,6 +1006,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Quote na Tweet} other {Quote na Tweet}}',
     RECENT: 'Kamakailan',
+    REPORT_TWEET: 'Iulat ang Tweet',
     REPOST: 'I-repost',
     REPOSTS: '(na) Repost',
     RETWEET: 'I-retweet',
@@ -965,6 +1023,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'I-off ang Retweets',
     TURN_ON_RETWEETS: 'I-on ang Retweets',
     TWEET: 'Mag-tweet',
+    TWEETED: 'Nag-tweet',
     TWEETS: 'Mga Tweet',
     TWEET_ALL: 'I-tweet lahat',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} other {(na) Tweet}}',
@@ -973,6 +1032,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'I-Tweet ang reply mo',
     UNDO_RETWEET: 'Huwag nang I-retweet',
     UNFOLLOW_USER: 'I-unfollow si @{screenName}',
+    UNSENT_TWEETS: 'Mga Hindi Naipadalang Tweet',
     USER_RETWEETED: 'Ni-retweet ni {name}',
     VIEW: 'Tingnan',
     YOU_RETWEETED: 'Ni-retweet Mo',
@@ -982,6 +1042,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Ajouter un autre Tweet',
     ADD_MUTED_WORD: 'Ajouter un mot masqué',
     AD_FROM: 'Annonce de {url}',
+    EMBED_TWEET: 'Intégrer le Tweet',
     FOLLOWING_USER: 'Abonné à @{screenName}',
     FOLLOW_BACK_USER: 'Suivre en retour @{screenName}',
     FOLLOW_USER: 'Suivre @{screenName}',
@@ -1005,6 +1066,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet cité} many {Tweets cités} other {Tweets cités}}',
     RECENT: 'Récents',
+    REPORT_TWEET: 'Signaler le Tweet',
     RETWEET: 'Retweeter',
     RETWEET_COUNT:
       '{formattedCount} {count, plural, one {Retweet} many {Retweets} other {Retweets}}',
@@ -1019,6 +1081,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Désactiver les Retweets',
     TURN_ON_RETWEETS: 'Activer les Retweets',
     TWEET: 'Tweeter',
+    TWEETED: 'a tweeté',
     TWEET_ALL: 'Tout tweeter',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} many {Tweets} other {Tweets}}',
     TWEET_INTERACTIONS: 'Interactions avec le Tweet',
@@ -1026,6 +1089,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetez votre réponse',
     UNDO_RETWEET: 'Annuler le Retweet',
     UNFOLLOW_USER: 'Se désabonner de @{screenName}',
+    UNSENT_TWEETS: 'Tweets non envoyés',
     USER_RETWEETED: '{name} a retweeté',
     VIEW: 'Voir',
     YOU_RETWEETED: 'Vous avez retweeté',
@@ -1033,6 +1097,7 @@ const locales = {
   ga: {
     ADD_ANOTHER_TWEET: 'Cuir Tweet eile leis',
     ADD_MUTED_WORD: 'Cuir focal balbhaithe leis',
+    EMBED_TWEET: 'Leabaigh an Tweet',
     HOME: 'Baile',
     LIKES: 'Thaitin siad seo le',
     LIKE_COUNT:
@@ -1046,6 +1111,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Quote Tweet} two {Quote Tweets} few {Quote Tweets} many {Quote Tweets} other {Quote Tweets}}',
     RECENT: 'Le déanaí',
+    REPORT_TWEET: 'Tuairiscigh Tweet',
     RETWEET: 'Atweetáil',
     RETWEETS: 'Atweetanna',
     RETWEET_COUNT:
@@ -1060,6 +1126,7 @@ const locales = {
     TURN_OFF_QUOTE_TWEETS: 'Cas as Luaigh Tvuíteanna',
     TURN_OFF_RETWEETS: 'Cas as Atweetanna',
     TURN_ON_RETWEETS: 'Cas Atweetanna air',
+    TWEETED: 'Rinne Tweetáil',
     TWEETS: 'Tweetanna',
     TWEET_ALL: 'Tweetáil gach rud',
     TWEET_COUNT:
@@ -1069,6 +1136,7 @@ const locales = {
     TWEET_TITLE: '{name} ar Twitter: "{text}"',
     TWEET_YOUR_REPLY: 'Tweetáil do fhreagra',
     UNDO_RETWEET: 'Cuir an Atweet ar ceal',
+    UNSENT_TWEETS: 'Tweetanna nár seoladh',
     USER_RETWEETED: 'Rinne {name} Atweetáil',
     VIEW: 'Breathnaigh',
     YOU_RETWEETED: 'Rinne tú Atweetáil',
@@ -1076,6 +1144,7 @@ const locales = {
   gl: {
     ADD_ANOTHER_TWEET: 'Engadir outro chío',
     ADD_MUTED_WORD: 'Engadir palabra silenciada',
+    EMBED_TWEET: 'Inserir chío',
     HOME: 'Inicio',
     LIKES: 'Gústames',
     LIKE_COUNT: '{formattedCount} {count, plural, one {gústame} other {gústames}}',
@@ -1087,6 +1156,7 @@ const locales = {
     QUOTE_TWEETS: 'Chíos citados',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {Chío citado} other {Chíos citados}}',
     RECENT: 'Recentes',
+    REPORT_TWEET: 'Denunciar chío',
     RETWEET: 'Rechouchiar',
     RETWEETS: 'Rechouchíos',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {rechouchío} other {rechouchíos}}',
@@ -1099,6 +1169,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Desactivar os rechouchíos',
     TURN_ON_RETWEETS: 'Activar os rechouchíos',
     TWEET: 'Chío',
+    TWEETED: 'chiou',
     TWEETS: 'Chíos',
     TWEET_ALL: 'Chiar todo',
     TWEET_INTERACTIONS: 'Interaccións chío',
@@ -1106,6 +1177,7 @@ const locales = {
     TWEET_TITLE: '{name} no Twitter: "{text}"',
     TWEET_YOUR_REPLY: 'Chío a túa responder',
     UNDO_RETWEET: 'Desfacer rechouchío',
+    UNSENT_TWEETS: 'Chíos sen enviar',
     USER_RETWEETED: '{name} rechouchiou',
     VIEW: 'Ver',
     YOU_RETWEETED: 'Rechouchiaches',
@@ -1115,6 +1187,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'અન્ય ટ્વીટ ઉમેરો',
     ADD_MUTED_WORD: 'જોડાણ અટકાવેલો શબ્દ ઉમેરો',
     AD_FROM: '{url} માંથી જાહેરાત',
+    EMBED_TWEET: 'ટ્વીટ એમ્બેડ કરો',
     FOLLOWING_USER: 'અનુસરણ @{screenName}',
     FOLLOW_BACK_USER: '@{screenName} ને ફોલો કરો',
     FOLLOW_USER: 'અનુસરો @{screenName}',
@@ -1139,6 +1212,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {અવતરણની સાથે ટ્વીટ} other {અવતરણની સાથે ટ્વીટ}}',
     RECENT: 'તાજેતરનું',
+    REPORT_TWEET: 'ટ્વીટની જાણ કરો',
     REPOST: 'રીપોસ્ટ કરો',
     REPOSTS: 'ફરીથી કરવામાં આવેલી પોસ્ટ',
     REPOST_COUNT: '{formattedCount} {count, plural, one {ફરીથી પોસ્ટ કરો} other {ફરીથી પોસ્ટ કરો}}',
@@ -1156,6 +1230,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'પુનટ્વીટ્સ બંધ કરો',
     TURN_ON_RETWEETS: 'પુનટ્વીટ્સ ચાલુ કરો',
     TWEET: 'ટ્વીટ',
+    TWEETED: 'ટ્વીટ કરી',
     TWEETS: 'ટ્વીટ્સ',
     TWEET_ALL: 'બધાને ટ્વીટ કરો',
     TWEET_COUNT: '{formattedCount} {count, plural, one {ટ્વીટ} other {ટ્વીટ}}',
@@ -1165,6 +1240,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'તમારા પ્રત્યુત્તરને ટ્વીટ કરો',
     UNDO_RETWEET: 'પુનટ્વીટને પૂર્વવત કરો',
     UNFOLLOW_USER: '@{screenName}ને અનુસરવાનું બંધ કરો',
+    UNSENT_TWEETS: 'મોકલ્યા વગરની ટ્વીટ્સ',
     USER_RETWEETED: '{name}એ પુનટ્વીટ કરી',
     VIEW: 'જુઓ',
     YOU_RETWEETED: 'તમે પુનટ્વીટ કરી',
@@ -1174,6 +1250,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'הוסף ציוץ נוסף',
     ADD_MUTED_WORD: 'הוסף מילה מושתקת',
     AD_FROM: 'מודעה מ-{url}',
+    EMBED_TWEET: 'הטבע ציוץ',
     FOLLOWING_USER: 'במעקב אחר @{screenName}',
     FOLLOW_BACK_USER: 'לעקוב בחזרה @{screenName}',
     FOLLOW_USER: 'עקוב אחרי @{screenName}',
@@ -1198,6 +1275,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {ציוץ ציטוט} two {ציוצי ציטוט} other {ציוצי ציטוט}}',
     RECENT: 'אחרונים',
+    REPORT_TWEET: 'דיווח על ציוץ',
     REPOST: 'לפרסם מחדש',
     REPOSTS: 'פרסומים מחדש',
     RETWEET: 'צייץ מחדש',
@@ -1215,6 +1293,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'כבה ציוצים מחדש',
     TURN_ON_RETWEETS: 'הפעל ציוצים מחדש',
     TWEET: 'צייץ',
+    TWEETED: 'צייצ/ה',
     TWEETS: 'ציוצים',
     TWEET_ALL: 'צייץ הכול',
     TWEET_COUNT: '{formattedCount} {count, plural, one {ציוץ} two {ציוצים} other {ציוצים}}',
@@ -1225,6 +1304,7 @@ const locales = {
     TWITTER: 'טוויטר',
     UNDO_RETWEET: 'ביטול ציוץ מחדש',
     UNFOLLOW_USER: 'בטל מעקב אחר ‎@{screenName}',
+    UNSENT_TWEETS: 'ציוצים שלא נשלחו',
     USER_RETWEETED: '{name} צייץ מחדש',
     VIEW: 'הצג',
     YOU_RETWEETED: 'צייצת מחדש',
@@ -1234,6 +1314,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'एक और ट्वीट जोड़ें',
     ADD_MUTED_WORD: 'म्यूट किया गया शब्द जोड़ें',
     AD_FROM: '{url} से विज्ञापन',
+    EMBED_TWEET: 'ट्वीट एम्बेड करें',
     FOLLOWING_USER: '@{screenName} को फ़ॉलो कर रहे हैं',
     FOLLOW_BACK_USER: '@{screenName} को फ़ॉलो बैक करें',
     FOLLOW_USER: '@{screenName} फ़ॉलो करें',
@@ -1257,6 +1338,7 @@ const locales = {
     QUOTE_TWEETS: 'कोट ट्वीट्स',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {कोट ट्वीट} other {कोट ट्वीट्स}}',
     RECENT: 'हाल ही के',
+    REPORT_TWEET: 'ट्वीट की रिपोर्ट करें',
     REPOST: 'रीपोस्ट',
     REPOSTS: 'रीपोस्ट्स',
     REPOST_COUNT: '{formattedCount} {count, plural, one {रीपोस्ट} other {रीपोस्ट}}',
@@ -1274,6 +1356,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'रीट्वीट बंद करें',
     TURN_ON_RETWEETS: 'रीट्वीट चालू करें',
     TWEET: 'ट्वीट करें',
+    TWEETED: 'ट्वीट किया',
     TWEETS: 'ट्वीट',
     TWEET_ALL: 'सभी ट्वीट करें',
     TWEET_COUNT: '{formattedCount} {count, plural, one {ट्वीट} other {ट्वीट्स}}',
@@ -1283,6 +1366,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'अपना जवाब ट्वीट करें',
     UNDO_RETWEET: 'रीट्वीट को पूर्ववत करें',
     UNFOLLOW_USER: '@{screenName} को अनफ़ॉलो करें',
+    UNSENT_TWEETS: 'बिना भेजे गए ट्वीट',
     USER_RETWEETED: '{name} ने रीट्वीट किया',
     VIEW: 'देखें',
     YOU_RETWEETED: 'आपने रीट्वीट किया',
@@ -1292,6 +1376,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Dodaj drugi Tweet',
     ADD_MUTED_WORD: 'Dodaj onemogućenu riječ',
     AD_FROM: 'Oglas od {url}',
+    EMBED_TWEET: 'Ugradi Tweet',
     FOLLOWING_USER: 'Pratite korisnika/cu @{screenName}',
     FOLLOW_BACK_USER: 'Prati natrag @{screenName}',
     FOLLOW_USER: 'Počni pratiti korisnika/cu @{screenName}',
@@ -1318,6 +1403,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {citirani Tweet} few {citirana tweeta} other {citiranih tweetova}}',
     RECENT: 'Nedavno',
+    REPORT_TWEET: 'Prijavi Tweet',
     REPOST: 'Proslijedi objavu',
     REPOSTS: 'Proslijeđene objave',
     REPOST_COUNT:
@@ -1337,6 +1423,7 @@ const locales = {
     TURN_OFF_QUOTE_TWEETS: 'Isključi citirane tweetove',
     TURN_OFF_RETWEETS: 'Isključi proslijeđene tweetove',
     TURN_ON_RETWEETS: 'Uključi proslijeđene tweetove',
+    TWEETED: 'objavio/la je Tweet',
     TWEETS: 'Tweetovi',
     TWEET_ALL: 'Tweetaj sve',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} few {tweeta} other {tweetova}}',
@@ -1345,6 +1432,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetajte odgovor',
     UNDO_RETWEET: 'Poništi prosljeđivanje tweeta',
     UNFOLLOW_USER: 'Prestani pratiti korisnika/cu @{screenName}',
+    UNSENT_TWEETS: 'Neposlani tweetovi',
     USER_RETWEETED: '{name} proslijedio/la je Tweet',
     VIEW: 'Prikaz',
     YOU_RETWEETED: 'Proslijedili ste Tweet',
@@ -1354,6 +1442,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Másik Tweet hozzáadása',
     ADD_MUTED_WORD: 'Elnémított szó hozzáadása',
     AD_FROM: 'Hirdetés innen: {url}',
+    EMBED_TWEET: 'Tweet beágyazása',
     FOLLOWING_USER: '@{screenName} követése',
     FOLLOW_BACK_USER: '@{screenName} visszakövetése',
     FOLLOW_USER: '@{screenName} követése',
@@ -1377,6 +1466,7 @@ const locales = {
     QUOTE_TWEETS: 'Tweet-idézések',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {idéző Tweet} other {idéző Tweet}}',
     RECENT: 'Legutóbbi',
+    REPORT_TWEET: 'Tweet jelentése',
     REPOST: 'Újraposztolás',
     REPOSTS: 'Újraposztolások',
     REPOST_COUNT:
@@ -1394,6 +1484,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Retweetek kikapcsolása',
     TURN_ON_RETWEETS: 'Retweetek bekapcsolása',
     TWEET: 'Tweetelj',
+    TWEETED: 'Tweetelt',
     TWEETS: 'Tweetek',
     TWEET_ALL: 'Tweet küldése mindenkinek',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} other {Tweet}}',
@@ -1403,6 +1494,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweeteld válaszodat',
     UNDO_RETWEET: 'Retweet visszavonása',
     UNFOLLOW_USER: '@{screenName} követésének megszüntetése',
+    UNSENT_TWEETS: 'Elküldetlen Tweetek',
     USER_RETWEETED: '{name} Retweetelte',
     VIEW: 'Megtekintés',
     YOU_RETWEETED: 'Retweetelted',
@@ -1412,6 +1504,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Tambahkan Tweet lain',
     ADD_MUTED_WORD: 'Tambahkan kata kunci yang dibisukan',
     AD_FROM: 'Iklan dari {url}',
+    EMBED_TWEET: 'Lekatkan Tweet',
     FOLLOWING_USER: 'Mengikuti @{screenName}',
     FOLLOW_BACK_USER: 'Ikuti balik @{screenName}',
     FOLLOW_USER: 'Ikuti @{screenName}',
@@ -1435,6 +1528,7 @@ const locales = {
     QUOTE_TWEETS: 'Tweet Kutipan',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {Tweet Kutipan}}',
     RECENT: 'Terkini',
+    REPORT_TWEET: 'Laporkan Tweet',
     REPOST: 'Posting ulang',
     REPOSTS: 'Posting ulang',
     REPOST_COUNT: '{formattedCount} {count, plural, other {posting ulang}}',
@@ -1450,6 +1544,7 @@ const locales = {
     TURN_OFF_QUOTE_TWEETS: 'Matikan Tweet Kutipan',
     TURN_OFF_RETWEETS: 'Matikan Retweet',
     TURN_ON_RETWEETS: 'Nyalakan Retweet',
+    TWEETED: 'menge-tweet',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Tweet semua',
     TWEET_COUNT: '{formattedCount} {count, plural, other {Tweet}}',
@@ -1458,6 +1553,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet balasan Anda',
     UNDO_RETWEET: 'Batalkan Retweet',
     UNFOLLOW_USER: 'Setop ikuti @{screenName}',
+    UNSENT_TWEETS: 'Tweet yang Belum Terkirim',
     USER_RETWEETED: '{name} me-retweet',
     VIEW: 'Penayangan',
     YOU_RETWEETED: 'Anda me-Retweet',
@@ -1467,6 +1563,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Aggiungi altro Tweet',
     ADD_MUTED_WORD: 'Aggiungi parola o frase silenziata',
     AD_FROM: 'Annuncio da {url}',
+    EMBED_TWEET: 'Incorpora Tweet',
     FOLLOWING_USER: 'Segui già @{screenName}',
     FOLLOW_BACK_USER: 'Segui @{screenName} anche tu',
     FOLLOW_USER: 'Segui @{screenName}',
@@ -1489,6 +1586,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet di citazione} many {Tweet di citazione} other {Tweet di citazione}}',
     RECENT: 'Recenti',
+    REPORT_TWEET: 'Segnala Tweet',
     REPOSTS: 'Repost',
     REPOST_COUNT: '{formattedCount} {count, plural, one {repost} other {repost}}',
     RETWEET: 'Ritwitta',
@@ -1506,6 +1604,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Disattiva Retweet',
     TURN_ON_RETWEETS: 'Attiva Retweet',
     TWEET: 'Twitta',
+    TWEETED: 'ha twittato',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Twitta tutto',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} many {Tweet} other {Tweet}}',
@@ -1514,6 +1613,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Twitta la tua risposta',
     UNDO_RETWEET: 'Annulla Retweet',
     UNFOLLOW_USER: 'Smetti di seguire @{screenName}',
+    UNSENT_TWEETS: 'Tweet non inviati',
     USER_RETWEETED: 'Ritwittato da {name}',
     VIEW: 'Visualizza',
     YOU_RETWEETED: 'Hai ritwittato',
@@ -1523,6 +1623,7 @@ const locales = {
     ADD_ANOTHER_TWEET: '別のツイートを追加する',
     ADD_MUTED_WORD: 'ミュートするキーワードを追加',
     AD_FROM: '{url} からの広告',
+    EMBED_TWEET: 'ツイートを埋め込む',
     FOLLOWING_USER: '@{screenName}さんをフォローしています',
     FOLLOW_BACK_USER: '@{screenName}さんをフォローバック',
     FOLLOW_USER: '@{screenName}さんをフォロー',
@@ -1546,6 +1647,7 @@ const locales = {
     QUOTE_TWEETS: '引用ツイート',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {件の引用ツイート}}',
     RECENT: '最新',
+    REPORT_TWEET: 'ツイートを報告',
     REPOST: 'リポスト',
     REPOSTS: 'リポスト',
     REPOST_COUNT: '{formattedCount}{count, plural, other {件のリポスト}}',
@@ -1563,6 +1665,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'リツイートをオフにする',
     TURN_ON_RETWEETS: 'リツイートをオンにする',
     TWEET: 'ツイートする',
+    TWEETED: 'ツイートしました',
     TWEETS: 'ツイート',
     TWEET_ALL: 'すべてツイート',
     TWEET_COUNT: '{formattedCount} {count, plural, other {件のツイート}}',
@@ -1572,6 +1675,7 @@ const locales = {
     TWEET_YOUR_REPLY: '返信をツイート',
     UNDO_RETWEET: 'リツイートを取り消す',
     UNFOLLOW_USER: '@{screenName}さんのフォローを解除',
+    UNSENT_TWEETS: '未送信ツイート',
     USER_RETWEETED: '{name}さんがリツイートしました',
     VIEW: '表示',
     YOU_RETWEETED: 'リツイート済み',
@@ -1581,6 +1685,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'ಮತ್ತೊಂದು ಟ್ವೀಟ್ ಸೇರಿಸಿ',
     ADD_MUTED_WORD: 'ಸದ್ದಡಗಿಸಿದ ಪದವನ್ನು ಸೇರಿಸಿ',
     AD_FROM: '{url} ನಿಂದ ಜಾಹೀರಾತು',
+    EMBED_TWEET: 'ಟ್ವೀಟ್ ಎಂಬೆಡ್ ಮಾಡಿ',
     FOLLOWING_USER: '@{screenName} ಅವರನ್ನು ಹಿಂಬಾಲಿಸಲಾಗುತ್ತಿದೆ',
     FOLLOW_BACK_USER: 'ಮತ್ತೆ ಹಿಂಬಾಲಿಸು @{screenName}',
     FOLLOW_USER: '@{screenName} ಅವರನ್ನು ಹಿಂಬಾಲಿಸಿ',
@@ -1604,6 +1709,7 @@ const locales = {
     QUOTE_TWEETS: 'ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {ಕೋಟ್ ಟ್ವೀಟ್} other {ಕೋಟ್ ಟ್ವೀಟ್‌ಗಳು}}',
     RECENT: 'ಇತ್ತೀಚಿನ',
+    REPORT_TWEET: 'ಟ್ವೀಟ್ ವರದಿ ಮಾಡಿ',
     REPOST: 'ಮರುಪೋಸ್ಟ್ ಮಾಡಿ',
     REPOSTS: 'ಮರುಪೋಸ್ಟ್‌ಗಳು',
     REPOST_COUNT: '{formattedCount} {count, plural, one {ರೀಪೋಸ್ಟ್} other {ರೀಪೋಸ್ಟ್‌ಗಳು}}',
@@ -1621,6 +1727,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆಫ್ ಮಾಡಿ',
     TURN_ON_RETWEETS: 'ಮರುಟ್ವೀಟ್‌ಗಳನ್ನು ಆನ್ ಮಾಡಿ',
     TWEET: 'ಟ್ವೀಟ್',
+    TWEETED: 'ಟ್ವೀಟ್ ಮಾಡಿದ್ದಾರೆ',
     TWEETS: 'ಟ್ವೀಟ್‌ಗಳು',
     TWEET_ALL: 'ಎಲ್ಲಾ ಟ್ವೀಟ್ ಮಾಡಿ',
     TWEET_COUNT: '{formattedCount} {count, plural, one {ಟ್ವೀಟ್} other {ಟ್ವೀಟ್‌ಗಳು}}',
@@ -1630,6 +1737,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'ನಿಮ್ಮ ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ಟ್ವೀಟ್ ಮಾಡಿ',
     UNDO_RETWEET: 'ಮರುಟ್ವೀಟಿಸುವುದನ್ನು ರದ್ದುಮಾಡಿ',
     UNFOLLOW_USER: '@{screenName} ಅವರನ್ನು ಹಿಂಬಾಲಿಸದಿರಿ',
+    UNSENT_TWEETS: 'ಕಳುಹಿಸದೇ ಇರುವ ಟ್ವೀಟ್‌ಗಳು',
     USER_RETWEETED: '{name} ಮರುಟ್ವೀಟಿಸಿದ್ದಾರೆ',
     VIEW: 'ವೀಕ್ಷಿಸಿ',
     YOU_RETWEETED: 'ನೀವು ಮರುಟ್ವೀಟಿಸಿದ್ದೀರಿ',
@@ -1639,6 +1747,7 @@ const locales = {
     ADD_ANOTHER_TWEET: '다른 트윗 추가하기',
     ADD_MUTED_WORD: '뮤트할 단어 추가하기',
     AD_FROM: '{url}의 광고',
+    EMBED_TWEET: '트윗 담아가기',
     FOLLOWING_USER: '@{screenName} 님 팔로우 중',
     FOLLOW_BACK_USER: '@{screenName} 님 맞팔로우하기',
     FOLLOW_USER: '@{screenName} 님 팔로우하기',
@@ -1662,6 +1771,7 @@ const locales = {
     QUOTE_TWEETS: '인용 트윗',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {개의 인용 트윗}}',
     RECENT: '최근',
+    REPORT_TWEET: '트윗 신고하기',
     REPOST: '재게시',
     REPOSTS: '재게시',
     REPOST_COUNT: '{formattedCount} {count, plural, other {재게시물}}',
@@ -1679,6 +1789,7 @@ const locales = {
     TURN_OFF_RETWEETS: '리트윗 끄기',
     TURN_ON_RETWEETS: '리트윗 켜기',
     TWEET: '트윗',
+    TWEETED: '트윗했습니다',
     TWEETS: '트윗',
     TWEET_ALL: '모두 트윗하기',
     TWEET_COUNT: '{formattedCount} {count, plural, other {트윗개}}',
@@ -1689,6 +1800,7 @@ const locales = {
     TWITTER: '트위터',
     UNDO_RETWEET: '리트윗 취소',
     UNFOLLOW_USER: '@{screenName} 님 언팔로우하기',
+    UNSENT_TWEETS: '전송하지 않은 트윗',
     USER_RETWEETED: '{name} 님이 리트윗했습니다',
     VIEW: '보기',
     YOU_RETWEETED: '내가 리트윗함',
@@ -1698,6 +1810,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'दुसरे ट्विट सामील करा',
     ADD_MUTED_WORD: 'म्यूट केलेले शब्द सामील करा',
     AD_FROM: '{url} कडून जाहिरात',
+    EMBED_TWEET: 'एम्बेडेड ट्विट',
     FOLLOWING_USER: '@{screenName} यांना फॉलो करत आहे',
     FOLLOW_BACK_USER: 'परत फॉलो करा @{screenName}',
     FOLLOW_USER: '@{screenName} यांना फॉलो करा',
@@ -1721,6 +1834,7 @@ const locales = {
     QUOTE_TWEETS: 'भाष्य ट्विट्स',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {भाष्य ट्विट} other {भाष्य ट्विट्स}}',
     RECENT: 'अलीकडील',
+    REPORT_TWEET: 'ट्विट रिपोर्ट करा',
     REPOST: 'पुन्हा पोस्ट करा',
     REPOSTS: 'रिपोस्ट',
     REPOST_COUNT: '{formattedCount} {count, plural, one {रिपोस्ट} other {रिपोस्ट}}',
@@ -1738,6 +1852,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'पुनर्ट्विट्स बंद करा',
     TURN_ON_RETWEETS: 'पुनर्ट्विट्स चालू करा',
     TWEET: 'ट्विट',
+    TWEETED: 'ट्विट केले',
     TWEETS: 'ट्विट्स',
     TWEET_ALL: 'सर्व ट्विट करा',
     TWEET_COUNT: '{formattedCount} {count, plural, one {ट्विट} other {ट्विट्स}}',
@@ -1747,6 +1862,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'आपले प्रत्युत्तर ट्विट करा',
     UNDO_RETWEET: 'पुनर्ट्विट पूर्ववत करा',
     UNFOLLOW_USER: '@{screenName} यांना अनफॉलो करा',
+    UNSENT_TWEETS: 'न पाठविलेली ट्विट्स',
     USER_RETWEETED: '{name} यांनी पुन्हा ट्विट केले',
     VIEW: 'पहा',
     YOU_RETWEETED: 'आपण पुन्हा ट्विट केले',
@@ -1756,6 +1872,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Tambahkan Tweet lain',
     ADD_MUTED_WORD: 'Tambahkan perkataan yang disenyapkan',
     AD_FROM: 'Iklan daripada {url}',
+    EMBED_TWEET: 'Tweet dibenamkan',
     FOLLOWING_USER: 'Mengikuti @{screenName}',
     FOLLOW_BACK_USER: 'Ikut kembali @{screenName}',
     FOLLOW_USER: 'Ikut @{screenName}',
@@ -1779,6 +1896,7 @@ const locales = {
     QUOTE_TWEETS: 'Tweet Petikan',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {Tweet Petikan}}',
     RECENT: 'Terkini',
+    REPORT_TWEET: 'Laporkan Tweet',
     REPOST: 'Siaran semula',
     REPOSTS: 'Siaran semula',
     REPOST_COUNT: '{formattedCount} {count, plural, one {siaran semula} other {siaran semula}}',
@@ -1795,6 +1913,7 @@ const locales = {
     TURN_OFF_QUOTE_TWEETS: 'Matikan Tweet Petikan',
     TURN_OFF_RETWEETS: 'Matikan Tweet semula',
     TURN_ON_RETWEETS: 'Hidupkan Tweet semula',
+    TWEETED: 'telah mengetweet',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Tweet semua',
     TWEET_COUNT: '{formattedCount} {count, plural, other {Tweet}}',
@@ -1803,6 +1922,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet balasan anda',
     UNDO_RETWEET: 'Buat asal Tweet semula',
     UNFOLLOW_USER: 'Nyahikut @{screenName}',
+    UNSENT_TWEETS: 'Tweet yang tidak dihantar',
     USER_RETWEETED: '{name} Tweet semula',
     VIEW: 'Lihat',
     YOU_RETWEETED: 'Anda Mengetweet semula',
@@ -1812,6 +1932,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Nog een Tweet toevoegen',
     ADD_MUTED_WORD: 'Genegeerd woord toevoegen',
     AD_FROM: 'Advertentie van {url}',
+    EMBED_TWEET: 'Tweet insluiten',
     FOLLOWING_USER: '@{screenName} volgend',
     FOLLOW_BACK_USER: 'Volg @{screenName} terug',
     FOLLOW_USER: '@{screenName} volgen',
@@ -1834,6 +1955,7 @@ const locales = {
     QUOTE_TWEETS: 'Geciteerde Tweets',
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Geciteerde Tweet} other {Geciteerde Tweets}}',
+    REPORT_TWEET: 'Tweet rapporteren',
     RETWEET: 'Retweeten',
     SHARED: 'Gedeeld',
     SHARED_TWEETS: 'Gedeelde Tweets',
@@ -1846,12 +1968,14 @@ const locales = {
     TURN_OFF_RETWEETS: 'Retweets uitschakelen',
     TURN_ON_RETWEETS: 'Retweets inschakelen',
     TWEET: 'Tweeten',
+    TWEETED: 'heeft getweet',
     TWEET_ALL: 'Alles tweeten',
     TWEET_INTERACTIONS: 'Tweet-interacties',
     TWEET_TITLE: '{name} op Twitter: "{text}"',
     TWEET_YOUR_REPLY: 'Tweet je antwoord',
     UNDO_RETWEET: 'Retweet ongedaan maken',
     UNFOLLOW_USER: '@{screenName} ontvolgen',
+    UNSENT_TWEETS: 'Niet-verstuurde Tweets',
     USER_RETWEETED: '{name} heeft geretweet',
     VIEW: 'Bekijken',
     YOU_RETWEETED: 'Je hebt geretweet',
@@ -1861,6 +1985,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Legg til en annen Tweet',
     ADD_MUTED_WORD: 'Legg til skjult ord',
     AD_FROM: 'Annonse fra {url}',
+    EMBED_TWEET: 'Bygg inn tweeten',
     FOLLOWING_USER: 'Følger @{screenName}',
     FOLLOW_BACK_USER: 'Følg @{screenName} tilbake',
     FOLLOW_USER: 'Følg @{screenName}',
@@ -1884,6 +2009,7 @@ const locales = {
     QUOTE_TWEETS: 'Sitat-Tweets',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {Sitat-Tweet} other {Sitat-Tweets}}',
     RECENT: 'Nylig',
+    REPORT_TWEET: 'Rapporter tweeten',
     REPOST: 'Republiser',
     REPOSTS: 'Republiseringer',
     REPOST_COUNT:
@@ -1898,6 +2024,7 @@ const locales = {
     TURN_OFF_QUOTE_TWEETS: 'Slå av sitat-tweets',
     TURN_OFF_RETWEETS: 'Slå av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
+    TWEETED: 'tweetet',
     TWEET_ALL: 'Tweet alle',
     TWEET_COUNT: '{formattedCount} {count, plural, one {tweet} other {tweets}}',
     TWEET_INTERACTIONS: 'Tweet-interaksjoner',
@@ -1905,6 +2032,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweet svaret ditt',
     UNDO_RETWEET: 'Angre Retweet',
     UNFOLLOW_USER: 'Avfølg @{screenName}',
+    UNSENT_TWEETS: 'Usendte Tweets',
     USER_RETWEETED: '{name} retweetet',
     VIEW: 'Vis',
     YOU_RETWEETED: 'Du retweetet',
@@ -1914,6 +2042,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Dodaj kolejnego Tweeta',
     ADD_MUTED_WORD: 'Dodaj wyciszone słowo',
     AD_FROM: 'Reklama z {url}',
+    EMBED_TWEET: 'Zamieść Tweeta',
     FOLLOWING_USER: 'Obserwujesz użytkownika @{screenName}',
     FOLLOW_BACK_USER: 'Również obserwuj @{screenName}',
     FOLLOW_USER: 'Obserwuj @{screenName}',
@@ -1940,6 +2069,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet z cytatem} few {Tweety z cytatami} many {Tweetów z cytatami} other {Tweetów z cytatami}}',
     RECENT: 'Najnowsze',
+    REPORT_TWEET: 'Zgłoś Tweeta',
     REPOST: 'Podaj dalej wpis',
     REPOSTS: 'Wpisy podane dalej',
     REPOST_COUNT:
@@ -1959,6 +2089,7 @@ const locales = {
     TURN_OFF_QUOTE_TWEETS: 'Wyłącz tweety z cytatem',
     TURN_OFF_RETWEETS: 'Wyłącz Tweety podane dalej',
     TURN_ON_RETWEETS: 'Włącz Tweety podane dalej',
+    TWEETED: 'wysłał/a Tweeta',
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnij wszystko',
     TWEET_COUNT:
@@ -1968,6 +2099,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweeta swoją odpowiedź',
     UNDO_RETWEET: 'Cofnij podanie dalej',
     UNFOLLOW_USER: 'Przestań obserwować użytkownika @{screenName}',
+    UNSENT_TWEETS: 'Niewysłane Tweety',
     USER_RETWEETED: '{name} podał/a dalej Tweeta',
     VIEW: 'Wyświetl',
     YOU_RETWEETED: 'Podałeś/aś dalej',
@@ -1977,6 +2109,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Adicionar outro Tweet',
     ADD_MUTED_WORD: 'Adicionar palavra silenciada',
     AD_FROM: 'Anúncio de {url}',
+    EMBED_TWEET: 'Incorporar Tweet',
     FOLLOWING_USER: 'Seguindo @{screenName}',
     FOLLOW_BACK_USER: 'Seguir de volta @{screenName}',
     FOLLOW_USER: 'Seguir @{screenName}',
@@ -2001,6 +2134,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet com comentário} many {Tweets com comentário} other {Tweets com comentário}}',
     RECENT: 'Recente',
+    REPORT_TWEET: 'Denunciar Tweet',
     REPOST: 'Repostar',
     RETWEET: 'Retweetar',
     RETWEET_COUNT:
@@ -2017,6 +2151,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Desativar Retweets',
     TURN_ON_RETWEETS: 'Ativar Retweets',
     TWEET: 'Tweetar',
+    TWEETED: 'Tweetou',
     TWEET_ALL: 'Tweetar tudo',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} many {Tweets} other {Tweets}}',
     TWEET_INTERACTIONS: 'Interações com Tweet',
@@ -2024,6 +2159,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetar sua resposta',
     UNDO_RETWEET: 'Desfazer Retweet',
     UNFOLLOW_USER: 'Deixar de seguir @{screenName}',
+    UNSENT_TWEETS: 'Tweets não enviados',
     USER_RETWEETED: '{name} Retweetou',
     VIEW: 'Ver',
     YOU_RETWEETED: 'Você retweetou',
@@ -2033,6 +2169,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Adaugă alt Tweet',
     ADD_MUTED_WORD: 'Adaugă cuvântul ignorat',
     AD_FROM: 'Reclamă de la {url}',
+    EMBED_TWEET: 'Încorporează un Tweet',
     FOLLOWING_USER: 'Urmărite de @{screenName}',
     FOLLOW_BACK_USER: 'Urmărește-l la rândul tău pe @{screenName}',
     FOLLOW_USER: 'Urmărește pe @{screenName}',
@@ -2058,6 +2195,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet cu citat} few {(de) Tweeturi cu citat} other {(de) Tweeturi cu citat}}',
     RECENT: 'Recente',
+    REPORT_TWEET: 'Raportează Tweetul',
     REPOST: 'Repostează',
     REPOSTS: 'Repostări',
     REPOST_COUNT:
@@ -2077,6 +2215,7 @@ const locales = {
     TURN_OFF_QUOTE_TWEETS: 'Dezactivează tweeturile cu citat',
     TURN_OFF_RETWEETS: 'Dezactivează Retweeturile',
     TURN_ON_RETWEETS: 'Activează Retweeturile',
+    TWEETED: 'a dat Tweetul',
     TWEETS: 'Tweeturi',
     TWEET_ALL: 'Dă Tweeturi cu tot',
     TWEET_COUNT:
@@ -2086,6 +2225,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Dă Tweet cu răspunsul',
     UNDO_RETWEET: 'Anulează Retweetul',
     UNFOLLOW_USER: 'Anulează urmărirea utilizatorului @{screenName}',
+    UNSENT_TWEETS: 'Tweeturi netrimise',
     USER_RETWEETED: '{name} a redistribuit',
     VIEW: 'Vezi',
     YOU_RETWEETED: 'Ai redistribuit',
@@ -2095,6 +2235,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Добавить еще один твит',
     ADD_MUTED_WORD: 'Добавить игнорируемое слово',
     AD_FROM: 'Реклама от {url}',
+    EMBED_TWEET: 'Встроить твит',
     FOLLOWING_USER: 'Вы читаете @{screenName}',
     FOLLOW_BACK_USER: 'Подписаться в ответ на @{screenName}',
     FOLLOW_USER: 'Начать читать @{screenName}',
@@ -2121,6 +2262,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Твит с цитатой} few {Твита с цитатами} many {Твитов с цитатами} other {Твита с цитатами}}',
     RECENT: 'Последние',
+    REPORT_TWEET: 'Пожаловаться на твит',
     REPOST: 'Сделать репост',
     REPOSTS: 'Репосты',
     REPOST_COUNT:
@@ -2141,6 +2283,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Отключить ретвиты',
     TURN_ON_RETWEETS: 'Включить ретвиты',
     TWEET: 'Твитнуть',
+    TWEETED: 'твитнул(а)',
     TWEETS: 'Твиты',
     TWEET_ALL: 'Твитнуть все',
     TWEET_COUNT:
@@ -2152,6 +2295,7 @@ const locales = {
     TWITTER: 'Твиттер',
     UNDO_RETWEET: 'Отменить ретвит',
     UNFOLLOW_USER: 'Перестать читать @{screenName}',
+    UNSENT_TWEETS: 'Неотправленные твиты',
     USER_RETWEETED: '{name} ретвитнул(а)',
     VIEW: 'Посмотреть',
     YOU_RETWEETED: 'Вы ретвитнули',
@@ -2161,6 +2305,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Pridať ďalší Tweet',
     ADD_MUTED_WORD: 'Pridať stíšené slovo',
     AD_FROM: 'Reklama od {url}',
+    EMBED_TWEET: 'Vložiť Tweet',
     FOLLOWING_USER: 'Sleduje sa používateľ @{screenName}',
     FOLLOW_BACK_USER: 'Sledovať späť @{screenName}',
     FOLLOW_USER: 'Sledovať používateľa @{screenName}',
@@ -2187,6 +2332,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Tweet s citátom} few {Tweety s citátom} many {Tweetu s citátom} other {Tweetov s citátom}}',
     RECENT: 'Nedávne',
+    REPORT_TWEET: 'Nahlásiť Tweet',
     REPOST: 'Repostnúť',
     REPOSTS: 'reposty',
     REPOST_COUNT:
@@ -2207,6 +2353,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Vypnúť retweety',
     TURN_ON_RETWEETS: 'Zapnúť retweety',
     TWEET: 'Tweetnuť',
+    TWEETED: 'tweetoval',
     TWEETS: 'Tweety',
     TWEET_ALL: 'Tweetnuť všetko',
     TWEET_COUNT:
@@ -2216,6 +2363,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Tweetnite odpoveď',
     UNDO_RETWEET: 'Zrušiť retweet',
     UNFOLLOW_USER: 'Nesledovať používateľa @{screenName}',
+    UNSENT_TWEETS: 'Neodoslané Tweety',
     USER_RETWEETED: 'Retweetol používateľ {name}',
     VIEW: 'Zobraziť',
     YOU_RETWEETED: 'Retweetli ste',
@@ -2225,6 +2373,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Додај још један твит',
     ADD_MUTED_WORD: 'Додај игнорисану реч',
     AD_FROM: 'Оглас од {url}',
+    EMBED_TWEET: 'Угради твит',
     FOLLOWING_USER: 'Пратиш корисника @{screenName}',
     FOLLOW_BACK_USER: 'Прати назад @{screenName}',
     FOLLOW_USER: 'Прати корисника @{screenName}',
@@ -2249,6 +2398,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Твит са цитатом} few {Твита са цитатом} other {Твитова са цитатом}}',
     RECENT: 'Недавни',
+    REPORT_TWEET: 'Пријави твит',
     REPOST: 'Поново објави',
     REPOSTS: 'Понвне објаве',
     REPOST_COUNT:
@@ -2268,6 +2418,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Искључи ретвитове',
     TURN_ON_RETWEETS: 'Укључи ретвитове',
     TWEET: 'Твитуј',
+    TWEETED: 'је твитовао/ла',
     TWEETS: 'Твитови',
     TWEET_ALL: 'Твитуј све',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Твит} few {Твита} other {Твитова}}',
@@ -2278,6 +2429,7 @@ const locales = {
     TWITTER: 'Твитер',
     UNDO_RETWEET: 'Опозови ретвит',
     UNFOLLOW_USER: 'Не прати корисника @{screenName}',
+    UNSENT_TWEETS: 'Непослати твитови',
     USER_RETWEETED: '{name} је ретвитовао/ла',
     VIEW: 'Погледај',
     YOU_RETWEETED: 'Ретвитовао/ла си',
@@ -2287,6 +2439,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Lägg till en Tweet till',
     ADD_MUTED_WORD: 'Lägg till ignorerat ord',
     AD_FROM: 'Annons från {url}',
+    EMBED_TWEET: 'Bädda in Tweeten',
     FOLLOWING_USER: 'Följer @{screenName}',
     FOLLOW_BACK_USER: 'Följ du också @{screenName}',
     FOLLOW_USER: 'Följ @{screenName}',
@@ -2310,6 +2463,7 @@ const locales = {
     QUOTE_TWEETS: 'Citat-tweets',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {Citat-tweet} other {Citat-tweets}}',
     RECENT: 'Senaste',
+    REPORT_TWEET: 'Anmäl Tweeten',
     REPOST: 'Återpublicera',
     REPOSTS: 'Återpubliceringar',
     REPOST_COUNT:
@@ -2326,12 +2480,14 @@ const locales = {
     TURN_OFF_RETWEETS: 'Stäng av Retweets',
     TURN_ON_RETWEETS: 'Slå på Retweets',
     TWEET: 'Tweeta',
+    TWEETED: 'tweetade',
     TWEET_ALL: 'Tweeta allt',
     TWEET_INTERACTIONS: 'Interaktioner med Tweet',
     TWEET_TITLE: '{name} på Twitter: ”{text}”',
     TWEET_YOUR_REPLY: 'Tweeta ditt svar',
     UNDO_RETWEET: 'Ångra retweeten',
     UNFOLLOW_USER: 'Avfölj @{screenName}',
+    UNSENT_TWEETS: 'Tweets som inte har skickats',
     USER_RETWEETED: '{name} retweetade',
     VIEW: 'Visa',
     YOU_RETWEETED: 'Du Retweetade',
@@ -2341,6 +2497,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'வேறொரு கீச்சைச் சேர்',
     ADD_MUTED_WORD: 'செயல்மறைத்த வார்த்தையைச் சேர்',
     AD_FROM: '{url} இலிருந்து விளம்பரம்',
+    EMBED_TWEET: 'கீச்சை உட்பொதி',
     FOLLOWING_USER: 'பின்வருபவை @{screenName}',
     FOLLOW_BACK_USER: '@{screenName}ஐ மீண்டும் பின்தொடரவும்',
     FOLLOW_USER: '@{screenName}-ஐப் பின்தொடர்',
@@ -2364,6 +2521,7 @@ const locales = {
     QUOTE_TWEETS: 'மேற்கோள் கீச்சுகள்',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {மேற்கோள் கீச்சு} other {மேற்கோள் கீச்சுகள்}}',
     RECENT: 'சமீபத்தியவை',
+    REPORT_TWEET: 'கீச்சைப் பற்றி புகாரளி',
     REPOST: 'மறுஇடுகை',
     REPOSTS: 'மறுஇடுகைகள்',
     REPOST_COUNT: '{formattedCount} {count, plural, one {மறுஇடுகை} other {மறுஇடுகைகள்}}',
@@ -2381,6 +2539,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'மறுகீச்சுகளை அணை',
     TURN_ON_RETWEETS: 'மறுகீச்சுகளை இயக்கு',
     TWEET: 'ட்விட் செய்',
+    TWEETED: 'ட்விட் செய்துள்ளார்',
     TWEETS: 'கீச்சுகள்',
     TWEET_ALL: 'அனைத்தையும் ட்விட் செய்',
     TWEET_COUNT: '{formattedCount} {count, plural, one {கீச்சு} other {கீச்சுகள்}}',
@@ -2390,6 +2549,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'உங்கள் பதிலை ட்விட் செய்யவும்',
     UNDO_RETWEET: 'மறுகீச்சை செயல்தவிர்',
     UNFOLLOW_USER: '@{screenName} -ஐப் பின்தொடராதே',
+    UNSENT_TWEETS: 'அனுப்பப்படாத கீச்சுகள்',
     USER_RETWEETED: '{name} மறுட்வீட் செய்துள்ளார்',
     VIEW: 'காண்பி',
     YOU_RETWEETED: 'நீங்கள் மறுட்விட் செய்தது',
@@ -2399,6 +2559,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'เพิ่มอีกทวีต',
     ADD_MUTED_WORD: 'เพิ่มคำที่ซ่อน',
     AD_FROM: 'โฆษณาจาก {url}',
+    EMBED_TWEET: 'ฝังทวีต',
     FOLLOWING_USER: 'กําลังติดตาม @{screenName}',
     FOLLOW_BACK_USER: 'ติดตาม @{screenName} กลับ',
     FOLLOW_USER: 'ติดตาม @{screenName}',
@@ -2422,6 +2583,7 @@ const locales = {
     QUOTE_TWEETS: 'ทวีตอ้างอิง',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {ทวีตอ้างอิง}}',
     RECENT: 'ล่าสุด',
+    REPORT_TWEET: 'รายงานทวีต',
     REPOST: 'รีโพสต์',
     REPOSTS: 'รีโพสต์',
     REPOST_COUNT: '{formattedCount} {count, plural, one {รีโพสต์} other {รีโพสต์}}',
@@ -2439,6 +2601,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'ปิดรีทวีต',
     TURN_ON_RETWEETS: 'เปิดรีทวีต',
     TWEET: 'ทวีต',
+    TWEETED: 'ได้ทวีต',
     TWEETS: 'ทวีต',
     TWEET_ALL: 'ทวีตทั้งหมด',
     TWEET_COUNT: '{formattedCount} {count, plural, other {ทวีต}}',
@@ -2449,6 +2612,7 @@ const locales = {
     TWITTER: 'ทวิตเตอร์',
     UNDO_RETWEET: 'ยกเลิกการรีทวีต',
     UNFOLLOW_USER: 'เลิกติดตาม @{screenName}',
+    UNSENT_TWEETS: 'ทวีตที่ไม่ได้ส่ง',
     USER_RETWEETED: '{name} ได้รีทวีต',
     VIEW: 'ดู',
     YOU_RETWEETED: 'คุณรีทวีต',
@@ -2458,6 +2622,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Başka bir Tweet ekle',
     ADD_MUTED_WORD: 'Sessize alınacak kelime ekle',
     AD_FROM: '{url} adresinden reklam',
+    EMBED_TWEET: 'Tweeti katıştır',
     FOLLOWING_USER: '@{screenName} adlı kullanıcı takip ediliyor',
     FOLLOW_BACK_USER: '@{screenName} geri takip et',
     FOLLOW_USER: '@{screenName} adlı kişiyi takip et',
@@ -2481,6 +2646,7 @@ const locales = {
     QUOTE_TWEETS: 'Alıntı Tweetler',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {Alıntı Tweet} other {Alıntı Tweet}}',
     RECENT: 'En yeni',
+    REPORT_TWEET: 'Tweeti Bildir',
     REPOST: 'Yeniden gönder',
     REPOSTS: 'Yeniden gönderiler',
     REPOST_COUNT:
@@ -2498,6 +2664,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Retweetleri kapat',
     TURN_ON_RETWEETS: 'Retweetleri aç',
     TWEET: 'Tweetle',
+    TWEETED: 'Tweetledi',
     TWEETS: 'Tweetler',
     TWEET_ALL: 'Hepsini Tweetle',
     TWEET_COUNT: '{formattedCount} {count, plural, one {Tweet} other {Tweet}}',
@@ -2506,6 +2673,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Yanıtını Tweetle',
     UNDO_RETWEET: 'Retweeti Geri Al',
     UNFOLLOW_USER: '@{screenName} adlı kullanıcıyı takibi bırak',
+    UNSENT_TWEETS: 'Gönderilmemiş Tweetler',
     USER_RETWEETED: '{name} Retweetledi',
     VIEW: 'Görüntüle',
     YOU_RETWEETED: 'Retweetledin',
@@ -2515,6 +2683,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Додати ще один твіт',
     ADD_MUTED_WORD: 'Додати слово до списку ігнорування',
     AD_FROM: 'Реклама від {url}',
+    EMBED_TWEET: 'Вбудувати твіт',
     FOLLOWING_USER: 'Ви читаєте @{screenName}',
     FOLLOW_BACK_USER: 'Читати у відповідь @{screenName}',
     FOLLOW_USER: 'Читати @{screenName}',
@@ -2541,6 +2710,7 @@ const locales = {
     QUOTE_TWEET_COUNT:
       '{formattedCount} {count, plural, one {Цитований твіт} few {цитовані твіти} many {цитованих твітів} other {цитованого твіта}}',
     RECENT: 'Нещодавні',
+    REPORT_TWEET: 'Поскаржитися на твіт',
     REPOST: 'Зробити репост',
     REPOSTS: 'Репости',
     REPOST_COUNT:
@@ -2561,6 +2731,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'Вимкнути ретвіти',
     TURN_ON_RETWEETS: 'Увімкнути ретвіти',
     TWEET: 'Твіт',
+    TWEETED: 'твітнув(ла)',
     TWEETS: 'Твіти',
     TWEET_ALL: 'Твітнути все',
     TWEET_COUNT:
@@ -2572,6 +2743,7 @@ const locales = {
     TWITTER: 'Твіттер',
     UNDO_RETWEET: 'Скасувати ретвіт',
     UNFOLLOW_USER: 'Не читати @{screenName}',
+    UNSENT_TWEETS: 'Ненадіслані твіти',
     USER_RETWEETED: '{name} ретвітнув(ла)',
     VIEW: 'Переглянути',
     YOU_RETWEETED: 'Ви ретвітнули',
@@ -2579,6 +2751,7 @@ const locales = {
   ur: {
     ADD_ANOTHER_TWEET: 'ایک اور ٹویٹ شامل کریں',
     ADD_MUTED_WORD: 'میوٹ شدہ لفظ شامل کریں',
+    EMBED_TWEET: 'ٹویٹ ایمبیڈ کریں',
     FOLLOWING_USER: 'فالو کر رہے ہیں @{screenName}',
     FOLLOW_USER: '@{screenName} کو فالو کریں',
     HOME: 'ہوم',
@@ -2592,6 +2765,7 @@ const locales = {
     QUOTE_TWEETS: 'حوالہ ٹویٹس',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, one {حوالہ ٹویٹ} other {حوالہ ٹویٹس}}',
     RECENT: 'حالیہ',
+    REPORT_TWEET: 'ٹویٹ کو رپورٹ کریں',
     RETWEET: 'ریٹویٹ',
     RETWEETS: 'ریٹویٹس',
     RETWEET_COUNT: '{formattedCount} {count, plural, one {ریٹویٹ} other {ریٹویٹس}}',
@@ -2605,6 +2779,7 @@ const locales = {
     TURN_OFF_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
     TURN_ON_RETWEETS: 'ری ٹویٹس غیر فعال کریں',
     TWEET: 'ٹویٹ',
+    TWEETED: 'ٹویٹ کیا',
     TWEETS: 'ٹویٹس',
     TWEET_ALL: 'سب کو ٹویٹ کریں',
     TWEET_COUNT: '{formattedCount} {count, plural, one {ٹویٹ} other {ٹویٹس}}',
@@ -2615,6 +2790,7 @@ const locales = {
     TWITTER: 'ٹوئٹر',
     UNDO_RETWEET: 'ری ٹویٹ کو کالعدم کریں',
     UNFOLLOW_USER: '@{screenName} کو ان فالو کریں',
+    UNSENT_TWEETS: 'غیر ارسال شدہ ٹویٹس',
     USER_RETWEETED: '{name} نے ریٹویٹ کیا',
     VIEW: 'دیکھیں',
     YOU_RETWEETED: 'آپ نے ریٹویٹ کیا',
@@ -2624,6 +2800,7 @@ const locales = {
     ADD_ANOTHER_TWEET: 'Thêm Tweet khác',
     ADD_MUTED_WORD: 'Thêm từ bị ẩn',
     AD_FROM: 'Quảng cáo từ {url}',
+    EMBED_TWEET: 'Tweet nhúng',
     FOLLOWING_USER: 'Đang theo dõi @{screenName}',
     FOLLOW_BACK_USER: 'Theo dõi lại @{screenName}',
     FOLLOW_USER: 'Theo dõi @{screenName}',
@@ -2648,6 +2825,7 @@ const locales = {
     QUOTE_TWEETS: 'Tweet trích dẫn',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {Tweet trích dẫn}}',
     RECENT: 'Gần đây',
+    REPORT_TWEET: 'Báo cáo Tweet',
     REPOST: 'Đăng lại',
     REPOSTS: 'Bài đăng lại',
     REPOST_COUNT: '{formattedCount} {count, plural, one {bài đăng lại} other {bài đăng lại}}',
@@ -2664,6 +2842,7 @@ const locales = {
     TURN_OFF_QUOTE_TWEETS: 'Tắt Tweet trích dẫn',
     TURN_OFF_RETWEETS: 'Tắt Tweet lại',
     TURN_ON_RETWEETS: 'Bật Tweet lại',
+    TWEETED: 'đã Tweet',
     TWEETS: 'Tweet',
     TWEET_ALL: 'Đăng Tweet tất cả',
     TWEET_COUNT: '{formattedCount} {count, plural, other {Các Tweet}}',
@@ -2672,6 +2851,7 @@ const locales = {
     TWEET_YOUR_REPLY: 'Đăng Tweet câu trả lời của bạn',
     UNDO_RETWEET: 'Hoàn tác Tweet lại',
     UNFOLLOW_USER: 'Ngừng theo dõi @{screenName}',
+    UNSENT_TWEETS: 'Tweet chưa gửi',
     USER_RETWEETED: '{name} đã Tweet lại',
     VIEW: 'Xem',
     YOU_RETWEETED: 'Bạn đã Tweet lại',
@@ -2681,6 +2861,7 @@ const locales = {
     ADD_ANOTHER_TWEET: '添加另一条推文',
     ADD_MUTED_WORD: '添加要隐藏的字词',
     AD_FROM: '来自 {url} 的广告',
+    EMBED_TWEET: '嵌入推文',
     FOLLOWING_USER: '正在关注 @{screenName}',
     FOLLOW_BACK_USER: '回关 @{screenName}',
     FOLLOW_USER: '关注 @{screenName}',
@@ -2704,6 +2885,7 @@ const locales = {
     QUOTE_TWEETS: '引用推文',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {条引用推文}}',
     RECENT: '最近',
+    REPORT_TWEET: '举报推文',
     REPOST: '转帖',
     REPOSTS: '转帖',
     REPOST_COUNT: '{formattedCount} {count, plural, other {转帖}}',
@@ -2721,6 +2903,7 @@ const locales = {
     TURN_OFF_RETWEETS: '关闭转推',
     TURN_ON_RETWEETS: '开启转推',
     TWEET: '推文',
+    TWEETED: '发布了推文',
     TWEETS: '推文',
     TWEET_ALL: '全部发推',
     TWEET_COUNT: '{formattedCount} {count, plural, other {推文}}',
@@ -2730,6 +2913,7 @@ const locales = {
     TWEET_YOUR_REPLY: '发布你的回复',
     UNDO_RETWEET: '撤销转推',
     UNFOLLOW_USER: '取消关注 @{screenName}',
+    UNSENT_TWEETS: '未发布的推文',
     USER_RETWEETED: '{name} 已转推',
     VIEW: '查看',
     YOU_RETWEETED: '你转推了',
@@ -2739,6 +2923,7 @@ const locales = {
     ADD_ANOTHER_TWEET: '加入另一則推文',
     ADD_MUTED_WORD: '加入靜音文字',
     AD_FROM: '來自 {url} 的廣告',
+    EMBED_TWEET: '嵌入推文',
     FOLLOWING_USER: '正在跟隨 @{screenName}',
     FOLLOW_BACK_USER: '回跟隨 @{screenName}',
     FOLLOW_USER: '跟隨 @{screenName}',
@@ -2762,6 +2947,7 @@ const locales = {
     QUOTE_TWEETS: '引用的推文',
     QUOTE_TWEET_COUNT: '{formattedCount} {count, plural, other {則引用推文}}',
     RECENT: '最近',
+    REPORT_TWEET: '檢舉推文',
     REPOST: '轉發',
     REPOSTS: '轉發',
     REPOST_COUNT: '{formattedCount} {count, plural, other {轉貼}}',
@@ -2779,6 +2965,7 @@ const locales = {
     TURN_OFF_RETWEETS: '關閉轉推',
     TURN_ON_RETWEETS: '開啟轉推',
     TWEET: '推文',
+    TWEETED: '已推文',
     TWEETS: '推文',
     TWEET_ALL: '推全部內容',
     TWEET_COUNT: '{formattedCount} {count, plural, other {則推文}}',
@@ -2788,6 +2975,7 @@ const locales = {
     TWEET_YOUR_REPLY: '推你的回覆',
     UNDO_RETWEET: '取消轉推',
     UNFOLLOW_USER: '取消跟隨 @{screenName}',
+    UNSENT_TWEETS: '未發送的推文',
     USER_RETWEETED: '{name} 已轉推',
     VIEW: '查看',
     YOU_RETWEETED: '你已轉推',
@@ -3529,9 +3717,10 @@ function patchFollowingUrl(url) {
  *   patchUrl: (method: string, url: string) => string
  *   shouldPatchBody: (method: string, url: string) => boolean
  *   patchBody: (body: string) => string
+ *   patchResponse?: (response: Response, url: string, headers?: HeadersInit) => Response | Promise<Response>
  * }} patches
  */
-function patchRequests({patchUrl, shouldPatchBody, patchBody}) {
+function patchRequests({patchUrl, shouldPatchBody, patchBody, patchResponse}) {
   if (typeof XMLHttpRequest != 'undefined') {
     let open = XMLHttpRequest.prototype.open
     let send = XMLHttpRequest.prototype.send
@@ -3563,8 +3752,10 @@ function patchRequests({patchUrl, shouldPatchBody, patchBody}) {
       let patch = shouldPatchBody(method, url)
       let send = (body) => {
         let options = body == null ? init : {...init, body}
-        if (request && patchedUrl != url) return originalFetch.call(this, new Request(patchedUrl, new Request(request, options)))
-        return originalFetch.call(this, patchedUrl != url ? patchedUrl : input, options)
+        let result = request && patchedUrl != url
+          ? originalFetch.call(this, new Request(patchedUrl, new Request(request, options)))
+          : originalFetch.call(this, patchedUrl != url ? patchedUrl : input, options)
+        return patchResponse ? result.then(response => enabled && settings ? patchResponse(response, url, options?.headers ?? request?.headers) : response) : result
       }
       if (patch && typeof init?.body == 'string') {
         let body = patchBody(init.body)
@@ -9746,6 +9937,7 @@ const xweb = function() {
 //#region Constants
 /** @type {Record<string, import('./types').LocaleKey>} */
 const BRANDING_TRANSLATIONS = {
+  'Embed post': 'EMBED_TWEET',
   'New post': 'NEW_TWEET',
   'Post activity': 'TWEET_INTERACTIONS',
   'Post all': 'TWEET_ALL',
@@ -9755,12 +9947,15 @@ const BRANDING_TRANSLATIONS = {
   'Post{verb}': 'TWEET',
   'Quote': 'QUOTE_TWEET',
   'Quotes': 'QUOTE_TWEETS',
+  'Report post': 'REPORT_TWEET',
   'Repost': 'RETWEET',
   'Reposts': 'RETWEETS',
   'Show {count, plural, one {# post} other {# posts}}': 'SHOW_TWEETS',
   'Turn off reposts': 'TURN_OFF_RETWEETS',
   'Turn on reposts': 'TURN_ON_RETWEETS',
   'Undo repost': 'UNDO_RETWEET',
+  'Unsent posts': 'UNSENT_TWEETS',
+  'View post activity': 'TWEET_INTERACTIONS',
   'You reposted': 'YOU_RETWEETED',
   '{formattedCount} {count, plural, one {post} other {posts}}': 'TWEET_COUNT',
   '{formattedCount} {count, plural, one {quote} other {quotes}}': 'QUOTE_TWEET_COUNT',
@@ -13182,6 +13377,46 @@ function tweakHomeTimelinePage() {
 //#endregion
 
 //#region Main
+/**
+ * Replaces "posted" → "Tweeted" in the Home timeline's new Tweets popup.
+ * @param {Response} response
+ * @param {string} url
+ * @param {HeadersInit} [requestHeaders]
+ */
+async function patchHomeTimelineResponse(response, url, requestHeaders) {
+  if (!settings.revertXBranding || !response.ok ||
+      !/^https:\/\/api\.x\.com\/graphql\/[^/?]+\/(?:HomeTimeline|HomeLatestTimelineQuery)(?:\?|$)/.test(url)) return response
+  try {
+    let language = (new Headers(requestHeaders).get('x-twitter-client-language') || lang || 'en').toLowerCase()
+    if (language == 'en-ss' || language == 'en-xx') return response
+    let data = await response.clone().json()
+    if (!enabled || !settings.revertXBranding) return response
+    let timeline = data?.data?.home_timeline || data?.data?.home
+    let instructions = timeline?.home_timeline_urt?.instructions
+    if (!Array.isArray(instructions)) return response
+    let changed = false
+    for (let instruction of instructions) {
+      if (instruction?.__typename != 'TimelineShowAlert' || instruction.alert_type != 'NewTweets') continue
+      let tweeted = locales[language]?.TWEETED || locales.en.TWEETED
+      if (typeof instruction.rich_text?.text != 'string' || !instruction.rich_text.text || instruction.rich_text.text == tweeted) continue
+      instruction.rich_text.text = tweeted
+      changed = true
+    }
+    if (!changed) return response
+    let headers = new Headers(response.headers)
+    headers.delete('content-length')
+    headers.delete('content-encoding')
+    let replacement = new Response(JSON.stringify(data), {status: response.status, statusText: response.statusText, headers})
+    for (let key of ['url', 'redirected', 'type']) {
+      Object.defineProperty(replacement, key, {value: response[key]})
+    }
+    log('revertXBranding: patched "posted" timeline alert')
+    return replacement
+  } catch {
+    return response
+  }
+}
+
 function onDebugChanged() {
   configureCss()
   processCurrentPage()
@@ -13270,6 +13505,7 @@ return function init() {
       return method == 'POST' && settings.defaultFollowingToRecent && isFollowingTimelineRequest(url)
     },
     patchBody: patchFollowingBody,
+    patchResponse: patchHomeTimelineResponse,
   })
   setupConfig({main, onSettingsChanged, onDisabled, onDebugChanged})
 }
