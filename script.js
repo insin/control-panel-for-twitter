@@ -12750,10 +12750,10 @@ function createIndividualTweetTimelineProcessor(tweetPath = currentPagePath) {
  * @returns {import("./types").TimelineItemType}
  */
 function getTimelineItemType($item, conversation = currentPageType == 'Tweet') {
-  // Trending stories show relevant people without a connect-people footer
-  if ($item.querySelector(':scope > [data-href] .x-avatar') &&
+  // Suggested-user modules combine profile cards with a heading or connect-people footer
+  if ($item.querySelector(':scope > [data-href]:not(:has(article)) .x-avatar') &&
       ($item.querySelector(':scope > a:is([href="/i/connect_people"], [href^="/i/connect_people?"])') ||
-       currentPageType == 'Trending' && $item.querySelector(':scope > div h2'))) return 'WHO_TO_FOLLOW'
+       $item.querySelector(':scope > div:not([data-href]) h2'))) return 'WHO_TO_FOLLOW'
   if (conversation && $item.matches(FOCUSED_TWEET_SELECTOR)) return 'FOCUSED_TWEET'
   if (conversation && $item.children.length > 1 &&
       $item.children[0].querySelector('h2') && !$item.children[0].querySelector('article') &&
