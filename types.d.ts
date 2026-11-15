@@ -81,6 +81,7 @@ export type UserSettings = {
   disableHomeTimeline: boolean
   disableTweetTextFormatting: boolean
   disableUsSportFeatures: boolean,
+  disableVideoLooping: boolean
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean

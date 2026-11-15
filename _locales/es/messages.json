@@ -80,6 +80,9 @@
   "disabled": {
     "message": "Deshabilitado"
   },
+  "disableVideoLooping": {
+    "message": "Desactivar la repetición de vídeos"
+  },
   "disabledHomeTimelineRedirect": {
     "message": "Redirigir el inicio a:"
   },

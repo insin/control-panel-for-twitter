@@ -22,6 +22,7 @@ const DEFAULT_SETTINGS = {
   disableHomeTimeline: false,
   disableTweetTextFormatting: false,
   disableUsSportFeatures: true,
+  disableVideoLooping: true,
   disabledHomeTimelineRedirect: 'notifications',
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
@@ -3187,9 +3188,6 @@ function parseCountTemplate(template) {
   return {clause: match[0], forms}
 }
 
-
-
-
 /**
  * Matches a simple translation template and carries its placeholder values into
  * the replacement template. Returns the original text if it doesn't match.
@@ -3633,7 +3631,6 @@ function getElement(selector, {
   })
 }
 
-
 /**
  * @param {*} value
  * @returns {value is string}
@@ -3745,7 +3742,6 @@ function registerModalSetup(name) {
   return () => cancelled
 }
 
-
 /**
  * @template T
  * @param {() => T} fn
@@ -3818,6 +3814,74 @@ const getAccountLocation = (() => {
   }
 })()
 
+/**
+ * @param {($video: HTMLVideoElement) => (() => void) | null} [preventReplay]
+ */
+function configureVideoLooping(preventReplay) {
+  let name = 'video looping'
+  if (!enabled || !settings.disableVideoLooping) {
+    globalObservers.get(name)?.disconnect()
+    return
+  }
+  if (globalObservers.has(name)) return
+  let pending = new Set()
+
+  function onEnded(event) {
+    let $video = event.target
+    if (!enabled || !settings.disableVideoLooping || !($video instanceof HTMLVideoElement) ||
+        !$video.closest('article, [data-testid="videoPlayer"], [role="dialog"]') ||
+        /\/tweet_video(?:_thumb)?\//.test($video.poster + ' ' + $video.currentSrc)) return
+    if (preventReplay) {
+      let restore = preventReplay($video)
+      if (restore) {
+        let timer = setTimeout(cleanup, 0)
+        function cleanup() {
+          clearTimeout(timer)
+          pending.delete(cleanup)
+          restore()
+        }
+        pending.add(cleanup)
+      }
+      return
+    }
+    let descriptor = Object.getOwnPropertyDescriptor($video, 'play')
+    let original = $video.play
+    let armed = true
+    let timer
+    function restore() {
+      armed = false
+      clearTimeout(timer)
+      if ($video.play === play) {
+        if (descriptor) Object.defineProperty($video, 'play', descriptor)
+        else delete $video.play
+      }
+      pending.delete(restore)
+    }
+    function play(...args) {
+      let block = armed && event.eventPhase != 0 && enabled && settings.disableVideoLooping
+      restore()
+      if (!block) return original.apply(this, args)
+      log('disableVideoLooping: prevented video replay')
+      return Promise.reject(new DOMException('Automatic video replay disabled', 'AbortError'))
+    }
+    try {
+      Object.defineProperty($video, 'play', {configurable: true, writable: true, value: play})
+      pending.add(restore)
+      // Expire an unused interceptor after the native ended handlers finish
+      timer = setTimeout(restore, 0)
+    } catch {
+      restore()
+    }
+  }
+
+  document.addEventListener('ended', onEnded, true)
+  globalObservers.set(name, {name, disconnect() {
+    document.removeEventListener('ended', onEnded, true)
+    for (let restore of pending) restore()
+    globalObservers.delete(name)
+  }})
+}
+
 function bypassMediaContextMenu() {
   let name = 'media context menu'
   if (!enabled || !settings.bypassMediaContextMenu) {
@@ -3828,10 +3892,12 @@ function bypassMediaContextMenu() {
   function onContextMenu(event) {
     if (!enabled || !settings.bypassMediaContextMenu) return
     let $target = event.target
-    let $trigger = $target?.closest?.('[data-slot="xds-context-menu-trigger"], [data-testid="tweetPhoto"]')
+    let $rwebPlayer = $target?.closest?.('[data-testid="videoPlayer"], [data-testid="videoComponent"]')
+    let $trigger = $rwebPlayer?.querySelector('video') ? $rwebPlayer :
+      $target?.closest?.('[data-slot="xds-context-menu-trigger"], [data-testid="tweetPhoto"]')
     if (!$trigger && $target?.matches?.('video')) $trigger = $target.parentElement?.querySelector(':scope > [data-slot="xds-context-menu-trigger"]')
     if (!$trigger) return
-    let video = $trigger.matches('[data-slot="xds-context-menu-trigger"]') &&
+    let video = $trigger === $rwebPlayer || $trigger.matches('[data-slot="xds-context-menu-trigger"]') &&
       ($trigger.querySelector('video') || $trigger.parentElement?.querySelector(':scope > video'))
     if (!video && ($target.closest('button, [data-press-control], [data-testid="videoPlayer"], [data-testid="videoComponent"]') ||
         $trigger.querySelector('video') ||
@@ -3984,7 +4050,6 @@ function configureCustomCss() {
   }
 }
 //#endregion
-
 
 //#region Setup
 /**
@@ -4257,7 +4322,6 @@ const TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR = '.tva-download-icon, .tva-modal-dow
 //#region State
 /** @type {HTMLElement} */
 let $reactRoot
-
 
 /** `true` when the 'Block @${user}' menu item was clicked in the last popup */
 let blockMenuItemClicked = false
@@ -4657,6 +4721,32 @@ function getUserScreenName() {
   return state?.entities?.users?.entities?.[state?.session?.user_id]?.screen_name
 }
 
+/** @param {HTMLVideoElement} $video */
+function preventVideoReplay($video) {
+  let fiber = null
+  for (let $element = /** @type {Element} */ ($video); $element && !fiber; $element = $element.parentElement) {
+    let key = Object.keys($element).find(key => key.startsWith('__reactFiber$'))
+    if (key) fiber = $element[key]
+  }
+  for (let depth = 0; fiber && depth < 50; fiber = fiber.return, depth++) {
+    let api = fiber.stateNode?.videoPlayer || fiber.stateNode?._playerInternal
+    let player = api?.video
+    if (player?.getVideoTag?.() !== $video) continue
+    let track = player.getCurrentTrack()
+    if (!track?.shouldLoop || track.displayType != 'content' || track.isLive) return null
+    let shouldLoop = track.shouldLoop
+    // Native completion computes its replay controls from the current track
+    track.shouldLoop = false
+    log('disableVideoLooping: prevented video replay')
+    return () => {
+      track.shouldLoop = shouldLoop
+      if (!$video.isConnected) return
+      let current = player.getCurrentTrack()
+      if (track.contentId != null && current?.contentId === track.contentId && current.id === track.id) current.shouldLoop = shouldLoop
+    }
+  }
+  return null
+}
 //#endregion
 
 //#region Global observers
@@ -10020,6 +10110,7 @@ async function main({processImmediately = false} = {}) {
       configureCustomCss()
       bypassMediaContextMenu()
       configureCleanTweetLinks()
+      configureVideoLooping(preventVideoReplay)
       observePopups()
       observeSideNavItems()
 
@@ -10069,6 +10160,7 @@ function onDisabled() {
   configureCustomCss()
   bypassMediaContextMenu()
   configureCleanTweetLinks()
+  configureVideoLooping(preventVideoReplay)
   // Manually remove custom UI elements which clone existing elements, as
   // adding a hidden attribute won't hide them by default.
   document.querySelector('#cpftSeparatedTweetsTab')?.remove()
@@ -10086,6 +10178,7 @@ function onSettingsChanged(changedSettings = new Set()) {
   configureCustomCss()
   bypassMediaContextMenu()
   configureCleanTweetLinks()
+  configureVideoLooping(preventVideoReplay)
   observePopups()
   observeSideNavItems()
 
@@ -12857,7 +12950,6 @@ function getTweetType($tweet) {
   return quote ? 'QUOTE_TWEET' : 'TWEET'
 }
 
-
 /** @param {Element | null} $tweet */
 function hasAiDisclosure($tweet) {
   let $article = $tweet?.querySelector(':scope > article')
@@ -13399,7 +13491,6 @@ function restoreFocusedTweetMetrics($focused, tweetPath, readState) {
   }
 }
 
-
 /**
  * The focused Tweet can render before the virtualized timeline, so its changes
  * need to apply to both the initial standalone card and its later timeline row.
@@ -13786,6 +13877,7 @@ function onDebugChanged() {
 
 function onDisabled() {
   configureTitleSetter()
+  configureVideoLooping()
   configureFastBlock()
   bypassMediaContextMenu()
   configureCleanTweetLinks()
@@ -13806,6 +13898,7 @@ function onDisabled() {
 
 /** @param {Set<import("./types").UserSettingsKey>} changedSettings */
 function onSettingsChanged(changedSettings = new Set()) {
+  if (changedSettings.has('disableVideoLooping')) configureVideoLooping()
   if (changedSettings.has('hideNotifications')) configureTitleSetter()
   if (changedSettings.has('hideVerifiedTabs') || changedSettings.has('disableHomeTimeline') ||
       changedSettings.has('disabledHomeTimelineRedirect') || changedSettings.has('hideNotifications')) configureRedirects()
@@ -13841,6 +13934,7 @@ function main() {
   resetPage()
 
   configureTitleSetter()
+  configureVideoLooping()
   configureRedirects()
   configureFastBlock()
   bypassMediaContextMenu()

@@ -40,6 +40,7 @@ export const currentSettingsSchema = {
   disableHomeTimeline: boolean(),
   disableTweetTextFormatting: boolean(),
   disableUsSportFeatures: boolean(),
+  disableVideoLooping: boolean(),
   disabledHomeTimelineRedirect: oneOf(['notifications', 'messages']),
   dontUseChirpFont: boolean(),
   dropdownMenuFontWeight: boolean(),

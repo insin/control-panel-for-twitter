@@ -80,6 +80,9 @@
   "disabled": {
     "message": "無効"
   },
+  "disableVideoLooping": {
+    "message": "動画のループ再生を無効にする"
+  },
   "disabledHomeTimelineRedirect": {
     "message": "「ホーム」タイムラインをリダイレクト"
   },

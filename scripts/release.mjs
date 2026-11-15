@@ -12,15 +12,12 @@ const manifestPaths =
     : ['./manifest.mv2.json', './manifest.mv3.json']
 const safariProjectPath = './safari/Control Panel for Twitter.xcodeproj/project.pbxproj'
 
-const releaseType = process.argv[2]
-const specificVersion = semver.parse(releaseType)
+const versionArg = process.argv[2]
+const releaseType =
+  versionArg == 'patch' || versionArg == 'minor' || versionArg == 'major' ? versionArg : null
+const specificVersion = semver.parse(versionArg)
 
-if (
-  releaseType != 'patch' &&
-  releaseType != 'minor' &&
-  releaseType != 'major' &&
-  !specificVersion
-) {
+if (!releaseType && !specificVersion) {
   console.log(
     `
 Usage:

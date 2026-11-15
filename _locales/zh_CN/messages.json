@@ -80,6 +80,9 @@
   "disabled": {
     "message": "已禁用"
   },
+  "disableVideoLooping": {
+    "message": "禁用视频循环播放"
+  },
   "disabledHomeTimelineRedirect": {
     "message": "将主页时间线重定向至"
   },

@@ -80,6 +80,9 @@
   "disabled": {
     "message": "비활성화됨"
   },
+  "disableVideoLooping": {
+    "message": "동영상 반복 재생 비활성화"
+  },
   "disabledHomeTimelineRedirect": {
     "message": "비활성화된 홈 타임라인 리디렉션"
   },

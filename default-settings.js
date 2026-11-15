@@ -18,6 +18,7 @@ export const DEFAULT_SETTINGS = {
   disableHomeTimeline: false,
   disableTweetTextFormatting: false,
   disableUsSportFeatures: true,
+  disableVideoLooping: true,
   disabledHomeTimelineRedirect: 'notifications',
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
