@@ -13,6 +13,7 @@ const DEFAULT_SETTINGS = {
   addAddMutedWordMenuItem: true,
   addFocusedTweetAccountLocation: false,
   bypassAgeVerification: true,
+  bypassPhotoContextMenu: true,
   darkModeTheme: 'lightsOut',
   defaultFollowingToRecent: true,
   defaultToFollowing: true,
@@ -11112,6 +11113,30 @@ const configureBranding = (() => {
   }
 })()
 
+function bypassPhotoContextMenu() {
+  let name = 'photo context menu'
+  if (!enabled || !settings.bypassPhotoContextMenu) {
+    globalObservers.get(name)?.disconnect()
+    return
+  }
+  if (globalObservers.has(name)) return
+  function onContextMenu(event) {
+    if (!enabled || !settings.bypassPhotoContextMenu) return
+    let $target = event.target
+    let $trigger = $target?.closest?.('[data-slot="xds-context-menu-trigger"]')
+    if (!$trigger || $target.closest('button, [data-press-control]') ||
+        $trigger.querySelector('video') ||
+        !$trigger.querySelector('img[src^="https://pbs.twimg.com/media/"]')) return
+    log('bypassPhotoContextMenu: bypassing photo context menu')
+    event.stopImmediatePropagation()
+  }
+  document.addEventListener('contextmenu', onContextMenu, true)
+  globalObservers.set(name, {name, disconnect() {
+    document.removeEventListener('contextmenu', onContextMenu, true)
+    globalObservers.delete(name)
+  }})
+}
+
 function configureFastBlock() {
   let name = 'fast block clicks'
   if (!enabled || !settings.fastBlock) {
@@ -13091,7 +13116,7 @@ function tweakTweetEngagementPage() {
   let unsubscribe = router.subscribe('onResolved', () => {
     if (enabled && TWEET_ENGAGEMENT_PATH_RE.test(location.pathname) &&
         location.pathname + location.search != currentPageUrl) {
-      // Engagement tabs can share a title; listen to navigation rather than DOM changes.
+      // Engagement tabs can share a title; listen to navigation rather than DOM changes
       onTitleChange(document.title, {force: true})
     }
   })
@@ -13580,6 +13605,7 @@ function onDebugChanged() {
 function onDisabled() {
   configureTitleSetter()
   configureFastBlock()
+  bypassPhotoContextMenu()
   configureRedirects()
   observeTheme()
   if (separatedTweetsTimelineSelected) {
@@ -13601,6 +13627,7 @@ function onSettingsChanged(changedSettings = new Set()) {
   if (changedSettings.has('hideVerifiedTabs') || changedSettings.has('disableHomeTimeline') ||
       changedSettings.has('disabledHomeTimelineRedirect') || changedSettings.has('hideNotifications')) configureRedirects()
   if (changedSettings.has('fastBlock')) configureFastBlock()
+  if (changedSettings.has('bypassPhotoContextMenu')) bypassPhotoContextMenu()
   configureCss()
   configureCustomCss()
   if (changedSettings.has('darkModeTheme') || changedSettings.has('lightModeTheme') || changedSettings.has('revertXBranding')) observeTheme()
@@ -13632,6 +13659,7 @@ function main() {
   configureTitleSetter()
   configureRedirects()
   configureFastBlock()
+  bypassPhotoContextMenu()
 
   // Sets mobile/desktop and generates feature CSS
   observeLayout()

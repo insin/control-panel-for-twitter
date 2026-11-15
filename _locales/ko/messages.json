@@ -23,6 +23,9 @@
   "bypassAgeVerification": {
     "message": "성인 인증 우회하기"
   },
+  "bypassPhotoContextMenu": {
+    "message": "\"사진 링크 복사\" 메뉴 건너뛰기"
+  },
   "clearFeatureSearch": {
     "message": "검색 지우기"
   },

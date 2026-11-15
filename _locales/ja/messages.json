@@ -23,6 +23,9 @@
   "bypassAgeVerification": {
     "message": "年齢確認をバイパス"
   },
+  "bypassPhotoContextMenu": {
+    "message": "「画像のリンクをコピー」メニューをスキップ"
+  },
   "clearFeatureSearch": {
     "message": "検索をクリア"
   },

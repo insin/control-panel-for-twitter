@@ -23,6 +23,9 @@
   "bypassAgeVerification": {
     "message": "Contourner la vérification de l'âge"
   },
+  "bypassPhotoContextMenu": {
+    "message": "Contourner le menu « Copier le lien de la photo »"
+  },
   "clearFeatureSearch": {
     "message": "Effacer la recherche"
   },

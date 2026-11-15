@@ -24,6 +24,9 @@
   "bypassAgeVerification": {
     "message": "Bypass age verification"
   },
+  "bypassPhotoContextMenu": {
+    "message": "Bypass \"Copy photo link\" menu"
+  },
   "clearFeatureSearch": {
     "message": "Clear search"
   },

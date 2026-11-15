@@ -9,6 +9,7 @@ export const DEFAULT_SETTINGS = {
   addAddMutedWordMenuItem: true,
   addFocusedTweetAccountLocation: false,
   bypassAgeVerification: true,
+  bypassPhotoContextMenu: true,
   darkModeTheme: 'lightsOut',
   defaultFollowingToRecent: true,
   defaultToFollowing: true,
