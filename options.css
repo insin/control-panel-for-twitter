@@ -3332,14 +3332,14 @@ options-button.option-row.button {
     position: relative;
     width: auto;
     background: var(--ios-segment-bg);
-    border-radius: 9px;
+    border-radius: 9999px;
     padding: 2px;
     button[aria-selected="true"] {
       font-weight: 600;
     }
     .indicator {
       background: var(--ios-pill-bg);
-      border-radius: 7px;
+      border-radius: 9999px;
       box-shadow: 0 1px 2px var(--ios-selected-shadow);
       display: block;
       inset: 2px;
