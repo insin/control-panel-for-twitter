@@ -11469,7 +11469,7 @@ async function observeEmbeddedTheme(type) {
     mutationObserverOptions: {childList: true},
   })
   if (!$container || !enabled || currentPagePath != path) return
-  let selector = type == 'Chat' ? ':scope > div.h-dvh.w-full' : ':scope > div.min-h-dvh.w-full'
+  let rootSelector = type == 'Chat' ? '[data-xchat-root]' : '[data-xcalls-root]'
   let $host = null
   let $style = null
   let rafId = null
@@ -11478,29 +11478,28 @@ async function observeEmbeddedTheme(type) {
     rafId = null
     if ($style) observeTheme.removeEmbed($style)
     $style = null
+    $host = null
   }
   function attach() {
-    rafId = null
-    if (!$host?.isConnected) {
+    if (!enabled || !$container.isConnected || currentPagePath != path) {
       clear()
       return
     }
-    let $shadow = $host?.shadowRoot
-    if (!$shadow) {
+    let $nextHost = Array.from($container.children).find($child => $child.shadowRoot?.querySelector(rootSelector))
+    if ($nextHost && $nextHost == $host) return
+    clear()
+    $host = $nextHost
+    if (!$host) {
+      // Shadow attachment and the embed's first render don't mutate page DOM
       rafId = requestAnimationFrame(attach)
       return
     }
     $style = document.createElement('style')
     observeTheme.addEmbed($style)
-    $shadow.appendChild($style)
+    $host.shadowRoot.appendChild($style)
+    log(`${type} embed theme attached`)
   }
-  observeElement($container, () => {
-    let $nextHost = $container.querySelector(selector)
-    if ($nextHost == $host) return
-    clear()
-    $host = $nextHost
-    if ($host) attach()
-  }, {
+  observeElement($container, attach, {
     name: `${type} embed host`, observers: pageObservers, leading: true, logElement: true,
     onDisconnect: clear,
   })
