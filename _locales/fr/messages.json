@@ -71,11 +71,11 @@
   "disableHomeTimelineInfo": {
     "message": "Vous perdez trop de temps sur Twitter ? Essayez d'empêcher l'utilisation du fil Accueil"
   },
-  "disableNflFeatures": {
-    "message": "Désactiver les fonctionnalités de la NFL"
-  },
   "disableTweetTextFormatting": {
     "message": "Désactiver le texte en gras et en italique dans les tweets"
+  },
+  "disableUsSportFeatures": {
+    "message": "Désactiver les fonctionnalités des sports américains"
   },
   "disabled": {
     "message": "Désactivé"

@@ -71,11 +71,11 @@
   "disableHomeTimelineInfo": {
     "message": "Twitterに時間を盗まれていませんか？「ホーム」タイムラインの利用を控えてみる"
   },
-  "disableNflFeatures": {
-    "message": "NFL機能を無効にする"
-  },
   "disableTweetTextFormatting": {
     "message": "ツイートの太字と斜体を無効にする"
+  },
+  "disableUsSportFeatures": {
+    "message": "米国スポーツ機能を無効にする"
   },
   "disabled": {
     "message": "無効"

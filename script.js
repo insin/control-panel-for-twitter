@@ -20,8 +20,8 @@ const DEFAULT_SETTINGS = {
   defaultToFollowing: true,
   defaultToLatestSearch: false,
   disableHomeTimeline: false,
-  disableNflFeatures: true,
   disableTweetTextFormatting: false,
+  disableUsSportFeatures: true,
   disabledHomeTimelineRedirect: 'notifications',
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
@@ -6679,7 +6679,13 @@ const configureFeatureFlags = (() => {
     isTrue = featureSwitches.isTrue
     featureSwitches.isTrue = (flag) => {
       if (settings.bypassAgeVerification && flag == 'rweb_age_assurance_flow_enabled') return false
-      if (settings.disableNflFeatures && flag == 'responsive_web_nfl_enabled') return false
+      if (settings.disableUsSportFeatures && [
+        'responsive_web_mlb_enabled',
+        'responsive_web_nba_enabled',
+        'responsive_web_ncaafb_enabled',
+        'responsive_web_nfl_enabled',
+        'responsive_web_nhl_enabled',
+      ].includes(flag)) return false
       if (settings.revertMediaCarousel && flag == 'rweb_media_carousel_enabled') return false
       if (settings.revertProfileTabs && flag == 'responsive_web_profile_redesign_enabled') return false
       if (settings.revertTwemoji && flag == 'responsive_web_native_emojis_enabled') return false

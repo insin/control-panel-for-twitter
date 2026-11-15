@@ -71,11 +71,11 @@
   "disableHomeTimelineInfo": {
     "message": "¿Pasas demasiado tiempo en Twitter? Desactiva la página de inicio para que no puedas acceder a ella"
   },
-  "disableNflFeatures": {
-    "message": "Desactivar las funciones de la NFL"
-  },
   "disableTweetTextFormatting": {
     "message": "Deshabilitar texto en negrita e itálica en los tweets"
+  },
+  "disableUsSportFeatures": {
+    "message": "Desactivar las funciones de deportes estadounidenses"
   },
   "disabled": {
     "message": "Deshabilitado"

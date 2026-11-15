@@ -107,7 +107,7 @@ ${messages.xFixesOptions}:
 • ${messages.hideSubscriptions}
 • ${messages.hideMoney}
 • ${messages.hideCalls}
-• ${messages.disableNflFeatures}
+• ${messages.disableUsSportFeatures}
 
 ${messages.uiTweaksOptions}:
 

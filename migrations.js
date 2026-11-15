@@ -48,6 +48,7 @@ async function migrateUserSettingsToSettingsObject() {
   }
   /** @type {import('./types').Migrations} */
   const migrations = {
+    disableNflFeatures: { rename: 'disableUsSportFeatures' },
     hideGrokNav: { rename: 'hideGrok' },
     hideJobsNav: { rename: 'hideJobs' },
     hideMessagesDrawer: { rename: 'hideChatDrawer' },

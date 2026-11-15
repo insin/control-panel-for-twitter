@@ -79,8 +79,8 @@ export type UserSettings = {
   defaultToFollowing: boolean
   defaultToLatestSearch: boolean
   disableHomeTimeline: boolean
-  disableNflFeatures: boolean,
   disableTweetTextFormatting: boolean
+  disableUsSportFeatures: boolean,
   disabledHomeTimelineRedirect: 'notifications' | 'messages'
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
