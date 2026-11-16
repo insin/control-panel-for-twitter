@@ -36,6 +36,13 @@ const nextVersion = specificVersion
   ? [specificVersion.version, specificVersion.build.join('.')].filter(Boolean).join('+')
   : semver.inc(currentVersion, releaseType)
 
+if (edition == 'v4' && semver.major(nextVersion) != 4) {
+  console.error(
+    `Cannot release v4 as ${nextVersion}. Use --edition=v5 to release version 5 or later.`,
+  )
+  process.exit(1)
+}
+
 if (specificVersion && !semver.gt(nextVersion, currentVersion)) {
   console.error(
     `Version ${nextVersion} must be higher than the current ${edition} version ${currentVersion}`,

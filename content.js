@@ -1,6 +1,7 @@
 //#region Constants
 const IS_SAFARI =
   navigator.userAgent.includes('Safari/') && !/Chrom(e|ium)\//.test(navigator.userAgent)
+const IS_PRO = Number(chrome.runtime.getManifest().version.split('.')[0]) >= 5
 /**
  * Config keys which should be passed to the page script.
  * @type {import("./types").StoredConfigKey[]}
@@ -11,8 +12,8 @@ const PAGE_SCRIPT_CONFIG_KEYS = [
   'debugLogTimelineStats',
   'enabled',
   'settings',
-  'subscription',
 ]
+if (IS_PRO) PAGE_SCRIPT_CONFIG_KEYS.push('subscription')
 /** @type {Set<string>} */
 const PAGE_SCRIPT_CONFIG_KEYSET = new Set(PAGE_SCRIPT_CONFIG_KEYS)
 const TWITTER_BLUE = 'rgb(29, 155, 240)'
