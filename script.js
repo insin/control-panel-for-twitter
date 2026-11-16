@@ -6128,7 +6128,7 @@ const configureCss = (() => {
     if (settings.hideSubscriptions) {
       hideCssSelectors.push(
         // Subscribe buttons in profile (multiple locations)
-        'body.Profile [role="button"][style*="border: rgb(201, 54, 204)"]',
+        'body.Profile [role="button"][style*="border-color: rgb(201, 54, 204)"]',
         // Subscriptions count in profile
         'body.Profile a[href$="/creator-subscriptions/subscriptions"]',
         // Subs tab in profile
