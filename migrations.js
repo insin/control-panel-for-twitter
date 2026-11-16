@@ -69,7 +69,10 @@ async function migrateUserSettingsToSettingsObject() {
     hideTwitterBlueUpsells: { rename: 'hidePremiumUpsells' },
     showBlueReplyFollowersCount: { rename: 'showPremiumReplyFollowersCount' },
     showBlueReplyFollowersCountAmount: { rename: 'showPremiumReplyFollowersCountAmount' },
-    twitterBlueChecks: { rename: 'premiumBlueChecks' },
+    twitterBlueChecks: {
+      rename: 'premiumBlueChecks',
+      convert: (value) => (value == 'dim' ? 'replace' : value),
+    },
   }
   for (const [key, value] of Object.entries(storedConfig)) {
     if (extensionConfigKeys.has(key)) continue

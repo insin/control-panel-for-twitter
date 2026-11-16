@@ -186,6 +186,19 @@ describe('release-based storage migrations', () => {
   })
 
   test.each([
+    ['dim', 'replace'],
+    ['replace', 'replace'],
+    ['hide', 'hide'],
+    ['ignore', 'ignore'],
+  ])('migrates legacy blue-check mode %s to %s', async (previous, expected) => {
+    loadStorage({ twitterBlueChecks: previous })
+
+    await migrateFrom('4.25.0', '4.99.0')
+
+    expect(browser.storage).toEqual({ settings: { premiumBlueChecks: expected } })
+  })
+
+  test.each([
     ['mostRecent', true],
     ['popular', false],
     ['ignore', false],
