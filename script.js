@@ -5924,7 +5924,7 @@ const configureCss = (() => {
           .r-2sztyj,  /* top */
           .r-vpktly,  /* bottom (brighter) */
           .r-1roi411  /* input */ {
-            cpft-border: var(--cpft-border);
+            border: var(--cpft-border);
           }
           .r-g2wdr4,
           .r-cuuowz {
@@ -5982,7 +5982,7 @@ const configureCss = (() => {
             background-color: var(--cpft-border);
           }
           .r-dgm4ly /* all */ {
-            cpft-border: var(--cpft-border);
+            border: var(--cpft-border);
           }
         }
       `)
@@ -6128,7 +6128,7 @@ const configureCss = (() => {
     if (settings.hideSubscriptions) {
       hideCssSelectors.push(
         // Subscribe buttons in profile (multiple locations)
-        'body.Profile [role="button"][style*="cpft-border: rgb(201, 54, 204)"]',
+        'body.Profile [role="button"][style*="border: rgb(201, 54, 204)"]',
         // Subscriptions count in profile
         'body.Profile a[href$="/creator-subscriptions/subscriptions"]',
         // Subs tab in profile
@@ -7064,7 +7064,7 @@ const configureThemeCss = (() => {
       // Shared styles for Following and Follow buttons
       cssRules.push(`
         [role="button"][data-testid$="-unfollow"]:not(:hover) {
-          cpft-border: rgba(0, 0, 0, 0) !important;
+          border: rgba(0, 0, 0, 0) !important;
         }
         [role="button"][data-testid$="-follow"] {
           background-color: rgba(0, 0, 0, 0) !important;
@@ -7087,10 +7087,10 @@ const configureThemeCss = (() => {
           }
           /* Follow button */
           body.Default [role="button"][data-testid$="-follow"] {
-            cpft-border: rgb(207, 217, 222) !important;
+            border: rgb(207, 217, 222) !important;
           }
           body:is(.LightsOut) [role="button"][data-testid$="-follow"] {
-            cpft-border: rgb(83, 100, 113) !important;
+            border: rgb(83, 100, 113) !important;
           }
           body.Default [role="button"][data-testid$="-follow"] > :is(div, span) {
             color: rgb(15, 20, 25) !important;
@@ -7117,7 +7117,7 @@ const configureThemeCss = (() => {
           }
           /* Follow button */
           [role="button"][data-testid$="-follow"] {
-            cpft-border: var(--cpft-theme-primary) !important;
+            border: var(--cpft-theme-primary) !important;
           }
           [role="button"][data-testid$="-follow"] > :is(div, span) {
             color: var(--cpft-theme-primary) !important;
