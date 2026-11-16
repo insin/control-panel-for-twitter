@@ -33,47 +33,17 @@ let pendingConfig = {}
 
 //#region Functions
 /**
- * @param {chrome.storage.StorageChange} change
- * @param {import("./types").UserSettingsKey} key
- */
-function hasSettingChanged(change, key) {
-  // First time setting any settings
-  if (!change.oldValue) return true
-  const oldSettings = /** @type {Partial<import("./types").UserSettings>} */ (change.oldValue)
-  // First time setting this setting
-  if (!Object.hasOwn(oldSettings, key)) return true
-  const newSettings = /** @type {Partial<import("./types").UserSettings>} */ (change.newValue || {})
-  // XXX Assuming if we set a non-primitive it's because it was changed
-  return oldSettings[key] != newSettings[key]
-}
-
-/**
  * Pass relevant storage changes to the page script.
  * @param {{[key: string]: chrome.storage.StorageChange}} changes
  */
 function onStorageChanged(changes) {
-  // Sync settings needed at document_start to localStorage
-  if (changes.enabled) {
-    if (localStorage.cpftEnabled != String(changes.enabled.newValue)) {
-      localStorage.cpftEnabled = changes.enabled.newValue
-    }
-  }
-  if (changes.settings && hasSettingChanged(changes.settings, 'revertXBranding')) {
-    const newSettings = /** @type {Partial<import("./types").UserSettings>} */ (
-      changes.settings.newValue || {}
-    )
-    const revertXBranding = newSettings.revertXBranding ?? true
-    if (localStorage.cpftRevertXBranding != String(revertXBranding)) {
-      localStorage.cpftRevertXBranding = revertXBranding
-    }
-  }
-
   /** @type {Partial<import("./types").StoredConfig>} */
   const config = Object.fromEntries(
     Object.entries(changes)
       .filter(([key]) => PAGE_SCRIPT_CONFIG_KEYSET.has(key))
       .map(([key, { newValue }]) => [key, newValue]),
   )
+  syncLoadingLogoSettings(config)
 
   // Ignore storage changes which aren't relevant to the page script
   if (Object.keys(config).length == 0) return
@@ -101,11 +71,33 @@ async function storeConfigChangesFromPageScript({ data: changes }) {
     console.error('[content] error storing settings change from page script', e)
   }
 }
+
+/**
+ * Syncs settings needed at document_start to localStorage.
+ * @param {Partial<import("./types").StoredConfig>} config
+ */
+function syncLoadingLogoSettings(config) {
+  if (Object.hasOwn(config, 'enabled')) {
+    const enabled = config.enabled ?? true
+    if (localStorage.cpftEnabled != String(enabled)) localStorage.cpftEnabled = enabled
+  }
+  if (Object.hasOwn(config, 'settings')) {
+    const revertXBranding = config.settings?.revertXBranding ?? true
+    if (localStorage.cpftRevertXBranding != String(revertXBranding)) {
+      localStorage.cpftRevertXBranding = revertXBranding
+    }
+    // Clean up old pre-v4.99 value
+    if (localStorage.cpftReplaceLogo != null) localStorage.removeItem('cpftReplaceLogo')
+  }
+}
 //#endregion
 
 //#region Main
 // Replace the X logo on initial rweb load before the page script runs
-if (localStorage.cpftEnabled != 'false' && localStorage.cpftRevertXBranding != 'false') {
+if (
+  localStorage.cpftEnabled != 'false' &&
+  (localStorage.cpftRevertXBranding ?? localStorage.cpftReplaceLogo) != 'false'
+) {
   if (!IS_SAFARI) {
     const $style = document.createElement('style')
     $style.id = 'cpftLoading'
@@ -147,6 +139,7 @@ window.addEventListener('message', (event) => {
       // Include storage changes received during the initial read
       ...pendingConfig,
     }
+    syncLoadingLogoSettings({ enabled: true, settings: {}, ...config })
     pendingConfig = {}
     initialConfigSent = true
     channel.postMessage({ type: 'initial', config })
