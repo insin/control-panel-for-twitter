@@ -12,7 +12,6 @@ const DISABLED_ICONS = {
   96: 'icons/icon96-disabled.png',
   128: 'icons/icon128-disabled.png',
 }
-
 const ENABLED_ICONS = {
   16: 'icons/icon16.png',
   32: 'icons/icon32.png',
@@ -21,9 +20,8 @@ const ENABLED_ICONS = {
   96: 'icons/icon96.png',
   128: 'icons/icon128.png',
 }
-
-const IS_SAFARI = location.protocol.startsWith('safari-web-extension:')
 const IS_PRO = Number(chrome.runtime.getManifest().version.split('.')[0]) >= 5
+const IS_SAFARI = location.protocol.startsWith('safari-web-extension:')
 //#endregion
 
 //#region Functions
@@ -58,9 +56,8 @@ function main(details) {
       await scheduleSettingsMigrations(details.previousVersion, currentVersion)
     }
     if (await runSettingsMigrations(currentVersion)) migrationsCompletedThisStartup = true
-    const { settings, pendingStorageMigration } = await get(['settings', 'pendingStorageMigration'])
-    // Don't start until storage is initialised and pending migrations have completed
-    if (!isObject(settings) || pendingStorageMigration) return
+    const { pendingStorageMigration } = await get('pendingStorageMigration')
+    if (pendingStorageMigration) return
     if (IS_PRO) await startSync()
   })
   startupTask = task.catch(() => {})

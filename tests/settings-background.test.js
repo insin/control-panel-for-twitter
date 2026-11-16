@@ -51,6 +51,24 @@ describe('settings sync lifecycle', () => {
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
+  test('startup pulls saved server preferences when local settings are absent', async () => {
+    await loadSync({ storage: { token: 'token' } })
+    fetchMock.mockResolvedValueOnce(
+      jsonResponse({
+        hasSettings: true,
+        settings: { hideViews: false },
+        lastModified: 100,
+        subscription: { active: true },
+      }),
+    )
+
+    await startSync()
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(browser.storage.settings).toEqual({ hideViews: false })
+    expect(browser.alarms.has(PULL_ALARM)).toBe(true)
+  })
+
   test('linking seeds an empty server from existing settings', async () => {
     await loadSync({
       storage: {
