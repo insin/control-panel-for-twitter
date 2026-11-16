@@ -13183,13 +13183,64 @@ function syncTimelineRowSizes($list, previousHiddenRows) {
 }
 
 /**
- * Track mounted rows as they enter and leave the virtualized list.
+ * Preserves filtering when live notification updates replace unread classes.
+ * @param {Element} $list
+ * @param {string} timelineId
+ * @param {{isCurrent: () => boolean, onRestore: () => void}} options
+ */
+function observeNotificationClasses($list, timelineId, {isCurrent, onRestore}) {
+  let hiddenClasses = new Map()
+  let observer = new MutationObserver(() => {
+    if (!enabled || !isCurrent()) return
+    if (restore()) onRestore()
+  })
+
+  function restore() {
+    let restored = false
+    for (let [$item, classes] of hiddenClasses) {
+      if ($item.parentElement?.parentElement != $list) continue
+      for (let name of classes) {
+        if ($item.classList.contains(name)) continue
+        $item.classList.add(name)
+        restored = true
+      }
+    }
+    if (restored) log('notification filtering: restored hiding classes', {id: timelineId})
+    return restored
+  }
+
+  return {
+    pause() {
+      observer.disconnect()
+      restore()
+    },
+    update(items) {
+      hiddenClasses.clear()
+      for (let $item of items) {
+        let classes = ['HiddenAd', 'HiddenTweet'].filter(name => $item.classList.contains(name))
+        if (!classes.length) continue
+        hiddenClasses.set($item, classes)
+        observer.observe($item, {attributes: true, attributeFilter: ['class']})
+      }
+    },
+    disconnect() {
+      observer.disconnect()
+      hiddenClasses.clear()
+    },
+  }
+}
+
+/**
+ * Tracks mounted rows as they enter and leave the virtualized list.
  * @param {HTMLDivElement} $timeline
  * @param {string} timelineId
  * @param {import("./types").XwebTimelineProcessor} [onItemsChanged]
  * @returns {(() => void) | null}
  */
-function observeTimelineItems($timeline, timelineId, onItemsChanged, {observers = pageObservers, isCurrent = syncPageUrl} = {}) {
+function observeTimelineItems($timeline, timelineId, onItemsChanged, {
+  observers = pageObservers,
+  isCurrent = syncPageUrl,
+} = {}) {
   let $list = $timeline.querySelector(':scope > ul')
   if (!$list) {
     // Timeline roots can mount before their lists
@@ -13214,6 +13265,14 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {observers 
   let processedItems = new Set()
   let hiddenRows = new Set()
   let cleanupProcessedItems = null
+  let notificationClasses = timelineId.startsWith('urt:notifications:')
+    ? observeNotificationClasses($list, timelineId, {
+      isCurrent,
+      onRestore: () => {
+        hiddenRows = syncTimelineRowSizes($list, hiddenRows)
+      },
+    }) : null
+
   function clearItem($item) {
     clearUnavailableTweetContent($item)
     $item.classList.remove('HiddenAd', 'HiddenTweet')
@@ -13223,6 +13282,7 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {observers 
   function processRows(mutations = []) {
     if (!enabled || !isCurrent()) return
     let start = Date.now()
+    notificationClasses?.pause()
     let items = []
     for (let $row of $list.children) {
       if ($row.matches('li[data-index]')) items.push(...$row.children)
@@ -13240,6 +13300,7 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {observers 
       if (!nextItems.has($item)) clearItem($item)
     }
     processedItems = nextItems
+    notificationClasses?.update(items)
     hiddenRows = syncTimelineRowSizes($list, hiddenRows)
     if (debug && debugLogTimelineStats) {
       let categories = {}
@@ -13259,6 +13320,7 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {observers 
     name: 'timeline rows',
     observers,
     onDisconnect() {
+      notificationClasses?.disconnect()
       cleanupProcessedItems?.()
       cleanupProcessedItems = null
       for (let $item of processedItems) clearItem($item)
