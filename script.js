@@ -3254,6 +3254,239 @@ const Svgs = {
   PLUS_PATH: 'M10.938 4.5H9.9c-1.136 0-1.929 0-2.546.05-.605.05-.953.143-1.216.277-.564.288-1.023.747-1.31 1.31-.135.264-.228.612-.277 1.218C4.5 7.97 4.5 8.765 4.5 9.9v4.2c0 1.136 0 1.929.05 2.546.05.605.143.953.277 1.216.288.565.747 1.023 1.31 1.31.264.135.612.228 1.217.277.617.05 1.41.051 2.546.051h4.2c1.136 0 1.929 0 2.545-.05.606-.05.954-.143 1.217-.277.565-.288 1.023-.746 1.31-1.31.135-.264.228-.612.277-1.217.05-.617.051-1.41.051-2.546v-1.037h2V14.1c0 1.103.001 1.992-.058 2.709-.06.728-.185 1.368-.487 1.96-.48.941-1.245 1.707-2.185 2.186-.593.302-1.233.428-1.961.488-.718.058-1.606.057-2.71.057H9.9c-1.103 0-1.991.001-2.709-.058-.728-.06-1.368-.185-1.96-.487-.941-.48-1.707-1.245-2.186-2.185-.302-.593-.428-1.233-.487-1.961-.059-.718-.058-1.606-.058-2.71V9.9c0-1.103-.001-1.991.058-2.709.06-.728.185-1.368.487-1.96.48-.941 1.245-1.707 2.185-2.186.593-.302 1.233-.428 1.961-.487.718-.059 1.606-.058 2.71-.058h1.037v2z',
 }
 
+//#region Themes
+/** @type {import("./types").XTheme} */
+const DIM_THEME = {
+  mode: 'dark',
+  tokens: {
+    '--x-bg-primary': '#15202b',
+    '--x-bg-secondary': '#1b2733',
+    '--x-bg-tertiary': '#28323d',
+    '--x-bg-modal': '#28323d',
+    '--x-bg-sheets': '#28323d',
+    '--x-fg-primary': '#f7f9f9',
+    '--x-fg-secondary': '#8b98a5',
+    '--x-fg-tertiary': '#657786',
+    '--x-fg-inverted': '#15202b',
+    '--x-border-normal': '#38444d',
+    '--x-border-divider': '#253341',
+    '--x-border-hover': '#657786',
+    '--x-border-active': '#8899a6',
+    '--x-btn-secondary': '#28323d',
+    '--x-btn-secondary-hover': '#303f4e',
+    '--x-btn-secondary-pressed': '#38444d',
+  },
+  highContrastTokens: {
+    '--x-fg-secondary': 'var(--x-white-85)',
+    '--x-fg-tertiary': 'var(--x-white-70)',
+    '--x-border-normal': 'var(--x-white-50)',
+  },
+  embedTokens: {
+    '--background': '210 34% 13%',
+    '--border': '206 16% 26%',
+    '--color-background': '210 34% 13%',
+    '--color-gray-50': '213 25% 16%',
+    '--color-gray-100': '211 34% 24%',
+  },
+  embedHighContrastTokens: {
+    '--border': '0 0% 50%',
+  },
+}
+// Neutral palette adapted from https://github.com/jonschlinkert/sublime-monokai-extended
+/** @type {import("./types").XTheme} */
+const MONOKAI_EXTENDED_THEME = {
+  mode: 'dark',
+  tokens: {
+    '--x-bg-primary': '#222222',
+    '--x-bg-secondary': '#333333',
+    '--x-bg-tertiary': '#444444',
+    '--x-bg-modal': '#333333',
+    '--x-bg-sheets': '#333333',
+    '--x-fg-primary': '#f8f8f2',
+    '--x-fg-secondary': '#c8cecc',
+    '--x-fg-tertiary': 'color-mix(in srgb, #f8f8f2 65%, #222222)',
+    '--x-fg-inverted': '#222222',
+    '--x-border-normal': '#444444',
+    '--x-border-divider': '#333333',
+    '--x-border-hover': '#75715e',
+    '--x-border-active': '#c8cecc',
+    '--x-btn-secondary': '#333333',
+    '--x-btn-secondary-hover': '#444444',
+    '--x-btn-secondary-pressed': 'color-mix(in srgb, #444444 80%, #f8f8f2)',
+  },
+  highContrastTokens: {
+    '--x-fg-secondary': 'var(--x-white-85)',
+    '--x-fg-tertiary': 'var(--x-white-70)',
+    '--x-border-normal': 'var(--x-white-50)',
+  },
+  embedTokens: {
+    '--background': '0 0% 13%',
+    '--border': '0 0% 27%',
+    '--color-background': '0 0% 13%',
+    '--color-gray-50': '0 0% 20%',
+    '--color-gray-100': '0 0% 27%',
+  },
+  embedHighContrastTokens: {
+    '--border': '0 0% 50%',
+  },
+}
+// Soft-contrast neutral palette adapted from https://github.com/morhetz/gruvbox
+/** @type {import("./types").XTheme} */
+const GRUVBOX_DARK_SOFT_THEME = {
+  mode: 'dark',
+  tokens: {
+    '--x-bg-primary': '#32302f',
+    '--x-bg-secondary': '#3c3836',
+    '--x-bg-tertiary': '#504945',
+    '--x-bg-modal': '#3c3836',
+    '--x-bg-sheets': '#3c3836',
+    '--x-fg-primary': '#ebdbb2',
+    '--x-fg-secondary': '#d5c4a1',
+    '--x-fg-tertiary': '#bdae93',
+    '--x-fg-inverted': '#32302f',
+    '--x-border-normal': '#665c54',
+    '--x-border-divider': '#3c3836',
+    '--x-border-hover': '#7c6f64',
+    '--x-border-active': '#a89984',
+    '--x-btn-secondary': '#3c3836',
+    '--x-btn-secondary-hover': '#504945',
+    '--x-btn-secondary-pressed': '#665c54',
+  },
+  highContrastTokens: {
+    '--x-fg-primary': '#fbf1c7',
+    '--x-fg-secondary': '#ebdbb2',
+    '--x-fg-tertiary': '#d5c4a1',
+    '--x-border-normal': '#a89984',
+  },
+  embedTokens: {
+    '--background': '20 3% 19%',
+    '--border': '27 10% 36%',
+    '--color-background': '20 3% 19%',
+    '--color-gray-50': '20 5% 22%',
+    '--color-gray-100': '22 7% 29%',
+  },
+  embedHighContrastTokens: {
+    '--border': '35 17% 59%',
+  },
+}
+// Neutral palette adapted from https://catppuccin.com/palette/#latte
+/** @type {import("./types").XTheme} */
+const CATPPUCCIN_LATTE_THEME = {
+  mode: 'light',
+  tokens: {
+    '--x-bg-primary': '#eff1f5',
+    '--x-bg-secondary': '#e6e9ef',
+    '--x-bg-tertiary': '#dce0e8',
+    '--x-bg-modal': '#eff1f5',
+    '--x-bg-sheets': '#eff1f5',
+    '--x-fg-primary': '#4c4f69',
+    '--x-fg-secondary': '#5c5f77',
+    '--x-fg-tertiary': '#6c6f85',
+    '--x-fg-inverted': '#eff1f5',
+    '--x-border-normal': '#ccd0da',
+    '--x-border-divider': '#dce0e8',
+    '--x-border-hover': '#9ca0b0',
+    '--x-border-active': '#8c8fa1',
+    '--x-btn-secondary': '#dce0e8',
+    '--x-btn-secondary-hover': '#ccd0da',
+    '--x-btn-secondary-pressed': '#bcc0cc',
+  },
+  highContrastTokens: {
+    '--x-fg-secondary': '#4c4f69',
+    '--x-fg-tertiary': '#5c5f77',
+    '--x-border-normal': '#7c7f93',
+  },
+  embedTokens: {
+    '--background': '220 23% 95%',
+    '--border': '223 16% 83%',
+    '--color-background': '220 23% 95%',
+    '--color-gray-50': '220 22% 92%',
+    '--color-gray-100': '220 21% 89%',
+  },
+  embedHighContrastTokens: {
+    '--border': '232 10% 53%',
+  },
+}
+// Neutral palette adapted from https://github.com/morhetz/gruvbox
+/** @type {import("./types").XTheme} */
+const GRUVBOX_LIGHT_THEME = {
+  mode: 'light',
+  tokens: {
+    '--x-bg-primary': '#fbf1c7',
+    '--x-bg-secondary': '#ebdbb2',
+    '--x-bg-tertiary': '#d5c4a1',
+    '--x-bg-modal': '#fbf1c7',
+    '--x-bg-sheets': '#fbf1c7',
+    '--x-fg-primary': '#3c3836',
+    '--x-fg-secondary': '#504945',
+    '--x-fg-tertiary': '#665c54',
+    '--x-fg-inverted': '#fbf1c7',
+    '--x-border-normal': '#d5c4a1',
+    '--x-border-divider': '#ebdbb2',
+    '--x-border-hover': '#bdae93',
+    '--x-border-active': '#a89984',
+    '--x-btn-secondary': '#ebdbb2',
+    '--x-btn-secondary-hover': '#d5c4a1',
+    '--x-btn-secondary-pressed': '#bdae93',
+  },
+  highContrastTokens: {
+    '--x-fg-primary': '#282828',
+    '--x-fg-secondary': '#3c3836',
+    '--x-fg-tertiary': '#504945',
+    '--x-border-normal': '#7c6f64',
+  },
+  embedTokens: {
+    '--background': '48 87% 88%',
+    '--border': '40 38% 73%',
+    '--color-background': '48 87% 88%',
+    '--color-gray-50': '43 59% 81%',
+    '--color-gray-100': '40 38% 73%',
+  },
+  embedHighContrastTokens: {
+    '--border': '28 11% 44%',
+  },
+}
+// Neutral palette adapted from https://ethanschoonover.com/solarized/
+/** @type {import("./types").XTheme} */
+const SOLARIZED_LIGHT_THEME = {
+  mode: 'light',
+  tokens: {
+    '--x-bg-primary': '#fdf6e3',
+    '--x-bg-secondary': '#eee8d5',
+    '--x-bg-tertiary': '#eee8d5',
+    '--x-bg-modal': '#fdf6e3',
+    '--x-bg-sheets': '#fdf6e3',
+    '--x-fg-primary': '#586e75',
+    '--x-fg-secondary': '#657b83',
+    '--x-fg-tertiary': '#657b83',
+    '--x-fg-inverted': '#fdf6e3',
+    '--x-border-normal': '#93a1a1',
+    '--x-border-divider': '#eee8d5',
+    '--x-border-hover': '#839496',
+    '--x-border-active': '#657b83',
+    '--x-btn-secondary': '#eee8d5',
+    '--x-btn-secondary-hover': 'color-mix(in srgb, #eee8d5 90%, #586e75)',
+    '--x-btn-secondary-pressed': 'color-mix(in srgb, #eee8d5 80%, #586e75)',
+  },
+  highContrastTokens: {
+    '--x-fg-primary': '#073642',
+    '--x-fg-secondary': '#586e75',
+    '--x-fg-tertiary': '#586e75',
+    '--x-border-normal': '#586e75',
+  },
+  embedTokens: {
+    '--background': '44 87% 94%',
+    '--border': '180 7% 60%',
+    '--color-background': '44 87% 94%',
+    '--color-gray-50': '46 42% 88%',
+    '--color-gray-100': '46 42% 88%',
+  },
+  embedHighContrastTokens: {
+    '--border': '194 14% 40%',
+  },
+}
+//#endregion
+
 /** Matches any notification count at the start of the title */
 const TITLE_NOTIFICATION_RE = /^\(\d+\+?\) /
 //#endregion
@@ -3765,6 +3998,81 @@ function setTweetButtonText($tweetButtonText) {
   let currentText = $tweetButtonText.textContent
   if (currentText == getString('TWEET') || currentText == getString('TWEET_ALL')) return
   $tweetButtonText.textContent = currentText == getString('POST_ALL') ? getString('TWEET_ALL') : getString('TWEET')
+}
+
+function getEmbeddedBrandingRules() {
+  return getThemeTokenRules('.bg-btn-primary.text-inverted', {
+    '--x-btn-primary': 'var(--x-btn-brand)',
+    '--x-btn-primary-hover': 'var(--x-btn-brand-hover)',
+    '--x-btn-primary-pressed': 'var(--x-btn-brand-pressed)',
+    '--x-fg-inverted': 'var(--x-fg-on-brand)',
+  })
+}
+
+/** @param {string} color Hex, RGB or HSL custom theme */
+function getEmbeddedCustomAccentRules(color) {
+  if (!color) return ''
+  color = color.trim()
+  let hslMatch = color.match(/^hsl\(\s*([\d.]+)(deg|rad|grad|turn)?\s*[, ]\s*(\d{1,3})%\s*[, ]\s*(\d{1,3})%\s*\)$/i)
+  let hsl
+  if (hslMatch) {
+    if (!Number.isFinite(Number(hslMatch[1])) || Number(hslMatch[3]) > 100 || Number(hslMatch[4]) > 100) return ''
+    hsl = `${hslMatch[1]}${hslMatch[2] || ''} ${hslMatch[3]}% ${hslMatch[4]}%`
+  } else {
+    let hex = color.match(/^#([\da-f]{3}|[\da-f]{6})$/i)?.[1]
+    let rgb = color.match(/^rgb\(\s*(\d{1,3}%?)\s*[, ]\s*(\d{1,3}%?)\s*[, ]\s*(\d{1,3}%?)\s*\)$/i)
+    let channels
+    if (hex) {
+      if (hex.length == 3) hex = hex.split('').map(channel => channel.repeat(2)).join('')
+      channels = hex.match(/.{2}/g).map(channel => parseInt(channel, 16) / 255)
+    } else if (rgb) {
+      channels = rgb.slice(1).map(channel => channel.endsWith('%') ? parseFloat(channel) / 100 : Number(channel) / 255)
+      if (channels.some(channel => channel > 1)) return ''
+    } else return ''
+    let [r, g, b] = channels
+    let max = Math.max(r, g, b)
+    let min = Math.min(r, g, b)
+    let delta = max - min
+    let lightness = (max + min) / 2
+    let hue = delta == 0 ? 0 : max == r ? ((g - b) / delta) % 6 : max == g ? (b - r) / delta + 2 : (r - g) / delta + 4
+    let saturation = delta == 0 ? 0 : delta / (1 - Math.abs(2 * lightness - 1))
+    hsl = `${((hue * 60 + 360) % 360).toFixed(2)} ${(saturation * 100).toFixed(2)}% ${(lightness * 100).toFixed(2)}%`
+  }
+  return getThemeTokenRules(':host, [data-theme], .light-theme, .dark-theme', {
+    '--x-fg-brand': color,
+    '--color-brand': hsl,
+    '--chat-accent': hsl,
+  })
+}
+
+/** @param {import("./types").XTheme} theme */
+function getEmbeddedThemeRules(theme, highContrast = false) {
+  let selector = `:is([data-xchat-root], [data-xchat-portal], [data-xcalls-root], [data-xcalls-portal])[data-theme="${theme.mode}"]`
+  let tokens = {...theme.embedTokens, ...(highContrast ? theme.embedHighContrastTokens : {})}
+  return getThemeRules(selector, theme, highContrast) + getThemeTokenRules(selector, tokens)
+}
+
+/** @param {import("./types").XTheme} theme */
+function getThemeRules(selector, theme, highContrast = false) {
+  let hover = `color-mix(in srgb, var(--x-fg-primary) ${theme.mode == 'light' ? 4 : 8}%, transparent)`
+  let tokens = {
+    '--x-btn-ghost-hover': hover,
+    '--x-btn-ghost-pressed': 'color-mix(in srgb, var(--x-fg-primary) 15%, transparent)',
+    '--x-hover-subtle': hover,
+    '--x-hover-faint': 'color-mix(in srgb, var(--x-fg-primary) 3%, transparent)',
+    ...theme.tokens,
+    ...(highContrast ? theme.highContrastTokens : {}),
+  }
+  let rgb = tokens['--x-bg-primary'].slice(1).match(/.{2}/g).map(channel => parseInt(channel, 16)).join(' ')
+  for (let alpha of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 30, 40, 50, 60, 70, 80, 85, 90, 95, 100]) {
+    tokens[`--x-bg-alpha-${String(alpha).padStart(2, '0')}`] = `rgb(${rgb} / ${alpha / 100})`
+  }
+  return getThemeTokenRules(selector, tokens)
+}
+
+/** @param {Record<string, string>} tokens */
+function getThemeTokenRules(selector, tokens) {
+  return `${selector} { ${Object.entries(tokens).map(([name, value]) => `${name}: ${value} !important;`).join('\n')} }`
 }
 //#endregion
 
@@ -4786,7 +5094,11 @@ const styleEmbed = (() => {
 
   function updateStyles() {
     let media = settings.darkModeTheme == 'dim' && $body.classList.contains('LightsOut') ? 'all' : 'not all'
-    for (let {darkModeStyle, notificationStyle} of embeddedStyles) {
+    let themeCss = getEmbeddedThemeRules(DIM_THEME, $body.classList.contains('HighContrast'))
+    let accentCss = pro ? getEmbeddedCustomAccentRules(settings.customTheme) : ''
+    for (let {colorStyle, darkModeStyle, notificationStyle} of embeddedStyles) {
+      colorStyle.textContent = accentCss + (settings.revertXBranding ? getEmbeddedBrandingRules() : '')
+      darkModeStyle.textContent = themeCss
       darkModeStyle.media = media
       notificationStyle.media = settings.hideNotifications != 'ignore' ? 'all' : 'not all'
     }
@@ -4798,30 +5110,9 @@ const styleEmbed = (() => {
    * @param {Document | HTMLElement} context
    */
   function styleEmbed(selector, rootSelector, context = document) {
+    log('styleEmbed: waiting for root', {selector, path: currentPagePath})
     let colorStyle = document.createElement('style')
-    colorStyle.textContent = dedent(`
-      ${rootSelector} {
-        --x-fg-brand: var(--cpft-theme-primary) !important;
-        --color-brand: var(--cpft-theme-primary) !important;
-        --chat-accent: var(--cpft-theme-primary) !important;
-      }
-    `)
     let darkModeStyle = document.createElement('style')
-    darkModeStyle.textContent = dedent(`
-      ${rootSelector}[data-theme="dark"] {
-        --x-bg-primary: var(--cpft-background);
-        --x-bg-secondary: var(--cpft-raised-bg);
-        --x-bg-tertiary: var(--cpft-raised-bg);
-        --x-bg-modal: var(--cpft-raised-bg);
-        --x-bg-sheets: var(--cpft-raised-bg);
-        /* Tailwind & shadcn */
-        --background: 210 34% 13%;
-        --border: 206 16% 26%;
-        --color-background: 210 34% 13%;
-        --color-gray-50: 213 25% 16%;
-        --color-gray-100: 211 34% 24%;
-      }
-    `)
     let notificationStyle = document.createElement('style')
     notificationStyle.textContent = dedent(`
       [data-testid="xchat-drawer-unread-badge"] {
@@ -4855,6 +5146,15 @@ const styleEmbed = (() => {
         return
       }
       $shadowRoot.append(colorStyle, darkModeStyle, notificationStyle)
+      if (debug) {
+        let rootStyle = getComputedStyle($root)
+        log('styleEmbed: styles attached', JSON.stringify({
+          selector, path: currentPagePath, theme: $root.getAttribute('data-theme'),
+          darkModeTheme: settings.darkModeTheme, darkModeMedia: darkModeStyle.media,
+          inheritedBackground: rootStyle.getPropertyValue('--cpft-background'),
+          background: rootStyle.getPropertyValue('--x-bg-primary'),
+        }))
+      }
     }
 
     attachStyles()
@@ -7149,6 +7449,7 @@ const configureThemeCss = (() => {
     } else {
       $style.textContent = css
     }
+    styleEmbed.update()
   }
 })()
 //#endregion
@@ -8474,8 +8775,8 @@ function onTitleChange(title) {
     else if (desktop && route.pagePath == '/settings') {
       log('viewing root Settings page')
     }
-    // Chat has an empty title
-    else if (route.pagePath.startsWith('/i/chat')) {
+    // Chat and its embedded settings have an empty title
+    else if (route.pagePath.startsWith('/i/chat') || route.pagePath == '/settings/direct_messages') {
       log('viewing Chat page')
     }
     else {
@@ -8742,7 +9043,7 @@ function processCurrentPage(route = getCurrentRoute()) {
   else if (isOnCallsPage()) {
     tweakCallsPage()
   }
-  else if (isOnChatPage()) {
+  else if (isOnChatPage() || currentPagePath == '/settings/direct_messages') {
     tweakChatPage()
   }
   else if (isOnDisplaySettingsPage() || isOnAccessibilitySettingsPage()) {
@@ -9029,7 +9330,7 @@ function tweakCallsPage() {
 }
 
 function tweakChatPage() {
-  let styles = styleEmbed('[data-testid="xchatEmbedRoute"]', ':is([data-xchat-root], [data-xchat-portal])')
+  let styles = styleEmbed(':is([data-testid="xchatEmbedRoute"], [data-testid="xchatEmbedSettings"])', ':is([data-xchat-root], [data-xchat-portal])')
   let name = 'Chat page styles'
   pageObservers.set(name, {
     name,
@@ -10185,9 +10486,6 @@ function onSettingsChanged(changedSettings = new Set()) {
   if (changedSettings.has('darkModeTheme')) {
     observeThemeMeta.update()
   }
-  if (changedSettings.has('darkModeTheme') || changedSettings.has('hideNotifications')) {
-    styleEmbed.update()
-  }
   if (changedSettings.has('revertXBranding') || changedSettings.has('hideNotifications')) {
     observeFavicon.forceUpdate(getNotificationCount() > 0)
   }
@@ -10353,239 +10651,6 @@ const ROUTED_MODAL_SELECTORS = new Map([
   ['ComposeTweetPage', () => '[data-base-ui-portal] [role="dialog"][data-slot="xds-modal-surface"]'],
   ['MediaViewer', () => `[data-base-ui-portal] ${MEDIA_VIEWER_SELECTOR()}`],
 ])
-//#endregion
-
-//#region Themes
-/** @type {import("./types").XTheme} */
-const DIM_THEME = {
-  mode: 'dark',
-  tokens: {
-    '--x-bg-primary': '#15202b',
-    '--x-bg-secondary': '#1b2733',
-    '--x-bg-tertiary': '#28323d',
-    '--x-bg-modal': '#28323d',
-    '--x-bg-sheets': '#28323d',
-    '--x-fg-primary': '#f7f9f9',
-    '--x-fg-secondary': '#8b98a5',
-    '--x-fg-tertiary': '#657786',
-    '--x-fg-inverted': '#15202b',
-    '--x-border-normal': '#38444d',
-    '--x-border-divider': '#253341',
-    '--x-border-hover': '#657786',
-    '--x-border-active': '#8899a6',
-    '--x-btn-secondary': '#28323d',
-    '--x-btn-secondary-hover': '#303f4e',
-    '--x-btn-secondary-pressed': '#38444d',
-  },
-  highContrastTokens: {
-    '--x-fg-secondary': 'var(--x-white-85)',
-    '--x-fg-tertiary': 'var(--x-white-70)',
-    '--x-border-normal': 'var(--x-white-50)',
-  },
-  embedTokens: {
-    '--background': '210 34% 13%',
-    '--border': '206 16% 26%',
-    '--color-background': '210 34% 13%',
-    '--color-gray-50': '213 25% 16%',
-    '--color-gray-100': '211 34% 24%',
-  },
-  embedHighContrastTokens: {
-    '--border': '0 0% 50%',
-  },
-}
-// Neutral palette adapted from https://github.com/jonschlinkert/sublime-monokai-extended
-/** @type {import("./types").XTheme} */
-const MONOKAI_EXTENDED_THEME = {
-  mode: 'dark',
-  tokens: {
-    '--x-bg-primary': '#222222',
-    '--x-bg-secondary': '#333333',
-    '--x-bg-tertiary': '#444444',
-    '--x-bg-modal': '#333333',
-    '--x-bg-sheets': '#333333',
-    '--x-fg-primary': '#f8f8f2',
-    '--x-fg-secondary': '#c8cecc',
-    '--x-fg-tertiary': 'color-mix(in srgb, #f8f8f2 65%, #222222)',
-    '--x-fg-inverted': '#222222',
-    '--x-border-normal': '#444444',
-    '--x-border-divider': '#333333',
-    '--x-border-hover': '#75715e',
-    '--x-border-active': '#c8cecc',
-    '--x-btn-secondary': '#333333',
-    '--x-btn-secondary-hover': '#444444',
-    '--x-btn-secondary-pressed': 'color-mix(in srgb, #444444 80%, #f8f8f2)',
-  },
-  highContrastTokens: {
-    '--x-fg-secondary': 'var(--x-white-85)',
-    '--x-fg-tertiary': 'var(--x-white-70)',
-    '--x-border-normal': 'var(--x-white-50)',
-  },
-  embedTokens: {
-    '--background': '0 0% 13%',
-    '--border': '0 0% 27%',
-    '--color-background': '0 0% 13%',
-    '--color-gray-50': '0 0% 20%',
-    '--color-gray-100': '0 0% 27%',
-  },
-  embedHighContrastTokens: {
-    '--border': '0 0% 50%',
-  },
-}
-// Soft-contrast neutral palette adapted from https://github.com/morhetz/gruvbox
-/** @type {import("./types").XTheme} */
-const GRUVBOX_DARK_SOFT_THEME = {
-  mode: 'dark',
-  tokens: {
-    '--x-bg-primary': '#32302f',
-    '--x-bg-secondary': '#3c3836',
-    '--x-bg-tertiary': '#504945',
-    '--x-bg-modal': '#3c3836',
-    '--x-bg-sheets': '#3c3836',
-    '--x-fg-primary': '#ebdbb2',
-    '--x-fg-secondary': '#d5c4a1',
-    '--x-fg-tertiary': '#bdae93',
-    '--x-fg-inverted': '#32302f',
-    '--x-border-normal': '#665c54',
-    '--x-border-divider': '#3c3836',
-    '--x-border-hover': '#7c6f64',
-    '--x-border-active': '#a89984',
-    '--x-btn-secondary': '#3c3836',
-    '--x-btn-secondary-hover': '#504945',
-    '--x-btn-secondary-pressed': '#665c54',
-  },
-  highContrastTokens: {
-    '--x-fg-primary': '#fbf1c7',
-    '--x-fg-secondary': '#ebdbb2',
-    '--x-fg-tertiary': '#d5c4a1',
-    '--x-border-normal': '#a89984',
-  },
-  embedTokens: {
-    '--background': '20 3% 19%',
-    '--border': '27 10% 36%',
-    '--color-background': '20 3% 19%',
-    '--color-gray-50': '20 5% 22%',
-    '--color-gray-100': '22 7% 29%',
-  },
-  embedHighContrastTokens: {
-    '--border': '35 17% 59%',
-  },
-}
-// Neutral palette adapted from https://catppuccin.com/palette/#latte
-/** @type {import("./types").XTheme} */
-const CATPPUCCIN_LATTE_THEME = {
-  mode: 'light',
-  tokens: {
-    '--x-bg-primary': '#eff1f5',
-    '--x-bg-secondary': '#e6e9ef',
-    '--x-bg-tertiary': '#dce0e8',
-    '--x-bg-modal': '#eff1f5',
-    '--x-bg-sheets': '#eff1f5',
-    '--x-fg-primary': '#4c4f69',
-    '--x-fg-secondary': '#5c5f77',
-    '--x-fg-tertiary': '#6c6f85',
-    '--x-fg-inverted': '#eff1f5',
-    '--x-border-normal': '#ccd0da',
-    '--x-border-divider': '#dce0e8',
-    '--x-border-hover': '#9ca0b0',
-    '--x-border-active': '#8c8fa1',
-    '--x-btn-secondary': '#dce0e8',
-    '--x-btn-secondary-hover': '#ccd0da',
-    '--x-btn-secondary-pressed': '#bcc0cc',
-  },
-  highContrastTokens: {
-    '--x-fg-secondary': '#4c4f69',
-    '--x-fg-tertiary': '#5c5f77',
-    '--x-border-normal': '#7c7f93',
-  },
-  embedTokens: {
-    '--background': '220 23% 95%',
-    '--border': '223 16% 83%',
-    '--color-background': '220 23% 95%',
-    '--color-gray-50': '220 22% 92%',
-    '--color-gray-100': '220 21% 89%',
-  },
-  embedHighContrastTokens: {
-    '--border': '232 10% 53%',
-  },
-}
-// Neutral palette adapted from https://github.com/morhetz/gruvbox
-/** @type {import("./types").XTheme} */
-const GRUVBOX_LIGHT_THEME = {
-  mode: 'light',
-  tokens: {
-    '--x-bg-primary': '#fbf1c7',
-    '--x-bg-secondary': '#ebdbb2',
-    '--x-bg-tertiary': '#d5c4a1',
-    '--x-bg-modal': '#fbf1c7',
-    '--x-bg-sheets': '#fbf1c7',
-    '--x-fg-primary': '#3c3836',
-    '--x-fg-secondary': '#504945',
-    '--x-fg-tertiary': '#665c54',
-    '--x-fg-inverted': '#fbf1c7',
-    '--x-border-normal': '#d5c4a1',
-    '--x-border-divider': '#ebdbb2',
-    '--x-border-hover': '#bdae93',
-    '--x-border-active': '#a89984',
-    '--x-btn-secondary': '#ebdbb2',
-    '--x-btn-secondary-hover': '#d5c4a1',
-    '--x-btn-secondary-pressed': '#bdae93',
-  },
-  highContrastTokens: {
-    '--x-fg-primary': '#282828',
-    '--x-fg-secondary': '#3c3836',
-    '--x-fg-tertiary': '#504945',
-    '--x-border-normal': '#7c6f64',
-  },
-  embedTokens: {
-    '--background': '48 87% 88%',
-    '--border': '40 38% 73%',
-    '--color-background': '48 87% 88%',
-    '--color-gray-50': '43 59% 81%',
-    '--color-gray-100': '40 38% 73%',
-  },
-  embedHighContrastTokens: {
-    '--border': '28 11% 44%',
-  },
-}
-// Neutral palette adapted from https://ethanschoonover.com/solarized/
-/** @type {import("./types").XTheme} */
-const SOLARIZED_LIGHT_THEME = {
-  mode: 'light',
-  tokens: {
-    '--x-bg-primary': '#fdf6e3',
-    '--x-bg-secondary': '#eee8d5',
-    '--x-bg-tertiary': '#eee8d5',
-    '--x-bg-modal': '#fdf6e3',
-    '--x-bg-sheets': '#fdf6e3',
-    '--x-fg-primary': '#586e75',
-    '--x-fg-secondary': '#657b83',
-    '--x-fg-tertiary': '#657b83',
-    '--x-fg-inverted': '#fdf6e3',
-    '--x-border-normal': '#93a1a1',
-    '--x-border-divider': '#eee8d5',
-    '--x-border-hover': '#839496',
-    '--x-border-active': '#657b83',
-    '--x-btn-secondary': '#eee8d5',
-    '--x-btn-secondary-hover': 'color-mix(in srgb, #eee8d5 90%, #586e75)',
-    '--x-btn-secondary-pressed': 'color-mix(in srgb, #eee8d5 80%, #586e75)',
-  },
-  highContrastTokens: {
-    '--x-fg-primary': '#073642',
-    '--x-fg-secondary': '#586e75',
-    '--x-fg-tertiary': '#586e75',
-    '--x-border-normal': '#586e75',
-  },
-  embedTokens: {
-    '--background': '44 87% 94%',
-    '--border': '180 7% 60%',
-    '--color-background': '44 87% 94%',
-    '--color-gray-50': '46 42% 88%',
-    '--color-gray-100': '46 42% 88%',
-  },
-  embedHighContrastTokens: {
-    '--border': '194 14% 40%',
-  },
-}
 //#endregion
 //#endregion
 
@@ -12019,22 +12084,6 @@ function getEmbeddedAccentRules() {
       [token, `var(--cpft-embed-${token.slice(4)})`])))
 }
 
-function getEmbeddedBrandingRules() {
-  return getThemeTokenRules('.bg-btn-primary.text-inverted', {
-    '--x-btn-primary': 'var(--x-btn-brand)',
-    '--x-btn-primary-hover': 'var(--x-btn-brand-hover)',
-    '--x-btn-primary-pressed': 'var(--x-btn-brand-pressed)',
-    '--x-fg-inverted': 'var(--x-fg-on-brand)',
-  })
-}
-
-/** @param {import("./types").XTheme} theme */
-function getEmbeddedThemeRules(theme, highContrast = false) {
-  let selector = `:is([data-xchat-root], [data-xchat-portal], [data-xcalls-root], [data-xcalls-portal])[data-theme="${theme.mode}"]`
-  let tokens = {...theme.embedTokens, ...(highContrast ? theme.embedHighContrastTokens : {})}
-  return getThemeRules(selector, theme, highContrast) + getThemeTokenRules(selector, tokens)
-}
-
 /** @param {boolean} following */
 function getFollowButtonSelector(following) {
   let labels = locales[lang] || locales.en
@@ -12070,29 +12119,6 @@ function getPageThemeRules(theme) {
   return getThemeRules(`${root}, ${root} ${nested}`, theme) + `
     ${root}, ${root} body { background-color: var(--x-bg-primary) !important; }
   ` + getThemeTokenRules(`${highContrastRoot}, ${highContrastRoot} ${nested}`, theme.highContrastTokens)
-}
-
-/** @param {import("./types").XTheme} theme */
-function getThemeRules(selector, theme, highContrast = false) {
-  let hover = `color-mix(in srgb, var(--x-fg-primary) ${theme.mode == 'light' ? 4 : 8}%, transparent)`
-  let tokens = {
-    '--x-btn-ghost-hover': hover,
-    '--x-btn-ghost-pressed': 'color-mix(in srgb, var(--x-fg-primary) 15%, transparent)',
-    '--x-hover-subtle': hover,
-    '--x-hover-faint': 'color-mix(in srgb, var(--x-fg-primary) 3%, transparent)',
-    ...theme.tokens,
-    ...(highContrast ? theme.highContrastTokens : {}),
-  }
-  let rgb = tokens['--x-bg-primary'].slice(1).match(/.{2}/g).map(channel => parseInt(channel, 16)).join(' ')
-  for (let alpha of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 30, 40, 50, 60, 70, 80, 85, 90, 95, 100]) {
-    tokens[`--x-bg-alpha-${String(alpha).padStart(2, '0')}`] = `rgb(${rgb} / ${alpha / 100})`
-  }
-  return getThemeTokenRules(selector, tokens)
-}
-
-/** @param {Record<string, string>} tokens */
-function getThemeTokenRules(selector, tokens) {
-  return `${selector} { ${Object.entries(tokens).map(([name, value]) => `${name}: ${value} !important;`).join('\n')} }`
 }
 
 const configureCss = (() => {
