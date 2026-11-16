@@ -125,6 +125,9 @@
   "featuresDisabledInfo": {
     "message": "Los cambios se aplicarán cuando la extensión esté activada"
   },
+  "fontSize": {
+    "message": "Tamaño de la fuente"
+  },
   "fullWidthContent": {
     "message": "Timeline de ancho completo"
   },
@@ -441,6 +444,9 @@
   "option_ignore": {
     "message": "No cambiar"
   },
+  "option_large": {
+    "message": "Grande"
+  },
   "option_light": {
     "message": "Claro"
   },
@@ -464,6 +470,15 @@
   },
   "option_separate": {
     "message": "Mostrar en pestaña aparte"
+  },
+  "option_small": {
+    "message": "Pequeño"
+  },
+  "option_xLarge": {
+    "message": "Muy grande"
+  },
+  "option_xSmall": {
+    "message": "Muy pequeño"
   },
   "optionsPageExportSettingsNote": {
     "message": "Usa la página de opciones para exportar la configuración"

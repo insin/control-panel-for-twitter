@@ -125,6 +125,9 @@
   "featuresDisabledInfo": {
     "message": "Vos modifications seront appliquées lorsque l'extension sera activée"
   },
+  "fontSize": {
+    "message": "Taille de police"
+  },
   "fullWidthContent": {
     "message": "Contenu du fil sur toute la largeur"
   },
@@ -441,6 +444,9 @@
   "option_ignore": {
     "message": "Ne rien faire"
   },
+  "option_large": {
+    "message": "Grand"
+  },
   "option_light": {
     "message": "Clair"
   },
@@ -464,6 +470,15 @@
   },
   "option_separate": {
     "message": "Afficher dans un onglet séparé"
+  },
+  "option_small": {
+    "message": "Petit"
+  },
+  "option_xLarge": {
+    "message": "Très grand"
+  },
+  "option_xSmall": {
+    "message": "Très petit"
   },
   "optionsPageExportSettingsNote": {
     "message": "Utilisez la page des options pour exporter les paramètres"

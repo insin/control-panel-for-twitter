@@ -125,6 +125,9 @@
   "featuresDisabledInfo": {
     "message": "拡張機能を有効にすると変更が適用されます"
   },
+  "fontSize": {
+    "message": "フォントサイズ"
+  },
   "fullWidthContent": {
     "message": "タイムラインのコンテンツを全幅表示"
   },
@@ -441,6 +444,9 @@
   "option_ignore": {
     "message": "そのまま"
   },
+  "option_large": {
+    "message": "大"
+  },
   "option_light": {
     "message": "明るい"
   },
@@ -464,6 +470,15 @@
   },
   "option_separate": {
     "message": "別タブで開く"
+  },
+  "option_small": {
+    "message": "小"
+  },
+  "option_xLarge": {
+    "message": "特大"
+  },
+  "option_xSmall": {
+    "message": "極小"
   },
   "optionsPageExportSettingsNote": {
     "message": "設定ページを使用して設定をエクスポートします"

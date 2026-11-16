@@ -125,6 +125,9 @@
   "featuresDisabledInfo": {
     "message": "启用扩展程序后，您的更改将会生效"
   },
+  "fontSize": {
+    "message": "字体大小"
+  },
   "fullWidthContent": {
     "message": "全宽的时间线内容"
   },
@@ -450,6 +453,9 @@
   "option_ignore": {
     "message": "什么都不做"
   },
+  "option_large": {
+    "message": "大"
+  },
   "option_light": {
     "message": "浅色"
   },
@@ -473,6 +479,15 @@
   },
   "option_separate": {
     "message": "在单独的标签中显示"
+  },
+  "option_small": {
+    "message": "小"
+  },
+  "option_xLarge": {
+    "message": "超大"
+  },
+  "option_xSmall": {
+    "message": "加小"
   },
   "optionsPageExportSettingsNote": {
     "message": "使用选项页面导出设置"

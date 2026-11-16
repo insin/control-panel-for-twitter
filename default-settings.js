@@ -23,6 +23,7 @@ export const DEFAULT_SETTINGS = {
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
   fastBlock: true,
+  fontSize: 'default',
   hideAdsNav: true,
   hideAiTweets: false,
   hideBookmarkButton: false,

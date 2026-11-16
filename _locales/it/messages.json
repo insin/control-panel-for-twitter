@@ -125,6 +125,9 @@
   "featuresDisabledInfo": {
     "message": "Le modifiche verranno applicate quando l'estensione sarà attivata"
   },
+  "fontSize": {
+    "message": "Dimensione del testo"
+  },
   "fullWidthContent": {
     "message": "Timeline a larghezza intera"
   },
@@ -430,7 +433,7 @@
     "message": "Compatta"
   },
   "option_default": {
-    "message": "Default"
+    "message": "Predefinito"
   },
   "option_dim": {
     "message": "Luci soffuse"
@@ -440,6 +443,9 @@
   },
   "option_ignore": {
     "message": "Non fare nulla"
+  },
+  "option_large": {
+    "message": "Grande"
   },
   "option_light": {
     "message": "Chiaro"
@@ -464,6 +470,15 @@
   },
   "option_separate": {
     "message": "Mostra in scheda separata"
+  },
+  "option_small": {
+    "message": "Piccolo"
+  },
+  "option_xLarge": {
+    "message": "Extralarge"
+  },
+  "option_xSmall": {
+    "message": "Piccolissimo"
   },
   "optionsPageExportSettingsNote": {
     "message": "Usa la pagina delle opzioni per esportare le impostazioni"

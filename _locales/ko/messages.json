@@ -125,6 +125,9 @@
   "featuresDisabledInfo": {
     "message": "확장 프로그램을 사용 설정하면 변경사항이 적용됩니다"
   },
+  "fontSize": {
+    "message": "글꼴 크기"
+  },
   "fullWidthContent": {
     "message": "전체 너비 타임라인 콘텐츠"
   },
@@ -441,6 +444,9 @@
   "option_ignore": {
     "message": "아무것도 하지 않음"
   },
+  "option_large": {
+    "message": "크게"
+  },
   "option_light": {
     "message": "밝게"
   },
@@ -464,6 +470,15 @@
   },
   "option_separate": {
     "message": "별도의 탭에 표시"
+  },
+  "option_small": {
+    "message": "작게"
+  },
+  "option_xLarge": {
+    "message": "매우 크게"
+  },
+  "option_xSmall": {
+    "message": "매우 작게"
   },
   "optionsPageExportSettingsNote": {
     "message": "옵션 페이지를 사용하여 설정을 내보냅니다"

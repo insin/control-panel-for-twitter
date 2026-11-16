@@ -86,6 +86,7 @@ export type UserSettings = {
   dontUseChirpFont: boolean
   dropdownMenuFontWeight: boolean
   fastBlock: boolean
+  fontSize: 'xSmall' | 'small' | 'default' | 'large' | 'xLarge'
   hideAdsNav: boolean
   hideAiTweets: boolean
   hideBookmarkButton: boolean

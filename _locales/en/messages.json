@@ -128,6 +128,9 @@
   "featuresDisabledInfo": {
     "message": "Your changes will apply when the extension is enabled"
   },
+  "fontSize": {
+    "message": "Font size"
+  },
   "fullWidthContent": {
     "message": "Full-width timeline content"
   },
@@ -452,6 +455,9 @@
     "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'",
     "message": "Do nothing"
   },
+  "option_large": {
+    "message": "Large"
+  },
   "option_light": {
     "message": "Light"
   },
@@ -476,6 +482,15 @@
   "option_separate": {
     "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline",
     "message": "Show in separate tab"
+  },
+  "option_small": {
+    "message": "Small"
+  },
+  "option_xLarge": {
+    "message": "Extra large"
+  },
+  "option_xSmall": {
+    "message": "Extra small"
   },
   "optionsPageExportSettingsNote": {
     "message": "Use the options page to export settings"

@@ -45,6 +45,7 @@ export const currentSettingsSchema = {
   dontUseChirpFont: boolean(),
   dropdownMenuFontWeight: boolean(),
   fastBlock: boolean(),
+  fontSize: oneOf(['xSmall', 'small', 'default', 'large', 'xLarge']),
   hideAdsNav: boolean(),
   hideAiTweets: boolean(),
   hideBookmarkButton: boolean(),
