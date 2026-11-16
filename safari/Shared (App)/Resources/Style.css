@@ -27,9 +27,10 @@ body {
 }
 body.platform-ios .platform-mac,
 body.platform-mac .platform-ios,
-body:not(.state-on, .state-off) :is(.state-on, .state-off),
-body.state-on :is(.state-off, .state-unknown),
-body.state-off :is(.state-on, .state-unknown) {
+body:not(.state-on, .state-off, .state-error) :is(.state-on, .state-off, .state-error),
+body.state-on :is(.state-off, .state-unknown, .state-error),
+body.state-off :is(.state-on, .state-unknown, .state-error),
+body.state-error :is(.state-on, .state-off, .state-unknown) {
   display: none;
 }
 
