@@ -27,6 +27,7 @@ const DEFAULT_SETTINGS = {
   dontUseChirpFont: false,
   dropdownMenuFontWeight: true,
   fastBlock: true,
+  fontSize: 'default',
   hideAdsNav: true,
   hideAiTweets: false,
   hideBookmarkButton: false,
@@ -11875,6 +11876,7 @@ const observeTheme = (() => {
     for (let $style of embedStyles) {
       $style.media = enabled ? 'all' : 'not all'
       $style.textContent = enabled ? getEmbeddedAccentRules() +
+        getFontSizeRules(':host, [data-theme], .light-theme, .dark-theme') +
         (theme ? getEmbeddedThemeRules(theme, document.documentElement.getAttribute?.('data-high-contrast') == 'true') : '') +
         (settings.revertXBranding ? getEmbeddedBrandingRules() : '') : ''
     }
@@ -11998,6 +12000,12 @@ function observePageChanges() {
 //#endregion
 
 //#region CSS
+/** @param {string} selector */
+function getFontSizeRules(selector) {
+  let scale = {xSmall: '0.9', small: '0.95', large: '1.1', xLarge: '1.2'}[settings.fontSize]
+  return scale ? getThemeTokenRules(selector, {'--x-font-scale': scale}) : ''
+}
+
 /** @returns {import("./types").XTheme | null} */
 function getConfiguredTheme(mode) {
   if (mode == 'light') {
@@ -12109,7 +12117,7 @@ const configureCss = (() => {
     premium = viewerHasPremium()
 
     /** @type {string[]} */
-    let cssRules = [getPageAccentRules(), `
+    let cssRules = [getPageAccentRules(), getFontSizeRules(':root'), `
       .cpft-unavailable-content, .cpft-unavailable-tweet { display: none !important; }
       .cpft-hovercard-account-location { order: 1; min-height: 1lh; }
       .cpft-interaction-links {
@@ -13969,7 +13977,8 @@ function onSettingsChanged(changedSettings = new Set()) {
   if (changedSettings.has('cleanTweetLinks')) configureCleanTweetLinks()
   configureCss()
   configureCustomCss()
-  if (changedSettings.has('darkModeTheme') || changedSettings.has('lightModeTheme') || changedSettings.has('revertXBranding')) observeTheme()
+  if (changedSettings.has('darkModeTheme') || changedSettings.has('lightModeTheme') ||
+      changedSettings.has('revertXBranding') || changedSettings.has('fontSize')) observeTheme()
   if (changedSettings.has('revertXBranding')) configureBranding()
   if (changedSettings.has('premiumBlueChecks')) configureBlueChecks()
   if (changedSettings.has('defaultToFollowing') && settings.defaultToFollowing) wasForYouTabSelected = false
