@@ -9330,7 +9330,13 @@ function tweakCallsPage() {
 }
 
 function tweakChatPage() {
-  let styles = styleEmbed(':is([data-testid="xchatEmbedRoute"], [data-testid="xchatEmbedSettings"])', ':is([data-xchat-root], [data-xchat-portal])')
+  let styles = null
+  function applyStyles() {
+    styles?.disconnect()
+    styles = styleEmbed(':is([data-testid="xchatEmbedRoute"], [data-testid="xchatEmbedSettings"])', ':is([data-xchat-root], [data-xchat-portal])')
+  }
+  applyStyles()
+  if (currentPagePath == '/settings/direct_messages') observeSettingsNavRerenderBoundary(applyStyles)
   let name = 'Chat page styles'
   pageObservers.set(name, {
     name,
@@ -9389,6 +9395,24 @@ async function tweakDesktopLogo() {
   if ($logoPath) {
     twitterLogo($logoPath)
   }
+}
+
+/** @param {() => void} onRerender */
+async function observeSettingsNavRerenderBoundary(onRerender) {
+  if (!desktop) return
+  let path = currentPagePath
+  let $boundary = await getElement('main > div > div', {
+    name: 'settings nav re-render boundary',
+    observers: pageObservers,
+  })
+  if (!$boundary || !enabled || currentPagePath != path) return
+  observeElement($boundary, () => {
+    log('settings nav caused a re-render', {path})
+    onRerender()
+  }, {
+    name: 'settings nav re-render boundary',
+    observers: pageObservers,
+  })
 }
 
 function tweakDisplaySettingsPage() {
@@ -9470,24 +9494,8 @@ function tweakDisplaySettingsPage() {
     })
   }
 
-  async function observeSettingsNavRerenderBoundary() {
-    if (!desktop || !pro) return
-    let $settingsNavRerenderBoundary = await getElement('main > div > div', {
-      name: 'settings nav re-render boundary',
-    })
-    if ($settingsNavRerenderBoundary) {
-      observeElement($settingsNavRerenderBoundary, () => {
-        log('customTheme: settings nav caused a re-render')
-        addCustomThemeSwatch()
-      }, {
-        name: 'settings nav re-render boundary',
-        observers: pageObservers,
-      })
-    }
-  }
-
   addCustomThemeSwatch()
-  observeSettingsNavRerenderBoundary()
+  if (pro) observeSettingsNavRerenderBoundary(addCustomThemeSwatch)
 
   if (desktop) {
     observeElement($html, () => {
