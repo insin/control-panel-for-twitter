@@ -5924,7 +5924,7 @@ const configureCss = (() => {
           .r-2sztyj,  /* top */
           .r-vpktly,  /* bottom (brighter) */
           .r-1roi411  /* input */ {
-            border: var(--cpft-border);
+            border-color: var(--cpft-border);
           }
           .r-g2wdr4,
           .r-cuuowz {
@@ -5982,7 +5982,7 @@ const configureCss = (() => {
             background-color: var(--cpft-border);
           }
           .r-dgm4ly /* all */ {
-            border: var(--cpft-border);
+            border-color: var(--cpft-border);
           }
         }
       `)
@@ -7064,7 +7064,7 @@ const configureThemeCss = (() => {
       // Shared styles for Following and Follow buttons
       cssRules.push(`
         [role="button"][data-testid$="-unfollow"]:not(:hover) {
-          border: rgba(0, 0, 0, 0) !important;
+          border-color: rgba(0, 0, 0, 0) !important;
         }
         [role="button"][data-testid$="-follow"] {
           background-color: rgba(0, 0, 0, 0) !important;
@@ -7087,10 +7087,10 @@ const configureThemeCss = (() => {
           }
           /* Follow button */
           body.Default [role="button"][data-testid$="-follow"] {
-            border: rgb(207, 217, 222) !important;
+            border-color: rgb(207, 217, 222) !important;
           }
           body:is(.LightsOut) [role="button"][data-testid$="-follow"] {
-            border: rgb(83, 100, 113) !important;
+            border-color: rgb(83, 100, 113) !important;
           }
           body.Default [role="button"][data-testid$="-follow"] > :is(div, span) {
             color: rgb(15, 20, 25) !important;
@@ -7117,7 +7117,7 @@ const configureThemeCss = (() => {
           }
           /* Follow button */
           [role="button"][data-testid$="-follow"] {
-            border: var(--cpft-theme-primary) !important;
+            border-color: var(--cpft-theme-primary) !important;
           }
           [role="button"][data-testid$="-follow"] > :is(div, span) {
             color: var(--cpft-theme-primary) !important;
