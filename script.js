@@ -10681,6 +10681,7 @@ let requestedFollowing = null
 let selectedHomeTab = ''
 let separatedTweetsTimelineSelected = false
 let userSortedFollowing = false
+let viewerRouter = null
 let wasForYouTabSelected = false
 //#endregion
 
@@ -11064,6 +11065,7 @@ function resetPage() {
   selectedHomeTab = ''
   separatedTweetsTimelineSelected = false
   wasForYouTabSelected = false
+  viewerRouter = null
 }
 
 /** @param {boolean} separated */
@@ -13040,6 +13042,18 @@ function processTimelineItems($items, timelineId) {
   }
 }
 
+/** @param {Element} $tweet */
+function isOwnTweet($tweet) {
+  let path = $tweet.getAttribute('data-href') ||
+    $tweet.children[0]?.getAttribute('data-href') ||
+    $tweet.querySelector('a[href*="/status/"][data-base-ui-tooltip-trigger]:not([data-slot="embedded-tweet-frame"] a)')?.getAttribute('href') || ''
+  let author = /^\/([a-zA-Z\d_]{1,20})\/status\/\d+(?:[/?#]|$)/.exec(path)?.[1]
+  if (!author) return false
+  viewerRouter ||= findRouter()
+  let viewer = viewerRouter?.options?.context?.viewerScreenName
+  return Boolean(viewer && author.toLowerCase() == viewer.toLowerCase())
+}
+
 /**
  * @param {Element} $item
  * @param {Element} [$tweet]
@@ -13052,14 +13066,19 @@ function processUnavailableTweetContent($item, $tweet = $item) {
       $frame.textContent.trim() == getString('POST_UNAVAILABLE') ||
       Array.from($frame.querySelectorAll('button')).some($button => $button.textContent.trim() == getString('VIEW'))
     )
-    $frame.classList.toggle('cpft-unavailable-content', settings.hideUnavailableQuoteTweets && warning)
+    let hidden = settings.hideUnavailableQuoteTweets && warning
+    if (hidden) {
+      let $owner = $frame.closest('[data-href]:not([data-slot="embedded-tweet-frame"]), [data-cpft-focused-tweet], [data-navigation-stop][tabindex="-1"]') || $tweet
+      hidden = !isOwnTweet($owner)
+    }
+    $frame.classList.toggle('cpft-unavailable-content', hidden)
     // Clean up all warnings, but let the initial tweet control a joined group
-    unavailable ||= warning && $tweet.contains($frame)
+    unavailable ||= hidden && $tweet.contains($frame)
   }
   // Standalone generic unavailable placeholder
   let $article = $tweet.querySelector(':scope > article')
   unavailable ||= $article?.textContent?.trim() == getString('POST_UNAVAILABLE')
-  return settings.hideUnavailableQuoteTweets && unavailable
+  return settings.hideUnavailableQuoteTweets && unavailable && !isOwnTweet($tweet)
 }
 
 function shouldHidePremiumReply(type, user, viewer) {
