@@ -10624,6 +10624,7 @@ const MEDIA_VIEWER_SELECTOR = () => `[role="dialog"][data-slot="xds-modal-surfac
 const MOBILE_NAV_SELECTOR = 'nav:has(> div > a[href="/home"], > div svg:is([data-icon="icon-home"], [data-icon="icon-home-fill"]))'
 const HOME_ICON_SELECTOR = `:is(nav:has(> a[href="/home"]) a[href="/home"], ${MOBILE_NAV_SELECTOR} > div > :is(a, button)) svg`
 const SETTINGS_MODAL_SELECTOR = '[data-base-ui-portal] [role="dialog"][data-slot="xds-modal-surface"]:has(nav a[href="/settings/account"])'
+const TAB_UNDERLINE_SELECTOR = '[role="tab"] > span[class~="h-[3px]"]'
 const TWEET_ENGAGEMENT_PATH_RE = /^(\/[a-zA-Z\d_]{1,20}\/status\/\d+)\/(quotes|retweets|reposts|likes)\/?$/
 const TWITTER_BLUE = 'rgb(29, 155, 240)'
 
@@ -10664,20 +10665,20 @@ const ROUTED_MODAL_SELECTORS = new Map([
 //#endregion
 
 //#region State
+let $pageMain = null
 /** @type {string | null} */
 let appliedDocumentTitle = null
-let $pageMain = null
+let brandingTranslator = null
 let currentNotificationCount = ''
 let currentPageType = ''
 let currentPageUrl = ''
 /** @type {string | null} */
 let nativeDocumentTitle = null
-let brandingTranslator = null
-let nativeHomePageTitle = ''
-let nativeHomeTitle = ''
+let refreshHomeTimeline = null
 let requestedFollowing = null
 let selectedHomeTab = ''
 let separatedTweetsTimelineSelected = false
+let userSortedFollowing = false
 let wasForYouTabSelected = false
 //#endregion
 
@@ -10890,13 +10891,12 @@ function onTitleChange(title, {force = false, native = false} = {}) {
       currentPagePath = background.pathname
       lastUrlPath = background.pathname
       currentPageUrl = background.pathname + background.search
-      currentPage = separatedTweetsTimelineSelected ? getSeparatedTweetsTimelineTitle() : getString('HOME')
+      currentPage = getString('HOME')
       processCurrentPage()
     } else if (force) processCurrentPage()
     return
   }
   title = title.replace(TITLE_NOTIFICATION_RE, '')
-  let nativeTitle = title
   // Tweet text and search terms can contain slashes - strip only brand prefixes/suffixes
   for (let brand of ['X', getString('TWITTER')]) {
     if (title.endsWith(` / ${brand}`)) title = title.slice(0, -` / ${brand}`.length)
@@ -10906,16 +10906,6 @@ function onTitleChange(title, {force = false, native = false} = {}) {
 
   let path = location.pathname
   let url = path + location.search
-  if (/^\/home\/?$/.test(path)) {
-    if (![getString('RETWEETS'), getString('REPOSTS'), getString('QUOTE_TWEETS'), getString('QUOTES'), getString('SHARED_TWEETS'), getString('SHARED')].includes(title)) {
-      nativeHomeTitle = nativeTitle
-      nativeHomePageTitle = title
-    }
-    if (separatedTweetsTimelineSelected && hasSeparatedTweetsTimeline() && !settings.disableHomeTimeline) {
-      title = getSeparatedTweetsTimelineTitle()
-      updateHomeTimelineTitle()
-    }
-  }
   if (!force && title == currentPage &&
       (url == currentPageUrl || (PERSISTENT_TAB_PAGES.has(currentPageType) && syncPageUrl()))) return
   currentPage = title
@@ -11068,8 +11058,6 @@ function resetPage() {
   currentPageType = ''
   currentPageUrl = ''
   lastUrlPath = ''
-  nativeHomePageTitle = ''
-  nativeHomeTitle = ''
   requestedFollowing = null
   selectedHomeTab = ''
   separatedTweetsTimelineSelected = false
@@ -11078,10 +11066,9 @@ function resetPage() {
 
 /** @param {boolean} separated */
 function selectHomeTimeline(separated) {
+  if (separatedTweetsTimelineSelected == separated) return
   separatedTweetsTimelineSelected = separated
-  updateHomeTimelineTitle()
-  // Process immediately - the title observer's subsequent call is a duplicate
-  onTitleChange(document.title)
+  refreshHomeTimeline?.()
 }
 
 /**
@@ -11102,16 +11089,6 @@ function syncPageUrl() {
   return true
 }
 
-function updateHomeTimelineTitle() {
-  if (!/^\/home\/?$/.test(location.pathname)) return
-  let home = nativeHomePageTitle || getString('HOME')
-  let title = nativeHomeTitle || `${home} / X`
-  if (separatedTweetsTimelineSelected) {
-    title = title.replace(home, getSeparatedTweetsTimelineTitle())
-  }
-  let count = TITLE_NOTIFICATION_RE.exec(nativeDocumentTitle ?? document.title)?.[0] || currentNotificationCount
-  updatePageTitle(count + title)
-}
 //#endregion
 
 //#region Global observers
@@ -11874,9 +11851,14 @@ const observeOverlays = (() => {
         if ($following?.id && $menu?.getAttribute('aria-labelledby') == $following.id && !checkedFollowingMenus.has($menu)) {
           let $recent = /** @type {HTMLElement} */ (Array.from($menu.querySelectorAll('[role="menuitemradio"]')).find($item =>
             $item.querySelector(':scope > span:first-child')?.textContent.trim() == getString('RECENT')))
-          if ($recent && (settings.hideFollowingMenu || $recent.getAttribute('aria-checked') != 'true')) {
+          if ($recent) {
             checkedFollowingMenus.add($menu)
-            $recent.click()
+            if (settings.hideFollowingMenu || !userSortedFollowing && $recent.getAttribute('aria-checked') != 'true') $recent.click()
+            $menu.addEventListener('click', event => {
+              if (!enabled || !settings.defaultFollowingToRecent || settings.hideFollowingMenu ||
+                  !/** @type {Element} */ (event.target)?.closest?.('[role="menuitemradio"]')) return
+              userSortedFollowing = true
+            }, true)
           }
         }
       }
@@ -12009,8 +11991,8 @@ function observePageChanges() {
     if (event.button != 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
     if (!event.target?.closest?.('a[href="/home"]')) return
     if (separatedTweetsTimelineSelected) {
-      separatedTweetsTimelineSelected = false
       if (/^\/home\/?$/.test(location.pathname)) selectHomeTimeline(false)
+      else separatedTweetsTimelineSelected = false
     }
   }
   document.addEventListener('click', onHomeClick, true)
@@ -12263,9 +12245,24 @@ const configureCss = (() => {
 
     if (hasSeparatedTweetsTimeline()) {
       cssRules.push(`
-        body.HomeTimeline header[data-page-header] [role="tablist"]:has(> #cpftSeparatedTweetsTab) > [data-pinned-timeline-indicator] {
+        body.HomeTimeline header[data-page-header] [role="tablist"]:has(> #cpftSeparatedTweetsTab) > :is([data-pinned-timeline-indicator], [data-cpft-timeline-indicator]) {
           left: var(--cpft-active-tab-left, var(--active-tab-left)) !important;
           width: var(--cpft-active-tab-width, var(--active-tab-width)) !important;
+        }
+        [role="tablist"] > [data-cpft-timeline-indicator] {
+          position: absolute;
+          bottom: 0;
+          height: 3px;
+          border-radius: 9999px;
+          pointer-events: none;
+          background-color: var(--x-fg-primary);
+          transition: left 200ms cubic-bezier(.4,0,.2,1), width 200ms cubic-bezier(.4,0,.2,1);
+        }
+        [role="tablist"]:has(> [data-cpft-timeline-indicator]) > ${TAB_UNDERLINE_SELECTOR} {
+          visibility: hidden !important;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [role="tablist"] > [data-cpft-timeline-indicator] { transition: none; }
         }
         .cpft-separated-tweets-selected [data-pinned-timeline][data-active] {
           color: var(--x-fg-secondary) !important;
@@ -12395,8 +12392,20 @@ const configureCss = (() => {
         'button[data-slot="xds-button"]:has(svg[data-icon="icon-xmoney"])',
       )
     }
-    if (settings.defaultFollowingToRecent && settings.hideFollowingMenu) {
-      hideCssSelectors.push('[data-pinned-timeline="following"] [data-icon="icon-chevron-down-md"]')
+    if (hasSeparatedTweetsTimeline() || settings.defaultFollowingToRecent && settings.hideFollowingMenu) {
+      let following = '[data-pinned-timeline="following"]'
+      if (!(settings.defaultFollowingToRecent && settings.hideFollowingMenu)) {
+        following = `:is(.cpft-separated-tweets-selected ${following}, ${following}:not([data-active]))`
+      }
+      hideCssSelectors.push(
+        `${following} [class~="group-data-active/tab:w-4"]`,
+        `${following} span:has(> [data-icon="icon-chevron-down-md"])`,
+      )
+      cssRules.push(`
+        ${following} [class~="group-data-active/tab:pe-2"] {
+          padding-inline-end: 0 !important;
+        }
+      `)
     }
     if (settings.hideManageTimelines) {
       hideCssSelectors.push('body.HomeTimeline header[data-page-header] [role="tablist"] + button[data-slot="xds-button"]:has([data-icon="icon-plus"])')
@@ -12659,7 +12668,9 @@ const configureCss = (() => {
         `)
       }
       cssRules.push(`
-        [role="tablist"] > [role="presentation"][style*="--active-tab-left:"][style*="--active-tab-width:"] {
+        [role="tablist"] > [role="presentation"][style*="--active-tab-left:"][style*="--active-tab-width:"],
+        [role="tablist"] > [data-cpft-timeline-indicator],
+        [role="tablist"] > ${TAB_UNDERLINE_SELECTOR} {
           background-color: var(--x-btn-brand) !important;
         }
         ${LOGO_PATH_SELECTOR} {
@@ -13156,7 +13167,16 @@ function updateHomeTimelineIndicator($tabs, $tab) {
  * @param {() => Element | null} getSelectedTab
  */
 function observeHomeTimelineIndicator($tabs, getSelectedTab) {
-  if (!$tabs.querySelector(':scope > [data-pinned-timeline-indicator]')) return null
+  let $indicator = $tabs.querySelector(':scope > [data-cpft-timeline-indicator]')
+  if (!$indicator && !$tabs.querySelector(':scope > [data-pinned-timeline-indicator]')) {
+    if (!$tabs.querySelector(`:scope > ${TAB_UNDERLINE_SELECTOR}`)) return null
+    // Native per-tab underlines animate through React's layout group. Our
+    // virtual tab shares a DOM indicator instead.
+    $indicator = document.createElement('span')
+    $indicator.setAttribute('data-cpft-timeline-indicator', '')
+    $indicator.setAttribute('aria-hidden', 'true')
+    $tabs.appendChild($indicator)
+  }
   let $observedTab = null
   let observer = new ResizeObserver(() => update())
   observer.observe($tabs)
@@ -13168,6 +13188,7 @@ function observeHomeTimelineIndicator($tabs, getSelectedTab) {
       if ($tab) observer.observe($tab)
       $observedTab = $tab
     }
+    if ($indicator && $indicator.parentElement != $tabs) $tabs.appendChild($indicator)
     updateHomeTimelineIndicator($tabs, $tab)
   }
 
@@ -13175,6 +13196,7 @@ function observeHomeTimelineIndicator($tabs, getSelectedTab) {
     update,
     disconnect() {
       observer.disconnect()
+      $indicator?.remove()
       $tabs.style.removeProperty('--cpft-active-tab-left')
       $tabs.style.removeProperty('--cpft-active-tab-width')
     },
@@ -13277,7 +13299,7 @@ function observeNotificationClasses($list, timelineId, {isCurrent, onRestore}) {
  * @param {HTMLDivElement} $timeline
  * @param {string} timelineId
  * @param {import("./types").XwebTimelineProcessor} [onItemsChanged]
- * @returns {(() => void) | null}
+ * @returns {(() => void) & {refresh: () => void}}
  */
 function observeTimelineItems($timeline, timelineId, onItemsChanged, {
   observers = pageObservers,
@@ -13297,11 +13319,11 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {
         cleanupRows = observeTimelineItems($timeline, timelineId, onItemsChanged, {observers, isCurrent})
       }
     })
-    return () => {
+    return Object.assign(() => {
       cancelled = true
       disconnectObservers(waits, 'modal')
       cleanupRows?.()
-    }
+    }, {refresh() { cleanupRows?.refresh() }})
   }
   /** @type {Set<Element>} */
   let processedItems = new Set()
@@ -13371,7 +13393,7 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {
       hiddenRows.clear()
     },
   })
-  return () => observer.disconnect()
+  return Object.assign(() => observer.disconnect(), {refresh: () => processRows()})
 }
 
 /**
@@ -13396,7 +13418,10 @@ function observeTimeline($container, {timelineSelector, onItemsChanged, onTimeli
   let name = 'timeline container'
   observers.get(name)?.disconnect()
   let active = true
-  let observer = observeElement($container, update, name)
+  let refreshItems = () => {}
+  let observer = Object.assign(observeElement($container, update, name), {
+    refreshItems() { if (active) refreshItems() },
+  })
   let disconnect = observer.disconnect.bind(observer)
   observer.disconnect = () => {
     if (!active) return
@@ -13427,6 +13452,7 @@ function observeTimeline($container, {timelineSelector, onItemsChanged, onTimeli
       log('timeline changed', {id: timelineId || null})
       // A replacement timeline element can reuse the same urt id
       let cleanupItems = $timeline ? observeTimelineItems($timeline, timelineId, onItemsChanged, {observers, isCurrent}) : null
+      refreshItems = () => cleanupItems?.refresh()
       let cleanupPage = onTimelineChanged?.($timeline, timelineId) || null
       cleanupTimeline = () => {
         cleanupItems?.()
@@ -13450,9 +13476,10 @@ function observePageTimeline({containerSelector, ...options}) {
   let $main = /** @type {HTMLElement} */ (document.querySelector('main'))
   if (!$main) return
   let path = currentPagePath
+  let timeline = null
   let $container = $main.querySelector(containerSelector)
   if ($container) {
-    observeTimeline($container, options)
+    timeline = observeTimeline($container, options)
   } else {
     getElement(containerSelector, {
       name: 'page timeline container',
@@ -13461,10 +13488,11 @@ function observePageTimeline({containerSelector, ...options}) {
       mutationObserverOptions: {childList: true},
     }).then($container => {
       if ($container && enabled && currentPagePath == path && getPageLocation().pathname == path) {
-        observeTimeline($container, options)
+        timeline = observeTimeline($container, options)
       }
     })
   }
+  return {refreshItems() { timeline?.refreshItems() }}
 }
 //#endregion
 
@@ -13691,6 +13719,12 @@ function tweakIndividualTweetPage() {
 }
 
 function tweakHomeTimelinePage() {
+  let $content = null
+  let timeline = null
+  refreshHomeTimeline = () => {
+    if ($content) tweakTimelineTabs($content)
+    timeline?.refreshItems()
+  }
   let $nativeSelectedTab = null
   let $newTab = null
   let $tabs = null
@@ -13761,11 +13795,12 @@ function tweakHomeTimelinePage() {
   }
 
   function onTabPointerDown(event) {
-    if (event.button != 0 || switchingToFollowing || !settings.defaultFollowingToRecent || !settings.hideFollowingMenu) return
+    if (event.button != 0 || switchingToFollowing) return
     let $tab = event.target?.closest?.('[data-pinned-timeline="following"]')
-    if (!$tab || !$tabs.contains($tab) || selectedHomeTab != 'following') return
-    // The click below refreshes via Home. Stop the menu/composite pointer
-    // handler and mouse focus default first, without blurring keyboard focus.
+    if (!$tab || !$tabs.contains($tab) || selectedHomeTab != 'following' ||
+        !separatedTweetsTimelineSelected && !(settings.defaultFollowingToRecent && settings.hideFollowingMenu)) return
+    // Returning from Retweets or refreshing via Home bypasses the native
+    // menu/composite pointer handler, while preserving keyboard focus.
     event.preventDefault()
     event.stopPropagation()
   }
@@ -13778,20 +13813,14 @@ function tweakHomeTimelinePage() {
       event.stopPropagation()
       if (!separatedTweetsTimelineSelected) {
         restoreNativeSelection()
-        let $following = $tabs.querySelector('[role="tab"][data-pinned-timeline="following"]')
-        if ($following?.getAttribute('aria-selected') != 'true') clickFollowing($following)
-        let focused = document.activeElement == $newTab
         selectHomeTimeline(true)
-        if (focused) /** @type {HTMLElement} */ (document.querySelector('#cpftSeparatedTweetsTab'))?.focus()
       }
       window.scrollTo({top: 0})
       return
     }
-    restoreNativeSelection()
-    let $tablist = $tabs
-    let hadIndicator = indicator != null
-    let tab = $tab.getAttribute('data-pinned-timeline')
     if (switchingToFollowing) return
+    restoreNativeSelection()
+    let tab = $tab.getAttribute('data-pinned-timeline')
     if (tab == 'following' && selectedHomeTab == 'following' && settings.defaultFollowingToRecent && settings.hideFollowingMenu) {
       event.preventDefault()
       event.stopPropagation()
@@ -13810,7 +13839,7 @@ function tweakHomeTimelinePage() {
       selectHomeTimeline(false)
       if (tab == 'following') window.scrollTo({top: 0})
     }
-    if (hadIndicator && $tab.getAttribute('aria-disabled') != 'true') updateHomeTimelineIndicator($tablist, $tab)
+    if (indicator && $tab.getAttribute('aria-disabled') != 'true') updateHomeTimelineIndicator($tabs, $tab)
   }
 
   function onTabKeyDown(event) {
@@ -13835,12 +13864,15 @@ function tweakHomeTimelinePage() {
     if (tabs[nextIndex] != $tab) tabs[nextIndex].click()
   }
 
-  observePageTimeline({
+  timeline = observePageTimeline({
     containerSelector: ':scope > div:has(> header[data-page-header])',
-    onContentChanged($content) {
+    onContentChanged($nextContent) {
+      $content = $nextContent
       tweakTimelineTabs($content)
     },
     onDisconnect() {
+      refreshHomeTimeline = null
+      $content = null
       cancelTabWait()
       $tabs?.removeEventListener('click', onTabClick, true)
       $tabs?.removeEventListener('keydown', onTabKeyDown, true)
@@ -13987,10 +14019,7 @@ function onDisabled() {
   configureCleanTweetLinks()
   configureRedirects()
   observeTheme()
-  if (separatedTweetsTimelineSelected) {
-    separatedTweetsTimelineSelected = false
-    updateHomeTimelineTitle()
-  }
+  separatedTweetsTimelineSelected = false
   restorePageTitle()
   observeFavicon()
   configureCss()
@@ -14016,10 +14045,7 @@ function onSettingsChanged(changedSettings = new Set()) {
   if (changedSettings.has('revertXBranding')) configureBranding()
   if (changedSettings.has('premiumBlueChecks')) configureBlueChecks()
   if (changedSettings.has('defaultToFollowing') && settings.defaultToFollowing) wasForYouTabSelected = false
-  if (separatedTweetsTimelineSelected) {
-    if (!hasSeparatedTweetsTimeline() || settings.disableHomeTimeline) separatedTweetsTimelineSelected = false
-    updateHomeTimelineTitle()
-  }
+  if (!hasSeparatedTweetsTimeline() || settings.disableHomeTimeline) separatedTweetsTimelineSelected = false
   onTitleChange(document.title, {force: true})
   if (changedSettings.has('revertXBranding') || changedSettings.has('hideNotifications')) observeFavicon()
   observeOverlays.refresh()
@@ -14065,10 +14091,10 @@ function main() {
 return function init() {
   patchRequests({
     patchUrl(method, url) {
-      return method == 'GET' && settings.defaultFollowingToRecent ? patchFollowingUrl(url) : url
+      return method == 'GET' && settings.defaultFollowingToRecent && (settings.hideFollowingMenu || !userSortedFollowing) ? patchFollowingUrl(url) : url
     },
     shouldPatchBody(method, url) {
-      return method == 'POST' && settings.defaultFollowingToRecent && isFollowingTimelineRequest(url)
+      return method == 'POST' && settings.defaultFollowingToRecent && (settings.hideFollowingMenu || !userSortedFollowing) && isFollowingTimelineRequest(url)
     },
     patchBody: patchFollowingBody,
     patchResponse: patchHomeTimelineResponse,
