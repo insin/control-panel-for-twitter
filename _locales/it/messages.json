@@ -612,6 +612,9 @@
   "syncSettingsDisabledInfo": {
     "message": "Le modifiche rimangono in questo browser quando la sincronizzazione è disattivata. Attivandola, le impostazioni di questo browser vengono sostituite con quelle sincronizzate"
   },
+  "themeFollowButtons": {
+    "message": "Usa il colore del tema"
+  },
   "tweakQuoteTweetsPage": {
     "message": "Nascondi il tweet citato quando visualizzi i tweet di citazione"
   },
@@ -628,7 +631,7 @@
     "message": "Togli censura dai contenuti sensibili"
   },
   "uninvertFollowButtons": {
-    "message": "Annulla inversione tasi Segui / Segui già"
+    "message": "Annulla inversione tasti Segui"
   },
   "unknownSettings": {
     "message": "Impostazioni sconosciute: $KEYS$",

@@ -120,6 +120,7 @@ export const currentSettingsSchema = {
   showPremiumReplyFollowing: boolean(),
   showPremiumReplyGovernment: boolean(),
   sortReplies: oneOf(['relevant', 'recent', 'liked']),
+  themeFollowButtons: boolean(),
   tweakQuoteTweetsPage: boolean(),
   unblurSensitiveContent: boolean(),
   uninvertFollowButtons: boolean(),

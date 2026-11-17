@@ -620,6 +620,9 @@
   "syncSettingsDisabledInfo": {
     "message": "关闭同步时，更改仅保留在此浏览器中。开启同步将用已同步的设置替换此浏览器的设置"
   },
+  "themeFollowButtons": {
+    "message": "使用主题颜色"
+  },
   "tweakQuoteTweetsPage": {
     "message": "查看引用推文时隐藏被引用的推文"
   },
@@ -636,7 +639,7 @@
     "message": "消除敏感内容的模糊"
   },
   "uninvertFollowButtons": {
-    "message": "取消 关注着/正在关注 按钮"
+    "message": "取消关注按钮的颜色反转"
   },
   "unknownSettings": {
     "message": "未知的设置: $KEYS$",

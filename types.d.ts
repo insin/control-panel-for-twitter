@@ -161,6 +161,7 @@ export type UserSettings = {
   showPremiumReplyFollowing: boolean
   showPremiumReplyGovernment: boolean
   sortReplies: 'relevant' | 'recent' | 'liked'
+  themeFollowButtons: boolean
   tweakQuoteTweetsPage: boolean
   unblurSensitiveContent: boolean
   uninvertFollowButtons: boolean

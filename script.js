@@ -101,6 +101,7 @@ const DEFAULT_SETTINGS = {
   showPremiumReplyFollowing: true,
   showPremiumReplyGovernment: true,
   sortReplies: 'relevant',
+  themeFollowButtons: true,
   tweakQuoteTweetsPage: true,
   unblurSensitiveContent: false,
   uninvertFollowButtons: true,
@@ -7361,7 +7362,8 @@ const configureThemeCss = (() => {
       }
     }
 
-    if (settings.revertXBranding || settings.uninvertFollowButtons) {
+    if (settings.uninvertFollowButtons) {
+      let themed = settings.revertXBranding && settings.themeFollowButtons
       // Shared styles for Following and Follow buttons
       cssRules.push(`
         [role="button"][data-testid$="-unfollow"]:not(:hover) {
@@ -7371,7 +7373,7 @@ const configureThemeCss = (() => {
           background-color: rgba(0, 0, 0, 0) !important;
         }
       `)
-      if (!settings.revertXBranding) {
+      if (!themed) {
         cssRules.push(`
           /* Following button */
           body.Default [role="button"][data-testid$="-unfollow"]:not(:hover) {
@@ -7407,7 +7409,7 @@ const configureThemeCss = (() => {
           }
         `)
       }
-      if (settings.revertXBranding) {
+      if (themed) {
         cssRules.push(`
           /* Following button */
           [role="button"][data-testid$="-unfollow"]:not(:hover) {
@@ -7438,7 +7440,7 @@ const configureThemeCss = (() => {
             background: transparent !important;
           }
           body.MediaViewer [role="button"][data-testid$="follow"] > div {
-            color: var(--cpft-theme-primary) !important;
+            color: ${themed ? 'var(--cpft-theme-primary)' : 'rgb(255, 255, 255)'} !important;
           }
         `)
       }
@@ -12275,8 +12277,8 @@ const configureCss = (() => {
     let navItems = ':is(nav:has(> a[href="/home"]), [role="dialog"]:has(nav a[href="/logout"]) nav, [data-slot="xds-menu-content"]) a'
     let sidebarContents = 'main + aside > div > div'
     let sidebarSections = `${sidebarContents} > section`
-    if (settings.revertXBranding || settings.uninvertFollowButtons) {
-      let themed = settings.revertXBranding
+    if (settings.uninvertFollowButtons) {
+      let themed = settings.revertXBranding && settings.themeFollowButtons
       let follow = getFollowButtonSelector(false)
       // Native hover/focus applies the destructive Unfollow state
       let following = `${getFollowButtonSelector(true)}:not(.bg-btn-destructive)`

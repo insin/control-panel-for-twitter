@@ -611,6 +611,9 @@
   "syncSettingsDisabledInfo": {
     "message": "同期がオフの間、変更はこのブラウザーにのみ保存されます。同期をオンにすると、このブラウザーの設定が同期済みの設定に置き換えられます"
   },
+  "themeFollowButtons": {
+    "message": "テーマカラーを使用"
+  },
   "tweakQuoteTweetsPage": {
     "message": "引用ツイート閲覧時に引用元ツイートを非表示"
   },
@@ -627,7 +630,7 @@
     "message": "機密性の高いコンテンツのぼかしを解除する"
   },
   "uninvertFollowButtons": {
-    "message": "フォロー／フォロワーボタンの反転表示を解除"
+    "message": "フォローボタンの反転表示を解除"
   },
   "unknownSettings": {
     "message": "不明な設定: $KEYS$",

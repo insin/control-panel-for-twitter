@@ -97,6 +97,7 @@ export const DEFAULT_SETTINGS = {
   showPremiumReplyFollowing: true,
   showPremiumReplyGovernment: true,
   sortReplies: 'relevant',
+  themeFollowButtons: true,
   tweakQuoteTweetsPage: true,
   unblurSensitiveContent: false,
   uninvertFollowButtons: true,

@@ -624,6 +624,9 @@
   "syncSettingsDisabledInfo": {
     "message": "Changes stay on this browser while sync is off. Turning it on replaces this browser's settings with your synced settings"
   },
+  "themeFollowButtons": {
+    "message": "Use theme colour"
+  },
   "tweakQuoteTweetsPage": {
     "message": "Hide the quoted Tweet when viewing Quote Tweets"
   },
@@ -640,7 +643,7 @@
     "message": "Unblur sensitive content"
   },
   "uninvertFollowButtons": {
-    "message": "Uninvert Follow / Following buttons"
+    "message": "Uninvert Follow buttons"
   },
   "unknownSettings": {
     "message": "Unknown settings: $KEYS$",

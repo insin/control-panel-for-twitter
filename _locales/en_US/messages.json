@@ -4,5 +4,8 @@
   },
   "customThemeInfo": {
     "message": "Pick a custom color in your <a>Display settings</a> page"
+  },
+  "themeFollowButtons": {
+    "message": "Use theme color"
   }
 }
