@@ -10612,8 +10612,8 @@ const BRANDING_TRANSLATIONS = {
 }
 const COMPOSER_MODAL_HEADER_SELECTOR = '[data-slot="xds-modal-surface"] div:has(> [data-media-upload-dropzone]) > header'
 const COMPOSER_SUBMIT_BUTTON_SELECTOR = '[data-media-upload-dropzone] form button[data-slot="xds-button"].bg-btn-primary'
-const COMPOSER_SECONDARY_BUTTON_SELECTOR = `:is(${COMPOSER_MODAL_HEADER_SELECTOR} > div, [data-media-upload-dropzone] form div:has(> button .truncate)) > button`
-const COMPOSER_TOOL_BUTTON_SELECTOR = '[data-media-upload-dropzone] form div:has(> input[type="file"]) > button:has(> span:only-child > svg)'
+const COMPOSER_SECONDARY_BUTTON_SELECTOR = `${COMPOSER_MODAL_HEADER_SELECTOR} > button:not(:has(svg))`
+const COMPOSER_TOOL_BUTTON_SELECTOR = '[data-media-upload-dropzone] form div:has(> input[type="file"]) button:has(> span:only-child > svg)'
 const COMPOSE_BUTTON_SELECTOR = ':is(#sidebar-compose-post, button[data-compose-fab="true"])'
 const COMPOSE_ICON_SELECTOR = `${COMPOSE_BUTTON_SELECTOR} svg:is([data-icon="icon-edit-plus"], [data-icon="icon-new-chat"])`
 const DESKTOP_NAV_CONTAINER_SELECTOR = 'body > div > div.hidden[class~="sm:block"]'
@@ -12700,6 +12700,7 @@ const configureCss = (() => {
         ${COMPOSER_TOOL_BUTTON_SELECTOR},
         [data-media-upload-dropzone] form button:has([data-icon="icon-plus"]) {
           color: var(--x-btn-brand) !important;
+          --x-fg-secondary: var(--x-btn-brand) !important;
           --x-btn-ghost-hover: color-mix(in srgb, var(--x-btn-brand) 10%, transparent) !important;
           --x-btn-ghost-pressed: color-mix(in srgb, var(--x-btn-brand) 20%, transparent) !important;
         }
