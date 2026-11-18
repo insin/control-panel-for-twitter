@@ -1,12 +1,13 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
+import { set } from '../shared/settings.js'
+
 import { DEFAULT_SETTINGS } from '../default-settings.js'
 import {
   getSettingsMigrationVersions,
   runSettingsMigrations,
   scheduleSettingsMigrations,
 } from '../migrations.js'
-import { set } from '../settings.js'
 import { createChromeMock } from './helpers/chrome.js'
 
 let browser

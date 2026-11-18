@@ -1,8 +1,4 @@
-import './options-components.js'
-
-import { DEFAULT_SETTINGS } from './default-settings.js'
-import { isObject } from './ext-shared.js'
-import { createSettingsExport, validateSettingsExport } from './schemas.js'
+import { createFeatureSearch } from './shared/feature-search.js'
 import {
   get,
   OPEN_APP_MESSAGE,
@@ -10,7 +6,14 @@ import {
   sendMessage,
   set,
   setSettings,
-} from './settings.js'
+} from './shared/settings.js'
+import { isObject } from './shared/settings-schema.js'
+import { createSettingsTransferController } from './shared/settings-transfer-controller.js'
+
+import { DEFAULT_SETTINGS } from './default-settings.js'
+import { settingsTransfer } from './schemas.js'
+
+import './shared/options-components.js'
 
 const $body = document.body
 $body.classList.toggle('v5', Number(chrome.runtime.getManifest().version.split('.')[0]) >= 5)
@@ -90,24 +93,6 @@ for (const amount of [1_000, 10_000, 100_000, 1_000_000]) {
 }
 //#endregion
 
-// Some browsers don't support doing certain things in the browser action popup
-if (isBrowserAction) {
-  if (browser == 'firefox') {
-    document.getElementById('importSettings').textContent =
-      chrome.i18n.getMessage('openOptionsPage')
-    document.getElementById('importMessages').textContent = chrome.i18n.getMessage(
-      'optionsPageImportSettingsNote',
-    )
-  }
-  if (browser == 'mac') {
-    document.getElementById('exportSettings').textContent =
-      chrome.i18n.getMessage('openOptionsPage')
-    document.getElementById('exportMessages').textContent = chrome.i18n.getMessage(
-      'optionsPageExportSettingsNote',
-    )
-  }
-}
-
 document.querySelector('#customThemeInfo').innerHTML = chrome.i18n.getMessage('customThemeInfo')
 for (const id of ['featureSearchToggle', 'featureSearchInput']) {
   document.getElementById(id).setAttribute('aria-label', chrome.i18n.getMessage('searchFeatures'))
@@ -167,9 +152,6 @@ let config
  */
 let checkboxGroups
 
-let filteringFeatures = false
-let featureSearchOpen = false
-
 // Page elements
 const $collapsibleLabels = document.querySelectorAll(
   'section.labelled.collapsible > label[data-collapse-id]',
@@ -194,7 +176,9 @@ const $hideQuotesFromDetails = /** @type {HTMLDetailsElement} */ (
   document.querySelector('details#hideQuotesFromDetails')
 )
 const $importMessages = /** @type {HTMLElement} */ (document.querySelector('#importMessages'))
-const $importSettingsButton = document.querySelector('button#importSettings')
+const $importSettingsButton = /** @type {HTMLButtonElement} */ (
+  document.querySelector('button#importSettings')
+)
 const $mutedQuotes = /** @type {HTMLDivElement} */ (document.querySelector('#mutedQuotes'))
 const $mutedQuotesCount = /** @type {HTMLElement} */ (document.querySelector('#mutedQuotesCount'))
 const $mutedQuotesDetails = /** @type {HTMLDetailsElement} */ (
@@ -234,154 +218,50 @@ const $tabs = Array.from($tablist.querySelectorAll('button'))
 //#endregion
 
 //#region Feature search
-let featureSearchEscapeHandled = false
+const featureSearch = createFeatureSearch({
+  panel: $featurePanel,
+  input: $featureSearchInput,
+  row: $featureSearchRow,
+  toggle: $featureSearchToggle,
+  clear: $featureSearchClear,
+  empty: $featureSearchEmpty,
+  normalizeTerms: (text) =>
+    text
+      .replace(/\b(?:reposts?|retweets?)\b/g, 'retweet')
+      .replace(/\b(?:posts?|tweets?)\b/g, 'tweet'),
+  onOpen: () => {
+    if (config.tab != 'features') selectOptionsTab('features')
+  },
+  onFilteringChange: updateCollapsedOptionGroupsDisplay,
+})
+//#endregion
 
-function normalizeFeatureSearch(text) {
-  return text
-    .normalize('NFKD')
-    .replace(/\p{M}/gu, '')
-    .toLocaleLowerCase()
-    .replace(/[^\p{L}\p{N}]+/gu, ' ')
-    .replace(/\b(?:reposts?|retweets?)\b/g, 'retweet')
-    .replace(/\b(?:posts?|tweets?)\b/g, 'tweet')
-    .trim()
+//#region Settings transfer
+const settingsTransferController = createSettingsTransferController({
+  transfer: settingsTransfer,
+  filenamePrefix: 'control-panel-for-twitter',
+  browser,
+  isBrowserAction,
+  importButton: $importSettingsButton,
+  exportButton: $exportSettingsButton,
+  fileInput: $fileInput,
+  onImportResult: renderSettingsImportResult,
+  onExportError: () => {
+    const message = document.getElementById('exportMessages')
+    message.textContent = chrome.i18n.getMessage('settingsExportFailed')
+    message.classList.add('text-error')
+  },
+})
+if (settingsTransferController.importRequiresTab) {
+  $importSettingsButton.textContent = chrome.i18n.getMessage('openOptionsPage')
+  $importMessages.textContent = chrome.i18n.getMessage('optionsPageImportSettingsNote')
 }
-
-/** Read only rendered explanatory text, never user-entered values. */
-function getFeatureSearchText($root) {
-  if (!$root) return ''
-  function read(node) {
-    if (node.nodeType == 3) return node.textContent
-    if (node.nodeType != 1) return ''
-    const $element = /** @type {HTMLElement} */ (node)
-    if (
-      $element != $root &&
-      $element.matches('section, .sub-options, details, input, textarea, button, script, style')
-    )
-      return ''
-    if (getComputedStyle($element).display == 'none') return ''
-    return Array.from($element.childNodes).map(read).join(' ')
-  }
-  return normalizeFeatureSearch(read($root))
-}
-
-function updateFeatureSearch() {
-  $featureSearchClear.hidden = $featureSearchInput.value.length == 0
-  const terms = normalizeFeatureSearch($featureSearchInput.value).split(/\s+/).filter(Boolean)
-  filteringFeatures = terms.length > 0
-  $body.classList.toggle('filteringFeatures', filteringFeatures)
-  for (const $hidden of $featurePanel.querySelectorAll('.feature-search-hidden')) {
-    $hidden.classList.remove('feature-search-hidden')
-  }
-  updateCollapsedOptionGroupsDisplay()
-  if (!filteringFeatures) {
-    $featureSearchEmpty.hidden = true
-    return
-  }
-
-  const rows = Array.from($featurePanel.querySelectorAll('section:not(.group)')).filter(
-    ($row) =>
-      $row.closest('section.labelled') &&
-      !$row.closest('details') &&
-      $row.querySelector(':scope > :is(.option-label, .option-row)'),
+if (settingsTransferController.exportRequiresTab) {
+  $exportSettingsButton.textContent = chrome.i18n.getMessage('openOptionsPage')
+  document.getElementById('exportMessages').textContent = chrome.i18n.getMessage(
+    'optionsPageExportSettingsNote',
   )
-  const text = new Map(rows.map(($row) => [$row, getFeatureSearchText($row)]))
-  const visible = new Set()
-  const eligibleRows = new Set()
-  for (const $row of rows) {
-    let eligible = true
-    let context = ''
-    for (
-      let $ancestor = $row;
-      $ancestor && $ancestor != $featurePanel;
-      $ancestor = $ancestor.parentElement
-    ) {
-      if (getComputedStyle($ancestor).display == 'none') {
-        eligible = false
-        break
-      }
-      context += ` ${text.get($ancestor) || ''}`
-    }
-    if (!eligible) continue
-    eligibleRows.add($row)
-    const $group = $row.closest('section.group')
-    context += ` ${getFeatureSearchText($group)}`
-    if (!terms.every((term) => context.includes(term))) continue
-    for (
-      let $ancestor = $row;
-      $ancestor && $ancestor != $featurePanel;
-      $ancestor = $ancestor.parentElement
-    ) {
-      if ($ancestor.matches('section')) visible.add($ancestor)
-    }
-  }
-  for (const $row of rows) $row.classList.toggle('feature-search-hidden', !visible.has($row))
-  // Intermediate controls such as bulk toggles only apply to complete sets.
-  // Keep their containers for matching children, hiding just the control label.
-  for (const $intermediate of $featurePanel.querySelectorAll('section.search-intermediate')) {
-    const children = Array.from(
-      $intermediate.querySelectorAll(':scope > .sub-options > section'),
-    ).filter(($row) => eligibleRows.has($row))
-    $intermediate
-      .querySelector(':scope > :is(.option-label, .option-row)')
-      .classList.toggle(
-        'feature-search-hidden',
-        children.length > 0 && !children.every(($row) => visible.has($row)),
-      )
-  }
-  for (const $group of $featurePanel.querySelectorAll(':scope > section.labelled')) {
-    $group.classList.toggle('feature-search-hidden', !visible.has($group))
-  }
-  $featureSearchEmpty.hidden = visible.size > 0
 }
-
-function setFeatureSearchOpen(open) {
-  featureSearchOpen = open
-  if (open && config.tab != 'features') selectOptionsTab('features')
-  $featureSearchRow.hidden = !open
-  $featureSearchToggle.setAttribute('aria-expanded', String(open))
-  if (open) $featureSearchInput.focus()
-  else {
-    $featureSearchInput.value = ''
-    updateFeatureSearch()
-    $featureSearchToggle.focus()
-  }
-}
-
-function onFeatureSearchKeyDown(e) {
-  if (e.defaultPrevented || e.isComposing) return
-  if (e.key == '/' && !e.ctrlKey && !e.metaKey && !e.altKey) {
-    const editing = e
-      .composedPath()
-      .some(($target) => $target.matches?.('input, textarea, select') || $target.isContentEditable)
-    if (editing) return
-    e.preventDefault()
-    e.stopPropagation()
-    setFeatureSearchOpen(true)
-    return
-  }
-  if (!$featureSearchRow.contains(e.target) && e.target != $featureSearchToggle) return
-  if (e.key == 'Enter' && e.target == $featureSearchInput) e.preventDefault()
-  if (e.key != 'Escape' || $featureSearchRow.hidden) return
-  e.preventDefault()
-  e.stopPropagation()
-  featureSearchEscapeHandled = true
-  if (e.repeat) return
-  if ($featureSearchInput.value) {
-    $featureSearchInput.value = ''
-    updateFeatureSearch()
-    $featureSearchInput.focus()
-  } else setFeatureSearchOpen(false)
-}
-
-function onFeatureSearchKeyUp(e) {
-  if (e.key != 'Escape' || !featureSearchEscapeHandled) return
-  featureSearchEscapeHandled = false
-  // Closing search moves focus to its toggle before keyup, so consume that too
-  e.preventDefault()
-  e.stopPropagation()
-}
-
 //#endregion
 
 //#region Utility functions
@@ -501,16 +381,6 @@ function h(tagName, attributes, ...children) {
   }
 
   return $el
-}
-
-function sortKeys(obj) {
-  return Object.fromEntries(
-    Object.entries(obj).sort(([a], [b]) => {
-      if (a < b) return -1
-      if (a > b) return 1
-      return 0
-    }),
-  )
 }
 
 /**
@@ -681,75 +551,25 @@ function applyConfig() {
   updateDisplay()
 }
 
-async function exportSettings() {
-  const version = chrome.runtime.getManifest().version
-  const { settings = {} } = await get('settings')
-  const json = JSON.stringify(createSettingsExport(sortKeys(settings), version), null, 2)
-  const filename = `control-panel-for-twitter-v${version}-settings.json`
-  const blob = new Blob([json], { type: 'application/json' })
-  if (browser == 'ios') {
-    const file = new File([blob], filename, { type: 'application/json' })
-    if (navigator.canShare?.({ files: [file] })) {
-      await navigator.share({
-        files: [file],
-        title: filename,
-      })
-    } else {
-      window.open(`data:application/json;charset=utf-8,${encodeURIComponent(json)}`)
-    }
+/** @param {import('./shared/types').SettingsImportResult | null} result */
+function renderSettingsImportResult(result) {
+  if (!result) {
+    $importMessages.replaceChildren()
     return
   }
-  const url = URL.createObjectURL(blob)
-  const $a = document.createElement('a')
-  $a.download = filename
-  $a.href = url
-  $a.click()
-  requestIdleCallback(() => URL.revokeObjectURL(url))
-}
-
-let clearImportMessagesTimeout = null
-
-async function importSettings() {
-  if (clearImportMessagesTimeout) {
-    clearTimeout(clearImportMessagesTimeout)
-    clearImportMessagesTimeout = null
-  }
-  const file = $fileInput.files[0]
-  // Allow the same file to be re-selected if the user edits it
-  $fileInput.files = null
-  if (!file) {
-    $importMessages.replaceChildren(
-      h('span', { class: 'text-error' }, chrome.i18n.getMessage('noFileSelected')),
-    )
-    return
-  }
-  const json = await file.text()
-  let { settings, messages } = validateSettingsJson(json)
-  if (settings != null) {
-    try {
-      await setSettings(settings, { replace: true })
-    } catch {
-      settings = null
-      messages.push(chrome.i18n.getMessage('settingsImportFailed'))
-    }
-  } else {
-    $importMessages.style.color = 'var(--text-error)'
-  }
+  const messages = result.issues.map(({ code, detail }) => chrome.i18n.getMessage(code, detail))
   $importMessages.replaceChildren(
     h(
       'span',
       { class: 'whitespace-pre-line' },
       h(
         'span',
-        { class: ['font-bold', settings != null ? 'text-success' : 'text-error'] },
-        chrome.i18n.getMessage(settings != null ? 'settingsImported' : 'settingsNotImported'),
+        { class: ['font-bold', result.success ? 'text-success' : 'text-error'] },
+        chrome.i18n.getMessage(result.success ? 'settingsImported' : 'settingsNotImported'),
       ),
       messages.length > 0 && ['\n\n', h('span', { class: 'text-error' }, messages.join('\n\n'))],
     ),
   )
-  if (settings != null) {
-    clearImportMessagesTimeout = setTimeout(() => $importMessages.replaceChildren(), 3000)
-  }
 }
 
 /**
@@ -916,7 +736,7 @@ function onTabKeyDown(e) {
 }
 
 function onToggleCollapse(e) {
-  if (theme == 'ios' || filteringFeatures) return
+  if (theme == 'ios' || featureSearch.isFiltering) return
   const collapsedGroups = config.collapsedGroups.slice()
   const collapseId = e.currentTarget.getAttribute('data-collapse-id')
   const index = collapsedGroups.indexOf(collapseId)
@@ -1013,7 +833,7 @@ function updateCollapsedOptionGroupsDisplay() {
   for (const $label of $collapsibleLabels) {
     $label.parentElement.classList.toggle(
       'collapsed',
-      !(filteringFeatures && $featurePanel.contains($label)) &&
+      !(featureSearch.isFiltering && $featurePanel.contains($label)) &&
         config.collapsedGroups.includes($label.getAttribute('data-collapse-id')),
     )
   }
@@ -1068,7 +888,7 @@ function updateDisplay() {
     $customThemeInput.style.backgroundColor = ''
     $customThemeInput.style.color = ''
   }
-  updateFeatureSearch()
+  featureSearch.update()
 }
 
 function updateProDisplay() {
@@ -1253,9 +1073,7 @@ function updateTabsDisplay() {
     $tab.setAttribute('aria-selected', String(selected))
     $tab.tabIndex = selected ? 0 : -1
   }
-  const showSearch = featureSearchOpen && config.tab == 'features'
-  $featureSearchRow.hidden = !showSearch
-  $featureSearchToggle.setAttribute('aria-expanded', String(showSearch))
+  featureSearch.updateDisplay(config.tab == 'features')
   for (const $panel of $panels) {
     $panel.style.display = config.tab == $panel.getAttribute('data-tab') ? 'block' : 'none'
   }
@@ -1266,32 +1084,6 @@ function updateTabsDisplay() {
   }
 }
 
-/**
- * @param {string} json
- * @returns {{ messages: string[], settings: Record<string, unknown> | null }}
- */
-export function validateSettingsJson(json) {
-  let input
-  try {
-    input = JSON.parse(json)
-  } catch (error) {
-    return { messages: [chrome.i18n.getMessage('invalidJsonFile', error.message)], settings: null }
-  }
-
-  const { settings, invalid, unknown, error, warning } = validateSettingsExport(input)
-  if (error) {
-    return { messages: [chrome.i18n.getMessage(error)], settings: null }
-  }
-
-  return {
-    messages: [
-      warning && chrome.i18n.getMessage(warning),
-      invalid.length > 0 && chrome.i18n.getMessage('invalidSettings', invalid.join(', ')),
-      unknown.length > 0 && chrome.i18n.getMessage('unknownSettings', unknown.join(', ')),
-    ].filter(Boolean),
-    settings: warning || invalid.length > 0 || unknown.length > 0 ? null : settings,
-  }
-}
 //#endregion
 
 //#region Main
@@ -1308,18 +1100,7 @@ async function main() {
     $label.addEventListener('click', onToggleCollapse)
   }
   $enabledToggle.addEventListener('click', onToggleEnabled)
-  $featureSearchToggle.addEventListener('click', () =>
-    setFeatureSearchOpen($featureSearchRow.hidden),
-  )
-  $featureSearchInput.addEventListener('input', updateFeatureSearch)
-  $featureSearchInput.addEventListener('search', updateFeatureSearch)
-  document.addEventListener('keydown', onFeatureSearchKeyDown, true)
-  document.addEventListener('keyup', onFeatureSearchKeyUp, true)
-  $featureSearchClear.addEventListener('click', () => {
-    $featureSearchInput.value = ''
-    updateFeatureSearch()
-    $featureSearchInput.focus()
-  })
+  featureSearch.connect()
   $customCss.addEventListener('input', () => autoResize($customCss))
   $customCss.addEventListener('keydown', (e) => {
     if (!e.isComposing && e.key == 'Enter' && (e.ctrlKey || e.metaKey)) {
@@ -1328,34 +1109,14 @@ async function main() {
     }
   })
   document.getElementById('openInTabLink').addEventListener('click', openCustomCssInTab)
-  $exportSettingsButton.addEventListener('click', () => {
-    // macOS Safari can't export from the browser action, WebKitBlobResource error 1
-    // We can't use navigator.share() instead as it doesn't have a save option
-    if (isBrowserAction && browser == 'mac') {
-      chrome.runtime.openOptionsPage()
-      window.close()
-      return
-    }
-    exportSettings()
-  })
+  settingsTransferController.connect()
   $customThemeInput.addEventListener('input', onCustomThemeInput)
   $displaySettingsLink.addEventListener('click', () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       chrome.tabs.update(tabs[0].id, { url: $displaySettingsLink.href })
     })
   })
-  $fileInput.addEventListener('change', importSettings)
   $form.addEventListener('change', onFormChanged)
-  $importSettingsButton.addEventListener('click', () => {
-    $importMessages.replaceChildren()
-    // Firefox can't import from the browser action, file input closes the popup
-    if (isBrowserAction && browser == 'firefox') {
-      chrome.runtime.openOptionsPage()
-      window.close()
-      return
-    }
-    $fileInput.click()
-  })
   $hideQuotesFromDetails.addEventListener('toggle', updateHideQuotesFromDisplay)
   $manageProAccount.addEventListener('click', (e) => {
     e.preventDefault()
@@ -1364,7 +1125,7 @@ async function main() {
   $mutedQuotesDetails.addEventListener('toggle', updateMutedQuotesDisplay)
   $mutedWords.addEventListener('input', onMutedWordsInput)
   $openDebugTraceButton.addEventListener('click', () => {
-    chrome.tabs.create({ url: chrome.runtime.getURL('trace.html') })
+    chrome.tabs.create({ url: chrome.runtime.getURL('shared/trace.html') })
   })
   $proSignInLink.addEventListener('click', (e) => {
     e.preventDefault()

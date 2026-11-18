@@ -1,0 +1,3 @@
+[submodule "shared"]
+	path = shared
+	url = https://github.com/soitissolutions/extensions-shared.git

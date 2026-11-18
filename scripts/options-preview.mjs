@@ -8,15 +8,20 @@ import { installOptionsPreviewApi } from './options-preview-api.mjs'
 
 const defaultRoot = fileURLToPath(new URL('..', import.meta.url))
 const assets = new Set([
-  'options.js',
-  'options-components.js',
-  'options.css',
   'default-settings.js',
-  'ext-shared.js',
+  'options.css',
+  'options.js',
   'schemas.js',
-  'settings.js',
-  'trace.js',
-  'trace.css',
+  'shared/feature-search.js',
+  'shared/options-base.css',
+  'shared/options-components.js',
+  'shared/settings-schema.js',
+  'shared/settings-transfer.js',
+  'shared/settings-transfer-controller.js',
+  'shared/settings.js',
+  'shared/trace.css',
+  'shared/trace.js',
+  'shared/version.js',
 ])
 const styles = ['automatic', 'firefox', 'chrome', 'edge', 'mac', 'ios']
 
@@ -109,10 +114,10 @@ export function createOptionsPreviewServer({ root = defaultRoot } = {}) {
         const config = await configuration(url.searchParams, request.headers['accept-language'])
         content = `(${installOptionsPreviewApi.toString()})(window, ${JSON.stringify(config)});\n`
         type = 'text/javascript; charset=utf-8'
-      } else if (['', 'options.html', 'browser_action.html', 'trace.html'].includes(route)) {
+      } else if (['', 'options.html', 'browser_action.html', 'shared/trace.html'].includes(route)) {
         // Validate query parameters before returning the page as well as the shim
         await configuration(url.searchParams, request.headers['accept-language'])
-        const source = route == 'trace.html' ? 'trace.html' : 'options.html'
+        const source = route == 'shared/trace.html' ? 'shared/trace.html' : 'options.html'
         content = await readFile(path.join(root, source), 'utf8')
         if (route == 'browser_action.html')
           content = content.replace('<body>', '<body class="browserAction">')

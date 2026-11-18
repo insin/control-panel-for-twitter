@@ -37,7 +37,7 @@
       "run_at": "document_start"
     }
   ],
-  "web_accessible_resources": ["extensions-pro-bridge.js", "settings.js"],
+  "web_accessible_resources": ["shared/extensions-pro-bridge.js", "shared/settings.js"],
   "options_ui": {
     "browser_style": true,
     "page": "options.html"

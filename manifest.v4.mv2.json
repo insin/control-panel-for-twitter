@@ -32,7 +32,7 @@
       "run_at": "document_start"
     }
   ],
-  "web_accessible_resources": ["settings.js"],
+  "web_accessible_resources": ["shared/settings.js"],
   "options_ui": {
     "browser_style": true,
     "page": "options.html"

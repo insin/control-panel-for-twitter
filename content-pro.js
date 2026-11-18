@@ -1,6 +1,6 @@
 async function main() {
   const { startExtensionsProBridge } = await import(
-    chrome.runtime.getURL('extensions-pro-bridge.js')
+    chrome.runtime.getURL('shared/extensions-pro-bridge.js')
   )
   await startExtensionsProBridge(1)
 }

@@ -7,16 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04A1E001A070D81F2B51DEA9 /* options-components.js in Resources */ = {isa = PBXBuildFile; fileRef = E135A7AAC72C6481D1A22D10 /* options-components.js */; };
+		016599CBD78C2A437C10A63F /* trace.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 72F0705274A5712D0E9A187E /* trace.js */; };
+		01F40D4C85CC4A3821B551C2 /* trace.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 72F0705274A5712D0E9A187E /* trace.js */; };
+		0C520ECA89BBC9D81A004695 /* settings-transfer.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = A72CF5CC6CAAFDA4D4C7939C /* settings-transfer.js */; };
 		170A9D3FE6804A78A236F663 /* default-settings.js in Resources */ = {isa = PBXBuildFile; fileRef = 03BF7671181D4029B78823C3 /* default-settings.js */; };
+		1B8675221ABD9455D429D69B /* settings-schema.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = C8437E63DE54650921E23A1D /* settings-schema.js */; };
+		1FD1AFD7E3FE61185E318596 /* trace-background.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 679A7AFC3FA1603F899DDA9D /* trace-background.js */; };
+		21071ED2216F23B3243EE015 /* settings-transfer.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = A72CF5CC6CAAFDA4D4C7939C /* settings-transfer.js */; };
+		23EA55D8724D86D0E5A52D36 /* feature-search.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 3DB7E0CFFF554089F7BE49E9 /* feature-search.js */; };
+		319BCFAFB46E1B8F8C165E20 /* trace-background.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 679A7AFC3FA1603F899DDA9D /* trace-background.js */; };
 		34C8C4A02499AA8A27662F76 /* migrations.js in Resources */ = {isa = PBXBuildFile; fileRef = 2EC95AA9B1875A29820B88CA /* migrations.js */; };
-		47977E7CE869779796280E6B /* trace-background.js in Resources */ = {isa = PBXBuildFile; fileRef = 0D9393965D3F4E5EE6F2102D /* trace-background.js */; };
-		4E2780F9B048D5977E169331 /* trace-background.js in Resources */ = {isa = PBXBuildFile; fileRef = 0D9393965D3F4E5EE6F2102D /* trace-background.js */; };
+		463DED3385F82F60BAD381C6 /* options-components.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = D1482EFA4A9CAC1947D7BF6D /* options-components.js */; };
+		63B696C70AB43C486E6354D4 /* feature-search.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 3DB7E0CFFF554089F7BE49E9 /* feature-search.js */; };
+		654F7E7EA3496BB9BBB396A1 /* settings.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = C4321B471ECC2DA5AB210BA8 /* settings.js */; };
 		707C20269DD8D15C43E10FA3 /* migrations.js in Resources */ = {isa = PBXBuildFile; fileRef = 2EC95AA9B1875A29820B88CA /* migrations.js */; };
-		746F14010FB8ACF412441783 /* trace.css in Resources */ = {isa = PBXBuildFile; fileRef = 689282D569D4A6C933B5A54D /* trace.css */; };
+		7265DC1E4A83A41C4DBE583F /* settings-background.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 8A58E3D687CA1B3B91050F21 /* settings-background.js */; };
+		78BFE5DEE1A45CD26772209B /* settings-background.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 8A58E3D687CA1B3B91050F21 /* settings-background.js */; };
 		7F8C95EAA1324157A1E473CF /* default-settings.js in Resources */ = {isa = PBXBuildFile; fileRef = 03BF7671181D4029B78823C3 /* default-settings.js */; };
-		8C7F82A26D7B0375E9CB0E31 /* trace.js in Resources */ = {isa = PBXBuildFile; fileRef = 58DA9BD5FB47518FFCADEC6F /* trace.js */; };
-		987D4CE2BD97F1B57D8DB49F /* trace.html in Resources */ = {isa = PBXBuildFile; fileRef = C682B06D031A353F81E5D619 /* trace.html */; };
+		90C7AF18BFFFD7DEF3D61F1B /* trace.html in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 779A590B975279F8E3CF88C5 /* trace.html */; };
+		9745FA4085FCECE0E9BA1B60 /* trace.html in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 779A590B975279F8E3CF88C5 /* trace.html */; };
 		A598E14F297B3E9300BF2F25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A598E14E297B3E9300BF2F25 /* AppDelegate.swift */; };
 		A598E151297B3E9300BF2F25 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A598E150297B3E9300BF2F25 /* SceneDelegate.swift */; };
 		A598E154297B3E9300BF2F25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A598E152297B3E9300BF2F25 /* LaunchScreen.storyboard */; };
@@ -51,27 +60,27 @@
 		A598E1D7297B467D00BF2F25 /* browser_action.html in Resources */ = {isa = PBXBuildFile; fileRef = A598E1D5297B467D00BF2F25 /* browser_action.html */; };
 		A598E1D9297B46C300BF2F25 /* options.css in Resources */ = {isa = PBXBuildFile; fileRef = A598E1D8297B46C300BF2F25 /* options.css */; };
 		A598E1DA297B46C300BF2F25 /* options.css in Resources */ = {isa = PBXBuildFile; fileRef = A598E1D8297B46C300BF2F25 /* options.css */; };
-		AA2927480967724B437791DA /* trace.css in Resources */ = {isa = PBXBuildFile; fileRef = 689282D569D4A6C933B5A54D /* trace.css */; };
-		C741883EB67045B3EACD52AF /* trace.js in Resources */ = {isa = PBXBuildFile; fileRef = 58DA9BD5FB47518FFCADEC6F /* trace.js */; };
-		F0876D3A652209E7468D6792 /* trace.html in Resources */ = {isa = PBXBuildFile; fileRef = C682B06D031A353F81E5D619 /* trace.html */; };
-		F7313A5058C5DA2D331A9EEB /* options-components.js in Resources */ = {isa = PBXBuildFile; fileRef = E135A7AAC72C6481D1A22D10 /* options-components.js */; };
-		FB191D7E2E52C40A00FB6F20 /* settings.js in Resources */ = {isa = PBXBuildFile; fileRef = FB191D7C2E52C40A00FB6F20 /* settings.js */; };
-		FB191D802E52C40A00FB6F20 /* settings.js in Resources */ = {isa = PBXBuildFile; fileRef = FB191D7C2E52C40A00FB6F20 /* settings.js */; };
+		AEEB4291E2B82522676AC06E /* settings-transfer-controller.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 9CF1198D8B7C69C538CD9FA9 /* settings-transfer-controller.js */; };
+		BE7ED5CFAFD84260042ACA1F /* settings.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = C4321B471ECC2DA5AB210BA8 /* settings.js */; };
+		C1556CD4A429DB8AA93D1E54 /* options-components.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = D1482EFA4A9CAC1947D7BF6D /* options-components.js */; };
+		C5629844D26D3A64C91FAF42 /* trace.css in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = AC3B3C1C8AC0461ED409B1DD /* trace.css */; };
+		C57E3F3C63D0CE34EAFC0B3C /* options-base.css in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 7D8F13C653E60E8A361D9F6A /* options-base.css */; };
+		C8A389DF458649427AD0E5B9 /* version.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 901CC2853614F8D43E996E90 /* version.js */; };
+		D7BDFA8FBFA0609E36FEEE9A /* trace.css in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = AC3B3C1C8AC0461ED409B1DD /* trace.css */; };
+		DFBA6A4366B9F79440C138AF /* extensions-pro-bridge.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = D9771CF47BAA41CF290B406C /* extensions-pro-bridge.js */; };
+		E01F57F57E338206669DFBB5 /* settings-transfer-controller.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 9CF1198D8B7C69C538CD9FA9 /* settings-transfer-controller.js */; };
+		E3D7BC36643CE1DD0BF30C3E /* extensions-pro-bridge.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = D9771CF47BAA41CF290B406C /* extensions-pro-bridge.js */; };
+		E9A0921FB101909AE1A0AFF7 /* version.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 901CC2853614F8D43E996E90 /* version.js */; };
+		F5A51170A5F55A22EFCE02C4 /* settings-schema.js in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = C8437E63DE54650921E23A1D /* settings-schema.js */; };
 		FB38F985298CF4DA00F9AA54 /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = FB38F984298CF4DA00F9AA54 /* script.js */; };
 		FB38F986298CF4DA00F9AA54 /* script.js in Resources */ = {isa = PBXBuildFile; fileRef = FB38F984298CF4DA00F9AA54 /* script.js */; };
 		FB5703372983C50800E44D21 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = FB5703362983C50800E44D21 /* _locales */; };
 		FB5703382983C50800E44D21 /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = FB5703362983C50800E44D21 /* _locales */; };
 		FBB23FE32DE93E27007886FC /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = FBB23FE22DE93E27007886FC /* background.js */; };
 		FBB23FE42DE93E27007886FC /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = FBB23FE22DE93E27007886FC /* background.js */; };
-		FBD613932FAF651A002E0939 /* ext-shared.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD613912FAF651A002E0939 /* ext-shared.js */; };
 		FBD613942FAF651A002E0939 /* schemas.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD613922FAF651A002E0939 /* schemas.js */; };
-		FBD613952FAF651A002E0939 /* ext-shared.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD613912FAF651A002E0939 /* ext-shared.js */; };
 		FBD613962FAF651A002E0939 /* schemas.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD613922FAF651A002E0939 /* schemas.js */; };
-		FBD613982FB82D9C002E0939 /* settings-background.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD613972FB82D9C002E0939 /* settings-background.js */; };
-		FBD613992FB82D9C002E0939 /* settings-background.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD613972FB82D9C002E0939 /* settings-background.js */; };
-		FBD6139C2FB947AC002E0939 /* extensions-pro-bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD6139B2FB947AC002E0939 /* extensions-pro-bridge.js */; };
 		FBD6139D2FB947AC002E0939 /* content-pro.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD6139A2FB947AC002E0939 /* content-pro.js */; };
-		FBD6139E2FB947AC002E0939 /* extensions-pro-bridge.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD6139B2FB947AC002E0939 /* extensions-pro-bridge.js */; };
 		FBD6139F2FB947AC002E0939 /* content-pro.js in Resources */ = {isa = PBXBuildFile; fileRef = FBD6139A2FB947AC002E0939 /* content-pro.js */; };
 		FBF5C9913068C9D8001B1C15 /* icon32.png in Copy Files */ = {isa = PBXBuildFile; fileRef = FBF5C94E3068C7E0001B1C15 /* icon32.png */; };
 		FBF5C9923068C9D8001B1C15 /* icon32-disabled.png in Copy Files */ = {isa = PBXBuildFile; fileRef = FBF5C94F3068C7E0001B1C15 /* icon32-disabled.png */; };
@@ -99,6 +108,7 @@
 		FBF5C9A93068C9FD001B1C15 /* toolbar-icon38.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FBF5C95E3068C7E0001B1C15 /* toolbar-icon38.png */; };
 		FBF5C9AA3068C9FD001B1C15 /* toolbar-icon48.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FBF5C95F3068C7E0001B1C15 /* toolbar-icon48.png */; };
 		FBF5C9AB3068C9FD001B1C15 /* toolbar-icon72.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = FBF5C9603068C7E0001B1C15 /* toolbar-icon72.png */; };
+		FE1AFC6D85A56D1A4E466EB5 /* options-base.css in Copy Shared Runtime */ = {isa = PBXBuildFile; fileRef = 7D8F13C653E60E8A361D9F6A /* options-base.css */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +129,54 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		0EF0BD36BCDC34F0D2818912 /* Copy Shared Runtime */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = shared;
+			dstSubfolderSpec = 7;
+			files = (
+				F5A51170A5F55A22EFCE02C4 /* settings-schema.js in Copy Shared Runtime */,
+				E9A0921FB101909AE1A0AFF7 /* version.js in Copy Shared Runtime */,
+				E3D7BC36643CE1DD0BF30C3E /* extensions-pro-bridge.js in Copy Shared Runtime */,
+				23EA55D8724D86D0E5A52D36 /* feature-search.js in Copy Shared Runtime */,
+				D7BDFA8FBFA0609E36FEEE9A /* trace.css in Copy Shared Runtime */,
+				90C7AF18BFFFD7DEF3D61F1B /* trace.html in Copy Shared Runtime */,
+				016599CBD78C2A437C10A63F /* trace.js in Copy Shared Runtime */,
+				319BCFAFB46E1B8F8C165E20 /* trace-background.js in Copy Shared Runtime */,
+				78BFE5DEE1A45CD26772209B /* settings-background.js in Copy Shared Runtime */,
+				BE7ED5CFAFD84260042ACA1F /* settings.js in Copy Shared Runtime */,
+				C57E3F3C63D0CE34EAFC0B3C /* options-base.css in Copy Shared Runtime */,
+				463DED3385F82F60BAD381C6 /* options-components.js in Copy Shared Runtime */,
+				21071ED2216F23B3243EE015 /* settings-transfer.js in Copy Shared Runtime */,
+				E01F57F57E338206669DFBB5 /* settings-transfer-controller.js in Copy Shared Runtime */,
+			);
+			name = "Copy Shared Runtime";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A036184CEC58A660AE8DF6EC /* Copy Shared Runtime */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = shared;
+			dstSubfolderSpec = 7;
+			files = (
+				1B8675221ABD9455D429D69B /* settings-schema.js in Copy Shared Runtime */,
+				C8A389DF458649427AD0E5B9 /* version.js in Copy Shared Runtime */,
+				DFBA6A4366B9F79440C138AF /* extensions-pro-bridge.js in Copy Shared Runtime */,
+				63B696C70AB43C486E6354D4 /* feature-search.js in Copy Shared Runtime */,
+				C5629844D26D3A64C91FAF42 /* trace.css in Copy Shared Runtime */,
+				9745FA4085FCECE0E9BA1B60 /* trace.html in Copy Shared Runtime */,
+				01F40D4C85CC4A3821B551C2 /* trace.js in Copy Shared Runtime */,
+				1FD1AFD7E3FE61185E318596 /* trace-background.js in Copy Shared Runtime */,
+				7265DC1E4A83A41C4DBE583F /* settings-background.js in Copy Shared Runtime */,
+				654F7E7EA3496BB9BBB396A1 /* settings.js in Copy Shared Runtime */,
+				FE1AFC6D85A56D1A4E466EB5 /* options-base.css in Copy Shared Runtime */,
+				C1556CD4A429DB8AA93D1E54 /* options-components.js in Copy Shared Runtime */,
+				0C520ECA89BBC9D81A004695 /* settings-transfer.js in Copy Shared Runtime */,
+				AEEB4291E2B82522676AC06E /* settings-transfer-controller.js in Copy Shared Runtime */,
+			);
+			name = "Copy Shared Runtime";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A598E19D297B3E9300BF2F25 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -190,11 +248,16 @@
 
 /* Begin PBXFileReference section */
 		03BF7671181D4029B78823C3 /* default-settings.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "default-settings.js"; path = "../../../default-settings.js"; sourceTree = "<group>"; };
-		0D9393965D3F4E5EE6F2102D /* trace-background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "trace-background.js"; path = "../../../trace-background.js"; sourceTree = "<group>"; };
 		2EC95AA9B1875A29820B88CA /* migrations.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = migrations.js; path = ../../../migrations.js; sourceTree = "<group>"; };
-		58DA9BD5FB47518FFCADEC6F /* trace.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = trace.js; path = ../../../trace.js; sourceTree = "<group>"; };
-		689282D569D4A6C933B5A54D /* trace.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; name = trace.css; path = ../../../trace.css; sourceTree = "<group>"; };
+		3DB7E0CFFF554089F7BE49E9 /* feature-search.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "feature-search.js"; sourceTree = "<group>"; };
+		679A7AFC3FA1603F899DDA9D /* trace-background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "trace-background.js"; sourceTree = "<group>"; };
+		72F0705274A5712D0E9A187E /* trace.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = trace.js; sourceTree = "<group>"; };
+		779A590B975279F8E3CF88C5 /* trace.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = trace.html; sourceTree = "<group>"; };
+		7D8F13C653E60E8A361D9F6A /* options-base.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = "options-base.css"; sourceTree = "<group>"; };
+		8A58E3D687CA1B3B91050F21 /* settings-background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "settings-background.js"; sourceTree = "<group>"; };
+		901CC2853614F8D43E996E90 /* version.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = version.js; sourceTree = "<group>"; };
 		907EFBC6BAE7BE38A343035A /* Generated/Extension.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Generated/Extension.xcconfig; sourceTree = SOURCE_ROOT; };
+		9CF1198D8B7C69C538CD9FA9 /* settings-transfer-controller.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "settings-transfer-controller.js"; sourceTree = "<group>"; };
 		A598E136297B3E9000BF2F25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
 		A598E137297B3E9000BF2F25 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		A598E138297B3E9000BF2F25 /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
@@ -223,17 +286,17 @@
 		A598E1AB297B441300BF2F25 /* options.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = options.js; path = ../../../options.js; sourceTree = "<group>"; };
 		A598E1D5297B467D00BF2F25 /* browser_action.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = browser_action.html; path = ../../../browser_action.html; sourceTree = "<group>"; };
 		A598E1D8297B46C300BF2F25 /* options.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = options.css; path = ../../../options.css; sourceTree = "<group>"; };
-		C682B06D031A353F81E5D619 /* trace.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = trace.html; path = ../../../trace.html; sourceTree = "<group>"; };
-		E135A7AAC72C6481D1A22D10 /* options-components.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "options-components.js"; path = "../../../options-components.js"; sourceTree = "<group>"; };
-		FB191D7C2E52C40A00FB6F20 /* settings.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = settings.js; path = ../../../settings.js; sourceTree = "<group>"; };
+		A72CF5CC6CAAFDA4D4C7939C /* settings-transfer.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "settings-transfer.js"; sourceTree = "<group>"; };
+		AC3B3C1C8AC0461ED409B1DD /* trace.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = trace.css; sourceTree = "<group>"; };
+		C4321B471ECC2DA5AB210BA8 /* settings.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = settings.js; sourceTree = "<group>"; };
+		C8437E63DE54650921E23A1D /* settings-schema.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "settings-schema.js"; sourceTree = "<group>"; };
+		D1482EFA4A9CAC1947D7BF6D /* options-components.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "options-components.js"; sourceTree = "<group>"; };
+		D9771CF47BAA41CF290B406C /* extensions-pro-bridge.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "extensions-pro-bridge.js"; sourceTree = "<group>"; };
 		FB38F984298CF4DA00F9AA54 /* script.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = script.js; path = ../../../script.js; sourceTree = "<group>"; };
 		FB5703362983C50800E44D21 /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; name = _locales; path = ../../../_locales; sourceTree = "<group>"; };
 		FBB23FE22DE93E27007886FC /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = background.js; path = ../../../background.js; sourceTree = "<group>"; };
-		FBD613912FAF651A002E0939 /* ext-shared.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "ext-shared.js"; path = "../../../ext-shared.js"; sourceTree = "<group>"; };
 		FBD613922FAF651A002E0939 /* schemas.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = schemas.js; path = ../../../schemas.js; sourceTree = "<group>"; };
-		FBD613972FB82D9C002E0939 /* settings-background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "settings-background.js"; path = "../../../settings-background.js"; sourceTree = "<group>"; };
 		FBD6139A2FB947AC002E0939 /* content-pro.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "content-pro.js"; path = "../../../content-pro.js"; sourceTree = "<group>"; };
-		FBD6139B2FB947AC002E0939 /* extensions-pro-bridge.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; name = "extensions-pro-bridge.js"; path = "../../../extensions-pro-bridge.js"; sourceTree = "<group>"; };
 		FBF5C94E3068C7E0001B1C15 /* icon32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon32.png; sourceTree = "<group>"; };
 		FBF5C94F3068C7E0001B1C15 /* icon32-disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon32-disabled.png"; sourceTree = "<group>"; };
 		FBF5C9503068C7E0001B1C15 /* icon48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon48.png; sourceTree = "<group>"; };
@@ -281,6 +344,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D3860459FCB51DEB5CF4E29 /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				C8437E63DE54650921E23A1D /* settings-schema.js */,
+				901CC2853614F8D43E996E90 /* version.js */,
+				D9771CF47BAA41CF290B406C /* extensions-pro-bridge.js */,
+				3DB7E0CFFF554089F7BE49E9 /* feature-search.js */,
+				AC3B3C1C8AC0461ED409B1DD /* trace.css */,
+				779A590B975279F8E3CF88C5 /* trace.html */,
+				72F0705274A5712D0E9A187E /* trace.js */,
+				679A7AFC3FA1603F899DDA9D /* trace-background.js */,
+				8A58E3D687CA1B3B91050F21 /* settings-background.js */,
+				C4321B471ECC2DA5AB210BA8 /* settings.js */,
+				7D8F13C653E60E8A361D9F6A /* options-base.css */,
+				D1482EFA4A9CAC1947D7BF6D /* options-components.js */,
+				A72CF5CC6CAAFDA4D4C7939C /* settings-transfer.js */,
+				9CF1198D8B7C69C538CD9FA9 /* settings-transfer-controller.js */,
+			);
+			name = shared;
+			path = ../../../shared;
+			sourceTree = "<group>";
+		};
 		A598E12E297B3E8F00BF2F25 = {
 			isa = PBXGroup;
 			children = (
@@ -334,23 +419,15 @@
 				A598E1AA297B441300BF2F25 /* content.js */,
 				FBD6139A2FB947AC002E0939 /* content-pro.js */,
 				03BF7671181D4029B78823C3 /* default-settings.js */,
-				FBD613912FAF651A002E0939 /* ext-shared.js */,
-				FBD6139B2FB947AC002E0939 /* extensions-pro-bridge.js */,
 				FBF5C9613068C7E0001B1C15 /* icons */,
 				A598E141297B3E9300BF2F25 /* manifest.json */,
 				2EC95AA9B1875A29820B88CA /* migrations.js */,
 				A598E1D8297B46C300BF2F25 /* options.css */,
 				A598E1A9297B441300BF2F25 /* options.html */,
 				A598E1AB297B441300BF2F25 /* options.js */,
-				E135A7AAC72C6481D1A22D10 /* options-components.js */,
 				FBD613922FAF651A002E0939 /* schemas.js */,
 				FB38F984298CF4DA00F9AA54 /* script.js */,
-				FB191D7C2E52C40A00FB6F20 /* settings.js */,
-				FBD613972FB82D9C002E0939 /* settings-background.js */,
-				689282D569D4A6C933B5A54D /* trace.css */,
-				C682B06D031A353F81E5D619 /* trace.html */,
-				58DA9BD5FB47518FFCADEC6F /* trace.js */,
-				0D9393965D3F4E5EE6F2102D /* trace-background.js */,
+				2D3860459FCB51DEB5CF4E29 /* shared */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -474,6 +551,7 @@
 				A598E165297B3E9300BF2F25 /* Sources */,
 				A598E166297B3E9300BF2F25 /* Frameworks */,
 				FBF5C9903068C9BD001B1C15 /* Copy Files */,
+				0EF0BD36BCDC34F0D2818912 /* Copy Shared Runtime */,
 				A598E167297B3E9300BF2F25 /* Resources */,
 			);
 			buildRules = (
@@ -492,6 +570,7 @@
 				A598E16F297B3E9300BF2F25 /* Sources */,
 				A598E170297B3E9300BF2F25 /* Frameworks */,
 				FBF5C99E3068C9EF001B1C15 /* CopyFiles */,
+				A036184CEC58A660AE8DF6EC /* Copy Shared Runtime */,
 				A598E171297B3E9300BF2F25 /* Resources */,
 			);
 			buildRules = (
@@ -581,26 +660,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				707C20269DD8D15C43E10FA3 /* migrations.js in Resources */,
-				4E2780F9B048D5977E169331 /* trace-background.js in Resources */,
-				F0876D3A652209E7468D6792 /* trace.html in Resources */,
-				8C7F82A26D7B0375E9CB0E31 /* trace.js in Resources */,
-				746F14010FB8ACF412441783 /* trace.css in Resources */,
 				7F8C95EAA1324157A1E473CF /* default-settings.js in Resources */,
-				FB191D7E2E52C40A00FB6F20 /* settings.js in Resources */,
-				FBD613952FAF651A002E0939 /* ext-shared.js in Resources */,
 				FBD613962FAF651A002E0939 /* schemas.js in Resources */,
 				A598E1D9297B46C300BF2F25 /* options.css in Resources */,
 				FB5703372983C50800E44D21 /* _locales in Resources */,
 				FBB23FE42DE93E27007886FC /* background.js in Resources */,
-				FBD613992FB82D9C002E0939 /* settings-background.js in Resources */,
 				A598E1B0297B441300BF2F25 /* content.js in Resources */,
 				FB38F985298CF4DA00F9AA54 /* script.js in Resources */,
 				A598E18C297B3E9300BF2F25 /* manifest.json in Resources */,
-				FBD6139E2FB947AC002E0939 /* extensions-pro-bridge.js in Resources */,
 				FBD6139F2FB947AC002E0939 /* content-pro.js in Resources */,
 				A598E1D6297B467D00BF2F25 /* browser_action.html in Resources */,
 				A598E1AE297B441300BF2F25 /* options.html in Resources */,
-				F7313A5058C5DA2D331A9EEB /* options-components.js in Resources */,
 				A598E1B2297B441300BF2F25 /* options.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -610,26 +680,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				34C8C4A02499AA8A27662F76 /* migrations.js in Resources */,
-				47977E7CE869779796280E6B /* trace-background.js in Resources */,
-				987D4CE2BD97F1B57D8DB49F /* trace.html in Resources */,
-				C741883EB67045B3EACD52AF /* trace.js in Resources */,
-				AA2927480967724B437791DA /* trace.css in Resources */,
 				170A9D3FE6804A78A236F663 /* default-settings.js in Resources */,
-				FB191D802E52C40A00FB6F20 /* settings.js in Resources */,
-				FBD613932FAF651A002E0939 /* ext-shared.js in Resources */,
 				FBD613942FAF651A002E0939 /* schemas.js in Resources */,
 				A598E1DA297B46C300BF2F25 /* options.css in Resources */,
 				FB5703382983C50800E44D21 /* _locales in Resources */,
 				FBB23FE32DE93E27007886FC /* background.js in Resources */,
-				FBD613982FB82D9C002E0939 /* settings-background.js in Resources */,
 				A598E1B1297B441300BF2F25 /* content.js in Resources */,
 				FB38F986298CF4DA00F9AA54 /* script.js in Resources */,
 				A598E18D297B3E9300BF2F25 /* manifest.json in Resources */,
-				FBD6139C2FB947AC002E0939 /* extensions-pro-bridge.js in Resources */,
 				FBD6139D2FB947AC002E0939 /* content-pro.js in Resources */,
 				A598E1D7297B467D00BF2F25 /* browser_action.html in Resources */,
 				A598E1AF297B441300BF2F25 /* options.html in Resources */,
-				04A1E001A070D81F2B51DEA9 /* options-components.js in Resources */,
 				A598E1B3297B441300BF2F25 /* options.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

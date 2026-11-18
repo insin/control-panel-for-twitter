@@ -567,11 +567,20 @@
   "settings": {
     "message": "Settings"
   },
+  "settingsExportFailed": {
+    "message": "Settings could not be exported. Please try again."
+  },
+  "settingsExtensionMismatch": {
+    "message": "This settings file is not for this extension. Select a settings export created by this extension."
+  },
   "settingsImportFailed": {
     "message": "Import failed. Your settings in this browser have not been changed. Please try again"
   },
   "settingsImported": {
     "message": "Settings imported"
+  },
+  "settingsMigrationFailed": {
+    "message": "This settings file could not be converted to the current format. No settings were changed."
   },
   "settingsNotImported": {
     "message": "Settings not imported"
@@ -646,7 +655,7 @@
     "message": "Uninvert Follow buttons"
   },
   "unknownSettings": {
-    "message": "Unknown settings: $KEYS$",
+    "message": "This file contains settings this version does not recognise: $KEYS$. Update the extension before importing it.",
     "placeholders": {
       "KEYS": {
         "content": "$1"
@@ -656,6 +665,9 @@
   "unmuteButtonText": {
     "description": "Button used in the options page to unmute a muted Quote Tweet",
     "message": "Unmute"
+  },
+  "unsupportedSettingsSchemaVersion": {
+    "message": "This settings file uses an unsupported format. Update the extension and try again."
   },
   "xFeaturesOptions": {
     "message": "X features"

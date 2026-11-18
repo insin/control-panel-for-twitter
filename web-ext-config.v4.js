@@ -5,9 +5,9 @@ module.exports = {
   ignoreFiles: [
     ...config.ignoreFiles,
     'content-pro.js',
-    'extensions-pro-bridge.js',
-    'trace.html',
-    'trace.js',
-    'trace.css',
+    'shared/extensions-pro-bridge.js',
+    'shared/trace.css',
+    'shared/trace.html',
+    'shared/trace.js',
   ],
 }

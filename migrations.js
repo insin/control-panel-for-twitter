@@ -1,7 +1,9 @@
+import { get, remove, set } from './shared/settings.js'
+import { isObject } from './shared/settings-schema.js'
+import { trace } from './shared/trace-background.js'
+import { crossesVersionThreshold, isVersionLessThan } from './shared/version.js'
+
 import { DEFAULT_SETTINGS } from './default-settings.js'
-import { crossesVersionThreshold, isObject, isVersionLessThan } from './ext-shared.js'
-import { get, remove, set } from './settings.js'
-import { trace } from './trace-background.js'
 
 /**
  * Migrates user settings to a single `settings` object and renames layout state.

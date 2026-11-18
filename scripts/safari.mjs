@@ -21,8 +21,12 @@ export function prepareSafari({ edition = 'v4', local = false } = {}) {
 
   const require = createRequire(path.resolve('package.json'))
   const config = require(`./web-ext-config.${edition}.js`)
-  // Omit web-ext's include patterns and blanket exclusion from the Xcode exclusions
-  const excludedFiles = config.ignoreFiles.filter((file) => !file.startsWith('!') && file != '**/*')
+  // Omit web-ext's include patterns and blanket exclusion from the Xcode
+  // exclusions. Resource references in Copy Files phases use basenames,
+  // including shared files.
+  const excludedFiles = config.ignoreFiles
+    .filter((file) => !file.startsWith('!') && file != '**/*')
+    .map((file) => path.basename(file))
   let manifestJson = JSON.stringify(manifest, null, 2)
   if (local) {
     manifestJson = manifestJson.replaceAll('"https://pro.soitis.dev/*"', '"http://localhost/*", $&')

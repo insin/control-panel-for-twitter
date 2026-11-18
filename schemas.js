@@ -1,13 +1,5 @@
-import {
-  arrayOf,
-  boolean,
-  isObject,
-  object,
-  oneOf,
-  optional,
-  string,
-  validateSettings,
-} from './ext-shared.js'
+import { arrayOf, boolean, object, oneOf, optional, string } from './shared/settings-schema.js'
+import { createSettingsTransfer } from './shared/settings-transfer.js'
 
 // Increment for incompatible changes only
 export const SETTINGS_SCHEMA_VERSION = 1
@@ -20,7 +12,7 @@ const quotedTweet = object({
 })
 
 /**
- * @type {Record<import('./types').UserSettingsKey, import('./ext-shared').FieldDescriptor>}
+ * @type {Record<import('./types').UserSettingsKey, import('./shared/types').FieldDescriptor>}
  */
 export const currentSettingsSchema = {
   // Pro
@@ -144,41 +136,16 @@ export const currentSettingsSchema = {
   // Mobile only
   hideLiveBroadcastBar: boolean(),
   preventNextVideoAutoplay: boolean(),
-  // Experiments
+  // Advancedd
   customCss: string({ maxLength: 50000 }),
   enableCustomCss: boolean(),
 }
 
-/**
- * @param {Record<string, unknown>} settings
- * @param {string} version Extension version, for diagnostics only.
- */
-export function createSettingsExport(settings, version) {
-  return { schemaVersion: SETTINGS_SCHEMA_VERSION, settings, version }
-}
+export const settingsTransfer = createSettingsTransfer({
+  extensionId: 'control-panel-for-twitter',
+  schema: currentSettingsSchema,
+  schemaVersion: SETTINGS_SCHEMA_VERSION,
+})
 
-/**
- * @param {unknown} input
- * @returns {import('./ext-shared').ValidateSettingsResult & {
- *   error?: 'noSettingsObject' | 'invalidSettingsSchemaVersion'
- *   warning?: 'newerSettingsSchemaVersion'
- * }}
- */
-export function validateSettingsExport(input) {
-  const rejected = { settings: {}, invalid: [], unknown: [] }
-  if (!isObject(input) || !isObject(input.settings)) {
-    return { ...rejected, error: 'noSettingsObject' }
-  }
-  if (
-    typeof input.schemaVersion != 'number' ||
-    !Number.isSafeInteger(input.schemaVersion) ||
-    input.schemaVersion < 1
-  ) {
-    return { ...rejected, error: 'invalidSettingsSchemaVersion' }
-  }
-  const result = validateSettings(input.settings, currentSettingsSchema)
-  if (input.schemaVersion > SETTINGS_SCHEMA_VERSION) {
-    return { ...result, warning: 'newerSettingsSchemaVersion' }
-  }
-  return result
-}
+export const { createSettingsExport, validateSettingsExport, validateSettingsJson } =
+  settingsTransfer

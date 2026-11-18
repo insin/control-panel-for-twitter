@@ -6,7 +6,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**/*.{css,html,js,json,jsonc,mjs}", "!script.js", "!!.scratch"],
+    "includes": ["**/*.{css,html,js,json,jsonc,mjs}", "!script.js", "!!.scratch", "!!shared"],
     "ignoreUnknown": false
   },
   "formatter": {
@@ -52,7 +52,7 @@
               ":BLANK_LINE:",
               ":PACKAGE:",
               ":BLANK_LINE:",
-              ":ALIAS:",
+              [":ALIAS:", "**/shared/**"],
               ":BLANK_LINE:",
               ":PATH:"
             ]

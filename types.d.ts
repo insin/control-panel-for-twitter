@@ -1,3 +1,7 @@
+import type { ExtensionsProSubscription } from './shared/types'
+
+export type { DebugTraceEntry, ExtensionsProSubscription } from './shared/types'
+
 export type StoredConfig = {
   /** Collapsed option groups in options */
   collapsedGroups?: string[]
@@ -54,13 +58,6 @@ export type StoredConfigKey = keyof StoredConfig
 export type StoredConfigMessage = {
   type: 'initial' | 'change'
   config: Partial<StoredConfig>
-}
-
-export type DebugTraceEntry = {
-  details: Record<string, unknown>
-  event: string
-  time: number
-  workerId: string
 }
 
 export type UserSettings = {
@@ -185,37 +182,12 @@ export type UserSettings = {
   // Mobile only
   hideLiveBroadcastBar: boolean
   preventNextVideoAutoplay: boolean
-  // Experiments
+  // Advanced
   customCss: string
   enableCustomCss: boolean
 }
 
 export type UserSettingsKey = keyof UserSettings
-
-export type ExtensionsProSubscription =
-  | {
-      type: 'lifetime'
-      active: true
-      status: 'active'
-      createdAt: number
-    }
-  | {
-      type: 'annual' | 'monthly'
-      active: boolean
-      // The only statuses an extension should see
-      status:
-        // Active statuses
-        | 'active'
-        | 'past_due'
-        | 'trialing'
-        // Inactive statuses
-        | 'canceled'
-        | 'paused'
-      createdAt: number
-      currentPeriodEnd: number
-      cancelAtPeriodEnd: boolean
-      canceledAt: number | null
-    }
 
 export type Locale = Partial<Record<LocaleKey, string>>
 

@@ -1,7 +1,9 @@
-import { crossesVersionThreshold, isObject } from './ext-shared.js'
+import { get, SERVER_ORIGIN, set } from './shared/settings.js'
+import { initSettingsSync, startSync } from './shared/settings-background.js'
+import { isObject } from './shared/settings-schema.js'
+import { crossesVersionThreshold } from './shared/version.js'
+
 import { runSettingsMigrations, scheduleSettingsMigrations } from './migrations.js'
-import { get, SERVER_ORIGIN, set } from './settings.js'
-import { initSettingsSync, startSync } from './settings-background.js'
 
 //#region Constants
 const DISABLED_ICONS = {
@@ -64,7 +66,7 @@ function main(details) {
   return task
 }
 
-initSettingsSync({ apiBase: SERVER_ORIGIN })
+initSettingsSync({ apiBase: SERVER_ORIGIN, proEnabled: IS_PRO })
 const startup = main().catch((error) => {
   console.error('[background]', error)
 })

@@ -60,7 +60,7 @@ function onStorageChanged(changes) {
 async function storeConfigChangesFromPageScript({ data: changes }) {
   const { settings, ...internalConfig } = changes
   try {
-    const { set, setSettings } = await import(chrome.runtime.getURL('settings.js'))
+    const { set, setSettings } = await import(chrome.runtime.getURL('shared/settings.js'))
     if (settings && Object.keys(settings).length > 0) {
       await setSettings(settings)
     }

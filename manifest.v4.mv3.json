@@ -33,7 +33,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["settings.js"],
+      "resources": ["shared/settings.js"],
       "matches": ["https://twitter.com/*", "https://x.com/*"]
     }
   ],

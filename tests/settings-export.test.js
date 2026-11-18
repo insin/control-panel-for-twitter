@@ -23,6 +23,7 @@ test.each(['4.99.1', '5.1.0', '99.0.0', undefined])(
   'validates using the schema version independently of extension version %s',
   (version) => {
     const result = validateSettingsExport({
+      extensionId: 'control-panel-for-twitter',
       schemaVersion: 1,
       version,
       settings: { hideGrok: false, customTheme: '#abcdef' },
@@ -39,7 +40,13 @@ test.each(['4.99.1', '5.1.0', '99.0.0', undefined])(
 test.each([undefined, null, '1', 0, -1, 1.5, true, {}, [], Number.MAX_SAFE_INTEGER + 1])(
   'rejects missing or invalid schema version %j',
   (schemaVersion) => {
-    expect(validateSettingsExport({ schemaVersion, settings: { hideGrok: true } })).toEqual({
+    expect(
+      validateSettingsExport({
+        extensionId: 'control-panel-for-twitter',
+        schemaVersion,
+        settings: { hideGrok: true },
+      }),
+    ).toEqual({
       settings: {},
       invalid: [],
       unknown: [],
@@ -51,6 +58,7 @@ test.each([undefined, null, '1', 0, -1, 1.5, true, {}, [], Number.MAX_SAFE_INTEG
 test('warns about a newer schema while importing recognised, valid settings', () => {
   expect(
     validateSettingsExport({
+      extensionId: 'control-panel-for-twitter',
       schemaVersion: SETTINGS_SCHEMA_VERSION + 1,
       settings: { hideGrok: false, hideAdsNav: 'yes', futureFlag: true },
     }),
@@ -65,6 +73,7 @@ test('warns about a newer schema while importing recognised, valid settings', ()
 test('reports invalid values and unknown new flags while importing compatible settings', () => {
   expect(
     validateSettingsExport({
+      extensionId: 'control-panel-for-twitter',
       schemaVersion: 1,
       settings: { hideGrok: false, hideAdsNav: 'yes', futureFlag: true },
     }),

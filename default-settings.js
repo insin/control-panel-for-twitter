@@ -122,7 +122,7 @@ export const DEFAULT_SETTINGS = {
   // Mobile only
   hideLiveBroadcastBar: false,
   preventNextVideoAutoplay: true,
-  // Experiments
+  // Advanced
   customCss: '',
   enableCustomCss: true,
 }
