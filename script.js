@@ -12144,13 +12144,13 @@ const configureCss = (() => {
         display: flex;
         flex-wrap: wrap;
         gap: 8px 20px;
+        margin-top: 6px;
         padding: 16px 0;
         border-top: 1px solid var(--x-border-divider);
         border-bottom: 1px solid var(--x-border-divider);
       }
       .cpft-interaction-links a { color: inherit; text-decoration: none; }
       .cpft-interaction-links a:hover { text-decoration: underline; }
-      /* X's ongoing row measurement ignores zero offsetHeight */
       [id^="urt:"] > ul > li[data-index]:has(> :is(.HiddenAd, .HiddenTweet)):not(:has(> :not(.HiddenAd, .HiddenTweet))) {
         height: 1px !important;
         min-height: 1px !important;
