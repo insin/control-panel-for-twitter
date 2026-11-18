@@ -1,4 +1,4 @@
-import { createFeatureSearch } from './shared/feature-search.js'
+import { createFeatureSearchController } from './shared/feature-search-controller.js'
 import {
   get,
   OPEN_APP_MESSAGE,
@@ -218,7 +218,7 @@ const $tabs = Array.from($tablist.querySelectorAll('button'))
 //#endregion
 
 //#region Feature search
-const featureSearch = createFeatureSearch({
+const featureSearchController = createFeatureSearchController({
   panel: $featurePanel,
   input: $featureSearchInput,
   row: $featureSearchRow,
@@ -736,7 +736,7 @@ function onTabKeyDown(e) {
 }
 
 function onToggleCollapse(e) {
-  if (theme == 'ios' || featureSearch.isFiltering) return
+  if (theme == 'ios' || featureSearchController.isFiltering) return
   const collapsedGroups = config.collapsedGroups.slice()
   const collapseId = e.currentTarget.getAttribute('data-collapse-id')
   const index = collapsedGroups.indexOf(collapseId)
@@ -833,7 +833,7 @@ function updateCollapsedOptionGroupsDisplay() {
   for (const $label of $collapsibleLabels) {
     $label.parentElement.classList.toggle(
       'collapsed',
-      !(featureSearch.isFiltering && $featurePanel.contains($label)) &&
+      !(featureSearchController.isFiltering && $featurePanel.contains($label)) &&
         config.collapsedGroups.includes($label.getAttribute('data-collapse-id')),
     )
   }
@@ -888,7 +888,7 @@ function updateDisplay() {
     $customThemeInput.style.backgroundColor = ''
     $customThemeInput.style.color = ''
   }
-  featureSearch.update()
+  featureSearchController.update()
 }
 
 function updateProDisplay() {
@@ -1073,7 +1073,7 @@ function updateTabsDisplay() {
     $tab.setAttribute('aria-selected', String(selected))
     $tab.tabIndex = selected ? 0 : -1
   }
-  featureSearch.updateDisplay(config.tab == 'features')
+  featureSearchController.updateDisplay(config.tab == 'features')
   for (const $panel of $panels) {
     $panel.style.display = config.tab == $panel.getAttribute('data-tab') ? 'block' : 'none'
   }
@@ -1100,7 +1100,7 @@ async function main() {
     $label.addEventListener('click', onToggleCollapse)
   }
   $enabledToggle.addEventListener('click', onToggleEnabled)
-  featureSearch.connect()
+  featureSearchController.connect()
   $customCss.addEventListener('input', () => autoResize($customCss))
   $customCss.addEventListener('keydown', (e) => {
     if (!e.isComposing && e.key == 'Enter' && (e.ctrlKey || e.metaKey)) {

@@ -31,7 +31,7 @@ module.exports = {
     '!script.js',
     '!shared',
     '!shared/extensions-pro-bridge.js',
-    '!shared/feature-search.js',
+    '!shared/feature-search-controller.js',
     '!shared/options-base.css',
     '!shared/options-components.js',
     '!shared/settings-background.js',

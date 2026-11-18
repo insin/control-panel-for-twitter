@@ -12,7 +12,7 @@ const assets = new Set([
   'options.css',
   'options.js',
   'schemas.js',
-  'shared/feature-search.js',
+  'shared/feature-search-controller.js',
   'shared/options-base.css',
   'shared/options-components.js',
   'shared/settings-schema.js',
