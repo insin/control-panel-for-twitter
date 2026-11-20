@@ -10702,6 +10702,9 @@ let separatedTweetsTimelineSelected = false
 let userSortedFollowing = false
 let viewerRouter = null
 let wasForYouTabSelected = false
+let replySortTweetId = ''
+let userSortedReplies = false
+let requestedReplySort = ''
 //#endregion
 
 //#region React state functions
@@ -11030,6 +11033,11 @@ function processCurrentPage() {
   if (currentPageType && currentPageType != type) document.body.classList.remove(currentPageType)
   if (type) document.body.classList.add(type)
   currentPageType = type
+  if (type != 'Tweet' && getPageType(location.pathname, '') != 'MediaViewer') {
+    replySortTweetId = ''
+    userSortedReplies = false
+    requestedReplySort = ''
+  }
   log('processing page', {type, title: currentPage, path: currentPagePath, url: currentPageUrl})
   configureCss.refreshPremium()
   configureBranding()
@@ -11085,6 +11093,9 @@ function resetPage() {
   separatedTweetsTimelineSelected = false
   wasForYouTabSelected = false
   viewerRouter = null
+  replySortTweetId = ''
+  userSortedReplies = false
+  requestedReplySort = ''
 }
 
 /** @param {boolean} separated */
@@ -11812,6 +11823,7 @@ function observeLayout() {
 const observeOverlays = (() => {
   let name = 'portals'
   let checkedFollowingMenus = new WeakSet()
+  let checkedReplyMenus = new WeakSet()
   let observer = null
   let $viewer = null
   /** @type {Map<string, import("./types").Disconnectable>} */
@@ -11883,6 +11895,19 @@ const observeOverlays = (() => {
               userSortedFollowing = true
             }, true)
           }
+        }
+      }
+      if (settings.sortReplies != 'relevant' && replySortTweetId) {
+        let label = findRouter()?.options?.context?.i18n?.t?.('Sort replies') || getString('SORT_REPLIES')
+        let $group = $portal.querySelector(`[data-slot="xds-menu-content"] [aria-label=${JSON.stringify(label)}]`)
+        if ($group && !checkedReplyMenus.has($group)) {
+          checkedReplyMenus.add($group)
+          let id = replySortTweetId
+          $group.addEventListener('click', event => {
+            if (enabled && replySortTweetId == id && /** @type {Element} */ (event.target)?.closest?.('[role="menuitemradio"]')) {
+              userSortedReplies = true
+            }
+          }, true)
         }
       }
     }
@@ -13674,6 +13699,7 @@ function restoreFocusedTweetMetrics($focused, tweetPath, readState) {
  * @param {ReturnType<typeof createConversationStateReader>} readState
  */
 function tweakFocusedTweet($focused, tweetPath, readState) {
+  configureReplySort(tweetPath)
   processUnavailableTweetContent($focused)
   let cleanupLocation = null
   if (settings.addFocusedTweetAccountLocation) {
@@ -13690,6 +13716,32 @@ function tweakFocusedTweet($focused, tweetPath, readState) {
     cleanupLocation?.()
     cleanupMetrics?.()
   }
+}
+
+/** @param {string} tweetPath */
+function configureReplySort(tweetPath) {
+  let id = /\/status\/(\d+)/.exec(tweetPath)?.[1]
+  if (!id) return
+  if (replySortTweetId != id) {
+    replySortTweetId = id
+    userSortedReplies = false
+    requestedReplySort = ''
+  }
+  if (settings.sortReplies == 'relevant' || userSortedReplies ||
+      location.pathname != tweetPath && !(location.pathname.startsWith(`${tweetPath}/`) && getPageType(location.pathname, '') == 'MediaViewer')) return
+  let sort = settings.sortReplies == 'liked' ? 'likes' : 'recency'
+  let key = `${id}:${sort}`
+  if (new URLSearchParams(location.search).get('sort_replies') == sort || requestedReplySort == key) return
+  let router = findRouter()
+  if (!router?.navigate) return
+  requestedReplySort = key
+  log('sortReplies: synchronising native sort', {id, sort})
+  Promise.resolve(router.navigate({to: location.pathname, replace: true,
+    search: search => ({...search, sort_replies: sort}), hash: true, state: state => state,
+  })).catch(error => {
+    if (requestedReplySort == key) requestedReplySort = ''
+    warn('sortReplies: native sort failed', error)
+  })
 }
 
 /**
@@ -14008,6 +14060,26 @@ function tweakHomeTimelinePage() {
 //#endregion
 
 //#region Main
+/** @param {string} url */
+function patchReplySortUrl(url) {
+  if (settings.sortReplies == 'relevant' || !url.includes('/TweetDetail?')) return url
+  try {
+    let request = new URL(url, location.origin)
+    let variables = JSON.parse(request.searchParams.get('variables'))
+    if (!variables || typeof variables.focalTweetId != 'string' ||
+        userSortedReplies && variables.focalTweetId == replySortTweetId) return url
+    let rankingMode = settings.sortReplies == 'liked' ? 'Likes' : 'Recency'
+    if (variables.rankingMode == rankingMode) return url
+    variables.rankingMode = rankingMode
+    request.searchParams.set('variables', JSON.stringify(variables))
+    log('sortReplies: forcing sort by', settings.sortReplies)
+    return request.href
+  } catch (error) {
+    warn('sortReplies: error patching rankingMode', error)
+    return url
+  }
+}
+
 /**
  * Replaces "posted" → "Tweeted" in the Home timeline's new Tweets popup.
  * @param {Response} response
@@ -14074,6 +14146,10 @@ function onDisabled() {
 
 /** @param {Set<import("./types").UserSettingsKey>} changedSettings */
 function onSettingsChanged(changedSettings = new Set()) {
+  if (changedSettings.has('sortReplies')) {
+    userSortedReplies = false
+    requestedReplySort = ''
+  }
   if (changedSettings.has('disableVideoLooping')) configureVideoLooping()
   if (changedSettings.has('hideNotifications')) configureTitleSetter()
   if (changedSettings.has('hideVerifiedTabs') || changedSettings.has('disableHomeTimeline') ||
@@ -14134,7 +14210,11 @@ function main() {
 return function init() {
   patchRequests({
     patchUrl(method, url) {
-      return method == 'GET' && settings.defaultFollowingToRecent && (settings.hideFollowingMenu || !userSortedFollowing) ? patchFollowingUrl(url) : url
+      if (method == 'GET') {
+        url = patchReplySortUrl(url)
+        if (settings.defaultFollowingToRecent && (settings.hideFollowingMenu || !userSortedFollowing)) url = patchFollowingUrl(url)
+      }
+      return url
     },
     shouldPatchBody(method, url) {
       return method == 'POST' && settings.defaultFollowingToRecent && (settings.hideFollowingMenu || !userSortedFollowing) && isFollowingTimelineRequest(url)
