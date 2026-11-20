@@ -3,10 +3,10 @@
     "message": "在导航菜单中添加\"增加隐藏词\""
   },
   "addFocusedTweetAccountLocation": {
-    "message": "在推文详情中显示账户位置"
+    "message": "显示作者的账户位置"
   },
   "addUserHoverCardAccountLocation": {
-    "message": "在用户悬浮卡片中显示账户位置"
+    "message": "在用户卡片中显示账户位置"
   },
   "advancedOptions": {
     "message": "高级"
@@ -24,7 +24,7 @@
     "message": "绕过年龄验证"
   },
   "bypassMediaContextMenu": {
-    "message": "跳过媒体右键菜单"
+    "message": "使用浏览器右键菜单"
   },
   "cleanTweetLinks": {
     "message": "复制不含跟踪信息的推文链接"
@@ -57,7 +57,7 @@
     "message": "默认将“关注”排序为“最新”"
   },
   "defaultToFollowing": {
-    "message": "默认使用“关注”时间线"
+    "message": "默认使用“关注”"
   },
   "defaultToLatestSearch": {
     "message": "在搜索中默认为\"最新\"选项卡"
@@ -84,13 +84,13 @@
     "message": "禁用视频循环播放"
   },
   "disabledHomeTimelineRedirect": {
-    "message": "将主页时间线重定向至"
+    "message": "将主页重定向至"
   },
   "dontUseChirpFont": {
     "message": "不要使用Chirp字体"
   },
   "dropdownMenuFontWeight": {
-    "message": "在下拉菜单中使用正常的字体大小"
+    "message": "菜单使用正常字重"
   },
   "enableCustomCss": {
     "message": "自定义 CSS"
@@ -117,7 +117,7 @@
     "message": "Control Panel for Twitter (已禁用)"
   },
   "fastBlock": {
-    "message": "快速屏蔽(跳过确认对话框)"
+    "message": "跳过屏蔽确认"
   },
   "features": {
     "message": "特征"
@@ -150,7 +150,7 @@
     "message": "全部隐藏"
   },
   "hideBookmarkButton": {
-    "message": "隐藏推文下方的书签按钮"
+    "message": "隐藏书签按钮"
   },
   "hideBookmarkMetrics": {
     "message": "书签"
@@ -171,7 +171,7 @@
     "message": "社区"
   },
   "hideComposeTweet": {
-    "message": "隐藏撰写推文按钮"
+    "message": "隐藏主推文按钮"
   },
   "hideConnectNav": {
     "message": "关注"
@@ -186,13 +186,16 @@
     "message": "隐藏编辑图片按钮"
   },
   "hideExploreNav": {
-    "message": "隐藏导航栏中的探索"
+    "message": "探索"
   },
   "hideExploreNavWithSidebar": {
     "message": "隐藏侧边栏时显示"
   },
   "hideExplorePageContents": {
-    "message": "隐藏\"探索\"页面内容，只用于搜索"
+    "message": "“探索”仅用于搜索"
+  },
+  "hideExplorePageContentsInfo": {
+    "message": "隐藏搜索框下方的标签页和内容"
   },
   "hideFollowingMenu": {
     "message": "隐藏“关注”的“排序方式”菜单"
@@ -201,7 +204,7 @@
     "message": "正在关注/关注者"
   },
   "hideForYouTimeline": {
-    "message": "隐藏“为你推荐”时间线"
+    "message": "隐藏“为你推荐”"
   },
   "hideGrok": {
     "message": "隐藏 Grok"
@@ -213,7 +216,7 @@
     "message": "历史"
   },
   "hideInlinePrompts": {
-    "message": "隐藏时间线中的内联提示"
+    "message": "隐藏内联提示"
   },
   "hideJobs": {
     "message": "隐藏工作"
@@ -297,7 +300,7 @@
     "message": "隐藏新推文弹出提示"
   },
   "hideShareTweetButton": {
-    "message": "隐藏推文下的分享按钮"
+    "message": "隐藏分享按钮"
   },
   "hideSidebarContent": {
     "message": "隐藏侧边栏内容"
@@ -315,13 +318,13 @@
     "message": "在搜索中隐藏推荐内容"
   },
   "hideSuggestedContentTimeline": {
-    "message": "在时间线中隐藏推荐内容"
+    "message": "隐藏推荐内容"
   },
   "hideSuggestedFollows": {
     "message": "隐藏推荐关注"
   },
   "hideTimelineTweetBox": {
-    "message": "隐藏时间线推文框"
+    "message": "隐藏“有什么新鲜事？”框"
   },
   "hideTodaysNews": {
     "message": "隐藏今日新闻"
@@ -336,10 +339,10 @@
     "message": "隐藏关注者中的“认证”选项卡"
   },
   "hideViewActivityLinks": {
-    "message": "“查看活动”链接"
+    "message": "隐藏“查看活动”链接"
   },
   "hideViews": {
-    "message": "隐藏推文下的观点"
+    "message": "隐藏浏览次数"
   },
   "hideWhatsHappening": {
     "message": "隐藏“正在发生的事”"
@@ -387,6 +390,9 @@
   "mostRelevant": {
     "message": "最相关"
   },
+  "mediaOptions": {
+    "message": "媒体"
+  },
   "mutableQuoteTweets": {
     "message": "对特定推文进行隐藏引用"
   },
@@ -406,7 +412,7 @@
     "message": "隐藏包含特定词语、短语或模式的推文 - 每行一个"
   },
   "navBaseFontSize": {
-    "message": "在导航栏中使用正常的文本字体样式"
+    "message": "导航栏使用正常文本"
   },
   "navDensity": {
     "message": "导航密度"
@@ -526,7 +532,7 @@
     "message": "降低 \"参与\""
   },
   "reducedInteractionMode": {
-    "message": "减少互动模式"
+    "message": "隐藏推文操作栏"
   },
   "reducedInteractionModeInfo": {
     "message": "隐藏推文下的动作栏--回复现在是唯一的互动方式"
@@ -538,10 +544,10 @@
     "message": "恢复 Twitter 链接预览"
   },
   "restoreOtherInteractionLinks": {
-    "message": "恢复推文下的其他链接"
+    "message": "恢复转推和喜欢链接"
   },
   "restoreQuoteTweetsLink": {
-    "message": "恢复推文下的“引用推文”链接"
+    "message": "恢复“引用推文”链接"
   },
   "retweets": {
     "message": "转发"
@@ -580,7 +586,7 @@
     "message": "其他用户分享的推文"
   },
   "showBookmarkButtonUnderFocusedTweets": {
-    "message": "在焦点推文下显示"
+    "message": "在推文页面显示"
   },
   "showPremiumReplyBusiness": {
     "message": "显示已验证的企业账户"
@@ -606,7 +612,7 @@
     "message": "显示已验证的政府账户"
   },
   "showRelevantPeople": {
-    "message": "查看推文时显示\"相关人员\""
+    "message": "在推文页面显示“相关人员”"
   },
   "sidebar": {
     "message": "侧边栏"
@@ -626,11 +632,20 @@
   "themeFollowButtons": {
     "message": "使用主题颜色"
   },
-  "tweakQuoteTweetsPage": {
-    "message": "查看引用推文时隐藏被引用的推文"
+  "timelineContentOptions": {
+    "message": "时间线内容"
   },
-  "tweetsAndRepliesOptions": {
-    "message": "推文与回复"
+  "tweakQuoteTweetsPage": {
+    "message": "精简引用推文页面"
+  },
+  "tweakQuoteTweetsPageInfo": {
+    "message": "隐藏被引用的推文"
+  },
+  "tweetActionsOptions": {
+    "message": "推文操作"
+  },
+  "tweetPageOptions": {
+    "message": "推文页面"
   },
   "uiImprovementsOptions": {
     "message": "用户界面改进"

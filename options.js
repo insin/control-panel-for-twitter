@@ -57,6 +57,7 @@ for (const translationId of [
   'featuresDisabledInfo',
   'hideNavigationItemsOptions',
   'homeTimelineOptions',
+  'mediaOptions',
   'mutedWords',
   'mutedWordsInfo',
   'needMoreRoom',
@@ -66,7 +67,9 @@ for (const translationId of [
   'settings',
   'sidebar',
   'sortRepliesInfo',
-  'tweetsAndRepliesOptions',
+  'timelineContentOptions',
+  'tweetActionsOptions',
+  'tweetPageOptions',
   'xFeaturesOptions',
 ]) {
   const $el = document.getElementById(translationId)

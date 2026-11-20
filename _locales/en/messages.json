@@ -3,10 +3,10 @@
     "message": "Add \"Add muted word\" to the navigation menu"
   },
   "addFocusedTweetAccountLocation": {
-    "message": "Show account location in focused Tweets"
+    "message": "Show author’s account location"
   },
   "addUserHoverCardAccountLocation": {
-    "message": "Show account location in user hover cards"
+    "message": "Show account location in user cards"
   },
   "advancedOptions": {
     "message": "Advanced"
@@ -25,7 +25,7 @@
     "message": "Bypass age verification"
   },
   "bypassMediaContextMenu": {
-    "message": "Bypass media context menus"
+    "message": "Use browser context menus"
   },
   "cleanTweetLinks": {
     "message": "Copy clean Tweet links"
@@ -58,7 +58,7 @@
     "message": "Sort Following by \"Recent\" by default"
   },
   "defaultToFollowing": {
-    "message": "Use the Following timeline by default"
+    "message": "Use Following by default"
   },
   "defaultToLatestSearch": {
     "message": "Default to \"Latest\" tab in Search"
@@ -67,7 +67,7 @@
     "message": "Developer"
   },
   "disableHomeTimeline": {
-    "message": "Disable the home timeline"
+    "message": "Disable the Home timeline"
   },
   "disableHomeTimelineInfo": {
     "message": "Find yourself wasting too much time on Twitter? Try preventing use of the home timeline"
@@ -85,13 +85,13 @@
     "message": "Disable video looping"
   },
   "disabledHomeTimelineRedirect": {
-    "message": "Redirect home timeline to"
+    "message": "Redirect Home to"
   },
   "dontUseChirpFont": {
     "message": "Don't use the Chirp font"
   },
   "dropdownMenuFontWeight": {
-    "message": "Use normal font weight in dropdown menus"
+    "message": "Use normal menu font weight"
   },
   "enableCustomCss": {
     "message": "Custom CSS"
@@ -120,7 +120,7 @@
     "message": "Control Panel for Twitter (disabled)"
   },
   "fastBlock": {
-    "message": "Fast blocking (skips confirm dialog)"
+    "message": "Skip block confirmation"
   },
   "features": {
     "message": "Features"
@@ -153,7 +153,7 @@
     "message": "Hide all"
   },
   "hideBookmarkButton": {
-    "message": "Hide Bookmark button under Tweets"
+    "message": "Hide Bookmark button"
   },
   "hideBookmarkMetrics": {
     "message": "Bookmarks"
@@ -174,7 +174,7 @@
     "message": "Communities"
   },
   "hideComposeTweet": {
-    "message": "Hide the Compose Tweet button"
+    "message": "Hide main Tweet button"
   },
   "hideConnectNav": {
     "message": "Follow"
@@ -189,13 +189,16 @@
     "message": "Hide Edit image buttons"
   },
   "hideExploreNav": {
-    "message": "Hide Explore navigation item"
+    "message": "Explore"
   },
   "hideExploreNavWithSidebar": {
     "message": "Show when sidebar is hidden"
   },
   "hideExplorePageContents": {
-    "message": "Hide Explore page contents and use it only for searching"
+    "message": "Use Explore for search only"
+  },
+  "hideExplorePageContentsInfo": {
+    "message": "Hide the tabs and content below the search box"
   },
   "hideFollowingMenu": {
     "message": "Hide the Following \"Sort by\" menu"
@@ -204,7 +207,7 @@
     "message": "Following / followers"
   },
   "hideForYouTimeline": {
-    "message": "Hide the \"For you\" timeline"
+    "message": "Hide \"For you\""
   },
   "hideGrok": {
     "message": "Hide Grok"
@@ -216,7 +219,7 @@
     "message": "History"
   },
   "hideInlinePrompts": {
-    "message": "Hide inline prompts in the timeline"
+    "message": "Hide inline prompts"
   },
   "hideJobs": {
     "message": "Hide Jobs"
@@ -300,7 +303,7 @@
     "message": "Hide new Tweets popup"
   },
   "hideShareTweetButton": {
-    "message": "Hide Share button under Tweets"
+    "message": "Hide Share button"
   },
   "hideSidebarContent": {
     "message": "Hide sidebar contents"
@@ -318,13 +321,13 @@
     "message": "Hide suggested content in Search"
   },
   "hideSuggestedContentTimeline": {
-    "message": "Hide suggested content in the timeline"
+    "message": "Hide suggested content"
   },
   "hideSuggestedFollows": {
     "message": "Hide suggested follows"
   },
   "hideTimelineTweetBox": {
-    "message": "Hide Tweet box in timeline"
+    "message": "Hide \"What’s happening?\" box"
   },
   "hideTodaysNews": {
     "message": "Hide Today's News"
@@ -339,10 +342,10 @@
     "message": "Hide Verified Followers tab"
   },
   "hideViewActivityLinks": {
-    "message": "\"View activity\" links"
+    "message": "Hide \"View activity\" links"
   },
   "hideViews": {
-    "message": "Hide Views under Tweets"
+    "message": "Hide view counts"
   },
   "hideWhatsHappening": {
     "message": "Hide What's happening"
@@ -384,6 +387,9 @@
   "lightModeTheme": {
     "message": "Light mode theme"
   },
+  "mediaOptions": {
+    "message": "Media"
+  },
   "mutableQuoteTweets": {
     "message": "Enable muting of Quote Tweets"
   },
@@ -403,7 +409,7 @@
     "message": "Hide Tweets containing specific words, phrases, or patterns - one per line"
   },
   "navBaseFontSize": {
-    "message": "Use normal text font style in navigation bar"
+    "message": "Use normal navigation text"
   },
   "navDensity": {
     "message": "Navigation density"
@@ -529,7 +535,7 @@
     "message": "Reduce \"engagement\""
   },
   "reducedInteractionMode": {
-    "message": "Reduced interaction mode"
+    "message": "Hide Tweet action bars"
   },
   "reducedInteractionModeInfo": {
     "message": "Hide the action bar under Tweets – replies are now the only means of interacting"
@@ -541,10 +547,10 @@
     "message": "Restore Twitter link previews"
   },
   "restoreOtherInteractionLinks": {
-    "message": "Restore other links under Tweets"
+    "message": "Restore Retweets and Likes links"
   },
   "restoreQuoteTweetsLink": {
-    "message": "Restore Quote Tweets link under Tweets"
+    "message": "Restore Quote Tweets link"
   },
   "retweets": {
     "message": "Retweets"
@@ -592,7 +598,7 @@
     "message": "Tweets shared by other users"
   },
   "showBookmarkButtonUnderFocusedTweets": {
-    "message": "Show under focused Tweets"
+    "message": "Show on Tweet pages"
   },
   "showPremiumReplyBusiness": {
     "message": "Show verified Business accounts"
@@ -619,7 +625,7 @@
     "message": "Show verified Government accounts"
   },
   "showRelevantPeople": {
-    "message": "Show \"Relevant people\" when viewing a Tweet"
+    "message": "Show \"Relevant people\" on Tweet pages"
   },
   "sidebar": {
     "message": "Sidebar"
@@ -639,11 +645,20 @@
   "themeFollowButtons": {
     "message": "Use theme colour"
   },
-  "tweakQuoteTweetsPage": {
-    "message": "Hide the quoted Tweet when viewing Quote Tweets"
+  "timelineContentOptions": {
+    "message": "Timeline content"
   },
-  "tweetsAndRepliesOptions": {
-    "message": "Tweets & replies"
+  "tweakQuoteTweetsPage": {
+    "message": "Compact Quote Tweets pages"
+  },
+  "tweakQuoteTweetsPageInfo": {
+    "message": "Hide the quoted Tweet"
+  },
+  "tweetActionsOptions": {
+    "message": "Tweet actions"
+  },
+  "tweetPageOptions": {
+    "message": "Tweet page"
   },
   "uiImprovementsOptions": {
     "message": "UI improvements"

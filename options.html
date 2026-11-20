@@ -84,17 +84,6 @@
             <option value="separate"></option>
           </options-select>
         </section>
-        <section class="option checkbox rweb">
-          <options-toggle name="mutableQuoteTweets"></options-toggle>
-          <details id="hideQuotesFromDetails">
-            <summary><span id="hideQuotesFromCount"></span></summary>
-            <div id="hideQuotesFrom"></div>
-          </details>
-          <details id="mutedQuotesDetails">
-            <summary><span id="mutedQuotesCount"></span></summary>
-            <div id="mutedQuotes"></div>
-          </details>
-        </section>
         <section class="option checkbox">
           <options-toggle name="hideSeeNewTweets"></options-toggle>
         </section>
@@ -103,12 +92,6 @@
         </section>
         <section class="option checkbox desktop">
           <options-toggle name="hideTimelineTweetBox"></options-toggle>
-        </section>
-        <section class="option checkbox">
-          <options-toggle name="hideInlinePrompts"></options-toggle>
-        </section>
-        <section class="option checkbox">
-          <options-toggle name="hideSuggestedContentTimeline"></options-toggle>
         </section>
       </div>
     </section>
@@ -167,9 +150,6 @@
         </section>
         <section class="option checkbox">
           <options-toggle name="hideGrok"></options-toggle>
-        </section>
-        <section class="option checkbox rweb">
-          <options-toggle name="hideGrokTweets"></options-toggle>
         </section>
         <section class="option checkbox rweb">
           <options-toggle name="hideJobs"></options-toggle>
@@ -271,9 +251,6 @@
           <options-toggle name="dropdownMenuFontWeight"></options-toggle>
         </section>
         <section class="option checkbox rweb">
-          <options-toggle name="revertMediaCarousel"></options-toggle>
-        </section>
-        <section class="option checkbox rweb">
           <options-toggle name="revertProfileTabs"></options-toggle>
         </section>
         <section class="option checkbox rweb">
@@ -282,34 +259,70 @@
       </div>
     </section>
     <!-- #endregion -->
-    <!-- #region Tweets and replies -->
+    <!-- #region Timeline content -->
     <section class="group labelled collapsible">
-      <label class="group-label" data-collapse-id="tweets">
+      <label class="group-label" data-collapse-id="timelineContent">
         <svg class="group-disclosure" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
           <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
         </svg>
-        <span id="tweetsAndRepliesOptions">Tweets & replies</span>
+        <span id="timelineContentOptions">Timeline content</span>
       </label>
       <div class="options">
         <section class="option checkbox">
-          <options-toggle name="hideBookmarkButton"></options-toggle>
-          <div class="sub-options hidingBookmarkButton">
-            <section class="option checkbox">
-              <options-toggle name="showBookmarkButtonUnderFocusedTweets"></options-toggle>
-            </section>
-          </div>
+          <options-toggle name="hideInlinePrompts"></options-toggle>
         </section>
         <section class="option checkbox">
-          <options-toggle name="hideShareTweetButton"></options-toggle>
+          <options-toggle name="hideSuggestedContentTimeline"></options-toggle>
         </section>
         <section class="option checkbox">
-          <options-toggle name="cleanTweetLinks"></options-toggle>
+          <options-toggle name="hideUnavailableQuoteTweets"></options-toggle>
         </section>
         <section class="option checkbox">
-          <options-toggle name="bypassMediaContextMenu"></options-toggle>
+          <options-toggle name="hideAiTweets"></options-toggle>
         </section>
         <section class="option checkbox">
-          <options-toggle name="disableVideoLooping"></options-toggle>
+          <options-toggle name="hidePaidPartnerships"></options-toggle>
+        </section>
+        <section class="option checkbox rweb">
+          <options-toggle name="hideGrokTweets"></options-toggle>
+        </section>
+        <section class="option checkbox">
+          <options-toggle name="hideListRetweets"></options-toggle>
+        </section>
+        <section class="option checkbox">
+          <options-toggle name="hideProfileRetweets"></options-toggle>
+        </section>
+        <section class="option checkbox rweb">
+          <options-toggle name="mutableQuoteTweets"></options-toggle>
+          <details id="hideQuotesFromDetails">
+            <summary><span id="hideQuotesFromCount"></span></summary>
+            <div id="hideQuotesFrom"></div>
+          </details>
+          <details id="mutedQuotesDetails">
+            <summary><span id="mutedQuotesCount"></span></summary>
+            <div id="mutedQuotes"></div>
+          </details>
+        </section>
+      </div>
+    </section>
+    <!-- #endregion -->
+    <!-- #region Tweet page -->
+    <section class="group labelled collapsible">
+      <label class="group-label" data-collapse-id="tweetPage">
+        <svg class="group-disclosure" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="tweetPageOptions">Tweet page</span>
+      </label>
+      <div class="options">
+        <section class="option checkbox">
+          <options-toggle name="addFocusedTweetAccountLocation"></options-toggle>
+        </section>
+        <section class="option checkbox">
+          <options-toggle name="restoreQuoteTweetsLink"></options-toggle>
+        </section>
+        <section class="option checkbox">
+          <options-toggle name="restoreOtherInteractionLinks"></options-toggle>
         </section>
         <section class="option select">
           <options-select name="sortReplies" info-id="sortRepliesInfo">
@@ -330,29 +343,52 @@
         <section class="option checkbox rweb">
           <options-toggle name="hideMoreFromThisAuthor"></options-toggle>
         </section>
+      </div>
+    </section>
+    <!-- #endregion -->
+    <!-- #region Tweet actions -->
+    <section class="group labelled collapsible">
+      <label class="group-label" data-collapse-id="tweetActions">
+        <svg class="group-disclosure" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="tweetActionsOptions">Tweet actions</span>
+      </label>
+      <div class="options">
         <section class="option checkbox">
-          <options-toggle name="hideUnavailableQuoteTweets"></options-toggle>
+          <options-toggle name="hideBookmarkButton"></options-toggle>
+          <div class="sub-options hidingBookmarkButton">
+            <section class="option checkbox">
+              <options-toggle name="showBookmarkButtonUnderFocusedTweets"></options-toggle>
+            </section>
+          </div>
         </section>
         <section class="option checkbox">
-          <options-toggle name="hideAiTweets"></options-toggle>
+          <options-toggle name="hideShareTweetButton"></options-toggle>
         </section>
         <section class="option checkbox">
-          <options-toggle name="hidePaidPartnerships"></options-toggle>
-        </section>
-        <section class="option checkbox">
-          <options-toggle name="addFocusedTweetAccountLocation"></options-toggle>
-        </section>
-        <section class="option checkbox">
-          <options-toggle name="restoreQuoteTweetsLink"></options-toggle>
-        </section>
-        <section class="option checkbox">
-          <options-toggle name="restoreOtherInteractionLinks"></options-toggle>
+          <options-toggle name="cleanTweetLinks"></options-toggle>
         </section>
         <section class="option checkbox">
           <options-toggle name="fastBlock"></options-toggle>
         </section>
+      </div>
+    </section>
+    <!-- #endregion -->
+    <!-- #region Media -->
+    <section class="group labelled collapsible">
+      <label class="group-label" data-collapse-id="media">
+        <svg class="group-disclosure" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" aria-hidden="true">
+          <path d="m6.24 8.999 3.614-3.613a.498.498 0 0 0 0-.707.5.5 0 0 0-.707 0L5.999 7.826 2.854 4.68a.5.5 0 0 0-.707.707L5.759 9l.481-.001z"/>
+        </svg>
+        <span id="mediaOptions">Media</span>
+      </label>
+      <div class="options">
         <section class="option checkbox">
-          <options-toggle name="tweakQuoteTweetsPage"></options-toggle>
+          <options-toggle name="bypassMediaContextMenu"></options-toggle>
+        </section>
+        <section class="option checkbox">
+          <options-toggle name="disableVideoLooping"></options-toggle>
         </section>
         <section class="option checkbox">
           <options-toggle name="unblurSensitiveContent"></options-toggle>
@@ -362,6 +398,9 @@
         </section>
         <section class="option checkbox rweb">
           <options-toggle name="bypassAgeVerification"></options-toggle>
+        </section>
+        <section class="option checkbox rweb">
+          <options-toggle name="revertMediaCarousel"></options-toggle>
         </section>
       </div>
     </section>
@@ -376,10 +415,7 @@
       </label>
       <div class="options">
         <section class="option checkbox">
-          <options-toggle name="hideListRetweets"></options-toggle>
-        </section>
-        <section class="option checkbox">
-          <options-toggle name="hideProfileRetweets"></options-toggle>
+          <options-toggle name="tweakQuoteTweetsPage" info></options-toggle>
         </section>
         <section class="option checkbox desktop">
           <options-toggle name="addUserHoverCardAccountLocation"></options-toggle>
@@ -391,15 +427,7 @@
           <options-toggle name="defaultToLatestSearch"></options-toggle>
         </section>
         <section class="option checkbox">
-          <options-toggle name="hideExplorePageContents"></options-toggle>
-        </section>
-        <section class="option checkbox desktop">
-          <options-toggle name="hideExploreNav"></options-toggle>
-          <div class="sub-options hidingExploreNav">
-            <section class="option checkbox">
-              <options-toggle name="hideExploreNavWithSidebar"></options-toggle>
-            </section>
-          </div>
+          <options-toggle name="hideExplorePageContents" info></options-toggle>
         </section>
       </div>
     </section>
@@ -445,6 +473,14 @@
         <span id="hideNavigationItemsOptions">Hide navigation items</span>
       </label>
       <div class="options">
+        <section class="option checkbox desktop">
+          <options-toggle name="hideExploreNav"></options-toggle>
+          <div class="sub-options hidingExploreNav">
+            <section class="option checkbox">
+              <options-toggle name="hideExploreNavWithSidebar"></options-toggle>
+            </section>
+          </div>
+        </section>
         <section class="option checkbox">
           <options-toggle name="hideConnectNav"></options-toggle>
         </section>
@@ -494,6 +530,9 @@
       </label>
       <div class="options">
         <section class="option checkbox">
+          <options-toggle name="hideViews"></options-toggle>
+        </section>
+        <section class="option checkbox">
           <options-toggle name="hideMetrics"></options-toggle>
           <div class="sub-options hidingMetrics">
             <section class="option checkbox bulk-option search-intermediate">
@@ -523,9 +562,6 @@
                </div>
             </section>
           </div>
-        </section>
-        <section class="option checkbox">
-          <options-toggle name="hideViews"></options-toggle>
         </section>
         <section class="option select">
           <options-select name="hideNotifications" label-key="notifications">

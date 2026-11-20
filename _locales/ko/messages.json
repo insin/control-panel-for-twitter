@@ -3,10 +3,10 @@
     "message": "탐색 메뉴에 \"뮤트할 단어 추가하기\" 추가"
   },
   "addFocusedTweetAccountLocation": {
-    "message": "개별 트윗에 계정 위치 표시"
+    "message": "작성자의 계정 위치 표시"
   },
   "addUserHoverCardAccountLocation": {
-    "message": "사용자 호버 카드에 계정 위치 표시"
+    "message": "사용자 카드에 계정 위치 표시"
   },
   "advancedOptions": {
     "message": "고급"
@@ -24,7 +24,7 @@
     "message": "성인 인증 우회하기"
   },
   "bypassMediaContextMenu": {
-    "message": "미디어 컨텍스트 메뉴 건너뛰기"
+    "message": "브라우저 컨텍스트 메뉴 사용"
   },
   "cleanTweetLinks": {
     "message": "추적 정보 없이 트윗 링크 복사"
@@ -57,7 +57,7 @@
     "message": "팔로잉을 기본적으로 \"최신순\"으로 정렬"
   },
   "defaultToFollowing": {
-    "message": "기본적으로 팔로잉 타임라인 사용"
+    "message": "기본적으로 팔로잉 사용"
   },
   "defaultToLatestSearch": {
     "message": "검색 시 기본적으로 \"최신\" 탭 사용"
@@ -84,13 +84,13 @@
     "message": "동영상 반복 재생 비활성화"
   },
   "disabledHomeTimelineRedirect": {
-    "message": "비활성화된 홈 타임라인 리디렉션"
+    "message": "홈 리디렉션 대상"
   },
   "dontUseChirpFont": {
     "message": "Chirp 글꼴 사용 안 함"
   },
   "dropdownMenuFontWeight": {
-    "message": "드롭다운 메뉴에서 일반 글꼴 두께 사용"
+    "message": "메뉴에 일반 글꼴 두께 사용"
   },
   "enableCustomCss": {
     "message": "사용자 정의 CSS"
@@ -117,7 +117,7 @@
     "message": "Control Panel for Twitter (비활성화됨)"
   },
   "fastBlock": {
-    "message": "빠른 차단 (확인 대화상자 생략)"
+    "message": "차단 확인 생략"
   },
   "features": {
     "message": "기능"
@@ -150,7 +150,7 @@
     "message": "모두 숨기기"
   },
   "hideBookmarkButton": {
-    "message": "트윗 아래 북마크 버튼 숨기기"
+    "message": "북마크 버튼 숨기기"
   },
   "hideBookmarkMetrics": {
     "message": "북마크"
@@ -171,7 +171,7 @@
     "message": "커뮤니티"
   },
   "hideComposeTweet": {
-    "message": "트윗 작성 버튼 숨기기"
+    "message": "기본 트윗 버튼 숨기기"
   },
   "hideConnectNav": {
     "message": "팔로우"
@@ -186,13 +186,16 @@
     "message": "이미지 수정하기 버튼 숨기기"
   },
   "hideExploreNav": {
-    "message": "탐색 메뉴 항목 숨기기"
+    "message": "탐색하기"
   },
   "hideExploreNavWithSidebar": {
     "message": "사이드바 숨김 상태에서 표시"
   },
   "hideExplorePageContents": {
-    "message": "탐색하기 페이지 컨텐츠 숨기기 및 검색에만 사용"
+    "message": "탐색하기를 검색에만 사용"
+  },
+  "hideExplorePageContentsInfo": {
+    "message": "검색창 아래의 탭과 콘텐츠 숨기기"
   },
   "hideFollowingMenu": {
     "message": "팔로잉의 \"정렬\" 메뉴 숨기기"
@@ -201,7 +204,7 @@
     "message": "팔로잉/팔로워"
   },
   "hideForYouTimeline": {
-    "message": "\"추천\" 타임라인 숨기기"
+    "message": "\"추천\" 숨기기"
   },
   "hideGrok": {
     "message": "Grok 숨기기"
@@ -213,7 +216,7 @@
     "message": "역사"
   },
   "hideInlinePrompts": {
-    "message": "타임라인에서 인라인 프롬프트 숨기기"
+    "message": "인라인 프롬프트 숨기기"
   },
   "hideJobs": {
     "message": "채용을 숨긴다"
@@ -297,7 +300,7 @@
     "message": "새 트윗 팝업 숨기기"
   },
   "hideShareTweetButton": {
-    "message": "트윗 아래 공유 버튼 숨기기"
+    "message": "공유 버튼 숨기기"
   },
   "hideSidebarContent": {
     "message": "사이드바 내용 숨기기"
@@ -315,13 +318,13 @@
     "message": "검색에서 추천 콘텐츠 숨기기"
   },
   "hideSuggestedContentTimeline": {
-    "message": "타임라인에서 추천 콘텐츠 숨기기"
+    "message": "추천 콘텐츠 숨기기"
   },
   "hideSuggestedFollows": {
     "message": "추천 팔로우 숨기기"
   },
   "hideTimelineTweetBox": {
-    "message": "타임라인 트윗 상자 숨기기"
+    "message": "\"무슨 일이 일어나고 있나요?\" 상자 숨기기"
   },
   "hideTodaysNews": {
     "message": "오늘의 뉴스 숨기기"
@@ -336,10 +339,10 @@
     "message": "팔로워의 인증된 탭 숨기기"
   },
   "hideViewActivityLinks": {
-    "message": "\"활동 보기\" 링크"
+    "message": "\"활동 보기\" 링크 숨기기"
   },
   "hideViews": {
-    "message": "트윗 아래의 조회수 숨기기"
+    "message": "조회수 숨기기"
   },
   "hideWhatsHappening": {
     "message": "'지금 일어나는 일' 숨기기"
@@ -378,6 +381,9 @@
   "lightModeTheme": {
     "message": "라이트 모드의 테마"
   },
+  "mediaOptions": {
+    "message": "미디어"
+  },
   "mutableQuoteTweets": {
     "message": "인용 트윗 음소거 활성화"
   },
@@ -397,7 +403,7 @@
     "message": "특정 단어, 구문 또는 패턴을 포함하는 트윗 숨기기 - 한 줄에 하나씩"
   },
   "navBaseFontSize": {
-    "message": "내비게이션 바에 일반 텍스트 글꼴 스타일 사용"
+    "message": "내비게이션에 일반 텍스트 사용"
   },
   "navDensity": {
     "message": "네비게이션 밀도"
@@ -517,7 +523,7 @@
     "message": "\"참여\" 줄이기"
   },
   "reducedInteractionMode": {
-    "message": "상호작용 줄임 모드"
+    "message": "트윗 작업 표시줄 숨기기"
   },
   "reducedInteractionModeInfo": {
     "message": "트윗 아래의 작업 표시줄을 숨김 - 답글이 상호작용의 유일한 수단이 됨"
@@ -529,10 +535,10 @@
     "message": "트위터 링크 미리보기 복원"
   },
   "restoreOtherInteractionLinks": {
-    "message": "트윗 아래의 다른 링크 복원"
+    "message": "리트윗 및 마음에 들어요 링크 복원"
   },
   "restoreQuoteTweetsLink": {
-    "message": "트윗 아래의 \"트윗 인용\" 링크 복원"
+    "message": "\"트윗 인용\" 링크 복원"
   },
   "retweets": {
     "message": "리트윗"
@@ -571,7 +577,7 @@
     "message": "다른 사용자가 공유한 트윗"
   },
   "showBookmarkButtonUnderFocusedTweets": {
-    "message": "집중된 트윗 아래에 표시"
+    "message": "트윗 페이지에 표시"
   },
   "showPremiumReplyBusiness": {
     "message": "인증된 비즈니스 계정 표시"
@@ -597,7 +603,7 @@
     "message": "인증된 정부 계정 표시"
   },
   "showRelevantPeople": {
-    "message": "트윗 보기 시 \"연관된 사람\" 표시"
+    "message": "트윗 페이지에 \"연관된 사람\" 표시"
   },
   "sidebar": {
     "message": "사이드바"
@@ -617,11 +623,20 @@
   "themeFollowButtons": {
     "message": "테마 색상 사용"
   },
-  "tweakQuoteTweetsPage": {
-    "message": "인용 트윗을 볼 때 인용된 트윗 숨기기"
+  "timelineContentOptions": {
+    "message": "타임라인 콘텐츠"
   },
-  "tweetsAndRepliesOptions": {
-    "message": "트윗 및 답글"
+  "tweakQuoteTweetsPage": {
+    "message": "인용 트윗 페이지 간소화"
+  },
+  "tweakQuoteTweetsPageInfo": {
+    "message": "인용된 트윗 숨기기"
+  },
+  "tweetActionsOptions": {
+    "message": "트윗 작업"
+  },
+  "tweetPageOptions": {
+    "message": "트윗 페이지"
   },
   "uiImprovementsOptions": {
     "message": "UI 개선"

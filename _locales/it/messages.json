@@ -3,10 +3,10 @@
     "message": "Aggiungi \"Aggiungi parola o frase silenziata\" al menu di navigazione"
   },
   "addFocusedTweetAccountLocation": {
-    "message": "Mostra la località dell'account nei tweet in primo piano"
+    "message": "Mostra la località dell’account dell’autore"
   },
   "addUserHoverCardAccountLocation": {
-    "message": "Mostra la località dell'account nelle schede profilo a comparsa"
+    "message": "Mostra la località dell’account nelle schede utente"
   },
   "advancedOptions": {
     "message": "Avanzate"
@@ -24,7 +24,7 @@
     "message": "Aggira la verifica dell'età"
   },
   "bypassMediaContextMenu": {
-    "message": "Ignora i menu contestuali dei contenuti multimediali"
+    "message": "Usa i menu contestuali del browser"
   },
   "cleanTweetLinks": {
     "message": "Copia i link dei Tweet senza tracciamento"
@@ -57,7 +57,7 @@
     "message": "Ordina Seguiti per \"Più recenti\" di default"
   },
   "defaultToFollowing": {
-    "message": "Usa la timeline Seguiti di default"
+    "message": "Usa Seguiti di default"
   },
   "defaultToLatestSearch": {
     "message": "Usa \"Recenti\" come sezione di default in Cerca"
@@ -90,7 +90,7 @@
     "message": "Non usare il font Chirp"
   },
   "dropdownMenuFontWeight": {
-    "message": "Usa il peso normale per il font dei menu a tendina"
+    "message": "Usa il peso normale nei menu"
   },
   "enableCustomCss": {
     "message": "CSS personalizzato"
@@ -117,7 +117,7 @@
     "message": "Control Panel for Twitter (disabilitato)"
   },
   "fastBlock": {
-    "message": "Blocco rapido (salta la conferma)"
+    "message": "Salta la conferma di blocco"
   },
   "features": {
     "message": "Funzionalità"
@@ -150,7 +150,7 @@
     "message": "Nascondi tutte"
   },
   "hideBookmarkButton": {
-    "message": "Nascondi il tasto segnalibro sotto i tweet"
+    "message": "Nascondi il tasto segnalibro"
   },
   "hideBookmarkMetrics": {
     "message": "Segnalibri"
@@ -171,7 +171,7 @@
     "message": "Community"
   },
   "hideComposeTweet": {
-    "message": "Nascondi il pulsante Componi Tweet"
+    "message": "Nascondi il pulsante Tweet principale"
   },
   "hideConnectNav": {
     "message": "Segui"
@@ -186,13 +186,16 @@
     "message": "Nascondi i pulsanti Modifica immagine"
   },
   "hideExploreNav": {
-    "message": "Nascondi Esplora nella navigazione"
+    "message": "Esplora"
   },
   "hideExploreNavWithSidebar": {
     "message": "Mostra quando la barra laterale è nascosta"
   },
   "hideExplorePageContents": {
-    "message": "Nascondi i contenuti della pagina Esplora e usala solo per cercare"
+    "message": "Usa Esplora solo per cercare"
+  },
+  "hideExplorePageContentsInfo": {
+    "message": "Nascondi le schede e i contenuti sotto la casella di ricerca"
   },
   "hideFollowingMenu": {
     "message": "Nascondi il menu \"Ordina\" di Seguiti"
@@ -201,7 +204,7 @@
     "message": "Seguiti / seguaci"
   },
   "hideForYouTimeline": {
-    "message": "Nascondi la timeline \"Per te\""
+    "message": "Nascondi \"Per te\""
   },
   "hideGrok": {
     "message": "Nascondi Grok"
@@ -213,7 +216,7 @@
     "message": "Storia"
   },
   "hideInlinePrompts": {
-    "message": "Nascondi i suggerimenti nella timeline"
+    "message": "Nascondi i suggerimenti in linea"
   },
   "hideJobs": {
     "message": "Nascondi Offerte di lavoro"
@@ -297,7 +300,7 @@
     "message": "Nascondi il popup dei nuovi tweet"
   },
   "hideShareTweetButton": {
-    "message": "Nascondi il tasto Condividi sotto ai tweet"
+    "message": "Nascondi il tasto Condividi"
   },
   "hideSidebarContent": {
     "message": "Nascondi contenuti della barra laterale"
@@ -315,13 +318,13 @@
     "message": "Nascondi i contenuti suggeriti nella Ricerca"
   },
   "hideSuggestedContentTimeline": {
-    "message": "Nascondi i contenuti suggeriti nella timeline"
+    "message": "Nascondi i contenuti suggeriti"
   },
   "hideSuggestedFollows": {
     "message": "Nascondi i suggerimenti di follow"
   },
   "hideTimelineTweetBox": {
-    "message": "Nascondi il compositore tweet nella timeline"
+    "message": "Nascondi il riquadro \"Che c’è di nuovo?\""
   },
   "hideTodaysNews": {
     "message": "Nascondi le Notizie del giorno"
@@ -336,10 +339,10 @@
     "message": "Nascondi la scheda Verificati dei follower"
   },
   "hideViewActivityLinks": {
-    "message": "Link \"Visualizza attività\""
+    "message": "Nascondi i link \"Visualizza attività\""
   },
   "hideViews": {
-    "message": "Nascondi le visualizzazioni sotto ai tweet"
+    "message": "Nascondi il numero di visualizzazioni"
   },
   "hideWhatsHappening": {
     "message": "Nascondi Cosa sta succedendo"
@@ -378,6 +381,9 @@
   "lightModeTheme": {
     "message": "Tema della modalità chiara"
   },
+  "mediaOptions": {
+    "message": "Contenuti multimediali"
+  },
   "mutableQuoteTweets": {
     "message": "Abilita silenziamento dei tweet di citazione"
   },
@@ -397,7 +403,7 @@
     "message": "Nascondi i Tweet contenenti parole, frasi o pattern specifici - uno per riga"
   },
   "navBaseFontSize": {
-    "message": "Usa lo stile normale per il font della barra di navigazione"
+    "message": "Usa testo normale nella navigazione"
   },
   "navDensity": {
     "message": "Densità navigazione"
@@ -517,7 +523,7 @@
     "message": "Riduci \"interazioni\""
   },
   "reducedInteractionMode": {
-    "message": "Modalità a interazione ridotta"
+    "message": "Nascondi le barre delle azioni dei Tweet"
   },
   "reducedInteractionModeInfo": {
     "message": "Nascondi la barra di azione sotto ai tweet: le risposte sono ora l'unico modo per interagire"
@@ -529,10 +535,10 @@
     "message": "Ripristina le anteprime dei link di Twitter"
   },
   "restoreOtherInteractionLinks": {
-    "message": "Ripristina altri link sotto ai tweet"
+    "message": "Ripristina i link di Retweet e Mi piace"
   },
   "restoreQuoteTweetsLink": {
-    "message": "Ripristina link dei tweet di citazione sotto ai tweet"
+    "message": "Ripristina il link dei Tweet di citazione"
   },
   "retweets": {
     "message": "Retweet"
@@ -571,7 +577,7 @@
     "message": "Tweet condivisi da altri utenti"
   },
   "showBookmarkButtonUnderFocusedTweets": {
-    "message": "Mostra sotto ai tweet selezionati"
+    "message": "Mostra nelle pagine dei Tweet"
   },
   "showPremiumReplyBusiness": {
     "message": "Mostra account aziendali verificati"
@@ -598,7 +604,7 @@
     "message": "Mostra account governativi verificati"
   },
   "showRelevantPeople": {
-    "message": "Mostra \"Persone rilevanti\" quando visualizzi un tweet"
+    "message": "Mostra \"Persone rilevanti\" nelle pagine dei Tweet"
   },
   "sidebar": {
     "message": "Barra laterale"
@@ -618,11 +624,20 @@
   "themeFollowButtons": {
     "message": "Usa il colore del tema"
   },
-  "tweakQuoteTweetsPage": {
-    "message": "Nascondi il tweet citato quando visualizzi i tweet di citazione"
+  "timelineContentOptions": {
+    "message": "Contenuti delle cronologie"
   },
-  "tweetsAndRepliesOptions": {
-    "message": "Tweet e risposte"
+  "tweakQuoteTweetsPage": {
+    "message": "Compatta le pagine dei Tweet di citazione"
+  },
+  "tweakQuoteTweetsPageInfo": {
+    "message": "Nascondi il Tweet citato"
+  },
+  "tweetActionsOptions": {
+    "message": "Azioni sui Tweet"
+  },
+  "tweetPageOptions": {
+    "message": "Pagina del Tweet"
   },
   "uiImprovementsOptions": {
     "message": "Miglioramenti interfaccia"

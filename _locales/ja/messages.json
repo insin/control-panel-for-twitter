@@ -3,10 +3,10 @@
     "message": "ナビゲーションメニューに「ミュートするキーワードを追加」を追加"
   },
   "addFocusedTweetAccountLocation": {
-    "message": "ツイートの詳細表示にアカウントの場所を表示"
+    "message": "投稿者のアカウントの場所を表示"
   },
   "addUserHoverCardAccountLocation": {
-    "message": "ユーザーのプロフィールカードにアカウントの場所を表示"
+    "message": "ユーザーカードにアカウントの場所を表示"
   },
   "advancedOptions": {
     "message": "詳細設定"
@@ -24,7 +24,7 @@
     "message": "年齢確認をバイパス"
   },
   "bypassMediaContextMenu": {
-    "message": "メディアのコンテキストメニューをスキップ"
+    "message": "ブラウザのコンテキストメニューを使用"
   },
   "cleanTweetLinks": {
     "message": "追跡情報なしでツイートのリンクをコピー"
@@ -57,7 +57,7 @@
     "message": "フォロー中をデフォルトで「最新」に並べ替え"
   },
   "defaultToFollowing": {
-    "message": "デフォルトで「フォロー中」タイムラインを使用"
+    "message": "デフォルトで「フォロー中」を使用"
   },
   "defaultToLatestSearch": {
     "message": "検索のデフォルトは「最新」タブ"
@@ -84,13 +84,13 @@
     "message": "動画のループ再生を無効にする"
   },
   "disabledHomeTimelineRedirect": {
-    "message": "「ホーム」タイムラインをリダイレクト"
+    "message": "「ホーム」のリダイレクト先"
   },
   "dontUseChirpFont": {
     "message": "Chirpフォントを使用しない"
   },
   "dropdownMenuFontWeight": {
-    "message": "ドロップダウンメニューを通常のフォントの太さにする"
+    "message": "メニューの文字を通常の太さにする"
   },
   "enableCustomCss": {
     "message": "カスタムCSS"
@@ -117,7 +117,7 @@
     "message": "Control Panel for Twitter (無効)"
   },
   "fastBlock": {
-    "message": "即ブロック（確認画面をスキップする）"
+    "message": "ブロックの確認をスキップ"
   },
   "features": {
     "message": "機能"
@@ -150,7 +150,7 @@
     "message": "すべて非表示"
   },
   "hideBookmarkButton": {
-    "message": "ツイート下部のブックマークボタンを非表示"
+    "message": "ブックマークボタンを非表示"
   },
   "hideBookmarkMetrics": {
     "message": "ブックマーク"
@@ -171,7 +171,7 @@
     "message": "コミュニティ"
   },
   "hideComposeTweet": {
-    "message": "ツイート作成ボタンを非表示"
+    "message": "メインのツイートボタンを非表示"
   },
   "hideConnectNav": {
     "message": "フォロー"
@@ -186,13 +186,16 @@
     "message": "「画像を編集」ボタンを非表示"
   },
   "hideExploreNav": {
-    "message": "ナビゲーションの「話題を検索」を非表示"
+    "message": "話題を検索"
   },
   "hideExploreNavWithSidebar": {
     "message": "サイドバーが非表示の場合に表示"
   },
   "hideExplorePageContents": {
-    "message": "「話題を検索」ページの内容を非表示（検索のみに使用する）"
+    "message": "「話題を検索」を検索のみに使用"
+  },
+  "hideExplorePageContentsInfo": {
+    "message": "検索ボックスの下にあるタブとコンテンツを非表示"
   },
   "hideFollowingMenu": {
     "message": "フォロー中の「並べ替え」メニューを非表示"
@@ -201,7 +204,7 @@
     "message": "フォロー／フォロワー"
   },
   "hideForYouTimeline": {
-    "message": "「おすすめ」タイムラインを非表示"
+    "message": "「おすすめ」を非表示"
   },
   "hideGrok": {
     "message": "Grok を非表示にする"
@@ -213,7 +216,7 @@
     "message": "履歴"
   },
   "hideInlinePrompts": {
-    "message": "タイムライン内のインラインプロンプトを非表示にする"
+    "message": "インラインプロンプトを非表示"
   },
   "hideJobs": {
     "message": "募集を非表示にする"
@@ -297,7 +300,7 @@
     "message": "新着ツイートのポップアップを非表示"
   },
   "hideShareTweetButton": {
-    "message": "ツイート下部のシェアボタンを非表示"
+    "message": "シェアボタンを非表示"
   },
   "hideSidebarContent": {
     "message": "サイドバーコンテンツを非表示にする"
@@ -315,13 +318,13 @@
     "message": "検索のおすすめコンテンツを非表示"
   },
   "hideSuggestedContentTimeline": {
-    "message": "タイムラインのおすすめコンテンツを非表示"
+    "message": "おすすめコンテンツを非表示"
   },
   "hideSuggestedFollows": {
     "message": "おすすめのフォローを非表示"
   },
   "hideTimelineTweetBox": {
-    "message": "タイムラインのツイートボックスを非表示"
+    "message": "「いまどうしてる？」ボックスを非表示"
   },
   "hideTodaysNews": {
     "message": "「本日のニュース」を非表示"
@@ -336,10 +339,10 @@
     "message": "フォロワーの「認証済み」タブを非表示"
   },
   "hideViewActivityLinks": {
-    "message": "「アクティビティを表示」リンク"
+    "message": "「アクティビティを表示」リンクを非表示"
   },
   "hideViews": {
-    "message": "ツイート下部のアナリティクスのリンクを非表示"
+    "message": "表示回数を非表示"
   },
   "hideWhatsHappening": {
     "message": "「いまどうしてる？」を非表示"
@@ -378,6 +381,9 @@
   "lightModeTheme": {
     "message": "ライトモードのテーマ"
   },
+  "mediaOptions": {
+    "message": "メディア"
+  },
   "mutableQuoteTweets": {
     "message": "引用ツイートのミュートを有効にする"
   },
@@ -397,7 +403,7 @@
     "message": "特定の単語、フレーズ、またはパターンを含むツイートを非表示 - 1行に1つ"
   },
   "navBaseFontSize": {
-    "message": "ナビゲーションバーを通常のフォントサイズにする"
+    "message": "ナビゲーションを通常の文字にする"
   },
   "navDensity": {
     "message": "ナビゲーションの密度"
@@ -517,7 +523,7 @@
     "message": "「エンゲージメント」を減らす"
   },
   "reducedInteractionMode": {
-    "message": "インタラクションモードを減らす"
+    "message": "ツイートの操作バーを非表示"
   },
   "reducedInteractionModeInfo": {
     "message": "ツイートの下にあるアクションバーを非表示（リプライのみで交流する）"
@@ -529,10 +535,10 @@
     "message": "Twitterのリンクプレビューを復元"
   },
   "restoreOtherInteractionLinks": {
-    "message": "ツイートの下の他のリンクを復元する"
+    "message": "「リツイート」と「いいね」リンクを復元"
   },
   "restoreQuoteTweetsLink": {
-    "message": "ツイートの下にある「引用ツイート」リンクを復元する"
+    "message": "「引用ツイート」リンクを復元"
   },
   "retweets": {
     "message": "リツイート"
@@ -571,7 +577,7 @@
     "message": "他のユーザーが共有したツイート"
   },
   "showBookmarkButtonUnderFocusedTweets": {
-    "message": "フォーカスされたツイートの下に表示"
+    "message": "ツイートページに表示"
   },
   "showPremiumReplyBusiness": {
     "message": "認証済みビジネスアカウントを表示"
@@ -597,7 +603,7 @@
     "message": "認証済み政府機関アカウントを表示"
   },
   "showRelevantPeople": {
-    "message": "ツイート閲覧時に「おすすめユーザー」を表示する"
+    "message": "ツイートページに「おすすめユーザー」を表示"
   },
   "sidebar": {
     "message": "サイドバー"
@@ -617,11 +623,20 @@
   "themeFollowButtons": {
     "message": "テーマカラーを使用"
   },
-  "tweakQuoteTweetsPage": {
-    "message": "引用ツイート閲覧時に引用元ツイートを非表示"
+  "timelineContentOptions": {
+    "message": "タイムラインのコンテンツ"
   },
-  "tweetsAndRepliesOptions": {
-    "message": "ツイートと返信"
+  "tweakQuoteTweetsPage": {
+    "message": "引用ツイートページをコンパクトにする"
+  },
+  "tweakQuoteTweetsPageInfo": {
+    "message": "引用元ツイートを非表示"
+  },
+  "tweetActionsOptions": {
+    "message": "ツイートの操作"
+  },
+  "tweetPageOptions": {
+    "message": "ツイートページ"
   },
   "uiImprovementsOptions": {
     "message": "UIの改善"
