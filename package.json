@@ -1,10 +1,13 @@
 {
   "scripts": {
-    "dev:options": "node ./scripts/options-preview.mjs",
+    "dev:options": "soext preview options",
     "dev:safari": "node ./scripts/dev-safari.mjs",
     "dev:safari:ios": "node ./scripts/dev-safari.mjs ios",
     "shared:init": "git submodule update --init --recursive",
     "shared:update": "git submodule update --remote shared",
+    "locales:update": "soext locales update",
+    "locales:remove": "soext locales remove",
+    "translations:merge": "soext translations merge",
     "create-browser-action": "node ./scripts/create-browser-action.mjs",
     "watch-options-html": "npx -y chokidar-cli options.html -c \"npm run create-browser-action\" --initial",
     "create-store-description": "node ./scripts/create-store-description.mjs",
@@ -20,13 +23,12 @@
     "build-mv2": "node ./scripts/build.mjs 2",
     "build-mv3": "node ./scripts/build.mjs 3",
     "clean": "node ./scripts/clean.mjs",
-    "lint-mv2": "npm run copy-mv2 && web-ext lint && npm run clean",
-    "lint-mv3": "npm run copy-mv3 && web-ext lint && npm run clean",
     "copy-mv2": "node ./scripts/copy.mjs 2",
     "copy-mv3": "node ./scripts/copy.mjs 3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.13",
+    "@soitis/soext": "0.0.1",
     "@types/chrome": "0.2.x",
     "@types/node": "25.x",
     "clipboardy": "5.x",

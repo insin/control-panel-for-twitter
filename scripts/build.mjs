@@ -34,7 +34,9 @@ for (const manifestVersion of manifestVersions) {
     ? `preview-${manifestVersion == 2 ? 'firefox' : 'chromium'}.mv${manifestVersion}`
     : `mv${manifestVersion}`
   const filename = `control_panel_for_twitter-${manifestData.version}.${suffix}.zip`
-  execFileSync('web-ext', ['build', '--filename', filename], { stdio: 'inherit' })
-  console.log('Built:', path.resolve('./web-ext-artifacts', filename))
+  execFileSync('web-ext', ['build', '--artifacts-dir', 'dist', '--filename', filename], {
+    stdio: 'inherit',
+  })
+  console.log('Built:', path.resolve('./dist', filename))
   clean()
 }
