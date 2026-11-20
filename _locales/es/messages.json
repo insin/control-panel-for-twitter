@@ -260,6 +260,9 @@
   "hideNotifications": {
     "message": "Ocultar notificaciones"
   },
+  "hidePaidPartnerships": {
+    "message": "Ocultar Tweets de colaboraciones pagadas"
+  },
   "hidePremiumReplies": {
     "message": "Ocultar respuestas de cheque azul Premium"
   },

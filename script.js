@@ -60,6 +60,7 @@ const DEFAULT_SETTINGS = {
   hideNotificationLikes: false,
   hideNotificationRetweets: false,
   hideNotifications: 'ignore',
+  hidePaidPartnerships: true,
   hidePremiumReplies: false,
   hidePremiumUpsells: true,
   hideProfileHeaderMetrics: true,
@@ -7776,6 +7777,20 @@ function getTweetType($tweet, checkSocialContext = false) {
   return 'TWEET'
 }
 
+/** @param {HTMLElement} $tweet */
+function shouldHideContentDisclosure($tweet) {
+  if (!settings.hideAiTweets && !settings.hidePaidPartnerships) return false
+  let $time = $tweet.querySelector('a[href*="/status/"]:has(time)')
+  let match = /^\/([a-zA-Z\d_]{1,20})\/status\/(\d+)/.exec($time?.getAttribute('href') || '')
+  let id = match?.[2]
+  if (!id) return false
+  // Exclude the user's own Tweets
+  if (match[1].toLowerCase() == getUserScreenName()?.toLowerCase()) return false
+  let disclosure = getTweetInfo(id)?.content_disclosure
+  return Boolean(settings.hidePaidPartnerships && disclosure?.advertising_disclosure?.is_paid_promotion === true ||
+    settings.hideAiTweets && disclosure?.ai_generated_disclosure?.has_ai_generated_media === true)
+}
+
 // Add 1 every time this gets broken: 6
 function getVerifiedProps($svg) {
   let propsGetter = (props) => props?.children?.props?.children?.[0]?.[0]?.props
@@ -8284,6 +8299,8 @@ function onIndividualTweetTimelineChange($timeline, seen, options) {
         }
       }
 
+      if (!isFocusedTweet && !hideItem && shouldHideContentDisclosure($tweet)) hideItem = true
+
       if (!hideItem && settings.hideGrokTweets && $tweet.querySelector('a[href^="/i/grok/share/"]')) {
         hideItem = true
       }
@@ -8631,6 +8648,8 @@ function onTimelineChange($timeline, page, seen, options = {}) {
           }
         }
       }
+
+      if (!hideItem && shouldHideContentDisclosure($tweet)) hideItem = true
 
       if (!hideItem && mutedWords) {
         hideItem = shouldMuteTweet($tweet)
@@ -12898,8 +12917,9 @@ function createIndividualTweetTimelineProcessor(tweetPath = currentPagePath) {
       cached.context = context
       processed++
       let isAi = cached.isAi
+      let own = isUser || ((settings.hideAiTweets && isAi || settings.hidePaidPartnerships && type == 'PAID_PARTNERSHIP') && isOwnTweet($tweet || $item))
       let hidden = unavailable && reply
-      hidden ||= settings.hideAiTweets && reply && isAi
+      hidden ||= settings.hideAiTweets && reply && isAi && !own
       // Exempt ancestors/focus and groups whose initial reply is by OP/self
       if (reply && author && !isOp && !isUser && ['TWEET', 'QUOTE_TWEET'].includes(type)) {
         if (user?.verifiedType == 'Business') type = 'BUSINESS_REPLY'
@@ -12930,7 +12950,7 @@ function createIndividualTweetTimelineProcessor(tweetPath = currentPagePath) {
       if (debug) $item.setAttribute('data-item-type', `${type}${isAi ? ' / AI' : ''}`)
       else $item.removeAttribute('data-item-type')
       // Paid partnerships preserve focus/ancestor context - ad placements always hide
-      let ad = type == 'PROMOTED_TWEET' || type == 'PAID_PARTNERSHIP' && reply
+      let ad = type == 'PROMOTED_TWEET' || settings.hidePaidPartnerships && type == 'PAID_PARTNERSHIP' && reply && !own
       $item.classList.toggle('HiddenAd', ad)
       $item.classList.toggle('HiddenTweet', hidden)
     }
@@ -13028,12 +13048,13 @@ function processTimelineItems($items, timelineId) {
     let isAi = (settings.hideAiTweets || debug) && hasAiDisclosure(type == 'THREAD' ? $item.children[0] : $item)
     if (debug) $item.setAttribute('data-item-type', `${type}${isAi ? ' / AI' : ''}`)
     else $item.removeAttribute('data-item-type')
-    let ad = type == 'PROMOTED_TWEET' || type == 'PAID_PARTNERSHIP'
+    let own = (settings.hideAiTweets && isAi || settings.hidePaidPartnerships && type == 'PAID_PARTNERSHIP') && isOwnTweet($item)
+    let ad = type == 'PROMOTED_TWEET' || settings.hidePaidPartnerships && type == 'PAID_PARTNERSHIP' && !own
     // Grouped threads follow their initial tweet's shared-content setting
     let tweetType = type == 'THREAD' ? getTweetType($item.children[0]) : type
     let hidden = shouldHideTimelineTweet(tweetType, timelineId)
     hidden ||= processUnavailableTweetContent($item)
-    hidden ||= settings.hideAiTweets && isAi
+    hidden ||= settings.hideAiTweets && isAi && !own
     if (type == 'NOTIFICATION_LIKE') hidden = settings.hideNotificationLikes
     if (type == 'NOTIFICATION_RETWEET') hidden = settings.hideNotificationRetweets
     if (type == 'WHO_TO_FOLLOW') hidden = settings.hideSuggestedContentTimeline

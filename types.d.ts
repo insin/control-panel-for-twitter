@@ -116,6 +116,7 @@ export type UserSettings = {
   hideNotificationLikes: boolean
   hideNotificationRetweets: boolean
   hideNotifications: 'ignore' | 'badges' | 'hide'
+  hidePaidPartnerships: boolean
   hidePremiumReplies: boolean
   hidePremiumUpsells: boolean
   hideProfileHeaderMetrics: boolean

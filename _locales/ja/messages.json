@@ -260,6 +260,9 @@
   "hideNotifications": {
     "message": "通知を非表示"
   },
+  "hidePaidPartnerships": {
+    "message": "有料パートナーシップのツイートを非表示"
+  },
   "hidePremiumReplies": {
     "message": "プレミアム ブルー チェックの返信を非表示にする"
   },

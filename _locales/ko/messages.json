@@ -260,6 +260,9 @@
   "hideNotifications": {
     "message": "알림 숨기기"
   },
+  "hidePaidPartnerships": {
+    "message": "유료 파트너십 트윗 숨기기"
+  },
   "hidePremiumReplies": {
     "message": "Premium 파란색 체크 답장 숨기기"
   },

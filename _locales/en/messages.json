@@ -263,6 +263,9 @@
   "hideNotifications": {
     "message": "Hide notifications"
   },
+  "hidePaidPartnerships": {
+    "message": "Hide paid partnership Tweets"
+  },
   "hidePremiumReplies": {
     "message": "Hide Premium blue check replies"
   },

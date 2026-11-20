@@ -260,6 +260,9 @@
   "hideNotifications": {
     "message": "隐藏通知"
   },
+  "hidePaidPartnerships": {
+    "message": "隐藏付费合作推文"
+  },
   "hidePremiumReplies": {
     "message": "隐藏Premium蓝色勾号回复"
   },

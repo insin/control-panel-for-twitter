@@ -56,6 +56,7 @@ export const DEFAULT_SETTINGS = {
   hideNotificationLikes: false,
   hideNotificationRetweets: false,
   hideNotifications: 'ignore',
+  hidePaidPartnerships: true,
   hidePremiumReplies: false,
   hidePremiumUpsells: true,
   hideProfileHeaderMetrics: true,

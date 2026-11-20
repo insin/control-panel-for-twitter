@@ -70,6 +70,7 @@ export const currentSettingsSchema = {
   hideNotificationLikes: boolean(),
   hideNotificationRetweets: boolean(),
   hideNotifications: oneOf(['ignore', 'badges', 'hide']),
+  hidePaidPartnerships: boolean(),
   hidePremiumReplies: boolean(),
   hidePremiumUpsells: boolean(),
   hideProfileHeaderMetrics: boolean(),
