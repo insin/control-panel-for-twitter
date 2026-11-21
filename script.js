@@ -12532,6 +12532,8 @@ const configureCss = (() => {
         // Inline upgrade callout
         '[data-slot="xds-callout"]:has(a[href^="/i/premium_sign_up"])',
         '.mx-4.my-3:has([data-slot="xds-callout"] a[href^="/i/premium_sign_up"])',
+        // Own-Tweet analytics upsell
+        'article .bg-secondary:has(a[href="/i/account_analytics"])',
         // Profile Get verified button
         'body.Profile main a[data-slot="xds-button"][href^="/i/premium_sign_up"]',
       )
