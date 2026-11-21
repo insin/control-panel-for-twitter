@@ -626,6 +626,9 @@
   "timelineContentOptions": {
     "message": "타임라인 콘텐츠"
   },
+  "tweetMediaGrid": {
+    "message": "이미지를 격자로 표시"
+  },
   "tweakQuoteTweetsPage": {
     "message": "인용 트윗 페이지 간소화"
   },

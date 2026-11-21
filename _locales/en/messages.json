@@ -648,6 +648,9 @@
   "timelineContentOptions": {
     "message": "Timeline content"
   },
+  "tweetMediaGrid": {
+    "message": "Show images in a grid"
+  },
   "tweakQuoteTweetsPage": {
     "message": "Compact Quote Tweets pages"
   },

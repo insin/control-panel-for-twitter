@@ -99,6 +99,7 @@ export const DEFAULT_SETTINGS = {
   showPremiumReplyGovernment: true,
   sortReplies: 'relevant',
   themeFollowButtons: true,
+  tweetMediaGrid: false,
   tweakQuoteTweetsPage: true,
   unblurSensitiveContent: false,
   uninvertFollowButtons: true,

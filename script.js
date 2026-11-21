@@ -103,6 +103,7 @@ const DEFAULT_SETTINGS = {
   showPremiumReplyGovernment: true,
   sortReplies: 'relevant',
   themeFollowButtons: true,
+  tweetMediaGrid: false,
   tweakQuoteTweetsPage: true,
   unblurSensitiveContent: false,
   uninvertFollowButtons: true,
@@ -12212,6 +12213,105 @@ const configureCss = (() => {
       '[role="dialog"]:has(nav a[href="/logout"]) > div:not(:has(nav)):has([data-icon="icon-logo-x"]):has(button [data-icon="icon-close-md"])',
     ]
 
+    if (settings.tweetMediaGrid) {
+      cssRules.push(`
+        [data-cpft-media-grid-frame] {
+          height: auto !important;
+          padding-bottom: 0 !important;
+        }
+        [data-cpft-media-grid-layer] {
+          position: static !important;
+        }
+        [data-cpft-media-grid-carousel], [data-cpft-media-grid-wrap] {
+          height: auto !important;
+          margin: 0 !important;
+          --x-carousel-bleed-start: 0px;
+          --x-carousel-bleed-end: 0px;
+        }
+        [data-cpft-media-grid-container] > [aria-hidden="true"],
+        [data-cpft-media-grid-carousel] > :not([data-cpft-media-grid-wrap]) {
+          display: none !important;
+        }
+        [data-cpft-media-grid] {
+          display: grid !important;
+          grid-template-columns: repeat(6, minmax(0, 1fr));
+          grid-template-rows: repeat(2, minmax(0, 1fr));
+          gap: 2px !important;
+          aspect-ratio: 16 / 9;
+          width: 100% !important;
+          height: auto !important;
+          padding: 0 !important;
+          overflow: hidden !important;
+          border: 1px solid var(--x-border-normal);
+          border-radius: var(--radius-md, 12px);
+          scroll-snap-type: none !important;
+        }
+        [data-cpft-media-grid] > * {
+          grid-column: span 2;
+          position: relative;
+          min-width: 0 !important;
+          min-height: 0 !important;
+          width: auto !important;
+          height: 100% !important;
+          aspect-ratio: auto !important;
+          border: 0 !important;
+          border-radius: 0 !important;
+        }
+        [data-cpft-media-grid]:is([data-cpft-media-grid="2"], [data-cpft-media-grid="3"], [data-cpft-media-grid="4"]) {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        [data-cpft-media-grid]:is([data-cpft-media-grid="2"], [data-cpft-media-grid="3"], [data-cpft-media-grid="4"]) > * {
+          grid-column: auto;
+        }
+        [data-cpft-media-grid="2"] { grid-template-rows: minmax(0, 1fr); }
+        [data-cpft-media-grid="3"] > :first-child { grid-row: span 2; }
+        [data-cpft-media-grid="5"] > :nth-child(-n+2) { grid-column: span 3; }
+        [data-cpft-media-grid]:not([data-cpft-media-grid-expanded]) > :nth-child(n+7) {
+          display: none !important;
+        }
+        [data-cpft-media-grid-expanded] {
+          aspect-ratio: auto;
+          grid-template-rows: none;
+        }
+        [data-cpft-media-grid-expanded] > * {
+          height: auto !important;
+          aspect-ratio: 32 / 27 !important;
+        }
+        [data-cpft-media-grid] a[href*="/photo/"] {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+        [data-cpft-media-grid] > * [style*="aspect-ratio"] {
+          aspect-ratio: auto !important;
+          height: 100% !important;
+        }
+        [data-cpft-media-grid] img[src*="pbs.twimg.com/media/"] {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
+        }
+        [data-cpft-media-grid-more] {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          display: grid;
+          place-items: center;
+          width: 100%;
+          border: 0;
+          padding: 0;
+          background: rgb(0 0 0 / 50%);
+          color: white;
+          font: inherit;
+          font-size: 24px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+        [data-cpft-media-grid-more]:hover { background: rgb(0 0 0 / 60%); }
+        [data-cpft-media-grid-more]:focus-visible { outline: 2px solid white; outline-offset: -4px; }
+      `)
+    }
+
     if (settings.dontUseChirpFont) {
       let font = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", sans-serif'
       cssRules.push(`
@@ -12825,6 +12925,185 @@ const configureCss = (() => {
 //#endregion
 
 //#region Tweet functions
+/**
+ * Owns grids for the Tweets currently mounted in one timeline or loading card.
+ * @param {Element} $container
+ * @param {string} timelineId
+ * @param {{isCurrent?: () => boolean}} options
+ */
+function createTweetMediaGrid($container, timelineId, {isCurrent = syncPageUrl} = {}) {
+  let selector = '[class~="group/carousel"]'
+  let records = new Map()
+  let rows = new Map()
+  let expanded = new Set()
+  let pending = new Set()
+  let frame = null
+  let scope = null
+
+  function clear($carousel) {
+    let record = records.get($carousel)
+    if (!record) return
+    record.button?.remove()
+    for (let [$element, attribute] of record.tags) $element.removeAttribute(attribute)
+    record.scroller.removeAttribute('data-cpft-media-grid-expanded')
+    records.delete($carousel)
+  }
+
+  function update($carousel) {
+    if (!$carousel.isConnected || !$carousel.matches(selector) || !$carousel.closest('article')) {
+      clear($carousel)
+      return
+    }
+    let $scroller = $carousel.querySelector('.overflow-x-auto')
+    let $wrap = $scroller?.parentElement
+    let $layer = $carousel.parentElement
+    let $frame = $layer?.parentElement
+    let $container = $frame?.parentElement
+    let items = Array.from($scroller?.children || [])
+    let links = items.map($item => $item.querySelector('a[href*="/photo/"]'))
+    let paths = links.map($link => $link?.getAttribute('href') || '')
+    let media = paths.map(path => /^(\/[a-zA-Z\d_]{1,20}\/status\/\d+)\/photo\/(\d+)(?:[?#]|$)/.exec(path))
+    if (items.length < 2 || !$frame?.style.paddingBottom || $wrap?.parentElement != $carousel ||
+        media.some((match, i) => !match || match[1] != media[0]?.[1] || Number(match[2]) != i + 1) ||
+        items.some($item => $item.querySelector('video'))) {
+      clear($carousel)
+      return
+    }
+    // Use native dimensions: measuring overflow after applying the grid would make it toggle itself off
+    let heightRatio = Number(/([\d.]+)%/.exec($frame.style.paddingBottom)?.[1]) / 100
+    let totalAspectRatio = items.reduce((total, $item) => {
+      let [width, height = 1] = $item.style.aspectRatio.split('/').map(Number)
+      return total + width / height
+    }, 0)
+    // Allow for rounding in the native percentage and aspect ratios
+    if (!(heightRatio * totalAspectRatio > 1.0001)) {
+      clear($carousel)
+      return
+    }
+    let signature = paths.join('\n')
+    let record = records.get($carousel)
+    if (record && (record.signature != signature || record.scroller != $scroller || record.container != $container)) {
+      clear($carousel)
+      record = null
+    }
+    if (!record) {
+      let tags = [
+        [$scroller, 'data-cpft-media-grid'],
+        [$wrap, 'data-cpft-media-grid-wrap'],
+        [$carousel, 'data-cpft-media-grid-carousel'],
+        [$layer, 'data-cpft-media-grid-layer'],
+        [$frame, 'data-cpft-media-grid-frame'],
+        [$container, 'data-cpft-media-grid-container'],
+      ]
+      record = {signature, scroller: $scroller, container: $container, tags, expanded: expanded.has(signature), button: null}
+      records.set($carousel, record)
+      for (let [$element, attribute] of tags) $element.setAttribute(attribute, '')
+      $scroller.setAttribute('data-cpft-media-grid', String(Math.min(items.length, 6)))
+      if (record.expanded) $scroller.setAttribute('data-cpft-media-grid-expanded', '')
+    }
+    if (record.expanded || items.length <= 6) return
+    if (record.button?.parentElement == items[5]) return
+    record.button?.remove()
+    let $button = document.createElement('button')
+    $button.type = 'button'
+    $button.setAttribute('data-cpft-media-grid-more', '')
+    $button.setAttribute('aria-expanded', 'false')
+    $button.textContent = `+${Intl.NumberFormat(lang).format(items.length - 6)}`
+    $button.setAttribute('aria-label', `${getString('SHOW')} ${$button.textContent}`)
+    items[5].appendChild($button)
+    record.button = $button
+  }
+
+  function processItem($item) {
+    let carousels = new Set($item.querySelectorAll(selector))
+    for (let $carousel of rows.get($item) || []) if (!carousels.has($carousel)) clear($carousel)
+    for (let $carousel of carousels) update($carousel)
+    rows.set($item, carousels)
+  }
+
+  function observeItems() {
+    for (let $item of rows.keys()) observer.observe($item, {childList: true, subtree: true})
+  }
+
+  function flush() {
+    frame = null
+    if (!enabled || !isCurrent()) return
+    observer.disconnect()
+    for (let $item of pending) if (rows.has($item) && $container.contains($item)) processItem($item)
+    pending.clear()
+    observeItems()
+  }
+
+  function queueItems(mutations) {
+    for (let mutation of mutations) {
+      let $item = mutation.target
+      while ($item && !rows.has($item)) $item = $item.parentElement
+      if ($item) pending.add($item)
+    }
+  }
+  let observer = new MutationObserver(mutations => {
+    queueItems(mutations)
+    if (pending.size && frame == null) frame = requestAnimationFrame(flush)
+  })
+  function onClick(event) {
+    let $button = event.target?.closest?.('[data-cpft-media-grid-more]')
+    if (!$button || event.button != 0) return
+    let $carousel = $button.closest(selector)
+    let record = records.get($carousel)
+    if (!record || record.button != $button) return
+    event.preventDefault()
+    event.stopImmediatePropagation()
+    record.expanded = true
+    expanded.add(record.signature)
+    record.scroller.setAttribute('data-cpft-media-grid-expanded', '')
+    if (document.activeElement == $button) {
+      let $nextPhoto = /** @type {HTMLElement} */ (record.scroller.children[6]?.querySelector('a[href*="/photo/"]'))
+      $nextPhoto?.focus({preventScroll: true})
+    }
+    $button.remove()
+    record.button = null
+  }
+  $container.addEventListener('click', onClick, true)
+  return {
+    update($items, changedItems) {
+      queueItems(observer.takeRecords())
+      observer.disconnect()
+      let nextScope = timelineId.startsWith('urt:home:following:') ? separatedTweetsTimelineSelected : false
+      let scopeChanged = scope != nextScope
+      if (scopeChanged) {
+        for (let $carousel of records.keys()) clear($carousel)
+        expanded.clear()
+        scope = nextScope
+      }
+      let mounted = new Set($items)
+      for (let [$item, carousels] of rows) {
+        if (mounted.has($item)) continue
+        for (let $carousel of carousels) clear($carousel)
+        rows.delete($item)
+        pending.delete($item)
+      }
+      for (let $item of $items) {
+        if (!scopeChanged && rows.has($item) && !changedItems.has($item) && !pending.has($item)) continue
+        if (!rows.has($item) && !$item.querySelector('article')) continue
+        processItem($item)
+      }
+      pending.clear()
+      if (frame != null) cancelAnimationFrame(frame)
+      frame = null
+      observeItems()
+    },
+    disconnect() {
+      observer.disconnect()
+      $container.removeEventListener('click', onClick, true)
+      if (frame != null) cancelAnimationFrame(frame)
+      for (let $carousel of records.keys()) clear($carousel)
+      rows.clear()
+      pending.clear()
+      expanded.clear()
+    },
+  }
+}
+
 /** @param {Element} $item */
 function clearUnavailableTweetContent($item) {
   $item.classList.remove('cpft-unavailable-tweet')
@@ -13399,6 +13678,7 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {
   let processedItems = new Set()
   let hiddenRows = new Set()
   let cleanupProcessedItems = null
+  let mediaGrid = settings.tweetMediaGrid ? createTweetMediaGrid($list, timelineId, {isCurrent}) : null
   let notificationClasses = timelineId.startsWith('urt:notifications:')
     ? observeNotificationClasses($list, timelineId, {
       isCurrent,
@@ -13426,6 +13706,7 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {
     if (!mutations.length) for (let $item of items) changedItems.add($item)
     let result = onItemsChanged?.(items, timelineId, changedItems) || null
     if (!onItemsChanged) processTimelineItems(items.filter($item => changedItems.has($item)), timelineId)
+    mediaGrid?.update(items, changedItems)
     let nextCleanup = result?.cleanup || null
     if (nextCleanup != cleanupProcessedItems) cleanupProcessedItems?.()
     cleanupProcessedItems = nextCleanup
@@ -13455,6 +13736,7 @@ function observeTimelineItems($timeline, timelineId, onItemsChanged, {
     observers,
     onDisconnect() {
       notificationClasses?.disconnect()
+      mediaGrid?.disconnect()
       cleanupProcessedItems?.()
       cleanupProcessedItems = null
       for (let $item of processedItems) clearItem($item)
@@ -13779,7 +14061,13 @@ function observeInitialFocusedTweet($container, {tweetPath, isCurrent}) {
       if (!path || !$card?.matches('div')) return
       $focused = $card
       $focused.setAttribute('data-cpft-focused-tweet', '')
-      cleanup = tweakFocusedTweet($focused, path, createConversationStateReader())
+      let cleanupFocused = tweakFocusedTweet($focused, path, createConversationStateReader())
+      let mediaGrid = settings.tweetMediaGrid ? createTweetMediaGrid($focused, path, {isCurrent}) : null
+      mediaGrid?.update([$focused], new Set([$focused]))
+      cleanup = () => {
+        mediaGrid?.disconnect()
+        cleanupFocused()
+      }
     }
     let $time = $container.querySelector(selector)
     if ($time) apply($time)

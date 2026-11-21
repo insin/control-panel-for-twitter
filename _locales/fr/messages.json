@@ -626,6 +626,9 @@
   "timelineContentOptions": {
     "message": "Contenu des fils"
   },
+  "tweetMediaGrid": {
+    "message": "Afficher les images en grille"
+  },
   "tweakQuoteTweetsPage": {
     "message": "Compacter les pages de Tweets cités"
   },

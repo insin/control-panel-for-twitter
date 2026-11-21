@@ -626,6 +626,9 @@
   "timelineContentOptions": {
     "message": "Contenido de las cronologías"
   },
+  "tweetMediaGrid": {
+    "message": "Mostrar imágenes en una cuadrícula"
+  },
   "tweakQuoteTweetsPage": {
     "message": "Compactar las páginas de Tweets citados"
   },

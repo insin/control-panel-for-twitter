@@ -114,6 +114,7 @@ export const currentSettingsSchema = {
   showPremiumReplyGovernment: boolean(),
   sortReplies: oneOf(['relevant', 'recent', 'liked']),
   themeFollowButtons: boolean(),
+  tweetMediaGrid: boolean(),
   tweakQuoteTweetsPage: boolean(),
   unblurSensitiveContent: boolean(),
   uninvertFollowButtons: boolean(),

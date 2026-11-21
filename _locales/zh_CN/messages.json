@@ -635,6 +635,9 @@
   "timelineContentOptions": {
     "message": "时间线内容"
   },
+  "tweetMediaGrid": {
+    "message": "以网格显示图片"
+  },
   "tweakQuoteTweetsPage": {
     "message": "精简引用推文页面"
   },

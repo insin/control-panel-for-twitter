@@ -626,6 +626,9 @@
   "timelineContentOptions": {
     "message": "タイムラインのコンテンツ"
   },
+  "tweetMediaGrid": {
+    "message": "画像をグリッド表示"
+  },
   "tweakQuoteTweetsPage": {
     "message": "引用ツイートページをコンパクトにする"
   },
