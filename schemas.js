@@ -1,6 +1,8 @@
 import { arrayOf, boolean, object, oneOf, optional, string } from './shared/settings-schema.js'
 import { createSettingsTransfer } from './shared/settings-transfer.js'
 
+import { DEFAULT_SETTINGS } from './default-settings.js'
+
 // Increment for incompatible changes only
 export const SETTINGS_SCHEMA_VERSION = 1
 
@@ -143,11 +145,24 @@ export const currentSettingsSchema = {
   enableCustomCss: boolean(),
 }
 
-export const settingsTransfer = createSettingsTransfer({
+const transfer = createSettingsTransfer({
   extensionId: 'control-panel-for-twitter',
   schema: currentSettingsSchema,
   schemaVersion: SETTINGS_SCHEMA_VERSION,
+  ignoreUnknown: true,
+  legacyExportVersions: ['4.99.0', '4.99.1', '4.99.2'],
 })
+
+/** @type {typeof transfer} */
+export const settingsTransfer = {
+  ...transfer,
+  createSettingsExport(settings, version) {
+    const supported = Object.fromEntries(
+      Object.entries(settings).filter(([key]) => Object.hasOwn(DEFAULT_SETTINGS, key)),
+    )
+    return transfer.createSettingsExport(supported, version)
+  },
+}
 
 export const { createSettingsExport, validateSettingsExport, validateSettingsJson } =
   settingsTransfer

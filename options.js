@@ -570,7 +570,14 @@ function renderSettingsImportResult(result) {
         { class: ['font-bold', result.success ? 'text-success' : 'text-error'] },
         chrome.i18n.getMessage(result.success ? 'settingsImported' : 'settingsNotImported'),
       ),
-      messages.length > 0 && ['\n\n', h('span', { class: 'text-error' }, messages.join('\n\n'))],
+      messages.length > 0 && [
+        '\n\n',
+        h(
+          'span',
+          { class: result.success ? 'text-secondary' : 'text-error' },
+          messages.join('\n\n'),
+        ),
+      ],
     ),
   )
 }

@@ -41,12 +41,14 @@ async function migrateUserSettingsToSettingsObject() {
   if (
     !Object.hasOwn(existingSettings, 'hideChatNav') &&
     (Object.hasOwn(storedConfig, 'hideChatNav') ||
+      Object.hasOwn(storedConfig, 'hideChatBottomNavItem') ||
       Object.hasOwn(storedConfig, 'hideMessagesBottomNavItem'))
   ) {
     const layout = storedConfig.lastLayout ?? storedConfig.version
     settings.hideChatNav =
-      (layout == 'mobile' ? storedConfig.hideMessagesBottomNavItem : storedConfig.hideChatNav) ??
-      DEFAULT_SETTINGS.hideChatNav
+      (layout == 'mobile'
+        ? (storedConfig.hideChatBottomNavItem ?? storedConfig.hideMessagesBottomNavItem)
+        : storedConfig.hideChatNav) ?? DEFAULT_SETTINGS.hideChatNav
   }
   /** @type {import('./types').Migrations} */
   const migrations = {
@@ -81,7 +83,12 @@ async function migrateUserSettingsToSettingsObject() {
     // Remove all top-level keys which aren't user settings
     keysToRemove.push(key)
     // These were merged above using the saved layout rather than copied separately
-    if (key == 'hideChatNav' || key == 'hideMessagesBottomNavItem') continue
+    if (
+      key == 'hideChatNav' ||
+      key == 'hideChatBottomNavItem' ||
+      key == 'hideMessagesBottomNavItem'
+    )
+      continue
     // Migrate or copy expected settings keys
     if (Object.hasOwn(migrations, key)) {
       const migration = migrations[key]
