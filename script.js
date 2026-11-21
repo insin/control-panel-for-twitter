@@ -51,7 +51,7 @@ const DEFAULT_SETTINGS = {
   hideInlinePrompts: true,
   hideJobs: true,
   hideLikeMetrics: true,
-  hideListRetweets: true,
+  hideListRetweets: false,
   hideListsNav: false,
   hideManageTimelines: false,
   hideMetrics: false,
