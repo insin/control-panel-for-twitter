@@ -456,6 +456,9 @@
   "option_large": {
     "message": "크게"
   },
+  "option_legacy": {
+    "message": "기존"
+  },
   "option_light": {
     "message": "밝게"
   },

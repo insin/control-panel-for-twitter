@@ -465,6 +465,9 @@
   "option_large": {
     "message": "大"
   },
+  "option_legacy": {
+    "message": "经典"
+  },
   "option_light": {
     "message": "浅色"
   },

@@ -30,15 +30,18 @@ const browser = (() => {
     return ua.includes('iphone') || ua.includes('ipad') ? 'ios' : 'mac'
   return 'chrome'
 })()
+/** @type {typeof browser | 'legacy'} */
 let theme = browser
 $body.classList.add(`browser-${browser}`, theme)
 
 function updateOptionsStyle() {
   const selected = config.optionsStyle
-  const next = ['chrome', 'edge', 'firefox', 'ios', 'mac'].includes(selected) ? selected : browser
+  const next = ['chrome', 'edge', 'firefox', 'ios', 'mac', 'legacy'].includes(selected)
+    ? selected
+    : browser
   if (next == theme) return
   $body.classList.remove(theme)
-  theme = /** @type {typeof browser} */ (next)
+  theme = /** @type {typeof theme} */ (next)
   $body.classList.add(theme)
 }
 //#endregion

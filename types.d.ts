@@ -18,7 +18,7 @@ export type StoredConfig = {
   /** Last detected web app implementation */
   lastSiteVersion?: 'rweb' | 'xweb'
   /** Options appearance override - automatic follows the detected browser */
-  optionsStyle?: 'automatic' | 'firefox' | 'chrome' | 'edge' | 'mac' | 'ios'
+  optionsStyle?: 'automatic' | 'firefox' | 'chrome' | 'edge' | 'mac' | 'ios' | 'legacy'
   /** Next release threshold whose storage migration must complete */
   pendingStorageMigration?: string
   /** We only store settings the user has actually interacted with */

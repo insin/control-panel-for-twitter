@@ -456,6 +456,9 @@
   "option_large": {
     "message": "Grande"
   },
+  "option_legacy": {
+    "message": "Classico"
+  },
   "option_light": {
     "message": "Chiaro"
   },

@@ -467,6 +467,9 @@
   "option_large": {
     "message": "Large"
   },
+  "option_legacy": {
+    "message": "Legacy"
+  },
   "option_light": {
     "message": "Light"
   },
