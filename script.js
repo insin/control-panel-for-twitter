@@ -6427,6 +6427,8 @@ const configureCss = (() => {
         // Money icon and balance buttons beside Edit Profile
         '[data-testid="ownProfilePaymentsButton"]',
         '[data-testid="ownProfilePaymentsButtonWithBalance"]',
+        // Embedded payment card in Tweets
+        'article .jetfuel-style-root:has([data-icon="icon-logo-x"])',
       )
     }
     if (settings.hideSubscriptions) {
@@ -12538,6 +12540,8 @@ const configureCss = (() => {
         'body.Profile main a[href^="/i/money/pay"]',
         // Profile action and profile-edit visitor preview
         'button[data-slot="xds-button"]:has(svg[data-icon="icon-xmoney"])',
+        // Embedded payment card in Tweets
+        'article .jetfuel-style-root:has([data-icon="icon-logo-x"])',
       )
     }
     if (hasSeparatedTweetsTimeline() || settings.defaultFollowingToRecent && settings.hideFollowingMenu) {
