@@ -12318,7 +12318,7 @@ const configureCss = (() => {
       let font = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Twemoji Mozilla", sans-serif'
       cssRules.push(`
         :root { --x-font-sans: ${font} !important; }
-        body, .font-chirp { font-family: ${font} !important; }
+        body, .font-chirp, [lang]:not(:lang(ja)) { font-family: ${font} !important; }
       `)
     }
 
