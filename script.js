@@ -12192,7 +12192,7 @@ const configureCss = (() => {
         flex-wrap: wrap;
         gap: 8px 20px;
         margin-top: 6px;
-        padding: 16px 0;
+        padding: 14px 0;
         border-top: 1px solid var(--x-border-divider);
         border-bottom: 1px solid var(--x-border-divider);
       }
@@ -13942,7 +13942,8 @@ function restoreFocusedTweetMetrics($focused, tweetPath, readState) {
       })
       $row.appendChild($link)
     }
-    $actions.insertAdjacentElement('beforebegin', $row)
+    let $target = $actions.parentElement?.children.length == 1 ? $actions.parentElement : $actions
+    $target.insertAdjacentElement('beforebegin', $row)
   }
   let observer = observeElement($actions, () => update(), 'focused metrics')
   observer.disconnect()
