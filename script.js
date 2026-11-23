@@ -10643,7 +10643,7 @@ const DESKTOP_NAV_SELECTOR = 'nav:has(> a[href="/home"])'
 const EMBED_ACCENT_TOKENS = ['--x-fg-brand', '--x-fg-on-brand', '--x-btn-brand', '--x-btn-brand-hover', '--x-btn-brand-pressed']
 const FOCUSED_TWEET_SELECTOR = ':is([data-navigation-stop][tabindex="-1"], [data-cpft-focused-tweet]):has(> article)'
 const HOME_TIMELINE_TAB_SELECTOR = 'main [role="tab"][data-pinned-timeline]'
-const LOGO_PATH_SELECTOR = 'a[href="/home"] > svg[data-icon="icon-logo-x"] > path, header[data-page-header] > div > svg[data-icon="icon-logo-x"] > path'
+const LOGO_PATH_SELECTOR = ':is(a[href="/home"], header[data-page-header]) svg[data-icon="icon-logo-x"] > path'
 const MEDIA_VIEWER_SELECTOR = () => `[role="dialog"][data-slot="xds-modal-surface"][aria-label=${JSON.stringify(getString('MEDIA_VIEWER'))}]`
 const MOBILE_NAV_SELECTOR = 'nav:has(> div > a[href="/home"], > div svg:is([data-icon="icon-home"], [data-icon="icon-home-fill"]))'
 const HOME_ICON_SELECTOR = `:is(nav:has(> a[href="/home"]) a[href="/home"], ${MOBILE_NAV_SELECTOR} > div > :is(a, button)) svg`
