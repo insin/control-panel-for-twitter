@@ -543,6 +543,9 @@
   "reducedInteractionModeInfo": {
     "message": "Hide the action bar under Tweets – replies are now the only means of interacting"
   },
+  "refreshRequired": {
+    "message": "Changes require a refresh"
+  },
   "removeSidebarPanelGradients": {
     "message": "Remove sidebar panel gradients"
   },
@@ -673,7 +676,7 @@
     "message": "UI tweaks"
   },
   "unblurSensitiveContent": {
-    "message": "Unblur sensitive content"
+    "message": "Show sensitive content"
   },
   "uninvertFollowButtons": {
     "message": "Uninvert Follow buttons"

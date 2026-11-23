@@ -531,6 +531,9 @@
   "reducedInteractionModeInfo": {
     "message": "Oculta la barra de interacción debajo de los tweets - las respuestas es la única opción disponible"
   },
+  "refreshRequired": {
+    "message": "Los cambios requieren recargar la página"
+  },
   "removeSidebarPanelGradients": {
     "message": "Eliminar los degradados de los paneles laterales"
   },
@@ -651,7 +654,7 @@
     "message": "Cambios de interfaz"
   },
   "unblurSensitiveContent": {
-    "message": "Quitar el desenfoque de contenido sensible"
+    "message": "Mostrar contenido sensible"
   },
   "uninvertFollowButtons": {
     "message": "No invertir botones de Seguir"

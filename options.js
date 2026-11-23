@@ -883,6 +883,9 @@ function updateDisplay() {
   $body.classList.toggle('restoringTwitterBranding', config.settings.revertXBranding)
   $body.classList.toggle('uninvertedFollowButtons', config.settings.uninvertFollowButtons)
   $displaySettingsLink.href = 'https://x.com/settings/display'
+  const $sensitiveContentInfo = document.getElementById('unblurSensitiveContentInfo')
+  $sensitiveContentInfo.classList.add('xweb')
+  $sensitiveContentInfo.textContent = chrome.i18n.getMessage('refreshRequired')
   updateProDisplay()
   $showPremiumReplyFollowersCount.textContent = chrome.i18n.getMessage(
     'showPremiumReplyFollowersCount',

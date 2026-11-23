@@ -540,6 +540,9 @@
   "reducedInteractionModeInfo": {
     "message": "隐藏推文下的动作栏--回复现在是唯一的互动方式"
   },
+  "refreshRequired": {
+    "message": "更改后需要刷新"
+  },
   "removeSidebarPanelGradients": {
     "message": "移除侧栏面板渐变"
   },
@@ -660,7 +663,7 @@
     "message": "用户界面调整"
   },
   "unblurSensitiveContent": {
-    "message": "消除敏感内容的模糊"
+    "message": "显示敏感内容"
   },
   "uninvertFollowButtons": {
     "message": "取消关注按钮的颜色反转"

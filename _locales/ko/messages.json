@@ -531,6 +531,9 @@
   "reducedInteractionModeInfo": {
     "message": "트윗 아래의 작업 표시줄을 숨김 - 답글이 상호작용의 유일한 수단이 됨"
   },
+  "refreshRequired": {
+    "message": "변경 후 새로고침 필요"
+  },
   "removeSidebarPanelGradients": {
     "message": "사이드바 패널의 그라데이션 제거"
   },
@@ -651,7 +654,7 @@
     "message": "UI 조정"
   },
   "unblurSensitiveContent": {
-    "message": "민감한 콘텐츠 흐리게 처리 해제"
+    "message": "민감한 콘텐츠 표시"
   },
   "uninvertFollowButtons": {
     "message": "팔로우 버튼 색상 반전 해제"

@@ -12773,26 +12773,6 @@ const configureCss = (() => {
         }
       `)
     }
-    if (settings.unblurSensitiveContent) {
-      // Only target warnings with an inert, blurred media preview
-      let media = 'article .relative.overflow-hidden:has(> .overflow-hidden > [inert][aria-hidden="true"].blur-2xl):has(> .absolute.inset-0 > div > svg[data-icon="icon-eye-off"])'
-      let warning = `${media} > .absolute.inset-0:has(> div > svg[data-icon="icon-eye-off"])`
-      cssRules.push(`
-        ${media} > .overflow-hidden > [inert][aria-hidden="true"].blur-2xl {
-          filter: none !important;
-        }
-        ${warning} {
-          background: transparent !important;
-          align-items: flex-end !important;
-          justify-content: flex-end !important;
-          pointer-events: none !important;
-        }
-        ${warning} > div > button[data-slot="xds-button"] {
-          pointer-events: auto !important;
-        }
-      `)
-      hideCssSelectors.push(`${warning} > div > :not(button[data-slot="xds-button"])`)
-    }
     if (settings.tweakQuoteTweetsPage) {
       hideCssSelectors.push('body.QuoteTweets main [data-slot="embedded-tweet-frame"]')
     }
@@ -14375,31 +14355,80 @@ function patchReplySortUrl(url) {
 }
 
 /**
- * Replaces "posted" → "Tweeted" in the Home timeline's new Tweets popup.
  * @param {Response} response
  * @param {string} url
  * @param {HeadersInit} [requestHeaders]
  */
-async function patchHomeTimelineResponse(response, url, requestHeaders) {
-  if (!settings.revertXBranding || !response.ok ||
-      !/^https:\/\/api\.x\.com\/graphql\/[^/?]+\/(?:HomeTimeline|HomeLatestTimelineQuery)(?:\?|$)/.test(url)) return response
+async function patchXwebResponse(response, url, requestHeaders) {
+  if (!response.ok) return response
+  let brand = settings.revertXBranding &&
+    /^https:\/\/api\.x\.com\/graphql\/[^/?]+\/(?:HomeTimeline|HomeLatestTimelineQuery)(?:\?|$)/.test(url)
+  let unblur = settings.unblurSensitiveContent &&
+    /^https:\/\/api\.x\.com\/graphql\/[^/?]+\/[^/?]+(?:\?|$)/.test(url) &&
+    /\bapplication\/json\b/i.test(response.headers.get('content-type') || '')
+  if (!brand && !unblur) return response
   try {
     let language = (new Headers(requestHeaders).get('x-twitter-client-language') || lang || 'en').toLowerCase()
-    if (language == 'en-ss' || language == 'en-xx') return response
-    let data = await response.clone().json()
-    if (!enabled || !settings.revertXBranding) return response
-    let timeline = data?.data?.home_timeline || data?.data?.home
-    let instructions = timeline?.home_timeline_urt?.instructions
-    if (!Array.isArray(instructions)) return response
+    if (language == 'en-ss' || language == 'en-xx') brand = false
+    if (!brand && !unblur) return response
+
+    let text = await response.clone().text()
+    if (!enabled) return response
+
+    unblur = unblur && settings.unblurSensitiveContent
+    brand = brand && settings.revertXBranding
+    if (!brand && !unblur) return response
+
     let changed = false
-    for (let instruction of instructions) {
-      if (instruction?.__typename != 'TimelineShowAlert' || instruction.alert_type != 'NewTweets') continue
-      let tweeted = locales[language]?.TWEETED || locales.en.TWEETED
-      if (typeof instruction.rich_text?.text != 'string' || !instruction.rich_text.text || instruction.rich_text.text == tweeted) continue
-      instruction.rich_text.text = tweeted
-      changed = true
+    // Unblur sensitive content
+    let data = JSON.parse(text, (key, value) => {
+      if (!unblur) return value
+      // Show profiles flagged as sensitve
+      if (value?.__typename == 'User' &&
+          (value.profile_metadata?.profile_interstitial_type == 'sensitive_media' ||
+           value.profile_metadata?.profile_interstitial_type == 'offensive_profile_content')) {
+        value.profile_metadata.profile_interstitial_type = null
+        changed = true
+      }
+      // Remove blur overlays
+      if (value?.__typename == 'TweetWithVisibilityResults' &&
+          value.media_visibility_results?.blurred_image_interstitial != null) {
+        value.media_visibility_results.blurred_image_interstitial = null
+        changed = true
+      }
+      // Show sensitive Tweets
+      let tweet = value?.__typename == 'TweetWithVisibilityResults' ? value.tweet :
+        value?.__typename == 'Tweet' ? value : null
+      if (tweet?.legacy?.possibly_sensitive === true) {
+        tweet.legacy.possibly_sensitive = false
+        changed = true
+      }
+      if (Array.isArray(tweet?.media_entities2)) {
+        for (let media of tweet.media_entities2) {
+          if (media?.sensitive_media_warning != null) {
+            media.sensitive_media_warning = null
+            changed = true
+          }
+        }
+      }
+      return value
+    })
+    // Replace "Posted" with "Tweeted" in Home timeline
+    if (brand) {
+      let timeline = data?.data?.home_timeline || data?.data?.home
+      let instructions = timeline?.home_timeline_urt?.instructions
+      if (Array.isArray(instructions)) {
+        for (let instruction of instructions) {
+          if (instruction?.__typename != 'TimelineShowAlert' || instruction.alert_type != 'NewTweets') continue
+          let tweeted = locales[language]?.TWEETED || locales.en.TWEETED
+          if (typeof instruction.rich_text?.text != 'string' || !instruction.rich_text.text || instruction.rich_text.text == tweeted) continue
+          instruction.rich_text.text = tweeted
+          changed = true
+        }
+      }
     }
     if (!changed) return response
+
     let headers = new Headers(response.headers)
     headers.delete('content-length')
     headers.delete('content-encoding')
@@ -14407,7 +14436,6 @@ async function patchHomeTimelineResponse(response, url, requestHeaders) {
     for (let key of ['url', 'redirected', 'type']) {
       Object.defineProperty(replacement, key, {value: response[key]})
     }
-    log('revertXBranding: patched "posted" timeline alert')
     return replacement
   } catch {
     return response
@@ -14514,7 +14542,7 @@ return function init() {
       return method == 'POST' && settings.defaultFollowingToRecent && (settings.hideFollowingMenu || !userSortedFollowing) && isFollowingTimelineRequest(url)
     },
     patchBody: patchFollowingBody,
-    patchResponse: patchHomeTimelineResponse,
+    patchResponse: patchXwebResponse,
   })
   setupConfig({main, onSettingsChanged, onDisabled, onDebugChanged})
 }
