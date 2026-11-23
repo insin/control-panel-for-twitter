@@ -1,0 +1,705 @@
+{
+  "addAddMutedWordMenuItem": {
+    "message": "إضافة «إضافة كلمة مكتومة» إلى قائمة التنقل"
+  },
+  "addFocusedTweetAccountLocation": {
+    "message": "إظهار موقع حساب الكاتب"
+  },
+  "addUserHoverCardAccountLocation": {
+    "message": "إظهار موقع الحساب في بطاقات المستخدمين"
+  },
+  "advancedOptions": {
+    "message": "متقدّم"
+  },
+  "appStoreSubtitle": {
+    "description": "<= 30 characters",
+    "message": "تحكّم في خطك الزمني"
+  },
+  "appearanceOptions": {
+    "message": "المظهر"
+  },
+  "backupAndRestoreOptions": {
+    "message": "النسخ الاحتياطي والاستعادة"
+  },
+  "bypassAgeVerification": {
+    "message": "تجاوز التحقق من العمر"
+  },
+  "bypassMediaContextMenu": {
+    "message": "استخدام قوائم المتصفح عند النقر بزر الماوس الأيمن"
+  },
+  "cleanTweetLinks": {
+    "message": "نسخ روابط التغريدات نظيفة"
+  },
+  "clearFeatureSearch": {
+    "message": "مسح البحث"
+  },
+  "customTheme": {
+    "message": "لون مخصص للمظهر"
+  },
+  "customThemeInfo": {
+    "message": "اختر لوناً مخصصاً من صفحة <a>إعدادات العرض</a>"
+  },
+  "darkModeTheme": {
+    "message": "مظهر الوضع الداكن"
+  },
+  "debug": {
+    "message": "وضع التصحيح"
+  },
+  "debugInfo": {
+    "message": "يفعّل سجل التصحيح ويعرض معلومات التصحيح للتغريدات في الخط الزمني"
+  },
+  "debugLogGetElementStats": {
+    "message": "تسجيل إحصاءات getElement()‎"
+  },
+  "debugLogTimelineStats": {
+    "message": "تسجيل إحصاءات الخط الزمني"
+  },
+  "defaultFollowingToRecent": {
+    "message": "ترتيب «متابَعة» حسب «الأحدث» افتراضياً"
+  },
+  "defaultToFollowing": {
+    "message": "فتح «متابَعة» افتراضياً"
+  },
+  "defaultToLatestSearch": {
+    "message": "فتح تبويب «الأحدث» في البحث افتراضياً"
+  },
+  "developerOptions": {
+    "message": "المطوّر"
+  },
+  "disableHomeTimeline": {
+    "message": "تعطيل الخط الزمني الرئيسي"
+  },
+  "disableHomeTimelineInfo": {
+    "message": "تشعر أنك تضيّع وقتاً كثيراً على تويتر؟ جرّب منع استخدام الخط الزمني الرئيسي"
+  },
+  "disableTweetTextFormatting": {
+    "message": "تعطيل الخط العريض والمائل في التغريدات"
+  },
+  "disableUsSportFeatures": {
+    "message": "تعطيل ميزات الرياضة الأمريكية"
+  },
+  "disabled": {
+    "message": "معطّلة"
+  },
+  "disableVideoLooping": {
+    "message": "تعطيل تكرار الفيديو"
+  },
+  "disabledHomeTimelineRedirect": {
+    "message": "تحويل الرئيسية إلى"
+  },
+  "dontUseChirpFont": {
+    "message": "عدم استخدام خط Chirp"
+  },
+  "dropdownMenuFontWeight": {
+    "message": "استخدام سُمك خط عادي للقوائم"
+  },
+  "enableCustomCss": {
+    "message": "CSS مخصص"
+  },
+  "enabled": {
+    "message": "مفعّلة"
+  },
+  "exportSettings": {
+    "message": "تصدير"
+  },
+  "exportSettingsLabel": {
+    "message": "تصدير الإعدادات"
+  },
+  "extensionDescription": {
+    "description": "<= 132 characters",
+    "message": "تمنحك تحكماً أكبر في تويتر وتضيف ميزات ناقصة وتحسينات على الواجهة"
+  },
+  "extensionDescriptionShort": {
+    "description": "<= 112 characters",
+    "message": "تمنحك تحكماً أكبر في تويتر وتضيف ميزات ناقصة وتحسينات على الواجهة"
+  },
+  "extensionName": {
+    "message": "Control Panel for Twitter"
+  },
+  "extensionNameDisabled": {
+    "message": "Control Panel for Twitter (معطّلة)"
+  },
+  "fastBlock": {
+    "message": "تخطي تأكيد الحظر"
+  },
+  "features": {
+    "message": "الميزات"
+  },
+  "featuresDisabledInfo": {
+    "message": "ستُطبَّق تغييراتك عند تفعيل الإضافة"
+  },
+  "fontSize": {
+    "message": "حجم الخط"
+  },
+  "fullWidthContent": {
+    "message": "محتوى الخط الزمني بالعرض الكامل"
+  },
+  "fullWidthContentInfo": {
+    "message": "إخفاء الشريط الجانبي وجعل محتوى الخط الزمني بالعرض الكامل"
+  },
+  "fullWidthMedia": {
+    "message": "الوسائط والبطاقات بالعرض الكامل"
+  },
+  "hideAccountSwitcher": {
+    "message": "مبدّل الحسابات"
+  },
+  "hideAdsNav": {
+    "message": "الإعلانات"
+  },
+  "hideAiTweets": {
+    "message": "إخفاء تغريدات «صُنع بالذكاء الاصطناعي»"
+  },
+  "hideAllMetrics": {
+    "message": "إخفاء الكل"
+  },
+  "hideBookmarkButton": {
+    "message": "إخفاء زر العلامة المرجعية"
+  },
+  "hideBookmarkMetrics": {
+    "message": "العلامات المرجعية"
+  },
+  "hideBusinessNav": {
+    "message": "الأعمال"
+  },
+  "hideCalls": {
+    "message": "إخفاء المكالمات"
+  },
+  "hideChatDrawer": {
+    "message": "درج المحادثات"
+  },
+  "hideChatNav": {
+    "message": "المحادثات"
+  },
+  "hideCommunitiesNav": {
+    "message": "المجتمعات"
+  },
+  "hideComposeTweet": {
+    "message": "إخفاء زر التغريد الرئيسي"
+  },
+  "hideConnectNav": {
+    "message": "متابعة"
+  },
+  "hideCreatorStudioNav": {
+    "message": "استوديو صنّاع المحتوى"
+  },
+  "hideDiscoverSuggestions": {
+    "message": "إخفاء اقتراحات «اكتشف»"
+  },
+  "hideEditImage": {
+    "message": "إخفاء أزرار تعديل الصورة"
+  },
+  "hideExploreNav": {
+    "message": "استكشاف"
+  },
+  "hideExploreNavWithSidebar": {
+    "message": "إظهاره عند إخفاء الشريط الجانبي"
+  },
+  "hideExplorePageContents": {
+    "message": "استخدام «استكشاف» للبحث فقط"
+  },
+  "hideExplorePageContentsInfo": {
+    "message": "إخفاء التبويبات والمحتوى أسفل مربع البحث"
+  },
+  "hideFollowingMenu": {
+    "message": "إخفاء قائمة «ترتيب حسب» في «متابَعة»"
+  },
+  "hideFollowingMetrics": {
+    "message": "المتابَعون / المتابِعون"
+  },
+  "hideForYouTimeline": {
+    "message": "إخفاء «لك»"
+  },
+  "hideGrok": {
+    "message": "إخفاء Grok"
+  },
+  "hideGrokTweets": {
+    "message": "إخفاء تغريدات Grok"
+  },
+  "hideHistoryNav": {
+    "message": "السجل"
+  },
+  "hideInlinePrompts": {
+    "message": "إخفاء الدعوات المضمّنة في الخط الزمني"
+  },
+  "hideJobs": {
+    "message": "إخفاء الوظائف"
+  },
+  "hideLikeMetrics": {
+    "message": "الإعجابات"
+  },
+  "hideListRetweets": {
+    "message": "إخفاء إعادات التغريد في القوائم"
+  },
+  "hideListsNav": {
+    "message": "القوائم"
+  },
+  "hideLiveBroadcastBar": {
+    "message": "إخفاء شريط البث المباشر"
+  },
+  "hideLiveBroadcasts": {
+    "message": "إخفاء البث المباشر"
+  },
+  "hideManageTimelines": {
+    "message": "إخفاء زر «إدارة الخطوط الزمنية»"
+  },
+  "hideMetrics": {
+    "message": "إخفاء الأرقام"
+  },
+  "hideMoney": {
+    "message": "إخفاء Money"
+  },
+  "hideMoreFromThisAuthor": {
+    "message": "إخفاء «المزيد من هذا الكاتب»"
+  },
+  "hideMoreSlideOutMenuItemsOptions_desktop": {
+    "message": "إخفاء عناصر قائمة «المزيد» التي لا تستخدمها"
+  },
+  "hideNavigationItemsOptions": {
+    "message": "إخفاء عناصر التنقل"
+  },
+  "hideNotificationLikes": {
+    "message": "إخفاء الإعجابات في الإشعارات"
+  },
+  "hideNotificationRetweets": {
+    "message": "إخفاء إعادات التغريد في الإشعارات"
+  },
+  "hideNotifications": {
+    "message": "إخفاء الإشعارات"
+  },
+  "hidePaidPartnerships": {
+    "message": "إخفاء تغريدات الشراكات المدفوعة"
+  },
+  "hidePremiumReplies": {
+    "message": "إخفاء ردود حسابات Premium ذات العلامة الزرقاء"
+  },
+  "hidePremiumUpsells": {
+    "message": "إخفاء الترويج لاشتراك Premium"
+  },
+  "hideProfileHeaderMetrics": {
+    "message": "أرقام رأس الملف الشخصي"
+  },
+  "hideProfileRetweets": {
+    "message": "إخفاء إعادات التغريد في الملفات الشخصية"
+  },
+  "hideQuoteTweetMetrics": {
+    "message": "تغريدات الاقتباس"
+  },
+  "hideQuotesFromCount": {
+    "message": "المستخدمون المكتومون ($COUNT$)",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "hideReplyMetrics": {
+    "message": "الردود"
+  },
+  "hideRetweetMetrics": {
+    "message": "إعادات التغريد"
+  },
+  "hideSeeNewTweets": {
+    "message": "إخفاء نافذة التغريدات الجديدة المنبثقة"
+  },
+  "hideShareTweetButton": {
+    "message": "إخفاء زر المشاركة"
+  },
+  "hideSidebarContent": {
+    "message": "إخفاء محتوى الشريط الجانبي"
+  },
+  "hideSortRepliesMenu": {
+    "message": "إخفاء قائمة «فرز الردود»"
+  },
+  "hideSpacesNav": {
+    "message": "إنشاء مساحتك"
+  },
+  "hideSubscriptions": {
+    "message": "إخفاء الاشتراكات"
+  },
+  "hideSuggestedContentSearch": {
+    "message": "إخفاء المحتوى المقترح في البحث"
+  },
+  "hideSuggestedContentTimeline": {
+    "message": "إخفاء المحتوى المقترح"
+  },
+  "hideSuggestedFollows": {
+    "message": "إخفاء الحسابات المقترحة للمتابعة"
+  },
+  "hideTimelineTweetBox": {
+    "message": "إخفاء مربع «ماذا يحدث؟»"
+  },
+  "hideTodaysNews": {
+    "message": "إخفاء أخبار اليوم"
+  },
+  "hideUnavailableQuoteTweets": {
+    "message": "إخفاء التغريدات غير المتاحة والمكتومة"
+  },
+  "hideUnusedUiItemsOptions": {
+    "message": "إخفاء عناصر الواجهة التي لا تستخدمها"
+  },
+  "hideVerifiedTabs": {
+    "message": "إخفاء تبويب المتابِعين الموثّقين"
+  },
+  "hideViewActivityLinks": {
+    "message": "إخفاء روابط «عرض النشاط»"
+  },
+  "hideViews": {
+    "message": "إخفاء عدد المشاهدات"
+  },
+  "hideWhatsHappening": {
+    "message": "إخفاء «ماذا يحدث»"
+  },
+  "homeTimelineOptions": {
+    "message": "الخط الزمني الرئيسي"
+  },
+  "importSettings": {
+    "message": "استيراد"
+  },
+  "importSettingsLabel": {
+    "message": "استيراد الإعدادات"
+  },
+  "importSettingsInfo": {
+    "message": "يستبدل إعدادات هذا المتصفح"
+  },
+  "importSettingsSyncedInfo": {
+    "message": "يستبدل إعداداتك المتزامنة في كل المتصفحات"
+  },
+  "invalidJsonFile": {
+    "message": "ملف JSON غير صالح: $ERROR$",
+    "placeholders": {
+      "ERROR": {
+        "content": "$1"
+      }
+    }
+  },
+  "invalidSettings": {
+    "message": "إعدادات غير صالحة: $KEYS$",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
+  },
+  "invalidSettingsSchemaVersion": {
+    "message": "إصدار صيغة الإعدادات مفقود أو غير صالح. اختر ملفاً صُدِّر من «تصدير الإعدادات»"
+  },
+  "lightModeTheme": {
+    "message": "مظهر الوضع الفاتح"
+  },
+  "mediaOptions": {
+    "message": "الوسائط"
+  },
+  "mutableQuoteTweets": {
+    "message": "تفعيل كتم تغريدات الاقتباس"
+  },
+  "mutedTweetsCount": {
+    "message": "التغريدات المكتومة ($COUNT$)",
+    "placeholders": {
+      "COUNT": {
+        "content": "$1",
+        "example": "1"
+      }
+    }
+  },
+  "mutedWords": {
+    "message": "كتم الكلمات في كل مكان"
+  },
+  "mutedWordsInfo": {
+    "message": "إخفاء التغريدات التي تحتوي على كلمات أو عبارات أو أنماط محددة - واحدة في كل سطر"
+  },
+  "navBaseFontSize": {
+    "message": "استخدام حجم نص عادي في التنقل"
+  },
+  "navDensity": {
+    "message": "كثافة التنقل"
+  },
+  "needMoreRoom": {
+    "message": "تحتاج مساحة أكبر؟"
+  },
+  "newerSettingsSchemaVersion": {
+    "message": "ملف الإعدادات هذا بصيغة أحدث. لن تُستورد إلا الإعدادات التي يدعمها هذا الإصدار من Control Panel for Twitter"
+  },
+  "noFileSelected": {
+    "message": "لم يُختر أي ملف"
+  },
+  "noMatchingFeatures": {
+    "message": "لا توجد ميزات مطابقة"
+  },
+  "noSettingsObject": {
+    "message": "لا توجد إعدادات في ملف JSON"
+  },
+  "notifications": {
+    "message": "الإشعارات"
+  },
+  "openInTabLink": {
+    "message": "افتحها في تبويب"
+  },
+  "openOptionsPage": {
+    "message": "فتح صفحة الخيارات"
+  },
+  "option_automatic": {
+    "message": "تلقائي"
+  },
+  "option_badges": {
+    "message": "إخفاء الشارات فقط"
+  },
+  "option_comfortable": {
+    "message": "مريح"
+  },
+  "option_compact": {
+    "message": "مضغوط"
+  },
+  "option_default": {
+    "message": "افتراضي"
+  },
+  "option_dim": {
+    "message": "معتم"
+  },
+  "option_hide": {
+    "description": "Option for hiding things",
+    "message": "إخفاء"
+  },
+  "option_ignore": {
+    "description": "Option for not changing existing Twitter functionality - we don't use 'Ignore' for this in English as it could be mistaken to mean 'Hide'",
+    "message": "بدون تغيير"
+  },
+  "option_large": {
+    "message": "كبير"
+  },
+  "option_legacy": {
+    "message": "القديم"
+  },
+  "option_light": {
+    "message": "فاتح"
+  },
+  "option_lightsOut": {
+    "message": "إطفاء الأنوار"
+  },
+  "option_liked": {
+    "message": "الإعجابات"
+  },
+  "option_mostRecent": {
+    "message": "الأحدث"
+  },
+  "option_popular": {
+    "message": "الأكثر شعبية"
+  },
+  "option_recent": {
+    "message": "الأحدث"
+  },
+  "option_relevant": {
+    "message": "الأكثر صلة"
+  },
+  "option_separate": {
+    "description": "Option for showing Retweets or Quote Tweets in a separate tab from the main timeline",
+    "message": "إظهارها في تبويب منفصل"
+  },
+  "option_small": {
+    "message": "صغير"
+  },
+  "option_xLarge": {
+    "message": "كبير جداً"
+  },
+  "option_xSmall": {
+    "message": "صغير جداً"
+  },
+  "optionsPageExportSettingsNote": {
+    "message": "استخدم صفحة الخيارات لتصدير الإعدادات"
+  },
+  "optionsPageImportSettingsNote": {
+    "message": "استخدم صفحة الخيارات لاستيراد الإعدادات"
+  },
+  "optionsStyle": {
+    "message": "نمط صفحة الخيارات"
+  },
+  "otherPagesOptions": {
+    "message": "صفحات أخرى"
+  },
+  "premiumBlueChecks": {
+    "message": "علامات Premium الزرقاء"
+  },
+  "premiumBlueChecksOption_replace": {
+    "message": "استخدام شعار Twitter Blue"
+  },
+  "preventNextVideoAutoplay": {
+    "message": "منع التشغيل التلقائي للفيديو التالي"
+  },
+  "preventNextVideoAutoplayInfo": {
+    "message": "سيتكرر الفيديو بدلاً من ذلك"
+  },
+  "quoteTweets": {
+    "message": "تغريدات الاقتباس"
+  },
+  "reduceAlgorithmicContentOptions": {
+    "message": "إزالة محتوى الخوارزمية"
+  },
+  "reduceEngagementOptions": {
+    "message": "تقليل «التفاعل»"
+  },
+  "reducedInteractionMode": {
+    "message": "إخفاء شريط أزرار التغريدات"
+  },
+  "reducedInteractionModeInfo": {
+    "message": "إخفاء شريط الأزرار تحت التغريدات – تصبح الردود الوسيلة الوحيدة للتفاعل"
+  },
+  "refreshRequired": {
+    "message": "التغييرات تتطلب تحديث الصفحة"
+  },
+  "removeSidebarPanelGradients": {
+    "message": "إزالة التدرجات من لوحات الشريط الجانبي"
+  },
+  "restoreLinkHeadlines": {
+    "message": "استعادة معاينات الروابط كما في تويتر"
+  },
+  "restoreOtherInteractionLinks": {
+    "message": "استعادة روابط إعادات التغريد والإعجابات"
+  },
+  "restoreQuoteTweetsLink": {
+    "message": "استعادة رابط تغريدات الاقتباس"
+  },
+  "retweets": {
+    "message": "إعادات التغريد"
+  },
+  "revertMediaCarousel": {
+    "message": "إلغاء عرض الوسائط الدوّار"
+  },
+  "revertProfileTabs": {
+    "message": "التراجع عن تغييرات تبويبات الملف الشخصي"
+  },
+  "revertTwemoji": {
+    "message": "العودة إلى رموز Twemoji"
+  },
+  "revertXBranding": {
+    "message": "استعادة هوية تويتر"
+  },
+  "saveAndApply": {
+    "message": "حفظ وتطبيق"
+  },
+  "searchFeatures": {
+    "message": "ابحث في الميزات…"
+  },
+  "settings": {
+    "message": "الإعدادات"
+  },
+  "settingsExportFailed": {
+    "message": "تعذّر تصدير الإعدادات. حاول مرة أخرى."
+  },
+  "settingsExtensionMismatch": {
+    "message": "ملف الإعدادات هذا ليس لهذه الإضافة. اختر ملف إعدادات صدّرته هذه الإضافة."
+  },
+  "settingsImportFailed": {
+    "message": "فشل الاستيراد. لم تتغير إعداداتك في هذا المتصفح. حاول مرة أخرى"
+  },
+  "settingsImported": {
+    "message": "تم استيراد الإعدادات"
+  },
+  "settingsMigrationFailed": {
+    "message": "تعذّر تحويل ملف الإعدادات هذا إلى الصيغة الحالية. لم يتغير أي إعداد."
+  },
+  "settingsNotImported": {
+    "message": "لم تُستورد الإعدادات"
+  },
+  "sharedTweetsOptions": {
+    "message": "التغريدات التي شاركها مستخدمون آخرون"
+  },
+  "showBookmarkButtonUnderFocusedTweets": {
+    "message": "إظهاره في صفحات التغريدات"
+  },
+  "showPremiumReplyBusiness": {
+    "message": "إظهار حسابات الأعمال الموثّقة"
+  },
+  "showPremiumReplyFollowedBy": {
+    "message": "إظهار الحسابات التي تتابعني"
+  },
+  "showPremiumReplyFollowersCount": {
+    "message": "إظهار الحسابات التي لديها أكثر من $AMOUNT$ متابِع",
+    "placeholders": {
+      "AMOUNT": {
+        "content": "$1",
+        "example": "1 million"
+      }
+    }
+  },
+  "showPremiumReplyFollowersCountAmount": {
+    "message": "عدد المتابِعين"
+  },
+  "showPremiumReplyFollowing": {
+    "message": "إظهار الحسابات التي أتابعها"
+  },
+  "showPremiumReplyGovernment": {
+    "message": "إظهار الحسابات الحكومية الموثّقة"
+  },
+  "showRelevantPeople": {
+    "message": "إظهار «أشخاص ذوو صلة» في صفحات التغريدات"
+  },
+  "sidebar": {
+    "message": "الشريط الجانبي"
+  },
+  "sortReplies": {
+    "message": "الترتيب الافتراضي للردود"
+  },
+  "sortRepliesInfo": {
+    "message": "الترتيب حسب الإعجابات يُخِلّ بتسلسل الردود بسبب خلل في X"
+  },
+  "syncSettings": {
+    "message": "مزامنة الإعدادات في هذا المتصفح"
+  },
+  "syncSettingsDisabledInfo": {
+    "message": "تبقى التغييرات في هذا المتصفح ما دامت المزامنة متوقفة. تشغيلها يستبدل إعدادات هذا المتصفح بإعداداتك المتزامنة"
+  },
+  "themeFollowButtons": {
+    "message": "استخدام لون المظهر"
+  },
+  "timelineContentOptions": {
+    "message": "محتوى الخط الزمني"
+  },
+  "tweetMediaGrid": {
+    "message": "عرض الصور في شبكة"
+  },
+  "tweakQuoteTweetsPage": {
+    "message": "صفحات تغريدات الاقتباس المضغوطة"
+  },
+  "tweakQuoteTweetsPageInfo": {
+    "message": "إخفاء التغريدة المقتبَسة"
+  },
+  "tweetActionsOptions": {
+    "message": "أزرار التغريدة"
+  },
+  "tweetPageOptions": {
+    "message": "صفحة التغريدة"
+  },
+  "uiImprovementsOptions": {
+    "message": "تحسينات الواجهة"
+  },
+  "uiTweaksOptions": {
+    "message": "تعديلات الواجهة"
+  },
+  "unblurSensitiveContent": {
+    "message": "إظهار المحتوى الحساس"
+  },
+  "uninvertFollowButtons": {
+    "message": "إلغاء عكس ألوان أزرار المتابعة"
+  },
+  "unknownSettings": {
+    "message": "يحتوي هذا الملف على إعدادات لا يعرفها هذا الإصدار: $KEYS$. حدّث الإضافة قبل استيراده.",
+    "placeholders": {
+      "KEYS": {
+        "content": "$1"
+      }
+    }
+  },
+  "unmuteButtonText": {
+    "description": "Button used in the options page to unmute a muted Quote Tweet",
+    "message": "إلغاء الكتم"
+  },
+  "unsupportedSettingsSchemaVersion": {
+    "message": "ملف الإعدادات هذا بصيغة غير مدعومة. حدّث الإضافة وحاول مرة أخرى."
+  },
+  "xFeaturesOptions": {
+    "message": "ميزات X"
+  },
+  "xFixesOptions": {
+    "message": "إصلاحات X"
+  }
+}
