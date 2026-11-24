@@ -117,6 +117,7 @@ const DEFAULT_SETTINGS = {
   hideExploreNavWithSidebar: true,
   hideLiveBroadcasts: false,
   hideSidebarContent: true,
+  hideSidebarSearch: false,
   hideSpacesNav: false,
   hideSuggestedFollows: false,
   hideTimelineTweetBox: false,
@@ -6875,11 +6876,43 @@ const configureCss = (() => {
           `[aria-modal="true"] div > div:first-of-type [role="group"] > div[style]:not([role]):not(${TWITTER_MEDIA_ASSIST_BUTTON_SELECTOR})`,
         )
       }
+      if (settings.hideSidebarSearch) {
+        hideCssSelectors.push(
+          `${Selectors.SIDEBAR} form[role="search"]`,
+          '.SidebarContents > div:first-of-type:has(form[role="search"])',
+        )
+        if (settings.hideSidebarContent && !settings.fullWidthContent) {
+          let centerBody = `body:not(.Search)${settings.showRelevantPeople ? ':not(.Tweet)' : ''}`
+          hideCssSelectors.push(`${centerBody} ${Selectors.SIDEBAR}`)
+          cssRules.push(`
+            ${centerBody} div:has(> header[role="banner"] + main[role="main"])::after {
+              content: "";
+              display: block;
+              flex: 1 1 0px;
+              min-width: 0;
+              pointer-events: none;
+            }
+            ${centerBody} header[role="banner"] {
+              flex: 1 1 0px !important;
+            }
+            ${centerBody} main[role="main"] {
+              flex: 0 1 600px !important;
+              align-items: center !important;
+            }
+            ${centerBody} main[role="main"] > div {
+              width: 100% !important;
+              max-width: 600px !important;
+            }
+          `)
+        }
+      }
       if (settings.hideExploreNav) {
         // When configured, hide Explore only when the sidebar is showing, or
         // when on a page full-width content is enabled on.
-        let bodySelector = `${settings.hideExploreNavWithSidebar ? `body.Sidebar${settings.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
-        hideCssSelectors.push(`${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
+        if (!(settings.hideExploreNavWithSidebar && settings.hideSidebarSearch)) {
+          let bodySelector = `${settings.hideExploreNavWithSidebar ? `body.Sidebar${settings.fullWidthContent ? `:not(${FULL_WIDTH_BODY_PSEUDO})` : ''} ` : ''}`
+          hideCssSelectors.push(`${bodySelector}${Selectors.PRIMARY_NAV_DESKTOP} a[href="/explore"]`)
+        }
       }
       if (settings.hideHistoryNav) {
         hideCssSelectors.push(`${Selectors.PRIMARY_NAV_DESKTOP} a[href="${PagePaths.HISTORY}"]`)
@@ -12504,10 +12537,12 @@ const configureCss = (() => {
     }
     if (desktop && settings.hideExploreNav) {
       // Resize can empty the sidebar, and navigation can remove it
-      let sidebar = settings.hideExploreNavWithSidebar
-        ? `body${settings.fullWidthContent ? `:not(${fullWidthPages})` : ''}:has(> div > div > main + aside > *) `
-        : ''
-      hideCssSelectors.push(`${sidebar}${navItems}[href="/explore"]`)
+      if (!(settings.hideExploreNavWithSidebar && settings.hideSidebarSearch)) {
+        let sidebar = settings.hideExploreNavWithSidebar
+          ? `body${settings.fullWidthContent ? `:not(${fullWidthPages})` : ''}:has(> div > div > main + aside > *) `
+          : ''
+        hideCssSelectors.push(`${sidebar}${navItems}[href="/explore"]`)
+      }
     }
     if (settings.defaultToFollowing && settings.hideForYouTimeline) {
       hideCssSelectors.push('body.HomeTimeline header[data-page-header] [role="tab"][data-pinned-timeline="for-you"]')
@@ -12706,6 +12741,34 @@ const configureCss = (() => {
       let keepRelevantPeople = settings.showRelevantPeople ? `:not(${relevantPeopleSection})` : ''
       let keepSearchFilters = ':not(body.Search section:has(a[href^="/search-advanced"]))'
       hideCssSelectors.push(`${sidebarContents} > :not(:has(form[role="search"]))${keepSearchFilters}${keepRelevantPeople}`)
+    }
+    if (desktop && settings.hideSidebarSearch) {
+      hideCssSelectors.push(
+        `${sidebarContents} > :has(form[role="search"])`,
+        'main + aside form[role="search"]',
+      )
+      if (settings.hideSidebarContent && !settings.fullWidthContent) {
+        let centerBody = `body:not(.Search)${settings.showRelevantPeople ? ':not(.Tweet)' : ''}`
+        hideCssSelectors.push(`${centerBody} main + aside`)
+        cssRules.push(`
+          ${centerBody} div:has(> main + aside) {
+            grid-template-columns: minmax(0, 1fr) !important;
+            flex: 1 1 var(--x-main-column-width, 600px) !important;
+          }
+          ${centerBody} div:has(> div > main + aside)::after {
+            content: "";
+            display: block;
+            flex: 0 10000 calc(72px + 184px * var(--x-sidebar-wide, 0));
+            min-width: 0;
+            pointer-events: none;
+          }
+          @media (width < 640px) {
+            ${centerBody} div:has(> div > main + aside)::after {
+              display: none !important;
+            }
+          }
+        `)
+      }
     }
     if (desktop && settings.hideTimelineTweetBox) {
       hideCssSelectors.push('body.HomeTimeline main > div > [data-media-upload-dropzone]:has(> form)')

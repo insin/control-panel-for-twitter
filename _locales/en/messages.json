@@ -308,6 +308,12 @@
   "hideSidebarContent": {
     "message": "Hide sidebar contents"
   },
+  "hideSidebarSearch": {
+    "message": "Hide sidebar search bar"
+  },
+  "hideSidebarSearchInfo": {
+    "message": "Remove the top-right search bar, keep the left Search/Explore icon visible, and center the timeline at every screen scale"
+  },
   "hideSortRepliesMenu": {
     "message": "Hide \"Sort replies\" menu"
   },
