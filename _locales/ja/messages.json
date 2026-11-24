@@ -617,9 +617,6 @@
   "sortReplies": {
     "message": "返信のデフォルトの並べ替え"
   },
-  "sortRepliesInfo": {
-    "message": "Xのバグにより、「いいね」順で並び替えると返信の順序が崩れます"
-  },
   "syncSettings": {
     "message": "このブラウザで設定を同期"
   },

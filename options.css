@@ -22,7 +22,6 @@ body:not(.mutingQuotes) #mutedQuotesDetails,
 body:not(.restoringTwitterBranding) .twitterBranding,
 body:not(.showingBlueReplyFollowersCount) .showingBlueReplyFollowersCount,
 body:not(.showingSidebarContent) .showingSidebarContent,
-body:not(.sortingRepliesByLikes) .sortingRepliesByLikes,
 body:not(.uninvertedFollowButtons) .uninvertedFollowButtons {
   display: none;
 }

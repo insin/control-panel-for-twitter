@@ -617,9 +617,6 @@
   "sortReplies": {
     "message": "Orden predeterminado de las respuestas"
   },
-  "sortRepliesInfo": {
-    "message": "Debido a un error de X, ordenar por \"Me gusta\" altera el orden de las respuestas"
-  },
   "syncSettings": {
     "message": "Sincronizar la configuración en este navegador"
   },

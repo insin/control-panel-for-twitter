@@ -617,9 +617,6 @@
   "sortReplies": {
     "message": "답글의 기본 정렬"
   },
-  "sortRepliesInfo": {
-    "message": "X의 버그로 인해 '마음에 들어요' 순으로 정렬하면 답글 순서가 깨집니다"
-  },
   "syncSettings": {
     "message": "이 브라우저에서 설정 동기화"
   },

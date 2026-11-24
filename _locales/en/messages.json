@@ -639,9 +639,6 @@
   "sortReplies": {
     "message": "Default sorting of replies"
   },
-  "sortRepliesInfo": {
-    "message": "Sorting by Likes breaks reply ordering due to an X bug"
-  },
   "syncSettings": {
     "message": "Sync settings in this browser"
   },
