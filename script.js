@@ -10819,6 +10819,13 @@ function viewerHasPremium() {
   return ['premium_basic', 'premium_standard', 'premium_plus'].some(tier => claims.hasSubscription(tier)) ||
     claims.isPaidVerifiedOrg?.() === true || claims.isVerifiedOrgAffiliate?.() === true || claims.isLegacyVerifiedOrg?.() === true
 }
+
+function viewerCanAddWorkExperience() {
+  let context = findRouter()?.options?.context
+  let claims = context?.viewerClaims
+  if (!context?.viewerId || !Array.isArray(context.viewerClaimEntries) || typeof claims?.hasSubscription != 'function') return null
+  return claims.hasSubscription('premium_standard') || claims.hasSubscription('premium_plus')
+}
 //#endregion
 
 //#region Title handling
@@ -12174,6 +12181,7 @@ const configureCss = (() => {
   /** @type {HTMLStyleElement} */
   let $style
   let premium = null
+  let workExperience = null
 
   function configureCss() {
     if (!enabled) {
@@ -12182,6 +12190,7 @@ const configureCss = (() => {
       return
     }
     premium = viewerHasPremium()
+    workExperience = viewerCanAddWorkExperience()
 
     /** @type {string[]} */
     let cssRules = [getPageAccentRules(), getFontSizeRules(':root'), `
@@ -12652,6 +12661,15 @@ const configureCss = (() => {
           '[data-sonner-toast]:has(use[href="#icon-bookmark"]) button[data-slot="xds-button"]',
         )
       }
+      // Work experience is a premium upsell if you don't have acccess to it
+      if (workExperience === false) {
+        hideCssSelectors.push(
+          // Own-profile entry point
+          'body.Profile main span:has(> a[href="/settings/profile?work_role=new"])',
+          // Profile editor
+          '[role="dialog"][data-slot="xds-modal-surface"]:has([data-edit-profile-bar]) div:has(> .border-dashed > button [data-icon="icon-briefcase"])',
+        )
+      }
     }
     if (settings.hideShareTweetButton) {
       hideCssSelectors.push('[data-engagement-action="share"]')
@@ -12902,7 +12920,7 @@ const configureCss = (() => {
     }
   }
   configureCss.refreshPremium = () => {
-    if (enabled && premium !== viewerHasPremium()) configureCss()
+    if (enabled && (premium !== viewerHasPremium() || workExperience !== viewerCanAddWorkExperience())) configureCss()
   }
   return configureCss
 })()
