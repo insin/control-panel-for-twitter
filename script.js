@@ -4283,31 +4283,32 @@ function fixFocalTweetAncestorOrder(data, focalTweetId) {
   let instructions = data?.data?.threaded_conversation_with_injections_v2?.instructions
   if (!Array.isArray(instructions)) return false
   let changed = false
+  let focalId = BigInt(focalTweetId)
   for (let instruction of instructions) {
     if ((instruction?.type ?? instruction?.__typename) != 'TimelineAddEntries' || !Array.isArray(instruction.entries)) continue
     let entries = instruction.entries
     let sortIndexKey = instruction.type ? 'sortIndex' : 'sort_index'
-    /** @type {Map<string, {index: number, inReplyTo: string}>} */
-    let tweets = new Map()
-    entries.forEach((entry, index) => {
-      let result = (entry?.content?.itemContent ?? entry?.content?.content)?.tweet_results?.result
-      let tweet = result?.__typename == 'TweetWithVisibilityResults' ? result.tweet : result
-      let id = tweet?.rest_id ?? tweet?.legacy?.id_str
-      if (id) tweets.set(id, {index, inReplyTo: tweet.reply_to_results?.rest_id ?? tweet.legacy?.in_reply_to_status_id_str})
-    })
-    // The focused Tweet and its parents, oldest first
+    // Top-level Tweets older than the focused Tweet are the Tweets above it
+    /** @type {{index: number, id: bigint, inReplyTo?: string}[]} */
     let chain = []
-    let id = focalTweetId
-    while (tweets.has(id)) {
-      let tweet = tweets.get(id)
-      tweets.delete(id)
-      chain.unshift(tweet.index)
-      id = tweet.inReplyTo
-    }
-    if (chain.length < 2) continue
-    let chainEntries = chain.map(index => entries[index])
-    let positions = [...chain].sort((a, b) => a - b)
-    let sortIndexes = chainEntries.map(entry => entry[sortIndexKey]).sort((a, b) => Number(BigInt(b) - BigInt(a)))
+    entries.forEach((entry, index) => {
+      let match = /^tweet-(\d+)$/.exec(entry?.entryId ?? entry?.entry_id)
+      if (!match) return
+      let id = BigInt(match[1])
+      if (id > focalId) return
+      let result = (entry.content?.itemContent ?? entry.content?.content)?.tweet_results?.result
+      let tweet = result?.__typename == 'TweetWithVisibilityResults' ? result.tweet : result
+      chain.push({index, id, inReplyTo: tweet?.reply_to_results?.rest_id ?? tweet?.legacy?.in_reply_to_status_id_str})
+    })
+    // Replies are newer than what they reply to, so ids give the thread order
+    chain.sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+    if (chain.length < 2 || chain.some((tweet, i) => i > 0 && tweet.inReplyTo != null && tweet.inReplyTo != String(chain[i - 1].id))) continue
+    let chainEntries = chain.map(tweet => entries[tweet.index])
+    let positions = chain.map(tweet => tweet.index).sort((a, b) => a - b)
+    let sortIndexes = chainEntries
+      .map(entry => ({value: BigInt(entry[sortIndexKey]), sortIndex: entry[sortIndexKey]}))
+      .sort((a, b) => a.value < b.value ? 1 : a.value > b.value ? -1 : 0)
+      .map(({sortIndex}) => sortIndex)
     chainEntries.forEach((entry, i) => {
       if (entries[positions[i]] === entry && entry[sortIndexKey] == sortIndexes[i]) return
       entry[sortIndexKey] = sortIndexes[i]
