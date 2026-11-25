@@ -1,14 +1,22 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
 
 import { set } from '../shared/settings.js'
+import {
+  getSettingsMigrationVersions as getVersions,
+  runSettingsMigrations as run,
+  scheduleSettingsMigrations as schedule,
+} from '../shared/settings-migrations.js'
 
 import { DEFAULT_SETTINGS } from '../default-settings.js'
-import {
-  getSettingsMigrationVersions,
-  runSettingsMigrations,
-  scheduleSettingsMigrations,
-} from '../migrations.js'
+import { SETTINGS_MIGRATIONS } from '../migrations.js'
 import { createChromeMock } from './helpers/chrome.js'
+
+const getSettingsMigrationVersions = (previous, current, migrations = SETTINGS_MIGRATIONS) =>
+  getVersions(previous, current, migrations)
+const runSettingsMigrations = (current, migrations = SETTINGS_MIGRATIONS) =>
+  run(current, migrations)
+const scheduleSettingsMigrations = (previous, current, migrations = SETTINGS_MIGRATIONS) =>
+  schedule(previous, current, migrations)
 
 let browser
 
@@ -308,7 +316,7 @@ describe('release-based storage migrations', () => {
     const third = vi.fn(async () => {
       expect(browser.storage.pendingStorageMigration).toBe('5.3.0')
     })
-    /** @type {import('../types.js').SettingsMigrations} */
+    /** @type {import('../shared/types').SettingsMigrations} */
     const migrations = [
       ['4.99.0', first],
       ['5.2.0', second],
@@ -355,7 +363,7 @@ describe('release-based storage migrations', () => {
   test('retries a completed step if saving its next threshold failed', async () => {
     const first = vi.fn(async () => {})
     const second = vi.fn(async () => {})
-    /** @type {import('../types.js').SettingsMigrations} */
+    /** @type {import('../shared/types').SettingsMigrations} */
     const migrations = [
       ['4.99.0', first],
       ['5.2.0', second],

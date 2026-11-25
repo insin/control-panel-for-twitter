@@ -266,8 +266,6 @@ export type Migration = {
 
 export type Migrations = Record<string, Migration>
 
-export type SettingsMigrations = [string, () => Promise<void>][]
-
 export type MutedWord =
   | {
       type: 'WORD' | 'PHRASE'
