@@ -12642,7 +12642,7 @@ const configureCss = (() => {
       hideCssSelectors.push('section:has(> [data-fleetline-rows])')
     }
     if (mobile && settings.hideLiveBroadcastBar) {
-      hideCssSelectors.push('header[data-page-header] [class~="group/carousel"]:has(a[href*="/i/broadcasts/"])')
+      hideCssSelectors.push('header[data-page-header] [class~="group/carousel"]:has(a:is([href^="/i/broadcasts/"], [href^="/i/spaces/"]))')
     }
     if (settings.hideSeeNewTweets) {
       hideCssSelectors.push('main [role="status"]:has(button[aria-keyshortcuts="."])')
@@ -12678,7 +12678,7 @@ const configureCss = (() => {
         // Page-header button
         'header[data-page-header] a[data-slot="xds-button"][href^="/i/premium_sign_up"]',
         // Sidebar module
-        `${sidebarSections}:has(a[href^="/i/premium_sign_up"])`,
+        `${sidebarContents} > :is(section, [role="complementary"]):has(a[href^="/i/premium_sign_up"])`,
         // Inline upgrade callout
         '[data-slot="xds-callout"]:has(a[href^="/i/premium_sign_up"])',
         '.mx-4.my-3:has([data-slot="xds-callout"] a[href^="/i/premium_sign_up"])',
