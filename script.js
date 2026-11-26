@@ -6825,6 +6825,7 @@ const configureCss = (() => {
         if (!settings.hideSidebarContent) {
           hideCssSelectors.push(
             // Upsell in sidebar
+            '.SidebarContents > aside[role="complementary"]:has(a[href^="/i/premium_sign_up"])',
             '.SidebarContents > div:has(aside[role="complementary"] a[href^="/i/premium_sign_up"])',
             '.SidebarContents > div:has(> div > div[data-testid="super-upsell-UpsellCardRenderProperties"])',
           )
@@ -6839,9 +6840,11 @@ const configureCss = (() => {
         // Only show the first sidebar item by default
         // Re-show subsequent non-algorithmic sections on specific pages
         cssRules.push(`
-          .SidebarContents > div:not(:first-of-type) {
+          .SidebarContents > :is(div, aside):not(:first-child) {
             display: none;
           }
+          /* Preserve an empty spacer below the search box */
+          .SidebarContents > div:has([data-testid="SearchBox_Search_Input"]) + div:empty,
           body.Community .SidebarContents > div:nth-of-type(3),
           body.Search .SidebarContents > div:nth-of-type(2) {
             display: block;
