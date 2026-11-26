@@ -10940,10 +10940,16 @@ function onTitleChange(title, {force = false, native = false} = {}) {
     if (title.endsWith(` / ${brand}`)) title = title.slice(0, -` / ${brand}`.length)
     else if (title.startsWith(`${brand} \\ `)) title = title.slice(`${brand} \\ `.length)
   }
-  if (!title || title == 'X' || title == getString('TWITTER')) return
-
   let path = location.pathname
   let url = path + location.search
+  let isTweet = getPageType(path, '') == 'Tweet'
+  let genericTitle = !title || title == 'X' || title == getString('TWITTER')
+  // A cached focused Tweet can render while its route still has a generic title
+  if (genericTitle && !isTweet) return
+  if (!force && isTweet && currentPageType == 'Tweet' && url == currentPageUrl) {
+    if (!genericTitle) currentPage = title
+    return
+  }
   if (!force && title == currentPage &&
       (url == currentPageUrl || (PERSISTENT_TAB_PAGES.has(currentPageType) && syncPageUrl()))) return
   currentPage = title
@@ -11840,16 +11846,19 @@ const observeOverlays = (() => {
   let observer = null
   let $viewer = null
   /** @type {Map<string, import("./types").Disconnectable>} */
-  let observers = new Map()
+  let mediaViewerObservers = new Map()
   /** @type {Map<Element, () => void>} */
   let hovercards = new Map()
+  /** @type {Map<Element, Map<string, import("./types").Disconnectable>>} */
+  // Each portal owns a temporary subtree wait; it ends on discovery or close.
+  let modalDiscoveryObservers = new Map()
   function clearHovercards() {
     for (let cleanup of hovercards.values()) cleanup()
     hovercards.clear()
   }
 
   function tweetPath($items, id) {
-    let focusedId = /^urt:conversation:(\d+):/.exec(id)?.[1]
+    let focusedId = /^urt:conversation:(\d+)(?::|$)/.exec(id)?.[1]
     if (!focusedId) return ''
     let $focused = $items.find($item => $item.matches(FOCUSED_TWEET_SELECTOR))
     // A media portal's focused permalink can precede the router URL update
@@ -11863,7 +11872,7 @@ const observeOverlays = (() => {
   }
 
   function clear() {
-    disconnectObservers(observers, 'modal')
+    disconnectObservers(mediaViewerObservers, 'modal')
     $viewer = null
   }
 
@@ -11884,8 +11893,24 @@ const observeOverlays = (() => {
       observer.observe($portal, {childList: true})
       // Base UI can insert menu contents after their positioning wrapper
       for (let $positioner of $portal.querySelectorAll(':scope > [role="presentation"]')) observer.observe($positioner, {childList: true})
-      for (let $surface of $portal.querySelectorAll(':scope > [data-slot="xds-modal-surface"]')) {
+      let $surface = $portal.querySelector('[data-slot="xds-modal-surface"]')
+      if ($surface) {
+        let waits = modalDiscoveryObservers.get($portal)
+        if (waits) disconnectObservers(waits, 'modal')
+        modalDiscoveryObservers.delete($portal)
+        // Persistent lifecycle checks: detect surface removal/replacement after discovery.
+        for (let $parent = $surface.parentElement; $parent && $parent != $portal; $parent = $parent.parentElement) {
+          observer.observe($parent, {childList: true})
+        }
         if ($surface.matches(MEDIA_VIEWER_SELECTOR())) $nextViewer ||= $surface
+      } else if (!modalDiscoveryObservers.has($portal)) {
+        let waits = new Map()
+        modalDiscoveryObservers.set($portal, waits)
+        getElement('[data-slot="xds-modal-surface"]', {
+          context: /** @type {HTMLElement} */ ($portal), name: 'modal surface', observers: waits,
+        }).then($found => {
+          if ($found && observer && modalDiscoveryObservers.get($portal) == waits) update()
+        })
       }
       if (settings.addUserHoverCardAccountLocation) {
         for (let $shell of $portal.querySelectorAll(':scope > [role="presentation"] > [data-base-ui-focusable]')) {
@@ -11924,6 +11949,12 @@ const observeOverlays = (() => {
         }
       }
     }
+    for (let [$portal, waits] of modalDiscoveryObservers) {
+      if (!$portal.isConnected) {
+        disconnectObservers(waits, 'modal')
+        modalDiscoveryObservers.delete($portal)
+      }
+    }
     for (let [$shell, cleanup] of hovercards) {
       if (!nextHovercards.has($shell)) {
         cleanup()
@@ -11939,12 +11970,13 @@ const observeOverlays = (() => {
     let processItems = null
     let initialFocused = observeInitialFocusedTweet($viewer, {isCurrent: () => Boolean($viewer?.isConnected)})
     observeTimeline($viewer, {
-      observers,
+      observers: mediaViewerObservers,
       isCurrent: () => Boolean($viewer?.isConnected),
       timelineSelector: '[id^="urt:conversation:"]',
       onItemsChanged($items, id, changedItems) {
-        initialFocused.disconnect()
-        let nextPath = tweetPath($items, id) || (id.startsWith(`urt:conversation:${/\/status\/(\d+)/.exec(path)?.[1]}:`) ? path : '')
+        if ($items.some($item => $item.matches(FOCUSED_TWEET_SELECTOR))) initialFocused.disconnect()
+        let idMatch = /^urt:conversation:(\d+)(?::|$)/.exec(id)?.[1]
+        let nextPath = tweetPath($items, id) || (idMatch == /\/status\/(\d+)/.exec(path)?.[1] ? path : '')
         if (!nextPath) return
         if (nextPath != path) {
           path = nextPath
@@ -11967,6 +11999,8 @@ const observeOverlays = (() => {
       observer = null
       clear()
       clearHovercards()
+      for (let waits of modalDiscoveryObservers.values()) disconnectObservers(waits, 'modal')
+      modalDiscoveryObservers.clear()
       globalObservers.delete(name)
     }})
     update()
@@ -12725,11 +12759,11 @@ const configureCss = (() => {
     }
     if (settings.hideViews) {
       hideCssSelectors.push(
+        '[data-cpft-focused-timestamp] > a[href$="/analytics"]',
+        '[data-cpft-focused-timestamp] > [aria-hidden="true"]:has(+ a[href$="/analytics"])',
         // Empty engagement bars omit role="group"
         'div:has(> a.x-engagement-button[href$="/analytics"])',
         '[role="group"] > div:has(> a[href$="/analytics"])',
-        `${FOCUSED_TWEET_SELECTOR} > article a[href$="/analytics"]`,
-        `${FOCUSED_TWEET_SELECTOR} > article [aria-hidden="true"]:has(+ a[href$="/analytics"])`,
       )
     }
     if (settings.restoreQuoteTweetsLink || settings.restoreOtherInteractionLinks) {
@@ -13148,7 +13182,7 @@ function createIndividualTweetTimelineProcessor(tweetPath = currentPagePath) {
     let processed = 0
     let $nextTimeline = $items[0]?.closest('[id^="urt:conversation:"]')
     let nextTimelineId = $nextTimeline?.id || ''
-    let matchesConversation = nextTimelineId.startsWith(`urt:conversation:${focusedId}:`)
+    let matchesConversation = /^urt:conversation:(\d+)(?::|$)/.exec(nextTimelineId)?.[1] == focusedId
     if ($nextTimeline && ($nextTimeline != $timeline || nextTimelineId != timelineId)) {
       $timeline = $nextTimeline
       timelineId = nextTimelineId
@@ -13201,7 +13235,7 @@ function createIndividualTweetTimelineProcessor(tweetPath = currentPagePath) {
     }
 
     let targets = $focused ? [$focused, $focused.querySelector(':scope > article'),
-      $focused.querySelector(`a[href="${tweetPath}"][data-base-ui-tooltip-trigger]`), getFocusedTweetActions($focused)] : []
+      getFocusedTweetTimestamp($focused, tweetPath), getFocusedTweetActions($focused)] : []
     if (targets.length != focusedTargets.length || targets.some(($target, i) => $target != focusedTargets[i])) {
       cleanup()
       focusedTargets = targets
@@ -13772,6 +13806,7 @@ function observeTimeline($container, {timelineSelector, onItemsChanged, onTimeli
   let initialized = false
   /** @type {(() => void) | null} */
   let cleanupTimeline = null
+  let timelineDiscoveryObservers = new Map()
   let name = 'timeline container'
   observers.get(name)?.disconnect()
   let active = true
@@ -13784,6 +13819,7 @@ function observeTimeline($container, {timelineSelector, onItemsChanged, onTimeli
     if (!active) return
     active = false
     disconnect()
+    disconnectObservers(timelineDiscoveryObservers, 'page')
     cleanupTimeline?.()
     cleanupTimeline = null
     $timeline = null
@@ -13818,37 +13854,42 @@ function observeTimeline($container, {timelineSelector, onItemsChanged, onTimeli
     }
     onContentChanged?.($container)
     if (!active) return
-    // Follow the actual wrappers, using subtree discovery only while no root exists
+    // Once discovered, follow the actual ancestry for replacement/removal.
     for (let $parent = $nextTimeline?.parentElement; $parent && $parent != $container; $parent = $parent.parentElement) {
       observer.observe($parent, {childList: true})
     }
-    observer.observe($container, {childList: true, ...(!$nextTimeline && {subtree: true})})
+    observer.observe($container, {childList: true})
+    if ($nextTimeline) disconnectObservers(timelineDiscoveryObservers, 'page')
+    else if (!timelineDiscoveryObservers.size) {
+      let selector = typeof timelineSelector == 'function' ? timelineSelector() : timelineSelector || '[id^="urt:"]'
+      getElement(selector, {
+        context: /** @type {HTMLElement} */ ($container), name: 'timeline root', observers: timelineDiscoveryObservers,
+      }).then($found => { if ($found && active && isCurrent()) update() })
+    }
   }
 }
 
 /**
- * @param {Parameters<typeof observeTimeline>[1] & {containerSelector: string}} options
+ * @param {Parameters<typeof observeTimeline>[1] & {containerSelector?: string}} options
  */
 function observePageTimeline({containerSelector, ...options}) {
-  let $main = /** @type {HTMLElement} */ (document.querySelector('main'))
-  if (!$main) return
   let path = currentPagePath
   let timeline = null
-  let $container = $main.querySelector(containerSelector)
-  if ($container) {
-    timeline = observeTimeline($container, options)
-  } else {
-    getElement(containerSelector, {
-      name: 'page timeline container',
-      context: $main,
-      observers: pageObservers,
-      mutationObserverOptions: {childList: true},
-    }).then($container => {
-      if ($container && enabled && currentPagePath == path && getPageLocation().pathname == path) {
-        timeline = observeTimeline($container, options)
-      }
-    })
+  let isCurrent = () => enabled && currentPagePath == path && getPageLocation().pathname == path
+  function attach($main) {
+    if (!$main?.isConnected || !isCurrent()) return
+    function observe($container) {
+      if ($container?.isConnected && isCurrent()) timeline = observeTimeline($container, options)
+    }
+    let $container = containerSelector ? $main.querySelector(containerSelector) : $main
+    if ($container) observe($container)
+    else getElement(containerSelector, {
+      name: 'page timeline container', context: $main, observers: pageObservers,
+    }).then(observe)
   }
+  let $main = document.querySelector('main')
+  if ($main) attach($main)
+  else getElement('main', {name: 'page main', observers: pageObservers}).then(attach)
   return {refreshItems() { timeline?.refreshItems() }}
 }
 //#endregion
@@ -13981,6 +14022,15 @@ function restoreFocusedTweetMetrics($focused, tweetPath, readState) {
   }
 }
 
+/** @param {Element} $focused
+ * @param {string} tweetPath
+ */
+function getFocusedTweetTimestamp($focused, tweetPath) {
+  let $article = $focused.querySelector(':scope > article')
+  return Array.from($focused.querySelectorAll(`a:is([href=${JSON.stringify(tweetPath)}], [href=${JSON.stringify(tweetPath + '/history')}]):not([aria-hidden="true"])`))
+    .find($link => $link.closest('article') == $article) || null
+}
+
 /**
  * The focused Tweet can render before the virtualized timeline, so its changes
  * need to apply to both the initial standalone card and its later timeline row.
@@ -13991,18 +14041,21 @@ function restoreFocusedTweetMetrics($focused, tweetPath, readState) {
 function tweakFocusedTweet($focused, tweetPath, readState) {
   configureReplySort(tweetPath)
   processUnavailableTweetContent($focused)
+  let $time = getFocusedTweetTimestamp($focused, tweetPath)
+  let $row = $time?.closest('div')
+  // Tag the confirmed timestamp row so later Views hydration is covered by CSS
+  $row?.setAttribute('data-cpft-focused-timestamp', '')
   let cleanupLocation = null
   if (settings.addFocusedTweetAccountLocation) {
-    let $time = $focused.querySelector(`a[href="${tweetPath}"][data-base-ui-tooltip-trigger]`)
-    let $row = $time?.closest('div')
     let author = /^\/([a-zA-Z\d_]{1,20})\/status\//.exec(tweetPath)?.[1]
     if ($row && author) cleanupLocation = addXwebAccountLocation($row, author, {focused: true,
-      isCurrent: () => $time.isConnected && $time.getAttribute('href') == tweetPath && $focused.contains($time)})
+      isCurrent: () => $time.isConnected && getFocusedTweetTimestamp($focused, tweetPath) == $time && $focused.contains($time)})
   }
   let cleanupMetrics = settings.restoreQuoteTweetsLink || settings.restoreOtherInteractionLinks
     ? restoreFocusedTweetMetrics($focused, tweetPath, readState) : null
   return () => {
     clearUnavailableTweetContent($focused)
+    $row?.removeAttribute('data-cpft-focused-timestamp')
     cleanupLocation?.()
     cleanupMetrics?.()
   }
@@ -14043,12 +14096,14 @@ function observeInitialFocusedTweet($container, {tweetPath, isCurrent}) {
   let waits = new Map()
   let $focused = null
   let cleanup = () => {}
+  let observer = observeElement($container, update, 'initial focused content')
   let binding = 0
-  let href = tweetPath ? `[href=${JSON.stringify(tweetPath)}]` : '[href*="/status/"]'
+  let href = tweetPath ? `:is([href=${JSON.stringify(tweetPath)}], [href=${JSON.stringify(tweetPath + '/history')}])` : '[href*="/status/"]'
   // The loading card has a timestamp, but is not yet a timeline row or a quote
-  let selector = `article a${href}[data-base-ui-tooltip-trigger]:not(li[data-index] a, [data-slot="embedded-tweet-frame"] a)`
+  let selector = `article a${href}:not([aria-hidden="true"], li[data-index] a, [data-slot="embedded-tweet-frame"] a, article article a)`
   function disconnect() {
     binding++
+    observer.disconnect()
     disconnectObservers(waits, 'modal')
     cleanup()
     cleanup = () => {}
@@ -14056,17 +14111,24 @@ function observeInitialFocusedTweet($container, {tweetPath, isCurrent}) {
     $focused = null
   }
   function update() {
-    if ($focused?.isConnected && $container.contains($focused) && !$focused.closest('li[data-index]')) return
+    if (!enabled || !$container.isConnected || !isCurrent()) {
+      disconnect()
+      return
+    }
+    if ($focused?.isConnected && $container.contains($focused) && !$focused.closest('li[data-index]')) {
+      return
+    }
     disconnect()
-    if (!enabled || !$container.isConnected || !isCurrent() || $container.querySelector('[id^="urt:conversation:"] > ul')) return
     let generation = binding
     function apply($time) {
       if (!$time?.isConnected || generation != binding || !enabled || !isCurrent() || !$container.contains($time) || !$time.matches(selector)) return
-      let path = /^(\/[a-zA-Z\d_]{1,20}\/status\/\d+)\/?$/.exec($time.getAttribute('href'))?.[1]
+      let path = /^(\/[a-zA-Z\d_]{1,20}\/status\/\d+)(?:\/history)?\/?$/.exec($time.getAttribute('href'))?.[1]
       let $card = $time.closest('article')?.parentElement
-      if (!path || !$card?.matches('div')) return
+      if (!path || !$card) return
       $focused = $card
       $focused.setAttribute('data-cpft-focused-tweet', '')
+      // Temporary loading-card observation ends when the timeline takes over
+      observer.observe($container, {childList: true, subtree: true})
       let cleanupFocused = tweakFocusedTweet($focused, path, createConversationStateReader())
       let mediaGrid = settings.tweetMediaGrid ? createTweetMediaGrid($focused, path, {isCurrent}) : null
       mediaGrid?.update([$focused], new Set([$focused]))
@@ -14077,7 +14139,10 @@ function observeInitialFocusedTweet($container, {tweetPath, isCurrent}) {
     }
     let $time = $container.querySelector(selector)
     if ($time) apply($time)
-    else getElement(selector, {context: /** @type {HTMLElement} */ ($container), name: 'initial focused timestamp', observers: waits}).then(apply)
+    else {
+      if ($container.querySelector(`li[data-index] ${FOCUSED_TWEET_SELECTOR}`)) return
+      getElement(selector, {context: /** @type {HTMLElement} */ ($container), name: 'initial focused timestamp', observers: waits}).then(apply)
+    }
   }
   update()
   return {update, disconnect}
@@ -14086,20 +14151,16 @@ function observeInitialFocusedTweet($container, {tweetPath, isCurrent}) {
 function tweakIndividualTweetPage() {
   let tweetPath = currentPagePath
   let processItems = createIndividualTweetTimelineProcessor(tweetPath)
-  let $initialContent = null
   let initialFocused = null
   observePageTimeline({
-    containerSelector: ':scope > div',
     timelineSelector: '[id^="urt:conversation:"]',
     onItemsChanged($items, id, changedItems) {
       // Row processing precedes onContentChanged, even when React reuses the focused card
-      initialFocused?.disconnect()
+      if ($items.some($item => $item.matches(FOCUSED_TWEET_SELECTOR))) initialFocused?.disconnect()
       return processItems($items, id, changedItems)
     },
     onContentChanged($content) {
-      if ($content != $initialContent) {
-        initialFocused?.disconnect()
-        $initialContent = $content
+      if (!initialFocused) {
         initialFocused = observeInitialFocusedTweet($content, {tweetPath, isCurrent: syncPageUrl})
       } else initialFocused.update()
     },
