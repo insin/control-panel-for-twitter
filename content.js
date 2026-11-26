@@ -29,6 +29,8 @@ let channel
 let initialConfigSent = false
 /** @type {Partial<import("./types").StoredConfig>} */
 let pendingConfig = {}
+/** @type {Partial<import("./types").PageContext>} */
+const pageContext = {}
 //#endregion
 
 //#region Functions
@@ -58,6 +60,12 @@ function onStorageChanged(changes) {
 
 /** @param {MessageEvent<Partial<import("./types").StoredConfig>>} message */
 async function storeConfigChangesFromPageScript({ data: changes }) {
+  if (changes.lastSiteVersion == 'rweb' || changes.lastSiteVersion == 'xweb') {
+    pageContext.siteVersion = changes.lastSiteVersion
+  }
+  if (changes.lastLayout == 'desktop' || changes.lastLayout == 'mobile') {
+    pageContext.layout = changes.lastLayout
+  }
   const { settings, ...internalConfig } = changes
   try {
     const { set, setSettings } = await import(chrome.runtime.getURL('shared/settings.js'))
@@ -70,6 +78,22 @@ async function storeConfigChangesFromPageScript({ data: changes }) {
   } catch (e) {
     console.error('[content] error storing settings change from page script', e)
   }
+}
+
+/** @returns {import('./types').PageContext | null} */
+function getPageContext() {
+  if (!pageContext.siteVersion) return null
+  let layout = pageContext.layout
+  // Sample the native layout now, including after resizing while disabled
+  if (pageContext.siteVersion == 'xweb') {
+    layout = window.matchMedia('(width < 512px)').matches ? 'mobile' : 'desktop'
+  } else {
+    const wrapper = document.querySelector('#layers + div')
+    if (wrapper) {
+      layout = getComputedStyle(wrapper).flexDirection == 'column' ? 'mobile' : 'desktop'
+    }
+  }
+  return { siteVersion: pageContext.siteVersion, ...(layout && { layout }) }
 }
 
 /**
@@ -93,6 +117,10 @@ function syncLoadingLogoSettings(config) {
 //#endregion
 
 //#region Main
+chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
+  if (message?.type == 'cpft:get-page-context') sendResponse(getPageContext())
+})
+
 // Replace the X logo on initial rweb load before the page script runs
 if (
   localStorage.cpftEnabled != 'false' &&

@@ -2,6 +2,11 @@ import type { ExtensionsProSubscription } from './shared/types'
 
 export type { DebugTraceEntry, ExtensionsProSubscription } from './shared/types'
 
+export type PageContext = {
+  layout?: 'desktop' | 'mobile'
+  siteVersion: 'rweb' | 'xweb'
+}
+
 export type StoredConfig = {
   /** Collapsed option groups in options */
   collapsedGroups?: string[]

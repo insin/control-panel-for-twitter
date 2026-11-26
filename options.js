@@ -152,6 +152,11 @@ const defaultConfig = {
 /** @type {import("./types").StoredConfig} */
 let config
 
+/** @type {import('./types').PageContext | null} */
+let activeTabContext = null
+let activeTabContextRequest = 0
+let activeTabId = null
+
 /**
  * Checkbox group configuration for the layout being used (mobile or desktop).
  * @type {Map<string, string[]>}
@@ -530,13 +535,68 @@ function validateMuteRegExps(terms) {
 //#endregion
 
 //#region Options page functions
+/** Use the popup's active tab when available */
+async function refreshActiveTabContext() {
+  if (!isBrowserAction) return
+  const request = ++activeTabContextRequest
+  const context = await new Promise((resolve) => {
+    // A loading/discarded/unresponsive tab must not hold up the popup
+    const timer = setTimeout(() => resolve(null), 500)
+    function finish(value) {
+      clearTimeout(timer)
+      resolve(value)
+    }
+    try {
+      chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
+        if (chrome.runtime.lastError || tab?.id == null) return finish(null)
+        if (request != activeTabContextRequest) return finish(null)
+        activeTabId = tab.id
+        try {
+          chrome.tabs.sendMessage(
+            tab.id,
+            { type: 'cpft:get-page-context' },
+            { frameId: 0 },
+            (value) => {
+              if (chrome.runtime.lastError || !['rweb', 'xweb'].includes(value?.siteVersion)) {
+                return finish(null)
+              }
+              finish({
+                siteVersion: value.siteVersion,
+                ...(['desktop', 'mobile'].includes(value.layout) && { layout: value.layout }),
+              })
+            },
+          )
+        } catch {
+          finish(null)
+        }
+      })
+    } catch {
+      finish(null)
+    }
+  })
+  if (request != activeTabContextRequest) return
+  activeTabContext = context
+  if (config) applyConfig()
+}
+
+function watchActiveTabContext() {
+  if (!isBrowserAction) return
+  chrome.tabs.onActivated?.addListener(() => {
+    void refreshActiveTabContext()
+  })
+  chrome.tabs.onUpdated?.addListener((tabId, change) => {
+    if (tabId == activeTabId && change.status) void refreshActiveTabContext()
+  })
+}
+
 /**
  * Update the options page to match the current config.
  */
 function applyConfig() {
-  $body.classList.toggle('mobile', config.lastLayout == 'mobile')
-  $body.classList.toggle('desktop', config.lastLayout == 'desktop')
-  const siteVersion = config.lastSiteVersion || 'rweb'
+  const layout = activeTabContext?.layout || config.lastLayout
+  $body.classList.toggle('mobile', layout == 'mobile')
+  $body.classList.toggle('desktop', layout == 'desktop')
+  const siteVersion = activeTabContext?.siteVersion || config.lastSiteVersion || 'rweb'
   $body.classList.toggle('rweb', siteVersion == 'rweb')
   $body.classList.toggle('xweb', siteVersion == 'xweb')
   checkboxGroups = new Map(
@@ -712,6 +772,12 @@ function onStorageChanged(storageChanges) {
     }
   }
   applyConfig()
+  if (
+    Object.hasOwn(storageChanges, 'lastLayout') ||
+    Object.hasOwn(storageChanges, 'lastSiteVersion')
+  ) {
+    void refreshActiveTabContext()
+  }
 }
 
 function onToggleEnabled() {
@@ -1104,8 +1170,10 @@ function updateTabsDisplay() {
 
 //#region Main
 async function main() {
+  watchActiveTabContext()
+  const [stored] = await Promise.all([get(), refreshActiveTabContext()])
   /** @type {Partial<import("./types").StoredConfig>} */
-  const { settings: storedSettings = {}, ...storedConfig } = await get()
+  const { settings: storedSettings = {}, ...storedConfig } = stored
   config = {
     ...defaultConfig,
     ...storedConfig,
