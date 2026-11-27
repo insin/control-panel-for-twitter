@@ -13264,6 +13264,7 @@ function createIndividualTweetTimelineProcessor(tweetPath = currentPagePath) {
       let isAi = cached.isAi
       let own = isUser || ((settings.hideAiTweets && isAi || settings.hidePaidPartnerships && type == 'PAID_PARTNERSHIP') && isOwnTweet($tweet || $item))
       let hidden = unavailable && reply
+      hidden ||= settings.hidePremiumUpsells && type == 'PREMIUM_UPSELL'
       hidden ||= settings.hideAiTweets && reply && isAi && !own
       // Exempt ancestors/focus and groups whose initial reply is by OP/self
       if (reply && author && !isOp && !isUser && ['TWEET', 'QUOTE_TWEET'].includes(type)) {
@@ -13334,6 +13335,7 @@ function getTimelineItemType($item, conversation = currentPageType == 'Tweet') {
     return 'THREAD'
   }
   if (!$item.querySelector('article')) {
+    if ($item.querySelector('a:is([href^="/i/premium_sign_up"], [href^="https://x.com/i/premium_sign_up"])')) return 'PREMIUM_UPSELL'
     if ($item.querySelector('button [data-icon="icon-close-md"]')) return 'INLINE_PROMPT'
     if ($item.querySelector('h2')) return 'HEADING'
   }
@@ -13404,6 +13406,7 @@ function processTimelineItems($items, timelineId) {
     if (type == 'NOTIFICATION_RETWEET') hidden = settings.hideNotificationRetweets
     if (type == 'WHO_TO_FOLLOW') hidden = settings.hideSuggestedContentTimeline
     if (type == 'INLINE_PROMPT') hidden = settings.hideInlinePrompts
+    if (type == 'PREMIUM_UPSELL') hidden = settings.hidePremiumUpsells
     $item.classList.toggle('HiddenAd', ad)
     $item.classList.toggle('HiddenTweet', hidden)
   }
