@@ -618,9 +618,6 @@
   "sortReplies": {
     "message": "Ordinamento predefinito delle risposte"
   },
-  "sortRepliesInfo": {
-    "message": "A causa di un bug di X, l'ordinamento per \"Mi piace\" altera l'ordine delle risposte"
-  },
   "syncSettings": {
     "message": "Sincronizza le impostazioni in questo browser"
   },

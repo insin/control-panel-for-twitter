@@ -4274,25 +4274,179 @@ function patchFollowingUrl(url) {
 }
 
 /**
+ * Put the Tweets above the focused Tweet back in thread order.
+ * @param {any} data
+ * @param {string} focalTweetId
+ * @returns {boolean} `true` if any entries were moved
+ */
+function fixFocalTweetAncestorOrder(data, focalTweetId) {
+  let instructions = data?.data?.threaded_conversation_with_injections_v2?.instructions
+  if (!Array.isArray(instructions)) return false
+  let changed = false
+  let focalId = BigInt(focalTweetId)
+  for (let instruction of instructions) {
+    if ((instruction?.type ?? instruction?.__typename) != 'TimelineAddEntries' || !Array.isArray(instruction.entries)) continue
+    let entries = instruction.entries
+    let sortIndexKey = instruction.type ? 'sortIndex' : 'sort_index'
+    // Top-level Tweets older than the focused Tweet are the Tweets above it
+    /** @type {{index: number, id: bigint, inReplyTo?: string}[]} */
+    let chain = []
+    entries.forEach((entry, index) => {
+      let match = /^tweet-(\d+)$/.exec(entry?.entryId ?? entry?.entry_id)
+      if (!match) return
+      let id = BigInt(match[1])
+      if (id > focalId) return
+      let result = (entry.content?.itemContent ?? entry.content?.content)?.tweet_results?.result
+      let tweet = result?.__typename == 'TweetWithVisibilityResults' ? result.tweet : result
+      chain.push({index, id, inReplyTo: tweet?.reply_to_results?.rest_id ?? tweet?.legacy?.in_reply_to_status_id_str})
+    })
+    // Replies are newer than what they reply to, so ids give the thread order
+    chain.sort((a, b) => a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+    if (chain.length < 2 || chain.some((tweet, i) => i > 0 && tweet.inReplyTo != null && tweet.inReplyTo != String(chain[i - 1].id))) continue
+    let chainEntries = chain.map(tweet => entries[tweet.index])
+    let positions = chain.map(tweet => tweet.index).sort((a, b) => a - b)
+    let sortIndexes = chainEntries
+      .map(entry => ({value: BigInt(entry[sortIndexKey]), sortIndex: entry[sortIndexKey]}))
+      .sort((a, b) => a.value < b.value ? 1 : a.value > b.value ? -1 : 0)
+      .map(({sortIndex}) => sortIndex)
+    chainEntries.forEach((entry, i) => {
+      if (entries[positions[i]] === entry && entry[sortIndexKey] == sortIndexes[i]) return
+      entry[sortIndexKey] = sortIndexes[i]
+      entries[positions[i]] = entry
+      changed = true
+    })
+  }
+  return changed
+}
+
+/** @param {string} url */
+function getFocalTweetId(url) {
+  if (!url.includes('/TweetDetail?')) return null
+  try {
+    let focalTweetId = JSON.parse(new URL(url, location.origin).searchParams.get('variables'))?.focalTweetId
+    return typeof focalTweetId == 'string' ? focalTweetId : null
+  } catch {
+    return null
+  }
+}
+
+/** @param {string} url */
+function isTweetDetailUrl(url) {
+  return getFocalTweetId(url) != null
+}
+
+/**
+ * @param {string} text
+ * @param {string} url
+ */
+function patchTweetDetailText(text, url) {
+  let focalTweetId = getFocalTweetId(url)
+  if (!focalTweetId) return text
+  let data = JSON.parse(text)
+  if (!fixFocalTweetAncestorOrder(data, focalTweetId)) return text
+  log('fixed order of Tweets above the focused Tweet')
+  return JSON.stringify(data)
+}
+
+/**
+ * Fix TweetDetail responses xweb renders into the page, which skip fetch.
+ */
+function patchServerRenderedTweetDetail() {
+  /** @type {Set<number>} */
+  let tweetDetailRequestIds = new Set()
+  /** @param {any} message */
+  let patchMessage = (message) => {
+    if (!enabled || message == null || typeof message != 'object') return
+    if (message.name == 'TweetDetail') tweetDetailRequestIds.add(message.requestId)
+    if (!tweetDetailRequestIds.has(message.requestId) ||
+        message.result?.kind != 'Result.Ok' || typeof message.result.value != 'string') return
+    try {
+      // Keys are the query id followed by its variables
+      let focalTweetId = JSON.parse(message.key.slice(message.key.indexOf('{')))?.focalTweetId
+      if (typeof focalTweetId != 'string') return
+      let data = JSON.parse(message.result.value)
+      if (!fixFocalTweetAncestorOrder(data, focalTweetId)) return
+      message.result.value = JSON.stringify(data)
+      log('fixed order of Tweets above the focused Tweet in the server-rendered page')
+    } catch { }
+  }
+  /** @param {any} router */
+  let patchRouter = (router) => {
+    let data = router?.dehydratedData
+    if (Array.isArray(data?.messagesBeforeDehydration)) data.messagesBeforeDehydration.forEach(patchMessage)
+    let stream = data?.graphqlRequestStream
+    if (typeof stream?.getReader != 'function') return
+    let getReader = stream.getReader
+    // Messages streamed in later are read through this
+    stream.getReader = function(...args) {
+      let reader = getReader.apply(this, args)
+      let read = reader.read
+      reader.read = function() {
+        return read.call(this).then(result => {
+          if (result && !result.done) patchMessage(result.value)
+          return result
+        })
+      }
+      return reader
+    }
+  }
+  /** @param {any} tsr */
+  let observeTsr = (tsr) => {
+    if (tsr == null || typeof tsr != 'object') return
+    let router = tsr.router
+    if (router) patchRouter(router)
+    Object.defineProperty(tsr, 'router', {
+      configurable: true,
+      enumerable: true,
+      get: () => router,
+      set(value) {
+        router = value
+        try { patchRouter(value) } catch { }
+      },
+    })
+  }
+  try {
+    let tsr = /** @type {any} */ (window).$_TSR
+    observeTsr(tsr)
+    Object.defineProperty(window, '$_TSR', {
+      configurable: true,
+      enumerable: true,
+      get: () => tsr,
+      set(value) {
+        tsr = value
+        try { observeTsr(value) } catch { }
+      },
+    })
+  } catch (e) {
+    warn('error watching for the server-rendered page state', e)
+  }
+}
+
+/**
  * @param {{
  *   patchUrl: (method: string, url: string) => string
  *   shouldPatchBody: (method: string, url: string) => boolean
  *   patchBody: (body: string) => string
  *   patchResponse?: (response: Response, url: string, headers?: HeadersInit) => Response | Promise<Response>
+ *   shouldPatchResponseText?: (url: string) => boolean
+ *   patchResponseText?: (text: string, url: string) => string
  * }} patches
  */
-function patchRequests({patchUrl, shouldPatchBody, patchBody, patchResponse}) {
+function patchRequests({patchUrl, shouldPatchBody, patchBody, patchResponse, shouldPatchResponseText, patchResponseText}) {
   if (typeof XMLHttpRequest != 'undefined') {
     let open = XMLHttpRequest.prototype.open
     let send = XMLHttpRequest.prototype.send
+    /** @type {WeakMap<XMLHttpRequest, {method: string, url: string, patchResponse?: boolean, responseText?: string}>} */
     let requests = new WeakMap()
     XMLHttpRequest.prototype.open = function(...args) {
       let method = String(args[0]).toUpperCase()
       let url = String(args[1])
-      requests.set(this, {method, url})
+      let request = {method, url}
+      requests.set(this, request)
       if (enabled && settings) {
         let patched = patchUrl(method, url)
         if (patched != url) args[1] = patched
+        request.patchResponse = method == 'GET' && shouldPatchResponseText?.(url)
       }
       return open.apply(this, args)
     }
@@ -4300,6 +4454,44 @@ function patchRequests({patchUrl, shouldPatchBody, patchBody, patchResponse}) {
       let request = requests.get(this)
       if (enabled && settings && typeof body == 'string' && request && shouldPatchBody(request.method, request.url)) body = patchBody(body)
       return send.call(this, body)
+    }
+    // XMLHttpRequest may have been replaced with a subclass
+    let getDescriptor = (name) => {
+      for (let object = XMLHttpRequest.prototype; object; object = Object.getPrototypeOf(object)) {
+        let descriptor = Object.getOwnPropertyDescriptor(object, name)
+        if (descriptor) return descriptor
+      }
+    }
+    let responseText = getDescriptor('responseText')
+    let response = getDescriptor('response')
+    if (patchResponseText && responseText?.get && response?.get) {
+      // Patch once on the first read, and only call the replaced getter, as
+      // other wrappers may implement one getter by reading the other
+      /**
+       * @param {XMLHttpRequest} xhr
+       * @param {string} text
+       */
+      let getResponseText = (xhr, text) => {
+        let request = requests.get(xhr)
+        if (!request?.patchResponse || xhr.readyState != 4) return text
+        if (request.responseText == null) {
+          request.responseText = text
+          if (xhr.status >= 200 && xhr.status < 300 &&
+              /\bapplication\/json\b/i.test(xhr.getResponseHeader('content-type') || '')) {
+            try {
+              request.responseText = patchResponseText(text, request.url)
+            } catch { }
+          }
+        }
+        return request.responseText
+      }
+      Object.defineProperty(XMLHttpRequest.prototype, 'responseText', {...responseText, get() {
+        return getResponseText(this, responseText.get.call(this))
+      }})
+      Object.defineProperty(XMLHttpRequest.prototype, 'response', {...response, get() {
+        let value = response.get.call(this)
+        return this.responseType == '' || this.responseType == 'text' ? getResponseText(this, value) : value
+      }})
     }
   }
   if (typeof fetch == 'function') {
@@ -10588,6 +10780,8 @@ function configureRequestPatches() {
       return method == 'POST' && settings.defaultFollowingToRecent && !userSortedFollowing && isFollowingTimelineRequest(url)
     },
     patchBody: patchFollowingBody,
+    shouldPatchResponseText: isTweetDetailUrl,
+    patchResponseText: patchTweetDetailText,
   })
 }
 //#endregion
@@ -14452,23 +14646,23 @@ async function patchXwebResponse(response, url, requestHeaders) {
   let unblur = settings.unblurSensitiveContent &&
     /^https:\/\/api\.x\.com\/graphql\/[^/?]+\/[^/?]+(?:\?|$)/.test(url) &&
     /\bapplication\/json\b/i.test(response.headers.get('content-type') || '')
-  if (!brand && !unblur) return response
+  let focalTweetId = getFocalTweetId(url)
+  if (!brand && !unblur && !focalTweetId) return response
   try {
     let language = (new Headers(requestHeaders).get('x-twitter-client-language') || lang || 'en').toLowerCase()
     if (language == 'en-ss' || language == 'en-xx') brand = false
-    if (!brand && !unblur) return response
+    if (!brand && !unblur && !focalTweetId) return response
 
     let text = await response.clone().text()
     if (!enabled) return response
 
     unblur = unblur && settings.unblurSensitiveContent
     brand = brand && settings.revertXBranding
-    if (!brand && !unblur) return response
+    if (!brand && !unblur && !focalTweetId) return response
 
     let changed = false
     // Unblur sensitive content
-    let data = JSON.parse(text, (key, value) => {
-      if (!unblur) return value
+    let data = JSON.parse(text, unblur ? (key, value) => {
       // Show profiles flagged as sensitve
       if (value?.__typename == 'User' &&
           (value.profile_metadata?.profile_interstitial_type == 'sensitive_media' ||
@@ -14498,7 +14692,7 @@ async function patchXwebResponse(response, url, requestHeaders) {
         }
       }
       return value
-    })
+    } : undefined)
     // Replace "Posted" with "Tweeted" in Home timeline
     if (brand) {
       let timeline = data?.data?.home_timeline || data?.data?.home
@@ -14512,6 +14706,11 @@ async function patchXwebResponse(response, url, requestHeaders) {
           changed = true
         }
       }
+    }
+    // Show the Tweets above the focused Tweet in thread order
+    if (focalTweetId && fixFocalTweetAncestorOrder(data, focalTweetId)) {
+      log('fixed order of Tweets above the focused Tweet')
+      changed = true
     }
     if (!changed) return response
 
@@ -14629,6 +14828,8 @@ return function init() {
     },
     patchBody: patchFollowingBody,
     patchResponse: patchXwebResponse,
+    shouldPatchResponseText: isTweetDetailUrl,
+    patchResponseText: patchTweetDetailText,
   })
   setupConfig({main, onSettingsChanged, onDisabled, onDebugChanged})
 }
@@ -14739,6 +14940,9 @@ function main() {
       /^\/([^/]+\/)?(tos|privacy)(\/previous(\/version_\d+)?)?/.test(location.pathname)) {
     return
   }
+
+  // Must run before the page's inline scripts, ahead of site detection
+  patchServerRenderedTweetDetail()
 
   observeElement(document, (_, observer) => {
     let hasRwebEntry = false

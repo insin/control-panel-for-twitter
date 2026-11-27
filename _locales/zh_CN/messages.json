@@ -626,9 +626,6 @@
   "sortReplies": {
     "message": "回复的默认排序"
   },
-  "sortRepliesInfo": {
-    "message": "由于X的一个错误，按“喜欢”排序会打乱回复顺序"
-  },
   "syncSettings": {
     "message": "在此浏览器中同步设置"
   },

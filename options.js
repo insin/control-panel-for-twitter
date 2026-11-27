@@ -69,7 +69,6 @@ for (const translationId of [
   'reduceEngagementOptions',
   'settings',
   'sidebar',
-  'sortRepliesInfo',
   'timelineContentOptions',
   'tweetActionsOptions',
   'tweetPageOptions',
@@ -945,7 +944,6 @@ function updateDisplay() {
     config.settings.showPremiumReplyFollowersCount,
   )
   $body.classList.toggle('showingSidebarContent', !config.settings.hideSidebarContent)
-  $body.classList.toggle('sortingRepliesByLikes', config.settings.sortReplies == 'liked')
   $body.classList.toggle('restoringTwitterBranding', config.settings.revertXBranding)
   $body.classList.toggle('uninvertedFollowButtons', config.settings.uninvertFollowButtons)
   $displaySettingsLink.href = 'https://x.com/settings/display'

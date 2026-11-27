@@ -617,9 +617,6 @@
   "sortReplies": {
     "message": "Tri par défaut des réponses"
   },
-  "sortRepliesInfo": {
-    "message": "Le tri par \"J'aime\" perturbe l'ordre des réponses en raison d'un bug de X"
-  },
   "syncSettings": {
     "message": "Synchroniser les paramètres dans ce navigateur"
   },
