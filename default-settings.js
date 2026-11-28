@@ -113,6 +113,7 @@ export const DEFAULT_SETTINGS = {
   hideExploreNavWithSidebar: true,
   hideLiveBroadcasts: false,
   hideSidebarContent: true,
+  hideSidebarSearch: false,
   hideSpacesNav: false,
   hideSuggestedFollows: false,
   hideTimelineTweetBox: false,

@@ -179,6 +179,7 @@ export type UserSettings = {
   hideExploreNavWithSidebar: boolean
   hideLiveBroadcasts: boolean
   hideSidebarContent: boolean
+  hideSidebarSearch: boolean
   hideSuggestedFollows: boolean
   hideTimelineTweetBox: boolean
   hideTodaysNews: boolean
