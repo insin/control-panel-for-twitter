@@ -47,6 +47,12 @@ function updateOptionsStyle() {
 //#endregion
 
 //#region Localisation
+// Only switch to RTL for locales we have translations for, otherwise an RTL
+// browser UI language would get RTL layout with English fallback text.
+if (/^ar\b/.test(chrome.i18n.getUILanguage())) {
+  document.documentElement.lang = 'ar'
+  document.documentElement.dir = 'rtl'
+}
 document.title = chrome.i18n.getMessage('extensionName')
 
 //#region Ids
